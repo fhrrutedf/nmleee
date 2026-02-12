@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { v2 as cloudinary } from 'cloudinary';
 
 export async function POST(request: Request) {
     try {
@@ -60,7 +61,8 @@ export async function POST(request: Request) {
         }
 
         // استخدام Cloudinary Upload API
-        const cloudinary = require('cloudinary').v2;
+        // Cloudinary is imported at the top level
+        // const cloudinary = require('cloudinary').v2; // Removed in favor of top-level import
 
         cloudinary.config({
             cloud_name: cloudName,
