@@ -72,6 +72,8 @@ export async function GET(request: NextRequest) {
 
         for (const order of orders) {
             for (const item of order.items) {
+                if (!item.productId) continue;
+
                 const product = await prisma.product.findUnique({
                     where: { id: item.productId },
                     select: { title: true },
