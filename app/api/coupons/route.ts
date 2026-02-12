@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
                 minPurchase: body.minPurchase,
                 endDate: body.expiresAt ? new Date(body.expiresAt) : null,
                 isActive: true,
-                usedCount: 0,
+                usageCount: 0,
             },
         });
 
