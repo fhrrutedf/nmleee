@@ -13,7 +13,7 @@ export async function POST(request: Request) {
                 date: new Date(date),
                 time,
                 type,
-                status: 'pending',
+                status: 'PENDING',
                 clientName: name,
                 clientEmail: email,
                 clientPhone: phone,
