@@ -32,7 +32,6 @@ export async function GET(req: NextRequest) {
                             select: {
                                 id: true,
                                 title: true,
-                                slug: true,
                                 image: true,
                             },
                         },
@@ -55,7 +54,7 @@ export async function GET(req: NextRequest) {
                     type: isCourse ? 'course' : 'product',
                     title: data?.title || 'Unknown',
                     image: data?.image,
-                    slug: data?.slug,
+                    slug: !isCourse ? (data as any)?.slug : undefined, // Only products have slugs
                     progress: 0, // TODO: Get actual progress from database
                     purchasedAt: order.createdAt,
                 };
