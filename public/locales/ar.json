@@ -1,0 +1,37 @@
+{
+    "common": {
+        "home": "الرئيسية",
+        "dashboard": "لوحة التحكم",
+        "products": "المنتجات",
+        "courses": "الدورات",
+        "login": "تسجيل الدخول",
+        "register": "إنشاء حساب",
+        "logout": "تسجيل الخروج",
+        "settings": "الإعدادات"
+    },
+    "dashboard": {
+        "welcome": "مرحباً",
+        "stats": {
+            "totalSales": "إجمالي المبيعات",
+            "totalOrders": "إجمالي الطلبات",
+            "totalProducts": "إجمالي المنتجات",
+            "totalRevenue": "إجمالي الإيرادات"
+        }
+    },
+    "products": {
+        "title": "المنتجات الرقمية",
+        "add": "إضافة منتج",
+        "edit": "تعديل المنتج",
+        "delete": "حذف المنتج",
+        "price": "السعر",
+        "category": "الفئة",
+        "description": "الوصف"
+    },
+    "buttons": {
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "delete": "حذف",
+        "edit": "تعديل",
+        "view": "عرض"
+    }
+}
