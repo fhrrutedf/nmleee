@@ -1,0 +1,91 @@
+═══════════════════════════════════════════════════════════════
+  ⚠️ مشكلة MongoDB Timeout - حلول سريعة
+═══════════════════════════════════════════════════════════════
+
+🔴 المشكلة:
+Server selection timeout - لا يمكن الاتصال بـ MongoDB Atlas
+
+
+✅ الحلول السريعة (جرّب بالترتيب):
+
+┌─────────────────────────────────────────────────────────────┐
+│ 1️⃣ Network Access (الأهم!)                                 │
+└─────────────────────────────────────────────────────────────┘
+
+1. افتح: https://cloud.mongodb.com
+2. Security → Network Access
+3. تأكد من وجود: 0.0.0.0/0 (Allow from anywhere)
+4. إذا لم يكن موجود → Add IP → Allow Access from Anywhere
+5. انتظر 1-2 دقيقة
+6. جرب npm run dev
+
+
+┌─────────────────────────────────────────────────────────────┐
+│ 2️⃣ استخدام Mobile Hotspot                                 │
+└─────────────────────────────────────────────────────────────┘
+
+إذا كنت على شبكة Wi-Fi محظورة:
+- شغّل Mobile Hotspot من موبايلك
+- اتصل من الكمبيوتر
+- جرب npm run dev
+
+
+┌─────────────────────────────────────────────────────────────┐
+│ 3️⃣ Connection String جديد                                  │
+└─────────────────────────────────────────────────────────────┘
+
+في .env، استبdل السطر الثاني بهذا:
+
+DATABASE_URL="mongodb+srv://aeaaboaleon_db_user:Perb4FwkDl4LvBjM@cluster0.f76n83k.mongodb.net/tmleen?ssl=true&authSource=admin&retryWrites=true&w=majority&connectTimeoutMS=60000&serverSelectionTimeoutMS=60000"
+
+
+┌─────────────────────────────────────────────────────────────┐
+│ 4️⃣ إنشاء User جديد                                        │
+└─────────────────────────────────────────────────────────────┘
+
+في MongoDB Atlas:
+1. Security → Database Access
+2. احذف User الحالي
+3. Add New User:
+   - Username: admin123
+   - Password: Pass123456 (بسيطة بدون رموز)
+   - Role: Atlas Admin
+4. في .env:
+   DATABASE_URL="mongodb+srv://admin123:Pass123456@cluster0.f76n83k.mongodb.net/tmleen?retryWrites=true&w=majority"
+5. npx prisma generate
+6. npm run dev
+
+
+┌─────────────────────────────────────────────────────────────┐
+│ 5️⃣ DNS Flush                                               │
+└─────────────────────────────────────────────────────────────┘
+
+في PowerShell (كـ Admin):
+
+ipconfig /flushdns
+
+ثم npm run dev
+
+
+┌─────────────────────────────────────────────────────────────┐
+│ 6️⃣ الحل النهائي: MongoDB Local                            │
+└─────────────────────────────────────────────────────────────┘
+
+إذا لم ينجح شيء:
+
+1. حمّل: https://www.mongodb.com/try/download/community
+2. ثبّت MongoDB
+3. في .env:
+   DATABASE_URL="mongodb://localhost:27017/tmleen"  
+4. npx prisma generate
+5. npx prisma db push
+6. npm run dev
+
+
+═══════════════════════════════════════════════════════════════
+
+📚 للمزيد: راجع FIX_TIMEOUT.md
+
+🎯 الحل الأسرع: جرّب Mobile Hotspot (الحل 2)
+
+═══════════════════════════════════════════════════════════════

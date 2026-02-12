@@ -1,0 +1,37 @@
+{
+    "common": {
+        "home": "Inicio",
+        "dashboard": "Panel",
+        "products": "Productos",
+        "courses": "Cursos",
+        "login": "Iniciar sesión",
+        "register": "Registrarse",
+        "logout": "Cerrar sesión",
+        "settings": "Configuración"
+    },
+    "dashboard": {
+        "welcome": "Bienvenido",
+        "stats": {
+            "totalSales": "Ventas Totales",
+            "totalOrders": "Pedidos Totales",
+            "totalProducts": "Productos Totales",
+            "totalRevenue": "Ingresos Totales"
+        }
+    },
+    "products": {
+        "title": "Productos Digitales",
+        "add": "Agregar Producto",
+        "edit": "Editar Producto",
+        "delete": "Eliminar Producto",
+        "price": "Precio",
+        "category": "Categoría",
+        "description": "Descripción"
+    },
+    "buttons": {
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "delete": "Eliminar",
+        "edit": "Editar",
+        "view": "Ver"
+    }
+}

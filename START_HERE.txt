@@ -1,0 +1,89 @@
+┌──────────────────────────────────────────────────────────────┐
+│                                                              │
+│   ⚠️  خطأ قاعدة البيانات - يجب الحل أولاً!  ⚠️           │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+
+
+🔴 المشكلة:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Error: No connection could be made to localhost:27017
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+السبب: لا يوجد MongoDB مُشغّل على جهازك.
+
+
+✅ الحل (خطوات سريعة - 5 دقائق):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1️⃣  سجّل على MongoDB Atlas (مجاني):
+    👉 https://www.mongodb.com/cloud/atlas/register
+
+2️⃣  أنشئ Cluster مجاني (M0 - 512MB):
+    👉 Build a Database → M0 FREE → Create
+
+3️⃣  أنشئ Database User:
+    👉 Security → Database Access → Add User
+    Username: tmleenuser
+    Password: (اختر كلمة مرور قوية)
+
+4️⃣  اسمح بالوصول:
+    👉 Security → Network Access → Add IP
+    👉 Allow Access from Anywhere (0.0.0.0/0)
+
+5️⃣  احصل على Connection String:
+    👉 Database → Connect → Drivers
+    👉 انسخ الرابط (سيكون مثل):
+    mongodb+srv://tmleenuser:<password>@cluster.mongodb.net/
+
+6️⃣  حدّث ملف .env:
+    افتح: d:\tmleen\.env
+    
+    استبدل السطر:
+    DATABASE_URL="mongodb://localhost:27017/digital-platform"
+    
+    بـ:
+    DATABASE_URL="mongodb+srv://tmleenuser:YourPassword@cluster0.xxxxx.mongodb.net/tmleen?retryWrites=true&w=majority"
+    
+    ⚠️  استبدل:
+    - <password> بكلمة المرور الحقيقية
+    - cluster0.xxxxx بالعنوان من الرابط
+    - أضف /tmleen قبل ?
+
+7️⃣  طبّق التغييرات:
+    في PowerShell:
+    
+    Ctrl+C        # أوقف الخادم
+    npx prisma generate
+    npx prisma db push
+    npm run dev   # شغّل من جديد
+
+
+🎯 اختبر:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+افتح: http://localhost:3000/register
+أنشئ حساب جديد
+إذا نجح → قاعدة البيانات تعمل! ✅
+
+
+📚 للمزيد:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• دليل مفصل: docs/MONGODB_SETUP.md
+• حل سريع: FIX_DATABASE_ERROR.md
+• الوضع الحالي: CURRENT_STATUS.md
+
+
+💪 بعد الحل، المنصة جاهزة 95%!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ 25+ صفحة
+✅ 30+ API
+✅ 12 نموذج قاعدة بيانات
+✅ Analytics متقدم
+✅ نظام كوبونات
+✅ برنامج أفلييت
+✅ تقييمات ومراجعات
+✅ Stripe Integration
+✅ Novu Notifications
+
+🚀 ابدأ الآن!

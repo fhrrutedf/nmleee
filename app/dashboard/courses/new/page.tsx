@@ -1,0 +1,335 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { FiSave, FiArrowLeft, FiUpload, FiX } from 'react-icons/fi';
+import Link from 'next/link';
+
+export default function NewCoursePage() {
+    const router = useRouter();
+    const [loading, setLoading] = useState(false);
+    const [formData, setFormData] = useState({
+        title: '',
+        description: '',
+        price: '',
+        category: '',
+        duration: '',
+        sessions: '',
+        image: '',
+        fileUrl: '',
+        fileType: '',
+        tags: [] as string[],
+        features: [] as string[],
+        isActive: true
+    });
+
+    const [tagInput, setTagInput] = useState('');
+    const [featureInput, setFeatureInput] = useState('');
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!formData.title || !formData.description || !formData.price) {
+            alert('يرجى ملء الحقول المطلوبة');
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            const res = await fetch('/api/courses', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ...formData,
+                    price: parseFloat(formData.price),
+                    sessions: formData.sessions ? parseInt(formData.sessions) : null
+                })
+            });
+
+            if (res.ok) {
+                alert('تم إضافة الدورة بنجاح!');
+                router.push('/dashboard/courses');
+            } else {
+                const error = await res.json();
+                alert(error.error || 'حدث خطأ في إضافة الدورة');
+            }
+        } catch (error) {
+            console.error('Error creating course:', error);
+            alert('حدث خطأ. حاول مرة أخرى');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const addTag = () => {
+        if (tagInput.trim() && !formData.tags.includes(tagInput.trim())) {
+            setFormData({ ...formData, tags: [...formData.tags, tagInput.trim()] });
+            setTagInput('');
+        }
+    };
+
+    const removeTag = (tag: string) => {
+        setFormData({ ...formData, tags: formData.tags.filter(t => t !== tag) });
+    };
+
+    const addFeature = () => {
+        if (featureInput.trim() && !formData.features.includes(featureInput.trim())) {
+            setFormData({ ...formData, features: [...formData.features, featureInput.trim()] });
+            setFeatureInput('');
+        }
+    };
+
+    const removeFeature = (feature: string) => {
+        setFormData({ ...formData, features: formData.features.filter(f => f !== feature) });
+    };
+
+    return (
+        <div className="space-y-6">
+            {/* Header */}
+            <div className="flex items-center justify-between">
+                <div>
+                    <h1 className="text-3xl font-bold gradient-text">إضافة دورة تدريبية جديدة</h1>
+                    <p className="text-gray-600 mt-2">املأ التفاصيل لإضافة دورة جديدة</p>
+                </div>
+                <Link href="/dashboard/courses" className="btn btn-outline flex items-center gap-2">
+                    <FiArrowLeft />
+                    <span>رجوع</span>
+                </Link>
+            </div>
+
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm p-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* العنوان */}
+                    <div className="lg:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            عنوان الدورة <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            value={formData.title}
+                            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                            className="input w-full"
+                            placeholder="مثال: دورة تطوير المواقع الشاملة"
+                            required
+                        />
+                    </div>
+
+                    {/* الوصف */}
+                    <div className="lg:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            الوصف <span className="text-red-500">*</span>
+                        </label>
+                        <textarea
+                            value={formData.description}
+                            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                            className="input w-full"
+                            rows={5}
+                            placeholder="اكتب وصفاً شاملاً للدورة..."
+                            required
+                        />
+                    </div>
+
+                    {/* السعر */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            السعر (ج.م) <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            value={formData.price}
+                            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                            className="input w-full"
+                            placeholder="499.99"
+                            required
+                        />
+                    </div>
+
+                    {/* التصنيف */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            التصنيف
+                        </label>
+                        <select
+                            value={formData.category}
+                            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                            className="input w-full"
+                        >
+                            <option value="">اختر التصنيف</option>
+                            <option value="برمجة">برمجة</option>
+                            <option value="تصميم">تصميم</option>
+                            <option value="تسويق">تسويق</option>
+                            <option value="أعمال">أعمال</option>
+                            <option value="تطوير شخصي">تطوير شخصي</option>
+                            <option value="لغات">لغات</option>
+                            <option value="أخرى">أخرى</option>
+                        </select>
+                    </div>
+
+                    {/* المدة */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            مدة الدورة
+                        </label>
+                        <input
+                            type="text"
+                            value={formData.duration}
+                            onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
+                            className="input w-full"
+                            placeholder="مثال: 8 أسابيع"
+                        />
+                    </div>
+
+                    {/* عدد الجلسات */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            عدد الجلسات
+                        </label>
+                        <input
+                            type="number"
+                            min="1"
+                            value={formData.sessions}
+                            onChange={(e) => setFormData({ ...formData, sessions: e.target.value })}
+                            className="input w-full"
+                            placeholder="مثال: 24"
+                        />
+                    </div>
+
+                    {/* رابط الصورة */}
+                    <div className="lg:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            رابط صورة الدورة
+                        </label>
+                        <input
+                            type="url"
+                            value={formData.image}
+                            onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                            className="input w-full"
+                            placeholder="https://example.com/image.jpg"
+                        />
+                        {formData.image && (
+                            <img
+                                src={formData.image}
+                                alt="معاينة"
+                                className="mt-3 w-full h-48 object-cover rounded-lg"
+                            />
+                        )}
+                    </div>
+
+                    {/* الكلمات المفتاحية */}
+                    <div className="lg:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            الكلمات المفتاحية (Tags)
+                        </label>
+                        <div className="flex gap-2 mb-3">
+                            <input
+                                type="text"
+                                value={tagInput}
+                                onChange={(e) => setTagInput(e.target.value)}
+                                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
+                                className="input flex-1"
+                                placeholder="اضغط Enter للإضافة"
+                            />
+                            <button
+                                type="button"
+                                onClick={addTag}
+                                className="btn btn-outline"
+                            >
+                                إضافة
+                            </button>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                            {formData.tags.map((tag, index) => (
+                                <span
+                                    key={index}
+                                    className="inline-flex items-center gap-2 px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm"
+                                >
+                                    {tag}
+                                    <button
+                                        type="button"
+                                        onClick={() => removeTag(tag)}
+                                        className="hover:text-red-600"
+                                    >
+                                        <FiX />
+                                    </button>
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* المميزات */}
+                    <div className="lg:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            مميزات الدورة
+                        </label>
+                        <div className="flex gap-2 mb-3">
+                            <input
+                                type="text"
+                                value={featureInput}
+                                onChange={(e) => setFeatureInput(e.target.value)}
+                                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addFeature())}
+                                className="input flex-1"
+                                placeholder="مثال: شهادة معتمدة"
+                            />
+                            <button
+                                type="button"
+                                onClick={addFeature}
+                                className="btn btn-outline"
+                            >
+                                إضافة
+                            </button>
+                        </div>
+                        <div className="space-y-2">
+                            {formData.features.map((feature, index) => (
+                                <div
+                                    key={index}
+                                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                                >
+                                    <span>{feature}</span>
+                                    <button
+                                        type="button"
+                                        onClick={() => removeFeature(feature)}
+                                        className="text-red-500 hover:text-red-700"
+                                    >
+                                        <FiX />
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* الحالة */}
+                    <div className="lg:col-span-2">
+                        <label className="flex items-center gap-3 cursor-pointer">
+                            <input
+                                type="checkbox"
+                                checked={formData.isActive}
+                                onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                                className="w-5 h-5 text-primary-600 rounded"
+                            />
+                            <span className="font-medium">نشر الدورة مباشرة</span>
+                        </label>
+                    </div>
+                </div>
+
+                {/* أزرار الحفظ */}
+                <div className="flex gap-4 mt-8 pt-6 border-t">
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="btn btn-primary flex items-center gap-2"
+                    >
+                        <FiSave />
+                        <span>{loading ? 'جاري الحفظ...' : 'حفظ الدورة'}</span>
+                    </button>
+                    <Link href="/dashboard/courses" className="btn btn-outline">
+                        إلغاء
+                    </Link>
+                </div>
+            </form>
+        </div>
+    );
+}

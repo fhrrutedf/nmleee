@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-charcoal: #262626;
+    --action-blue: #0052FF;
+    --bg-light: #F5F7FA;
+    --card-white: #FFFFFF;
+    --text-muted: #6B7280;
+  }
+
+  /* Placeholder for future dark mode implementation */
+  .dark {
+    --primary-charcoal: #F3F4F6;
+    /* Off-white for text in dark mode */
+    --action-blue: #3B82F6;
+    /* Lighter blue for dark mode */
+    --bg-light: #111827;
+    /* Very dark gray background */
+    --card-white: #1F2937;
+    /* Dark gray card background */
+    --text-muted: #9CA3AF;
+    /* Light gray for muted text */
+  }
+
+  * {
+    direction: rtl;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    background-color: var(--bg-light);
+    color: var(--primary-charcoal);
+    /* Typography Fixes */
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
+    /* Max 700 as requested */
+    color: var(--primary-charcoal);
+    line-height: 1.25;
+    /* Tighter for headings */
+  }
+
+  p,
+  span,
+  div,
+  li,
+  a {
+    font-weight: 400;
+    /* Regular for body */
+  }
+}
+
+@layer components {
+
+  /* Updated Button Styles */
+  .btn {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 ease-in-out flex items-center justify-center gap-2;
+    border-radius: 8px;
+    letter-spacing: 0;
+  }
+
+  .btn-primary {
+    background-color: var(--action-blue);
+    color: #FFFFFF;
+    @apply shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+
+  .btn-primary:hover {
+    background-color: #0040D6;
+  }
+
+  .btn-secondary {
+    background-color: var(--card-white);
+    color: var(--primary-charcoal);
+    border: 1px solid #E5E7EB;
+    @apply shadow-sm hover:shadow-md hover:bg-gray-50 dark:hover:bg-gray-800 dark:border-gray-700;
+  }
+
+  .btn-outline {
+    @apply border-2 border-action-blue text-action-blue hover:bg-action-blue hover:text-white dark:hover:bg-blue-600;
+  }
+
+  /* Updated Card Styles */
+  .card {
+    background-color: var(--card-white);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    @apply rounded-lg transition-shadow duration-300 p-6 border border-transparent dark:border-gray-800;
+
+    /* Ensure card content breathes */
+    line-height: 1.6;
+  }
+
+  .card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  }
+
+  .input {
+    background-color: var(--card-white);
+    color: var(--primary-charcoal);
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-action-blue focus:border-transparent transition-all duration-200 outline-none dark:border-gray-700;
+  }
+
+  .input::placeholder {
+    @apply text-gray-400 dark:text-gray-500;
+  }
+
+  .label {
+    @apply block text-sm font-medium mb-2;
+    color: var(--primary-charcoal);
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent;
+  }
+
+  .dark .gradient-text {
+    @apply from-blue-400 to-purple-400;
+  }
+
+  .glass-effect {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20 dark:bg-gray-900/80 dark:border-gray-800/20;
+  }
+}
+
+@layer utilities {
+  .text-muted {
+    color: var(--text-muted);
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
