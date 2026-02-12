@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Check if expired
-        if (coupon.expiresAt && new Date(coupon.expiresAt) < new Date()) {
+        if (coupon.endDate && new Date(coupon.endDate) < new Date()) {
             return NextResponse.json(
                 { error: 'كود الكوبون منتهي الصلاحية' },
                 { status: 400 }
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Check max uses
-        if (coupon.maxUses && coupon.usedCount >= coupon.maxUses) {
+        if (coupon.usageLimit && coupon.usageCount >= coupon.usageLimit) {
             return NextResponse.json(
                 { error: 'تم استنفاذ استخدامات الكوبون' },
                 { status: 400 }
