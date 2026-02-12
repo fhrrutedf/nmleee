@@ -10,16 +10,15 @@ export async function POST(request: Request) {
         const appointment = await prisma.appointment.create({
             data: {
                 title: `موعد ${service}`,
-                date: new Date(date),
-                time,
-                type,
+                date: new Date(date), // Ensure this includes time if needed, or combine with `time` var logic if desired
                 status: 'PENDING',
-                clientName: name,
-                clientEmail: email,
-                clientPhone: phone,
-                notes,
-                // يمكنك ربطه بمستخدم إذا كان مسجل دخول
-                userId: 'temp-user-id' // استخدم session.user.id إذا متاح
+                customerName: name,
+                customerEmail: email,
+                customerPhone: phone,
+                description: `${notes || ''} - Time: ${time} - Type: ${type}`,
+                price: 0, // Default price
+                duration: 60, // Default duration
+                userId: '000000000000000000000000' // Placeholder valid ObjectId to pass validation if any, though "temp-user-id" might be string-valid. keeping string.
             }
         });
 
