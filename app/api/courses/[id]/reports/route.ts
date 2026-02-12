@@ -29,13 +29,13 @@ export async function GET(
         // Fetch enrollments with student data
         const enrollments = await prisma.courseEnrollment.findMany({
             where: { courseId },
-            include: {
-                student: {
-                    select: {
-                        name: true,
-                        email: true,
-                    },
-                },
+            select: {
+                id: true,
+                progress: true,
+                isCompleted: true,
+                totalWatchTime: true,
+                studentName: true,
+                studentEmail: true,
             },
         });
 
