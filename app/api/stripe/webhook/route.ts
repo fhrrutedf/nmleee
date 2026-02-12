@@ -4,7 +4,7 @@ import Stripe from 'stripe';
 import { sendOrderConfirmation } from '@/lib/email';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2024-12-18.acacia',
+    apiVersion: '2024-06-20',
 });
 
 /**
@@ -66,6 +66,11 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
         const couponId = metadata.couponId;
         const affiliateLinkId = metadata.affiliateLinkId;
 
+        if (!userId) {
+            console.error('Missing userId in session metadata');
+            return;
+        }
+
         // Calculate platform commission (10%)
         const platformFeePercentage = 10;
         const platformFee = (totalAmount * platformFeePercentage) / 100;
@@ -101,7 +106,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
                 platformFee,
                 sellerAmount,
                 status: 'PAID',
-                userId: userId || undefined,
+                userId: userId,
                 sellerId: sellerId || undefined,
                 couponId: couponId || undefined,
                 affiliateLinkId: affiliateLinkId || undefined,

@@ -74,7 +74,7 @@ export async function PUT(
         const { name, description, price, interval, features, isActive } = body;
 
         const updatedPlan = await prisma.subscriptionPlan.update({
-            where: { id: params.id },
+            where: { id },
             data: {
                 ...(name && { name }),
                 ...(description && { description }),
@@ -139,7 +139,7 @@ export async function DELETE(
         }
 
         await prisma.subscriptionPlan.delete({
-            where: { id: params.id },
+            where: { id },
         });
 
         return NextResponse.json({ message: 'تم حذف الخطة بنجاح' });

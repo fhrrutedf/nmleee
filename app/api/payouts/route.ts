@@ -47,6 +47,24 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        // Get user payment details
+        const user = await prisma.user.findUnique({
+            where: { id: userId },
+            select: {
+                payoutMethod: true,
+                bankDetails: true,
+                paypalEmail: true,
+                cryptoWallet: true,
+            },
+        });
+
+        if (!user || !user.payoutMethod) {
+            return NextResponse.json(
+                { error: 'يجب تعيين طريقة الدفع أولاً في الإعدادات' },
+                { status: 400 }
+            );
+        }
+
         // التحقق من الرصيد المتاح
         const stats = await calculatePayoutStats(userId);
 
@@ -57,16 +75,26 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        // Prepare method details
+        let methodDetails = {};
+        if (user.payoutMethod === 'bank') {
+            methodDetails = user.bankDetails || {};
+        } else if (user.payoutMethod === 'paypal') {
+            methodDetails = { email: user.paypalEmail };
+        } else if (user.payoutMethod === 'crypto') {
+            methodDetails = { wallet: user.cryptoWallet };
+        }
+
         const payout = await prisma.payout.create({
             data: {
+                payoutNumber: `PAYOUT-${Date.now()}`,
                 userId,
                 amount,
+                method: user.payoutMethod,
+                methodDetails,
                 status: 'PENDING',
             },
         });
-
-        // يمكن إرسال إشعار للمستخدم هنا
-        // await notifyPayoutRequest(userId, { amount });
 
         return NextResponse.json(payout, { status: 201 });
     } catch (error) {

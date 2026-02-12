@@ -78,7 +78,7 @@ export function generateProductMetadata(product: {
             title: product.title,
             description: product.description,
             images: product.image ? [product.image] : [],
-            type: 'product',
+            type: 'product' as any,
         },
         twitter: {
             card: 'summary_large_image',
@@ -102,7 +102,7 @@ export function generateUserMetadata(user: {
             title: user.name,
             description: user.bio || `تصفح منتجات ${user.name} على tmleen`,
             images: user.avatar ? [user.avatar] : [],
-            type: 'profile',
+            type: 'profile' as any,
         },
         twitter: {
             card: 'summary',

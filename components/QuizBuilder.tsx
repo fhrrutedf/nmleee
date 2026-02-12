@@ -80,8 +80,11 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
             (_, i) => i !== optionIndex
         );
         // Adjust correct answer if needed
-        if (newQuestions[questionIndex].correctAnswer >= newQuestions[questionIndex].options.length) {
-            newQuestions[questionIndex].correctAnswer = 0;
+        const currentQ = newQuestions[questionIndex];
+        if (currentQ.type === 'multiple' && typeof currentQ.correctAnswer === 'number') {
+            if (currentQ.correctAnswer >= currentQ.options.length) {
+                newQuestions[questionIndex].correctAnswer = 0;
+            }
         }
         setQuestions(newQuestions);
         onChange?.(newQuestions);
@@ -145,10 +148,10 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
                                             )
                                         }
                                         className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${(question.type === 'true-false'
-                                                ? question.correctAnswer === (oIndex === 0)
-                                                : question.correctAnswer === oIndex)
-                                                ? 'bg-green-500 border-green-500'
-                                                : 'border-gray-300 hover:border-green-400'
+                                            ? question.correctAnswer === (oIndex === 0)
+                                            : question.correctAnswer === oIndex)
+                                            ? 'bg-green-500 border-green-500'
+                                            : 'border-gray-300 hover:border-green-400'
                                             }`}
                                     >
                                         {(question.type === 'true-false'

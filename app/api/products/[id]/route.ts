@@ -65,7 +65,7 @@ export async function PUT(
         }
 
         const updatedProduct = await prisma.product.update({
-            where: { id: params.id },
+            where: { id },
             data: body,
         });
 
@@ -108,7 +108,7 @@ export async function DELETE(
         }
 
         await prisma.product.delete({
-            where: { id: params.id },
+            where: { id },
         });
 
         return NextResponse.json({ message: 'تم حذف المنتج بنجاح' });

@@ -41,7 +41,7 @@ export async function POST(
         // Save attempt
         const attempt = await prisma.quizAttempt.create({
             data: {
-                quizId: params.quizId,
+                quizId,
                 studentName,
                 studentEmail,
                 answers,

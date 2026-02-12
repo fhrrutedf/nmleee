@@ -27,7 +27,7 @@ export function middleware(request: NextRequest) {
     // 3. Rate Limiting للـ API routes (استثناء المصادقة)
     if (request.nextUrl.pathname.startsWith('/api/') && !request.nextUrl.pathname.startsWith('/api/auth')) {
         try {
-            const ip = request.ip || '127.0.0.1';
+            const ip = (request as any).ip || request.headers.get('x-forwarded-for') || '127.0.0.1';
             const now = Date.now();
             const rateLimit = rateLimitMap.get(ip);
 
