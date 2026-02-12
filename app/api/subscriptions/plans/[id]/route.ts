@@ -6,11 +6,12 @@ import prisma from '@/lib/db';
 // GET - جلب خطة محددة
 export async function GET(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
         const plan = await prisma.subscriptionPlan.findUnique({
-            where: { id: params.id },
+            where: { id },
             include: {
                 user: {
                     select: {
@@ -39,7 +40,7 @@ export async function GET(
 // PUT - تحديث خطة
 export async function PUT(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const session = await getServerSession(authOptions);
@@ -56,8 +57,9 @@ export async function PUT(
             return NextResponse.json({ error: 'المستخدم غير موجود' }, { status: 404 });
         }
 
+        const { id } = await params;
         const plan = await prisma.subscriptionPlan.findUnique({
-            where: { id: params.id },
+            where: { id },
         });
 
         if (!plan) {
@@ -93,7 +95,7 @@ export async function PUT(
 // DELETE - حذف خطة
 export async function DELETE(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const session = await getServerSession(authOptions);
@@ -110,8 +112,9 @@ export async function DELETE(
             return NextResponse.json({ error: 'المستخدم غير موجود' }, { status: 404 });
         }
 
+        const { id } = await params;
         const plan = await prisma.subscriptionPlan.findUnique({
-            where: { id: params.id },
+            where: { id },
             include: {
                 _count: {
                     select: { subscriptions: true }

@@ -4,11 +4,12 @@ import prisma from '@/lib/db';
 // GET - جلب وحدات الدورة
 export async function GET(
     req: NextRequest,
-    { params }: { params: { courseId: string } }
+    { params }: { params: Promise<{ courseId: string }> }
 ) {
     try {
+        const { courseId } = await params;
         const modules = await prisma.module.findMany({
-            where: { courseId: params.courseId },
+            where: { courseId },
             orderBy: { order: 'asc' },
             include: {
                 lessons: {
@@ -38,7 +39,7 @@ export async function GET(
 // POST - إضافة وحدة جديدة
 export async function POST(
     req: NextRequest,
-    { params }: { params: { courseId: string } }
+    { params }: { params: Promise<{ courseId: string }> }
 ) {
     try {
         const body = await req.json();
@@ -48,9 +49,10 @@ export async function POST(
             return NextResponse.json({ error: 'العنوان مطلوب' }, { status: 400 });
         }
 
+        const { courseId } = await params;
         // Get the course to verify ownership
         const course = await prisma.course.findUnique({
-            where: { id: params.courseId },
+            where: { id: courseId },
         });
 
         if (!course) {
@@ -61,7 +63,7 @@ export async function POST(
         let moduleOrder = order;
         if (moduleOrder === undefined) {
             const lastModule = await prisma.module.findFirst({
-                where: { courseId: params.courseId },
+                where: { courseId },
                 orderBy: { order: 'desc' },
             });
             moduleOrder = lastModule ? lastModule.order + 1 : 0;
@@ -72,7 +74,7 @@ export async function POST(
                 title,
                 description: description || '',
                 order: moduleOrder,
-                courseId: params.courseId,
+                courseId,
             },
             include: {
                 _count: {

@@ -69,32 +69,32 @@ export async function sendPayoutRejected(data: {
             to: data.to,
             subject: `❌ تم رفض السحب ${data.payoutNumber}`,
             react: (
-                <div style= {{ fontFamily: 'Arial', padding: '20px', direction: 'rtl' }}>
-                    <h1>مرحباً { data.sellerName } !</h1>
-                        < p > للأسف، تم رفض طلب السحب رقم: { data.payoutNumber } </p>
-                            < p > <strong>المبلغ: </strong> ${data.amount.toFixed(2)}</p >
-                                <p><strong>السبب: </strong> {data.reason}</p >
-                                    <p>تم إرجاع المبلغ إلى رصيدك المتاح.</p>
-                                        < a href = "https://tmleen.com/dashboard/earnings" style = {{
-        backgroundColor: '#4f46e5',
-            color: 'white',
-                padding: '12px 24px',
-                    borderRadius: '6px',
+                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl' }}>
+                    <h1>مرحباً {data.sellerName}!</h1>
+                    <p>للأسف، تم رفض طلب السحب رقم: {data.payoutNumber}</p>
+                    <p><strong>المبلغ: </strong> ${data.amount.toFixed(2)}</p>
+                    <p><strong>السبب: </strong> {data.reason}</p>
+                    <p>تم إرجاع المبلغ إلى رصيدك المتاح.</p>
+                    <a href="https://tmleen.com/dashboard/earnings" style={{
+                        backgroundColor: '#4f46e5',
+                        color: 'white',
+                        padding: '12px 24px',
+                        borderRadius: '6px',
                         textDecoration: 'none',
-                            display: 'inline-block'
+                        display: 'inline-block'
+                    }
+                    }>
+                        عرض الأرباح
+                    </a>
+                </div>
+            ),
+        });
+        console.log('✅ Payout rejection sent to', data.to);
+        return { success: true };
+    } catch (error) {
+        console.error('❌ Email error:', error);
+        return { success: false, error };
     }
-}>
-    عرض الأرباح
-        </a>
-        </div>
-      ),
-    });
-console.log('✅ Payout rejection sent to', data.to);
-return { success: true };
-  } catch (error) {
-    console.error('❌ Email error:', error);
-    return { success: false, error };
-}
 }
 
 // Manual Order Alert (للأدمن)
@@ -136,32 +136,32 @@ export async function sendManualOrderApproved(data: {
             to: data.to,
             subject: `✅ تمت الموافقة على طلبك ${data.orderNumber}`,
             react: (
-                <div style= {{ fontFamily: 'Arial', padding: '20px', direction: 'rtl' }}>
-                    <h1>مرحباً { data.customerName } ! 🎉</h1>
-                        < p > تمت الموافقة على طلبك بنجاح! </p>
-                            < p > <strong>رقم الطلب: </strong> {data.orderNumber}</p >
-                                <p><strong>المبلغ: </strong> ${data.amount.toFixed(2)}</p >
-                                    <p>يمكنك الآن الوصول إلى مشترياتك.</p>
-                                        < a href = "https://tmleen.com/orders" style = {{
-        backgroundColor: '#10b981',
-            color: 'white',
-                padding: '12px 24px',
-                    borderRadius: '6px',
+                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl' }}>
+                    <h1>مرحباً {data.customerName}! 🎉</h1>
+                    <p>تمت الموافقة على طلبك بنجاح!</p>
+                    <p><strong>رقم الطلب: </strong> {data.orderNumber}</p>
+                    <p><strong>المبلغ: </strong> ${data.amount.toFixed(2)}</p>
+                    <p>يمكنك الآن الوصول إلى مشترياتك.</p>
+                    <a href="https://tmleen.com/orders" style={{
+                        backgroundColor: '#10b981',
+                        color: 'white',
+                        padding: '12px 24px',
+                        borderRadius: '6px',
                         textDecoration: 'none',
-                            display: 'inline-block'
+                        display: 'inline-block'
+                    }
+                    }>
+                        عرض الطلبات
+                    </a>
+                </div>
+            ),
+        });
+        console.log('✅ Manual order approval sent to', data.to);
+        return { success: true };
+    } catch (error) {
+        console.error('❌ Email error:', error);
+        return { success: false, error };
     }
-}>
-    عرض الطلبات
-        </a>
-        </div>
-      ),
-    });
-console.log('✅ Manual order approval sent to', data.to);
-return { success: true };
-  } catch (error) {
-    console.error('❌ Email error:', error);
-    return { success: false, error };
-}
 }
 
 // Manual Order Rejected (للعميل)
@@ -177,19 +177,19 @@ export async function sendManualOrderRejected(data: {
             to: data.to,
             subject: `❌ تم رفض طلبك ${data.orderNumber}`,
             react: (
-                <div style= {{ fontFamily: 'Arial', padding: '20px', direction: 'rtl' }}>
-                    <h1>مرحباً { data.customerName } </h1>
-                        < p > للأسف، تم رفض طلبك.</p>
-                            < p > <strong>رقم الطلب: </strong> {data.orderNumber}</p >
-                                <p><strong>السبب: </strong> {data.reason}</p >
-                                    <p>يرجى التواصل معنا إذا كان لديك أي استفسار.</p>
-                                        </div>
-      ),
-});
-console.log('✅ Manual order rejection sent to', data.to);
-return { success: true };
-  } catch (error) {
-    console.error('❌ Email error:', error);
-    return { success: false, error };
-}
+                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl' }}>
+                    <h1>مرحباً {data.customerName}</h1>
+                    <p>للأسف، تم رفض طلبك.</p>
+                    <p><strong>رقم الطلب: </strong> {data.orderNumber}</p>
+                    <p><strong>السبب: </strong> {data.reason}</p>
+                    <p>يرجى التواصل معنا إذا كان لديك أي استفسار.</p>
+                </div>
+            ),
+        });
+        console.log('✅ Manual order rejection sent to', data.to);
+        return { success: true };
+    } catch (error) {
+        console.error('❌ Email error:', error);
+        return { success: false, error };
+    }
 }

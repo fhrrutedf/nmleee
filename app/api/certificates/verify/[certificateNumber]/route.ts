@@ -4,11 +4,12 @@ import prisma from '@/lib/db';
 // GET - التحقق من شهادة
 export async function GET(
     req: NextRequest,
-    { params }: { params: { certificateNumber: string } }
+    { params }: { params: Promise<{ certificateNumber: string }> }
 ) {
     try {
+        const { certificateNumber } = await params;
         const certificate = await prisma.certificate.findUnique({
-            where: { certificateNumber: params.certificateNumber },
+            where: { certificateNumber },
             include: {
                 course: {
                     select: {

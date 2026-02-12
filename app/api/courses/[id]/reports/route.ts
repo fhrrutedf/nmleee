@@ -4,7 +4,7 @@ import prisma from '@/lib/prisma';
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const session = await getServerSession();
@@ -13,7 +13,8 @@ export async function GET(
             return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
         }
 
-        const courseId = params.id;
+        const { id } = await params;
+        const courseId = id;
 
         // Verify ownership
         const course = await prisma.course.findUnique({

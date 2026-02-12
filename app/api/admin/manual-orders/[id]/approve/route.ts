@@ -5,7 +5,7 @@ import { prisma } from '@/lib/db';
 
 export async function POST(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const session = await getServerSession(authOptions);
@@ -24,7 +24,8 @@ export async function POST(
             return NextResponse.json({ error: 'غير مصرح' }, { status: 403 });
         }
 
-        const orderId = params.id;
+        const { id } = await params;
+        const orderId = id;
 
         // Get order
         const order = await prisma.order.findUnique({

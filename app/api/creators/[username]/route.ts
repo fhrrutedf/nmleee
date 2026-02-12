@@ -3,10 +3,10 @@ import { prisma } from '@/lib/db';
 
 export async function GET(
     request: Request,
-    { params }: { params: { username: string } }
+    { params }: { params: Promise<{ username: string }> }
 ) {
     try {
-        const username = params.username;
+        const { username } = await params;
 
         // Get creator
         const creator = await prisma.user.findUnique({

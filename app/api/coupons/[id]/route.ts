@@ -5,7 +5,7 @@ import { prisma } from '@/lib/db';
 
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const session = await getServerSession(authOptions);
@@ -15,10 +15,11 @@ export async function DELETE(
         }
 
         const userId = (session.user as any).id;
+        const { id } = await params;
 
         // Verify ownership
         const coupon = await prisma.coupon.findUnique({
-            where: { id: params.id },
+            where: { id },
         });
 
         if (!coupon || coupon.userId !== userId) {
@@ -26,7 +27,7 @@ export async function DELETE(
         }
 
         await prisma.coupon.delete({
-            where: { id: params.id },
+            where: { id },
         });
 
         return NextResponse.json({ message: 'تم حذف الكوبون بنجاح' });

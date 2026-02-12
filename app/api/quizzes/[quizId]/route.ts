@@ -4,11 +4,12 @@ import prisma from '@/lib/prisma';
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { quizId: string } }
+    { params }: { params: Promise<{ quizId: string }> }
 ) {
     try {
+        const { quizId } = await params;
         const quiz = await prisma.quiz.findUnique({
-            where: { id: params.quizId },
+            where: { id: quizId },
             include: {
                 lesson: true,
                 course: true,

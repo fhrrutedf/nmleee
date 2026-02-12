@@ -4,11 +4,12 @@ import prisma from '@/lib/db';
 // GET - جلب درس محدد
 export async function GET(
     req: NextRequest,
-    { params }: { params: { lessonId: string } }
+    { params }: { params: Promise<{ lessonId: string }> }
 ) {
     try {
+        const { lessonId } = await params;
         const lesson = await prisma.lesson.findUnique({
-            where: { id: params.lessonId },
+            where: { id: lessonId },
             include: {
                 module: {
                     include: {
@@ -51,11 +52,12 @@ export async function GET(
 // PUT - تحديث درس
 export async function PUT(
     req: NextRequest,
-    { params }: { params: { lessonId: string } }
+    { params }: { params: Promise<{ lessonId: string }> }
 ) {
     try {
+        const { lessonId } = await params;
         const lesson = await prisma.lesson.findUnique({
-            where: { id: params.lessonId },
+            where: { id: lessonId },
         });
 
         if (!lesson) {
@@ -66,7 +68,7 @@ export async function PUT(
         const { title, description, content, videoUrl, videoDuration, isPublished, isFree, attachments } = body;
 
         const updatedLesson = await prisma.lesson.update({
-            where: { id: params.lessonId },
+            where: { id: lessonId },
             data: {
                 ...(title && { title }),
                 ...(description !== undefined && { description }),
@@ -89,11 +91,12 @@ export async function PUT(
 // DELETE - حذف درس
 export async function DELETE(
     req: NextRequest,
-    { params }: { params: { lessonId: string } }
+    { params }: { params: Promise<{ lessonId: string }> }
 ) {
     try {
+        const { lessonId } = await params;
         const lesson = await prisma.lesson.findUnique({
-            where: { id: params.lessonId },
+            where: { id: lessonId },
         });
 
         if (!lesson) {
@@ -101,7 +104,7 @@ export async function DELETE(
         }
 
         await prisma.lesson.delete({
-            where: { id: params.lessonId },
+            where: { id: lessonId },
         });
 
         return NextResponse.json({ message: 'تم حذف الدرس بنجاح' });

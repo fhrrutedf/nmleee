@@ -4,7 +4,7 @@ import prisma from '@/lib/db';
 // POST - تحديث تقدم الدرس
 export async function POST(
     req: NextRequest,
-    { params }: { params: { lessonId: string } }
+    { params }: { params: Promise<{ lessonId: string }> }
 ) {
     try {
         const body = await req.json();
@@ -14,11 +14,13 @@ export async function POST(
             return NextResponse.json({ error: 'معرف التسجيل مطلوب' }, { status: 400 });
         }
 
+        const { lessonId } = await params;
+
         // Check if progress record exists
         const existingProgress = await prisma.lessonProgress.findUnique({
             where: {
                 lessonId_enrollmentId: {
-                    lessonId: params.lessonId,
+                    lessonId,
                     enrollmentId,
                 }
             }
@@ -30,7 +32,7 @@ export async function POST(
             progress = await prisma.lessonProgress.update({
                 where: {
                     lessonId_enrollmentId: {
-                        lessonId: params.lessonId,
+                        lessonId,
                         enrollmentId,
                     }
                 },
@@ -44,7 +46,7 @@ export async function POST(
             // Create new progress record
             progress = await prisma.lessonProgress.create({
                 data: {
-                    lessonId: params.lessonId,
+                    lessonId,
                     enrollmentId,
                     watchedDuration: watchedDuration || 0,
                     isCompleted: isCompleted || false,

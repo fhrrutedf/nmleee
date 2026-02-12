@@ -4,7 +4,7 @@ import prisma from '@/lib/db';
 // POST - تقديم محاولة اختبار
 export async function POST(
     req: NextRequest,
-    { params }: { params: { quizId: string } }
+    { params }: { params: Promise<{ quizId: string }> }
 ) {
     try {
         const body = await req.json();
@@ -14,9 +14,10 @@ export async function POST(
             return NextResponse.json({ error: 'جميع الحقول مطلوبة' }, { status: 400 });
         }
 
+        const { quizId } = await params;
         // Get quiz with questions
         const quiz = await prisma.quiz.findUnique({
-            where: { id: params.quizId },
+            where: { id: quizId },
         });
 
         if (!quiz) {
@@ -63,13 +64,14 @@ export async function POST(
 // GET - جلب محاولات الاختبار
 export async function GET(
     req: NextRequest,
-    { params }: { params: { quizId: string } }
+    { params }: { params: Promise<{ quizId: string }> }
 ) {
     try {
         const { searchParams } = new URL(req.url);
         const studentEmail = searchParams.get('studentEmail');
 
-        const where: any = { quizId: params.quizId };
+        const { quizId } = await params;
+        const where: any = { quizId };
         if (studentEmail) {
             where.studentEmail = studentEmail;
         }

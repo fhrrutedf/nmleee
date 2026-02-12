@@ -4,12 +4,13 @@ import prisma from '@/lib/db';
 // GET - جلب تعليقات الدرس
 export async function GET(
     req: NextRequest,
-    { params }: { params: { lessonId: string } }
+    { params }: { params: Promise<{ lessonId: string }> }
 ) {
     try {
+        const { lessonId } = await params;
         const comments = await prisma.comment.findMany({
             where: {
-                lessonId: params.lessonId,
+                lessonId,
                 parentId: null, // Only top-level comments
             },
             orderBy: { createdAt: 'desc' },
@@ -30,7 +31,7 @@ export async function GET(
 // POST - إضافة تعليق
 export async function POST(
     req: NextRequest,
-    { params }: { params: { lessonId: string } }
+    { params }: { params: Promise<{ lessonId: string }> }
 ) {
     try {
         const body = await req.json();
@@ -40,12 +41,13 @@ export async function POST(
             return NextResponse.json({ error: 'جميع الحقول مطلوبة' }, { status: 400 });
         }
 
+        const { lessonId } = await params;
         const comment = await prisma.comment.create({
             data: {
                 content,
                 authorName,
                 authorEmail,
-                lessonId: params.lessonId,
+                lessonId,
                 parentId: parentId || null,
             },
             include: {

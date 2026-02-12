@@ -4,11 +4,12 @@ import prisma from '@/lib/db';
 // GET - جلب دروس الوحدة
 export async function GET(
     req: NextRequest,
-    { params }: { params: { moduleId: string } }
+    { params }: { params: Promise<{ moduleId: string }> }
 ) {
     try {
+        const { moduleId } = await params;
         const lessons = await prisma.lesson.findMany({
-            where: { moduleId: params.moduleId },
+            where: { moduleId },
             orderBy: { order: 'asc' },
             include: {
                 _count: {
@@ -30,7 +31,7 @@ export async function GET(
 // POST - إضافة درس جديد
 export async function POST(
     req: NextRequest,
-    { params }: { params: { moduleId: string } }
+    { params }: { params: Promise<{ moduleId: string }> }
 ) {
     try {
         const body = await req.json();
@@ -40,9 +41,10 @@ export async function POST(
             return NextResponse.json({ error: 'العنوان مطلوب' }, { status: 400 });
         }
 
+        const { moduleId } = await params;
         // Get the module to verify it exists
         const module = await prisma.module.findUnique({
-            where: { id: params.moduleId },
+            where: { id: moduleId },
         });
 
         if (!module) {
@@ -53,7 +55,7 @@ export async function POST(
         let lessonOrder = order;
         if (lessonOrder === undefined) {
             const lastLesson = await prisma.lesson.findFirst({
-                where: { moduleId: params.moduleId },
+                where: { moduleId },
                 orderBy: { order: 'desc' },
             });
             lessonOrder = lastLesson ? lastLesson.order + 1 : 0;
@@ -69,7 +71,7 @@ export async function POST(
                 order: lessonOrder,
                 isFree: isFree || false,
                 attachments: attachments || [],
-                moduleId: params.moduleId,
+                moduleId,
             },
         });
 

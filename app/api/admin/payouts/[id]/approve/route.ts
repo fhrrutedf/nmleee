@@ -5,7 +5,7 @@ import { prisma } from '@/lib/db';
 
 export async function POST(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const session = await getServerSession(authOptions);
@@ -25,7 +25,8 @@ export async function POST(
         }
 
         const { transactionId, adminNotes } = await req.json();
-        const payoutId = params.id;
+        const { id } = await params;
+        const payoutId = id;
 
         // Get payout
         const payout = await prisma.payout.findUnique({
