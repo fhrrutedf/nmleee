@@ -4,10 +4,11 @@ import prisma from '@/lib/db';
 // GET - جلب وحدات الدورة
 export async function GET(
     req: NextRequest,
-    { params }: { params: Promise<{ courseId: string }> }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { courseId } = await params;
+        const { id } = await params;
+        const courseId = id;
         const modules = await prisma.module.findMany({
             where: { courseId },
             orderBy: { order: 'asc' },
@@ -39,7 +40,7 @@ export async function GET(
 // POST - إضافة وحدة جديدة
 export async function POST(
     req: NextRequest,
-    { params }: { params: Promise<{ courseId: string }> }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const body = await req.json();
@@ -49,8 +50,11 @@ export async function POST(
             return NextResponse.json({ error: 'العنوان مطلوب' }, { status: 400 });
         }
 
-        const { courseId } = await params;
+        const { id } = await params;
+        const courseId = id;
+
         // Get the course to verify ownership
+        // Note: In production we should also check the user session here
         const course = await prisma.course.findUnique({
             where: { id: courseId },
         });

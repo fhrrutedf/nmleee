@@ -6,12 +6,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  id            String    @id @default(uuid())
   name          String
   email         String    @unique
   username      String    @unique
@@ -79,9 +79,9 @@ model User {
 }
 
 model Product {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   title       String
-  slug        String?  // URL-friendly slug for direct linking (optional for migration)
+  slug        String?  // URL-friendly slug for direct linking
   description String
   price       Float
   image       String?
@@ -116,7 +116,7 @@ model Product {
   updatedAt   DateTime @updatedAt
   
   // Relations
-  userId      String   @db.ObjectId
+  userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   orderItems  OrderItem[]
   affiliateLinks AffiliateLink[]
@@ -128,7 +128,7 @@ model Product {
 }
 
 model Course {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   title       String
   description String
   price       Float
@@ -162,7 +162,7 @@ model Course {
   updatedAt   DateTime @updatedAt
   
   // Relations
-  userId      String   @db.ObjectId
+  userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   orderItems  OrderItem[]
   enrollments CourseEnrollment[]
@@ -173,7 +173,7 @@ model Course {
 }
 
 model Appointment {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   title       String
   description String?
   price       Float
@@ -193,14 +193,14 @@ model Appointment {
   updatedAt   DateTime @updatedAt
   
   // Relations
-  userId      String   @db.ObjectId
+  userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  orderId     String?  @db.ObjectId
+  orderId     String?
   order       Order?   @relation(fields: [orderId], references: [id])
 }
 
 model Order {
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  id          String      @id @default(uuid())
   orderNumber String      @unique
   
   // Customer info
@@ -215,14 +215,14 @@ model Order {
   sellerAmount      Float    @default(0)    // حصة البائع
   
   // Seller Info
-  sellerId          String?  @db.ObjectId
+  sellerId          String?
   seller            User?    @relation("SellerOrders", fields: [sellerId], references: [id])
   
   // Payout Info
   payoutStatus      String   @default("pending")  // "pending" | "available" | "paid_out"
   availableAt       DateTime?                     // متى يصبح متاح للسحب
   paidOutAt         DateTime?
-  payoutId          String?  @db.ObjectId
+  payoutId          String?
   payout            Payout?  @relation(fields: [payoutId], references: [id])
   
   // Payment info
@@ -240,7 +240,7 @@ model Order {
   paymentProvider   String?   // "shamcash" | "omt" | "zaincash" etc
   
   // Verification
-  verifiedBy        String?   @db.ObjectId
+  verifiedBy        String?
   verifier          User?     @relation("OrderVerifier", fields: [verifiedBy], references: [id])
   verifiedAt        DateTime?
   rejectionReason   String?
@@ -249,16 +249,16 @@ model Order {
   updatedAt   DateTime  @updatedAt
   
   // Coupon & Discount
-  couponId    String?  @db.ObjectId
+  couponId    String?
   coupon      Coupon?  @relation(fields: [couponId], references: [id])
   discount    Float    @default(0)
   
   // Affiliate
-  affiliateLinkId String?  @db.ObjectId
+  affiliateLinkId String?
   affiliateLink   AffiliateLink? @relation(fields: [affiliateLinkId], references: [id])
   
   // Relations
-  userId      String    @db.ObjectId
+  userId      String
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   items       OrderItem[]
   appointments Appointment[]
@@ -269,28 +269,28 @@ model Order {
 }
 
 model OrderItem {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(uuid())
   quantity  Int      @default(1)
   price     Float
   
   itemType  String   // "product" or "course"
   
   // Relations
-  orderId   String   @db.ObjectId
+  orderId   String
   order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   
-  productId String?  @db.ObjectId
+  productId String?
   product   Product? @relation(fields: [productId], references: [id])
   
-  courseId  String?  @db.ObjectId
+  courseId  String?
   course    Course?  @relation(fields: [courseId], references: [id])
 }
 
 model Payout {
-  id                String      @id @default(auto()) @map("_id") @db.ObjectId
+  id                String      @id @default(uuid())
   payoutNumber      String      @unique
   
-  userId            String   @db.ObjectId
+  userId            String
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   amount            Float
@@ -345,7 +345,7 @@ enum PayoutStatus {
 }
 
 model Review {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   rating      Int      // 1-5
   comment     String
   name        String
@@ -355,22 +355,22 @@ model Review {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
-  productId   String   @db.ObjectId
+  productId   String
   product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model AffiliateReferral {
-  id          String          @id @default(auto()) @map("_id") @db.ObjectId
+  id          String          @id @default(uuid())
   commission  Float
   status      AffiliateStatus @default(PENDING)
   
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
   
-  affiliateUserId String       @db.ObjectId
+  affiliateUserId String
   affiliateUser   User         @relation(fields: [affiliateUserId], references: [id], onDelete: Cascade)
   
-  orderId     String           @db.ObjectId @unique
+  orderId     String           @unique
   order       Order            @relation(fields: [orderId], references: [id])
 }
 
@@ -381,7 +381,7 @@ enum AffiliateStatus {
 }
 
 model CourseEnrollment {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   
   // Student info
   studentName  String
@@ -404,10 +404,10 @@ model CourseEnrollment {
   updatedAt   DateTime @updatedAt
   
   // Relations
-  courseId    String   @db.ObjectId
+  courseId    String
   course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   
-  orderId     String?  @db.ObjectId
+  orderId     String?
   
   lessonProgress LessonProgress[]
   certificate    Certificate?
@@ -423,7 +423,7 @@ model CourseEnrollment {
 // ============================================
 
 model SubscriptionPlan {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   name        String   // "Basic", "Pro", "Premium"
   description String
   price       Float
@@ -434,7 +434,7 @@ model SubscriptionPlan {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
-  userId      String   @db.ObjectId
+  userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   subscriptions Subscription[]
   
@@ -442,7 +442,7 @@ model SubscriptionPlan {
 }
 
 model Subscription {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  id              String   @id @default(uuid())
   status          String   @default("active") // "active", "cancelled", "expired", "past_due"
   currentPeriodStart DateTime
   currentPeriodEnd   DateTime
@@ -455,10 +455,10 @@ model Subscription {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
-  planId      String   @db.ObjectId
+  planId      String
   plan        SubscriptionPlan @relation(fields: [planId], references: [id])
   
-  customerId  String   @db.ObjectId
+  customerId  String
   customer    User     @relation("CustomerSubscriptions", fields: [customerId], references: [id], onDelete: Cascade)
   
   @@index([customerId])
@@ -470,7 +470,7 @@ model Subscription {
 // ============================================
 
 model Module {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   title       String
   description String?
   order       Int      @default(0)
@@ -479,7 +479,7 @@ model Module {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
-  courseId    String   @db.ObjectId
+  courseId    String
   course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   lessons     Lesson[]
   
@@ -487,7 +487,7 @@ model Module {
 }
 
 model Lesson {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   title       String
   description String?
   content     String?  // محتوى نصي (Markdown)
@@ -503,7 +503,7 @@ model Lesson {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
-  moduleId    String   @db.ObjectId
+  moduleId    String
   module      Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
   
   quizzes     Quiz[]
@@ -514,7 +514,7 @@ model Lesson {
 }
 
 model LessonProgress {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  id              String   @id @default(uuid())
   isCompleted     Boolean  @default(false)
   watchedDuration Int      @default(0) // بالثواني
   lastWatchedAt   DateTime @default(now())
@@ -522,10 +522,10 @@ model LessonProgress {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
-  lessonId        String   @db.ObjectId
+  lessonId        String
   lesson          Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
   
-  enrollmentId    String   @db.ObjectId
+  enrollmentId    String
   enrollment      CourseEnrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
   
   @@unique([lessonId, enrollmentId])
@@ -537,7 +537,7 @@ model LessonProgress {
 // ============================================
 
 model Quiz {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   title       String
   description String?
   passingScore Int     @default(70) // النسبة المطلوبة للنجاح
@@ -553,10 +553,10 @@ model Quiz {
   updatedAt   DateTime @updatedAt
   
   // Can belong to lesson or course
-  lessonId    String?  @db.ObjectId
+  lessonId    String?
   lesson      Lesson?  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
   
-  courseId    String?  @db.ObjectId
+  courseId    String?
   course      Course?  @relation(fields: [courseId], references: [id], onDelete: Cascade)
   
   attempts    QuizAttempt[]
@@ -566,7 +566,7 @@ model Quiz {
 }
 
 model QuizAttempt {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   score       Float    // النتيجة من 100
   answers     Json     // إجابات الطالب
   isPassed    Boolean
@@ -574,7 +574,7 @@ model QuizAttempt {
   
   completedAt DateTime @default(now())
   
-  quizId      String   @db.ObjectId
+  quizId      String
   quiz        Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
   
   studentEmail String
@@ -589,7 +589,7 @@ model QuizAttempt {
 // ============================================
 
 model Certificate {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  id              String   @id @default(uuid())
   certificateNumber String @unique
   studentName     String
   studentEmail    String
@@ -602,10 +602,10 @@ model Certificate {
   
   createdAt   DateTime @default(now())
   
-  courseId        String   @db.ObjectId
+  courseId        String
   course          Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   
-  enrollmentId    String   @db.ObjectId @unique
+  enrollmentId    String   @unique
   enrollment      CourseEnrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
   
   @@index([studentEmail])
@@ -616,7 +616,7 @@ model Certificate {
 // ============================================
 
 model Comment {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   content     String
   authorName  String
   authorEmail String
@@ -626,11 +626,11 @@ model Comment {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
-  lessonId    String?  @db.ObjectId
+  lessonId    String?
   lesson      Lesson?  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
   
   // Nested comments (replies)
-  parentId    String?  @db.ObjectId
+  parentId    String?
   parent      Comment? @relation("CommentReplies", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   replies     Comment[] @relation("CommentReplies")
   
@@ -639,7 +639,7 @@ model Comment {
 }
 
 model EmailSubscriber {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(uuid())
   email     String   @unique
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
@@ -652,7 +652,7 @@ model EmailSubscriber {
 // ============================================
 
 model Coupon {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   code        String   @unique
   type        String   // "percentage" | "fixed"
   value       Float    // القيمة (نسبة أو مبلغ ثابت)
@@ -668,8 +668,8 @@ model Coupon {
   endDate     DateTime?
   
   // Restrictions
-  productIds  String[] @default([]) @db.ObjectId
-  courseIds   String[] @default([]) @db.ObjectId
+  productIds  String[] @default([])
+  courseIds   String[] @default([])
   
   isActive    Boolean  @default(true)
   
@@ -677,7 +677,7 @@ model Coupon {
   updatedAt   DateTime @updatedAt
   
   // Relations
-  userId      String   @db.ObjectId
+  userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   orders      Order[]
@@ -688,12 +688,12 @@ model Coupon {
 }
 
 model CouponUsage {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   
-  couponId    String   @db.ObjectId
+  couponId    String
   coupon      Coupon   @relation(fields: [couponId], references: [id], onDelete: Cascade)
   
-  orderId     String   @db.ObjectId
+  orderId     String
   order       Order    @relation(fields: [orderId], references: [id])
   
   discount    Float    // المبلغ المخصوم
@@ -712,14 +712,14 @@ model CouponUsage {
 // ============================================
 
 model AffiliateLink {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   code        String   @unique
   
   // Target (واحد منهم فقط)
-  productId   String?  @db.ObjectId
+  productId   String?
   product     Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
   
-  courseId    String?  @db.ObjectId
+  courseId    String?
   course      Course?  @relation(fields: [courseId], references: [id], onDelete: Cascade)
   
   // Commission
@@ -738,7 +738,7 @@ model AffiliateLink {
   updatedAt   DateTime @updatedAt
   
   // Relations
-  userId      String   @db.ObjectId
+  userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   clickEvents AffiliateClick[]
@@ -751,9 +751,9 @@ model AffiliateLink {
 }
 
 model AffiliateClick {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   
-  linkId      String   @db.ObjectId
+  linkId      String
   link        AffiliateLink @relation(fields: [linkId], references: [id], onDelete: Cascade)
   
   ipAddress   String?
@@ -767,12 +767,12 @@ model AffiliateClick {
 }
 
 model AffiliateSale {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid())
   
-  linkId      String   @db.ObjectId
+  linkId      String
   link        AffiliateLink @relation(fields: [linkId], references: [id])
   
-  orderId     String   @db.ObjectId
+  orderId     String
   order       Order    @relation(fields: [orderId], references: [id])
   
   amount      Float    // قيمة الطلب
