@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "prisma generate",
     "dev": "next dev",
-    "build": "prisma generate && prisma db push && next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "db:push": "prisma db push",
@@ -17,6 +17,7 @@
     "@novu/node": "^0.24.0",
     "@novu/notification-center": "^0.24.0",
     "@prisma/client": "^5.22.0",
+    "@prisma/extension-accelerate": "^1.2.1",
     "@react-email/components": "^1.0.7",
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.4.0",
