@@ -1,12 +1,11 @@
 {
   "name": "digital-platform",
   "version": "1.0.0",
-  "description": "منصة متكاملة لبيع المنتجات الرقمية والدورات التدريبية",
   "private": true,
   "scripts": {
     "postinstall": "prisma generate",
     "dev": "next dev",
-    "build": "prisma generate && prisma db push && next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "db:push": "prisma db push",
@@ -17,7 +16,6 @@
     "@novu/node": "^0.24.0",
     "@novu/notification-center": "^0.24.0",
     "@prisma/client": "^5.22.0",
-    "@prisma/extension-accelerate": "^1.3.0",
     "@react-email/components": "^1.0.7",
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.4.0",
