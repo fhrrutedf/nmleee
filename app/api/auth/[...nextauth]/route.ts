@@ -12,36 +12,53 @@ export const authOptions: AuthOptions = {
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials) {
+                console.log('🔐 [NextAuth] Authorize called with email:', credentials?.email);
+
                 if (!credentials?.email || !credentials?.password) {
+                    console.log('❌ [NextAuth] Missing credentials');
                     throw new Error("البريد الإلكتروني وكلمة المرور مطلوبان")
                 }
 
-                const user = await prisma.user.findUnique({
-                    where: { email: credentials.email }
-                })
+                try {
+                    const user = await prisma.user.findUnique({
+                        where: { email: credentials.email }
+                    })
 
-                if (!user) {
-                    throw new Error("البريد الإلكتروني أو كلمة المرور غير صحيحة")
-                }
+                    console.log('👤 [NextAuth] User found:', !!user);
 
-                const isPasswordValid = await bcrypt.compare(
-                    credentials.password,
-                    user.password
-                )
+                    if (!user) {
+                        console.log('❌ [NextAuth] User not found');
+                        throw new Error("البريد الإلكتروني أو كلمة المرور غير صحيحة")
+                    }
 
-                if (!isPasswordValid) {
-                    throw new Error("البريد الإلكتروني أو كلمة المرور غير صحيحة")
-                }
+                    const isPasswordValid = await bcrypt.compare(
+                        credentials.password,
+                        user.password
+                    )
 
-                if (!user.isActive) {
-                    throw new Error("حسابك غير نشط")
-                }
+                    console.log('🔑 [NextAuth] Password valid:', isPasswordValid);
 
-                return {
-                    id: user.id,
-                    email: user.email,
-                    name: user.name,
-                    username: user.username,
+                    if (!isPasswordValid) {
+                        console.log('❌ [NextAuth] Invalid password');
+                        throw new Error("البريد الإلكتروني أو كلمة المرور غير صحيحة")
+                    }
+
+                    if (!user.isActive) {
+                        console.log('❌ [NextAuth] User inactive');
+                        throw new Error("حسابك غير نشط")
+                    }
+
+                    console.log('✅ [NextAuth] Auth successful for:', user.email);
+
+                    return {
+                        id: user.id,
+                        email: user.email,
+                        name: user.name,
+                        username: user.username,
+                    }
+                } catch (error) {
+                    console.error('💥 [NextAuth] Auth error:', error);
+                    throw error;
                 }
             }
         })
