@@ -1,7 +1,7 @@
 import toast, { Toaster, ToastOptions } from 'react-hot-toast';
 
 // Toast configuration
-const toastConfig: ToastOptions = {
+const defaultConfig: ToastOptions = {
     duration: 4000,
     position: 'top-center',
     style: {
@@ -12,38 +12,41 @@ const toastConfig: ToastOptions = {
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
         fontFamily: 'inherit',
     },
-    success: {
-        duration: 3000,
-        iconTheme: {
-            primary: '#10b981',
-            secondary: '#fff',
-        },
-    },
-    error: {
-        duration: 5000,
-        iconTheme: {
-            primary: '#ef4444',
-            secondary: '#fff',
-        },
-    },
-    loading: {
-        iconTheme: {
-            primary: '#3b82f6',
-            secondary: '#fff',
-        },
-    },
 };
 
 // Toast utilities
 export const showToast = {
     success: (message: string, options?: ToastOptions) => {
-        toast.success(message, { ...toastConfig, ...options });
+        toast.success(message, {
+            ...defaultConfig,
+            duration: 3000,
+            iconTheme: {
+                primary: '#10b981',
+                secondary: '#fff',
+            },
+            ...options,
+        });
     },
     error: (message: string, options?: ToastOptions) => {
-        toast.error(message, { ...toastConfig, ...options });
+        toast.error(message, {
+            ...defaultConfig,
+            duration: 5000,
+            iconTheme: {
+                primary: '#ef4444',
+                secondary: '#fff',
+            },
+            ...options,
+        });
     },
     loading: (message: string, options?: ToastOptions) => {
-        return toast.loading(message, { ...toastConfig, ...options });
+        return toast.loading(message, {
+            ...defaultConfig,
+            iconTheme: {
+                primary: '#3b82f6',
+                secondary: '#fff',
+            },
+            ...options,
+        });
     },
     promise: <T,>(
         promise: Promise<T>,
@@ -54,13 +57,13 @@ export const showToast = {
         },
         options?: ToastOptions
     ) => {
-        return toast.promise(promise, messages, { ...toastConfig, ...options });
+        return toast.promise(promise, messages, { ...defaultConfig, ...options });
     },
     dismiss: (toastId?: string) => {
         toast.dismiss(toastId);
     },
     custom: (message: string, options?: ToastOptions) => {
-        toast(message, { ...toastConfig, ...options });
+        toast(message, { ...defaultConfig, ...options });
     },
 };
 
