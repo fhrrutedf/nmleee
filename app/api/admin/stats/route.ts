@@ -17,7 +17,7 @@ export async function GET() {
             select: { role: true },
         });
 
-        if (user?.role !== 'ADMIN') {
+        if (user?.role !== 'ADMIN') { // Enum comparison works with strings in Prisma
             return NextResponse.json({ error: 'غير مصرح' }, { status: 403 });
         }
 
@@ -55,7 +55,7 @@ export async function GET() {
                 },
             }),
             prisma.user.count(),
-            prisma.user.count({ where: { role: 'SELLER' } }),
+            prisma.user.count({ where: { role: 'SELLER' } }), // Prisma handles enum conversion
             prisma.product.count(),
             prisma.course.count(),
         ]);
@@ -78,7 +78,7 @@ export async function GET() {
 
         // Top sellers
         const topSellers = await prisma.user.findMany({
-            where: { role: 'SELLER' },
+            where: { role: 'SELLER' }, // Enum filter
             orderBy: { totalEarnings: 'desc' },
             take: 5,
             select: {

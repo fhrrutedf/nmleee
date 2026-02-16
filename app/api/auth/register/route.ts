@@ -92,9 +92,8 @@ export async function POST(request: NextRequest) {
                 email,
                 username,
                 password: hashedPassword,
-                // Add defaults explicitly if needed
-                role: 'SELLER', // Default role
-                isActive: true
+                // Defaults are handled by Prisma schema
+                // role defaults to SELLER, isActive defaults to true
             },
             select: {
                 id: true,
