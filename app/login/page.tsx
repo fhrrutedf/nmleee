@@ -25,13 +25,14 @@ export default function LoginPage() {
                 email: formData.email,
                 password: formData.password,
                 redirect: false,
+                callbackUrl: '/dashboard'
             });
 
             if (result?.error) {
                 setError(result.error);
-            } else {
-                router.push('/dashboard');
-                router.refresh(); // Ensure the dashboard loads with new session
+            } else if (result?.ok) {
+                // Use window.location for hard refresh with new session
+                window.location.href = '/dashboard';
             }
         } catch (err) {
             setError('حدث خطأ أثناء تسجيل الدخول');
