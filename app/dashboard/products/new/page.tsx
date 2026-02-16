@@ -2,12 +2,15 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { FiArrowRight, FiUpload, FiDollarSign, FiPackage, FiImage, FiSave } from 'react-icons/fi';
+import { FiArrowRight, FiUpload, FiDollarSign, FiPackage, FiImage, FiSave, FiX } from 'react-icons/fi';
 import Link from 'next/link';
+import showToast from '@/lib/toast';
 
 export default function NewProductPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
+    const [uploading, setUploading] = useState(false);
+    const [uploadingProduct, setUploadingProduct] = useState(false);
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -19,9 +22,99 @@ export default function NewProductPage() {
         tags: '',
     });
 
+    // رفع صورة المنتج
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        // التحقق من نوع الملف
+        if (!file.type.startsWith('image/')) {
+            showToast.error('يرجى اختيار صورة فقط');
+            return;
+        }
+
+        setUploading(true);
+        const toastId = showToast.loading('جاري رفع الصورة...');
+
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error('فشل رفع الصورة');
+            }
+
+            const data = await response.json();
+            setFormData(prev => ({ ...prev, image: data.url }));
+            showToast.dismiss(toastId);
+            showToast.success('تم رفع الصورة بنجاح!');
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            showToast.dismiss(toastId);
+            showToast.error('فشل رفع الصورة');
+        } finally {
+            setUploading(false);
+        }
+    };
+
+    // رفع ملف المنتج
+    const handleProductFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setUploadingProduct(true);
+        const toastId = showToast.loading('جاري رفع الملف...');
+
+        try {
+            const formDataObj = new FormData();
+            formDataObj.append('file', file);
+
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                body: formDataObj,
+            });
+
+            if (!response.ok) {
+                throw new Error('فشل رفع الملف');
+            }
+
+            const data = await response.json();
+            setFormData(prev => ({
+                ...prev,
+                fileUrl: data.url,
+                fileType: getFileType(file.type),
+            }));
+            showToast.dismiss(toastId);
+            showToast.success('تم رفع الملف بنجاح!');
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            showToast.dismiss(toastId);
+            showToast.error('فشل رفع الملف');
+        } finally {
+            setUploadingProduct(false);
+        }
+    };
+
+    // تحديد نوع الملف
+    const getFileType = (mimeType: string): string => {
+        if (mimeType.includes('pdf')) return 'pdf';
+        if (mimeType.includes('video')) return 'video';
+        if (mimeType.includes('zip') || mimeType.includes('compressed')) return 'zip';
+        if (mimeType.includes('audio')) return 'audio';
+        if (mimeType.includes('document') || mimeType.includes('text')) return 'document';
+        return 'other';
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
+
+        const toastId = showToast.loading('جاري حفظ المنتج...');
 
         try {
             const response = await fetch('/api/products', {
@@ -35,13 +128,16 @@ export default function NewProductPage() {
             });
 
             if (response.ok) {
+                showToast.dismiss(toastId);
+                showToast.success('تم إضافة المنتج بنجاح!');
                 router.push('/dashboard/products');
             } else {
-                alert('حدث خطأ أثناء إضافة المنتج');
+                throw new Error('فشل إضافة المنتج');
             }
         } catch (error) {
             console.error('Error creating product:', error);
-            alert('حدث خطأ أثناء إضافة المنتج');
+            showToast.dismiss(toastId);
+            showToast.error('حدث خطأ أثناء إضافة المنتج');
         } finally {
             setLoading(false);
         }
@@ -157,39 +253,95 @@ export default function NewProductPage() {
                     </h2>
 
                     <div className="grid gap-6">
+                        {/* صورة المنتج */}
                         <div>
-                            <label className="label">رابط صورة المنتج (URL)</label>
-                            <div className="flex gap-2">
-                                <input
-                                    type="url"
-                                    className="input"
-                                    placeholder="https://..."
-                                    value={formData.image}
-                                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                                />
-                            </div>
+                            <label className="label flex items-center gap-2">
+                                <FiImage /> صورة المنتج <span className="text-red-500">*</span>
+                            </label>
+
+                            {formData.image ? (
+                                <div className="relative">
+                                    <img
+                                        src={formData.image}
+                                        alt="Product preview"
+                                        className="w-full h-64 object-cover rounded-lg border-2 border-gray-200 dark:border-gray-700"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setFormData({ ...formData, image: '' })}
+                                        className="absolute top-2 left-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors"
+                                    >
+                                        <FiX />
+                                    </button>
+                                </div>
+                            ) : (
+                                <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg cursor-pointer hover:border-action-blue hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">
+                                    <div className="flex flex-col items-center justify-center py-6">
+                                        <FiUpload className="text-4xl text-gray-400 mb-2" />
+                                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                                            {uploading ? 'جاري الرفع...' : 'انقر لرفع صورة أو اسحب هنا'}
+                                        </p>
+                                        <p className="text-xs text-gray-500 mt-2">PNG, JPG, WEBP (حد أقصى 50MB)</p>
+                                    </div>
+                                    <input
+                                        type="file"
+                                        className="hidden"
+                                        accept="image/*"
+                                        onChange={handleImageUpload}
+                                        disabled={uploading}
+                                    />
+                                </label>
+                            )}
+
                             <p className="text-xs text-text-muted mt-2">
                                 صورة الغلاف ستظهر في صفحة المنتج والمتجر. يفضل استخدام أبعاد مربعة (1080x1080).
                             </p>
                         </div>
 
+                        {/* ملف المنتج */}
                         <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
                             <h3 className="font-bold text-lg mb-4 text-action-blue">ملف المنتج الرقمي</h3>
                             <div className="space-y-4">
-                                <div>
-                                    <label className="label">رابط التحميل المباشر <span className="text-red-500">*</span></label>
-                                    <input
-                                        type="url"
-                                        required
-                                        className="input bg-white dark:bg-gray-800"
-                                        placeholder="https://drive.google.com/..."
-                                        value={formData.fileUrl}
-                                        onChange={(e) => setFormData({ ...formData, fileUrl: e.target.value })}
-                                    />
-                                    <p className="text-xs text-text-muted mt-2">
-                                        هذا هو الرابط الذي سيصل للعميل بعد إتمام عملية الدفع. تأكد من أن الرابط "عام" أو قابل للوصول.
-                                    </p>
-                                </div>
+                                {formData.fileUrl ? (
+                                    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-green-500">
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <p className="font-medium text-sm">تم رفع الملف بنجاح ✅</p>
+                                                <a
+                                                    href={formData.fileUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-xs text-action-blue hover:underline truncate block mt-1"
+                                                >
+                                                    {formData.fileUrl}
+                                                </a>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={() => setFormData({ ...formData, fileUrl: '', fileType: 'pdf' })}
+                                                className="text-red-500 hover:text-red-700"
+                                            >
+                                                <FiX className="text-xl" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-blue-300 dark:border-blue-700 rounded-lg cursor-pointer hover:border-action-blue hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-all">
+                                        <div className="flex flex-col items-center justify-center">
+                                            <FiUpload className="text-3xl text-blue-500 mb-2" />
+                                            <p className="text-sm text-gray-700 dark:text-gray-300">
+                                                {uploadingProduct ? 'جاري الرفع...' : 'ارفع ملف المنتج من جهازك'}
+                                            </p>
+                                            <p className="text-xs text-gray-500 mt-1">PDF, ZIP, Video, Audio (حد أقصى 50MB)</p>
+                                        </div>
+                                        <input
+                                            type="file"
+                                            className="hidden"
+                                            onChange={handleProductFileUpload}
+                                            disabled={uploadingProduct}
+                                        />
+                                    </label>
+                                )}
 
                                 <div>
                                     <label className="label">نوع الملف</label>
@@ -218,8 +370,8 @@ export default function NewProductPage() {
                     </Link>
                     <button
                         type="submit"
-                        disabled={loading}
-                        className="btn btn-primary flex-[2] shadow-lg hover:shadow-xl hover:-translate-y-1"
+                        disabled={loading || !formData.image || !formData.fileUrl}
+                        className="btn btn-primary flex-[2] shadow-lg hover:shadow-xl hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {loading ? (
                             <span className="flex items-center gap-2">
