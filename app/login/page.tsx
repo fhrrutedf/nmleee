@@ -21,23 +21,20 @@ export default function LoginPage() {
         setLoading(true);
 
         try {
-            const result = await signIn('credentials', {
+            setLoading(true);
+
+            // Let NextAuth handle the redirect automatically
+            await signIn('credentials', {
                 email: formData.email,
                 password: formData.password,
-                redirect: false,
-                callbackUrl: '/dashboard'
+                callbackUrl: '/dashboard',
+                redirect: true, // Let NextAuth redirect automatically
             });
 
-            if (result?.error) {
-                setError(result.error);
-            } else if (result?.ok) {
-                // Use window.location for hard refresh with new session
-                window.location.href = '/dashboard';
-            }
-        } catch (err) {
-            setError('حدث خطأ أثناء تسجيل الدخول');
-        } finally {
+            // This code won't execute if redirect succeeds
+        } catch (err: any) {
             setLoading(false);
+            setError(err?.message || 'حدث خطأ أثناء تسجيل الدخول');
         }
     };
 
