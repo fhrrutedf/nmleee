@@ -87,16 +87,6 @@ export const authOptions: AuthOptions = {
                 (session.user as any).username = token.username
             }
             return session
-        },
-        async redirect({ url, baseUrl }) {
-            // If url contains /dashboard, go to dashboard
-            if (url.includes('/dashboard')) {
-                return `${baseUrl}/dashboard`
-            }
-            // Allows callback URLs on the same origin
-            if (url.startsWith(baseUrl)) return url
-            // Default to dashboard for sign in
-            return `${baseUrl}/dashboard`
         }
     },
     secret: process.env.NEXTAUTH_SECRET,
