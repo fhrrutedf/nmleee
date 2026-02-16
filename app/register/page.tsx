@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FiUser, FiMail, FiLock, FiAlertCircle, FiAtSign } from 'react-icons/fi';
 import { apiPost, handleApiError } from '@/lib/safe-fetch';
+import showToast from '@/lib/toast';
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -24,35 +25,37 @@ export default function RegisterPage() {
 
         // Validation
         if (formData.password !== formData.confirmPassword) {
-            setError('كلمات المرور غير متطابقة');
+            showToast.error('كلمات المرور غير متطابقة');
             return;
         }
 
         if (formData.password.length < 6) {
-            setError('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+            showToast.error('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
             return;
         }
 
         if (!/^[a-zA-Z0-9_]+$/.test(formData.username)) {
-            setError('اسم المستخدم يجب أن يحتوي على أحرف وأرقام فقط');
+            showToast.error('اسم المستخدم يجب أن يحتوي على أحرف وأرقام فقط');
             return;
         }
 
         setLoading(true);
 
         try {
-            const data = await apiPost('/api/auth/register', {
+            await apiPost('/api/auth/register', {
                 name: formData.name,
                 email: formData.email,
                 username: formData.username.toLowerCase(),
                 password: formData.password,
             });
 
-            // Redirect to login
-            router.push('/login?registered=true');
+            showToast.success('تم إنشاء حسابك بنجاح! جاري التحويل...');
+            setTimeout(() => {
+                router.push('/login?registered=true');
+            }, 1000);
         } catch (err: any) {
             console.error('Registration failed:', err);
-            setError(handleApiError(err));
+            showToast.error(handleApiError(err));
             setLoading(false);
         }
     };

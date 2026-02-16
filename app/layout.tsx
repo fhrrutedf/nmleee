@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Readex_Pro } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+import { Toaster } from 'react-hot-toast';
 
 const readexPro = Readex_Pro({
     subsets: ["arabic", "latin"],
@@ -25,6 +26,7 @@ export default function RootLayout({
             <body className={`${readexPro.variable} font-sans antialiased text-primary-charcoal bg-bg-light`}>
                 <Providers>
                     {children}
+                    <Toaster />
                 </Providers>
             </body>
         </html>

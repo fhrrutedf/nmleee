@@ -2,8 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { FiShoppingCart, FiStar, FiSearch, FiFilter } from 'react-icons/fi';
+import { FiShoppingCart, FiStar, FiSearch, FiFilter, FiPackage } from 'react-icons/fi';
 import { apiGet, handleApiError } from '@/lib/safe-fetch';
+import { ProductCardSkeleton } from '@/components/ui/Skeleton';
+import EmptyState from '@/components/ui/EmptyState';
+import { useRouter } from 'next/navigation';
 
 export default function ProductsPage() {
     const [products, setProducts] = useState([]);
@@ -34,8 +37,18 @@ export default function ProductsPage() {
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+            <div className="min-h-screen bg-gray-50">
+                <div className="max-w-7xl mx-auto px-4 py-12">
+                    <div className="text-center mb-12">
+                        <h1 className="text-5xl font-bold gradient-text mb-4">جميع المنتجات</h1>
+                        <p className="text-xl text-gray-600">اكتشف منتجاتنا الرقمية المميزة</p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {[...Array(8)].map((_, i) => (
+                            <ProductCardSkeleton key={i} />
+                        ))}
+                    </div>
+                </div>
             </div>
         );
     }
@@ -82,9 +95,13 @@ export default function ProductsPage() {
 
                 {/* Products Grid */}
                 {filteredProducts.length === 0 ? (
-                    <div className="text-center py-12">
-                        <p className="text-gray-500 text-lg">لا توجد منتجات</p>
-                    </div>
+                    <EmptyState
+                        icon={<FiPackage />}
+                        title="لا توجد منتجات"
+                        description={searchTerm || category !== 'all'
+                            ? 'لم نجد منتجات تطابق بحثك. جرب كلمات مفتاحية أخرى.'
+                            : 'لا توجد منتجات متاحة حالياً. تحقق مرة أخرى قريباً!'}
+                    />
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {filteredProducts.map((product: any) => (
