@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { getPaymentMethodsForCountry, convertCurrency } from '@/config/paymentMethods';
+import { sendManualOrderAlert, sendManualOrderApproved } from '@/lib/email';
 
 export async function POST(req: NextRequest) {
     try {
@@ -90,6 +91,27 @@ export async function POST(req: NextRequest) {
                     })),
                 },
             },
+        });
+
+        // Send notifications
+        // 1. Alert Admin
+        await sendManualOrderAlert({
+            adminEmail: process.env.ADMIN_EMAIL || 'admin@tmleen.com', // Fallback or env
+            adminName: 'Admin',
+            orderNumber: order.orderNumber,
+            customerName: customerName,
+            customerEmail: customerEmail,
+            amount: totalUSD,
+            paymentMethod: 'manual',
+            orderId: order.id,
+        });
+
+        // 2. Notify Customer
+        await sendManualOrderApproved({
+            to: customerEmail,
+            customerName: customerName,
+            orderNumber: order.orderNumber,
+            amount: totalUSD,
         });
 
         return NextResponse.json({

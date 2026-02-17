@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { FiPlus, FiEdit2, FiTrash2, FiEye, FiEyeOff, FiMove } from 'react-icons/fi';
+import { FiPlus, FiEdit2, FiTrash2, FiEye, FiEyeOff, FiMove, FiCheckSquare } from 'react-icons/fi';
 
 interface Module {
     id: string;
@@ -23,6 +23,7 @@ interface Lesson {
     isPublished: boolean;
     isFree: boolean;
     order: number;
+    quizzes?: { id: string; title: string }[];
 }
 
 export default function CourseContentPage() {
@@ -224,12 +225,31 @@ export default function CourseContentPage() {
                                                                     <FiEyeOff className="text-gray-400" size={14} />
                                                                 )}
                                                             </div>
+                                                            {/* Quizzes List */}
+                                                            {lesson.quizzes && lesson.quizzes.length > 0 && (
+                                                                <div className="mt-2 flex flex-wrap gap-2">
+                                                                    {lesson.quizzes.map((quiz) => (
+                                                                        <span key={quiz.id} className="inline-flex items-center gap-1 px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-md">
+                                                                            <FiCheckSquare size={12} />
+                                                                            {quiz.title}
+                                                                        </span>
+                                                                    ))}
+                                                                </div>
+                                                            )}
                                                         </div>
                                                     </div>
                                                     <div className="flex items-center gap-2">
                                                         <button
+                                                            onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes/new?lessonId=${lesson.id}`)}
+                                                            className="p-1.5 text-xs bg-purple-50 text-purple-600 rounded hover:bg-purple-100 border border-purple-200 flex items-center gap-1"
+                                                            title="إضافة اختبار"
+                                                        >
+                                                            <FiPlus size={12} /> اختبار
+                                                        </button>
+                                                        <button
                                                             onClick={() => router.push(`/dashboard/lessons/${lesson.id}/edit`)}
                                                             className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                                                            title="تعديل الدرس"
                                                         >
                                                             <FiEdit2 size={16} />
                                                         </button>

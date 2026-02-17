@@ -22,6 +22,12 @@ export async function GET(
                         isPublished: true,
                         isFree: true,
                         order: true,
+                        quizzes: {
+                            select: {
+                                id: true,
+                                title: true
+                            }
+                        }
                     }
                 },
                 _count: {

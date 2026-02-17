@@ -147,8 +147,8 @@ export default function EditProductPage() {
                     <button
                         onClick={() => setActiveTab('basics')}
                         className={`px-6 py-3 font-bold border-b-2 transition-colors whitespace-nowrap ${activeTab === 'basics'
-                                ? 'border-primary-600 text-primary-600'
-                                : 'border-transparent text-gray-600 hover:text-primary-600'
+                            ? 'border-primary-600 text-primary-600'
+                            : 'border-transparent text-gray-600 hover:text-primary-600'
                             }`}
                     >
                         <FiPackage className="inline ml-2" />
@@ -157,8 +157,8 @@ export default function EditProductPage() {
                     <button
                         onClick={() => setActiveTab('media')}
                         className={`px-6 py-3 font-bold border-b-2 transition-colors whitespace-nowrap ${activeTab === 'media'
-                                ? 'border-primary-600 text-primary-600'
-                                : 'border-transparent text-gray-600 hover:text-primary-600'
+                            ? 'border-primary-600 text-primary-600'
+                            : 'border-transparent text-gray-600 hover:text-primary-600'
                             }`}
                     >
                         <FiImage className="inline ml-2" />
@@ -167,8 +167,8 @@ export default function EditProductPage() {
                     <button
                         onClick={() => setActiveTab('pricing')}
                         className={`px-6 py-3 font-bold border-b-2 transition-colors whitespace-nowrap ${activeTab === 'pricing'
-                                ? 'border-primary-600 text-primary-600'
-                                : 'border-transparent text-gray-600 hover:text-primary-600'
+                            ? 'border-primary-600 text-primary-600'
+                            : 'border-transparent text-gray-600 hover:text-primary-600'
                             }`}
                     >
                         <FiDollarSign className="inline ml-2" />
@@ -177,8 +177,8 @@ export default function EditProductPage() {
                     <button
                         onClick={() => setActiveTab('settings')}
                         className={`px-6 py-3 font-bold border-b-2 transition-colors whitespace-nowrap ${activeTab === 'settings'
-                                ? 'border-primary-600 text-primary-600'
-                                : 'border-transparent text-gray-600 hover:text-primary-600'
+                            ? 'border-primary-600 text-primary-600'
+                            : 'border-transparent text-gray-600 hover:text-primary-600'
                             }`}
                     >
                         <FiSettings className="inline ml-2" />
@@ -243,29 +243,7 @@ export default function EditProductPage() {
                             </div>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <label className="label">المدة (اختياري)</label>
-                                <input
-                                    type="text"
-                                    className="input"
-                                    placeholder="مثال: ساعتان"
-                                    value={formData.duration}
-                                    onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                                />
-                            </div>
 
-                            <div>
-                                <label className="label">عدد الجلسات/المحاضرات (اختياري)</label>
-                                <input
-                                    type="number"
-                                    className="input"
-                                    placeholder="مثال: 10"
-                                    value={formData.sessions}
-                                    onChange={(e) => setFormData({ ...formData, sessions: e.target.value })}
-                                />
-                            </div>
-                        </div>
 
                         {/* Features */}
                         <div>
