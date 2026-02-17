@@ -11,12 +11,24 @@ export default function Home() {
             <header className="glass-effect sticky top-0 z-50 shadow-sm border-b border-gray-100">
                 <nav className="container-custom py-4">
                     <div className="flex items-center justify-between">
-                        <div className="text-2xl font-bold text-primary-charcoal flex items-center gap-2">
-                            <span className="w-8 h-8 rounded-lg bg-action-blue flex items-center justify-center text-white">
-                                <FiLayers />
-                            </span>
-                            منصتي الرقمية
+                        <div className="flex items-center gap-12">
+                            <Link href="/" className="text-2xl font-bold text-primary-charcoal flex items-center gap-2">
+                                <span className="w-8 h-8 rounded-lg bg-action-blue flex items-center justify-center text-white">
+                                    <FiLayers />
+                                </span>
+                                منصتي الرقمية
+                            </Link>
+
+                            {/* Desktop Navigation */}
+                            <div className="hidden md:flex items-center gap-8">
+                                <Link href="/features" className="text-gray-600 hover:text-action-blue font-medium transition-colors">المميزات</Link>
+                                <Link href="/pricing" className="text-gray-600 hover:text-action-blue font-medium transition-colors">الأسعار</Link>
+                                <Link href="/showcase" className="text-gray-600 hover:text-action-blue font-medium transition-colors">نماذج</Link>
+                                <Link href="/blog" className="text-gray-600 hover:text-action-blue font-medium transition-colors">المدونة</Link>
+                                <Link href="/about" className="text-gray-600 hover:text-action-blue font-medium transition-colors">عن المنصة</Link>
+                            </div>
                         </div>
+
                         <div className="flex gap-4">
                             <Link href="/login" className="btn btn-secondary font-medium hover:bg-gray-50 border-transparent shadow-none hover:shadow-sm">
                                 دخول
