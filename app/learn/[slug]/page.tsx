@@ -3,7 +3,16 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { FiCheck, FiLock, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiCheck, FiLock, FiChevronLeft, FiChevronRight, FiVideo, FiFileText, FiCheckSquare, FiAward, FiDownload } from 'react-icons/fi';
+import QuizPlayer from '@/components/QuizPlayer';
+
+interface Quiz {
+    id: string;
+    title: string;
+    passingScore: number;
+    timeLimit?: number;
+    questions: any[];
+}
 
 interface Lesson {
     id: string;
@@ -12,6 +21,7 @@ interface Lesson {
     content?: string;
     order: number;
     completed?: boolean;
+    quizzes?: Quiz[];
 }
 
 interface Module {
@@ -23,7 +33,11 @@ interface Module {
 interface Course {
     id: string;
     title: string;
+    zoomLink?: string;
+    meetLink?: string;
     modules: Module[];
+    isEnrolled: boolean;
+    certificate?: any;
 }
 
 export default function LearnPage() {
@@ -31,28 +45,15 @@ export default function LearnPage() {
     const router = useRouter();
     const { data: session } = useSession();
     const [course, setCourse] = useState<Course | null>(null);
-    const [currentLesson, setCurrentLesson] = useState<Lesson | null>(null);
+    const [activeItem, setActiveItem] = useState<{ type: 'lesson' | 'quiz', data: Lesson | Quiz } | null>(null);
     const [loading, setLoading] = useState(true);
     const [hasAccess, setHasAccess] = useState(false);
 
     useEffect(() => {
         if (session) {
-            checkAccess();
             fetchCourse();
-        } else {
-            router.push('/login');
         }
     }, [session, params.slug]);
-
-    const checkAccess = async () => {
-        try {
-            const response = await fetch(`/api/courses/${params.slug}/access`);
-            setHasAccess(response.ok);
-        } catch (error) {
-            console.error('Error:', error);
-            setHasAccess(false);
-        }
-    };
 
     const fetchCourse = async () => {
         try {
@@ -60,10 +61,14 @@ export default function LearnPage() {
             if (response.ok) {
                 const data = await response.json();
                 setCourse(data);
-                // Set first lesson
+                setHasAccess(data.isEnrolled || false); // API now returns enrollment status
+
+                // Set initial active item
                 if (data.modules?.[0]?.lessons?.[0]) {
-                    setCurrentLesson(data.modules[0].lessons[0]);
+                    setActiveItem({ type: 'lesson', data: data.modules[0].lessons[0] });
                 }
+            } else {
+                setHasAccess(false);
             }
         } catch (error) {
             console.error('Error:', error);
@@ -83,7 +88,7 @@ export default function LearnPage() {
                 }),
             });
 
-            // Update local state
+            // Update local state is tricky without re-fetching, simplest is to mark current lesson as completed
             if (course) {
                 const updatedModules = course.modules.map((module) => ({
                     ...module,
@@ -91,42 +96,18 @@ export default function LearnPage() {
                         lesson.id === lessonId ? { ...lesson, completed: true } : lesson
                     ),
                 }));
-                setCourse({ ...course, modules: updatedModules });
+                // Don't overwrite the whole course, just modules
+                setCourse(prev => prev ? ({ ...prev, modules: updatedModules }) : null);
             }
         } catch (error) {
             console.error('Error marking complete:', error);
         }
     };
 
-    const goToNextLesson = () => {
-        if (!course || !currentLesson) return;
-
-        let found = false;
-        for (const module of course.modules) {
-            for (const lesson of module.lessons) {
-                if (found) {
-                    setCurrentLesson(lesson);
-                    return;
-                }
-                if (lesson.id === currentLesson.id) {
-                    found = true;
-                }
-            }
-        }
-    };
-
-    const goToPreviousLesson = () => {
-        if (!course || !currentLesson) return;
-
-        let previous: Lesson | null = null;
-        for (const module of course.modules) {
-            for (const lesson of module.lessons) {
-                if (lesson.id === currentLesson.id && previous) {
-                    setCurrentLesson(previous);
-                    return;
-                }
-                previous = lesson;
-            }
+    const handleQuizComplete = (score: number, isPassed: boolean) => {
+        // Refresh to maybe unlock certificate or show progress
+        if (isPassed) {
+            alert(`أحسنت! لقد اجتزت الاختبار بنتيجة ${score.toFixed(1)}%`);
         }
     };
 
@@ -138,20 +119,20 @@ export default function LearnPage() {
         );
     }
 
-    if (!hasAccess) {
+    if (!hasAccess && !loading) {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div className="text-center">
+                <div className="text-center p-8 bg-white rounded-lg shadow-lg">
                     <FiLock size={64} className="mx-auto text-gray-300 mb-4" />
                     <h2 className="text-2xl font-bold text-gray-900 mb-2">
                         ليس لديك صلاحية للوصول
                     </h2>
-                    <p className="text-gray-600 mb-6">يجب شراء الكورس أولاً</p>
+                    <p className="text-gray-600 mb-6">يجب شراء الكورس أولاً لمشاهدة المحتوى</p>
                     <button
-                        onClick={() => router.push(`/courses/${params.slug}`)}
+                        onClick={() => router.push(`/courses`)}
                         className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
                     >
-                        عرض الكورس
+                        استعراض الكورسات
                     </button>
                 </div>
             </div>
@@ -163,34 +144,75 @@ export default function LearnPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-900 flex">
+        <div className="min-h-screen bg-gray-900 flex flex-col md:flex-row h-screen overflow-hidden">
             {/* Sidebar */}
-            <div className="w-80 bg-white overflow-y-auto">
-                <div className="p-4 border-b">
-                    <h2 className="font-bold text-gray-900 text-lg">{course.title}</h2>
+            <div className="w-full md:w-80 bg-white border-l overflow-y-auto flex-shrink-0 z-10">
+                <div className="p-4 border-b bg-gray-50">
+                    <h2 className="font-bold text-gray-900 leading-tight mb-2">{course.title}</h2>
+
+                    {/* External Links */}
+                    <div className="flex flex-col gap-2 mt-3">
+                        {course.zoomLink && (
+                            <a href={course.zoomLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs text-blue-600 hover:underline">
+                                <FiVideo /> رابط Zoom المباشر
+                            </a>
+                        )}
+                        {course.meetLink && (
+                            <a href={course.meetLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs text-orange-600 hover:underline">
+                                <FiVideo /> رابط Google Meet
+                            </a>
+                        )}
+                        {course.certificate && (
+                            <a href={`/certificates/${course.certificate.id}`} target="_blank" className="flex items-center gap-2 text-xs text-green-600 hover:underline font-bold">
+                                <FiAward /> تحميل الشهادة
+                            </a>
+                        )}
+                    </div>
                 </div>
 
-                <div className="p-4">
-                    {course.modules.map((module) => (
+                <div className="p-2">
+                    {course.modules.map((module, mIdx) => (
                         <div key={module.id} className="mb-4">
-                            <h3 className="font-bold text-gray-900 mb-2">{module.title}</h3>
+                            <h3 className="px-2 font-bold text-gray-700 text-sm mb-2 uppercase tracking-wider">
+                                {module.title}
+                            </h3>
                             <div className="space-y-1">
-                                {module.lessons.map((lesson) => (
-                                    <button
-                                        key={lesson.id}
-                                        onClick={() => setCurrentLesson(lesson)}
-                                        className={`w-full text-right p-3 rounded-lg transition-colors flex items-center gap-2 ${currentLesson?.id === lesson.id
-                                                ? 'bg-indigo-100 text-indigo-900'
-                                                : 'hover:bg-gray-100 text-gray-700'
-                                            }`}
-                                    >
-                                        {lesson.completed ? (
-                                            <FiCheck className="text-green-600 flex-shrink-0" />
-                                        ) : (
-                                            <div className="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0" />
-                                        )}
-                                        <span className="text-sm flex-1 truncate">{lesson.title}</span>
-                                    </button>
+                                {module.lessons.map((lesson, lIdx) => (
+                                    <div key={lesson.id}>
+                                        {/* Lesson Item */}
+                                        <button
+                                            onClick={() => setActiveItem({ type: 'lesson', data: lesson })}
+                                            className={`w-full text-right p-3 rounded-lg transition-colors flex items-center gap-3 ${activeItem?.data.id === lesson.id && activeItem.type === 'lesson'
+                                                    ? 'bg-indigo-50 text-indigo-700 border-l-4 border-indigo-500'
+                                                    : 'hover:bg-gray-100 text-gray-700'
+                                                }`}
+                                        >
+                                            {lesson.completed ? (
+                                                <FiCheck className="text-green-500 flex-shrink-0" />
+                                            ) : (
+                                                <div className="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0" />
+                                            )}
+                                            <span className="text-sm font-medium flex-1 truncate">
+                                                {mIdx + 1}.{lIdx + 1} {lesson.title}
+                                            </span>
+                                            {lesson.videoUrl ? <FiVideo size={14} className="opacity-50" /> : <FiFileText size={14} className="opacity-50" />}
+                                        </button>
+
+                                        {/* Nested Quizzes */}
+                                        {lesson.quizzes?.map((quiz) => (
+                                            <button
+                                                key={quiz.id}
+                                                onClick={() => setActiveItem({ type: 'quiz', data: quiz })}
+                                                className={`w-full text-right p-2 pr-8 rounded-lg transition-colors flex items-center gap-2 mt-1 ${activeItem?.data.id === quiz.id && activeItem.type === 'quiz'
+                                                        ? 'bg-purple-50 text-purple-700'
+                                                        : 'hover:bg-gray-50 text-gray-600'
+                                                    }`}
+                                            >
+                                                <FiCheckSquare size={14} className="flex-shrink-0" />
+                                                <span className="text-xs">{quiz.title}</span>
+                                            </button>
+                                        ))}
+                                    </div>
                                 ))}
                             </div>
                         </div>
@@ -198,71 +220,70 @@ export default function LearnPage() {
                 </div>
             </div>
 
-            {/* Main Content */}
-            <div className="flex-1 flex flex-col">
-                {/* Video Player */}
-                <div className="bg-black">
-                    {currentLesson?.videoUrl ? (
-                        <video
-                            key={currentLesson.id}
-                            controls
-                            className="w-full"
-                            style={{ maxHeight: '70vh' }}
-                            onEnded={() => markComplete(currentLesson.id)}
-                        >
-                            <source src={currentLesson.videoUrl} type="video/mp4" />
-                            المتصفح لا يدعم تشغيل الفيديو
-                        </video>
-                    ) : (
-                        <div className="h-96 flex items-center justify-center text-gray-500">
-                            لا يوجد فيديو لهذا الدرس
-                        </div>
-                    )}
-                </div>
-
-                {/* Lesson Info */}
-                <div className="bg-white p-6 flex-1 overflow-y-auto">
-                    <div className="max-w-4xl mx-auto">
-                        <h1 className="text-2xl font-bold text-gray-900 mb-4">
-                            {currentLesson?.title}
-                        </h1>
-
-                        {currentLesson?.content && (
-                            <div className="prose max-w-none mb-6">
-                                <div dangerouslySetInnerHTML={{ __html: currentLesson.content }} />
+            {/* Main Content Area */}
+            <div className="flex-1 flex flex-col bg-gray-50 overflow-hidden relative">
+                {activeItem?.type === 'lesson' ? (
+                    <>
+                        {/* Video Player */}
+                        <div className="bg-black flex-shrink-0 relative">
+                            {/* Aspect Ratio 16:9 Container */}
+                            <div className="aspect-video w-full max-h-[60vh] flex items-center justify-center bg-black">
+                                {(activeItem.data as Lesson).videoUrl ? (
+                                    <video
+                                        key={activeItem.data.id}
+                                        controls
+                                        className="w-full h-full object-contain"
+                                        onEnded={() => markComplete(activeItem.data.id)}
+                                        src={(activeItem.data as Lesson).videoUrl}
+                                    >
+                                        المتصفح لا يدعم تشغيل الفيديو
+                                    </video>
+                                ) : (
+                                    <div className="text-gray-500 flex flex-col items-center">
+                                        <FiFileText size={48} className="mb-2" />
+                                        <p>هذا الدرس نصي فقط</p>
+                                    </div>
+                                )}
                             </div>
-                        )}
+                        </div>
 
-                        {/* Mark Complete */}
-                        {!currentLesson?.completed && (
-                            <button
-                                onClick={() => currentLesson && markComplete(currentLesson.id)}
-                                className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
-                            >
-                                <FiCheck />
-                                وضع علامة مكتمل
-                            </button>
-                        )}
+                        {/* Content & Desc */}
+                        <div className="flex-1 overflow-y-auto p-8">
+                            <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm p-8">
+                                <div className="flex justify-between items-start mb-6">
+                                    <h1 className="text-2xl font-bold text-gray-900">
+                                        {(activeItem.data as Lesson).title}
+                                    </h1>
+                                    {!(Boolean((activeItem.data as Lesson).completed)) && (
+                                        <button
+                                            onClick={() => markComplete(activeItem.data.id)}
+                                            className="px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-2"
+                                        >
+                                            <FiCheck /> اكتمال
+                                        </button>
+                                    )}
+                                </div>
+
+                                {(activeItem.data as Lesson).content && (
+                                    <div className="prose max-w-none text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: (activeItem.data as Lesson).content || '' }} />
+                                )}
+                            </div>
+                        </div>
+                    </>
+                ) : activeItem?.type === 'quiz' ? (
+                    <div className="flex-1 overflow-y-auto p-4 md:p-8 bg-gray-100 flex items-center justify-center">
+                        <div className="w-full max-w-3xl">
+                            <QuizPlayer
+                                quiz={activeItem.data as Quiz}
+                                onComplete={handleQuizComplete}
+                            />
+                        </div>
                     </div>
-                </div>
-
-                {/* Navigation */}
-                <div className="bg-white border-t p-4 flex justify-between">
-                    <button
-                        onClick={goToPreviousLesson}
-                        className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors flex items-center gap-2"
-                    >
-                        <FiChevronRight />
-                        الدرس السابق
-                    </button>
-                    <button
-                        onClick={goToNextLesson}
-                        className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-2"
-                    >
-                        الدرس التالي
-                        <FiChevronLeft />
-                    </button>
-                </div>
+                ) : (
+                    <div className="flex-1 flex items-center justify-center text-gray-500">
+                        اختر درساً للبدء
+                    </div>
+                )}
             </div>
         </div>
     );
