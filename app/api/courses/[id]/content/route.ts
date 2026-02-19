@@ -11,6 +11,10 @@ export async function GET(
         const { id: courseId } = await params;
         const session = await getServerSession(authOptions);
 
+        if (!session?.user?.email) {
+            return new NextResponse('Unauthorized', { status: 401 });
+        }
+
         // Check if user has access (Enrolled or is Admin/Creator)
         // For simplicity, we prioritize enrollment check
         const enrollment = await prisma.courseEnrollment.findUnique({
