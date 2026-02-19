@@ -5,17 +5,11 @@ import prisma from '@/lib/db';
 
 export async function GET(
     req: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id: courseId } = await params;
         const session = await getServerSession(authOptions);
-
-        // Allow preview access without login if course is free/open OR handle in UI
-        if (!session?.user?.email) {
-            return new NextResponse('Unauthorized', { status: 401 });
-        }
-
-        const courseId = params.id;
 
         // Check if user has access (Enrolled or is Admin/Creator)
         // For simplicity, we prioritize enrollment check

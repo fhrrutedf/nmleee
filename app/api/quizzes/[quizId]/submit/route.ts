@@ -5,7 +5,7 @@ import prisma from '@/lib/db';
 
 export async function POST(
     req: Request,
-    { params }: { params: { quizId: string } }
+    { params }: { params: Promise<{ quizId: string }> }
 ) {
     try {
         const session = await getServerSession(authOptions);
@@ -16,7 +16,7 @@ export async function POST(
 
         const body = await req.json();
         const { answers, timeSpent } = body;
-        const quizId = params.quizId;
+        const { quizId } = await params;
 
         // Fetch quiz with questions and correct answers
         const quiz = await prisma.quiz.findUnique({

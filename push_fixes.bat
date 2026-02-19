@@ -1,11 +1,7 @@
 @echo off
-echo Cleaning git locks...
-if exist .git\index.lock del /f .git\index.lock
-echo Adding corrected files...
-git add lib/toast.ts public/locales
-echo Committing changes...
-git commit -m "Final build and translation fix"
-echo Pushing to GitHub...
+echo === دفع الإصلاحات إلى GitHub ===
+git add .
+git commit -m "Fix dynamic route params for Next.js 15+"
 git push origin main
-echo Done! Please check Vercel build status.
+echo === تم بنجاح ===
 pause
