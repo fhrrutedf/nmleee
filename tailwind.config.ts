@@ -11,14 +11,18 @@ const config: Config = {
         extend: {
             colors: {
                 // New Design System Colors
-                'primary-charcoal': '#262626',
-                'action-blue': {
-                    DEFAULT: '#0052FF',
-                    hover: '#0040D6', // Slightly darker for hover
+                'primary-charcoal': '#1e1b4b', // Deep purple
+                'action-blue': { // Kept name for compatibility, but color is Magenta
+                    DEFAULT: '#D41295',
+                    hover: '#a80b74',
                 },
-                'bg-light': '#F5F7FA',
+                'action-secondary': { // Cyan
+                    DEFAULT: '#00D9F5',
+                    hover: '#00b3cc',
+                },
+                'bg-light': '#faf5ff',
                 'card-white': '#FFFFFF',
-                'text-muted': '#6B7280',
+                'text-muted': '#6b7280',
 
                 // Existing colors kept for backward compatibility where needed, 
                 // but should be phased out or mapped to new system.

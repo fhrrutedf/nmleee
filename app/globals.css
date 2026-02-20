@@ -4,25 +4,30 @@
 
 @layer base {
   :root {
-    --primary-charcoal: #262626;
-    --action-blue: #0052FF;
-    --bg-light: #F5F7FA;
+    --primary-charcoal: #1e1b4b;
+    /* Deep purple/indigo for text */
+    --action-blue: #D41295;
+    /* Magenta (kept variable name for compatibility) */
+    --action-secondary: #00D9F5;
+    /* Cyan */
+    --bg-light: #faf5ff;
+    /* Very light purple tint */
     --card-white: #FFFFFF;
-    --text-muted: #6B7280;
+    --text-muted: #6b7280;
   }
 
-  /* Placeholder for future dark mode implementation */
+  /* Dark mode implementation */
   .dark {
-    --primary-charcoal: #F3F4F6;
-    /* Off-white for text in dark mode */
-    --action-blue: #3B82F6;
-    /* Lighter blue for dark mode */
-    --bg-light: #111827;
-    /* Very dark gray background */
-    --card-white: #1F2937;
-    /* Dark gray card background */
-    --text-muted: #9CA3AF;
-    /* Light gray for muted text */
+    --primary-charcoal: #f3f4f6;
+    --action-blue: #D41295;
+    /* Magenta */
+    --action-secondary: #00D9F5;
+    /* Cyan */
+    --bg-light: #0f172a;
+    /* Very dark blue/purple */
+    --card-white: #1e293b;
+    /* Dark slate card background */
+    --text-muted: #9ca3af;
   }
 
   * {

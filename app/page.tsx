@@ -149,13 +149,13 @@ export default function Home() {
 
 
             {/* Hero Section */}
-            <section className="relative pt-24 pb-32 lg:pt-32 lg:pb-40 overflow-hidden h-[100vh] min-h-[800px] flex items-center">
+            <section className="relative pt-24 pb-32 lg:pt-32 lg:pb-40 overflow-hidden h-[100vh] min-h-[800px] flex items-center bg-gradient-to-br from-[#12002b] via-[#2d004d] to-[#7a005c]">
 
                 {/* Parallax Background Blobs */}
-                <motion.div style={{ y: useTransform(scrollYProgress, [0, 1], [0, 600]) }} className="absolute inset-0 z-0 pointer-events-none">
-                    <motion.div animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute top-10 right-[10%] w-[500px] h-[500px] bg-blue-400/20 rounded-full mix-blend-multiply filter blur-[100px]" />
-                    <motion.div animate={{ scale: [1, 1.5, 1], x: [0, 100, 0] }} transition={{ duration: 25, repeat: Infinity, ease: "linear" }} className="absolute bottom-10 left-[10%] w-[600px] h-[600px] bg-purple-400/20 rounded-full mix-blend-multiply filter blur-[120px]" />
-                    <motion.div animate={{ scale: [1, 1.3, 1], y: [0, -100, 0] }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-pink-400/20 rounded-full mix-blend-multiply filter blur-[90px]" />
+                <motion.div style={{ y: useTransform(scrollYProgress, [0, 1], [0, 600]) }} className="absolute inset-0 z-0 pointer-events-none opacity-50">
+                    <motion.div animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute top-10 right-[10%] w-[500px] h-[500px] bg-[#D41295] rounded-full mix-blend-screen filter blur-[100px] opacity-40" />
+                    <motion.div animate={{ scale: [1, 1.5, 1], x: [0, 100, 0] }} transition={{ duration: 25, repeat: Infinity, ease: "linear" }} className="absolute bottom-10 left-[10%] w-[600px] h-[600px] bg-[#00D9F5] rounded-full mix-blend-screen filter blur-[120px] opacity-30" />
+                    <motion.div animate={{ scale: [1, 1.3, 1], y: [0, -100, 0] }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-[#a200ff] rounded-full mix-blend-screen filter blur-[90px] opacity-40" />
                 </motion.div>
 
                 <div className="container-custom relative z-10">
@@ -166,24 +166,24 @@ export default function Home() {
                                 initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
                                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                                 transition={{ type: "spring", damping: 15, delay: 0.2 }}
-                                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/80 backdrop-blur-md text-action-blue rounded-full text-sm font-bold mb-8 border border-blue-100 shadow-lg shadow-blue-500/10"
+                                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 backdrop-blur-md text-white rounded-full text-sm font-bold mb-8 border border-white/20 shadow-lg shadow-purple-500/20"
                             >
                                 <span className="relative flex h-3 w-3">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-action-secondary opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-action-secondary"></span>
                                 </span>
                                 المنصة الأسرع نمواً لصناع المحتوى
                             </motion.div>
 
-                            <h1 className="text-5xl lg:text-7xl font-bold mb-6 font-heading text-primary-charcoal leading-[1.2]">
+                            <h1 className="text-5xl lg:text-7xl font-bold mb-6 font-heading text-white leading-[1.2] drop-shadow-md">
                                 <RevealText text="حول شغفك إلى" delay={2} />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-action-blue to-purple-600 relative inline-block">
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-action-secondary to-[#ff7eb3] relative inline-block">
                                     <RevealText text="دخل مستدام" delay={4} />
                                     <motion.svg
                                         initial={{ strokeDasharray: 1000, strokeDashoffset: 1000 }}
                                         animate={{ strokeDashoffset: 0 }}
                                         transition={{ duration: 2, delay: 1, ease: "easeInOut" }}
-                                        className="absolute w-full h-4 -bottom-2 right-0 text-yellow-400 drop-shadow-md z-[-1]"
+                                        className="absolute w-full h-4 -bottom-2 right-0 text-[#ff7eb3] drop-shadow-md z-[-1] opacity-70"
                                         viewBox="0 0 100 10"
                                         preserveAspectRatio="none"
                                     >
@@ -196,7 +196,7 @@ export default function Home() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.8 }}
-                                className="text-xl text-gray-600 mb-10 leading-relaxed max-w-lg font-medium"
+                                className="text-xl text-purple-100/80 mb-10 leading-relaxed max-w-lg font-medium drop-shadow-sm"
                             >
                                 لا تحتاج لخبرة تقنية. ابدأ بيع دوراتك، كتبك الإلكترونية، وخدماتك الاستشارية في دقائق معدودة وبأدوات احترافية.
                             </motion.p>
