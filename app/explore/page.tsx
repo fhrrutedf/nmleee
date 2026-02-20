@@ -12,11 +12,9 @@ export const metadata = {
 export default async function ExplorePage({
     searchParams,
 }: {
-    searchParams: { q?: string; category?: string; sort?: string }
+    searchParams: Promise<{ q?: string; category?: string; sort?: string }>
 }) {
-    const query = searchParams.q || '';
-    const category = searchParams.category || '';
-    const sort = searchParams.sort || 'newest';
+    const { q: query = '', category = '', sort = 'newest' } = await searchParams;
 
     // Fetch Products
     const products = await prisma.product.findMany({
