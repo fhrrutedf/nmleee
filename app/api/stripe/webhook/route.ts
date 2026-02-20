@@ -71,7 +71,18 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
         const discountApplied = parseFloat(metadata.discountApplied || '0');
         const userId = metadata.userId || items[0]?.id || 'guest'; // We might need an actual user ID.
         const couponId = metadata.couponId;
-        const affiliateLinkId = metadata.affiliateLinkId;
+        const affiliateRefCode = metadata.affiliateRef;
+
+        // استخراج معرف الإحالة الحقيقي من الكود
+        let affiliateLinkId = null;
+        if (affiliateRefCode) {
+            const link = await prisma.affiliateLink.findFirst({
+                where: { uniqueCode: affiliateRefCode }
+            });
+            if (link) {
+                affiliateLinkId = link.id;
+            }
+        }
 
         // Appointment variables
         const apptDate = metadata.appointmentDate;

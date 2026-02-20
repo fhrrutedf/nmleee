@@ -79,6 +79,9 @@ export default function CheckoutPage() {
         setLoading(true);
 
         try {
+            // Check for affiliate ref
+            const affiliateRef = sessionStorage.getItem('affiliate_ref') || localStorage.getItem('affiliate_ref');
+
             const res = await fetch('/api/stripe/create-checkout-session', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -87,7 +90,8 @@ export default function CheckoutPage() {
                     customerEmail: formData.email,
                     customerName: formData.name,
                     couponCode: discount > 0 ? couponCode : null,
-                    appointmentDetails: appointmentDetails
+                    appointmentDetails: appointmentDetails,
+                    affiliateRef: affiliateRef
                 })
             });
 

@@ -12,7 +12,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const { items, customerEmail, customerName, couponCode, appointmentDetails } = body;
+        const { items, customerEmail, customerName, couponCode, appointmentDetails, affiliateRef } = body;
 
         if (!items || items.length === 0) {
             return NextResponse.json({ error: 'السلة فارغة' }, { status: 400 });
@@ -74,7 +74,8 @@ export async function POST(request: NextRequest) {
                 itemsData: items.map((i: any) => `${i.id}:${i.type || 'product'}:${i.price || 0}`).join(','),
                 appointmentDate: appointmentDetails?.date || '',
                 appointmentTime: appointmentDetails?.time || '',
-                appointmentSellerId: appointmentDetails?.sellerId || ''
+                appointmentSellerId: appointmentDetails?.sellerId || '',
+                affiliateRef: affiliateRef || '' // إضافة كود الإحالة للميتاداتا
             },
         });
 
