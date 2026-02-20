@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import Stripe from 'stripe';
-import { sendOrderConfirmation } from '@/lib/email';
+import { sendOrderConfirmation, sendSubscriptionConfirmation } from '@/lib/email';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: '2024-06-20',
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
         case 'customer.subscription.created':
         case 'customer.subscription.updated':
         case 'customer.subscription.deleted':
-            await handleSubscriptionEvent(event.data.object as Stripe.Subscription);
+            await handleSubscriptionEvent(event.data.object as Stripe.Subscription, event.type);
             break;
 
         default:
@@ -264,7 +264,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
 /**
  * معالجة أحداث الاشتراكات (SaaS)
  */
-async function handleSubscriptionEvent(subscription: Stripe.Subscription) {
+async function handleSubscriptionEvent(subscription: Stripe.Subscription, eventType: string) {
     try {
         const metadata = subscription.metadata;
         const planId = metadata?.planId;
@@ -315,6 +315,28 @@ async function handleSubscriptionEvent(subscription: Stripe.Subscription) {
         });
 
         console.log(`✅ Subscription ${subscription.id} synced successfully`);
+
+        // إرسال بريد التأكيد لو كان اشتراكاً جديداً
+        if (eventType === 'customer.subscription.created' && subscription.status === 'active') {
+            const planName = metadata?.planName || 'الباقة المتميزة';
+            const userRecord = await prisma.user.findUnique({
+                where: { id: userId },
+                select: { email: true, name: true }
+            });
+
+            if (userRecord && userRecord.email) {
+                const amount = (subscription.items.data[0]?.price?.unit_amount || 0) / 100;
+                const interval = subscription.items.data[0]?.plan?.interval || 'month';
+
+                await sendSubscriptionConfirmation({
+                    to: userRecord.email,
+                    customerName: userRecord.name || 'عزيزي المشترك',
+                    planName,
+                    amount,
+                    billingCycle: interval
+                });
+            }
+        }
 
     } catch (error) {
         console.error('Error handling subscription event:', error);

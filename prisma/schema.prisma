@@ -73,7 +73,7 @@ model User {
   courses       Course[]
   appointments  Appointment[]
   orders        Order[]
-  payouts       Payout[]
+  payouts       Payout[]  @relation("SellerPayouts")
   coupons       Coupon[]
   affiliateLinks AffiliateLink[]
   affiliateReferrals AffiliateReferral[]
@@ -314,12 +314,12 @@ model Payout {
   id                String      @id @default(uuid())
   payoutNumber      String      @unique
   
-  userId            String
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sellerId          String
+  seller            User        @relation("SellerPayouts", fields: [sellerId], references: [id], onDelete: Cascade)
   
   amount            Float
-  method            String   // "bank" | "paypal" | "crypto"
-  methodDetails     Json     // نسخة من تفاصيل الدفع
+  method            String      // "bank" | "paypal" | "crypto" | "shamcash" etc.
+  methodDetails     Json        // نسخة من تفاصيل الدفع
   
   status            PayoutStatus @default(PENDING)
   
@@ -330,6 +330,13 @@ model Payout {
   requestedAt       DateTime @default(now())
   processedAt       DateTime?
   completedAt       DateTime?
+  
+  // Admin Actions
+  approvedBy        String?  // admin user id
+  approvedAt        DateTime?
+  rejectedBy        String?  // admin user id
+  rejectedAt        DateTime?
+  paidAt            DateTime?
   
   transactionId     String?  // من البنك/PayPal/Blockchain
   adminNotes        String?
@@ -364,6 +371,7 @@ enum AppointmentStatus {
 enum PayoutStatus {
   PENDING
   PROCESSING
+  PAID
   COMPLETED
   REJECTED
 }

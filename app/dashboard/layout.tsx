@@ -3,7 +3,11 @@
 import { signOut, useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { FiHome, FiShoppingBag, FiVideo, FiCalendar, FiDollarSign, FiSettings, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
+import {
+    FiHome, FiShoppingBag, FiVideo, FiCalendar, FiDollarSign,
+    FiSettings, FiLogOut, FiMenu, FiX, FiTag, FiLink2,
+    FiTrendingUp, FiCreditCard, FiExternalLink, FiGlobe
+} from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
@@ -39,11 +43,15 @@ export default function DashboardLayout({
     }
 
     const menuItems = [
-        { href: '/dashboard', icon: FiHome, label: 'الصفحة الرئيسية' },
+        { href: '/dashboard', icon: FiHome, label: 'الرئيسية', exact: true },
         { href: '/dashboard/products', icon: FiShoppingBag, label: 'المنتجات الرقمية' },
         { href: '/dashboard/courses', icon: FiVideo, label: 'الدورات التدريبية' },
         { href: '/dashboard/appointments', icon: FiCalendar, label: 'المواعيد' },
-        { href: '/dashboard/payments', icon: FiDollarSign, label: 'المدفوعات والأرباح' },
+        { href: '/dashboard/earnings', icon: FiDollarSign, label: 'الأرباح والسحوبات' },
+        { href: '/dashboard/orders', icon: FiTrendingUp, label: 'الطلبات' },
+        { href: '/dashboard/coupons', icon: FiTag, label: 'الكوبونات' },
+        { href: '/dashboard/affiliates', icon: FiLink2, label: 'التسويق بالعمولة' },
+        { href: '/dashboard/billing', icon: FiCreditCard, label: 'الاشتراك والباقة' },
         { href: '/dashboard/settings', icon: FiSettings, label: 'الإعدادات' },
     ];
 
@@ -59,7 +67,7 @@ export default function DashboardLayout({
 
             {/* Sidebar */}
             <aside
-                className={`fixed top-0 right-0 h-full bg-card-white dark:bg-card-white shadow-xl z-50 w-64 transform transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'
+                className={`fixed top-0 right-0 h-full bg-card-white dark:bg-card-white shadow-xl z-50 w-64 transform transition-transform duration-300 flex flex-col ${sidebarOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'
                     }`}
             >
                 <div className="p-6 border-b border-gray-100 dark:border-gray-800">
@@ -75,33 +83,48 @@ export default function DashboardLayout({
                     <p className="text-sm text-text-muted mt-2">مرحباً، {session.user?.name}</p>
                 </div>
 
-                <nav className="p-4 space-y-2">
+                <nav className="p-4 space-y-1 overflow-y-auto flex-1">
                     {menuItems.map((item) => {
-                        const isActive = pathname === item.href;
+                        const isActive = item.exact
+                            ? pathname === item.href
+                            : pathname.startsWith(item.href) && item.href !== '/dashboard';
+                        const isHome = item.href === '/dashboard' && pathname === '/dashboard';
+                        const active = isActive || isHome;
                         return (
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${isActive
-                                    ? 'bg-action-blue text-white shadow-md'
-                                    : 'text-primary-charcoal hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-action-blue'
+                                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 group ${active
+                                    ? 'bg-action-blue text-white shadow-md shadow-blue-500/25'
+                                    : 'text-primary-charcoal hover:bg-blue-50 dark:hover:bg-gray-800 hover:text-action-blue'
                                     }`}
                                 onClick={() => setSidebarOpen(false)}
                             >
-                                <item.icon className="text-xl" />
-                                <span className="font-medium">{item.label}</span>
+                                <item.icon className={`text-lg flex-shrink-0 transition-transform duration-200 ${active ? '' : 'group-hover:scale-110'}`} />
+                                <span className="font-medium text-sm">{item.label}</span>
+                                {active && (
+                                    <span className="mr-auto w-1.5 h-1.5 rounded-full bg-white/70" />
+                                )}
                             </Link>
                         );
                     })}
                 </nav>
 
-                <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-100 dark:border-gray-800">
+                <div className="p-4 border-t border-gray-100 dark:border-gray-800 space-y-2">
+                    <Link
+                        href="/explore"
+                        className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-action-blue w-full transition-colors text-sm font-medium"
+                        onClick={() => setSidebarOpen(false)}
+                    >
+                        <FiGlobe className="text-lg" />
+                        <span>استكشف المتجر</span>
+                    </Link>
                     <button
                         onClick={() => signOut({ callbackUrl: '/' })}
-                        className="flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 w-full transition-colors"
+                        className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 w-full transition-colors text-sm font-medium"
                     >
-                        <FiLogOut className="text-xl" />
-                        <span className="font-medium">تسجيل الخروج</span>
+                        <FiLogOut className="text-lg" />
+                        <span>تسجيل الخروج</span>
                     </button>
                 </div>
             </aside>
@@ -118,15 +141,22 @@ export default function DashboardLayout({
                             <FiMenu className="text-2xl" />
                         </button>
 
-                        <div className="flex items-center gap-4 mr-auto">
+                        <div className="flex items-center gap-3 mr-auto">
                             <ThemeToggle />
+                            <Link
+                                href="/explore"
+                                className="hidden md:flex items-center gap-2 text-sm text-gray-500 hover:text-action-blue transition-colors font-medium"
+                            >
+                                <FiGlobe />
+                                <span>المتجر</span>
+                            </Link>
                             <Link
                                 href={`/@${(session.user as any)?.username}`}
                                 target="_blank"
                                 className="btn btn-outline text-sm flex items-center gap-2 py-2 px-4 rounded-full"
                             >
-                                <FiShoppingBag />
-                                <span>عرض متجري</span>
+                                <FiExternalLink />
+                                <span>متجري</span>
                             </Link>
                         </div>
                     </div>

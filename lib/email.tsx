@@ -193,3 +193,54 @@ export async function sendManualOrderRejected(data: {
         return { success: false, error };
     }
 }
+
+// Subscription Confirmation
+export async function sendSubscriptionConfirmation(data: {
+    to: string;
+    customerName: string;
+    planName: string;
+    amount: number;
+    billingCycle: string;
+}) {
+    try {
+        await resend.emails.send({
+            from: 'subscriptions@tmleen.com',
+            to: data.to,
+            subject: `✅ تم تفعيل اشتراكك في باقة ${data.planName}`,
+            react: (
+                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl', lineHeight: '1.6' }}>
+                    <div style={{ backgroundColor: '#f8fafc', padding: '30px', borderRadius: '12px', border: '1px solid #e2e8f0', maxWidth: '600px', margin: '0 auto' }}>
+                        <h1 style={{ color: '#0f172a', marginBottom: '20px', textAlign: 'center' }}>مرحباً {data.customerName}! 🎉</h1>
+                        <p style={{ color: '#475569', fontSize: '16px' }}>شكراً لانضمامك إلينا. لقد تم تفعيل اشتراكك بنجاح وتقدر الآن تستفيد من جميع مميزات الباقة.</p>
+
+                        <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', margin: '20px 0', border: '1px solid #e2e8f0' }}>
+                            <h3 style={{ margin: '0 0 15px 0', color: '#0f172a' }}>تفاصيل الاشتراك:</h3>
+                            <p style={{ margin: '5px 0' }}><strong>الباقة:</strong> {data.planName}</p>
+                            <p style={{ margin: '5px 0' }}><strong>المبلغ:</strong> ${data.amount.toFixed(2)}</p>
+                            <p style={{ margin: '5px 0' }}><strong>دورة الدفع:</strong> {data.billingCycle === 'month' ? 'شهري' : 'سنوي'}</p>
+                        </div>
+
+                        <div style={{ textAlign: 'center', marginTop: '30px' }}>
+                            <a href="https://tmleen.com/dashboard/billing" style={{
+                                backgroundColor: '#0ea5e9',
+                                color: 'white',
+                                padding: '14px 28px',
+                                borderRadius: '8px',
+                                textDecoration: 'none',
+                                display: 'inline-block',
+                                fontWeight: 'bold'
+                            }}>
+                                إدارة اشتراكي
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            ),
+        });
+        console.log('✅ Subscription confirmation sent to', data.to);
+        return { success: true };
+    } catch (error) {
+        console.error('❌ Email error:', error);
+        return { success: false, error };
+    }
+}

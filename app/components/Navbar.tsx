@@ -59,8 +59,9 @@ export default function Navbar() {
                         </Link>
 
                         <div className="hidden md:flex items-center gap-8">
-                            {['المميزات', 'الأسعار', 'حول المنصة', 'المدونة', 'تواصل معنا'].map((item, idx) => {
+                            {['المتجر', 'المميزات', 'الأسعار', 'حول المنصة', 'المدونة', 'تواصل معنا'].map((item, idx) => {
                                 const hrefs: Record<string, string> = {
+                                    'المتجر': '/explore',
                                     'المميزات': '/features',
                                     'الأسعار': '/pricing',
                                     'حول المنصة': '/about',
