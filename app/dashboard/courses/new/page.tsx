@@ -76,8 +76,8 @@ export default function NewCoursePage() {
             if (res.ok) {
                 const course = await res.json();
                 showToast.dismiss(toastId);
-                showToast.success('تم إنشاء الدورة بنجاح! 🎉');
-                router.push(`/dashboard/courses/${course.id}/edit`);
+                showToast.success('تمت مبدئياً! سيتم تحويلك لإضافة المنهج...');
+                router.push(`/dashboard/courses/${course.id}/content`);
             } else {
                 const error = await res.json();
                 showToast.dismiss(toastId);
@@ -362,7 +362,7 @@ export default function NewCoursePage() {
                         ) : (
                             <FiSave className="text-xl" />
                         )}
-                        <span>{loading ? 'جاري الإنشاء...' : 'إنشاء الدورة'}</span>
+                        <span>{loading ? 'جاري الإنشاء...' : 'حفظ والانتقال للمحتوى (فيديوهات)'}</span>
                     </button>
                     <Link href="/dashboard/courses" className="btn btn-outline py-3 px-6 text-lg">
                         إلغاء

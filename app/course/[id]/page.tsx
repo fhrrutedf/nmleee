@@ -22,7 +22,7 @@ export default function CoursePage() {
 
     const fetchCourse = async () => {
         try {
-            const res = await fetch(`/api/products/${params.id}`);
+            const res = await fetch(`/api/courses/${params.id}`);
             if (res.ok) {
                 const data = await res.json();
                 setCourse(data);
