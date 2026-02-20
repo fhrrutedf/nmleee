@@ -60,8 +60,8 @@ const config: Config = {
                 },
             },
             fontFamily: {
-                sans: ['var(--font-readex-pro)', 'system-ui', 'sans-serif'],
-                heading: ['var(--font-readex-pro)', 'system-ui', 'sans-serif'],
+                sans: ['var(--font-tajawal)', 'system-ui', 'sans-serif'],
+                heading: ['var(--font-tajawal)', 'system-ui', 'sans-serif'],
             },
             animation: {
                 'fade-in': 'fadeIn 0.5s ease-in-out',

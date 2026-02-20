@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
-import { Readex_Pro } from "next/font/google";
+import { Tajawal } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { Toaster } from 'react-hot-toast';
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
 
-const readexPro = Readex_Pro({
+const tajawal = Tajawal({
     subsets: ["arabic", "latin"],
-    variable: '--font-readex-pro',
+    variable: '--font-tajawal',
     display: 'swap',
-    weight: ['200', '300', '400', '500', '600', '700'],
+    weight: ['200', '300', '400', '500', '700', '800', '900'],
 });
 
 export const metadata: Metadata = {
@@ -23,9 +25,13 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ar" dir="rtl" suppressHydrationWarning>
-            <body className={`${readexPro.variable} font-sans antialiased text-primary-charcoal bg-bg-light`}>
+            <body className={`${tajawal.variable} font-sans antialiased text-primary-charcoal bg-bg-light flex flex-col min-h-screen`}>
                 <Providers>
-                    {children}
+                    <Navbar />
+                    <main className="flex-grow">
+                        {children}
+                    </main>
+                    <Footer />
                     <Toaster />
                 </Providers>
             </body>

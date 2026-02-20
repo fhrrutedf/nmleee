@@ -1,7 +1,74 @@
 'use client';
 
-import { FiCheck, FiX } from 'react-icons/fi';
+import { FiCheck, FiX, FiInfo } from 'react-icons/fi';
 import Link from 'next/link';
+import { motion, useSpring, useTransform } from 'framer-motion';
+
+// Premium Animation Variants
+const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
+};
+
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1,
+            delayChildren: 0.2
+        }
+    }
+};
+
+const scaleIn = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15 } }
+};
+
+// 3D Tilt Wrapper for Pricing Cards
+const TiltWrapper = ({ children, className, recommended }: { children: React.ReactNode, className?: string, recommended?: boolean }) => {
+    const x = useSpring(0, { stiffness: 400, damping: 30 });
+    const y = useSpring(0, { stiffness: 400, damping: 30 });
+
+    function handleMouse(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        const rect = event.currentTarget.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseX = event.clientX - rect.left;
+        const mouseY = event.clientY - rect.top;
+        const xPct = mouseX / width - 0.5;
+        const yPct = mouseY / height - 0.5;
+        // Less rotation for non-recommended cards to make the recommended one pop more
+        x.set(xPct * (recommended ? 1 : 0.5));
+        y.set(yPct * (recommended ? 1 : 0.5));
+    }
+
+    const rotateX = useTransform(y, [-0.5, 0.5], ["10deg", "-10deg"]);
+    const rotateY = useTransform(x, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+    return (
+        <motion.div
+            style={{ rotateX, rotateY, transformStyle: "preserve-3d", perspective: 1200 }}
+            onMouseMove={handleMouse}
+            onMouseLeave={() => { x.set(0); y.set(0); }}
+            className={`w-full relative ${className}`}
+        >
+            <div style={{ transform: recommended ? "translateZ(30px)" : "translateZ(10px)" }} className="w-full h-full">
+                {children}
+            </div>
+            {/* Dynamic Shadow based on tilt */}
+            <motion.div
+                className={`absolute inset-0 rounded-3xl -z-10 ${recommended ? 'bg-action-blue/20 blur-2xl' : 'bg-black/5 blur-xl'}`}
+                style={{
+                    transform: "translateZ(-20px)",
+                    x: useTransform(x, [-0.5, 0.5], [20, -20]),
+                    y: useTransform(y, [-0.5, 0.5], [20, -20])
+                }}
+            />
+        </motion.div>
+    );
+}
 
 export default function PricingPage() {
     const plans = [
@@ -28,7 +95,8 @@ export default function PricingPage() {
         },
         {
             name: 'المحترف',
-            price: '$29 / شهرياً',
+            price: '$29',
+            period: '/ شهرياً',
             description: 'لصناع المحتوى الجادين الذين يريدون تنمية أعمالهم',
             features: [
                 'كل مميزات البداية',
@@ -48,7 +116,8 @@ export default function PricingPage() {
         },
         {
             name: 'الشركات',
-            price: '$99 / شهرياً',
+            price: '$99',
+            period: '/ شهرياً',
             description: 'للشركات والمؤسسات التعليمية الكبيرة',
             features: [
                 'كل مميزات المحترف',
@@ -67,71 +136,177 @@ export default function PricingPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-gray-50 py-20">
-            <div className="container-custom">
-                <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h1 className="text-5xl font-bold text-primary-charcoal mb-6 font-heading">
-                        خطط أسعار تناسب الجميع
+        <div className="min-h-screen bg-bg-light py-20 lg:py-32 overflow-hidden relative">
+            {/* Background Decorations */}
+            <div className="absolute top-0 inset-x-0 h-96 bg-gradient-to-b from-blue-50 to-transparent -z-10"></div>
+            <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+                className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-action-blue/5 rounded-full blur-[100px] -z-10"
+            ></motion.div>
+            <motion.div
+                animate={{ rotate: -360 }}
+                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[100px] -z-10"
+            ></motion.div>
+
+            <div className="container-custom relative z-10">
+                <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    variants={fadeInUp}
+                    className="text-center max-w-3xl mx-auto mb-20"
+                >
+                    <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.2 }}
+                        className="inline-block py-1.5 px-4 rounded-full bg-blue-100/50 text-action-blue font-bold tracking-wider text-sm mb-6 border border-blue-200"
+                    >
+                        استثمارك الرابح
+                    </motion.span>
+                    <h1 className="text-5xl lg:text-6xl font-bold text-primary-charcoal mb-6 font-heading leading-tight">
+                        خطط أسعار <span className="text-transparent bg-clip-text bg-gradient-to-r from-action-blue to-purple-600">تناسب الجميع</span>
                     </h1>
-                    <p className="text-xl text-text-muted">
-                        ابدأ مجاناً ورقّ حسابك كلما كبرت أعمالك. لا توجد رسوم خفية.
+                    <p className="text-xl text-text-muted font-medium">
+                        ابدأ مجاناً، ولا تدفع إلا عندما تنجح. لا توجد رسوم خفية أو مفاجآت.
                     </p>
-                </div>
+                </motion.div>
 
-                <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <motion.div
+                    variants={staggerContainer}
+                    initial="hidden"
+                    animate="visible"
+                    className="flex flex-col lg:flex-row justify-center items-center lg:items-stretch gap-8 max-w-7xl mx-auto"
+                >
                     {plans.map((plan, idx) => (
-                        <div key={idx} className={`relative bg-white rounded-2xl shadow-xl overflow-hidden border-2 transition-transform hover:-translate-y-2 ${plan.recommended ? 'border-action-blue scale-105 z-10' : 'border-transparent'}`}>
-                            {plan.recommended && (
-                                <div className="absolute top-0 right-0 left-0 bg-action-blue text-white text-center py-1 text-sm font-bold">
-                                    الأكثر مبيعاً
-                                </div>
-                            )}
-                            <div className="p-8">
-                                <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-                                <div className="text-4xl font-bold text-primary-charcoal mb-4">{plan.price}</div>
-                                <p className="text-gray-500 mb-8">{plan.description}</p>
-
-                                <Link href={plan.buttonLink} className={`block w-full py-3 rounded-lg text-center font-bold mb-8 transition-colors ${plan.recommended ? 'bg-action-blue text-white hover:bg-blue-700' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}>
-                                    {plan.buttonText}
-                                </Link>
-
-                                <div className="space-y-4">
-                                    {plan.features.map((feature, fIdx) => (
-                                        <div key={fIdx} className="flex items-start gap-3 text-gray-700">
-                                            <FiCheck className="text-green-500 mt-1 flex-shrink-0" />
-                                            <span>{feature}</span>
+                        <TiltWrapper key={idx} recommended={plan.recommended} className={`${plan.recommended ? 'lg:w-[38%] z-20' : 'lg:w-[31%] z-10'}`}>
+                            <motion.div
+                                variants={scaleIn}
+                                className={`relative h-full flex flex-col bg-white rounded-3xl overflow-hidden border-2 transition-colors duration-300
+                                    ${plan.recommended
+                                        ? 'border-action-blue shadow-[0_20px_50px_-12px_rgba(0,82,255,0.2)]'
+                                        : 'border-gray-100 hover:border-gray-200 shadow-xl shadow-gray-200/50'
+                                    }`}
+                            >
+                                {plan.recommended && (
+                                    <div className="absolute top-0 inset-x-0">
+                                        <div className="bg-gradient-to-r from-action-blue to-blue-400 text-white text-center py-2 text-sm font-bold tracking-wider uppercase shadow-md">
+                                            🌟 الخيار المفضل للمبدعين
                                         </div>
-                                    ))}
-                                    {plan.missing.map((missing, mIdx) => (
-                                        <div key={mIdx} className="flex items-start gap-3 text-gray-400">
-                                            <FiX className="mt-1 flex-shrink-0" />
-                                            <span className="line-through">{missing}</span>
-                                        </div>
-                                    ))}
+                                    </div>
+                                )}
+
+                                <div className={`p-8 md:p-10 flex-1 flex flex-col ${plan.recommended ? 'pt-14' : ''}`}>
+                                    <h3 className="text-2xl font-bold mb-4 text-gray-800">{plan.name}</h3>
+
+                                    <div className="mb-6 flex items-baseline gap-1">
+                                        <span className={`font-bold tracking-tight ${plan.price === 'مجاناً' ? 'text-5xl text-green-500' : 'text-5xl text-gray-900'}`}>
+                                            {plan.price}
+                                        </span>
+                                        {plan.period && <span className="text-gray-500 font-medium">{plan.period}</span>}
+                                    </div>
+
+                                    <p className="text-gray-500 mb-8 font-medium min-h-[48px] leading-relaxed">
+                                        {plan.description}
+                                    </p>
+
+                                    <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full mt-auto mb-10">
+                                        <Link
+                                            href={plan.buttonLink}
+                                            className={`block w-full py-4 rounded-xl text-center font-bold text-lg transition-all duration-300 relative overflow-hidden group
+                                                ${plan.recommended
+                                                    ? 'bg-action-blue text-white shadow-lg shadow-blue-500/30'
+                                                    : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                                                }`}
+                                        >
+                                            <span className="relative z-10">{plan.buttonText}</span>
+                                            {plan.recommended && (
+                                                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                                            )}
+                                        </Link>
+                                    </motion.div>
+
+                                    <div className="space-y-4 flex-1">
+                                        <div className="text-sm font-bold text-gray-900 mb-4 uppercase tracking-wider">ماذا تتضمن الباقة؟</div>
+
+                                        {plan.features.map((feature, fIdx) => (
+                                            <motion.div
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 0.4 + (fIdx * 0.1) }}
+                                                key={fIdx}
+                                                className="flex items-start gap-3 text-gray-700"
+                                            >
+                                                <div className="w-6 h-6 rounded-full bg-green-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                    <FiCheck className="text-green-500 text-sm" />
+                                                </div>
+                                                <span className="font-medium">{feature}</span>
+                                            </motion.div>
+                                        ))}
+
+                                        {plan.missing.length > 0 && <div className="h-px w-full bg-gray-100 my-4"></div>}
+
+                                        {plan.missing.map((missing, mIdx) => (
+                                            <motion.div
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                transition={{ delay: 0.8 }}
+                                                key={mIdx}
+                                                className="flex items-start gap-3 text-gray-400"
+                                            >
+                                                <div className="w-6 h-6 rounded-full bg-gray-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                    <FiX className="text-gray-400 text-sm" />
+                                                </div>
+                                                <span className="line-through">{missing}</span>
+                                            </motion.div>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </motion.div>
+                        </TiltWrapper>
                     ))}
-                </div>
+                </motion.div>
 
-                {/* FAQ Section */}
-                <div className="mt-24 max-w-4xl mx-auto">
-                    <h2 className="text-3xl font-bold text-center mb-12">أسئلة شائعة</h2>
-                    <div className="space-y-6">
-                        <div className="bg-white p-6 rounded-xl shadow-sm">
-                            <h3 className="font-bold text-lg mb-2">هل يمكنني تغيير خطتي لاحقاً؟</h3>
-                            <p className="text-gray-600">نعم، يمكنك ترقية أو تخفيض خطتك في أي وقت من لوحة التحكم، وسيتم احتساب الفرق تلقائياً.</p>
-                        </div>
-                        <div className="bg-white p-6 rounded-xl shadow-sm">
-                            <h3 className="font-bold text-lg mb-2">كيف يتم تحويل الأرباح؟</h3>
-                            <p className="text-gray-600">نقوم بتحويل الأرباح بشكل دوري (شهري أو أسبوعي حسب الخطة) إلى حسابك البنكي أو محفظتك الإلكترونية المفضلة.</p>
-                        </div>
-                        <div className="bg-white p-6 rounded-xl shadow-sm">
-                            <h3 className="font-bold text-lg mb-2">هل أحتاج لبطاقة ائتمان للتسجيل؟</h3>
-                            <p className="text-gray-600">لا، يمكنك البدء بالخطة المجانية دون الحاجة لإدخال أي بيانات دفع.</p>
-                        </div>
+                {/* Animated FAQ Section */}
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={staggerContainer}
+                    className="mt-32 max-w-4xl mx-auto"
+                >
+                    <motion.div variants={fadeInUp} className="text-center mb-12">
+                        <span className="inline-block py-1 px-3 rounded-full bg-gray-100 text-gray-600 font-bold text-xs mb-4">لديك استفسار؟</span>
+                        <h2 className="text-3xl md:text-4xl font-bold font-heading text-primary-charcoal">الأسئلة الشائعة</h2>
+                    </motion.div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {[
+                            { q: 'هل يمكنني تغيير خطتي لاحقاً؟', a: 'نعم بالتأكيد، يمكنك ترقية أو تخفيض خطتك في أي وقت من لوحة التحكم، وسيتم احتساب الفرق تلقائياً.' },
+                            { q: 'كيف يتم تحويل الأرباح لي؟', a: 'نقوم بتحويل الأرباح بشكل دوري (شهري أو أسبوعي حسب الخطة) إلى حسابك البنكي أو محفظتك الإلكترونية المفضلة محلياً ودولياً.' },
+                            { q: 'هل أحتاج لبطاقة ائتمان للتسجيل؟', a: 'لا أبداً، يمكنك البدء بالخطة المجانية بالكامل دون الحاجة لإدخال أي بيانات دفع.' },
+                            { q: 'هل توجد رسوم مخفية أخرى؟', a: 'الشفافية هي أساسنا. لا توجد أي رسوم وتكاليف غير معلنة. رسوم بوابات الدفع الدولية (مثل Stripe/Paypal) تطبق بشكل منفصل وتعرض لك بوضوح.' }
+                        ].map((faq, i) => (
+                            <motion.div
+                                key={i}
+                                variants={fadeInUp}
+                                whileHover={{ y: -5, backgroundColor: '#ffffff' }}
+                                className="bg-white/60 backdrop-blur-sm p-8 rounded-2xl shadow-sm border border-gray-100 transition-all duration-300"
+                            >
+                                <div className="flex items-start gap-4">
+                                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-action-blue flex items-center justify-center flex-shrink-0">
+                                        <FiInfo className="text-xl" />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-lg mb-3 text-gray-900 leading-tight">{faq.q}</h3>
+                                        <p className="text-gray-600 font-medium leading-relaxed">{faq.a}</p>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
                     </div>
-                </div>
+                </motion.div>
             </div>
         </div>
     );
