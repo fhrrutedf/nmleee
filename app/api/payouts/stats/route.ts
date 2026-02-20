@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
         // حساب المسحوبات المكتملة
         const completedPayouts = await prisma.payout.aggregate({
             where: {
-                userId,
+                sellerId: userId,
                 status: 'COMPLETED',
             },
             _sum: {
@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
         // حساب الطلبات قيد المراجعة
         const pendingPayouts = await prisma.payout.aggregate({
             where: {
-                userId,
+                sellerId: userId,
                 status: 'PENDING',
             },
             _sum: {

@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
         const userId = (session.user as any).id;
 
         const payouts = await prisma.payout.findMany({
-            where: { userId },
+            where: { sellerId: userId },
             orderBy: { createdAt: 'desc' },
         });
 
@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
         const payout = await prisma.payout.create({
             data: {
                 payoutNumber: `PAYOUT-${Date.now()}`,
-                userId,
+                sellerId: userId,
                 amount,
                 method: user.payoutMethod,
                 methodDetails,
@@ -129,7 +129,7 @@ async function calculatePayoutStats(userId: string) {
     // حساب المسحوبات المكتملة
     const completedPayouts = await prisma.payout.aggregate({
         where: {
-            userId,
+            sellerId: userId,
             status: 'COMPLETED',
         },
         _sum: {
@@ -142,7 +142,7 @@ async function calculatePayoutStats(userId: string) {
     // حساب الطلبات قيد المراجعة
     const pendingPayouts = await prisma.payout.aggregate({
         where: {
-            userId,
+            sellerId: userId,
             status: 'PENDING',
         },
         _sum: {
