@@ -82,8 +82,8 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
         // استخراج معرف الإحالة الحقيقي من الكود
         let affiliateLinkId = null;
         if (affiliateRefCode) {
-            const link = await prisma.affiliateLink.findFirst({
-                where: { uniqueCode: affiliateRefCode }
+            const link = await prisma.affiliateLink.findUnique({
+                where: { code: affiliateRefCode }
             });
             if (link) {
                 affiliateLinkId = link.id;
