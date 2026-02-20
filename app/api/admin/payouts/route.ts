@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
                 status: 'PENDING',
             },
             include: {
-                user: {
+                seller: {
                     select: {
                         name: true,
                         email: true,
