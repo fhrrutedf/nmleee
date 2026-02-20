@@ -244,3 +244,52 @@ export async function sendSubscriptionConfirmation(data: {
         return { success: false, error };
     }
 }
+
+// Welcome Email
+export async function sendWelcomeEmail(
+    userId: string,
+    email: string,
+    name: string,
+    username: string
+) {
+    try {
+        await resend.emails.send({
+            from: FROM_EMAIL,
+            to: email,
+            subject: `مرحباً بك في منصتنا يا ${name}! 🎉`,
+            react: (
+                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl', lineHeight: '1.6' }}>
+                    <div style={{ backgroundColor: '#f8fafc', padding: '30px', borderRadius: '12px', border: '1px solid #e2e8f0', maxWidth: '600px', margin: '0 auto' }}>
+                        <h1 style={{ color: '#0f172a', marginBottom: '20px', textAlign: 'center' }}>مرحباً {name}! 🚀</h1>
+                        <p style={{ color: '#475569', fontSize: '16px' }}>يسعدنا انضمامك إلينا كصانع محتوى. نحن هنا لندعمك في رحلتك لتحويل شغفك إلى دخل مستدام.</p>
+
+                        <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', margin: '20px 0', border: '1px solid #e2e8f0' }}>
+                            <h3 style={{ margin: '0 0 15px 0', color: '#0f172a' }}>معلومات حسابك:</h3>
+                            <p style={{ margin: '5px 0' }}><strong>الاسم:</strong> {name}</p>
+                            <p style={{ margin: '5px 0' }}><strong>رابط متجرك:</strong> <a href={`https://tmleen.com/${username}`}>tmleen.com/{username}</a></p>
+                        </div>
+
+                        <div style={{ textAlign: 'center', marginTop: '30px' }}>
+                            <a href="https://tmleen.com/dashboard" style={{
+                                backgroundColor: '#D41295',
+                                color: 'white',
+                                padding: '14px 28px',
+                                borderRadius: '8px',
+                                textDecoration: 'none',
+                                display: 'inline-block',
+                                fontWeight: 'bold'
+                            }}>
+                                الذهاب للوحة التحكم
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            ),
+        });
+        console.log('✅ Welcome email sent to', email);
+        return { success: true };
+    } catch (error) {
+        console.error('❌ Email error:', error);
+        return { success: false, error };
+    }
+}

@@ -1,10 +1,17 @@
 import NextAuth, { AuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import GoogleProvider from "next-auth/providers/google"
 import { prisma } from "@/lib/db"
 import bcrypt from "bcryptjs"
 
 export const authOptions: AuthOptions = {
     providers: [
+        // Google OAuth Provider
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID!,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+        }),
+
         CredentialsProvider({
             name: "credentials",
             credentials: {
@@ -29,6 +36,10 @@ export const authOptions: AuthOptions = {
                     if (!user) {
                         console.log('❌ [NextAuth] User not found');
                         throw new Error("البريد الإلكتروني أو كلمة المرور غير صحيحة")
+                    }
+
+                    if (!user.password) {
+                        throw new Error("هذا الحساب مرتبط بتسجيل دخول جوجل. يرجى استخدام 'تسجيل الدخول بجوجل'")
                     }
 
                     const isPasswordValid = await bcrypt.compare(
@@ -70,12 +81,64 @@ export const authOptions: AuthOptions = {
         signIn: "/login",
     },
     callbacks: {
-        async jwt({ token, user }) {
+        async signIn({ user, account }) {
+            // Handle Google OAuth sign-in
+            if (account?.provider === 'google') {
+                try {
+                    const existingUser = await prisma.user.findUnique({
+                        where: { email: user.email! }
+                    });
+
+                    if (!existingUser) {
+                        // Create new user from Google account
+                        const baseUsername = user.email!.split('@')[0].replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+                        let username = baseUsername;
+                        let count = 1;
+
+                        // Ensure username is unique
+                        while (await prisma.user.findUnique({ where: { username } })) {
+                            username = `${baseUsername}${count++}`;
+                        }
+
+                        const newUser = await prisma.user.create({
+                            data: {
+                                name: user.name || 'مستخدم جوجل',
+                                email: user.email!,
+                                username,
+                                password: '', // Google users have no password
+                                avatar: user.image || null,
+                                emailVerified: true,
+                            }
+                        });
+
+                        user.id = newUser.id;
+                        (user as any).username = newUser.username;
+                    } else {
+                        user.id = existingUser.id;
+                        (user as any).username = existingUser.username;
+                    }
+                    return true;
+                } catch (error) {
+                    console.error('Google sign-in error:', error);
+                    return false;
+                }
+            }
+            return true;
+        },
+        async jwt({ token, user, account }) {
             if (user) {
                 token.sub = user.id
                 token.name = user.name
                 token.email = user.email
                 token.username = (user as any).username
+            }
+            // For Google sign-in, fetch username from DB if not in token
+            if (account?.provider === 'google' && token.email && !token.username) {
+                const dbUser = await prisma.user.findUnique({ where: { email: token.email as string } });
+                if (dbUser) {
+                    token.sub = dbUser.id;
+                    token.username = dbUser.username;
+                }
             }
             return token
         },
