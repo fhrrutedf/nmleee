@@ -3,6 +3,10 @@
 import { FiCheck, FiX, FiInfo } from 'react-icons/fi';
 import Link from 'next/link';
 import { motion, useSpring, useTransform } from 'framer-motion';
+import { useSession } from 'next-auth/react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 // Premium Animation Variants
 const fadeInUp = {
@@ -94,8 +98,10 @@ export default function PricingPage() {
             recommended: false
         },
         {
+            id: 'pro',
             name: 'المحترف',
-            price: '$29',
+            price: 29,
+            priceLabel: '$29',
             period: '/ شهرياً',
             description: 'لصناع المحتوى الجادين الذين يريدون تنمية أعمالهم',
             features: [
@@ -111,7 +117,6 @@ export default function PricingPage() {
                 'مدير حساب خاص'
             ],
             buttonText: 'اشترك الآن',
-            buttonLink: '/register?plan=pro',
             recommended: true
         },
         {
@@ -134,6 +139,54 @@ export default function PricingPage() {
             recommended: false
         }
     ];
+
+    const { data: session } = useSession();
+    const router = useRouter();
+    const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+
+    const handleSubscribe = async (plan: any) => {
+        // إذا لم يكن مسجلاً، نرسله للتسجيل
+        if (!session) {
+            router.push(`/register?redirect=/pricing`);
+            return;
+        }
+
+        if (plan.price === 'مجاناً' || !plan.price) {
+            toast.success('أنت بالفعل على الخطة المجانية!');
+            return;
+        }
+
+        if (plan.buttonLink) {
+            router.push(plan.buttonLink);
+            return;
+        }
+
+        setLoadingPlan(plan.id);
+
+        try {
+            const res = await fetch('/api/stripe/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    planId: plan.id,
+                    name: plan.name,
+                    price: plan.price
+                })
+            });
+
+            const data = await res.json();
+
+            if (res.ok && data.url) {
+                window.location.href = data.url;
+            } else {
+                toast.error(data.error || 'حدث خطأ أثناء إعداد عملية الدفع');
+                setLoadingPlan(null);
+            }
+        } catch (error) {
+            toast.error('حدث خطأ في الاتصال بالخادم');
+            setLoadingPlan(null);
+        }
+    };
 
     return (
         <div className="min-h-screen bg-bg-light py-20 lg:py-32 overflow-hidden relative">
@@ -202,7 +255,7 @@ export default function PricingPage() {
 
                                     <div className="mb-6 flex items-baseline gap-1">
                                         <span className={`font-bold tracking-tight ${plan.price === 'مجاناً' ? 'text-5xl text-green-500' : 'text-5xl text-gray-900'}`}>
-                                            {plan.price}
+                                            {plan.priceLabel || plan.price}
                                         </span>
                                         {plan.period && <span className="text-gray-500 font-medium">{plan.period}</span>}
                                     </div>
@@ -212,19 +265,22 @@ export default function PricingPage() {
                                     </p>
 
                                     <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full mt-auto mb-10">
-                                        <Link
-                                            href={plan.buttonLink}
+                                        <button
+                                            onClick={() => handleSubscribe(plan)}
+                                            disabled={loadingPlan === plan.id}
                                             className={`block w-full py-4 rounded-xl text-center font-bold text-lg transition-all duration-300 relative overflow-hidden group
                                                 ${plan.recommended
                                                     ? 'bg-action-blue text-white shadow-lg shadow-blue-500/30'
                                                     : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-                                                }`}
+                                                } ${loadingPlan === plan.id ? 'opacity-70 cursor-not-allowed' : ''}`}
                                         >
-                                            <span className="relative z-10">{plan.buttonText}</span>
+                                            <span className="relative z-10">
+                                                {loadingPlan === plan.id ? 'جاري التحضير...' : plan.buttonText}
+                                            </span>
                                             {plan.recommended && (
                                                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                                             )}
-                                        </Link>
+                                        </button>
                                     </motion.div>
 
                                     <div className="space-y-4 flex-1">

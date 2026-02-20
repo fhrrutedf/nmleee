@@ -41,6 +41,12 @@ export async function POST(request: NextRequest) {
             console.log('❌ Payment failed:', event.data.object.id);
             break;
 
+        case 'customer.subscription.created':
+        case 'customer.subscription.updated':
+        case 'customer.subscription.deleted':
+            await handleSubscriptionEvent(event.data.object as Stripe.Subscription);
+            break;
+
         default:
             console.log('Unhandled event type:', event.type);
     }
@@ -252,5 +258,65 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
 
     } catch (error) {
         console.error('Error handling checkout completion:', error);
+    }
+}
+
+/**
+ * معالجة أحداث الاشتراكات (SaaS)
+ */
+async function handleSubscriptionEvent(subscription: Stripe.Subscription) {
+    try {
+        const metadata = subscription.metadata;
+        const planId = metadata?.planId;
+        const userId = metadata?.userId;
+
+        // إذا لم يكن هناك ميتاداتا، قد يكون اشتراك قديم أو يدوي، نحاول البحث عنه في قاعدة البيانات
+        if (!planId || !userId) {
+            const existingSub = await prisma.subscription.findUnique({
+                where: { stripeSubscriptionId: subscription.id }
+            });
+
+            if (existingSub) {
+                await prisma.subscription.update({
+                    where: { id: existingSub.id },
+                    data: {
+                        status: subscription.status,
+                        currentPeriodStart: new Date(subscription.current_period_start * 1000),
+                        currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+                        cancelAtPeriodEnd: subscription.cancel_at_period_end,
+                    }
+                });
+                console.log(`✅ Subscription (existing) ${subscription.id} updated`);
+            } else {
+                console.log('⚠️ Skipping subscription event due to missing metadata');
+            }
+            return;
+        }
+
+        // إنشاء أو تحديث الاشتراك
+        await prisma.subscription.upsert({
+            where: { stripeSubscriptionId: subscription.id },
+            update: {
+                status: subscription.status,
+                currentPeriodStart: new Date(subscription.current_period_start * 1000),
+                currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+                cancelAtPeriodEnd: subscription.cancel_at_period_end,
+            },
+            create: {
+                stripeSubscriptionId: subscription.id,
+                stripeCustomerId: subscription.customer as string,
+                status: subscription.status,
+                currentPeriodStart: new Date(subscription.current_period_start * 1000),
+                currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+                cancelAtPeriodEnd: subscription.cancel_at_period_end,
+                planId: planId,
+                customerId: userId,
+            }
+        });
+
+        console.log(`✅ Subscription ${subscription.id} synced successfully`);
+
+    } catch (error) {
+        console.error('Error handling subscription event:', error);
     }
 }
