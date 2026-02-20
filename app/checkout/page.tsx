@@ -1,12 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FiShoppingCart, FiTrash2, FiTag, FiCreditCard, FiLock } from 'react-icons/fi';
 
 export default function CheckoutPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const isDirect = searchParams.get('direct') === 'true';
+
     const [cart, setCart] = useState<any[]>([]);
+    const [appointmentDetails, setAppointmentDetails] = useState<any>(null);
+
     const [couponCode, setCouponCode] = useState('');
     const [discount, setDiscount] = useState(0);
     const [loading, setLoading] = useState(false);
@@ -17,15 +22,30 @@ export default function CheckoutPage() {
     });
 
     useEffect(() => {
-        // جلب السلة من localStorage
-        const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
-        setCart(savedCart);
-    }, []);
+        if (isDirect) {
+            // جلب بيانات الحجز المباشر من sessionStorage
+            const directItems = JSON.parse(sessionStorage.getItem('direct_checkout_items') || '[]');
+            const details = JSON.parse(sessionStorage.getItem('appointment_details') || 'null');
+            setCart(directItems);
+            setAppointmentDetails(details);
+        } else {
+            // جلب السلة من localStorage
+            const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+            setCart(savedCart);
+        }
+    }, [isDirect]);
 
     const removeFromCart = (index: number) => {
         const newCart = cart.filter((_, i) => i !== index);
         setCart(newCart);
-        localStorage.setItem('cart', JSON.stringify(newCart));
+        if (!isDirect) {
+            localStorage.setItem('cart', JSON.stringify(newCart));
+        } else {
+            sessionStorage.setItem('direct_checkout_items', JSON.stringify(newCart));
+            if (newCart.length === 0) {
+                sessionStorage.removeItem('appointment_details');
+            }
+        }
     };
 
     const applyCoupon = async () => {
@@ -66,7 +86,8 @@ export default function CheckoutPage() {
                     items: cart,
                     customerEmail: formData.email,
                     customerName: formData.name,
-                    couponCode: discount > 0 ? couponCode : null
+                    couponCode: discount > 0 ? couponCode : null,
+                    appointmentDetails: appointmentDetails
                 })
             });
 
@@ -177,6 +198,11 @@ export default function CheckoutPage() {
                                         <div className="flex-1">
                                             <h3 className="font-medium">{item.title}</h3>
                                             <p className="text-primary-600 font-bold">{item.price.toFixed(2)} ج.م</p>
+                                            {item.type === 'appointment' && appointmentDetails && (
+                                                <p className="text-xs text-gray-500 mt-1">
+                                                    بتاريخ: {appointmentDetails.date} | الساعة {appointmentDetails.time}
+                                                </p>
+                                            )}
                                         </div>
                                         <button
                                             onClick={() => removeFromCart(index)}
@@ -187,6 +213,18 @@ export default function CheckoutPage() {
                                     </div>
                                 ))}
                             </div>
+
+                            {/* Return path for direct booking */}
+                            {isDirect && (
+                                <div className="mt-4 text-center">
+                                    <button
+                                        onClick={() => router.back()}
+                                        className="text-sm text-gray-500 hover:text-primary-600 underline"
+                                    >
+                                        إلغاء الحجز والعودة
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
 

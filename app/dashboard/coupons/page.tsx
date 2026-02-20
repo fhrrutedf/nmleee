@@ -86,15 +86,15 @@ export default function CouponsPage() {
 
     const getStatusColor = (coupon: any) => {
         if (!coupon.isActive) return 'bg-gray-100 text-gray-700';
-        if (coupon.expiresAt && new Date(coupon.expiresAt) < new Date()) return 'bg-red-100 text-red-700';
-        if (coupon.maxUses && coupon.usedCount >= coupon.maxUses) return 'bg-orange-100 text-orange-700';
+        if (coupon.endDate && new Date(coupon.endDate) < new Date()) return 'bg-red-100 text-red-700';
+        if (coupon.usageLimit && coupon.usageCount >= coupon.usageLimit) return 'bg-orange-100 text-orange-700';
         return 'bg-green-100 text-green-700';
     };
 
     const getStatusText = (coupon: any) => {
         if (!coupon.isActive) return 'غير نشط';
-        if (coupon.expiresAt && new Date(coupon.expiresAt) < new Date()) return 'منتهي';
-        if (coupon.maxUses && coupon.usedCount >= coupon.maxUses) return 'مستنفذ';
+        if (coupon.endDate && new Date(coupon.endDate) < new Date()) return 'منتهي';
+        if (coupon.usageLimit && coupon.usageCount >= coupon.usageLimit) return 'مستنفذ';
         return 'نشط';
     };
 
@@ -166,11 +166,11 @@ export default function CouponsPage() {
                                         {coupon.type === 'percentage' ? `${coupon.value}%` : `${coupon.value} ج.م`}
                                     </td>
                                     <td className="py-3 px-4">
-                                        {coupon.usedCount} / {coupon.maxUses || '∞'}
+                                        {coupon.usageCount} / {coupon.usageLimit || '∞'}
                                     </td>
                                     <td className="py-3 px-4">
-                                        {coupon.expiresAt
-                                            ? new Date(coupon.expiresAt).toLocaleDateString('ar-EG')
+                                        {coupon.endDate
+                                            ? new Date(coupon.endDate).toLocaleDateString('ar-EG')
                                             : 'بدون نهاية'}
                                     </td>
                                     <td className="py-3 px-4">

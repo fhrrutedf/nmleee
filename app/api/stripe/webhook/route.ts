@@ -60,16 +60,23 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
             return;
         }
 
-        const items = metadata.items ? JSON.parse(metadata.items) : [];
+        const itemsDataString = metadata.itemsData || '';
+        const rawItems = itemsDataString ? itemsDataString.split(',') : [];
+        const items = rawItems.map(str => {
+            const [id, type, price] = str.split(':');
+            return { id, type, price: parseFloat(price || '0') };
+        });
+
         const totalAmount = (session.amount_total || 0) / 100;
-        const userId = metadata.userId;
+        const discountApplied = parseFloat(metadata.discountApplied || '0');
+        const userId = metadata.userId || items[0]?.id || 'guest'; // We might need an actual user ID.
         const couponId = metadata.couponId;
         const affiliateLinkId = metadata.affiliateLinkId;
 
-        if (!userId) {
-            console.error('Missing userId in session metadata');
-            return;
-        }
+        // Appointment variables
+        const apptDate = metadata.appointmentDate;
+        const apptTime = metadata.appointmentTime;
+        const apptSellerId = metadata.appointmentSellerId;
 
         // Calculate platform commission (10%)
         const platformFeePercentage = 10;
@@ -78,7 +85,9 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
 
         // Get seller ID from first item (assuming all items from same seller)
         let sellerId = null;
-        if (items.length > 0) {
+        if (apptSellerId) {
+            sellerId = apptSellerId;
+        } else if (items.length > 0) {
             const firstItem = items[0];
             if (firstItem.type === 'product') {
                 const product = await prisma.product.findUnique({
@@ -106,7 +115,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
                 platformFee,
                 sellerAmount,
                 status: 'PAID',
-                userId: userId,
+                userId: userId !== 'guest' ? userId : sellerId || '', // fallback
                 sellerId: sellerId || undefined,
                 couponId: couponId || undefined,
                 affiliateLinkId: affiliateLinkId || undefined,
@@ -123,6 +132,28 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
                 },
             },
         });
+
+        // إذا كان هناك بيانات موعد، نقوم بإنشاء الموعد وربطه بالطلب
+        if (apptDate !== undefined && apptDate !== '' && sellerId) {
+            // Combine date and time
+            const dateStr = `${apptDate}T${apptTime || '00:00'}:00Z`;
+
+            await prisma.appointment.create({
+                data: {
+                    title: `استشارة برمجية/جلسة`,
+                    price: totalAmount,
+                    duration: 60, // Default duration 60 mins
+                    date: new Date(dateStr),
+                    status: 'CONFIRMED',
+                    customerName: metadata.customerName || session.customer_details?.name || 'Vip Customer',
+                    customerEmail: session.customer_email || '',
+                    customerPhone: metadata.customerPhone || session.customer_details?.phone || '',
+                    userId: sellerId,
+                    orderId: order.id
+                }
+            });
+            console.log('✅ Appointment created successfully');
+        }
 
         console.log('✅ Order created:', order.id);
         console.log('💰 Platform Fee:', platformFee);
@@ -153,7 +184,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
                 data: {
                     couponId,
                     orderId: order.id,
-                    discount: 0,
+                    discount: discountApplied,
                     customerEmail: session.customer_email || '',
                 },
             });

@@ -22,7 +22,9 @@ export async function GET(
                 website: true,
                 facebook: true,
                 instagram: true,
-                twitter: true
+                twitter: true,
+                consultationPrice: true,
+                availabilities: true
             }
         });
 

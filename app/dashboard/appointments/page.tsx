@@ -3,7 +3,8 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { FiCalendar, FiClock, FiUser, FiVideo, FiCheck, FiX, FiPlus, FiEdit, FiTrash2, FiMessageSquare, FiDollarSign } from 'react-icons/fi';
+import { FiCalendar, FiClock, FiUser, FiVideo, FiCheck, FiX, FiPlus, FiEdit, FiTrash2, FiMessageSquare, FiDollarSign, FiSettings } from 'react-icons/fi';
+import Link from 'next/link';
 import { apiGet, apiPut, apiDelete, handleApiError } from '@/lib/safe-fetch';
 
 export default function AppointmentsPage() {
@@ -86,13 +87,19 @@ export default function AppointmentsPage() {
                     <h1 className="text-3xl font-bold gradient-text">إدارة المواعيد والجلسات</h1>
                     <p className="text-gray-600 mt-2">جدول مواعيدك وجلساتك الاستشارية</p>
                 </div>
-                <button
-                    onClick={() => setShowModal(true)}
-                    className="btn btn-primary flex items-center gap-2"
-                >
-                    <FiPlus />
-                    <span>إضافة موعد جديد</span>
-                </button>
+                <div className="flex items-center gap-3">
+                    <Link href="/dashboard/appointments/settings" className="btn btn-outline flex items-center gap-2">
+                        <FiSettings />
+                        <span className="hidden sm:inline">أوقات العمل</span>
+                    </Link>
+                    <button
+                        onClick={() => setShowModal(true)}
+                        className="btn btn-primary flex items-center gap-2"
+                    >
+                        <FiPlus />
+                        <span className="hidden sm:inline">إضافة موعد</span>
+                    </button>
+                </div>
             </div>
 
             {/* Stats */}

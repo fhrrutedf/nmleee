@@ -67,6 +67,7 @@ export default function ProductPage() {
         if (!existing) {
             cart.push({
                 id: product.id,
+                type: 'product',
                 title: product.title,
                 price: product.price,
                 image: product.image
