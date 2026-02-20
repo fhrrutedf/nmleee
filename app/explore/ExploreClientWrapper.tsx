@@ -58,11 +58,11 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                             <div className="flex items-center gap-2 mb-3">
                                 <div
                                     className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] text-white font-bold"
-                                    style={{ backgroundColor: item.seller?.brandColor || '#0ea5e9' }}
+                                    style={{ backgroundColor: item.user?.brandColor || '#0ea5e9' }}
                                 >
-                                    {item.seller?.name?.charAt(0) || 'M'}
+                                    {item.user?.name?.charAt(0) || 'M'}
                                 </div>
-                                <span className="text-xs text-gray-500 font-medium">{item.seller?.name}</span>
+                                <span className="text-xs text-gray-500 font-medium">{item.user?.name}</span>
                             </div>
 
                             <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-action-blue transition-colors">

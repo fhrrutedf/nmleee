@@ -19,7 +19,7 @@ export default async function ExplorePage({
     // Fetch Products
     const products = await prisma.product.findMany({
         where: {
-            published: true,
+            isActive: true,
             ...(query ? {
                 OR: [
                     { title: { contains: query, mode: 'insensitive' } },
@@ -28,7 +28,7 @@ export default async function ExplorePage({
             } : {}),
             ...(category ? { category } : {})
         },
-        include: { seller: { select: { name: true, brandColor: true } } },
+        include: { user: { select: { name: true, brandColor: true } } },
         orderBy: sort === 'price_asc' ? { price: 'asc' } :
             sort === 'price_desc' ? { price: 'desc' } :
                 { createdAt: 'desc' },
@@ -38,7 +38,7 @@ export default async function ExplorePage({
     // Fetch Courses
     const courses = await prisma.course.findMany({
         where: {
-            published: true,
+            isActive: true,
             ...(query ? {
                 OR: [
                     { title: { contains: query, mode: 'insensitive' } },
@@ -47,7 +47,7 @@ export default async function ExplorePage({
             } : {}),
             ...(category ? { category } : {})
         },
-        include: { seller: { select: { name: true, brandColor: true } } },
+        include: { user: { select: { name: true, brandColor: true } } },
         orderBy: sort === 'price_asc' ? { price: 'asc' } :
             sort === 'price_desc' ? { price: 'desc' } :
                 { createdAt: 'desc' },
