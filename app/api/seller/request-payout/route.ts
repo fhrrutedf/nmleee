@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
         const payout = await prisma.payout.create({
             data: {
                 payoutNumber: `PAYOUT-${Date.now()}`,
-                userId: user.id,
+                sellerId: user.id,
                 amount,
                 method: user.payoutMethod,
                 methodDetails,
