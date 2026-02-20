@@ -53,7 +53,7 @@ export async function POST(
 
         // Return amount to seller's available balance
         await prisma.user.update({
-            where: { id: payout.userId },
+            where: { id: payout.sellerId },
             data: {
                 availableBalance: { increment: payout.amount },
             },

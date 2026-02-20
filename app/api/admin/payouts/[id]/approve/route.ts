@@ -31,7 +31,7 @@ export async function POST(
         // Get payout
         const payout = await prisma.payout.findUnique({
             where: { id: payoutId },
-            include: { user: true },
+            include: { seller: true },
         });
 
         if (!payout) {
@@ -57,7 +57,7 @@ export async function POST(
         // Update related orders
         await prisma.order.updateMany({
             where: {
-                sellerId: payout.userId,
+                sellerId: payout.sellerId,
                 payoutStatus: 'available',
                 payoutId: null,
             },
