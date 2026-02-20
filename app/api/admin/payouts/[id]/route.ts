@@ -5,9 +5,13 @@ import { prisma } from '@/lib/db';
 
 export async function POST(
     req: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        // Next.js 16: params is a Promise
+        const { id } = await params;
+
+        // Auth check
         const session = await getServerSession(authOptions);
         if (!session?.user?.email) {
             return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
@@ -21,10 +25,9 @@ export async function POST(
             return NextResponse.json({ error: 'صلاحيات غير كافية' }, { status: 403 });
         }
 
-        const { id } = params;
         const { action, reason, transactionId } = await req.json();
 
-        // 1. جلب الطلب
+        // جلب الطلب
         const payout = await prisma.payout.findUnique({
             where: { id },
             include: { seller: true }
@@ -38,10 +41,8 @@ export async function POST(
             return NextResponse.json({ error: 'هذا الطلب تمت معالجته مسبقاً' }, { status: 400 });
         }
 
-        // 2. تحديث الطلب وبناء معاملة (Transaction) لضمان الأمان
         if (action === 'approve') {
             await prisma.$transaction([
-                // تحديث حالة الطلب
                 prisma.payout.update({
                     where: { id },
                     data: {
@@ -52,7 +53,6 @@ export async function POST(
                         transactionId: transactionId || null
                     }
                 }),
-                // خصم المبلغ من الرصيد المعلق للبائع
                 prisma.user.update({
                     where: { id: payout.sellerId },
                     data: {
@@ -62,7 +62,6 @@ export async function POST(
             ]);
         } else if (action === 'reject') {
             await prisma.$transaction([
-                // تحديث حالة الطلب
                 prisma.payout.update({
                     where: { id },
                     data: {
@@ -72,7 +71,6 @@ export async function POST(
                         rejectionReason: reason || null
                     }
                 }),
-                // إعادة المبلغ من الرصيد المعلق إلى الرصيد المتاح للبائع
                 prisma.user.update({
                     where: { id: payout.sellerId },
                     data: {
