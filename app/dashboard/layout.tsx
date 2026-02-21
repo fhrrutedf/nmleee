@@ -95,14 +95,14 @@ export default function DashboardLayout({
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 group ${active
-                                    ? 'bg-action-blue text-white shadow-md shadow-blue-500/25'
-                                    : 'text-primary-charcoal hover:bg-blue-50 dark:hover:bg-gray-800 hover:text-action-blue'
+                                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group w-full ${active
+                                    ? 'bg-action-blue text-white shadow-md shadow-action-blue/25'
+                                    : 'text-primary-charcoal hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-action-blue'
                                     }`}
                                 onClick={() => setSidebarOpen(false)}
                             >
                                 <item.icon className={`text-lg flex-shrink-0 transition-transform duration-200 ${active ? '' : 'group-hover:scale-110'}`} />
-                                <span className="font-medium text-sm">{item.label}</span>
+                                <span className="font-semibold text-sm truncate flex-1 text-right">{item.label}</span>
                                 {active && (
                                     <span className="mr-auto w-1.5 h-1.5 rounded-full bg-white/70" />
                                 )}
