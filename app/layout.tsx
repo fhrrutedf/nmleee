@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { Toaster } from 'react-hot-toast';
 import NavbarWrapper from "@/app/components/NavbarWrapper";
+import FooterWrapper from "@/app/components/FooterWrapper";
 
 const tajawal = Tajawal({
     subsets: ["arabic", "latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({
                     <main className="flex-grow">
                         {children}
                     </main>
+                    <FooterWrapper />
                     <Toaster />
                 </Providers>
             </body>
