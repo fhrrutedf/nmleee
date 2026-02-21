@@ -1,153 +1,165 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { prisma } from '@/lib/db';
-import { redirect } from 'next/navigation';
-import { FiCheckCircle, FiXCircle, FiCalendar, FiClock, FiCreditCard } from 'react-icons/fi';
-import CancelSubscriptionButton from './CancelSubscriptionButton';
-import Link from 'next/link';
+'use client';
 
-export const metadata = {
-    title: 'إدارة الفواتير والاشتراكات | لوحة التحكم',
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { FiCheck, FiZap, FiArrowUp, FiStar } from 'react-icons/fi';
+
+const planDetails: Record<string, {
+    name: string; color: string; commission: string; products: string;
+    storage: string; students: string; monthlyPrice: number;
+}> = {
+    free: { name: 'انطلاقة', color: 'from-gray-500 to-gray-600', commission: '10%', products: '5', storage: '1 GB', students: '100', monthlyPrice: 0 },
+    starter: { name: 'رواد', color: 'from-blue-500 to-purple-600', commission: '5%', products: '50', storage: '15 GB', students: '1,000', monthlyPrice: 19 },
+    pro: { name: 'تميز', color: 'from-purple-600 to-pink-600', commission: '2%', products: 'غير محدود', storage: '100 GB', students: 'غير محدود', monthlyPrice: 49 },
+    enterprise: { name: 'مؤسسات', color: 'from-yellow-500 to-orange-500', commission: '0%', products: 'غير محدود', storage: '+1 TB', students: 'غير محدود', monthlyPrice: 199 },
 };
 
-export default async function BillingPage() {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.email) {
-        redirect('/login');
-    }
+export default function BillingPage() {
+    const { data: session } = useSession();
 
-    const user = await prisma.user.findUnique({
-        where: { email: session.user.email }
-    });
+    // Default to free plan
+    const currentPlanSlug = 'free';
+    const currentPlan = planDetails[currentPlanSlug];
 
-    if (!user) redirect('/login');
-
-    const subscriptions = await prisma.subscription.findMany({
-        where: { customerId: user.id },
-        include: { plan: true },
-        orderBy: { createdAt: 'desc' }
-    });
-
-    const activeSubscription = subscriptions.find(s => ['active', 'trialing'].includes(s.status));
-    const pastSubscriptions = subscriptions.filter(s => s.id !== activeSubscription?.id);
-
-    // Format date properly
-    const formatDate = (date: Date) => {
-        return new Intl.DateTimeFormat('ar-EG', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        }).format(date);
-    };
+    const upgradePlans = [
+        {
+            slug: 'starter', name: 'رواد', price: 19, color: 'from-blue-500 to-purple-600',
+            highlight: 'الأكثر شعبية', perks: ['عمولة 5% فقط', '50 منتج', 'دردشة مباشرة'],
+        },
+        {
+            slug: 'pro', name: 'تميز', price: 49, color: 'from-purple-600 to-pink-600',
+            highlight: 'الأفضل للمحترفين', perks: ['عمولة 2% فقط', 'منتجات غير محدودة', 'مدير حساب'],
+        },
+    ];
 
     return (
-        <div className="space-y-8">
-            <h1 className="text-2xl font-bold text-gray-800">إدارة الباقات والاشتراكات</h1>
-
-            {/* Current Active Subscription Section */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 bg-action-blue/10 text-action-blue rounded-xl flex items-center justify-center">
-                        <FiCreditCard className="text-2xl" />
-                    </div>
-                    <div>
-                        <h2 className="text-xl font-bold text-gray-800">باقة الاشتراك الحالية</h2>
-                        <p className="text-gray-500 text-sm">تفاصيل الخطة المفعلة حالياً على حسابك</p>
-                    </div>
-                </div>
-
-                {activeSubscription ? (
-                    <div className="border border-green-100 bg-green-50/30 rounded-xl p-6 relative overflow-hidden">
-                        {/* Decorative background */}
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-green-100 rounded-bl-full -z-10 opacity-50"></div>
-
-                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                            <div>
-                                <div className="flex items-center gap-2 mb-2">
-                                    <h3 className="text-2xl font-bold text-gray-900">{activeSubscription.plan.name}</h3>
-                                    <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs font-bold leading-none flex items-center gap-1">
-                                        <FiCheckCircle /> نشط
-                                    </span>
-                                </div>
-                                <div className="text-gray-600 mb-4 whitespace-pre-wrap">{activeSubscription.plan.description}</div>
-
-                                <div className="flex items-center gap-4 text-sm text-gray-500">
-                                    <div className="flex items-center gap-1.5">
-                                        <FiCalendar className="text-action-blue" />
-                                        <span>تاريخ البدء: {formatDate(activeSubscription.currentPeriodStart)}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1.5">
-                                        <FiClock className="text-orange-500" />
-                                        <span>التجديد/الانتهاء: {formatDate(activeSubscription.currentPeriodEnd)}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="flex flex-col items-center md:items-end gap-3 w-full md:w-auto mt-4 md:mt-0 pt-4 md:pt-0 border-t md:border-t-0 border-gray-200">
-                                <div className="text-3xl font-bold text-gray-900 mb-2">
-                                    ${activeSubscription.plan.price} <span className="text-sm text-gray-500 font-normal">/ {activeSubscription.plan.interval === 'month' ? 'شهرياً' : 'سنوياً'}</span>
-                                </div>
-                                <CancelSubscriptionButton
-                                    subscriptionId={activeSubscription.id}
-                                    isCanceled={activeSubscription.cancelAtPeriodEnd}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                ) : (
-                    <div className="text-center py-12 px-4 border-2 border-dashed border-gray-200 rounded-xl bg-gray-50/50">
-                        <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <FiXCircle className="text-3xl text-gray-400" />
-                        </div>
-                        <h3 className="text-lg font-bold text-gray-800 mb-2">ليس لديك اشتراك نشط</h3>
-                        <p className="text-gray-500 max-w-sm mx-auto mb-6">
-                            أنت تستخدم الخطة المجانية حالياً. قم بترقية حزمة حسابك للاستفادة من كامل المميزات.
-                        </p>
-                        <Link
-                            href="/pricing"
-                            className="inline-block bg-action-blue text-white px-6 py-2.5 rounded-lg font-medium hover:bg-blue-600 transition-colors shadow-sm"
-                        >
-                            تصفح خطط الأسعار
-                        </Link>
-                    </div>
-                )}
+        <div className="space-y-8 max-w-4xl">
+            {/* Header */}
+            <div>
+                <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white flex items-center gap-3">
+                    <FiZap className="text-action-blue" />
+                    الاشتراك والباقة
+                </h1>
+                <p className="text-text-muted mt-2">إدارة اشتراكك وترقية باقتك</p>
             </div>
 
-            {/* Past Subscriptions */}
-            {pastSubscriptions.length > 0 && (
-                <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
-                    <h2 className="text-xl font-bold text-gray-800 mb-6">سجل الاشتراكات السابقة</h2>
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-right text-sm">
-                            <thead className="bg-gray-50 text-gray-500">
-                                <tr>
-                                    <th className="px-4 py-3 font-medium rounded-r-lg">الخطة</th>
-                                    <th className="px-4 py-3 font-medium">الحالة</th>
-                                    <th className="px-4 py-3 font-medium">الفترة من</th>
-                                    <th className="px-4 py-3 font-medium rounded-l-lg">إلى</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-100">
-                                {pastSubscriptions.map(sub => (
-                                    <tr key={sub.id} className="hover:bg-gray-50/50 transition-colors">
-                                        <td className="px-4 py-4 font-medium text-gray-900">{sub.plan.name}</td>
-                                        <td className="px-4 py-4">
-                                            <span className={`px-2 py-1 rounded-md text-xs font-medium 
-                                                ${sub.status === 'cancelled' || sub.status === 'canceled' ? 'bg-red-50 text-red-600' :
-                                                    sub.status === 'past_due' ? 'bg-orange-50 text-orange-600' :
-                                                        'bg-gray-100 text-gray-600'}`}>
-                                                {sub.status}
-                                            </span>
-                                        </td>
-                                        <td className="px-4 py-4 text-gray-500">{formatDate(sub.currentPeriodStart)}</td>
-                                        <td className="px-4 py-4 text-gray-500">{formatDate(sub.currentPeriodEnd)}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+            {/* Current Plan Card */}
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="relative overflow-hidden rounded-3xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg"
+            >
+                <div className={`h-2 w-full bg-gradient-to-r ${currentPlan.color}`} />
+                <div className="p-8">
+                    <div className="flex items-start justify-between flex-wrap gap-4">
+                        <div>
+                            <p className="text-text-muted text-sm mb-1">باقتك الحالية</p>
+                            <h2 className="text-3xl font-black text-primary-charcoal dark:text-white">
+                                {currentPlan.name}
+                            </h2>
+                            <p className="text-text-muted mt-1">
+                                {currentPlan.monthlyPrice === 0 ? 'مجاناً للأبد' : `$${currentPlan.monthlyPrice} / شهر`}
+                            </p>
+                        </div>
+                        <Link
+                            href="/pricing"
+                            className="btn btn-primary flex items-center gap-2 py-3 px-6"
+                        >
+                            <FiArrowUp />
+                            ترقية الباقة
+                        </Link>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                        {[
+                            { label: 'عمولة المنصة', value: currentPlan.commission, highlight: true },
+                            { label: 'المنتجات', value: currentPlan.products },
+                            { label: 'التخزين', value: currentPlan.storage },
+                            { label: 'الطلاب', value: currentPlan.students },
+                        ].map((stat) => (
+                            <div key={stat.label} className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-4 text-center">
+                                <p className={`text-2xl font-black ${stat.highlight ? 'text-action-blue' : 'text-primary-charcoal dark:text-white'}`}>
+                                    {stat.value}
+                                </p>
+                                <p className="text-text-muted text-xs mt-1">{stat.label}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </motion.div>
+
+            {/* Upgrade Options */}
+            {currentPlanSlug === 'free' && (
+                <div>
+                    <h3 className="text-xl font-bold text-primary-charcoal dark:text-white mb-4 flex items-center gap-2">
+                        <FiStar className="text-yellow-500" />
+                        ترقية إلى باقة مدفوعة
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {upgradePlans.map((plan, i) => (
+                            <motion.div
+                                key={plan.slug}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: i * 0.1 }}
+                                className="relative bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                            >
+                                <div className={`bg-gradient-to-r ${plan.color} p-5 text-white`}>
+                                    <div className="text-xs font-bold opacity-80 mb-1">{plan.highlight}</div>
+                                    <div className="flex items-end gap-2">
+                                        <span className="text-4xl font-black">${plan.price}</span>
+                                        <span className="opacity-80 mb-1">/شهر</span>
+                                    </div>
+                                    <div className="text-lg font-bold mt-1">{plan.name}</div>
+                                </div>
+                                <div className="p-5">
+                                    <ul className="space-y-2 mb-5">
+                                        {plan.perks.map((perk, j) => (
+                                            <li key={j} className="flex items-center gap-2 text-sm text-primary-charcoal dark:text-gray-300">
+                                                <FiCheck className="text-green-500 flex-shrink-0" />
+                                                {perk}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <Link
+                                        href={`/pricing`}
+                                        className={`w-full block text-center py-3 rounded-2xl font-bold text-sm bg-gradient-to-r ${plan.color} text-white hover:opacity-90 transition-opacity`}
+                                    >
+                                        ترقية الآن — 14 يوم مجاني
+                                    </Link>
+                                </div>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             )}
+
+            {/* Launch Offer */}
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="bg-gradient-to-r from-action-blue/10 to-purple-500/10 border border-action-blue/20 rounded-3xl p-6 flex items-center gap-5"
+            >
+                <div className="text-4xl">🚀</div>
+                <div>
+                    <h4 className="font-bold text-primary-charcoal dark:text-white text-lg">عرض إطلاق حصري!</h4>
+                    <p className="text-text-muted text-sm">احصل على خصم 50% لأول 3 أشهر. هذا العرض لأول 500 بائع فقط.</p>
+                </div>
+                <Link href="/pricing" className="btn btn-primary whitespace-nowrap py-3 px-5 text-sm mr-auto">
+                    احجز الآن ←
+                </Link>
+            </motion.div>
+
+            {/* Billing History Placeholder */}
+            <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 p-6 shadow-sm">
+                <h3 className="font-bold text-primary-charcoal dark:text-white text-lg mb-4">سجل الفواتير</h3>
+                <div className="text-center py-10 text-text-muted">
+                    <div className="text-4xl mb-3">📄</div>
+                    <p>لا توجد فواتير بعد — أنت على الباقة المجانية</p>
+                </div>
+            </div>
         </div>
     );
 }

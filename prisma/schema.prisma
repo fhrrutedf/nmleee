@@ -825,3 +825,101 @@ model AffiliateSale {
   @@index([orderId])
   @@index([status])
 }
+
+// ============================================
+// SUBSCRIPTION PLANS SYSTEM
+// ============================================
+
+model SubscriptionPlan {
+  id          String   @id @default(uuid())
+  
+  // Plan identity
+  name        String   // "انطلاقة" | "رواد" | "تميز" | "مؤسسات"
+  slug        String   @unique // "free" | "starter" | "pro" | "enterprise"
+  description String?
+  
+  // Pricing
+  monthlyPrice  Float    @default(0)
+  yearlyPrice   Float    @default(0)
+  currency      String   @default("USD")
+  
+  // Limits
+  commissionRate    Float    @default(10)   // % عمولة المنصة
+  maxProducts       Int?                     // null = unlimited
+  storageGB         Float    @default(1)
+  maxStudents       Int?                     // null = unlimited
+  
+  // Features (JSON array of feature strings)
+  features      String[] @default([])
+  
+  // Support level
+  supportLevel  String   @default("email") // "email" | "chat" | "dedicated" | "vip"
+  
+  // Stripe price IDs
+  stripeMonthlyPriceId  String?
+  stripeYearlyPriceId   String?
+  
+  isActive    Boolean  @default(true)
+  isPopular   Boolean  @default(false)  // highlighted plan
+  
+  displayOrder Int     @default(0)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id          String   @id @default(uuid())
+  
+  // Plan info
+  planSlug    String   // "free" | "starter" | "pro" | "enterprise"
+  billingCycle String  @default("monthly") // "monthly" | "yearly"
+  
+  // Status
+  status      SubscriptionStatus @default(ACTIVE)
+  
+  // Trial
+  trialEndsAt DateTime?
+  isTrialing  Boolean  @default(false)
+  
+  // Billing dates
+  currentPeriodStart DateTime?
+  currentPeriodEnd   DateTime?
+  canceledAt         DateTime?
+  
+  // Stripe
+  stripeSubscriptionId  String?  @unique
+  stripeCustomerId      String?
+  
+  // Pricing at time of subscription
+  amount      Float    @default(0)
+  currency    String   @default("USD")
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  userId      String
+  user        User     @relation("CustomerSubscriptions", fields: [userId], references: [id], onDelete: Cascade)
+  
+  planId      String?
+  plan        SubscriptionPlan? @relation(fields: [planId], references: [id])
+  
+  @@index([userId])
+  @@index([status])
+  @@index([planSlug])
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  TRIALING
+  PAST_DUE
+  CANCELED
+  EXPIRED
+}
