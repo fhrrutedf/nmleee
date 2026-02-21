@@ -1,17 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 
+const PRODUCTION_URL = 'https://nmleee-9qri.vercel.app';
+
 // GET: Handle Google OAuth callback and save tokens
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const code = searchParams.get('code');
-    const userId = searchParams.get('state');
+    const state = searchParams.get('state'); // format: "userId|redirectUri"
     const error = searchParams.get('error');
 
+    // Parse state to get userId and the exact redirectUri that was used
+    const [userId, redirectUri] = state?.split('|') ?? [];
+    const callbackRedirectUri = redirectUri || `${PRODUCTION_URL}/api/google/calendar/callback`;
+
+    const dashboardUrl = `${PRODUCTION_URL}/dashboard/settings?tab=integrations`;
+
     if (error || !code || !userId) {
-        return NextResponse.redirect(
-            `${process.env.NEXTAUTH_URL}/dashboard/settings?tab=integrations&error=calendar_denied`
-        );
+        return NextResponse.redirect(`${dashboardUrl}&error=calendar_denied`);
     }
 
     try {
@@ -23,7 +29,7 @@ export async function GET(request: NextRequest) {
                 code,
                 client_id: process.env.GOOGLE_CLIENT_ID!,
                 client_secret: process.env.GOOGLE_CLIENT_SECRET!,
-                redirect_uri: `${process.env.NEXTAUTH_URL}/api/google/calendar/callback`,
+                redirect_uri: callbackRedirectUri,
                 grant_type: 'authorization_code',
             }),
         });
@@ -47,13 +53,9 @@ export async function GET(request: NextRequest) {
             },
         });
 
-        return NextResponse.redirect(
-            `${process.env.NEXTAUTH_URL}/dashboard/settings?tab=integrations&success=calendar_connected`
-        );
+        return NextResponse.redirect(`${dashboardUrl}&success=calendar_connected`);
     } catch (error) {
         console.error('Google Calendar callback error:', error);
-        return NextResponse.redirect(
-            `${process.env.NEXTAUTH_URL}/dashboard/settings?tab=integrations&error=calendar_failed`
-        );
+        return NextResponse.redirect(`${dashboardUrl}&error=calendar_failed`);
     }
 }
