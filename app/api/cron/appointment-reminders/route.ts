@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
                     lte: in30Minutes,
                 },
                 status: 'CONFIRMED',
-                meetLink: { not: null },
+                meetingLink: { not: null },
                 // Only send if not already notified (we'll add this field later)
             },
             include: {
@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
         let sentCount = 0;
 
         for (const appointment of appointments) {
-            if (!appointment.customerEmail || !appointment.meetLink) continue;
+            if (!appointment.customerEmail || !appointment.meetingLink) continue;
 
             // Format appointment time
             const appointmentTime = new Date(appointment.date).toLocaleString('ar-SA', {
@@ -69,7 +69,7 @@ export async function GET(request: NextRequest) {
                             </div>
 
                             <div style="text-align: center; margin: 30px 0;">
-                                <a href="${appointment.meetLink}" 
+                                <a href="${appointment.meetingLink}" 
                                    style="background: #4285F4; color: white; padding: 16px 32px; border-radius: 10px; text-decoration: none; font-size: 18px; font-weight: bold; display: inline-block;">
                                     🎥 انضم للاجتماع عبر Google Meet
                                 </a>

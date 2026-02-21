@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import Stripe from 'stripe';
 import { sendOrderConfirmation, sendSubscriptionConfirmation } from '@/lib/email';
+import { createCalendarEvent } from '@/lib/google-calendar';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: '2024-06-20',
@@ -154,22 +155,40 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
         if (apptDate !== undefined && apptDate !== '' && sellerId) {
             // Combine date and time
             const dateStr = `${apptDate}T${apptTime || '00:00'}:00Z`;
+            const startDate = new Date(dateStr);
+            const customerName = metadata.customerName || session.customer_details?.name || 'Vip Customer';
+            const customerEmail = session.customer_email || '';
+
+            // Try to create Google Calendar event first to get Meet link
+            let meetData = null;
+            try {
+                meetData = await createCalendarEvent(sellerId, {
+                    title: `استشارة برمجية/جلسة مع ${customerName}`,
+                    startDateTime: startDate,
+                    durationMinutes: 60,
+                    customerName,
+                    customerEmail,
+                });
+            } catch (err) {
+                console.error('Failed to create Calendar Event in webhook', err);
+            }
 
             await prisma.appointment.create({
                 data: {
                     title: `استشارة برمجية/جلسة`,
                     price: totalAmount,
                     duration: 60, // Default duration 60 mins
-                    date: new Date(dateStr),
+                    date: startDate,
                     status: 'CONFIRMED',
-                    customerName: metadata.customerName || session.customer_details?.name || 'Vip Customer',
-                    customerEmail: session.customer_email || '',
+                    customerName,
+                    customerEmail,
                     customerPhone: metadata.customerPhone || session.customer_details?.phone || '',
                     userId: sellerId,
-                    orderId: order.id
+                    orderId: order.id,
+                    meetingLink: meetData?.meetLink || undefined,
                 }
             });
-            console.log('✅ Appointment created successfully');
+            console.log('✅ Appointment created successfully', meetData?.meetLink ? `with Meet URL: ${meetData.meetLink}` : '');
         }
 
         console.log('✅ Order created:', order.id);
