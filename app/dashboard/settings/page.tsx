@@ -2,14 +2,18 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { FiUser, FiMail, FiLock, FiGlobe, FiBell, FiCreditCard, FiShield, FiSave, FiUpload, FiEye, FiEyeOff } from 'react-icons/fi';
+import { useSearchParams } from 'next/navigation';
+import { FiUser, FiMail, FiLock, FiGlobe, FiBell, FiCreditCard, FiShield, FiSave, FiUpload, FiEye, FiEyeOff, FiLink, FiCheckCircle, FiXCircle } from 'react-icons/fi';
 import { apiGet, apiPut, handleApiError } from '@/lib/safe-fetch';
 
 export default function SettingsPage() {
     const { data: session } = useSession();
-    const [activeTab, setActiveTab] = useState('profile');
+    const searchParams = useSearchParams();
+    const [activeTab, setActiveTab] = useState(searchParams.get('tab') || 'profile');
     const [saving, setSaving] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [calendarConnected, setCalendarConnected] = useState(false);
+    const [integrationMsg, setIntegrationMsg] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
     // Profile Settings
     const [profileData, setProfileData] = useState({
@@ -72,6 +76,7 @@ export default function SettingsPage() {
                     accountName: data.accountName || '',
                     paypalEmail: ''
                 });
+                setCalendarConnected(data.googleCalendarConnected || false);
             } catch (error) {
                 console.error('Error fetching profile:', handleApiError(error));
             }
@@ -80,7 +85,17 @@ export default function SettingsPage() {
         if (session?.user) {
             fetchProfile();
         }
-    }, [session]);
+
+        // Check URL params for integration status
+        const successParam = searchParams.get('success');
+        const errorParam = searchParams.get('error');
+        if (successParam === 'calendar_connected') {
+            setCalendarConnected(true);
+            setIntegrationMsg({ type: 'success', text: 'تم ربط Google Calendar بنجاح! ✅' });
+        } else if (errorParam) {
+            setIntegrationMsg({ type: 'error', text: 'فشل ربط Google Calendar. حاول مرة أخرى.' });
+        }
+    }, [session, searchParams]);
 
     const saveProfile = async () => {
         setSaving(true);
@@ -119,6 +134,7 @@ export default function SettingsPage() {
         { id: 'security', name: 'الأمان', icon: FiLock },
         { id: 'notifications', name: 'الإشعارات', icon: FiBell },
         { id: 'payment', name: 'الدفع', icon: FiCreditCard },
+        { id: 'integrations', name: 'التكاملات', icon: FiLink },
         { id: 'privacy', name: 'الخصوصية', icon: FiShield }
     ];
 
@@ -466,6 +482,88 @@ export default function SettingsPage() {
                                         <FiSave />
                                         <span>حفظ معلومات الدفع</span>
                                     </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Integrations Tab */}
+                        {activeTab === 'integrations' && (
+                            <div className="space-y-8 animate-fade-in">
+                                <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">التكاملات والخدمات المرتبطة</h2>
+
+                                {integrationMsg && (
+                                    <div className={`p-4 rounded-xl flex items-center gap-3 font-medium ${integrationMsg.type === 'success'
+                                            ? 'bg-green-50 text-green-800 border border-green-200'
+                                            : 'bg-red-50 text-red-800 border border-red-200'
+                                        }`}>
+                                        {integrationMsg.type === 'success' ? <FiCheckCircle className="text-xl flex-shrink-0" /> : <FiXCircle className="text-xl flex-shrink-0" />}
+                                        {integrationMsg.text}
+                                    </div>
+                                )}
+
+                                {/* Google Calendar */}
+                                <div className="p-6 border-2 border-gray-100 dark:border-gray-800 rounded-2xl hover:border-action-blue/30 transition-all">
+                                    <div className="flex items-center justify-between flex-wrap gap-4">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-14 h-14 rounded-xl bg-white shadow-md border border-gray-100 flex items-center justify-center">
+                                                <svg viewBox="0 0 24 24" className="w-8 h-8">
+                                                    <path fill="#4285F4" d="M22 12A10 10 0 1 1 12 2a10 10 0 0 1 10 10z" />
+                                                    <path fill="white" d="M12 6.5v5.5l3.5 3.5-1 1L10.5 12V6.5h1.5z" />
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <h3 className="text-lg font-bold text-primary-charcoal dark:text-white">Google Calendar & Meet</h3>
+                                                <p className="text-sm text-text-muted">أنشئ مواعيد تلقائياً مع رابط Google Meet عند كل حجز</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center gap-3">
+                                            {calendarConnected ? (
+                                                <>
+                                                    <span className="flex items-center gap-2 text-green-600 font-medium bg-green-50 px-3 py-1.5 rounded-full text-sm">
+                                                        <FiCheckCircle />
+                                                        متصل
+                                                    </span>
+                                                    <a href="/api/google/calendar/connect" className="btn btn-outline text-sm border-red-300 text-red-500 hover:bg-red-50">
+                                                        قطع الاتصال
+                                                    </a>
+                                                </>
+                                            ) : (
+                                                <a
+                                                    href="/api/google/calendar/connect"
+                                                    className="btn btn-primary flex items-center gap-2 text-sm"
+                                                >
+                                                    <svg viewBox="0 0 24 24" className="w-4 h-4">
+                                                        <path fill="white" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                                        <path fill="white" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                                    </svg>
+                                                    ربط Google Calendar
+                                                </a>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {calendarConnected && (
+                                        <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/10 rounded-xl border border-green-200 dark:border-green-900/30">
+                                            <p className="text-sm text-green-700 dark:text-green-400">
+                                                🎉 <strong>نشط!</strong> عند حجز أي استشارة، سيتم إنشاء حدث تلقائياً في تقويمك مع رابط Google Meet وإرساله للعميل.
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Coming Soon - Zoom */}
+                                <div className="p-6 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-2xl opacity-60">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center">
+                                            <span className="text-2xl">🎥</span>
+                                        </div>
+                                        <div>
+                                            <h3 className="text-lg font-bold text-primary-charcoal dark:text-white">Zoom</h3>
+                                            <p className="text-sm text-text-muted">قريباً - ربط حسابك على Zoom</p>
+                                        </div>
+                                        <span className="mr-auto bg-gray-100 dark:bg-gray-800 text-gray-500 text-xs px-3 py-1 rounded-full">قريباً</span>
+                                    </div>
                                 </div>
                             </div>
                         )}

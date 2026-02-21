@@ -65,6 +65,12 @@ model User {
   isVerified    Boolean   @default(false)  // Blue checkmark badge
   preferredLanguage String @default("ar")  // ar, en, es
   
+  // Google Calendar Integration
+  googleCalendarAccessToken  String?
+  googleCalendarRefreshToken String?
+  googleCalendarTokenExpiry  DateTime?
+  googleCalendarConnected    Boolean  @default(false)
+  
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   
