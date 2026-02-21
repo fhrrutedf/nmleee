@@ -3,8 +3,7 @@ import { Tajawal } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { Toaster } from 'react-hot-toast';
-import Navbar from "@/app/components/Navbar";
-import Footer from "@/app/components/Footer";
+import NavbarWrapper from "@/app/components/NavbarWrapper";
 
 const tajawal = Tajawal({
     subsets: ["arabic", "latin"],
@@ -27,11 +26,10 @@ export default function RootLayout({
         <html lang="ar" dir="rtl" suppressHydrationWarning>
             <body className={`${tajawal.variable} font-sans antialiased text-primary-charcoal bg-bg-light flex flex-col min-h-screen`}>
                 <Providers>
-                    <Navbar />
+                    <NavbarWrapper />
                     <main className="flex-grow">
                         {children}
                     </main>
-                    <Footer />
                     <Toaster />
                 </Providers>
             </body>
