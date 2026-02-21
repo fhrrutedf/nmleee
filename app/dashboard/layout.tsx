@@ -6,7 +6,7 @@ import Link from 'next/link';
 import {
     FiHome, FiShoppingBag, FiVideo, FiCalendar, FiDollarSign,
     FiSettings, FiLogOut, FiMenu, FiX, FiTag, FiLink2,
-    FiTrendingUp, FiCreditCard, FiExternalLink, FiGlobe
+    FiTrendingUp, FiCreditCard, FiExternalLink, FiGlobe, FiZap
 } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
@@ -51,6 +51,7 @@ export default function DashboardLayout({
         { href: '/dashboard/orders', icon: FiTrendingUp, label: 'الطلبات' },
         { href: '/dashboard/coupons', icon: FiTag, label: 'الكوبونات' },
         { href: '/dashboard/affiliates', icon: FiLink2, label: 'التسويق بالعمولة' },
+        { href: '/dashboard/integrations', icon: FiZap, label: 'التكاملات' },
         { href: '/dashboard/billing', icon: FiCreditCard, label: 'الاشتراك والباقة' },
         { href: '/dashboard/settings', icon: FiSettings, label: 'الإعدادات' },
     ];
