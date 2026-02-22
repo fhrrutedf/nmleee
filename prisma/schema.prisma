@@ -108,6 +108,11 @@ model Product {
   category    String?
   tags        String[] @default([])
   
+  // Media & Presentation (Phase 3)
+  images      String[] @default([])    // معرض الصور
+  trailerUrl  String?                  // فيديو تعريفي للمنتج
+  previewFileUrl String?               // معاينة مجانية (ملف أو جزء مقطوع مقدما)
+  
   // New fields
   isFree      Boolean  @default(false) // منتج مجاني
   isActive    Boolean  @default(true)  // نشط أو مخفي
@@ -153,6 +158,9 @@ model Course {
   description String
   price       Float
   image       String?
+  
+  // Media (Phase 3)
+  trailerUrl  String?  // فيديو تعريفي للكورس
   
   // Course details
   duration    String?  // "4 أسابيع"
