@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/db';
+import { sendTelegramMessage, newOrderMessage } from '@/lib/telegram';
 
 export async function POST(
     req: NextRequest,
@@ -63,8 +64,22 @@ export async function POST(
             });
         }
 
-        // TODO: Send notification to customer
-        // TODO: Send notification to seller
+        // Send Telegram notification to admin
+        const orderItems = await prisma.orderItem.findMany({
+            where: { orderId },
+            include: { product: true, course: true },
+        });
+        const seller = order.sellerId ? await prisma.user.findUnique({ where: { id: order.sellerId }, select: { name: true } }) : null;
+        const products = orderItems.map(i => i.product?.title || i.course?.title || 'منتج');
+
+        await sendTelegramMessage(newOrderMessage({
+            orderNumber: order.orderNumber,
+            customerName: order.customerName,
+            customerEmail: order.customerEmail,
+            sellerName: seller?.name || 'غير محدد',
+            amount: order.totalAmount,
+            products,
+        }));
 
         return NextResponse.json({ success: true });
     } catch (error) {
