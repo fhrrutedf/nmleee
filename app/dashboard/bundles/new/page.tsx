@@ -167,7 +167,7 @@ export default function NewBundlePage() {
                                     <FileUploader
                                         maxFiles={1}
                                         accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
-                                        onUploadSuccess={(urls) => {
+                                        onUploadSuccess={(urls: string[]) => {
                                             setFormData({ ...formData, image: urls[0] });
                                             setShowCoverUploader(false);
                                         }}

@@ -268,7 +268,7 @@ export default function NewProductPage() {
                                 <FileUploader
                                     maxFiles={1}
                                     accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
-                                    onUploadSuccess={(urls) => {
+                                    onUploadSuccess={(urls: string[]) => {
                                         setFormData({ ...formData, image: urls[0] });
                                         setShowCoverUploader(false);
                                     }}
@@ -306,7 +306,7 @@ export default function NewProductPage() {
                                 <FileUploader
                                     maxFiles={5}
                                     accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
-                                    onUploadSuccess={(urls) => {
+                                    onUploadSuccess={(urls: string[]) => {
                                         setFormData({ ...formData, images: [...formData.images, ...urls] });
                                         setShowGalleryUploader(false);
                                     }}
@@ -337,7 +337,7 @@ export default function NewProductPage() {
                                 <FileUploader
                                     maxFiles={1}
                                     accept={{ 'video/*': ['.mp4', '.mov', '.avi', '.mkv', '.webm'] }}
-                                    onUploadSuccess={(urls) => {
+                                    onUploadSuccess={(urls: string[]) => {
                                         setFormData({ ...formData, trailerUrl: urls[0] });
                                         setShowTrailerUploader(false);
                                     }}
@@ -378,7 +378,7 @@ export default function NewProductPage() {
                                 <FileUploader
                                     maxFiles={1}
                                     isPrivate={true}  // Concept property showing UX of secure upload
-                                    onUploadSuccess={(urls, names) => {
+                                    onUploadSuccess={(urls: string[], names?: string[]) => {
                                         setFormData({
                                             ...formData,
                                             fileUrl: urls[0],
@@ -413,7 +413,7 @@ export default function NewProductPage() {
                             ) : showPreviewUploader ? (
                                 <FileUploader
                                     maxFiles={1}
-                                    onUploadSuccess={(urls) => {
+                                    onUploadSuccess={(urls: string[]) => {
                                         setFormData({ ...formData, previewFileUrl: urls[0] });
                                         setShowPreviewUploader(false);
                                     }}
