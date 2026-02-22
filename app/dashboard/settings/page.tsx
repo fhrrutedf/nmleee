@@ -206,8 +206,7 @@ export default function SettingsPage() {
                                             </div>
                                             <div className="w-full">
                                                 <FileUploader
-                                                    onUploadComplete={(url: string) => setProfileData({ ...profileData, avatar: url })}
-                                                    onUploadError={(err: Error) => toast.error(err.message)}
+                                                    onUploadSuccess={(urls: string[]) => setProfileData({ ...profileData, avatar: urls[0] })}
                                                     maxSize={2} // 2MB
                                                     accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
                                                 />
@@ -228,8 +227,7 @@ export default function SettingsPage() {
                                             </div>
                                             <div className="w-full">
                                                 <FileUploader
-                                                    onUploadComplete={(url: string) => setProfileData({ ...profileData, coverImage: url })}
-                                                    onUploadError={(err: Error) => toast.error(err.message)}
+                                                    onUploadSuccess={(urls: string[]) => setProfileData({ ...profileData, coverImage: urls[0] })}
                                                     maxSize={5} // 5MB
                                                     accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
                                                 />
