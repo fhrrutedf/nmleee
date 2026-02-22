@@ -66,6 +66,7 @@ export const authOptions: AuthOptions = {
                         email: user.email,
                         name: user.name,
                         username: user.username,
+                        role: user.role,
                     }
                 } catch (error) {
                     console.error('💥 [NextAuth] Auth error:', error);
@@ -113,9 +114,11 @@ export const authOptions: AuthOptions = {
 
                         user.id = newUser.id;
                         (user as any).username = newUser.username;
+                        (user as any).role = newUser.role;
                     } else {
                         user.id = existingUser.id;
                         (user as any).username = existingUser.username;
+                        (user as any).role = existingUser.role;
                     }
                     return true;
                 } catch (error) {
@@ -127,10 +130,11 @@ export const authOptions: AuthOptions = {
         },
         async jwt({ token, user, account }) {
             if (user) {
-                token.sub = user.id
-                token.name = user.name
-                token.email = user.email
-                token.username = (user as any).username
+                token.sub = user.id;
+                token.name = user.name;
+                token.email = user.email;
+                token.username = (user as any).username;
+                token.role = (user as any).role;
             }
             // For Google sign-in, fetch username from DB if not in token
             if (account?.provider === 'google' && token.email && !token.username) {
@@ -138,18 +142,20 @@ export const authOptions: AuthOptions = {
                 if (dbUser) {
                     token.sub = dbUser.id;
                     token.username = dbUser.username;
+                    token.role = dbUser.role;
                 }
             }
-            return token
+            return token;
         },
         async session({ session, token }) {
             if (session?.user) {
-                session.user.name = token.name as string
+                session.user.name = token.name as string;
                 session.user.email = token.email as string;
                 (session.user as any).id = token.sub;
-                (session.user as any).username = token.username
+                (session.user as any).username = token.username;
+                (session.user as any).role = token.role;
             }
-            return session
+            return session;
         }
     },
     secret: process.env.NEXTAUTH_SECRET,

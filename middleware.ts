@@ -52,7 +52,7 @@ export function middleware(request: NextRequest) {
         }
     }
 
-    // 4. حماية صفحات Dashboard
+    // 4. حماية صفحات Dashboard و Admin
     if (request.nextUrl.pathname.startsWith('/dashboard') ||
         request.nextUrl.pathname.startsWith('/admin')) {
 
@@ -65,6 +65,24 @@ export function middleware(request: NextRequest) {
             const loginUrl = new URL('/login', request.url);
             loginUrl.searchParams.set('callbackUrl', request.nextUrl.pathname);
             return NextResponse.redirect(loginUrl);
+        }
+
+        // 5. حماية إضافية لصفحات Admin (التحقق من الدور)
+        if (request.nextUrl.pathname.startsWith('/admin') && token) {
+            try {
+                // Decode the token (it's a JWT from NextAuth)
+                const tokenValue = token.value;
+                const encodedPayload = tokenValue.split('.')[1];
+                if (encodedPayload) {
+                    const decodedPayload = JSON.parse(Buffer.from(encodedPayload, 'base64').toString('utf8'));
+                    if (decodedPayload?.role !== 'ADMIN') {
+                        // Not an admin, redirect to homepage or dashboard
+                        return NextResponse.redirect(new URL('/', request.url));
+                    }
+                }
+            } catch (error) {
+                console.error('Error parsing token in middleware:', error);
+            }
         }
     }
 

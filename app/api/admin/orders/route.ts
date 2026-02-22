@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/db';
-import { PayoutStatus } from '@prisma/client';
+import { OrderStatus } from '@prisma/client';
 
 export async function GET(request: Request) {
     try {
@@ -24,7 +24,8 @@ export async function GET(request: Request) {
 
         const { searchParams } = new URL(request.url);
         const search = searchParams.get('search') || '';
-        const statusStr = searchParams.get('status') || 'ALL'; // ALL, PENDING, PROCESSING, COMPLETED, REJECTED
+        const statusStr = searchParams.get('status') || 'ALL'; // ALL, PENDING, PAID, REFUNDED, COMPLETED
+        const paymentType = searchParams.get('type') || 'ALL'; // ALL, manual, online
         const page = parseInt(searchParams.get('page') || '1');
         const limit = parseInt(searchParams.get('limit') || '20');
         const skip = (page - 1) * limit;
@@ -34,38 +35,47 @@ export async function GET(request: Request) {
 
         if (search) {
             whereClause.OR = [
-                { payoutNumber: { contains: search, mode: 'insensitive' } },
+                { orderNumber: { contains: search, mode: 'insensitive' } },
                 { user: { name: { contains: search, mode: 'insensitive' } } },
                 { user: { email: { contains: search, mode: 'insensitive' } } },
+                { seller: { name: { contains: search, mode: 'insensitive' } } }
             ];
         }
 
         if (statusStr !== 'ALL') {
-            whereClause.status = statusStr as PayoutStatus;
+            whereClause.status = statusStr as OrderStatus;
         }
 
-        const [payouts, totalCount] = await Promise.all([
-            prisma.payout.findMany({
+        if (paymentType !== 'ALL') {
+            if (paymentType === 'manual') {
+                whereClause.paymentMethod = 'manual';
+            } else {
+                whereClause.paymentMethod = { not: 'manual' };
+            }
+        }
+
+        const [orders, totalCount] = await Promise.all([
+            prisma.order.findMany({
                 where: whereClause,
                 include: {
-                    seller: {
-                        select: { name: true, email: true, avatar: true }
+                    user: { select: { name: true, email: true } },
+                    seller: { select: { name: true, email: true } },
+                    items: {
+                        include: {
+                            product: { select: { title: true } },
+                            course: { select: { title: true } }
+                        }
                     }
                 },
-                orderBy: { requestedAt: 'desc' },
+                orderBy: { createdAt: 'desc' },
                 skip,
                 take: limit
             }),
-            prisma.payout.count({ where: whereClause })
+            prisma.order.count({ where: whereClause })
         ]);
 
-        const formattedPayouts = payouts.map(p => ({
-            ...p,
-            user: p.seller
-        }));
-
         return NextResponse.json({
-            payouts: formattedPayouts,
+            orders,
             pagination: {
                 totalCount,
                 page,
@@ -73,14 +83,15 @@ export async function GET(request: Request) {
                 totalPages: Math.ceil(totalCount / limit)
             },
             stats: {
-                totalPayouts: await prisma.payout.count(),
-                pendingCount: await prisma.payout.count({ where: { status: 'PENDING' } }),
-                completedAmount: await prisma.payout.aggregate({ where: { status: 'COMPLETED' }, _sum: { amount: true } }),
+                totalOrders: await prisma.order.count(),
+                paidOrders: await prisma.order.count({ where: { status: 'PAID' } }),
+                pendingManual: await prisma.order.count({ where: { paymentMethod: 'manual', status: 'PENDING' } }),
+                totalRevenue: await prisma.order.aggregate({ where: { status: 'PAID' }, _sum: { totalAmount: true } }),
             }
         });
 
     } catch (error) {
-        console.error('Error fetching admin payouts:', error);
+        console.error('Error fetching admin orders:', error);
         return NextResponse.json({ error: 'حدث خطأ' }, { status: 500 });
     }
 }
