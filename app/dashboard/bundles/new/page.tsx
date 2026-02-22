@@ -187,7 +187,7 @@ export default function NewBundlePage() {
 
                         {fetchingProducts ? (
                             <div className="py-8 text-center text-gray-500">جاري تحميل منتجاتك...</div>
-                        ) : products.length === 0 ? (
+                        ) : !products || products.length === 0 ? (
                             <div className="py-8 text-center text-gray-500">
                                 لا يوجد لديك منتجات لإضافتها!
                                 <br />
@@ -195,7 +195,7 @@ export default function NewBundlePage() {
                             </div>
                         ) : (
                             <div className="grid sm:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-200">
-                                {products.map((product) => {
+                                {products?.map((product) => {
                                     const isSelected = formData.productIds.includes(product.id);
                                     return (
                                         <div

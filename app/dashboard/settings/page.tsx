@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
-import { FiUser, FiMail, FiLock, FiGlobe, FiBell, FiCreditCard, FiShield, FiSave, FiUpload, FiEye, FiEyeOff, FiLink, FiCheckCircle, FiXCircle } from 'react-icons/fi';
+import { FiUser, FiMail, FiLock, FiGlobe, FiBell, FiCreditCard, FiShield, FiSave, FiUpload, FiEye, FiEyeOff, FiLink, FiCheckCircle, FiXCircle, FiCopy } from 'react-icons/fi';
 import { apiGet, apiPut, handleApiError } from '@/lib/safe-fetch';
+import FileUploader from '@/components/ui/FileUploader';
+import toast from 'react-hot-toast';
 
 export default function SettingsPage() {
     const { data: session } = useSession();
@@ -141,9 +143,24 @@ export default function SettingsPage() {
     return (
         <div className="space-y-6">
             {/* Header */}
-            <div>
-                <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white">الإعدادات</h1>
-                <p className="text-text-muted mt-2">إدارة حسابك وتفضيلاتك</p>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white">الإعدادات</h1>
+                    <p className="text-text-muted mt-2">إدارة حسابك وتفضيلاتك</p>
+                </div>
+                {profileData.username && (
+                    <button
+                        onClick={() => {
+                            const url = `${window.location.origin}/${profileData.username}`;
+                            navigator.clipboard.writeText(url);
+                            toast.success('تم نسخ رابط متجرك بنجاح!');
+                        }}
+                        className="btn bg-white dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-action-blue text-primary-charcoal dark:text-white shadow-sm flex items-center gap-2"
+                    >
+                        <FiCopy className="text-action-blue" />
+                        <span>نسخ رابط المتجر</span>
+                    </button>
+                )}
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -174,17 +191,51 @@ export default function SettingsPage() {
                             <div className="space-y-8 animate-fade-in">
                                 <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الملف الشخصي</h2>
 
-                                {/* Avatar Upload */}
-                                <div className="flex items-center gap-6">
-                                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-action-blue to-blue-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg">
-                                        {profileData.name.charAt(0).toUpperCase() || 'U'}
+                                {/* Avatar & Cover Upload */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    {/* Avatar */}
+                                    <div className="space-y-3">
+                                        <label className="label">الصورة الشخصية (Avatar)</label>
+                                        <div className="flex flex-col items-center gap-4 p-4 border border-dashed border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800/50">
+                                            <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-action-blue to-purple-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg ring-4 ring-white dark:ring-gray-900 border border-gray-100 dark:border-gray-800 shrink-0 relative group">
+                                                {profileData.avatar ? (
+                                                    <img src={profileData.avatar} alt="Avatar" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                                                ) : (
+                                                    <span>{profileData.name.charAt(0).toUpperCase() || 'U'}</span>
+                                                )}
+                                            </div>
+                                            <div className="w-full">
+                                                <FileUploader
+                                                    onUploadComplete={(url) => setProfileData({ ...profileData, avatar: url })}
+                                                    onUploadError={(err) => toast.error(err.message)}
+                                                    maxSize={2} // 2MB
+                                                    accept="image/*"
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <button className="btn btn-outline flex items-center gap-2">
-                                            <FiUpload />
-                                            <span>تحميل صورة</span>
-                                        </button>
-                                        <p className="text-sm text-text-muted mt-2">JPG, PNG أو GIF (الحد الأقصى 2MB)</p>
+
+                                    {/* Cover Image */}
+                                    <div className="space-y-3">
+                                        <label className="label">صورة الغلاف (Cover)</label>
+                                        <div className="flex flex-col gap-4 p-4 border border-dashed border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800/50">
+                                            <div className="h-24 w-full rounded-xl overflow-hidden bg-gradient-to-br from-action-blue to-purple-600 flex items-center justify-center text-white font-bold shadow-inner relative group">
+                                                {profileData.coverImage ? (
+                                                    <img src={profileData.coverImage} alt="Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                                                ) : (
+                                                    <span className="opacity-50 text-sm">أضف غلافاً مميزاً لمتجرك</span>
+                                                )}
+                                            </div>
+                                            <div className="w-full">
+                                                <FileUploader
+                                                    onUploadComplete={(url) => setProfileData({ ...profileData, coverImage: url })}
+                                                    onUploadError={(err) => toast.error(err.message)}
+                                                    maxSize={5} // 5MB
+                                                    accept="image/*"
+                                                />
+                                            </div>
+                                            <p className="text-xs text-text-muted text-center">يفضل مقاس غلاف تويتر أو انستقرام المحسن (1920x1080)</p>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -493,8 +544,8 @@ export default function SettingsPage() {
 
                                 {integrationMsg && (
                                     <div className={`p-4 rounded-xl flex items-center gap-3 font-medium ${integrationMsg.type === 'success'
-                                            ? 'bg-green-50 text-green-800 border border-green-200'
-                                            : 'bg-red-50 text-red-800 border border-red-200'
+                                        ? 'bg-green-50 text-green-800 border border-green-200'
+                                        : 'bg-red-50 text-red-800 border border-red-200'
                                         }`}>
                                         {integrationMsg.type === 'success' ? <FiCheckCircle className="text-xl flex-shrink-0" /> : <FiXCircle className="text-xl flex-shrink-0" />}
                                         {integrationMsg.text}

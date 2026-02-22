@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { FiMapPin, FiLink, FiFacebook, FiInstagram, FiTwitter, FiStar, FiShoppingCart, FiClock, FiCheckCircle } from 'react-icons/fi';
+import { FiMapPin, FiLink, FiFacebook, FiInstagram, FiTwitter, FiStar, FiShoppingCart, FiClock, FiCheckCircle, FiShare2, FiMonitor } from 'react-icons/fi';
 import Link from 'next/link';
 import { apiGet } from '@/lib/safe-fetch';
+import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 
 export default function CreatorProfilePage() {
     const params = useParams();
@@ -33,6 +35,14 @@ export default function CreatorProfilePage() {
         }
     };
 
+    const handleShare = () => {
+        if (typeof window !== 'undefined') {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url);
+            toast.success('تم نسخ رابط المتجر بنجاح!');
+        }
+    };
+
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen bg-bg-light dark:bg-bg-dark">
@@ -53,79 +63,104 @@ export default function CreatorProfilePage() {
         );
     }
 
-    return (
-        <div className="min-h-screen bg-bg-light dark:bg-bg-dark pb-24">
-            {/* Spectacular Cover Image Area */}
-            <div className="h-72 sm:h-96 relative overflow-hidden bg-gradient-to-br from-action-blue to-purple-800">
-                {creator.coverImage ? (
-                    <img
-                        src={creator.coverImage}
-                        alt="Cover bg"
-                        className="w-full h-full object-cover mix-blend-overlay opacity-60"
-                    />
-                ) : (
-                    <div className="absolute inset-0 pattern-dots text-white/10 dark:text-black/10 mix-blend-overlay"></div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-bg-light dark:from-bg-dark via-transparent to-black/30"></div>
-            </div>
+    const brandColor = creator.brandColor || '#0ea5e9'; // Default to action-blue if not set
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-10">
-                <div className="bg-white dark:bg-card-white rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-black/20 p-6 md:p-10 mb-12 animate-fade-in-up border border-gray-100 dark:border-gray-800">
-                    <div className="flex flex-col md:flex-row gap-8 items-center md:items-start text-center md:text-right">
+    return (
+        <div className="min-h-screen bg-bg-light dark:bg-bg-dark pb-32 font-sans selection:bg-black/10 dark:selection:bg-white/10" style={{ '--brand-color': brandColor } as React.CSSProperties}>
+
+            {/* Spectacular Cover Image Area */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                className="h-[40vh] sm:h-[50vh] relative overflow-hidden bg-gradient-to-br"
+                style={{
+                    background: creator.coverImage
+                        ? `url(${creator.coverImage}) center/cover no-repeat`
+                        : `linear-gradient(135deg, ${brandColor}dd, ${brandColor}44)`
+                }}
+            >
+                {/* Overlay Gradients for smooth blending */}
+                <div className="absolute inset-0 bg-black/20 dark:bg-black/40 mix-blend-overlay"></div>
+                <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-bg-light dark:from-bg-dark to-transparent"></div>
+            </motion.div>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 sm:-mt-32 relative z-10">
+                {/* Profile Card */}
+                <motion.div
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
+                    className="bg-white/80 dark:bg-card-white/80 backdrop-blur-2xl rounded-3xl shadow-2xl shadow-gray-200/50 dark:shadow-black/40 p-6 md:p-10 mb-16 border border-white/40 dark:border-white/5 relative overflow-hidden"
+                >
+                    {/* Decorative accent glow depending on brand color */}
+                    <div className="absolute -top-32 -right-32 w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none" style={{ backgroundColor: brandColor }}></div>
+                    <div className="absolute -bottom-32 -left-32 w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none" style={{ backgroundColor: brandColor }}></div>
+
+                    <div className="flex flex-col md:flex-row gap-8 items-center md:items-start text-center md:text-right relative z-10">
                         {/* Avatar */}
-                        <div className="w-40 h-40 rounded-3xl border-4 border-white dark:border-card-white shadow-xl overflow-hidden bg-gray-100 dark:bg-gray-800 flex-shrink-0 -mt-16 sm:-mt-24 rotate-3 hover:rotate-0 transition-transform duration-500 relative group">
+                        <motion.div
+                            whileHover={{ scale: 1.05, rotate: -2 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                            className="w-40 h-40 sm:w-48 sm:h-48 rounded-3xl border-4 border-white dark:border-card-white shadow-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 flex-shrink-0 -mt-20 sm:-mt-28 relative group z-20"
+                        >
                             {creator.avatar ? (
                                 <img
                                     src={creator.avatar}
                                     alt={creator.name}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    className="w-full h-full object-cover"
                                 />
                             ) : (
-                                <div className="w-full h-full flex items-center justify-center text-5xl font-black text-action-blue bg-blue-50 dark:bg-blue-900/20">
-                                    {creator.name?.charAt(0)}
+                                <div className="w-full h-full flex items-center justify-center text-6xl font-black text-white" style={{ backgroundColor: brandColor }}>
+                                    {creator.name?.charAt(0).toUpperCase()}
                                 </div>
                             )}
-                        </div>
+                        </motion.div>
 
                         {/* Creator Info */}
-                        <div className="flex-1 w-full space-y-4">
-                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div className="flex-1 w-full space-y-5">
+                            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                                 <div>
-                                    <h1 className="text-3xl md:text-4xl font-black text-primary-charcoal dark:text-white mb-1 flex items-center justify-center md:justify-start gap-2">
+                                    <h1 className="text-3xl md:text-5xl font-black text-primary-charcoal dark:text-white mb-2 flex items-center justify-center md:justify-start gap-2 tracking-tight">
                                         {creator.name}
-                                        <FiCheckCircle className="text-action-blue text-2xl" title="مدرب موثق" />
+                                        <FiCheckCircle title="متجر موثق" style={{ color: brandColor }} className="text-2xl drop-shadow-sm" />
                                     </h1>
-                                    <p className="text-action-blue font-bold tracking-wider font-mono ltr flex justify-center md:justify-start">@{creator.username}</p>
+                                    <p className="font-bold tracking-wider font-mono ltr flex justify-center md:justify-start" style={{ color: brandColor }}>@{creator.username}</p>
                                 </div>
-                                <div className="flex gap-2 justify-center">
-                                    {creator.facebook && (
-                                        <a href={creator.facebook} target="_blank" rel="noopener noreferrer" className="p-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-xl hover:bg-blue-600 hover:text-white transition-all transform hover:-translate-y-1">
-                                            <FiFacebook size={20} />
-                                        </a>
-                                    )}
-                                    {creator.twitter && (
-                                        <a href={creator.twitter} target="_blank" rel="noopener noreferrer" className="p-3 bg-sky-50 dark:bg-sky-900/20 text-sky-500 dark:text-sky-400 rounded-xl hover:bg-sky-500 hover:text-white transition-all transform hover:-translate-y-1">
-                                            <FiTwitter size={20} />
-                                        </a>
-                                    )}
-                                    {creator.instagram && (
-                                        <a href={creator.instagram} target="_blank" rel="noopener noreferrer" className="p-3 bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 rounded-xl hover:bg-pink-600 hover:text-white transition-all transform hover:-translate-y-1">
-                                            <FiInstagram size={20} />
-                                        </a>
-                                    )}
+                                <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                                    <div className="flex gap-2">
+                                        {creator.facebook && (
+                                            <a href={creator.facebook} target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-300 rounded-xl transition-all transform hover:-translate-y-1 hover:shadow-lg hover:text-white" style={{ '--hover-bg': brandColor } as any} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = brandColor} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}>
+                                                <FiFacebook size={20} />
+                                            </a>
+                                        )}
+                                        {creator.twitter && (
+                                            <a href={creator.twitter} target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-300 rounded-xl transition-all transform hover:-translate-y-1 hover:shadow-lg hover:text-white" style={{ '--hover-bg': brandColor } as any} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = brandColor} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}>
+                                                <FiTwitter size={20} />
+                                            </a>
+                                        )}
+                                        {creator.instagram && (
+                                            <a href={creator.instagram} target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-300 rounded-xl transition-all transform hover:-translate-y-1 hover:shadow-lg hover:text-white" style={{ '--hover-bg': brandColor } as any} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = brandColor} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}>
+                                                <FiInstagram size={20} />
+                                            </a>
+                                        )}
+                                    </div>
+                                    <button onClick={handleShare} className="flex items-center gap-2 px-4 py-3 rounded-xl justify-center transition-all bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:shadow-md font-medium">
+                                        <FiShare2 /> مشاركة
+                                    </button>
                                 </div>
                             </div>
 
                             {creator.bio && (
-                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl text-lg">
+                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl text-lg md:text-xl font-medium">
                                     {creator.bio}
                                 </p>
                             )}
 
                             {creator.website && (
-                                <div className="flex items-center justify-center md:justify-start gap-2 text-sm text-gray-500 dark:text-gray-400 font-medium pb-4">
-                                    <FiLink className="text-action-blue" />
-                                    <a href={creator.website} target="_blank" rel="noopener noreferrer" className="hover:text-action-blue hover:underline transition-colors block truncate max-w-xs">
+                                <div className="flex items-center justify-center md:justify-start gap-2 text-sm font-semibold pb-2">
+                                    <FiLink style={{ color: brandColor }} />
+                                    <a href={creator.website} target="_blank" rel="noopener noreferrer" className="hover:underline transition-colors block truncate max-w-xs" style={{ color: brandColor }}>
                                         {creator.website.replace(/^https?:\/\//, '')}
                                     </a>
                                 </div>
@@ -133,110 +168,134 @@ export default function CreatorProfilePage() {
 
                             {/* Book Consultation Section (If enabled) */}
                             {creator.consultationPrice !== undefined && (
-                                <div className="mt-6 p-6 sm:p-4 border-t border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4 bg-gray-50 dark:bg-bg-dark rounded-2xl">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-3 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-xl">
-                                            <FiClock className="text-xl" />
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    className="mt-6 p-6 sm:p-5 border border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/50 dark:bg-black/20 rounded-2xl shadow-sm"
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div className="p-4 text-white rounded-2xl shadow-inner" style={{ backgroundColor: brandColor }}>
+                                            <FiClock className="text-2xl" />
                                         </div>
                                         <div className="text-center sm:text-right">
-                                            <span className="block text-sm font-bold text-gray-500 dark:text-gray-400 mb-1">جلسة استشارية خاصة</span>
-                                            <span className="font-black text-xl text-primary-charcoal dark:text-white">
+                                            <span className="block text-sm font-bold text-gray-500 dark:text-gray-400 mb-1 tracking-wide">جلسة استشارية خاصة</span>
+                                            <span className="font-black text-2xl text-primary-charcoal dark:text-white flex items-center gap-2 justify-center sm:justify-start">
                                                 {creator.consultationPrice > 0 ? `${creator.consultationPrice} ج.م` : 'متاحة مجاناً للطلاب'}
                                             </span>
                                         </div>
                                     </div>
-                                    <Link href={`/${creator.username}/book`} className="w-full sm:w-auto btn btn-primary px-8 shadow-xl shadow-action-blue/20 hover:scale-105 transition-transform text-lg">
+                                    <Link
+                                        href={`/${creator.username}/book`}
+                                        className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-white shadow-xl transition-all hover:opacity-90 active:scale-95 text-lg flex items-center justify-center gap-2"
+                                        style={{ backgroundColor: brandColor, boxShadow: `0 10px 25px -5px ${brandColor}66` }}
+                                    >
+                                        <FiMonitor />
                                         حجز موعد الآن
                                     </Link>
-                                </div>
+                                </motion.div>
                             )}
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Products Grid */}
-                <div>
-                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+                <motion.div
+                    initial={{ y: 30, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
                         <div>
-                            <h2 className="text-3xl font-black text-primary-charcoal dark:text-white flex items-center gap-3">
-                                أحدث المنتجات والدورات
-                                <span className="bg-action-blue text-white text-sm font-bold px-3 py-1 rounded-full">{products.length}</span>
+                            <h2 className="text-3xl md:text-4xl font-black text-primary-charcoal dark:text-white flex items-center gap-3">
+                                المنتجات والدورات
+                                <span className="text-white text-sm font-bold px-3 py-1 rounded-full shadow-sm" style={{ backgroundColor: brandColor }}>{products.length}</span>
                             </h2>
-                            <p className="text-text-muted font-medium mt-2">استكشف خبرات ومنتجات <strong>{creator.name}</strong> المتاحة للاقتناء.</p>
+                            <p className="text-text-muted font-medium mt-3 text-lg">استكشف خبرات ومنتجات <strong>{creator.name}</strong> المتاحة للاقتناء.</p>
                         </div>
                     </div>
 
                     {products.length === 0 ? (
-                        <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm p-16 text-center border border-gray-100 dark:border-gray-800">
-                            <div className="w-24 h-24 bg-gray-50 dark:bg-gray-800/50 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <div className="bg-white/50 dark:bg-card-white/50 backdrop-blur-sm rounded-3xl shadow-sm p-16 text-center border border-gray-100 dark:border-gray-800">
+                            <div className="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
                                 <FiStar className="text-4xl text-gray-300 dark:text-gray-600" />
                             </div>
                             <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-2">قريباً جداً!</h3>
-                            <p className="text-gray-500 font-medium">هذا المبدع يعمل حالياً على تجهيز منتجاته ودوراته. عد قريباً.</p>
+                            <p className="text-gray-500 font-medium">هذا المبدع يعمل حالياً على بتجهيز منتجاته ودوراته. عد قريباً.</p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                            {products.map((product) => (
-                                <Link key={product.id} href={`/product/${product.id}`} className="group relative block h-full">
-                                    <div className="absolute inset-0 bg-gradient-to-r from-action-blue to-purple-600 rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 -z-10"></div>
-                                    <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm hover:shadow-xl transition-shadow duration-300 h-full border border-gray-100 dark:border-gray-800 flex flex-col overflow-hidden">
-                                        <div className="aspect-[4/3] bg-gray-100 dark:bg-gray-800 relative overflow-hidden">
-                                            {product.image ? (
-                                                <img
-                                                    src={product.image}
-                                                    alt={product.title}
-                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                                                />
-                                            ) : (
-                                                <div className="w-full h-full flex items-center justify-center text-gray-300 dark:text-gray-600">
-                                                    <FiShoppingCart className="text-5xl" />
-                                                </div>
-                                            )}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                            {products.map((product, index) => (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, delay: 0.1 * index }}
+                                    key={product.id}
+                                    className="h-full"
+                                >
+                                    <Link href={`/product/${product.id}`} className="group relative block h-full">
+                                        <div className="absolute inset-0 rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 -z-10" style={{ backgroundColor: brandColor }}></div>
+                                        <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full border border-gray-100 dark:border-gray-800 flex flex-col overflow-hidden relative">
 
-                                            {product.isFree || product.price === 0 ? (
-                                                <div className="absolute top-4 right-4 bg-green-500/90 backdrop-blur-sm text-white text-xs font-black px-3 py-1.5 rounded-full shadow-lg">
-                                                    مجاني بالكامل
+                                            <div className="aspect-[4/3] bg-gray-100 dark:bg-gray-800 relative overflow-hidden">
+                                                {product.image ? (
+                                                    <img
+                                                        src={product.image}
+                                                        alt={product.title}
+                                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                                                    />
+                                                ) : (
+                                                    <div className="w-full h-full flex items-center justify-center text-gray-300 dark:text-gray-600">
+                                                        <FiShoppingCart className="text-5xl" />
+                                                    </div>
+                                                )}
+
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                                                {product.isFree || product.price === 0 ? (
+                                                    <div className="absolute top-4 right-4 bg-green-500/90 backdrop-blur-md text-white text-xs font-black px-4 py-2 rounded-full shadow-lg border border-white/20">
+                                                        مجاني بالكامل
+                                                    </div>
+                                                ) : product.category && (
+                                                    <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-md text-white text-xs font-bold px-4 py-2 rounded-full border border-white/20">
+                                                        {product.category === 'courses' ? 'دورة' : 'رقمي'}
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            <div className="p-6 flex-1 flex flex-col">
+                                                <div className="flex justify-between items-start mb-3">
+                                                    <h3 className="font-bold text-lg text-primary-charcoal dark:text-white line-clamp-2 transition-colors flex-1 leading-snug" style={{ '--hover-color': brandColor } as any} onMouseEnter={(e) => e.currentTarget.style.color = brandColor} onMouseLeave={(e) => e.currentTarget.style.color = ''}>
+                                                        {product.title}
+                                                    </h3>
                                                 </div>
-                                            ) : product.category && (
-                                                <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full border border-white/20">
-                                                    {product.category === 'courses' ? 'دورة' : 'رقمي'}
+
+                                                <div className="flex items-center gap-1 mb-4">
+                                                    <FiStar className={product.averageRating > 0 ? "text-yellow-400 fill-yellow-400" : "text-gray-300 dark:text-gray-600"} />
+                                                    <span className="text-sm font-bold text-gray-600 dark:text-gray-400">
+                                                        {product.averageRating > 0 ? product.averageRating.toFixed(1) : 'جديد'}
+                                                        {product.reviewCount > 0 && <span className="text-gray-400 text-xs mr-1">({product.reviewCount})</span>}
+                                                    </span>
                                                 </div>
-                                            )}
+
+                                                <p className="text-gray-500 dark:text-gray-400 text-sm line-clamp-2 mb-6 flex-1">
+                                                    {product.description?.replace(/<[^>]*>?/gm, '')}
+                                                </p>
+
+                                                <div className="mt-auto flex justify-between items-center pt-5 border-t border-gray-100 dark:border-gray-800">
+                                                    <span className="font-black text-2xl drop-shadow-sm" style={{ color: brandColor }}>
+                                                        {product.price > 0 ? `${product.price.toFixed(0)} ج.م` : 'مجاني'}
+                                                    </span>
+                                                    <span className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 transition-all group-hover:text-white shadow-sm" style={{ '--hover-bg': brandColor } as any} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = brandColor} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}>
+                                                        <FiShoppingCart className="text-xl" />
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="p-6 flex-1 flex flex-col">
-                                            <div className="flex justify-between items-start mb-3">
-                                                <h3 className="font-bold text-lg text-primary-charcoal dark:text-white line-clamp-2 group-hover:text-action-blue transition-colors flex-1 ml-2 leading-snug">
-                                                    {product.title}
-                                                </h3>
-                                            </div>
-
-                                            <div className="flex items-center gap-1 mb-4">
-                                                <FiStar className={product.averageRating > 0 ? "text-yellow-400 fill-yellow-400" : "text-gray-300 dark:text-gray-600"} />
-                                                <span className="text-sm font-bold text-gray-600 dark:text-gray-400">
-                                                    {product.averageRating > 0 ? product.averageRating.toFixed(1) : 'جديد'}
-                                                    {product.reviewCount > 0 && <span className="text-gray-400 text-xs mr-1">({product.reviewCount})</span>}
-                                                </span>
-                                            </div>
-
-                                            <p className="text-gray-500 dark:text-gray-400 text-sm line-clamp-2 mb-6 flex-1">
-                                                {product.description?.replace(/<[^>]*>?/gm, '')}
-                                            </p>
-
-                                            <div className="mt-auto flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
-                                                <span className="font-black text-xl text-action-blue drop-shadow-sm">
-                                                    {product.price > 0 ? `${product.price.toFixed(0)} ج.م` : 'مجاني'}
-                                                </span>
-                                                <span className="w-10 h-10 rounded-full bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 group-hover:bg-action-blue group-hover:text-white transition-colors">
-                                                    <FiShoppingCart />
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
+                                    </Link>
+                                </motion.div>
                             ))}
                         </div>
                     )}
-                </div>
+                </motion.div>
             </div>
         </div>
     );

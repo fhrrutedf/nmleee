@@ -51,7 +51,7 @@ export default function BundlesPage() {
             </div>
 
             {/* List */}
-            {bundles.length === 0 ? (
+            {bundles && bundles.length === 0 ? (
                 <div className="bg-white dark:bg-card-white rounded-2xl border border-dashed border-gray-300 dark:border-gray-700 p-12 text-center">
                     <div className="w-16 h-16 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
                         <FiPackage className="text-2xl text-gray-400" />
@@ -64,7 +64,7 @@ export default function BundlesPage() {
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {bundles.map((bundle) => (
+                    {bundles?.map((bundle) => (
                         <div key={bundle.id} className="bg-white dark:bg-card-white rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow">
                             <div className="aspect-video bg-gray-100 relative">
                                 {bundle.image ? (
