@@ -88,6 +88,11 @@ model User {
   sellerOrders  Order[]  @relation("SellerOrders")
   verifiedOrders Order[] @relation("OrderVerifier")
   availabilities Availability[]
+  
+  // New features
+  bundles       Bundle[]
+  sentNotifications Notification[] @relation("SentNotifications")
+  receivedNotifications Notification[] @relation("ReceivedNotifications")
 }
 
 model Product {
@@ -133,6 +138,9 @@ model Product {
   orderItems  OrderItem[]
   affiliateLinks AffiliateLink[]
   reviews     Review[]
+  bundles     BundleProduct[]
+  licenses    License[]
+  changelogs  Changelog[]
 
   @@unique([userId, slug]) // Unique slug per creator
   @@index([userId])
@@ -321,6 +329,11 @@ model OrderItem {
   
   courseId  String?
   course    Course?  @relation(fields: [courseId], references: [id])
+  
+  bundleId  String?
+  bundle    Bundle?  @relation(fields: [bundleId], references: [id])
+  
+  licenseKeyId String? // in case there's a license generated
 }
 
 model Payout {
@@ -831,5 +844,115 @@ model AffiliateSale {
   @@index([linkId])
   @@index([orderId])
   @@index([status])
+}
+
+// ============================================
+// BUNDLES & PACKAGES
+// ============================================
+
+model Bundle {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  price       Float
+  image       String?
+  slug        String?  @unique
+  
+  isActive    Boolean  @default(true)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  products    BundleProduct[]
+  orderItems  OrderItem[]
+  
+  @@index([userId])
+}
+
+model BundleProduct {
+  id          String   @id @default(uuid())
+  bundleId    String
+  bundle      Bundle   @relation(fields: [bundleId], references: [id], onDelete: Cascade)
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  @@unique([bundleId, productId])
+}
+
+// ============================================
+// LICENSING SYSTEM
+// ============================================
+
+model License {
+  id              String   @id @default(uuid())
+  type            String   // "PERSONAL" | "COMMERCIAL" | "EXTENDED"
+  price           Float
+  features        String[] @default([])
+  
+  productId       String
+  product         Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  keys            LicenseKey[]
+  
+  @@unique([productId, type])
+}
+
+model LicenseKey {
+  id              String   @id @default(uuid())
+  key             String   @unique
+  isUsed          Boolean  @default(false)
+  validatedAt     DateTime?
+  
+  licenseId       String
+  license         License  @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+  
+  orderId         String?  @unique
+  
+  createdAt       DateTime @default(now())
+  
+  @@index([key])
+}
+
+// ============================================
+// CHANGELOG & UPDATES
+// ============================================
+
+model Changelog {
+  id          String   @id @default(uuid())
+  version     String
+  content     String   // Markdown description of changes
+  
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  
+  @@index([productId])
+}
+
+// ============================================
+// NOTIFICATIONS & MESSAGING
+// ============================================
+
+model Notification {
+  id          String   @id @default(uuid())
+  type        String   // "EMAIL" | "INTERNAL"
+  title       String
+  content     String
+  isRead      Boolean  @default(false)
+  
+  senderId    String?
+  sender      User?    @relation("SentNotifications", fields: [senderId], references: [id])
+  
+  receiverEmail String?
+  receiverId  String?
+  receiver    User?    @relation("ReceivedNotifications", fields: [receiverId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  
+  @@index([receiverId])
 }
 
