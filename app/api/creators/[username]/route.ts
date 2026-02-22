@@ -56,13 +56,43 @@ export async function GET(
                 averageRating: true,
                 reviewCount: true,
                 duration: true,
-                sessions: true
+                sessions: true,
+                isFree: true,
             }
         });
 
+        // Get creator's active courses ONLY
+        const courses = await prisma.course.findMany({
+            where: {
+                userId: creator.id,
+                isActive: true
+            },
+            orderBy: { createdAt: 'desc' },
+            select: {
+                id: true,
+                title: true,
+                description: true,
+                price: true,
+                image: true,
+                category: true,
+                duration: true,
+                sessions: true,
+            }
+        });
+
+        const combinedProducts = [
+            ...products.map(p => ({ ...p, itemType: 'product' })),
+            ...courses.map(c => ({
+                ...c,
+                itemType: 'course',
+                averageRating: 0,
+                reviewCount: 0,
+            }))
+        ];
+
         return NextResponse.json({
             creator,
-            products
+            products: combinedProducts.sort((a, b) => ((b as any).soldCount || 0) - ((a as any).soldCount || 0))
         });
 
     } catch (error) {

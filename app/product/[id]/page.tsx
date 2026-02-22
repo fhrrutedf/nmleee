@@ -1,15 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { FiShoppingCart, FiStar, FiDownload, FiClock, FiVideo, FiCheckCircle, FiBook, FiEye, FiPlayCircle, FiImage } from 'react-icons/fi';
+import { useEffect, useState, use } from 'react';
+import { useRouter } from 'next/navigation';
+import { FiShoppingCart, FiStar, FiClock, FiVideo, FiCheckCircle, FiBook, FiEye, FiPlayCircle, FiMessageSquare } from 'react-icons/fi';
 import Link from 'next/link';
 import 'react-quill/dist/quill.snow.css';
 import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 import VideoPlayer from '@/components/ui/VideoPlayer';
+import showToast from '@/lib/toast';
 
-export default function ProductPage() {
-    const params = useParams();
+export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = use(params);
     const router = useRouter();
     const [product, setProduct] = useState<any>(null);
     const [reviews, setReviews] = useState([]);
@@ -19,15 +20,15 @@ export default function ProductPage() {
     const [activeMedia, setActiveMedia] = useState<{ type: 'image' | 'video', url: string } | null>(null);
 
     useEffect(() => {
-        if (params.id) {
+        if (id) {
             fetchProduct();
             fetchReviews();
         }
-    }, [params.id]);
+    }, [id]);
 
     const fetchProduct = async () => {
         try {
-            const data = await apiGet(`/api/products/${params.id}`);
+            const data = await apiGet(`/api/products/${id}`);
             setProduct(data);
             if (data.trailerUrl) {
                 setActiveMedia({ type: 'video', url: data.trailerUrl });
@@ -43,7 +44,7 @@ export default function ProductPage() {
 
     const fetchReviews = async () => {
         try {
-            const data = await apiGet(`/api/reviews?productId=${params.id}`);
+            const data = await apiGet(`/api/reviews?productId=${id}`);
             setReviews(data);
         } catch (error) {
             console.error('Error fetching reviews:', handleApiError(error));
@@ -55,15 +56,15 @@ export default function ProductPage() {
         try {
             await apiPost('/api/reviews', {
                 ...newReview,
-                productId: params.id
+                productId: id
             });
 
             setNewReview({ rating: 5, comment: '', name: '' });
             fetchReviews();
-            alert('تم إضافة تقييمك بنجاح!');
+            showToast.success('شكرًا لتقييمك!');
         } catch (error) {
             console.error('Error submitting review:', handleApiError(error));
-            alert('فشل إضافة التقييم: ' + handleApiError(error));
+            showToast.error('فشل إضافة التقييم. حاول لاحقاً');
         }
     };
 
@@ -80,30 +81,33 @@ export default function ProductPage() {
                 image: product.image
             });
             localStorage.setItem('cart', JSON.stringify(cart));
-            alert('تم إضافة المنتج لسلة المشتريات!');
+            showToast.success('تمت الإضافة للسلة بنجاح!');
         } else {
-            alert('المنتج موجود بالفعل في السلة');
+            showToast.error('المنتج موجود بالفعل في سلتك');
         }
     };
 
     const buyNow = () => {
         addToCart();
-        router.push('/checkout');
+        router.push('/cart'); // Redirect to cart
     };
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-action-blue border-t-transparent"></div>
+            <div className="flex items-center justify-center min-h-[70vh] bg-bg-light dark:bg-bg-dark">
+                <div className="animate-spin rounded-full h-14 w-14 border-4 border-action-blue border-t-transparent shadow-lg text-action-blue"></div>
             </div>
         );
     }
 
     if (!product) {
         return (
-            <div className="max-w-7xl mx-auto px-4 py-12 text-center flex flex-col items-center">
-                <h1 className="text-3xl font-bold mb-4 text-primary-charcoal">المنتج غير موجود</h1>
-                <Link href="/" className="btn btn-primary mt-4">العودة للرئيسية</Link>
+            <div className="min-h-[70vh] bg-bg-light dark:bg-bg-dark flex flex-col items-center justify-center p-4 text-center">
+                <FiBook className="text-6xl text-gray-300 dark:text-gray-700 mb-6" />
+                <h1 className="text-2xl font-bold mb-4 text-primary-charcoal dark:text-gray-200">المنتج الذي تبحث عنه غير موجود أو تم حذفه</h1>
+                <Link href="/" className="btn btn-primary mt-4">
+                    العودة لصفحة المتجر
+                </Link>
             </div>
         );
     }
@@ -119,319 +123,363 @@ export default function ProductPage() {
     }
 
     return (
-        <div className="min-h-screen bg-bg-light dark:bg-bg-light">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-                {/* Breadcrumb */}
-                <div className="flex flex-wrap items-center gap-2 text-sm text-text-muted mb-8 font-medium">
-                    <Link href="/" className="hover:text-action-blue transition-colors">الرئيسية</Link>
-                    <span>/</span>
-                    <Link href="/explore" className="hover:text-action-blue transition-colors">المتجر</Link>
-                    <span>/</span>
-                    <span className="text-primary-charcoal dark:text-white truncate max-w-[200px] sm:max-w-md">{product.title}</span>
+        <div className="min-h-screen bg-bg-light dark:bg-bg-dark pt-4 pb-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+
+                {/* Breadcrumb Navigation - Modern Minimal */}
+                <div className="flex items-center gap-3 text-sm font-bold text-gray-500 dark:text-gray-400 mb-8 overflow-x-auto whitespace-nowrap scrollbar-hide py-2">
+                    <Link href="/" className="hover:text-action-blue transition-colors flex items-center gap-1"><FiStar /> الرئيسية</Link>
+                    <span className="text-gray-300 dark:text-gray-700">/</span>
+                    <Link href="/explore" className="hover:text-action-blue transition-colors">تصفح المنتجات</Link>
+                    <span className="text-gray-300 dark:text-gray-700">/</span>
+                    <span className="text-primary-charcoal dark:text-gray-200 truncate max-w-[200px] sm:max-w-md">{product.title}</span>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-12">
-                    {/* Product Media Gallery */}
-                    <div className="lg:col-span-7 flex flex-col gap-4">
-                        <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden relative group">
-                            {activeMedia?.type === 'video' ? (
-                                <VideoPlayer
-                                    src={activeMedia.url}
-                                    videoId={product.id}
-                                    title={product.title}
-                                    poster={product.image}
-                                />
-                            ) : activeMedia?.type === 'image' ? (
-                                <img
-                                    src={activeMedia.url}
-                                    alt={product.title}
-                                    className="w-full aspect-video object-cover"
-                                />
-                            ) : (
-                                <div className="w-full aspect-video bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center">
-                                    <FiBook className="text-8xl text-gray-300 dark:text-gray-700" />
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                    {/* Left Column: Product Info Card (Sticky) */}
+                    <div className="lg:col-span-5 order-2 lg:order-1 relative">
+                        <div className="sticky top-24 bg-white dark:bg-card-white rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-800 animate-fade-in-up">
+
+                            {/* Decorative Header */}
+                            <div className="h-6 w-full bg-gradient-to-r from-action-blue via-purple-500 to-pink-500"></div>
+
+                            <div className="p-8 sm:p-10">
+                                {/* Badges */}
+                                <div className="flex flex-wrap gap-2 mb-6">
+                                    {product.category && (
+                                        <span className="px-4 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-action-blue dark:text-blue-400 rounded-lg text-sm font-black tracking-wide border border-blue-100 dark:border-blue-900/30">
+                                            {product.category === 'courses' ? '👨‍🏫 دورة متكاملة' : product.category === 'ebooks' ? '📚 كتاب إلكتروني' : product.category}
+                                        </span>
+                                    )}
+                                    {product.isFree && (
+                                        <span className="px-4 py-1.5 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-lg text-sm font-black tracking-wide border border-green-100 dark:border-green-900/30">
+                                            🎁 مجاني
+                                        </span>
+                                    )}
                                 </div>
-                            )}
+
+                                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-primary-charcoal dark:text-white mb-6 leading-tight tracking-tight">
+                                    {product.title}
+                                </h1>
+
+                                {/* Stats Overview */}
+                                <div className="flex items-center gap-6 mb-8 pb-8 border-b border-gray-100 dark:border-gray-800">
+                                    <div className="flex items-center gap-2 group cursor-pointer" onClick={() => setActiveTab('reviews')}>
+                                        <div className="flex items-center text-yellow-500 bg-yellow-50 dark:bg-yellow-900/10 px-2 py-1 rounded-lg">
+                                            <FiStar className="fill-yellow-500 mr-1" />
+                                            <span className="font-bold">{product.averageRating?.toFixed(1) || '5.0'}</span>
+                                        </div>
+                                        <span className="text-gray-500 dark:text-gray-400 font-medium text-sm group-hover:text-action-blue transition-colors">({product.reviewCount || 0} تقييم)</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 font-medium text-sm">
+                                        <FiShoppingCart className="text-gray-400" />
+                                        <span>{product.soldCount || 0} مبيعة</span>
+                                    </div>
+                                </div>
+
+                                {/* Price Reveal */}
+                                <div className="mb-10 flex items-end gap-3">
+                                    <span className="text-5xl sm:text-6xl font-black bg-gradient-to-br from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent transform transition-transform hover:scale-105 origin-right">
+                                        {product.price > 0 ? product.price.toFixed(2) : '0.00'}
+                                    </span>
+                                    <span className="text-2xl font-bold text-gray-400 dark:text-gray-500 mb-2 font-serif">ج.م</span>
+
+                                    {/* Discount Logic Display could be added here if product had discount fields */}
+                                </div>
+
+                                {/* Call to Actions */}
+                                <div className="space-y-4">
+                                    <button
+                                        onClick={buyNow}
+                                        className="w-full btn btn-primary text-xl py-5 rounded-2xl shadow-xl shadow-action-blue/20 hover:shadow-action-blue/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-black"
+                                    >
+                                        <FiShoppingCart className="text-2xl" />
+                                        <span>اشتري الآن</span>
+                                    </button>
+
+                                    <div className="flex gap-4">
+                                        <button
+                                            onClick={addToCart}
+                                            className="w-full btn text-lg py-4 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-primary-charcoal dark:text-gray-200 font-bold hover:border-action-blue hover:text-action-blue dark:hover:border-action-blue transition-colors"
+                                        >
+                                            أضف للسلة
+                                        </button>
+
+                                        {product.previewFileUrl && (
+                                            <a
+                                                href={product.previewFileUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="w-full btn bg-purple-50 hover:bg-purple-100 dark:bg-purple-900/20 dark:hover:bg-purple-900/40 text-purple-600 dark:text-purple-400 text-lg py-4 rounded-2xl flex items-center justify-center gap-2 transition-colors font-bold border border-purple-100 dark:border-purple-800/30"
+                                            >
+                                                <FiEye className="text-xl" />
+                                                <span>معاينة للدرس</span>
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Secure Guarantee Badge */}
+                                <div className="mt-8 flex items-center justify-center gap-2 text-sm text-green-600 dark:text-green-500 font-medium bg-green-50 dark:bg-green-900/10 py-3 rounded-xl border border-green-100 dark:border-green-900/20">
+                                    <FiCheckCircle size={18} />
+                                    <span>دفع آمن واستلام فوري للرابط عبر البريد</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right Column: Media & Details */}
+                    <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col gap-10">
+                        {/* 1. Media Showcase */}
+                        <div className="group relative">
+                            {/* Decorative backdrop glow */}
+                            <div className="absolute -inset-1 bg-gradient-to-r from-action-blue to-purple-600 rounded-[2.5rem] blur-xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+
+                            <div className="relative bg-black rounded-[2rem] overflow-hidden shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10 aspect-[16/10] sm:aspect-video flex items-center justify-center animate-fade-in-up">
+                                {activeMedia?.type === 'video' ? (
+                                    <div className="w-full h-full">
+                                        <VideoPlayer
+                                            src={activeMedia.url}
+                                            videoId={product.id}
+                                            title={product.title}
+                                            poster={product.image}
+                                        />
+                                    </div>
+                                ) : activeMedia?.type === 'image' ? (
+                                    <img
+                                        src={activeMedia.url}
+                                        alt={product.title}
+                                        className="w-full h-full object-cover transform transition-transform duration-700 hover:scale-105"
+                                    />
+                                ) : (
+                                    <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center text-gray-500">
+                                        <FiBook className="text-8xl mb-4 opacity-50" />
+                                        <span className="font-medium tracking-widest uppercase text-sm">No Preview Available</span>
+                                    </div>
+                                )}
+                            </div>
                         </div>
 
-                        {/* Thumbnails */}
+                        {/* Interactive Thumbnails Gallery */}
                         {mediaItems.length > 1 && (
-                            <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide snap-x">
+                            <div className="flex gap-4 overflow-x-auto pb-4 pt-2 scrollbar-hide snap-x px-2">
                                 {mediaItems.map((item, idx) => (
                                     <button
                                         key={idx}
                                         onClick={() => setActiveMedia(item as any)}
-                                        className={`relative shrink-0 w-24 h-16 rounded-xl overflow-hidden border-2 transition-all snap-start ${activeMedia?.url === item.url
-                                            ? 'border-action-blue ring-2 ring-action-blue/20'
-                                            : 'border-transparent hover:border-gray-300 opacity-70 hover:opacity-100'
+                                        className={`relative shrink-0 w-32 h-20 sm:w-40 sm:h-24 rounded-2xl overflow-hidden transition-all duration-300 snap-start shadow-sm
+                                            ${activeMedia?.url === item.url
+                                                ? 'ring-4 ring-action-blue scale-105 z-10'
+                                                : 'ring-1 ring-gray-200 dark:ring-gray-700 opacity-60 hover:opacity-100 filter grayscale hover:grayscale-0'
                                             }`}
                                     >
                                         {item.type === 'video' ? (
                                             <div className="w-full h-full bg-gray-900 flex items-center justify-center relative">
-                                                <img src={product.image || ''} className="absolute inset-0 w-full h-full object-cover opacity-50 blur-sm" alt="thumb" />
-                                                <FiPlayCircle className="text-2xl text-white relative z-10" />
+                                                <img src={product.image || ''} className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay" alt="thumb video" />
+                                                <div className="absolute inset-0 bg-black/20" />
+                                                <FiPlayCircle className="text-3xl text-white relative z-10 drop-shadow-lg" />
+                                                <div className="absolute bottom-1 right-2 text-[10px] font-bold text-white uppercase tracking-wider">Video</div>
                                             </div>
                                         ) : (
-                                            <img src={item.url} className="w-full h-full object-cover" alt={`thumb ${idx}`} />
+                                            <img src={item.url} className="w-full h-full object-cover" alt={`Gallery thumbnail ${idx}`} />
                                         )}
                                     </button>
                                 ))}
                             </div>
                         )}
-                    </div>
 
-                    {/* Product Info */}
-                    <div className="lg:col-span-5 flex flex-col">
-                        <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-8 flex-1">
-                            <div className="mb-6">
-                                {product.category && (
-                                    <span className="inline-block px-4 py-1.5 bg-action-blue/10 text-action-blue rounded-full text-sm font-semibold mb-4">
-                                        {product.category === 'courses' ? 'دورة تدريبية' : product.category === 'ebooks' ? 'كتاب إلكتروني' : product.category}
-                                    </span>
-                                )}
-                                <h1 className="text-3xl sm:text-4xl font-extrabold text-primary-charcoal dark:text-white mb-4 leading-tight">{product.title}</h1>
+                        {/* Seller / Creator Spotlight Card */}
+                        <div className="bg-white dark:bg-card-white rounded-3xl p-6 sm:p-8 flex items-center justify-between border border-gray-100 dark:border-gray-800 shadow-sm animate-fade-in-up hover:border-action-blue/50 transition-colors group relative overflow-hidden">
+                            {/* Small gradient accent */}
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-action-blue/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
 
-                                {/* Rating */}
-                                <div className="flex items-center gap-3 mb-6">
-                                    <div className="flex items-center gap-1">
-                                        {[...Array(5)].map((_, i) => (
-                                            <FiStar
-                                                key={i}
-                                                className={`text-lg ${i < Math.floor(product.averageRating || 0)
-                                                    ? 'text-yellow-400 fill-yellow-400'
-                                                    : 'text-gray-200 dark:text-gray-700'
-                                                    }`}
-                                            />
-                                        ))}
-                                    </div>
-                                    <span className="text-text-muted font-medium">
-                                        ({product.reviewCount || 0} تقييم)
-                                    </span>
-                                </div>
-                            </div>
-
-                            {/* Price */}
-                            <div className="mb-8 pb-8 border-b border-gray-100 dark:border-gray-800">
-                                <div className="flex items-center flex-wrap gap-4">
-                                    <span className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent">
-                                        {product.price.toFixed(2)} ج.م
-                                    </span>
-                                    {product.isFree && (
-                                        <span className="px-4 py-1.5 bg-green-50 text-green-600 border border-green-200 rounded-full text-sm font-bold shadow-sm">
-                                            مجاني بالكامل
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Features */}
-                            {product.features && product.features.length > 0 && (
-                                <div className="mb-8">
-                                    <h3 className="font-bold text-lg text-primary-charcoal dark:text-white mb-4">مميزات المنتج:</h3>
-                                    <ul className="space-y-3">
-                                        {product.features.map((feature: string, index: number) => (
-                                            <li key={index} className="flex items-start gap-3 text-text-muted font-medium">
-                                                <FiCheckCircle className="text-green-500 mt-1 flex-shrink-0 text-xl" />
-                                                <span>{feature}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
-
-                            {/* Course Details (if any are saved to product) */}
-                            {(product.duration || product.sessions) && (
-                                <div className="grid grid-cols-2 gap-4 mb-8">
-                                    {product.duration && (
-                                        <div className="flex items-center gap-3 bg-gray-50 dark:bg-bg-light p-4 rounded-2xl border border-gray-100 dark:border-gray-800">
-                                            <div className="p-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm"><FiClock className="text-action-blue text-xl" /></div>
-                                            <div>
-                                                <p className="text-xs text-text-muted font-medium mb-1">المدة الاستغراب</p>
-                                                <p className="font-bold text-gray-900 dark:text-white">{product.duration}</p>
-                                            </div>
-                                        </div>
-                                    )}
-                                    {product.sessions && (
-                                        <div className="flex items-center gap-3 bg-gray-50 dark:bg-bg-light p-4 rounded-2xl border border-gray-100 dark:border-gray-800">
-                                            <div className="p-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm"><FiVideo className="text-action-blue text-xl" /></div>
-                                            <div>
-                                                <p className="text-xs text-text-muted font-medium mb-1">عدد الجلسات</p>
-                                                <p className="font-bold text-gray-900 dark:text-white">{product.sessions} جلسة</p>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-
-                            {/* Actions */}
-                            <div className="space-y-4">
-                                <button
-                                    onClick={buyNow}
-                                    className="w-full btn btn-primary text-lg py-4 shadow-xl shadow-action-blue/20 hover:shadow-2xl hover:shadow-action-blue/30 hover:-translate-y-1 transition-all flex items-center justify-center gap-3 font-bold"
-                                >
-                                    <FiShoppingCart className="text-xl" />
-                                    <span>شراء الان</span>
-                                </button>
-
-                                <div className="flex gap-4">
-                                    <button
-                                        onClick={addToCart}
-                                        className="w-full btn btn-outline text-lg py-4 bg-white dark:bg-card-white shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                                    >
-                                        أضف للسلة
-                                    </button>
-
-                                    {product.previewFileUrl && (
-                                        <a
-                                            href={product.previewFileUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="w-full btn bg-purple-50 hover:bg-purple-100 dark:bg-purple-900/20 dark:hover:bg-purple-900/40 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800 text-lg py-4 flex items-center justify-center gap-2 transition-colors font-medium"
-                                        >
-                                            <FiEye />
-                                            <span>معاينة مجانية</span>
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Seller Info */}
-                        <div className="mt-6 bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 flex items-center justify-between">
                             <Link
                                 href={`/${product.user?.username || 'seller'}`}
-                                className="flex items-center gap-4 hover:opacity-80 transition-opacity"
+                                className="flex items-center gap-5 sm:gap-6 z-10 w-full"
                             >
-                                <div className="w-14 h-14 bg-gradient-to-br from-action-blue to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-md">
-                                    {product.user?.name?.charAt(0) || 'م'}
+                                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-action-blue to-purple-600 rounded-[1.2rem] flex items-center justify-center font-black text-2xl text-white shadow-lg overflow-hidden flex-shrink-0 relative group-hover:scale-105 transition-transform duration-300">
+                                    {product.user?.avatar ? (
+                                        <img src={product.user.avatar} className="w-full h-full object-cover" alt={product.user.name} />
+                                    ) : (
+                                        product.user?.name?.charAt(0) || <FiStar />
+                                    )}
                                 </div>
-                                <div>
-                                    <p className="text-sm text-text-muted mb-1 font-medium">البائع / المدرب</p>
-                                    <p className="font-bold text-primary-charcoal dark:text-white text-lg">{product.user?.name || 'البائع'}</p>
+                                <div className="flex-1">
+                                    <p className="text-sm text-action-blue font-bold tracking-widest uppercase mb-1 flex items-center gap-1">المُـدرب والكاتب</p>
+                                    <h2 className="font-extrabold text-gray-900 dark:text-white text-xl sm:text-2xl group-hover:text-action-blue transition-colors">{product.user?.name || 'البائع'}</h2>
                                 </div>
-                            </Link>
-                            <Link href={`/${product.user?.username || 'seller'}`} className="text-action-blue bg-action-blue/10 p-3 rounded-xl hover:bg-action-blue hover:text-white transition-colors">
-                                <FiStar />
+                                <div className="hidden sm:flex text-gray-400 bg-gray-50 dark:bg-gray-800 rounded-full p-4 group-hover:bg-action-blue group-hover:text-white transition-colors duration-300">
+                                    <FiPlayCircle size={28} className="transform rotate-180" /> {/* Arrow icon representation RTL */}
+                                </div>
                             </Link>
                         </div>
-                    </div>
-                </div>
 
-                {/* Tabs Section */}
-                <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-8">
-                    <div className="border-b border-gray-100 dark:border-gray-800 mb-8">
-                        <nav className="flex gap-8">
-                            {['description', 'reviews'].map((tab) => (
+                        {/* Features Highlights Blocks */}
+                        {(product.features?.length > 0 || product.duration || product.sessions) && (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {product.duration && (
+                                    <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-3xl border border-gray-100 dark:border-gray-800 flex items-center gap-5 hover:bg-white dark:hover:bg-gray-800 transition-colors shadow-sm">
+                                        <div className="w-14 h-14 bg-white dark:bg-gray-700 rounded-2xl flex items-center justify-center shadow-sm text-action-blue"><FiClock className="text-2xl" /></div>
+                                        <div>
+                                            <h4 className="font-black text-gray-900 dark:text-gray-100 text-lg">{product.duration}</h4>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400 font-medium mt-1">إجمالي المدة</p>
+                                        </div>
+                                    </div>
+                                )}
+                                {product.sessions && (
+                                    <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-3xl border border-gray-100 dark:border-gray-800 flex items-center gap-5 hover:bg-white dark:hover:bg-gray-800 transition-colors shadow-sm">
+                                        <div className="w-14 h-14 bg-white dark:bg-gray-700 rounded-2xl flex items-center justify-center shadow-sm text-purple-500"><FiVideo className="text-2xl" /></div>
+                                        <div>
+                                            <h4 className="font-black text-gray-900 dark:text-gray-100 text-lg">{product.sessions} جلسة/درس</h4>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400 font-medium mt-1">محتوى تفصيلي</p>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {product.features?.map((feature: string, index: number) => (
+                                    <div key={index} className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-3xl border border-gray-100 dark:border-gray-800 flex items-center gap-4 hover:bg-white dark:hover:bg-gray-800 transition-colors shadow-sm">
+                                        <FiCheckCircle className="text-green-500 text-2xl flex-shrink-0" />
+                                        <p className="font-bold text-gray-700 dark:text-gray-300 leading-tight">{feature}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {/* Interactive Content Tabs */}
+                        <div className="bg-white dark:bg-card-white rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden mt-4">
+                            <div className="flex overflow-x-auto border-b border-gray-100 dark:border-gray-800 scrollbar-hide">
                                 <button
-                                    key={tab}
-                                    onClick={() => setActiveTab(tab)}
-                                    className={`pb-4 px-2 border-b-2 font-bold text-lg transition-colors ${activeTab === tab
-                                        ? 'border-action-blue text-action-blue'
-                                        : 'border-transparent text-text-muted hover:text-primary-charcoal dark:hover:text-gray-300'
+                                    onClick={() => setActiveTab('description')}
+                                    className={`flex-1 min-w-[150px] py-6 px-4 font-black text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'description'
+                                        ? 'text-action-blue'
+                                        : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'
                                         }`}
                                 >
-                                    {tab === 'description' ? 'وصف المنتج والتفاصيل' : `تقييمات العملاء (${reviews.length})`}
+                                    <FiBook className={activeTab === 'description' ? "text-action-blue" : "text-gray-400"} />
+                                    محتوى وتفاصيل
+                                    {activeTab === 'description' && (
+                                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-action-blue rounded-t-full"></div>
+                                    )}
                                 </button>
-                            ))}
-                        </nav>
-                    </div>
+                                <button
+                                    onClick={() => setActiveTab('reviews')}
+                                    className={`flex-1 min-w-[150px] py-6 px-4 font-black text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'reviews'
+                                        ? 'text-action-blue'
+                                        : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'
+                                        }`}
+                                >
+                                    <FiMessageSquare className={activeTab === 'reviews' ? "text-action-blue" : "text-gray-400"} />
+                                    تجارب المشترين
+                                    <span className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs px-2 py-1 rounded-full">{reviews.length}</span>
+                                    {activeTab === 'reviews' && (
+                                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-action-blue rounded-t-full"></div>
+                                    )}
+                                </button>
+                            </div>
 
-                    {activeTab === 'description' ? (
-                        <div className="prose prose-lg max-w-none dark:prose-invert">
-                            {/* Render safely from RichTextEditor output */}
-                            <div dangerouslySetInnerHTML={{ __html: product.description }} className="text-gray-700 dark:text-gray-300 leading-relaxed ql-editor px-0 px-2" />
-                        </div>
-                    ) : (
-                        <div className="space-y-8 max-w-4xl mx-auto">
-                            {/* Add Review Form */}
-                            <form onSubmit={submitReview} className="bg-gray-50 dark:bg-bg-light rounded-2xl p-8 border border-gray-100 dark:border-gray-800">
-                                <h3 className="font-bold text-xl mb-6 text-primary-charcoal dark:text-white">أضف تقييمك للمنتج</h3>
-                                <div className="space-y-6">
-                                    <div>
-                                        <label className="block text-sm font-semibold mb-2">الاسم</label>
-                                        <input
-                                            type="text"
-                                            value={newReview.name}
-                                            onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
-                                            className="input w-full bg-white dark:bg-gray-800 text-lg"
-                                            placeholder="اكتب اسمك ليظهر في التقييم"
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-semibold mb-2">مستوى التقييم</label>
-                                        <div className="flex gap-3 bg-white dark:bg-gray-800 p-4 rounded-xl inline-flex border border-gray-100 dark:border-gray-700 shadow-sm">
-                                            {[1, 2, 3, 4, 5].map((star) => (
-                                                <button
-                                                    key={star}
-                                                    type="button"
-                                                    onClick={() => setNewReview({ ...newReview, rating: star })}
-                                                    className="text-3xl transition-transform hover:scale-110 active:scale-95"
-                                                >
-                                                    <FiStar
-                                                        className={star <= newReview.rating ? 'text-yellow-400 fill-yellow-400 drop-shadow-sm' : 'text-gray-200 dark:text-gray-600'}
-                                                    />
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-semibold mb-2">رأيك</label>
-                                        <textarea
-                                            value={newReview.comment}
-                                            onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                                            className="input w-full bg-white dark:bg-gray-800 resize-none text-lg"
-                                            rows={4}
-                                            placeholder="شاركنا تجربتك مع هذا المنتج..."
-                                            required
-                                        />
-                                    </div>
-                                    <button type="submit" className="btn btn-primary px-8 py-3 text-lg font-bold">
-                                        نشر التقييم
-                                    </button>
-                                </div>
-                            </form>
-
-                            {/* Reviews List */}
-                            <div className="space-y-6">
-                                {reviews.length === 0 ? (
-                                    <div className="text-center py-16 bg-gray-50 dark:bg-bg-light rounded-2xl border border-dashed border-gray-200 dark:border-gray-700">
-                                        <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
-                                            <FiStar size={30} />
-                                        </div>
-                                        <p className="text-gray-500 font-medium text-lg">لا توجد تقييمات بعد. كن أول من يقيّم هذا المنتج الرائع!</p>
+                            <div className="p-6 sm:p-10">
+                                {activeTab === 'description' ? (
+                                    <div className="prose prose-lg sm:prose-xl max-w-none dark:prose-invert">
+                                        <div dangerouslySetInnerHTML={{ __html: product.description }} className="text-gray-600 dark:text-gray-300 leading-relaxed ql-editor px-0" />
                                     </div>
                                 ) : (
-                                    reviews.map((review: any) => (
-                                        <div key={review.id} className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col gap-4">
-                                            <div className="flex items-center justify-between">
-                                                <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center font-bold text-gray-500 dark:text-gray-300">
-                                                        {review.name.charAt(0)}
-                                                    </div>
-                                                    <span className="font-bold text-lg text-primary-charcoal dark:text-white">{review.name}</span>
-                                                </div>
-                                                <div className="flex items-center gap-1 bg-yellow-50 dark:bg-yellow-900/10 px-3 py-1.5 rounded-full">
-                                                    {[...Array(5)].map((_, i) => (
-                                                        <FiStar
-                                                            key={i}
-                                                            className={`text-sm ${i < review.rating
-                                                                ? 'text-yellow-500 fill-yellow-500'
-                                                                : 'text-yellow-200 dark:text-yellow-800'
-                                                                }`}
+                                    <div className="space-y-10 animate-fade-in-up">
+                                        {/* Review Input Box */}
+                                        <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 p-8 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-inner">
+                                            <h3 className="font-black text-xl mb-6 text-gray-900 dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
+                                            <form onSubmit={submitReview} className="space-y-5">
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                                    <div>
+                                                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">اسمك الأول</label>
+                                                        <input
+                                                            type="text"
+                                                            value={newReview.name}
+                                                            onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
+                                                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all placeholder:font-normal"
+                                                            placeholder="يكفي الاسم الأول فقط"
+                                                            required
                                                         />
-                                                    ))}
+                                                    </div>
+                                                    <div>
+                                                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">التقييم من 5</label>
+                                                        <div className="flex gap-2">
+                                                            {[1, 2, 3, 4, 5].map((star) => (
+                                                                <button
+                                                                    key={star}
+                                                                    type="button"
+                                                                    onClick={() => setNewReview({ ...newReview, rating: star })}
+                                                                    className={`flex-1 bg-white dark:bg-gray-900 border ${star <= newReview.rating ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : 'border-gray-200 dark:border-gray-700'} rounded-xl py-3 flex items-center justify-center transition-all transform active:scale-95`}
+                                                                >
+                                                                    <FiStar className={`text-xl ${star <= newReview.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300 dark:text-gray-600'}`} />
+                                                                </button>
+                                                            ))}
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg bg-gray-50 dark:bg-gray-900/50 p-4 rounded-xl">
-                                                "{review.comment}"
-                                            </p>
+                                                <div>
+                                                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">تعليقك وتقييمك (بصدق)</label>
+                                                    <textarea
+                                                        value={newReview.comment}
+                                                        onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+                                                        className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all resize-none placeholder:font-normal"
+                                                        rows={3}
+                                                        placeholder="كيف كانت تجربتك؟ وهل استفدت من المادة؟"
+                                                        required
+                                                    />
+                                                </div>
+                                                <button type="submit" className="btn btn-primary px-8 py-3 rounded-xl font-bold shadow-lg shadow-action-blue/20">
+                                                    إرسال التقييم
+                                                </button>
+                                            </form>
                                         </div>
-                                    ))
+
+                                        {/* Reviews List */}
+                                        <div className="space-y-6">
+                                            {reviews.length === 0 ? (
+                                                <div className="text-center py-12 px-4">
+                                                    <div className="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-300 dark:text-gray-600">
+                                                        <FiMessageSquare size={36} />
+                                                    </div>
+                                                    <h4 className="font-bold text-xl text-gray-500 dark:text-gray-400">لا توجد تعليقات بعد</h4>
+                                                    <p className="text-gray-400 dark:text-gray-500 mt-2">كن أول من يشاركنا تجربته الثرية</p>
+                                                </div>
+                                            ) : (
+                                                reviews.map((review: any) => (
+                                                    <div key={review.id} className="relative group">
+                                                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-100 dark:bg-gray-800 rounded-full group-hover:bg-yellow-400 transition-colors"></div>
+                                                        <div className="pl-6 pb-2">
+                                                            <div className="flex items-center gap-3 mb-3">
+                                                                <div className="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 rounded-full flex items-center justify-center font-black text-gray-500 dark:text-gray-400 border border-white dark:border-gray-800 shadow-sm">
+                                                                    {review.name.charAt(0)}
+                                                                </div>
+                                                                <div>
+                                                                    <div className="flex items-center gap-3 mb-1">
+                                                                        <h4 className="font-bold text-lg text-primary-charcoal dark:text-white">{review.name}</h4>
+                                                                        <div className="flex items-center gap-0.5">
+                                                                            {[...Array(5)].map((_, i) => (
+                                                                                <FiStar
+                                                                                    key={i}
+                                                                                    className={`text-sm ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200 dark:text-gray-700'}`}
+                                                                                />
+                                                                            ))}
+                                                                        </div>
+                                                                    </div>
+                                                                    <p className="text-[11px] text-gray-400 font-bold tracking-wider">{new Date(review.createdAt).toLocaleDateString('ar-EG')}</p>
+                                                                </div>
+                                                            </div>
+                                                            <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed font-medium bg-gray-50 dark:bg-gray-900/50 p-5 rounded-tr-3xl rounded-br-3xl rounded-bl-3xl">
+                                                                {review.comment}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            )}
+                                        </div>
+                                    </div>
                                 )}
                             </div>
                         </div>
-                    )}
+                    </div>
                 </div>
             </div>
         </div>

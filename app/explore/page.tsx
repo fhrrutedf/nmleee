@@ -1,12 +1,11 @@
 import { prisma } from '@/lib/db';
 import Link from 'next/link';
-import Image from 'next/image';
-import { FiSearch, FiFilter, FiStar, FiClock } from 'react-icons/fi';
+import { FiSearch, FiLayers, FiTrendingUp, FiStar } from 'react-icons/fi';
 import ExploreClientWrapper from './ExploreClientWrapper';
 
 export const metadata = {
-    title: 'استكشاف الكورسات والمنتجات | منصتنا',
-    description: 'ابحث عن أفضل الكورسات والمنتجات الرقمية من نخبة صناع المحتوى.',
+    title: 'تصفح المتجر والمبدعين | منصتنا',
+    description: 'اكتشف أفضل المنتجات الرقمية والدورات التدريبية من نخبة صناع المحتوى في الوطن العربي.',
 };
 
 export default async function ExplorePage({
@@ -16,111 +15,163 @@ export default async function ExplorePage({
 }) {
     const { q: query = '', category = '', sort = 'newest' } = await searchParams;
 
+    // Build common filter
+    const searchFilter = query ? {
+        OR: [
+            { title: { contains: query, mode: 'insensitive' as const } },
+            { description: { contains: query, mode: 'insensitive' as const } }
+        ]
+    } : {};
+
+    const categoryFilter = category ? { category } : {};
+
     // Fetch Products
     const products = await prisma.product.findMany({
         where: {
             isActive: true,
-            ...(query ? {
-                OR: [
-                    { title: { contains: query, mode: 'insensitive' } },
-                    { description: { contains: query, mode: 'insensitive' } }
-                ]
-            } : {}),
-            ...(category ? { category } : {})
+            ...searchFilter,
+            ...categoryFilter
         },
-        include: { user: { select: { name: true, brandColor: true } } },
+        include: { user: { select: { name: true, brandColor: true, avatar: true, username: true } } },
         orderBy: sort === 'price_asc' ? { price: 'asc' } :
             sort === 'price_desc' ? { price: 'desc' } :
-                { createdAt: 'desc' },
-        take: 20
+                sort === 'popular' ? { soldCount: 'desc' } :
+                    { createdAt: 'desc' },
+        take: 30
     });
 
-    // Fetch Courses
+    // Fetch Courses (if applicable based on existing schema)
+    // We assume courses is similar structure for now
     const courses = await prisma.course.findMany({
         where: {
-            isActive: true,
-            ...(query ? {
-                OR: [
-                    { title: { contains: query, mode: 'insensitive' } },
-                    { description: { contains: query, mode: 'insensitive' } }
-                ]
-            } : {}),
-            ...(category ? { category } : {})
+            isActive: true, // Assuming isActive exists
+            ...searchFilter,
+            ...categoryFilter
         },
-        include: { user: { select: { name: true, brandColor: true } } },
+        include: { user: { select: { name: true, brandColor: true, avatar: true, username: true } } },
         orderBy: sort === 'price_asc' ? { price: 'asc' } :
             sort === 'price_desc' ? { price: 'desc' } :
                 { createdAt: 'desc' },
-        take: 20
+        take: 30
     });
 
-    // Combine and sort
+    // Combine and Sort
     const allItems = [
         ...products.map(p => ({ ...p, itemType: 'product' as const })),
         ...courses.map(c => ({ ...c, itemType: 'course' as const }))
     ].sort((a, b) => {
         if (sort === 'price_asc') return a.price - b.price;
         if (sort === 'price_desc') return b.price - a.price;
+        if (sort === 'popular') return ((b as any).soldCount || 0) - ((a as any).soldCount || 0);
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
 
     return (
-        <div className="min-h-screen bg-bg-light pt-24 pb-20">
-            {/* Header / Search Section */}
-            <div className="bg-white border-b border-gray-100 py-12 mb-10">
-                <div className="container-custom max-w-5xl mx-auto">
-                    <h1 className="text-4xl font-bold text-center text-primary-charcoal mb-4">
-                        اكتشف أفضل الكورسات والمنتجات
+        <div className="min-h-screen bg-bg-light dark:bg-bg-dark pt-20 pb-24">
+
+            {/* Spectacular Cover Search Area */}
+            <div className="relative bg-gradient-to-br from-action-blue to-purple-800 text-white overflow-hidden pb-16 pt-20 px-4 sm:px-6">
+                <div className="absolute inset-0 pattern-dots text-white/5 mix-blend-overlay"></div>
+                <div className="absolute -top-24 -right-24 w-96 h-96 bg-white/10 blur-[100px] rounded-full"></div>
+                <div className="absolute top-1/2 -left-24 w-72 h-72 bg-purple-500/20 blur-[80px] rounded-full"></div>
+
+                <div className="max-w-4xl mx-auto relative z-10 text-center animate-fade-in-up">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-black mb-6 drop-shadow-lg leading-tight">
+                        اكتشف الإبداع بلا حدود
                     </h1>
-                    <p className="text-center text-gray-500 mb-8 max-w-2xl mx-auto">
-                        آلاف المنتجات الرقمية والدورات التعليمية الموثوقة من صناع محتوى محترفين.
+                    <p className="text-lg sm:text-xl text-blue-50 dark:text-gray-200 mb-10 max-w-2xl mx-auto font-medium drop-shadow-sm">
+                        آلاف المنتجات الرقمية والدورات التعليمية الموثوقة من نخبة صناع المحتوى والخبراء.
                     </p>
 
-                    <form className="flex flex-col md:flex-row gap-4 max-w-3xl mx-auto">
+                    <form className="flex flex-col md:flex-row gap-3 max-w-3xl mx-auto bg-white/10 dark:bg-black/20 p-2 sm:p-3 rounded-3xl backdrop-blur-md border border-white/20 shadow-2xl">
                         <div className="relative flex-1">
-                            <FiSearch className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
+                            <FiSearch className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-300 text-xl" />
                             <input
                                 type="text"
                                 name="q"
                                 defaultValue={query}
-                                placeholder="ابحث عن كورس، قالب، أداة..."
-                                className="w-full pl-4 pr-12 py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-action-blue outline-none text-lg"
+                                placeholder="عمّ تبحث اليوم؟ كورس، كتاب، قالب..."
+                                className="w-full pl-4 pr-14 py-4 sm:py-5 rounded-2xl bg-white dark:bg-gray-900 border-none focus:ring-4 focus:ring-action-blue/30 outline-none text-lg text-primary-charcoal dark:text-white font-bold placeholder:font-normal placeholder:text-gray-400 dark:placeholder:text-gray-500 shadow-inner"
                             />
                         </div>
-                        <select
-                            name="sort"
-                            defaultValue={sort}
-                            className="py-4 px-6 rounded-xl border border-gray-200 focus:ring-2 focus:ring-action-blue outline-none bg-white font-medium"
-                        >
-                            <option value="newest">الأحدث</option>
-                            <option value="price_asc">الأقل سعراً</option>
-                            <option value="price_desc">الأعلى سعراً</option>
-                        </select>
-                        <button type="submit" className="bg-action-blue text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/20 whitespace-nowrap">
-                            بحث
-                        </button>
+                        <div className="flex gap-3">
+                            <select
+                                name="category"
+                                defaultValue={category}
+                                className="w-full md:w-auto py-4 sm:py-5 px-6 rounded-2xl border-none focus:ring-4 focus:ring-action-blue/30 outline-none bg-white dark:bg-gray-900 text-primary-charcoal dark:text-white font-bold cursor-pointer shadow-inner"
+                            >
+                                <option value="">كل الأقسام</option>
+                                <option value="courses">دورات تعليمية</option>
+                                <option value="ebooks">كتب إلكترونية</option>
+                                <option value="templates">قوالب وأدوات</option>
+                            </select>
+
+                            <select
+                                name="sort"
+                                defaultValue={sort}
+                                className="hidden sm:block py-4 sm:py-5 px-6 rounded-2xl border-none focus:ring-4 focus:ring-action-blue/30 outline-none bg-white dark:bg-gray-900 text-primary-charcoal dark:text-white font-bold cursor-pointer shadow-inner"
+                            >
+                                <option value="newest">الأحدث</option>
+                                <option value="popular">الأكثر مبيعاً</option>
+                                <option value="price_asc">الأقل سعراً</option>
+                                <option value="price_desc">الأعلى سعراً</option>
+                            </select>
+
+                            <button type="submit" className="bg-primary-charcoal dark:bg-action-blue text-white px-8 py-4 sm:py-5 rounded-2xl font-black hover:bg-black dark:hover:bg-blue-600 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 whitespace-nowrap text-lg flex items-center gap-2">
+                                <FiSearch /> <span className="hidden sm:inline">بحث</span>
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
 
             {/* Results Grid */}
-            <div className="container-custom max-w-7xl mx-auto">
-                <div className="mb-6 flex justify-between items-center">
-                    <h2 className="text-2xl font-bold text-gray-800">
-                        {query ? `نتائج البحث عن "${query}"` : 'أحدث الإضافات'}
-                        <span className="text-sm font-normal text-gray-500 mr-2">({allItems.length} نتيجة)</span>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-12">
+                <div className="mb-10 flex flex-col sm:flex-row justify-between items-center gap-4 bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 p-4 sm:p-6 rounded-3xl shadow-sm">
+                    <h2 className="text-2xl sm:text-3xl font-black text-primary-charcoal dark:text-white flex items-center gap-3">
+                        {query ? (
+                            <><FiSearch className="text-action-blue" /> نتائج البحث عن "<span className="text-action-blue">{query}</span>"</>
+                        ) : category ? (
+                            <><FiLayers className="text-action-blue" /> تصفح قسم: <span className="text-action-blue">{category === 'courses' ? 'دورات تعليمية' : category === 'ebooks' ? 'كتب إلكترونية' : category}</span></>
+                        ) : sort === 'popular' ? (
+                            <><FiTrendingUp className="text-action-blue" /> الأكثر مبيعاً وتقييماً</>
+                        ) : (
+                            <><FiStar className="text-yellow-400" /> أحدث الإضافات للمتجر</>
+                        )}
+                        <span className="bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-sm py-1 px-3 rounded-full">{allItems.length} نتيجة</span>
                     </h2>
+
+                    {/* Mobile Sort display */}
+                    <div className="sm:hidden w-full">
+                        <form>
+                            <input type="hidden" name="q" value={query} />
+                            <input type="hidden" name="category" value={category} />
+                            <select
+                                name="sort"
+                                defaultValue={sort}
+                                onChange={(e) => e.target.form?.submit()}
+                                className="w-full p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-primary-charcoal dark:text-white font-bold"
+                            >
+                                <option value="newest">ترتيب לפי: الأحدث</option>
+                                <option value="popular">الأكثر مبيعاً</option>
+                                <option value="price_asc">الأقل سعراً</option>
+                                <option value="price_desc">الأعلى سعراً</option>
+                            </select>
+                        </form>
+                    </div>
                 </div>
 
                 {allItems.length === 0 ? (
-                    <div className="text-center py-20 bg-white rounded-3xl border border-gray-100 shadow-sm">
-                        <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <FiSearch className="text-4xl text-gray-300" />
+                    <div className="text-center py-24 bg-white dark:bg-card-white rounded-3xl border border-dashed border-gray-300 dark:border-gray-700 shadow-sm px-4">
+                        <div className="w-28 h-28 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-6 text-action-blue">
+                            <FiSearch className="text-5xl" />
                         </div>
-                        <h3 className="text-xl font-bold text-gray-800 mb-2">لا توجد نتائج مطابقة</h3>
-                        <p className="text-gray-500">جرب البحث بكلمات مختلفة أو إزالة الفلاتر.</p>
-                        <Link href="/explore" className="inline-block mt-6 text-action-blue font-medium hover:underline">
-                            عرض كل المنتجات
+                        <h3 className="text-2xl font-black text-primary-charcoal dark:text-white mb-3">للأسف، لم نجد نتائج مطابقة لبحثك</h3>
+                        <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-8 text-lg">
+                            جرب استخدام كلمات مفتاحية أخرى، أو قم بتغيير الفلاتر والأقسام للوصول لما تبحث عنه.
+                        </p>
+                        <Link href="/explore" className="btn btn-primary px-8 py-3 text-lg font-bold shadow-xl shadow-action-blue/20">
+                            استكشف المتجر بالكامل
                         </Link>
                     </div>
                 ) : (

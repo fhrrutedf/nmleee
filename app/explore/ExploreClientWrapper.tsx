@@ -2,8 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
-import { FiStar, FiClock } from 'react-icons/fi';
+import { FiStar, FiClock, FiShoppingCart, FiVideo, FiBook } from 'react-icons/fi';
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -16,8 +15,8 @@ const containerVariants = {
 };
 
 const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 20 },
-    show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
+    hidden: { opacity: 0, scale: 0.9, y: 30 },
+    show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 15 } }
 };
 
 export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) {
@@ -26,65 +25,122 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
             variants={containerVariants}
             initial="hidden"
             animate="show"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
         >
             {allItems.map((item) => (
                 <motion.div variants={itemVariants} key={`${item.itemType}-${item.id}`}>
                     <Link
                         href={`/${item.itemType === 'course' ? 'courses' : 'product'}/${item.id}`} // Or slug
-                        className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full"
+                        className="group relative block h-full outline-none"
                     >
-                        <div className="aspect-[4/3] bg-gray-100 relative overflow-hidden">
-                            {(item.thumbnail || (item.images && item.images[0])) ? (
-                                <Image
-                                    src={item.thumbnail || item.images[0]}
-                                    alt={item.title}
-                                    fill
-                                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                />
-                            ) : (
-                                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200">
-                                    <span className="text-gray-400 font-medium">لا توجد صورة</span>
-                                </div>
-                            )}
-                            <div className="absolute top-3 right-3">
-                                <span className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-700 shadow-sm">
-                                    {item.itemType === 'course' ? 'كورس' : 'منتج رقمي'}
-                                </span>
-                            </div>
-                        </div>
+                        {/* Hover Glow Behind Card */}
+                        <div className="absolute -inset-1 bg-gradient-to-br from-action-blue/50 to-purple-600/50 rounded-[2.5rem] blur-xl opacity-0 group-hover:opacity-60 group-focus-visible:opacity-60 transition duration-500 delay-75 -z-10 mt-4 mx-2"></div>
 
-                        <div className="p-5 flex flex-col flex-1">
-                            <div className="flex items-center gap-2 mb-3">
-                                <div
-                                    className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] text-white font-bold"
-                                    style={{ backgroundColor: item.user?.brandColor || '#0ea5e9' }}
-                                >
-                                    {item.user?.name?.charAt(0) || 'M'}
-                                </div>
-                                <span className="text-xs text-gray-500 font-medium">{item.user?.name}</span>
-                            </div>
-
-                            <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-action-blue transition-colors">
-                                {item.title}
-                            </h3>
-
-                            {item.itemType === 'course' && (
-                                <div className="flex items-center gap-3 text-xs text-gray-500 mb-3">
-                                    <div className="flex items-center gap-1"><FiClock /> {item.totalDuration || 0} دقيقة</div>
-                                    <div className="flex items-center gap-1 text-yellow-500"><FiStar /> {item.rating || 0}</div>
-                                </div>
-                            )}
-
-                            <div className="mt-auto pt-4 flex items-center justify-between border-t border-gray-50">
-                                <span className="font-black text-lg text-primary-charcoal">
-                                    {item.price === 0 ? 'مجاناً' : `$${item.price}`}
-                                </span>
-                                {item.discountPrice && item.discountPrice < item.price && (
-                                    <span className="text-sm text-gray-400 line-through">
-                                        ${item.price}
-                                    </span>
+                        <div className="bg-white dark:bg-card-white rounded-[2rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col h-full ring-2 ring-transparent group-focus-visible:ring-action-blue">
+                            {/* Media Thumbnails Area */}
+                            <div className="aspect-[4/3] bg-gray-100 dark:bg-gray-800 relative overflow-hidden group-hover:after:absolute group-hover:after:inset-0 group-hover:after:bg-black/10 transition-all after:transition-colors">
+                                {(item.thumbnail || item.image || (item.images && item.images[0])) ? (
+                                    <img
+                                        src={item.thumbnail || item.image || item.images[0]}
+                                        alt={item.title}
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                                    />
+                                ) : (
+                                    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200 dark:from-gray-800 dark:to-gray-900 text-gray-400 dark:text-gray-500">
+                                        {item.itemType === 'course' ? <FiVideo className="text-5xl mb-2 opacity-50" /> : <FiBook className="text-5xl mb-2 opacity-50" />}
+                                        <span className="font-bold text-sm tracking-widest uppercase">No Preview</span>
+                                    </div>
                                 )}
+
+                                {/* Top Badges */}
+                                <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
+                                    {item.itemType === 'course' ? (
+                                        <span className="bg-blue-500/90 dark:bg-blue-600/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-black text-white shadow-lg border border-white/20">
+                                            دورة تدريبية
+                                        </span>
+                                    ) : item.category ? (
+                                        <span className="bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-white shadow-lg border border-white/20">
+                                            {item.category === 'ebooks' ? 'كتاب إلكتروني' : item.category}
+                                        </span>
+                                    ) : null}
+
+                                    {(item.isFree || item.price === 0) && (
+                                        <span className="bg-green-500/95 backdrop-blur-md px-4 py-1.5 rounded-full text-[11px] font-black tracking-widest text-white shadow-lg border border-white/20 animate-pulse-slow">
+                                            مجاني
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Details Content Layout */}
+                            <div className="p-6 sm:p-7 flex flex-col flex-1 relative bg-white dark:bg-card-white">
+                                {/* Creator Mini-Profile Header */}
+                                <div className="flex justify-between items-end mb-4 -mt-12">
+                                    {/* Avatar pushing up from card content into image */}
+                                    {item.user ? (
+                                        <div className="flex flex-col items-start gap-1 p-1 bg-white dark:bg-card-white rounded-2xl">
+                                            {item.user.avatar ? (
+                                                <img src={item.user.avatar} className="w-14 h-14 rounded-xl shadow-md border-2 border-white dark:border-gray-800 object-cover" alt="creator" />
+                                            ) : (
+                                                <div
+                                                    className="w-14 h-14 rounded-xl shadow-md border-2 border-white dark:border-gray-800 flex items-center justify-center text-xl text-white font-black uppercase"
+                                                    style={{ backgroundColor: item.user.brandColor || '#4F46E5', backgroundImage: 'linear-gradient(to bottom right, rgba(255,255,255,0.2), rgba(0,0,0,0.2))' }}
+                                                >
+                                                    {item.user.name?.charAt(0) || 'M'}
+                                                </div>
+                                            )}
+                                        </div>
+                                    ) : <div className="w-14 h-14"></div>}
+
+                                    {/* Small floating rating above price area */}
+                                    {(item.averageRating > 0 || item.rating > 0) && (
+                                        <div className="flex items-center gap-1 bg-white dark:bg-gray-800 px-3 py-1.5 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm text-xs font-bold text-gray-700 dark:text-gray-300">
+                                            <FiStar className="text-yellow-400 fill-yellow-400" />
+                                            <span>{(item.averageRating || item.rating || 0).toFixed(1)}</span>
+                                        </div>
+                                    )}
+                                </div>
+                                <span className="text-[11px] text-gray-400 dark:text-gray-500 font-bold mb-2 block">{item.user?.name || 'مبدع مستقل'}</span>
+
+                                <h3 className="font-extrabold text-gray-900 dark:text-white text-lg leading-snug mb-3 line-clamp-2 group-hover:text-action-blue transition-colors will-change-transform">
+                                    {item.title}
+                                </h3>
+
+                                {item.itemType === 'course' && (
+                                    <div className="flex items-center gap-4 text-xs font-bold text-gray-400 dark:text-gray-500 mb-4 bg-gray-50 dark:bg-gray-800/50 p-2 rounded-lg justify-center w-max">
+                                        <div className="flex items-center gap-1.5"><FiClock className="text-gray-400" /> {item.totalDuration || item.duration || 0} دقيقة</div>
+                                    </div>
+                                )}
+
+                                {item.itemType !== 'course' && (
+                                    <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-4 leading-relaxed flex-1">
+                                        {item.description?.replace(/<[^>]*>?/gm, '')}
+                                    </p>
+                                )}
+
+                                {/* Card Footer: Price & Action */}
+                                <div className="mt-auto pt-5 flex items-center justify-between border-t border-gray-50 dark:border-gray-800/60">
+                                    <div>
+                                        <span className="font-black text-2xl text-primary-charcoal dark:text-white">
+                                            {item.price === 0 ? (
+                                                <span className="text-green-500">مجاناً</span>
+                                            ) : (
+                                                <span className="bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent flex items-baseline gap-1">
+                                                    {item.price} <span className="text-sm font-bold text-gray-400 dark:text-gray-500 ml-1">ج.م</span>
+                                                </span>
+                                            )}
+                                        </span>
+                                        {item.discountPrice && item.discountPrice < item.price && (
+                                            <span className="text-sm text-gray-400 dark:text-gray-600 font-bold line-through block mt-0.5">
+                                                {item.price} ج.م
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    <div className="w-12 h-12 rounded-[1rem] bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:bg-action-blue group-hover:text-white group-hover:shadow-lg group-hover:shadow-action-blue/30 transition-all duration-300 transform group-hover:-rotate-6">
+                                        <FiShoppingCart size={20} />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </Link>
