@@ -93,6 +93,7 @@ model User {
   bundles       Bundle[]
   sentNotifications Notification[] @relation("SentNotifications")
   receivedNotifications Notification[] @relation("ReceivedNotifications")
+  automationSettings AutomationSettings?
 }
 
 model Product {
@@ -962,5 +963,123 @@ model Notification {
   createdAt   DateTime @default(now())
   
   @@index([receiverId])
+}
+
+// ============================================
+// AUTOMATION SYSTEM
+// ============================================
+
+model AutomationSettings {
+  id        String  @id @default(uuid())
+  userId    String  @unique
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // 1. Welcome Email
+  welcomeEmailEnabled   Boolean @default(false)
+  welcomeEmailSubject   String  @default("مرحباً بك! 🎉")
+  welcomeEmailBody      String  @default("")
+
+  // 2. Abandoned Cart Reminders
+  cartReminder1Enabled  Boolean @default(false)
+  cartReminder2Enabled  Boolean @default(false)
+  cartReminder3Enabled  Boolean @default(false)
+  cartReminder3Discount Float?
+  cartReminder1Body     String  @default("")
+  cartReminder2Body     String  @default("")
+  cartReminder3Body     String  @default("")
+
+  // 3. Post-Purchase Emails
+  postPurchase7Enabled  Boolean @default(false)
+  postPurchase30Enabled Boolean @default(false)
+  postPurchase7Body     String  @default("")
+  postPurchase30Body    String  @default("")
+
+  // 4. Subscription Reminders
+  subRemindersEnabled   Boolean @default(false)
+
+  // 5. Seller Notifications
+  notifyOnSale          Boolean @default(true)
+  notifyOnReview        Boolean @default(true)
+  notifyOnQuestion      Boolean @default(true)
+  notifyOnCompletion    Boolean @default(true)
+  notifyOnRefund        Boolean @default(true)
+  notifyMethods         String  @default("both") // "email" | "internal" | "both"
+
+  // 6. Reports
+  reportFrequency       String  @default("weekly") // "daily" | "weekly" | "monthly"
+  reportEnabled         Boolean @default(false)
+
+  // 7. Marketing Automation
+  marketingEnabled      Boolean @default(false)
+  inactiveUserDays      Int     @default(30)
+  inactiveUserDiscount  Float?
+
+  // 8. Educational Follow-up
+  eduFollowupEnabled    Boolean @default(false)
+  inactivityDays        Int     @default(7)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model AbandonedCart {
+  id            String   @id @default(uuid())
+  customerEmail String
+  customerName  String?
+  productIds    String[]
+  productNames  String[]
+  sellerId      String
+  totalAmount   Float
+
+  reminder1SentAt DateTime?
+  reminder2SentAt DateTime?
+  reminder3SentAt DateTime?
+  isConverted     Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sellerId])
+  @@index([customerEmail])
+  @@index([isConverted])
+}
+
+model EmailLog {
+  id          String   @id @default(uuid())
+  type        String   // "welcome" | "cart_reminder_1/2/3" | "post_purchase_7/30" | "report" | "sub_reminder" | "edu_followup" | "marketing"
+  toEmail     String
+  toName      String?
+  subject     String
+  status      String   @default("sent") // "sent" | "failed"
+  errorMessage String?
+  sellerId    String
+
+  createdAt   DateTime @default(now())
+
+  @@index([sellerId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+model ScheduledEmail {
+  id           String   @id @default(uuid())
+  sellerId     String
+  subject      String
+  body         String
+  targetGroup  String   @default("all") // "all" | "inactive" | "buyers"
+  scheduledAt  DateTime
+  sentAt       DateTime?
+  status       String   @default("pending") // "pending" | "sent" | "cancelled"
+  discountCode String?
+  recipientCount Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sellerId])
+  @@index([scheduledAt])
+  @@index([status])
 }
 
