@@ -1,79 +1,71 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/db';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     try {
         const session = await getServerSession(authOptions);
-
-        if (!session || !(session.user as any)?.id) {
+        if (!session?.user?.id) {
             return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
         }
 
-        const userId = (session.user as any).id;
-
         const coupons = await prisma.coupon.findMany({
-            where: { userId },
-            orderBy: { createdAt: 'desc' },
+            where: { userId: session.user.id },
+            orderBy: { createdAt: 'desc' }
         });
 
         return NextResponse.json(coupons);
     } catch (error) {
         console.error('Error fetching coupons:', error);
-        return NextResponse.json(
-            { error: 'حدث خطأ في جلب الكوبونات' },
-            { status: 500 }
-        );
+        return NextResponse.json({ error: 'حدث خطأ في جلب الكوبونات' }, { status: 500 });
     }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(req: Request) {
     try {
         const session = await getServerSession(authOptions);
-
-        if (!session || !(session.user as any)?.id) {
+        if (!session?.user?.id) {
             return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
         }
 
-        const userId = (session.user as any).id;
-        const body = await request.json();
+        const body = await req.json();
+        const { code, type, value, usageLimit, startDate, endDate, minPurchase, maxDiscount, productIds, courseIds, isActive } = body;
 
-        // Check if code already exists
-        const existing = await prisma.coupon.findFirst({
-            where: {
-                code: body.code,
-                userId,
-            },
+        // Basic validation
+        if (!code || !type || value === undefined) {
+            return NextResponse.json({ error: 'البيانات الأساسية مطلوبة' }, { status: 400 });
+        }
+
+        // Check if code already exists globally (it's unique in schema)
+        const existing = await prisma.coupon.findUnique({
+            where: { code: code.toUpperCase() }
         });
 
         if (existing) {
-            return NextResponse.json(
-                { error: 'كود الكوبون موجود مسبقاً' },
-                { status: 400 }
-            );
+            return NextResponse.json({ error: 'كود الخصم مستخدم بالفعل' }, { status: 400 });
         }
 
         const coupon = await prisma.coupon.create({
             data: {
-                userId,
-                code: body.code,
-                type: body.type,
-                value: body.value,
-                usageLimit: body.maxUses,
-                minPurchase: body.minPurchase,
-                endDate: body.expiresAt ? new Date(body.expiresAt) : null,
-                isActive: true,
-                usageCount: 0,
-            },
+                code: code.toUpperCase(),
+                type,
+                value: parseFloat(value),
+                usageLimit: usageLimit ? parseInt(usageLimit) : null,
+                startDate: startDate ? new Date(startDate) : null,
+                endDate: endDate ? new Date(endDate) : null,
+                minPurchase: minPurchase ? parseFloat(minPurchase) : null,
+                maxDiscount: maxDiscount ? parseFloat(maxDiscount) : null,
+                productIds: productIds || [],
+                courseIds: courseIds || [],
+                isActive: isActive ?? true,
+                userId: session.user.id
+            }
         });
 
         return NextResponse.json(coupon, { status: 201 });
     } catch (error) {
         console.error('Error creating coupon:', error);
-        return NextResponse.json(
-            { error: 'حدث خطأ في إنشاء الكوبون' },
-            { status: 500 }
-        );
+        return NextResponse.json({ error: 'حدث خطأ أثناء إنشاء الكوبون' }, { status: 500 });
     }
 }
