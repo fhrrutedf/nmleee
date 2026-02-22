@@ -6,7 +6,7 @@ import Link from 'next/link';
 import {
     FiHome, FiShoppingBag, FiVideo, FiCalendar, FiDollarSign,
     FiSettings, FiLogOut, FiMenu, FiX, FiTag, FiLink2,
-    FiTrendingUp, FiCreditCard, FiExternalLink, FiGlobe, FiActivity, FiUsers
+    FiTrendingUp, FiCreditCard, FiExternalLink, FiGlobe, FiActivity, FiUsers, FiPackage
 } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
@@ -45,6 +45,7 @@ export default function DashboardLayout({
     const menuItems = [
         { href: '/dashboard', icon: FiHome, label: 'الرئيسية', exact: true },
         { href: '/dashboard/products', icon: FiShoppingBag, label: 'المنتجات الرقمية' },
+        { href: '/dashboard/bundles', icon: FiPackage, label: 'الباقات والحزم' },
         { href: '/dashboard/courses', icon: FiVideo, label: 'الدورات التدريبية' },
         { href: '/dashboard/students', icon: FiUsers, label: 'الطلاب والشهادات' },
         { href: '/dashboard/appointments', icon: FiCalendar, label: 'المواعيد' },

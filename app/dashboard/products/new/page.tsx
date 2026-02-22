@@ -31,6 +31,9 @@ export default function NewProductPage() {
         fileType: 'pdf',               // نوع الملف
         trailerUrl: '',                // فيديو تعريفي 
         previewFileUrl: '',            // معاينة مجانية (للملفات أو الفيديوهات المفتوحة)
+        pricingType: 'fixed',          // 'fixed', 'free', 'pwyw'
+        minPrice: '',
+        suggestedPrice: '',
     });
 
     // تحديد نوع الملف
@@ -58,12 +61,16 @@ export default function NewProductPage() {
         const toastId = showToast.loading('جاري حفظ المنتج...');
 
         try {
+            const { pricingType, ...dataToSend } = formData;
             const response = await fetch('/api/products', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    ...formData,
-                    price: parseFloat(formData.price),
+                    ...dataToSend,
+                    price: formData.pricingType === 'free' ? 0 : parseFloat(formData.price || '0'),
+                    minPrice: formData.pricingType === 'pwyw' ? parseFloat(formData.minPrice || '0') : null,
+                    suggestedPrice: formData.pricingType === 'pwyw' && formData.suggestedPrice ? parseFloat(formData.suggestedPrice) : null,
+                    isFree: formData.pricingType === 'free',
                     tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
                 }),
             });
@@ -137,25 +144,74 @@ export default function NewProductPage() {
 
                     <div className="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label className="label">السعر (ج.م) <span className="text-red-500">*</span></label>
-                            <div className="relative">
-                                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                    <span className="text-gray-500">ج.م</span>
-                                </div>
-                                <input
-                                    type="number"
-                                    required
-                                    min="0"
-                                    step="0.01"
-                                    className="input pr-10"
-                                    placeholder="299"
-                                    value={formData.price}
-                                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                                />
-                            </div>
+                            <label className="label">نوع التسعير <span className="text-red-500">*</span></label>
+                            <select
+                                className="input bg-white dark:bg-gray-800"
+                                value={formData.pricingType}
+                                onChange={(e) => setFormData({ ...formData, pricingType: e.target.value })}
+                            >
+                                <option value="fixed">سعر ثابت</option>
+                                <option value="pwyw">تسعير مرن (ادفع ما تريد)</option>
+                                <option value="free">مجاني بالكامل</option>
+                            </select>
                         </div>
 
-                        <div>
+                        {formData.pricingType !== 'free' && (
+                            <div>
+                                <label className="label">السعر (ج.م) <span className="text-red-500">*</span></label>
+                                <div className="relative">
+                                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                        <span className="text-gray-500">ج.م</span>
+                                    </div>
+                                    <input
+                                        type="number"
+                                        required
+                                        min="0"
+                                        step="0.01"
+                                        className="input pr-10"
+                                        placeholder={formData.pricingType === 'pwyw' ? "مثلاً: 100" : "299"}
+                                        value={formData.price}
+                                        onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                                    />
+                                </div>
+                                {formData.pricingType === 'pwyw' && (
+                                    <p className="text-xs text-text-muted mt-1">
+                                        السعر الأساسي للمنتج. يمكن للعميل تعديله بناءً على رغبته (إذا قمت بإعداد تسعير مرن).
+                                    </p>
+                                )}
+                            </div>
+                        )}
+
+                        {formData.pricingType === 'pwyw' && (
+                            <>
+                                <div>
+                                    <label className="label">الحد الأدنى للسعر (ج.م)</label>
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        step="0.01"
+                                        className="input"
+                                        placeholder="0 يعنى يمكنه الحصول عليه مجاناً"
+                                        value={formData.minPrice}
+                                        onChange={(e) => setFormData({ ...formData, minPrice: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="label">السعر المقترح (ج.م) (اختياري)</label>
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        step="0.01"
+                                        className="input"
+                                        placeholder="شجع العميل للدفع"
+                                        value={formData.suggestedPrice}
+                                        onChange={(e) => setFormData({ ...formData, suggestedPrice: e.target.value })}
+                                    />
+                                </div>
+                            </>
+                        )}
+
+                        <div className={formData.pricingType === 'free' || formData.pricingType === 'pwyw' ? "md:col-span-1" : "md:col-span-1"}>
                             <label className="label">التصنيف</label>
                             <select
                                 className="input bg-white dark:bg-gray-800"
