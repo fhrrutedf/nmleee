@@ -209,7 +209,7 @@ export default function SettingsPage() {
                                                     onUploadComplete={(url: string) => setProfileData({ ...profileData, avatar: url })}
                                                     onUploadError={(err: Error) => toast.error(err.message)}
                                                     maxSize={2} // 2MB
-                                                    accept="image/*"
+                                                    accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
                                                 />
                                             </div>
                                         </div>
@@ -231,7 +231,7 @@ export default function SettingsPage() {
                                                     onUploadComplete={(url: string) => setProfileData({ ...profileData, coverImage: url })}
                                                     onUploadError={(err: Error) => toast.error(err.message)}
                                                     maxSize={5} // 5MB
-                                                    accept="image/*"
+                                                    accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
                                                 />
                                             </div>
                                             <p className="text-xs text-text-muted text-center">يفضل مقاس غلاف تويتر أو انستقرام المحسن (1920x1080)</p>
