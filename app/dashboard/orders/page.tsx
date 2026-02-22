@@ -139,10 +139,20 @@ export default function OrdersPage() {
                                             </div>
                                         </td>
                                         <td className="py-4 px-6 font-bold text-primary-charcoal dark:text-white">
-                                            {order.totalAmount.toFixed(2)} ج.م
+                                            <div>{order.totalAmount.toFixed(2)} $</div>
+                                            {order.paymentMethod === 'CRYPTO_USDT' && (
+                                                <div className="text-xs text-yellow-600 bg-yellow-100 inline-block px-2 py-0.5 rounded-md mt-1">
+                                                    USDT {order.cryptoAmount}
+                                                </div>
+                                            )}
                                         </td>
                                         <td className="py-4 px-6">
                                             {getStatusBadge(order.status)}
+                                            {order.paymentMethod === 'CRYPTO_USDT' && order.cryptoStatus && (
+                                                <div className="text-[10px] text-gray-500 mt-1">
+                                                    CoinRemitter: {order.cryptoStatus}
+                                                </div>
+                                            )}
                                         </td>
                                     </motion.tr>
                                 ))}

@@ -275,6 +275,13 @@ model Order {
   verifiedAt        DateTime?
   rejectionReason   String?
   
+  // Crypto Payments (CoinRemitter)
+  cryptoInvoiceId   String?
+  cryptoAmount      Float?
+  cryptoCoin        String?
+  walletAddress     String?
+  cryptoStatus      String?
+  
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   

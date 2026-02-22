@@ -21,6 +21,9 @@ export default function CheckoutPage() {
         phone: ''
     });
 
+    // New payment flow state
+    const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'crypto'>('stripe');
+
     useEffect(() => {
         if (isDirect) {
             // جلب بيانات الحجز المباشر من sessionStorage
@@ -79,29 +82,52 @@ export default function CheckoutPage() {
         setLoading(true);
 
         try {
-            // Check for affiliate ref
             const affiliateRef = sessionStorage.getItem('affiliate_ref') || localStorage.getItem('affiliate_ref');
 
-            const res = await fetch('/api/stripe/create-checkout-session', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    items: cart,
-                    customerEmail: formData.email,
-                    customerName: formData.name,
-                    couponCode: discount > 0 ? couponCode : null,
-                    appointmentDetails: appointmentDetails,
-                    affiliateRef: affiliateRef
-                })
-            });
+            if (paymentMethod === 'stripe') {
+                const res = await fetch('/api/stripe/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        items: cart,
+                        customerEmail: formData.email,
+                        customerName: formData.name,
+                        couponCode: discount > 0 ? couponCode : null,
+                        appointmentDetails: appointmentDetails,
+                        affiliateRef: affiliateRef
+                    })
+                });
 
-            if (res.ok) {
-                const data = await res.json();
-                // إعادة توجيه لـ Stripe
-                window.location.href = data.url;
-            } else {
-                alert('حدث خطأ في إنشاء طلب الدفع');
+                if (res.ok) {
+                    const data = await res.json();
+                    window.location.href = data.url;
+                } else {
+                    alert('حدث خطأ في إنشاء طلب الدفع عبر البطاقة');
+                }
+            } else if (paymentMethod === 'crypto') {
+                const res = await fetch('/api/coinremitter/checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        items: cart,
+                        customerEmail: formData.email,
+                        customerName: formData.name,
+                        couponCode: discount > 0 ? couponCode : null,
+                        appointmentDetails: appointmentDetails,
+                        totalAmountInUsd: total,
+                        affiliateRef: affiliateRef
+                    })
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    // التوجيه إلى صفحة عرض تفاصيل الدفع بالعملات الرقمية محلياً
+                    router.push(`/checkout/crypto/${data.orderId}`);
+                } else {
+                    alert('حدث خطأ في إنشاء فاتورة العملات الرقمية. تأكد من إعدادات API.');
+                }
             }
+
         } catch (error) {
             console.error('Error creating checkout session:', error);
             alert('حدث خطأ. حاول مرة أخرى');
@@ -275,6 +301,41 @@ export default function CheckoutPage() {
                                 <div className="flex justify-between text-xl font-bold">
                                     <span>الإجمالي</span>
                                     <span className="text-primary-600">{total.toFixed(2)} ج.م</span>
+                                </div>
+                            </div>
+
+                            {/* خيارات الدفع */}
+                            <div className="mb-6">
+                                <h3 className="text-sm font-bold text-gray-700 mb-3 border-t pt-6">طريقة الدفع</h3>
+                                <div className="flex flex-col gap-3">
+                                    <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'stripe' ? 'border-primary-600 bg-primary-50 ring-1 ring-primary-600' : 'border-gray-200 hover:border-gray-300'}`}>
+                                        <input
+                                            type="radio"
+                                            value="stripe"
+                                            checked={paymentMethod === 'stripe'}
+                                            onChange={() => setPaymentMethod('stripe')}
+                                            className="w-4 h-4 text-primary-600"
+                                        />
+                                        <FiCreditCard className="text-xl ml-3 text-primary-600" />
+                                        <div className="flex-1 mr-2">
+                                            <span className="font-bold block text-sm">البطاقة البنكية (Stripe)</span>
+                                            <span className="text-xs text-gray-500">فيزا، ماستركارد، Apple Pay</span>
+                                        </div>
+                                    </label>
+                                    <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'crypto' ? 'border-primary-600 bg-primary-50 ring-1 ring-primary-600' : 'border-gray-200 hover:border-gray-300'}`}>
+                                        <input
+                                            type="radio"
+                                            value="crypto"
+                                            checked={paymentMethod === 'crypto'}
+                                            onChange={() => setPaymentMethod('crypto')}
+                                            className="w-4 h-4 text-primary-600"
+                                        />
+                                        <span className="text-xl mx-2">🪙</span>
+                                        <div className="flex-1 mr-2">
+                                            <span className="font-bold block text-sm">عملات رقمية (USDT)</span>
+                                            <span className="text-xs text-gray-500">دفع عبر شبكة TRC20</span>
+                                        </div>
+                                    </label>
                                 </div>
                             </div>
 
