@@ -82,7 +82,7 @@ export default function FileUploader({
                 setUploads((prev) => {
                     const newArray = prev.map((upload) =>
                         upload.file === file
-                            ? { ...upload, status: "success", progress: 100, url: response.url }
+                            ? { ...upload, status: "success" as const, progress: 100, url: response.url }
                             : upload
                     );
 
@@ -109,7 +109,7 @@ export default function FileUploader({
                 setUploads((prev) =>
                     prev.map((upload) =>
                         upload.file === file
-                            ? { ...upload, status: "error", progress: 0 }
+                            ? { ...upload, status: "error" as const, progress: 0 }
                             : upload
                     )
                 );
@@ -121,7 +121,7 @@ export default function FileUploader({
             setUploads((prev) =>
                 prev.map((upload) =>
                     upload.file === file
-                        ? { ...upload, status: "error", progress: 0 }
+                        ? { ...upload, status: "error" as const, progress: 0 }
                         : upload
                 )
             );

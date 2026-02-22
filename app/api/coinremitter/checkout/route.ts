@@ -13,6 +13,25 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Invalid amount" }, { status: 400 });
         }
 
+        // Determine seller/user ID from the first item
+        let userId = '';
+        if (items && items.length > 0) {
+            const firstItem = items[0];
+            if (firstItem.type === 'product') {
+                const product = await prisma.product.findUnique({ where: { id: firstItem.id }, select: { userId: true } });
+                userId = product?.userId || '';
+            } else if (firstItem.type === 'course') {
+                const course = await prisma.course.findUnique({ where: { id: firstItem.id }, select: { userId: true } });
+                userId = course?.userId || '';
+            } else if (firstItem.sellerId) {
+                userId = firstItem.sellerId;
+            }
+        }
+
+        if (!userId) {
+            return NextResponse.json({ error: "لا يمكن تحديد البائع للطلب" }, { status: 400 });
+        }
+
         // 1. Create a pending order in database
         const orderNumber = "ORD-" + crypto.randomBytes(4).toString("hex").toUpperCase();
 
@@ -24,7 +43,8 @@ export async function POST(req: Request) {
                 totalAmount: calculatedTotal,
                 status: "PENDING",
                 paymentMethod: "CRYPTO_USDT",
-                sellerId: items.length > 0 && items[0].sellerId ? items[0].sellerId : null,
+                sellerId: userId,
+                userId: userId,
             }
         });
 
