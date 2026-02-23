@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
-import { db } from '@/lib/db';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { prisma } from '@/lib/db';
 
 export async function GET() {
     try {
@@ -10,7 +10,7 @@ export async function GET() {
             return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
         }
 
-        const logs = await db.emailLog.findMany({
+        const logs = await prisma.emailLog.findMany({
             where: { sellerId: session.user.id },
             orderBy: { createdAt: 'desc' },
             take: 100,

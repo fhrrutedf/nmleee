@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { prisma } from '@/lib/db';
 import { sendEmail } from '@/lib/resend';
 import { eduFollowupTemplate, courseCompletionTemplate } from '@/lib/email-templates';
 
-// CRON: يعمل يومياً الساعة 10 صباحاً
-// يرسل تذكيرات للطلاب الخاملين في الكورسات
 export async function GET(req: NextRequest) {
     const cronSecret = req.headers.get('authorization');
     if (process.env.CRON_SECRET && cronSecret !== `Bearer ${process.env.CRON_SECRET}`) {
@@ -15,42 +13,28 @@ export async function GET(req: NextRequest) {
     const now = new Date();
 
     try {
-        // جلب المدربين الذين فعّلوا المتابعة التعليمية
-        const settings = await db.automationSettings.findMany({
+        const settings = await prisma.automationSettings.findMany({
             where: { eduFollowupEnabled: true },
         });
 
         for (const setting of settings) {
             const inactivityThreshold = new Date(now.getTime() - setting.inactivityDays * 24 * 60 * 60 * 1000);
-
-            const seller = await db.user.findUnique({ where: { id: setting.userId } });
+            const seller = await prisma.user.findUnique({ where: { id: setting.userId } });
             if (!seller) continue;
 
-            // جلب التسجيلات الخاملة (لم تُفتح منذ X أيام)
-            const inactiveEnrollments = await db.courseEnrollment.findMany({
+            const inactiveEnrollments = await prisma.courseEnrollment.findMany({
                 where: {
                     isCompleted: false,
                     course: { userId: setting.userId },
-                    lastAccessedAt: {
-                        not: null,
-                        lt: inactivityThreshold,
-                    },
+                    lastAccessedAt: { not: null, lt: inactivityThreshold },
                 },
-                include: {
-                    course: {
-                        include: { modules: { include: { lessons: true } } }
-                    }
-                },
-                take: 50, // لتجنب إرسال كميات ضخمة
+                include: { course: { include: { modules: { include: { lessons: true } } } } },
+                take: 50,
             });
 
             for (const enrollment of inactiveEnrollments) {
                 const continueUrl = `${process.env.NEXTAUTH_URL}/learn/${enrollment.courseId}`;
-
-                // حساب عدد الدروس المتبقية
-                const totalLessons = enrollment.course.modules.reduce(
-                    (sum, m) => sum + m.lessons.length, 0
-                );
+                const totalLessons = enrollment.course.modules.reduce((sum, m) => sum + m.lessons.length, 0);
                 const completedLessons = Math.floor(totalLessons * enrollment.progress / 100);
                 const remainingLessons = totalLessons - completedLessons;
 
@@ -72,16 +56,8 @@ export async function GET(req: NextRequest) {
                     fromName: seller.name,
                 });
 
-                await db.emailLog.create({
-                    data: {
-                        type: 'edu_followup',
-                        toEmail: enrollment.studentEmail,
-                        toName: enrollment.studentName,
-                        subject: `تذكير إكمال الكورس`,
-                        status: result.success ? 'sent' : 'failed',
-                        errorMessage: result.error,
-                        sellerId: setting.userId,
-                    },
+                await prisma.emailLog.create({
+                    data: { type: 'edu_followup', toEmail: enrollment.studentEmail, toName: enrollment.studentName, subject: 'تذكير إكمال الكورس', status: result.success ? 'sent' : 'failed', errorMessage: result.error, sellerId: setting.userId },
                 });
 
                 if (result.success) sent++;

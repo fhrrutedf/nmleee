@@ -1,13 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { prisma } from '@/lib/db';
 import { sendEmail } from '@/lib/resend';
 import { cartReminderTemplate } from '@/lib/email-templates';
 
-// CRON: يعمل كل ساعة
-// يتحقق من السلات المهجورة ويرسل التذكيرات المناسبة
-
 export async function GET(req: NextRequest) {
-    // التحقق من الأمان
     const cronSecret = req.headers.get('authorization');
     if (process.env.CRON_SECRET && cronSecret !== `Bearer ${process.env.CRON_SECRET}`) {
         return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
@@ -18,21 +14,19 @@ export async function GET(req: NextRequest) {
     const now = new Date();
 
     try {
-        // جلب السلات غير المكتملة
-        const carts = await db.abandonedCart.findMany({
+        const carts = await prisma.abandonedCart.findMany({
             where: { isConverted: false },
         });
 
         for (const cart of carts) {
             const hoursSinceCreated = (now.getTime() - cart.createdAt.getTime()) / (1000 * 60 * 60);
 
-            // جلب إعدادات البائع
-            const settings = await db.automationSettings.findUnique({
+            const settings = await prisma.automationSettings.findUnique({
                 where: { userId: cart.sellerId },
             });
             if (!settings) continue;
 
-            const seller = await db.user.findUnique({ where: { id: cart.sellerId } });
+            const seller = await prisma.user.findUnique({ where: { id: cart.sellerId } });
             if (!seller) continue;
 
             const checkoutUrl = `${process.env.NEXTAUTH_URL || 'https://yourdomain.com'}/checkout`;
@@ -49,33 +43,10 @@ export async function GET(req: NextRequest) {
                     customBody: settings.cartReminder1Body || undefined,
                     checkoutUrl,
                 });
-
-                const result = await sendEmail({
-                    to: cart.customerEmail,
-                    subject: `🛒 نسيت شيئاً في سلتك - ${seller.name}`,
-                    html,
-                    fromName: seller.name,
-                });
-
-                await db.abandonedCart.update({
-                    where: { id: cart.id },
-                    data: { reminder1SentAt: now },
-                });
-
-                await db.emailLog.create({
-                    data: {
-                        type: 'cart_reminder_1',
-                        toEmail: cart.customerEmail,
-                        toName: cart.customerName || undefined,
-                        subject: `نسيت شيئاً في سلتك`,
-                        status: result.success ? 'sent' : 'failed',
-                        errorMessage: result.error,
-                        sellerId: cart.sellerId,
-                    },
-                });
-
-                if (result.success) sent++;
-                else errors++;
+                const result = await sendEmail({ to: cart.customerEmail, subject: `🛒 نسيت شيئاً في سلتك - ${seller.name}`, html, fromName: seller.name });
+                await prisma.abandonedCart.update({ where: { id: cart.id }, data: { reminder1SentAt: now } });
+                await prisma.emailLog.create({ data: { type: 'cart_reminder_1', toEmail: cart.customerEmail, toName: cart.customerName || undefined, subject: 'نسيت شيئاً في سلتك', status: result.success ? 'sent' : 'failed', errorMessage: result.error, sellerId: cart.sellerId } });
+                if (result.success) sent++; else errors++;
             }
 
             // تذكير 2: بعد 24 ساعة
@@ -90,33 +61,10 @@ export async function GET(req: NextRequest) {
                     customBody: settings.cartReminder2Body || undefined,
                     checkoutUrl,
                 });
-
-                const result = await sendEmail({
-                    to: cart.customerEmail,
-                    subject: `⏰ لا تفوّت ما اخترته - ${seller.name}`,
-                    html,
-                    fromName: seller.name,
-                });
-
-                await db.abandonedCart.update({
-                    where: { id: cart.id },
-                    data: { reminder2SentAt: now },
-                });
-
-                await db.emailLog.create({
-                    data: {
-                        type: 'cart_reminder_2',
-                        toEmail: cart.customerEmail,
-                        toName: cart.customerName || undefined,
-                        subject: `لا تفوّت ما اخترته`,
-                        status: result.success ? 'sent' : 'failed',
-                        errorMessage: result.error,
-                        sellerId: cart.sellerId,
-                    },
-                });
-
-                if (result.success) sent++;
-                else errors++;
+                const result = await sendEmail({ to: cart.customerEmail, subject: `⏰ لا تفوّت ما اخترته - ${seller.name}`, html, fromName: seller.name });
+                await prisma.abandonedCart.update({ where: { id: cart.id }, data: { reminder2SentAt: now } });
+                await prisma.emailLog.create({ data: { type: 'cart_reminder_2', toEmail: cart.customerEmail, toName: cart.customerName || undefined, subject: 'لا تفوّت ما اخترته', status: result.success ? 'sent' : 'failed', errorMessage: result.error, sellerId: cart.sellerId } });
+                if (result.success) sent++; else errors++;
             }
 
             // تذكير 3: بعد 3 أيام
@@ -132,33 +80,10 @@ export async function GET(req: NextRequest) {
                     discountPercent: settings.cartReminder3Discount || undefined,
                     checkoutUrl,
                 });
-
-                const result = await sendEmail({
-                    to: cart.customerEmail,
-                    subject: `🎁 عرض خاص لك فقط - ${seller.name}`,
-                    html,
-                    fromName: seller.name,
-                });
-
-                await db.abandonedCart.update({
-                    where: { id: cart.id },
-                    data: { reminder3SentAt: now },
-                });
-
-                await db.emailLog.create({
-                    data: {
-                        type: 'cart_reminder_3',
-                        toEmail: cart.customerEmail,
-                        toName: cart.customerName || undefined,
-                        subject: `عرض خاص لك فقط`,
-                        status: result.success ? 'sent' : 'failed',
-                        errorMessage: result.error,
-                        sellerId: cart.sellerId,
-                    },
-                });
-
-                if (result.success) sent++;
-                else errors++;
+                const result = await sendEmail({ to: cart.customerEmail, subject: `🎁 عرض خاص لك فقط - ${seller.name}`, html, fromName: seller.name });
+                await prisma.abandonedCart.update({ where: { id: cart.id }, data: { reminder3SentAt: now } });
+                await prisma.emailLog.create({ data: { type: 'cart_reminder_3', toEmail: cart.customerEmail, toName: cart.customerName || undefined, subject: 'عرض خاص لك فقط', status: result.success ? 'sent' : 'failed', errorMessage: result.error, sellerId: cart.sellerId } });
+                if (result.success) sent++; else errors++;
             }
         }
 

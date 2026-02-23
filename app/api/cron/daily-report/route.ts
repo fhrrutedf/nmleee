@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { prisma } from '@/lib/db';
 import { sendTelegramMessage, dailyReportMessage } from '@/lib/telegram';
 
-// CRON: يعمل يومياً - يرسل تقرير يومي لصاحب المنصة
 export async function GET(req: NextRequest) {
     const cronSecret = req.headers.get('authorization');
     if (process.env.CRON_SECRET && cronSecret !== `Bearer ${process.env.CRON_SECRET}`) {
@@ -14,13 +13,10 @@ export async function GET(req: NextRequest) {
         today.setHours(0, 0, 0, 0);
 
         const [totalOrders, totalRevenueData, newUsers, pendingPayouts] = await Promise.all([
-            db.order.count({ where: { isPaid: true, createdAt: { gte: today } } }),
-            db.order.aggregate({
-                _sum: { totalAmount: true },
-                where: { isPaid: true, createdAt: { gte: today } },
-            }),
-            db.user.count({ where: { createdAt: { gte: today } } }),
-            db.payout.count({ where: { status: 'PENDING' } }),
+            prisma.order.count({ where: { isPaid: true, createdAt: { gte: today } } }),
+            prisma.order.aggregate({ _sum: { totalAmount: true }, where: { isPaid: true, createdAt: { gte: today } } }),
+            prisma.user.count({ where: { createdAt: { gte: today } } }),
+            prisma.payout.count({ where: { status: 'PENDING' } }),
         ]);
 
         const message = dailyReportMessage({
