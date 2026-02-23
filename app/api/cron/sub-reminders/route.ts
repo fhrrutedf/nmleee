@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
             where: { subRemindersEnabled: true },
         });
 
-        const enabledSellerIds = settings.map(s => s.userId);
+        const enabledSellerIds = settings.map((s: { userId: string }) => s.userId);
 
         const subscriptions = await prisma.subscription.findMany({
             where: {
