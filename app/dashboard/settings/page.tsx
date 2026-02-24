@@ -209,7 +209,7 @@ export default function SettingsPage() {
                                             <div className="w-full">
                                                 <FileUploader
                                                     onUploadSuccess={(urls: string[]) => setProfileData({ ...profileData, avatar: urls[0] })}
-                                                    maxSize={2} // 2MB
+                                                    maxSize={2 * 1024 * 1024} // 2MB in bytes
                                                     accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
                                                 />
                                             </div>
@@ -230,7 +230,7 @@ export default function SettingsPage() {
                                             <div className="w-full">
                                                 <FileUploader
                                                     onUploadSuccess={(urls: string[]) => setProfileData({ ...profileData, coverImage: urls[0] })}
-                                                    maxSize={5} // 5MB
+                                                    maxSize={5 * 1024 * 1024} // 5MB in bytes
                                                     accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
                                                 />
                                             </div>
