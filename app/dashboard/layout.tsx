@@ -6,7 +6,8 @@ import Link from 'next/link';
 import {
     FiHome, FiShoppingBag, FiVideo, FiCalendar, FiDollarSign,
     FiSettings, FiLogOut, FiMenu, FiX, FiTag, FiLink2,
-    FiTrendingUp, FiCreditCard, FiExternalLink, FiGlobe, FiActivity, FiUsers, FiPackage, FiZap
+    FiTrendingUp, FiCreditCard, FiExternalLink, FiGlobe, FiActivity, FiUsers, FiPackage, FiZap,
+    FiBriefcase, FiBookOpen
 } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
@@ -20,6 +21,25 @@ export default function DashboardLayout({
     const router = useRouter();
     const pathname = usePathname();
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [workspace, setWorkspace] = useState<'store' | 'academy'>('store');
+
+    useEffect(() => {
+        if (pathname.startsWith('/dashboard/courses') || pathname.startsWith('/dashboard/students') || pathname.startsWith('/dashboard/appointments')) {
+            setWorkspace('academy');
+        } else {
+            setWorkspace('store');
+        }
+    }, [pathname]);
+
+    const handleWorkspaceChange = (newWs: 'store' | 'academy') => {
+        setWorkspace(newWs);
+        if (newWs === 'academy') {
+            router.push('/dashboard/courses');
+        } else {
+            router.push('/dashboard');
+        }
+        setSidebarOpen(false);
+    };
 
     useEffect(() => {
         if (status === 'unauthenticated') {
@@ -42,22 +62,26 @@ export default function DashboardLayout({
         return null;
     }
 
-    const menuItems = [
-        { href: '/dashboard', icon: FiHome, label: 'الرئيسية', exact: true },
-        { href: '/dashboard/products', icon: FiShoppingBag, label: 'المنتجات الرقمية' },
-        { href: '/dashboard/bundles', icon: FiPackage, label: 'الباقات والحزم' },
-        { href: '/dashboard/courses', icon: FiVideo, label: 'الدورات التدريبية' },
-        { href: '/dashboard/students', icon: FiUsers, label: 'الطلاب والشهادات' },
-        { href: '/dashboard/appointments', icon: FiCalendar, label: 'المواعيد' },
-        { href: '/dashboard/earnings', icon: FiDollarSign, label: 'الأرباح والسحوبات' },
-        { href: '/dashboard/orders', icon: FiTrendingUp, label: 'الطلبات' },
-        { href: '/dashboard/coupons', icon: FiTag, label: 'الكوبونات' },
-        { href: '/dashboard/affiliates', icon: FiLink2, label: 'التسويق بالعمولة' },
-        { href: '/dashboard/automation', icon: FiZap, label: 'الأتمتة' },
-        { href: '/dashboard/integrations', icon: FiActivity, label: 'التكاملات' },
-        { href: '/dashboard/billing', icon: FiCreditCard, label: 'الاشتراك والباقة' },
-        { href: '/dashboard/settings', icon: FiSettings, label: 'الإعدادات' },
+    const allMenuItems = [
+        { href: '/dashboard', icon: FiHome, label: 'الرئيسية', exact: true, type: 'store' },
+        { href: '/dashboard/products', icon: FiShoppingBag, label: 'المنتجات الرقمية', type: 'store' },
+        { href: '/dashboard/bundles', icon: FiPackage, label: 'الباقات والحزم', type: 'store' },
+        { href: '/dashboard/orders', icon: FiTrendingUp, label: 'الطلبات', type: 'store' },
+        { href: '/dashboard/coupons', icon: FiTag, label: 'الكوبونات', type: 'store' },
+        { href: '/dashboard/affiliates', icon: FiLink2, label: 'التسويق بالعمولة', type: 'store' },
+        { href: '/dashboard/automation', icon: FiZap, label: 'الأتمتة', type: 'store' },
+
+        { href: '/dashboard/courses', icon: FiVideo, label: 'الدورات التدريبية', type: 'academy' },
+        { href: '/dashboard/students', icon: FiUsers, label: 'الطلاب والشهادات', type: 'academy' },
+        { href: '/dashboard/appointments', icon: FiCalendar, label: 'المواعيد', type: 'academy' },
+
+        { href: '/dashboard/earnings', icon: FiDollarSign, label: 'الأرباح والسحوبات', type: 'shared' },
+        { href: '/dashboard/integrations', icon: FiActivity, label: 'التكاملات', type: 'shared' },
+        { href: '/dashboard/billing', icon: FiCreditCard, label: 'الاشتراك والباقة', type: 'shared' },
+        { href: '/dashboard/settings', icon: FiSettings, label: 'الإعدادات', type: 'shared' },
     ];
+
+    const menuItems = allMenuItems.filter(item => item.type === workspace || item.type === 'shared');
 
     return (
         <div className="min-h-screen bg-bg-light dark:bg-bg-light transition-colors duration-300">
@@ -85,6 +109,28 @@ export default function DashboardLayout({
                         </button>
                     </div>
                     <p className="text-sm text-text-muted mt-2">مرحباً، {session.user?.name}</p>
+
+                    {/* Workspace Switcher */}
+                    <div className="mt-6 flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
+                        <button
+                            onClick={() => handleWorkspaceChange('store')}
+                            className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'store'
+                                    ? 'bg-white dark:bg-card-white text-action-blue shadow-sm'
+                                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+                                }`}
+                        >
+                            <FiBriefcase className="text-sm" /> المتجر
+                        </button>
+                        <button
+                            onClick={() => handleWorkspaceChange('academy')}
+                            className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'academy'
+                                    ? 'bg-white dark:bg-card-white text-purple-600 shadow-sm'
+                                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+                                }`}
+                        >
+                            <FiBookOpen className="text-sm" /> الأكاديمية
+                        </button>
+                    </div>
                 </div>
 
                 <nav className="p-4 space-y-1 overflow-y-auto flex-1">
