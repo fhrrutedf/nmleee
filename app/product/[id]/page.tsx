@@ -77,7 +77,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                 id: product.id,
                 type: 'product',
                 title: product.title,
-                price: product.price,
+                price: product.isFree ? 0 : product.price,
                 image: product.image
             });
             localStorage.setItem('cart', JSON.stringify(cart));

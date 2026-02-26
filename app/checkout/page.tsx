@@ -84,7 +84,34 @@ export default function CheckoutPage() {
         try {
             const affiliateRef = sessionStorage.getItem('affiliate_ref') || localStorage.getItem('affiliate_ref');
 
-            if (paymentMethod === 'stripe') {
+            if (total === 0) {
+                // Free Checkout Bypass
+                const res = await fetch('/api/checkout/free', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        items: cart,
+                        customerEmail: formData.email,
+                        customerName: formData.name,
+                        customerPhone: formData.phone,
+                        affiliateRef: affiliateRef
+                    })
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    if (!isDirect) {
+                        localStorage.removeItem('cart');
+                    } else {
+                        sessionStorage.removeItem('direct_checkout_items');
+                        sessionStorage.removeItem('appointment_details');
+                    }
+                    router.push(`/success?order_id=${data.orderId}`);
+                } else {
+                    const error = await res.json();
+                    alert(error.error || 'حدث خطأ في إنشاء الطلب المجاني');
+                }
+            } else if (paymentMethod === 'stripe') {
                 const res = await fetch('/api/stripe/create-checkout-session', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -121,7 +148,6 @@ export default function CheckoutPage() {
 
                 if (res.ok) {
                     const data = await res.json();
-                    // التوجيه إلى صفحة عرض تفاصيل الدفع بالعملات الرقمية محلياً
                     router.push(`/checkout/crypto/${data.orderId}`);
                 } else {
                     alert('حدث خطأ في إنشاء فاتورة العملات الرقمية. تأكد من إعدادات API.');
@@ -136,7 +162,7 @@ export default function CheckoutPage() {
         }
     };
 
-    const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+    const subtotal = cart.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
     const total = subtotal - discount;
 
     if (cart.length === 0) {
@@ -305,55 +331,59 @@ export default function CheckoutPage() {
                             </div>
 
                             {/* خيارات الدفع */}
-                            <div className="mb-6">
-                                <h3 className="text-sm font-bold text-gray-700 mb-3 border-t pt-6">طريقة الدفع</h3>
-                                <div className="flex flex-col gap-3">
-                                    <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'stripe' ? 'border-primary-600 bg-primary-50 ring-1 ring-primary-600' : 'border-gray-200 hover:border-gray-300'}`}>
-                                        <input
-                                            type="radio"
-                                            value="stripe"
-                                            checked={paymentMethod === 'stripe'}
-                                            onChange={() => setPaymentMethod('stripe')}
-                                            className="w-4 h-4 text-primary-600"
-                                        />
-                                        <FiCreditCard className="text-xl ml-3 text-primary-600" />
-                                        <div className="flex-1 mr-2">
-                                            <span className="font-bold block text-sm">البطاقة البنكية (Stripe)</span>
-                                            <span className="text-xs text-gray-500">فيزا، ماستركارد، Apple Pay</span>
-                                        </div>
-                                    </label>
-                                    <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'crypto' ? 'border-primary-600 bg-primary-50 ring-1 ring-primary-600' : 'border-gray-200 hover:border-gray-300'}`}>
-                                        <input
-                                            type="radio"
-                                            value="crypto"
-                                            checked={paymentMethod === 'crypto'}
-                                            onChange={() => setPaymentMethod('crypto')}
-                                            className="w-4 h-4 text-primary-600"
-                                        />
-                                        <span className="text-xl mx-2">🪙</span>
-                                        <div className="flex-1 mr-2">
-                                            <span className="font-bold block text-sm">عملات رقمية (USDT)</span>
-                                            <span className="text-xs text-gray-500">دفع عبر شبكة TRC20</span>
-                                        </div>
-                                    </label>
+                            {total > 0 && (
+                                <div className="mb-6">
+                                    <h3 className="text-sm font-bold text-gray-700 mb-3 border-t pt-6">طريقة الدفع</h3>
+                                    <div className="flex flex-col gap-3">
+                                        <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'stripe' ? 'border-primary-600 bg-primary-50 ring-1 ring-primary-600' : 'border-gray-200 hover:border-gray-300'}`}>
+                                            <input
+                                                type="radio"
+                                                value="stripe"
+                                                checked={paymentMethod === 'stripe'}
+                                                onChange={() => setPaymentMethod('stripe')}
+                                                className="w-4 h-4 text-primary-600"
+                                            />
+                                            <FiCreditCard className="text-xl ml-3 text-primary-600" />
+                                            <div className="flex-1 mr-2">
+                                                <span className="font-bold block text-sm">البطاقة البنكية (Stripe)</span>
+                                                <span className="text-xs text-gray-500">فيزا، ماستركارد، Apple Pay</span>
+                                            </div>
+                                        </label>
+                                        <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'crypto' ? 'border-primary-600 bg-primary-50 ring-1 ring-primary-600' : 'border-gray-200 hover:border-gray-300'}`}>
+                                            <input
+                                                type="radio"
+                                                value="crypto"
+                                                checked={paymentMethod === 'crypto'}
+                                                onChange={() => setPaymentMethod('crypto')}
+                                                className="w-4 h-4 text-primary-600"
+                                            />
+                                            <span className="text-xl mx-2">🪙</span>
+                                            <div className="flex-1 mr-2">
+                                                <span className="font-bold block text-sm">عملات رقمية (USDT)</span>
+                                                <span className="text-xs text-gray-500">دفع عبر شبكة TRC20</span>
+                                            </div>
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
 
                             {/* زر الدفع */}
                             <button
                                 onClick={handleCheckout}
                                 disabled={loading}
-                                className="w-full btn btn-primary text-lg py-4 flex items-center justify-center gap-2"
+                                className="w-full btn btn-primary text-lg py-4 flex items-center justify-center gap-2 mt-4"
                             >
                                 <FiCreditCard />
-                                <span>{loading ? 'جاري التحويل...' : 'الدفع الآن'}</span>
+                                <span>{loading ? 'جاري التحويل...' : (total === 0 ? 'إتمام الطلب مجاناً' : 'الدفع الآن')}</span>
                             </button>
 
                             {/* الأمان */}
-                            <div className="mt-4 flex items-center justify-center gap-2 text-sm text-gray-500">
-                                <FiLock />
-                                <span>دفع آمن ومشفر بواسطة Stripe</span>
-                            </div>
+                            {total > 0 && (
+                                <div className="mt-4 flex items-center justify-center gap-2 text-sm text-gray-500">
+                                    <FiLock />
+                                    <span>دفع آمن ومشفر بواسطة Stripe</span>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
