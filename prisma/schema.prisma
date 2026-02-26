@@ -200,6 +200,7 @@ model Course {
   quizzes     Quiz[]
   certificates Certificate[]
   affiliateLinks AffiliateLink[]
+  comments    Comment[]
 }
 
 model Appointment {
