@@ -23,6 +23,17 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'عذراً، بعض المنتجات في السلة ليست مجانية. يرجى الدفع لإتمام الطلب.' }, { status: 400 });
         }
 
+        // Determine seller/user ID from the first item
+        let userId = '';
+        if (allDbItems && allDbItems.length > 0) {
+            const firstItem = allDbItems[0];
+            userId = firstItem.userId || '';
+        }
+
+        if (!userId) {
+            return NextResponse.json({ error: "لا يمكن تحديد البائع للطلب" }, { status: 400 });
+        }
+
         // 1. Create a "Free" Order
         const order = await prisma.order.create({
             data: {
@@ -32,6 +43,8 @@ export async function POST(req: Request) {
                 customerEmail: customerEmail,
                 customerName: customerName,
                 customerPhone: body.customerPhone || null,
+                sellerId: userId,
+                userId: userId,
                 items: {
                     create: items.map((item: any) => ({
                         productId: item.type === 'product' ? item.id : null,

@@ -691,11 +691,16 @@ model Comment {
   likes       Int      @default(0)
   isApproved  Boolean  @default(true)
   
+  isResolved  Boolean  @default(false)
+  
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
   lessonId    String?
   lesson      Lesson?  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  
+  courseId    String?
+  course      Course?  @relation(fields: [courseId], references: [id], onDelete: Cascade)
   
   // Nested comments (replies)
   parentId    String?
@@ -703,6 +708,7 @@ model Comment {
   replies     Comment[] @relation("CommentReplies")
   
   @@index([lessonId])
+  @@index([courseId])
   @@index([parentId])
 }
 

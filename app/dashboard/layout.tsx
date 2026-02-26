@@ -7,7 +7,7 @@ import {
     FiHome, FiShoppingBag, FiVideo, FiCalendar, FiDollarSign,
     FiSettings, FiLogOut, FiMenu, FiX, FiTag, FiLink2,
     FiTrendingUp, FiCreditCard, FiExternalLink, FiGlobe, FiActivity, FiUsers, FiPackage, FiZap,
-    FiBriefcase, FiBookOpen
+    FiBriefcase, FiBookOpen, FiMessageSquare
 } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
@@ -74,6 +74,7 @@ export default function DashboardLayout({
         { href: '/dashboard/courses', icon: FiVideo, label: 'الدورات التدريبية', type: 'academy' },
         { href: '/dashboard/students', icon: FiUsers, label: 'الطلاب والشهادات', type: 'academy' },
         { href: '/dashboard/appointments', icon: FiCalendar, label: 'المواعيد', type: 'academy' },
+        { href: '/dashboard/courses/qa', icon: FiMessageSquare, label: 'أسئلة وأجوبة', type: 'academy' },
 
         { href: '/dashboard/earnings', icon: FiDollarSign, label: 'الأرباح والسحوبات', type: 'shared' },
         { href: '/dashboard/integrations', icon: FiActivity, label: 'التكاملات', type: 'shared' },

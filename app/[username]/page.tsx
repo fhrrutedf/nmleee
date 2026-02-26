@@ -86,7 +86,6 @@ export default async function CreatorProfilePage({ params }: Props) {
             instagram: true,
             website: true,
             phone: true,
-            country: true,
             consultationPrice: true,
             role: true,
             createdAt: true,
