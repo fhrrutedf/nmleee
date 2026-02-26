@@ -4,7 +4,7 @@ import { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { FiShoppingCart, FiStar, FiClock, FiVideo, FiCheckCircle, FiBook, FiEye, FiPlayCircle, FiMessageSquare } from 'react-icons/fi';
 import Link from 'next/link';
-import 'react-quill/dist/quill.snow.css';
+import 'react-quill-new/dist/quill.snow.css';
 import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 import VideoPlayer from '@/components/ui/VideoPlayer';
 import showToast from '@/lib/toast';
