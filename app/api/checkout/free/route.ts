@@ -60,17 +60,15 @@ export async function POST(req: Request) {
         // 2. Grant access (Enroll in courses, generate licenses for products)
         for (const item of items) {
             if (item.type === 'course') {
-                // Find user by email to link enrollment, or create a guest enrollment if needed
-                const user = await prisma.user.findUnique({ where: { email: customerEmail } });
-                if (user) {
-                    await prisma.courseEnrollment.create({
-                        data: {
-                            courseId: item.id,
-                            userId: user.id,
-                            orderId: order.id
-                        }
-                    });
-                }
+                // Link enrollment
+                await prisma.courseEnrollment.create({
+                    data: {
+                        courseId: item.id,
+                        studentName: customerName,
+                        studentEmail: customerEmail,
+                        orderId: order.id
+                    }
+                });
             } else if (item.type === 'product') {
                 await prisma.license.create({
                     data: {
