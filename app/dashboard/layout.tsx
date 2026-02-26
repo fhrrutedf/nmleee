@@ -115,8 +115,8 @@ export default function DashboardLayout({
                         <button
                             onClick={() => handleWorkspaceChange('store')}
                             className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'store'
-                                    ? 'bg-white dark:bg-card-white text-action-blue shadow-sm'
-                                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+                                ? 'bg-white dark:bg-card-white text-action-blue shadow-sm'
+                                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
                                 }`}
                         >
                             <FiBriefcase className="text-sm" /> المتجر
@@ -124,8 +124,8 @@ export default function DashboardLayout({
                         <button
                             onClick={() => handleWorkspaceChange('academy')}
                             className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'academy'
-                                    ? 'bg-white dark:bg-card-white text-purple-600 shadow-sm'
-                                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+                                ? 'bg-white dark:bg-card-white text-purple-600 shadow-sm'
+                                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
                                 }`}
                         >
                             <FiBookOpen className="text-sm" /> الأكاديمية
@@ -201,7 +201,7 @@ export default function DashboardLayout({
                                 <span>المتجر</span>
                             </Link>
                             <Link
-                                href={`/@${(session.user as any)?.username}`}
+                                href={`/${(session.user as any)?.username}`}
                                 target="_blank"
                                 className="btn btn-outline text-sm flex items-center gap-2 py-2 px-4 rounded-full"
                             >

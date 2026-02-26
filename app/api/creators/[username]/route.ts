@@ -6,7 +6,9 @@ export async function GET(
     { params }: { params: Promise<{ username: string }> }
 ) {
     try {
-        const { username } = await params;
+        const { username: rawUsername } = await params;
+        const decodedUsername = decodeURIComponent(rawUsername);
+        const username = decodedUsername.startsWith('@') ? decodedUsername.slice(1) : decodedUsername;
 
         // Get creator
         const creator = await prisma.user.findUnique({
