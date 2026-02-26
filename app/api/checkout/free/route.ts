@@ -70,14 +70,7 @@ export async function POST(req: Request) {
                     }
                 });
             } else if (item.type === 'product') {
-                await prisma.license.create({
-                    data: {
-                        key: `FREE-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
-                        productId: item.id,
-                        orderId: order.id,
-                        userId: (await prisma.user.findUnique({ where: { email: customerEmail } }))?.id || 'guest',
-                    }
-                });
+                // Products access is granted via the OrderItem itself, no need to auto-generate a LicenseKey here
             }
         }
 
