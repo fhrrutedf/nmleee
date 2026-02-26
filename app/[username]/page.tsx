@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { FiMapPin, FiLink, FiFacebook, FiInstagram, FiTwitter, FiStar, FiShoppingCart, FiClock, FiCheckCircle, FiShare2, FiMonitor } from 'react-icons/fi';
+import { FiMapPin, FiLink, FiFacebook, FiInstagram, FiTwitter, FiStar, FiShoppingCart, FiClock, FiCheckCircle, FiShare2, FiMonitor, FiGrid, FiPackage, FiVideo } from 'react-icons/fi';
 import Link from 'next/link';
 import { apiGet } from '@/lib/safe-fetch';
 import { motion } from 'framer-motion';
@@ -14,6 +14,7 @@ export default function CreatorProfilePage() {
     const [products, setProducts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [activeTab, setActiveTab] = useState<'all' | 'products' | 'courses' | 'consultations'>('all');
 
     useEffect(() => {
         if (params.username) {
@@ -64,6 +65,17 @@ export default function CreatorProfilePage() {
     }
 
     const brandColor = creator.brandColor || '#0ea5e9'; // Default to action-blue if not set
+
+    const hasCourses = products.some(p => p.category === 'courses' || p.category === 'course');
+    const hasDigital = products.some(p => p.category !== 'courses' && p.category !== 'course');
+    const hasConsultation = creator.consultationPrice !== undefined;
+
+    const filteredProducts = products.filter(product => {
+        if (activeTab === 'all') return true;
+        if (activeTab === 'courses') return product.category === 'courses' || product.category === 'course';
+        if (activeTab === 'products') return product.category !== 'courses' && product.category !== 'course';
+        return false;
+    });
 
     return (
         <div className="min-h-screen bg-bg-light dark:bg-bg-dark pb-32 font-sans selection:bg-black/10 dark:selection:bg-white/10" style={{ '--brand-color': brandColor } as React.CSSProperties}>
@@ -203,7 +215,7 @@ export default function CreatorProfilePage() {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
                         <div>
                             <h2 className="text-3xl md:text-4xl font-black text-primary-charcoal dark:text-white flex items-center gap-3">
                                 المنتجات والدورات
@@ -213,17 +225,70 @@ export default function CreatorProfilePage() {
                         </div>
                     </div>
 
-                    {products.length === 0 ? (
+                    {/* Category Tabs */}
+                    <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
+                        <button
+                            onClick={() => setActiveTab('all')}
+                            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap ${activeTab === 'all' ? 'text-white shadow-md' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
+                            style={activeTab === 'all' ? { backgroundColor: brandColor } : {}}
+                        >
+                            <FiGrid /> الكل
+                        </button>
+                        {hasDigital && (
+                            <button
+                                onClick={() => setActiveTab('products')}
+                                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap ${activeTab === 'products' ? 'text-white shadow-md' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
+                                style={activeTab === 'products' ? { backgroundColor: brandColor } : {}}
+                            >
+                                <FiPackage /> المنتجات الرقمية
+                            </button>
+                        )}
+                        {hasCourses && (
+                            <button
+                                onClick={() => setActiveTab('courses')}
+                                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap ${activeTab === 'courses' ? 'text-white shadow-md' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
+                                style={activeTab === 'courses' ? { backgroundColor: brandColor } : {}}
+                            >
+                                <FiVideo /> الدورات التدريبية
+                            </button>
+                        )}
+                        {hasConsultation && (
+                            <button
+                                onClick={() => setActiveTab('consultations')}
+                                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap ${activeTab === 'consultations' ? 'text-white shadow-md' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
+                                style={activeTab === 'consultations' ? { backgroundColor: brandColor } : {}}
+                            >
+                                <FiMonitor /> الجلسات الاستشارية
+                            </button>
+                        )}
+                    </div>
+
+                    {activeTab === 'consultations' ? (
+                        <div className="bg-white/50 dark:bg-card-white/50 backdrop-blur-sm rounded-3xl shadow-sm p-12 text-center border border-gray-100 dark:border-gray-800 max-w-2xl mx-auto">
+                            <div className="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <FiMonitor className="text-4xl" style={{ color: brandColor }} />
+                            </div>
+                            <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-4">احجز جلستك الخاصة مع {creator.name}</h3>
+                            <p className="text-gray-500 font-medium mb-8 text-lg">احصل على استشارة مخصصة تلبي احتياجاتك وترد على استفساراتك بشكل مباشر عبر لقاء مرئي.</p>
+                            <Link
+                                href={`/${creator.username}/book`}
+                                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-white shadow-xl transition-all hover:opacity-90 active:scale-95 text-lg"
+                                style={{ backgroundColor: brandColor, boxShadow: `0 10px 25px -5px ${brandColor}66` }}
+                            >
+                                <FiClock /> حجز موعد ({creator.consultationPrice > 0 ? `${creator.consultationPrice} ج.م` : 'متاحة مجاناً'})
+                            </Link>
+                        </div>
+                    ) : filteredProducts.length === 0 ? (
                         <div className="bg-white/50 dark:bg-card-white/50 backdrop-blur-sm rounded-3xl shadow-sm p-16 text-center border border-gray-100 dark:border-gray-800">
                             <div className="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
                                 <FiStar className="text-4xl text-gray-300 dark:text-gray-600" />
                             </div>
-                            <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-2">قريباً جداً!</h3>
-                            <p className="text-gray-500 font-medium">هذا المبدع يعمل حالياً على بتجهيز منتجاته ودوراته. عد قريباً.</p>
+                            <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-2">في هذا القسم قريباً</h3>
+                            <p className="text-gray-500 font-medium">لا توجد منتجات مطابقة لهذا التبويب حالياً.</p>
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                            {products.map((product, index) => (
+                            {filteredProducts.map((product, index) => (
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}

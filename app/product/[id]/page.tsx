@@ -289,28 +289,26 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                         )}
 
                         {/* Seller / Creator Spotlight Card */}
-                        <div className="bg-white dark:bg-card-white rounded-3xl p-6 sm:p-8 flex items-center justify-between border border-gray-100 dark:border-gray-800 shadow-sm animate-fade-in-up hover:border-action-blue/50 transition-colors group relative overflow-hidden">
-                            {/* Small gradient accent */}
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-action-blue/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
-
-                            <Link
-                                href={`/${product.user?.username || 'seller'}`}
-                                className="flex items-center gap-5 sm:gap-6 z-10 w-full"
-                            >
-                                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-action-blue to-purple-600 rounded-[1.2rem] flex items-center justify-center font-black text-2xl text-white shadow-lg overflow-hidden flex-shrink-0 relative group-hover:scale-105 transition-transform duration-300">
+                        <div className="mt-8 bg-gradient-to-r from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 rounded-3xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden group">
+                            <div className="absolute inset-0 bg-gradient-to-l from-action-blue/5 to-transparent pointer-events-none"></div>
+                            <div className="flex items-center gap-6 relative z-10 w-full sm:w-auto">
+                                <Link href={`/${product.user?.username || 'seller'}`} className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-action-blue to-purple-600 rounded-2xl flex items-center justify-center font-black text-3xl text-white shadow-xl overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
                                     {product.user?.avatar ? (
                                         <img src={product.user.avatar} className="w-full h-full object-cover" alt={product.user.name} />
                                     ) : (
                                         product.user?.name?.charAt(0) || <FiStar />
                                     )}
+                                </Link>
+                                <div>
+                                    <p className="text-xs font-bold tracking-widest uppercase text-action-blue mb-1">صانع المحتوى</p>
+                                    <Link href={`/${product.user?.username || 'seller'}`}>
+                                        <h3 className="font-black text-2xl text-gray-900 dark:text-white mb-2 hover:text-action-blue transition-colors">{product.user?.name || 'البائع'}</h3>
+                                    </Link>
+                                    <p className="text-gray-500 dark:text-gray-400 text-sm max-w-sm">المبدع وراء هذا العمل الرائع. اكتشف المزيد من إبداعاته.</p>
                                 </div>
-                                <div className="flex-1">
-                                    <p className="text-sm text-action-blue font-bold tracking-widest uppercase mb-1 flex items-center gap-1">المُـدرب والكاتب</p>
-                                    <h2 className="font-extrabold text-gray-900 dark:text-white text-xl sm:text-2xl group-hover:text-action-blue transition-colors">{product.user?.name || 'البائع'}</h2>
-                                </div>
-                                <div className="hidden sm:flex text-gray-400 bg-gray-50 dark:bg-gray-800 rounded-full p-4 group-hover:bg-action-blue group-hover:text-white transition-colors duration-300">
-                                    <FiPlayCircle size={28} className="transform rotate-180" /> {/* Arrow icon representation RTL */}
-                                </div>
+                            </div>
+                            <Link href={`/${product.user?.username || 'seller'}`} className="w-full sm:w-auto px-6 py-3 rounded-xl bg-white dark:bg-gray-800 text-primary-charcoal dark:text-white font-bold border-2 border-gray-100 dark:border-gray-700 hover:border-action-blue dark:hover:border-action-blue transition-colors text-center shadow-sm relative z-10 whitespace-nowrap">
+                                تصفح جميع أعماله
                             </Link>
                         </div>
 
