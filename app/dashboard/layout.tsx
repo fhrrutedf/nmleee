@@ -85,7 +85,7 @@ export default function DashboardLayout({
     const menuItems = allMenuItems.filter(item => item.type === workspace || item.type === 'shared');
 
     return (
-        <div className="min-h-screen bg-bg-light dark:bg-bg-light transition-colors duration-300">
+        <div className="min-h-screen bg-bg-light dark:bg-bg-light transition-colors duration-300 overflow-x-hidden">
             {/* Mobile Menu Overlay */}
             {sidebarOpen && (
                 <div
@@ -181,7 +181,7 @@ export default function DashboardLayout({
             </aside>
 
             {/* Main Content */}
-            <div className="lg:mr-64 min-h-screen flex flex-col w-full lg:w-[calc(100%-16rem)] min-w-0">
+            <div className="lg:mr-64 min-h-screen flex flex-col min-w-0">
                 {/* Top Bar */}
                 <header className="bg-card-white dark:bg-card-white shadow-sm sticky top-0 z-30 transition-colors duration-300 w-full">
                     <div className="px-6 py-4 flex items-center justify-between">
