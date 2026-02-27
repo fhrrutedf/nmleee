@@ -215,7 +215,7 @@ export default function FileUploader({
                                     <FiFile className="text-xl text-gray-500" />
                                 </div>
                                 <div className="flex-1 min-w-0 overflow-hidden">
-                                    <p className="text-sm font-semibold text-gray-900 dark:text-white truncate" dir="ltr" style={{ textAlign: "right" }}>
+                                    <p className="text-sm font-semibold text-gray-900 dark:text-white break-all line-clamp-1" dir="ltr" style={{ textAlign: "right" }}>
                                         {upload.file.name}
                                     </p>
                                     <div className="flex items-center justify-between mt-1 text-xs">
