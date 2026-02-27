@@ -2,7 +2,7 @@
 
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import { FiTrendingUp, FiShoppingCart, FiDollarSign, FiUsers, FiPackage, FiCalendar, FiActivity, FiVideo, FiSettings } from 'react-icons/fi';
+import { FiTrendingUp, FiShoppingCart, FiDollarSign, FiPackage, FiCalendar, FiArrowUpRight, FiActivity, FiVideo, FiSettings } from 'react-icons/fi';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { apiGet, handleApiError } from '@/lib/safe-fetch';
