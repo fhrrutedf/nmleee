@@ -78,7 +78,7 @@ export default function AppointmentSettingsPage() {
                 consultationPrice: Number(consultationPrice),
                 availabilities: availabilities
             });
-            toast.success('تم حفظ إعدادات المواعيد بنجاح!');
+            toast.success('تم حفظ إعدادات الاستشارات بنجاح!');
         } catch (error) {
             toast.error('فشل حفظ الإعدادات: ' + handleApiError(error));
         } finally {
@@ -104,7 +104,7 @@ export default function AppointmentSettingsPage() {
         <div className="space-y-6 max-w-4xl mx-auto">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-3xl font-bold gradient-text">إعدادات توفر المواعيد</h1>
+                    <h1 className="text-3xl font-bold gradient-text">إعدادات توفر الاستشارات</h1>
                     <p className="text-gray-600 mt-2">حدد أوقات عملك والأيام المتاحة لاستقبال الجلسات والاستشارات</p>
                 </div>
                 <button
@@ -150,7 +150,7 @@ export default function AppointmentSettingsPage() {
                     </div>
                     <div>
                         <h2 className="text-xl font-bold">أيام وساعات العمل</h2>
-                        <p className="text-sm text-gray-500">قم بتفعيل الأيام التي تود استقبال المواعيد فيها</p>
+                        <p className="text-sm text-gray-500">قم بتفعيل الأيام التي تود استقبال الاستشارات فيها</p>
                     </div>
                 </div>
 

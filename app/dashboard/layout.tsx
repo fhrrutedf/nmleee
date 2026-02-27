@@ -24,7 +24,7 @@ export default function DashboardLayout({
     const [workspace, setWorkspace] = useState<'store' | 'academy'>('store');
 
     useEffect(() => {
-        if (pathname.startsWith('/dashboard/courses') || pathname.startsWith('/dashboard/students') || pathname.startsWith('/dashboard/appointments')) {
+        if (pathname.startsWith('/dashboard/courses') || pathname.startsWith('/dashboard/students')) {
             setWorkspace('academy');
         } else {
             setWorkspace('store');
@@ -73,9 +73,9 @@ export default function DashboardLayout({
 
         { href: '/dashboard/courses', icon: FiVideo, label: 'الدورات التدريبية', type: 'academy' },
         { href: '/dashboard/students', icon: FiUsers, label: 'الطلاب والشهادات', type: 'academy' },
-        { href: '/dashboard/appointments', icon: FiCalendar, label: 'المواعيد', type: 'academy' },
         { href: '/dashboard/courses/qa', icon: FiMessageSquare, label: 'أسئلة وأجوبة', type: 'academy' },
 
+        { href: '/dashboard/appointments', icon: FiCalendar, label: 'الاستشارات (مواعيد)', type: 'shared' },
         { href: '/dashboard/earnings', icon: FiDollarSign, label: 'الأرباح والسحوبات', type: 'shared' },
         { href: '/dashboard/integrations', icon: FiActivity, label: 'التكاملات', type: 'shared' },
         { href: '/dashboard/billing', icon: FiCreditCard, label: 'الاشتراك والباقة', type: 'shared' },

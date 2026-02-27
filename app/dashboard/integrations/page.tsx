@@ -103,7 +103,7 @@ export default function IntegrationsPage() {
         {
             id: 'whatsapp',
             name: 'WhatsApp Business',
-            description: 'أرسل تأكيدات الحجز وتذكيرات المواعيد تلقائياً عبر WhatsApp.',
+            description: 'أرسل تأكيدات الحجز وتذكيرات الاستشارات تلقائياً عبر WhatsApp.',
             features: [
                 'رسالة تأكيد فورية',
                 'تذكير قبل الموعد',
@@ -117,10 +117,10 @@ export default function IntegrationsPage() {
         {
             id: 'calendly',
             name: 'Calendly',
-            description: 'زامن مواعيدك مع Calendly لإدارة أوقات الفراغ بشكل أفضل.',
+            description: 'زامن استشاراتك مع Calendly لإدارة أوقات الفراغ بشكل أفضل.',
             features: [
                 'مزامنة تلقائية للأوقات',
-                'منع التعارض في المواعيد',
+                'منع التعارض في الاستشارات',
             ],
             status: 'coming_soon',
             icon: <span className="text-3xl">📆</span>,
@@ -138,7 +138,7 @@ export default function IntegrationsPage() {
                     التكاملات
                 </h1>
                 <p className="text-text-muted mt-2">
-                    اربط أدواتك المفضلة لأتمتة مواعيدك وتحسين تجربة عملائك
+                    اربط أدواتك المفضلة لأتمتة استشاراتك وتحسين تجربة عملائك
                 </p>
             </div>
 
@@ -149,8 +149,8 @@ export default function IntegrationsPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
                     className={`p-4 rounded-xl flex items-center gap-3 font-medium shadow-md ${notification.type === 'success'
-                            ? 'bg-green-50 text-green-800 border border-green-200'
-                            : 'bg-red-50 text-red-800 border border-red-200'
+                        ? 'bg-green-50 text-green-800 border border-green-200'
+                        : 'bg-red-50 text-red-800 border border-red-200'
                         }`}
                 >
                     {notification.type === 'success'
@@ -181,10 +181,10 @@ export default function IntegrationsPage() {
                         animate="visible"
                         variants={fadeInUp}
                         className={`card p-6 border-2 transition-all duration-300 ${integration.status === 'connected'
-                                ? 'border-green-200 dark:border-green-800'
-                                : integration.status === 'coming_soon'
-                                    ? 'border-dashed border-gray-200 dark:border-gray-700 opacity-70'
-                                    : 'border-gray-100 dark:border-gray-800 hover:border-action-blue/40'
+                            ? 'border-green-200 dark:border-green-800'
+                            : integration.status === 'coming_soon'
+                                ? 'border-dashed border-gray-200 dark:border-gray-700 opacity-70'
+                                : 'border-gray-100 dark:border-gray-800 hover:border-action-blue/40'
                             }`}
                     >
                         {/* Header */}

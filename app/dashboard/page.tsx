@@ -75,7 +75,7 @@ export default function DashboardPage() {
                     { title: 'إجمالي الأرباح', value: `${(stats.totalRevenue || 0).toLocaleString('ar-EG')} ج.م`, icon: FiDollarSign, badge: 'إرباح', color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/20' },
                     { title: 'إجمالي الطلبات', value: stats.totalOrders || 0, icon: FiShoppingCart, badge: 'طلب', color: 'text-action-blue', bg: 'bg-blue-50 dark:bg-blue-900/20' },
                     { title: 'المنتجات النشطة', value: stats.totalProducts || 0, icon: FiPackage, badge: 'نشط', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20' },
-                    { title: 'المواعيد القادمة', value: stats.totalAppointments || 0, icon: FiCalendar, badge: 'قريباً', color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/20' }
+                    { title: 'الاستشارات القادمة', value: stats.totalAppointments || 0, icon: FiCalendar, badge: 'قريباً', color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/20' }
                 ].map((stat, idx) => (
                     <motion.div variants={item} key={idx} className="card group hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
                         <div className="flex justify-between items-start mb-4">
@@ -127,7 +127,7 @@ export default function DashboardPage() {
                         </div>
                         <h3 className="text-lg font-medium text-primary-charcoal mb-2">لا توجد بيانات كافية للرسم البياني</h3>
                         <p className="text-text-muted max-w-sm mx-auto">
-                            ستظهر هنا إحصائياتك التفصيلية بمجرد البدء في استقبال الطلبات وحجز المواعيد.
+                            ستظهر هنا إحصائياتك التفصيلية بمجرد البدء في استقبال الطلبات وحجز الاستشارات.
                         </p>
                     </div>
                 </motion.div>

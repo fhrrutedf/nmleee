@@ -85,8 +85,8 @@ export default function AppointmentsPage() {
             {/* Header */}
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-3xl font-bold gradient-text">إدارة المواعيد والجلسات</h1>
-                    <p className="text-gray-600 mt-2">جدول مواعيدك وجلساتك الاستشارية</p>
+                    <h1 className="text-3xl font-bold gradient-text">إدارة الجلسات والاستشارات</h1>
+                    <p className="text-gray-600 mt-2">جدول جلساتك الاستشارية</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <Link href="/dashboard/appointments/settings" className="btn btn-outline flex items-center gap-2">
@@ -98,7 +98,7 @@ export default function AppointmentsPage() {
                         className="btn btn-primary flex items-center gap-2"
                     >
                         <FiPlus />
-                        <span className="hidden sm:inline">إضافة موعد</span>
+                        <span className="hidden sm:inline">إضافة استشارة</span>
                     </button>
                 </div>
             </div>
@@ -108,7 +108,7 @@ export default function AppointmentsPage() {
                 <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-6 shadow-lg">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-blue-100 text-sm">إجمالي المواعيد</p>
+                            <p className="text-blue-100 text-sm">إجمالي الاستشارات</p>
                             <p className="text-3xl font-bold mt-1">{appointments.length}</p>
                         </div>
                         <FiCalendar className="text-4xl text-blue-200" />
@@ -184,13 +184,13 @@ export default function AppointmentsPage() {
                 {currentList.length === 0 ? (
                     <div className="text-center py-12">
                         <FiCalendar className="text-6xl text-gray-300 mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold text-gray-700 mb-2">لا توجد مواعيد</h3>
-                        <p className="text-gray-500 mb-6">لم تقم بإنشاء أي مواعيد في هذه الفئة بعد</p>
+                        <h3 className="text-xl font-semibold text-gray-700 mb-2">لا توجد استشارات</h3>
+                        <p className="text-gray-500 mb-6">لم تقم بإنشاء أي استشارات في هذه الفئة بعد</p>
                         <button
                             onClick={() => setShowModal(true)}
                             className="btn btn-primary"
                         >
-                            إضافة موعد جديد
+                            إضافة استشارة جديدة
                         </button>
                     </div>
                 ) : (
@@ -308,8 +308,8 @@ export default function AppointmentsPage() {
             {showModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-xl p-6 max-w-md w-full">
-                        <h3 className="text-xl font-bold mb-4">إضافة موعد جديد</h3>
-                        <p className="text-gray-600 mb-4">قريباً... سيتم إضافة نموذج إضافة موعد</p>
+                        <h3 className="text-xl font-bold mb-4">إضافة استشارة جديدة</h3>
+                        <p className="text-gray-600 mb-4">قريباً... سيتم إضافة نموذج إضافة استشارة</p>
                         <button
                             onClick={() => setShowModal(false)}
                             className="btn btn-outline w-full"
