@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FiPlus, FiX } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 export default function NewSubscriptionPlanPage() {
     const router = useRouter();
@@ -51,11 +52,11 @@ export default function NewSubscriptionPlanPage() {
                 router.push('/dashboard/subscriptions');
             } else {
                 const data = await response.json();
-                alert(data.error || 'حدث خطأ');
+                toast.error(data.error || 'حدث خطأ');
             }
         } catch (error) {
             console.error('Error creating plan:', error);
-            alert('حدث خطأ أثناء إنشاء الخطة');
+            toast.error('حدث خطأ أثناء إنشاء الخطة');
         } finally {
             setLoading(false);
         }

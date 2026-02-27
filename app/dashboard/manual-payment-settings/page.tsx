@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FiSave, FiDollarSign } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 export default function ManualPaymentSettingsPage() {
     const { data: session } = useSession();
@@ -61,13 +62,13 @@ export default function ManualPaymentSettingsPage() {
             });
 
             if (response.ok) {
-                alert('✅ تم حفظ الإعدادات بنجاح');
+                toast.success('تم حفظ الإعدادات بنجاح ✅');
             } else {
-                alert('❌ حدث خطأ');
+                toast.error('حدث خطأ أثناء الحفظ ❌');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('❌ حدث خطأ');
+            toast.error('حدث خطأ أثناء الحفظ ❌');
         } finally {
             setSaving(false);
         }

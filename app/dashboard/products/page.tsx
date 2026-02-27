@@ -4,8 +4,10 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { FiPlus, FiEdit2, FiTrash2, FiPackage, FiEye } from 'react-icons/fi';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { apiGet, apiDelete, handleApiError } from '@/lib/safe-fetch';
+import toast from 'react-hot-toast';
 
 export default function ProductsPage() {
     const { data: session } = useSession();
@@ -35,7 +37,7 @@ export default function ProductsPage() {
             fetchProducts();
         } catch (error) {
             console.error('Error deleting product:', handleApiError(error));
-            alert('فشل حذف المنتج: ' + handleApiError(error));
+            toast.error('فشل حذف المنتج: ' + handleApiError(error));
         }
     };
 
@@ -83,10 +85,12 @@ export default function ProductsPage() {
                         >
                             <div className="relative h-48 mb-4 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
                                 {product.image ? (
-                                    <img
+                                    <Image
                                         src={product.image}
                                         alt={product.title}
-                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                                     />
                                 ) : (
                                     <div className="flex items-center justify-center h-full text-gray-400">
@@ -103,11 +107,11 @@ export default function ProductsPage() {
                                 </div>
                             </div>
 
-                            <div className="flex-1">
-                                <h3 className="text-lg font-bold text-primary-charcoal dark:text-white mb-2 line-clamp-1 group-hover:text-action-blue transition-colors">
+                            <div className="flex-1 w-full min-w-0 overflow-hidden px-4">
+                                <h3 className="text-lg font-bold text-primary-charcoal dark:text-white mb-2 truncate group-hover:text-action-blue transition-colors w-full block">
                                     {product.title}
                                 </h3>
-                                <p className="text-text-muted text-sm mb-4 line-clamp-2 min-h-[40px]">
+                                <p className="text-text-muted text-sm mb-4 line-clamp-2 min-h-[40px] w-full text-ellipsis break-words">
                                     {product.description || 'لا يوجد وصف متاح'}
                                 </p>
                             </div>

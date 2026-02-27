@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FiDollarSign, FiClock, FiCheck, FiTrendingUp, FiZap, FiShield, FiAlertCircle } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 interface Balance {
     pending: number;
@@ -61,7 +62,7 @@ export default function EarningsPage() {
     };
 
     const handleWithdrawRequest = async () => {
-        alert(`تم طلب سحب الأرباح بنمط: ${withdrawType === 'fast' ? 'السحب السريع 🚀' : 'السحب العادي ⏳'}`);
+        toast.success(`تم تقديم طلب السحب بنمط: ${withdrawType === 'fast' ? 'السحب السريع 🚀' : 'السحب العادي ⏳'}`);
         setShowWithdrawModal(false);
     };
 

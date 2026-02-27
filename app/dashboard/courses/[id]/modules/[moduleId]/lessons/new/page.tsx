@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { FiSave, FiX } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 export default function NewLessonPage() {
     const params = useParams();
@@ -57,11 +58,11 @@ export default function NewLessonPage() {
                 router.push(`/dashboard/courses/${courseId}/content`);
             } else {
                 const data = await response.json();
-                alert(data.error || 'حدث خطأ');
+                toast.error(data.error || 'حدث خطأ');
             }
         } catch (error) {
             console.error('Error creating lesson:', error);
-            alert('حدث خطأ أثناء إنشاء الدرس');
+            toast.error('حدث خطأ أثناء إنشاء الدرس');
         } finally {
             setLoading(false);
         }

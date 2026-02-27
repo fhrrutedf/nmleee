@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FiSave, FiClock, FiCalendar } from 'react-icons/fi';
 import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
+import toast from 'react-hot-toast';
 
 const DAYS_OF_WEEK = [
     { id: 0, name: 'الأحد' },
@@ -77,9 +78,9 @@ export default function AppointmentSettingsPage() {
                 consultationPrice: Number(consultationPrice),
                 availabilities: availabilities
             });
-            alert('تم حفظ إعدادات المواعيد بنجاح!');
+            toast.success('تم حفظ إعدادات المواعيد بنجاح!');
         } catch (error) {
-            alert('فشل حفظ الإعدادات: ' + handleApiError(error));
+            toast.error('فشل حفظ الإعدادات: ' + handleApiError(error));
         } finally {
             setSaving(false);
         }

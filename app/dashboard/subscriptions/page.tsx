@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FiPlus, FiEdit2, FiTrash2, FiUsers, FiDollarSign } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 interface SubscriptionPlan {
     id: string;
@@ -58,11 +59,11 @@ export default function SubscriptionsPage() {
                 fetchPlans();
             } else {
                 const data = await response.json();
-                alert(data.error || 'حدث خطأ');
+                toast.error(data.error || 'حدث خطأ');
             }
         } catch (error) {
             console.error('Error deleting plan:', error);
-            alert('حدث خطأ أثناء الحذف');
+            toast.error('حدث خطأ أثناء الحذف');
         }
     };
 
@@ -127,8 +128,8 @@ export default function SubscriptionsPage() {
                                     </div>
                                     <span
                                         className={`px-2 py-1 text-xs rounded-full ${plan.isActive
-                                                ? 'bg-green-100 text-green-800'
-                                                : 'bg-gray-100 text-gray-800'
+                                            ? 'bg-green-100 text-green-800'
+                                            : 'bg-gray-100 text-gray-800'
                                             }`}
                                     >
                                         {plan.isActive ? 'نشط' : 'غير نشط'}

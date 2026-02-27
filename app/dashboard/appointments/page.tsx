@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { FiCalendar, FiClock, FiUser, FiVideo, FiCheck, FiX, FiPlus, FiEdit, FiTrash2, FiMessageSquare, FiDollarSign, FiSettings } from 'react-icons/fi';
 import Link from 'next/link';
 import { apiGet, apiPut, apiDelete, handleApiError } from '@/lib/safe-fetch';
+import toast from 'react-hot-toast';
 
 export default function AppointmentsPage() {
     const { data: session, status } = useSession();
@@ -44,7 +45,7 @@ export default function AppointmentsPage() {
             fetchAppointments();
         } catch (error) {
             console.error('Error updating appointment:', handleApiError(error));
-            alert('فشل تحديث الحالة: ' + handleApiError(error));
+            toast.error('فشل تحديث الحالة: ' + handleApiError(error));
         }
     };
 
@@ -56,7 +57,7 @@ export default function AppointmentsPage() {
             fetchAppointments();
         } catch (error) {
             console.error('Error deleting appointment:', handleApiError(error));
-            alert('فشل حذف الموعد: ' + handleApiError(error));
+            toast.error('فشل حذف الموعد: ' + handleApiError(error));
         }
     };
 

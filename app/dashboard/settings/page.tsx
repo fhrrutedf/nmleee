@@ -105,10 +105,10 @@ export default function SettingsPage() {
         setSaving(true);
         try {
             await apiPut('/api/user/profile', profileData);
-            alert('تم حفظ الإعدادات بنجاح!');
+            toast.success('تم حفظ الإعدادات بنجاح!');
         } catch (error) {
             console.error('Error saving profile:', handleApiError(error));
-            alert('حدث خطأ في الحفظ: ' + handleApiError(error));
+            toast.error('حدث خطأ في الحفظ: ' + handleApiError(error));
         } finally {
             setSaving(false);
         }
@@ -116,18 +116,18 @@ export default function SettingsPage() {
 
     const savePassword = async () => {
         if (passwordData.newPassword !== passwordData.confirmPassword) {
-            alert('كلمات المرور غير متطابقة');
+            toast.error('كلمات المرور غير متطابقة');
             return;
         }
 
         setSaving(true);
         try {
             await apiPut('/api/user/password', passwordData);
-            alert('تم تغيير كلمة المرور بنجاح!');
+            toast.success('تم تغيير كلمة المرور بنجاح!');
             setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
         } catch (error) {
             console.error('Error changing password:', handleApiError(error));
-            alert('فشل تغيير كلمة المرور: ' + handleApiError(error));
+            toast.error('فشل تغيير كلمة المرور: ' + handleApiError(error));
         } finally {
             setSaving(false);
         }

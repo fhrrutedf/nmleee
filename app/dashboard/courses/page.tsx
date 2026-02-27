@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { apiGet, apiDelete, apiPut, handleApiError } from '@/lib/safe-fetch';
+import toast from 'react-hot-toast';
 
 export default function CoursesPage() {
     const router = useRouter();
@@ -55,7 +56,7 @@ export default function CoursesPage() {
             fetchCourses();
         } catch (error) {
             console.error('Error deleting course:', handleApiError(error));
-            alert('فشل حذف الدورة: ' + handleApiError(error));
+            toast.error('فشل حذف الدورة: ' + handleApiError(error));
         }
     };
 

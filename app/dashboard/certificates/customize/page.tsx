@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import CertificatePreview from '@/components/CertificatePreview';
 import { FiSave } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 export default function CertificateCustomizationPage() {
     const router = useRouter();
@@ -27,7 +28,7 @@ export default function CertificateCustomizationPage() {
 
     const handleSave = async () => {
         // TODO: Save certificate template settings
-        alert('سيتم حفظ إعدادات الشهادة');
+        toast.success('سيتم حفظ إعدادات الشهادة قريباً');
     };
 
     return (

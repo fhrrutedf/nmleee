@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FiSave, FiEye } from 'react-icons/fi';
 import CountdownTimer from '@/components/CountdownTimer';
+import toast from 'react-hot-toast';
 
 export default function CreateLandingPage() {
     const router = useRouter();
@@ -52,11 +53,11 @@ export default function CreateLandingPage() {
                 const data = await response.json();
                 router.push(`/landing/${data.slug}`);
             } else {
-                alert('حدث خطأ');
+                toast.error('حدث خطأ أثناء إنشاء الصفحة');
             }
         } catch (error) {
             console.error('Error creating landing page:', error);
-            alert('حدث خطأ');
+            toast.error('حدث خطأ غير متوقع');
         } finally {
             setLoading(false);
         }

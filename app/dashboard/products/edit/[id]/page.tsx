@@ -16,6 +16,7 @@ import {
     FiDollarSign,
     FiSettings
 } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 export default function EditProductPage() {
     const params = useParams();
@@ -89,13 +90,13 @@ export default function EditProductPage() {
             });
 
             if (response.ok) {
-                alert('تم حفظ التغييرات بنجاح! ✅');
+                toast.success('تم حفظ التغييرات بنجاح ✅');
             } else {
-                alert('حدث خطأ أثناء الحفظ');
+                toast.error('حدث خطأ أثناء الحفظ');
             }
         } catch (error) {
             console.error('Error saving product:', error);
-            alert('حدث خطأ أثناء الحفظ');
+            toast.error('حدث خطأ أثناء الحفظ');
         } finally {
             setSaving(false);
         }

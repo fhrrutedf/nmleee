@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { FiDollarSign, FiClock, FiCheck, FiX } from 'react-icons/fi';
 import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
+import toast from 'react-hot-toast';
 
 export default function PayoutsPage() {
     const [payouts, setPayouts] = useState([]);
@@ -44,25 +45,24 @@ export default function PayoutsPage() {
         const amount = parseFloat(requestAmount);
 
         if (amount > stats.availableBalance) {
-            alert('المبلغ المطلوب أكبر من الرصيد المتاح');
+            toast.error('المبلغ المطلوب أكبر من الرصيد المتاح');
             return;
         }
 
         if (amount < 100) {
-            alert('الحد الأدنى للسحب هو 100 ج.م');
+            toast.error('الحد الأدنى للسحب هو 100 ج.م');
             return;
         }
 
         try {
             await apiPost('/api/payouts', { amount });
-
-            alert('تم إرسال طلب السحب بنجاح! سيتم مراجعته قريباً ✅');
+            toast.success('تم إرسال طلب السحب بنجاح! سيتم مراجعته قريباً ✅');
             setRequestAmount('');
             fetchPayouts();
             fetchStats();
         } catch (error) {
             console.error('Error requesting payout:', handleApiError(error));
-            alert('فشل إرسال الطلب: ' + handleApiError(error));
+            toast.error('فشل إرسال الطلب: ' + handleApiError(error));
         }
     };
 

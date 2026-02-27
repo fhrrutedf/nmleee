@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import QuizBuilder from '@/components/QuizBuilder';
 import { FiSave } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 export default function NewQuizPage() {
     const params = useParams();
@@ -24,7 +25,7 @@ export default function NewQuizPage() {
         e.preventDefault();
 
         if (formData.questions.length === 0) {
-            alert('يجب إضافة سؤال واحد على الأقل');
+            toast.error('يجب إضافة سؤال واحد على الأقل');
             return;
         }
 
@@ -45,11 +46,11 @@ export default function NewQuizPage() {
                 router.push(`/dashboard/courses/${courseId}/quizzes`);
             } else {
                 const data = await response.json();
-                alert(data.error || 'حدث خطأ');
+                toast.error(data.error || 'حدث خطأ');
             }
         } catch (error) {
             console.error('Error creating quiz:', error);
-            alert('حدث خطأ أثناء إنشاء الاختبار');
+            toast.error('حدث خطأ أثناء إنشاء الاختبار');
         } finally {
             setLoading(false);
         }

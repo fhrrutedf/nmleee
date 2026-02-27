@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FiSave, FiDollarSign } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 export default function PayoutSettingsPage() {
     const { data: session } = useSession();
@@ -92,13 +93,13 @@ export default function PayoutSettingsPage() {
             });
 
             if (response.ok) {
-                alert('✅ تم حفظ الإعدادات بنجاح');
+                toast.success('تم حفظ الإعدادات بنجاح ✅');
             } else {
-                alert('❌ حدث خطأ');
+                toast.error('حدث خطأ أثناء الحفظ ❌');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('❌ حدث خطأ');
+            toast.error('حدث خطأ أثناء الحفظ ❌');
         } finally {
             setSaving(false);
         }
@@ -132,8 +133,8 @@ export default function PayoutSettingsPage() {
                                     type="button"
                                     onClick={() => setMethod('bank')}
                                     className={`p-4 border-2 rounded-lg text-center transition-colors ${method === 'bank'
-                                            ? 'border-indigo-600 bg-indigo-50'
-                                            : 'border-gray-200 hover:border-gray-300'
+                                        ? 'border-indigo-600 bg-indigo-50'
+                                        : 'border-gray-200 hover:border-gray-300'
                                         }`}
                                 >
                                     <FiDollarSign className="mx-auto mb-2" size={24} />
@@ -144,8 +145,8 @@ export default function PayoutSettingsPage() {
                                     type="button"
                                     onClick={() => setMethod('paypal')}
                                     className={`p-4 border-2 rounded-lg text-center transition-colors ${method === 'paypal'
-                                            ? 'border-indigo-600 bg-indigo-50'
-                                            : 'border-gray-200 hover:border-gray-300'
+                                        ? 'border-indigo-600 bg-indigo-50'
+                                        : 'border-gray-200 hover:border-gray-300'
                                         }`}
                                 >
                                     <span className="text-2xl mb-2 block">💙</span>
@@ -156,8 +157,8 @@ export default function PayoutSettingsPage() {
                                     type="button"
                                     onClick={() => setMethod('crypto')}
                                     className={`p-4 border-2 rounded-lg text-center transition-colors ${method === 'crypto'
-                                            ? 'border-indigo-600 bg-indigo-50'
-                                            : 'border-gray-200 hover:border-gray-300'
+                                        ? 'border-indigo-600 bg-indigo-50'
+                                        : 'border-gray-200 hover:border-gray-300'
                                         }`}
                                 >
                                     <span className="text-2xl mb-2 block">🪙</span>
