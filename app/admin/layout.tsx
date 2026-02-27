@@ -103,14 +103,9 @@ export default function AdminLayout({
                 </button>
             </div>
 
-            {/* Sidebar Navigation */}
-            <aside className={`
-                fixed md:sticky top-0 right-0 z-40 w-72 h-screen transition-transform duration-300 ease-in-out
-                bg-white dark:bg-card-white border-l border-gray-100 dark:border-gray-800 shadow-xl md:shadow-none
-                flex flex-col
-                ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full md:translate-x-0'}
-            `}>
-                <div className="p-6 hidden md:flex items-center gap-3">
+            {/* Desktop Sidebar (always visible) */}
+            <aside className="hidden md:flex sticky top-0 right-0 z-40 w-72 h-screen bg-white dark:bg-card-white border-l border-gray-100 dark:border-gray-800 shadow-none flex-col">
+                <div className="p-6 flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-action-blue to-purple-600 flex items-center justify-center text-white shadow-lg">
                         <FiSettings size={22} />
                     </div>
@@ -119,59 +114,63 @@ export default function AdminLayout({
                         <span className="text-xs text-gray-500 font-bold tracking-widest uppercase">Admin Panel</span>
                     </div>
                 </div>
-
-                <div className="flex-1 px-4 py-6 md:py-2 overflow-y-auto mt-4 md:mt-0 space-y-2">
+                <div className="flex-1 px-4 py-2 overflow-y-auto space-y-2">
                     {navLinks.map((link) => {
                         const isActive = pathname === link.href || pathname?.startsWith(`${link.href}/`);
                         const Icon = link.icon;
-
                         return (
-                            <Link
-                                key={link.href}
-                                href={link.href}
-                                onClick={() => setIsSidebarOpen(false)}
-                                className={`flex items-center gap-4 px-4 py-3.5 rounded-2xl font-bold transition-all duration-200 group
-                                    ${isActive
-                                        ? 'bg-action-blue text-white shadow-md shadow-action-blue/20'
-                                        : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-primary-charcoal dark:hover:text-white'
-                                    }
-                                `}
-                            >
+                            <Link key={link.href} href={link.href}
+                                className={`flex items-center gap-4 px-4 py-3.5 rounded-2xl font-bold transition-all duration-200 group ${isActive ? 'bg-action-blue text-white shadow-md shadow-action-blue/20' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-primary-charcoal dark:hover:text-white'}`}>
                                 <Icon size={20} className={isActive ? 'text-white' : 'text-gray-400 group-hover:text-action-blue transition-colors'} />
                                 {link.name}
                             </Link>
                         );
                     })}
                 </div>
-
                 <div className="p-4 border-t border-gray-100 dark:border-gray-800">
-                    <Link
-                        href="/"
-                        className="flex items-center gap-3 px-4 py-3 rounded-2xl text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-bold mb-2 group"
-                    >
-                        <FiHome className="text-gray-400 group-hover:text-action-blue" size={20} />
-                        العودة للموقع
+                    <Link href="/" className="flex items-center gap-3 px-4 py-3 rounded-2xl text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-bold mb-2 group">
+                        <FiHome className="text-gray-400 group-hover:text-action-blue" size={20} />العودة للموقع
                     </Link>
-
-                    <button
-                        onClick={() => {/* logout handled directly or via NextAuth signout */ }}
-                        className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors font-bold"
-                    >
-                        <FiLogOut size={20} />
-                        تسجيل الخروج
+                    <button className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors font-bold">
+                        <FiLogOut size={20} />تسجيل الخروج
                     </button>
                 </div>
             </aside>
 
-            {/* Overlay for mobile sidebar */}
+            {/* Mobile Sidebar (only in DOM when open) */}
             {isSidebarOpen && (
-                <div
-                    className="fixed inset-0 bg-black/50 z-30 md:hidden backdrop-blur-sm"
-                    onClick={() => setIsSidebarOpen(false)}
-                />
+                <aside className="md:hidden fixed top-0 right-0 z-40 w-72 h-screen bg-white dark:bg-card-white border-l border-gray-100 dark:border-gray-800 shadow-xl flex flex-col">
+                    <div className="flex-1 px-4 py-6 overflow-y-auto mt-4 space-y-2">
+                        {navLinks.map((link) => {
+                            const isActive = pathname === link.href || pathname?.startsWith(`${link.href}/`);
+                            const Icon = link.icon;
+                            return (
+                                <Link key={link.href} href={link.href} onClick={() => setIsSidebarOpen(false)}
+                                    className={`flex items-center gap-4 px-4 py-3.5 rounded-2xl font-bold transition-all duration-200 group ${isActive ? 'bg-action-blue text-white shadow-md shadow-action-blue/20' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-primary-charcoal dark:hover:text-white'}`}>
+                                    <Icon size={20} className={isActive ? 'text-white' : 'text-gray-400 group-hover:text-action-blue transition-colors'} />
+                                    {link.name}
+                                </Link>
+                            );
+                        })}
+                    </div>
+                    <div className="p-4 border-t border-gray-100 dark:border-gray-800">
+                        <Link href="/" onClick={() => setIsSidebarOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-2xl text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-bold mb-2 group">
+                            <FiHome className="text-gray-400 group-hover:text-action-blue" size={20} />العودة للموقع
+                        </Link>
+                        <button onClick={() => setIsSidebarOpen(false)} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors font-bold">
+                            <FiLogOut size={20} />تسجيل الخروج
+                        </button>
+                    </div>
+                </aside>
+            )}
+
+            {/* Mobile Overlay */}
+            {isSidebarOpen && (
+                <div className="md:hidden fixed inset-0 bg-black/50 z-30 backdrop-blur-sm" onClick={() => setIsSidebarOpen(false)} />
             )}
 
             {/* Main Content Area */}
+
             <main className="flex-1 w-full flex flex-col min-h-screen relative overflow-x-hidden">
                 {children}
             </main>
