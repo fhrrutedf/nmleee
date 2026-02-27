@@ -118,7 +118,7 @@ export default function SuccessPage() {
 
                             <div className="space-y-4">
                                 <Link
-                                    href="/orders" // Assuming there's a user dashboard for orders
+                                    href="/my-purchases"
                                     className="block w-full py-4 bg-primary-charcoal hover:bg-black dark:bg-action-blue dark:hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg"
                                 >
                                     تحميل المنتجات وبدء التعلم

@@ -13,6 +13,7 @@ import {
     FiLink
 } from 'react-icons/fi';
 import showToast from '@/lib/toast';
+import RichTextEditor from '@/components/ui/RichTextEditor';
 
 export default function EditCoursePage() {
     const params = useParams();
@@ -162,8 +163,8 @@ export default function EditCoursePage() {
                     <button
                         onClick={() => setActiveTab('settings')}
                         className={`px-6 py-4 font-bold flex items-center gap-2 transition-colors whitespace-nowrap ${activeTab === 'settings'
-                                ? 'border-b-2 border-action-blue text-action-blue bg-blue-50/50 dark:bg-blue-900/10'
-                                : 'text-text-muted hover:bg-gray-50 dark:hover:bg-gray-800'
+                            ? 'border-b-2 border-action-blue text-action-blue bg-blue-50/50 dark:bg-blue-900/10'
+                            : 'text-text-muted hover:bg-gray-50 dark:hover:bg-gray-800'
                             }`}
                     >
                         <FiSettings /> الإعدادات العامة
@@ -204,13 +205,12 @@ export default function EditCoursePage() {
 
                             <div className="md:col-span-2">
                                 <label className="label">الوصف <span className="text-red-500">*</span></label>
-                                <textarea
-                                    required
-                                    rows={4}
-                                    className="input"
-                                    value={formData.description}
-                                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                />
+                                <div className="mt-1">
+                                    <RichTextEditor
+                                        value={formData.description}
+                                        onChange={(val) => setFormData({ ...formData, description: val })}
+                                    />
+                                </div>
                             </div>
 
                             <div>

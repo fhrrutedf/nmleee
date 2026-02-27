@@ -5,6 +5,13 @@ import { useParams, useRouter } from 'next/navigation';
 import { FiShoppingCart, FiStar, FiClock, FiVideo, FiUsers, FiCheckCircle, FiBook, FiAward, FiMessageCircle } from 'react-icons/fi';
 import Link from 'next/link';
 
+const stripHtml = (html: string) => {
+    if (!html) return '';
+    // استبدال &nbsp; بمسافة عادية أولاً
+    html = html.replace(/&nbsp;/g, ' ');
+    return html;
+};
+
 export default function CoursePage() {
     const params = useParams();
     const router = useRouter();
@@ -183,10 +190,11 @@ export default function CoursePage() {
 
                             {/* Tab Content */}
                             {activeTab === 'description' && (
-                                <div className="prose max-w-none">
-                                    <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
-                                        {course.description}
-                                    </p>
+                                <div className="prose max-w-none dark:prose-invert">
+                                    <div
+                                        dangerouslySetInnerHTML={{ __html: stripHtml(course.description) }}
+                                        className="text-gray-700 dark:text-gray-300 leading-relaxed ql-editor px-0"
+                                    />
                                 </div>
                             )}
 

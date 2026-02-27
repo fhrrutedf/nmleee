@@ -1,9 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/db';
 
-// GET - جلب إعدادات الأتمتة
 export async function GET() {
     try {
         const session = await getServerSession(authOptions);
@@ -11,25 +10,18 @@ export async function GET() {
             return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
         }
 
-        let settings = await prisma.automationSettings.findUnique({
-            where: { userId: session.user.id },
+        const settings = await prisma.automationSettings.findUnique({
+            where: { userId: session.user.id }
         });
 
-        if (!settings) {
-            settings = await prisma.automationSettings.create({
-                data: { userId: session.user.id },
-            });
-        }
-
-        return NextResponse.json(settings);
+        return NextResponse.json(settings || {});
     } catch (error) {
-        console.error('Automation settings GET error:', error);
-        return NextResponse.json({ error: 'خطأ في الخادم' }, { status: 500 });
+        console.error('Error fetching automation settings:', error);
+        return NextResponse.json({ error: 'حدث خطأ في جلب الإعدادات' }, { status: 500 });
     }
 }
 
-// PUT - تحديث إعدادات الأتمتة
-export async function PUT(req: NextRequest) {
+export async function PUT(req: Request) {
     try {
         const session = await getServerSession(authOptions);
         if (!session?.user?.id) {
@@ -37,20 +29,22 @@ export async function PUT(req: NextRequest) {
         }
 
         const body = await req.json();
-        const { id, userId, user, createdAt, updatedAt, ...updateData } = body;
+
+        // Remove id and userId if they exist in body to prevent updating them
+        const { id, userId, ...updateData } = body;
 
         const settings = await prisma.automationSettings.upsert({
             where: { userId: session.user.id },
             update: updateData,
             create: {
-                userId: session.user.id,
                 ...updateData,
-            },
+                userId: session.user.id
+            }
         });
 
         return NextResponse.json(settings);
     } catch (error) {
-        console.error('Automation settings PUT error:', error);
-        return NextResponse.json({ error: 'خطأ في الخادم' }, { status: 500 });
+        console.error('Error updating automation settings:', error);
+        return NextResponse.json({ error: 'حدث خطأ في تحديث الإعدادات' }, { status: 500 });
     }
 }

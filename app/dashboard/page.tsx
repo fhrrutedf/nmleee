@@ -10,10 +10,12 @@ import { apiGet, handleApiError } from '@/lib/safe-fetch';
 export default function DashboardPage() {
     const { data: session } = useSession();
     const [stats, setStats] = useState({
-        totalRevenue: 0,
-        totalOrders: 0,
         totalProducts: 0,
         totalAppointments: 0,
+        revenueGrowth: 0,
+        ordersGrowth: 0,
+        totalRevenue: 0,
+        totalOrders: 0,
     });
     const [loading, setLoading] = useState(true);
 
@@ -70,10 +72,10 @@ export default function DashboardPage() {
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                    { title: 'إجمالي الأرباح', value: `${stats.totalRevenue.toLocaleString('ar-EG')} ج.م`, icon: FiDollarSign, badge: 'إرباح', color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/20' },
-                    { title: 'إجمالي الطلبات', value: stats.totalOrders, icon: FiShoppingCart, badge: 'طلب', color: 'text-action-blue', bg: 'bg-blue-50 dark:bg-blue-900/20' },
-                    { title: 'المنتجات النشطة', value: stats.totalProducts, icon: FiPackage, badge: 'نشط', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20' },
-                    { title: 'المواعيد القادمة', value: stats.totalAppointments, icon: FiCalendar, badge: 'قريباً', color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/20' }
+                    { title: 'إجمالي الأرباح', value: `${(stats.totalRevenue || 0).toLocaleString('ar-EG')} ج.م`, icon: FiDollarSign, badge: 'إرباح', color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/20' },
+                    { title: 'إجمالي الطلبات', value: stats.totalOrders || 0, icon: FiShoppingCart, badge: 'طلب', color: 'text-action-blue', bg: 'bg-blue-50 dark:bg-blue-900/20' },
+                    { title: 'المنتجات النشطة', value: stats.totalProducts || 0, icon: FiPackage, badge: 'نشط', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20' },
+                    { title: 'المواعيد القادمة', value: stats.totalAppointments || 0, icon: FiCalendar, badge: 'قريباً', color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/20' }
                 ].map((stat, idx) => (
                     <motion.div variants={item} key={idx} className="card group hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
                         <div className="flex justify-between items-start mb-4">
@@ -85,9 +87,21 @@ export default function DashboardPage() {
                             </span>
                         </div>
                         <h3 className="text-text-muted text-sm font-medium mb-1">{stat.title}</h3>
-                        <p className="text-2xl font-bold text-primary-charcoal dark:text-white">
-                            {loading ? '...' : stat.value}
-                        </p>
+                        <div className="flex items-end justify-between">
+                            <p className="text-2xl font-bold text-primary-charcoal dark:text-white">
+                                {loading ? '...' : stat.value}
+                            </p>
+                            {stat.title === 'إجمالي الأرباح' && (
+                                <div className={`text-xs font-bold flex items-center gap-1 ${stats.revenueGrowth >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                                    {stats.revenueGrowth >= 0 ? '+' : ''}{stats.revenueGrowth}%
+                                </div>
+                            )}
+                            {stat.title === 'إجمالي الطلبات' && (
+                                <div className={`text-xs font-bold flex items-center gap-1 ${stats.ordersGrowth >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                                    {stats.ordersGrowth >= 0 ? '+' : ''}{stats.ordersGrowth}%
+                                </div>
+                            )}
+                        </div>
                     </motion.div>
                 ))}
             </div>

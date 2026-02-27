@@ -9,6 +9,13 @@ import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 import VideoPlayer from '@/components/ui/VideoPlayer';
 import showToast from '@/lib/toast';
 
+const stripHtml = (html: string) => {
+    if (!html) return '';
+    // استبدال &nbsp; بمسافة عادية أولاً
+    html = html.replace(/&nbsp;/g, ' ');
+    return html;
+};
+
 export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
     const router = useRouter();
@@ -378,7 +385,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                             <div className="p-6 sm:p-10">
                                 {activeTab === 'description' ? (
                                     <div className="prose prose-lg sm:prose-xl max-w-none dark:prose-invert">
-                                        <div dangerouslySetInnerHTML={{ __html: product.description }} className="text-gray-600 dark:text-gray-300 leading-relaxed ql-editor px-0" />
+                                        <div dangerouslySetInnerHTML={{ __html: stripHtml(product.description) }} className="text-gray-600 dark:text-gray-300 leading-relaxed ql-editor px-0" />
                                     </div>
                                 ) : (
                                     <div className="space-y-10 animate-fade-in-up">

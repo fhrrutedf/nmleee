@@ -7,7 +7,8 @@ import { prisma } from '@/lib/db';
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const { code, totalAmount } = body;
+        const { code, total } = body;
+        const totalAmount = total || 0;
 
         const coupon = await prisma.coupon.findFirst({
             where: {
