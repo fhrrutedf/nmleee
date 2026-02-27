@@ -42,13 +42,13 @@ export async function POST(req: Request) {
                 status: 'COMPLETED',
                 customerEmail: customerEmail,
                 customerName: customerName,
-                customerPhone: body.customerPhone || null,
+                customerPhone: body.customerPhone || undefined,
                 sellerId: userId,
                 userId: userId,
                 items: {
                     create: items.map((item: any) => ({
-                        productId: item.type === 'product' ? item.id : null,
-                        courseId: item.type === 'course' ? item.id : null,
+                        productId: item.type === 'product' ? item.id : undefined,
+                        courseId: item.type === 'course' ? item.id : undefined,
                         price: 0,
                         itemType: item.type,
                     }))
@@ -61,8 +61,17 @@ export async function POST(req: Request) {
         for (const item of items) {
             if (item.type === 'course') {
                 // Link enrollment
-                await prisma.courseEnrollment.create({
-                    data: {
+                await prisma.courseEnrollment.upsert({
+                    where: {
+                        courseId_studentEmail: {
+                            courseId: item.id,
+                            studentEmail: customerEmail
+                        }
+                    },
+                    update: {
+                        orderId: order.id
+                    },
+                    create: {
                         courseId: item.id,
                         studentName: customerName,
                         studentEmail: customerEmail,
@@ -78,6 +87,12 @@ export async function POST(req: Request) {
 
     } catch (error) {
         console.error('Error processing free checkout:', error);
-        return NextResponse.json({ error: 'حدث خطأ أثناء معالجة الطلب المجاني' }, { status: 500 });
+        if (error instanceof Error) {
+            console.error('Error message:', error.message);
+            console.error('Error stack:', error.stack);
+        } else {
+            console.error('Unknown error object:', JSON.stringify(error, null, 2));
+        }
+        return NextResponse.json({ error: 'حدث خطأ أثناء معالجة الطلب المجاني', details: error instanceof Error ? error.message : 'Unknown' }, { status: 500 });
     }
 }
