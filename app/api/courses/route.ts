@@ -87,6 +87,7 @@ export async function POST(request: NextRequest) {
                 isActive: body.isActive !== undefined ? body.isActive : true,
                 zoomLink: body.zoomLink || null,
                 meetLink: body.meetLink || null,
+                trailerUrl: body.trailerUrl || null,
                 userId: userId
             },
         });

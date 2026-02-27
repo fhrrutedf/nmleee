@@ -34,9 +34,9 @@ const RevealText = ({ text, className, delay = 0 }: { text: string, className?: 
     };
 
     return (
-        <motion.div style={{ overflow: "hidden", display: "flex", flexWrap: "wrap", justifyContent: "inherit" }} variants={container} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+        <motion.div style={{ overflow: "hidden", display: "flex", flexWrap: "wrap", justifyContent: "inherit" }} className="gap-x-4 gap-y-2" variants={container} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             {words.map((word, index) => (
-                <motion.span variants={child} style={{ marginRight: "0.25em", display: "inline-block" }} key={index} className={className}>
+                <motion.span variants={child} style={{ display: "inline-block" }} key={index} className={className}>
                     {word}
                 </motion.span>
             ))}
@@ -385,10 +385,10 @@ export default function Home() {
                 <div className="container-custom relative z-10">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center divide-x divide-gray-700/50 divide-x-reverse">
                         {[
-                            { value: "+10k", label: "صانع محتوى يبدع عبر منصتنا", delay: 0 },
-                            { value: "$5M+", label: "أرباح موزعة على شركائنا", delay: 0.1 },
-                            { value: "0%", label: "رسوم تأسيس أو تكاليف خفية", delay: 0.2 },
-                            { value: "24/7", label: "دعم فني جاهز لخدمتك دوماً", delay: 0.3 }
+                            { value: "متنامية", label: "منصة تنمو باستمرار مع صناع المحتوى", delay: 0 },
+                            { value: "0%", label: "رسوم تأسيس أو تكاليف خفية للانطلاق", delay: 0.1 },
+                            { value: "غير محدود", label: "حرية الإبداع ونمو الأرباح لشركائنا", delay: 0.2 },
+                            { value: "24/7", label: "فريق دعم فني جاهز لخدمتك دوماً", delay: 0.3 }
                         ].map((stat, idx) => (
                             <motion.div
                                 key={idx}

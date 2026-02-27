@@ -16,6 +16,7 @@ interface Course {
     description: string;
     price: number;
     image?: string;
+    trailerUrl?: string;
     category?: string;
     level?: string;
     duration?: string;
@@ -176,6 +177,26 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                 </div>
                             </div>
                         </div>
+
+                        {/* Trailer Video (If available) */}
+                        {course.trailerUrl && (
+                            <div className="bg-white dark:bg-card-white rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden mt-6">
+                                <div className="p-8 sm:p-10 pb-6 border-b border-gray-100 dark:border-gray-800">
+                                    <h2 className="text-2xl font-black text-primary-charcoal dark:text-white flex items-center gap-2">
+                                        <FiPlayCircle className="text-action-blue" /> فيديو تعريفي
+                                    </h2>
+                                </div>
+                                <div className="relative aspect-video w-full bg-gray-900">
+                                    <iframe
+                                        src={course.trailerUrl.replace('watch?v=', 'embed/').split('&')[0]}
+                                        title="Course Trailer"
+                                        className="absolute inset-0 w-full h-full"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    ></iframe>
+                                </div>
+                            </div>
+                        )}
 
                         {/* Description & Overview */}
                         <div className="bg-white dark:bg-card-white rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">

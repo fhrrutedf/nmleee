@@ -8,8 +8,12 @@ import { FiShoppingCart, FiStar, FiClock, FiUsers, FiCheckCircle } from 'react-i
 export default function ProductPage() {
     const params = useParams();
     const router = useRouter();
-    const username = params.username as string;
-    const slug = params.slug as string;
+    const usernameRaw = params.username as string;
+    const slugRaw = params.slug as string;
+    
+    // فك التشفير لدعم الروابط العربية
+    const username = usernameRaw ? decodeURIComponent(usernameRaw) : '';
+    const slug = slugRaw ? decodeURIComponent(slugRaw) : '';
 
     const [product, setProduct] = useState<any>(null);
     const [creator, setCreator] = useState<any>(null);
@@ -172,7 +176,7 @@ export default function ProductPage() {
                         <div className="bg-gray-50 rounded-xl p-6">
                             <div className="flex items-baseline gap-2 mb-2">
                                 <span className="text-5xl font-bold" style={{ color: brandColor }}>
-                                    {product.price.toFixed(0)}
+                                    {typeof product.price === 'number' ? product.price.toFixed(0) : '0'}
                                 </span>
                                 <span className="text-2xl text-gray-600">ج.م</span>
                             </div>

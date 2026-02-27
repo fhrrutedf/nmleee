@@ -341,8 +341,6 @@ export default function PricingPage() {
                         <h3 className="text-2xl font-black mb-2">عرض الإطلاق الحصري</h3>
                         <p className="text-white/80 mb-4 max-w-xl mx-auto">
                             خصم <strong>50%</strong> لأول 3 أشهر لأول <strong>500 بائع</strong> يسجلون في الباقات المدفوعة.
-                            المتبقي:
-                            <span className="bg-white/20 px-3 py-1 rounded-full mx-2 font-bold">۴۸۳ مقعد</span>
                         </p>
                         <Link
                             href="/register?plan=starter"

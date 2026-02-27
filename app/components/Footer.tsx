@@ -24,9 +24,9 @@ export default function Footer() {
                     <div>
                         <h4 className="font-bold text-white mb-6 text-lg tracking-wider">المنتج</h4>
                         <ul className="space-y-4">
-                            {['المميزات', 'الأسعار', 'التكاملات'].map((link, i) => (
+                            {['المميزات', 'الأسعار', 'المدونة'].map((link, i) => (
                                 <li key={i}>
-                                    <Link href={link === 'المميزات' ? '/features' : link === 'الأسعار' ? '/pricing' : '/'} className="hover:text-white hover:-translate-x-2 inline-block transition-all duration-300">{link}</Link>
+                                    <Link href={link === 'المميزات' ? '/features' : link === 'الأسعار' ? '/pricing' : link === 'المدونة' ? '/blog' : '/'} className="hover:text-white hover:-translate-x-2 inline-block transition-all duration-300">{link}</Link>
                                 </li>
                             ))}
                         </ul>
@@ -35,7 +35,7 @@ export default function Footer() {
                     <div>
                         <h4 className="font-bold text-white mb-6 text-lg tracking-wider">الشركة</h4>
                         <ul className="space-y-4">
-                            {['عن المنصة', 'قصص النجاح', 'تواصل معنا'].map((link, i) => (
+                            {['عن المنصة', 'تواصل معنا'].map((link, i) => (
                                 <li key={i}>
                                     <Link href={link === 'عن المنصة' ? '/about' : link === 'تواصل معنا' ? '/contact' : '/'} className="hover:text-white hover:-translate-x-2 inline-block transition-all duration-300">{link}</Link>
                                 </li>
@@ -46,9 +46,9 @@ export default function Footer() {
                     <div>
                         <h4 className="font-bold text-white mb-6 text-lg tracking-wider">قانوني</h4>
                         <ul className="space-y-4">
-                            {['سياسة الخصوصية', 'الشروط والأحكام', 'سياسة الاسترجاع'].map((link, i) => (
+                            {['سياسة الخصوصية', 'الشروط والأحكام'].map((link, i) => (
                                 <li key={i}>
-                                    <Link href="/" className="hover:text-white hover:-translate-x-2 inline-block transition-all duration-300">{link}</Link>
+                                    <Link href={link === 'سياسة الخصوصية' ? '/privacy' : link === 'الشروط والأحكام' ? '/terms' : '/'} className="hover:text-white hover:-translate-x-2 inline-block transition-all duration-300">{link}</Link>
                                 </li>
                             ))}
                         </ul>

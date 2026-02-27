@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { FiMapPin, FiLink, FiFacebook, FiInstagram, FiTwitter, FiStar, FiShoppingCart, FiClock, FiCheckCircle, FiShare2, FiMonitor, FiGrid, FiPackage, FiVideo } from 'react-icons/fi';
+import { useState, useRef, useEffect } from 'react';
+import { FiMapPin, FiLink, FiFacebook, FiInstagram, FiTwitter, FiStar, FiShoppingCart, FiClock, FiCheckCircle, FiShare2, FiMonitor, FiGrid, FiPackage, FiVideo, FiCopy, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
 
 interface ProfileClientProps {
@@ -13,16 +14,36 @@ interface ProfileClientProps {
 
 export default function ProfileClient({ creator, products }: ProfileClientProps) {
     const [activeTab, setActiveTab] = useState<'all' | 'products' | 'courses' | 'consultations'>('all');
+    const [isBioExpanded, setIsBioExpanded] = useState(false);
+    const [showShareMenu, setShowShareMenu] = useState(false);
+    const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
 
-    const handleShare = () => {
-        if (typeof window !== 'undefined') {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url);
-            toast.success('تم نسخ رابط المتجر بنجاح!');
+    const handleShare = async () => {
+        const url = window.location.href;
+        
+        // Use native Web Share API on mobile
+        if (navigator.share && /Mobi|Android/i.test(navigator.userAgent)) {
+            try {
+                await navigator.share({
+                    title: `متجر ${creator.name} | منصة تمكين`,
+                    url: url
+                });
+            } catch (err) {
+                console.error('Error sharing', err);
+            }
+        } else {
+            // Show dropdown on desktop
+            setShowShareMenu(!showShareMenu);
         }
     };
 
-    const brandColor = creator.brandColor || '#0ea5e9'; // Default to action-blue if not set
+    const copyLink = () => {
+        navigator.clipboard.writeText(window.location.href);
+        toast.success('تم نسخ رابط المتجر بنجاح!');
+        setShowShareMenu(false);
+    };
+
+    const brandColor = creator.brandColor || '#0ea5e9';
 
     const hasCourses = products.some(p => p.category === 'courses' || p.category === 'course');
     const hasDigital = products.some(p => p.category !== 'courses' && p.category !== 'course');
@@ -34,6 +55,15 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
         if (activeTab === 'products') return product.category !== 'courses' && product.category !== 'course';
         return false;
     });
+
+    const getValidImageUrl = (url: string | null | undefined, type: 'course' | 'product') => {
+        if (!url || url === '/dashboard/products/new' || url === 'null' || url === 'undefined') {
+            return type === 'course' 
+                ? 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop'
+                : 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800&auto=format&fit=crop';
+        }
+        return url;
+    };
 
     return (
         <div className="min-h-screen bg-bg-light dark:bg-bg-dark pb-32 font-sans selection:bg-black/10 dark:selection:bg-white/10" style={{ '--brand-color': brandColor } as React.CSSProperties}>
@@ -50,7 +80,6 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
                         : `linear-gradient(135deg, ${brandColor}dd, ${brandColor}44)`
                 }}
             >
-                {/* Overlay Gradients for smooth blending */}
                 <div className="absolute inset-0 bg-black/20 dark:bg-black/40 mix-blend-overlay"></div>
                 <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-bg-light dark:from-bg-dark to-transparent"></div>
             </motion.div>
@@ -63,7 +92,6 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
                     transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
                     className="bg-white/80 dark:bg-card-white/80 backdrop-blur-2xl rounded-3xl shadow-2xl shadow-gray-200/50 dark:shadow-black/40 p-6 md:p-10 mb-16 border border-white/40 dark:border-white/5 relative overflow-hidden"
                 >
-                    {/* Decorative accent glow depending on brand color */}
                     <div className="absolute -top-32 -right-32 w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none" style={{ backgroundColor: brandColor }}></div>
                     <div className="absolute -bottom-32 -left-32 w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none" style={{ backgroundColor: brandColor }}></div>
 
@@ -75,10 +103,12 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
                             className="w-40 h-40 sm:w-48 sm:h-48 rounded-3xl border-4 border-white dark:border-card-white shadow-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 flex-shrink-0 -mt-20 sm:-mt-28 relative group z-20"
                         >
                             {creator.avatar ? (
-                                <img
+                                <Image
                                     src={creator.avatar}
                                     alt={creator.name}
-                                    className="w-full h-full object-cover"
+                                    fill
+                                    className="object-cover"
+                                    priority
                                 />
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center text-6xl font-black text-white" style={{ backgroundColor: brandColor }}>
@@ -88,7 +118,7 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
                         </motion.div>
 
                         {/* Creator Info */}
-                        <div className="flex-1 w-full space-y-5">
+                        <div className="flex-1 w-full space-y-5 relative">
                             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                                 <div>
                                     <h1 className="text-3xl md:text-5xl font-black text-primary-charcoal dark:text-white mb-2 flex items-center justify-center md:justify-start gap-2 tracking-tight">
@@ -97,34 +127,69 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
                                     </h1>
                                     <p className="font-bold tracking-wider font-mono ltr flex justify-center md:justify-start" style={{ color: brandColor }}>@{creator.username}</p>
                                 </div>
-                                <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                                <div className="flex flex-col sm:flex-row gap-3 justify-center items-center relative">
                                     <div className="flex gap-2">
                                         {creator.facebook && (
-                                            <a href={creator.facebook} target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-300 rounded-xl transition-all transform hover:-translate-y-1 hover:shadow-lg hover:text-white" style={{ '--hover-bg': brandColor } as any} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = brandColor} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}>
+                                            <a href={creator.facebook} target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-300 rounded-xl transition-all hover:-translate-y-1 hover:shadow-lg hover:text-white" onMouseEnter={(e) => e.currentTarget.style.backgroundColor = brandColor} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}>
                                                 <FiFacebook size={20} />
                                             </a>
                                         )}
                                         {creator.twitter && (
-                                            <a href={creator.twitter} target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-300 rounded-xl transition-all transform hover:-translate-y-1 hover:shadow-lg hover:text-white" style={{ '--hover-bg': brandColor } as any} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = brandColor} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}>
+                                            <a href={creator.twitter} target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-300 rounded-xl transition-all hover:-translate-y-1 hover:shadow-lg hover:text-white" onMouseEnter={(e) => e.currentTarget.style.backgroundColor = brandColor} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}>
                                                 <FiTwitter size={20} />
                                             </a>
                                         )}
                                         {creator.instagram && (
-                                            <a href={creator.instagram} target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-300 rounded-xl transition-all transform hover:-translate-y-1 hover:shadow-lg hover:text-white" style={{ '--hover-bg': brandColor } as any} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = brandColor} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}>
+                                            <a href={creator.instagram} target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-300 rounded-xl transition-all hover:-translate-y-1 hover:shadow-lg hover:text-white" onMouseEnter={(e) => e.currentTarget.style.backgroundColor = brandColor} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}>
                                                 <FiInstagram size={20} />
                                             </a>
                                         )}
                                     </div>
-                                    <button onClick={handleShare} className="flex items-center gap-2 px-4 py-3 rounded-xl justify-center transition-all bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:shadow-md font-medium">
-                                        <FiShare2 /> مشاركة
-                                    </button>
+                                    <div className="relative">
+                                        <button onClick={handleShare} className="flex items-center gap-2 px-4 py-3 rounded-xl justify-center transition-all bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:shadow-md font-medium">
+                                            <FiShare2 /> مشاركة
+                                        </button>
+                                        
+                                        <AnimatePresence>
+                                            {showShareMenu && (
+                                                <motion.div 
+                                                    initial={{ opacity: 0, y: 10 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    exit={{ opacity: 0, y: 10 }}
+                                                    className="absolute left-0 sm:right-0 sm:left-auto top-full mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 p-2 z-50 overflow-hidden"
+                                                >
+                                                    <button onClick={copyLink} className="w-full flex items-center gap-2 px-4 py-3 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors text-right">
+                                                        <FiCopy /> نسخ رابط المتجر
+                                                    </button>
+                                                    <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}&text=${encodeURIComponent(`اكتشف أفضل المنتجات من ${creator.name}`)}`} target="_blank" rel="noopener noreferrer" className="w-full flex items-center gap-2 px-4 py-3 text-sm font-medium hover:bg-[#e8f5fd] dark:hover:bg-[#1da1f2]/10 hover:text-[#1da1f2] rounded-lg transition-colors text-right">
+                                                        <FiTwitter /> شارك عبر تويتر
+                                                    </a>
+                                                    <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`} target="_blank" rel="noopener noreferrer" className="w-full flex items-center gap-2 px-4 py-3 text-sm font-medium hover:bg-[#e8f0fe] dark:hover:bg-[#1877f2]/10 hover:text-[#1877f2] rounded-lg transition-colors text-right">
+                                                        <FiFacebook /> شارك عبر فيسبوك
+                                                    </a>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
                                 </div>
                             </div>
 
                             {creator.bio && (
-                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl text-lg md:text-xl font-medium">
-                                    {creator.bio}
-                                </p>
+                                <div>
+                                    <p className={`text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl text-lg md:text-xl font-medium ${!isBioExpanded ? 'line-clamp-2' : ''}`}>
+                                        {creator.bio}
+                                    </p>
+                                    {creator.bio.length > 100 && (
+                                        <button 
+                                            onClick={() => setIsBioExpanded(!isBioExpanded)}
+                                            className="text-sm font-bold mt-2 flex items-center gap-1 hover:opacity-80 transition-opacity"
+                                            style={{ color: brandColor }}
+                                        >
+                                            {isBioExpanded ? 'إخفاء التفاصيل' : 'قراءة المزيد'} 
+                                            {isBioExpanded ? <FiChevronUp /> : <FiChevronDown />}
+                                        </button>
+                                    )}
+                                </div>
                             )}
 
                             {creator.website && (
@@ -136,30 +201,33 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
                                 </div>
                             )}
 
-                            {/* Book Consultation Section (If enabled) */}
+                            {/* Book Consultation Section */}
                             {creator.consultationPrice !== undefined && (
                                 <motion.div
-                                    whileHover={{ scale: 1.02 }}
-                                    className="mt-6 p-6 sm:p-5 border border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/50 dark:bg-black/20 rounded-2xl shadow-sm"
+                                    whileHover={{ scale: 1.01 }}
+                                    className="mt-6 p-6 sm:p-5 border-2 border-transparent hover:border-action-blue/20 transition-all flex flex-col sm:flex-row items-center justify-between gap-6 bg-gradient-to-l from-white to-blue-50/50 dark:from-gray-800 dark:to-gray-900/50 rounded-2xl shadow-md"
                                 >
                                     <div className="flex items-center gap-4">
-                                        <div className="p-4 text-white rounded-2xl shadow-inner" style={{ backgroundColor: brandColor }}>
-                                            <FiClock className="text-2xl" />
+                                        <div className="p-4 text-white rounded-2xl shadow-inner bg-gradient-to-br" style={{ backgroundImage: `linear-gradient(to bottom right, ${brandColor}, ${brandColor}dd)` }}>
+                                            <FiClock className="text-3xl" />
                                         </div>
                                         <div className="text-center sm:text-right">
-                                            <span className="block text-sm font-bold text-gray-500 dark:text-gray-400 mb-1 tracking-wide">جلسة استشارية خاصة</span>
+                                            <span className="block text-sm font-bold text-gray-500 dark:text-gray-400 mb-1 tracking-wide uppercase">مباشر 1-على-1</span>
                                             <span className="font-black text-2xl text-primary-charcoal dark:text-white flex items-center gap-2 justify-center sm:justify-start">
-                                                {creator.consultationPrice > 0 ? `${creator.consultationPrice} ج.م` : 'متاحة مجاناً للطلاب'}
+                                                احجز جلسة استشارية خاصة
+                                            </span>
+                                            <span className="font-bold mt-1 inline-block" style={{ color: brandColor }}>
+                                                {creator.consultationPrice > 0 ? `${creator.consultationPrice} ج.م` : 'متاحة مجاناً'}
                                             </span>
                                         </div>
                                     </div>
                                     <Link
                                         href={`/${creator.username}/book`}
-                                        className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-white shadow-xl transition-all hover:opacity-90 active:scale-95 text-lg flex items-center justify-center gap-2"
-                                        style={{ backgroundColor: brandColor, boxShadow: `0 10px 25px -5px ${brandColor}66` }}
+                                        className="w-full sm:w-auto px-10 py-5 rounded-xl font-black text-white shadow-xl transition-all hover:scale-105 active:scale-95 text-xl flex items-center justify-center gap-3 tracking-wide"
+                                        style={{ backgroundColor: brandColor, boxShadow: `0 10px 30px -5px ${brandColor}80` }}
                                     >
-                                        <FiMonitor />
-                                        حجز موعد الآن
+                                        <FiMonitor className="text-2xl" />
+                                        احجز موعدك الآن
                                     </Link>
                                 </motion.div>
                             )}
@@ -168,11 +236,7 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
                 </motion.div>
 
                 {/* Products Grid */}
-                <motion.div
-                    initial={{ y: 30, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                >
+                <div>
                     <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
                         <div>
                             <h2 className="text-3xl md:text-4xl font-black text-primary-charcoal dark:text-white flex items-center gap-3">
@@ -184,130 +248,142 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
                     </div>
 
                     {/* Category Tabs */}
-                    <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
+                    <div className="flex gap-2 overflow-x-auto pb-4 mb-8 scrollbar-hide border-b border-gray-100 dark:border-gray-800">
                         <button
                             onClick={() => setActiveTab('all')}
-                            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap ${activeTab === 'all' ? 'text-white shadow-md' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
-                            style={activeTab === 'all' ? { backgroundColor: brandColor } : {}}
+                            className={`relative flex items-center gap-2 px-6 py-4 font-bold transition-all whitespace-nowrap ${activeTab === 'all' ? 'text-primary-charcoal dark:text-white' : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-300'}`}
                         >
                             <FiGrid /> الكل
+                            {activeTab === 'all' && (
+                                <motion.div layoutId="activeTabUnderline" className="absolute bottom-0 left-0 right-0 h-1 bg-action-blue rounded-t-full" style={{ backgroundColor: brandColor }} />
+                            )}
                         </button>
                         {hasDigital && (
                             <button
                                 onClick={() => setActiveTab('products')}
-                                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap ${activeTab === 'products' ? 'text-white shadow-md' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
-                                style={activeTab === 'products' ? { backgroundColor: brandColor } : {}}
+                                className={`relative flex items-center gap-2 px-6 py-4 font-bold transition-all whitespace-nowrap ${activeTab === 'products' ? 'text-primary-charcoal dark:text-white' : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-300'}`}
                             >
                                 <FiPackage /> المنتجات الرقمية
+                                {activeTab === 'products' && (
+                                    <motion.div layoutId="activeTabUnderline" className="absolute bottom-0 left-0 right-0 h-1 bg-action-blue rounded-t-full" style={{ backgroundColor: brandColor }} />
+                                )}
                             </button>
                         )}
                         {hasCourses && (
                             <button
                                 onClick={() => setActiveTab('courses')}
-                                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap ${activeTab === 'courses' ? 'text-white shadow-md' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
-                                style={activeTab === 'courses' ? { backgroundColor: brandColor } : {}}
+                                className={`relative flex items-center gap-2 px-6 py-4 font-bold transition-all whitespace-nowrap ${activeTab === 'courses' ? 'text-primary-charcoal dark:text-white' : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-300'}`}
                             >
                                 <FiVideo /> الدورات التدريبية
-                            </button>
-                        )}
-                        {hasConsultation && (
-                            <button
-                                onClick={() => setActiveTab('consultations')}
-                                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap ${activeTab === 'consultations' ? 'text-white shadow-md' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
-                                style={activeTab === 'consultations' ? { backgroundColor: brandColor } : {}}
-                            >
-                                <FiMonitor /> الجلسات الاستشارية
+                                {activeTab === 'courses' && (
+                                    <motion.div layoutId="activeTabUnderline" className="absolute bottom-0 left-0 right-0 h-1 bg-action-blue rounded-t-full" style={{ backgroundColor: brandColor }} />
+                                )}
                             </button>
                         )}
                     </div>
 
-                    {activeTab === 'consultations' ? (
-                        <div className="bg-white/50 dark:bg-card-white/50 backdrop-blur-sm rounded-3xl shadow-sm p-12 text-center border border-gray-100 dark:border-gray-800 max-w-2xl mx-auto">
-                            <div className="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <FiMonitor className="text-4xl" style={{ color: brandColor }} />
-                            </div>
-                            <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-4">احجز جلستك الخاصة مع {creator.name}</h3>
-                            <p className="text-gray-500 font-medium mb-8 text-lg">احصل على استشارة مخصصة تلبي احتياجاتك وترد على استفساراتك بشكل مباشر عبر لقاء مرئي.</p>
-                            <Link
-                                href={`/${creator.username}/book`}
-                                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-white shadow-xl transition-all hover:opacity-90 active:scale-95 text-lg"
-                                style={{ backgroundColor: brandColor, boxShadow: `0 10px 25px -5px ${brandColor}66` }}
-                            >
-                                <FiClock /> حجز موعد ({creator.consultationPrice > 0 ? `${creator.consultationPrice} ج.م` : 'متاحة مجاناً'})
-                            </Link>
-                        </div>
-                    ) : filteredProducts.length === 0 ? (
-                        <div className="bg-white/50 dark:bg-card-white/50 backdrop-blur-sm rounded-3xl shadow-sm p-16 text-center border border-gray-100 dark:border-gray-800">
-                            <div className="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <FiStar className="text-4xl text-gray-300 dark:text-gray-600" />
-                            </div>
-                            <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-2">في هذا القسم قريباً</h3>
-                            <p className="text-gray-500 font-medium">لا توجد منتجات مطابقة لهذا التبويب حالياً.</p>
-                        </div>
-                    ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                            {filteredProducts.map((product, index) => (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: 0.1 * index }}
-                                    key={product.id}
-                                    className="h-full"
-                                >
-                                    <Link href={product.category === 'courses' ? `/courses/${product.slug || product.id}` : `/product/${product.id}`} className="group relative block h-full">
-                                        <div className="absolute inset-0 rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 -z-10" style={{ backgroundColor: brandColor }}></div>
-                                        <div className="bg-white dark:bg-card-white rounded-3xl h-full border border-gray-100 dark:border-gray-800 overflow-hidden shadow-sm group-hover:shadow-2xl transition-all duration-300 flex flex-col group-hover:-translate-y-1">
-                                            {/* Image Area */}
-                                            <div className="relative aspect-[4/3] w-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
-                                                {product.image ? (
-                                                    <img
-                                                        src={product.image}
-                                                        alt={product.title}
-                                                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                                                    />
-                                                ) : (
-                                                    <div className="w-full h-full flex justify-center items-center">
-                                                        {product.category === 'courses' ? <FiVideo className="text-4xl text-gray-300" /> : <FiPackage className="text-4xl text-gray-300" />}
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeTab}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            {filteredProducts.length === 0 ? (
+                                <div className="bg-white/50 dark:bg-card-white/50 backdrop-blur-sm rounded-3xl shadow-sm p-16 text-center border border-gray-100 dark:border-gray-800">
+                                    <div className="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                                        <FiStar className="text-4xl text-gray-300 dark:text-gray-600" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-2">في هذا القسم قريباً</h3>
+                                    <p className="text-gray-500 font-medium">لا توجد منتجات مطابقة لهذا التبويب حالياً.</p>
+                                </div>
+                            ) : (
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                    {filteredProducts.map((product, index) => (
+                                        <motion.div
+                                            initial={{ opacity: 0, scale: 0.95 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ duration: 0.4, delay: 0.05 * index }}
+                                            key={product.id}
+                                            className="h-full"
+                                        >
+                                            <Link href={product.category === 'courses' ? `/courses/${product.slug || product.id}` : `/product/${product.id}`} className="group relative block h-full">
+                                                <div className="bg-white dark:bg-card-white rounded-2xl h-full flex flex-col border border-gray-100 dark:border-gray-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                                                    
+                                                    {/* Image Area with 16:9 Aspect Ratio built-in */}
+                                                    <div className="relative w-full aspect-[4/3] bg-gray-100 dark:bg-gray-800 overflow-hidden shrink-0">
+                                                        
+                                                        {/* Static Badge at top-left explicitly */}
+                                                        <div className="absolute top-3 left-3 z-10 flex flex-col gap-2">
+                                                            {product.isFree ? (
+                                                                <span className="bg-green-500 text-white text-xs font-black px-3 py-1.5 rounded-lg shadow-md border border-green-400">
+                                                                    مجاني
+                                                                </span>
+                                                            ) : (
+                                                                <span className="bg-gray-900/80 backdrop-blur-md text-white border border-white/10 text-xs font-black px-3 py-1.5 rounded-lg shadow-md">
+                                                                    مدفوع
+                                                                </span>
+                                                            )}
+                                                            {product.category === 'courses' && (
+                                                                <span className="bg-white/90 dark:bg-black/90 text-action-blue dark:text-white backdrop-blur-sm text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm flex items-center justify-center gap-1 border border-gray-200 dark:border-gray-700">
+                                                                    <FiVideo /> دورة
+                                                                </span>
+                                                            )}
+                                                        </div>
+
+                                                        {/* Skeleton loading state */}
+                                                        {!loadedImages[product.id] && (
+                                                            <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 animate-pulse z-0"></div>
+                                                        )}
+
+                                                        <Image
+                                                            src={getValidImageUrl(product.image, product.category === 'courses' ? 'course' : 'product')}
+                                                            alt={product.title}
+                                                            fill
+                                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                                            className={`object-cover transform group-hover:scale-105 transition-all duration-500 z-1 ${loadedImages[product.id] ? 'opacity-100' : 'opacity-0'}`}
+                                                            onLoad={() => setLoadedImages(prev => ({ ...prev, [product.id]: true }))}
+                                                            loading={index > 6 ? "lazy" : "eager"}
+                                                            priority={index <= 6}
+                                                        />
                                                     </div>
-                                                )}
 
-                                                <div className="absolute top-4 right-4 flex gap-2">
-                                                    {product.isFree && (
-                                                        <span className="bg-green-500/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">
-                                                            مجاني
-                                                        </span>
-                                                    )}
-                                                    {product.category === 'courses' && (
-                                                        <span className="bg-white/90 dark:bg-black/90 text-action-blue dark:text-white backdrop-blur-sm text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm flex items-center gap-1">
-                                                            <FiVideo /> دورة
-                                                        </span>
-                                                    )}
-                                                </div>
-                                            </div>
+                                                    {/* Details Area that expands to push footer to bottom */}
+                                                    <div className="p-5 flex flex-col flex-grow">
+                                                        <h3 className="font-bold text-lg leading-snug text-primary-charcoal dark:text-white mb-2 line-clamp-2 group-hover:text-action-blue transition-colors flex-grow">
+                                                            {product.title}
+                                                        </h3>
 
-                                            {/* Details Area */}
-                                            <div className="p-6 flex flex-col flex-1">
-                                                <h3 className="font-bold text-xl text-primary-charcoal dark:text-white mb-3 line-clamp-2 group-hover:text-action-blue transition-colors">
-                                                    {product.title}
-                                                </h3>
+                                                        {/* Social Proof Counter */}
+                                                        <div className="text-xs font-bold text-gray-400 dark:text-gray-500 mb-4 bg-gray-50 dark:bg-gray-800/50 inline-table px-3 py-1.5 rounded-lg self-start">
+                                                            {product.category === 'courses' ? (
+                                                                `(${product.soldCount || 0} طالب)`
+                                                            ) : (
+                                                                `(${product.soldCount || 0} مبيعة)`
+                                                            )}
+                                                        </div>
 
-                                                <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-50 dark:border-gray-800">
-                                                    <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm font-medium gap-1">
-                                                        <FiShoppingCart />
-                                                        <span>{product.soldCount || 0}</span>
+                                                        {/* Price Footer */}
+                                                        <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-800">
+                                                            <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm font-medium gap-1">
+                                                                <FiShoppingCart />
+                                                                <span>إضافة</span>
+                                                            </div>
+                                                            <span className="font-black text-xl" style={{ color: brandColor }}>
+                                                                {product.isFree || product.price === 0 ? 'مجاني' : `${product.price} ج.م`}
+                                                            </span>
+                                                        </div>
                                                     </div>
-                                                    <span className="font-black text-lg" style={{ color: brandColor }}>
-                                                        {product.isFree || product.price === 0 ? 'مجاني' : `${product.price} ج.م`}
-                                                    </span>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </motion.div>
-                            ))}
-                        </div>
-                    )}
-                </motion.div>
+                                            </Link>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            )}
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
             </div>
         </div>
     );

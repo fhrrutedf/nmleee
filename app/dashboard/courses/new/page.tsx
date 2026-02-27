@@ -15,6 +15,7 @@ export default function NewCoursePage() {
         price: '',
         category: '',
         image: '',
+        trailerUrl: '',
         isActive: true,
         // التفاصيل الإضافية
         duration: '',
@@ -190,6 +191,18 @@ export default function NewCoursePage() {
                                 onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                                 className="input w-full"
                                 placeholder="https://example.com/cover-image.jpg"
+                            />
+                        </div>
+
+                        {/* رابط الفيديو التعريفي */}
+                        <div>
+                            <label className="label">رابط الفيديو التعريفي (اختياري)</label>
+                            <input
+                                type="url"
+                                value={formData.trailerUrl}
+                                onChange={(e) => setFormData({ ...formData, trailerUrl: e.target.value })}
+                                className="input w-full"
+                                placeholder="https://youtube.com/watch?v=... أو Vimeo"
                             />
                         </div>
 

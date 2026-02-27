@@ -78,6 +78,7 @@ export async function PUT(
                 isActive: body.isActive,
                 zoomLink: body.zoomLink,
                 meetLink: body.meetLink,
+                trailerUrl: body.trailerUrl,
             },
         });
 

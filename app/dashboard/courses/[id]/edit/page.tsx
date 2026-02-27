@@ -32,6 +32,7 @@ export default function EditCoursePage() {
         duration: '',
         sessions: '',
         image: '',
+        trailerUrl: '',
         tags: [] as string[],
         features: [] as string[],
         isActive: true,
@@ -60,6 +61,7 @@ export default function EditCoursePage() {
                     duration: data.duration || '',
                     sessions: data.sessions?.toString() || '',
                     image: data.image || '',
+                    trailerUrl: data.trailerUrl || '',
                     tags: data.tags || [],
                     features: data.features || [],
                     isActive: data.isActive ?? true,
@@ -250,6 +252,17 @@ export default function EditCoursePage() {
                                     value={formData.image}
                                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                                     placeholder="https://"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="label">رابط الفيديو التعريفي (اختياري)</label>
+                                <input
+                                    type="url"
+                                    className="input"
+                                    value={formData.trailerUrl}
+                                    onChange={(e) => setFormData({ ...formData, trailerUrl: e.target.value })}
+                                    placeholder="https://youtube.com/watch?v=... أو Vimeo"
                                 />
                             </div>
 

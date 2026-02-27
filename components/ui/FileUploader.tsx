@@ -209,12 +209,12 @@ export default function FileUploader({
                                 />
                             )}
 
-                            <div className="flex items-center gap-4 relative z-10 w-full pr-2">
+                            <div className="flex items-center gap-4 relative z-10 flex-1 min-w-0 pr-2">
                                 <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg shrink-0">
                                     <FiFile className="text-xl text-gray-500" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                                    <p className="text-sm font-semibold text-gray-900 dark:text-white truncate text-left" dir="ltr">
                                         {upload.file.name}
                                     </p>
                                     <div className="flex items-center justify-between mt-1 text-xs">
