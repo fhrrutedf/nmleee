@@ -131,6 +131,20 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
     return (
         <div className="min-h-screen bg-bg-light dark:bg-bg-dark pt-4 pb-24">
+            {product.user?.brandColor && (
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    .text-action-blue { color: ${product.user.brandColor} !important; }
+                    .bg-action-blue { background-color: ${product.user.brandColor} !important; }
+                    .border-action-blue { border-color: ${product.user.brandColor} !important; }
+                    .ring-action-blue { --tw-ring-color: ${product.user.brandColor} !important; }
+                    .from-action-blue { --tw-gradient-from: ${product.user.brandColor} !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
+                    .hover\\:text-action-blue:hover { color: ${product.user.brandColor} !important; filter: brightness(0.9); }
+                    .hover\\:bg-action-blue:hover { background-color: ${product.user.brandColor} !important; filter: brightness(0.9); }
+                    .shadow-action-blue\\/20 { --tw-shadow-color: ${product.user.brandColor}33 !important; }
+                    `
+                }} />
+            )}
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
                 {/* Breadcrumb Navigation - Modern Minimal */}

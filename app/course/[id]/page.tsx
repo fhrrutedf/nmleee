@@ -96,6 +96,20 @@ export default function CoursePage() {
 
     return (
         <div className="min-h-screen bg-gray-50">
+            {course.user?.brandColor && (
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    .text-primary-600 { color: ${course.user.brandColor} !important; }
+                    .bg-primary-600 { background-color: ${course.user.brandColor} !important; }
+                    .border-primary-600 { border-color: ${course.user.brandColor} !important; }
+                    .ring-primary-600 { --tw-ring-color: ${course.user.brandColor} !important; }
+                    .hover\\:bg-primary-700:hover { background-color: ${course.user.brandColor} !important; filter: brightness(0.9); }
+                    .hover\\:text-primary-500:hover { color: ${course.user.brandColor} !important; filter: brightness(1.1); }
+                    .bg-primary-50 { background-color: ${course.user.brandColor}15 !important; }
+                    .text-primary-700 { color: ${course.user.brandColor} !important; filter: brightness(0.8); }
+                    `
+                }} />
+            )}
             <div className="max-w-7xl mx-auto px-4 py-8">
                 {/* Breadcrumb */}
                 <div className="flex items-center gap-2 text-sm text-gray-600 mb-6">
