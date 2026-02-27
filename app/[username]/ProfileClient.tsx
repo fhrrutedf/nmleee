@@ -18,11 +18,35 @@ interface ProfileClientProps {
     products: any[];
 }
 
+// ─── Helpers ─────────────────────────────────────────────────────────
+// Strip HTML tags + decode common HTML entities so we show plain text
+function stripHtml(html: string | null | undefined): string {
+    if (!html) return '';
+    return html
+        .replace(/<[^>]*>/g, ' ')          // remove HTML tags
+        .replace(/&nbsp;/gi, ' ')           // non-breaking space
+        .replace(/&amp;/gi, '&')
+        .replace(/&lt;/gi, '<')
+        .replace(/&gt;/gi, '>')
+        .replace(/&quot;/gi, '"')
+        .replace(/&#39;/gi, "'")
+        .replace(/\s+/g, ' ')              // collapse multiple spaces
+        .trim();
+}
+
+// Valid image URL (not a dashboard route, not broken)
+function isValidImage(url: string | null | undefined): boolean {
+    if (!url || url === '' || url === 'null' || url === 'undefined') return false;
+    if (url.includes('/dashboard/') || url.includes('localhost')) return false;
+    try { new URL(url); return true; } catch { return false; }
+}
+
 export default function ProfileClient({ creator, products }: ProfileClientProps) {
     const [activeTab, setActiveTab] = useState<'all' | 'products' | 'courses'>('all');
     const [isBioExpanded, setIsBioExpanded] = useState(false);
     const [showShareMenu, setShowShareMenu] = useState(false);
     const [search, setSearch] = useState('');
+    const [featuredExpanded, setFeaturedExpanded] = useState(false);
 
     const brandColor = creator.brandColor || '#D41295';
 
@@ -40,15 +64,14 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
     });
 
     const featuredProduct = products[0];
-    const restProducts = filteredProducts.filter(p => p.id !== featuredProduct?.id);
 
     const getImage = (url: string | null | undefined, type: 'course' | 'product') => {
-        if (!url || url === '' || url === 'null' || url === 'undefined') {
+        if (!isValidImage(url)) {
             return type === 'course'
                 ? 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop'
                 : 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800&auto=format&fit=crop';
         }
-        return url;
+        return url!;
     };
 
     const handleShare = async () => {
@@ -266,11 +289,26 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
                                     <h3 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white mb-2 group-hover:text-action-blue transition-colors line-clamp-2">
                                         {featuredProduct.title}
                                     </h3>
-                                    {featuredProduct.description && (
-                                        <p className="text-gray-500 dark:text-gray-400 text-sm line-clamp-2 mb-4">
-                                            {featuredProduct.description.replace(/<[^>]*>/g, '')}
-                                        </p>
-                                    )}
+                                    {featuredProduct.description && (() => {
+                                        const cleanDesc = stripHtml(featuredProduct.description);
+                                        const isLong = cleanDesc.length > 140;
+                                        return cleanDesc ? (
+                                            <div className="mb-4">
+                                                <p className="text-gray-500 dark:text-gray-400 text-sm">
+                                                    {isLong && !featuredExpanded ? cleanDesc.slice(0, 140) + '...' : cleanDesc}
+                                                </p>
+                                                {isLong && (
+                                                    <button
+                                                        onClick={e => { e.preventDefault(); setFeaturedExpanded(v => !v); }}
+                                                        className="text-xs font-bold mt-1 flex items-center gap-1"
+                                                        style={{ color: brandColor }}
+                                                    >
+                                                        {featuredExpanded ? <><FiChevronUp size={12} /> إخفاء</> : <><FiChevronDown size={12} /> قراءة المزيد</>}
+                                                    </button>
+                                                )}
+                                            </div>
+                                        ) : null;
+                                    })()}
                                     <div className="flex items-center justify-between mt-auto">
                                         <span className="text-2xl font-black" style={{ color: brandColor }}>
                                             {featuredProduct.isFree || featuredProduct.price === 0 ? 'مجاني' : `${featuredProduct.price} ج.م`}
@@ -393,15 +431,18 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
                                                     <h3 className="font-bold text-gray-900 dark:text-white mb-1 line-clamp-2 group-hover:text-action-blue transition-colors text-sm leading-snug">
                                                         {product.title}
                                                     </h3>
-                                                    {product.description && (
+                                                    {product.description && stripHtml(product.description) && (
                                                         <p className="text-xs text-gray-400 dark:text-gray-500 line-clamp-2 mb-3">
-                                                            {product.description.replace(/<[^>]*>/g, '')}
+                                                            {stripHtml(product.description)}
                                                         </p>
                                                     )}
                                                     <div className="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-gray-800">
-                                                        <span className="text-xs text-gray-400 font-medium flex items-center gap-1">
-                                                            <FiUsers size={11} /> {product.soldCount || 0} {product.category === 'courses' ? 'طالب' : 'مبيعة'}
-                                                        </span>
+                                                        {(product.soldCount > 0) && (
+                                                            <span className="text-xs text-gray-400 font-medium flex items-center gap-1">
+                                                                <FiUsers size={11} /> {product.soldCount} {product.category === 'courses' ? 'طالب' : 'مبيعة'}
+                                                            </span>
+                                                        )}
+                                                        {!(product.soldCount > 0) && <span />}
                                                         <span className="text-base font-black" style={{ color: brandColor }}>
                                                             {product.isFree || product.price === 0 ? 'مجاني' : `${product.price} ج.م`}
                                                         </span>
