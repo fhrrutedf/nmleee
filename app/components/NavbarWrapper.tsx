@@ -13,13 +13,28 @@ const HIDDEN_PATHS = [
     '/admin',
 ];
 
+// All top-level known public routes
+const KNOWN_PUBLIC_PATHS = [
+    '', '/', '/about', '/api', '/blog', '/book-appointment', '/cancel', '/cart',
+    '/certificates', '/checkout', '/contact', '/course', '/courses', '/creator', 
+    '/demo', '/explore', '/features', '/learn', '/my-appointments', 
+    '/my-courses', '/my-purchases', '/pricing', '/privacy', '/product', '/products', 
+    '/quiz', '/showcase', '/success', '/support', '/terms'
+];
+
 export default function NavbarWrapper() {
     const pathname = usePathname();
 
-    // Check if current path starts with any of the hidden paths or starts with /@
-    const shouldHide = HIDDEN_PATHS.some(path => pathname.startsWith(path)) || pathname.startsWith('/@');
+    // Hide if it's explicitly in HIDDEN_PATHS
+    const isExplicitlyHidden = HIDDEN_PATHS.some(path => pathname.startsWith(path));
+    // Check if it's a seller route (/@username or /username)
+    const firstSegment = `/${pathname.split('/')[1] || ''}`;
+    const isUnknownRoute = !KNOWN_PUBLIC_PATHS.includes(firstSegment);
+    
+    // Check if path starts with /@
+    const isAtUsername = pathname.startsWith('/@');
 
-    if (shouldHide) return null;
+    if (isExplicitlyHidden || isUnknownRoute || isAtUsername) return null;
 
     return <Navbar />;
 }
