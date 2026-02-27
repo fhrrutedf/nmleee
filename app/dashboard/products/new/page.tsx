@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
     FiArrowRight, FiUpload, FiDollarSign, FiPackage,
-    FiSave, FiX, FiFilm, FiLink, FiEye, FiImage, FiCheck
+    FiSave, FiX, FiFilm, FiEye, FiImage, FiCheck,
+    FiAlertCircle, FiChevronDown, FiChevronUp
 } from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
@@ -15,6 +16,7 @@ type PricingType = 'fixed' | 'free' | 'pwyw';
 
 export default function NewProductPage() {
     const router = useRouter();
+    const [showGuide, setShowGuide] = useState(true);
     const [loading, setLoading] = useState(false);
 
     // حالات رفع الملفات
@@ -98,6 +100,74 @@ export default function NewProductPage() {
                 </Link>
                 <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white">إضافة منتج رقمي جديد</h1>
                 <p className="text-sm text-text-muted mt-1">املأ التفاصيل وارفع ملفاتك</p>
+            </div>
+
+            {/* ═══ لوحة إرشادات جودة المنتج ═══ */}
+            <div className="rounded-2xl border border-amber-200 dark:border-amber-800/60 bg-amber-50 dark:bg-amber-900/20 overflow-hidden mb-5">
+                <button
+                    type="button"
+                    onClick={() => setShowGuide(g => !g)}
+                    className="w-full flex items-center justify-between p-4 text-amber-800 dark:text-amber-300 font-bold text-sm"
+                >
+                    <span className="flex items-center gap-2">
+                        <FiAlertCircle className="text-amber-500 text-lg flex-shrink-0" />
+                        📋 قواعد إنشاء منتج احترافي — التزم بها لزيادة مبيعاتك
+                    </span>
+                    {showGuide ? <FiChevronUp /> : <FiChevronDown />}
+                </button>
+
+                {showGuide && (
+                    <div className="px-4 pb-4 space-y-3 border-t border-amber-200 dark:border-amber-800/40 pt-3">
+                        {[
+                            {
+                                num: '١',
+                                title: 'عنوان واضح ووصفي',
+                                desc: 'اكتب عنواناً دقيقاً يشرح المنتج مباشرة. مثال: ✅ "دورة تصميم الجرافيك من الصفر" ❌ "دورة رائعة"',
+                                color: 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300',
+                            },
+                            {
+                                num: '٢',
+                                title: 'وصف منسّق ومفصّل (لا تترك الحقل فارغاً)',
+                                desc: 'استخدم المحرر لتنسيق الوصف: أضف عناوين، نقاط، صور، وأقسام واضحة. الوصف الجيد = مبيعات أكثر.',
+                                color: 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300',
+                            },
+                            {
+                                num: '٣',
+                                title: 'صورة غلاف عالية الجودة (إلزامي)',
+                                desc: 'ارفع صورة واضحة بأبعاد 16:9 أو 1:1. تجنّب الصور المشوّهة أو الصغيرة أو التي تحتوي نصاً كثيراً.',
+                                color: 'bg-pink-100 dark:bg-pink-900/40 text-pink-700 dark:text-pink-300',
+                            },
+                            {
+                                num: '٤',
+                                title: 'ملف المنتج الأساسي (إلزامي)',
+                                desc: 'تأكد أن الملف يعمل بشكل صحيح قبل الرفع. للدورات: ارفع ZIP به جميع الملفات. للكتب: PDF واضح ومرتّب.',
+                                color: 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300',
+                            },
+                            {
+                                num: '٥',
+                                title: 'سعر مناسب وواضح',
+                                desc: 'حدد سعراً عادلاً بناءً على قيمة المحتوى. لا تترك السعر صفراً إذا كان المنتج مدفوعاً.',
+                                color: 'bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300',
+                            },
+                        ].map(rule => (
+                            <div key={rule.num} className="flex gap-3 items-start">
+                                <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-black flex-shrink-0 mt-0.5 ${rule.color}`}>
+                                    {rule.num}
+                                </span>
+                                <div>
+                                    <p className="text-sm font-bold text-gray-800 dark:text-gray-200">{rule.title}</p>
+                                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5 leading-relaxed">{rule.desc}</p>
+                                </div>
+                            </div>
+                        ))}
+
+                        <div className="mt-3 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/40 rounded-xl">
+                            <p className="text-xs text-red-700 dark:text-red-400 font-semibold">
+                                ⚠️ تحذير: المنتجات التي لا تلتزم بهذه المعايير قد يتم إخفاؤها أو حذفها من المنصة.
+                            </p>
+                        </div>
+                    </div>
+                )}
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
