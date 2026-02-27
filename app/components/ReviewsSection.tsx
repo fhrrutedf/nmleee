@@ -106,65 +106,66 @@ export default function ReviewsSection({ productId }: { productId: string }) {
             </div>
 
             {/* Add Review Form */}
-            <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 p-8 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-inner">
-                <h3 className="font-black text-xl mb-6 text-gray-900 dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
-                <form onSubmit={handleSubmit} className="space-y-0">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+            {showForm && (
+                <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 p-8 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-inner">
+                    <h3 className="font-black text-xl mb-6 text-gray-900 dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
+                    <form onSubmit={handleSubmit} className="space-y-0">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+                            <div>
+                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">الاسم *</label>
+                                <input
+                                    type="text"
+                                    required
+                                    className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all placeholder:font-normal text-gray-800 dark:text-gray-200"
+                                    placeholder="أدخل اسمك"
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">التقييم *</label>
+                                <div className="flex gap-2 mt-1">
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                        <button
+                                            key={star}
+                                            type="button"
+                                            onClick={() => setFormData({ ...formData, rating: star })}
+                                            className={`flex-1 bg-white dark:bg-gray-900 border ${star <= formData.rating ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : 'border-gray-200 dark:border-gray-700'} rounded-xl py-3 flex items-center justify-center transition-all transform active:scale-95`}
+                                        >
+                                            <FiStar className={`text-xl ${star <= formData.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300 dark:text-gray-600'}`} />
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
                         <div>
-                            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">الاسم *</label>
-                            <input
-                                type="text"
+                            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">التعليق *</label>
+                            <textarea
                                 required
-                                className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all placeholder:font-normal text-gray-800 dark:text-gray-200"
-                                placeholder="أدخل اسمك"
-                                value={formData.name}
-                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                rows={4}
+                                className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all resize-none placeholder:font-normal text-gray-800 dark:text-gray-200"
+                                placeholder="شارك رأيك عن المنتج..."
+                                value={formData.comment}
+                                onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
                             />
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">التقييم *</label>
-                            <div className="flex gap-2 mt-1">
-                                {[1, 2, 3, 4, 5].map((star) => (
-                                    <button
-                                        key={star}
-                                        type="button"
-                                        onClick={() => setFormData({ ...formData, rating: star })}
-                                        className={`flex-1 bg-white dark:bg-gray-900 border ${star <= formData.rating ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : 'border-gray-200 dark:border-gray-700'} rounded-xl py-3 flex items-center justify-center transition-all transform active:scale-95`}
-                                    >
-                                        <FiStar className={`text-xl ${star <= formData.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300 dark:text-gray-600'}`} />
-                                    </button>
-                                ))}
-                            </div>
+                        <div className="flex gap-2 pt-2">
+                            <button type="submit" className="btn btn-primary flex-1 py-3 text-lg font-bold shadow-lg shadow-action-blue/20">
+                                إرسال التقييم
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setShowForm(false)}
+                                className="btn border-transparent bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 flex-1 py-3 text-lg font-bold transition-colors"
+                            >
+                                إلغاء
+                            </button>
                         </div>
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">التعليق *</label>
-                        <textarea
-                            required
-                            rows={4}
-                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all resize-none placeholder:font-normal text-gray-800 dark:text-gray-200"
-                            placeholder="شارك رأيك عن المنتج..."
-                            value={formData.comment}
-                            onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
-                        />
-                    </div>
-
-                    <div className="flex gap-2 pt-2">
-                        <button type="submit" className="btn btn-primary flex-1 py-3 text-lg font-bold shadow-lg shadow-action-blue/20">
-                            إرسال التقييم
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => setShowForm(false)}
-                            className="btn border-transparent bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 flex-1 py-3 text-lg font-bold transition-colors"
-                        >
-                            إلغاء
-                        </button>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
             )}
 
             <div className="space-y-6">
