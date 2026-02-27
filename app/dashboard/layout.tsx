@@ -94,91 +94,94 @@ export default function DashboardLayout({
                 />
             )}
 
-            {/* Sidebar */}
-            <aside
-                className={`fixed top-0 right-0 h-full bg-card-white dark:bg-card-white shadow-xl z-50 w-64 transform transition-all duration-300 flex flex-col ${sidebarOpen ? 'translate-x-0 visible pointer-events-auto' : 'translate-x-full invisible lg:translate-x-0 lg:visible lg:pointer-events-auto'
-                    }`}
-            >
+            {/* Sidebar - Mobile: only in DOM when open, Desktop: always visible */}
+            {/* Desktop Sidebar (always rendered) */}
+            <aside className="hidden lg:flex fixed top-0 right-0 h-full bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex-col">
                 <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                     <div className="flex items-center justify-between">
                         <h1 className="text-2xl font-bold bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent">تقانة</h1>
-                        <button
-                            onClick={() => setSidebarOpen(false)}
-                            className="lg:hidden text-primary-charcoal hover:text-action-blue transition-colors"
-                        >
-                            <FiX className="text-2xl" />
-                        </button>
                     </div>
                     <p className="text-sm text-text-muted mt-2">مرحباً، {session.user?.name}</p>
-
-                    {/* Workspace Switcher */}
                     <div className="mt-6 flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
-                        <button
-                            onClick={() => handleWorkspaceChange('store')}
-                            className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'store'
-                                ? 'bg-white dark:bg-card-white text-action-blue shadow-sm'
-                                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
-                                }`}
-                        >
+                        <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'store' ? 'bg-white dark:bg-card-white text-action-blue shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}>
                             <FiBriefcase className="text-sm" /> المتجر
                         </button>
-                        <button
-                            onClick={() => handleWorkspaceChange('academy')}
-                            className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'academy'
-                                ? 'bg-white dark:bg-card-white text-purple-600 shadow-sm'
-                                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
-                                }`}
-                        >
+                        <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'academy' ? 'bg-white dark:bg-card-white text-purple-600 shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}>
                             <FiBookOpen className="text-sm" /> الأكاديمية
                         </button>
                     </div>
                 </div>
-
                 <nav className="p-4 space-y-1 overflow-y-auto flex-1">
                     {menuItems.map((item) => {
-                        const isActive = item.exact
-                            ? pathname === item.href
-                            : pathname.startsWith(item.href) && item.href !== '/dashboard';
+                        const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href) && item.href !== '/dashboard';
                         const isHome = item.href === '/dashboard' && pathname === '/dashboard';
                         const active = isActive || isHome;
                         return (
-                            <Link
-                                key={item.href}
-                                href={item.href}
-                                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group w-full ${active
-                                    ? 'bg-action-blue text-white shadow-md shadow-action-blue/25'
-                                    : 'text-primary-charcoal hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-action-blue'
-                                    }`}
-                                onClick={() => setSidebarOpen(false)}
-                            >
+                            <Link key={item.href} href={item.href}
+                                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group w-full ${active ? 'bg-action-blue text-white shadow-md shadow-action-blue/25' : 'text-primary-charcoal hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-action-blue'}`}>
                                 <item.icon className={`text-lg flex-shrink-0 transition-transform duration-200 ${active ? '' : 'group-hover:scale-110'}`} />
                                 <span className="font-semibold text-sm truncate flex-1 text-right">{item.label}</span>
-                                {active && (
-                                    <span className="mr-auto w-1.5 h-1.5 rounded-full bg-white/70" />
-                                )}
+                                {active && <span className="mr-auto w-1.5 h-1.5 rounded-full bg-white/70" />}
                             </Link>
                         );
                     })}
                 </nav>
-
                 <div className="p-4 border-t border-gray-100 dark:border-gray-800 space-y-2">
-                    <Link
-                        href="/explore"
-                        className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-action-blue w-full transition-colors text-sm font-medium"
-                        onClick={() => setSidebarOpen(false)}
-                    >
-                        <FiGlobe className="text-lg" />
-                        <span>استكشف المتجر</span>
+                    <Link href="/explore" className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-action-blue w-full transition-colors text-sm font-medium">
+                        <FiGlobe className="text-lg" /><span>استكشف المتجر</span>
                     </Link>
-                    <button
-                        onClick={() => signOut({ callbackUrl: '/' })}
-                        className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 w-full transition-colors text-sm font-medium"
-                    >
-                        <FiLogOut className="text-lg" />
-                        <span>تسجيل الخروج</span>
+                    <button onClick={() => signOut({ callbackUrl: '/' })} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 w-full transition-colors text-sm font-medium">
+                        <FiLogOut className="text-lg" /><span>تسجيل الخروج</span>
                     </button>
                 </div>
             </aside>
+
+            {/* Mobile Sidebar (only in DOM when open) */}
+            {sidebarOpen && (
+                <aside className="lg:hidden fixed top-0 right-0 h-full bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex flex-col">
+                    <div className="p-6 border-b border-gray-100 dark:border-gray-800">
+                        <div className="flex items-center justify-between">
+                            <h1 className="text-2xl font-bold bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent">تقانة</h1>
+                            <button onClick={() => setSidebarOpen(false)} className="text-primary-charcoal hover:text-action-blue transition-colors">
+                                <FiX className="text-2xl" />
+                            </button>
+                        </div>
+                        <p className="text-sm text-text-muted mt-2">مرحباً، {session.user?.name}</p>
+                        <div className="mt-6 flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
+                            <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'store' ? 'bg-white dark:bg-card-white text-action-blue shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}>
+                                <FiBriefcase className="text-sm" /> المتجر
+                            </button>
+                            <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'academy' ? 'bg-white dark:bg-card-white text-purple-600 shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}>
+                                <FiBookOpen className="text-sm" /> الأكاديمية
+                            </button>
+                        </div>
+                    </div>
+                    <nav className="p-4 space-y-1 overflow-y-auto flex-1">
+                        {menuItems.map((item) => {
+                            const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href) && item.href !== '/dashboard';
+                            const isHome = item.href === '/dashboard' && pathname === '/dashboard';
+                            const active = isActive || isHome;
+                            return (
+                                <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
+                                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group w-full ${active ? 'bg-action-blue text-white shadow-md shadow-action-blue/25' : 'text-primary-charcoal hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-action-blue'}`}>
+                                    <item.icon className={`text-lg flex-shrink-0 transition-transform duration-200 ${active ? '' : 'group-hover:scale-110'}`} />
+                                    <span className="font-semibold text-sm truncate flex-1 text-right">{item.label}</span>
+                                    {active && <span className="mr-auto w-1.5 h-1.5 rounded-full bg-white/70" />}
+                                </Link>
+                            );
+                        })}
+                    </nav>
+                    <div className="p-4 border-t border-gray-100 dark:border-gray-800 space-y-2">
+                        <Link href="/explore" onClick={() => setSidebarOpen(false)} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-action-blue w-full transition-colors text-sm font-medium">
+                            <FiGlobe className="text-lg" /><span>استكشف المتجر</span>
+                        </Link>
+                        <button onClick={() => signOut({ callbackUrl: '/' })} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 w-full transition-colors text-sm font-medium">
+                            <FiLogOut className="text-lg" /><span>تسجيل الخروج</span>
+                        </button>
+                    </div>
+                </aside>
+            )}
+
 
             {/* Main Content */}
             <div className="lg:mr-64 min-h-screen flex flex-col min-w-0">
