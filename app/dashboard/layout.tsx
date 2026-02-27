@@ -96,7 +96,7 @@ export default function DashboardLayout({
 
             {/* Sidebar */}
             <aside
-                className={`fixed top-0 right-0 h-full bg-card-white dark:bg-card-white shadow-xl z-50 w-64 transform transition-transform duration-300 flex flex-col ${sidebarOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'
+                className={`fixed top-0 right-0 h-full bg-card-white dark:bg-card-white shadow-xl z-50 w-64 transform transition-all duration-300 flex flex-col ${sidebarOpen ? 'translate-x-0 visible pointer-events-auto' : 'translate-x-full invisible lg:translate-x-0 lg:visible lg:pointer-events-auto'
                     }`}
             >
                 <div className="p-6 border-b border-gray-100 dark:border-gray-800">
