@@ -73,8 +73,22 @@ export default function SuccessPage() {
         )
     }
 
+    const effectiveBrandColor = order.brandColor;
+
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-bg-dark py-12">
+        <div className="min-h-screen bg-gray-50 dark:bg-bg-dark py-12 pb-24">
+            {effectiveBrandColor && (
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    .text-action-blue, .text-indigo-600 { color: ${effectiveBrandColor} !important; }
+                    .bg-indigo-600 { background-color: ${effectiveBrandColor} !important; }
+                    .btn-primary { background-color: ${effectiveBrandColor} !important; border-color: ${effectiveBrandColor} !important; }
+                    .hover\\:bg-indigo-700:hover, .hover\\:bg-blue-600:hover { background-color: ${effectiveBrandColor}cc !important; }
+                    .hover\\:border-action-blue:hover { border-color: ${effectiveBrandColor} !important; }
+                    .shadow-action-blue\\/20 { --tw-shadow-color: ${effectiveBrandColor}33 !important; }
+                    `
+                }} />
+            )}
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="bg-white dark:bg-card-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-800">
                     {/* Success Header */}
@@ -216,6 +230,12 @@ export default function SuccessPage() {
                     </div>
                 </div>
             </div>
+            {/* Simple Footer */}
+            <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
+                <p className="text-gray-500 dark:text-gray-400 font-medium">
+                    مدعوم من <a href="https://tmleen.com" className="text-action-blue font-bold hover:underline">منصة تقانة</a>
+                </p>
+            </footer>
         </div>
     );
 }

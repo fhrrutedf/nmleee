@@ -26,6 +26,7 @@ interface Course {
         name: string;
         avatar?: string;
         username?: string;
+        brandColor?: string;
     };
     modules?: Array<{
         title: string;
@@ -92,6 +93,7 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                 price: course.price,
                 image: course.image,
                 slug: course.slug,
+                brandColor: course.user.brandColor
             });
             showToast.success('تمت الإضافة للسلة بنجاح!');
         }
@@ -126,8 +128,27 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
         );
     }
 
+    const effectiveBrandColor = course.user.brandColor;
+
     return (
-        <div className="min-h-screen bg-bg-light dark:bg-bg-dark pt-4 pb-24 font-sans selection:bg-action-blue/20 dark:selection:bg-action-blue/40">
+        <div className="min-h-screen bg-bg-light dark:bg-bg-dark pt-4 pb-12 font-sans selection:bg-action-blue/20 dark:selection:bg-action-blue/40">
+            {effectiveBrandColor && (
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    .text-action-blue { color: ${effectiveBrandColor} !important; }
+                    .bg-action-blue { background-color: ${effectiveBrandColor} !important; }
+                    .bg-action-blue\\/10 { background-color: ${effectiveBrandColor}15 !important; }
+                    .border-action-blue { border-color: ${effectiveBrandColor} !important; }
+                    .border-action-blue\\/30 { border-color: ${effectiveBrandColor}50 !important; }
+                    .shadow-action-blue\\/20 { --tw-shadow-color: ${effectiveBrandColor}33 !important; }
+                    .shadow-action-blue\\/40 { --tw-shadow-color: ${effectiveBrandColor}66 !important; }
+                    .fill-action-blue { fill: ${effectiveBrandColor} !important; }
+                    .selection\\:bg-action-blue\\/20 *::selection { background-color: ${effectiveBrandColor}33 !important; }
+                    .hover\\:text-action-blue:hover { color: ${effectiveBrandColor} !important; }
+                    .hover\\:border-action-blue:hover { border-color: ${effectiveBrandColor} !important; }
+                    `
+                }} />
+            )}
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
                 {/* Breadcrumb Navigation */}
@@ -416,6 +437,12 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                     </div>
                 </div>
             </div>
+            {/* Simple Footer */}
+            <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
+                <p className="text-gray-500 dark:text-gray-400 font-medium">
+                    مدعوم من <a href="https://tmleen.com" className="text-action-blue font-bold hover:underline">منصة تقانة</a>
+                </p>
+            </footer>
         </div>
     );
 }

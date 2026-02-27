@@ -56,6 +56,13 @@ export async function GET(
                 },
                 certificates: {
                     where: { studentEmail: session.user.email }
+                },
+                user: {
+                    select: {
+                        brandColor: true,
+                        name: true,
+                        username: true
+                    }
                 }
             }
         });

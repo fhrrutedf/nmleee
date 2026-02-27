@@ -12,9 +12,13 @@ const HIDDEN_PATHS = [
     '/reset-password',
     '/admin',
     '/product',
+    '/products',
     '/course',
+    '/courses',
+    '/learn',
     '/cart',
-    '/checkout'
+    '/checkout',
+    '/success'
 ];
 
 // All top-level known public routes

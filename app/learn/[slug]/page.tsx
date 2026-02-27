@@ -38,6 +38,11 @@ interface Course {
     modules: Module[];
     isEnrolled: boolean;
     certificate?: any;
+    user: {
+        brandColor?: string;
+        name?: string;
+        username?: string;
+    };
 }
 
 export default function LearnPage() {
@@ -143,8 +148,21 @@ export default function LearnPage() {
         return <div className="text-center py-12">الكورس غير موجود</div>;
     }
 
+    const effectiveBrandColor = course.user?.brandColor;
+
     return (
         <div className="min-h-screen bg-gray-900 flex flex-col md:flex-row h-screen overflow-hidden">
+            {effectiveBrandColor && (
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    .text-indigo-600, .text-indigo-700 { color: ${effectiveBrandColor} !important; }
+                    .bg-indigo-600, .bg-indigo-500 { background-color: ${effectiveBrandColor} !important; }
+                    .bg-indigo-50 { background-color: ${effectiveBrandColor}15 !important; }
+                    .border-indigo-600, .border-indigo-500 { border-color: ${effectiveBrandColor} !important; }
+                    .hover\\:bg-indigo-700:hover { background-color: ${effectiveBrandColor}cc !important; }
+                    `
+                }} />
+            )}
             {/* Sidebar */}
             <div className="w-full md:w-80 bg-white border-l overflow-y-auto flex-shrink-0 z-10">
                 <div className="p-4 border-b bg-gray-50">
@@ -284,6 +302,11 @@ export default function LearnPage() {
                         اختر درساً للبدء
                     </div>
                 )}
+            {/* Simple Footer Overlay */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+                <p className="text-gray-400 text-xs font-medium bg-black/50 px-3 py-1 rounded-full backdrop-blur-sm">
+                    مدعوم من منصة تقانة
+                </p>
             </div>
         </div>
     );

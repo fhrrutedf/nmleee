@@ -40,6 +40,11 @@ export async function GET(req: NextRequest) {
                             course: true,
                         },
                     },
+                    seller: {
+                        select: {
+                            brandColor: true,
+                        },
+                    },
                 },
                 orderBy: {
                     createdAt: 'desc',
@@ -61,6 +66,11 @@ export async function GET(req: NextRequest) {
                             course: true,
                         },
                     },
+                    seller: {
+                        select: {
+                            brandColor: true,
+                        },
+                    },
                 }
             });
         }
@@ -73,6 +83,7 @@ export async function GET(req: NextRequest) {
         const response = {
             id: order.id,
             sellerId: order.sellerId,
+            brandColor: order.seller?.brandColor,
             orderNumber: order.orderNumber,
             customerEmail: order.customerEmail,
             totalAmount: order.totalAmount,

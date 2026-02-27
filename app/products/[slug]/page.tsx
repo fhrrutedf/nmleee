@@ -20,6 +20,7 @@ interface Product {
     user: {
         name: string;
         avatar?: string;
+        brandColor?: string;
     };
 }
 
@@ -64,6 +65,7 @@ export default function ProductPage() {
                 price: product.price,
                 image: product.image,
                 slug: product.slug,
+                brandColor: product.user.brandColor
             });
         }
     };
@@ -91,8 +93,22 @@ export default function ProductPage() {
         );
     }
 
+    const effectiveBrandColor = product.user.brandColor;
+
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 pb-12">
+            {effectiveBrandColor && (
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    .text-indigo-600 { color: ${effectiveBrandColor} !important; }
+                    .bg-indigo-600 { background-color: ${effectiveBrandColor} !important; }
+                    .bg-indigo-100 { background-color: ${effectiveBrandColor}20 !important; }
+                    .border-indigo-600 { border-color: ${effectiveBrandColor} !important; }
+                    .hover\\:bg-indigo-700:hover { background-color: ${effectiveBrandColor}cc !important; }
+                    .hover\\:bg-indigo-50:hover { background-color: ${effectiveBrandColor}10 !important; }
+                    `
+                }} />
+            )}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
@@ -226,6 +242,12 @@ export default function ProductPage() {
                     </div>
                 </div>
             </div>
+            {/* Simple Footer */}
+            <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
+                <p className="text-gray-500 dark:text-gray-400 font-medium">
+                    مدعوم من <a href="https://tmleen.com" className="text-indigo-600 font-bold hover:underline">منصة تقانة</a>
+                </p>
+            </footer>
         </div>
     );
 }
