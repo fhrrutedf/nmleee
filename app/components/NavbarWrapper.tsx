@@ -16,8 +16,8 @@ const HIDDEN_PATHS = [
 export default function NavbarWrapper() {
     const pathname = usePathname();
 
-    // Check if current path starts with any of the hidden paths
-    const shouldHide = HIDDEN_PATHS.some(path => pathname.startsWith(path));
+    // Check if current path starts with any of the hidden paths or starts with /@
+    const shouldHide = HIDDEN_PATHS.some(path => pathname.startsWith(path)) || pathname.startsWith('/@');
 
     if (shouldHide) return null;
 
