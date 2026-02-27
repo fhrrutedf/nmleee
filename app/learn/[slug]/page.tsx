@@ -307,6 +307,7 @@ export default function LearnPage() {
                 <p className="text-gray-400 text-xs font-medium bg-black/50 px-3 py-1 rounded-full backdrop-blur-sm">
                     مدعوم من منصة تقانة
                 </p>
+                </div>
             </div>
         </div>
     );
