@@ -181,9 +181,9 @@ export default function DashboardLayout({
             </aside>
 
             {/* Main Content */}
-            <div className="lg:mr-64 min-h-screen flex flex-col">
+            <div className="lg:mr-64 min-h-screen flex flex-col w-full lg:w-[calc(100%-16rem)] min-w-0">
                 {/* Top Bar */}
-                <header className="bg-card-white dark:bg-card-white shadow-sm sticky top-0 z-30 transition-colors duration-300">
+                <header className="bg-card-white dark:bg-card-white shadow-sm sticky top-0 z-30 transition-colors duration-300 w-full">
                     <div className="px-6 py-4 flex items-center justify-between">
                         <button
                             onClick={() => setSidebarOpen(true)}
@@ -214,7 +214,7 @@ export default function DashboardLayout({
                 </header>
 
                 {/* Page Content */}
-                <main className="flex-1 p-6 md:p-8">
+                <main className="flex-1 p-6 md:p-8 w-full max-w-full overflow-x-hidden">
                     {children}
                 </main>
             </div>
