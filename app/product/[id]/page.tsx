@@ -85,7 +85,8 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                 type: 'product',
                 title: product.title,
                 price: product.isFree ? 0 : product.price,
-                image: product.image
+                image: product.image,
+                brandColor: product.user?.brandColor
             });
             localStorage.setItem('cart', JSON.stringify(cart));
             showToast.success('تمت الإضافة للسلة بنجاح!');

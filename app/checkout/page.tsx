@@ -183,158 +183,158 @@ export default function CheckoutPage() {
         );
     }
 
+    const effectiveBrandColor = cart[0]?.brandColor;
+
     return (
         <div className="min-h-screen bg-gray-50 py-12">
-            <div className="max-w-6xl mx-auto px-4">
-                <h1 className="text-3xl font-bold mb-8">إتمام الطلب</h1>
+            {effectiveBrandColor && (
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    .text-primary-600 { color: ${effectiveBrandColor} !important; }
+                    .bg-primary-600 { background-color: ${effectiveBrandColor} !important; }
+                    .border-primary-600 { border-color: ${effectiveBrandColor} !important; }
+                    .ring-primary-600 { --tw-ring-color: ${effectiveBrandColor} !important; }
+                    .btn-primary { background-color: ${effectiveBrandColor} !important; border-color: ${effectiveBrandColor} !important; }
+                    .shadow-primary-500\\/30 { --tw-shadow-color: ${effectiveBrandColor}4d !important; }
+                    .bg-primary-50 { background-color: ${effectiveBrandColor}15 !important; }
+                    .hover\\:text-primary-600:hover { color: ${effectiveBrandColor} !important; }
+                    `
+                }} />
+            )}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                <div className="mb-8">
+                    <h1 className="text-3xl font-bold text-gray-900">إتمام عملية الشراء</h1>
+                </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* الطلب */}
-                    <div className="lg:col-span-2 space-y-6">
-                        {/* معلومات المشتري */}
-                        <div className="bg-white rounded-xl shadow-sm p-6">
-                            <h2 className="text-xl font-bold mb-4">معلومات المشتري</h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    {/* Left Column: Form */}
+                    <div className="lg:col-span-7 space-y-8">
+                        {/* Customer Info */}
+                        <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                            <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                                <span className="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm">1</span>
+                                المعلومات الشخصية
+                            </h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        الاسم الكامل <span className="text-red-500">*</span>
-                                    </label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">الاسم الكامل *</label>
                                     <input
                                         type="text"
+                                        required
+                                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-600 focus:border-transparent outline-none transition-all"
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        className="input w-full"
-                                        required
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        البريد الإلكتروني <span className="text-red-500">*</span>
-                                    </label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">البريد الإلكتروني *</label>
                                     <input
                                         type="email"
+                                        required
+                                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-600 focus:border-transparent outline-none transition-all text-left"
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        className="input w-full"
-                                        required
+                                        dir="ltr"
                                     />
+                                    <p className="text-[10px] text-gray-400 mt-1">سيتم إرسال روابط التحميل وبيانات الدخول إلى هذا البريد</p>
                                 </div>
-                                <div className="md:col-span-2">
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        رقم الهاتف
-                                    </label>
+                                <div className="sm:col-span-2">
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">رقم الهاتف (اختياري)</label>
                                     <input
                                         type="tel"
+                                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-600 focus:border-transparent outline-none transition-all text-left"
                                         value={formData.phone}
                                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                        className="input w-full"
-                                        placeholder="+20 123 456 7890"
+                                        dir="ltr"
                                     />
                                 </div>
                             </div>
                         </div>
 
-                        {/* المنتجات */}
-                        <div className="bg-white rounded-xl shadow-sm p-6">
-                            <h2 className="text-xl font-bold mb-4">المنتجات ({cart.length})</h2>
-                            <div className="space-y-4">
+                        {/* Order Items Summary */}
+                        <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                            <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                                <FiShoppingCart className="text-primary-600" /> مراجعة المنتجات
+                            </h2>
+                            <div className="divide-y divide-gray-100">
                                 {cart.map((item, index) => (
-                                    <div key={index} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-                                        {item.image ? (
-                                            <img
-                                                src={item.image}
-                                                alt={item.title}
-                                                className="w-20 h-20 object-cover rounded-lg"
-                                            />
-                                        ) : (
-                                            <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
-                                                <FiShoppingCart className="text-2xl text-gray-400" />
+                                    <div key={index} className="py-4 flex justify-between items-center group">
+                                        <div className="flex gap-4 items-center">
+                                            <div className="w-16 h-16 bg-gray-50 rounded-xl overflow-hidden border border-gray-100 flex-shrink-0">
+                                                {item.image ? (
+                                                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                                                ) : (
+                                                    <div className="w-full h-full flex items-center justify-center">
+                                                        <FiShoppingCart className="text-gray-300" />
+                                                    </div>
+                                                )}
                                             </div>
-                                        )}
-                                        <div className="flex-1">
-                                            <h3 className="font-medium">{item.title}</h3>
-                                            <p className="text-primary-600 font-bold">{item.price.toFixed(2)} ج.م</p>
-                                            {item.type === 'appointment' && appointmentDetails && (
-                                                <p className="text-xs text-gray-500 mt-1">
-                                                    بتاريخ: {appointmentDetails.date} | الساعة {appointmentDetails.time}
-                                                </p>
-                                            )}
+                                            <div>
+                                                <h3 className="font-bold text-gray-900 line-clamp-1">{item.title}</h3>
+                                                <span className="text-xs text-gray-400 capitalize">{item.type}</span>
+                                            </div>
                                         </div>
-                                        <button
-                                            onClick={() => removeFromCart(index)}
-                                            className="text-red-500 hover:text-red-700"
-                                        >
-                                            <FiTrash2 />
-                                        </button>
+                                        <div className="flex items-center gap-4">
+                                            <span className="font-bold text-gray-900">{item.price > 0 ? `${Number(item.price).toFixed(2)} ج.م` : 'مجاني'}</span>
+                                            <button onClick={() => removeFromCart(index)} className="text-gray-300 hover:text-red-500 transition-colors">
+                                                <FiTrash2 size={16} />
+                                            </button>
+                                        </div>
                                     </div>
                                 ))}
+                                {cart.length === 0 && (
+                                    <div className="py-8 text-center text-gray-400">السلة فارغة</div>
+                                )}
                             </div>
-
-                            {/* Return path for direct booking */}
-                            {isDirect && (
-                                <div className="mt-4 text-center">
-                                    <button
-                                        onClick={() => router.back()}
-                                        className="text-sm text-gray-500 hover:text-primary-600 underline"
-                                    >
-                                        إلغاء الحجز والعودة
-                                    </button>
-                                </div>
-                            )}
                         </div>
                     </div>
 
-                    {/* الملخص */}
-                    <div className="lg:col-span-1">
-                        <div className="bg-white rounded-xl shadow-lg p-6 sticky top-6">
-                            <h2 className="text-xl font-bold mb-4">ملخص الطلب</h2>
+                    {/* Right Column: Order Summary */}
+                    <div className="lg:col-span-5">
+                        <div className="bg-white p-8 rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-50 sticky top-24">
+                            <h2 className="text-2xl font-bold mb-8">ملخص الطلب</h2>
 
-                            {/* كوبون الخصم */}
-                            <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    <FiTag className="inline ml-1" />
-                                    كوبون الخصم
-                                </label>
+                            {/* Coupon Section */}
+                            <div className="mb-8">
+                                <label className="block text-sm font-medium text-gray-700 mb-2">هل لديك كود خصم؟</label>
                                 <div className="flex gap-2">
                                     <input
                                         type="text"
+                                        placeholder="كود الخصم"
+                                        className="flex-1 px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-primary-600 transition-all font-mono"
                                         value={couponCode}
                                         onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                                        className="input flex-1"
-                                        placeholder="COUPON123"
                                     />
                                     <button
                                         onClick={applyCoupon}
-                                        className="btn btn-outline"
+                                        className="px-6 py-3 bg-gray-900 text-white rounded-xl font-bold hover:bg-black transition-colors flex items-center gap-2"
                                     >
-                                        تطبيق
+                                        <FiTag /> تطبيق
                                     </button>
                                 </div>
                             </div>
 
-                            {/* الأسعار */}
-                            <div className="space-y-3 mb-6 pb-6 border-b">
-                                <div className="flex justify-between text-gray-600">
+                            <div className="space-y-4 mb-8">
+                                <div className="flex justify-between text-gray-500">
                                     <span>المجموع الفرعي</span>
                                     <span>{subtotal.toFixed(2)} ج.م</span>
                                 </div>
-                                {discount > 0 && (
-                                    <div className="flex justify-between text-green-600">
-                                        <span>الخصم</span>
-                                        <span>-{discount.toFixed(2)} ج.م</span>
-                                    </div>
-                                )}
-                                <div className="flex justify-between text-xl font-bold">
-                                    <span>الإجمالي</span>
-                                    <span className="text-primary-600">{total.toFixed(2)} ج.م</span>
+                                <div className="flex justify-between text-green-600 font-bold">
+                                    <span>الخصم</span>
+                                    <span>-{discount.toFixed(2)} ج.م</span>
+                                </div>
+                                <div className="h-px bg-gray-100 my-4"></div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-xl font-bold text-gray-900">الإجمالي</span>
+                                    <span className="text-3xl font-black text-primary-700">{total.toFixed(2)} ج.م</span>
                                 </div>
                             </div>
 
-                            {/* خيارات الدفع */}
+                            {/* طريقة الدفع */}
                             {total > 0 && (
-                                <div className="mb-6">
-                                    <h3 className="text-sm font-bold text-gray-700 mb-3 border-t pt-6">طريقة الدفع</h3>
-                                    <div className="flex flex-col gap-3">
+                                <div className="mb-8 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                                    <h3 className="text-sm font-bold text-gray-400 mb-4 uppercase tracking-wider">وسيلة الدفع</h3>
+                                    <div className="grid grid-cols-1 gap-3">
                                         <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'stripe' ? 'border-primary-600 bg-primary-50 ring-1 ring-primary-600' : 'border-gray-200 hover:border-gray-300'}`}>
                                             <input
                                                 type="radio"
@@ -345,8 +345,8 @@ export default function CheckoutPage() {
                                             />
                                             <FiCreditCard className="text-xl ml-3 text-primary-600" />
                                             <div className="flex-1 mr-2">
-                                                <span className="font-bold block text-sm">البطاقة البنكية (Stripe)</span>
-                                                <span className="text-xs text-gray-500">فيزا، ماستركارد، Apple Pay</span>
+                                                <span className="font-bold block text-sm">البطاقة البنكية (Visa/Mastercard)</span>
+                                                <span className="text-xs text-gray-500">دفع سريع وآمن عبر Stripe</span>
                                             </div>
                                         </label>
                                         <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'crypto' ? 'border-primary-600 bg-primary-50 ring-1 ring-primary-600' : 'border-gray-200 hover:border-gray-300'}`}>
@@ -388,6 +388,13 @@ export default function CheckoutPage() {
                     </div>
                 </div>
             </div>
+
+            {/* Simple Footer */}
+            <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
+                <p className="text-gray-500 dark:text-gray-400 font-medium">
+                    مدعوم من <a href="https://tmleen.com" className="text-primary-600 font-bold hover:underline">منصة تقانة</a>
+                </p>
+            </footer>
         </div>
     );
 }

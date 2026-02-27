@@ -58,8 +58,22 @@ export default function CartPage() {
         );
     }
 
+    const effectiveBrandColor = cart[0]?.brandColor;
+
     return (
         <div className="min-h-screen bg-gray-50 py-12">
+            {effectiveBrandColor && (
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    .text-primary-600 { color: ${effectiveBrandColor} !important; }
+                    .text-primary-700 { color: ${effectiveBrandColor} !important; filter: brightness(0.8); }
+                    .bg-primary-600 { background-color: ${effectiveBrandColor} !important; }
+                    .btn-primary { background-color: ${effectiveBrandColor} !important; border-color: ${effectiveBrandColor} !important; }
+                    .shadow-primary-500\\/30 { --tw-shadow-color: ${effectiveBrandColor}4d !important; }
+                    .hover\\:text-primary-600:hover { color: ${effectiveBrandColor} !important; }
+                    `
+                }} />
+            )}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between mb-8">
                     <h1 className="text-3xl font-bold text-gray-900">سلة المشتريات ({cart.length})</h1>
@@ -147,6 +161,13 @@ export default function CartPage() {
                     </div>
                 </div>
             </div>
+
+            {/* Simple Footer */}
+            <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
+                <p className="text-gray-500 dark:text-gray-400 font-medium">
+                    مدعوم من <a href="https://tmleen.com" className="text-primary-600 font-bold hover:underline">منصة تقانة</a>
+                </p>
+            </footer>
         </div>
     );
 }

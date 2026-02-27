@@ -63,7 +63,8 @@ export default function CoursePage() {
                 type: 'course',
                 title: course.title,
                 price: course.price,
-                image: course.image
+                image: course.image,
+                brandColor: course.user?.brandColor
             });
             localStorage.setItem('cart', JSON.stringify(cart));
             alert('تم إضافة الدورة لسلة المشتريات!');
