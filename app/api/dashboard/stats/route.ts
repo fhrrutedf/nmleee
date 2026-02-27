@@ -13,40 +13,96 @@ export async function GET(request: NextRequest) {
 
         const userId = (session.user as any).id;
 
-        // Get statistics
-        const [totalProducts, totalOrders, totalRevenue, upcomingAppointments] =
-            await Promise.all([
-                // Total products
-                prisma.product.count({
-                    where: { userId, isActive: true },
-                }),
+        // Date ranges for growth comparison
+        const now = new Date();
+        const startOfCurrentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const startOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+        const endOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59);
 
-                // Total orders
-                prisma.order.count({
-                    where: { userId, isPaid: true },
-                }),
+        const [
+            totalProducts,
+            totalOrders,
+            totalRevenue,
+            upcomingAppointments,
+            currentMonthRevenue,
+            lastMonthRevenue,
+            currentMonthOrders,
+            lastMonthOrders,
+        ] = await Promise.all([
+            // Total active products
+            prisma.product.count({
+                where: { userId, isActive: true },
+            }),
 
-                // Total revenue
-                prisma.order.aggregate({
-                    where: { userId, isPaid: true },
-                    _sum: { totalAmount: true },
-                }),
+            // Total paid orders
+            prisma.order.count({
+                where: { userId, isPaid: true },
+            }),
 
-                // Upcoming appointments
-                prisma.appointment.count({
-                    where: {
-                        userId,
-                        date: { gte: new Date() },
-                        status: { in: ['PENDING', 'CONFIRMED'] },
-                    },
-                }),
-            ]);
+            // Total revenue (all time)
+            prisma.order.aggregate({
+                where: { userId, isPaid: true },
+                _sum: { totalAmount: true },
+            }),
+
+            // Upcoming appointments
+            prisma.appointment.count({
+                where: {
+                    userId,
+                    date: { gte: new Date() },
+                    status: { in: ['PENDING', 'CONFIRMED'] },
+                },
+            }),
+
+            // Current month revenue
+            prisma.order.aggregate({
+                where: { userId, isPaid: true, createdAt: { gte: startOfCurrentMonth } },
+                _sum: { totalAmount: true },
+            }),
+
+            // Last month revenue
+            prisma.order.aggregate({
+                where: {
+                    userId, isPaid: true,
+                    createdAt: { gte: startOfLastMonth, lte: endOfLastMonth },
+                },
+                _sum: { totalAmount: true },
+            }),
+
+            // Current month orders count
+            prisma.order.count({
+                where: { userId, isPaid: true, createdAt: { gte: startOfCurrentMonth } },
+            }),
+
+            // Last month orders count
+            prisma.order.count({
+                where: {
+                    userId, isPaid: true,
+                    createdAt: { gte: startOfLastMonth, lte: endOfLastMonth },
+                },
+            }),
+        ]);
+
+        // Calculate growth percentages
+        const calcGrowth = (current: number, previous: number): number => {
+            if (previous === 0) return current > 0 ? 100 : 0;
+            return Math.round(((current - previous) / previous) * 100);
+        };
+
+        const currRev = currentMonthRevenue._sum.totalAmount || 0;
+        const lastRev = lastMonthRevenue._sum.totalAmount || 0;
+        const revenueGrowth = calcGrowth(currRev, lastRev);
+        const ordersGrowth = calcGrowth(currentMonthOrders, lastMonthOrders);
 
         return NextResponse.json({
             totalProducts,
             totalOrders,
             totalRevenue: totalRevenue._sum.totalAmount || 0,
             totalAppointments: upcomingAppointments,
+            revenueGrowth,
+            ordersGrowth,
+            currentMonthRevenue: currRev,
+            currentMonthOrders,
         });
     } catch (error) {
         console.error('Dashboard stats error:', error);

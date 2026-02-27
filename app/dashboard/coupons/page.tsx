@@ -1,13 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FiPlus, FiTag, FiCalendar, FiUsers, FiClock, FiTrash2, FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
+import { FiPlus, FiTag, FiCalendar, FiUsers, FiClock, FiTrash2, FiAlertCircle, FiCheckCircle, FiAlertTriangle } from 'react-icons/fi';
 import showToast from '@/lib/toast';
 
 export default function CouponsPage() {
     const [coupons, setCoupons] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [deletingId, setDeletingId] = useState<string | null>(null);
 
     // Form states
     const [formData, setFormData] = useState({
@@ -73,8 +74,12 @@ export default function CouponsPage() {
     };
 
     const handleDelete = async (id: string, code: string) => {
-        if (!confirm(`هل أنت متأكد أنك تريد حذف الكوبون ${code}؟`)) return;
-
+        if (deletingId !== id) {
+            setDeletingId(id);
+            return; // First click: show confirmation UI
+        }
+        // Second click: actual delete
+        setDeletingId(null);
         try {
             const res = await fetch(`/api/coupons/${id}`, { method: 'DELETE' });
             if (res.ok) {
@@ -190,14 +195,37 @@ export default function CouponsPage() {
                                 </div>
                             </div>
 
-                            <div className="bg-gray-50 dark:bg-gray-900/50 p-4 border-t border-gray-100 dark:border-gray-800 flex justify-end">
-                                <button
-                                    onClick={() => handleDelete(coupon.id, coupon.code)}
-                                    className="text-red-500 hover:text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-900/10 dark:hover:bg-red-900/30 p-2 rounded-lg transition-colors flex items-center justify-center"
-                                    title="حذف الكوبون"
-                                >
-                                    <FiTrash2 />
-                                </button>
+                            <div className="bg-gray-50 dark:bg-gray-900/50 p-4 border-t border-gray-100 dark:border-gray-800">
+                                {deletingId === coupon.id ? (
+                                    <div className="flex items-center gap-2 justify-end">
+                                        <span className="text-sm text-red-600 font-medium flex items-center gap-1">
+                                            <FiAlertTriangle />
+                                            تأكيد الحذف؟
+                                        </span>
+                                        <button
+                                            onClick={() => setDeletingId(null)}
+                                            className="text-xs px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 transition-colors"
+                                        >
+                                            إلغاء
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(coupon.id, coupon.code)}
+                                            className="text-xs px-3 py-1.5 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors font-bold flex items-center gap-1"
+                                        >
+                                            <FiTrash2 size={12} /> حذف نهائياً
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div className="flex justify-end">
+                                        <button
+                                            onClick={() => handleDelete(coupon.id, coupon.code)}
+                                            className="text-red-500 hover:text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-900/10 dark:hover:bg-red-900/30 p-2 rounded-lg transition-colors flex items-center justify-center"
+                                            title="حذف الكوبون"
+                                        >
+                                            <FiTrash2 />
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     ))}

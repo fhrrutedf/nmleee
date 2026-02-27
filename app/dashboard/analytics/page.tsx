@@ -62,10 +62,10 @@ export default function AnalyticsPage() {
         }
     };
 
-    if (loading) {
+    if (loading && !stats) {
         return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-600"></div>
+            <div className="flex items-center justify-center min-h-[50vh]">
+                <div className="animate-spin rounded-full h-12 w-12 border-4 border-action-blue border-t-transparent"></div>
             </div>
         );
     }
@@ -105,7 +105,7 @@ export default function AnalyticsPage() {
         labels: ['مباشر', 'سوشيال ميديا', 'بحث جوجل', 'روابط خارجية', 'أخرى'],
         datasets: [
             {
-                data: stats?.trafficSources || [45, 25, 15, 10, 5],
+                data: stats?.trafficSources?.length ? stats.trafficSources : [1, 1, 1, 1, 1],
                 backgroundColor: [
                     'rgba(79, 70, 229, 0.8)',
                     'rgba(34, 197, 94, 0.8)',
@@ -120,10 +120,10 @@ export default function AnalyticsPage() {
     return (
         <div className="space-y-6">
             {/* Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold">Analytics & Insights</h1>
-                    <p className="text-gray-600 mt-1">تحليلات شاملة لأداء متجرك</p>
+                    <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white">التحليلات والإحصاءات</h1>
+                    <p className="text-text-muted mt-1">تحليلات شاملة لأداء متجرك</p>
                 </div>
 
                 {/* Period Filter */}
@@ -319,10 +319,10 @@ export default function AnalyticsPage() {
                         </thead>
                         <tbody>
                             {stats?.productPerformance?.map((product: any, index: number) => (
-                                <tr key={index} className="border-b hover:bg-gray-50">
-                                    <td className="py-3 px-4 font-bold">{product.title}</td>
-                                    <td className="py-3 px-4">{product.sales}</td>
-                                    <td className="py-3 px-4">{product.views}</td>
+                                <tr key={index} className="border-b dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                    <td className="py-3 px-4 font-bold text-primary-charcoal dark:text-white">{product.title}</td>
+                                    <td className="py-3 px-4 text-primary-charcoal dark:text-gray-300">{product.sales}</td>
+                                    <td className="py-3 px-4 text-primary-charcoal dark:text-gray-300">{product.views}</td>
                                     <td className="py-3 px-4">
                                         <span className={`px-2 py-1 rounded-full text-xs ${product.conversionRate > 5
                                             ? 'bg-green-100 text-green-700'

@@ -2,7 +2,7 @@
 
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import { FiTrendingUp, FiShoppingCart, FiDollarSign, FiUsers, FiPackage, FiCalendar, FiArrowUpRight, FiActivity, FiVideo, FiSettings } from 'react-icons/fi';
+import { FiTrendingUp, FiShoppingCart, FiDollarSign, FiUsers, FiPackage, FiCalendar, FiActivity, FiVideo, FiSettings } from 'react-icons/fi';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { apiGet, handleApiError } from '@/lib/safe-fetch';
@@ -70,18 +70,18 @@ export default function DashboardPage() {
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                    { title: 'إجمالي الأرباح', value: `${stats.totalRevenue.toLocaleString('ar-EG')} ج.م`, icon: FiDollarSign, trend: '+12%', color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/20' },
-                    { title: 'إجمالي الطلبات', value: stats.totalOrders, icon: FiShoppingCart, trend: '+5%', color: 'text-action-blue', bg: 'bg-blue-50 dark:bg-blue-900/20' },
-                    { title: 'المنتجات النشطة', value: stats.totalProducts, icon: FiPackage, trend: 'نشط', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20' },
-                    { title: 'المواعيد القادمة', value: stats.totalAppointments, icon: FiCalendar, trend: 'قريباً', color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/20' }
+                    { title: 'إجمالي الأرباح', value: `${stats.totalRevenue.toLocaleString('ar-EG')} ج.م`, icon: FiDollarSign, badge: 'إرباح', color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/20' },
+                    { title: 'إجمالي الطلبات', value: stats.totalOrders, icon: FiShoppingCart, badge: 'طلب', color: 'text-action-blue', bg: 'bg-blue-50 dark:bg-blue-900/20' },
+                    { title: 'المنتجات النشطة', value: stats.totalProducts, icon: FiPackage, badge: 'نشط', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20' },
+                    { title: 'المواعيد القادمة', value: stats.totalAppointments, icon: FiCalendar, badge: 'قريباً', color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/20' }
                 ].map((stat, idx) => (
                     <motion.div variants={item} key={idx} className="card group hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
                         <div className="flex justify-between items-start mb-4">
                             <div className={`${stat.bg} p-3 rounded-xl`}>
                                 <stat.icon className={`text-xl ${stat.color}`} />
                             </div>
-                            <span className={`text-xs font-medium px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 flex items-center gap-1`}>
-                                <FiArrowUpRight /> {stat.trend}
+                            <span className={`text-xs font-medium px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400`}>
+                                {stat.badge}
                             </span>
                         </div>
                         <h3 className="text-text-muted text-sm font-medium mb-1">{stat.title}</h3>

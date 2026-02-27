@@ -1,28 +1,44 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FiShoppingBag, FiClock, FiCheck, FiX, FiSearch } from 'react-icons/fi';
+import { FiShoppingBag, FiClock, FiCheck, FiX, FiSearch, FiFilter, FiRefreshCw } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
 export default function OrdersPage() {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [statusFilter, setStatusFilter] = useState('all');
 
     useEffect(() => {
         fetchOrders();
     }, []);
 
     const fetchOrders = async () => {
+        setLoading(true);
+        setError(false);
         try {
             const data = await apiGet('/api/orders');
             setOrders(data);
-        } catch (error) {
-            console.error('Error fetching orders:', handleApiError(error));
+        } catch (err) {
+            console.error('Error fetching orders:', handleApiError(err));
+            setError(true);
         } finally {
             setLoading(false);
         }
     };
+
+    const filteredOrders = orders.filter((order: any) => {
+        const matchesSearch =
+            !searchTerm ||
+            (order.orderNumber || order.id || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (order.customerName || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (order.customerEmail || '').toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesStatus = statusFilter === 'all' || order.status === statusFilter;
+        return matchesSearch && matchesStatus;
+    });
 
     const getStatusBadge = (status: string) => {
         switch (status) {
@@ -53,15 +69,32 @@ export default function OrdersPage() {
         }
     };
 
+    if (error) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[400px] text-center gap-4">
+                <div className="w-16 h-16 bg-red-50 dark:bg-red-900/20 rounded-full flex items-center justify-center">
+                    <FiX className="text-3xl text-red-500" />
+                </div>
+                <h3 className="text-xl font-bold text-primary-charcoal dark:text-white">فشل تحميل الطلبات</h3>
+                <p className="text-text-muted">تحقق من اتصالك بالإنترنت وحاول مجدداً</p>
+                <button onClick={fetchOrders} className="btn btn-primary flex items-center gap-2">
+                    <FiRefreshCw /> إعادة المحاولة
+                </button>
+            </div>
+        );
+    }
+
     return (
         <div className="space-y-6">
             {/* Header */}
-            <div>
-                <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white">الطلبات</h1>
-                <p className="text-text-muted mt-1">تتبع المبيعات والطلبات الواردة لمتجرك</p>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white">الطلبات</h1>
+                    <p className="text-text-muted mt-1">تتبع المبيعات والطلبات الواردة لمتجرك</p>
+                </div>
             </div>
 
-            {/* Stats Summary (Placeholder for future) */}
+            {/* Stats Summary */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
                     <p className="text-text-muted text-sm mb-1">إجمالي الطلبات</p>
@@ -77,19 +110,50 @@ export default function OrdersPage() {
                 </div>
             </div>
 
+            {/* Search & Filter */}
+            <div className="card p-4 flex flex-col sm:flex-row gap-3">
+                <div className="relative flex-1">
+                    <FiSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                    <input
+                        type="text"
+                        placeholder="ابحث بالاسم أو البريد أو رقم الطلب..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="input pr-10 w-full"
+                    />
+                </div>
+                <div className="relative sm:w-48">
+                    <FiFilter className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                    <select
+                        value={statusFilter}
+                        onChange={(e) => setStatusFilter(e.target.value)}
+                        className="input pr-10 w-full bg-white dark:bg-gray-800"
+                    >
+                        <option value="all">جميع الحالات</option>
+                        <option value="COMPLETED">مكتمل</option>
+                        <option value="PENDING">قيد الانتظار</option>
+                        <option value="CANCELLED">ملغي</option>
+                    </select>
+                </div>
+            </div>
+
             {/* Orders List */}
             {loading ? (
                 <div className="text-center py-12">
                     <div className="animate-spin rounded-full h-12 w-12 border-4 border-action-blue border-t-transparent mx-auto"></div>
                 </div>
-            ) : orders.length === 0 ? (
+            ) : filteredOrders.length === 0 ? (
                 <div className="card text-center py-16 px-6 border-2 border-dashed border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/20">
                     <div className="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-6">
                         <FiShoppingBag className="text-4xl text-gray-400" />
                     </div>
-                    <h3 className="text-xl font-bold text-primary-charcoal dark:text-white mb-2">لا توجد طلبات بعد</h3>
+                    <h3 className="text-xl font-bold text-primary-charcoal dark:text-white mb-2">
+                        {orders.length === 0 ? 'لا توجد طلبات بعد' : 'لا توجد نتائج مطابقة'}
+                    </h3>
                     <p className="text-text-muted mb-6 max-w-sm mx-auto">
-                        لم تتلق أي طلبات حتى الآن. شارك رابط متجرك على منصات التواصل الاجتماعي لزيادة مبيعاتك!
+                        {orders.length === 0
+                            ? 'لم تتلق أي طلبات حتى الآن. شارك رابط متجرك على منصات التواصل الاجتماعي!'
+                            : 'جرب تغيير كلمة البحث أو الفلتر'}
                     </p>
                 </div>
             ) : (
@@ -107,7 +171,7 @@ export default function OrdersPage() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
-                                {orders.map((order: any, idx) => (
+                                {filteredOrders.map((order: any, idx) => (
                                     <motion.tr
                                         key={order.id}
                                         initial={{ opacity: 0 }}
@@ -139,7 +203,7 @@ export default function OrdersPage() {
                                             </div>
                                         </td>
                                         <td className="py-4 px-6 font-bold text-primary-charcoal dark:text-white">
-                                            <div>{order.totalAmount.toFixed(2)} $</div>
+                                            <div>{order.totalAmount.toFixed(2)} ج.م</div>
                                             {order.paymentMethod === 'CRYPTO_USDT' && (
                                                 <div className="text-xs text-yellow-600 bg-yellow-100 inline-block px-2 py-0.5 rounded-md mt-1">
                                                     USDT {order.cryptoAmount}
