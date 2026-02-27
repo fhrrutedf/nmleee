@@ -315,6 +315,13 @@ export default function CoursePage() {
                     </div>
                 </div>
             </div>
+
+            {/* Simple Footer */}
+            <footer className="mt-16 py-8 border-t border-gray-100 dark:border-gray-800 text-center">
+                <p className="text-gray-500 dark:text-gray-400 font-medium">
+                    مدعوم من <a href="https://tmleen.com" className="text-primary-600 font-bold hover:underline">منصة تقانة</a>
+                </p>
+            </footer>
         </div>
     );
 }
