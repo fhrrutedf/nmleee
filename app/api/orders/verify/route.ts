@@ -77,6 +77,7 @@ export async function GET(req: NextRequest) {
             customerEmail: order.customerEmail,
             totalAmount: order.totalAmount,
             items: order.items.map((item) => ({
+                id: item.productId || item.courseId || '',
                 type: item.itemType,
                 title: item.product?.title || item.course?.title || 'Unknown',
             })),

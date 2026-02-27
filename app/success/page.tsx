@@ -110,19 +110,48 @@ export default function SuccessPage() {
                                 </div>
                             </div>
 
-                            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 rounded-2xl p-5 mb-8">
-                                <p className="text-sm text-blue-900 dark:text-blue-300 font-medium leading-relaxed">
-                                    📧 <strong>ملاحظة هامة:</strong> لقد أرسلنا إيصال الشراء وروابط التحميل المباشرة إلى البريد الإلكتروني الخاص بك. يرجى تفقده (ومجلد المهملات).
-                                </p>
-                            </div>
+                            {(() => {
+                                const courseItem = order.items?.find((i: any) => i.type === 'course');
+                                if (courseItem) {
+                                    return (
+                                        <div className="bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-900/30 rounded-2xl p-5 mb-8">
+                                            <p className="text-sm text-green-900 dark:text-green-300 font-medium leading-relaxed">
+                                                🎓 <strong>تم تفعيل الدورة بنجاح:</strong> يمكنك البدء في التعلم فوراً، سيتم توجيهك الآن إلى محتوى الدورة.
+                                            </p>
+                                        </div>
+                                    );
+                                }
+                                return (
+                                    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 rounded-2xl p-5 mb-8">
+                                        <p className="text-sm text-blue-900 dark:text-blue-300 font-medium leading-relaxed">
+                                            📧 <strong>ملاحظة هامة:</strong> لقد أرسلنا إيصال الشراء وروابط التحميل المباشرة إلى البريد الإلكتروني الخاص بك. يرجى تفقده (ومجلد المهملات).
+                                        </p>
+                                    </div>
+                                );
+                            })()}
 
                             <div className="space-y-4">
-                                <Link
-                                    href="/my-purchases"
-                                    className="block w-full py-4 bg-primary-charcoal hover:bg-black dark:bg-action-blue dark:hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg"
-                                >
-                                    تحميل المنتجات وبدء التعلم
-                                </Link>
+                                {(() => {
+                                    const courseItem = order.items?.find((i: any) => i.type === 'course');
+                                    if (courseItem && courseItem.id) {
+                                        return (
+                                            <Link
+                                                href={`/learn/${courseItem.id}`}
+                                                className="block w-full py-4 bg-green-600 hover:bg-green-700 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg flex justify-center items-center gap-2"
+                                            >
+                                                <FiBook className="text-xl" /> البدء بالدورة الآن
+                                            </Link>
+                                        );
+                                    }
+                                    return (
+                                        <Link
+                                            href="/my-purchases"
+                                            className="block w-full py-4 bg-primary-charcoal hover:bg-black dark:bg-action-blue dark:hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg"
+                                        >
+                                            تحميل المنتجات
+                                        </Link>
+                                    );
+                                })()}
                                 <Link
                                     href="/"
                                     className="block w-full py-4 border-2 border-gray-200 dark:border-gray-700 text-primary-charcoal dark:text-gray-300 text-center rounded-xl font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
