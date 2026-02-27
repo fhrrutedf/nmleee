@@ -199,9 +199,9 @@ export default function FileUploader({
 
             {/* Upload List & Progress Bars */}
             {uploads.length > 0 && (
-                <div className="mt-6 space-y-3">
+                <div className="mt-6 space-y-3 w-full max-w-full overflow-hidden">
                     {uploads.map((upload, index) => (
-                        <div key={index} className="flex items-center justify-between p-4 bg-white dark:bg-bg-light rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden">
+                        <div key={index} className="w-full flex items-center justify-between p-4 bg-white dark:bg-bg-light rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden">
                             {/* Progress Background */}
                             {upload.status === "uploading" && (
                                 <div
@@ -210,14 +210,16 @@ export default function FileUploader({
                                 />
                             )}
 
-                            <div className="flex items-center gap-4 relative z-10 flex-1 min-w-0 pr-2">
+                            <div className="flex items-center gap-3 relative z-10 flex-1 min-w-0 pr-2">
                                 <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg shrink-0">
                                     <FiFile className="text-xl text-gray-500" />
                                 </div>
                                 <div className="flex-1 min-w-0 overflow-hidden">
-                                    <p className="text-sm font-semibold text-gray-900 dark:text-white break-all line-clamp-1" dir="ltr" style={{ textAlign: "right" }}>
-                                        {upload.file.name}
-                                    </p>
+                                    <div className="w-full">
+                                        <p className="text-sm font-semibold text-gray-900 dark:text-white truncate block w-full text-left" dir="ltr">
+                                            {upload.file.name}
+                                        </p>
+                                    </div>
                                     <div className="flex items-center justify-between mt-1 text-xs">
                                         <span className="text-gray-500">
                                             {(upload.file.size / (1024 * 1024)).toFixed(2)} MB
