@@ -8,19 +8,28 @@ export async function GET(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { id: courseId } = await params;
+        const { id: courseSlugOrId } = await params;
         const session = await getServerSession(authOptions);
 
         if (!session?.user?.email) {
             return new NextResponse('Unauthorized', { status: 401 });
         }
 
+        // Resolve the course by id first, then fallback to slug
+        // (learn page may pass either a UUID or a slug in the URL)
+        let courseRecord = await prisma.course.findUnique({ where: { id: courseSlugOrId } });
+        if (!courseRecord) {
+            // Try by slug if the model has a slug field
+            courseRecord = await (prisma.course as any).findFirst({ where: { slug: courseSlugOrId } });
+        }
+
+        const resolvedCourseId = courseRecord?.id || courseSlugOrId;
+
         // Check if user has access (Enrolled or is Admin/Creator)
-        // For simplicity, we prioritize enrollment check
         const enrollment = await prisma.courseEnrollment.findUnique({
             where: {
                 courseId_studentEmail: {
-                    courseId: courseId,
+                    courseId: resolvedCourseId,
                     studentEmail: session.user.email,
                 },
             },
@@ -28,7 +37,7 @@ export async function GET(
 
         // Also allow the course creator to view it
         const course = await prisma.course.findUnique({
-            where: { id: courseId },
+            where: { id: resolvedCourseId },
             include: {
                 modules: {
                     where: { isPublished: true },

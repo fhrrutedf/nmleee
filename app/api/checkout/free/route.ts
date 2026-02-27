@@ -23,18 +23,22 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'عذراً، بعض المنتجات في السلة ليست مجانية. يرجى الدفع لإتمام الطلب.' }, { status: 400 });
         }
 
-        // Determine seller/user ID from the first item
-        let userId = '';
+        // Determine seller ID from the first item
+        let sellerId = '';
         if (allDbItems && allDbItems.length > 0) {
             const firstItem = allDbItems[0];
-            userId = firstItem.userId || '';
+            sellerId = firstItem.userId || '';
         }
 
-        if (!userId) {
+        if (!sellerId) {
             return NextResponse.json({ error: "لا يمكن تحديد البائع للطلب" }, { status: 400 });
         }
 
-        // 1. Create a "Free" Order
+        // Look up buyer by email to get their userId (if they have an account)
+        const buyer = await prisma.user.findFirst({ where: { email: customerEmail } });
+        const buyerUserId = buyer?.id || sellerId; // fallback to sellerId for backward compat
+
+        // 1. Create a "Free" Order with correct userId = BUYER (not seller)
         const order = await prisma.order.create({
             data: {
                 orderNumber: `FR-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
@@ -43,8 +47,8 @@ export async function POST(req: Request) {
                 customerEmail: customerEmail,
                 customerName: customerName,
                 customerPhone: body.customerPhone || undefined,
-                sellerId: userId,
-                userId: userId,
+                sellerId: sellerId,
+                userId: buyerUserId,
                 items: {
                     create: items.map((item: any) => ({
                         productId: item.type === 'product' ? item.id : undefined,
@@ -57,10 +61,9 @@ export async function POST(req: Request) {
             include: { items: true }
         });
 
-        // 2. Grant access (Enroll in courses, generate licenses for products)
+        // 2. Grant access: Enroll in courses (by email - works whether buyer has account or not)
         for (const item of items) {
             if (item.type === 'course') {
-                // Link enrollment
                 await prisma.courseEnrollment.upsert({
                     where: {
                         courseId_studentEmail: {
@@ -79,7 +82,7 @@ export async function POST(req: Request) {
                     }
                 });
             } else if (item.type === 'product') {
-                // Products access is granted via the OrderItem itself, no need to auto-generate a LicenseKey here
+                // Products access is granted via the OrderItem itself
             }
         }
 

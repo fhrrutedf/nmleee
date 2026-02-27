@@ -86,6 +86,7 @@ export default function BookAppointmentPage() {
             title: `استشارة مع ${creator.name}`,
             price: creator.consultationPrice || 0,
             image: creator.avatar,
+            brandColor: creator.brandColor,
         };
 
         const appointmentDetails = {
@@ -130,8 +131,27 @@ export default function BookAppointmentPage() {
 
     const hasAvailability = creator.availabilities && creator.availabilities.some((a: any) => a.isActive);
 
+    const brandColor = creator.brandColor || '#D41295';
+
     return (
         <div className="min-h-screen bg-gray-50 py-12">
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                .text-primary-600, .text-primary-700 { color: ${brandColor} !important; }
+                .bg-primary-600 { background-color: ${brandColor} !important; }
+                .bg-primary-50, .bg-primary-100 { background-color: ${brandColor}18 !important; }
+                .bg-primary-100\/50 { background-color: ${brandColor}10 !important; }
+                .bg-primary-50.to-primary-100\/50, .from-primary-50 { --tw-gradient-from: ${brandColor}18 !important; }
+                .border-primary-100 { border-color: ${brandColor}30 !important; }
+                .border-primary-500, .border-primary-300 { border-color: ${brandColor} !important; }
+                .btn-primary { background-color: ${brandColor} !important; border-color: ${brandColor} !important; }
+                .hover\\:text-primary-700:hover { color: ${brandColor}cc !important; }
+                .hover\\:border-primary-300:hover { border-color: ${brandColor}60 !important; }
+                .hover\\:bg-primary-50:hover { background-color: ${brandColor}12 !important; }
+                .from-primary-50 { --tw-gradient-from: ${brandColor}15 !important; }
+                .to-primary-100\/50 { --tw-gradient-to: ${brandColor}10 !important; }
+                .animate-spin { border-bottom-color: ${brandColor} !important; }
+            ` }} />
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="mb-8">
@@ -213,8 +233,8 @@ export default function BookAppointmentPage() {
                                             key={time}
                                             onClick={() => setSelectedTime(time)}
                                             className={`py-3 rounded-lg border text-center transition-all ${selectedTime === time
-                                                    ? 'bg-primary-600 border-primary-600 text-white shadow-md transform scale-105'
-                                                    : 'bg-white border-gray-200 text-gray-700 hover:border-primary-300 hover:bg-primary-50'
+                                                ? 'bg-primary-600 border-primary-600 text-white shadow-md transform scale-105'
+                                                : 'bg-white border-gray-200 text-gray-700 hover:border-primary-300 hover:bg-primary-50'
                                                 }`}
                                         >
                                             <span className="block font-medium">{time}</span>

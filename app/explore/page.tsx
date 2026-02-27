@@ -15,7 +15,7 @@ export default async function ExplorePage({
 }) {
     const { q: query = '', category = '', sort = 'newest' } = await searchParams;
 
-    // Build common filter
+    // Build text search filter
     const searchFilter = query ? {
         OR: [
             { title: { contains: query, mode: 'insensitive' as const } },
@@ -23,37 +23,52 @@ export default async function ExplorePage({
         ]
     } : {};
 
-    const categoryFilter = category ? { category } : {};
+    // "courses" category means only show courses (not a DB category value)
+    const showOnlyCourses = category === 'courses';
+    const showOnlyProducts = category && !showOnlyCourses;
+    const productCategoryFilter = showOnlyProducts ? { category } : {};
 
-    // Fetch Products
-    const products = await prisma.product.findMany({
-        where: {
-            isActive: true,
-            ...searchFilter,
-            ...categoryFilter
-        },
-        include: { user: { select: { name: true, brandColor: true, avatar: true, username: true } } },
-        orderBy: sort === 'price_asc' ? { price: 'asc' } :
-            sort === 'price_desc' ? { price: 'desc' } :
-                sort === 'popular' ? { soldCount: 'desc' } :
-                    { createdAt: 'desc' },
-        take: 30
-    });
+    let products: any[] = [];
+    let courses: any[] = [];
 
-    // Fetch Courses (if applicable based on existing schema)
-    // We assume courses is similar structure for now
-    const courses = await prisma.course.findMany({
-        where: {
-            isActive: true, // Assuming isActive exists
-            ...searchFilter,
-            ...categoryFilter
-        },
-        include: { user: { select: { name: true, brandColor: true, avatar: true, username: true } } },
-        orderBy: sort === 'price_asc' ? { price: 'asc' } :
-            sort === 'price_desc' ? { price: 'desc' } :
-                { createdAt: 'desc' },
-        take: 30
-    });
+    try {
+        if (!showOnlyCourses) {
+            // Fetch Products
+            products = await prisma.product.findMany({
+                where: {
+                    isActive: true,
+                    ...searchFilter,
+                    ...productCategoryFilter
+                },
+                include: { user: { select: { name: true, brandColor: true, avatar: true, username: true } } },
+                orderBy: sort === 'price_asc' ? { price: 'asc' } :
+                    sort === 'price_desc' ? { price: 'desc' } :
+                        sort === 'popular' ? { soldCount: 'desc' } :
+                            { createdAt: 'desc' },
+                take: 30
+            });
+        }
+
+        if (!showOnlyProducts) {
+            // Fetch Courses (no category filter - courses use Arabic categories)
+            courses = await prisma.course.findMany({
+                where: {
+                    isActive: true,
+                    ...searchFilter,
+                },
+                include: { user: { select: { name: true, brandColor: true, avatar: true, username: true } } },
+                orderBy: sort === 'price_asc' ? { price: 'asc' } :
+                    sort === 'price_desc' ? { price: 'desc' } :
+                        { createdAt: 'desc' },
+                take: 30
+            });
+        }
+    } catch (err) {
+        console.error('[ExplorePage] DB error:', err);
+        // Graceful degradation: show empty state instead of 500
+        products = [];
+        courses = [];
+    }
 
     // Combine and Sort
     const allItems = [
