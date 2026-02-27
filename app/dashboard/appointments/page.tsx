@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FiCalendar, FiClock, FiUser, FiVideo, FiCheck, FiX, FiPlus, FiEdit, FiTrash2, FiMessageSquare, FiDollarSign, FiSettings } from 'react-icons/fi';
 import Link from 'next/link';
-import { apiGet, apiPut, apiDelete, handleApiError } from '@/lib/safe-fetch';
+import { apiGet, apiPut, apiDelete, apiPost, handleApiError } from '@/lib/safe-fetch';
 import toast from 'react-hot-toast';
 
 export default function AppointmentsPage() {
@@ -15,6 +15,64 @@ export default function AppointmentsPage() {
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('upcoming');
     const [showModal, setShowModal] = useState(false);
+
+    // Add form state
+    const [formData, setFormData] = useState({
+        title: 'استشارة متخصصة',
+        date: '',
+        time: '',
+        duration: 60,
+        price: 0,
+        customerName: '',
+        customerEmail: '',
+        customerPhone: '',
+        meetingLink: '',
+        description: ''
+    });
+    const [submitting, setSubmitting] = useState(false);
+
+    const handleAddConsultation = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubmitting(true);
+        try {
+            const dateTimeString = `${formData.date}T${formData.time}`;
+            const appointmentDate = new Date(dateTimeString);
+
+            await apiPost('/api/appointments', {
+                title: formData.title,
+                date: appointmentDate.toISOString(),
+                duration: Number(formData.duration),
+                price: Number(formData.price),
+                customerName: formData.customerName || null,
+                customerEmail: formData.customerEmail || null,
+                customerPhone: formData.customerPhone || null,
+                meetingLink: formData.meetingLink || null,
+                description: formData.description || null,
+                status: 'CONFIRMED'
+            });
+
+            toast.success('تم إضافة الاستشارة بنجاح');
+            setShowModal(false);
+            setFormData({
+                title: 'استشارة متخصصة',
+                date: '',
+                time: '',
+                duration: 60,
+                price: 0,
+                customerName: '',
+                customerEmail: '',
+                customerPhone: '',
+                meetingLink: '',
+                description: ''
+            });
+            fetchAppointments();
+        } catch (error) {
+            console.error('Error adding consultation:', handleApiError(error));
+            toast.error('فشل إضافة الاستشارة: ' + handleApiError(error));
+        } finally {
+            setSubmitting(false);
+        }
+    };
 
     useEffect(() => {
         if (status === 'unauthenticated') {
@@ -306,16 +364,141 @@ export default function AppointmentsPage() {
 
             {/* Modal لإضافة موعد جديد */}
             {showModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-xl p-6 max-w-md w-full">
-                        <h3 className="text-xl font-bold mb-4">إضافة استشارة جديدة</h3>
-                        <p className="text-gray-600 mb-4">قريباً... سيتم إضافة نموذج إضافة استشارة</p>
-                        <button
-                            onClick={() => setShowModal(false)}
-                            className="btn btn-outline w-full"
-                        >
-                            إغلاق
-                        </button>
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+                    <div className="bg-white rounded-xl p-6 max-w-2xl w-full my-8">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-xl font-bold">إضافة استشارة جديدة</h3>
+                            <button onClick={() => setShowModal(false)} className="text-gray-500 hover:text-gray-700">
+                                <FiX className="text-2xl" />
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleAddConsultation} className="space-y-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">عنوان الاستشارة *</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        className="input-field w-full"
+                                        value={formData.title}
+                                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">السعر (ج.م) *</label>
+                                    <input
+                                        type="number"
+                                        required
+                                        min="0"
+                                        className="input-field w-full"
+                                        value={formData.price}
+                                        onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">التاريخ *</label>
+                                    <input
+                                        type="date"
+                                        required
+                                        className="input-field w-full"
+                                        value={formData.date}
+                                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">الوقت *</label>
+                                    <input
+                                        type="time"
+                                        required
+                                        className="input-field w-full"
+                                        value={formData.time}
+                                        onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">المدة (بالدقائق) *</label>
+                                    <input
+                                        type="number"
+                                        required
+                                        min="15"
+                                        step="15"
+                                        className="input-field w-full"
+                                        value={formData.duration}
+                                        onChange={(e) => setFormData({ ...formData, duration: Number(e.target.value) })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">رابط الاجتماع (اختياري)</label>
+                                    <input
+                                        type="url"
+                                        className="input-field w-full text-left"
+                                        dir="ltr"
+                                        placeholder="https://zoom.us/..."
+                                        value={formData.meetingLink}
+                                        onChange={(e) => setFormData({ ...formData, meetingLink: e.target.value })}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="border-t border-gray-100 pt-4 mt-6">
+                                <h4 className="font-semibold text-gray-800 mb-4">بيانات العميل (اختياري)</h4>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">اسم العميل</label>
+                                        <input
+                                            type="text"
+                                            className="input-field w-full"
+                                            value={formData.customerName}
+                                            onChange={(e) => setFormData({ ...formData, customerName: e.target.value })}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">البريد الإلكتروني للعميل</label>
+                                        <input
+                                            type="email"
+                                            className="input-field w-full text-left"
+                                            dir="ltr"
+                                            value={formData.customerEmail}
+                                            onChange={(e) => setFormData({ ...formData, customerEmail: e.target.value })}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">ملاحظات إضافية (اختياري)</label>
+                                <textarea
+                                    className="input-field w-full"
+                                    rows={3}
+                                    value={formData.description}
+                                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                ></textarea>
+                            </div>
+
+                            <div className="flex justify-end gap-3 mt-6">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowModal(false)}
+                                    className="btn btn-outline"
+                                    disabled={submitting}
+                                >
+                                    إلغاء
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary flex items-center gap-2"
+                                    disabled={submitting}
+                                >
+                                    {submitting ? (
+                                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                                    ) : (
+                                        <FiCheck />
+                                    )}
+                                    <span>حفظ وتأكيد</span>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             )}
