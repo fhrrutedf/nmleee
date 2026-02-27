@@ -61,16 +61,22 @@ export default function CartPage() {
     const effectiveBrandColor = cart.find(item => item.brandColor)?.brandColor;
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12">
+        <div
+            className="min-h-screen bg-gray-50 py-12"
+            style={effectiveBrandColor ? { '--brand': effectiveBrandColor } as React.CSSProperties : {}}
+        >
             {effectiveBrandColor && (
                 <style dangerouslySetInnerHTML={{
                     __html: `
-                    .text-primary-600 { color: ${effectiveBrandColor} !important; }
-                    .text-primary-700 { color: ${effectiveBrandColor} !important; filter: brightness(0.8); }
+                    .text-primary-600, .text-primary-700, .text-primary-600 a { color: ${effectiveBrandColor} !important; }
+                    .text-primary-700 { color: ${effectiveBrandColor} !important; filter: brightness(0.85); }
                     .bg-primary-600 { background-color: ${effectiveBrandColor} !important; }
                     .btn-primary { background-color: ${effectiveBrandColor} !important; border-color: ${effectiveBrandColor} !important; }
+                    .btn-primary:hover { background-color: ${effectiveBrandColor} !important; filter: brightness(0.85); }
                     .shadow-primary-500\\/30 { --tw-shadow-color: ${effectiveBrandColor}4d !important; }
                     .hover\\:text-primary-600:hover { color: ${effectiveBrandColor} !important; }
+                    .focus\\:ring-primary-500:focus { --tw-ring-color: ${effectiveBrandColor} !important; }
+                    a[class*="text-primary"] { color: ${effectiveBrandColor} !important; }
                     `
                 }} />
             )}

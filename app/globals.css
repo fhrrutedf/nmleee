@@ -82,13 +82,14 @@
   }
 
   .btn-primary {
-    background-color: var(--action-blue);
+    background-color: var(--brand, var(--action-blue));
     color: #FFFFFF;
     @apply shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
   }
 
   .btn-primary:hover {
-    background-color: #0040D6;
+    background-color: var(--brand, var(--action-blue));
+    filter: brightness(0.85);
   }
 
   .btn-secondary {
