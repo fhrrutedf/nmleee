@@ -3,6 +3,7 @@
 import React, { useCallback, useState } from "react";
 import { useDropzone, DropzoneOptions } from "react-dropzone";
 import { FiUploadCloud, FiX, FiCheckCircle, FiAlertCircle, FiFile, FiLock } from "react-icons/fi";
+import toast from "react-hot-toast";
 
 export interface FileUploaderProps {
     onUploadSuccess: (urls: string[], fileNames?: string[]) => void;
@@ -113,7 +114,7 @@ export default function FileUploader({
                             : upload
                     )
                 );
-                alert(`فشل رفع الملف ${file.name}: ${errorMsg}`);
+                toast.error(`فشل رفع الملف ${file.name}: ${errorMsg}`);
             }
         };
 
@@ -125,7 +126,7 @@ export default function FileUploader({
                         : upload
                 )
             );
-            alert(`خطأ في الشبكة أثناء رفع ${file.name}`);
+            toast.error(`خطأ في الشبكة أثناء رفع ${file.name}`);
         };
 
         xhr.send(formData);
@@ -213,8 +214,8 @@ export default function FileUploader({
                                 <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg shrink-0">
                                     <FiFile className="text-xl text-gray-500" />
                                 </div>
-                                <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-semibold text-gray-900 dark:text-white truncate text-left" dir="ltr">
+                                <div className="flex-1 min-w-0 overflow-hidden">
+                                    <p className="text-sm font-semibold text-gray-900 dark:text-white truncate" dir="ltr" style={{ textAlign: "right" }}>
                                         {upload.file.name}
                                     </p>
                                     <div className="flex items-center justify-between mt-1 text-xs">
