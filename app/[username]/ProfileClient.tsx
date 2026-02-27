@@ -57,7 +57,7 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
     });
 
     const getValidImageUrl = (url: string | null | undefined, type: 'course' | 'product') => {
-        if (!url || url === '/dashboard/products/new' || url === 'null' || url === 'undefined') {
+        if (!url || url === '' || url === '/dashboard/products/new' || url === 'null' || url === 'undefined') {
             return type === 'course' 
                 ? 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop'
                 : 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800&auto=format&fit=crop';
@@ -251,33 +251,27 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
                     <div className="flex gap-2 overflow-x-auto pb-4 mb-8 scrollbar-hide border-b border-gray-100 dark:border-gray-800">
                         <button
                             onClick={() => setActiveTab('all')}
-                            className={`relative flex items-center gap-2 px-6 py-4 font-bold transition-all whitespace-nowrap ${activeTab === 'all' ? 'text-primary-charcoal dark:text-white' : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-300'}`}
+                            className={`relative flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all whitespace-nowrap ${activeTab === 'all' ? 'text-white' : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-300'}`}
+                            style={activeTab === 'all' ? { backgroundColor: brandColor } : {}}
                         >
                             <FiGrid /> الكل
-                            {activeTab === 'all' && (
-                                <motion.div layoutId="activeTabUnderline" className="absolute bottom-0 left-0 right-0 h-1 bg-action-blue rounded-t-full" style={{ backgroundColor: brandColor }} />
-                            )}
                         </button>
                         {hasDigital && (
                             <button
                                 onClick={() => setActiveTab('products')}
-                                className={`relative flex items-center gap-2 px-6 py-4 font-bold transition-all whitespace-nowrap ${activeTab === 'products' ? 'text-primary-charcoal dark:text-white' : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-300'}`}
+                                className={`relative flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all whitespace-nowrap ${activeTab === 'products' ? 'text-white' : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-300'}`}
+                                style={activeTab === 'products' ? { backgroundColor: brandColor } : {}}
                             >
                                 <FiPackage /> المنتجات الرقمية
-                                {activeTab === 'products' && (
-                                    <motion.div layoutId="activeTabUnderline" className="absolute bottom-0 left-0 right-0 h-1 bg-action-blue rounded-t-full" style={{ backgroundColor: brandColor }} />
-                                )}
                             </button>
                         )}
                         {hasCourses && (
                             <button
                                 onClick={() => setActiveTab('courses')}
-                                className={`relative flex items-center gap-2 px-6 py-4 font-bold transition-all whitespace-nowrap ${activeTab === 'courses' ? 'text-primary-charcoal dark:text-white' : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-300'}`}
+                                className={`relative flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all whitespace-nowrap ${activeTab === 'courses' ? 'text-white' : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-300'}`}
+                                style={activeTab === 'courses' ? { backgroundColor: brandColor } : {}}
                             >
                                 <FiVideo /> الدورات التدريبية
-                                {activeTab === 'courses' && (
-                                    <motion.div layoutId="activeTabUnderline" className="absolute bottom-0 left-0 right-0 h-1 bg-action-blue rounded-t-full" style={{ backgroundColor: brandColor }} />
-                                )}
                             </button>
                         )}
                     </div>
@@ -342,7 +336,7 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
                                                             alt={product.title}
                                                             fill
                                                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                                            className={`object-cover transform group-hover:scale-105 transition-all duration-500 z-1 ${loadedImages[product.id] ? 'opacity-100' : 'opacity-0'}`}
+                                                            className={`object-cover transform group-hover:scale-105 transition-all duration-500 z-1 w-full h-full ${loadedImages[product.id] ? 'opacity-100' : 'opacity-0'}`}
                                                             onLoad={() => setLoadedImages(prev => ({ ...prev, [product.id]: true }))}
                                                             loading={index > 6 ? "lazy" : "eager"}
                                                             priority={index <= 6}
