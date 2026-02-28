@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FiPlus, FiPackage, FiEdit2, FiTrash2, FiTag } from 'react-icons/fi';
+import { FiPlus, FiPackage, FiEdit2, FiTrash2, FiTag, FiEye } from 'react-icons/fi';
 import { format } from 'date-fns';
 import { ar } from 'date-fns/locale';
 import showToast from '@/lib/toast';
@@ -114,10 +114,14 @@ export default function BundlesPage() {
                                 </div>
 
                                 <div className="flex gap-2 pt-4 border-t border-gray-100 dark:border-gray-800">
-                                    <button className="flex-1 btn btn-outline flex items-center justify-center gap-2 text-sm py-2 px-3">
-                                        <FiEdit2 />
+                                    <Link href={`/bundle/${bundle.slug || bundle.id}`} target="_blank" className="flex-1 btn btn-outline flex items-center justify-center gap-2 text-sm py-2 px-3">
+                                        <FiEye className="text-gray-500" />
+                                        <span>معاينة</span>
+                                    </Link>
+                                    <Link href={`/dashboard/bundles/edit/${bundle.id}`} className="flex-1 btn btn-outline flex items-center justify-center gap-2 text-sm py-2 px-3">
+                                        <FiEdit2 className="text-gray-500" />
                                         <span>تعديل</span>
-                                    </button>
+                                    </Link>
                                     <button
                                         onClick={() => handleDelete(bundle.id)}
                                         className="btn btn-outline text-red-500 hover:bg-red-50 hover:border-red-200 py-2 px-3"

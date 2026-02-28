@@ -55,3 +55,48 @@ export async function GET(
         return NextResponse.json({ error: 'Server error' }, { status: 500 });
     }
 }
+
+export async function PUT(
+    req: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
+) {
+    try {
+        const session = await getServerSession(authOptions);
+        if (!session?.user?.id) return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
+
+        const { id } = await params;
+        const bundle = await prisma.bundle.findUnique({ where: { id } });
+
+        if (!bundle) return NextResponse.json({ error: 'الباقة غير موجودة' }, { status: 404 });
+        if (bundle.userId !== session.user.id) return NextResponse.json({ error: 'ليس لديك صلاحية' }, { status: 403 });
+
+        const body = await req.json();
+        const { title, description, price, image, productIds } = body;
+
+        // Delete existing relations
+        await prisma.bundleProduct.deleteMany({
+            where: { bundleId: id }
+        });
+
+        // Update bundle and recreate relations
+        const updatedBundle = await prisma.bundle.update({
+            where: { id },
+            data: {
+                title,
+                description,
+                price: parseFloat(price),
+                image,
+                products: {
+                    create: productIds.map((pid: string) => ({
+                        product: { connect: { id: pid } }
+                    }))
+                }
+            }
+        });
+
+        return NextResponse.json(updatedBundle);
+    } catch (err) {
+        console.error('PUT /api/bundles/[id]:', err);
+        return NextResponse.json({ error: 'حدث خطأ أثناء التحديث' }, { status: 500 });
+    }
+}
