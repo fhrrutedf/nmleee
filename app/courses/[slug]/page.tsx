@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, use } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useCart } from '@/contexts/CartContext';
 import Image from 'next/image';
 import { FiShoppingCart, FiCheck, FiStar, FiUsers, FiClock, FiVideo, FiBookOpen, FiChevronDown, FiPlayCircle, FiLock, FiMonitor, FiAward, FiCheckCircle } from 'react-icons/fi';
@@ -38,9 +38,12 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
     const { slug } = use(params);
     const { addToCart, items } = useCart();
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const urlBrandColor = searchParams.get('brand');
     const [course, setCourse] = useState<Course | null>(null);
     const [loading, setLoading] = useState(true);
     const [isInCart, setIsInCart] = useState(false);
+    const [buyingNow, setBuyingNow] = useState(false);
     const [activeModule, setActiveModule] = useState<number | null>(0);
 
     useEffect(() => {
@@ -99,8 +102,10 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
         }
     };
 
-    const buyNow = () => {
+    const buyNow = async () => {
+        setBuyingNow(true);
         handleAddToCart();
+        await new Promise(r => setTimeout(r, 600));
         router.push('/cart');
     };
 
@@ -109,9 +114,13 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
     };
 
     if (loading) {
+        const spinColor = urlBrandColor || '#D41295';
         return (
             <div className="flex items-center justify-center min-h-[70vh] bg-bg-light dark:bg-bg-dark">
-                <div className="animate-spin rounded-full h-14 w-14 border-4 border-action-blue border-t-transparent shadow-lg text-action-blue"></div>
+                <div
+                    className="animate-spin rounded-full h-14 w-14 border-4 border-transparent"
+                    style={{ borderBottomColor: spinColor, borderLeftColor: `${spinColor}60` }}
+                />
             </div>
         );
     }
@@ -392,10 +401,21 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                 <div className="space-y-4">
                                     <button
                                         onClick={buyNow}
-                                        className="w-full btn btn-primary text-xl py-5 rounded-2xl shadow-xl shadow-action-blue/20 hover:shadow-action-blue/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-black"
+                                        disabled={buyingNow}
+                                        className="w-full btn btn-primary text-xl py-5 rounded-2xl shadow-xl shadow-action-blue/20 hover:shadow-action-blue/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-black disabled:opacity-80"
+                                        style={effectiveBrandColor ? { backgroundColor: effectiveBrandColor, borderColor: effectiveBrandColor } : {}}
                                     >
-                                        <FiVideo className="text-2xl" />
-                                        <span>اشترك الآن</span>
+                                        {buyingNow ? (
+                                            <>
+                                                <span className="w-6 h-6 rounded-full border-2 border-white border-t-transparent animate-spin inline-block" />
+                                                <span>جاري التحويل...</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <FiVideo className="text-2xl" />
+                                                <span>اشترك الآن ←</span>
+                                            </>
+                                        )}
                                     </button>
 
                                     {!isInCart ? (
