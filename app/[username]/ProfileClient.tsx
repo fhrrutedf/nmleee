@@ -258,7 +258,12 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
                             <h2 className="font-black text-lg text-gray-900 dark:text-white">المنتج المميز</h2>
                         </div>
 
-                        <Link href={featuredProduct.category === 'courses' ? `/courses/${featuredProduct.slug || featuredProduct.id}` : `/product/${featuredProduct.id}`}>
+                        <Link href={(() => {
+                            const base = featuredProduct.category === 'courses'
+                                ? `/courses/${featuredProduct.slug || featuredProduct.id}`
+                                : `/product/${featuredProduct.id}`;
+                            return brandColor ? `${base}?brand=${encodeURIComponent(brandColor)}` : base;
+                        })()}>
                             <div className="group relative rounded-3xl overflow-hidden bg-white dark:bg-gray-900 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row h-auto sm:h-64">
 
                                 {/* Image */}
