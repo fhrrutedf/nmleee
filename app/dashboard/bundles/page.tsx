@@ -5,6 +5,7 @@ import { FiPlus, FiPackage, FiEdit2, FiTrash2, FiTag } from 'react-icons/fi';
 import { format } from 'date-fns';
 import { ar } from 'date-fns/locale';
 import showToast from '@/lib/toast';
+import Link from 'next/link';
 
 export default function BundlesPage() {
     const [bundles, setBundles] = useState<any[]>([]);
