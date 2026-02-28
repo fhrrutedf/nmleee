@@ -158,20 +158,22 @@ export default async function ExplorePage({
 
                     {/* Mobile Sort display */}
                     <div className="sm:hidden w-full">
-                        <form>
+                        <form method="GET">
                             <input type="hidden" name="q" value={query} />
                             <input type="hidden" name="category" value={category} />
                             <select
                                 name="sort"
                                 defaultValue={sort}
-                                onChange={(e) => e.target.form?.submit()}
                                 className="w-full p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-primary-charcoal dark:text-white font-bold"
                             >
-                                <option value="newest">ترتيب לפי: الأحدث</option>
+                                <option value="newest">ترتيب: الأحدث</option>
                                 <option value="popular">الأكثر مبيعاً</option>
                                 <option value="price_asc">الأقل سعراً</option>
                                 <option value="price_desc">الأعلى سعراً</option>
                             </select>
+                            <button type="submit" className="w-full mt-2 py-3 rounded-xl bg-gray-900 text-white font-bold text-sm">
+                                تطبيق الترتيب
+                            </button>
                         </form>
                     </div>
                 </div>
