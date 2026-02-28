@@ -37,7 +37,7 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
 
     return (
         <Link
-            href={`/bundle/${bundle.slug || bundle.id}`}
+            href={`/bundle/${bundle.slug || bundle.id}?brand=${brandColor.replace('#', '')}`}
             className="block group"
         >
             <div

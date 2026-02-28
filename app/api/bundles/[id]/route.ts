@@ -31,8 +31,13 @@ export async function GET(
 ) {
     try {
         const { id } = await params;
-        const bundle = await prisma.bundle.findUnique({
-            where: { id },
+        const bundle = await prisma.bundle.findFirst({
+            where: {
+                OR: [
+                    { id },
+                    { slug: id }
+                ]
+            },
             include: {
                 products: {
                     include: {

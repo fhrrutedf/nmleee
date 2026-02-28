@@ -23,11 +23,20 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
     }, [id]);
 
     if (loading) {
-        const spinColor = urlBrandColor || '#D41295';
+        // Use brand color from URL if available, otherwise default
+        const spinColor = urlBrandColor ? `#${urlBrandColor.replace('#', '')}` : '#D41295';
+
         return (
             <div className="flex items-center justify-center min-h-[70vh]">
-                <div className="animate-spin rounded-full h-14 w-14 border-4 border-transparent"
-                    style={{ borderBottomColor: spinColor, borderLeftColor: `${spinColor}60` }} />
+                <div
+                    className="animate-spin rounded-full h-14 w-14 border-4 border-transparent"
+                    style={{
+                        borderTopColor: spinColor,
+                        borderRightColor: `${spinColor}40`,
+                        borderBottomColor: `${spinColor}10`,
+                        borderLeftColor: `${spinColor}80`
+                    }}
+                />
             </div>
         );
     }
