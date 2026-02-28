@@ -115,9 +115,9 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
 
                     {/* Description */}
                     {bundle.description && (
-                        <p className="text-center text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-4">
-                            {bundle.description.replace(/<[^>]*>/g, '')}
-                        </p>
+                        <p className="text-center text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-4"
+                            dangerouslySetInnerHTML={{ __html: bundle.description.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ') }}
+                        />
                     )}
 
                     {/* Pricing */}
@@ -134,7 +134,7 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
                             </div>
                             {originalPrice > bundle.price && (
                                 <span className="text-xs text-gray-400 line-through">
-                                    {originalPrice} ج.م
+                                    {Number(originalPrice.toFixed(2))} ج.م
                                 </span>
                             )}
                         </div>

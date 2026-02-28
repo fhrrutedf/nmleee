@@ -51,7 +51,8 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
     );
 
     const brandColor = bundle.user?.brandColor || '#D41295';
-    const originalPrice = bundle.products.reduce((s: number, bp: any) => s + bp.product.price, 0);
+    const sumPrice = bundle.products.reduce((s: number, bp: any) => s + bp.product.price, 0);
+    const originalPrice = Number(sumPrice.toFixed(2));
     const discountPct = originalPrice > 0 ? Math.round(((originalPrice - bundle.price) / originalPrice) * 100) : 0;
 
     const handleBuyNow = () => {
