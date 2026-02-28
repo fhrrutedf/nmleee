@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { FiPlus, FiPackage, FiEdit2, FiTrash2, FiTag } from 'react-icons/fi';
 import { format } from 'date-fns';
 import { ar } from 'date-fns/locale';
+import showToast from '@/lib/toast';
 
 export default function BundlesPage() {
     const [bundles, setBundles] = useState<any[]>([]);
@@ -25,6 +25,24 @@ export default function BundlesPage() {
             console.error('Error:', error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleDelete = async (id: string) => {
+        if (!confirm('هل أنت متأكد من حذف هذه الباقة؟')) return;
+
+        const toastId = showToast.loading('جاري الحذف...');
+        try {
+            const res = await fetch(`/api/bundles/${id}`, { method: 'DELETE' });
+            if (res.ok) {
+                setBundles(prev => prev.filter(b => b.id !== id));
+                showToast.success('تم حذف الباقة بنجاح', { id: toastId });
+            } else {
+                throw new Error('فشل الحذف');
+            }
+        } catch (error) {
+            console.error('Delete error:', error);
+            showToast.error('حدث خطأ أثناء الحذف', { id: toastId });
         }
     };
 
@@ -99,7 +117,10 @@ export default function BundlesPage() {
                                         <FiEdit2 />
                                         <span>تعديل</span>
                                     </button>
-                                    <button className="btn btn-outline text-red-500 hover:bg-red-50 hover:border-red-200 py-2 px-3">
+                                    <button
+                                        onClick={() => handleDelete(bundle.id)}
+                                        className="btn btn-outline text-red-500 hover:bg-red-50 hover:border-red-200 py-2 px-3"
+                                    >
                                         <FiTrash2 />
                                     </button>
                                 </div>

@@ -35,6 +35,15 @@ export async function GET(req: NextRequest) {
                                 image: true,
                             },
                         },
+                        bundle: {
+                            include: {
+                                products: {
+                                    include: {
+                                        product: true
+                                    }
+                                }
+                            }
+                        }
                     },
                 },
             },
@@ -44,22 +53,44 @@ export async function GET(req: NextRequest) {
         });
 
         // Flatten items from all orders
-        const purchases = orders.flatMap((order) =>
-            order.items.map((item) => {
-                const isCourse = item.itemType === 'course';
-                const data = isCourse ? item.course : item.product;
+        const purchases: any[] = [];
 
-                return {
-                    id: data?.id || item.id,
-                    type: isCourse ? 'course' : 'product',
-                    title: data?.title || 'Unknown',
-                    image: data?.image,
-                    slug: !isCourse ? (data as any)?.slug : undefined, // Only products have slugs
-                    progress: 0, // TODO: Get actual progress from database
-                    purchasedAt: order.createdAt,
-                };
-            })
-        );
+        orders.forEach((order) => {
+            order.items.forEach((item) => {
+                if (item.itemType === 'bundle' && item.bundle) {
+                    // Expand bundle into individual products
+                    item.bundle.products.forEach(bp => {
+                        const isCourse = bp.product.category === 'courses' || bp.product.category === 'course';
+                        purchases.push({
+                            id: bp.product.id,
+                            type: isCourse ? 'course' : 'product',
+                            title: bp.product.title,
+                            image: bp.product.image,
+                            slug: !isCourse ? bp.product.slug : undefined,
+                            progress: 0,
+                            purchasedAt: order.createdAt,
+                            fromBundle: item.bundle?.title
+                        });
+                    });
+                } else {
+                    // Regular product or course
+                    const isCourse = item.itemType === 'course';
+                    const data = isCourse ? item.course : item.product;
+
+                    if (data) {
+                        purchases.push({
+                            id: data.id || item.id,
+                            type: isCourse ? 'course' : 'product',
+                            title: data.title || 'Unknown',
+                            image: data.image,
+                            slug: !isCourse ? (data as any).slug : undefined,
+                            progress: 0,
+                            purchasedAt: order.createdAt,
+                        });
+                    }
+                }
+            });
+        });
 
         // Remove duplicates
         const uniquePurchases = Array.from(

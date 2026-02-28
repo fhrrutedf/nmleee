@@ -16,6 +16,7 @@ import toast from 'react-hot-toast';
 interface ProfileClientProps {
     creator: any;
     products: any[];
+    bundles?: any[];
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────
@@ -41,7 +42,9 @@ function isValidImage(url: string | null | undefined): boolean {
     try { new URL(url); return true; } catch { return false; }
 }
 
-export default function ProfileClient({ creator, products }: ProfileClientProps) {
+import BundleCard from './components/BundleCard';
+
+export default function ProfileClient({ creator, products, bundles = [] }: ProfileClientProps) {
     const [activeTab, setActiveTab] = useState<'all' | 'products' | 'courses'>('all');
     const [isBioExpanded, setIsBioExpanded] = useState(false);
     const [showShareMenu, setShowShareMenu] = useState(false);
@@ -465,6 +468,28 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
                         </motion.div>
                     </AnimatePresence>
                 </div>
+
+                {/* ══════════════════════════════════════════
+                    BUNDLES SECTION
+                ══════════════════════════════════════════ */}
+                {bundles && bundles.length > 0 && (
+                    <div className="mt-16">
+                        <div className="flex items-center gap-2 mb-6">
+                            <FiPackage className="text-2xl" style={{ color: brandColor }} />
+                            <h2 className="font-black text-2xl text-gray-900 dark:text-white">
+                                باقات التوفير
+                                <span className="mr-3 text-sm font-bold px-3 py-1 rounded-full text-white shadow-sm" style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}>
+                                    {bundles.length} باقات متاحة
+                                </span>
+                            </h2>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {bundles.map(bundle => (
+                                <BundleCard key={bundle.id} bundle={bundle} brandColor={brandColor} />
+                            ))}
+                        </div>
+                    </div>
+                )}
 
                 {/* ══════════════════════════════════════════
                     BOOK CONSULTATION (if set)

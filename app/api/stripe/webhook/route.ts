@@ -144,6 +144,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
                         itemType: item.type,
                         productId: item.type === 'product' ? item.id : undefined,
                         courseId: item.type === 'course' ? item.id : undefined,
+                        bundleId: item.type === 'bundle' ? item.id : undefined,
                         quantity: 1,
                         price: item.price || 0,
                     })),
@@ -189,6 +190,55 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
                 }
             });
             console.log('✅ Appointment created successfully', meetData?.meetLink ? `with Meet URL: ${meetData.meetLink}` : '');
+        }
+
+        // Grant course enrollments for any courses bought directly or inside bundles
+        for (const item of items) {
+            if (item.type === 'course' && session.customer_email) {
+                await prisma.courseEnrollment.upsert({
+                    where: {
+                        courseId_studentEmail: {
+                            courseId: item.id,
+                            studentEmail: session.customer_email
+                        }
+                    },
+                    update: { orderId: order.id },
+                    create: {
+                        courseId: item.id,
+                        studentName: metadata.customerName || 'العميل',
+                        studentEmail: session.customer_email,
+                        orderId: order.id
+                    }
+                });
+            } else if (item.type === 'bundle' && session.customer_email) {
+                // Determine if any courses exist inside this bundle
+                const bundle = await prisma.bundle.findUnique({
+                    where: { id: item.id },
+                    include: { products: { include: { product: true } } }
+                });
+
+                if (bundle) {
+                    for (const bp of bundle.products) {
+                        if (bp.product.category === 'courses' || bp.product.category === 'course') {
+                            await prisma.courseEnrollment.upsert({
+                                where: {
+                                    courseId_studentEmail: {
+                                        courseId: bp.product.id,
+                                        studentEmail: session.customer_email
+                                    }
+                                },
+                                update: { orderId: order.id },
+                                create: {
+                                    courseId: bp.product.id,
+                                    studentName: metadata.customerName || 'العميل',
+                                    studentEmail: session.customer_email,
+                                    orderId: order.id
+                                }
+                            });
+                        }
+                    }
+                }
+            }
         }
 
         console.log('✅ Order created:', order.id);

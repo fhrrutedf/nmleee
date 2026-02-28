@@ -106,8 +106,8 @@ export default async function CreatorProfilePage({ params }: Props) {
         );
     }
 
-    // Fetch Products & Courses
-    const [productsRaw, coursesRaw] = await Promise.all([
+    // Fetch Products, Courses, and Bundles
+    const [productsRaw, coursesRaw, bundlesRaw] = await Promise.all([
         prisma.product.findMany({
             where: { userId: creator.id, isActive: true },
             orderBy: { createdAt: 'desc' },
@@ -115,6 +115,17 @@ export default async function CreatorProfilePage({ params }: Props) {
         prisma.course.findMany({
             where: { userId: creator.id, isActive: true },
             orderBy: { createdAt: 'desc' },
+        }),
+        prisma.bundle.findMany({
+            where: { userId: creator.id, isActive: true },
+            include: {
+                products: {
+                    include: {
+                        product: { select: { id: true, title: true, price: true, image: true } }
+                    }
+                }
+            },
+            orderBy: { createdAt: 'desc' }
         })
     ]);
 
@@ -139,6 +150,8 @@ export default async function CreatorProfilePage({ params }: Props) {
         <ProfileClient
             creator={creator}
             products={combinedProducts}
+            bundles={bundlesRaw}
         />
     );
+
 }

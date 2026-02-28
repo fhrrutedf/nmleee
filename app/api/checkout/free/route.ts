@@ -53,6 +53,7 @@ export async function POST(req: Request) {
                     create: items.map((item: any) => ({
                         productId: item.type === 'product' ? item.id : undefined,
                         courseId: item.type === 'course' ? item.id : undefined,
+                        bundleId: item.type === 'bundle' ? item.id : undefined,
                         price: 0,
                         itemType: item.type,
                     }))
@@ -81,6 +82,32 @@ export async function POST(req: Request) {
                         orderId: order.id
                     }
                 });
+            } else if (item.type === 'bundle') {
+                const bundle = await prisma.bundle.findUnique({
+                    where: { id: item.id },
+                    include: { products: { include: { product: true } } }
+                });
+                if (bundle) {
+                    for (const bp of bundle.products) {
+                        if (bp.product.category === 'courses' || bp.product.category === 'course') {
+                            await prisma.courseEnrollment.upsert({
+                                where: {
+                                    courseId_studentEmail: {
+                                        courseId: bp.product.id,
+                                        studentEmail: customerEmail
+                                    }
+                                },
+                                update: { orderId: order.id },
+                                create: {
+                                    courseId: bp.product.id,
+                                    studentName: customerName,
+                                    studentEmail: customerEmail,
+                                    orderId: order.id
+                                }
+                            });
+                        }
+                    }
+                }
             } else if (item.type === 'product') {
                 // Products access is granted via the OrderItem itself
             }
