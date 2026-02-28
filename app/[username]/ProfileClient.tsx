@@ -399,7 +399,11 @@ export default function ProfileClient({ creator, products }: ProfileClientProps)
                                             animate={{ opacity: 1, scale: 1 }}
                                             transition={{ delay: index * 0.04 }}
                                         >
-                                            <Link href={product.category === 'courses' ? `/courses/${product.slug || product.id}` : `/product/${product.id}`}
+                                            <Link
+                                                href={(() => {
+                                                    const base = product.category === 'courses' ? `/courses/${product.slug || product.id}` : `/product/${product.id}`;
+                                                    return brandColor ? `${base}?brand=${encodeURIComponent(brandColor)}` : base;
+                                                })()}
                                                 className="group block bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-xl transition-all duration-300 h-full">
 
                                                 {/* Image */}

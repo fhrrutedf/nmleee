@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, use } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FiShoppingCart, FiStar, FiClock, FiVideo, FiCheckCircle, FiBook, FiEye, FiPlayCircle, FiMessageSquare } from 'react-icons/fi';
 import Link from 'next/link';
 import 'react-quill-new/dist/quill.snow.css';
@@ -19,6 +19,8 @@ const stripHtml = (html: string) => {
 export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const urlBrandColor = searchParams.get('brand'); // brand color passed from profile page
     const [product, setProduct] = useState<any>(null);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -111,9 +113,13 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
     };
 
     if (loading) {
+        const spinColor = urlBrandColor || '#D41295';
         return (
             <div className="flex items-center justify-center min-h-[70vh] bg-bg-light dark:bg-bg-dark">
-                <div className="animate-spin rounded-full h-14 w-14 border-4 border-action-blue border-t-transparent shadow-lg text-action-blue"></div>
+                <div
+                    className="animate-spin rounded-full h-14 w-14 border-4 border-transparent"
+                    style={{ borderBottomColor: spinColor, borderLeftColor: `${spinColor}60` }}
+                />
             </div>
         );
     }
