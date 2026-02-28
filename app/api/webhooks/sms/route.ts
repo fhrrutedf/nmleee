@@ -95,11 +95,10 @@ export async function POST(req: NextRequest) {
                 // Send digital access email to the user
                 try {
                     await sendManualOrderApproved({
-                        orderNumber: order.orderNumber,
+                        to: order.customerEmail,
                         customerName: order.customerName,
-                        customerEmail: order.customerEmail,
-                        items: order.items,
-                        totalAmount: order.totalAmount
+                        orderNumber: order.orderNumber,
+                        amount: order.totalAmount
                     });
                 } catch (emailError) {
                     console.error(`Failed to send approval email for order ${order.orderNumber}`, emailError);
