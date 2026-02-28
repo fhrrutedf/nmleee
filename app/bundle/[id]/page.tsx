@@ -111,7 +111,8 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                     {bundle.title}
                                 </h1>
                                 {bundle.description && (
-                                    <div className="prose prose-sm sm:prose-base dark:prose-invert max-w-none break-words overflow-hidden"
+                                    <div className="prose prose-sm sm:prose-base dark:prose-invert max-w-full whitespace-pre-wrap w-full overflow-hidden"
+                                        style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}
                                         dangerouslySetInnerHTML={{ __html: bundle.description }} />
                                 )}
                             </div>
