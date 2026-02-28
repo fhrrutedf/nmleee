@@ -93,11 +93,12 @@ export const config = {
     matcher: [
         /*
          * Match all request paths except:
+         * - /api/webhooks/sms (external webhook for Syriatel matching)
          * - _next/static (static files)
          * - _next/image (image optimization files)
          * - favicon.ico (favicon file)
          * - public folder
          */
-        '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+        '/((?!api/webhooks/sms|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
     ],
 };
