@@ -22,6 +22,8 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
     const [product, setProduct] = useState<any>(null);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [buyingNow, setBuyingNow] = useState(false);
+    const [addingToCart, setAddingToCart] = useState(false);
     const [activeTab, setActiveTab] = useState('description');
     const [newReview, setNewReview] = useState({ rating: 5, comment: '', name: '' });
     const [activeMedia, setActiveMedia] = useState<{ type: 'image' | 'video', url: string } | null>(null);
@@ -75,10 +77,9 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
         }
     };
 
-    const addToCart = () => {
+    const addToCartItem = () => {
         const cart = JSON.parse(localStorage.getItem('cart') || '[]');
         const existing = cart.find((item: any) => item.id === product.id);
-
         if (!existing) {
             cart.push({
                 id: product.id,
@@ -89,15 +90,24 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                 brandColor: product.user?.brandColor
             });
             localStorage.setItem('cart', JSON.stringify(cart));
-            showToast.success('تمت الإضافة للسلة بنجاح!');
-        } else {
-            showToast.error('المنتج موجود بالفعل في سلتك');
         }
+        return !existing;
     };
 
-    const buyNow = () => {
-        addToCart();
-        router.push('/cart'); // Redirect to cart
+    const addToCart = async () => {
+        setAddingToCart(true);
+        const added = addToCartItem();
+        await new Promise(r => setTimeout(r, 400));
+        setAddingToCart(false);
+        if (added) showToast.success('تمت الإضافة للسلة بنجاح!');
+        else showToast.error('المنتج موجود بالفعل في سلتك');
+    };
+
+    const buyNow = async () => {
+        setBuyingNow(true);
+        addToCartItem();
+        await new Promise(r => setTimeout(r, 600));
+        router.push('/cart');
     };
 
     if (loading) {
@@ -213,18 +223,32 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                                 <div className="space-y-4">
                                     <button
                                         onClick={buyNow}
-                                        className="w-full btn btn-primary text-xl py-5 rounded-2xl shadow-xl shadow-action-blue/20 hover:shadow-action-blue/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-black"
+                                        disabled={buyingNow}
+                                        className="w-full btn btn-primary text-xl py-5 rounded-2xl shadow-xl shadow-action-blue/20 hover:shadow-action-blue/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-black disabled:opacity-80 disabled:cursor-not-allowed"
+                                        style={product.user?.brandColor ? { backgroundColor: product.user.brandColor, borderColor: product.user.brandColor } : {}}
                                     >
-                                        <FiShoppingCart className="text-2xl" />
-                                        <span>اشتري الآن</span>
+                                        {buyingNow ? (
+                                            <>
+                                                <span className="w-6 h-6 rounded-full border-3 border-white border-t-transparent animate-spin inline-block" style={{ borderWidth: '3px' }} />
+                                                <span>جاري التحويل...</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <FiShoppingCart className="text-2xl" />
+                                                <span>اشتري الآن ←</span>
+                                            </>
+                                        )}
                                     </button>
 
                                     <div className="flex gap-4">
                                         <button
                                             onClick={addToCart}
-                                            className="w-full btn text-lg py-4 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-primary-charcoal dark:text-gray-200 font-bold hover:border-action-blue hover:text-action-blue dark:hover:border-action-blue transition-colors"
+                                            disabled={addingToCart}
+                                            className="w-full btn text-lg py-4 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-primary-charcoal dark:text-gray-200 font-bold hover:border-action-blue hover:text-action-blue dark:hover:border-action-blue transition-colors disabled:opacity-60"
                                         >
-                                            أضف للسلة
+                                            {addingToCart ? (
+                                                <span className="w-5 h-5 rounded-full border-2 border-current border-t-transparent animate-spin inline-block" />
+                                            ) : 'أضف للسلة'}
                                         </button>
 
                                         {product.previewFileUrl && (
