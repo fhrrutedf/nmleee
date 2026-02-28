@@ -115,7 +115,8 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
 
                     {/* Description */}
                     {bundle.description && (
-                        <p className="text-center text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-4"
+                        <p className="text-center text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-4 w-full overflow-hidden"
+                            style={{ whiteSpace: 'break-spaces', wordBreak: 'keep-all', overflowWrap: 'anywhere' }}
                             dangerouslySetInnerHTML={{ __html: bundle.description.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ') }}
                         />
                     )}
