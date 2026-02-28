@@ -42,7 +42,7 @@ function isValidImage(url: string | null | undefined): boolean {
     try { new URL(url); return true; } catch { return false; }
 }
 
-import BundleCard from './components/BundleCard';
+import BundleCard from '../components/BundleCard';
 
 export default function ProfileClient({ creator, products, bundles = [] }: ProfileClientProps) {
     const [activeTab, setActiveTab] = useState<'all' | 'products' | 'courses'>('all');
