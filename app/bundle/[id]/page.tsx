@@ -75,7 +75,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-24">
+        <div className="min-h-screen bg-[#FAFAFA] dark:bg-gray-950 pb-24 font-sans">
             <style dangerouslySetInnerHTML={{
                 __html: `
                 .brand-bg { background-color: ${brandColor} !important; }
@@ -83,129 +83,165 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                 .brand-border { border-color: ${brandColor} !important; }
             `}} />
 
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-8">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12">
                 {/* Breadcrumb */}
                 <button onClick={() => router.back()} className="flex items-center gap-2 text-gray-500 hover:text-gray-900 mb-8 font-bold transition-colors">
-                    <FiArrowRight /> العودة
+                    <FiArrowRight className="text-lg" /> العودة
                 </button>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
                     {/* Left: Bundle Details */}
-                    <div className="space-y-6">
-                        {/* Header */}
-                        <div className="rounded-3xl overflow-hidden border-2" style={{ borderColor: `${brandColor}40` }}>
-                            <div className="h-2" style={{ background: `linear-gradient(90deg, ${brandColor}, #7c3aed)` }} />
-                            <div className="p-6 bg-white dark:bg-gray-900">
-                                <div className="flex items-center gap-2 mb-3">
-                                    <span className="text-xs font-black px-3 py-1 rounded-full text-white" style={{ background: brandColor }}>
-                                        <FiPackage className="inline ml-1" />باقة مميزة
+                    <div className="lg:col-span-7 space-y-8">
+                        {/* Header Card */}
+                        <div className="bg-white dark:bg-gray-900 rounded-[2rem] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-gray-100 dark:border-gray-800 transition-shadow">
+                            <div className="h-2.5 w-full" style={{ background: `linear-gradient(90deg, ${brandColor}, ${brandColor}80)` }} />
+                            <div className="p-8 sm:p-10">
+                                <div className="flex flex-wrap items-center gap-3 mb-6">
+                                    <span className="text-sm font-bold px-4 py-1.5 rounded-full text-white shadow-sm flex items-center gap-1.5" style={{ background: brandColor }}>
+                                        <FiPackage className="text-base" /> باقة مميزة
                                     </span>
                                     {discountPct > 0 && (
-                                        <span className="text-xs font-black px-3 py-1 rounded-full text-white bg-green-500">
-                                            وفر {discountPct}%
+                                        <span className="text-sm font-bold px-4 py-1.5 rounded-full text-green-700 bg-green-100 border border-green-200 shadow-sm flex items-center gap-1.5">
+                                            <FiCheck /> توفير {discountPct}%
                                         </span>
                                     )}
                                 </div>
-                                <h1 className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white mb-3">
+                                <h1 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white mb-6 leading-tight">
                                     {bundle.title}
                                 </h1>
                                 {bundle.description && (
-                                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed"
+                                    <div className="text-gray-600 dark:text-gray-400 text-base sm:text-lg leading-relaxed space-y-4"
                                         dangerouslySetInnerHTML={{ __html: bundle.description }} />
                                 )}
                             </div>
                         </div>
 
-                        {/* Products in Bundle */}
-                        <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 border border-gray-100 dark:border-gray-800">
-                            <h2 className="font-black text-lg text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                                <FiPackage style={{ color: brandColor }} /> ما يشمله الباقة
+                        {/* Products Included */}
+                        <div className="bg-white dark:bg-gray-900 rounded-[2rem] p-8 sm:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-gray-100 dark:border-gray-800">
+                            <h2 className="font-black text-2xl text-gray-900 dark:text-white mb-8 flex items-center gap-3">
+                                <span className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `${brandColor}15` }}>
+                                    <FiPackage className="text-xl" style={{ color: brandColor }} />
+                                </span>
+                                ما تشمله هذه الباقة
                             </h2>
-                            <div className="space-y-3">
+                            <div className="space-y-4">
                                 {bundle.products.map((bp: any) => (
-                                    <div key={bp.product.id} className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 dark:bg-gray-800">
-                                        {bp.product.image ? (
-                                            <img src={bp.product.image} alt={bp.product.title}
-                                                className="w-12 h-12 rounded-xl object-cover flex-shrink-0" />
-                                        ) : (
-                                            <div className="w-12 h-12 rounded-xl flex-shrink-0 flex items-center justify-center"
-                                                style={{ background: `${brandColor}20` }}>
-                                                <FiPackage style={{ color: brandColor }} />
-                                            </div>
-                                        )}
-                                        <div className="flex-1 min-w-0">
-                                            <p className="font-bold text-gray-900 dark:text-white text-sm line-clamp-1">{bp.product.title}</p>
-                                            <p className="text-xs text-gray-500 line-through">{bp.product.price} ج.م</p>
+                                    <div key={bp.product.id} className="group flex flex-col sm:flex-row sm:items-center gap-4 p-5 rounded-2xl bg-[#FCFCFC] dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 transition-all shadow-sm hover:shadow-md">
+                                        {/* Icon (Right in RTL) */}
+                                        <div className="hidden sm:flex flex-shrink-0 w-10 h-10 rounded-full items-center justify-center bg-green-50 dark:bg-green-900/20 group-hover:bg-green-100 transition-colors">
+                                            <FiCheck className="text-green-500 text-xl" />
                                         </div>
-                                        <FiCheck className="text-green-500 flex-shrink-0" />
+
+                                        {/* Title (Middle) */}
+                                        <div className="flex-1 min-w-0 order-2 sm:order-none">
+                                            <p className="font-bold text-gray-900 dark:text-white text-lg leading-snug mb-1">{bp.product.title}</p>
+                                            <div className="flex items-center gap-2 sm:hidden">
+                                                <FiCheck className="text-green-500 text-sm" />
+                                                <span className="text-sm text-gray-500">مشمول في الباقة</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Image & Price (Left in RTL) */}
+                                        <div className="flex items-center gap-4 flex-shrink-0 order-1 sm:order-none self-start sm:self-auto w-full sm:w-auto justify-between sm:justify-end">
+                                            <div className="text-right sm:text-left flex flex-col justify-center">
+                                                <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">السعر الأصلي</p>
+                                                <p className="text-sm text-gray-500 line-through font-mono bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-md inline-block">{bp.product.price} ج.م</p>
+                                            </div>
+                                            {bp.product.image ? (
+                                                <img src={bp.product.image} alt={bp.product.title}
+                                                    className="w-16 h-16 rounded-xl object-cover border border-gray-100 dark:border-gray-700 shadow-sm" />
+                                            ) : (
+                                                <div className="w-16 h-16 rounded-xl flex items-center justify-center border border-gray-100 dark:border-gray-700 shadow-sm"
+                                                    style={{ background: `${brandColor}08` }}>
+                                                    <FiPackage className="text-2xl" style={{ color: brandColor }} />
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     </div>
 
-                    {/* Right: Purchase Card */}
-                    <div className="lg:sticky lg:top-24 h-fit">
-                        <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 overflow-hidden shadow-xl">
-                            <div className="h-2" style={{ background: `linear-gradient(90deg, ${brandColor}, #7c3aed)` }} />
-                            <div className="p-8 space-y-6">
-                                {/* Price */}
-                                <div className="text-center">
-                                    <div className="flex items-baseline justify-center gap-2 mb-1">
-                                        <span className="text-5xl font-black" style={{ color: brandColor }}>
-                                            {bundle.price}
-                                        </span>
-                                        <span className="text-xl font-bold text-gray-500">ج.م</span>
-                                    </div>
-                                    {originalPrice > bundle.price && (
-                                        <div className="flex items-center justify-center gap-2">
-                                            <span className="text-gray-400 line-through text-lg">{originalPrice} ج.م</span>
-                                            <span className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 text-sm font-black px-3 py-1 rounded-full">
-                                                وفر {discountPct}%!
+                    {/* Right: Purchase Sidebar */}
+                    <div className="lg:col-span-5 relative">
+                        <div className="sticky top-24">
+                            <div className="bg-white dark:bg-gray-900 rounded-[2rem] border border-gray-100 dark:border-gray-800 overflow-hidden shadow-[0_20px_40px_rgb(0,0,0,0.08)] dark:shadow-none">
+                                <div className="h-2.5 w-full" style={{ background: `linear-gradient(90deg, ${brandColor}, ${brandColor}80)` }} />
+                                <div className="p-8 sm:p-10 space-y-8">
+                                    {/* Price Section */}
+                                    <div className="text-center">
+                                        <p className="text-sm font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">الإجمالي بعد الخصم</p>
+                                        <div className="flex items-center justify-center gap-2 mb-2">
+                                            <span className="text-5xl lg:text-6xl font-black tracking-tight" style={{ color: brandColor }}>
+                                                {bundle.price}
                                             </span>
+                                            <span className="text-2xl font-bold text-gray-500">ج.م</span>
+                                        </div>
+                                        {originalPrice > bundle.price && (
+                                            <div className="flex items-center justify-center gap-3 mt-4">
+                                                <span className="text-gray-400 line-through text-lg font-mono">{originalPrice} ج.م</span>
+                                                <span className="bg-green-50 border border-green-200 text-green-700 dark:bg-green-900/30 dark:border-green-800 dark:text-green-400 text-sm font-black px-4 py-1.5 rounded-full shadow-sm">
+                                                    وفر {discountPct}%
+                                                </span>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Value Proposition */}
+                                    {discountPct > 0 && (
+                                        <div className="rounded-2xl p-5 text-center transition-transform hover:scale-[1.02]" style={{ background: `${brandColor}08`, border: `1px dashed ${brandColor}40` }}>
+                                            <p className="font-extrabold text-base leading-relaxed" style={{ color: brandColor }}>
+                                                🎉 صفقة رابحة! ستحتفظ بمبلغ {originalPrice - bundle.price} ج.م في جيبك.
+                                            </p>
                                         </div>
                                     )}
-                                </div>
 
-                                {/* What you get */}
-                                {discountPct > 0 && (
-                                    <div className="rounded-2xl p-4 text-center" style={{ background: `${brandColor}10`, border: `1px solid ${brandColor}30` }}>
-                                        <p className="font-black text-sm" style={{ color: brandColor }}>
-                                            ✨ وفّر {originalPrice - bundle.price} ج.م عند شراء هذه المجموعة!
-                                        </p>
+                                    {/* Stacked mini images */}
+                                    <div className="flex justify-center py-2">
+                                        <div className="flex -space-x-4 rtl:space-x-reverse">
+                                            {bundle.products.slice(0, 5).map((bp: any, i: number) => (
+                                                bp.product.image && (
+                                                    <img key={i} src={bp.product.image} alt=""
+                                                        className="w-14 h-14 rounded-full border-4 border-white dark:border-gray-900 object-cover shadow-md transition-transform hover:-translate-y-2 hover:z-50 relative"
+                                                        style={{ zIndex: 10 - i }} />
+                                                )
+                                            ))}
+                                            {bundle.products.length > 5 && (
+                                                <div className="w-14 h-14 rounded-full border-4 border-white dark:border-gray-900 bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 shadow-md relative z-0">
+                                                    +{bundle.products.length - 5}
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
-                                )}
 
-                                {/* Stacked mini images */}
-                                <div className="flex justify-center">
-                                    <div className="flex -space-x-3 rtl:space-x-reverse">
-                                        {bundle.products.slice(0, 4).map((bp: any, i: number) => (
-                                            bp.product.image && (
-                                                <img key={i} src={bp.product.image}
-                                                    className="w-10 h-10 rounded-full border-2 border-white object-cover shadow"
-                                                    style={{ zIndex: 10 - i }} />
-                                            )
-                                        ))}
+                                    {/* Call to Action */}
+                                    <div className="pt-4">
+                                        <button
+                                            onClick={handleBuyNow}
+                                            disabled={buying}
+                                            className="w-full py-5 rounded-2xl text-white font-black text-xl flex items-center justify-center gap-3 shadow-[0_8px_20px_rgb(0,0,0,0.12)] transition-all hover:-translate-y-1 hover:shadow-[0_12px_25px_rgb(0,0,0,0.18)] disabled:opacity-80 disabled:hover:translate-y-0"
+                                            style={{ background: `linear-gradient(135deg, ${brandColor}, ${brandColor}cc)` }}
+                                        >
+                                            {buying ? (
+                                                <><span className="w-6 h-6 rounded-full border-4 border-white/30 border-t-white animate-spin" /> جاري التجهيز...</>
+                                            ) : (
+                                                <><FiShoppingCart className="text-2xl" /> اشتري الباقة الآن</>
+                                            )}
+                                        </button>
+
+                                        <div className="mt-6 space-y-3">
+                                            <p className="flex items-center justify-center gap-2 text-sm text-gray-500 font-medium">
+                                                <FiCheck className="text-green-500 text-lg" />
+                                                حق وصول فوري لجميع الملفات
+                                            </p>
+                                            <p className="flex items-center justify-center gap-2 text-sm text-gray-500 font-medium">
+                                                <FiCheck className="text-green-500 text-lg" />
+                                                دفع آمن ومحمي بالكامل
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-
-                                {/* CTA */}
-                                <button
-                                    onClick={handleBuyNow}
-                                    disabled={buying}
-                                    className="w-full py-5 rounded-2xl text-white font-black text-xl flex items-center justify-center gap-3 shadow-xl transition-all hover:-translate-y-1 disabled:opacity-80"
-                                    style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}
-                                >
-                                    {buying ? (
-                                        <><span className="w-6 h-6 rounded-full border-2 border-white border-t-transparent animate-spin" /> جاري التحويل...</>
-                                    ) : (
-                                        <><FiShoppingCart className="text-2xl" /> اشتري الباقة ←</>
-                                    )}
-                                </button>
-
-                                <p className="text-center text-xs text-gray-500 font-medium">
-                                    ✅ وصول فوري لجميع المنتجات بعد الدفع
-                                </p>
                             </div>
                         </div>
                     </div>
