@@ -130,7 +130,7 @@ export default function ProductsPage() {
                             <div className="p-4 flex flex-col flex-1">
                                 <h3 className="font-bold text-primary-charcoal dark:text-white mb-1 line-clamp-1">{product.title}</h3>
                                 <p className="text-xs text-text-muted line-clamp-2 mb-3 flex-1">
-                                    {product.description || 'بدون وصف'}
+                                    {product.description ? product.description.replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ') : 'بدون وصف'}
                                 </p>
 
                                 <div className="flex items-center justify-between mb-3">

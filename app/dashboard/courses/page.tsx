@@ -231,7 +231,7 @@ export default function CoursesPage() {
                             <div className="flex-1">
                                 <h3 className="text-lg font-bold text-primary-charcoal dark:text-white mb-2 line-clamp-1 group-hover:text-action-blue transition-colors">{course.title}</h3>
                                 <p className="text-text-muted text-sm mb-4 line-clamp-2 min-h-[40px]">
-                                    {course.description || 'لا يوجد وصف مختصر'}
+                                    {course.description ? course.description.replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ') : 'لا يوجد وصف مختصر'}
                                 </p>
                             </div>
 

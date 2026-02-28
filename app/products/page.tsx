@@ -134,7 +134,7 @@ export default function ProductsPage() {
                                     </h3>
 
                                     <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                                        {product.description}
+                                        {product.description ? product.description.replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ') : ''}
                                     </p>
 
                                     <div className="flex items-center justify-between">

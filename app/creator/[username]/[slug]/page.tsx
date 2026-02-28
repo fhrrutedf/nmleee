@@ -10,7 +10,7 @@ export default function ProductPage() {
     const router = useRouter();
     const usernameRaw = params.username as string;
     const slugRaw = params.slug as string;
-    
+
     // فك التشفير لدعم الروابط العربية
     const username = usernameRaw ? decodeURIComponent(usernameRaw) : '';
     const slug = slugRaw ? decodeURIComponent(slugRaw) : '';
@@ -161,8 +161,8 @@ export default function ProductPage() {
                                     <FiStar
                                         key={i}
                                         className={`text-lg ${i < Math.floor(product.averageRating || 0)
-                                                ? 'text-yellow-400 fill-yellow-400'
-                                                : 'text-gray-300'
+                                            ? 'text-yellow-400 fill-yellow-400'
+                                            : 'text-gray-300'
                                             }`}
                                     />
                                 ))}
@@ -186,9 +186,10 @@ export default function ProductPage() {
                         {/* Description */}
                         <div>
                             <h2 className="text-xl font-bold mb-3">عن المنتج</h2>
-                            <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-                                {product.description}
-                            </p>
+                            <div
+                                className="prose max-w-none text-gray-700 leading-relaxed"
+                                dangerouslySetInnerHTML={{ __html: product.description?.replace(/&nbsp;/g, ' ') || '' }}
+                            />
                         </div>
 
                         {/* Features */}

@@ -101,7 +101,9 @@ export default function BundlesPage() {
 
                             <div className="p-5 flex-1 flex flex-col">
                                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 line-clamp-1">{bundle.title}</h3>
-                                <p className="text-sm text-gray-500 line-clamp-2 mb-4 flex-1">{bundle.description}</p>
+                                <p className="text-sm text-gray-500 line-clamp-2 mb-4 flex-1">
+                                    {bundle.description ? bundle.description.replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ') : 'بدون وصف'}
+                                </p>
 
                                 <div className="flex items-center justify-between mb-4">
                                     <div className="text-xl font-black text-primary-charcoal dark:text-white bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-700">

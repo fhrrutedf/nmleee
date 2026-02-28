@@ -212,7 +212,7 @@ export default function CreatorStorePage() {
                                     </h3>
 
                                     <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                                        {product.description}
+                                        {product.description ? product.description.replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ') : ''}
                                     </p>
 
                                     <div className="flex items-center justify-between">
@@ -221,8 +221,8 @@ export default function CreatorStorePage() {
                                                 <FiStar
                                                     key={i}
                                                     className={`text-sm ${i < Math.floor(product.averageRating || 0)
-                                                            ? 'text-yellow-400 fill-yellow-400'
-                                                            : 'text-gray-300'
+                                                        ? 'text-yellow-400 fill-yellow-400'
+                                                        : 'text-gray-300'
                                                         }`}
                                                 />
                                             ))}

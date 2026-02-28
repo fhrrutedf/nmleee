@@ -236,9 +236,7 @@ export default function ProductPage() {
                     {/* Description */}
                     <div className="border-t p-8">
                         <h2 className="text-2xl font-bold text-gray-900 mb-4">عن المنتج</h2>
-                        <div className="prose max-w-none text-gray-700">
-                            {product.description}
-                        </div>
+                        <div className="prose max-w-none text-gray-700" dangerouslySetInnerHTML={{ __html: product.description?.replace(/&nbsp;/g, ' ') || '' }} />
                     </div>
                 </div>
             </div>
