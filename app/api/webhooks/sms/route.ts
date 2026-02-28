@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
         if (matches) {
             // Filter to ensure it has at least one number (ignoring plain word matches)
-            extractedRefs = Array.from(new Set(matches)).filter(m => /\d/.test(m));
+            extractedRefs = Array.from(new Set(matches)).filter((m): m is string => typeof m === 'string' && /\d/.test(m));
         }
 
         if (extractedRefs.length === 0) {
