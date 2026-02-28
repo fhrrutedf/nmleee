@@ -205,11 +205,8 @@ export default function CoursePage() {
 
                             {/* Tab Content */}
                             {activeTab === 'description' && (
-                                <div className="prose max-w-full dark:prose-invert w-full overflow-hidden" style={{ whiteSpace: 'break-spaces', wordBreak: 'keep-all', overflowWrap: 'anywhere' }}>
-                                    <div
-                                        dangerouslySetInnerHTML={{ __html: stripHtml(course.description) }}
-                                        className="text-gray-700 dark:text-gray-300 leading-relaxed ql-editor px-0"
-                                    />
+                                <div className="prose max-w-none dark:prose-invert text-gray-700 dark:text-gray-300 leading-relaxed ql-editor px-0">
+                                    <div dangerouslySetInnerHTML={{ __html: stripHtml(course.description) }} />
                                 </div>
                             )}
 

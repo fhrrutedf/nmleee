@@ -111,9 +111,8 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                     {bundle.title}
                                 </h1>
                                 {bundle.description && (
-                                    <div className="prose prose-sm sm:prose-base dark:prose-invert max-w-full w-full overflow-hidden"
-                                        style={{ whiteSpace: 'break-spaces', wordBreak: 'keep-all', overflowWrap: 'anywhere' }}
-                                        dangerouslySetInnerHTML={{ __html: bundle.description }} />
+                                    <div className="prose prose-sm sm:prose-base dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed ql-editor px-0"
+                                        dangerouslySetInnerHTML={{ __html: bundle.description.replace(/&nbsp;/g, ' ') }} />
                                 )}
                             </div>
                         </div>
