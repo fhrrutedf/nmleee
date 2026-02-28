@@ -7,11 +7,15 @@ import Link from 'next/link';
 
 export default function CartPage() {
     const router = useRouter();
-    const [cart, setCart] = useState<any[]>([]);
+    // Read cart synchronously from localStorage to get brandColor immediately for spinner
+    const [cart, setCart] = useState<any[]>(() => {
+        if (typeof window === 'undefined') return [];
+        try { return JSON.parse(localStorage.getItem('cart') || '[]'); } catch { return []; }
+    });
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Load cart from localStorage
+        // Re-read to ensure latest data (handles back-navigation)
         const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
         setCart(savedCart);
         setLoading(false);
@@ -33,10 +37,15 @@ export default function CartPage() {
 
     const subtotal = cart.reduce((sum, item) => sum + (item.price || 0), 0);
 
+    const spinColor = cart.find(item => item.brandColor)?.brandColor || '#D41295';
+
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+                <div
+                    className="animate-spin rounded-full h-12 w-12 border-4 border-transparent"
+                    style={{ borderBottomColor: spinColor, borderLeftColor: `${spinColor}60` }}
+                />
             </div>
         );
     }
