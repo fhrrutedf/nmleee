@@ -205,7 +205,7 @@ export default function CoursePage() {
 
                             {/* Tab Content */}
                             {activeTab === 'description' && (
-                                <div className="prose max-w-none dark:prose-invert">
+                                <div className="prose max-w-none dark:prose-invert break-words overflow-hidden">
                                     <div
                                         dangerouslySetInnerHTML={{ __html: stripHtml(course.description) }}
                                         className="text-gray-700 dark:text-gray-300 leading-relaxed ql-editor px-0"

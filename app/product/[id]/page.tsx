@@ -429,7 +429,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
                             <div className="p-6 sm:p-10">
                                 {activeTab === 'description' ? (
-                                    <div className="prose prose-lg sm:prose-xl max-w-none dark:prose-invert">
+                                    <div className="prose prose-lg sm:prose-xl max-w-none dark:prose-invert break-words overflow-hidden">
                                         <div dangerouslySetInnerHTML={{ __html: stripHtml(product.description) }} className="text-gray-600 dark:text-gray-300 leading-relaxed ql-editor px-0" />
                                     </div>
                                 ) : (

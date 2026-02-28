@@ -111,7 +111,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                     {bundle.title}
                                 </h1>
                                 {bundle.description && (
-                                    <div className="text-gray-600 dark:text-gray-400 text-base sm:text-lg leading-relaxed space-y-4"
+                                    <div className="prose prose-sm sm:prose-base dark:prose-invert max-w-none break-words overflow-hidden"
                                         dangerouslySetInnerHTML={{ __html: bundle.description }} />
                                 )}
                             </div>
