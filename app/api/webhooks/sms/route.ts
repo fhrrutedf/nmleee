@@ -3,6 +3,17 @@ import { prisma } from '@/lib/db';
 import { sendManualOrderApproved } from '@/lib/email';
 // import { sendTelegramMessage } from '@/lib/telegram'; // Uncomment if you have a configured telegram utility
 
+export async function OPTIONS() {
+    return NextResponse.json({}, {
+        status: 200,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        },
+    });
+}
+
 export async function POST(req: NextRequest) {
     try {
         // 1. Verify Authentication / Authorization
