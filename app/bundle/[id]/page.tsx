@@ -127,36 +127,34 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                             </h2>
                             <div className="space-y-4">
                                 {bundle.products.map((bp: any) => (
-                                    <div key={bp.product.id} className="group flex flex-col sm:flex-row sm:items-center gap-4 p-5 rounded-2xl bg-[#FCFCFC] dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 transition-all shadow-sm hover:shadow-md">
-                                        {/* Icon (Right in RTL) */}
-                                        <div className="hidden sm:flex flex-shrink-0 w-10 h-10 rounded-full items-center justify-center bg-green-50 dark:bg-green-900/20 group-hover:bg-green-100 transition-colors">
-                                            <FiCheck className="text-green-500 text-xl" />
-                                        </div>
+                                    <div key={bp.product.id} className="group flex flex-row items-center gap-4 p-5 rounded-2xl bg-[#FCFCFC] dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 transition-all shadow-sm hover:shadow-md">
 
-                                        {/* Title (Middle) */}
-                                        <div className="flex-1 min-w-0 order-2 sm:order-none">
-                                            <p className="font-bold text-gray-900 dark:text-white text-lg leading-snug mb-1">{bp.product.title}</p>
-                                            <div className="flex items-center gap-2 sm:hidden">
-                                                <FiCheck className="text-green-500 text-sm" />
-                                                <span className="text-sm text-gray-500">مشمول في الباقة</span>
-                                            </div>
-                                        </div>
-
-                                        {/* Image & Price (Left in RTL) */}
-                                        <div className="flex items-center gap-4 flex-shrink-0 order-1 sm:order-none self-start sm:self-auto w-full sm:w-auto justify-between sm:justify-end">
-                                            <div className="text-right sm:text-left flex flex-col justify-center">
-                                                <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">السعر الأصلي</p>
-                                                <p className="text-sm text-gray-500 line-through font-mono bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-md inline-block">{bp.product.price} ج.م</p>
-                                            </div>
+                                        {/* Image (Right in RTL) */}
+                                        <div className="flex-shrink-0">
                                             {bp.product.image ? (
                                                 <img src={bp.product.image} alt={bp.product.title}
-                                                    className="w-16 h-16 rounded-xl object-cover border border-gray-100 dark:border-gray-700 shadow-sm" />
+                                                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border border-gray-100 dark:border-gray-700 shadow-sm" />
                                             ) : (
-                                                <div className="w-16 h-16 rounded-xl flex items-center justify-center border border-gray-100 dark:border-gray-700 shadow-sm"
+                                                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl flex items-center justify-center border border-gray-100 dark:border-gray-700 shadow-sm"
                                                     style={{ background: `${brandColor}08` }}>
                                                     <FiPackage className="text-2xl" style={{ color: brandColor }} />
                                                 </div>
                                             )}
+                                        </div>
+
+                                        {/* Title & Status (Middle) */}
+                                        <div className="flex-1 min-w-0 flex flex-col justify-center">
+                                            <p className="font-bold text-gray-900 dark:text-white text-base sm:text-lg leading-relaxed mb-1.5 line-clamp-2">{bp.product.title}</p>
+                                            <div className="flex items-center gap-2">
+                                                <FiCheck className="text-green-500 text-sm flex-shrink-0" />
+                                                <span className="text-xs sm:text-sm text-gray-500 leading-relaxed font-medium">مشمول في الباقة</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Price (Left in RTL) */}
+                                        <div className="text-left flex flex-col justify-center flex-shrink-0 pl-1">
+                                            <p className="text-[10px] sm:text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">السعر الأصلي</p>
+                                            <p className="text-xs sm:text-sm text-gray-500 line-through font-mono bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-md inline-block">{bp.product.price} ج.م</p>
                                         </div>
                                     </div>
                                 ))}

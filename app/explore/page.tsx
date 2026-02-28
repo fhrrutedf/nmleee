@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/db';
 import Link from 'next/link';
-import { FiSearch, FiLayers, FiTrendingUp, FiStar } from 'react-icons/fi';
+import { FiSearch, FiLayers, FiTrendingUp, FiStar, FiArrowRight } from 'react-icons/fi';
 import ExploreClientWrapper from './ExploreClientWrapper';
 
 export const metadata = {
@@ -137,6 +137,13 @@ export default async function ExplorePage({
                             </button>
                         </div>
                     </form>
+
+                    <div className="mt-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                        <Link href="/register" className="inline-flex items-center gap-2 bg-white text-action-blue px-8 py-3.5 rounded-full font-black text-lg hover:bg-gray-50 transition-all shadow-[0_8px_30px_rgba(255,255,255,0.2)] hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(255,255,255,0.3)] group">
+                            ابدأ مجاناً - أنشئ حسابك
+                            <FiArrowRight className="rotate-180 group-hover:-translate-x-1 transition-transform" />
+                        </Link>
+                    </div>
                 </div>
             </div>
 

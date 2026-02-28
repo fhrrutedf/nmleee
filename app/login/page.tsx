@@ -57,7 +57,13 @@ export default function LoginPage() {
             // This code won't execute if redirect succeeds
         } catch (err: any) {
             setLoading(false);
-            setError(err?.message || 'حدث خطأ أثناء تسجيل الدخول');
+
+            // Provide a clear Arabic message for credentials mismatch
+            if (err?.message?.includes('CredentialsSignin') || err?.message?.toLowerCase().includes('invalid')) {
+                setError('البريد الإلكتروني أو كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.');
+            } else {
+                setError(err?.message || 'حدث خطأ أثناء تسجيل الدخول. تأكد من صحة البيانات.');
+            }
         }
     };
 
