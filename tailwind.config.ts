@@ -12,15 +12,16 @@ const config: Config = {
             colors: {
                 // New Design System Colors
                 'primary-charcoal': '#1e1b4b', // Deep purple
-                'action-blue': { // Kept name for compatibility, but color is Magenta
-                    DEFAULT: '#D41295',
-                    hover: '#a80b74',
+                'action-blue': {
+                    DEFAULT: '#0052FF',
+                    hover: '#0047E1',
                 },
-                'action-secondary': { // Cyan
-                    DEFAULT: '#00D9F5',
-                    hover: '#00b3cc',
+                'action-secondary': { // Electric Purple
+                    DEFAULT: '#8B5CF6',
+                    hover: '#7C3AED',
                 },
-                'bg-light': '#faf5ff',
+                'success-green': '#10B981',
+                'bg-light': '#F8FAFC', // Soft Gray
                 'card-white': '#FFFFFF',
                 'text-muted': '#6b7280',
 
@@ -64,8 +65,9 @@ const config: Config = {
                 },
             },
             fontFamily: {
-                sans: ['var(--font-tajawal)', 'system-ui', 'sans-serif'],
+                sans: ['var(--font-ibm)', 'system-ui', 'sans-serif'],
                 heading: ['var(--font-tajawal)', 'system-ui', 'sans-serif'],
+                inter: ['var(--font-inter)', 'sans-serif'],
             },
             animation: {
                 'fade-in': 'fadeIn 0.5s ease-in-out',

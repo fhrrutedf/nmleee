@@ -49,9 +49,9 @@ const plans = [
         storage: '15 جيجابايت',
         students: 'حتى 1,000 طالب',
         support: 'بريد + دردشة مباشرة',
-        color: 'from-blue-500 to-purple-600',
-        border: 'border-action-blue',
-        btnClass: 'bg-action-blue hover:bg-action-blue/90 text-white',
+        color: 'from-action-blue to-action-secondary',
+        border: 'border-action-blue/50',
+        btnClass: 'bg-gradient-to-r from-action-blue to-action-secondary hover:brightness-110 shadow-lg text-white font-inter tracking-wide',
         popular: true,
         features: [
             '50 منتج رقمي',
@@ -164,11 +164,10 @@ export default function PricingPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-charcoal via-purple-900/50 to-primary-charcoal" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,18,149,0.15)_0%,transparent_70%)]" />
                 <div className="relative max-w-5xl mx-auto px-4 text-center">
-                    {/* Launch Offer Badge */}
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 bg-action-blue/20 border border-action-blue/40 text-action-blue px-4 py-2 rounded-full text-sm font-bold mb-6 backdrop-blur-sm"
+                        className="inline-flex items-center gap-2 bg-action-blue/10 border border-action-blue/20 text-action-blue px-5 py-2.5 rounded-full text-sm font-bold mb-8 backdrop-blur-xl shadow-[0_0_30px_rgba(0,82,255,0.15)]"
                     >
                         🚀 عرض إطلاق حصري — خصم 50% لأول 3 أشهر لأول 500 بائع!
                     </motion.div>
@@ -228,12 +227,12 @@ export default function PricingPage() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.1 }}
-                            className={`relative bg-white dark:bg-gray-900 rounded-3xl border-2 ${plan.border} shadow-xl flex flex-col overflow-hidden
-                                ${plan.popular ? 'ring-2 ring-action-blue ring-offset-4 ring-offset-bg-light dark:ring-offset-gray-950 scale-105 lg:scale-105' : ''}`}
+                            className={`relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-3xl border ${plan.border} shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden
+                                ${plan.popular ? 'ring-1 ring-action-blue/50 ring-offset-4 ring-offset-bg-light dark:ring-offset-gray-950 scale-105 lg:scale-105 z-10' : ''}`}
                         >
                             {/* Popular Badge */}
                             {plan.badge && (
-                                <div className={`bg-gradient-to-r ${plan.color} text-white text-center py-2 text-sm font-bold`}>
+                                <div className={`bg-gradient-to-r ${plan.color} text-white text-center py-2.5 text-sm font-bold tracking-wide shadow-md`}>
                                     ⭐ {plan.badge}
                                 </div>
                             )}
@@ -257,11 +256,11 @@ export default function PricingPage() {
                                         </div>
                                     ) : (
                                         <div>
-                                            <div className="flex items-end gap-1">
-                                                <span className="text-5xl font-black text-primary-charcoal dark:text-white">
+                                            <div className="flex items-end gap-1 font-inter">
+                                                <span className="text-5xl font-black text-primary-charcoal dark:text-white tracking-tight">
                                                     ${isYearly ? Math.round(plan.yearlyPrice / 12) : plan.monthlyPrice}
                                                 </span>
-                                                <span className="text-text-muted mb-2">/شهر</span>
+                                                <span className="text-text-muted mb-2 font-sans">/شهر</span>
                                             </div>
                                             {isYearly && (
                                                 <p className="text-green-600 text-sm font-semibold">
@@ -297,8 +296,8 @@ export default function PricingPage() {
                                 {/* Features */}
                                 <ul className="space-y-2 mb-8 flex-1">
                                     {plan.features.map((f, idx) => (
-                                        <li key={idx} className="flex items-start gap-2 text-sm text-primary-charcoal dark:text-gray-300">
-                                            <span className="text-green-500 mt-0.5 flex-shrink-0">✓</span>
+                                        <li key={idx} className="flex items-start gap-3 text-sm text-primary-charcoal dark:text-gray-300">
+                                            <span className="text-success-green mt-0.5 flex-shrink-0 bg-success-green/10 rounded-full p-0.5 text-[10px]">✔</span>
                                             {f}
                                         </li>
                                     ))}

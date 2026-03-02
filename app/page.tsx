@@ -149,13 +149,12 @@ export default function Home() {
 
 
             {/* Hero Section */}
-            <section className="relative pt-24 pb-32 lg:pt-32 lg:pb-40 overflow-hidden h-[100vh] min-h-[800px] flex items-center bg-gradient-to-br from-[#12002b] via-[#2d004d] to-[#7a005c]">
+            <section className="relative pt-24 pb-32 lg:pt-32 lg:pb-40 overflow-hidden min-h-[800px] flex items-center bg-bg-light dark:bg-bg-light">
 
-                {/* Parallax Background Blobs */}
-                <motion.div style={{ y: useTransform(scrollYProgress, [0, 1], [0, 600]) }} className="absolute inset-0 z-0 pointer-events-none opacity-50">
-                    <motion.div animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute top-10 right-[10%] w-[500px] h-[500px] bg-[#D41295] rounded-full mix-blend-screen filter blur-[100px] opacity-40" />
-                    <motion.div animate={{ scale: [1, 1.5, 1], x: [0, 100, 0] }} transition={{ duration: 25, repeat: Infinity, ease: "linear" }} className="absolute bottom-10 left-[10%] w-[600px] h-[600px] bg-[#00D9F5] rounded-full mix-blend-screen filter blur-[120px] opacity-30" />
-                    <motion.div animate={{ scale: [1, 1.3, 1], y: [0, -100, 0] }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-[#a200ff] rounded-full mix-blend-screen filter blur-[90px] opacity-40" />
+                {/* Subtle Animated Background Blobs (Glassmorphism & SaaS Minimalist) */}
+                <motion.div style={{ y: useTransform(scrollYProgress, [0, 1], [0, 300]) }} className="absolute inset-0 z-0 pointer-events-none opacity-60">
+                    <motion.div animate={{ scale: [1, 1.1, 1], rotate: [0, 45, 0] }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute top-0 right-[20%] w-[600px] h-[600px] bg-action-blue rounded-full mix-blend-multiply filter blur-[150px] opacity-20 dark:opacity-30" />
+                    <motion.div animate={{ scale: [1, 1.2, 1], x: [0, -50, 0] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute bottom-10 left-[10%] w-[500px] h-[500px] bg-action-secondary rounded-full mix-blend-multiply filter blur-[150px] opacity-20 dark:opacity-30" />
                 </motion.div>
 
                 <div className="container-custom relative z-10">
@@ -175,15 +174,15 @@ export default function Home() {
                                 المنصة الأسرع نمواً لصناع المحتوى
                             </motion.div>
 
-                            <h1 className="text-5xl lg:text-7xl font-bold mb-6 font-heading text-white leading-[1.2] drop-shadow-md">
+                            <h1 className="text-5xl lg:text-7xl font-bold mb-6 font-heading text-primary-charcoal drop-shadow-sm leading-[1.2]">
                                 <RevealText text="حول شغفك إلى" delay={2} />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-action-secondary to-[#ff7eb3] relative inline-block">
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-action-blue to-action-secondary relative inline-block">
                                     <RevealText text="دخل مستدام" delay={4} />
                                     <motion.svg
                                         initial={{ strokeDasharray: 1000, strokeDashoffset: 1000 }}
                                         animate={{ strokeDashoffset: 0 }}
                                         transition={{ duration: 2, delay: 1, ease: "easeInOut" }}
-                                        className="absolute w-full h-4 -bottom-2 right-0 text-[#ff7eb3] drop-shadow-md z-[-1] opacity-70"
+                                        className="absolute w-full h-4 -bottom-2 right-0 text-action-secondary drop-shadow-sm z-[-1] opacity-70"
                                         viewBox="0 0 100 10"
                                         preserveAspectRatio="none"
                                     >
@@ -196,7 +195,7 @@ export default function Home() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.8 }}
-                                className="text-xl text-purple-100/80 mb-10 leading-relaxed max-w-lg font-medium drop-shadow-sm"
+                                className="text-xl text-text-muted mb-10 leading-relaxed max-w-lg font-medium"
                             >
                                 لا تحتاج لخبرة تقنية. ابدأ بيع دوراتك، كتبك الإلكترونية، وخدماتك الاستشارية في دقائق معدودة وبأدوات احترافية.
                             </motion.p>
@@ -211,24 +210,17 @@ export default function Home() {
                                     <Link href="/register"
                                         onMouseEnter={() => setIsHovering(true)}
                                         onMouseLeave={() => setIsHovering(false)}
-                                        className="btn bg-gray-900 text-white text-xl px-10 py-5 shadow-2xl shadow-gray-900/40 w-full justify-between group overflow-hidden relative rounded-2xl"
+                                        className="btn btn-primary text-lg px-8 py-4 w-full group relative rounded-xl"
                                     >
-                                        <span className="relative z-10 flex items-center gap-3">أنشئ متجرك مجاناً</span>
-                                        <motion.div
-                                            className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center relative z-10 group-hover:-translate-x-2 transition-transform"
-                                        >
-                                            <FiArrowLeft />
-                                        </motion.div>
-                                        <motion.span
-                                            className="absolute inset-0 bg-gradient-to-l from-action-blue to-purple-600 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                                        />
+                                        <span className="relative z-10 flex items-center gap-2">أنشئ متجرك مجاناً</span>
+                                        <FiArrowLeft className="relative z-10 group-hover:-translate-x-2 transition-transform" />
                                     </Link>
                                 </MagneticButton>
                                 <MagneticButton>
                                     <Link href="#features"
                                         onMouseEnter={() => setIsHovering(true)}
                                         onMouseLeave={() => setIsHovering(false)}
-                                        className="btn btn-secondary text-lg px-8 py-5 bg-white/80 backdrop-blur-sm border border-gray-200 shadow-lg w-full justify-center rounded-2xl hover:bg-white"
+                                        className="btn btn-secondary text-lg px-8 py-4 w-full rounded-xl"
                                     >
                                         استكشف المنصة
                                     </Link>

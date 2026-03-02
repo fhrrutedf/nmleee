@@ -5,29 +5,23 @@
 @layer base {
   :root {
     --primary-charcoal: #1e1b4b;
-    /* Deep purple/indigo for text */
-    --action-blue: #D41295;
-    /* Magenta (kept variable name for compatibility) */
-    --action-secondary: #00D9F5;
-    /* Cyan */
-    --bg-light: #faf5ff;
-    /* Very light purple tint */
+    --action-blue: #0052FF;
+    --action-secondary: #8B5CF6;
+    --bg-light: #F8FAFC;
     --card-white: #FFFFFF;
     --text-muted: #6b7280;
   }
 
   /* Dark mode implementation */
   .dark {
-    --primary-charcoal: #f3f4f6;
-    --action-blue: #D41295;
-    /* Magenta */
-    --action-secondary: #00D9F5;
-    /* Cyan */
-    --bg-light: #0f172a;
-    /* Very dark blue/purple */
+    --primary-charcoal: #f8fafc;
+    /* Changed to lighter for dark mode text */
+    --action-blue: #0052FF;
+    --action-secondary: #8B5CF6;
+    --bg-light: #0F172A;
+    /* Deep Slate */
     --card-white: #1e293b;
-    /* Dark slate card background */
-    --text-muted: #9ca3af;
+    --text-muted: #94a3b8;
   }
 
   * {
@@ -76,20 +70,18 @@
 
   /* Updated Button Styles */
   .btn {
-    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 ease-in-out flex items-center justify-center gap-2;
-    border-radius: 8px;
+    @apply px-6 py-3 rounded-xl font-medium transition-all duration-300 ease-in-out flex items-center justify-center gap-2;
     letter-spacing: 0;
   }
 
   .btn-primary {
-    background-color: var(--brand, var(--action-blue));
+    background: linear-gradient(135deg, var(--action-blue), var(--action-secondary));
     color: #FFFFFF;
-    @apply shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+    @apply shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 border border-white/10;
   }
 
   .btn-primary:hover {
-    background-color: var(--brand, var(--action-blue));
-    filter: brightness(0.85);
+    filter: brightness(1.1);
   }
 
   .btn-secondary {
@@ -106,15 +98,14 @@
   /* Updated Card Styles */
   .card {
     background-color: var(--card-white);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    @apply rounded-lg transition-shadow duration-300 p-6 border border-transparent dark:border-gray-800;
+    @apply rounded-2xl transition-shadow duration-300 p-6 border border-gray-100/50 shadow-sm dark:border-gray-800;
 
     /* Ensure card content breathes */
     line-height: 1.6;
   }
 
   .card:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+    @apply shadow-md;
   }
 
   .input {
@@ -137,7 +128,7 @@
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-action-blue to-action-secondary bg-clip-text text-transparent;
   }
 
   .dark .gradient-text {
@@ -145,7 +136,7 @@
   }
 
   .glass-effect {
-    @apply bg-white/80 backdrop-blur-lg border border-white/20 dark:bg-gray-900/80 dark:border-gray-800/20;
+    @apply bg-white/10 backdrop-blur-xl border border-white/20 dark:bg-gray-900/10 dark:border-gray-800/20;
   }
 }
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Tajawal } from "next/font/google";
+import { Tajawal, Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { Toaster } from 'react-hot-toast';
@@ -15,6 +15,13 @@ const tajawal = Tajawal({
     fallback: ['system-ui', 'Arial', 'sans-serif'],
 });
 
+const inter = Inter({
+    subsets: ["latin"],
+    variable: '--font-inter',
+    display: 'swap',
+    weight: ['400', '500', '600', '700'],
+});
+
 export const metadata: Metadata = {
     title: "منصة المنتجات الرقمية - بيع منتجاتك بكل سهولة",
     description: "منصة متكاملة لبيع المنتجات الرقمية والدورات التدريبية مع نظام دفع وحجز مواعيد احترافي",
@@ -27,7 +34,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ar" dir="rtl" suppressHydrationWarning>
-            <body className={`${tajawal.variable} font-sans antialiased text-primary-charcoal bg-bg-light flex flex-col min-h-screen`}>
+            <body className={`${tajawal.variable} ${inter.variable} font-sans antialiased text-primary-charcoal bg-bg-light flex flex-col min-h-screen`}>
                 <Providers>
                     <NavbarWrapper />
                     <main className="flex-grow">
