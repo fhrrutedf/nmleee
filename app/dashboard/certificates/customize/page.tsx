@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import CertificatePreview from '@/components/CertificatePreview';
-import { FiSave } from 'react-icons/fi';
+import { FiSave, FiX } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import FileUploader from '@/components/ui/FileUploader';
 
 export default function CertificateCustomizationPage() {
     const router = useRouter();
@@ -64,32 +65,44 @@ export default function CertificateCustomizationPage() {
                                     </div>
                                 </div>
 
-                                {/* Logo URL */}
+                                {/* Logo Upload */}
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        رابط الشعار (اختياري)
+                                        الشعار (اختياري)
                                     </label>
-                                    <input
-                                        type="url"
-                                        value={formData.logoUrl}
-                                        onChange={(e) => setFormData({ ...formData, logoUrl: e.target.value })}
-                                        placeholder="https://example.com/logo.png"
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-                                    />
+                                    {formData.logoUrl ? (
+                                        <div className="relative group inline-block">
+                                            <img src={formData.logoUrl} alt="شعار" className="h-20 object-contain rounded-lg border border-gray-200" />
+                                            <button type="button" onClick={() => setFormData({ ...formData, logoUrl: '' })} className="absolute -top-2 -left-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
+                                        </div>
+                                    ) : (
+                                        <FileUploader
+                                            onUploadSuccess={(urls) => { if (urls.length > 0) setFormData({ ...formData, logoUrl: urls[0] }); }}
+                                            maxFiles={1}
+                                            accept={{ 'image/*': ['.jpg', '.jpeg', '.png', '.webp', '.svg'] }}
+                                            maxSize={5 * 1024 * 1024}
+                                        />
+                                    )}
                                 </div>
 
-                                {/* Signature URL */}
+                                {/* Signature Upload */}
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        رابط التوقيع (اختياري)
+                                        التوقيع (اختياري)
                                     </label>
-                                    <input
-                                        type="url"
-                                        value={formData.signatureUrl}
-                                        onChange={(e) => setFormData({ ...formData, signatureUrl: e.target.value })}
-                                        placeholder="https://example.com/signature.png"
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-                                    />
+                                    {formData.signatureUrl ? (
+                                        <div className="relative group inline-block">
+                                            <img src={formData.signatureUrl} alt="توقيع" className="h-16 object-contain rounded-lg border border-gray-200" />
+                                            <button type="button" onClick={() => setFormData({ ...formData, signatureUrl: '' })} className="absolute -top-2 -left-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
+                                        </div>
+                                    ) : (
+                                        <FileUploader
+                                            onUploadSuccess={(urls) => { if (urls.length > 0) setFormData({ ...formData, signatureUrl: urls[0] }); }}
+                                            maxFiles={1}
+                                            accept={{ 'image/*': ['.jpg', '.jpeg', '.png', '.webp', '.svg'] }}
+                                            maxSize={5 * 1024 * 1024}
+                                        />
+                                    )}
                                 </div>
 
                                 {/* Preview Data */}

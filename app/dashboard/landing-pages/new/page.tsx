@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { FiSave, FiEye } from 'react-icons/fi';
 import CountdownTimer from '@/components/CountdownTimer';
 import toast from 'react-hot-toast';
+import FileUploader from '@/components/ui/FileUploader';
 
 export default function CreateLandingPage() {
     const router = useRouter();
@@ -87,14 +88,21 @@ export default function CreateLandingPage() {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    رابط الصورة الرئيسية
+                                    الصورة الرئيسية
                                 </label>
-                                <input
-                                    type="url"
-                                    value={formData.heroImage}
-                                    onChange={(e) => setFormData({ ...formData, heroImage: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-                                />
+                                {formData.heroImage ? (
+                                    <div className="relative group">
+                                        <img src={formData.heroImage} alt="صورة" className="w-full h-32 object-cover rounded-lg border border-gray-200" />
+                                        <button type="button" onClick={() => setFormData({ ...formData, heroImage: '' })} className="absolute top-2 left-2 bg-red-500 text-white rounded-full w-7 h-7 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
+                                    </div>
+                                ) : (
+                                    <FileUploader
+                                        onUploadSuccess={(urls) => { if (urls.length > 0) setFormData({ ...formData, heroImage: urls[0] }); }}
+                                        maxFiles={1}
+                                        accept={{ 'image/*': ['.jpg', '.jpeg', '.png', '.webp'] }}
+                                        maxSize={10 * 1024 * 1024}
+                                    />
+                                )}
                             </div>
                         </div>
 

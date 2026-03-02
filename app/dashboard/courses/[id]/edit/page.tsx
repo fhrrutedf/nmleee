@@ -14,6 +14,7 @@ import {
 } from 'react-icons/fi';
 import showToast from '@/lib/toast';
 import RichTextEditor from '@/components/ui/RichTextEditor';
+import FileUploader from '@/components/ui/FileUploader';
 
 export default function EditCoursePage() {
     const params = useParams();
@@ -244,26 +245,38 @@ export default function EditCoursePage() {
                                 </select>
                             </div>
 
-                            <div>
-                                <label className="label">رابط صورة الغلاف</label>
-                                <input
-                                    type="url"
-                                    className="input"
-                                    value={formData.image}
-                                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                                    placeholder="https://"
-                                />
+                            <div className="md:col-span-2">
+                                <label className="label flex items-center gap-2">صورة الغلاف</label>
+                                {formData.image ? (
+                                    <div className="relative group">
+                                        <img src={formData.image} alt="غلاف" className="w-full max-h-48 object-cover rounded-xl border border-gray-200" />
+                                        <button type="button" onClick={() => setFormData({ ...formData, image: '' })} className="absolute top-2 left-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
+                                    </div>
+                                ) : (
+                                    <FileUploader
+                                        onUploadSuccess={(urls) => { if (urls.length > 0) setFormData({ ...formData, image: urls[0] }); }}
+                                        maxFiles={1}
+                                        accept={{ 'image/*': ['.jpg', '.jpeg', '.png', '.webp', '.gif'] }}
+                                        maxSize={10 * 1024 * 1024}
+                                    />
+                                )}
                             </div>
 
-                            <div>
-                                <label className="label">رابط الفيديو التعريفي (اختياري)</label>
-                                <input
-                                    type="url"
-                                    className="input"
-                                    value={formData.trailerUrl}
-                                    onChange={(e) => setFormData({ ...formData, trailerUrl: e.target.value })}
-                                    placeholder="https://youtube.com/watch?v=... أو Vimeo"
-                                />
+                            <div className="md:col-span-2">
+                                <label className="label flex items-center gap-2">الفيديو التعريفي (اختياري)</label>
+                                {formData.trailerUrl ? (
+                                    <div className="relative group">
+                                        <video src={formData.trailerUrl} controls className="w-full max-h-48 rounded-xl border border-gray-200" />
+                                        <button type="button" onClick={() => setFormData({ ...formData, trailerUrl: '' })} className="absolute top-2 left-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
+                                    </div>
+                                ) : (
+                                    <FileUploader
+                                        onUploadSuccess={(urls) => { if (urls.length > 0) setFormData({ ...formData, trailerUrl: urls[0] }); }}
+                                        maxFiles={1}
+                                        accept={{ 'video/*': ['.mp4', '.webm', '.mov'] }}
+                                        maxSize={500 * 1024 * 1024}
+                                    />
+                                )}
                             </div>
 
                             <div className="flex items-center pt-8">

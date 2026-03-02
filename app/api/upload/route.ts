@@ -25,11 +25,12 @@ export async function POST(request: Request) {
             );
         }
 
-        // التحقق من حجم الملف (50MB max)
-        const maxSize = 50 * 1024 * 1024; // 50MB
+        // التحقق من حجم الملف (500MB max للفيديو، 50MB للصور والملفات)
+        const isVideo = file.type.startsWith('video/');
+        const maxSize = isVideo ? 500 * 1024 * 1024 : 50 * 1024 * 1024;
         if (file.size > maxSize) {
             return NextResponse.json(
-                { error: 'حجم الملف كبير جداً (الحد الأقصى 50MB)' },
+                { error: isVideo ? 'حجم الفيديو كبير جداً (الحد الأقصى 500MB)' : 'حجم الملف كبير جداً (الحد الأقصى 50MB)' },
                 { status: 400 }
             );
         }
@@ -49,9 +50,14 @@ export async function POST(request: Request) {
         const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
         // تحديد الـ bucket
-        const bucket = fileType === 'image' || file.type.startsWith('image/')
-            ? 'product-images'
-            : 'product-files';
+        let bucket: string;
+        if (file.type.startsWith('video/')) {
+            bucket = 'product-files';
+        } else if (fileType === 'image' || file.type.startsWith('image/')) {
+            bucket = 'product-images';
+        } else {
+            bucket = 'product-files';
+        }
 
         // إنشاء اسم ملف فريد
         const timestamp = Date.now();

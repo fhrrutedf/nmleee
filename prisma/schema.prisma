@@ -25,6 +25,8 @@ model User {
   bio           String?
   avatar        String?
   coverImage    String?
+  logoUrl       String?
+  signatureUrl  String?
   
   // Platform customization
   brandColor    String?   @default("#0ea5e9")
@@ -97,6 +99,7 @@ model User {
   sentNotifications Notification[] @relation("SentNotifications")
   receivedNotifications Notification[] @relation("ReceivedNotifications")
   automationSettings AutomationSettings?
+  landingPages  LandingPage[]
 }
 
 model Product {
@@ -1091,5 +1094,31 @@ model ScheduledEmail {
   @@index([sellerId])
   @@index([scheduledAt])
   @@index([status])
+}
+
+model LandingPage {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  title       String
+  headline    String
+  subheadline String?
+  heroImage   String?
+  features    String[] @default([])
+  testimonials Json?   @default("[]")
+  ctaText     String   @default("اشترك الآن")
+  ctaLink     String
+  showCountdown Boolean @default(false)
+  countdownEndDate DateTime?
+  discountPercentage String?
+  backgroundColor String @default("#ffffff")
+  primaryColor    String @default("#4f46e5")
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
 }
 

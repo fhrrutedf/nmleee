@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { FiSave, FiX } from 'react-icons/fi';
+import { FiSave, FiX, FiUploadCloud } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import FileUploader from '@/components/ui/FileUploader';
 
 export default function NewLessonPage() {
     const params = useParams();
@@ -118,19 +119,25 @@ export default function NewLessonPage() {
                             />
                         </div>
 
-                        {/* Video URL & Duration */}
-                        <div className="grid grid-cols-2 gap-4">
+                        {/* Video Upload & Duration */}
+                        <div className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    رابط الفيديو
+                                    فيديو الدرس
                                 </label>
-                                <input
-                                    type="url"
-                                    value={formData.videoUrl}
-                                    onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
-                                    placeholder="https://example.com/video.mp4"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                                />
+                                {formData.videoUrl ? (
+                                    <div className="relative group">
+                                        <video src={formData.videoUrl} controls className="w-full max-h-56 rounded-xl border border-gray-200" />
+                                        <button type="button" onClick={() => setFormData({ ...formData, videoUrl: '' })} className="absolute top-2 left-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
+                                    </div>
+                                ) : (
+                                    <FileUploader
+                                        onUploadSuccess={(urls) => { if (urls.length > 0) setFormData({ ...formData, videoUrl: urls[0] }); }}
+                                        maxFiles={1}
+                                        accept={{ 'video/*': ['.mp4', '.webm', '.mov', '.avi'] }}
+                                        maxSize={500 * 1024 * 1024}
+                                    />
+                                )}
                             </div>
 
                             <div>
@@ -162,40 +169,38 @@ export default function NewLessonPage() {
                             </label>
                         </div>
 
-                        {/* Attachments */}
+                        {/* Attachments - File Upload */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                المرفقات (روابط)
+                                المرفقات (ملفات)
                             </label>
-                            <div className="space-y-2">
-                                {formData.attachments.map((attachment, index) => (
-                                    <div key={index} className="flex gap-2">
-                                        <input
-                                            type="url"
-                                            value={attachment}
-                                            onChange={(e) => updateAttachment(index, e.target.value)}
-                                            placeholder="https://example.com/file.pdf"
-                                            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                                        />
-                                        {formData.attachments.length > 1 && (
+                            {formData.attachments.filter(a => a.trim() !== '').length > 0 && (
+                                <div className="space-y-2 mb-3">
+                                    {formData.attachments.filter(a => a.trim() !== '').map((attachment, index) => (
+                                        <div key={index} className="flex items-center gap-2 bg-gray-50 p-3 rounded-lg border">
+                                            <FiUploadCloud className="text-indigo-500" />
+                                            <span className="flex-1 text-sm text-gray-700 truncate dir-ltr text-left">{attachment.split('/').pop()}</span>
                                             <button
                                                 type="button"
                                                 onClick={() => removeAttachment(index)}
-                                                className="px-3 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
+                                                className="px-2 py-1 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors text-sm"
                                             >
                                                 <FiX />
                                             </button>
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                            <button
-                                type="button"
-                                onClick={addAttachment}
-                                className="mt-2 text-sm text-indigo-600 hover:text-indigo-700 font-medium"
-                            >
-                                + إضافة مرفق
-                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                            <FileUploader
+                                onUploadSuccess={(urls) => {
+                                    setFormData(prev => ({
+                                        ...prev,
+                                        attachments: [...prev.attachments.filter(a => a.trim() !== ''), ...urls]
+                                    }));
+                                }}
+                                maxFiles={5}
+                                maxSize={100 * 1024 * 1024}
+                            />
                         </div>
 
                         {/* Actions */}
