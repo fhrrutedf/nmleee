@@ -21,11 +21,18 @@ export async function POST(req: NextRequest) {
         const configuredSecret = process.env.SMS_WEBHOOK_SECRET;
 
         // Ensure a secret is configured and matches the incoming request (e.g. "Bearer YOUR_SECRET")
-        if (!configuredSecret || authHeader !== `Bearer ${configuredSecret}`) {
+        if (!configuredSecret) {
+            console.error('CRITICAL: SMS_WEBHOOK_SECRET is not configured in environment variables.');
+            return NextResponse.json({ error: 'Webhook configuration error' }, { status: 500 });
+        }
+
+        if (authHeader !== `Bearer ${configuredSecret}`) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
         const body = await req.json();
+        console.log('Incoming SMS Webhook Data:', body);
+
         const smsText = body.text || body.message || '';
         const sender = body.sender || '';
 
@@ -34,8 +41,8 @@ export async function POST(req: NextRequest) {
         }
 
         // 2. Parse the SMS for Reference IDs (Extraction Logic)
-        // This Regex matches alphanumeric transaction IDs or typical 6+ digit numbers from Syrian Telecoms
-        const regex = /[A-Za-z0-9]{6,20}/g;
+        // This Regex matches typical 6-12 digit numbers from Syrian Telecoms (Syriatel Cash / Zain Cash)
+        const regex = /\b\d{6,12}\b/g;
         const matches = smsText.match(regex);
         let extractedRefs: string[] = [];
 

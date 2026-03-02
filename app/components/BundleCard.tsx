@@ -57,7 +57,7 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
                 {/* Savings Badge */}
                 {discountPct > 0 && (
                     <div
-                        className="absolute top-4 left-4 text-white text-xs font-black px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 z-10"
+                        className="absolute top-4 start-4 text-white text-xs font-black px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 z-10"
                         style={{ background: `linear-gradient(135deg, #10b981, #059669)` }}
                     >
                         <FiZap size={11} />
@@ -67,7 +67,7 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
 
                 {/* Bundle Badge */}
                 <div
-                    className="absolute top-4 right-4 text-white text-xs font-black px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 z-10"
+                    className="absolute top-4 end-4 text-white text-xs font-black px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 z-10"
                     style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}
                 >
                     <FiPackage size={11} />
@@ -84,7 +84,7 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
                                         key={i}
                                         className="absolute w-20 h-20 rounded-2xl overflow-hidden border-2 border-white shadow-lg"
                                         style={{
-                                            right: `${i * 40}px`,
+                                            insetInlineEnd: `${i * 40}px`,
                                             zIndex: productImages.length - i,
                                             transform: `rotate(${(i - 1) * 5}deg)`,
                                         }}

@@ -129,7 +129,22 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                 {bundle.products.map((bp: any) => (
                                     <div key={bp.product.id} className="group flex flex-row items-center gap-4 p-5 rounded-2xl bg-[#FCFCFC] dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 transition-all shadow-sm hover:shadow-md">
 
-                                        {/* Image (Right in RTL) */}
+                                        {/* Title & Status (First / Right in RTL) */}
+                                        <div className="flex-1 min-w-0 flex flex-col justify-center">
+                                            <p className="font-bold text-gray-900 dark:text-white text-base sm:text-lg leading-relaxed mb-1.5 line-clamp-2">{bp.product.title}</p>
+                                            <div className="flex items-center gap-2">
+                                                <FiCheck className="text-green-500 text-sm flex-shrink-0" />
+                                                <span className="text-xs sm:text-sm text-gray-500 leading-relaxed font-medium">مشمول في الباقة</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Price (Middle) */}
+                                        <div className="text-start flex flex-col justify-center flex-shrink-0 ps-1">
+                                            <p className="text-[10px] sm:text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">السعر الأصلي</p>
+                                            <p className="text-xs sm:text-sm text-gray-500 line-through font-mono bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-md inline-block">{bp.product.price} ج.م</p>
+                                        </div>
+
+                                        {/* Image (Last / Left in RTL) */}
                                         <div className="flex-shrink-0">
                                             {bp.product.image ? (
                                                 <img src={bp.product.image} alt={bp.product.title}
@@ -140,21 +155,6 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                                     <FiPackage className="text-2xl" style={{ color: brandColor }} />
                                                 </div>
                                             )}
-                                        </div>
-
-                                        {/* Title & Status (Middle) */}
-                                        <div className="flex-1 min-w-0 flex flex-col justify-center">
-                                            <p className="font-bold text-gray-900 dark:text-white text-base sm:text-lg leading-relaxed mb-1.5 line-clamp-2">{bp.product.title}</p>
-                                            <div className="flex items-center gap-2">
-                                                <FiCheck className="text-green-500 text-sm flex-shrink-0" />
-                                                <span className="text-xs sm:text-sm text-gray-500 leading-relaxed font-medium">مشمول في الباقة</span>
-                                            </div>
-                                        </div>
-
-                                        {/* Price (Left in RTL) */}
-                                        <div className="text-left flex flex-col justify-center flex-shrink-0 pl-1">
-                                            <p className="text-[10px] sm:text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">السعر الأصلي</p>
-                                            <p className="text-xs sm:text-sm text-gray-500 line-through font-mono bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-md inline-block">{bp.product.price} ج.م</p>
                                         </div>
                                     </div>
                                 ))}
