@@ -86,7 +86,8 @@ export default function DashboardLayout({
         { href: '/dashboard/settings', icon: FiSettings, label: 'الإعدادات', type: 'shared' },
 
         // Admin only
-        { href: '/dashboard/admin/platform-settings', icon: FiShield, label: 'إعدادات المنصة', type: 'admin' },
+        { href: '/dashboard/admin', icon: FiShield, label: 'لوحة الادمن', type: 'admin' },
+        { href: '/dashboard/admin/platform-settings', icon: FiSettings, label: 'إعدادات المنصة', type: 'admin' },
     ];
 
     const menuItems = allMenuItems.filter(item =>
