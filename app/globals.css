@@ -163,13 +163,13 @@
 
   /* The 100vh Mobile Bug Fix */
   .mobile-sidebar {
-    height: 100vh;
-    /* كحل احتياطي */
-    height: 100dvh;
-    /* الحل الذكي المتجاوب مع شريط العنوان */
-    position: fixed;
-    bottom: 0;
-    top: 0;
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    height: -webkit-fill-available !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
   }
 }
 
