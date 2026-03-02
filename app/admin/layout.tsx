@@ -104,7 +104,7 @@ export default function AdminLayout({
             </div>
 
             {/* Desktop Sidebar (always visible) */}
-            <aside className="hidden md:flex sticky top-0 right-0 z-40 w-72 h-[100dvh] bg-white dark:bg-card-white border-l border-gray-100 dark:border-gray-800 shadow-none flex-col">
+            <aside className="hidden md:flex flex-col w-72 fixed inset-y-0 right-0 bg-white dark:bg-card-white border-l border-gray-100 dark:border-gray-800 shadow-sm z-40 transition-all duration-300">
                 <div className="p-6 flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-action-blue to-purple-600 flex items-center justify-center text-white shadow-lg">
                         <FiSettings size={22} />
@@ -139,7 +139,7 @@ export default function AdminLayout({
 
             {/* Mobile Sidebar (only in DOM when open) */}
             {isSidebarOpen && (
-                <aside className="md:hidden mobile-sidebar right-0 z-40 w-72 bg-white dark:bg-card-white border-l border-gray-100 dark:border-gray-800 shadow-xl flex flex-col">
+                <aside className="md:hidden fixed inset-y-0 right-0 z-40 w-72 bg-white dark:bg-card-white border-l border-gray-100 dark:border-gray-800 shadow-xl flex flex-col">
                     <div className="flex-1 px-4 py-6 overflow-y-auto mt-4 space-y-2">
                         {navLinks.map((link) => {
                             const isActive = pathname === link.href || pathname?.startsWith(`${link.href}/`);

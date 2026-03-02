@@ -96,7 +96,7 @@ export default function DashboardLayout({
 
             {/* Sidebar - Mobile: only in DOM when open, Desktop: always visible */}
             {/* Desktop Sidebar (always rendered) */}
-            <aside className="hidden lg:flex mobile-sidebar right-0 bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex-col">
+            <aside className="hidden lg:flex fixed inset-y-0 right-0 bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex-col">
                 <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                     <div className="flex items-center justify-between">
                         <h1 className="text-2xl font-bold bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent">تقانة</h1>
@@ -138,7 +138,7 @@ export default function DashboardLayout({
 
             {/* Mobile Sidebar (only in DOM when open) */}
             {sidebarOpen && (
-                <aside className="lg:hidden mobile-sidebar right-0 bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex flex-col">
+                <aside className="lg:hidden fixed inset-y-0 right-0 bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex flex-col">
                     <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                         <div className="flex items-center justify-between">
                             <h1 className="text-2xl font-bold bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent">تقانة</h1>
