@@ -7,7 +7,7 @@ import {
     FiHome, FiShoppingBag, FiVideo, FiCalendar, FiDollarSign,
     FiSettings, FiLogOut, FiMenu, FiX, FiTag, FiLink2,
     FiTrendingUp, FiCreditCard, FiExternalLink, FiGlobe, FiActivity, FiUsers, FiPackage, FiZap,
-    FiBriefcase, FiBookOpen, FiMessageSquare
+    FiBriefcase, FiBookOpen, FiMessageSquare, FiShield
 } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
@@ -64,6 +64,8 @@ export default function DashboardLayout({
         return null;
     }
 
+    const isAdmin = (session.user as any)?.role === 'ADMIN';
+
     const allMenuItems = [
         { href: '/dashboard', icon: FiHome, label: 'الرئيسية', exact: true, type: 'store' },
         { href: '/dashboard/products', icon: FiShoppingBag, label: 'المنتجات الرقمية', type: 'store' },
@@ -82,9 +84,14 @@ export default function DashboardLayout({
         { href: '/dashboard/integrations', icon: FiActivity, label: 'التكاملات', type: 'shared' },
         { href: '/dashboard/billing', icon: FiCreditCard, label: 'الاشتراك والباقة', type: 'shared' },
         { href: '/dashboard/settings', icon: FiSettings, label: 'الإعدادات', type: 'shared' },
+
+        // Admin only
+        { href: '/dashboard/admin/platform-settings', icon: FiShield, label: 'إعدادات المنصة', type: 'admin' },
     ];
 
-    const menuItems = allMenuItems.filter(item => item.type === workspace || item.type === 'shared');
+    const menuItems = allMenuItems.filter(item =>
+        item.type === workspace || item.type === 'shared' || (item.type === 'admin' && isAdmin)
+    );
 
     return (
         <div className="min-h-screen bg-bg-light dark:bg-bg-light transition-colors duration-300 relative">
