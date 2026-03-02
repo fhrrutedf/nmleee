@@ -20,6 +20,16 @@ export default function FileUploader({
     maxSize = 100 * 1024 * 1024, // default 100MB
     isPrivate = false,
 }: FileUploaderProps) {
+
+    // Truncates long filenames while preserving extension
+    const truncateFilename = (name: string, maxLen = 30): string => {
+        if (name.length <= maxLen) return name;
+        const dotIndex = name.lastIndexOf('.');
+        const ext = dotIndex > 0 ? name.substring(dotIndex) : '';
+        const base = name.substring(0, maxLen - ext.length - 3);
+        return base + '...' + ext;
+    };
+
     const [uploads, setUploads] = useState<
         {
             file: File;
@@ -227,7 +237,7 @@ export default function FileUploader({
 
                             {/* File Info — hard-constrained */}
                             <div style={{ flex: '1 1 0%', minWidth: 0, overflow: 'hidden', position: 'relative', zIndex: 1 }}>
-                                {/* Filename: inline styles guarantee truncation on all mobile browsers */}
+                                {/* Filename: JS truncation + CSS truncation = 100% safe */}
                                 <div
                                     dir="ltr"
                                     title={upload.file.name}
@@ -243,7 +253,7 @@ export default function FileUploader({
                                     }}
                                     className="text-gray-900 dark:text-white"
                                 >
-                                    {upload.file.name}
+                                    {truncateFilename(upload.file.name)}
                                 </div>
 
                                 {/* Size + Status */}
