@@ -141,8 +141,7 @@ export default function DashboardLayout({
             {/* Mobile Sidebar (only in DOM when open) */}
             {sidebarOpen && (
                 <aside
-                    style={{ height: 'calc(var(--real-vh, 1vh) * 100)' }}
-                    className="lg:hidden fixed top-0 right-0 bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex flex-col overflow-hidden">
+                    className="lg:hidden fixed top-0 bottom-0 right-0 bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex flex-col overflow-y-auto overflow-x-hidden">
                     <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                         <div className="flex items-center justify-between">
                             <h1 className="text-2xl font-bold bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent">تقانة</h1>
