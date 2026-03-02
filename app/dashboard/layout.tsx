@@ -11,6 +11,7 @@ import {
 } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { useViewportHeight } from '@/hooks/useViewportHeight';
 
 export default function DashboardLayout({
     children,
@@ -22,6 +23,7 @@ export default function DashboardLayout({
     const pathname = usePathname();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [workspace, setWorkspace] = useState<'store' | 'academy'>('store');
+    useViewportHeight();
 
     useEffect(() => {
         if (pathname.startsWith('/dashboard/courses') || pathname.startsWith('/dashboard/students')) {
@@ -138,7 +140,9 @@ export default function DashboardLayout({
 
             {/* Mobile Sidebar (only in DOM when open) */}
             {sidebarOpen && (
-                <aside className="lg:hidden fixed top-0 bottom-0 right-0 bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex flex-col h-[100dvh] max-h-screen overflow-hidden">
+                <aside
+                    style={{ height: 'calc(var(--real-vh, 1vh) * 100)' }}
+                    className="lg:hidden fixed top-0 right-0 bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex flex-col overflow-hidden">
                     <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                         <div className="flex items-center justify-between">
                             <h1 className="text-2xl font-bold bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent">تقانة</h1>

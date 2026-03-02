@@ -15,6 +15,7 @@ import {
     FiX,
     FiShoppingCart
 } from 'react-icons/fi';
+import { useViewportHeight } from '@/hooks/useViewportHeight';
 
 export default function AdminLayout({
     children,
@@ -26,6 +27,7 @@ export default function AdminLayout({
     const pathname = usePathname();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+    useViewportHeight();
 
     useEffect(() => {
         if (status === 'unauthenticated') {
