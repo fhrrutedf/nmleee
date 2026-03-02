@@ -199,71 +199,93 @@ export default function FileUploader({
 
             {/* Upload List & Progress Bars */}
             {uploads.length > 0 && (
-                <div className="mt-6 space-y-3 w-full overflow-hidden">
+                <div className="mt-4 space-y-2" style={{ width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
                     {uploads.map((upload, index) => (
                         <div
                             key={index}
-                            className="w-full flex items-center gap-3 p-3 sm:p-4 bg-white dark:bg-bg-light rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden"
+                            dir="rtl"
+                            style={{ position: 'relative', overflow: 'hidden', width: '100%', display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', background: 'var(--card-white)', borderRadius: '12px', border: '1px solid #f3f4f6' }}
+                            className="shadow-sm dark:border-gray-800"
                         >
                             {/* Progress Background */}
                             {upload.status === "uploading" && (
                                 <div
-                                    className="absolute inset-0 bg-action-blue/5 transition-all duration-300 pointer-events-none"
-                                    style={{ width: `${upload.progress}%` }}
+                                    style={{
+                                        position: 'absolute', inset: 0, zIndex: 0,
+                                        background: 'rgba(0,82,255,0.04)',
+                                        width: `${upload.progress}%`,
+                                        pointerEvents: 'none',
+                                        transition: 'width 0.3s ease',
+                                    }}
                                 />
                             )}
 
-                            {/* File Icon */}
-                            <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg shrink-0 relative z-10">
-                                <FiFile className="text-lg text-gray-500" />
+                            {/* File Icon — rightmost in RTL */}
+                            <div className="flex-shrink-0 p-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ position: 'relative', zIndex: 1 }}>
+                                <FiFile className="text-base text-gray-500" />
                             </div>
 
-                            {/* File Info - takes remaining space, clips overflow */}
-                            <div className="flex-1 min-w-0 relative z-10 overflow-hidden">
-                                <p
-                                    className="text-sm font-semibold text-gray-900 dark:text-white truncate w-full block"
+                            {/* File Info — hard-constrained */}
+                            <div style={{ flex: '1 1 0%', minWidth: 0, overflow: 'hidden', position: 'relative', zIndex: 1 }}>
+                                {/* Filename: inline styles guarantee truncation on all mobile browsers */}
+                                <div
                                     dir="ltr"
                                     title={upload.file.name}
+                                    style={{
+                                        display: 'block',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        whiteSpace: 'nowrap',
+                                        maxWidth: '100%',
+                                        width: '100%',
+                                        fontSize: '0.8125rem',
+                                        fontWeight: 600,
+                                    }}
+                                    className="text-gray-900 dark:text-white"
                                 >
                                     {upload.file.name}
-                                </p>
-                                <div className="flex items-center justify-between mt-0.5 text-xs gap-2">
-                                    <span className="text-gray-500 shrink-0">
-                                        {(upload.file.size / (1024 * 1024)).toFixed(2)} MB
+                                </div>
+
+                                {/* Size + Status */}
+                                <div className="flex items-center justify-between text-xs mt-0.5 gap-1">
+                                    <span className="text-gray-400 flex-shrink-0">
+                                        {(upload.file.size / (1024 * 1024)).toFixed(1)} MB
                                     </span>
                                     {upload.status === "uploading" && (
-                                        <span className="text-action-blue font-bold shrink-0">{upload.progress}%</span>
+                                        <span className="text-action-blue font-bold flex-shrink-0">{upload.progress}%</span>
                                     )}
                                     {upload.status === "success" && (
-                                        <span className="text-green-500 flex items-center gap-1 font-medium shrink-0">
-                                            <FiCheckCircle size={12} /> مكتمل
+                                        <span className="text-green-500 flex items-center gap-1 font-medium flex-shrink-0">
+                                            <FiCheckCircle size={11} /><span>مكتمل</span>
                                         </span>
                                     )}
                                     {upload.status === "error" && (
-                                        <span className="text-red-500 flex items-center gap-1 font-medium shrink-0">
-                                            <FiAlertCircle size={12} /> فشل
+                                        <span className="text-red-500 flex items-center gap-1 font-medium flex-shrink-0">
+                                            <FiAlertCircle size={11} /><span>فشل</span>
                                         </span>
                                     )}
                                 </div>
+
                                 {/* Progress Bar */}
                                 {upload.status === "uploading" && (
                                     <div className="w-full bg-gray-200 dark:bg-gray-700 h-1 rounded-full mt-1.5 overflow-hidden">
                                         <div
-                                            className="h-full bg-action-blue rounded-full transition-all duration-300"
-                                            style={{ width: `${upload.progress}%` }}
+                                            className="h-full bg-action-blue rounded-full"
+                                            style={{ width: `${upload.progress}%`, transition: 'width 0.3s ease' }}
                                         />
                                     </div>
                                 )}
                             </div>
 
-                            {/* Remove Button - always on the right, never pushed out */}
+                            {/* Delete button — leftmost in RTL */}
                             <button
                                 type="button"
                                 onClick={() => removeUpload(upload.file)}
-                                className="shrink-0 p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors relative z-10"
+                                className="flex-shrink-0 p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                                style={{ position: 'relative', zIndex: 1 }}
                                 title="حذف"
                             >
-                                <FiX size={16} />
+                                <FiX size={15} />
                             </button>
                         </div>
                     ))}
