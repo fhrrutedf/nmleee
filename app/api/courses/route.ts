@@ -35,8 +35,26 @@ async function ensureUniqueSlug(baseSlug: string, userId: string): Promise<strin
 
 export async function GET(request: NextRequest) {
     try {
-        // جلب جميع الدورات
+        const session = await getServerSession(authOptions);
+        const { searchParams } = new URL(request.url);
+        const sellerId = searchParams.get('sellerId');
+
+        // Build the where clause
+        let where: any = {};
+
+        if (sellerId) {
+            // Public request for a specific seller's courses (storefront)
+            where = { userId: sellerId, isActive: true };
+        } else if (session?.user) {
+            // Dashboard request — show only the logged-in user's courses
+            where = { userId: (session.user as any).id };
+        } else {
+            // Public request with no filter — only active courses
+            where = { isActive: true };
+        }
+
         const courses = await prisma.course.findMany({
+            where,
             orderBy: { createdAt: 'desc' },
             include: {
                 user: {
