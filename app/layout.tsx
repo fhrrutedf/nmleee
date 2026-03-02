@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Tajawal, Inter } from "next/font/google";
+import { Tajawal, Inter, IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { Toaster } from 'react-hot-toast';
@@ -22,6 +22,13 @@ const inter = Inter({
     weight: ['400', '500', '600', '700'],
 });
 
+const ibmPlex = IBM_Plex_Sans_Arabic({
+    subsets: ["arabic"],
+    variable: '--font-ibm',
+    display: 'swap',
+    weight: ['300', '400', '500', '600', '700'],
+});
+
 export const metadata: Metadata = {
     title: "منصة المنتجات الرقمية - بيع منتجاتك بكل سهولة",
     description: "منصة متكاملة لبيع المنتجات الرقمية والدورات التدريبية مع نظام دفع وحجز مواعيد احترافي",
@@ -34,7 +41,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ar" dir="rtl" suppressHydrationWarning>
-            <body className={`${tajawal.variable} ${inter.variable} font-sans antialiased text-primary-charcoal bg-bg-light flex flex-col min-h-screen`}>
+            <body className={`${tajawal.variable} ${ibmPlex.variable} ${inter.variable} font-sans antialiased text-primary-charcoal bg-bg-light flex flex-col min-h-screen`}>
                 <Providers>
                     <NavbarWrapper />
                     <main className="flex-grow">

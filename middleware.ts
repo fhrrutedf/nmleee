@@ -13,6 +13,11 @@ const RATE_LIMIT = {
 export function middleware(request: NextRequest) {
     const response = NextResponse.next();
 
+    // Allow public access to webhooks to avoid 401 or rate-limit issues
+    if (request.nextUrl.pathname.startsWith('/api/webhooks')) {
+        return response;
+    }
+
     // 1. Security Headers
     response.headers.set('X-Content-Type-Options', 'nosniff');
     response.headers.set('X-Frame-Options', 'DENY');
