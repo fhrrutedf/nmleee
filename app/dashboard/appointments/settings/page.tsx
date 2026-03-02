@@ -102,15 +102,15 @@ export default function AppointmentSettingsPage() {
 
     return (
         <div className="space-y-6 max-w-4xl mx-auto">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold gradient-text">إعدادات توفر الاستشارات</h1>
-                    <p className="text-gray-600 mt-2">حدد أوقات عملك والأيام المتاحة لاستقبال الجلسات والاستشارات</p>
+                    <h1 className="text-2xl md:text-3xl font-bold gradient-text">إعدادات توفر الاستشارات</h1>
+                    <p className="text-gray-600 mt-2 text-sm md:text-base">حدد أوقات عملك والأيام المتاحة لاستقبال الجلسات والاستشارات</p>
                 </div>
                 <button
                     onClick={handleSave}
                     disabled={saving}
-                    className="btn btn-primary flex items-center gap-2"
+                    className="btn btn-primary flex items-center gap-2 w-full md:w-auto justify-center"
                 >
                     {saving ? <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div> : <FiSave />}
                     <span>{saving ? 'جاري الحفظ...' : 'حفظ الإعدادات'}</span>
@@ -118,24 +118,24 @@ export default function AppointmentSettingsPage() {
             </div>
 
             <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
-                <div className="p-6 border-b border-gray-100 flex items-center justify-between gap-3">
+                <div className="p-4 md:p-6 border-b border-gray-100 flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center flex-shrink-0">
                             <FiClock className="text-xl" />
                         </div>
                         <div>
-                            <h2 className="text-xl font-bold">سعر الاستشارة (بالجنيه)</h2>
+                            <h2 className="text-lg md:text-xl font-bold">سعر الاستشارة (بالجنيه)</h2>
                             <p className="text-sm text-gray-500">حدد سعر الجلسة الواحدة أو اتركها 0 لجعل الجلسات مجانية.</p>
                         </div>
                     </div>
                 </div>
-                <div className="p-6">
+                <div className="p-4 md:p-6">
                     <div className="relative max-w-xs">
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold">EGP</span>
                         <input
                             type="number"
                             min="0"
-                            className="input-field pl-12 font-bold text-lg"
+                            className="input-field pl-12 font-bold text-lg w-full"
                             value={consultationPrice}
                             onChange={(e) => setConsultationPrice(e.target.value ? Number(e.target.value) : 0)}
                         />
@@ -144,23 +144,26 @@ export default function AppointmentSettingsPage() {
             </div>
 
             <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-                <div className="p-6 border-b border-gray-100 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                <div className="p-4 md:p-6 border-b border-gray-100 flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0">
                         <FiCalendar className="text-xl" />
                     </div>
                     <div>
-                        <h2 className="text-xl font-bold">أيام وساعات العمل</h2>
+                        <h2 className="text-lg md:text-xl font-bold">أيام وساعات العمل</h2>
                         <p className="text-sm text-gray-500">قم بتفعيل الأيام التي تود استقبال الاستشارات فيها</p>
                     </div>
                 </div>
 
-                <div className="p-6 space-y-6">
+                <div className="p-4 md:p-6 space-y-4">
                     {DAYS_OF_WEEK.map((day) => {
                         const availability = availabilities.find(a => a.dayOfWeek === day.id)!;
                         return (
-                            <div key={day.id} className={`flex flex-col md:flex-row md:items-center justify-between p-4 rounded-lg border ${availability.isActive ? 'border-primary-200 bg-primary-50/30' : 'border-gray-200 bg-gray-50'}`}>
-                                <div className="flex items-center gap-4 mb-4 md:mb-0 w-48">
-                                    <label className="relative inline-flex items-center cursor-pointer">
+                            <div key={day.id} className={`flex flex-col xl:flex-row xl:items-center justify-between p-4 rounded-lg border gap-4 ${availability.isActive ? 'border-primary-200 bg-primary-50/30' : 'border-gray-200 bg-gray-50'}`}>
+                                <div className="flex items-center gap-4 w-full xl:w-48 justify-between xl:justify-start">
+                                    <span className={`font-semibold text-base md:text-lg order-2 xl:order-1 ${availability.isActive ? 'text-gray-900' : 'text-gray-500'}`}>
+                                        {day.name}
+                                    </span>
+                                    <label className="relative inline-flex items-center cursor-pointer order-1 xl:order-2">
                                         <input
                                             type="checkbox"
                                             className="sr-only peer"
@@ -169,33 +172,30 @@ export default function AppointmentSettingsPage() {
                                         />
                                         <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
                                     </label>
-                                    <span className={`font-semibold text-lg ${availability.isActive ? 'text-gray-900' : 'text-gray-500'}`}>
-                                        {day.name}
-                                    </span>
                                 </div>
 
-                                <div className={`flex items-center gap-4 transition-opacity ${availability.isActive ? 'opacity-100' : 'opacity-40 pointer-events-none'}`}>
-                                    <div className="flex items-center gap-2">
+                                <div className={`flex flex-col sm:flex-row items-center gap-4 w-full xl:w-auto transition-opacity ${availability.isActive ? 'opacity-100' : 'opacity-40 pointer-events-none'}`}>
+                                    <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
                                         <span className="text-gray-500 text-sm">من</span>
-                                        <div className="relative">
-                                            <FiClock className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                                        <div className="relative flex-1 sm:flex-none">
+                                            <FiClock className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                                             <input
                                                 type="time"
                                                 value={availability.startTime}
                                                 onChange={(e) => updateDay(day.id, 'startTime', e.target.value)}
-                                                className="input-field pl-4 pr-10 py-2 w-36 text-center"
+                                                className="input-field pl-4 pr-10 py-2 w-full sm:w-36 text-center"
                                             />
                                         </div>
                                     </div>
-                                    <div className="flex items-center gap-2">
+                                    <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
                                         <span className="text-gray-500 text-sm">إلى</span>
-                                        <div className="relative">
-                                            <FiClock className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                                        <div className="relative flex-1 sm:flex-none">
+                                            <FiClock className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                                             <input
                                                 type="time"
                                                 value={availability.endTime}
                                                 onChange={(e) => updateDay(day.id, 'endTime', e.target.value)}
-                                                className="input-field pl-4 pr-10 py-2 w-36 text-center"
+                                                className="input-field pl-4 pr-10 py-2 w-full sm:w-36 text-center"
                                             />
                                         </div>
                                     </div>
