@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { FiSave, FiArrowLeft, FiVideo, FiLink, FiBookOpen, FiTag, FiStar, FiImage } from 'react-icons/fi';
+import { FiSave, FiArrowLeft, FiVideo, FiLink, FiBookOpen, FiTag, FiStar, FiImage, FiUpload, FiX } from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
 import FileUploader from '@/components/ui/FileUploader';
@@ -10,6 +10,8 @@ import FileUploader from '@/components/ui/FileUploader';
 export default function NewCoursePage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
+    const [showImageUploader, setShowImageUploader] = useState(false);
+    const [showTrailerUploader, setShowTrailerUploader] = useState(false);
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -183,39 +185,74 @@ export default function NewCoursePage() {
                             </select>
                         </div>
 
-                        {/* صورة الغلاف - رفع من الجهاز */}
+                        {/* صورة الغلاف */}
                         <div className="md:col-span-2">
                             <label className="label flex items-center gap-2"><FiImage className="text-action-blue" /> صورة الغلاف</label>
                             {formData.image ? (
-                                <div className="relative group">
-                                    <img src={formData.image} alt="غلاف" className="w-full max-h-48 object-cover rounded-xl border border-gray-200" />
-                                    <button type="button" onClick={() => setFormData({ ...formData, image: '' })} className="absolute top-2 left-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
+                                <div className="relative w-full max-w-sm">
+                                    <img
+                                        src={formData.image}
+                                        alt="غلاف"
+                                        className="w-full aspect-video object-cover rounded-xl border border-gray-200 dark:border-gray-700"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => { setFormData({ ...formData, image: '' }); setShowImageUploader(false); }}
+                                        className="absolute -top-2 -right-2 bg-red-500 text-white w-7 h-7 rounded-full flex items-center justify-center shadow-md hover:bg-red-600 transition-colors"
+                                    >
+                                        <FiX size={14} />
+                                    </button>
                                 </div>
-                            ) : (
+                            ) : showImageUploader ? (
                                 <FileUploader
-                                    onUploadSuccess={(urls) => { if (urls.length > 0) setFormData({ ...formData, image: urls[0] }); }}
+                                    onUploadSuccess={(urls) => { if (urls.length > 0) { setFormData({ ...formData, image: urls[0] }); setShowImageUploader(false); } }}
                                     maxFiles={1}
                                     accept={{ 'image/*': ['.jpg', '.jpeg', '.png', '.webp', '.gif'] }}
                                     maxSize={10 * 1024 * 1024}
                                 />
+                            ) : (
+                                <button
+                                    type="button"
+                                    onClick={() => setShowImageUploader(true)}
+                                    className="btn btn-outline w-full sm:w-auto flex items-center gap-2"
+                                >
+                                    <FiUpload /> رفع صورة الغلاف
+                                </button>
                             )}
                         </div>
 
-                        {/* الفيديو التعريفي - رفع من الجهاز */}
+                        {/* الفيديو التعريفي */}
                         <div className="md:col-span-2">
                             <label className="label flex items-center gap-2"><FiVideo className="text-purple-500" /> الفيديو التعريفي (اختياري)</label>
                             {formData.trailerUrl ? (
-                                <div className="relative group">
-                                    <video src={formData.trailerUrl} controls className="w-full max-h-48 rounded-xl border border-gray-200" />
-                                    <button type="button" onClick={() => setFormData({ ...formData, trailerUrl: '' })} className="absolute top-2 left-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
+                                <div className="relative w-full flex items-center gap-3 p-3 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-xl">
+                                    <FiVideo className="text-purple-500 text-xl shrink-0" />
+                                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300 truncate flex-1 min-w-0" dir="ltr">
+                                        {formData.trailerUrl.split('/').pop()}
+                                    </span>
+                                    <button
+                                        type="button"
+                                        onClick={() => { setFormData({ ...formData, trailerUrl: '' }); setShowTrailerUploader(false); }}
+                                        className="shrink-0 p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                                    >
+                                        <FiX size={16} />
+                                    </button>
                                 </div>
-                            ) : (
+                            ) : showTrailerUploader ? (
                                 <FileUploader
-                                    onUploadSuccess={(urls) => { if (urls.length > 0) setFormData({ ...formData, trailerUrl: urls[0] }); }}
+                                    onUploadSuccess={(urls) => { if (urls.length > 0) { setFormData({ ...formData, trailerUrl: urls[0] }); setShowTrailerUploader(false); } }}
                                     maxFiles={1}
                                     accept={{ 'video/*': ['.mp4', '.webm', '.mov'] }}
                                     maxSize={500 * 1024 * 1024}
                                 />
+                            ) : (
+                                <button
+                                    type="button"
+                                    onClick={() => setShowTrailerUploader(true)}
+                                    className="btn btn-outline w-full sm:w-auto flex items-center gap-2"
+                                >
+                                    <FiUpload /> رفع فيديو تعريفي
+                                </button>
                             )}
                         </div>
 
@@ -371,20 +408,20 @@ export default function NewCoursePage() {
                 </div>
 
                 {/* أزرار الحفظ */}
-                <div className="flex gap-4 pt-2">
+                <div className="flex flex-col sm:flex-row gap-3 pt-2">
                     <button
                         type="submit"
                         disabled={loading}
-                        className="btn btn-primary flex items-center gap-2 px-8 py-3 text-lg"
+                        className="btn btn-primary flex items-center justify-center gap-2 flex-1 py-3 text-base sm:text-lg"
                     >
                         {loading ? (
                             <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                         ) : (
                             <FiSave className="text-xl" />
                         )}
-                        <span>{loading ? 'جاري الإنشاء...' : 'حفظ والانتقال للمحتوى (فيديوهات)'}</span>
+                        <span>{loading ? 'جاري الإنشاء...' : 'حفظ والانتقال للمحتوى'}</span>
                     </button>
-                    <Link href="/dashboard/courses" className="btn btn-outline py-3 px-6 text-lg">
+                    <Link href="/dashboard/courses" className="btn btn-outline py-3 px-6">
                         إلغاء
                     </Link>
                 </div>
