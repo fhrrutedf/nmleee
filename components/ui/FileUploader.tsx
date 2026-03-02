@@ -199,60 +199,72 @@ export default function FileUploader({
 
             {/* Upload List & Progress Bars */}
             {uploads.length > 0 && (
-                <div className="mt-6 space-y-3 w-full max-w-full overflow-hidden">
+                <div className="mt-6 space-y-3 w-full overflow-hidden">
                     {uploads.map((upload, index) => (
-                        <div key={index} className="w-full flex items-center justify-between p-4 bg-white dark:bg-bg-light rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden">
+                        <div
+                            key={index}
+                            className="w-full flex items-center gap-3 p-3 sm:p-4 bg-white dark:bg-bg-light rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden"
+                        >
                             {/* Progress Background */}
                             {upload.status === "uploading" && (
                                 <div
-                                    className="absolute top-0 left-0 h-full bg-action-blue/5 transition-all duration-300"
-                                    style={{ width: `${upload.progress}%`, transformOrigin: 'right' /* RTL */ }}
+                                    className="absolute inset-0 bg-action-blue/5 transition-all duration-300 pointer-events-none"
+                                    style={{ width: `${upload.progress}%` }}
                                 />
                             )}
 
-                            <div className="flex items-center gap-3 relative z-10 flex-1 min-w-0 pr-2">
-                                <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg shrink-0">
-                                    <FiFile className="text-xl text-gray-500" />
-                                </div>
-                                <div className="flex-1 min-w-0 overflow-hidden">
-                                    <div className="w-full">
-                                        <p className="text-sm font-semibold text-gray-900 dark:text-white truncate block w-full" dir="ltr" title={upload.file.name}>
-                                            {upload.file.name}
-                                        </p>
-                                    </div>
-                                    <div className="flex items-center justify-between mt-1 text-xs">
-                                        <span className="text-gray-500">
-                                            {(upload.file.size / (1024 * 1024)).toFixed(2)} MB
-                                        </span>
-                                        {upload.status === "uploading" && (
-                                            <span className="text-action-blue font-medium">{upload.progress}%</span>
-                                        )}
-                                        {upload.status === "success" && (
-                                            <span className="text-green-500 flex items-center gap-1 font-medium"><FiCheckCircle /> مكتمل</span>
-                                        )}
-                                        {upload.status === "error" && (
-                                            <span className="text-red-500 flex items-center gap-1 font-medium"><FiAlertCircle /> فشل</span>
-                                        )}
-                                    </div>
+                            {/* File Icon */}
+                            <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg shrink-0 relative z-10">
+                                <FiFile className="text-lg text-gray-500" />
+                            </div>
 
-                                    {/* Progress Bar Line */}
+                            {/* File Info - takes remaining space, clips overflow */}
+                            <div className="flex-1 min-w-0 relative z-10 overflow-hidden">
+                                <p
+                                    className="text-sm font-semibold text-gray-900 dark:text-white truncate w-full block"
+                                    dir="ltr"
+                                    title={upload.file.name}
+                                >
+                                    {upload.file.name}
+                                </p>
+                                <div className="flex items-center justify-between mt-0.5 text-xs gap-2">
+                                    <span className="text-gray-500 shrink-0">
+                                        {(upload.file.size / (1024 * 1024)).toFixed(2)} MB
+                                    </span>
                                     {upload.status === "uploading" && (
-                                        <div className="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full mt-2 overflow-hidden">
-                                            <div
-                                                className="h-full bg-action-blue rounded-full transition-all duration-300"
-                                                style={{ width: `${upload.progress}%` }}
-                                            />
-                                        </div>
+                                        <span className="text-action-blue font-bold shrink-0">{upload.progress}%</span>
+                                    )}
+                                    {upload.status === "success" && (
+                                        <span className="text-green-500 flex items-center gap-1 font-medium shrink-0">
+                                            <FiCheckCircle size={12} /> مكتمل
+                                        </span>
+                                    )}
+                                    {upload.status === "error" && (
+                                        <span className="text-red-500 flex items-center gap-1 font-medium shrink-0">
+                                            <FiAlertCircle size={12} /> فشل
+                                        </span>
                                     )}
                                 </div>
-
-                                <button
-                                    onClick={() => removeUpload(upload.file)}
-                                    className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors relative z-10"
-                                >
-                                    <FiX />
-                                </button>
+                                {/* Progress Bar */}
+                                {upload.status === "uploading" && (
+                                    <div className="w-full bg-gray-200 dark:bg-gray-700 h-1 rounded-full mt-1.5 overflow-hidden">
+                                        <div
+                                            className="h-full bg-action-blue rounded-full transition-all duration-300"
+                                            style={{ width: `${upload.progress}%` }}
+                                        />
+                                    </div>
+                                )}
                             </div>
+
+                            {/* Remove Button - always on the right, never pushed out */}
+                            <button
+                                type="button"
+                                onClick={() => removeUpload(upload.file)}
+                                className="shrink-0 p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors relative z-10"
+                                title="حذف"
+                            >
+                                <FiX size={16} />
+                            </button>
                         </div>
                     ))}
                 </div>
