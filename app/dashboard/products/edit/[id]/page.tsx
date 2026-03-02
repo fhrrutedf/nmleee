@@ -146,17 +146,17 @@ export default function EditProductPage() {
     }
 
     return (
-        <div className="max-w-2xl mx-auto pb-20 animate-fade-in">
+        <div className="max-w-2xl mx-auto pb-20 px-4 animate-fade-in">
             {/* Header */}
             <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
+                <div className="px-1">
                     <Link href="/dashboard/products" className="inline-flex items-center gap-2 text-text-muted hover:text-action-blue text-sm mb-4 transition-colors">
                         <FiArrowRight /> العودة للمنتجات
                     </Link>
                     <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white">تعديل المنتج</h1>
                     <p className="text-sm text-text-muted mt-1">{formData.title}</p>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 self-start sm:self-auto px-1">
                     <span className={`px-3 py-1 rounded-full text-xs font-bold ${formData.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'}`}>
                         {formData.isActive ? 'نشط ومرئي' : 'غير مدرج'}
                     </span>

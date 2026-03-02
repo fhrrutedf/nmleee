@@ -158,17 +158,17 @@ export default function FileUploader({
             {/* Dropzone Area */}
             <div
                 {...getRootProps()}
-                className={`w-full border-2 border-dashed rounded-2xl p-8 transition-all cursor-pointer flex flex-col items-center justify-center min-h-[200px]
+                className={`w-full border-2 border-dashed rounded-2xl p-6 sm:p-8 transition-all cursor-pointer flex flex-col items-center justify-center min-h-[160px] sm:min-h-[200px]
                 ${isDragActive
                         ? "border-action-blue bg-action-blue/5"
                         : "border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-card-white hover:bg-gray-100 dark:hover:bg-gray-800"
                     }`}
             >
                 <input {...getInputProps()} />
-                <div className="w-16 h-16 bg-white dark:bg-bg-light shadow-sm rounded-full flex items-center justify-center mb-4">
-                    <FiUploadCloud className="text-3xl text-action-blue" />
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white dark:bg-bg-light shadow-sm rounded-full flex items-center justify-center mb-3 sm:mb-4">
+                    <FiUploadCloud className="text-2xl sm:text-3xl text-action-blue" />
                 </div>
-                <h4 className="text-lg font-bold text-primary-charcoal dark:text-white mb-2 text-center">
+                <h4 className="text-base sm:text-lg font-bold text-primary-charcoal dark:text-white mb-1 sm:mb-2 text-center">
                     {isDragActive ? "أفلت الملفات هنا..." : "اسحب وأفلت الملفات هنا"}
                 </h4>
                 <p className="text-sm text-text-muted text-center max-w-sm">
@@ -216,7 +216,7 @@ export default function FileUploader({
                                 </div>
                                 <div className="flex-1 min-w-0 overflow-hidden">
                                     <div className="w-full">
-                                        <p className="text-sm font-semibold text-gray-900 dark:text-white truncate block w-full text-left" dir="ltr">
+                                        <p className="text-sm font-semibold text-gray-900 dark:text-white truncate block w-full" dir="ltr" title={upload.file.name}>
                                             {upload.file.name}
                                         </p>
                                     </div>

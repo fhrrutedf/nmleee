@@ -143,12 +143,12 @@ export default function SettingsPage() {
     ];
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 px-4 pb-12">
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white">الإعدادات</h1>
-                    <p className="text-text-muted mt-2">إدارة حسابك وتفضيلاتك</p>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-primary-charcoal dark:text-white">الإعدادات</h1>
+                    <p className="text-sm sm:text-base text-text-muted mt-2">إدارة حسابك وتفضيلاتك</p>
                 </div>
                 {profileData.username && (
                     <button
@@ -157,7 +157,7 @@ export default function SettingsPage() {
                             navigator.clipboard.writeText(url);
                             toast.success('تم نسخ رابط متجرك بنجاح!');
                         }}
-                        className="btn bg-white dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-action-blue text-primary-charcoal dark:text-white shadow-sm flex items-center gap-2"
+                        className="btn bg-white dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-action-blue text-primary-charcoal dark:text-white shadow-sm flex items-center gap-2 self-start sm:self-auto"
                     >
                         <FiCopy className="text-action-blue" />
                         <span>نسخ رابط المتجر</span>
@@ -167,18 +167,18 @@ export default function SettingsPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 {/* Sidebar Tabs */}
-                <div className="lg:col-span-1">
-                    <div className="card space-y-2 p-4">
+                <div className="lg:col-span-1 overflow-x-auto pb-2 sm:pb-0 scrollbar-hide">
+                    <div className="card flex lg:flex-col gap-2 p-2 sm:p-4 min-w-max lg:min-w-0 bg-white dark:bg-card-white rounded-2xl sm:rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800">
                         {tabs.map((tab) => (
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === tab.id
+                                className={`flex-1 lg:w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors whitespace-nowrap ${activeTab === tab.id
                                     ? 'bg-action-blue text-white font-medium shadow-md'
                                     : 'text-text-muted hover:bg-gray-50 dark:hover:bg-gray-800'
                                     }`}
                             >
-                                <tab.icon className="text-xl" />
+                                <tab.icon className="text-xl shrink-0" />
                                 <span>{tab.name}</span>
                             </button>
                         ))}
@@ -187,11 +187,11 @@ export default function SettingsPage() {
 
                 {/* Content */}
                 <div className="lg:col-span-3">
-                    <div className="card min-h-[500px]">
+                    <div className="card min-h-[500px] bg-white dark:bg-card-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100 dark:border-gray-800">
                         {/* Profile Tab */}
                         {activeTab === 'profile' && (
                             <div className="space-y-8 animate-fade-in">
-                                <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الملف الشخصي</h2>
+                                <h2 className="text-xl sm:text-2xl font-bold text-primary-charcoal dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الملف الشخصي</h2>
 
                                 {/* Avatar & Cover Upload */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

@@ -70,10 +70,10 @@ export default function NewLessonPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="bg-white rounded-lg shadow-md p-6">
-                    <h1 className="text-2xl font-bold text-gray-900 mb-6">إضافة درس جديد</h1>
+        <div className="min-h-screen bg-bg-light dark:bg-bg-light py-8 px-4">
+            <div className="max-w-4xl mx-auto pb-12">
+                <div className="bg-white dark:bg-card-white rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 sm:p-8">
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">إضافة درس جديد</h1>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Title */}

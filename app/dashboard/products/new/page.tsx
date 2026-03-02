@@ -91,10 +91,9 @@ export default function NewProductPage() {
     };
 
     return (
-        <div className="max-w-2xl mx-auto pb-20">
-
+        <div className="max-w-2xl mx-auto pb-20 px-4">
             {/* رأس الصفحة */}
-            <div className="mb-6">
+            <div className="mb-6 px-1">
                 <Link href="/dashboard/products" className="inline-flex items-center gap-2 text-text-muted hover:text-action-blue text-sm mb-4 transition-colors">
                     <FiArrowRight /> العودة للمنتجات
                 </Link>

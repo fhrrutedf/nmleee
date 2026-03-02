@@ -104,19 +104,19 @@ export default function NewBundlePage() {
         : 0;
 
     return (
-        <div className="max-w-5xl mx-auto space-y-6">
+        <div className="max-w-5xl mx-auto space-y-6 px-4 pb-12">
             <div className="mb-8">
-                <Link href="/dashboard/bundles" className="text-text-muted hover:text-action-blue flex items-center gap-2 mb-4 transition-colors font-medium">
+                <Link href="/dashboard/bundles" className="text-text-muted hover:text-action-blue inline-flex items-center gap-2 mb-4 transition-colors font-medium">
                     <FiArrowRight />
                     <span>العودة للباقات</span>
                 </Link>
-                <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-action-blue/10 rounded-xl flex items-center justify-center">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div className="w-12 h-12 bg-action-blue/10 rounded-xl flex items-center justify-center shrink-0">
                         <FiPackage className="text-xl text-action-blue" />
                     </div>
                     <div>
-                        <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white">إنشاء باقة جديدة</h1>
-                        <p className="text-text-muted mt-1 font-medium">قم بتجميع منتجاتك لبيعها معاً بسعر مخفض ومميز لعملائك</p>
+                        <h1 className="text-2xl sm:text-3xl font-bold text-primary-charcoal dark:text-white">إنشاء باقة جديدة</h1>
+                        <p className="text-sm sm:text-base text-text-muted mt-1 font-medium">قم بتجميع منتجاتك لبيعها معاً بسعر مخفض ومميز لعملائك</p>
                     </div>
                 </div>
             </div>

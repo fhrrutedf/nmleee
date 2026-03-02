@@ -54,12 +54,12 @@ export default function DashboardPage() {
             variants={container}
             initial="hidden"
             animate="show"
-            className="space-y-8"
+            className="space-y-8 px-4 pb-12"
         >
             {/* Welcome Section */}
-            <motion.div variants={item} className="bg-gradient-to-r from-primary-charcoal to-gray-800 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
+            <motion.div variants={item} className="bg-gradient-to-r from-primary-charcoal to-gray-800 rounded-2xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
                 <div className="relative z-10">
-                    <h1 className="text-3xl font-bold mb-2">مرحباً، {session?.user?.name}! 👋</h1>
+                    <h1 className="text-2xl sm:text-4xl font-bold mb-3 leading-tight">مرحباً، {session?.user?.name}! 👋</h1>
                     <p className="text-gray-300 max-w-xl">
                         إليك نظرة عامة على أداء متجرك اليوم. لديك فرص جديدة لتحقيق المبيعات، دعنا نستثمرها!
                     </p>
