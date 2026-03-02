@@ -49,7 +49,7 @@ export default function DashboardLayout({
 
     if (status === 'loading') {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-bg-light dark:bg-bg-light">
+            <div className="min-h-[100dvh] flex items-center justify-center bg-bg-light dark:bg-bg-light">
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-4 border-action-blue border-t-transparent mx-auto"></div>
                     <p className="mt-4 text-primary-charcoal font-medium">جاري التحميل...</p>
@@ -85,7 +85,7 @@ export default function DashboardLayout({
     const menuItems = allMenuItems.filter(item => item.type === workspace || item.type === 'shared');
 
     return (
-        <div className="min-h-screen bg-bg-light dark:bg-bg-light transition-colors duration-300 overflow-x-hidden">
+        <div className="min-h-[100dvh] bg-bg-light dark:bg-bg-light transition-colors duration-300 overflow-x-hidden">
             {/* Mobile Menu Overlay */}
             {sidebarOpen && (
                 <div
@@ -96,7 +96,7 @@ export default function DashboardLayout({
 
             {/* Sidebar - Mobile: only in DOM when open, Desktop: always visible */}
             {/* Desktop Sidebar (always rendered) */}
-            <aside className="hidden lg:flex fixed top-0 right-0 h-full bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex-col">
+            <aside className="hidden lg:flex fixed top-0 right-0 h-[100dvh] bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex-col">
                 <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                     <div className="flex items-center justify-between">
                         <h1 className="text-2xl font-bold bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent">تقانة</h1>
@@ -138,7 +138,7 @@ export default function DashboardLayout({
 
             {/* Mobile Sidebar (only in DOM when open) */}
             {sidebarOpen && (
-                <aside className="lg:hidden fixed top-0 right-0 h-full bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex flex-col">
+                <aside className="lg:hidden fixed top-0 right-0 h-[100dvh] bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex flex-col">
                     <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                         <div className="flex items-center justify-between">
                             <h1 className="text-2xl font-bold bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent">تقانة</h1>
@@ -184,7 +184,7 @@ export default function DashboardLayout({
 
 
             {/* Main Content */}
-            <div className="lg:mr-64 min-h-screen flex flex-col min-w-0">
+            <div className="lg:mr-64 min-h-[100dvh] flex flex-col min-w-0">
                 {/* Top Bar */}
                 <header className="bg-card-white dark:bg-card-white shadow-sm sticky top-0 z-30 transition-colors duration-300 w-full">
                     <div className="px-6 py-4 flex items-center justify-between">

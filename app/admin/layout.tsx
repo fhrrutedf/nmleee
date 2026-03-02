@@ -66,7 +66,7 @@ export default function AdminLayout({
 
     if (status === 'loading' || isAdmin === null) {
         return (
-            <div className="min-h-screen bg-bg-light dark:bg-bg-dark flex items-center justify-center">
+            <div className="min-h-[100dvh] bg-bg-light dark:bg-bg-dark flex items-center justify-center">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-action-blue"></div>
             </div>
         );
@@ -86,7 +86,7 @@ export default function AdminLayout({
     ];
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-bg-dark flex flex-col md:flex-row font-sans" dir="rtl">
+        <div className="min-h-[100dvh] bg-gray-50 dark:bg-bg-dark flex flex-col md:flex-row font-sans" dir="rtl">
             {/* Mobile Header */}
             <div className="md:hidden bg-white dark:bg-card-white shadow-sm px-4 py-4 flex items-center justify-between sticky top-0 z-50">
                 <div className="font-black text-xl text-primary-charcoal dark:text-white flex items-center gap-2">
@@ -104,7 +104,7 @@ export default function AdminLayout({
             </div>
 
             {/* Desktop Sidebar (always visible) */}
-            <aside className="hidden md:flex sticky top-0 right-0 z-40 w-72 h-screen bg-white dark:bg-card-white border-l border-gray-100 dark:border-gray-800 shadow-none flex-col">
+            <aside className="hidden md:flex sticky top-0 right-0 z-40 w-72 h-[100dvh] bg-white dark:bg-card-white border-l border-gray-100 dark:border-gray-800 shadow-none flex-col">
                 <div className="p-6 flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-action-blue to-purple-600 flex items-center justify-center text-white shadow-lg">
                         <FiSettings size={22} />
@@ -139,7 +139,7 @@ export default function AdminLayout({
 
             {/* Mobile Sidebar (only in DOM when open) */}
             {isSidebarOpen && (
-                <aside className="md:hidden fixed top-0 right-0 z-40 w-72 h-screen bg-white dark:bg-card-white border-l border-gray-100 dark:border-gray-800 shadow-xl flex flex-col">
+                <aside className="md:hidden fixed top-0 right-0 z-40 w-72 h-[100dvh] bg-white dark:bg-card-white border-l border-gray-100 dark:border-gray-800 shadow-xl flex flex-col">
                     <div className="flex-1 px-4 py-6 overflow-y-auto mt-4 space-y-2">
                         {navLinks.map((link) => {
                             const isActive = pathname === link.href || pathname?.startsWith(`${link.href}/`);
@@ -171,7 +171,7 @@ export default function AdminLayout({
 
             {/* Main Content Area */}
 
-            <main className="flex-1 w-full flex flex-col min-h-screen relative overflow-x-hidden">
+            <main className="flex-1 w-full flex flex-col min-h-[100dvh] relative overflow-x-hidden">
                 {children}
             </main>
         </div>

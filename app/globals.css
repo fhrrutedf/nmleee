@@ -160,6 +160,17 @@
       transform: translateY(-20px);
     }
   }
+
+  /* The 100vh Mobile Bug Fix */
+  .mobile-sidebar {
+    height: 100vh;
+    /* كحل احتياطي */
+    height: 100dvh;
+    /* الحل الذكي المتجاوب مع شريط العنوان */
+    position: fixed;
+    bottom: 0;
+    top: 0;
+  }
 }
 
 /* Custom scrollbar */
