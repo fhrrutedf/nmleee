@@ -1,0 +1,59 @@
+
+// ============================================
+// PLATFORM SETTINGS (Singleton - Admin Control)
+// ============================================
+
+model PlatformSettings {
+  id                String   @id @default("singleton")
+
+  // Commission & Escrow
+  commissionRate    Float    @default(10)    // نسبة عمولة المنصة %
+  escrowDays        Int      @default(7)     // أيام الحجز قبل الإتاحة
+  minPayoutAmount   Float    @default(50)    // الحد الأدنى للسحب $
+
+  // Platform wallet numbers
+  syriatelCash      String?
+  mtnCash           String?
+  zainCash          String?
+  shamCash          String?
+  omtNumber         String?
+  whishNumber       String?
+
+  // Currency rates (admin-set)
+  usdToSyp          Float    @default(13000)
+  usdToIqd          Float    @default(1300)
+  usdToEgp          Float    @default(50)
+  usdToAed          Float    @default(3.67)
+
+  // Platform info
+  platformName      String   @default("منصتي الرقمية")
+  supportEmail      String?
+  supportWhatsapp   String?
+
+  updatedAt         DateTime @updatedAt
+  updatedBy         String?
+}
+
+// ============================================
+// SELLER TRANSACTION (Escrow Engine)
+// ============================================
+
+model SellerTransaction {
+  id            String   @id @default(uuid())
+  sellerId      String
+  orderId       String?
+  amount        Float                         // حصة البائع الصافية
+  platformFee   Float    @default(0)          // عمولة المنصة
+  currency      String   @default("USD")
+  status        String   @default("PENDING")  // PENDING | AVAILABLE | PAID_OUT | REFUNDED
+  releaseDate   DateTime                      // تاريخ فك الحجز (paid_at + escrowDays)
+  releasedAt    DateTime?                     // تاريخ فك الحجز الفعلي
+  description   String?
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([sellerId])
+  @@index([status])
+  @@index([releaseDate])
+}

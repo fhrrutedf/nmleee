@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { getPaymentMethodsForCountry, convertCurrency } from '@/config/paymentMethods';
 import { sendManualOrderAlert, sendManualOrderApproved } from '@/lib/email';
+import { getPlatformSettings, calculateCommission } from '@/lib/commission';
 
 export async function POST(req: NextRequest) {
     try {
@@ -55,9 +56,10 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        // Calculate commission
-        const platformFee = (totalUSD * 10) / 100;
-        const sellerAmount = totalUSD - platformFee;
+        // Calculate commission from PlatformSettings (dynamic, admin-controlled)
+        const platformSettings = await getPlatformSettings();
+        const { platformFee, sellerAmount } = calculateCommission(totalUSD, platformSettings.commissionRate);
+        const escrowDays = platformSettings.escrowDays;
 
         // Create order
         const order = await prisma.order.create({
@@ -80,7 +82,7 @@ export async function POST(req: NextRequest) {
                 userId: userId || undefined,
                 sellerId: sellerId || undefined,
                 payoutStatus: 'pending',
-                availableAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+                availableAt: new Date(Date.now() + escrowDays * 24 * 60 * 60 * 1000),
                 items: {
                     create: items.map((item: any) => ({
                         itemType: item.type,
