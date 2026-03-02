@@ -104,7 +104,7 @@ export default function NewBundlePage() {
         : 0;
 
     return (
-        <div className="max-w-5xl mx-auto space-y-6 px-4 pb-12">
+        <div className="max-w-5xl mx-auto space-y-6 pb-12">
             <div className="mb-8">
                 <Link href="/dashboard/bundles" className="text-text-muted hover:text-action-blue inline-flex items-center gap-2 mb-4 transition-colors font-medium">
                     <FiArrowRight />

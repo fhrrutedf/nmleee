@@ -54,7 +54,7 @@ export default function DashboardPage() {
             variants={container}
             initial="hidden"
             animate="show"
-            className="space-y-8 px-4 pb-12"
+            className="space-y-8 pb-12"
         >
             {/* Welcome Section */}
             <motion.div variants={item} className="bg-gradient-to-r from-primary-charcoal to-gray-800 rounded-2xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
