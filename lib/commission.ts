@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma';
+import { prisma } from '@/lib/db';
 
 export interface CommissionSplit {
     platformFee: number;
@@ -7,37 +7,44 @@ export interface CommissionSplit {
 }
 
 /**
- * Get platform settings (with fallback defaults)
+ * Get platform settings via raw SQL (safe fallback if table missing)
  */
 export async function getPlatformSettings() {
     try {
-        let settings = await prisma.platformSettings.findUnique({
-            where: { id: 'singleton' },
-        });
-
-        if (!settings) {
-            // Create default settings if not exist
-            settings = await prisma.platformSettings.upsert({
-                where: { id: 'singleton' },
-                create: { id: 'singleton' },
-                update: {},
-            });
+        const rows = await prisma.$queryRaw<any[]>`
+            SELECT * FROM platform_settings WHERE id = 'singleton' LIMIT 1
+        `;
+        if (rows && rows.length > 0) {
+            const r = rows[0];
+            return {
+                commissionRate: Number(r.commission_rate ?? 10),
+                escrowDays: Number(r.escrow_days ?? 7),
+                minPayoutAmount: Number(r.min_payout_amount ?? 50),
+                usdToSyp: Number(r.usd_to_syp ?? 13000),
+                usdToIqd: Number(r.usd_to_iqd ?? 1300),
+                usdToEgp: Number(r.usd_to_egp ?? 50),
+                usdToAed: Number(r.usd_to_aed ?? 3.67),
+                syriatelCash: r.syriatel_cash as string | null,
+                mtnCash: r.mtn_cash as string | null,
+                zainCash: r.zain_cash as string | null,
+                shamCash: r.sham_cash as string | null,
+                omtNumber: r.omt_number as string | null,
+                whishNumber: r.whish_number as string | null,
+                platformName: (r.platform_name as string) ?? 'منصتي الرقمية',
+                supportEmail: r.support_email as string | null,
+                supportWhatsapp: r.support_whatsapp as string | null,
+            };
         }
+    } catch { /* table may not exist yet */ }
 
-        return settings;
-    } catch {
-        // Return defaults if DB error
-        return {
-            id: 'singleton',
-            commissionRate: 10,
-            escrowDays: 7,
-            minPayoutAmount: 50,
-            usdToSyp: 13000,
-            usdToIqd: 1300,
-            usdToEgp: 50,
-            usdToAed: 3.67,
-        };
-    }
+    // Default fallback
+    return {
+        commissionRate: 10, escrowDays: 7, minPayoutAmount: 50,
+        usdToSyp: 13000, usdToIqd: 1300, usdToEgp: 50, usdToAed: 3.67,
+        syriatelCash: null, mtnCash: null, zainCash: null, shamCash: null,
+        omtNumber: null, whishNumber: null,
+        platformName: 'منصتي الرقمية', supportEmail: null, supportWhatsapp: null,
+    };
 }
 
 /**
