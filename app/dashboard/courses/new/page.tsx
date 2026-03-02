@@ -110,7 +110,7 @@ export default function NewCoursePage() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
                 {/* البيانات الأساسية */}
-                <div className="card space-y-6">
+                <div className="card space-y-6 overflow-hidden">
                     <div className="flex items-center gap-3 border-b border-gray-100 dark:border-gray-800 pb-4 mb-4">
                         <div className="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-lg text-action-blue">
                             <FiBookOpen className="text-xl" />
@@ -240,7 +240,7 @@ export default function NewCoursePage() {
                 </div>
 
                 {/* روابط الاجتماعات */}
-                <div className="card space-y-6 bg-gradient-to-br from-white to-blue-50/30 dark:from-card-dark dark:to-blue-900/10 border-blue-100 dark:border-blue-900/30">
+                <div className="card space-y-6 overflow-hidden bg-gradient-to-br from-white to-blue-50/30 dark:from-card-dark dark:to-blue-900/10 border-blue-100 dark:border-blue-900/30">
                     <div className="flex items-center gap-3 border-b border-blue-100 dark:border-blue-900/30 pb-4 mb-4">
                         <div className="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-lg text-action-blue">
                             <FiLink className="text-xl" />
@@ -281,7 +281,7 @@ export default function NewCoursePage() {
                 </div>
 
                 {/* تفاصيل إضافية */}
-                <div className="card space-y-6">
+                <div className="card space-y-6 overflow-hidden">
                     <div className="flex items-center gap-3 border-b border-gray-100 dark:border-gray-800 pb-4 mb-4">
                         <div className="p-2 bg-purple-100 dark:bg-purple-900/50 rounded-lg text-purple-600">
                             <FiStar className="text-xl" />
