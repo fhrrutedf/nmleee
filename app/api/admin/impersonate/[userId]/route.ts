@@ -8,8 +8,9 @@ import { encode } from 'next-auth/jwt';
 // POST /api/admin/impersonate/[userId]
 export async function POST(
     req: NextRequest,
-    { params }: { params: { userId: string } }
+    { params }: { params: Promise<{ userId: string }> }
 ) {
+    const { userId } = await params;
     const session = await getServerSession(authOptions);
     const adminUser = session?.user as any;
 
@@ -18,7 +19,7 @@ export async function POST(
     }
 
     const targetUser = await prisma.user.findUnique({
-        where: { id: params.userId },
+        where: { id: userId },
         select: { id: true, name: true, email: true, role: true, username: true },
     });
 
@@ -52,7 +53,6 @@ export async function POST(
             email: targetUser.email,
             username: targetUser.username,
             role: targetUser.role,
-            // Mark as impersonation
             isImpersonating: true,
             originalAdminId: adminUser.id,
             originalAdminName: adminUser.name,
@@ -76,12 +76,13 @@ export async function POST(
 // DELETE /api/admin/impersonate/[userId] - end impersonation
 export async function DELETE(
     req: NextRequest,
-    { params }: { params: { userId: string } }
+    { params }: { params: Promise<{ userId: string }> }
 ) {
+    const { userId } = await params;
     await prisma.$executeRaw`
         UPDATE impersonation_sessions 
         SET ended_at = NOW() 
-        WHERE target_user_id = ${params.userId} AND ended_at IS NULL
+        WHERE target_user_id = ${userId} AND ended_at IS NULL
     `;
 
     return NextResponse.json({ success: true });
