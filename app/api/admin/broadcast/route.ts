@@ -1,0 +1,79 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { prisma } from '@/lib/db';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+const FROM = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+
+// POST /api/admin/broadcast
+export async function POST(req: NextRequest) {
+    const session = await getServerSession(authOptions);
+    if ((session?.user as any)?.role !== 'ADMIN') {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+    }
+
+    const { subject, message, target } = await req.json();
+    // target: 'all' | 'sellers' | 'admins'
+
+    if (!subject || !message) {
+        return NextResponse.json({ error: 'العنوان والرسالة مطلوبان' }, { status: 400 });
+    }
+
+    const where: any = { isActive: true };
+    if (target === 'sellers') where.role = 'SELLER';
+    else if (target === 'admins') where.role = 'ADMIN';
+
+    const users = await prisma.user.findMany({
+        where,
+        select: { email: true, name: true },
+        take: 100,
+    });
+
+    if (users.length === 0) {
+        return NextResponse.json({ error: 'لا يوجد مستخدمون' }, { status: 404 });
+    }
+
+    // Send in batches of 10 to avoid rate limits
+    const batchSize = 10;
+    let sent = 0;
+    let failed = 0;
+
+    for (let i = 0; i < users.length; i += batchSize) {
+        const batch = users.slice(i, i + batchSize);
+        await Promise.allSettled(
+            batch.map(u =>
+                resend.emails.send({
+                    from: FROM,
+                    to: u.email,
+                    subject,
+                    html: `
+                        <div dir="rtl" style="font-family:Arial;padding:24px;max-width:600px;margin:0 auto">
+                            <div style="background:#0052FF;padding:20px;border-radius:12px 12px 0 0;text-align:center">
+                                <h1 style="color:white;margin:0;font-size:22px">منصتي الرقمية</h1>
+                            </div>
+                            <div style="background:#f8fafc;padding:30px;border-radius:0 0 12px 12px;border:1px solid #e2e8f0">
+                                <p style="color:#374151;font-size:16px">مرحباً ${u.name}،</p>
+                                <div style="background:white;padding:20px;border-radius:8px;border:1px solid #e2e8f0;margin:16px 0;color:#374151;line-height:1.7;white-space:pre-wrap">${message}</div>
+                                <p style="color:#9ca3af;font-size:13px;margin-top:20px">فريق منصتي الرقمية</p>
+                            </div>
+                        </div>
+                    `,
+                }).then(() => sent++).catch(() => failed++)
+            )
+        );
+        // Small delay between batches
+        if (i + batchSize < users.length) {
+            await new Promise(r => setTimeout(r, 500));
+        }
+    }
+
+    return NextResponse.json({
+        success: true,
+        total: users.length,
+        sent,
+        failed,
+        message: `تم الإرسال لـ ${sent} مستخدم${failed > 0 ? ` (${failed} فشل)` : ''}`,
+    });
+}

@@ -45,7 +45,8 @@ export default function DashboardLayout({
 
     useEffect(() => {
         if (status === 'unauthenticated') {
-            router.push('/login');
+            const callbackUrl = encodeURIComponent(window.location.pathname + window.location.search);
+            router.push(`/login?callbackUrl=${callbackUrl}`);
         }
     }, [status, router]);
 

@@ -5,9 +5,11 @@ import {
     FiUsers, FiDollarSign, FiShoppingCart, FiTrendingUp,
     FiAlertCircle, FiCheck, FiX, FiEye, FiRefreshCw,
     FiShield, FiGrid, FiList, FiCreditCard, FiGlobe,
-    FiBarChart2, FiActivity, FiUserCheck, FiPackage
+    FiBarChart2, FiActivity, FiUserCheck, FiPackage,
+    FiDownload, FiSend, FiSlash, FiUnlock
 } from 'react-icons/fi';
 import Link from 'next/link';
+import showToast from '@/lib/toast';
 
 // ─── Helpers ───────────────────────────────────────────────
 const fmt = (n: number) => new Intl.NumberFormat('ar-SA', { maximumFractionDigits: 2 }).format(n);
@@ -46,8 +48,8 @@ function Tab({ id, active, onClick, icon: Icon, label, badge }: any) {
         <button
             onClick={() => onClick(id)}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap relative ${active
-                    ? 'bg-action-blue text-white shadow-md'
-                    : 'text-text-muted hover:bg-gray-100 dark:hover:bg-gray-800'
+                ? 'bg-action-blue text-white shadow-md'
+                : 'text-text-muted hover:bg-gray-100 dark:hover:bg-gray-800'
                 }`}
         >
             <Icon className="text-base" />
@@ -69,6 +71,12 @@ export default function AdminDashboardPage() {
     const [period, setPeriod] = useState('30');
     const [verifying, setVerifying] = useState<string | null>(null);
     const [userFilter, setUserFilter] = useState('');
+    const [togglingUser, setTogglingUser] = useState<string | null>(null);
+
+    // Broadcast modal state
+    const [showBroadcast, setShowBroadcast] = useState(false);
+    const [broadcast, setBroadcast] = useState({ subject: '', message: '', target: 'sellers' });
+    const [sending, setSending] = useState(false);
 
     const load = useCallback(async () => {
         setLoading(true);
@@ -92,6 +100,67 @@ export default function AdminDashboardPage() {
         } finally { setVerifying(null); }
     };
 
+    const toggleUser = async (userId: string, isActive: boolean) => {
+        setTogglingUser(userId);
+        try {
+            const r = await fetch(`/api/admin/users/${userId}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ isActive }),
+            });
+            if (r.ok) {
+                // Optimistic UI update
+                setData((prev: any) => ({
+                    ...prev,
+                    recentUsers: prev.recentUsers.map((u: any) =>
+                        u.id === userId ? { ...u, isActive } : u
+                    ),
+                }));
+                showToast.success(isActive ? 'تم تفعيل الحساب' : 'تم إيقاف الحساب');
+            }
+        } catch { showToast.error('فشل التحديث'); }
+        finally { setTogglingUser(null); }
+    };
+
+    const exportCSV = () => {
+        const orders = data?.recentOrders ?? [];
+        if (!orders.length) return;
+        const headers = ['رقم الطلب', 'العميل', 'الإيميل', 'المنتج', 'البائع', 'المبلغ', 'عمولة المنصة', 'صافي البائع', 'الدفع', 'الحالة', 'التاريخ'];
+        const rows = orders.map((o: any) => [
+            o.orderNumber, o.customerName, o.customerEmail, o.productTitle,
+            o.seller?.name ?? '', o.amount, o.platformFee ?? 0,
+            o.sellerAmount ?? 0, methodLabel[o.paymentMethod] ?? o.paymentMethod,
+            statusLabel[o.status] ?? o.status, new Date(o.createdAt).toLocaleDateString('ar-SA'),
+        ]);
+        const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
+        const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url;
+        a.download = `orders-${new Date().toISOString().slice(0, 10)}.csv`;
+        a.click(); URL.revokeObjectURL(url);
+    };
+
+    const sendBroadcast = async () => {
+        if (!broadcast.subject || !broadcast.message) {
+            showToast.error('العنوان والرسالة مطلوبان'); return;
+        }
+        setSending(true);
+        try {
+            const r = await fetch('/api/admin/broadcast', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(broadcast),
+            });
+            const res = await r.json();
+            if (r.ok) {
+                showToast.success(res.message ?? 'تم الإرسال!');
+                setShowBroadcast(false);
+                setBroadcast({ subject: '', message: '', target: 'sellers' });
+            } else showToast.error(res.error ?? 'فشل الإرسال');
+        } catch { showToast.error('حدث خطأ'); }
+        finally { setSending(false); }
+    };
+
     const ov = data?.overview ?? {};
     const pendingManual = data?.recentOrders?.filter((o: any) => o.paymentMethod === 'manual' && o.status === 'PENDING') ?? [];
 
@@ -113,13 +182,17 @@ export default function AdminDashboardPage() {
                     </h1>
                     <p className="text-text-muted text-sm mt-0.5">إحصاءات وبيانات المنصة الكاملة</p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                     <select value={period} onChange={e => setPeriod(e.target.value)} className="input text-sm py-2">
                         <option value="7">آخر 7 أيام</option>
                         <option value="30">آخر 30 يوم</option>
                         <option value="90">آخر 90 يوم</option>
                         <option value="365">آخر سنة</option>
                     </select>
+                    <button onClick={() => setShowBroadcast(true)}
+                        className="btn bg-purple-600 hover:bg-purple-700 text-white py-2 px-3 text-sm flex items-center gap-1.5">
+                        <FiSend /> إرسال بث
+                    </button>
                     <button onClick={load} className="btn btn-outline py-2 px-3" title="تحديث">
                         <FiRefreshCw className={loading ? 'animate-spin' : ''} />
                     </button>
@@ -128,6 +201,50 @@ export default function AdminDashboardPage() {
                     </Link>
                 </div>
             </div>
+
+            {/* Broadcast Modal */}
+            {showBroadcast && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-lg p-6 space-y-4">
+                        <div className="flex items-center justify-between">
+                            <h2 className="font-bold text-xl text-primary-charcoal dark:text-white flex items-center gap-2">
+                                <FiSend className="text-purple-600" /> إرسال رسالة جماعية
+                            </h2>
+                            <button onClick={() => setShowBroadcast(false)} className="text-text-muted hover:text-red-500">
+                                <FiX className="text-xl" />
+                            </button>
+                        </div>
+                        <div>
+                            <label className="label">المستلمون</label>
+                            <select value={broadcast.target} onChange={e => setBroadcast(b => ({ ...b, target: e.target.value }))} className="input w-full">
+                                <option value="sellers">البائعون فقط</option>
+                                <option value="all">جميع المستخدمين</option>
+                                <option value="admins">المشرفون فقط</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="label">عنوان الرسالة</label>
+                            <input type="text" value={broadcast.subject}
+                                onChange={e => setBroadcast(b => ({ ...b, subject: e.target.value }))}
+                                className="input w-full" placeholder="مثل: تحديثات جديدة في المنصة" />
+                        </div>
+                        <div>
+                            <label className="label">نص الرسالة</label>
+                            <textarea rows={5} value={broadcast.message}
+                                onChange={e => setBroadcast(b => ({ ...b, message: e.target.value }))}
+                                className="input w-full resize-none" placeholder="اكتب رسالتك هنا..." />
+                        </div>
+                        <div className="flex gap-3 pt-1">
+                            <button onClick={sendBroadcast} disabled={sending}
+                                className="flex-1 btn bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 flex items-center justify-center gap-2">
+                                {sending ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FiSend />}
+                                {sending ? 'جاري الإرسال...' : 'إرسال الآن'}
+                            </button>
+                            <button onClick={() => setShowBroadcast(false)} className="btn btn-outline px-6">إلغاء</button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Tabs */}
             <div className="flex gap-2 flex-wrap">
@@ -264,7 +381,13 @@ export default function AdminDashboardPage() {
                         <div className="card">
                             <div className="flex items-center justify-between mb-4">
                                 <h2 className="font-bold text-xl text-primary-charcoal dark:text-white">جميع الطلبات</h2>
-                                <span className="text-sm text-text-muted">{data?.recentOrders?.length ?? 0} طلب</span>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-sm text-text-muted">{data?.recentOrders?.length ?? 0} طلب</span>
+                                    <button onClick={exportCSV}
+                                        className="btn bg-green-600 hover:bg-green-700 text-white text-sm py-1.5 px-3 flex items-center gap-1.5">
+                                        <FiDownload /> تصدير CSV
+                                    </button>
+                                </div>
                             </div>
                             <div className="overflow-x-auto">
                                 <table className="w-full text-sm">
@@ -403,8 +526,9 @@ export default function AdminDashboardPage() {
                                             <th className="text-right py-3 px-3">الدولة</th>
                                             <th className="text-right py-3 px-3">الدور</th>
                                             <th className="text-right py-3 px-3">الطلبات</th>
-                                            <th className="text-right py-3 px-3">تاريخ الانضمام</th>
+                                            <th className="text-right py-3 px-3">الانضمام</th>
                                             <th className="text-right py-3 px-3">الحالة</th>
+                                            <th className="text-right py-3 px-3">إجراء</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -432,9 +556,25 @@ export default function AdminDashboardPage() {
                                                     <td className="py-3 px-3 font-bold">{u._count?.sellerOrders ?? 0}</td>
                                                     <td className="py-3 px-3 text-xs text-text-muted">{fmtDate(u.createdAt)}</td>
                                                     <td className="py-3 px-3">
-                                                        <span className={`px-2 py-0.5 rounded-full text-xs ${u.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                                                        <span className={`px-2 py-0.5 rounded-full text-xs ${u.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                                                            }`}>
                                                             {u.isActive ? 'نشط' : 'موقوف'}
                                                         </span>
+                                                    </td>
+                                                    <td className="py-3 px-3">
+                                                        <button
+                                                            onClick={() => toggleUser(u.id, !u.isActive)}
+                                                            disabled={togglingUser === u.id}
+                                                            title={u.isActive ? 'إيقاف الحساب' : 'تفعيل الحساب'}
+                                                            className={`p-1.5 rounded-lg transition-colors ${u.isActive
+                                                                    ? 'bg-red-50 hover:bg-red-100 text-red-600'
+                                                                    : 'bg-green-50 hover:bg-green-100 text-green-600'
+                                                                }`}
+                                                        >
+                                                            {togglingUser === u.id
+                                                                ? <div className="w-3.5 h-3.5 border-2 border-current/30 border-t-current rounded-full animate-spin" />
+                                                                : u.isActive ? <FiSlash className="text-sm" /> : <FiUnlock className="text-sm" />}
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             ))}
@@ -467,9 +607,9 @@ export default function AdminDashboardPage() {
                                             <tr key={s.id} className="border-b border-gray-50 dark:border-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-800/30">
                                                 <td className="py-3 px-3">
                                                     <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${i === 0 ? 'bg-yellow-100 text-yellow-700' :
-                                                            i === 1 ? 'bg-gray-200 text-gray-700' :
-                                                                i === 2 ? 'bg-orange-100 text-orange-700' :
-                                                                    'bg-gray-50 text-gray-500'
+                                                        i === 1 ? 'bg-gray-200 text-gray-700' :
+                                                            i === 2 ? 'bg-orange-100 text-orange-700' :
+                                                                'bg-gray-50 text-gray-500'
                                                         }`}>{i + 1}</div>
                                                 </td>
                                                 <td className="py-3 px-3">
