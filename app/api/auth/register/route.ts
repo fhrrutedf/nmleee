@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        let { name, email, username, password } = body;
+        let { name, email, username, password, phone, country, countryCode } = body;
 
         // Normalize inputs
         email = email?.trim().toLowerCase();
@@ -92,8 +92,9 @@ export async function POST(request: NextRequest) {
                 email,
                 username,
                 password: hashedPassword,
-                // Defaults are handled by Prisma schema
-                // role defaults to SELLER, isActive defaults to true
+                phone: phone || undefined,
+                country: country || undefined,
+                countryCode: countryCode || undefined,
             },
             select: {
                 id: true,

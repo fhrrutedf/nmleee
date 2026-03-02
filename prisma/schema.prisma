@@ -20,6 +20,8 @@ model User {
   username      String    @unique
   password      String?
   phone         String?
+  country       String?   // Country name (e.g. "Syria")
+  countryCode   String?   // ISO code (e.g. "SY")
   bio           String?
   avatar        String?
   coverImage    String?
