@@ -174,7 +174,7 @@ export default function Home() {
                                 المنصة الأسرع نمواً لصناع المحتوى
                             </motion.div>
 
-                            <h1 className="text-5xl lg:text-7xl font-bold mb-6 font-heading text-primary-charcoal drop-shadow-sm leading-[1.2]">
+                            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 font-heading text-primary-charcoal drop-shadow-sm leading-[1.2]">
                                 <RevealText text="حول شغفك إلى" delay={2} />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-action-blue to-action-secondary relative inline-block">
                                     <RevealText text="دخل مستدام" delay={4} />
@@ -195,7 +195,7 @@ export default function Home() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.8 }}
-                                className="text-xl text-text-muted mb-10 leading-relaxed max-w-lg font-medium"
+                                className="text-lg md:text-xl text-text-muted mb-10 leading-relaxed max-w-lg font-medium"
                             >
                                 لا تحتاج لخبرة تقنية. ابدأ بيع دوراتك، كتبك الإلكترونية، وخدماتك الاستشارية في دقائق معدودة وبأدوات احترافية.
                             </motion.p>

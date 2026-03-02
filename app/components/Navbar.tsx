@@ -46,8 +46,8 @@ export default function Navbar() {
         >
             <nav className="container-custom py-4">
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-12">
-                        <Link href="/" className="text-2xl font-bold text-primary-charcoal flex items-center gap-2 group">
+                    <div className="flex items-center gap-4 md:gap-12">
+                        <Link href="/" className="text-xl md:text-2xl font-bold text-primary-charcoal flex items-center gap-2 group">
                             <motion.span
                                 whileHover={{ rotate: 180, scale: 1.1 }}
                                 transition={{ type: "spring", stiffness: 200, damping: 10 }}
@@ -83,19 +83,19 @@ export default function Navbar() {
                         </div>
                     </div>
 
-                    <div className="flex gap-4">
+                    <div className="flex gap-2 md:gap-4 items-center">
                         <MagneticButton>
                             <Link href="/login"
-                                className="inline-block px-6 py-2.5 rounded-full font-bold text-gray-700 hover:bg-gray-100 transition-colors"
+                                className="inline-block px-4 py-2 md:px-6 md:py-2.5 rounded-full font-bold text-sm md:text-base text-gray-700 hover:bg-gray-100 transition-colors"
                             >
                                 دخول
                             </Link>
                         </MagneticButton>
                         <MagneticButton>
                             <Link href="/register"
-                                className="inline-block px-6 py-2.5 rounded-full font-bold bg-action-blue text-white shadow-lg shadow-blue-500/30 hover:shadow-xl hover:-translate-y-0.5 transition-all overflow-hidden relative group"
+                                className="inline-block px-4 py-2 md:px-6 md:py-2.5 rounded-full font-bold text-sm md:text-base bg-action-blue text-white shadow-lg shadow-blue-500/30 hover:shadow-xl hover:-translate-y-0.5 transition-all overflow-hidden relative group"
                             >
-                                <motion.span className="relative z-10 flex items-center gap-2">
+                                <motion.span className="relative z-10 flex items-center gap-1 md:gap-2">
                                     ابدأ مجاناً
                                     <motion.span
                                         initial={{ x: 0 }}

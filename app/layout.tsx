@@ -41,7 +41,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ar" dir="rtl" suppressHydrationWarning>
-            <body className={`${tajawal.variable} ${ibmPlex.variable} ${inter.variable} font-sans antialiased text-primary-charcoal bg-bg-light flex flex-col min-h-screen`}>
+            <body className={`${tajawal.variable} ${ibmPlex.variable} ${inter.variable} font-sans antialiased text-primary-charcoal bg-bg-light flex flex-col min-h-screen overflow-x-hidden`}>
                 <Providers>
                     <NavbarWrapper />
                     <main className="flex-grow">
