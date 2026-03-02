@@ -86,7 +86,7 @@ export default function AdminLayout({
     ];
 
     return (
-        <div className="min-h-[100dvh] bg-gray-50 dark:bg-bg-dark flex flex-col md:flex-row font-sans" dir="rtl">
+        <div className="min-h-screen bg-gray-50 dark:bg-bg-dark flex flex-col md:flex-row font-sans" dir="rtl">
             {/* Mobile Header */}
             <div className="md:hidden bg-white dark:bg-card-white shadow-sm px-4 py-4 flex items-center justify-between sticky top-0 z-50">
                 <div className="font-black text-xl text-primary-charcoal dark:text-white flex items-center gap-2">
@@ -137,41 +137,45 @@ export default function AdminLayout({
                 </div>
             </aside>
 
-            {/* Mobile Sidebar (only in DOM when open) */}
+            {/* Mobile Menu Container */}
             {isSidebarOpen && (
-                <aside className="md:hidden fixed inset-y-0 right-0 z-40 w-72 bg-white dark:bg-card-white border-l border-gray-100 dark:border-gray-800 shadow-xl flex flex-col">
-                    <div className="flex-1 px-4 py-6 overflow-y-auto mt-4 space-y-2">
-                        {navLinks.map((link) => {
-                            const isActive = pathname === link.href || pathname?.startsWith(`${link.href}/`);
-                            const Icon = link.icon;
-                            return (
-                                <Link key={link.href} href={link.href} onClick={() => setIsSidebarOpen(false)}
-                                    className={`flex items-center gap-4 px-4 py-3.5 rounded-2xl font-bold transition-all duration-200 group ${isActive ? 'bg-action-blue text-white shadow-md shadow-action-blue/20' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-primary-charcoal dark:hover:text-white'}`}>
-                                    <Icon size={20} className={isActive ? 'text-white' : 'text-gray-400 group-hover:text-action-blue transition-colors'} />
-                                    {link.name}
-                                </Link>
-                            );
-                        })}
-                    </div>
-                    <div className="p-4 border-t border-gray-100 dark:border-gray-800">
-                        <Link href="/" onClick={() => setIsSidebarOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-2xl text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-bold mb-2 group">
-                            <FiHome className="text-gray-400 group-hover:text-action-blue" size={20} />العودة للموقع
-                        </Link>
-                        <button onClick={() => setIsSidebarOpen(false)} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors font-bold">
-                            <FiLogOut size={20} />تسجيل الخروج
-                        </button>
-                    </div>
-                </aside>
-            )}
+                <div className="fixed inset-0 z-50 md:hidden text-primary-charcoal">
+                    {/* Overlay */}
+                    <div
+                        className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+                        onClick={() => setIsSidebarOpen(false)}
+                    />
 
-            {/* Mobile Overlay */}
-            {isSidebarOpen && (
-                <div className="md:hidden fixed inset-0 bg-black/50 z-30 backdrop-blur-sm" onClick={() => setIsSidebarOpen(false)} />
+                    {/* Mobile Sidebar */}
+                    <aside className="absolute right-0 top-0 bottom-0 h-full w-72 bg-white dark:bg-card-white border-l border-gray-100 dark:border-gray-800 shadow-xl flex flex-col transform transition-transform">
+                        <div className="flex-1 px-4 py-6 overflow-y-auto mt-4 space-y-2">
+                            {navLinks.map((link) => {
+                                const isActive = pathname === link.href || pathname?.startsWith(`${link.href}/`);
+                                const Icon = link.icon;
+                                return (
+                                    <Link key={link.href} href={link.href} onClick={() => setIsSidebarOpen(false)}
+                                        className={`flex items-center gap-4 px-4 py-3.5 rounded-2xl font-bold transition-all duration-200 group ${isActive ? 'bg-action-blue text-white shadow-md shadow-action-blue/20' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-primary-charcoal dark:hover:text-white'}`}>
+                                        <Icon size={20} className={isActive ? 'text-white' : 'text-gray-400 group-hover:text-action-blue transition-colors'} />
+                                        {link.name}
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                        <div className="p-4 border-t border-gray-100 dark:border-gray-800">
+                            <Link href="/" onClick={() => setIsSidebarOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-2xl text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-bold mb-2 group">
+                                <FiHome className="text-gray-400 group-hover:text-action-blue" size={20} />العودة للموقع
+                            </Link>
+                            <button onClick={() => setIsSidebarOpen(false)} className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors font-bold">
+                                <FiLogOut size={20} />تسجيل الخروج
+                            </button>
+                        </div>
+                    </aside>
+                </div>
             )}
 
             {/* Main Content Area */}
 
-            <main className="flex-1 w-full flex flex-col min-h-[100dvh] relative overflow-x-hidden">
+            <main className="flex-1 w-full flex flex-col min-h-screen relative overflow-x-hidden">
                 {children}
             </main>
         </div>
