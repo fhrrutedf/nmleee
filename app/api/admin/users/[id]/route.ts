@@ -11,11 +11,32 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     }
 
     const body = await req.json();
-    const { isActive, role } = body;
+    const { isActive, role, customCommissionRate } = body;
 
     const updateData: any = {};
     if (isActive !== undefined) updateData.isActive = isActive;
     if (role !== undefined) updateData.role = role;
+    if (customCommissionRate !== undefined) {
+        // Store via raw SQL since it's a new column not in Prisma schema
+        await prisma.$executeRaw`
+            UPDATE "User" SET custom_commission_rate = ${customCommissionRate === '' ? null : customCommissionRate}
+            WHERE id = ${params.id}
+        `;
+        // Log it
+        const { logActivity, LOG_ACTIONS } = await import('@/lib/activity-log');
+        await logActivity({
+            actorId: (session?.user as any)?.id,
+            actorName: (session?.user as any)?.name,
+            actorRole: 'ADMIN',
+            action: LOG_ACTIONS.USER_COMMISSION_CHANGED,
+            entityType: 'User',
+            entityId: params.id,
+            details: { customCommissionRate },
+        });
+        if (Object.keys(updateData).length === 0) {
+            return NextResponse.json({ success: true });
+        }
+    }
 
     const user = await prisma.user.update({
         where: { id: params.id },

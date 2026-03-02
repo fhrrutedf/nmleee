@@ -88,6 +88,7 @@ export default function DashboardLayout({
 
         // Admin only
         { href: '/dashboard/admin', icon: FiShield, label: 'لوحة الادمن', type: 'admin' },
+        { href: '/dashboard/admin/tools', icon: FiActivity, label: '🔧 أدوات الادمن', type: 'admin' },
         { href: '/dashboard/admin/platform-settings', icon: FiSettings, label: 'إعدادات المنصة', type: 'admin' },
     ];
 

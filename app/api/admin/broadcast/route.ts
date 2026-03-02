@@ -3,6 +3,9 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/db';
 import { Resend } from 'resend';
+import { sendTelegramMessage } from '@/lib/telegram';
+import { sendBulkNotification } from '@/lib/novu';
+import { logActivity, LOG_ACTIONS } from '@/lib/activity-log';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
@@ -68,6 +71,34 @@ export async function POST(req: NextRequest) {
             await new Promise(r => setTimeout(r, 500));
         }
     }
+
+    // Also send Novu in-app notification if available
+    try {
+        const userIds = await prisma.user.findMany({
+            where,
+            select: { id: true },
+            take: 100,
+        });
+        await sendBulkNotification('admin-broadcast', userIds.map(u => u.id), {
+            subject,
+            message: message.slice(0, 200),
+        });
+    } catch { }
+
+    // Alert admin via Telegram
+    await sendTelegramMessage(
+        `📢 <b>بث جماعي أُرسل!</b>\n━━━━━━━━━━━━━━\n📋 <b>العنوان:</b> ${subject}\n👥 <b>المستلمون:</b> ${users.length} (${target})\n✅ <b>نجح:</b> ${sent} | ❌ <b>فشل:</b> ${failed}`
+    );
+
+    // Activity log
+    const admin = session!.user as any;
+    await logActivity({
+        actorId: admin.id,
+        actorName: admin.name,
+        actorRole: 'ADMIN',
+        action: LOG_ACTIONS.BROADCAST_SENT,
+        details: { subject, target, total: users.length, sent, failed },
+    });
 
     return NextResponse.json({
         success: true,
