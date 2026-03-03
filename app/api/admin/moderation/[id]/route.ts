@@ -40,10 +40,10 @@ export async function PUT(
             // Also notify the seller
             await prisma.notification.create({
                 data: {
-                    userId: course.userId,
-                    type: 'SYSTEM',
+                    receiverId: course.userId,
+                    type: 'INTERNAL',
                     title: 'تم رفض الكورس الخاص بك',
-                    message: `تم رفض كورس "${course.title}". السبب: ${reason}`,
+                    content: `تم رفض كورس "${course.title}". السبب: ${reason}`,
                     senderId: adminUser.id,
                 }
             });
@@ -51,10 +51,10 @@ export async function PUT(
             // Also notify the seller
             await prisma.notification.create({
                 data: {
-                    userId: course.userId,
-                    type: 'SYSTEM',
+                    receiverId: course.userId,
+                    type: 'INTERNAL',
                     title: 'تمت الموافقة على الكورس!',
-                    message: `تمت الموافقة على كورس "${course.title}" وأصبح متاحاً للجمهور حالياً.`,
+                    content: `تمت الموافقة على كورس "${course.title}" وأصبح متاحاً للجمهور حالياً.`,
                     senderId: adminUser.id,
                 }
             });
