@@ -43,7 +43,7 @@ export default function CourseModerationPage() {
     const handleApprove = async (id: string) => {
         setProcessingId(id);
         try {
-            const res = await fetch(\`/api/admin/moderation/\${id}\`, {
+            const res = await fetch(`/api/admin/moderation/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: 'APPROVED' })
@@ -70,7 +70,7 @@ export default function CourseModerationPage() {
 
         setProcessingId(activeCourseId);
         try {
-            const res = await fetch(\`/api/admin/moderation/\${activeCourseId}\`, {
+            const res = await fetch(`/api/admin/moderation/${activeCourseId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: 'REJECTED', reason: rejectReason })
@@ -157,16 +157,16 @@ export default function CourseModerationPage() {
                                     </td>
                                     <td className="px-5 py-4 text-center">
                                         <div className="flex items-center justify-center gap-2">
-                                            <a 
-                                                href={\`/course/\${course.id}\`} 
-                                                target="_blank" 
+                                            <a
+                                                href={`/course/${course.id}`}
+                                                target="_blank"
                                                 rel="noreferrer"
                                                 title="معاينة كزائر"
                                                 className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors"
                                             >
                                                 <FiEye className="w-4 h-4" />
                                             </a>
-                                            <button 
+                                            <button
                                                 onClick={() => handleApprove(course.id)}
                                                 disabled={processingId === course.id}
                                                 title="موافقة"
@@ -174,7 +174,7 @@ export default function CourseModerationPage() {
                                             >
                                                 <FiCheck className="w-4 h-4" />
                                             </button>
-                                            <button 
+                                            <button
                                                 onClick={() => {
                                                     setActiveCourseId(course.id);
                                                     setIsRejectModalOpen(true);
@@ -198,29 +198,29 @@ export default function CourseModerationPage() {
             {isRejectModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
                     <div className="bg-white dark:bg-[#1a1c23] rounded-2xl p-6 w-full max-w-md shadow-2xl relative">
-                        <button 
+                        <button
                             onClick={() => setIsRejectModalOpen(false)}
                             className="absolute top-4 left-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 hover:text-red-500"
                         >
                             <FiX />
                         </button>
-                        
+
                         <h3 className="text-xl font-bold text-red-600 dark:text-red-400 mb-2">رفض الكورس ⛔</h3>
                         <p className="text-gray-500 dark:text-gray-400 text-sm mb-5">الرجاء إبداء سبب الرفض ليتم إرساله كإشعار للمدرب لتصحيحه.</p>
 
                         <div className="space-y-4">
                             <div>
                                 <label className="label">أسباب الرفض (رسالة للمدرب)</label>
-                                <textarea 
+                                <textarea
                                     className="input w-full min-h-[120px] resize-y"
                                     placeholder="مثال: يرجى إضافة صورة غلاف مناسبة، أو جودة الصوت في المقطع التعريفي منخفضة..."
                                     value={rejectReason}
                                     onChange={(e) => setRejectReason(e.target.value)}
                                 ></textarea>
                             </div>
-                            
+
                             <div className="flex justify-end gap-3 font-semibold">
-                                <button 
+                                <button
                                     className="px-5 py-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                                     onClick={() => {
                                         setIsRejectModalOpen(false);
@@ -229,7 +229,7 @@ export default function CourseModerationPage() {
                                 >
                                     إلغاء
                                 </button>
-                                <button 
+                                <button
                                     className="btn bg-red-600 text-white hover:bg-red-700 px-6"
                                     onClick={handleReject}
                                     disabled={processingId === activeCourseId}
