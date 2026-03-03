@@ -68,7 +68,7 @@ export default function BlogAdminPage() {
                     <p className="text-gray-500">قم بإدارة منشورات مدونتك وتتبع حالاتها.</p>
                 </div>
                 <Link
-                    href="/admin/blog/new"
+                    href="/dashboard/admin/blog/new"
                     className="flex items-center gap-2 px-4 py-2 bg-action-blue text-white rounded-lg hover:bg-blue-600 transition"
                 >
                     <FiPlus />
@@ -121,7 +121,7 @@ export default function BlogAdminPage() {
                                         </td>
                                         <td className="px-4 py-4">
                                             <div className="flex items-center gap-3">
-                                                <Link href={`/admin/blog/${post.slug}`} className="text-gray-400 hover:text-action-blue transition">
+                                                <Link href={`/dashboard/admin/blog/${post.slug}`} className="text-gray-400 hover:text-action-blue transition">
                                                     <FiEdit2 size={16} />
                                                 </Link>
                                                 <button onClick={() => deletePost(post.slug)} className="text-gray-400 hover:text-red-500 transition">

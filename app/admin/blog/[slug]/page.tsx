@@ -43,7 +43,7 @@ export default function EditBlogPost() {
                     setCoverImage(data.coverImage || "");
                 } else {
                     toast.error("لم يتم العثور على المقال");
-                    router.push("/admin/blog");
+                    router.push("/dashboard/admin/blog");
                 }
             } catch (error) {
                 toast.error("حدث خطأ أثناء جلب تفاصيل المقال");
@@ -79,7 +79,7 @@ export default function EditBlogPost() {
 
             if (res.ok) {
                 toast.success("تم تحديث المقال بنجاح!");
-                router.push("/admin/blog");
+                router.push("/dashboard/admin/blog");
             } else {
                 const data = await res.json();
                 toast.error(data.error || "فشل التحديث");

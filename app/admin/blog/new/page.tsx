@@ -52,7 +52,7 @@ export default function NewBlogPost() {
 
             if (res.ok) {
                 toast.success("تم الحفظ بنجاح!");
-                router.push("/admin/blog");
+                router.push("/dashboard/admin/blog");
             } else {
                 const data = await res.json();
                 toast.error(data.error || "فشل الحفظ");
