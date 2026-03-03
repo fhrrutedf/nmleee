@@ -315,57 +315,90 @@ export default function AdminDashboardPage() {
                             </div>
 
                             {/* ══════════════ CHARTS ══════════════ */}
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
-                                {/* Revenue Line Chart */}
-                                <div className="card">
+                            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mt-8">
+                                {/* Daily Revenue Line Chart */}
+                                <div className="card shadow-sm border border-gray-100 dark:border-gray-800 rounded-2xl p-5">
                                     <h2 className="font-bold text-primary-charcoal dark:text-white mb-6 flex items-center gap-2">
-                                        <FiTrendingUp className="text-action-blue" /> إيرادات المنصة (آخر 6 أشهر)
+                                        <div className="p-2 bg-blue-50 dark:bg-blue-900/20 text-action-blue rounded-lg">
+                                            <FiTrendingUp className="text-xl" />
+                                        </div>
+                                        حجم المبيعات اليومية (آخر 30 يوم)
                                     </h2>
-                                    <div className="h-72" dir="ltr">
+                                    <div className="h-72 w-full" dir="ltr">
                                         <ResponsiveContainer width="100%" height="100%">
-                                            <LineChart data={data.monthlyRevenue} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                                                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                                                <XAxis dataKey="month" stroke="#6b7280" style={{ fontSize: '12px' }} />
-                                                <YAxis stroke="#6b7280" style={{ fontSize: '12px' }} />
-                                                <RechartsTooltip
-                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                                                    labelStyle={{ color: '#374151', fontWeight: 'bold' }}
+                                            <LineChart data={data.dailyRevenue} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
+                                                <XAxis
+                                                    dataKey="day"
+                                                    stroke="#9ca3af"
+                                                    style={{ fontSize: '11px', fontFamily: 'inherit' }}
+                                                    tickFormatter={(str) => {
+                                                        const parts = str.split('-');
+                                                        return `${parts[2]}/${parts[1]}`;
+                                                    }}
+                                                    tickMargin={10}
                                                 />
-                                                <Legend />
-                                                <Line type="monotone" name="الأرباح" dataKey="revenue" stroke="#3b82f6" strokeWidth={3} activeDot={{ r: 8 }} />
-                                                <Line type="monotone" name="عمولة المنصة" dataKey="fees" stroke="#10b981" strokeWidth={3} />
+                                                <YAxis
+                                                    stroke="#9ca3af"
+                                                    style={{ fontSize: '11px', fontFamily: 'inherit' }}
+                                                    tickFormatter={(val) => `$${val}`}
+                                                    width={60}
+                                                />
+                                                <RechartsTooltip
+                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)' }}
+                                                    labelStyle={{ color: '#374151', fontWeight: 'bold', marginBottom: '8px' }}
+                                                    formatter={(value: number, name: string) => [
+                                                        name === 'revenue' ? `$${value}` : value,
+                                                        name === 'revenue' ? 'المبيعات ($)' : 'الطلبات'
+                                                    ]}
+                                                />
+                                                <Legend iconType="circle" wrapperStyle={{ fontSize: '12px', paddingTop: '20px' }} />
+                                                <Line
+                                                    type="monotone"
+                                                    name="revenue"
+                                                    dataKey="revenue"
+                                                    stroke="#0052FF" /* Action Blue */
+                                                    strokeWidth={3}
+                                                    dot={false}
+                                                    activeDot={{ r: 6, strokeWidth: 0, fill: '#0052FF' }}
+                                                />
                                             </LineChart>
                                         </ResponsiveContainer>
                                     </div>
                                 </div>
 
-                                {/* Users By Country Pie Chart */}
-                                <div className="card">
+                                {/* Sales By Country Donut Chart */}
+                                <div className="card shadow-sm border border-gray-100 dark:border-gray-800 rounded-2xl p-5">
                                     <h2 className="font-bold text-primary-charcoal dark:text-white mb-6 flex items-center gap-2">
-                                        <FiGlobe className="text-purple-600" /> توزيع المستخدمين والدول
+                                        <div className="p-2 bg-purple-50 dark:bg-purple-900/20 text-purple-600 rounded-lg">
+                                            <FiGlobe className="text-xl" />
+                                        </div>
+                                        نسبة المبيعات حسب الدولة
                                     </h2>
-                                    <div className="h-72" dir="ltr">
+                                    <div className="h-72 w-full flex items-center justify-center" dir="ltr">
                                         <ResponsiveContainer width="100%" height="100%">
                                             <PieChart>
                                                 <Pie
-                                                    data={data.usersByCountry}
+                                                    data={data.salesByCountry}
                                                     cx="50%"
                                                     cy="50%"
-                                                    labelLine={false}
-                                                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                                                    innerRadius={70}
                                                     outerRadius={100}
+                                                    paddingAngle={5}
                                                     fill="#8884d8"
-                                                    dataKey="count"
-                                                    nameKey="country"
+                                                    dataKey="value"
+                                                    nameKey="name"
+                                                    stroke="none"
                                                 >
-                                                    {data.usersByCountry?.map((entry: any, index: number) => (
+                                                    {data.salesByCountry?.map((entry: any, index: number) => (
                                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                                     ))}
                                                 </Pie>
                                                 <RechartsTooltip
-                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)' }}
+                                                    formatter={(value: number) => [`$${value}`, 'المبيعات الإجمالية']}
                                                 />
-                                                <Legend />
+                                                <Legend iconType="circle" wrapperStyle={{ fontSize: '12px', paddingTop: '20px' }} />
                                             </PieChart>
                                         </ResponsiveContainer>
                                     </div>

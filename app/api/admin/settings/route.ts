@@ -14,7 +14,19 @@ export async function GET() {
     }
 
     const settings = await getPlatformSettings();
-    return NextResponse.json(settings);
+    const config = await prisma.platformConfig.findUnique({ where: { id: 'singleton' } });
+
+    return NextResponse.json({
+        ...settings,
+        shamCashPhone: config?.shamCashPhone || settings.shamCash,
+        omtPhone: config?.omtPhone || settings.omtNumber,
+        zainCashPhone: config?.zainCashPhone || settings.zainCash,
+        vodafoneCash: config?.vodafoneCash || settings.whishNumber,
+        mtnCashPhone: config?.mtnCashPhone || settings.mtnCash,
+        usdToSyp: config?.usdToSyp || settings.usdToSyp,
+        usdToIqd: config?.usdToIqd || settings.usdToIqd,
+        usdToEgp: config?.usdToEgp || settings.usdToEgp,
+    });
 }
 
 // PUT /api/admin/settings
@@ -79,6 +91,33 @@ export async function PUT(req: NextRequest) {
         `;
 
         const updated = await getPlatformSettings();
+
+        // Also update PlatformConfig in Prisma
+        await prisma.platformConfig.upsert({
+            where: { id: 'singleton' },
+            create: {
+                id: 'singleton',
+                usdToSyp: Number(body.usdToSyp ?? 13000),
+                usdToIqd: Number(body.usdToIqd ?? 1300),
+                usdToEgp: Number(body.usdToEgp ?? 50),
+                shamCashPhone: body.shamCash,
+                omtPhone: body.omtNumber,
+                zainCashPhone: body.zainCash,
+                vodafoneCash: body.whishNumber,
+                mtnCashPhone: body.mtnCash,
+            },
+            update: {
+                usdToSyp: Number(body.usdToSyp ?? 13000),
+                usdToIqd: Number(body.usdToIqd ?? 1300),
+                usdToEgp: Number(body.usdToEgp ?? 50),
+                shamCashPhone: body.shamCash,
+                omtPhone: body.omtNumber,
+                zainCashPhone: body.zainCash,
+                vodafoneCash: body.whishNumber,
+                mtnCashPhone: body.mtnCash,
+            }
+        });
+
         return NextResponse.json({ success: true, settings: updated });
     } catch (error) {
         console.error('Error saving platform settings:', error);

@@ -90,6 +90,7 @@ export default function DashboardLayout({
         { href: '/dashboard/admin', icon: FiShield, label: 'لوحة الادمن', type: 'admin' },
         { href: '/dashboard/admin/users', icon: FiUsers, label: 'المستخدمين', type: 'admin' },
         { href: '/dashboard/admin/products', icon: FiPackage, label: 'المنتجات والمحتوى', type: 'admin' },
+        { href: '/dashboard/admin/moderation', icon: FiShield, label: 'المراجعة والرقابة', type: 'admin' },
         { href: '/dashboard/admin/orders', icon: FiShoppingCart, label: 'الطلبات', type: 'admin' },
         { href: '/dashboard/admin/manual-orders', icon: FiActivity, label: 'طلبات الدفع اليدوي', type: 'admin' },
         { href: '/dashboard/admin/payouts', icon: FiDollarSign, label: 'المالية والسحوبات', type: 'admin' },

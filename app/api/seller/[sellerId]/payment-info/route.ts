@@ -27,18 +27,30 @@ export async function GET(
             return NextResponse.json({ error: 'البائع غير موجود' }, { status: 404 });
         }
 
-        // Return only available payment methods
+        const config = await prisma.platformConfig.findUnique({ where: { id: 'singleton' } });
+
+        // Return available payment methods for seller and fallback platform accounts
         const methods = {
             name: user.name,
-            shamCash: user.shamCashNumber,
-            omt: user.omtNumber,
-            zainCash: user.zainCashNumber,
-            vodafoneCash: user.vodafoneCash,
-            mtncash: user.mtncashNumber,
+            shamCash: user.shamCashNumber || config?.shamCashPhone,
+            omt: user.omtNumber || config?.omtPhone,
+            zainCash: user.zainCashNumber || config?.zainCashPhone,
+            vodafoneCash: user.vodafoneCash || config?.vodafoneCash,
+            mtncash: user.mtncashNumber || config?.mtnCashPhone,
             bank: user.bankName && user.accountNumber ? {
                 name: user.bankName,
                 account: user.accountNumber,
             } : null,
+            platformWallets: config ? {
+                shamCash: config.shamCashPhone,
+                omt: config.omtPhone,
+                zainCash: config.zainCashPhone,
+                vodafoneCash: config.vodafoneCash,
+                mtnCash: config.mtnCashPhone,
+                usdToSyp: config.usdToSyp,
+                usdToIqd: config.usdToIqd,
+                usdToEgp: config.usdToEgp
+            } : null
         };
 
         return NextResponse.json(methods);

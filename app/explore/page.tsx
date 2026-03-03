@@ -51,9 +51,12 @@ export default async function ExplorePage({
 
         if (!showOnlyProducts) {
             // Fetch Courses (no category filter - courses use Arabic categories)
+            // @ts-ignore
             courses = await prisma.course.findMany({
                 where: {
                     isActive: true,
+                    // @ts-ignore
+                    status: 'APPROVED',
                     ...searchFilter,
                 },
                 include: { user: { select: { name: true, brandColor: true, avatar: true, username: true } } },

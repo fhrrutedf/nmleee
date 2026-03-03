@@ -111,6 +111,45 @@ export async function GET(req: NextRequest) {
         ORDER BY DATE_TRUNC('month', "paidAt") ASC
     `;
 
+    // Daily revenue chart (last 30 days)
+    const dailyRevenue = await prisma.$queryRaw<any[]>`
+        SELECT 
+            TO_CHAR(DATE_TRUNC('day', "paidAt"), 'YYYY-MM-DD') as day,
+            SUM("totalAmount") as revenue,
+            COUNT(*) as orders
+        FROM "Order"
+        WHERE "isPaid" = true AND "paidAt" >= NOW() - INTERVAL '30 days'
+        GROUP BY DATE_TRUNC('day', "paidAt")
+        ORDER BY DATE_TRUNC('day', "paidAt") ASC
+    `;
+
+    // Sales by country (assuming we can join with User if it's the buyer, else we group by users country)
+    const salesByCountryRaw = await prisma.$queryRaw<any[]>`
+        SELECT 
+            u.country as name,
+            SUM(o."totalAmount") as value
+        FROM "Order" o
+        LEFT JOIN "User" u ON o."userId" = u.id OR o."customerEmail" = u.email
+        WHERE o."isPaid" = true AND u.country IS NOT NULL
+        GROUP BY u.country
+        ORDER BY value DESC
+        LIMIT 5
+    `;
+
+    // Format for Recharts Donut
+    let otherSales = 0;
+    const formattedSalesByCountry = [];
+    for (const row of salesByCountryRaw) {
+        if (['سوريا', 'Syria', 'العراق', 'Iraq'].includes(row.name)) {
+            formattedSalesByCountry.push({ name: row.name, value: Number(row.value) });
+        } else {
+            otherSales += Number(row.value);
+        }
+    }
+    if (otherSales > 0) {
+        formattedSalesByCountry.push({ name: 'دول أخرى', value: otherSales });
+    }
+
     const growthCalc = (curr: number, prev: number) =>
         prev === 0 ? 100 : Math.round(((curr - prev) / prev) * 100);
 
@@ -159,7 +198,18 @@ export async function GET(req: NextRequest) {
             count: m._count._all,
             total: m._sum.totalAmount ?? 0,
         })),
-        monthlyRevenue,
+        salesByCountry: formattedSalesByCountry,
+        monthlyRevenue: monthlyRevenue.map(m => ({
+            ...m,
+            revenue: Number(m.revenue || 0),
+            fees: Number(m.fees || 0),
+            orders: Number(m.orders || 0)
+        })),
+        dailyRevenue: dailyRevenue.map(d => ({
+            ...d,
+            revenue: Number(d.revenue || 0),
+            orders: Number(d.orders || 0)
+        })),
         recentUsers,
     });
 }
