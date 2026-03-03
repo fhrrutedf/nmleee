@@ -18,132 +18,58 @@ export async function GET() {
 
     const user = await prisma.user.findUnique({
         where: { email: session.user.email },
-        select: {
-            id: true,
-            pendingBalance: true,
-            availableBalance: true,
-            totalEarnings: true,
-        },
+        select: { id: true },
     });
 
     if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 });
 
-    // 🔑 KEY: Auto-release matured balances on every dashboard open (no cron!)
-    const releaseResult = await releaseMaturedBalances(user.id);
-
-    // Fetch fresh data after release
-    const updatedUser = await prisma.user.findUnique({
-        where: { id: user.id },
-        select: {
-            pendingBalance: true,
-            availableBalance: true,
-            totalEarnings: true,
-        },
-    });
+    // 🔑 KEY: Auto-release matured balances on every dashboard open
+    await releaseMaturedBalances(user.id);
 
     const settings = await getPlatformSettings();
 
-    // Analytics: sales this month
-    const now = new Date();
-    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-
-    const [monthOrders, allOrders, pendingOrders, topProducts] = await Promise.all([
-        // This month's paid orders
-        prisma.order.findMany({
-            where: {
-                sellerId: user.id,
-                isPaid: true,
-                paidAt: { gte: startOfMonth },
-            },
-            select: { totalAmount: true, sellerAmount: true, platformFee: true, paidAt: true },
-        }),
-
-        // All-time paid orders
-        prisma.order.findMany({
-            where: { sellerId: user.id, isPaid: true },
-            select: { totalAmount: true, sellerAmount: true, paidAt: true, payoutStatus: true },
-            orderBy: { paidAt: 'desc' },
-            take: 12, // Last 12 orders for chart
-        }),
-
-        // Pending orders (in escrow)
-        prisma.order.count({
-            where: { sellerId: user.id, payoutStatus: 'pending', isPaid: true },
-        }),
-
-        // Top performing products
-        prisma.orderItem.groupBy({
-            by: ['productId'],
-            where: { order: { sellerId: user.id, isPaid: true } },
-            _count: { _all: true },
-            _sum: { price: true },
-            orderBy: { _sum: { price: 'desc' } },
-            take: 5,
-        }),
-    ]);
-
-    const grossThisMonth = monthOrders.reduce((s, o) => s + o.totalAmount, 0);
-    const netThisMonth = monthOrders.reduce((s, o) => s + o.sellerAmount, 0);
-
-    return NextResponse.json({
-        // Balances (after auto-release)
-        balances: {
-            pending: updatedUser?.pendingBalance ?? 0,
-            available: updatedUser?.availableBalance ?? 0,
-            total: updatedUser?.totalEarnings ?? 0,
+    // Fetch order history for earnings
+    const orders = await prisma.order.findMany({
+        where: { sellerId: user.id, isPaid: true },
+        select: {
+            orderNumber: true,
+            totalAmount: true,
+            sellerAmount: true,
+            platformFee: true,
+            payoutStatus: true,
+            paidAt: true,
+            items: {
+                select: {
+                    product: { select: { title: true } },
+                    course: { select: { title: true } }
+                }
+            }
         },
-
-        // This month stats
-        month: {
-            gross: parseFloat(grossThisMonth.toFixed(2)),
-            net: parseFloat(netThisMonth.toFixed(2)),
-            orders: monthOrders.length,
-        },
-
-        // Escrow info
-        escrow: {
-            pendingOrdersCount: pendingOrders,
-            escrowDays: settings.escrowDays,
-            released: releaseResult.released,
-            releasedAmount: releaseResult.totalAmount,
-        },
-
-        // Chart data (last 12 orders grouped by month)
-        chartData: buildMonthlyChart(allOrders),
-
-        // Platform settings relevant to seller
-        settings: {
-            commissionRate: settings.commissionRate,
-            minPayoutAmount: settings.minPayoutAmount,
-            currencyRates: {
-                SYP: settings.usdToSyp,
-                IQD: settings.usdToIqd,
-                EGP: settings.usdToEgp,
-                AED: settings.usdToAed,
-            },
-        },
+        orderBy: { paidAt: 'desc' },
+        take: 100,
     });
+
+    const formattedEarnings = orders.map(o => {
+        let title = 'منتج';
+        if (o.items && o.items.length > 0) {
+            title = o.items[0].product?.title || o.items[0].course?.title || 'منتج';
+        }
+
+        const availableDate = o.paidAt ? new Date(o.paidAt.getTime() + (settings.escrowDays * 24 * 60 * 60 * 1000)) : new Date();
+
+        return {
+            orderNumber: o.orderNumber,
+            total: o.totalAmount,
+            platformFee: o.platformFee,
+            yourEarning: o.sellerAmount,
+            status: o.payoutStatus,
+            availableAt: availableDate.toISOString(),
+            paidOutAt: null,
+            date: o.paidAt ? o.paidAt.toISOString() : new Date().toISOString(),
+            item: title,
+        };
+    });
+
+    return NextResponse.json(formattedEarnings);
 }
 
-function buildMonthlyChart(orders: { totalAmount: number; sellerAmount: number; paidAt: Date | null }[]) {
-    const months: Record<string, { gross: number; net: number; count: number }> = {};
-
-    for (const order of orders) {
-        if (!order.paidAt) continue;
-        const key = `${order.paidAt.getFullYear()}-${String(order.paidAt.getMonth() + 1).padStart(2, '0')}`;
-        if (!months[key]) months[key] = { gross: 0, net: 0, count: 0 };
-        months[key].gross += order.totalAmount;
-        months[key].net += order.sellerAmount;
-        months[key].count += 1;
-    }
-
-    return Object.entries(months)
-        .sort(([a], [b]) => a.localeCompare(b))
-        .slice(-6) // Last 6 months
-        .map(([month, data]) => ({
-            month,
-            gross: parseFloat(data.gross.toFixed(2)),
-            net: parseFloat(data.net.toFixed(2)),
-            orders: data.count,
-        }));
-}
