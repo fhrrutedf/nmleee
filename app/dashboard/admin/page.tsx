@@ -10,6 +10,12 @@ import {
 } from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
+import {
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer,
+    PieChart, Pie, Cell, Legend
+} from 'recharts';
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d', '#ffc658'];
 
 // ─── Helpers ───────────────────────────────────────────────
 const fmt = (n: number) => new Intl.NumberFormat('ar-SA', { maximumFractionDigits: 2 }).format(n);
@@ -285,8 +291,66 @@ export default function AdminDashboardPage() {
                                     value={`$${fmt(ov.platformFees ?? 0)}`} sub="إجمالي العمولات المحصلة" />
                             </div>
 
+                            {/* ══════════════ CHARTS ══════════════ */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
+                                {/* Revenue Line Chart */}
+                                <div className="card">
+                                    <h2 className="font-bold text-primary-charcoal dark:text-white mb-6 flex items-center gap-2">
+                                        <FiTrendingUp className="text-action-blue" /> إيرادات المنصة (آخر 6 أشهر)
+                                    </h2>
+                                    <div className="h-72" dir="ltr">
+                                        <ResponsiveContainer width="100%" height="100%">
+                                            <LineChart data={data.monthlyRevenue} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                                                <XAxis dataKey="month" stroke="#6b7280" style={{ fontSize: '12px' }} />
+                                                <YAxis stroke="#6b7280" style={{ fontSize: '12px' }} />
+                                                <RechartsTooltip
+                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                                    labelStyle={{ color: '#374151', fontWeight: 'bold' }}
+                                                />
+                                                <Legend />
+                                                <Line type="monotone" name="الأرباح" dataKey="revenue" stroke="#3b82f6" strokeWidth={3} activeDot={{ r: 8 }} />
+                                                <Line type="monotone" name="عمولة المنصة" dataKey="fees" stroke="#10b981" strokeWidth={3} />
+                                            </LineChart>
+                                        </ResponsiveContainer>
+                                    </div>
+                                </div>
+
+                                {/* Users By Country Pie Chart */}
+                                <div className="card">
+                                    <h2 className="font-bold text-primary-charcoal dark:text-white mb-6 flex items-center gap-2">
+                                        <FiGlobe className="text-purple-600" /> توزيع المستخدمين والدول
+                                    </h2>
+                                    <div className="h-72" dir="ltr">
+                                        <ResponsiveContainer width="100%" height="100%">
+                                            <PieChart>
+                                                <Pie
+                                                    data={data.usersByCountry}
+                                                    cx="50%"
+                                                    cy="50%"
+                                                    labelLine={false}
+                                                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                                                    outerRadius={100}
+                                                    fill="#8884d8"
+                                                    dataKey="count"
+                                                    nameKey="country"
+                                                >
+                                                    {data.usersByCountry?.map((entry: any, index: number) => (
+                                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                                    ))}
+                                                </Pie>
+                                                <RechartsTooltip
+                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                                />
+                                                <Legend />
+                                            </PieChart>
+                                        </ResponsiveContainer>
+                                    </div>
+                                </div>
+                            </div>
+
                             {/* Recent Orders mini */}
-                            <div className="card">
+                            <div className="card mt-8">
                                 <h2 className="font-bold text-primary-charcoal dark:text-white mb-4 flex items-center gap-2">
                                     <FiList /> آخر الطلبات
                                 </h2>
@@ -547,8 +611,8 @@ export default function AdminDashboardPage() {
                                                     <td className="py-3 px-3 text-xs">{u.country || '—'}</td>
                                                     <td className="py-3 px-3">
                                                         <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${u.role === 'ADMIN' ? 'bg-red-100 text-red-700' :
-                                                                u.role === 'SELLER' ? 'bg-blue-100 text-blue-700' :
-                                                                    'bg-gray-100 text-gray-600'
+                                                            u.role === 'SELLER' ? 'bg-blue-100 text-blue-700' :
+                                                                'bg-gray-100 text-gray-600'
                                                             }`}>
                                                             {u.role === 'ADMIN' ? '🛡️ أدمن' : u.role === 'SELLER' ? '🏪 بائع' : '👤 عميل'}
                                                         </span>
@@ -567,8 +631,8 @@ export default function AdminDashboardPage() {
                                                             disabled={togglingUser === u.id}
                                                             title={u.isActive ? 'إيقاف الحساب' : 'تفعيل الحساب'}
                                                             className={`p-1.5 rounded-lg transition-colors ${u.isActive
-                                                                    ? 'bg-red-50 hover:bg-red-100 text-red-600'
-                                                                    : 'bg-green-50 hover:bg-green-100 text-green-600'
+                                                                ? 'bg-red-50 hover:bg-red-100 text-red-600'
+                                                                : 'bg-green-50 hover:bg-green-100 text-green-600'
                                                                 }`}
                                                         >
                                                             {togglingUser === u.id
