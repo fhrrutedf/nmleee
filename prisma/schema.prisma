@@ -12,6 +12,27 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+// ─── Platform Settings (Singleton) ────────────────────────
+model PlatformConfig {
+  id              String   @id @default("singleton")
+  
+  // Exchange Rates
+  usdToSyp        Float    @default(15000)
+  usdToIqd        Float    @default(1320)
+  usdToEgp        Float    @default(50)
+  
+  // Platform Wallets / Phones for Manual Payments
+  shamCashPhone   String?
+  omtPhone        String?
+  zainCashPhone   String?
+  vodafoneCash    String?
+  mtnCashPhone    String?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+
 
 model User {
   id            String    @id @default(uuid())
@@ -189,6 +210,7 @@ model Course {
   tags        String[]
   
   isActive    Boolean  @default(true)
+  status      CourseStatus @default(PENDING_REVIEW)
   isCertificateEnabled Boolean @default(false) // شهادة التخرج اختيارية
   
   // New settings
@@ -1209,5 +1231,11 @@ model BlogPost {
 enum PostStatus {
   DRAFT
   PUBLISHED
+}
+
+enum CourseStatus {
+  PENDING_REVIEW
+  APPROVED
+  REJECTED
 }
 
