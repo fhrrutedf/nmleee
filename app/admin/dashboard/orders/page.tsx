@@ -11,7 +11,8 @@ import {
     FiCreditCard,
     FiClock,
     FiEye,
-    FiDownload
+    FiDownload,
+    FiRefreshCw
 } from 'react-icons/fi';
 
 interface OrderItem {
@@ -57,6 +58,8 @@ export default function AdminOrdersManagement() {
     const [typeFilter, setTypeFilter] = useState('ALL');
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [autoRefresh, setAutoRefresh] = useState(true);
+    const [isRefreshing, setIsRefreshing] = useState(false);
 
     // Stats
     const [stats, setStats] = useState({
@@ -74,8 +77,18 @@ export default function AdminOrdersManagement() {
         fetchOrders();
     }, [session, page, statusFilter, typeFilter, searchQuery]);
 
-    const fetchOrders = async () => {
-        setLoading(true);
+    // Real-time polling
+    useEffect(() => {
+        if (!autoRefresh) return;
+        const interval = setInterval(() => {
+            fetchOrders(false); // Silent reload
+        }, 5000);
+        return () => clearInterval(interval);
+    }, [autoRefresh, session, page, statusFilter, typeFilter, searchQuery]);
+
+    const fetchOrders = async (showSpinner = true) => {
+        if (showSpinner) setLoading(true);
+        else setIsRefreshing(true);
         try {
             const url = new URL('/api/admin/orders', window.location.origin);
             url.searchParams.append('page', page.toString());
@@ -97,6 +110,7 @@ export default function AdminOrdersManagement() {
             console.error('Error fetching orders:', error);
         } finally {
             setLoading(false);
+            setIsRefreshing(false);
         }
     };
 
@@ -152,19 +166,38 @@ export default function AdminOrdersManagement() {
                     </p>
                 </div>
 
-                {/* Quick Stats */}
-                <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
-                    <div className="px-5 py-3 flex flex-col items-center">
-                        <span className="text-gray-400 text-xs">إجمالي</span>
-                        <span className="text-primary-charcoal dark:text-white text-lg">{stats.totalOrders}</span>
+                {/* Quick Stats and Toggle */}
+                <div className="flex flex-col gap-3">
+                    <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
+                        <div className="px-5 py-3 flex flex-col items-center">
+                            <span className="text-gray-400 text-xs">إجمالي</span>
+                            <span className="text-primary-charcoal dark:text-white text-lg">{stats.totalOrders}</span>
+                        </div>
+                        <div className="px-5 py-3 flex flex-col items-center">
+                            <span className="text-green-500 text-xs">مكتمل ومدفوع</span>
+                            <span className="text-green-600 dark:text-green-400 text-lg">{stats.paidOrders}</span>
+                        </div>
+                        <div className="px-5 py-3 flex flex-col items-center text-center">
+                            <span className="text-orange-500 text-[11px] leading-tight">حوالات يدوي<br />(قيد المراجعة)</span>
+                            <span className="text-orange-600 dark:text-orange-400 text-lg">{stats.pendingManual}</span>
+                        </div>
                     </div>
-                    <div className="px-5 py-3 flex flex-col items-center">
-                        <span className="text-green-500 text-xs">مكتمل ومدفوع</span>
-                        <span className="text-green-600 dark:text-green-400 text-lg">{stats.paidOrders}</span>
-                    </div>
-                    <div className="px-5 py-3 flex flex-col items-center text-center">
-                        <span className="text-orange-500 text-[11px] leading-tight">حوالات يدوي<br />(قيد المراجعة)</span>
-                        <span className="text-orange-600 dark:text-orange-400 text-lg">{stats.pendingManual}</span>
+
+                    <div className="flex items-center gap-2 self-end">
+                        <button
+                            onClick={() => setAutoRefresh(!autoRefresh)}
+                            className={`btn text-sm py-2 px-3 flex items-center justify-center gap-1.5 rounded-xl transition-all ${autoRefresh ? 'bg-green-100 text-green-700 hover:bg-green-200 border-none' : 'border border-gray-200 dark:border-gray-800 text-gray-500 hover:bg-gray-50'}`}
+                            title="تحديث تلقائي (لحظي)"
+                        >
+                            تحديث لحظي
+                            {autoRefresh && <span className="relative flex h-2 w-2 mr-1">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                            </span>}
+                        </button>
+                        <button onClick={() => fetchOrders(true)} className="btn bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 py-2 px-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800">
+                            <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-action-blue' : 'text-gray-500 w-4 h-4'} />
+                        </button>
                     </div>
                 </div>
             </div>
@@ -295,8 +328,8 @@ export default function AdminOrdersManagement() {
                                             </td>
                                             <td className="py-4 px-6 text-center">
                                                 <span className={`inline-flex items-center px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${order.paymentMethod === 'manual'
-                                                        ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 border border-blue-200 dark:border-blue-800'
-                                                        : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 border border-gray-200 dark:border-gray-700'
+                                                    ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 border border-blue-200 dark:border-blue-800'
+                                                    : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 border border-gray-200 dark:border-gray-700'
                                                     }`}>
                                                     {order.paymentMethod === 'manual' ? 'حوالة بنكية يدوية' : order.paymentMethod}
                                                 </span>

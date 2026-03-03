@@ -7,7 +7,8 @@ import {
     FiHome, FiShoppingBag, FiVideo, FiCalendar, FiDollarSign,
     FiSettings, FiLogOut, FiMenu, FiX, FiTag, FiLink2,
     FiTrendingUp, FiCreditCard, FiExternalLink, FiGlobe, FiActivity, FiUsers, FiPackage, FiZap,
-    FiBriefcase, FiBookOpen, FiMessageSquare, FiShield, FiShoppingCart, FiDollarSign
+    FiBriefcase, FiBookOpen, FiMessageSquare, FiShield, FiShoppingCart
+} from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { useViewportHeight } from '@/hooks/useViewportHeight';

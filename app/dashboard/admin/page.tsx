@@ -74,6 +74,8 @@ export default function AdminDashboardPage() {
     const [activeTab, setActiveTab] = useState('overview');
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    const [isRefreshing, setIsRefreshing] = useState(false);
+    const [autoRefresh, setAutoRefresh] = useState(true);
     const [period, setPeriod] = useState('30');
     const [verifying, setVerifying] = useState<string | null>(null);
     const [userFilter, setUserFilter] = useState('');
@@ -84,15 +86,25 @@ export default function AdminDashboardPage() {
     const [broadcast, setBroadcast] = useState({ subject: '', message: '', target: 'sellers' });
     const [sending, setSending] = useState(false);
 
-    const load = useCallback(async () => {
-        setLoading(true);
+    const load = useCallback(async (showSpinner = true) => {
+        if (showSpinner) setLoading(true);
+        else setIsRefreshing(true);
         try {
             const r = await fetch(`/api/admin/dashboard?period=${period}`);
             setData(await r.json());
-        } catch { } finally { setLoading(false); }
+        } catch { } finally { setLoading(false); setIsRefreshing(false); }
     }, [period]);
 
     useEffect(() => { load(); }, [load]);
+
+    // Real-time polling
+    useEffect(() => {
+        if (!autoRefresh) return;
+        const interval = setInterval(() => {
+            load(false); // Silent reload
+        }, 5000);
+        return () => clearInterval(interval);
+    }, [autoRefresh, load]);
 
     const verifyOrder = async (orderId: string, action: 'approve' | 'reject') => {
         setVerifying(orderId);
@@ -199,8 +211,19 @@ export default function AdminDashboardPage() {
                         className="btn bg-purple-600 hover:bg-purple-700 text-white py-2 px-3 text-sm flex items-center gap-1.5">
                         <FiSend /> إرسال بث
                     </button>
-                    <button onClick={load} className="btn btn-outline py-2 px-3" title="تحديث">
-                        <FiRefreshCw className={loading ? 'animate-spin' : ''} />
+                    <button
+                        onClick={() => setAutoRefresh(!autoRefresh)}
+                        className={`btn text-sm py-2 px-3 flex items-center gap-1.5 ${autoRefresh ? 'bg-green-100 text-green-700 hover:bg-green-200 border-none' : 'btn-outline border-gray-300'}`}
+                        title="تحديث تلقائي (لحظي)"
+                    >
+                        معالجة لحظية
+                        {autoRefresh && <span className="relative flex h-2 w-2 mr-1">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>}
+                    </button>
+                    <button onClick={() => load(true)} className="btn btn-outline py-2 px-3" title="تحديث يدوي">
+                        <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-action-blue' : ''} />
                     </button>
                     <Link href="/dashboard/admin/platform-settings" className="btn btn-outline py-2 px-3 text-sm flex items-center gap-1">
                         <FiActivity /> الإعدادات
