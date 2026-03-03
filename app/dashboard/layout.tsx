@@ -7,7 +7,7 @@ import {
     FiHome, FiShoppingBag, FiVideo, FiCalendar, FiDollarSign,
     FiSettings, FiLogOut, FiMenu, FiX, FiTag, FiLink2,
     FiTrendingUp, FiCreditCard, FiExternalLink, FiGlobe, FiActivity, FiUsers, FiPackage, FiZap,
-    FiBriefcase, FiBookOpen, FiMessageSquare, FiShield
+    FiBriefcase, FiBookOpen, FiMessageSquare, FiShield, FiShoppingCart
 } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
@@ -88,7 +88,13 @@ export default function DashboardLayout({
 
         // Admin only
         { href: '/dashboard/admin', icon: FiShield, label: 'لوحة الادمن', type: 'admin' },
+        { href: '/dashboard/admin/users', icon: FiUsers, label: 'المستخدمين', type: 'admin' },
+        { href: '/dashboard/admin/products', icon: FiPackage, label: 'المنتجات والمحتوى', type: 'admin' },
+        { href: '/dashboard/admin/orders', icon: FiShoppingCart, label: 'الطلبات', type: 'admin' },
+        { href: '/dashboard/admin/manual-orders', icon: FiActivity, label: 'طلبات الدفع اليدوي', type: 'admin' },
+        { href: '/dashboard/admin/payouts', icon: FiDollarSign, label: 'المالية والسحوبات', type: 'admin' },
         { href: '/dashboard/admin/tools', icon: FiActivity, label: '🔧 أدوات الادمن', type: 'admin' },
+        { href: '/dashboard/admin/blog', icon: FiBookOpen, label: 'إدارة المدونة', type: 'admin' },
         { href: '/dashboard/admin/platform-settings', icon: FiSettings, label: 'إعدادات المنصة', type: 'admin' },
     ];
 

@@ -12,6 +12,27 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+// ─── Platform Settings (Singleton) ────────────────────────
+model PlatformConfig {
+  id              String   @id @default("singleton")
+  
+  // Exchange Rates
+  usdToSyp        Float    @default(15000)
+  usdToIqd        Float    @default(1320)
+  usdToEgp        Float    @default(50)
+  
+  // Platform Wallets / Phones for Manual Payments
+  shamCashPhone   String?
+  omtPhone        String?
+  zainCashPhone   String?
+  vodafoneCash    String?
+  mtnCashPhone    String?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+
 
 model User {
   id            String    @id @default(uuid())
@@ -100,6 +121,9 @@ model User {
   receivedNotifications Notification[] @relation("ReceivedNotifications")
   automationSettings AutomationSettings?
   landingPages  LandingPage[]
+  supportTickets SupportTicket[] @relation("UserTickets")
+  ticketMessages SupportTicketMessage[] @relation("TicketMessages")
+  blogPosts     BlogPost[]
 }
 
 model Product {
@@ -186,6 +210,7 @@ model Course {
   tags        String[]
   
   isActive    Boolean  @default(true)
+  status      CourseStatus @default(PENDING_REVIEW)
   isCertificateEnabled Boolean @default(false) // شهادة التخرج اختيارية
   
   // New settings
@@ -1120,5 +1145,97 @@ model LandingPage {
   updatedAt   DateTime @updatedAt
 
   @@index([userId])
+}
+
+// ─── Support Tickets ───────────────────────────────────────
+model SupportTicket {
+  id            String   @id @default(uuid())
+  ticketNumber  String   @unique
+  subject       String
+  status        TicketStatus @default(OPEN)
+  priority      TicketPriority @default(NORMAL)
+  category      TicketCategory @default(GENERAL)
+
+  userId        String
+  user          User     @relation("UserTickets", fields: [userId], references: [id], onDelete: Cascade)
+  
+  messages      SupportTicketMessage[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model SupportTicketMessage {
+  id            String   @id @default(uuid())
+  message       String
+
+  ticketId      String
+  ticket        SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  senderId      String 
+  senderRole    Role     @default(SELLER)
+  sender        User     @relation("TicketMessages", fields: [senderId], references: [id], onDelete: Cascade)
+
+  createdAt     DateTime @default(now())
+
+  @@index([ticketId])
+  @@index([senderId])
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum TicketPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum TicketCategory {
+  GENERAL
+  TECHNICAL
+  BILLING
+  ACCOUNT
+}
+
+// ─── Blog Posts ───────────────────────────────────────────
+model BlogPost {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  content     String   // Since it's Postgres, String is TEXT unlimited by default, or we can use db.Text, Prisma handles it as text.
+  excerpt     String?
+  coverImage  String?
+  category    String?
+  authorName  String?
+  tags        String[] @default([])
+  status      PostStatus @default(DRAFT)
+
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([slug])
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum CourseStatus {
+  PENDING_REVIEW
+  APPROVED
+  REJECTED
 }
 

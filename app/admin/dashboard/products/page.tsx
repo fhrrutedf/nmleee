@@ -13,7 +13,8 @@ import {
     FiMoreVertical,
     FiPlayCircle,
     FiImage,
-    FiEyeOff
+    FiEyeOff,
+    FiRefreshCw
 } from 'react-icons/fi';
 import Link from 'next/link';
 
@@ -56,6 +57,8 @@ export default function ProductsManagement() {
     const [statusFilter, setStatusFilter] = useState('ALL');
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [autoRefresh, setAutoRefresh] = useState(true);
+    const [isRefreshing, setIsRefreshing] = useState(false);
 
     // Stats
     const [stats, setStats] = useState({
@@ -73,8 +76,18 @@ export default function ProductsManagement() {
         fetchItems();
     }, [session, page, typeFilter, statusFilter, searchQuery]);
 
-    const fetchItems = async () => {
-        setLoading(true);
+    // Real-time polling
+    useEffect(() => {
+        if (!autoRefresh) return;
+        const interval = setInterval(() => {
+            fetchItems(false); // Silent reload
+        }, 5000);
+        return () => clearInterval(interval);
+    }, [autoRefresh, session, page, typeFilter, statusFilter, searchQuery]);
+
+    const fetchItems = async (showSpinner = true) => {
+        if (showSpinner) setLoading(true);
+        else setIsRefreshing(true);
         try {
             const url = new URL('/api/admin/products', window.location.origin);
             url.searchParams.append('page', page.toString());
@@ -96,6 +109,7 @@ export default function ProductsManagement() {
             console.error('Error fetching products:', error);
         } finally {
             setLoading(false);
+            setIsRefreshing(false);
         }
     };
 
@@ -134,19 +148,38 @@ export default function ProductsManagement() {
                     </p>
                 </div>
 
-                {/* Quick Stats */}
-                <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
-                    <div className="px-5 py-3 flex flex-col items-center">
-                        <span className="text-gray-400 text-xs">إجمالي</span>
-                        <span className="text-primary-charcoal dark:text-white text-lg">{stats.totalItems}</span>
+                {/* Quick Stats and Toggle */}
+                <div className="flex flex-col gap-3">
+                    <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
+                        <div className="px-5 py-3 flex flex-col items-center">
+                            <span className="text-gray-400 text-xs">إجمالي</span>
+                            <span className="text-primary-charcoal dark:text-white text-lg">{stats.totalItems}</span>
+                        </div>
+                        <div className="px-5 py-3 flex flex-col items-center">
+                            <span className="text-action-blue text-xs">منتج رقمي</span>
+                            <span className="text-blue-600 dark:text-blue-400 text-lg">{stats.totalProducts}</span>
+                        </div>
+                        <div className="px-5 py-3 flex flex-col items-center">
+                            <span className="text-purple-500 text-xs">دورة تدريبية</span>
+                            <span className="text-purple-600 dark:text-purple-400 text-lg">{stats.totalCourses}</span>
+                        </div>
                     </div>
-                    <div className="px-5 py-3 flex flex-col items-center">
-                        <span className="text-action-blue text-xs">منتج رقمي</span>
-                        <span className="text-blue-600 dark:text-blue-400 text-lg">{stats.totalProducts}</span>
-                    </div>
-                    <div className="px-5 py-3 flex flex-col items-center">
-                        <span className="text-purple-500 text-xs">دورة تدريبية</span>
-                        <span className="text-purple-600 dark:text-purple-400 text-lg">{stats.totalCourses}</span>
+
+                    <div className="flex items-center gap-2 self-end">
+                        <button
+                            onClick={() => setAutoRefresh(!autoRefresh)}
+                            className={`btn text-sm py-2 px-3 flex items-center justify-center gap-1.5 rounded-xl transition-all ${autoRefresh ? 'bg-green-100 text-green-700 hover:bg-green-200 border-none' : 'border border-gray-200 dark:border-gray-800 text-gray-500 hover:bg-gray-50'}`}
+                            title="تحديث تلقائي (لحظي)"
+                        >
+                            تحديث لحظي
+                            {autoRefresh && <span className="relative flex h-2 w-2 mr-1">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                            </span>}
+                        </button>
+                        <button onClick={() => fetchItems(true)} className="btn bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 py-2 px-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800">
+                            <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-purple-600' : 'text-gray-500 w-4 h-4'} />
+                        </button>
                     </div>
                 </div>
             </div>
@@ -272,8 +305,8 @@ export default function ProductsManagement() {
                                             </td>
                                             <td className="py-4 px-6 text-center">
                                                 <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold ${item.isActive
-                                                        ? 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400'
-                                                        : 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400'
+                                                    ? 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400'
+                                                    : 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400'
                                                     }`}>
                                                     {item.isActive ? 'معروض' : 'مخفي/موقوف'}
                                                 </span>
@@ -291,8 +324,8 @@ export default function ProductsManagement() {
                                                     <button
                                                         onClick={() => toggleItemStatus(item.id, item.itemType, item.isActive)}
                                                         className={`p-2 rounded-lg transition-colors ${item.isActive
-                                                                ? 'text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
-                                                                : 'text-green-500 hover:bg-green-50 dark:hover:bg-green-900/20'
+                                                            ? 'text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
+                                                            : 'text-green-500 hover:bg-green-50 dark:hover:bg-green-900/20'
                                                             }`}
                                                         title={item.isActive ? 'إخفاء أو إيقاف المحتوى' : 'تفعيل وعرض المحتوى'}
                                                     >

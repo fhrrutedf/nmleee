@@ -1,66 +1,69 @@
-'use client';
-
-import { useParams } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { FiCalendar, FiUser, FiClock, FiShare2, FiArrowRight, FiFacebook, FiTwitter, FiLinkedin } from 'react-icons/fi';
+import { prisma } from '@/lib/db';
+import { Metadata } from 'next';
 
-export default function BlogPostPage() {
-    const params = useParams();
-    // In a real app, verify `params.slug` exists or is valid string
-    const slug = typeof params?.slug === 'string' ? params.slug : '';
+// 1. Generate Metadata dynamically
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params;
 
-    // Mock Data (Ideally this comes from an API based on slug)
-    const post = {
-        title: 'كيف تبدأ بيع المنتجات الرقمية: دليلك الشامل لعام 2024',
-        content: `
-            <p class="lead text-xl text-gray-600 mb-8 font-medium">
-                هل تفكر في تحويل مهاراتك ومعرفتك إلى دخل سلبي؟ المنتجات الرقمية هي الطريق الأمثل لذلك. في هذا الدليل، سنأخذك خطوة بخطوة.
-            </p>
+    const post = await prisma.blogPost.findUnique({
+        where: { slug },
+    });
 
-            <h2 class="text-2xl font-bold mb-4 mt-8 text-primary-charcoal">ما هي المنتجات الرقمية؟</h2>
-            <p class="mb-6 text-gray-700 leading-relaxed">
-                المنتج الرقمي هو أي منتج غير ملموس يمكنك بيعه وتوزيعه عبر الإنترنت دون الحاجة لمخزون أو شحن. تشمل الأمثلة: الكتب الإلكترونية، الدورات التدريبية، التصاميم، القوالب، والاستشارات.
-            </p>
+    if (!post) {
+        return {
+            title: 'مقال غير موجود | منصتي الرقمية',
+        };
+    }
 
-            <h2 class="text-2xl font-bold mb-4 mt-8 text-primary-charcoal">لماذا يجب أن تبدأ الآن؟</h2>
-            <ul class="list-disc list-inside mb-6 space-y-2 text-gray-700">
-                <li><strong>هامش ربح عالي:</strong> لا توجد تكاليف تصنيع أو شحن.</li>
-                <li><strong>قابلية التوسع:</strong> يمكنك بيع نفس المنتج لآلاف العملاء.</li>
-                <li><strong>حرية المكان:</strong> أدر عملك من أي مكان في العالم.</li>
-            </ul>
+    return {
+        title: `${post.title} | منصتي الرقمية`,
+        description: post.excerpt || 'قم بقراءة هذا المقال المميز على منصتي الرقمية',
+        openGraph: {
+            title: post.title,
+            description: post.excerpt || '',
+            images: post.coverImage ? [post.coverImage] : [],
+        },
+    };
+}
 
-            <h2 class="text-2xl font-bold mb-4 mt-8 text-primary-charcoal">الخطوة 1: حدد مهارتك</h2>
-            <p class="mb-6 text-gray-700 leading-relaxed">
-                ابدأ بما تعرفه. هل أنت مصمم جرافيك؟ كاتب؟ مبرمج؟ أو حتى طباخ ماهر؟ كل مهارة يمكن تحويلها لمنتج.
-            </p>
+export const revalidate = 60; // SSR with ISR
 
-            <blockquote class="border-r-4 border-action-blue pr-4 my-8 italic text-gray-600 bg-gray-50 py-4 rounded-l-lg">
-                "أفضل منتج يمكنك بيعه هو الحل لمشكلة كنت تعاني منها سابقاً."
-            </blockquote>
+// 2. Server Component setup
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
 
-            <h2 class="text-2xl font-bold mb-4 mt-8 text-primary-charcoal">الخطوة 2: أنشئ المحتوى</h2>
-            <p class="mb-6 text-gray-700 leading-relaxed">
-                استخدم أدوات بسيطة. يمكنك كتابة كتاب إلكتروني باستخدام Google Docs، أو تسجيل دورة باستخدام هاتفك الذكي. الجودة في المحتوى أهم من أدوات الإنتاج.
-            </p>
+    const post = await prisma.blogPost.findUnique({
+        where: { slug },
+        include: {
+            user: {
+                select: { name: true, avatar: true }
+            }
+        }
+    });
 
-            <h2 class="text-2xl font-bold mb-4 mt-8 text-primary-charcoal">الخاتمة</h2>
-            <p class="mb-6 text-gray-700 leading-relaxed">
-                البدء هو أصعب خطوة. لا تنتظر الكمال، ابدأ بمنتج صغير اليوم وطوره مع الوقت.
-            </p>
-        `,
-        image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&auto=format&fit=crop&q=80',
-        author: 'سارة أحمد',
-        authorRole: 'خبيرة تجارة إلكترونية',
-        date: '15 فبراير 2024',
-        readTime: '5 دقائق',
-        category: 'دليل المبتدئين'
+    if (!post || post.status !== 'PUBLISHED') {
+        notFound();
+    }
+
+    // Function to calculate read time naively (200 words per minute)
+    const calculateReadTime = (text: string) => {
+        const words = text.replace(/<[^>]*>/g, '').split(/\s+/).length;
+        const minutes = Math.ceil(words / 200);
+        return `${minutes} دقائق`;
     };
 
+    const readTime = calculateReadTime(post.content);
+    const authorName = post.authorName || post.user?.name || 'الكاتب';
+    const postDate = new Date(post.createdAt).toLocaleDateString("ar");
+
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-white" dir="rtl">
             {/* Header / Breadcrumb */}
             <div className="bg-gray-50 py-8 border-b border-gray-100">
-                <div className="container-custom">
+                <div className="container-custom px-4 mx-auto max-w-7xl">
                     <div className="flex items-center gap-2 text-sm text-gray-500">
                         <Link href="/" className="hover:text-action-blue">الرئيسية</Link>
                         <span>/</span>
@@ -72,64 +75,55 @@ export default function BlogPostPage() {
             </div>
 
             {/* Main Content */}
-            <main className="container-custom py-12">
+            <main className="container-custom px-4 mx-auto max-w-7xl py-12">
                 <div className="grid lg:grid-cols-12 gap-12">
                     {/* Article Column */}
                     <div className="lg:col-span-8">
                         {/* Article Header */}
                         <div className="mb-8">
-                            <span className="inline-block py-1 px-3 rounded-full bg-blue-50 text-action-blue text-sm font-bold mb-4">
-                                {post.category}
-                            </span>
+                            {post.category && (
+                                <span className="inline-block py-1 px-3 rounded-full bg-blue-50 text-action-blue text-sm font-bold mb-4">
+                                    {post.category}
+                                </span>
+                            )}
                             <h1 className="text-3xl md:text-5xl font-bold text-primary-charcoal mb-6 leading-tight">
                                 {post.title}
                             </h1>
 
-                            <div className="flex items-center gap-6 text-gray-500 text-sm border-b border-gray-100 pb-8">
+                            <div className="flex items-center gap-6 text-gray-500 text-sm border-b border-gray-100 pb-8 mt-6">
                                 <div className="flex items-center gap-2">
-                                    <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
-                                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Author" className="w-full h-full object-cover" />
+                                    <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center text-gray-500 shrink-0">
+                                        {post.user?.avatar ? (
+                                            <img src={post.user.avatar} alt="Author" className="w-full h-full object-cover" />
+                                        ) : (
+                                            <FiUser size={20} />
+                                        )}
                                     </div>
                                     <div>
-                                        <p className="font-bold text-gray-900">{post.author}</p>
-                                        <p className="text-xs">{post.authorRole}</p>
+                                        <p className="font-bold text-gray-900">{authorName}</p>
                                     </div>
                                 </div>
                                 <span className="h-4 w-px bg-gray-300"></span>
-                                <span className="flex items-center gap-2"><FiCalendar /> {post.date}</span>
+                                <span className="flex items-center gap-2"><FiCalendar /> {postDate}</span>
                                 <span className="h-4 w-px bg-gray-300"></span>
-                                <span className="flex items-center gap-2"><FiClock /> {post.readTime}</span>
+                                <span className="flex items-center gap-2"><FiClock /> {readTime}</span>
                             </div>
                         </div>
 
                         {/* Featured Image */}
-                        <div className="rounded-2xl overflow-hidden mb-10 shadow-lg">
-                            <img src={post.image} alt={post.title} className="w-full h-auto object-cover" />
-                        </div>
+                        {post.coverImage && (
+                            <div className="rounded-2xl overflow-hidden mb-10 shadow-sm border border-gray-100">
+                                <img src={post.coverImage} alt={post.title} className="w-full h-auto object-cover max-h-[500px]" />
+                            </div>
+                        )}
 
                         {/* Content */}
                         <article
-                            className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-primary-charcoal prose-p:text-gray-700 prose-a:text-action-blue prose-img:rounded-xl"
+                            className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-primary-charcoal prose-p:text-gray-700 prose-a:text-action-blue prose-img:rounded-xl prose-p:leading-relaxed"
                             dangerouslySetInnerHTML={{ __html: post.content }}
                         />
 
-                        {/* Share Section */}
-                        <div className="mt-12 py-8 border-t border-b border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <h3 className="font-bold text-gray-900 flex items-center gap-2">
-                                <FiShare2 /> شارك المقال:
-                            </h3>
-                            <div className="flex gap-3">
-                                <button className="w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:opacity-90 transition-opacity">
-                                    <FiFacebook />
-                                </button>
-                                <button className="w-10 h-10 rounded-full bg-[#1DA1F2] text-white flex items-center justify-center hover:opacity-90 transition-opacity">
-                                    <FiTwitter />
-                                </button>
-                                <button className="w-10 h-10 rounded-full bg-[#0A66C2] text-white flex items-center justify-center hover:opacity-90 transition-opacity">
-                                    <FiLinkedin />
-                                </button>
-                            </div>
-                        </div>
+                        {/* Share Section Removed to comply with constraints */}
                     </div>
 
                     {/* Sidebar */}
@@ -145,26 +139,6 @@ export default function BlogPostPage() {
                             <button className="w-full py-3 bg-action-blue rounded-lg font-bold hover:bg-blue-600 transition-colors relative z-10">
                                 اشتراك
                             </button>
-                        </div>
-
-                        {/* Recent Posts Widget */}
-                        <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-                            <h3 className="font-bold text-gray-900 mb-6 border-r-4 border-action-blue pr-3">مقالات ذات صلة</h3>
-                            <div className="space-y-6">
-                                {[1, 2, 3].map((i) => (
-                                    <div key={i} className="flex gap-4 group cursor-pointer">
-                                        <div className="w-20 h-20 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
-                                            <img src={`https://source.unsplash.com/random/200x200?sig=${i}`} alt="post" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
-                                        </div>
-                                        <div>
-                                            <h4 className="font-bold text-gray-800 text-sm mb-1 leading-snug group-hover:text-action-blue transition-colors">
-                                                5 خطوات عملية لتحسين مبيعاتك في منصة تمكين
-                                            </h4>
-                                            <span className="text-xs text-gray-500">10 فبراير 2024</span>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
                         </div>
                     </aside>
                 </div>

@@ -40,14 +40,19 @@ export async function logActivity(entry: LogEntry): Promise<void> {
  * Get recent activity logs
  */
 export async function getActivityLogs(limit = 50, offset = 0, actorId?: string) {
-    const whereClause = actorId ? `WHERE actor_id = '${actorId}'` : '';
-    const logs = await prisma.$queryRaw<any[]>`
+    if (actorId) {
+        return prisma.$queryRaw<any[]>`
+            SELECT * FROM activity_logs
+            WHERE actor_id = ${actorId}
+            ORDER BY created_at DESC
+            LIMIT ${limit} OFFSET ${offset}
+        `;
+    }
+    return prisma.$queryRaw<any[]>`
         SELECT * FROM activity_logs
-        ${actorId ? prisma.$queryRaw`WHERE actor_id = ${actorId}` : prisma.$queryRaw``}
         ORDER BY created_at DESC
         LIMIT ${limit} OFFSET ${offset}
     `;
-    return logs;
 }
 
 // ─── Action Constants ───────────────────────────────────────

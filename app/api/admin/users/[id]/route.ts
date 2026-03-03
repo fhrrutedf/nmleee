@@ -3,8 +3,12 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/db';
 
-// PATCH /api/admin/users/[id] → toggle active, change role
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+// PATCH /api/admin/users/[id] → toggle active, change role, custom commission
+export async function PATCH(
+    req: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
+) {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
     if ((session?.user as any)?.role !== 'ADMIN') {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
@@ -16,13 +20,12 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     const updateData: any = {};
     if (isActive !== undefined) updateData.isActive = isActive;
     if (role !== undefined) updateData.role = role;
+
     if (customCommissionRate !== undefined) {
-        // Store via raw SQL since it's a new column not in Prisma schema
         await prisma.$executeRaw`
             UPDATE "User" SET custom_commission_rate = ${customCommissionRate === '' ? null : customCommissionRate}
-            WHERE id = ${params.id}
+            WHERE id = ${id}
         `;
-        // Log it
         const { logActivity, LOG_ACTIONS } = await import('@/lib/activity-log');
         await logActivity({
             actorId: (session?.user as any)?.id,
@@ -30,7 +33,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
             actorRole: 'ADMIN',
             action: LOG_ACTIONS.USER_COMMISSION_CHANGED,
             entityType: 'User',
-            entityId: params.id,
+            entityId: id,
             details: { customCommissionRate },
         });
         if (Object.keys(updateData).length === 0) {
@@ -39,7 +42,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     }
 
     const user = await prisma.user.update({
-        where: { id: params.id },
+        where: { id },
         data: updateData,
         select: { id: true, name: true, email: true, role: true, isActive: true },
     });
@@ -48,14 +51,18 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
 }
 
 // DELETE /api/admin/users/[id] → soft delete (deactivate)
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(
+    req: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
+) {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
     if ((session?.user as any)?.role !== 'ADMIN') {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
 
     const user = await prisma.user.update({
-        where: { id: params.id },
+        where: { id },
         data: { isActive: false },
         select: { id: true, name: true, email: true },
     });
