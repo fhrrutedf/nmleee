@@ -43,7 +43,7 @@ export async function PUT(
                     userId: course.userId,
                     type: 'SYSTEM',
                     title: 'تم رفض الكورس الخاص بك',
-                    message: \`تم رفض كورس "\${course.title}". السبب: \${reason}\`,
+                    message: `تم رفض كورس "${course.title}". السبب: ${reason}`,
                     senderId: adminUser.id,
                 }
             });
@@ -54,7 +54,7 @@ export async function PUT(
                     userId: course.userId,
                     type: 'SYSTEM',
                     title: 'تمت الموافقة على الكورس!',
-                    message: \`تمت الموافقة على كورس "\${course.title}" وأصبح متاحاً للجمهور حالياً.\`,
+                    message: `تمت الموافقة على كورس "${course.title}" وأصبح متاحاً للجمهور حالياً.`,
                     senderId: adminUser.id,
                 }
             });
