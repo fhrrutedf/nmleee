@@ -7,6 +7,17 @@ import { useState } from 'react';
 // Mock Data for Blog Posts
 const BLOG_POSTS = [
     {
+        id: 7,
+        slug: 'how-to-choose-winning-digital-product-idea',
+        title: 'دليل صانع المحتوى الذكي: كيف تختار فكرة منتج يربح؟',
+        excerpt: 'الفكرة ليست هي الكنز.. الاحتياج هو الكنز الحقيقي. تعلم كيف تكتشف ما يحتاجه جمهورك فعلياً وتحوله إلى أرباح مستدامة.',
+        category: 'تحليلات',
+        author: 'ماهر (فريق المنصة)',
+        date: '03 مارس 2024',
+        image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&auto=format&fit=crop&q=60',
+        readTime: '6 دقائق'
+    },
+    {
         id: 1,
         slug: 'how-to-start-selling-digital-products',
         title: 'كيف تبدأ بيع المنتجات الرقمية: دليلك الشامل لعام 2024',
