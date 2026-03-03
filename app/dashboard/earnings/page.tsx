@@ -66,19 +66,50 @@ export default function EarningsPage() {
         setShowWithdrawModal(false);
     };
 
-    const getStatusBadge = (status: string) => {
-        const badges = {
-            pending: { text: 'معلق للحماية', bg: 'bg-yellow-50 dark:bg-yellow-900/20', color: 'text-yellow-700 dark:text-yellow-400', icon: FiShield },
+    const getStatusBadge = (status: string, availableAt: string) => {
+        const statusKey = status.toLowerCase();
+        const badges: any = {
+            pending: { text: 'تحت المراجعة (حماية)', bg: 'bg-yellow-50 dark:bg-yellow-900/20', color: 'text-yellow-700 dark:text-yellow-400', icon: FiShield },
             available: { text: 'متاح للسحب', bg: 'bg-green-50 dark:bg-green-900/20', color: 'text-green-700 dark:text-green-400', icon: FiCheck },
             paid_out: { text: 'تم الدفع', bg: 'bg-blue-50 dark:bg-blue-900/20', color: 'text-blue-700 dark:text-blue-400', icon: FiDollarSign },
         };
-        const badge = badges[status as keyof typeof badges] || badges.pending;
+        const badge = badges[statusKey] || badges.pending;
         const Icon = badge.icon;
+
+        let countdown = null;
+        if (statusKey === 'pending' && availableAt) {
+            const availDate = new Date(availableAt);
+            const now = new Date();
+            const diffTime = Math.abs(availDate.getTime() - now.getTime());
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
+
+            if (availDate > now) {
+                if (diffDays > 1) {
+                    countdown = `متاح بعد ${diffDays} يوم`;
+                } else if (diffHours > 0) {
+                    countdown = `متاح بعد ${diffHours} ساعة`;
+                } else {
+                    countdown = 'يتاح قريباً جداً';
+                }
+            } else {
+                countdown = 'قيد المعالجة الآن...';
+            }
+        }
+
         return (
-            <span className={`px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 inline-flex ${badge.bg} ${badge.color}`}>
-                <Icon size={14} />
-                {badge.text}
-            </span>
+            <div className="flex flex-col gap-1 items-start">
+                <span className={`px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 inline-flex ${badge.bg} ${badge.color}`}>
+                    <Icon size={14} />
+                    {badge.text}
+                </span>
+                {countdown && (
+                    <span className="text-[10px] sm:text-xs text-orange-600 dark:text-orange-400 font-bold bg-orange-50 dark:bg-orange-900/20 px-2 py-0.5 rounded-md flex items-center gap-1">
+                        <FiClock size={10} />
+                        {countdown}
+                    </span>
+                )}
+            </div>
         );
     };
 
@@ -218,7 +249,7 @@ export default function EarningsPage() {
                                             +{earning.yourEarning.toFixed(2)} ج.م
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            {getStatusBadge(earning.status)}
+                                            {getStatusBadge(earning.status, earning.availableAt)}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-medium">
                                             {new Date(earning.date).toLocaleDateString('ar-EG')}
