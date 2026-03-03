@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     const status = searchParams.get('status') ?? undefined;
 
     const payouts = await prisma.payout.findMany({
-        where: status ? { status } : undefined,
+        where: status ? { status: status as any } : undefined,
         orderBy: { createdAt: 'desc' },
         include: {
             seller: {
@@ -56,7 +56,7 @@ export async function PATCH(req: NextRequest) {
                 status: 'COMPLETED',
                 completedAt: new Date(),
                 transactionId,
-                note,
+                adminNotes: note,
             },
         });
 
@@ -76,7 +76,12 @@ export async function PATCH(req: NextRequest) {
     if (action === 'reject') {
         await prisma.payout.update({
             where: { id: payoutId },
-            data: { status: 'CANCELLED', note },
+            data: {
+                status: 'REJECTED',
+                rejectedAt: new Date(),
+                rejectionReason: note,
+                adminNotes: note
+            },
         });
 
         await logActivity({
