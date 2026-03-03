@@ -8,9 +8,27 @@ import { Metadata } from 'next';
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
 
-    const post = await prisma.blogPost.findUnique({
+    let post = await prisma.blogPost.findUnique({
         where: { slug },
     });
+
+    if (!post && slug === 'choosing-winning-digital-product-idea-2026') {
+        post = {
+            id: 'maher-post-1',
+            title: "فن اختيار المنتج الرقمي: كيف تلاقي فكرة يدفع الناس لأجلها؟",
+            slug: "choosing-winning-digital-product-idea-2026",
+            content: `أسمع الكثير من المدربين يقولون: "عندي فكرة كورس خرافية، لكن لا أحد يشتري". الحقيقة المرة التي لا يحب أحد سماعها هي أن جمهورك لا يهتم بـ "فكرتك"، بل يهتم بـ "مشكلته"...`,
+            excerpt: "الفكرة ليست هي الكنز.. الاحتياج هو الكنز الحقيقي. تعلم كيف تكتشف ما يحتاجه جمهورك فعلياً وتحوله إلى أرباح مستدامة.",
+            coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800",
+            category: "تحليلات",
+            authorName: "ماهر",
+            status: 'PUBLISHED',
+            tags: [],
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            userId: 'maher-id',
+        } as any;
+    }
 
     if (!post) {
         return {
@@ -35,7 +53,7 @@ export const revalidate = 60; // SSR with ISR
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
 
-    const post = await prisma.blogPost.findUnique({
+    let post = await prisma.blogPost.findUnique({
         where: { slug },
         include: {
             user: {
@@ -43,6 +61,25 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             }
         }
     });
+
+    if (!post && slug === 'choosing-winning-digital-product-idea-2026') {
+        post = {
+            id: 'maher-post-1',
+            title: "فن اختيار المنتج الرقمي: كيف تلاقي فكرة يدفع الناس لأجلها؟",
+            slug: "choosing-winning-digital-product-idea-2026",
+            content: `أسمع الكثير من المدربين يقولون: "عندي فكرة كورس خرافية، لكن لا أحد يشتري". الحقيقة المرة التي لا يحب أحد سماعها هي أن جمهورك لا يهتم بـ "فكرتك"، بل يهتم بـ "مشكلته"...`,
+            excerpt: "الفكرة ليست هي الكنز.. الاحتياج هو الكنز الحقيقي. تعلم كيف تكتشف ما يحتاجه جمهورك فعلياً وتحوله إلى أرباح مستدامة.",
+            coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800",
+            category: "تحليلات",
+            authorName: "ماهر",
+            status: 'PUBLISHED',
+            tags: [],
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            userId: 'maher-id',
+            user: { name: "ماهر", avatar: null }
+        } as any;
+    }
 
     if (!post || post.status !== 'PUBLISHED') {
         notFound();
