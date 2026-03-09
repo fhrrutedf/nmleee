@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 import OrderConfirmationEmail from '@/emails/OrderConfirmation';
 import PayoutApprovedEmail from '@/emails/PayoutApproved';
 import ManualOrderAlertEmail from '@/emails/ManualOrderAlert';
-import { renderToStaticMarkup } from 'react-dom/server';
+import { render } from '@react-email/components';
 
 // Safe environment variable access for Next.js build
 const getFromEmail = () => {
@@ -29,7 +29,9 @@ async function sendMail({ from, to, subject, html, react }: {
     react?: React.ReactElement;
 }) {
     const transporter = createTransporter();
-    const htmlContent = react ? renderToStaticMarkup(react) : html || '';
+    // Using @react-email/components render instead of react-dom/server
+    // because react-dom/server causes errors in Next.js Server Components / Edge Runtime
+    const htmlContent = react ? await render(react) : html || '';
     return transporter.sendMail({ from, to, subject, html: htmlContent });
 }
 
