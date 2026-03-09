@@ -1,12 +1,33 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 import OrderConfirmationEmail from '@/emails/OrderConfirmation';
 import PayoutApprovedEmail from '@/emails/PayoutApproved';
 import ManualOrderAlertEmail from '@/emails/ManualOrderAlert';
+import { renderToStaticMarkup } from 'react-dom/server';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Email sender address
+const FROM_EMAIL = process.env.GMAIL_USER || process.env.EMAIL_FROM || 'noreply@tmleen.com';
 
-// Email sender addresses
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+function createTransporter() {
+    return nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_APP_PASSWORD,
+        },
+    });
+}
+
+async function sendMail({ from, to, subject, html, react }: {
+    from: string;
+    to: string;
+    subject: string;
+    html?: string;
+    react?: React.ReactElement;
+}) {
+    const transporter = createTransporter();
+    const htmlContent = react ? renderToStaticMarkup(react) : html || '';
+    return transporter.sendMail({ from, to, subject, html: htmlContent });
+}
 
 // Order Confirmation
 export async function sendOrderConfirmation(data: {
@@ -17,11 +38,11 @@ export async function sendOrderConfirmation(data: {
     items: Array<{ title: string; price: number }>;
 }) {
     try {
-        await resend.emails.send({
+        await sendMail({
             from: FROM_EMAIL,
             to: data.to,
             subject: `تأكيد الطلب ${data.orderNumber}`,
-            react: OrderConfirmationEmail(data),
+            react: OrderConfirmationEmail(data) as React.ReactElement,
         });
         console.log('✅ Order confirmation sent to', data.to);
         return { success: true };
@@ -41,11 +62,11 @@ export async function sendPayoutApproved(data: {
     transactionId?: string;
 }) {
     try {
-        await resend.emails.send({
+        await sendMail({
             from: FROM_EMAIL,
             to: data.to,
             subject: `✅ تمت الموافقة على السحب ${data.payoutNumber}`,
-            react: PayoutApprovedEmail(data),
+            react: PayoutApprovedEmail(data) as React.ReactElement,
         });
         console.log('✅ Payout approval sent to', data.to);
         return { success: true };
@@ -64,7 +85,7 @@ export async function sendPayoutRejected(data: {
     reason: string;
 }) {
     try {
-        await resend.emails.send({
+        await sendMail({
             from: FROM_EMAIL,
             to: data.to,
             subject: `❌ تم رفض السحب ${data.payoutNumber}`,
@@ -109,11 +130,11 @@ export async function sendManualOrderAlert(data: {
     orderId: string;
 }) {
     try {
-        await resend.emails.send({
+        await sendMail({
             from: FROM_EMAIL,
             to: data.adminEmail,
             subject: `🔔 طلب يدوي جديد: ${data.orderNumber}`,
-            react: ManualOrderAlertEmail(data),
+            react: ManualOrderAlertEmail(data) as React.ReactElement,
         });
         console.log('✅ Manual order alert sent to admin');
         return { success: true };
@@ -131,7 +152,7 @@ export async function sendManualOrderApproved(data: {
     amount: number;
 }) {
     try {
-        await resend.emails.send({
+        await sendMail({
             from: FROM_EMAIL,
             to: data.to,
             subject: `✅ تمت الموافقة على طلبك ${data.orderNumber}`,
@@ -172,7 +193,7 @@ export async function sendManualOrderRejected(data: {
     reason: string;
 }) {
     try {
-        await resend.emails.send({
+        await sendMail({
             from: FROM_EMAIL,
             to: data.to,
             subject: `❌ تم رفض طلبك ${data.orderNumber}`,
@@ -203,7 +224,7 @@ export async function sendSubscriptionConfirmation(data: {
     billingCycle: string;
 }) {
     try {
-        await resend.emails.send({
+        await sendMail({
             from: FROM_EMAIL,
             to: data.to,
             subject: `✅ تم تفعيل اشتراكك في باقة ${data.planName}`,
@@ -253,7 +274,7 @@ export async function sendWelcomeEmail(
     username: string
 ) {
     try {
-        await resend.emails.send({
+        await sendMail({
             from: FROM_EMAIL,
             to: email,
             subject: `مرحباً بك في منصتنا يا ${name}! 🎉`,
