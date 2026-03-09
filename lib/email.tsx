@@ -4,15 +4,19 @@ import PayoutApprovedEmail from '@/emails/PayoutApproved';
 import ManualOrderAlertEmail from '@/emails/ManualOrderAlert';
 import { renderToStaticMarkup } from 'react-dom/server';
 
-// Email sender address
-const FROM_EMAIL = process.env.GMAIL_USER || process.env.EMAIL_FROM || 'noreply@tmleen.com';
+// Safe environment variable access for Next.js build
+const getFromEmail = () => {
+    return process.env.GMAIL_USER || process.env.EMAIL_FROM || 'noreply@tmleen.com';
+};
+
+const FROM_EMAIL = getFromEmail();
 
 function createTransporter() {
     return nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: process.env.GMAIL_USER,
-            pass: process.env.GMAIL_APP_PASSWORD,
+            user: process.env.GMAIL_USER || '',
+            pass: process.env.GMAIL_APP_PASSWORD || '',
         },
     });
 }
