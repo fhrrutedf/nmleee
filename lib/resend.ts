@@ -1,30 +1,19 @@
 import nodemailer from 'nodemailer';
 
-export const FROM_EMAIL = process.env.EMAIL_FROM || process.env.GMAIL_USER || '';
+export const FROM_EMAIL = process.env.BREVO_FROM_EMAIL || process.env.GMAIL_USER || 'noreply@tmleen.com';
 export const FROM_NAME = process.env.RESEND_FROM_NAME || 'المنصة';
 
-// Create transporter - supports Gmail SMTP
+// Create Brevo SMTP transporter
 function createTransporter() {
-    const gmailUser = process.env.GMAIL_USER;
-    const gmailPass = process.env.GMAIL_APP_PASSWORD;
-
-    if (gmailUser && gmailPass) {
-        return nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: gmailUser,
-                pass: gmailPass,
-            },
-        });
-    }
-
-    // Fallback: generic SMTP
-    const emailServer = process.env.EMAIL_SERVER;
-    if (emailServer) {
-        return nodemailer.createTransport(emailServer);
-    }
-
-    throw new Error('No email configuration found. Set GMAIL_USER and GMAIL_APP_PASSWORD in environment variables.');
+    return nodemailer.createTransport({
+        host: 'smtp-relay.brevo.com',
+        port: 587,
+        secure: false,
+        auth: {
+            user: process.env.BREVO_SMTP_USER || '',
+            pass: process.env.BREVO_SMTP_KEY || '',
+        },
+    });
 }
 
 export async function sendEmail({
@@ -54,15 +43,15 @@ export async function sendEmail({
             html,
         });
 
-        console.log('✅ Email sent:', info.messageId);
+        console.log('✅ Email sent via Brevo:', info.messageId);
         return { success: true, id: info.messageId };
     } catch (err: any) {
-        console.error('❌ Email send error:', err.message);
+        console.error('❌ Brevo email error:', err.message);
         return { success: false, error: err.message };
     }
 }
 
-// Keep resend export for any files that still import it directly (stub)
+// Compatibility stub for files that import `resend` directly
 export const resend = {
     emails: {
         send: async (opts: any) => {
