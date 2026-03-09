@@ -42,7 +42,7 @@ export async function sendPayoutApproved(data: {
 }) {
     try {
         await resend.emails.send({
-            from: 'payouts@tmleen.com',
+            from: FROM_EMAIL,
             to: data.to,
             subject: `✅ تمت الموافقة على السحب ${data.payoutNumber}`,
             react: PayoutApprovedEmail(data),
@@ -65,7 +65,7 @@ export async function sendPayoutRejected(data: {
 }) {
     try {
         await resend.emails.send({
-            from: 'payouts@tmleen.com',
+            from: FROM_EMAIL,
             to: data.to,
             subject: `❌ تم رفض السحب ${data.payoutNumber}`,
             react: (
@@ -132,7 +132,7 @@ export async function sendManualOrderApproved(data: {
 }) {
     try {
         await resend.emails.send({
-            from: 'orders@tmleen.com',
+            from: FROM_EMAIL,
             to: data.to,
             subject: `✅ تمت الموافقة على طلبك ${data.orderNumber}`,
             react: (
@@ -173,7 +173,7 @@ export async function sendManualOrderRejected(data: {
 }) {
     try {
         await resend.emails.send({
-            from: 'orders@tmleen.com',
+            from: FROM_EMAIL,
             to: data.to,
             subject: `❌ تم رفض طلبك ${data.orderNumber}`,
             react: (
@@ -204,7 +204,7 @@ export async function sendSubscriptionConfirmation(data: {
 }) {
     try {
         await resend.emails.send({
-            from: 'subscriptions@tmleen.com',
+            from: FROM_EMAIL,
             to: data.to,
             subject: `✅ تم تفعيل اشتراكك في باقة ${data.planName}`,
             react: (
