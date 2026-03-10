@@ -195,18 +195,19 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
         // Grant course enrollments for any courses bought directly or inside bundles
         for (const item of items) {
             if (item.type === 'course' && session.customer_email) {
+                const studentEmail = session.customer_email.toLowerCase();
                 await prisma.courseEnrollment.upsert({
                     where: {
                         courseId_studentEmail: {
                             courseId: item.id,
-                            studentEmail: session.customer_email
+                            studentEmail
                         }
                     },
                     update: { orderId: order.id },
                     create: {
                         courseId: item.id,
                         studentName: metadata.customerName || 'العميل',
-                        studentEmail: session.customer_email,
+                        studentEmail,
                         orderId: order.id
                     }
                 });
@@ -220,18 +221,19 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
                 if (bundle) {
                     for (const bp of bundle.products) {
                         if (bp.product.category === 'courses' || bp.product.category === 'course') {
+                            const studentEmail = session.customer_email.toLowerCase();
                             await prisma.courseEnrollment.upsert({
                                 where: {
                                     courseId_studentEmail: {
                                         courseId: bp.product.id,
-                                        studentEmail: session.customer_email
+                                        studentEmail
                                     }
                                 },
                                 update: { orderId: order.id },
                                 create: {
                                     courseId: bp.product.id,
                                     studentName: metadata.customerName || 'العميل',
-                                    studentEmail: session.customer_email,
+                                    studentEmail,
                                     orderId: order.id
                                 }
                             });

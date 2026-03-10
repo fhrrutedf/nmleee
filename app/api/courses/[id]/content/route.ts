@@ -30,7 +30,7 @@ export async function GET(
             where: {
                 courseId_studentEmail: {
                     courseId: resolvedCourseId,
-                    studentEmail: session.user.email,
+                    studentEmail: session.user.email.toLowerCase(),
                 },
             },
         });

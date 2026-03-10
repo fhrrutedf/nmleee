@@ -4,7 +4,8 @@ import { prisma } from '@/lib/db';
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { items, customerEmail, customerName, affiliateRef } = body;
+        const { items, customerName, affiliateRef } = body;
+        const customerEmail = body.customerEmail?.toLowerCase();
 
         if (!items || !items.length) {
             return NextResponse.json({ error: 'سلة المشتريات فارغة' }, { status: 400 });

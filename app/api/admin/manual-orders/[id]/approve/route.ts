@@ -119,18 +119,19 @@ export async function POST(
         // Auto-enroll in courses (same as Stripe webhook)
         for (const item of orderItems) {
             if (item.course && order.customerEmail) {
+                const studentEmail = order.customerEmail.toLowerCase();
                 await prisma.courseEnrollment.upsert({
                     where: {
                         courseId_studentEmail: {
                             courseId: item.courseId!,
-                            studentEmail: order.customerEmail,
+                            studentEmail,
                         },
                     },
                     update: { orderId },
                     create: {
                         courseId: item.courseId!,
                         studentName: order.customerName || 'العميل',
-                        studentEmail: order.customerEmail,
+                        studentEmail,
                         orderId,
                     },
                 });
@@ -150,18 +151,19 @@ export async function POST(
                                 where: { id: bp.product.id },
                             });
                             if (linkedCourse) {
+                                const studentEmail = order.customerEmail!.toLowerCase();
                                 await prisma.courseEnrollment.upsert({
                                     where: {
                                         courseId_studentEmail: {
                                             courseId: linkedCourse.id,
-                                            studentEmail: order.customerEmail,
+                                            studentEmail,
                                         },
                                     },
                                     update: { orderId },
                                     create: {
                                         courseId: linkedCourse.id,
                                         studentName: order.customerName || 'العميل',
-                                        studentEmail: order.customerEmail,
+                                        studentEmail,
                                         orderId,
                                     },
                                 });
