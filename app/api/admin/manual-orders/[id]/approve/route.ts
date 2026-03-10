@@ -137,29 +137,35 @@ export async function POST(
             }
 
             // Handle bundles containing courses
-            if (item.product?.category === 'bundle') {
+            if (item.bundleId) {
                 const bundle = await prisma.bundle.findUnique({
-                    where: { id: item.productId! },
+                    where: { id: item.bundleId },
                     include: { products: { include: { product: true } } },
                 });
                 if (bundle) {
                     for (const bp of bundle.products) {
-                        if (bp.product.category === 'courses' || bp.product.category === 'course') {
-                            await prisma.courseEnrollment.upsert({
-                                where: {
-                                    courseId_studentEmail: {
-                                        courseId: bp.product.id,
-                                        studentEmail: order.customerEmail,
-                                    },
-                                },
-                                update: { orderId },
-                                create: {
-                                    courseId: bp.product.id,
-                                    studentName: order.customerName || 'العميل',
-                                    studentEmail: order.customerEmail,
-                                    orderId,
-                                },
+                        if ((bp.product as any).type === 'course' || bp.product.id) {
+                            // Check if this product is actually a course
+                            const linkedCourse = await prisma.course.findFirst({
+                                where: { id: bp.product.id },
                             });
+                            if (linkedCourse) {
+                                await prisma.courseEnrollment.upsert({
+                                    where: {
+                                        courseId_studentEmail: {
+                                            courseId: linkedCourse.id,
+                                            studentEmail: order.customerEmail,
+                                        },
+                                    },
+                                    update: { orderId },
+                                    create: {
+                                        courseId: linkedCourse.id,
+                                        studentName: order.customerName || 'العميل',
+                                        studentEmail: order.customerEmail,
+                                        orderId,
+                                    },
+                                });
+                            }
                         }
                     }
                 }
