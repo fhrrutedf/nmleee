@@ -262,7 +262,7 @@ export default function CheckoutPage() {
                     alert(error.error || 'حدث خطأ في إنشاء الطلب');
                 }
             } else if (paymentMethod === 'stripe') {
-                const res = await fetch('/api/stripe/create-checkout-session', {
+                const res = await fetch('/api/stripe/checkout', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
