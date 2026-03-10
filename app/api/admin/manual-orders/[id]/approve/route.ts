@@ -64,12 +64,46 @@ export async function POST(
             });
         }
 
+        // Auto-generate Invoice
+        const seller = order.sellerId ? await prisma.user.findUnique({
+            where: { id: order.sellerId },
+            select: { name: true, username: true },
+        }) : null;
+
+        const now = new Date();
+        const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
+        const invoiceCount = await prisma.invoice.count();
+        const invoiceNumber = `INV-${dateStr}-${String(invoiceCount + 1).padStart(3, '0')}`;
+
+        await prisma.invoice.create({
+            data: {
+                invoiceNumber,
+                orderId,
+                customerName: order.customerName,
+                customerEmail: order.customerEmail,
+                customerPhone: order.customerPhone,
+                customerCountry: order.paymentCountry,
+                sellerName: seller?.name || null,
+                sellerUsername: seller?.username || null,
+                sellerId: order.sellerId,
+                subtotal: order.totalAmount + order.discount,
+                discount: order.discount,
+                platformFee: order.platformFee,
+                totalAmount: order.totalAmount,
+                currency: 'USD',
+                paymentMethod: order.paymentMethod,
+                paymentProvider: order.paymentProvider,
+                transactionRef: order.transactionRef,
+                paymentProof: order.paymentProof,
+                status: 'verified',
+            },
+        });
+
         // Send Telegram notification to admin
         const orderItems = await prisma.orderItem.findMany({
             where: { orderId },
             include: { product: true, course: true },
         });
-        const seller = order.sellerId ? await prisma.user.findUnique({ where: { id: order.sellerId }, select: { name: true } }) : null;
         const products = orderItems.map(i => i.product?.title || i.course?.title || 'منتج');
 
         await sendTelegramMessage(newOrderMessage({

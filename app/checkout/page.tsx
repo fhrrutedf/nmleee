@@ -1,8 +1,42 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { FiShoppingCart, FiTrash2, FiTag, FiCreditCard, FiLock } from 'react-icons/fi';
+import {
+    FiShoppingCart, FiTrash2, FiTag, FiCreditCard, FiLock,
+    FiUpload, FiCopy, FiCheck, FiX, FiGlobe, FiArrowRight
+} from 'react-icons/fi';
+import {
+    paymentMethodsByCountry,
+    getPaymentMethodsForCountry,
+    convertCurrency,
+    formatCurrency,
+    type PaymentMethod,
+} from '@/config/paymentMethods';
+
+// الدول المحظورة التي لا تدعم Stripe
+const RESTRICTED_COUNTRIES = ['SY', 'IQ'];
+
+// أرقام محافظ المنصة
+const PLATFORM_WALLETS: Record<string, string> = {
+    shamcash: '0933000000',
+    omt: '0933000000',
+    hawala: '0933000000',
+    mtncash: '0955000000',
+    zaincash: '07801000000',
+    qicard: '07801000000',
+    asiahawala: '07801000000',
+    vodafonecash: '01000000000',
+    fawry: 'FAWRY-1234567',
+    instapay: '01000000000',
+    stcpay: '0500000000',
+    banktransfer: 'SA00 0000 0000 0000 0000 0000',
+    westernunion: 'Platform Admin',
+};
+
+const COUNTRY_FLAGS: Record<string, string> = {
+    SY: '🇸🇾', IQ: '🇮🇶', EG: '🇪🇬', SA: '🇸🇦', DEFAULT: '🌍',
+};
 
 export default function CheckoutPage() {
     const router = useRouter();
@@ -21,22 +55,60 @@ export default function CheckoutPage() {
         phone: ''
     });
 
-    // New payment flow state
-    const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'crypto'>('stripe');
+    // Country & Payment State
+    const [customerCountry, setCustomerCountry] = useState('');
+    const [isRestricted, setIsRestricted] = useState(false);
+    const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'crypto' | 'manual'>('stripe');
+    const [selectedLocalMethod, setSelectedLocalMethod] = useState<PaymentMethod | null>(null);
+
+    // Manual Payment Fields
+    const [senderPhone, setSenderPhone] = useState('');
+    const [transactionRef, setTransactionRef] = useState('');
+    const [paymentNotes, setPaymentNotes] = useState('');
+    const [proofFile, setProofFile] = useState<File | null>(null);
+    const [proofPreview, setProofPreview] = useState<string | null>(null);
+    const [copied, setCopied] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         if (isDirect) {
-            // جلب بيانات الحجز المباشر من sessionStorage
             const directItems = JSON.parse(sessionStorage.getItem('direct_checkout_items') || '[]');
             const details = JSON.parse(sessionStorage.getItem('appointment_details') || 'null');
             setCart(directItems);
             setAppointmentDetails(details);
         } else {
-            // جلب السلة من localStorage
             const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
             setCart(savedCart);
         }
     }, [isDirect]);
+
+    // Auto-detect country
+    useEffect(() => {
+        fetch('/api/geo')
+            .then(r => r.ok ? r.json() : { country: 'DEFAULT' })
+            .then(d => {
+                const code = d.country || 'DEFAULT';
+                setCustomerCountry(code);
+                if (RESTRICTED_COUNTRIES.includes(code)) {
+                    setIsRestricted(true);
+                    setPaymentMethod('manual');
+                }
+            })
+            .catch(() => setCustomerCountry('DEFAULT'));
+    }, []);
+
+    // Update restriction status when country changes manually
+    const handleCountryChange = (code: string) => {
+        setCustomerCountry(code);
+        const restricted = RESTRICTED_COUNTRIES.includes(code);
+        setIsRestricted(restricted);
+        if (restricted) {
+            setPaymentMethod('manual');
+        } else {
+            setPaymentMethod('stripe');
+        }
+        setSelectedLocalMethod(null);
+    };
 
     const removeFromCart = (index: number) => {
         const newCart = cart.filter((_, i) => i !== index);
@@ -53,14 +125,12 @@ export default function CheckoutPage() {
 
     const applyCoupon = async () => {
         if (!couponCode) return;
-
         try {
             const res = await fetch('/api/coupons/validate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ code: couponCode, total: subtotal })
             });
-
             if (res.ok) {
                 const data = await res.json();
                 setDiscount(data.discount);
@@ -73,9 +143,30 @@ export default function CheckoutPage() {
         }
     };
 
+    const handleCopy = (text: string) => {
+        navigator.clipboard.writeText(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        if (file.size > 5 * 1024 * 1024) { alert('حجم الصورة أكبر من 5MB'); return; }
+        setProofFile(file);
+        const reader = new FileReader();
+        reader.onload = () => setProofPreview(reader.result as string);
+        reader.readAsDataURL(file);
+    };
+
     const handleCheckout = async () => {
         if (!formData.name || !formData.email) {
             alert('يرجى ملء جميع الحقول المطلوبة');
+            return;
+        }
+
+        if (!customerCountry) {
+            alert('يرجى اختيار دولتك');
             return;
         }
 
@@ -97,12 +188,10 @@ export default function CheckoutPage() {
                         affiliateRef: affiliateRef
                     })
                 });
-
                 if (res.ok) {
                     const data = await res.json();
-                    if (!isDirect) {
-                        localStorage.removeItem('cart');
-                    } else {
+                    if (!isDirect) localStorage.removeItem('cart');
+                    else {
                         sessionStorage.removeItem('direct_checkout_items');
                         sessionStorage.removeItem('appointment_details');
                     }
@@ -110,6 +199,67 @@ export default function CheckoutPage() {
                 } else {
                     const error = await res.json();
                     alert(error.error || 'حدث خطأ في إنشاء الطلب المجاني');
+                }
+            } else if (paymentMethod === 'manual') {
+                // Manual / Local Payment
+                if (!selectedLocalMethod) {
+                    alert('يرجى اختيار وسيلة الدفع المحلية');
+                    setLoading(false);
+                    return;
+                }
+                if (!transactionRef) {
+                    alert('يرجى إدخال رقم العملية');
+                    setLoading(false);
+                    return;
+                }
+                if (!proofFile) {
+                    alert('يرجى رفع إيصال الدفع');
+                    setLoading(false);
+                    return;
+                }
+
+                // Upload proof image
+                let proofUrl = '';
+                if (proofFile) {
+                    const fd = new FormData();
+                    fd.append('file', proofFile);
+                    fd.append('type', 'image');
+                    const upRes = await fetch('/api/upload', { method: 'POST', body: fd });
+                    if (upRes.ok) {
+                        const d = await upRes.json();
+                        proofUrl = d.url;
+                    }
+                }
+
+                const res = await fetch('/api/orders/manual', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        items: cart,
+                        customerName: formData.name,
+                        customerEmail: formData.email,
+                        customerPhone: formData.phone,
+                        country: customerCountry,
+                        paymentProvider: selectedLocalMethod.id,
+                        senderPhone,
+                        transactionRef,
+                        paymentProof: proofUrl,
+                        paymentNotes,
+                        affiliateRef: affiliateRef,
+                    })
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    if (!isDirect) localStorage.removeItem('cart');
+                    else {
+                        sessionStorage.removeItem('direct_checkout_items');
+                        sessionStorage.removeItem('appointment_details');
+                    }
+                    router.push(`/success?order_id=${data.orderId}&manual=true`);
+                } else {
+                    const error = await res.json();
+                    alert(error.error || 'حدث خطأ في إنشاء الطلب');
                 }
             } else if (paymentMethod === 'stripe') {
                 const res = await fetch('/api/stripe/create-checkout-session', {
@@ -124,7 +274,6 @@ export default function CheckoutPage() {
                         affiliateRef: affiliateRef
                     })
                 });
-
                 if (res.ok) {
                     const data = await res.json();
                     window.location.href = data.url;
@@ -145,7 +294,6 @@ export default function CheckoutPage() {
                         affiliateRef: affiliateRef
                     })
                 });
-
                 if (res.ok) {
                     const data = await res.json();
                     router.push(`/checkout/crypto/${data.orderId}`);
@@ -153,7 +301,6 @@ export default function CheckoutPage() {
                     alert('حدث خطأ في إنشاء فاتورة العملات الرقمية. تأكد من إعدادات API.');
                 }
             }
-
         } catch (error) {
             console.error('Error creating checkout session:', error);
             alert('حدث خطأ. حاول مرة أخرى');
@@ -164,6 +311,11 @@ export default function CheckoutPage() {
 
     const subtotal = cart.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
     const total = subtotal - discount;
+
+    const countryConfig = customerCountry ? getPaymentMethodsForCountry(customerCountry) : null;
+    const localPrice = customerCountry
+        ? convertCurrency(total, customerCountry)
+        : { amount: total, currency: 'USD' };
 
     if (cart.length === 0) {
         return (
@@ -246,7 +398,7 @@ export default function CheckoutPage() {
                                     />
                                     <p className="text-[10px] text-gray-400 mt-1">سيتم إرسال روابط التحميل وبيانات الدخول إلى هذا البريد</p>
                                 </div>
-                                <div className="sm:col-span-2">
+                                <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">رقم الهاتف (اختياري)</label>
                                     <input
                                         type="tel"
@@ -255,6 +407,26 @@ export default function CheckoutPage() {
                                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                         dir="ltr"
                                     />
+                                </div>
+                                {/* Country Selector */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        <FiGlobe className="inline ml-1" />
+                                        الدولة *
+                                    </label>
+                                    <select
+                                        value={customerCountry}
+                                        onChange={(e) => handleCountryChange(e.target.value)}
+                                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-600 focus:border-transparent outline-none transition-all"
+                                        required
+                                    >
+                                        <option value="">اختر دولتك</option>
+                                        {Object.entries(paymentMethodsByCountry).map(([code, cfg]) => (
+                                            <option key={code} value={code}>
+                                                {COUNTRY_FLAGS[code] || '🌍'} {cfg.nameAr}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -290,11 +462,158 @@ export default function CheckoutPage() {
                                         </div>
                                     </div>
                                 ))}
-                                {cart.length === 0 && (
-                                    <div className="py-8 text-center text-gray-400">السلة فارغة</div>
-                                )}
                             </div>
                         </div>
+
+                        {/* Manual Payment Section - Only shows for restricted countries */}
+                        {paymentMethod === 'manual' && total > 0 && countryConfig && (
+                            <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                                <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                                    <span className="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm">3</span>
+                                    الدفع المحلي — {COUNTRY_FLAGS[customerCountry] || '🌍'} {countryConfig.nameAr}
+                                </h2>
+
+                                {/* Notice */}
+                                <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-2xl text-sm text-amber-800">
+                                    <strong>⚠️ ملاحظة:</strong> الدفع يتم مباشرة إلى محفظة المنصة. بعد التحقق من الدفعة سيتم تفعيل طلبك.
+                                </div>
+
+                                {/* Local Method Selection */}
+                                {!selectedLocalMethod ? (
+                                    <div className="grid gap-3">
+                                        {countryConfig.methods.filter(m => m.enabled).map(method => (
+                                            <button
+                                                key={method.id}
+                                                onClick={() => setSelectedLocalMethod(method)}
+                                                className="w-full bg-gray-50 hover:bg-primary-50 rounded-2xl border-2 border-gray-100 hover:border-primary-600 p-4 flex items-center gap-3.5 transition-all duration-200 group"
+                                            >
+                                                <span className="text-2xl">{method.icon}</span>
+                                                <div className="text-right flex-1">
+                                                    <p className="font-bold text-gray-900 text-sm group-hover:text-primary-600 transition-colors">{method.nameAr}</p>
+                                                    <p className="text-[11px] text-gray-400">{method.name}</p>
+                                                </div>
+                                                <FiArrowRight className="text-gray-300 group-hover:text-primary-600 transition-colors rotate-180" size={16} />
+                                            </button>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="space-y-4">
+                                        {/* Change Method Button */}
+                                        <button
+                                            onClick={() => setSelectedLocalMethod(null)}
+                                            className="text-xs text-gray-400 hover:text-primary-600 font-medium flex items-center gap-1"
+                                        >
+                                            <FiArrowRight size={14} />
+                                            تغيير وسيلة الدفع
+                                        </button>
+
+                                        {/* Selected Method + Amount */}
+                                        <div className="bg-gradient-to-br from-primary-50 to-purple-50 rounded-2xl border border-primary-600/10 p-4">
+                                            <div className="flex items-center gap-2 mb-3">
+                                                <span className="text-xl">{selectedLocalMethod.icon}</span>
+                                                <span className="font-bold text-sm">{selectedLocalMethod.nameAr}</span>
+                                            </div>
+                                            <p className="text-sm text-gray-600 mb-2">المبلغ المطلوب:</p>
+                                            <p className="text-2xl font-black text-gray-900">
+                                                {formatCurrency(localPrice.amount, localPrice.currency)}
+                                            </p>
+                                            {localPrice.currency !== 'USD' && (
+                                                <p className="text-xs text-gray-400 mt-1">≈ ${total.toFixed(2)} USD</p>
+                                            )}
+                                        </div>
+
+                                        {/* Platform Wallet */}
+                                        <div className="bg-gray-50 rounded-2xl border border-gray-200 p-4">
+                                            <label className="text-xs text-gray-400 font-medium block mb-1.5">رقم محفظة المنصة ({selectedLocalMethod.nameAr})</label>
+                                            <div className="flex items-center gap-2">
+                                                <div className="flex-1 bg-white rounded-xl px-3.5 py-3 font-mono text-base font-bold text-gray-900 tracking-wider text-left border border-gray-100" dir="ltr">
+                                                    {PLATFORM_WALLETS[selectedLocalMethod.id] || '—'}
+                                                </div>
+                                                <button
+                                                    onClick={() => handleCopy(PLATFORM_WALLETS[selectedLocalMethod.id] || '')}
+                                                    className={`shrink-0 w-11 h-11 rounded-xl flex items-center justify-center transition-all ${copied ? 'bg-emerald-500 text-white' : 'bg-primary-600 text-white hover:opacity-90 active:scale-95'}`}
+                                                >
+                                                    {copied ? <FiCheck size={18} /> : <FiCopy size={16} />}
+                                                </button>
+                                            </div>
+                                            {copied && <p className="text-[11px] text-emerald-500 mt-1.5 font-medium">✓ تم النسخ</p>}
+                                        </div>
+
+                                        {/* Manual Payment Form Fields */}
+                                        <div className="space-y-4">
+                                            <div>
+                                                <label className="block text-sm font-semibold text-gray-900 mb-1">رقم هاتف المُرسل</label>
+                                                <input
+                                                    type="tel"
+                                                    value={senderPhone}
+                                                    onChange={e => setSenderPhone(e.target.value)}
+                                                    placeholder="الرقم الذي حوّلت منه"
+                                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-600 focus:border-transparent outline-none transition-all text-left"
+                                                    dir="ltr"
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <label className="block text-sm font-semibold text-gray-900 mb-1">
+                                                    رقم العملية <span className="text-red-500">*</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    value={transactionRef}
+                                                    onChange={e => setTransactionRef(e.target.value)}
+                                                    placeholder="Transaction ID / رقم المرجع"
+                                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-600 focus:border-transparent outline-none transition-all text-left"
+                                                    dir="ltr"
+                                                    required
+                                                />
+                                            </div>
+
+                                            {/* Receipt Upload */}
+                                            <div>
+                                                <label className="block text-sm font-semibold text-gray-900 mb-1">
+                                                    إيصال الدفع <span className="text-red-500">*</span>
+                                                </label>
+                                                <input type="file" ref={fileInputRef} accept="image/*" onChange={handleFileChange} className="hidden" />
+                                                {proofPreview ? (
+                                                    <div className="relative">
+                                                        <img src={proofPreview} alt="إيصال" className="w-full rounded-xl border border-gray-200 max-h-44 object-cover" />
+                                                        <button
+                                                            onClick={() => { setProofFile(null); setProofPreview(null); }}
+                                                            className="absolute top-2 left-2 w-7 h-7 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg"
+                                                        >
+                                                            <FiX size={14} />
+                                                        </button>
+                                                    </div>
+                                                ) : (
+                                                    <button
+                                                        onClick={() => fileInputRef.current?.click()}
+                                                        className="w-full border-2 border-dashed border-gray-200 rounded-xl p-6 flex flex-col items-center gap-2 hover:border-primary-600/40 hover:bg-primary-50 transition-all group"
+                                                    >
+                                                        <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-primary-50 transition-colors">
+                                                            <FiUpload className="text-gray-400 group-hover:text-primary-600" size={20} />
+                                                        </div>
+                                                        <p className="text-xs text-gray-400 group-hover:text-primary-600 font-medium">اضغط لرفع صورة الإيصال</p>
+                                                        <p className="text-[10px] text-gray-300">PNG, JPG حتى 5MB</p>
+                                                    </button>
+                                                )}
+                                            </div>
+
+                                            {/* Notes */}
+                                            <div>
+                                                <label className="block text-sm font-semibold text-gray-900 mb-1">ملاحظات (اختياري)</label>
+                                                <textarea
+                                                    value={paymentNotes}
+                                                    onChange={e => setPaymentNotes(e.target.value)}
+                                                    placeholder="أي معلومات إضافية..."
+                                                    rows={2}
+                                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-600 focus:border-transparent outline-none transition-all resize-none"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
 
                     {/* Right Column: Order Summary */}
@@ -336,27 +655,38 @@ export default function CheckoutPage() {
                                     <span className="text-xl font-bold text-gray-900">الإجمالي</span>
                                     <span className="text-3xl font-black text-primary-700">{total.toFixed(2)} ج.م</span>
                                 </div>
+                                {/* Show local currency equivalent for restricted countries */}
+                                {isRestricted && localPrice.currency !== 'USD' && total > 0 && (
+                                    <div className="text-sm text-gray-400 text-left">
+                                        ≈ {formatCurrency(localPrice.amount, localPrice.currency)}
+                                    </div>
+                                )}
                             </div>
 
-                            {/* طريقة الدفع */}
+                            {/* Payment Method Selection */}
                             {total > 0 && (
                                 <div className="mb-8 p-4 bg-gray-50 rounded-2xl border border-gray-100">
                                     <h3 className="text-sm font-bold text-gray-400 mb-4 uppercase tracking-wider">وسيلة الدفع</h3>
                                     <div className="grid grid-cols-1 gap-3">
-                                        <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'stripe' ? 'border-primary-600 bg-primary-50 ring-1 ring-primary-600' : 'border-gray-200 hover:border-gray-300'}`}>
-                                            <input
-                                                type="radio"
-                                                value="stripe"
-                                                checked={paymentMethod === 'stripe'}
-                                                onChange={() => setPaymentMethod('stripe')}
-                                                className="w-4 h-4 text-primary-600"
-                                            />
-                                            <FiCreditCard className="text-xl ml-3 text-primary-600" />
-                                            <div className="flex-1 mr-2">
-                                                <span className="font-bold block text-sm">البطاقة البنكية (Visa/Mastercard)</span>
-                                                <span className="text-xs text-gray-500">دفع سريع وآمن عبر Stripe</span>
-                                            </div>
-                                        </label>
+                                        {/* Stripe - only for non-restricted */}
+                                        {!isRestricted && (
+                                            <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'stripe' ? 'border-primary-600 bg-primary-50 ring-1 ring-primary-600' : 'border-gray-200 hover:border-gray-300'}`}>
+                                                <input
+                                                    type="radio"
+                                                    value="stripe"
+                                                    checked={paymentMethod === 'stripe'}
+                                                    onChange={() => setPaymentMethod('stripe')}
+                                                    className="w-4 h-4 text-primary-600"
+                                                />
+                                                <FiCreditCard className="text-xl ml-3 text-primary-600" />
+                                                <div className="flex-1 mr-2">
+                                                    <span className="font-bold block text-sm">البطاقة البنكية (Visa/Mastercard)</span>
+                                                    <span className="text-xs text-gray-500">دفع سريع وآمن عبر Stripe</span>
+                                                </div>
+                                            </label>
+                                        )}
+
+                                        {/* Crypto - available for all */}
                                         <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'crypto' ? 'border-primary-600 bg-primary-50 ring-1 ring-primary-600' : 'border-gray-200 hover:border-gray-300'}`}>
                                             <input
                                                 type="radio"
@@ -371,11 +701,34 @@ export default function CheckoutPage() {
                                                 <span className="text-xs text-gray-500">دفع عبر شبكة TRC20</span>
                                             </div>
                                         </label>
+
+                                        {/* Manual/Local - always shown, auto-selected for restricted */}
+                                        <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'manual' ? 'border-primary-600 bg-primary-50 ring-1 ring-primary-600' : 'border-gray-200 hover:border-gray-300'}`}>
+                                            <input
+                                                type="radio"
+                                                value="manual"
+                                                checked={paymentMethod === 'manual'}
+                                                onChange={() => setPaymentMethod('manual')}
+                                                className="w-4 h-4 text-primary-600"
+                                            />
+                                            <span className="text-xl mx-2">💵</span>
+                                            <div className="flex-1 mr-2">
+                                                <span className="font-bold block text-sm">
+                                                    دفع محلي {customerCountry && countryConfig ? `(${countryConfig.nameAr})` : ''}
+                                                </span>
+                                                <span className="text-xs text-gray-500">
+                                                    {isRestricted ? 'شام كاش، MTN، زين كاش...' : 'تحويل يدوي عبر محفظة محلية'}
+                                                </span>
+                                            </div>
+                                            {isRestricted && (
+                                                <span className="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-bold">مطلوب</span>
+                                            )}
+                                        </label>
                                     </div>
                                 </div>
                             )}
 
-                            {/* زر الدفع */}
+                            {/* Pay Button */}
                             <button
                                 onClick={handleCheckout}
                                 disabled={loading}
@@ -385,11 +738,11 @@ export default function CheckoutPage() {
                                 <span>{loading ? 'جاري التحويل...' : (total === 0 ? 'إتمام الطلب مجاناً' : 'الدفع الآن')}</span>
                             </button>
 
-                            {/* الأمان */}
+                            {/* Security */}
                             {total > 0 && (
                                 <div className="mt-4 flex items-center justify-center gap-2 text-sm text-gray-500">
                                     <FiLock />
-                                    <span>دفع آمن ومشفر بواسطة Stripe</span>
+                                    <span>{paymentMethod === 'manual' ? 'الدفع يتم للمنصة مباشرة — نظام Escrow آمن' : 'دفع آمن ومشفر بواسطة Stripe'}</span>
                                 </div>
                             )}
                         </div>

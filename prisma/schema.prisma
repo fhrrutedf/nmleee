@@ -349,9 +349,56 @@ model Order {
   items       OrderItem[]
   appointments Appointment[]
   affiliateReferral AffiliateReferral?
+  invoices    Invoice[]
   
   couponUsages   CouponUsage[]
   affiliateSales AffiliateSale[]
+}
+
+// ============================================
+// INVOICES — فواتير المنصة
+// ============================================
+
+model Invoice {
+  id              String   @id @default(uuid())
+  invoiceNumber   String   @unique  // INV-20260310-001
+  
+  orderId         String
+  order           Order    @relation(fields: [orderId], references: [id])
+  
+  // Buyer Info
+  customerName    String
+  customerEmail   String
+  customerPhone   String?
+  customerCountry String?
+  
+  // Seller Info
+  sellerName      String?
+  sellerUsername  String?
+  sellerId        String?
+  
+  // Financial
+  subtotal        Float
+  discount        Float    @default(0)
+  platformFee     Float    @default(0)
+  totalAmount     Float
+  currency        String   @default("USD")
+  
+  // Payment Details
+  paymentMethod   String?  // "manual" | "stripe" | "crypto"
+  paymentProvider String?  // "shamcash" | "omt" etc.
+  transactionRef  String?
+  paymentProof    String?  // receipt image URL
+  
+  status          String   @default("pending") // "pending"|"verified"|"rejected"
+  notes           String?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([orderId])
+  @@index([sellerId])
+  @@index([status])
 }
 
 model OrderItem {
