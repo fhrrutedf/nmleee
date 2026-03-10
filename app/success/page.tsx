@@ -3,11 +3,12 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { FiCheckCircle, FiPackage, FiBook, FiArrowLeft, FiGift, FiShoppingCart } from 'react-icons/fi';
+import { FiCheckCircle, FiPackage, FiBook, FiArrowLeft, FiGift, FiShoppingCart, FiClock, FiMail } from 'react-icons/fi';
 
 export default function SuccessPage() {
     const searchParams = useSearchParams();
     const sessionId = searchParams.get('session_id') || searchParams.get('order_id');
+    const isManual = searchParams.get('manual') === 'true';
     const [order, setOrder] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [upsells, setUpsells] = useState<any[]>([]);
@@ -15,9 +16,7 @@ export default function SuccessPage() {
     useEffect(() => {
         if (sessionId) {
             fetchOrder();
-            // Clear cart
             localStorage.removeItem('cart');
-            // Clear affiliate ref
             localStorage.removeItem('affiliateRef');
         } else {
             setLoading(false);
@@ -26,13 +25,10 @@ export default function SuccessPage() {
 
     const fetchOrder = async () => {
         try {
-            // Can be stripe session ID or local order ID
             const response = await fetch(`/api/orders/verify?session_id=${sessionId}`);
             if (response.ok) {
                 const data = await response.json();
                 setOrder(data.order || data);
-
-                // Fetch Upsells (products from same seller) if order has products
                 if (data.order?.sellerId || data.sellerId) {
                     fetchUpsells(data.order?.sellerId || data.sellerId);
                 }
@@ -49,7 +45,7 @@ export default function SuccessPage() {
             const res = await fetch(`/api/store/${sellerId}/upsells`);
             if (res.ok) {
                 const data = await res.json();
-                setUpsells(data.slice(0, 2)); // Show only 2 recommendations
+                setUpsells(data.slice(0, 2));
             }
         } catch (e) {
             console.error("Failed to load upsells", e);
@@ -74,6 +70,8 @@ export default function SuccessPage() {
     }
 
     const effectiveBrandColor = order.brandColor;
+    const isPending = isManual || order.status === 'PENDING' || order.paymentMethod === 'manual';
+    const isPaid = order.status === 'PAID' || order.status === 'COMPLETED';
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-bg-dark py-12 pb-24">
@@ -91,17 +89,32 @@ export default function SuccessPage() {
             )}
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="bg-white dark:bg-card-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-800">
-                    {/* Success Header */}
-                    <div className="bg-gradient-to-br from-green-500 to-emerald-600 text-white p-12 text-center relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
-                        <div className="relative z-10">
-                            <FiCheckCircle size={80} className="mx-auto mb-6 drop-shadow-md" />
-                            <h1 className="text-4xl font-black mb-3 drop-shadow-sm">تم الدفع بنجاح! 🎉</h1>
-                            <p className="text-green-50 font-medium text-lg max-w-lg mx-auto">
-                                شكراً لثقتك بنا! تم تأكيد طلبك وإرسال كافة التفاصيل إلى بريدك الإلكتروني.
-                            </p>
+                    {/* Header — Different for Manual vs Auto */}
+                    {isPending && !isPaid ? (
+                        /* ===== MANUAL PAYMENT — PENDING VERIFICATION ===== */
+                        <div className="bg-gradient-to-br from-amber-500 to-orange-600 text-white p-12 text-center relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                            <div className="relative z-10">
+                                <FiClock size={80} className="mx-auto mb-6 drop-shadow-md" />
+                                <h1 className="text-4xl font-black mb-3 drop-shadow-sm">تم استلام طلبك! ⏳</h1>
+                                <p className="text-amber-50 font-medium text-lg max-w-lg mx-auto">
+                                    شكراً لك! تم استلام طلبك وإيصال الدفع. سنتحقق من الدفعة وسنرسل لك التأكيد عبر البريد الإلكتروني.
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    ) : (
+                        /* ===== AUTO PAYMENT — CONFIRMED ===== */
+                        <div className="bg-gradient-to-br from-green-500 to-emerald-600 text-white p-12 text-center relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                            <div className="relative z-10">
+                                <FiCheckCircle size={80} className="mx-auto mb-6 drop-shadow-md" />
+                                <h1 className="text-4xl font-black mb-3 drop-shadow-sm">تم الدفع بنجاح! 🎉</h1>
+                                <p className="text-green-50 font-medium text-lg max-w-lg mx-auto">
+                                    شكراً لثقتك بنا! تم تأكيد طلبك وإرسال كافة التفاصيل إلى بريدك الإلكتروني.
+                                </p>
+                            </div>
+                        </div>
+                    )}
 
                     <div className="flex flex-col md:flex-row">
                         {/* Order Details Column */}
@@ -116,6 +129,14 @@ export default function SuccessPage() {
                                     <span className="text-gray-500 font-medium">الإيميل المسجل:</span>
                                     <span className="font-bold text-primary-charcoal dark:text-gray-200 text-sm">{order.customerEmail}</span>
                                 </div>
+                                <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-3">
+                                    <span className="text-gray-500 font-medium">حالة الطلب:</span>
+                                    {isPending && !isPaid ? (
+                                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-700">قيد التحقق</span>
+                                    ) : (
+                                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-green-100 text-green-700">تم الدفع ✓</span>
+                                    )}
+                                </div>
                                 <div className="flex justify-between items-center pt-2">
                                     <span className="text-gray-500 font-bold">المبلغ المدفوع:</span>
                                     <span className="font-black text-action-blue text-2xl">
@@ -124,54 +145,98 @@ export default function SuccessPage() {
                                 </div>
                             </div>
 
-                            {(() => {
-                                const courseItem = order.items?.find((i: any) => i.type === 'course');
-                                if (courseItem) {
-                                    return (
-                                        <div className="bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-900/30 rounded-2xl p-5 mb-8">
-                                            <p className="text-sm text-green-900 dark:text-green-300 font-medium leading-relaxed">
-                                                🎓 <strong>تم تفعيل الدورة بنجاح:</strong> يمكنك البدء في التعلم فوراً، سيتم توجيهك الآن إلى محتوى الدورة.
-                                            </p>
-                                        </div>
-                                    );
-                                }
-                                return (
-                                    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 rounded-2xl p-5 mb-8">
-                                        <p className="text-sm text-blue-900 dark:text-blue-300 font-medium leading-relaxed">
-                                            📧 <strong>ملاحظة هامة:</strong> لقد أرسلنا إيصال الشراء وروابط التحميل المباشرة إلى البريد الإلكتروني الخاص بك. يرجى تفقده (ومجلد المهملات).
+                            {/* Post-purchase Message */}
+                            {isPending && !isPaid ? (
+                                /* MANUAL — Pending Verification Message */
+                                <div className="space-y-4 mb-8">
+                                    <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-900/30 rounded-2xl p-5">
+                                        <p className="text-sm text-amber-900 dark:text-amber-300 font-medium leading-relaxed">
+                                            ⏳ <strong>طلبك قيد المراجعة:</strong> سنتحقق من إيصال الدفع وسنرسل لك رسالة تأكيد عبر البريد الإلكتروني خلال وقت قصير.
                                         </p>
                                     </div>
-                                );
-                            })()}
+                                    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 rounded-2xl p-5">
+                                        <p className="text-sm text-blue-900 dark:text-blue-300 font-medium leading-relaxed flex items-start gap-2">
+                                            <FiMail className="mt-0.5 shrink-0" />
+                                            <span>
+                                                {(() => {
+                                                    const courseItem = order.items?.find((i: any) => i.type === 'course');
+                                                    if (courseItem) {
+                                                        return <>بعد التحقق، <strong>ستتمكن من الوصول للدورة</strong> وسنرسل لك رابط التسجيل والمحتوى عبر بريدك الإلكتروني.</>;
+                                                    }
+                                                    return <>بعد التحقق، <strong>سنرسل لك المنتج</strong> ورابط التحميل عبر بريدك الإلكتروني.</>;
+                                                })()}
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            ) : (
+                                /* AUTO — Immediate Access */
+                                <>
+                                    {(() => {
+                                        const courseItem = order.items?.find((i: any) => i.type === 'course');
+                                        if (courseItem) {
+                                            return (
+                                                <div className="bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-900/30 rounded-2xl p-5 mb-8">
+                                                    <p className="text-sm text-green-900 dark:text-green-300 font-medium leading-relaxed">
+                                                        🎓 <strong>تم تفعيل الدورة بنجاح:</strong> يمكنك البدء في التعلم فوراً، سيتم توجيهك الآن إلى محتوى الدورة.
+                                                    </p>
+                                                </div>
+                                            );
+                                        }
+                                        return (
+                                            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 rounded-2xl p-5 mb-8">
+                                                <p className="text-sm text-blue-900 dark:text-blue-300 font-medium leading-relaxed">
+                                                    📧 <strong>ملاحظة هامة:</strong> لقد أرسلنا إيصال الشراء وروابط التحميل المباشرة إلى البريد الإلكتروني الخاص بك. يرجى تفقده (ومجلد المهملات).
+                                                </p>
+                                            </div>
+                                        );
+                                    })()}
+                                </>
+                            )}
 
                             <div className="space-y-4">
-                                {(() => {
-                                    const courseItem = order.items?.find((i: any) => i.type === 'course');
-                                    if (courseItem && courseItem.id) {
-                                        return (
-                                            <Link
-                                                href={`/learn/${courseItem.id}`}
-                                                className="block w-full py-4 bg-green-600 hover:bg-green-700 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg flex justify-center items-center gap-2"
-                                            >
-                                                <FiBook className="text-xl" /> البدء بالدورة الآن
-                                            </Link>
-                                        );
-                                    }
-                                    return (
+                                {isPending && !isPaid ? (
+                                    /* Manual — Only show "browse more" */
+                                    <>
                                         <Link
-                                            href="/my-purchases"
+                                            href="/"
                                             className="block w-full py-4 bg-primary-charcoal hover:bg-black dark:bg-action-blue dark:hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg"
                                         >
-                                            تحميل المنتجات
+                                            تصفح المزيد من المنتجات
                                         </Link>
-                                    );
-                                })()}
-                                <Link
-                                    href="/"
-                                    className="block w-full py-4 border-2 border-gray-200 dark:border-gray-700 text-primary-charcoal dark:text-gray-300 text-center rounded-xl font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                                >
-                                    تصفح المزيد من المنتجات
-                                </Link>
+                                    </>
+                                ) : (
+                                    /* Auto — Show course link or download */
+                                    <>
+                                        {(() => {
+                                            const courseItem = order.items?.find((i: any) => i.type === 'course');
+                                            if (courseItem && courseItem.id) {
+                                                return (
+                                                    <Link
+                                                        href={`/learn/${courseItem.id}`}
+                                                        className="block w-full py-4 bg-green-600 hover:bg-green-700 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg flex justify-center items-center gap-2"
+                                                    >
+                                                        <FiBook className="text-xl" /> البدء بالدورة الآن
+                                                    </Link>
+                                                );
+                                            }
+                                            return (
+                                                <Link
+                                                    href="/my-purchases"
+                                                    className="block w-full py-4 bg-primary-charcoal hover:bg-black dark:bg-action-blue dark:hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg"
+                                                >
+                                                    تحميل المنتجات
+                                                </Link>
+                                            );
+                                        })()}
+                                        <Link
+                                            href="/"
+                                            className="block w-full py-4 border-2 border-gray-200 dark:border-gray-700 text-primary-charcoal dark:text-gray-300 text-center rounded-xl font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                                        >
+                                            تصفح المزيد من المنتجات
+                                        </Link>
+                                    </>
+                                )}
                             </div>
                         </div>
 

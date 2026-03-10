@@ -115,6 +115,56 @@ export async function POST(
             products,
         }));
 
+        // Auto-enroll in courses (same as Stripe webhook)
+        for (const item of orderItems) {
+            if (item.course && order.customerEmail) {
+                await prisma.courseEnrollment.upsert({
+                    where: {
+                        courseId_studentEmail: {
+                            courseId: item.courseId!,
+                            studentEmail: order.customerEmail,
+                        },
+                    },
+                    update: { orderId },
+                    create: {
+                        courseId: item.courseId!,
+                        studentName: order.customerName || 'العميل',
+                        studentEmail: order.customerEmail,
+                        orderId,
+                    },
+                });
+            }
+
+            // Handle bundles containing courses
+            if (item.product?.category === 'bundle') {
+                const bundle = await prisma.bundle.findUnique({
+                    where: { id: item.productId! },
+                    include: { products: { include: { product: true } } },
+                });
+                if (bundle) {
+                    for (const bp of bundle.products) {
+                        if (bp.product.category === 'courses' || bp.product.category === 'course') {
+                            await prisma.courseEnrollment.upsert({
+                                where: {
+                                    courseId_studentEmail: {
+                                        courseId: bp.product.id,
+                                        studentEmail: order.customerEmail,
+                                    },
+                                },
+                                update: { orderId },
+                                create: {
+                                    courseId: bp.product.id,
+                                    studentName: order.customerName || 'العميل',
+                                    studentEmail: order.customerEmail,
+                                    orderId,
+                                },
+                            });
+                        }
+                    }
+                }
+            }
+        }
+
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error('Error approving order:', error);
