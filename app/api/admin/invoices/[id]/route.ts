@@ -6,11 +6,12 @@ import { prisma } from '@/lib/db';
  */
 export async function GET(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
         const invoice = await prisma.invoice.findUnique({
-            where: { id: params.id },
+            where: { id },
             include: {
                 order: {
                     select: {
@@ -64,14 +65,15 @@ export async function GET(
  */
 export async function PATCH(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
         const body = await req.json();
         const { status, notes } = body;
 
         const invoice = await prisma.invoice.update({
-            where: { id: params.id },
+            where: { id },
             data: {
                 ...(status && { status }),
                 ...(notes !== undefined && { notes }),
