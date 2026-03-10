@@ -26,12 +26,13 @@ export async function GET(
         const resolvedCourseId = courseRecord?.id || courseSlugOrId;
 
         // Check if user has access (Enrolled or is Admin/Creator)
-        const enrollment = await prisma.courseEnrollment.findUnique({
+        const enrollment = await prisma.courseEnrollment.findFirst({
             where: {
-                courseId_studentEmail: {
-                    courseId: resolvedCourseId,
-                    studentEmail: session.user.email.toLowerCase(),
-                },
+                courseId: resolvedCourseId,
+                studentEmail: {
+                    equals: session.user.email,
+                    mode: 'insensitive'
+                }
             },
         });
 
