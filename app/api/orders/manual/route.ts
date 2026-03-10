@@ -61,6 +61,16 @@ export async function POST(req: NextRequest) {
         const { platformFee, sellerAmount } = calculateCommission(totalUSD, platformSettings.commissionRate);
         const escrowDays = platformSettings.escrowDays;
 
+        // Resolve buyer userId (required field)
+        let resolvedUserId = body.userId;
+        if (!resolvedUserId && customerEmail) {
+            const buyer = await prisma.user.findFirst({ where: { email: customerEmail } });
+            resolvedUserId = buyer?.id || sellerId; // fallback to sellerId if buyer has no account
+        }
+        if (!resolvedUserId) {
+            resolvedUserId = sellerId; // ultimate fallback
+        }
+
         // Create order
         const order = await prisma.order.create({
             data: {
@@ -79,7 +89,7 @@ export async function POST(req: NextRequest) {
                 transactionRef,
                 paymentProof,
                 paymentNotes,
-                userId: userId || undefined,
+                userId: resolvedUserId,
                 sellerId: sellerId || undefined,
                 payoutStatus: 'pending',
                 availableAt: new Date(Date.now() + escrowDays * 24 * 60 * 60 * 1000),
