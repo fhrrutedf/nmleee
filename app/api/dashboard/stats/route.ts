@@ -28,6 +28,7 @@ export async function GET(request: NextRequest) {
             lastMonthRevenue,
             currentMonthOrders,
             lastMonthOrders,
+            totalStudents,
         ] = await Promise.all([
             // Total active products
             prisma.product.count({
@@ -81,6 +82,13 @@ export async function GET(request: NextRequest) {
                     createdAt: { gte: startOfLastMonth, lte: endOfLastMonth },
                 },
             }),
+
+            // Total students enrolled in trainer's courses
+            prisma.courseEnrollment.count({
+                where: {
+                    course: { userId },
+                },
+            }),
         ]);
 
         // Calculate growth percentages
@@ -99,6 +107,7 @@ export async function GET(request: NextRequest) {
             totalOrders,
             totalRevenue: totalRevenue._sum.totalAmount || 0,
             totalAppointments: upcomingAppointments,
+            totalStudents,
             revenueGrowth,
             ordersGrowth,
             currentMonthRevenue: currRev,

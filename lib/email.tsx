@@ -150,29 +150,50 @@ export async function sendManualOrderApproved(data: {
     customerName: string;
     orderNumber: string;
     amount: number;
+    courseId?: string;
+    courseTitle?: string;
 }) {
     try {
+        const hasCourse = data.courseId && data.courseTitle;
         await sendMail({
             from: FROM_EMAIL,
             to: data.to,
             subject: `✅ تمت الموافقة على طلبك ${data.orderNumber}`,
             react: (
-                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl' }}>
-                    <h1>مرحباً {data.customerName}! 🎉</h1>
-                    <p>تمت الموافقة على طلبك بنجاح!</p>
-                    <p><strong>رقم الطلب: </strong> {data.orderNumber}</p>
-                    <p><strong>المبلغ: </strong> ${data.amount.toFixed(2)}</p>
-                    <p>يمكنك الآن الوصول إلى مشترياتك.</p>
-                    <a href="https://tmleen.com/orders" style={{
-                        backgroundColor: '#10b981',
-                        color: 'white',
-                        padding: '12px 24px',
-                        borderRadius: '6px',
-                        textDecoration: 'none',
-                        display: 'inline-block'
-                    }}>
-                        عرض الطلبات
-                    </a>
+                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl', lineHeight: '1.6' }}>
+                    <div style={{ backgroundColor: '#f8fafc', padding: '30px', borderRadius: '12px', border: '1px solid #e2e8f0', maxWidth: '600px', margin: '0 auto' }}>
+                        <h1 style={{ color: '#0f172a', marginBottom: '20px', textAlign: 'center' }}>مرحباً {data.customerName}! 🎉</h1>
+                        <p style={{ color: '#475569', fontSize: '16px' }}>تمت الموافقة على طلبك بنجاح!</p>
+                        <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', margin: '20px 0', border: '1px solid #e2e8f0' }}>
+                            <p style={{ margin: '5px 0' }}><strong>رقم الطلب: </strong> {data.orderNumber}</p>
+                            <p style={{ margin: '5px 0' }}><strong>المبلغ: </strong> ${data.amount.toFixed(2)}</p>
+                            {hasCourse && (
+                                <p style={{ margin: '5px 0' }}><strong>الدورة: </strong> {data.courseTitle}</p>
+                            )}
+                        </div>
+                        {hasCourse ? (
+                            <>
+                                <p style={{ color: '#059669', fontWeight: 'bold', fontSize: '16px' }}>🎓 تم فتح الدورة! يمكنك الآن الوصول إلى محتوى الكورس والبدء بالتعلم.</p>
+                                <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                                    <a href={`https://tmleen.com/learn/${data.courseId}`} style={{
+                                        backgroundColor: '#059669', color: 'white', padding: '14px 28px',
+                                        borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold', fontSize: '16px'
+                                    }}>
+                                        🎓 البدء بالدورة الآن
+                                    </a>
+                                </div>
+                            </>
+                        ) : (
+                            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                                <a href="https://tmleen.com/my-purchases" style={{
+                                    backgroundColor: '#10b981', color: 'white', padding: '14px 28px',
+                                    borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
+                                }}>
+                                    عرض مشترياتي
+                                </a>
+                            </div>
+                        )}
+                    </div>
                 </div>
             ),
         });

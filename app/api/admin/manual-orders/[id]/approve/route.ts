@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/db';
 import { sendTelegramMessage, newOrderMessage } from '@/lib/telegram';
+import { sendManualOrderApproved } from '@/lib/email';
 
 export async function POST(
     req: NextRequest,
@@ -163,6 +164,21 @@ export async function POST(
                     }
                 }
             }
+        }
+
+        // Send approval email to customer (with course link if applicable)
+        const courseItem = orderItems.find(i => i.course);
+        try {
+            await sendManualOrderApproved({
+                to: order.customerEmail,
+                customerName: order.customerName || 'العميل',
+                orderNumber: order.orderNumber,
+                amount: order.totalAmount,
+                courseId: courseItem?.courseId || undefined,
+                courseTitle: courseItem?.course?.title || undefined,
+            });
+        } catch (emailErr) {
+            console.error('Failed to send approval email:', emailErr);
         }
 
         return NextResponse.json({ success: true });

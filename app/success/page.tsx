@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { FiCheckCircle, FiPackage, FiBook, FiArrowLeft, FiGift, FiShoppingCart, FiClock, FiMail } from 'react-icons/fi';
+import { FiCheckCircle, FiPackage, FiBook, FiArrowLeft, FiGift, FiShoppingCart, FiClock, FiMail, FiLock, FiMessageCircle, FiPhone } from 'react-icons/fi';
+import { FaWhatsapp, FaTelegram, FaInstagram, FaFacebook, FaTwitter, FaYoutube } from 'react-icons/fa';
 
 export default function SuccessPage() {
     const searchParams = useSearchParams();
@@ -12,6 +13,7 @@ export default function SuccessPage() {
     const [order, setOrder] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [upsells, setUpsells] = useState<any[]>([]);
+    const [social, setSocial] = useState<any>(null);
 
     useEffect(() => {
         if (sessionId) {
@@ -21,6 +23,8 @@ export default function SuccessPage() {
         } else {
             setLoading(false);
         }
+        // Fetch social links for contact info
+        fetchSocial();
     }, [sessionId]);
 
     const fetchOrder = async () => {
@@ -38,6 +42,13 @@ export default function SuccessPage() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const fetchSocial = async () => {
+        try {
+            const res = await fetch('/api/platform/social');
+            if (res.ok) setSocial(await res.json());
+        } catch (e) { /* ignore */ }
     };
 
     const fetchUpsells = async (sellerId: string) => {
@@ -72,6 +83,18 @@ export default function SuccessPage() {
     const effectiveBrandColor = order.brandColor;
     const isPending = isManual || order.status === 'PENDING' || order.paymentMethod === 'manual';
     const isPaid = order.status === 'PAID' || order.status === 'COMPLETED';
+    const courseItem = order.items?.find((i: any) => i.type === 'course');
+    const hasCourse = !!courseItem;
+
+    // Social links array for display
+    const socialLinks = [
+        social?.supportWhatsapp && { icon: <FaWhatsapp size={18} />, label: 'واتساب', href: `https://wa.me/${social.supportWhatsapp}`, color: 'bg-green-500' },
+        social?.socialTelegram && { icon: <FaTelegram size={18} />, label: 'تيليجرام', href: social.socialTelegram.startsWith('http') ? social.socialTelegram : `https://t.me/${social.socialTelegram}`, color: 'bg-blue-500' },
+        social?.socialInstagram && { icon: <FaInstagram size={18} />, label: 'انستجرام', href: social.socialInstagram.startsWith('http') ? social.socialInstagram : `https://instagram.com/${social.socialInstagram}`, color: 'bg-pink-500' },
+        social?.socialFacebook && { icon: <FaFacebook size={18} />, label: 'فيسبوك', href: social.socialFacebook.startsWith('http') ? social.socialFacebook : `https://facebook.com/${social.socialFacebook}`, color: 'bg-blue-700' },
+        social?.socialTwitter && { icon: <FaTwitter size={18} />, label: 'تويتر', href: social.socialTwitter.startsWith('http') ? social.socialTwitter : `https://twitter.com/${social.socialTwitter}`, color: 'bg-sky-500' },
+        social?.supportEmail && { icon: <FiMail size={18} />, label: 'البريد', href: `mailto:${social.supportEmail}`, color: 'bg-gray-600' },
+    ].filter(Boolean) as any[];
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-bg-dark py-12 pb-24">
@@ -82,42 +105,56 @@ export default function SuccessPage() {
                     .bg-indigo-600 { background-color: ${effectiveBrandColor} !important; }
                     .btn-primary { background-color: ${effectiveBrandColor} !important; border-color: ${effectiveBrandColor} !important; }
                     .hover\\:bg-indigo-700:hover, .hover\\:bg-blue-600:hover { background-color: ${effectiveBrandColor}cc !important; }
-                    .hover\\:border-action-blue:hover { border-color: ${effectiveBrandColor} !important; }
-                    .shadow-action-blue\\/20 { --tw-shadow-color: ${effectiveBrandColor}33 !important; }
                     `
                 }} />
             )}
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="bg-white dark:bg-card-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-800">
-                    {/* Header — Different for Manual vs Auto */}
+
+                    {/* ===== HEADER ===== */}
                     {isPending && !isPaid ? (
-                        /* ===== MANUAL PAYMENT — PENDING VERIFICATION ===== */
+                        /* Manual Payment — Pending */
                         <div className="bg-gradient-to-br from-amber-500 to-orange-600 text-white p-12 text-center relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
                             <div className="relative z-10">
-                                <FiClock size={80} className="mx-auto mb-6 drop-shadow-md" />
-                                <h1 className="text-4xl font-black mb-3 drop-shadow-sm">تم استلام طلبك! ⏳</h1>
-                                <p className="text-amber-50 font-medium text-lg max-w-lg mx-auto">
-                                    شكراً لك! تم استلام طلبك وإيصال الدفع. سنتحقق من الدفعة وسنرسل لك التأكيد عبر البريد الإلكتروني.
-                                </p>
+                                {hasCourse ? (
+                                    <>
+                                        <FiLock size={80} className="mx-auto mb-6 drop-shadow-md" />
+                                        <h1 className="text-4xl font-black mb-3 drop-shadow-sm">الكورس مقفل حالياً 🔒</h1>
+                                        <p className="text-amber-50 font-medium text-lg max-w-lg mx-auto">
+                                            تم استلام طلبك! سيتم فتح الكورس بعد التأكد من الدفع من قبل الإدارة. سنرسل لك رابط التسجيل عبر البريد الإلكتروني.
+                                        </p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <FiClock size={80} className="mx-auto mb-6 drop-shadow-md" />
+                                        <h1 className="text-4xl font-black mb-3 drop-shadow-sm">تم استلام طلبك! ⏳</h1>
+                                        <p className="text-amber-50 font-medium text-lg max-w-lg mx-auto">
+                                            شكراً لك! سنتحقق من الدفعة وسنرسل لك التأكيد عبر البريد الإلكتروني.
+                                        </p>
+                                    </>
+                                )}
                             </div>
                         </div>
                     ) : (
-                        /* ===== AUTO PAYMENT — CONFIRMED ===== */
+                        /* Auto Payment — Confirmed */
                         <div className="bg-gradient-to-br from-green-500 to-emerald-600 text-white p-12 text-center relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
                             <div className="relative z-10">
                                 <FiCheckCircle size={80} className="mx-auto mb-6 drop-shadow-md" />
                                 <h1 className="text-4xl font-black mb-3 drop-shadow-sm">تم الدفع بنجاح! 🎉</h1>
                                 <p className="text-green-50 font-medium text-lg max-w-lg mx-auto">
-                                    شكراً لثقتك بنا! تم تأكيد طلبك وإرسال كافة التفاصيل إلى بريدك الإلكتروني.
+                                    {hasCourse
+                                        ? 'تم تفعيل الدورة بنجاح! يمكنك البدء بالتعلم فوراً.'
+                                        : 'شكراً لثقتك بنا! تم تأكيد طلبك وإرسال كافة التفاصيل إلى بريدك الإلكتروني.'
+                                    }
                                 </p>
                             </div>
                         </div>
                     )}
 
                     <div className="flex flex-col md:flex-row">
-                        {/* Order Details Column */}
+                        {/* ===== ORDER DETAILS ===== */}
                         <div className="p-8 md:p-12 md:w-1/2 border-b md:border-b-0 md:border-l border-gray-100 dark:border-gray-800">
                             <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-6">تفاصيل طلبك</h2>
                             <div className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 space-y-4 mb-8">
@@ -126,11 +163,11 @@ export default function SuccessPage() {
                                     <span className="font-bold text-primary-charcoal dark:text-gray-200 font-mono text-sm">{order.orderNumber}</span>
                                 </div>
                                 <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-3">
-                                    <span className="text-gray-500 font-medium">الإيميل المسجل:</span>
+                                    <span className="text-gray-500 font-medium">الإيميل:</span>
                                     <span className="font-bold text-primary-charcoal dark:text-gray-200 text-sm">{order.customerEmail}</span>
                                 </div>
                                 <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-3">
-                                    <span className="text-gray-500 font-medium">حالة الطلب:</span>
+                                    <span className="text-gray-500 font-medium">الحالة:</span>
                                     {isPending && !isPaid ? (
                                         <span className="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-700">قيد التحقق</span>
                                     ) : (
@@ -138,97 +175,94 @@ export default function SuccessPage() {
                                     )}
                                 </div>
                                 <div className="flex justify-between items-center pt-2">
-                                    <span className="text-gray-500 font-bold">المبلغ المدفوع:</span>
-                                    <span className="font-black text-action-blue text-2xl">
-                                        {order.totalAmount.toFixed(2)} ج.م
-                                    </span>
+                                    <span className="text-gray-500 font-bold">المبلغ:</span>
+                                    <span className="font-black text-action-blue text-2xl">{order.totalAmount.toFixed(2)} ج.م</span>
                                 </div>
                             </div>
 
-                            {/* Post-purchase Message */}
+                            {/* ===== POST-PURCHASE MESSAGE ===== */}
                             {isPending && !isPaid ? (
-                                /* MANUAL — Pending Verification Message */
                                 <div className="space-y-4 mb-8">
-                                    <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-900/30 rounded-2xl p-5">
-                                        <p className="text-sm text-amber-900 dark:text-amber-300 font-medium leading-relaxed">
-                                            ⏳ <strong>طلبك قيد المراجعة:</strong> سنتحقق من إيصال الدفع وسنرسل لك رسالة تأكيد عبر البريد الإلكتروني خلال وقت قصير.
-                                        </p>
-                                    </div>
-                                    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 rounded-2xl p-5">
-                                        <p className="text-sm text-blue-900 dark:text-blue-300 font-medium leading-relaxed flex items-start gap-2">
-                                            <FiMail className="mt-0.5 shrink-0" />
-                                            <span>
-                                                {(() => {
-                                                    const courseItem = order.items?.find((i: any) => i.type === 'course');
-                                                    if (courseItem) {
-                                                        return <>بعد التحقق، <strong>ستتمكن من الوصول للدورة</strong> وسنرسل لك رابط التسجيل والمحتوى عبر بريدك الإلكتروني.</>;
-                                                    }
-                                                    return <>بعد التحقق، <strong>سنرسل لك المنتج</strong> ورابط التحميل عبر بريدك الإلكتروني.</>;
-                                                })()}
-                                            </span>
-                                        </p>
-                                    </div>
+                                    {hasCourse ? (
+                                        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-900/30 rounded-2xl p-5">
+                                            <p className="text-sm text-amber-900 dark:text-amber-300 font-medium leading-relaxed">
+                                                🔒 <strong>الكورس مقفل حالياً</strong> حتى يتم التأكد من الدفع من قبل الإدارة. بعد التحقق، سنرسل لك رابط التسجيل والوصول عبر البريد الإلكتروني.
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-900/30 rounded-2xl p-5">
+                                            <p className="text-sm text-amber-900 dark:text-amber-300 font-medium leading-relaxed">
+                                                ⏳ <strong>سنتحقق من إيصال الدفع</strong> وسنرسل لك رسالة تأكيد + المنتج عبر البريد الإلكتروني خلال وقت قصير.
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    {/* Social Media Contact Section */}
+                                    {socialLinks.length > 0 && (
+                                        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 rounded-2xl p-5">
+                                            <p className="text-sm text-blue-900 dark:text-blue-300 font-bold mb-3 flex items-center gap-2">
+                                                <FiMessageCircle /> إذا واجهتك مشكلة أو انتظرت كثيراً، تواصل معنا:
+                                            </p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {socialLinks.map((link, i) => (
+                                                    <a
+                                                        key={i}
+                                                        href={link.href}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className={`${link.color} text-white px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-2 hover:opacity-80 transition-opacity`}
+                                                    >
+                                                        {link.icon} {link.label}
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             ) : (
-                                /* AUTO — Immediate Access */
                                 <>
-                                    {(() => {
-                                        const courseItem = order.items?.find((i: any) => i.type === 'course');
-                                        if (courseItem) {
-                                            return (
-                                                <div className="bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-900/30 rounded-2xl p-5 mb-8">
-                                                    <p className="text-sm text-green-900 dark:text-green-300 font-medium leading-relaxed">
-                                                        🎓 <strong>تم تفعيل الدورة بنجاح:</strong> يمكنك البدء في التعلم فوراً، سيتم توجيهك الآن إلى محتوى الدورة.
-                                                    </p>
-                                                </div>
-                                            );
-                                        }
-                                        return (
-                                            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 rounded-2xl p-5 mb-8">
-                                                <p className="text-sm text-blue-900 dark:text-blue-300 font-medium leading-relaxed">
-                                                    📧 <strong>ملاحظة هامة:</strong> لقد أرسلنا إيصال الشراء وروابط التحميل المباشرة إلى البريد الإلكتروني الخاص بك. يرجى تفقده (ومجلد المهملات).
-                                                </p>
-                                            </div>
-                                        );
-                                    })()}
+                                    {hasCourse ? (
+                                        <div className="bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-900/30 rounded-2xl p-5 mb-8">
+                                            <p className="text-sm text-green-900 dark:text-green-300 font-medium leading-relaxed">
+                                                🎓 <strong>تم تفعيل الدورة بنجاح:</strong> يمكنك البدء في التعلم فوراً.
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 rounded-2xl p-5 mb-8">
+                                            <p className="text-sm text-blue-900 dark:text-blue-300 font-medium leading-relaxed">
+                                                📧 <strong>ملاحظة هامة:</strong> لقد أرسلنا إيصال الشراء وروابط التحميل إلى بريدك الإلكتروني.
+                                            </p>
+                                        </div>
+                                    )}
                                 </>
                             )}
 
+                            {/* ===== ACTION BUTTONS ===== */}
                             <div className="space-y-4">
                                 {isPending && !isPaid ? (
-                                    /* Manual — Only show "browse more" */
-                                    <>
-                                        <Link
-                                            href="/"
-                                            className="block w-full py-4 bg-primary-charcoal hover:bg-black dark:bg-action-blue dark:hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg"
-                                        >
-                                            تصفح المزيد من المنتجات
-                                        </Link>
-                                    </>
+                                    <Link
+                                        href="/"
+                                        className="block w-full py-4 bg-primary-charcoal hover:bg-black dark:bg-action-blue dark:hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg"
+                                    >
+                                        تصفح المزيد من المنتجات
+                                    </Link>
                                 ) : (
-                                    /* Auto — Show course link or download */
                                     <>
-                                        {(() => {
-                                            const courseItem = order.items?.find((i: any) => i.type === 'course');
-                                            if (courseItem && courseItem.id) {
-                                                return (
-                                                    <Link
-                                                        href={`/learn/${courseItem.id}`}
-                                                        className="block w-full py-4 bg-green-600 hover:bg-green-700 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg flex justify-center items-center gap-2"
-                                                    >
-                                                        <FiBook className="text-xl" /> البدء بالدورة الآن
-                                                    </Link>
-                                                );
-                                            }
-                                            return (
-                                                <Link
-                                                    href="/my-purchases"
-                                                    className="block w-full py-4 bg-primary-charcoal hover:bg-black dark:bg-action-blue dark:hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg"
-                                                >
-                                                    تحميل المنتجات
-                                                </Link>
-                                            );
-                                        })()}
+                                        {hasCourse && courseItem.id ? (
+                                            <Link
+                                                href={`/learn/${courseItem.id}`}
+                                                className="block w-full py-4 bg-green-600 hover:bg-green-700 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg flex justify-center items-center gap-2"
+                                            >
+                                                <FiBook className="text-xl" /> البدء بالدورة الآن 🎓
+                                            </Link>
+                                        ) : (
+                                            <Link
+                                                href="/my-purchases"
+                                                className="block w-full py-4 bg-primary-charcoal hover:bg-black dark:bg-action-blue dark:hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg"
+                                            >
+                                                تحميل المنتجات
+                                            </Link>
+                                        )}
                                         <Link
                                             href="/"
                                             className="block w-full py-4 border-2 border-gray-200 dark:border-gray-700 text-primary-charcoal dark:text-gray-300 text-center rounded-xl font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
@@ -240,7 +274,7 @@ export default function SuccessPage() {
                             </div>
                         </div>
 
-                        {/* Upsell / Cross-sell Column */}
+                        {/* ===== UPSELL COLUMN ===== */}
                         <div className="p-8 md:p-12 md:w-1/2 bg-gray-50/50 dark:bg-bg-dark/50">
                             {upsells.length > 0 ? (
                                 <div>
@@ -248,10 +282,8 @@ export default function SuccessPage() {
                                         <div className="p-2 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-600 rounded-xl">
                                             <FiGift size={20} />
                                         </div>
-                                        <h3 className="text-xl font-bold text-primary-charcoal dark:text-white">بما أنك اشتريت هذا، قد يعجبك أيضاً!</h3>
+                                        <h3 className="text-xl font-bold text-primary-charcoal dark:text-white">قد يعجبك أيضاً!</h3>
                                     </div>
-                                    <p className="text-sm text-gray-500 mb-6 font-medium">منتجات حصرية إضافية من نفس المبدع لتكملة رحلتك:</p>
-
                                     <div className="space-y-4">
                                         {upsells.map((upsell) => (
                                             <div key={upsell.id} className="bg-white dark:bg-card-white border border-gray-200 dark:border-gray-800 rounded-2xl p-4 flex gap-4 hover:border-action-blue transition-colors group">
@@ -277,10 +309,6 @@ export default function SuccessPage() {
                                             </div>
                                         ))}
                                     </div>
-
-                                    <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800 text-center">
-                                        <p className="text-xs text-gray-400 font-medium">العروض تتوفر لفترة محدودة، استفد منها الآن وجرب إضافتها لسلتك.</p>
-                                    </div>
                                 </div>
                             ) : (
                                 <div className="h-full flex flex-col items-center justify-center text-center py-12">
@@ -288,14 +316,13 @@ export default function SuccessPage() {
                                         <FiPackage size={40} />
                                     </div>
                                     <h3 className="text-xl font-bold text-primary-charcoal dark:text-white mb-2">رحلة سعيدة وموفقة!</h3>
-                                    <p className="text-text-muted">نتمنى أن يكون المنتج قد لبى توقعاتك. لا تتردد في تقييم تجربتك معنا.</p>
+                                    <p className="text-text-muted">نتمنى أن يكون المنتج قد لبى توقعاتك.</p>
                                 </div>
                             )}
                         </div>
                     </div>
                 </div>
             </div>
-            {/* Simple Footer */}
             <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">
                     مدعوم من <a href="https://tmleen.com" className="text-action-blue font-bold hover:underline">منصة تقانة</a>
