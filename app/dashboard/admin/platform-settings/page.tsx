@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FiSave, FiDollarSign, FiClock, FiGlobe, FiPhone, FiSettings, FiTrendingUp } from 'react-icons/fi';
+import { FiSave, FiDollarSign, FiClock, FiGlobe, FiPhone, FiSettings, FiTrendingUp, FiShare2 } from 'react-icons/fi';
+import { FaWhatsapp, FaTelegram, FaInstagram, FaFacebook, FaTwitter, FaYoutube } from 'react-icons/fa';
 import showToast from '@/lib/toast';
 
 interface PlatformSettings {
@@ -21,6 +22,11 @@ interface PlatformSettings {
     platformName: string;
     supportEmail: string;
     supportWhatsapp: string;
+    socialTelegram: string;
+    socialInstagram: string;
+    socialFacebook: string;
+    socialTwitter: string;
+    socialYoutube: string;
 }
 
 export default function AdminPlatformSettingsPage() {
@@ -41,6 +47,11 @@ export default function AdminPlatformSettingsPage() {
         platformName: 'منصتي الرقمية',
         supportEmail: '',
         supportWhatsapp: '',
+        socialTelegram: '',
+        socialInstagram: '',
+        socialFacebook: '',
+        socialTwitter: '',
+        socialYoutube: '',
     });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -290,6 +301,41 @@ export default function AdminPlatformSettingsPage() {
                             placeholder="+963..."
                         />
                     </div>
+                </div>
+            </div>
+
+            {/* Social Media Links */}
+            <div className="card space-y-5">
+                <div className="flex items-center gap-3 border-b border-gray-100 dark:border-gray-800 pb-4">
+                    <div className="p-2 bg-pink-100 dark:bg-pink-900/30 rounded-lg text-pink-600">
+                        <FiShare2 className="text-xl" />
+                    </div>
+                    <div>
+                        <h2 className="font-bold text-primary-charcoal dark:text-white">وسائل التواصل الاجتماعي</h2>
+                        <p className="text-xs text-text-muted">تُعرض للعملاء في صفحة الدفع والتواصل</p>
+                    </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                    {[
+                        { key: 'socialTelegram', label: 'تيليجرام', icon: <FaTelegram className="text-blue-500" />, placeholder: '@username أو رابط' },
+                        { key: 'socialInstagram', label: 'انستجرام', icon: <FaInstagram className="text-pink-500" />, placeholder: '@username أو رابط' },
+                        { key: 'socialFacebook', label: 'فيسبوك', icon: <FaFacebook className="text-blue-700" />, placeholder: 'رابط الصفحة' },
+                        { key: 'socialTwitter', label: 'تويتر / X', icon: <FaTwitter className="text-sky-500" />, placeholder: '@username أو رابط' },
+                        { key: 'socialYoutube', label: 'يوتيوب', icon: <FaYoutube className="text-red-600" />, placeholder: 'رابط القناة' },
+                    ].map(({ key, label, icon, placeholder }) => (
+                        <div key={key}>
+                            <label className="label flex items-center gap-2">{icon} {label}</label>
+                            <input
+                                type="text"
+                                placeholder={placeholder}
+                                value={(settings as any)[key] || ''}
+                                onChange={e => update(key as any, e.target.value)}
+                                className="input w-full"
+                                dir="ltr"
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
