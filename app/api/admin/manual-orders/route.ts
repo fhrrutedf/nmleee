@@ -11,7 +11,6 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
         }
 
-        // Check if admin
         const user = await prisma.user.findUnique({
             where: { email: session.user.email },
             select: { role: true },
@@ -21,13 +20,18 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ error: 'غير مصرح' }, { status: 403 });
         }
 
-        // Get all orders with manual payment pending verification
+        const statusFilter = req.nextUrl.searchParams.get('status'); // 'PENDING' | 'PAID' | 'REJECTED' | null (all)
+
+        const where: any = {
+            paymentMethod: 'manual',
+        };
+
+        if (statusFilter) {
+            where.status = statusFilter;
+        }
+
         const orders = await prisma.order.findMany({
-            where: {
-                paymentMethod: 'manual',
-                status: 'PENDING',
-                verifiedAt: null,
-            },
+            where,
             include: {
                 items: {
                     include: {
