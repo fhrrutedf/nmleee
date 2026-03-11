@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { FiMail, FiLock, FiAlertCircle, FiArrowRight } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -23,8 +23,11 @@ const staggerContainer = {
     }
 };
 
-export default function LoginPage() {
+function LoginContent() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
+    
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -35,7 +38,7 @@ export default function LoginPage() {
 
     const handleGoogleSignIn = async () => {
         setGoogleLoading(true);
-        await signIn('google', { callbackUrl: '/dashboard' });
+        await signIn('google', { callbackUrl });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -50,7 +53,7 @@ export default function LoginPage() {
             await signIn('credentials', {
                 email: formData.email,
                 password: formData.password,
-                callbackUrl: '/dashboard',
+                callbackUrl,
                 redirect: true, // Let NextAuth redirect automatically
             });
 
@@ -224,5 +227,17 @@ export default function LoginPage() {
                 </motion.div>
             </motion.div>
         </div>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center bg-bg-light">
+                <div className="w-12 h-12 border-4 border-action-blue/20 border-t-action-blue rounded-full animate-spin"></div>
+            </div>
+        }>
+            <LoginContent />
+        </Suspense>
     );
 }

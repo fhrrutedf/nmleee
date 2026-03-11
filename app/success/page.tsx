@@ -1,13 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { FiCheckCircle, FiPackage, FiBook, FiArrowLeft, FiGift, FiShoppingCart, FiClock, FiMail, FiLock, FiMessageCircle, FiPhone } from 'react-icons/fi';
 import { FaWhatsapp, FaTelegram, FaInstagram, FaFacebook, FaTwitter, FaYoutube } from 'react-icons/fa';
 
-export default function SuccessPage() {
+function SuccessContent() {
     const searchParams = useSearchParams();
+    const { status: sessionStatus } = useSession();
     const sessionId = searchParams.get('session_id') || searchParams.get('order_id');
     const isManual = searchParams.get('manual') === 'true';
     const [order, setOrder] = useState<any>(null);
@@ -249,12 +251,21 @@ export default function SuccessPage() {
                                 ) : (
                                     <>
                                         {hasCourse && courseItem.id ? (
-                                            <Link
-                                                href={`/learn/${courseItem.id}`}
-                                                className="block w-full py-4 bg-green-600 hover:bg-green-700 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg flex justify-center items-center gap-2"
-                                            >
-                                                <FiBook className="text-xl" /> البدء بالدورة الآن 🎓
-                                            </Link>
+                                            sessionStatus === 'authenticated' ? (
+                                                <Link
+                                                    href={`/learn/${courseItem.id}`}
+                                                    className="block w-full py-4 bg-green-600 hover:bg-green-700 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg flex justify-center items-center gap-2"
+                                                >
+                                                    <FiBook className="text-xl" /> البدء بالدورة الآن 🎓
+                                                </Link>
+                                            ) : (
+                                                <Link
+                                                    href={`/login?callbackUrl=/learn/${courseItem.id}`}
+                                                    className="block w-full py-4 bg-action-blue hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg flex justify-center items-center gap-2"
+                                                >
+                                                    <FiLock className="text-xl" /> تسجيل الدخول لبدء الدورة 🎓
+                                                </Link>
+                                            )
                                         ) : (
                                             <Link
                                                 href="/my-purchases"
@@ -329,5 +340,17 @@ export default function SuccessPage() {
                 </p>
             </footer>
         </div>
+    );
+}
+
+export default function SuccessPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+                <div className="w-12 h-12 border-4 border-action-blue/20 border-t-action-blue rounded-full animate-spin"></div>
+            </div>
+        }>
+            <SuccessContent />
+        </Suspense>
     );
 }
