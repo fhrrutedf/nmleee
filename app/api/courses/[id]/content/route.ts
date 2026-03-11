@@ -41,32 +41,39 @@ export async function GET(
 
         resolvedCourseId = courseRecord.id;
 
-        // 2. Check if student has an enrollment (Case-insensitive & Trimmed)
+        // 2. Check Permissions & Identity
         const userEmail = session.user.email.toLowerCase().trim();
+        const isAdmin = (session.user as any).role === 'ADMIN';
+        const isCreator = courseRecord.userId === (session.user as any).id;
+        
         const enrollment = await prisma.courseEnrollment.findFirst({
             where: {
                 courseId: resolvedCourseId,
-                studentEmail: {
-                    equals: userEmail,
-                    mode: 'insensitive'
-                }
+                studentEmail: { equals: userEmail, mode: 'insensitive' }
             },
         });
 
-        // 3. Fetch the full course payload
+        const hasAccess = !!enrollment || isCreator || isAdmin;
+        if (!hasAccess) {
+            return new NextResponse('Forbidden', { status: 403 });
+        }
+
+        // 3. Fetch full course payload (Filtered for students, unfiltered for owners)
+        const isStudentOnly = !isCreator && !isAdmin;
+
         const course = await prisma.course.findUnique({
             where: { id: resolvedCourseId },
             include: {
                 modules: {
-                    where: { isPublished: true },
+                    where: isStudentOnly ? { isPublished: true } : {},
                     orderBy: { order: 'asc' },
                     include: {
                         lessons: {
-                            where: { isPublished: true },
+                            where: isStudentOnly ? { isPublished: true } : {},
                             orderBy: { order: 'asc' },
                             include: {
                                 quizzes: {
-                                    where: { isPublished: true },
+                                    where: isStudentOnly ? { isPublished: true } : {},
                                     select: {
                                         id: true,
                                         title: true,
@@ -81,18 +88,11 @@ export async function GET(
                 },
                 certificates: {
                     where: { 
-                        studentEmail: {
-                            equals: userEmail,
-                            mode: 'insensitive'
-                        }
+                        studentEmail: { equals: userEmail, mode: 'insensitive' }
                     }
                 },
                 user: {
-                    select: {
-                        brandColor: true,
-                        name: true,
-                        username: true
-                    }
+                    select: { brandColor: true, name: true, username: true }
                 }
             }
         });
@@ -100,25 +100,8 @@ export async function GET(
         if (!course) {
             return new NextResponse('Course not found', { status: 404 });
         }
-        
-        const isCreator = course.userId === (session.user as any).id;
-        const isAdmin = (session.user as any).role === 'ADMIN';
-        const hasAccess = !!enrollment || isCreator || isAdmin;
-        
-        console.log('[CourseAccess] Checking permissions for:', userEmail);
-        console.log('[CourseAccess] resolvedCourseId:', resolvedCourseId);
-        console.log('[CourseAccess] isCreator:', isCreator);
-        console.log('[CourseAccess] isAdmin:', isAdmin);
-        console.log('[CourseAccess] hasEnrollment:', !!enrollment);
-        
-        if (!hasAccess) {
-            console.log('[CourseAccess] Result: FORBIDDEN');
-            return new NextResponse('Forbidden', { status: 403 });
-        }
-        
-        console.log('[CourseAccess] Result: GRANTED');
 
-        // Sanitize Quiz Questions (Remove correct answers)
+        // 4. Sanitize Quiz Questions (Remove correct answers)
         const sanitizedModules = course.modules.map(module => ({
             ...module,
             lessons: module.lessons.map(lesson => ({
@@ -136,7 +119,7 @@ export async function GET(
         return NextResponse.json({
             ...course,
             modules: sanitizedModules,
-            isEnrolled: hasAccess, // User-facing field: can they watch the course?
+            isEnrolled: true, // They have access at this point
             enrollmentId: enrollment?.id,
             certificate: course.certificates[0] || null
         });
