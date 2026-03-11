@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        let { name, email, username, password, phone, country, countryCode } = body;
+        let { name, email, username, password, phone, country, countryCode, ref } = body;
 
         // Normalize inputs
         email = email?.trim().toLowerCase();
@@ -81,6 +81,19 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        // 🌳 Referral Tree: Look up the referrer by username
+        let referredById: string | undefined = undefined;
+        if (ref) {
+            const referrer = await prisma.user.findUnique({
+                where: { username: ref.trim().toLowerCase() },
+                select: { id: true },
+            });
+            if (referrer) {
+                referredById = referrer.id;
+                console.log(`🌳 Referral: ${username} referred by ${ref}`);
+            }
+        }
+
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -95,6 +108,7 @@ export async function POST(request: NextRequest) {
                 phone: phone || undefined,
                 country: country || undefined,
                 countryCode: countryCode || undefined,
+                referredById,
             },
             select: {
                 id: true,

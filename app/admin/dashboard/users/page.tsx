@@ -14,7 +14,8 @@ import {
     FiMail,
     FiActivity,
     FiShield,
-    FiRefreshCw
+    FiRefreshCw,
+    FiAward
 } from 'react-icons/fi';
 
 interface UserData {
@@ -27,6 +28,7 @@ interface UserData {
     isVerified: boolean;
     createdAt: string;
     totalEarnings: number;
+    planType?: string;
     _count: {
         products: number;
         sellerOrders: number;
@@ -59,6 +61,12 @@ export default function UsersManagement() {
     const [totalPages, setTotalPages] = useState(1);
     const [autoRefresh, setAutoRefresh] = useState(true);
     const [isRefreshing, setIsRefreshing] = useState(false);
+
+    // Plan Modal State
+    const [planModal, setPlanModal] = useState<{ userId: string; userName: string; currentPlan: string } | null>(null);
+    const [selectedPlan, setSelectedPlan] = useState('FREE');
+    const [planDuration, setPlanDuration] = useState('1');
+    const [savingPlan, setSavingPlan] = useState(false);
 
     // Stats
     const [stats, setStats] = useState({
@@ -131,7 +139,46 @@ export default function UsersManagement() {
         });
     };
 
+    const openPlanModal = (user: UserData) => {
+        setPlanModal({ userId: user.id, userName: user.name, currentPlan: user.planType || 'FREE' });
+        setSelectedPlan(user.planType || 'FREE');
+        setPlanDuration('1');
+    };
+
+    const savePlan = async () => {
+        if (!planModal) return;
+        setSavingPlan(true);
+        try {
+            const res = await fetch(`/api/admin/users/${planModal.userId}/plan`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ planType: selectedPlan, durationMonths: planDuration }),
+            });
+            const data = await res.json();
+            if (res.ok) {
+                alert(`✅ ${data.message}`);
+                setPlanModal(null);
+                fetchUsers(true);
+            } else {
+                alert(`❌ ${data.error}`);
+            }
+        } catch {
+            alert('❌ حدث خطأ');
+        } finally {
+            setSavingPlan(false);
+        }
+    };
+
+    const planBadge = (planType?: string) => {
+        switch (planType) {
+            case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400">🚀 GROWTH</span>;
+            case 'PRO': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400">👑 PRO</span>;
+            default: return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400">🆓 FREE</span>;
+        }
+    };
+
     return (
+        <>
         <div className="flex-1 p-6 lg:p-10 max-w-7xl mx-auto w-full">
             {/* Header */}
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -280,6 +327,7 @@ export default function UsersManagement() {
                                                             <FiMail size={12} /> {user.email}
                                                         </div>
                                                     </div>
+                                                    {user.role === 'SELLER' && planBadge(user.planType)}
                                                 </div>
                                             </td>
                                             <td className="py-4 px-6">
@@ -316,6 +364,15 @@ export default function UsersManagement() {
                                             </td>
                                             <td className="py-4 px-6 text-center">
                                                 <div className="flex items-center justify-center gap-2">
+                                                    {user.role === 'SELLER' && (
+                                                        <button
+                                                            onClick={() => openPlanModal(user)}
+                                                            className="p-2 rounded-lg text-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors"
+                                                            title="إدارة الباقة"
+                                                        >
+                                                            <FiAward size={18} />
+                                                        </button>
+                                                    )}
                                                     <button
                                                         onClick={() => toggleUserStatus(user.id, user.isActive)}
                                                         className={`p-2 rounded-lg transition-colors ${user.isActive
@@ -365,5 +422,65 @@ export default function UsersManagement() {
                 )}
             </motion.div>
         </div>
+
+        {/* Plan Management Modal */}
+        {planModal && (
+            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setPlanModal(null)}>
+                <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl max-w-md w-full p-8" onClick={e => e.stopPropagation()}>
+                    <h3 className="text-xl font-black text-primary-charcoal dark:text-white mb-2 flex items-center gap-2">
+                        <FiAward className="text-purple-500" /> إدارة باقة المستخدم
+                    </h3>
+                    <p className="text-sm text-gray-500 mb-6">{planModal.userName} — الباقة الحالية: <strong>{planModal.currentPlan}</strong></p>
+
+                    <div className="space-y-4">
+                        <div>
+                            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">الباقة الجديدة</label>
+                            <select
+                                value={selectedPlan}
+                                onChange={(e) => setSelectedPlan(e.target.value)}
+                                className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            >
+                                <option value="FREE">🆓 FREE — مجانية (عمولة 10%)</option>
+                                <option value="GROWTH">🚀 GROWTH — رواد (عمولة 5%)</option>
+                                <option value="PRO">👑 PRO — تميز (عمولة 2%)</option>
+                            </select>
+                        </div>
+
+                        {selectedPlan !== 'FREE' && (
+                            <div>
+                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">مدة الاشتراك (شهور)</label>
+                                <select
+                                    value={planDuration}
+                                    onChange={(e) => setPlanDuration(e.target.value)}
+                                    className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                >
+                                    <option value="1">شهر واحد</option>
+                                    <option value="3">3 أشهر</option>
+                                    <option value="6">6 أشهر</option>
+                                    <option value="12">سنة كاملة</option>
+                                </select>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="flex gap-3 mt-8">
+                        <button
+                            onClick={savePlan}
+                            disabled={savingPlan || selectedPlan === planModal.currentPlan}
+                            className="flex-1 bg-gradient-to-r from-purple-600 to-action-blue text-white py-3 rounded-xl font-bold text-sm hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {savingPlan ? 'جاري الحفظ...' : 'تحديث الباقة'}
+                        </button>
+                        <button
+                            onClick={() => setPlanModal(null)}
+                            className="px-6 py-3 rounded-xl font-bold text-sm bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                        >
+                            إلغاء
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )}
+        </>
     );
 }

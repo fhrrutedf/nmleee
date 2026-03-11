@@ -18,6 +18,7 @@ export async function GET() {
         where: { email: session.user.email },
         select: {
             id: true,
+            username: true,
             planType: true,
             planExpiresAt: true,
             pendingBalance: true,
@@ -211,6 +212,7 @@ export async function GET() {
         referrals: {
             count: referralsCount,
             earnings: updatedUser?.referralEarnings || 0,
+            username: user.username,
         },
     });
 }

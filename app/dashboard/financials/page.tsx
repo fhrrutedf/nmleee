@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -47,7 +47,7 @@ interface FinancialData {
         itemType: string;
     }>;
     payoutsSummary: { totalWithdrawn: number; pendingPayouts: number; pendingPayoutsCount: number };
-    referrals: { count: number; earnings: number };
+    referrals: { count: number; earnings: number; username: string };
 }
 
 const planBadge: Record<string, { label: string; color: string; bg: string; icon: string }> = {
@@ -61,6 +61,16 @@ export default function FinancialsPage() {
     const [data, setData] = useState<FinancialData | null>(null);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<'overview' | 'referrals'>('overview');
+    const [copied, setCopied] = useState(false);
+
+    const copyReferralLink = useCallback(() => {
+        if (!data) return;
+        const link = `${window.location.origin}/register?ref=${data.referrals.username}`;
+        navigator.clipboard.writeText(link).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2500);
+        });
+    }, [data]);
 
     useEffect(() => {
         fetchData();
@@ -495,6 +505,29 @@ export default function FinancialsPage() {
                             <p className="mt-1 text-xs text-gray-500 font-medium">من عمولة المنصة لكل بيعة</p>
                         </motion.div>
                     </div>
+
+                    {/* ─── Referral Link ────────────────────── */}
+                    <motion.div variants={item} className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+                        <h2 className="text-lg font-bold text-primary-charcoal dark:text-white mb-4 flex items-center gap-2">
+                            🔗 رابط الإحالة الخاص بك
+                        </h2>
+                        <p className="text-sm text-gray-500 mb-4">شارك هذا الرابط مع أصدقائك. عندما يسجّلون عبره ويبيعون، تكسب تلقائياً!</p>
+                        <div className="flex items-center gap-3">
+                            <div className="flex-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-mono text-gray-700 dark:text-gray-300 truncate" dir="ltr">
+                                {typeof window !== 'undefined' ? `${window.location.origin}/register?ref=${data.referrals.username}` : `...`}
+                            </div>
+                            <button
+                                onClick={copyReferralLink}
+                                className={`px-6 py-3 rounded-xl font-bold text-sm transition-all whitespace-nowrap ${
+                                    copied
+                                        ? 'bg-green-500 text-white'
+                                        : 'bg-action-blue text-white hover:bg-blue-700'
+                                }`}
+                            >
+                                {copied ? '✓ تم النسخ!' : '📋 نسخ الرابط'}
+                            </button>
+                        </div>
+                    </motion.div>
 
                     {/* How it works */}
                     <motion.div variants={item} className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-8">

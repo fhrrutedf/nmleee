@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useSession } from 'next-auth/react';
@@ -158,9 +158,44 @@ export default function BillingPage() {
     const { data: session } = useSession();
     const [isYearly, setIsYearly] = useState(false);
     const [showComparison, setShowComparison] = useState(false);
+    const [currentPlanSlug, setCurrentPlanSlug] = useState('free');
+    const [upgrading, setUpgrading] = useState<string | null>(null);
 
-    // Default to free plan
-    const currentPlanSlug = 'free';
+    // Map DB plan types to billing page slugs
+    const planTypeToSlug: Record<string, string> = { FREE: 'free', GROWTH: 'starter', PRO: 'pro' };
+
+    useEffect(() => {
+        // Fetch current plan
+        fetch('/api/seller/financial-overview')
+            .then(res => res.json())
+            .then(data => {
+                if (data?.plan?.type) {
+                    setCurrentPlanSlug(planTypeToSlug[data.plan.type] || 'free');
+                }
+            })
+            .catch(() => {});
+    }, []);
+
+    const handleUpgrade = async (targetSlug: string) => {
+        if (targetSlug === currentPlanSlug || targetSlug === 'enterprise') return;
+        
+        const slugToPlanType: Record<string, string> = { free: 'FREE', starter: 'GROWTH', pro: 'PRO' };
+        const planType = slugToPlanType[targetSlug];
+        if (!planType) return;
+
+        const confirmed = window.confirm(
+            `هل تريد ${targetSlug === 'free' ? 'تخفيض' : 'ترقية'} باقتك إلى ${plans.find(p => p.slug === targetSlug)?.name}؟\n\nملاحظة: سيتم تحديث باقتك فوراً. تواصل مع الدعم لإتمام الدفع.`
+        );
+        if (!confirmed) return;
+
+        setUpgrading(targetSlug);
+        try {
+            // For now, show contact info — in production this would go through Stripe
+            alert(`✅ تم إرسال طلب الترقية إلى ${plans.find(p => p.slug === targetSlug)?.name}.\n\nتواصل معنا عبر الواتساب لإتمام الدفع وتفعيل الباقة فوراً.`);
+        } finally {
+            setUpgrading(null);
+        }
+    };
 
     return (
         <div className="space-y-8 max-w-7xl mx-auto">
@@ -323,10 +358,16 @@ export default function BillingPage() {
 
                                 {/* CTA */}
                                 <button
+                                    onClick={() => plan.slug !== 'enterprise' ? handleUpgrade(plan.slug) : window.open('/contact', '_blank')}
                                     className={`w-full py-3.5 rounded-2xl text-center font-bold text-sm transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5 ${plan.slug === currentPlanSlug ? 'bg-gray-100 text-gray-500 cursor-not-allowed border-none' : plan.btnClass}`}
-                                    disabled={plan.slug === currentPlanSlug}
+                                    disabled={plan.slug === currentPlanSlug || upgrading === plan.slug}
                                 >
-                                    {plan.slug === currentPlanSlug ? 'باقتك الحالية' : plan.cta}
+                                    {upgrading === plan.slug ? (
+                                        <span className="flex items-center justify-center gap-2">
+                                            <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                            جاري المعالجة...
+                                        </span>
+                                    ) : plan.slug === currentPlanSlug ? 'باقتك الحالية ✓' : plan.cta}
                                 </button>
 
                                 {plan.slug !== 'free' && plan.slug !== 'enterprise' && plan.slug !== currentPlanSlug && (
