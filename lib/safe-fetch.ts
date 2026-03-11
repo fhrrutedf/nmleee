@@ -26,7 +26,7 @@ export async function safeFetch<T = any>(
     url: string,
     options: FetchOptions = {}
 ): Promise<T> {
-    const { timeout = 10000, ...fetchOptions } = options;
+    const { timeout = 30000, ...fetchOptions } = options;
 
     try {
         // Create abort controller for timeout
