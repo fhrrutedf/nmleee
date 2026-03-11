@@ -29,9 +29,15 @@ export async function PUT(req: NextRequest) {
     const body = await req.json();
 
     try {
-        const data = {
+        const data: any = {
             commissionRate: Number(body.commissionRate ?? 10),
+            growthCommissionRate: Number(body.growthCommissionRate ?? 5),
+            proCommissionRate: Number(body.proCommissionRate ?? 2),
             escrowDays: Number(body.escrowDays ?? 7),
+            freeEscrowDays: Number(body.freeEscrowDays ?? 14),
+            growthEscrowDays: Number(body.growthEscrowDays ?? 7),
+            proEscrowDays: Number(body.proEscrowDays ?? 1),
+            referralCommissionRate: Number(body.referralCommissionRate ?? 1),
             minPayoutAmount: Number(body.minPayoutAmount ?? 50),
             syriatelCash: body.syriatelCash || null,
             mtnCash: body.mtnCash || null,

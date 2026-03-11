@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/db';
-import { releaseMaturedBalances, getPlatformSettings } from '@/lib/commission';
+import { releaseMaturedBalances, getPlatformSettings, ensurePlanCurrent, getEscrowDaysForPlan } from '@/lib/commission';
 
 /**
  * GET /api/seller/earnings
@@ -26,7 +26,11 @@ export async function GET() {
     // 🔑 KEY: Auto-release matured balances on every dashboard open
     await releaseMaturedBalances(user.id);
 
+    // Ensure plan is current (auto-downgrade expired subscriptions)
+    const currentPlan = await ensurePlanCurrent(user.id);
+
     const settings = await getPlatformSettings();
+    const escrowDays = getEscrowDaysForPlan(currentPlan, settings);
 
     // Fetch order history for earnings
     const orders = await prisma.order.findMany({
@@ -55,7 +59,7 @@ export async function GET() {
             title = o.items[0].product?.title || o.items[0].course?.title || 'منتج';
         }
 
-        const availableDate = o.paidAt ? new Date(o.paidAt.getTime() + (settings.escrowDays * 24 * 60 * 60 * 1000)) : new Date();
+        const availableDate = o.paidAt ? new Date(o.paidAt.getTime() + (escrowDays * 24 * 60 * 60 * 1000)) : new Date();
 
         return {
             orderNumber: o.orderNumber,

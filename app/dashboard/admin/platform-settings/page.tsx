@@ -7,7 +7,13 @@ import showToast from '@/lib/toast';
 
 interface PlatformSettings {
     commissionRate: number;
+    growthCommissionRate: number;
+    proCommissionRate: number;
     escrowDays: number;
+    freeEscrowDays: number;
+    growthEscrowDays: number;
+    proEscrowDays: number;
+    referralCommissionRate: number;
     minPayoutAmount: number;
     syriatelCash: string;
     mtnCash: string;
@@ -32,7 +38,13 @@ interface PlatformSettings {
 export default function AdminPlatformSettingsPage() {
     const [settings, setSettings] = useState<PlatformSettings>({
         commissionRate: 10,
+        growthCommissionRate: 5,
+        proCommissionRate: 2,
         escrowDays: 7,
+        freeEscrowDays: 14,
+        growthEscrowDays: 7,
+        proEscrowDays: 1,
+        referralCommissionRate: 1,
         minPayoutAmount: 50,
         syriatelCash: '',
         mtnCash: '',
@@ -125,14 +137,15 @@ export default function AdminPlatformSettingsPage() {
                         <FiDollarSign className="text-xl" />
                     </div>
                     <div>
-                        <h2 className="font-bold text-primary-charcoal dark:text-white">نظام العمولات والـ Escrow</h2>
-                        <p className="text-xs text-text-muted">يُطبق تلقائياً على كل طلب</p>
+                        <h2 className="font-bold text-primary-charcoal dark:text-white">نظام العمولات المتدرج (Tiered)</h2>
+                        <p className="text-xs text-text-muted">عمولة مختلفة حسب باقة البائع (FREE / GROWTH / PRO)</p>
                     </div>
                 </div>
 
+                {/* Tiered Commission Rates */}
                 <div className="grid sm:grid-cols-3 gap-4">
                     <div>
-                        <label className="label">نسبة عمولة المنصة %</label>
+                        <label className="label">🆓 عمولة باقة FREE %</label>
                         <div className="relative">
                             <input
                                 type="number"
@@ -145,27 +158,103 @@ export default function AdminPlatformSettingsPage() {
                             />
                             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">%</span>
                         </div>
-                        <p className="text-xs text-text-muted mt-1">
-                            على كل $100: البائع يأخذ ${(100 - settings.commissionRate).toFixed(0)} والمنصة ${settings.commissionRate}
-                        </p>
                     </div>
-
                     <div>
-                        <label className="label">أيام الحجز (Escrow)</label>
+                        <label className="label">🚀 عمولة باقة GROWTH %</label>
+                        <div className="relative">
+                            <input
+                                type="number"
+                                min="0"
+                                max="50"
+                                step="0.5"
+                                value={settings.growthCommissionRate}
+                                onChange={e => update('growthCommissionRate', parseFloat(e.target.value))}
+                                className="input w-full pl-8"
+                            />
+                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">%</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label className="label">👑 عمولة باقة PRO %</label>
+                        <div className="relative">
+                            <input
+                                type="number"
+                                min="0"
+                                max="50"
+                                step="0.5"
+                                value={settings.proCommissionRate}
+                                onChange={e => update('proCommissionRate', parseFloat(e.target.value))}
+                                className="input w-full pl-8"
+                            />
+                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Escrow Days per Plan */}
+                <div className="grid sm:grid-cols-3 gap-4">
+                    <div>
+                        <label className="label">🆓 أيام حجز FREE</label>
                         <div className="relative">
                             <input
                                 type="number"
                                 min="0"
                                 max="30"
-                                value={settings.escrowDays}
-                                onChange={e => update('escrowDays', parseInt(e.target.value))}
+                                value={settings.freeEscrowDays}
+                                onChange={e => update('freeEscrowDays', parseInt(e.target.value))}
                                 className="input w-full pl-12"
                             />
                             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">يوم</span>
                         </div>
-                        <p className="text-xs text-text-muted mt-1">المدة قبل نقل الأرباح للرصيد المتاح</p>
                     </div>
+                    <div>
+                        <label className="label">🚀 أيام حجز GROWTH</label>
+                        <div className="relative">
+                            <input
+                                type="number"
+                                min="0"
+                                max="30"
+                                value={settings.growthEscrowDays}
+                                onChange={e => update('growthEscrowDays', parseInt(e.target.value))}
+                                className="input w-full pl-12"
+                            />
+                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">يوم</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label className="label">👑 أيام حجز PRO</label>
+                        <div className="relative">
+                            <input
+                                type="number"
+                                min="0"
+                                max="30"
+                                value={settings.proEscrowDays}
+                                onChange={e => update('proEscrowDays', parseInt(e.target.value))}
+                                className="input w-full pl-12"
+                            />
+                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">يوم</span>
+                        </div>
+                    </div>
+                </div>
 
+                {/* Referral + Min Payout */}
+                <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <label className="label">🌳 عمولة شجرة الإحالات %</label>
+                        <div className="relative">
+                            <input
+                                type="number"
+                                min="0"
+                                max="20"
+                                step="0.1"
+                                value={settings.referralCommissionRate}
+                                onChange={e => update('referralCommissionRate', parseFloat(e.target.value))}
+                                className="input w-full pl-8"
+                            />
+                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">%</span>
+                        </div>
+                        <p className="text-xs text-text-muted mt-1">نسبة من عمولة المنصة تذهب لـ"رأس الشجرة"</p>
+                    </div>
                     <div>
                         <label className="label">الحد الأدنى للسحب $</label>
                         <div className="relative">
@@ -181,14 +270,32 @@ export default function AdminPlatformSettingsPage() {
                     </div>
                 </div>
 
-                {/* Live Preview */}
+                {/* Live Preview - All 3 Tiers */}
                 <div className="bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800 rounded-xl p-4">
-                    <p className="text-sm font-semibold text-green-700 dark:text-green-400 mb-2">معاينة تقسيم $100:</p>
-                    <div className="flex gap-4 text-sm">
-                        <span className="text-gray-600 dark:text-gray-300">البائع: <strong className="text-green-600">${(100 - settings.commissionRate).toFixed(2)}</strong></span>
-                        <span className="text-gray-600 dark:text-gray-300">المنصة: <strong className="text-action-blue">${settings.commissionRate.toFixed(2)}</strong></span>
-                        <span className="text-gray-600 dark:text-gray-300">يتاح بعد: <strong className="text-orange-500">{settings.escrowDays} أيام</strong></span>
+                    <p className="text-sm font-semibold text-green-700 dark:text-green-400 mb-3">معاينة تقسيم $100 حسب الباقة:</p>
+                    <div className="grid sm:grid-cols-3 gap-3">
+                        <div className="bg-white dark:bg-gray-800 rounded-lg p-3 text-sm">
+                            <p className="font-bold text-gray-700 dark:text-gray-300 mb-1">🆓 FREE</p>
+                            <p className="text-green-600">البائع: <strong>${(100 - settings.commissionRate).toFixed(0)}</strong></p>
+                            <p className="text-action-blue">المنصة: <strong>${settings.commissionRate.toFixed(0)}</strong></p>
+                            <p className="text-orange-500 text-xs">حجز: {settings.freeEscrowDays} يوم</p>
+                        </div>
+                        <div className="bg-white dark:bg-gray-800 rounded-lg p-3 text-sm">
+                            <p className="font-bold text-emerald-600 mb-1">🚀 GROWTH</p>
+                            <p className="text-green-600">البائع: <strong>${(100 - settings.growthCommissionRate).toFixed(0)}</strong></p>
+                            <p className="text-action-blue">المنصة: <strong>${settings.growthCommissionRate.toFixed(0)}</strong></p>
+                            <p className="text-orange-500 text-xs">حجز: {settings.growthEscrowDays} يوم</p>
+                        </div>
+                        <div className="bg-white dark:bg-gray-800 rounded-lg p-3 text-sm">
+                            <p className="font-bold text-purple-600 mb-1">👑 PRO</p>
+                            <p className="text-green-600">البائع: <strong>${(100 - settings.proCommissionRate).toFixed(0)}</strong></p>
+                            <p className="text-action-blue">المنصة: <strong>${settings.proCommissionRate.toFixed(0)}</strong></p>
+                            <p className="text-orange-500 text-xs">حجز: {settings.proEscrowDays} يوم</p>
+                        </div>
                     </div>
+                    {settings.referralCommissionRate > 0 && (
+                        <p className="text-xs text-purple-600 mt-2 font-medium">🌳 من كل $100: عمولة الإحالة = ${((settings.commissionRate * settings.referralCommissionRate) / 100).toFixed(2)} (FREE)</p>
+                    )}
                 </div>
             </div>
 

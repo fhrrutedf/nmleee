@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/db';
 import Stripe from 'stripe';
+import { ensurePlanCurrent } from '@/lib/commission';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: '2024-06-20',
@@ -19,25 +20,33 @@ export async function POST(req: NextRequest) {
         // Get user (seller)
         const session = await getServerSession(authOptions);
         let userId = '';
+        let sellerId = '';
 
         if (session && (session.user as any)?.id) {
             userId = (session.user as any).id;
-        } else {
-            // Get the seller from the first item
-            const firstItem = items[0];
-            if (firstItem.type === 'product') {
-                const product = await prisma.product.findUnique({
-                    where: { id: firstItem.id },
-                    select: { userId: true },
-                });
-                userId = product?.userId || '';
-            } else if (firstItem.type === 'course') {
-                const course = await prisma.course.findUnique({
-                    where: { id: firstItem.id },
-                    select: { userId: true },
-                });
-                userId = course?.userId || '';
-            }
+        }
+
+        // Get the seller from the first item
+        const firstItem = items[0];
+        if (firstItem.type === 'product') {
+            const product = await prisma.product.findUnique({
+                where: { id: firstItem.id },
+                select: { userId: true },
+            });
+            sellerId = product?.userId || '';
+        } else if (firstItem.type === 'course') {
+            const course = await prisma.course.findUnique({
+                where: { id: firstItem.id },
+                select: { userId: true },
+            });
+            sellerId = course?.userId || '';
+        }
+
+        if (!userId) userId = sellerId;
+
+        // ─── Plan Protection: Auto-downgrade if expired ───
+        if (sellerId) {
+            await ensurePlanCurrent(sellerId);
         }
 
         // Calculate total and apply coupon if provided
@@ -104,6 +113,7 @@ export async function POST(req: NextRequest) {
                 couponId: couponId || '',
                 affiliateLinkId: affiliateLinkId || '',
                 userId,
+                sellerId, // Pass sellerId for commission calculation
             },
             ...(discount > 0 && {
                 discounts: [{

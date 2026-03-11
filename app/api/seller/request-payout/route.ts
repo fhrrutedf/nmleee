@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/db';
-import { escrowConfig } from '@/config/escrow';
+import { ensurePlanCurrent, getPlatformSettings } from '@/lib/commission';
 
 export async function POST(req: NextRequest) {
     try {
@@ -25,12 +25,17 @@ export async function POST(req: NextRequest) {
                 bankDetails: true,
                 paypalEmail: true,
                 cryptoWallet: true,
+                planType: true,
             },
         });
 
         if (!user) {
             return NextResponse.json({ error: 'المستخدم غير موجود' }, { status: 404 });
         }
+
+        // Ensure plan is current (auto-downgrade if expired)
+        const currentPlan = await ensurePlanCurrent(user.id);
+        const settings = await getPlatformSettings();
 
         // Validate payout method is set
         if (!user.payoutMethod) {
@@ -40,10 +45,10 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        // Validate amount
-        if (amount < escrowConfig.minPayoutAmount) {
+        // Validate amount against min payout
+        if (amount < settings.minPayoutAmount) {
             return NextResponse.json(
-                { error: `الحد الأدنى للسحب هو $${escrowConfig.minPayoutAmount}` },
+                { error: `الحد الأدنى للسحب هو $${settings.minPayoutAmount}` },
                 { status: 400 }
             );
         }
@@ -54,6 +59,27 @@ export async function POST(req: NextRequest) {
                 { status: 400 }
             );
         }
+
+        // ─── Strict Payout Lock based on plan ───
+        // Check if user has any recent orders that haven't passed the plan's escrow period
+        const escrowDays = currentPlan === 'PRO' ? settings.proEscrowDays
+            : currentPlan === 'GROWTH' ? settings.growthEscrowDays
+            : settings.freeEscrowDays;
+
+        const escrowCutoff = new Date();
+        escrowCutoff.setDate(escrowCutoff.getDate() - escrowDays);
+
+        const lockedOrders = await prisma.order.count({
+            where: {
+                sellerId: user.id,
+                isPaid: true,
+                payoutStatus: 'pending',
+                paidAt: { gte: escrowCutoff },
+            },
+        });
+
+        // Note: This just shows a warning — the actual lock is enforced by the availableBalance 
+        // (funds only move to available after escrow period passes via releaseMaturedBalances)
 
         // Get method details
         let methodDetails = {};
@@ -89,6 +115,8 @@ export async function POST(req: NextRequest) {
             success: true,
             payoutNumber: payout.payoutNumber,
             message: 'تم إرسال طلب السحب بنجاح',
+            plan: currentPlan,
+            escrowDays,
         });
     } catch (error) {
         console.error('Error requesting payout:', error);

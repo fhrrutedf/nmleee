@@ -61,6 +61,16 @@ model User {
   accountNumber String?
   accountName   String?
   
+  // Subscription Plan
+  planType          PlanType @default(FREE)   // FREE | GROWTH | PRO
+  planExpiresAt     DateTime?                 // تاريخ انتهاء الاشتراك
+
+  // Referral Tree (شجرة الإحالات)
+  referredById      String?                   // من أحال هذا المستخدم
+  referredBy        User?    @relation("UserReferrals", fields: [referredById], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  referrals         User[]   @relation("UserReferrals")
+  referralEarnings  Float    @default(0)      // أرباح الإحالات
+
   // Seller Balance (Escrow System)
   pendingBalance    Float    @default(0)  // أرباح معلقة (طلبات أقل من 7 أيام)
   availableBalance  Float    @default(0)  // متاح للسحب
@@ -323,6 +333,10 @@ model Order {
   verifier          User?     @relation("OrderVerifier", fields: [verifiedBy], references: [id])
   verifiedAt        DateTime?
   rejectionReason   String?
+
+  // Tiered & Referral Commission Fields
+  lockedExchangeRate Float?              // سعر الصرف المقفل لحظة الدفع
+  referralCommission Float    @default(0) // عمولة شجرة الإحالات
   
   // Crypto Payments (CoinRemitter)
   cryptoInvoiceId   String?
@@ -465,6 +479,12 @@ enum Role {
   SELLER
   CUSTOMER
   ADMIN
+}
+
+enum PlanType {
+  FREE
+  GROWTH
+  PRO
 }
 
 enum OrderStatus {
@@ -1293,10 +1313,18 @@ enum CourseStatus {
 model PlatformSettings {
   id                String   @id @default("singleton")
 
-  // Commission & Escrow
-  commissionRate    Float    @default(10)    // نسبة عمولة المنصة %
-  escrowDays        Int      @default(7)     // أيام الحجز قبل الإتاحة
+  // Commission & Escrow (Default / FREE tier)
+  commissionRate    Float    @default(10)    // نسبة عمولة المنصة % (FREE)
+  escrowDays        Int      @default(7)     // أيام الحجز (FREE = 14)
   minPayoutAmount   Float    @default(50)    // الحد الأدنى للسحب $
+
+  // Tiered Commission Rates
+  growthCommissionRate Float  @default(5)    // عمولة GROWTH %
+  proCommissionRate   Float   @default(2)    // عمولة PRO %
+  freeEscrowDays      Int     @default(14)   // أيام حجز FREE
+  growthEscrowDays    Int     @default(7)    // أيام حجز GROWTH
+  proEscrowDays       Int     @default(1)    // أيام حجز PRO (24 ساعة)
+  referralCommissionRate Float @default(1)   // نسبة عمولة الإحالة % (من عمولة المنصة)
 
   // Platform wallet numbers
   syriatelCash      String?
