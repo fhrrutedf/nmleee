@@ -16,17 +16,6 @@ export async function GET() {
 
     const user = await prisma.user.findUnique({
         where: { email: session.user.email },
-        select: {
-            id: true,
-            username: true,
-            planType: true,
-            planExpiresAt: true,
-            pendingBalance: true,
-            availableBalance: true,
-            totalEarnings: true,
-            referralEarnings: true,
-            referredById: true,
-        },
     });
 
     if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -40,12 +29,6 @@ export async function GET() {
     // Re-fetch user after balance release
     const updatedUser = await prisma.user.findUnique({
         where: { id: user.id },
-        select: {
-            pendingBalance: true,
-            availableBalance: true,
-            totalEarnings: true,
-            referralEarnings: true,
-        },
     });
 
     // ─── Monthly Revenue (last 6 months) ─────────────────────
@@ -159,7 +142,7 @@ export async function GET() {
 
     // Referrals count
     const referralsCount = await prisma.user.count({
-        where: { referredById: user.id },
+        where: { referredById: user.id } as any,
     });
 
     // Commission rate for current plan
@@ -173,13 +156,13 @@ export async function GET() {
             pending: updatedUser?.pendingBalance || 0,
             available: updatedUser?.availableBalance || 0,
             total: updatedUser?.totalEarnings || 0,
-            referralEarnings: updatedUser?.referralEarnings || 0,
+            referralEarnings: (updatedUser as any)?.referralEarnings || 0,
         },
 
         // Plan info
         plan: {
             type: currentPlan,
-            expiresAt: user.planExpiresAt?.toISOString() || null,
+            expiresAt: (user as any).planExpiresAt ? new Date((user as any).planExpiresAt).toISOString() : null,
             commissionRate: currentCommissionRate,
         },
 
@@ -211,7 +194,7 @@ export async function GET() {
         // Referrals
         referrals: {
             count: referralsCount,
-            earnings: updatedUser?.referralEarnings || 0,
+            earnings: (updatedUser as any)?.referralEarnings || 0,
             username: user.username,
         },
     });

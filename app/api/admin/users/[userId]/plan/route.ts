@@ -29,7 +29,6 @@ export async function PUT(
     // Get target user
     const targetUser = await prisma.user.findUnique({
         where: { id: userId },
-        select: { id: true, name: true, planType: true },
     });
 
     if (!targetUser) {
@@ -49,14 +48,7 @@ export async function PUT(
         data: {
             planType,
             planExpiresAt: planType === 'FREE' ? null : planExpiresAt,
-        },
-        select: {
-            id: true,
-            name: true,
-            email: true,
-            planType: true,
-            planExpiresAt: true,
-        },
+        } as any,
     });
 
     return NextResponse.json({

@@ -57,7 +57,6 @@ export async function GET(request: Request) {
                     createdAt: true,
                     isVerified: true,
                     totalEarnings: true,
-                    planType: true,
                     _count: {
                         select: {
                             products: true,

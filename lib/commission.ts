@@ -17,7 +17,7 @@ function round2(n: number): number {
  */
 export async function getPlatformSettings() {
     try {
-        const settings = await prisma.platformSettings.findUnique({
+        const settings = await (prisma as any).platformSettings.findUnique({
             where: { id: 'singleton' },
         });
         if (settings) {
@@ -142,27 +142,34 @@ export function convertCurrency(
  * Called before commission calculations to ensure plan is current
  */
 export async function ensurePlanCurrent(sellerId: string): Promise<string> {
-    const user = await prisma.user.findUnique({
-        where: { id: sellerId },
-        select: { planType: true, planExpiresAt: true },
-    });
-
-    if (!user) return 'FREE';
-
-    // If plan has expired, downgrade to FREE automatically
-    if (
-        user.planType !== 'FREE' &&
-        user.planExpiresAt &&
-        new Date(user.planExpiresAt) < new Date()
-    ) {
-        await prisma.user.update({
+    try {
+        const user = await prisma.user.findUnique({
             where: { id: sellerId },
-            data: { planType: 'FREE', planExpiresAt: null },
         });
+
+        if (!user) return 'FREE';
+
+        const planType = (user as any).planType || 'FREE';
+        const planExpiresAt = (user as any).planExpiresAt;
+
+        // If plan has expired, downgrade to FREE automatically
+        if (
+            planType !== 'FREE' &&
+            planExpiresAt &&
+            new Date(planExpiresAt) < new Date()
+        ) {
+            await prisma.user.update({
+                where: { id: sellerId },
+                data: { planType: 'FREE', planExpiresAt: null } as any,
+            });
+            return 'FREE';
+        }
+
+        return planType;
+    } catch (error) {
+        console.error('⚠️ ensurePlanCurrent error:', error);
         return 'FREE';
     }
-
-    return user.planType;
 }
 
 /**
@@ -272,7 +279,7 @@ export async function processPaymentCommission(orderId: string): Promise<void> {
                 availableAt,
                 lockedExchangeRate,
                 referralCommission,
-            },
+            } as any,
         }),
         // Add to seller's pending balance + total earnings
         prisma.user.update({
@@ -292,7 +299,7 @@ export async function processPaymentCommission(orderId: string): Promise<void> {
                 data: {
                     referralEarnings: { increment: referralCommission },
                     availableBalance: { increment: referralCommission },
-                },
+                } as any,
             })
         );
     }

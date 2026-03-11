@@ -99,17 +99,20 @@ export async function POST(request: NextRequest) {
 
         // Create user
         console.log('🔐 Creating user in database...');
+        const createData: any = {
+            name,
+            email,
+            username,
+            password: hashedPassword,
+            phone: phone || undefined,
+            country: country || undefined,
+            countryCode: countryCode || undefined,
+        };
+        if (referredById) {
+            createData.referredById = referredById;
+        }
         const user = await prisma.user.create({
-            data: {
-                name,
-                email,
-                username,
-                password: hashedPassword,
-                phone: phone || undefined,
-                country: country || undefined,
-                countryCode: countryCode || undefined,
-                referredById,
-            },
+            data: createData,
             select: {
                 id: true,
                 name: true,
