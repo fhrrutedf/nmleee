@@ -119,7 +119,7 @@ export async function POST(
         // Auto-enroll in courses (same as Stripe webhook)
         for (const item of orderItems) {
             if (item.course && order.customerEmail) {
-                const studentEmail = order.customerEmail.toLowerCase();
+                const studentEmail = order.customerEmail.toLowerCase().trim();
                 await prisma.courseEnrollment.upsert({
                     where: {
                         courseId_studentEmail: {
@@ -151,7 +151,7 @@ export async function POST(
                                 where: { id: bp.product.id },
                             });
                             if (linkedCourse) {
-                                const studentEmail = order.customerEmail!.toLowerCase();
+                                const studentEmail = order.customerEmail!.toLowerCase().trim();
                                 await prisma.courseEnrollment.upsert({
                                     where: {
                                         courseId_studentEmail: {

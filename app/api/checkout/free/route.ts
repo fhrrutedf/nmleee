@@ -6,7 +6,7 @@ export async function POST(req: Request) {
     try {
         const body = await req.json();
         const { items, customerName, affiliateRef } = body;
-        const customerEmail = body.customerEmail?.toLowerCase();
+        const customerEmail = body.customerEmail?.toLowerCase().trim();
 
         if (!items || !items.length) {
             return NextResponse.json({ error: 'سلة المشتريات فارغة' }, { status: 400 });

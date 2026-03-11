@@ -202,7 +202,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
         // Grant course enrollments for any courses bought directly or inside bundles
         for (const item of items) {
             if (item.type === 'course' && session.customer_email) {
-                const studentEmail = session.customer_email.toLowerCase();
+                const studentEmail = session.customer_email.toLowerCase().trim();
                 await prisma.courseEnrollment.upsert({
                     where: {
                         courseId_studentEmail: {
@@ -228,7 +228,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
                 if (bundle) {
                     for (const bp of bundle.products) {
                         if (bp.product.category === 'courses' || bp.product.category === 'course') {
-                            const studentEmail = session.customer_email.toLowerCase();
+                            const studentEmail = session.customer_email.toLowerCase().trim();
                             await prisma.courseEnrollment.upsert({
                                 where: {
                                     courseId_studentEmail: {

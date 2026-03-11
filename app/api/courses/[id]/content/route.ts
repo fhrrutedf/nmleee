@@ -41,8 +41,8 @@ export async function GET(
 
         resolvedCourseId = courseRecord.id;
 
-        // 2. Check if student has an enrollment (Case-insensitive)
-        const userEmail = session.user.email;
+        // 2. Check if student has an enrollment (Case-insensitive & Trimmed)
+        const userEmail = session.user.email.toLowerCase().trim();
         const enrollment = await prisma.courseEnrollment.findFirst({
             where: {
                 courseId: resolvedCourseId,
@@ -72,9 +72,7 @@ export async function GET(
                                         title: true,
                                         passingScore: true,
                                         timeLimit: true,
-                                        questions: true, // Only if taking quiz, maybe hide answers?
-                                        // Ideally, we shouldn't send correct answers here.
-                                        // We'll strip them in the response.
+                                        questions: true,
                                     }
                                 }
                             }
@@ -82,7 +80,12 @@ export async function GET(
                     }
                 },
                 certificates: {
-                    where: { studentEmail: session.user.email }
+                    where: { 
+                        studentEmail: {
+                            equals: userEmail,
+                            mode: 'insensitive'
+                        }
+                    }
                 },
                 user: {
                     select: {
@@ -97,17 +100,16 @@ export async function GET(
         if (!course) {
             return new NextResponse('Course not found', { status: 404 });
         }
-
-        // Access Check: Creator or Enrolled
-        const isCreator = course.userId === session.user.id;
+        const isAdmin = (session.user as any).role === 'ADMIN';
+        const hasAccess = !!enrollment || isCreator || isAdmin;
         
-        console.log('[CourseAccess] Checking permissions for:', session.user.email);
+        console.log('[CourseAccess] Checking permissions for:', userEmail);
         console.log('[CourseAccess] resolvedCourseId:', resolvedCourseId);
         console.log('[CourseAccess] isCreator:', isCreator);
+        console.log('[CourseAccess] isAdmin:', isAdmin);
         console.log('[CourseAccess] hasEnrollment:', !!enrollment);
-        console.log('[CourseAccess] User Role:', (session.user as any).role);
         
-        if (!enrollment && !isCreator && (session.user as any).role !== 'ADMIN') {
+        if (!hasAccess) {
             console.log('[CourseAccess] Result: FORBIDDEN');
             return new NextResponse('Forbidden', { status: 403 });
         }
@@ -132,7 +134,7 @@ export async function GET(
         return NextResponse.json({
             ...course,
             modules: sanitizedModules,
-            isEnrolled: !!enrollment,
+            isEnrolled: hasAccess, // User-facing field: can they watch the course?
             enrollmentId: enrollment?.id,
             certificate: course.certificates[0] || null
         });

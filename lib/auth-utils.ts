@@ -3,8 +3,9 @@ import bcrypt from 'bcryptjs';
 import { sendGuestWelcomeEmail } from '@/lib/email';
 
 export async function ensureUserAccount(email: string, name: string): Promise<string> {
+    const cleanEmail = email.toLowerCase().trim();
     const existingUser = await prisma.user.findFirst({
-        where: { email: { equals: email, mode: 'insensitive' } }
+        where: { email: { equals: cleanEmail, mode: 'insensitive' } }
     });
 
     if (existingUser) {
@@ -26,7 +27,7 @@ export async function ensureUserAccount(email: string, name: string): Promise<st
     // Create the user
     const newUser = await prisma.user.create({
         data: {
-            email: email.toLowerCase(),
+            email: cleanEmail,
             name: name || 'مستخدم جديد',
             username,
             password: hashedPassword,

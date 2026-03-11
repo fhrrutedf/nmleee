@@ -48,17 +48,20 @@ interface Course {
 export default function LearnPage() {
     const params = useParams();
     const router = useRouter();
-    const { data: session } = useSession();
+    const { status: sessionStatus } = useSession();
     const [course, setCourse] = useState<Course | null>(null);
     const [activeItem, setActiveItem] = useState<{ type: 'lesson' | 'quiz', data: Lesson | Quiz } | null>(null);
     const [loading, setLoading] = useState(true);
     const [hasAccess, setHasAccess] = useState(false);
 
     useEffect(() => {
-        if (session) {
+        if (sessionStatus === 'authenticated') {
             fetchCourse();
+        } else if (sessionStatus === 'unauthenticated') {
+            setLoading(false);
+            router.push(`/login?callbackUrl=/learn/${params.slug}`);
         }
-    }, [session, params.slug]);
+    }, [sessionStatus, params.slug]);
 
     const fetchCourse = async () => {
         try {
