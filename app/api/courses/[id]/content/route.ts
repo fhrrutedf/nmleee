@@ -15,28 +15,45 @@ export async function GET(
             return new NextResponse('Unauthorized', { status: 401 });
         }
 
-        // Resolve the course by id first, then fallback to slug
-        // (learn page may pass either a UUID or a slug in the URL)
-        let courseRecord = await prisma.course.findUnique({ where: { id: courseSlugOrId } });
-        if (!courseRecord) {
-            // Try by slug if the model has a slug field
-            courseRecord = await (prisma.course as any).findFirst({ where: { slug: courseSlugOrId } });
+        // 1. Resolve Course ID securely without throwing Prisma errors on bad UUIDs
+        let resolvedCourseId = courseSlugOrId;
+        let courseRecord = null;
+        
+        try {
+            // First treat it as an ID 
+            courseRecord = await prisma.course.findUnique({ where: { id: courseSlugOrId } });
+        } catch (e) {
+            // If it fails (e.g. malformed UUID), do nothing here
         }
 
-        const resolvedCourseId = courseRecord?.id || courseSlugOrId;
+        if (!courseRecord) {
+            try {
+                // Then try as a slug if model supports it (backward compat)
+                courseRecord = await (prisma.course as any).findFirst({ where: { slug: courseSlugOrId } });
+            } catch (e) {
+                // Ignore
+            }
+        }
 
-        // Check if user has access (Enrolled or is Admin/Creator)
+        if (!courseRecord) {
+            return new NextResponse('Course not found', { status: 404 });
+        }
+
+        resolvedCourseId = courseRecord.id;
+
+        // 2. Check if student has an enrollment (Case-insensitive)
+        const userEmail = session.user.email;
         const enrollment = await prisma.courseEnrollment.findFirst({
             where: {
                 courseId: resolvedCourseId,
                 studentEmail: {
-                    equals: session.user.email,
+                    equals: userEmail,
                     mode: 'insensitive'
                 }
             },
         });
 
-        // Also allow the course creator to view it
+        // 3. Fetch the full course payload
         const course = await prisma.course.findUnique({
             where: { id: resolvedCourseId },
             include: {
@@ -83,9 +100,19 @@ export async function GET(
 
         // Access Check: Creator or Enrolled
         const isCreator = course.userId === session.user.id;
+        
+        console.log('[CourseAccess] Checking permissions for:', session.user.email);
+        console.log('[CourseAccess] resolvedCourseId:', resolvedCourseId);
+        console.log('[CourseAccess] isCreator:', isCreator);
+        console.log('[CourseAccess] hasEnrollment:', !!enrollment);
+        console.log('[CourseAccess] User Role:', (session.user as any).role);
+        
         if (!enrollment && !isCreator && (session.user as any).role !== 'ADMIN') {
+            console.log('[CourseAccess] Result: FORBIDDEN');
             return new NextResponse('Forbidden', { status: 403 });
         }
+        
+        console.log('[CourseAccess] Result: GRANTED');
 
         // Sanitize Quiz Questions (Remove correct answers)
         const sanitizedModules = course.modules.map(module => ({
