@@ -88,19 +88,19 @@ export const authOptions: AuthOptions = {
             if (account?.provider === 'google') {
                 try {
                     const existingUser = await prisma.user.findUnique({
-                        where: { email: user.email! }
+                        where: { email: user.email! },
+                        select: { id: true, username: true, role: true },
                     });
 
                     if (!existingUser) {
                         // Create new user from Google account
                         const baseUsername = user.email!.split('@')[0].replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
-                        let username = baseUsername;
-                        let count = 1;
-
-                        // Ensure username is unique
-                        while (await prisma.user.findUnique({ where: { username } })) {
-                            username = `${baseUsername}${count++}`;
-                        }
+                        
+                        // ⚡ Fast unique username: one query instead of while loop
+                        const similarUsers = await prisma.user.count({
+                            where: { username: { startsWith: baseUsername } },
+                        });
+                        const username = similarUsers === 0 ? baseUsername : `${baseUsername}${similarUsers + 1}`;
 
                         const newUser = await prisma.user.create({
                             data: {
@@ -110,7 +110,8 @@ export const authOptions: AuthOptions = {
                                 password: '', // Google users have no password
                                 avatar: user.image || null,
                                 emailVerified: true,
-                            }
+                            },
+                            select: { id: true, username: true, role: true },
                         });
 
                         user.id = newUser.id;

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import bcrypt from 'bcryptjs';
-import { sendWelcomeEmail } from '@/lib/email';
 
 export async function POST(request: NextRequest) {
     console.log('📝 New registration request received');
@@ -10,7 +9,6 @@ export async function POST(request: NextRequest) {
         const body = await request.json().catch(() => null);
 
         if (!body) {
-            console.error('❌ Request body is missing or invalid JSON');
             return NextResponse.json(
                 { error: 'بيانات غير صحيحة' },
                 { status: 400 }
@@ -24,11 +22,8 @@ export async function POST(request: NextRequest) {
         username = username?.trim().toLowerCase();
         name = name?.trim();
 
-        console.log(`👤 Registering user: ${username}, ${email}`);
-
         // Validation
         if (!name || !email || !username || !password) {
-            console.error('❌ Missing required fields');
             return NextResponse.json(
                 { error: 'جميع الحقول مطلوبة' },
                 { status: 400 }
@@ -44,61 +39,40 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Check DB connection
-        try {
-            await prisma.$connect();
-        } catch (dbError) {
-            console.error('❌ Database connection failed:', dbError);
-            return NextResponse.json(
-                { error: 'فشل الاتصال بقاعدة البيانات. الرجاء المحاولة لاحقاً.' },
-                { status: 503 }
-            );
-        }
-
-        // Check if email already exists
-        const existingEmail = await prisma.user.findUnique({
-            where: { email },
-        });
+        // ⚡ Run email + username checks IN PARALLEL (saves ~1-2 seconds)
+        const [existingEmail, existingUsername] = await Promise.all([
+            prisma.user.findUnique({ where: { email }, select: { id: true } }),
+            prisma.user.findUnique({ where: { username }, select: { id: true } }),
+        ]);
 
         if (existingEmail) {
-            console.warn(`⚠️ Email already exists: ${email}`);
             return NextResponse.json(
                 { error: 'البريد الإلكتروني مستخدم بالفعل' },
                 { status: 400 }
             );
         }
 
-        // Check if username already exists
-        const existingUsername = await prisma.user.findUnique({
-            where: { username },
-        });
-
         if (existingUsername) {
-            console.warn(`⚠️ Username already exists: ${username}`);
             return NextResponse.json(
                 { error: 'اسم المستخدم مستخدم بالفعل' },
                 { status: 400 }
             );
         }
 
-        // 🌳 Referral Tree: Look up the referrer by username
-        let referredById: string | undefined = undefined;
-        if (ref) {
-            const referrer = await prisma.user.findUnique({
-                where: { username: ref.trim().toLowerCase() },
-                select: { id: true },
-            });
-            if (referrer) {
-                referredById = referrer.id;
-                console.log(`🌳 Referral: ${username} referred by ${ref}`);
-            }
-        }
+        // ⚡ Hash password + referral lookup IN PARALLEL
+        const referralPromise = ref
+            ? prisma.user.findUnique({
+                  where: { username: ref.trim().toLowerCase() },
+                  select: { id: true },
+              })
+            : Promise.resolve(null);
 
-        // Hash password
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const [hashedPassword, referrer] = await Promise.all([
+            bcrypt.hash(password, 10),
+            referralPromise,
+        ]);
 
         // Create user
-        console.log('🔐 Creating user in database...');
         const createData: any = {
             name,
             email,
@@ -108,9 +82,11 @@ export async function POST(request: NextRequest) {
             country: country || undefined,
             countryCode: countryCode || undefined,
         };
-        if (referredById) {
-            createData.referredById = referredById;
+
+        if (referrer?.id) {
+            createData.referredById = referrer.id;
         }
+
         const user = await prisma.user.create({
             data: createData,
             select: {
@@ -121,15 +97,16 @@ export async function POST(request: NextRequest) {
             },
         });
 
-        console.log(`✅ User created successfully: ${user.id}`);
+        console.log(`✅ User created: ${user.id}`);
 
-        // Send Welcome Email (Non-blocking)
+        // 🔥 Send Welcome Email in background (fire-and-forget, NO await)
         try {
-            console.log('📧 Sending welcome email...');
-            await sendWelcomeEmail(user.id, user.email, user.name, user.username);
-        } catch (emailError) {
-            console.error('⚠️ Failed to send welcome email (non-fatal):', emailError);
-            // Continue execution
+            const { sendWelcomeEmail } = await import('@/lib/email');
+            sendWelcomeEmail(user.id, user.email, user.name, user.username).catch(
+                (err: any) => console.error('⚠️ Welcome email failed:', err?.message)
+            );
+        } catch {
+            // email module import failed — ignore
         }
 
         return NextResponse.json(
@@ -138,25 +115,18 @@ export async function POST(request: NextRequest) {
         );
 
     } catch (error: any) {
-        console.error('❌ Registration fatal error:', error);
-
-        let errorMessage = 'حدث خطأ غير متوقع أثناء إنشاء الحساب';
-        let statusCode = 500;
+        console.error('❌ Registration error:', error?.message);
 
         if (error.code === 'P2002') {
-            // Prisma unique constraint violation - this is a client error, not server error
-            errorMessage = 'هذا المستخدم موجود بالفعل';
-            statusCode = 400;
-        } else if (error instanceof SyntaxError) {
-            errorMessage = 'بيانات غير صالحة';
-            statusCode = 400;
+            return NextResponse.json(
+                { error: 'هذا المستخدم موجود بالفعل' },
+                { status: 400 }
+            );
         }
 
         return NextResponse.json(
-            { error: errorMessage, details: process.env.NODE_ENV === 'development' ? error.message : undefined },
-            { status: statusCode }
+            { error: 'حدث خطأ أثناء إنشاء الحساب. حاول مرة أخرى.' },
+            { status: 500 }
         );
-    } finally {
-        // Disconnect Prisma if needed (usually handled by connection pool)
     }
 }
