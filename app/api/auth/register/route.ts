@@ -6,6 +6,7 @@ export async function POST(request: NextRequest) {
     console.log('📝 New registration request received');
 
     try {
+        console.time('⏱️ Registration Full Process');
         const body = await request.json().catch(() => null);
 
         if (!body) {
@@ -39,11 +40,13 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // ⚡ Run email + username checks IN PARALLEL (saves ~1-2 seconds)
+        // ⚡ Run email + username checks IN PARALLEL
+        console.time('⏱️ DB Uniqueness Checks');
         const [existingEmail, existingUsername] = await Promise.all([
             prisma.user.findUnique({ where: { email }, select: { id: true } }),
             prisma.user.findUnique({ where: { username }, select: { id: true } }),
         ]);
+        console.timeEnd('⏱️ DB Uniqueness Checks');
 
         if (existingEmail) {
             return NextResponse.json(
@@ -60,6 +63,7 @@ export async function POST(request: NextRequest) {
         }
 
         // ⚡ Hash password + referral lookup IN PARALLEL
+        console.time('⏱️ Password Hash + Ref Lookup');
         const referralPromise = ref
             ? prisma.user.findUnique({
                   where: { username: ref.trim().toLowerCase() },
@@ -71,8 +75,10 @@ export async function POST(request: NextRequest) {
             bcrypt.hash(password, 10),
             referralPromise,
         ]);
+        console.timeEnd('⏱️ Password Hash + Ref Lookup');
 
         // Create user
+        console.time('⏱️ User Creation (DB Write)');
         const createData: any = {
             name,
             email,
@@ -96,10 +102,11 @@ export async function POST(request: NextRequest) {
                 username: true,
             },
         });
+        console.timeEnd('⏱️ User Creation (DB Write)');
 
         console.log(`✅ User created: ${user.id}`);
 
-        // 🔥 Send Welcome Email in background (fire-and-forget, NO await)
+        // 🔥 Send Welcome Email in background
         try {
             const { sendWelcomeEmail } = await import('@/lib/email');
             sendWelcomeEmail(user.id, user.email, user.name, user.username).catch(
@@ -109,12 +116,14 @@ export async function POST(request: NextRequest) {
             // email module import failed — ignore
         }
 
+        console.timeEnd('⏱️ Registration Full Process');
         return NextResponse.json(
             { message: 'تم إنشاء الحساب بنجاح', user },
             { status: 201 }
         );
 
     } catch (error: any) {
+        console.timeEnd('⏱️ Registration Full Process');
         console.error('❌ Registration error:', error?.message);
 
         if (error.code === 'P2002') {

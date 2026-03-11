@@ -4,15 +4,18 @@ const globalForPrisma = globalThis as unknown as {
     prisma: PrismaClient | undefined
 }
 
-if (!process.env.DATABASE_URL) {
-    console.error('❌ ERROR: DATABASE_URL is not defined in environment variables!');
+// Diagnostics for database connection
+const dbUrl = process.env.DATABASE_URL;
+if (!dbUrl) {
+    console.error('❌ DATABASE_URL is missing! Registration and DB calls will FAIL.');
 } else {
-    // Hide actual value
-    console.log('✅ DATABASE_URL is present');
+    // Check for pooling (port 6543 for Supabase)
+    const isPooled = dbUrl.includes(':6543/');
+    console.log(`✅ DATABASE_URL is present ${isPooled ? '(Detected Connection Pooling)' : '(Direct Connection)'}`);
 }
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient({
-    datasourceUrl: process.env.DATABASE_URL,
+    log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
 })
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
