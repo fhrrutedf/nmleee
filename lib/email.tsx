@@ -320,3 +320,46 @@ export async function sendWelcomeEmail(
         return { success: false, error };
     }
 }
+
+// Guest Welcome Email (Auto-registration)
+export async function sendGuestWelcomeEmail(
+    email: string,
+    name: string,
+    tempPassword: string
+) {
+    try {
+        await sendMail({
+            from: FROM_EMAIL,
+            to: email,
+            subject: `تفاصيل الدخول لدورتك التدريبية يا ${name} 🎓`,
+            react: (
+                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl', lineHeight: '1.6' }}>
+                    <div style={{ backgroundColor: '#f8fafc', padding: '30px', borderRadius: '12px', border: '1px solid #e2e8f0', maxWidth: '600px', margin: '0 auto' }}>
+                        <h1 style={{ color: '#0f172a', marginBottom: '20px', textAlign: 'center' }}>أهلاً بك {name}! 🎓</h1>
+                        <p style={{ color: '#475569', fontSize: '16px' }}>شكراً لانضمامك إلينا! لقد قمنا بإنشاء حساب خاص بك لتتمكن من الوصول إلى الدورات التي قمت بالتسجيل فيها.</p>
+                        <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', margin: '20px 0', border: '1px solid #e2e8f0' }}>
+                            <h3 style={{ margin: '0 0 15px 0', color: '#0f172a' }}>بيانات الدخول لحسابك:</h3>
+                            <p style={{ margin: '5px 0' }}><strong>البريد الإلكتروني:</strong> {email}</p>
+                            <p style={{ margin: '5px 0' }}><strong>كلمة المرور:</strong> <span style={{ fontFamily: 'monospace', backgroundColor: '#e2e8f0', padding: '2px 6px', borderRadius: '4px' }}>{tempPassword}</span></p>
+                            <p style={{ margin: '15px 0 0 0', fontSize: '14px', color: '#dc2626' }}>* ننصح بشدة بتغيير كلمة المرور من صفحة الإعدادات بعد تسجيل الدخول الأول.</p>
+                        </div>
+                        <div style={{ textAlign: 'center', marginTop: '30px' }}>
+                            <a href="https://tmleen.com/login" style={{
+                                backgroundColor: '#4f46e5', color: 'white', padding: '14px 28px',
+                                borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
+                            }}>
+                                تسجيل الدخول الآن
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            ),
+        });
+        console.log('✅ Guest welcome email sent to', email);
+        return { success: true };
+    } catch (error) {
+        console.error('❌ Email error:', error);
+        return { success: false, error };
+    }
+}
+

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { ensureUserAccount } from '@/lib/auth-utils';
 
 export async function POST(req: Request) {
     try {
@@ -35,9 +36,11 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "لا يمكن تحديد البائع للطلب" }, { status: 400 });
         }
 
-        // Look up buyer by email to get their userId (if they have an account)
-        const buyer = await prisma.user.findFirst({ where: { email: customerEmail } });
-        const buyerUserId = buyer?.id || sellerId; // fallback to sellerId for backward compat
+        // Look up or create buyer account
+        let buyerUserId = sellerId; // fallback
+        if (customerEmail) {
+            buyerUserId = await ensureUserAccount(customerEmail, customerName);
+        }
 
         // 1. Create a "Free" Order with correct userId = BUYER (not seller)
         const order = await prisma.order.create({

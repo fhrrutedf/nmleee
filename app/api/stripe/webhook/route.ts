@@ -3,6 +3,7 @@ import { prisma } from '@/lib/db';
 import Stripe from 'stripe';
 import { sendOrderConfirmation, sendSubscriptionConfirmation } from '@/lib/email';
 import { createCalendarEvent } from '@/lib/google-calendar';
+import { ensureUserAccount } from '@/lib/auth-utils';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: '2024-06-20',
@@ -122,6 +123,12 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
             }
         }
 
+        // Auto-register guests
+        let finalUserId = userId;
+        if (userId === 'guest' && session.customer_email) {
+            finalUserId = await ensureUserAccount(session.customer_email, metadata.customerName || 'مستخدم جديد');
+        }
+
         // Create order with commission details
         const order = await prisma.order.create({
             data: {
@@ -133,7 +140,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
                 platformFee,
                 sellerAmount,
                 status: 'PAID',
-                userId: userId !== 'guest' ? userId : sellerId || '', // fallback
+                userId: finalUserId !== 'guest' ? finalUserId : sellerId || '', // fallback
                 sellerId: sellerId || undefined,
                 couponId: couponId || undefined,
                 affiliateLinkId: affiliateLinkId || undefined,

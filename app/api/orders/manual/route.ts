@@ -3,6 +3,7 @@ import { prisma } from '@/lib/db';
 import { getPaymentMethodsForCountry, convertCurrency } from '@/config/paymentMethods';
 import { sendManualOrderAlert, sendManualOrderApproved } from '@/lib/email';
 import { getPlatformSettings, calculateCommission } from '@/lib/commission';
+import { ensureUserAccount } from '@/lib/auth-utils';
 
 export async function POST(req: NextRequest) {
     try {
@@ -61,11 +62,10 @@ export async function POST(req: NextRequest) {
         const { platformFee, sellerAmount } = calculateCommission(totalUSD, platformSettings.commissionRate);
         const escrowDays = platformSettings.escrowDays;
 
-        // Resolve buyer userId (required field)
+        // Resolve buyer userId (required field) - Auto Register guests
         let resolvedUserId = body.userId;
         if (!resolvedUserId && customerEmail) {
-            const buyer = await prisma.user.findFirst({ where: { email: customerEmail } });
-            resolvedUserId = buyer?.id || sellerId; // fallback to sellerId if buyer has no account
+            resolvedUserId = await ensureUserAccount(customerEmail, customerName);
         }
         if (!resolvedUserId) {
             resolvedUserId = sellerId; // ultimate fallback
