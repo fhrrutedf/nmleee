@@ -100,6 +100,8 @@ export async function GET(
         if (!course) {
             return new NextResponse('Course not found', { status: 404 });
         }
+        
+        const isCreator = course.userId === (session.user as any).id;
         const isAdmin = (session.user as any).role === 'ADMIN';
         const hasAccess = !!enrollment || isCreator || isAdmin;
         
