@@ -9,8 +9,9 @@ import { prisma } from '@/lib/db';
  */
 export async function PUT(
     req: NextRequest,
-    { params }: { params: { userId: string } }
+    { params }: { params: Promise<{ userId: string }> }
 ) {
+    const { userId } = await params;
     const session = await getServerSession(authOptions);
     const currentUser = session?.user as any;
 
@@ -27,7 +28,7 @@ export async function PUT(
 
     // Get target user
     const targetUser = await prisma.user.findUnique({
-        where: { id: params.userId },
+        where: { id: userId },
         select: { id: true, name: true, planType: true },
     });
 
@@ -44,7 +45,7 @@ export async function PUT(
 
     // Update user plan
     const updated = await prisma.user.update({
-        where: { id: params.userId },
+        where: { id: userId },
         data: {
             planType,
             planExpiresAt: planType === 'FREE' ? null : planExpiresAt,
