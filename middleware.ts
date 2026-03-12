@@ -29,7 +29,6 @@ export const config = {
         '/dashboard/:path*',
         '/admin/:path*',
         '/api/test-db',
-        '/api/health',
         '/api/auth/register'
     ],
 };
