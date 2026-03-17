@@ -5,6 +5,8 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FiCheck, FiX, FiImage, FiClock, FiCheckCircle, FiXCircle, FiFilter, FiSearch, FiEye } from 'react-icons/fi';
 
+import { ReactNode } from 'react';
+
 interface ManualOrder {
     id: string;
     orderNumber: string;
@@ -31,7 +33,7 @@ interface ManualOrder {
     };
 }
 
-const STATUS_CONFIG: Record<string, { label: string; bg: string; icon: JSX.Element }> = {
+const STATUS_CONFIG: Record<string, { label: string; bg: string; icon: ReactNode }> = {
     PENDING: { label: 'قيد الانتظار', bg: 'bg-amber-100 text-amber-800', icon: <FiClock size={14} /> },
     PAID: { label: 'مقبول ✓', bg: 'bg-emerald-100 text-emerald-800', icon: <FiCheckCircle size={14} /> },
     COMPLETED: { label: 'مقبول ✓', bg: 'bg-emerald-100 text-emerald-800', icon: <FiCheckCircle size={14} /> },
