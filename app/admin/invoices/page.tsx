@@ -9,6 +9,8 @@ import {
     FiUser, FiImage, FiX
 } from 'react-icons/fi';
 
+import { ReactNode } from 'react';
+
 interface InvoiceData {
     id: string;
     invoiceNumber: string;
@@ -43,7 +45,7 @@ interface InvoiceData {
     };
 }
 
-const STATUS_STYLE: Record<string, { bg: string; icon: JSX.Element; label: string }> = {
+const STATUS_STYLE: Record<string, { bg: string; icon: ReactNode; label: string }> = {
     pending: { bg: 'bg-amber-100 text-amber-800', icon: <FiClock size={12} />, label: 'قيد الانتظار' },
     verified: { bg: 'bg-emerald-100 text-emerald-800', icon: <FiCheckCircle size={12} />, label: 'تم التحقق' },
     rejected: { bg: 'bg-red-100 text-red-800', icon: <FiXCircle size={12} />, label: 'مرفوض' },
