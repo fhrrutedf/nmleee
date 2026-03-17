@@ -3,7 +3,8 @@ import { format } from "date-fns";
 import { ar } from "date-fns/locale";
 import { FiCheckCircle, FiXCircle } from "react-icons/fi";
 
-export default async function VerifyCertificatePage({ params }: { params: { code: string } }) {
+export default async function VerifyCertificatePage(props: { params: Promise<{ code: string }> }) {
+    const params = await props.params;
     const certificate = await prisma.certificate.findUnique({
         where: { verificationCode: params.code },
         include: {
