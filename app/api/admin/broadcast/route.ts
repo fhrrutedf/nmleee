@@ -7,11 +7,15 @@ import { sendTelegramMessage } from '@/lib/telegram';
 import { sendBulkNotification } from '@/lib/novu';
 import { logActivity, LOG_ACTIONS } from '@/lib/activity-log';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
 
 // POST /api/admin/broadcast
 export async function POST(req: NextRequest) {
+    if (!process.env.RESEND_API_KEY) {
+        return NextResponse.json({ error: 'الرجاء إعداد RESEND_API_KEY' }, { status: 500 });
+    }
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     const session = await getServerSession(authOptions);
     if ((session?.user as any)?.role !== 'ADMIN') {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
