@@ -57,7 +57,17 @@ function LoginContent() {
                 redirect: false,
             });
 
-            if (res?.error) { setLoading(false); setError(res.error === 'CredentialsSignin' ? 'البيانات غير صحيحة' : 'حدث خطأ: ' + res.error); return; } else if (res?.ok) { window.location.href = res?.url || callbackUrl; return; }
+            setLoading(false);
+            if (res?.error) {
+                setError(res.error === 'CredentialsSignin' ? 'البيانات غير صحيحة' : 'حدث خطأ (NextAuth): ' + res.error);
+                return;
+            } else if (res?.ok) {
+                window.location.href = res.url || callbackUrl;
+                return;
+            } else {
+                setError('استجابة غير متوقعة من السيرفر. تأكد من صحة الرابط أو حاول مرة أخرى.');
+                return;
+            }
         } catch (err: any) {
             setLoading(false);
 
