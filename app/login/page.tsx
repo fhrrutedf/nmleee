@@ -50,14 +50,14 @@ function LoginContent() {
             setLoading(true);
 
             // Let NextAuth handle the redirect automatically
-            await signIn('credentials', {
+            const res = await signIn('credentials', {
                 email: formData.email,
                 password: formData.password,
                 callbackUrl,
-                redirect: true, // Let NextAuth redirect automatically
+                redirect: false,
             });
 
-            // This code won't execute if redirect succeeds
+            if (res?.error) { setLoading(false); setError(res.error === 'CredentialsSignin' ? 'البيانات غير صحيحة' : 'حدث خطأ: ' + res.error); return; } else if (res?.ok) { window.location.href = res?.url || callbackUrl; return; }
         } catch (err: any) {
             setLoading(false);
 
