@@ -73,7 +73,9 @@ export default function NewCoursePage() {
 
     const handlePreSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setShowConfirmModal(true);
+        if (currentStep === 3) {
+            setShowConfirmModal(true);
+        }
     };
 
     const handleSubmit = async () => {
@@ -309,12 +311,22 @@ export default function NewCoursePage() {
                         </div>
                         <div className="flex gap-4">
                             {currentStep < 3 ? (
-                                <button type="button" onClick={nextStep} className="px-10 py-4 bg-primary-indigo-600 text-white rounded-2xl font-black text-sm shadow-xl shadow-indigo-100 hover:bg-primary-indigo-700 flex items-center gap-3">
+                                <button
+                                    key="next-btn-course"
+                                    type="button"
+                                    onClick={nextStep}
+                                    className="px-8 py-4 bg-primary-indigo-600 text-white rounded-2xl font-black flex items-center gap-2 hover:bg-primary-indigo-700 transition-all shadow-lg shadow-indigo-100"
+                                >
                                     الخطوة التالية
                                     <FiArrowLeft />
                                 </button>
                             ) : (
-                                <button type="submit" disabled={loading} className="px-12 py-4 bg-primary-indigo-600 text-white rounded-2xl font-black text-sm shadow-xl shadow-indigo-100 hover:bg-primary-indigo-700 flex items-center gap-3">
+                                <button
+                                    key="submit-btn-course"
+                                    type="submit"
+                                    disabled={loading}
+                                    className="px-8 py-4 bg-emerald-500 text-white rounded-2xl font-black flex items-center gap-2 hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-100 disabled:opacity-50"
+                                >
                                     {loading ? 'جاري النشر...' : 'حفظ ونشر المنهج'}
                                     {!loading && <FiCheck />}
                                 </button>
