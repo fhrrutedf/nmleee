@@ -129,8 +129,8 @@ export default function CourseBuilder({
                                                     />
                                                 </div>
                                                 <div className="flex items-center gap-2">
-                                                    <button onClick={() => addLesson(section.id)} className="text-xs font-bold text-primary-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-xl hover:bg-indigo-100 transition-colors">+ درس</button>
-                                                    <button className="text-slate-400 hover:text-red-500 transition-colors p-2"><FiTrash2 /></button>
+                                                    <button type="button" onClick={() => addLesson(section.id)} className="text-xs font-bold text-primary-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-xl hover:bg-indigo-100 transition-colors">+ درس</button>
+                                                    <button type="button" className="text-slate-400 hover:text-red-500 transition-colors p-2"><FiTrash2 /></button>
                                                 </div>
                                             </div>
 
@@ -171,7 +171,7 @@ export default function CourseBuilder({
                                                                             <span className="text-[10px] font-black text-slate-400 flex items-center gap-1">
                                                                                 <FiEdit3 /> {lesson.duration}m
                                                                             </span>
-                                                                            <button className="opacity-0 group-hover/lesson:opacity-100 text-slate-400 hover:text-red-500 transition-all"><FiTrash2 size={14} /></button>
+                                                                            <button type="button" className="opacity-0 group-hover/lesson:opacity-100 text-slate-400 hover:text-red-500 transition-all"><FiTrash2 size={14} /></button>
                                                                         </div>
                                                                     </div>
                                                                 )}
@@ -192,6 +192,7 @@ export default function CourseBuilder({
             </DragDropContext>
 
             <button 
+                type="button"
                 onClick={addSection} 
                 className="w-full py-4 border-2 border-dashed border-slate-200 rounded-3xl text-slate-400 font-black hover:border-primary-indigo-400 hover:text-primary-indigo-600 transition-all flex items-center justify-center gap-2"
             >

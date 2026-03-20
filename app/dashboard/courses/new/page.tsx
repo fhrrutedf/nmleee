@@ -22,6 +22,7 @@ const steps = [
 export default function NewCoursePage() {
     const router = useRouter();
     const [currentStep, setCurrentStep] = useState(1);
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showPreview, setShowPreview] = useState(false);
     const [showImageUploader, setShowImageUploader] = useState(false);
@@ -70,8 +71,13 @@ export default function NewCoursePage() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handlePreSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        setShowConfirmModal(true);
+    };
+
+    const handleSubmit = async () => {
+        setShowConfirmModal(false);
         setLoading(true);
         const toastId = showToast.loading('جاري بناء الدورة ونشرها...');
 
@@ -116,6 +122,7 @@ export default function NewCoursePage() {
                 </div>
                 
                 <button 
+                    type="button"
                     onClick={() => setShowPreview(!showPreview)}
                     className="flex items-center gap-2 text-primary-indigo-600 font-black text-sm bg-indigo-50 px-5 py-3 rounded-2xl hover:bg-indigo-100 transition-all shadow-sm"
                 >
@@ -185,13 +192,13 @@ export default function NewCoursePage() {
                         </div>
                     </div>
                     <div className="mt-12 text-center">
-                        <button onClick={() => setShowPreview(false)} className="text-primary-indigo-600 font-black flex items-center gap-2 mx-auto">
+                        <button type="button" onClick={() => setShowPreview(false)} className="text-primary-indigo-600 font-black flex items-center gap-2 mx-auto">
                             <FiArrowRight /> العودة لوضع التعديل
                         </button>
                     </div>
                 </div>
             ) : (
-                <form onSubmit={handleSubmit} className="relative">
+                <form onSubmit={handlePreSubmit} autoComplete="off" className="relative">
                     <AnimatePresence mode="wait">
                         
                         {/* Step 1: Course Identity */}
@@ -222,7 +229,7 @@ export default function NewCoursePage() {
                                             {formData.image ? (
                                                 <div className="relative aspect-video rounded-3xl overflow-hidden border-4 border-white shadow-lg">
                                                     <img src={formData.image} alt="Cover" className="w-full h-full object-cover" />
-                                                    <button onClick={() => update('image', '')} className="absolute top-4 left-4 bg-red-500 text-white w-9 h-9 rounded-full flex items-center justify-center shadow-xl">&times;</button>
+                                                    <button type="button" onClick={() => update('image', '')} className="absolute top-4 left-4 bg-red-500 text-white w-9 h-9 rounded-full flex items-center justify-center shadow-xl">&times;</button>
                                                 </div>
                                             ) : showImageUploader ? (
                                                 <FileUploader onUploadSuccess={urls => { update('image', urls[0]); setShowImageUploader(false); }} />
@@ -314,8 +321,44 @@ export default function NewCoursePage() {
                             )}
                         </div>
                     </div>
-                </form>
+            </form>
             )}
+
+            {/* Confirmation Modal */}
+            <AnimatePresence>
+                {showConfirmModal && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
+                        <motion.div 
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            className="bg-white rounded-[2.5rem] p-10 max-w-md w-full shadow-2xl space-y-8 text-center"
+                        >
+                            <div className="w-20 h-20 bg-primary-indigo-50 text-primary-indigo-600 rounded-3xl flex items-center justify-center mx-auto text-3xl">
+                                <FiCheck />
+                            </div>
+                            <div>
+                                <h3 className="text-2xl font-black text-slate-900 mb-2">أطلق دورتك العلمية؟</h3>
+                                <p className="text-sm text-slate-500 font-medium">سيتم توفير دورة "{formData.title}" لطلابك فور تأكيدك.</p>
+                            </div>
+                            <div className="flex flex-col gap-3">
+                                <button 
+                                    onClick={handleSubmit}
+                                    className="w-full py-4 bg-primary-indigo-600 text-white rounded-2xl font-black shadow-xl shadow-indigo-100 hover:bg-primary-indigo-700 transition-all font-sans"
+                                >
+                                    نعم، أنشر المنهج الآن
+                                </button>
+                                <button 
+                                    onClick={() => setShowConfirmModal(false)}
+                                    className="w-full py-4 bg-slate-100 text-slate-500 rounded-2xl font-black hover:bg-slate-200 transition-all font-sans"
+                                >
+                                    مراجعة المنهج مرة أخرى
+                                </button>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

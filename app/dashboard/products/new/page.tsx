@@ -25,6 +25,7 @@ const steps = [
 export default function NewProductPage() {
     const router = useRouter();
     const [currentStep, setCurrentStep] = useState(1);
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [showGuide, setShowGuide] = useState(true);
     const [loading, setLoading] = useState(false);
 
@@ -81,8 +82,13 @@ export default function NewProductPage() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handlePreSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        setShowConfirmModal(true);
+    };
+
+    const handleSubmit = async () => {
+        setShowConfirmModal(false);
         setLoading(true);
         const toastId = showToast.loading('جاري حفظ المنتج...');
         try {
@@ -131,7 +137,7 @@ export default function NewProductPage() {
                 <StepProgress steps={steps} currentStep={currentStep} />
             </div>
 
-            <form onSubmit={handleSubmit} className="relative">
+            <form onSubmit={handlePreSubmit} autoComplete="off" className="relative">
                 <AnimatePresence mode="wait">
                     
                     {/* Step 1: Assets (REVERSED FLOW - LEAD WITH UPLOAD) */}
@@ -310,6 +316,42 @@ export default function NewProductPage() {
                     </div>
                 </div>
             </form>
+
+            {/* Confirmation Modal */}
+            <AnimatePresence>
+                {showConfirmModal && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
+                        <motion.div 
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            className="bg-white rounded-[2.5rem] p-10 max-w-md w-full shadow-2xl space-y-8 text-center"
+                        >
+                            <div className="w-20 h-20 bg-primary-indigo-50 text-primary-indigo-600 rounded-3xl flex items-center justify-center mx-auto text-3xl">
+                                <FiCheck />
+                            </div>
+                            <div>
+                                <h3 className="text-2xl font-black text-slate-900 mb-2">هل أنت مستعد للنشر؟</h3>
+                                <p className="text-sm text-slate-500 font-medium">سيتم عرض منتجك "{formData.title}" في المتجر فور تأكيدك.</p>
+                            </div>
+                            <div className="flex flex-col gap-3">
+                                <button 
+                                    onClick={handleSubmit}
+                                    className="w-full py-4 bg-primary-indigo-600 text-white rounded-2xl font-black shadow-xl shadow-indigo-100 hover:bg-primary-indigo-700 transition-all"
+                                >
+                                    نعم، أنشر المنتج الآن
+                                </button>
+                                <button 
+                                    onClick={() => setShowConfirmModal(false)}
+                                    className="w-full py-4 bg-slate-100 text-slate-500 rounded-2xl font-black hover:bg-slate-200 transition-all font-sans"
+                                >
+                                    مراجعة البيانات مرة أخرى
+                                </button>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
