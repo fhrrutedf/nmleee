@@ -180,7 +180,7 @@ export default function LearnPage() {
                                          key={lesson.id}
                                          onClick={() => setActiveItem({ type: 'lesson', data: lesson })}
                                          className={`w-full text-right p-4 rounded-2xl transition-all duration-300 flex items-center gap-4 group ${
-                                             activeItem?.data.id === lesson.id && activeItem.type === 'lesson'
+                                             activeItem?.type === 'lesson' && activeItem?.data?.id === lesson.id
                                              ? 'bg-brand/10 border border-brand/20 text-white shadow-lg'
                                              : 'hover:bg-white/5 text-gray-400 opacity-70 hover:opacity-100'
                                          }`}
@@ -192,7 +192,7 @@ export default function LearnPage() {
                                          }`}>
                                              {lesson.completed ? <FiCheck size={14} strokeWidth={3} /> : <span className="text-[10px] font-black">{lIdx + 1}</span>}
                                          </div>
-                                         <span className={`text-sm font-bold flex-1 truncate ${activeItem?.data.id === lesson.id ? 'text-white' : ''}`}>
+                                         <span className={`text-sm font-bold flex-1 truncate ${activeItem?.data?.id === lesson.id ? 'text-white' : ''}`}>
                                              {lesson.title}
                                          </span>
                                          <div className="opacity-30 group-hover:opacity-100 transition-opacity">
@@ -230,7 +230,7 @@ export default function LearnPage() {
                                                 <FiBarChart2 /> الدرس النشط
                                             </div>
                                             <h1 className="text-3xl md:text-4xl font-black text-white leading-tight">
-                                                {(activeItem.data as any).title}
+                                                {(activeItem?.data as any)?.title}
                                             </h1>
                                         </div>
                                         <button 
@@ -243,9 +243,9 @@ export default function LearnPage() {
                                         </button>
                                     </div>
 
-                                    {(activeItem.data.videoUrl || activeItem.data.muxPlaybackId) ? (
+                                    {(activeItem?.data?.videoUrl || activeItem?.data?.muxPlaybackId) ? (
                                         <AdvancedVideoPlayer 
-                                            lessonId={activeItem.data.id}
+                                            lessonId={activeItem?.data?.id}
                                             courseId={course.id}
                                             studentEmail={session?.user?.email || ''}
                                             onComplete={handleLessonComplete}
@@ -274,7 +274,7 @@ export default function LearnPage() {
                                      {/* Comments Section Toggle */}
                                      {showComments && (
                                          <LessonComments 
-                                            lessonId={activeItem.data.id} 
+                                            lessonId={activeItem?.data?.id} 
                                             courseId={course.id} 
                                          />
                                      )}
