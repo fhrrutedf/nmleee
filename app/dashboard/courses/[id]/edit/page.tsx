@@ -17,7 +17,8 @@ import {
     FiX,
     FiUpload,
     FiPlus,
-    FiCheck
+    FiCheck,
+    FiLayers
 } from 'react-icons/fi';
 import showToast from '@/lib/toast';
 import RichTextEditor from '@/components/ui/RichTextEditor';
