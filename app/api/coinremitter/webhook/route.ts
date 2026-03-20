@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { fulfillPurchase } from "@/lib/checkout";
 
 export async function POST(req: Request) {
     try {
@@ -38,7 +39,7 @@ export async function POST(req: Request) {
             });
 
             // Handle successful payment logic like sending email or granting access
-            // ... (implement your fulfill order logic here if any, similar to Stripe)
+            await fulfillPurchase(order.id, order.userId);
 
         } else {
             // Update status only
