@@ -305,10 +305,30 @@ export default function AdminPlatformSettingsPage() {
                     <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg text-action-blue">
                         <FiGlobe className="text-xl" />
                     </div>
-                    <div>
+                    <div className="flex-1">
                         <h2 className="font-bold text-primary-charcoal dark:text-white">أسعار صرف العملات</h2>
                         <p className="text-xs text-text-muted">1 دولار = كم وحدة من العملة المحلية</p>
                     </div>
+                    <button
+                        onClick={async () => {
+                            const toastId = showToast.loading('جاري جلب الأسعار العالمية...');
+                            try {
+                                const res = await fetch('/api/admin/rates/sync', { method: 'POST' });
+                                const data = await res.json();
+                                if (data.success) {
+                                    setSettings(s => ({ ...s, ...data.updatedRates }));
+                                    showToast.dismiss(toastId);
+                                    showToast.success('تم تحديث IQD و EGP و AED بنجاح ✅');
+                                }
+                            } catch { 
+                                showToast.dismiss(toastId);
+                                showToast.error('فشل جلب الأسعار'); 
+                            }
+                        }}
+                        className="btn btn-outline text-xs px-4 py-2 border-primary-indigo-200 text-primary-indigo-600 hover:bg-primary-indigo-50 flex items-center gap-2"
+                    >
+                        <FiTrendingUp /> تحديث الأسعار (Global Sync)
+                    </button>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4">

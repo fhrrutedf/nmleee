@@ -86,6 +86,7 @@ export default function DashboardLayout({
         { href: '/dashboard/earnings', icon: FiDollarSign, label: 'الأرباح والسحوبات', type: 'shared' },
         { href: '/dashboard/integrations', icon: FiActivity, label: 'التكاملات', type: 'shared' },
         { href: '/dashboard/billing', icon: FiCreditCard, label: 'الاشتراك والباقة', type: 'shared' },
+        { href: '/dashboard/support', icon: FiMessageSquare, label: 'مركز المساعدة والتذاكر', type: 'shared' },
         { href: '/dashboard/settings', icon: FiSettings, label: 'الإعدادات', type: 'shared' },
 
         // Admin only

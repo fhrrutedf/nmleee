@@ -3,7 +3,7 @@ import { prisma } from '@/lib/db';
 import BlogListClient from './BlogListClient';
 
 export const metadata: Metadata = {
-    title: 'المدونة | منصتي الرقمية',
+    title: 'المدونة | تمالين',
     description: 'أحدث المقالات والنصائح لتنمية أعمالك الرقمية وتحقيق النجاح، اكتشف استراتيجيات التسويق والأدوات المفيدة.',
 };
 

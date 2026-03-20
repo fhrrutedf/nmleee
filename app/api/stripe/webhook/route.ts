@@ -4,6 +4,7 @@ import Stripe from 'stripe';
 import { sendOrderConfirmation, sendSubscriptionConfirmation } from '@/lib/email';
 import { createCalendarEvent } from '@/lib/google-calendar';
 import { ensureUserAccount } from '@/lib/auth-utils';
+import { markCartConverted, triggerWelcomeEmail, triggerSellerNotification } from '@/lib/automation-helpers';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: '2024-06-20',
@@ -158,6 +159,18 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
                 },
             },
         });
+
+        // 6.5 Fetch item titles for email/notifications
+        const fullItems = await prisma.orderItem.findMany({
+            where: { orderId: order.id },
+            include: {
+                product: { select: { title: true } },
+                course: { select: { title: true } },
+                bundle: { select: { title: true } },
+            }
+        });
+
+        const productsList = fullItems.map(i => i.product?.title || i.course?.title || i.bundle?.title || 'منتج');
 
         // إذا كان هناك بيانات موعد، نقوم بإنشاء الموعد وربطه بالطلب
         if (apptDate !== undefined && apptDate !== '' && sellerId) {
@@ -328,11 +341,41 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
             customerName: metadata.customerName || 'العميل',
             orderNumber: order.orderNumber,
             totalAmount: order.totalAmount,
-            items: items.map((item: any) => ({
-                title: item.title || 'منتج',
+            items: fullItems.map((item: any) => ({
+                title: item.product?.title || item.course?.title || item.bundle?.title || 'منتج',
                 price: item.price || 0,
             })),
         });
+
+        // 11. Automation & Notifications (Shield 1)
+        if (session.customer_email && sellerId) {
+            const customerEmail = session.customer_email.toLowerCase().trim();
+            const customerName = metadata.customerName || 'عميلنا العزيز';
+            
+            // Mark cart as converted
+            await markCartConverted(customerEmail, sellerId);
+
+            // Send Welcome Email if enabled
+            await triggerWelcomeEmail({
+                customerEmail,
+                customerName,
+                sellerId,
+                productName: productsList.join(', ')
+            });
+
+            // Notify Seller
+            await triggerSellerNotification({
+                sellerId,
+                type: 'sale',
+                title: '💰 مبيعة جديدة (Stripe)',
+                content: `تم استلام دفعة من ${customerName} بمبلغ $${totalAmount.toFixed(2)} لمنتجاتك: ${productsList.slice(0, 2).join(', ')}...`,
+                payload: {
+                    amount: totalAmount,
+                    customerName,
+                    productTitle: productsList.join(', ')
+                }
+            });
+        }
 
     } catch (error) {
         console.error('Error handling checkout completion:', error);

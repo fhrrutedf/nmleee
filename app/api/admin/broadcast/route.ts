@@ -58,12 +58,12 @@ export async function POST(req: NextRequest) {
                     html: `
                         <div dir="rtl" style="font-family:Arial;padding:24px;max-width:600px;margin:0 auto">
                             <div style="background:#0052FF;padding:20px;border-radius:12px 12px 0 0;text-align:center">
-                                <h1 style="color:white;margin:0;font-size:22px">منصتي الرقمية</h1>
+                                <h1 style="color:white;margin:0;font-size:22px">تمالين</h1>
                             </div>
                             <div style="background:#f8fafc;padding:30px;border-radius:0 0 12px 12px;border:1px solid #e2e8f0">
                                 <p style="color:#374151;font-size:16px">مرحباً ${u.name}،</p>
                                 <div style="background:white;padding:20px;border-radius:8px;border:1px solid #e2e8f0;margin:16px 0;color:#374151;line-height:1.7;white-space:pre-wrap">${message}</div>
-                                <p style="color:#9ca3af;font-size:13px;margin-top:20px">فريق منصتي الرقمية</p>
+                                <p style="color:#9ca3af;font-size:13px;margin-top:20px">فريق تمالين</p>
                             </div>
                         </div>
                     `,

@@ -12,7 +12,9 @@ export const WhatsAppButton = () => {
     const whatsappNumber = '201012345678'; 
     const message = 'مرحباً، أحتاج للمساعدة في منصة تمالين';
 
-    if (!isDashboard) return null;
+    const showButton = pathname === '/dashboard/support' || pathname?.startsWith('/dashboard/support/') || pathname === '/dashboard/admin/platform-settings';
+    
+    if (!showButton) return null;
 
     return (
         <motion.a

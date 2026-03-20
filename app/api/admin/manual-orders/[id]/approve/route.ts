@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
 import { sendTelegramMessage, newOrderMessage } from '@/lib/telegram';
 import { sendManualOrderApproved } from '@/lib/email';
+import { markCartConverted, triggerWelcomeEmail, triggerSellerNotification } from '@/lib/automation-helpers';
 
 export async function POST(
     req: NextRequest,
@@ -174,19 +175,34 @@ export async function POST(
             }
         }
 
-        // Send approval email to customer (with course link if applicable)
-        const courseItem = orderItems.find(i => i.course);
-        try {
-            await sendManualOrderApproved({
-                to: order.customerEmail,
-                customerName: order.customerName || 'العميل',
-                orderNumber: order.orderNumber,
-                amount: order.totalAmount,
-                courseId: courseItem?.courseId || undefined,
-                courseTitle: courseItem?.course?.title || undefined,
+        // 10. Automation & Notifications (Shield 1)
+        if (order.customerEmail && order.sellerId) {
+            const customerEmail = order.customerEmail.toLowerCase().trim();
+            const customerName = order.customerName || 'عميلنا العزيز';
+            
+            // Mark cart as converted
+            await markCartConverted(customerEmail, order.sellerId);
+
+            // Send Welcome Email if enabled
+            await triggerWelcomeEmail({
+                customerEmail,
+                customerName,
+                sellerId: order.sellerId,
+                productName: products.join(', ')
             });
-        } catch (emailErr) {
-            console.error('Failed to send approval email:', emailErr);
+
+            // Notify Seller
+            await triggerSellerNotification({
+                sellerId: order.sellerId,
+                type: 'sale',
+                title: '💰 مبيعة جديدة (دفع يدوي)',
+                content: `تم تأكيد دفع العميل ${customerName} بمبلغ $${order.totalAmount.toFixed(2)} لمنتجاتك: ${products.slice(0, 2).join(', ')}...`,
+                payload: {
+                    amount: order.totalAmount,
+                    customerName,
+                    productTitle: products.join(', ')
+                }
+            });
         }
 
         return NextResponse.json({ success: true });
