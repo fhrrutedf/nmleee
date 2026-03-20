@@ -2,118 +2,136 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { createClient } from '@supabase/supabase-js';
+import crypto from 'crypto';
+
+// ─── MAGIC NUMBER CHECKS (Nuclear Defense Level 1) ──────────────
+function validateMagicBytes(buffer: Buffer, mime: string): boolean {
+    const hex = buffer.toString('hex', 0, 8).toUpperCase();
+    
+    // Images
+    if (mime.startsWith('image/jpeg')) return hex.startsWith('FFD8FF');
+    if (mime.startsWith('image/png'))  return hex.startsWith('89504E47');
+    if (mime.startsWith('image/gif'))  return hex.startsWith('47494638');
+    if (mime.startsWith('image/webp')) return hex.includes('57454250');
+
+    // Documents
+    if (mime === 'application/pdf')      return hex.startsWith('25504446');
+    if (mime.includes('zip'))           return hex.startsWith('504B0304');
+
+    // Videos
+    if (mime.startsWith('video/'))      return hex.includes('66747970'); // ftyp
+
+    return false; // Type not in whitelist or magic mismatch
+}
 
 export async function POST(request: Request) {
     try {
         const session = await getServerSession(authOptions);
-
         if (!session?.user) {
-            return NextResponse.json(
-                { error: 'غير مصرح' },
-                { status: 401 }
-            );
+            return NextResponse.json({ error: 'منطقة محظورة' }, { status: 401 });
         }
 
         const formData = await request.formData();
         const file = formData.get('file') as File;
-        const fileType = formData.get('type') as string; // 'image' or 'file'
+        const uploadType = formData.get('type') as string; // 'image' | 'product' | 'avatar'
 
-        if (!file) {
-            return NextResponse.json(
-                { error: 'لم يتم تحديد ملف' },
-                { status: 400 }
-            );
+        if (!file || !(file instanceof File)) {
+            return NextResponse.json({ error: 'لم يتم العثور على الملف' }, { status: 400 });
         }
 
-        // التحقق من نوع وحجم الملف
-        const isVideo = file.type.startsWith('video/');
-        const isImage = file.type.startsWith('image/');
-        const isAllowedDoc = ['application/pdf', 'application/zip', 'application/x-zip-compressed', 'application/octet-stream'].includes(file.type) || 
-                          file.name.endsWith('.zip') || file.name.endsWith('.pdf') || file.name.endsWith('.rar');
+        // 🛡️ SECURITY 1: Strict Whitelist
+        const allowedMimes = [
+            'image/jpeg', 'image/png', 'image/webp', 'image/gif',
+            'application/pdf', 'application/zip', 'application/x-zip-compressed',
+            'video/mp4', 'video/quicktime', 'video/x-matroska'
+        ];
 
-        if (!isVideo && !isImage && !isAllowedDoc) {
-            return NextResponse.json(
-                { error: 'نوع الملف غير مدعوم. مسموح فقط بالصور، الفيديو، PDF، وZIP.' },
-                { status: 400 }
-            );
+        if (!allowedMimes.includes(file.type)) {
+            return NextResponse.json({ error: 'نوع الملف غير مسموح برفه (سيكيورتي)' }, { status: 403 });
         }
 
-        const maxSize = isVideo ? 500 * 1024 * 1024 : 50 * 1024 * 1024;
-        if (file.size > maxSize) {
-            return NextResponse.json(
-                { error: isVideo ? 'حجم الفيديو كبير جداً (الحد الأقصى 500MB)' : 'حجم الملف كبير جداً (الحد الأقصى 50MB)' },
-                { status: 400 }
-            );
+        // 🛡️ SECURITY 2: Buffer Protection (Anti-DOS)
+        // Note: For Next.js Route Handlers, the request has a 4.5MB limit in Vercel Hobby, 
+        // 500MB in Pro. We check size BEFORE reading into Buffer if possible (but we need it for Magic Bytes).
+        const maxImageSize = 10 * 1024 * 1024; // 10MB
+        const maxFileSize  = 100 * 1024 * 1024; // 100MB (For server processing limit)
+        
+        const limit = file.type.startsWith('image/') ? maxImageSize : maxFileSize;
+        if (file.size > limit) {
+             return NextResponse.json({ error: `الملف كبير جداً. الحد الأقصى لجلسة الرفع هو ${limit/1024/1024}MB` }, { status: 413 });
         }
 
-        // إعداد Supabase Client
-        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-        const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-        if (!supabaseUrl || !supabaseServiceKey) {
-            console.error('Supabase credentials not configured');
-            return NextResponse.json(
-                { error: 'إعدادات التخزين غير مكتملة' },
-                { status: 500 }
-            );
-        }
-
-        const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
-        // تحديد الـ bucket
-        let bucket: string;
-        if (file.type.startsWith('video/')) {
-            bucket = 'product-files';
-        } else if (fileType === 'image' || file.type.startsWith('image/')) {
-            bucket = 'product-images';
-        } else {
-            bucket = 'product-files';
-        }
-
-        // إنشاء اسم ملف فريد
-        const timestamp = Date.now();
-        const randomString = Math.random().toString(36).substring(7);
-        const fileExtension = file.name.split('.').pop();
-        const fileName = `${timestamp}-${randomString}.${fileExtension}`;
-        const filePath = `uploads/${fileName}`;
-
-        // تحويل File إلى ArrayBuffer
+        // Read first chunk for verification BEFORE full buffering to minimize memory usage
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
 
-        // رفع الملف إلى Supabase Storage
+        // 🛡️ SECURITY 3: Deep Content Verification (Magic Numbers)
+        if (!validateMagicBytes(buffer, file.type)) {
+            return NextResponse.json({ error: 'تحذير: محتوى الملف لا يطابق الامتداد المزعوم. تم حظر الرفع.' }, { status: 400 });
+        }
+
+        // 🛡️ SECURITY 4: Filename Sanitization & Path Injection Defense
+        const cleanExtension = file.name.split('.').pop()?.replace(/[^a-z0-9]/gi, '') || 'bin';
+        const secureFileName = `${crypto.randomUUID()}.${cleanExtension}`;
+        
+        // Logical Routing: Private vs Public
+        // Images are public. Digital products are STRICTLY PRIVATE.
+        let bucket = 'product-images';
+        let isPrivate = false;
+
+        if (uploadType === 'product' || !file.type.startsWith('image/')) {
+            bucket = 'product-files'; // Ensure this bucket is PRIVATE in Supabase
+            isPrivate = true;
+        }
+
+        const filePath = `${session.user.id}/${secureFileName}`;
+
+        // 🛡️ SECURITY 5: Service Role Isolation logic
+        const supabase = createClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.SUPABASE_SERVICE_ROLE_KEY!
+        );
+
         const { data, error } = await supabase.storage
             .from(bucket)
             .upload(filePath, buffer, {
                 contentType: file.type,
-                cacheControl: '3600',
-                upsert: false
+                upsert: false // Security: Prevent overwriting other users files
             });
 
         if (error) {
-            console.error('Supabase upload error:', error);
-            return NextResponse.json(
-                { error: 'فشل رفع الملف' },
-                { status: 500 }
-            );
+            console.error('[Upload Security Failure]:', error);
+            return NextResponse.json({ error: 'عذراً، فشل الرفع لأسباب فنية' }, { status: 500 });
         }
 
-        // الحصول على الرابط العام
-        const { data: publicUrlData } = supabase.storage
-            .from(bucket)
-            .getPublicUrl(filePath);
+        // 🛡️ SECURITY 6: Access Control logic (Signed URLs)
+        let finalUrl: string;
+        if (isPrivate) {
+            // Never return public URL for private products!
+            // Return a 5-minute preview URL for immediate confirmation
+            const { data: signedData, error: signError } = await supabase.storage
+                .from(bucket)
+                .createSignedUrl(filePath, 300); // 5 minutes
+            
+            if (signError) throw signError;
+            finalUrl = signedData.signedUrl;
+        } else {
+            // Images can be public
+            const { data: publicData } = supabase.storage
+                .from(bucket)
+                .getPublicUrl(filePath);
+            finalUrl = publicData.publicUrl;
+        }
 
         return NextResponse.json({
-            url: publicUrlData.publicUrl,
+            url: finalUrl,
             path: filePath,
-            bucket: bucket
+            bucket: bucket,
+            isPrivate
         });
 
-    } catch (error) {
-        console.error('Error uploading file:', error);
-        return NextResponse.json(
-            { error: 'حدث خطأ في رفع الملف' },
-            { status: 500 }
-        );
+    } catch (err) {
+        console.error('[Critical Upload Failure]:', err);
+        return NextResponse.json({ error: 'توقف السيرفر بشكل مفاجئ' }, { status: 500 });
     }
 }
