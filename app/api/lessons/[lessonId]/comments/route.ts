@@ -9,12 +9,13 @@ import { prisma } from '@/lib/db';
  */
 export async function GET(
     req: NextRequest,
-    { params }: { params: { lessonId: string } }
+    { params }: { params: Promise<{ lessonId: string }> }
 ) {
     try {
+        const { lessonId } = await params;
         const comments = await prisma.comment.findMany({
             where: {
-                lessonId: params.lessonId,
+                lessonId: lessonId,
                 parentId: null // الدرجة الأولى فقط
             },
             include: {
@@ -33,9 +34,10 @@ export async function GET(
 
 export async function POST(
     req: NextRequest,
-    { params }: { params: { lessonId: string } }
+    { params }: { params: Promise<{ lessonId: string }> }
 ) {
     try {
+        const { lessonId } = await params;
         const session = await getServerSession(authOptions);
         if (!session?.user?.email) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -52,7 +54,7 @@ export async function POST(
                 content,
                 authorName: session.user.name || 'مستخدم',
                 authorEmail: session.user.email,
-                lessonId: params.lessonId,
+                lessonId: lessonId,
                 courseId,
                 parentId
             }
