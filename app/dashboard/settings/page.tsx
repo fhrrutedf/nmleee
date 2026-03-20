@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import { FiUser, FiMail, FiLock, FiGlobe, FiBell, FiCreditCard, FiShield, FiSave, FiUpload, FiEye, FiEyeOff, FiLink, FiCheckCircle, FiXCircle, FiCopy } from 'react-icons/fi';
-import { apiGet, apiPut, handleApiError } from '@/lib/safe-fetch';
+import { apiGet, apiPost, apiPut, apiDelete, handleApiError } from '@/lib/safe-fetch';
 import FileUploader from '@/components/ui/FileUploader';
 import PayoutSettings from '@/components/dashboard/PayoutSettings';
 import DangerZone from '@/components/dashboard/DangerZone';
