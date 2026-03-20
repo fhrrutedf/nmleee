@@ -2,16 +2,30 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { FiSave, FiArrowLeft, FiVideo, FiLink, FiBookOpen, FiTag, FiStar, FiImage, FiUpload, FiX } from 'react-icons/fi';
+import { 
+    FiSave, FiArrowRight, FiBookOpen, FiImage, 
+    FiEye, FiTrendingUp, FiZap, FiCheck, FiArrowLeft
+} from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
 import FileUploader from '@/components/ui/FileUploader';
+import { motion, AnimatePresence } from 'framer-motion';
+import CourseBuilder from '@/components/dashboard/CourseBuilder';
+import StepProgress from '@/components/ui/StepProgress';
+
+const steps = [
+    { id: 1, label: 'هوية الدورة' },
+    { id: 2, label: 'بناء المنهج التعليمي' },
+    { id: 3, label: 'التسعير والنشر' },
+];
 
 export default function NewCoursePage() {
     const router = useRouter();
+    const [currentStep, setCurrentStep] = useState(1);
     const [loading, setLoading] = useState(false);
+    const [showPreview, setShowPreview] = useState(false);
     const [showImageUploader, setShowImageUploader] = useState(false);
-    const [showTrailerUploader, setShowTrailerUploader] = useState(false);
+
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -20,51 +34,46 @@ export default function NewCoursePage() {
         image: '',
         trailerUrl: '',
         isActive: true,
-        // التفاصيل الإضافية
-        duration: '',
-        sessions: '',
+        duration: 0,
+        sessions: 0,
         tags: [] as string[],
-        features: [] as string[],
-        // روابط الاجتماعات
-        zoomLink: '',
-        meetLink: '',
+        structure: [] as any[],
+        pricingType: 'fixed' as 'fixed' | 'free' | 'pwyw',
     });
 
-    const [tagInput, setTagInput] = useState('');
-    const [featureInput, setFeatureInput] = useState('');
+    const update = (key: string, value: any) =>
+        setFormData(prev => ({ ...prev, [key]: value }));
 
-    const addTag = () => {
-        if (tagInput.trim() && !formData.tags.includes(tagInput.trim())) {
-            setFormData({ ...formData, tags: [...formData.tags, tagInput.trim()] });
-            setTagInput('');
+    const handleBuilderUpdate = (data: { sessions: number; totalDuration: number; structure: any[] }) => {
+        setFormData(prev => ({
+            ...prev,
+            sessions: data.sessions,
+            duration: data.totalDuration,
+            structure: data.structure
+        }));
+    };
+
+    const nextStep = () => {
+        if (currentStep === 1) {
+            if (!formData.title) return showToast.error('يرجى إدخال عنوان الدورة');
+            if (formData.description.length < 20) return showToast.error('وصف الدورة قصير جداً');
         }
-    };
-
-    const removeTag = (tag: string) => {
-        setFormData({ ...formData, tags: formData.tags.filter(t => t !== tag) });
-    };
-
-    const addFeature = () => {
-        if (featureInput.trim() && !formData.features.includes(featureInput.trim())) {
-            setFormData({ ...formData, features: [...formData.features, featureInput.trim()] });
-            setFeatureInput('');
+        if (currentStep === 2 && formData.sessions === 0) {
+            return showToast.error('يرجى إضافة درس واحد على الأقل للمنهج');
         }
+        setCurrentStep(prev => prev + 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const removeFeature = (feature: string) => {
-        setFormData({ ...formData, features: formData.features.filter(f => f !== feature) });
+    const prevStep = () => {
+        setCurrentStep(prev => prev - 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        if (!formData.title || !formData.description || !formData.price || !formData.category) {
-            showToast.error('يرجى ملء الحقول المطلوبة');
-            return;
-        }
-
         setLoading(true);
-        const toastId = showToast.loading('جاري إنشاء الدورة...');
+        const toastId = showToast.loading('جاري بناء الدورة ونشرها...');
 
         try {
             const res = await fetch('/api/courses', {
@@ -72,360 +81,257 @@ export default function NewCoursePage() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     ...formData,
-                    price: parseFloat(formData.price),
-                    sessions: formData.sessions ? parseInt(formData.sessions) : null,
+                    price: formData.pricingType === 'free' ? 0 : parseFloat(formData.price || '0'),
+                    duration: formData.duration.toString(), // API Expects string based on previous schema
+                    sessions: formData.sessions,
                 })
             });
 
             if (res.ok) {
-                const course = await res.json();
                 showToast.dismiss(toastId);
-                showToast.success('تمت مبدئياً! سيتم تحويلك لإضافة المنهج...');
-                router.push(`/dashboard/courses/${course.id}/content`);
+                showToast.success('تهانينا! دورتك التدريبية أصبحت جاهزة للطلاب');
+                router.push('/dashboard/courses');
             } else {
-                const error = await res.json();
-                showToast.dismiss(toastId);
-                showToast.error(error.error || 'حدث خطأ في إنشاء الدورة');
+                throw new Error('خطأ في الانشاء');
             }
-        } catch (error) {
-            console.error('Error creating course:', error);
+        } catch {
             showToast.dismiss(toastId);
-            showToast.error('حدث خطأ. حاول مرة أخرى');
+            showToast.error('حدث خطأ غير متوقع أثناء الحفظ');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="max-w-5xl mx-auto space-y-6 pb-12">
-            {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="max-w-4xl mx-auto pb-24 px-4">
+            
+            {/* Header Redesign */}
+            <div className="mb-10 text-right flex justify-between items-end">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-bold gradient-text">إنشاء دورة تدريبية جديدة</h1>
-                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-2">أدخل جميع تفاصيل الدورة لإنشائها</p>
+                    <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-slate-400 hover:text-primary-indigo-600 font-bold text-xs mb-4 transition-colors bg-white px-3 py-1.5 rounded-full border border-slate-100 shadow-sm">
+                        <FiArrowRight /> العودة للدورات
+                    </Link>
+                    <h1 className="text-3xl font-black text-slate-900 tracking-tight">إطلاق دورة تدريبية</h1>
+                    <p className="text-slate-500 font-medium mt-1">ابنِ منهجك التعليمي وشارك خبرتك مع العالم</p>
                 </div>
-                <Link href="/dashboard/courses" className="btn btn-outline flex items-center gap-2 self-start sm:self-auto">
-                    <FiArrowLeft />
-                    <span>رجوع</span>
-                </Link>
+                
+                <button 
+                    onClick={() => setShowPreview(!showPreview)}
+                    className="flex items-center gap-2 text-primary-indigo-600 font-black text-sm bg-indigo-50 px-5 py-3 rounded-2xl hover:bg-indigo-100 transition-all shadow-sm"
+                >
+                    <FiEye /> {showPreview ? 'إغلاق المعاينة' : 'معاينة كطالب'}
+                </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-                {/* البيانات الأساسية */}
-                <div className="card space-y-6 overflow-hidden">
-                    <div className="flex items-center gap-3 border-b border-gray-100 dark:border-gray-800 pb-4 mb-4">
-                        <div className="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-lg text-action-blue">
-                            <FiBookOpen className="text-xl" />
+            {/* Steps Tracker */}
+            <div className="bg-white rounded-[2.5rem] p-6 shadow-premium border border-slate-50 mb-10">
+                <StepProgress steps={steps} currentStep={currentStep} />
+            </div>
+
+            {showPreview ? (
+                <div className="bg-slate-50 rounded-[3rem] p-8 lg:p-12 border-2 border-dashed border-slate-200">
+                    <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto">
+                        {/* Main Content Preview */}
+                        <div className="flex-1 space-y-6">
+                            <div className="aspect-video bg-slate-900 rounded-[2.5rem] shadow-2xl flex items-center justify-center relative overflow-hidden group">
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                                <FiZap className="text-white text-6xl relative z-10 animate-pulse" />
+                                <div className="absolute bottom-6 right-6 left-6 flex justify-between items-center z-10">
+                                    <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
+                                        <div className="w-1/3 h-full bg-primary-indigo-500" />
+                                    </div>
+                                </div>
+                            </div>
+                            <h2 className="text-4xl font-black text-slate-900 leading-tight">
+                                {formData.title || 'عنوان الدورة المستهدف هنا'}
+                            </h2>
+                            <p className="text-slate-500 font-medium leading-relaxed">
+                                {formData.description || 'هنا سيظهر وصف الدورة الشامل الذي يشرح للطلاب ما سيتعلمونه وكيف ستتغير حياتهم المهنية بعد إكمال هذا المنهج الشامل...'}
+                            </p>
                         </div>
-                        <div>
-                            <h2 className="text-xl font-bold text-primary-charcoal dark:text-white">البيانات الأساسية</h2>
-                            <p className="text-sm text-text-muted">المعلومات الرئيسية للدورة</p>
+
+                        {/* Sidebar Preview */}
+                        <div className="w-full lg:w-80 space-y-4">
+                            <div className="bg-white p-6 rounded-[2rem] shadow-premium border border-slate-100">
+                                <div className="text-3xl font-black text-slate-900 mb-2">
+                                    {formData.pricingType === 'free' ? 'مجاناً' : `${formData.price || '0'} ج.م`}
+                                </div>
+                                <button type="button" className="w-full py-4 bg-primary-indigo-600 text-white rounded-2xl font-black shadow-glow mb-4">اشترك الآن</button>
+                                <div className="space-y-3">
+                                    <div className="flex items-center justify-between text-xs font-bold text-slate-400">
+                                        <span>مدة المحتوى</span>
+                                        <span className="text-slate-900">{formData.duration} دقيقة</span>
+                                    </div>
+                                    <div className="flex items-center justify-between text-xs font-bold text-slate-400">
+                                        <span>عدد الدروس</span>
+                                        <span className="text-slate-900">{formData.sessions} درس</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="bg-white rounded-[2rem] border border-slate-100 p-4">
+                                <p className="text-[10px] font-black text-slate-400 uppercase mb-3 mr-2">منهج الدورة</p>
+                                {formData.structure.length > 0 ? (
+                                    formData.structure.map((s: any) => (
+                                        <div key={s.id} className="mb-2 p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs font-black text-slate-700 flex justify-between">
+                                            <span>{s.title}</span>
+                                            <span className="opacity-40">{s.lessons.length} دروس</span>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div className="text-[10px] text-slate-300 mr-2 italic">لم يتم إضافة أقسام بعد</div>
+                                )}
+                            </div>
                         </div>
                     </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                        {/* العنوان */}
-                        <div className="md:col-span-2">
-                            <label className="label">عنوان الدورة <span className="text-red-500">*</span></label>
-                            <input
-                                type="text"
-                                value={formData.title}
-                                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                                className="input w-full"
-                                placeholder="مثال: دورة تطوير المواقع الشاملة"
-                                required
-                            />
-                        </div>
-
-                        {/* الوصف */}
-                        <div className="md:col-span-2">
-                            <label className="label">الوصف <span className="text-red-500">*</span></label>
-                            <textarea
-                                value={formData.description}
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                className="input w-full"
-                                rows={4}
-                                placeholder="اكتب وصفاً شاملاً للدورة يوضح ما سيتعلمه الطالب..."
-                                required
-                            />
-                        </div>
-
-                        {/* السعر */}
-                        <div>
-                            <label className="label">السعر (ج.م) <span className="text-red-500">*</span></label>
-                            <input
-                                type="number"
-                                step="0.01"
-                                min="0"
-                                value={formData.price}
-                                onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                                className="input w-full"
-                                placeholder="مثال: 499.00 أو 0 للمجاني"
-                                required
-                            />
-                        </div>
-
-                        {/* التصنيف */}
-                        <div>
-                            <label className="label">التصنيف <span className="text-red-500">*</span></label>
-                            <select
-                                value={formData.category}
-                                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                                className="input w-full"
-                                required
-                            >
-                                <option value="">اختر التصنيف المناسب</option>
-                                <option value="برمجة">برمجة</option>
-                                <option value="تصميم">تصميم</option>
-                                <option value="تسويق">تسويق</option>
-                                <option value="أعمال">أعمال</option>
-                                <option value="تطوير شخصي">تطوير شخصي</option>
-                                <option value="لغات">لغات</option>
-                                <option value="أخرى">أخرى</option>
-                            </select>
-                        </div>
-
-                        {/* صورة الغلاف */}
-                        <div className="md:col-span-2">
-                            <label className="label flex items-center gap-2"><FiImage className="text-action-blue" /> صورة الغلاف</label>
-                            {formData.image ? (
-                                <div className="relative w-full max-w-sm">
-                                    <img
-                                        src={formData.image}
-                                        alt="غلاف"
-                                        className="w-full aspect-video object-cover rounded-xl border border-gray-200 dark:border-gray-700"
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={() => { setFormData({ ...formData, image: '' }); setShowImageUploader(false); }}
-                                        className="absolute -top-2 -right-2 bg-red-500 text-white w-7 h-7 rounded-full flex items-center justify-center shadow-md hover:bg-red-600 transition-colors"
-                                    >
-                                        <FiX size={14} />
-                                    </button>
-                                </div>
-                            ) : showImageUploader ? (
-                                <FileUploader
-                                    onUploadSuccess={(urls) => { if (urls.length > 0) { setFormData({ ...formData, image: urls[0] }); setShowImageUploader(false); } }}
-                                    maxFiles={1}
-                                    accept={{ 'image/*': ['.jpg', '.jpeg', '.png', '.webp', '.gif'] }}
-                                    maxSize={10 * 1024 * 1024}
-                                />
-                            ) : (
-                                <button
-                                    type="button"
-                                    onClick={() => setShowImageUploader(true)}
-                                    className="btn btn-outline w-full sm:w-auto flex items-center gap-2"
-                                >
-                                    <FiUpload /> رفع صورة الغلاف
-                                </button>
-                            )}
-                        </div>
-
-                        {/* الفيديو التعريفي */}
-                        <div className="md:col-span-2">
-                            <label className="label flex items-center gap-2"><FiVideo className="text-purple-500" /> الفيديو التعريفي (اختياري)</label>
-                            {formData.trailerUrl ? (
-                                <div className="relative w-full flex items-center gap-3 p-3 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-xl">
-                                    <FiVideo className="text-purple-500 text-xl shrink-0" />
-                                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300 truncate flex-1 min-w-0" dir="ltr">
-                                        {formData.trailerUrl.split('/').pop()}
-                                    </span>
-                                    <button
-                                        type="button"
-                                        onClick={() => { setFormData({ ...formData, trailerUrl: '' }); setShowTrailerUploader(false); }}
-                                        className="shrink-0 p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
-                                    >
-                                        <FiX size={16} />
-                                    </button>
-                                </div>
-                            ) : showTrailerUploader ? (
-                                <FileUploader
-                                    onUploadSuccess={(urls) => { if (urls.length > 0) { setFormData({ ...formData, trailerUrl: urls[0] }); setShowTrailerUploader(false); } }}
-                                    maxFiles={1}
-                                    accept={{ 'video/*': ['.mp4', '.webm', '.mov'] }}
-                                    maxSize={500 * 1024 * 1024}
-                                />
-                            ) : (
-                                <button
-                                    type="button"
-                                    onClick={() => setShowTrailerUploader(true)}
-                                    className="btn btn-outline w-full sm:w-auto flex items-center gap-2"
-                                >
-                                    <FiUpload /> رفع فيديو تعريفي
-                                </button>
-                            )}
-                        </div>
-
-                        {/* الحالة */}
-                        <div className="flex items-center pt-8">
-                            <label className="flex items-center gap-3 cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    checked={formData.isActive}
-                                    onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                                    className="w-5 h-5 text-action-blue rounded focus:ring-action-blue"
-                                />
-                                <div>
-                                    <span className="font-bold text-gray-800 dark:text-gray-100 block">نشر الدورة وإتاحتها للبيع</span>
-                                    <span className="text-sm text-text-muted">يمكنك تغيير هذا لاحقاً</span>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-
-                </div>
-
-                {/* روابط الاجتماعات */}
-                <div className="card space-y-6 overflow-hidden bg-gradient-to-br from-white to-blue-50/30 dark:from-card-dark dark:to-blue-900/10 border-blue-100 dark:border-blue-900/30">
-                    <div className="flex items-center gap-3 border-b border-blue-100 dark:border-blue-900/30 pb-4 mb-4">
-                        <div className="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-lg text-action-blue">
-                            <FiLink className="text-xl" />
-                        </div>
-                        <div>
-                            <h2 className="text-xl font-bold text-primary-charcoal dark:text-white">روابط الاجتماعات (Integrations)</h2>
-                            <p className="text-sm text-text-muted">أضف روابط الاجتماعات لتسهيل الوصول للطلاب</p>
-                        </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label className="label flex items-center gap-2">
-                                <FiVideo className="text-blue-500" /> رابط Zoom
-                            </label>
-                            <input
-                                type="url"
-                                className="input w-full"
-                                placeholder="https://zoom.us/j/..."
-                                value={formData.zoomLink}
-                                onChange={(e) => setFormData({ ...formData, zoomLink: e.target.value })}
-                            />
-                        </div>
-
-                        <div>
-                            <label className="label flex items-center gap-2">
-                                <FiVideo className="text-green-500" /> رابط Google Meet
-                            </label>
-                            <input
-                                type="url"
-                                className="input w-full"
-                                placeholder="https://meet.google.com/..."
-                                value={formData.meetLink}
-                                onChange={(e) => setFormData({ ...formData, meetLink: e.target.value })}
-                            />
-                        </div>
+                    <div className="mt-12 text-center">
+                        <button onClick={() => setShowPreview(false)} className="text-primary-indigo-600 font-black flex items-center gap-2 mx-auto">
+                            <FiArrowRight /> العودة لوضع التعديل
+                        </button>
                     </div>
                 </div>
-
-                {/* تفاصيل إضافية */}
-                <div className="card space-y-6 overflow-hidden">
-                    <div className="flex items-center gap-3 border-b border-gray-100 dark:border-gray-800 pb-4 mb-4">
-                        <div className="p-2 bg-purple-100 dark:bg-purple-900/50 rounded-lg text-purple-600">
-                            <FiStar className="text-xl" />
-                        </div>
-                        <div>
-                            <h2 className="text-xl font-bold text-primary-charcoal dark:text-white">تفاصيل إضافية</h2>
-                            <p className="text-sm text-text-muted">معلومات تساعد الطلاب على فهم الدورة بشكل أفضل</p>
-                        </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label className="label">المدة الزمنية</label>
-                            <input
-                                type="text"
-                                className="input w-full"
-                                placeholder="مثال: 4 أسابيع"
-                                value={formData.duration}
-                                onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                            />
-                        </div>
-
-                        <div>
-                            <label className="label">عدد الجلسات</label>
-                            <input
-                                type="number"
-                                className="input w-full"
-                                placeholder="مثال: 12"
-                                value={formData.sessions}
-                                onChange={(e) => setFormData({ ...formData, sessions: e.target.value })}
-                            />
-                        </div>
-                    </div>
-
-                    {/* Tags */}
-                    <div>
-                        <label className="label flex items-center gap-2">
-                            <FiTag className="text-gray-500" /> الكلمات المفتاحية (Tags)
-                        </label>
-                        <div className="flex gap-2 mb-3">
-                            <input
-                                type="text"
-                                className="input flex-1"
-                                placeholder="أضف كلمة واضغط إضافة"
-                                value={tagInput}
-                                onChange={(e) => setTagInput(e.target.value)}
-                                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
-                            />
-                            <button type="button" onClick={addTag} className="btn btn-secondary">إضافة</button>
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                            {formData.tags.map((tag, idx) => (
-                                <span key={idx} className="bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-sm flex items-center gap-2 border border-blue-100 dark:border-blue-800">
-                                    {tag}
-                                    <button type="button" onClick={() => removeTag(tag)} className="text-red-400 hover:text-red-600 font-bold">&times;</button>
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Features */}
-                    <div>
-                        <label className="label">مميزات الدورة</label>
-                        <div className="flex gap-2 mb-3">
-                            <input
-                                type="text"
-                                className="input flex-1"
-                                placeholder="أضف ميزة (مثل: شهادة معتمدة)"
-                                value={featureInput}
-                                onChange={(e) => setFeatureInput(e.target.value)}
-                                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addFeature())}
-                            />
-                            <button type="button" onClick={addFeature} className="btn btn-secondary">إضافة</button>
-                        </div>
-                        <ul className="space-y-2">
-                            {formData.features.map((feature, idx) => (
-                                <li key={idx} className="flex items-center justify-between bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-100 dark:border-green-800">
-                                    <span className="flex items-center gap-2">
-                                        <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                                        {feature}
-                                    </span>
-                                    <button type="button" onClick={() => removeFeature(feature)} className="text-red-500 hover:text-red-700 text-sm font-medium">حذف</button>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-
-                {/* أزرار الحفظ */}
-                <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="btn btn-primary flex items-center justify-center gap-2 flex-1 py-3 text-base sm:text-lg"
-                    >
-                        {loading ? (
-                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        ) : (
-                            <FiSave className="text-xl" />
+            ) : (
+                <form onSubmit={handleSubmit} className="relative">
+                    <AnimatePresence mode="wait">
+                        
+                        {/* Step 1: Course Identity */}
+                        {currentStep === 1 && (
+                            <motion.div key="st1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
+                                <SectionBuilder title="هوية الدورة" icon={<FiBookOpen />} description="المعلومات التي ستظهر في صفحة الهبوط الخاصة بالدورة">
+                                    <div className="space-y-6">
+                                        <div>
+                                            <label className="label-modern">اسم الدورة <span className="text-red-500">*</span></label>
+                                            <input
+                                                type="text" required className="input-modern"
+                                                placeholder="مثال: من الصفر إلى الإحتراف في علم البيانات"
+                                                value={formData.title}
+                                                onChange={e => update('title', e.target.value)}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="label-modern">وصف الدورة <span className="text-red-500">*</span></label>
+                                            <textarea
+                                                className="input-modern min-h-[150px] py-4"
+                                                placeholder="اشرح للطلاب ماذا سيتعلمون وكيف سيستفيدون..."
+                                                value={formData.description}
+                                                onChange={e => update('description', e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="p-6 bg-slate-50 rounded-[2rem] border border-slate-100">
+                                            <label className="label-modern mb-4 block">صورة غلاف الدورة</label>
+                                            {formData.image ? (
+                                                <div className="relative aspect-video rounded-3xl overflow-hidden border-4 border-white shadow-lg">
+                                                    <img src={formData.image} alt="Cover" className="w-full h-full object-cover" />
+                                                    <button onClick={() => update('image', '')} className="absolute top-4 left-4 bg-red-500 text-white w-9 h-9 rounded-full flex items-center justify-center shadow-xl">&times;</button>
+                                                </div>
+                                            ) : showImageUploader ? (
+                                                <FileUploader onUploadSuccess={urls => { update('image', urls[0]); setShowImageUploader(false); }} />
+                                            ) : (
+                                                <button type="button" onClick={() => setShowImageUploader(true)} className="w-full py-16 border-2 border-dashed border-slate-200 rounded-3xl text-slate-400 font-bold flex flex-col items-center justify-center gap-4 hover:border-primary-indigo-400 hover:text-primary-indigo-600 transition-all bg-white">
+                                                    <FiImage size={32} />
+                                                    ارفع صورة الغلاف
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                </SectionBuilder>
+                            </motion.div>
                         )}
-                        <span>{loading ? 'جاري الإنشاء...' : 'حفظ والانتقال للمحتوى'}</span>
-                    </button>
-                    <Link href="/dashboard/courses" className="btn btn-outline py-3 px-6">
-                        إلغاء
-                    </Link>
+
+                        {/* Step 2: Builders Hub */}
+                        {currentStep === 2 && (
+                            <motion.div key="st2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                                <div className="mb-6 p-6 bg-primary-indigo-600 text-white rounded-[2.5rem] shadow-glow flex items-center justify-between">
+                                    <div>
+                                        <h2 className="text-xl font-black">بناء المنهج التعليمي</h2>
+                                        <p className="text-xs text-white/70 font-bold">يتم حساب المدة الإجمالية وعدد الدروس آلياً</p>
+                                    </div>
+                                    <FiTrendingUp size={32} />
+                                </div>
+                                <CourseBuilder onUpdate={handleBuilderUpdate} />
+                            </motion.div>
+                        )}
+
+                        {/* Step 3: Pricing & Finalize */}
+                        {currentStep === 3 && (
+                            <motion.div key="st3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
+                                <SectionBuilder title="التسعير والنشر" icon={<FiZap />} description="كيف ستحصل على أرباحك من هذه الدورة؟">
+                                    <div className="grid grid-cols-3 gap-3 mb-8">
+                                        {[
+                                            { id: 'fixed', label: 'سعر محدد', d: 'سعر ثابت للجميع' },
+                                            { id: 'pwyw', label: 'ادفع ما تشاء', d: 'دعم من الطلاب' },
+                                            { id: 'free', label: 'دورة مجانية', d: 'وصول عام' },
+                                        ].map(opt => (
+                                            <button
+                                                key={opt.id} type="button"
+                                                onClick={() => update('pricingType', opt.id)}
+                                                className={`p-4 rounded-3xl text-sm font-black border-2 transition-all flex flex-col items-center gap-2 ${formData.pricingType === opt.id ? 'border-primary-indigo-600 bg-primary-indigo-50 text-primary-indigo-600' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}
+                                            >
+                                                <span>{opt.label}</span>
+                                                <span className="text-[10px] opacity-60">{opt.d}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                    {formData.pricingType !== 'free' && (
+                                        <div className="space-y-4">
+                                            <label className="label-modern">سعر الدورة (ج.م)</label>
+                                            <input
+                                                type="number" step="0.01" className="input-modern"
+                                                placeholder="مثال: 499"
+                                                value={formData.price}
+                                                onChange={e => update('price', e.target.value)}
+                                            />
+                                        </div>
+                                    )}
+                                </SectionBuilder>
+                            </motion.div>
+                        )}
+
+                    </AnimatePresence>
+
+                    {/* Action Footer */}
+                    <div className="mt-12 flex items-center justify-between pt-10 border-t border-slate-100">
+                        <div className="flex gap-4">
+                            {currentStep > 1 && (
+                                <button type="button" onClick={prevStep} className="px-8 py-4 bg-slate-100 text-slate-700 rounded-2xl font-black text-sm hover:bg-slate-200">
+                                    السابق
+                                </button>
+                            )}
+                            <Link href="/dashboard/courses" className="text-slate-400 hover:text-red-500 font-bold text-sm px-4 py-4">إلغاء</Link>
+                        </div>
+                        <div className="flex gap-4">
+                            {currentStep < 3 ? (
+                                <button type="button" onClick={nextStep} className="px-10 py-4 bg-primary-indigo-600 text-white rounded-2xl font-black text-sm shadow-xl shadow-indigo-100 hover:bg-primary-indigo-700 flex items-center gap-3">
+                                    الخطوة التالية
+                                    <FiArrowLeft />
+                                </button>
+                            ) : (
+                                <button type="submit" disabled={loading} className="px-12 py-4 bg-primary-indigo-600 text-white rounded-2xl font-black text-sm shadow-xl shadow-indigo-100 hover:bg-primary-indigo-700 flex items-center gap-3">
+                                    {loading ? 'جاري النشر...' : 'حفظ ونشر المنهج'}
+                                    {!loading && <FiCheck />}
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </form>
+            )}
+        </div>
+    );
+}
+
+function SectionBuilder({ title, icon, description, children }: any) {
+    return (
+        <div className="bg-white rounded-[3rem] p-8 lg:p-10 shadow-premium border border-slate-50 space-y-8">
+            <div className="flex items-center gap-4">
+                <div className="w-14 h-14 bg-primary-indigo-50 text-primary-indigo-600 rounded-[1.5rem] flex items-center justify-center text-xl shadow-sm">
+                    {icon}
                 </div>
-            </form>
+                <div>
+                    <h2 className="text-xl font-black text-slate-900">{title}</h2>
+                    <p className="text-sm text-slate-400 font-medium">{description}</p>
+                </div>
+            </div>
+            {children}
         </div>
     );
 }

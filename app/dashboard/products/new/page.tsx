@@ -17,9 +17,9 @@ import StepProgress from '@/components/ui/StepProgress';
 type PricingType = 'fixed' | 'free' | 'pwyw';
 
 const steps = [
-    { id: 1, label: 'هوية المنتج' },
-    { id: 2, label: 'التسعير والبيع' },
-    { id: 3, label: 'الملفات والوسائط' },
+    { id: 1, label: 'الأصل الرقمي' },
+    { id: 2, label: 'هوية المنتج' },
+    { id: 3, label: 'التسعير والبيع' },
 ];
 
 export default function NewProductPage() {
@@ -64,12 +64,13 @@ export default function NewProductPage() {
 
     const nextStep = () => {
         if (currentStep === 1) {
+            if (!formData.fileUrl) return showToast.error('يرجى رفع الملف الرقمي الأساسي أولاً');
+            if (!formData.image) return showToast.error('يرجى رفع صورة الغلاف للمنتج');
+        }
+        if (currentStep === 2) {
             if (!formData.title) return showToast.error('يرجى إدخال عنوان المنتج');
             if (formData.description.length < 20) return showToast.error('وصف المنتج قصير جداً');
             if (!formData.category) return showToast.error('يرجى اختيار تصنيف');
-        }
-        if (currentStep === 2) {
-            if (formData.pricingType !== 'free' && !formData.price) return showToast.error('يرجى تحديد سعر المنتج');
         }
         setCurrentStep(prev => prev + 1);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -82,11 +83,8 @@ export default function NewProductPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!formData.image) return showToast.error('يرجى رفع صورة الغلاف');
-        if (!formData.fileUrl) return showToast.error('يرجى رفع ملف المنتج الأساسي');
-
         setLoading(true);
-        const toastId = showToast.loading('جاري الحفظ والتحقق من الملفات...');
+        const toastId = showToast.loading('جاري حفظ المنتج...');
         try {
             const { pricingType, ...rest } = formData;
             const res = await fetch('/api/products', {
@@ -124,8 +122,8 @@ export default function NewProductPage() {
                 <Link href="/dashboard/products" className="inline-flex items-center gap-2 text-slate-400 hover:text-primary-indigo-600 font-bold text-xs mb-4 transition-colors bg-white px-3 py-1.5 rounded-full border border-slate-100 shadow-sm">
                     <FiArrowRight /> العودة للوحة التحكم
                 </Link>
-                <h1 className="text-3xl font-black text-slate-900 tracking-tight">إنشاء منتج رقمي جديد</h1>
-                <p className="text-slate-500 font-medium mt-1">دعنا نُحوّل شغفك لمنتج حقيقي في 3 خطوات بسيطة</p>
+                <h1 className="text-3xl font-black text-slate-900 tracking-tight">إضافة منتج رقمي</h1>
+                <p className="text-slate-500 font-medium mt-1">ابدأ برفع الملف الرقمي أولاً لنسهل عليك البقية</p>
             </div>
 
             {/* Steps Tracker */}
@@ -133,190 +131,25 @@ export default function NewProductPage() {
                 <StepProgress steps={steps} currentStep={currentStep} />
             </div>
 
-            {/* Multi-step Form Body */}
             <form onSubmit={handleSubmit} className="relative">
                 <AnimatePresence mode="wait">
                     
-                    {/* Step 1: Identity */}
+                    {/* Step 1: Assets (REVERSED FLOW - LEAD WITH UPLOAD) */}
                     {currentStep === 1 && (
-                        <motion.div
-                            key="step1"
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -20 }}
-                            className="space-y-6"
-                        >
-                            <Section 
-                                title="هوية المنتج الأساسية" 
-                                icon={<FiPackage />} 
-                                description="هذا ما سيراه المستخدم أولاً في واجهة المتجر"
-                            >
-                                <div>
-                                    <label className="label-modern">اسم المنتج <span className="text-red-500">*</span></label>
-                                    <input
-                                        type="text" required className="input-modern"
-                                        placeholder="مثال: التصميم الجرافيكي المتقدم — النسخة الكاملة"
-                                        value={formData.title}
-                                        onChange={e => update('title', e.target.value)}
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="label-modern">تحليل وتحرير المحتوى <span className="text-red-500">*</span></label>
-                                    <div className="mt-1">
-                                        <RichTextEditor
-                                            value={formData.description}
-                                            onChange={val => update('description', val)}
-                                        />
-                                        <p className="text-[10px] text-slate-400 mt-2">الوصف المنسّق جيداً يزيد من مبيعاتك بنسبة 40%</p>
-                                    </div>
-                                </div>
-
-                                <div className="grid sm:grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="label-modern">تصنيف المنتج</label>
-                                        <select className="input-modern bg-white" value={formData.category} onChange={e => update('category', e.target.value)}>
-                                            <option value="">اختر التصنيف</option>
-                                            <option value="courses">دورات تدريبية</option>
-                                            <option value="ebooks">كتب إلكترونية</option>
-                                            <option value="templates">قوالب ومصادر</option>
-                                            <option value="software">برمجيات وأدوات</option>
-                                            <option value="graphics">جرافيك وتصاميم</option>
-                                            <option value="other">أخرى</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label className="label-modern">الكلمات الدلالية (الوسوم)</label>
-                                        <input
-                                            type="text" className="input-modern"
-                                            placeholder="تصميم، بزنس، أدوات..."
-                                            value={formData.tags}
-                                            onChange={e => update('tags', e.target.value)}
-                                        />
-                                    </div>
-                                </div>
-                            </Section>
-                        </motion.div>
-                    )}
-
-                    {/* Step 2: Pricing */}
-                    {currentStep === 2 && (
-                        <motion.div
-                            key="step2"
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -20 }}
-                            className="space-y-6"
-                        >
-                            <Section 
-                                title="نموذج التسعير والتجارة" 
-                                icon={<FiDollarSign />}
-                                description="اختر الطريقة التي تفضل بيع منتجك بها"
-                            >
-                                <div className="grid grid-cols-3 gap-3">
-                                    {[
-                                        { value: 'fixed', label: 'سعر ثابت', desc: 'بيع بسعر محدد' },
-                                        { value: 'pwyw', label: 'ادفع ما تريد', desc: 'دعم من جمهورك' },
-                                        { value: 'free', label: 'مجاني', desc: 'نشر مجاني' },
-                                    ].map(opt => (
-                                        <button
-                                            key={opt.value} type="button"
-                                            onClick={() => update('pricingType', opt.value)}
-                                            className={`p-4 rounded-3xl text-sm font-black border-2 transition-all flex flex-col items-center gap-2 group ${formData.pricingType === opt.value
-                                                ? 'border-primary-indigo-600 bg-primary-indigo-50 text-primary-indigo-600'
-                                                : 'border-slate-100 text-slate-400 hover:border-slate-200 hover:bg-slate-50'}`}
-                                        >
-                                            <span className="text-base">{opt.label}</span>
-                                            <span className="text-[10px] opacity-60 font-medium">{opt.desc}</span>
-                                        </button>
-                                    ))}
-                                </div>
-
-                                {formData.pricingType !== 'free' && (
-                                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="grid sm:grid-cols-2 gap-6 pt-4 border-t border-slate-50 mt-4">
-                                        <div>
-                                            <label className="label-modern">السعر النهائي (ج.م) <span className="text-red-500">*</span></label>
-                                            <div className="relative">
-                                                <FiDollarSign className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                                                <input
-                                                    type="number" required min="0" step="0.01" className="input-modern pr-12"
-                                                    placeholder="299"
-                                                    value={formData.price}
-                                                    onChange={e => update('price', e.target.value)}
-                                                />
-                                            </div>
-                                        </div>
-                                        {formData.pricingType === 'pwyw' && (
-                                            <div>
-                                                <label className="label-modern">الحد الأدنى المدفوع</label>
-                                                <input
-                                                    type="number" min="0" step="0.01" className="input-modern"
-                                                    placeholder="0"
-                                                    value={formData.minPrice}
-                                                    onChange={e => update('minPrice', e.target.value)}
-                                                />
-                                            </div>
-                                        )}
-                                    </motion.div>
-                                )}
-                            </Section>
-                        </motion.div>
-                    )}
-
-                    {/* Step 3: Files & Assets */}
-                    {currentStep === 3 && (
-                        <motion.div
-                            key="step3"
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -20 }}
-                            className="space-y-6"
-                        >
-                            <Section 
-                                title="الأصول والمحتوى الرقمي" 
-                                icon={<FiUpload />} 
-                                description="ارفع صورتك الغلاف والملف الذي سيحصل عليه المشتري"
-                            >
-                                {/* Cover Image */}
-                                <div className="p-6 bg-slate-50 rounded-[2rem] border border-slate-100">
-                                    <label className="label-modern mb-4 block">صورة الغلاف (16:9) <span className="text-red-500">*</span></label>
-                                    {formData.image ? (
-                                        <div className="relative w-full aspect-video rounded-3xl overflow-hidden border-4 border-white shadow-lg">
-                                            <img src={formData.image} alt="غلاف" className="w-full h-full object-cover" />
-                                            <button
-                                                type="button"
-                                                onClick={() => { update('image', ''); setShowCoverUploader(false); }}
-                                                className="absolute top-4 left-4 bg-red-500 text-white w-9 h-9 rounded-full flex items-center justify-center shadow-xl hover:bg-red-600 transition-colors"
-                                            >
-                                                <FiX size={18} />
-                                            </button>
-                                        </div>
-                                    ) : showCoverUploader ? (
-                                        <FileUploader
-                                            maxFiles={1}
-                                            accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
-                                            onUploadSuccess={(urls) => { update('image', urls[0]); setShowCoverUploader(false); }}
-                                        />
-                                    ) : (
-                                        <button type="button" onClick={() => setShowCoverUploader(true)} className="w-full py-16 border-2 border-dashed border-slate-200 rounded-3xl text-slate-400 font-bold flex flex-col items-center justify-center gap-4 hover:border-primary-indigo-400 hover:text-primary-indigo-600 transition-all bg-white">
-                                            <FiImage size={32} />
-                                            انقر لرفع صورة الغلاف
-                                        </button>
-                                    )}
-                                </div>
-
+                        <motion.div key="st1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
+                            <Section title="الملف والأصول الرقمية" icon={<FiUpload />} description="ارفع المنتج الذي سيحصل عليه المشتري">
+                                
                                 {/* Main File Upload */}
-                                <div className="space-y-4 pt-6 mt-6 border-t border-slate-100">
-                                    <label className="label-modern block font-black">الملف الرقمي الأساسي <span className="text-red-500">*</span></label>
+                                <div className="space-y-4 p-8 bg-primary-indigo-50 border-2 border-dashed border-primary-indigo-200 rounded-[2.5rem] text-center">
                                     {formData.fileUrl ? (
-                                        <div className="flex items-center justify-between bg-primary-indigo-600 text-white p-6 rounded-3xl shadow-xl shadow-indigo-200">
+                                        <div className="flex items-center justify-between bg-primary-indigo-600 text-white p-6 rounded-3xl shadow-xl">
                                             <div className="flex items-center gap-4">
                                                 <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
                                                     <FiCheck className="text-2xl" />
                                                 </div>
-                                                <div>
-                                                    <p className="text-sm font-black">تم تأمين ورفع الملف</p>
-                                                    <p className="text-xs opacity-80">جاهز للتسليم الآمن للمشترين</p>
+                                                <div className="text-right">
+                                                    <p className="text-sm font-black">تم رفع الملف بنجاح</p>
+                                                    <p className="text-xs opacity-80">جاهز للبيع الآمن</p>
                                                 </div>
                                             </div>
                                             <button type="button" onClick={() => update('fileUrl', '')} className="text-white/60 hover:text-white transition-colors">
@@ -325,96 +158,151 @@ export default function NewProductPage() {
                                         </div>
                                     ) : showFileUploader ? (
                                         <FileUploader
-                                            maxFiles={1}
                                             isPrivate={true}
                                             onUploadSuccess={(urls, names) => {
                                                 update('fileUrl', urls[0]);
-                                                if (names?.[0]) update('fileType', getFileType(names[0]));
+                                                if (names?.[0]) {
+                                                    update('fileType', getFileType(names[0]));
+                                                    // Auto-populating title from filename
+                                                    if (!formData.title) update('title', names[0].split('.').slice(0, -1).join('.'));
+                                                }
                                                 setShowFileUploader(false);
                                             }}
                                         />
                                     ) : (
-                                        <button
-                                            type="button"
-                                            onClick={() => setShowFileUploader(true)}
-                                            className="w-full py-8 bg-primary-indigo-50 border-2 border-dashed border-primary-indigo-200 rounded-3xl text-primary-indigo-600 font-black flex items-center justify-center gap-4 hover:bg-primary-indigo-100 transition-all"
-                                        >
-                                            <FiUpload size={24} />
-                                            ارفع الملف الآن (ZIP, PDF, MP4...)
-                                        </button>
+                                        <div className="py-6">
+                                            <div className="w-16 h-16 bg-white rounded-3xl shadow-sm border border-primary-indigo-100 flex items-center justify-center text-primary-indigo-600 mx-auto mb-4">
+                                                <FiUpload size={32} />
+                                            </div>
+                                            <h3 className="text-xl font-black text-slate-900 mb-2">ماذا ستبيع اليوم؟</h3>
+                                            <p className="text-sm text-slate-500 mb-6 font-medium">ارفع ملف الـ ZIP أو الـ PDF أو الكورس الآن</p>
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowFileUploader(true)}
+                                                className="px-10 py-4 bg-primary-indigo-600 text-white rounded-2xl font-black text-sm shadow-xl shadow-indigo-100 hover:bg-primary-indigo-700 transition-all font-sans"
+                                            >
+                                                اختر الملف للبدء
+                                            </button>
+                                        </div>
                                     )}
                                 </div>
 
-                                {/* Collapsible Optional Section */}
-                                <div className="mt-8">
-                                    <button 
-                                        type="button" 
-                                        onClick={() => setShowGuide(!showGuide)}
-                                        className="text-slate-400 font-black text-xs uppercase flex items-center gap-2 mb-4 hover:text-slate-600 transition-colors"
-                                    >
-                                        {showGuide ? <FiChevronUp /> : <FiChevronDown />}
-                                        تعديلات إضافية (اختيارية)
-                                    </button>
-                                    
-                                    {showGuide && (
-                                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="grid sm:grid-cols-2 gap-4">
-                                            {/* Video Trailer */}
-                                            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                                                <p className="text-[10px] font-bold text-slate-400 mb-2">فيديو ترويجي</p>
-                                                <button type="button" onClick={() => setShowTrailerUploader(true)} className="text-xs font-black text-primary-indigo-600 flex items-center gap-2">
-                                                    <FiFilm className="text-base" /> {formData.trailerUrl ? 'تغيير الفيديو' : 'إضافة فيديو'}
-                                                </button>
-                                            </div>
-                                            {/* Preview File */}
-                                            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                                                <p className="text-[10px] font-bold text-slate-400 mb-2">ملف معاينة مجاني</p>
-                                                <button type="button" onClick={() => setShowPreviewUploader(true)} className="text-xs font-black text-primary-indigo-600 flex items-center gap-2">
-                                                    <FiEye className="text-base" /> {formData.previewFileUrl ? 'تغيير المعاينة' : 'إضافة معاينة'}
-                                                </button>
-                                            </div>
-                                        </motion.div>
+                                {/* Cover Image */}
+                                <div className="p-6 bg-slate-50 rounded-[2rem] border border-slate-100">
+                                    <label className="label-modern mb-4 block">صورة الغلاف (16:9) <span className="text-red-500">*</span></label>
+                                    {formData.image ? (
+                                        <div className="relative w-full aspect-video rounded-3xl overflow-hidden border-4 border-white shadow-lg">
+                                            <img src={formData.image} alt="Cover" className="w-full h-full object-cover" />
+                                            <button type="button" onClick={() => update('image', '')} className="absolute top-4 left-4 bg-red-500 text-white w-9 h-9 rounded-full flex items-center justify-center">&times;</button>
+                                        </div>
+                                    ) : showCoverUploader ? (
+                                        <FileUploader onUploadSuccess={urls => { update('image', urls[0]); setShowCoverUploader(false); }} />
+                                    ) : (
+                                        <button type="button" onClick={() => setShowCoverUploader(true)} className="w-full py-16 border-2 border-dashed border-slate-200 rounded-3xl text-slate-400 font-bold flex flex-col items-center justify-center gap-4 hover:border-primary-indigo-400 bg-white">
+                                            <FiImage size={32} />
+                                            ارفع صورة الغلاف بصيغة عرض مميزة
+                                        </button>
                                     )}
                                 </div>
                             </Section>
                         </motion.div>
                     )}
 
+                    {/* Step 2: Identity (NOW SECOND) */}
+                    {currentStep === 2 && (
+                        <motion.div key="st2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
+                            <Section title="هوية المنتج" icon={<FiPackage />} description="تفاصيل المنتج التي ستجذب المشترين">
+                                <div>
+                                    <label className="label-modern">اسم المنتج <span className="text-red-500">*</span></label>
+                                    <input
+                                        type="text" required className="input-modern"
+                                        placeholder="مثال: التصميم الجرافيكي المتقدم"
+                                        value={formData.title}
+                                        onChange={e => update('title', e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="label-modern">وصف المنتج <span className="text-red-500">*</span></label>
+                                    <RichTextEditor
+                                        value={formData.description}
+                                        onChange={val => update('description', val)}
+                                    />
+                                </div>
+                                <div className="grid sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="label-modern">تصنيف المنتج</label>
+                                        <select className="input-modern bg-white" value={formData.category} onChange={e => update('category', e.target.value)}>
+                                            <option value="">اختر التصنيف</option>
+                                            <option value="courses">دورات</option>
+                                            <option value="ebooks">كتب</option>
+                                            <option value="templates">قوالب</option>
+                                            <option value="software">برمجيات</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className="label-modern">وسوم (Tags)</label>
+                                        <input type="text" className="input-modern" placeholder="وسم1, وسم2..." value={formData.tags} onChange={e => update('tags', e.target.value)} />
+                                    </div>
+                                </div>
+                            </Section>
+                        </motion.div>
+                    )}
+
+                    {/* Step 3: Pricing */}
+                    {currentStep === 3 && (
+                        <motion.div key="st3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
+                            <Section title="التسعير والبيع" icon={<FiDollarSign />} description="حدد قيمة منتجك الذي رفعته للتو">
+                                <div className="grid grid-cols-3 gap-3">
+                                    {['fixed', 'pwyw', 'free'].map(vt => (
+                                        <button
+                                            key={vt} type="button"
+                                            onClick={() => update('pricingType', vt)}
+                                            className={`p-4 rounded-3xl text-sm font-black border-2 transition-all flex flex-col items-center gap-2 ${formData.pricingType === vt ? 'border-primary-indigo-600 bg-primary-indigo-50 text-primary-indigo-600' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}
+                                        >
+                                            {vt === 'fixed' ? 'سعر ثابت' : vt === 'pwyw' ? 'ادفع ما تريد' : 'مجاني'}
+                                            <span className="text-[10px] opacity-60">
+                                                {vt === 'fixed' ? 'سعر محدد مسبقاً' : vt === 'pwyw' ? 'دعم اختياري' : 'هديـة للمبدعين'}
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
+                                {formData.pricingType !== 'free' && (
+                                    <div className="pt-6 mt-6 border-t border-slate-50">
+                                        <label className="label-modern">السعر النهائي (ج.م) <span className="text-red-500">*</span></label>
+                                        <input
+                                            type="number" step="0.01" className="input-modern"
+                                            placeholder="299"
+                                            value={formData.price}
+                                            onChange={e => update('price', e.target.value)}
+                                        />
+                                    </div>
+                                )}
+                            </Section>
+                        </motion.div>
+                    )}
+
                 </AnimatePresence>
 
-                {/* Sticky Action Footer */}
-                <div className="mt-12 flex items-center justify-between gap-4 pt-10 border-t border-slate-100">
+                {/* Footer Buttons */}
+                <div className="mt-12 flex items-center justify-between pt-10 border-t border-slate-100">
                     <div className="flex gap-4 items-center">
                         {currentStep > 1 && (
-                            <button
-                                type="button"
-                                onClick={prevStep}
-                                className="px-8 py-4 bg-slate-100 text-slate-700 rounded-2xl font-black text-sm hover:bg-slate-200 transition-colors"
-                            >
+                            <button type="button" onClick={prevStep} className="px-8 py-4 bg-slate-100 text-slate-700 rounded-2xl font-black text-sm hover:bg-slate-200">
                                 السابق
                             </button>
                         )}
-                        <Link href="/dashboard/products" className="text-slate-400 hover:text-red-500 font-bold text-sm transition-colors">
-                            إلغاء
-                        </Link>
+                        <Link href="/dashboard/products" className="text-slate-400 hover:text-red-500 font-bold text-sm px-4 py-4">إلغاء</Link>
                     </div>
 
                     <div className="flex gap-4">
                         {currentStep < 3 ? (
-                            <button
-                                type="button"
-                                onClick={nextStep}
-                                className="px-10 py-4 bg-primary-indigo-600 text-white rounded-2xl font-black text-sm shadow-xl shadow-indigo-100 hover:bg-primary-indigo-700 transition-colors flex items-center gap-3"
-                            >
+                            <button type="button" onClick={nextStep} className="px-10 py-4 bg-primary-indigo-600 text-white rounded-2xl font-black text-sm shadow-xl shadow-indigo-100 hover:bg-primary-indigo-700 flex items-center gap-3">
                                 الخطوة التالية
                                 <FiArrowLeft />
                             </button>
                         ) : (
-                            <button
-                                type="submit"
-                                disabled={loading || !formData.image || !formData.fileUrl}
-                                className="px-12 py-4 bg-primary-indigo-600 text-white rounded-2xl font-black text-sm shadow-xl shadow-indigo-100 hover:bg-primary-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-3"
-                            >
-                                {loading ? 'جاري النشر...' : 'حفظ ونشر المنتج الآن'}
+                            <button type="submit" disabled={loading} className="px-12 py-4 bg-primary-indigo-600 text-white rounded-2xl font-black text-sm shadow-xl shadow-indigo-100 hover:bg-primary-indigo-700 flex items-center gap-3">
+                                {loading ? 'جاري النشر...' : 'حفظ ونشر المنتج'}
                                 {!loading && <FiCheck />}
                             </button>
                         )}
