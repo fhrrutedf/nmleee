@@ -131,17 +131,21 @@ export const authOptions: AuthOptions = {
             return true;
         },
         async jwt({ token, user, account }) {
+            if (user) {
                 token.sub = user.id;
-                token.id = user.id;
+                token.id = (user as any).id;
                 token.name = user.name;
                 token.email = user.email;
-                token.username = user.username;
-                token.role = user.role;
+                token.username = (user as any).username;
+                token.role = (user as any).role;
+            }
+            
             // For Google sign-in, fetch username from DB if not in token
             if (account?.provider === 'google' && token.email && !token.username) {
                 const dbUser = await prisma.user.findUnique({ where: { email: token.email as string } });
                 if (dbUser) {
                     token.sub = dbUser.id;
+                    token.id = dbUser.id;
                     token.username = dbUser.username;
                     token.role = dbUser.role;
                 }
