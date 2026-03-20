@@ -297,42 +297,47 @@ export default function NewCoursePage() {
                             </motion.div>
                         )}
 
-                    </AnimatePresence>
+                </AnimatePresence>
 
-                    {/* Action Footer */}
-                    <div className="mt-12 flex items-center justify-between pt-10 border-t border-slate-100">
-                        <div className="flex gap-4">
-                            {currentStep > 1 && (
-                                <button type="button" onClick={prevStep} className="px-8 py-4 bg-slate-100 text-slate-700 rounded-2xl font-black text-sm hover:bg-slate-200">
-                                    السابق
-                                </button>
-                            )}
-                            <Link href="/dashboard/courses" className="text-slate-400 hover:text-red-500 font-bold text-sm px-4 py-4">إلغاء</Link>
-                        </div>
-                        <div className="flex gap-4">
-                            {currentStep < 3 ? (
-                                <button
-                                    key="next-btn-course"
-                                    type="button"
-                                    onClick={nextStep}
-                                    className="px-8 py-4 bg-primary-indigo-600 text-white rounded-2xl font-black flex items-center gap-2 hover:bg-primary-indigo-700 transition-all shadow-lg shadow-indigo-100"
-                                >
-                                    الخطوة التالية
-                                    <FiArrowLeft />
-                                </button>
-                            ) : (
-                                <button
-                                    key="submit-btn-course"
-                                    type="submit"
-                                    disabled={loading}
-                                    className="px-8 py-4 bg-emerald-500 text-white rounded-2xl font-black flex items-center gap-2 hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-100 disabled:opacity-50"
-                                >
-                                    {loading ? 'جاري النشر...' : 'حفظ ونشر المنهج'}
-                                    {!loading && <FiCheck />}
-                                </button>
-                            )}
-                        </div>
+                {/* Navigation Footer */}
+                <div className="mt-16 flex items-center justify-between pt-8 border-t border-slate-100 px-4">
+                    <div className="flex-1">
+                        {currentStep > 1 && (
+                            <button
+                                type="button"
+                                onClick={prevStep}
+                                className="flex items-center gap-2 text-slate-400 font-bold hover:text-slate-600 transition-all group py-2"
+                            >
+                                <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+                                السابق
+                            </button>
+                        )}
                     </div>
+
+                    <div className="flex gap-10">
+                        {currentStep < 3 ? (
+                            <button
+                                key="next-btn-course"
+                                type="button"
+                                onClick={nextStep}
+                                className="px-12 py-3.5 bg-primary-indigo-600 text-white rounded-[1.25rem] font-bold flex items-center gap-2 hover:bg-primary-indigo-700 hover:shadow-xl hover:shadow-indigo-100 transition-all shadow-lg shadow-indigo-50 active:scale-95"
+                            >
+                                الخطوة التالية
+                                <FiArrowLeft />
+                            </button>
+                        ) : (
+                            <button
+                                key="submit-btn-course"
+                                type="submit"
+                                disabled={loading}
+                                className="px-12 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-[1.25rem] font-bold flex items-center gap-2 hover:from-emerald-600 hover:to-teal-600 hover:shadow-xl hover:shadow-emerald-100 transition-all shadow-lg shadow-emerald-50 active:scale-95 disabled:opacity-50"
+                            >
+                                {loading ? 'جاري النشر...' : 'حفظ ونشر المنهج'}
+                                {!loading && <FiCheck />}
+                            </button>
+                        )}
+                    </div>
+                </div>
             </form>
             )}
 
