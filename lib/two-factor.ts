@@ -1,17 +1,21 @@
-import { authenticator } from 'otplib';
+import { generateSecret, generateURI, verify } from 'otplib';
 import QRCode from 'qrcode';
 
 /**
  * 2FA (Two-Factor Authentication) Helpers
- * استخدام مكتبة otplib لتوليد رموز TOTP
+ * استخدام مكتبة otplib (الإصدار 13+) لتوليد رموز TOTP
  */
 
 /**
  * توليد سر جديد للمستخدم
  */
 export function generateTwoFactorSecret(userEmail: string) {
-    const secret = authenticator.generateSecret();
-    const otpauth = authenticator.keyuri(userEmail, 'Tmleen Platform', secret);
+    const secret = generateSecret();
+    const otpauth = generateURI({
+        issuer: 'Tmleen Platform',
+        label: userEmail,
+        secret: secret
+    });
     return { secret, otpauth };
 }
 
@@ -30,8 +34,9 @@ export async function generateQRCode(otpauth: string) {
 /**
  * التحقق من الرمز المدخل من قبل المستخدم
  */
-export function verifyTwoFactorToken(token: string, secret: string) {
-    return authenticator.verify({ token, secret });
+export async function verifyTwoFactorToken(token: string, secret: string) {
+    const result = await verify({ token, secret });
+    return result.valid;
 }
 
 /**
