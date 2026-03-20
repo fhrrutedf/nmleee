@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { FiCheck, FiLock, FiChevronLeft, FiChevronRight, FiVideo, FiFileText, FiCheckSquare, FiAward, FiDownload, FiMessageCircle, FiBarChart2, FiArrowRight } from 'react-icons/fi';
+import { FiCheck, FiLock, FiChevronLeft, FiChevronRight, FiVideo, FiFileText, FiCheckSquare, FiAward, FiDownload, FiMessageCircle, FiBarChart2, FiArrowRight, FiPlay } from 'react-icons/fi';
 import QuizPlayer from '@/components/QuizPlayer';
 import AdvancedVideoPlayer from '@/components/lessons/AdvancedVideoPlayer';
 import LessonComments from '@/components/lessons/LessonComments';
