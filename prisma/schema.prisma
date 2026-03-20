@@ -142,6 +142,8 @@ model User {
   // Admin Control
   custom_commission_rate Float?      // عمولة مخصصة لهذا البائع (تتخطى عمولة الاشتراك)
   commission_note        String?     // ملاحظة حول العمولة المخصصة
+  // Multi-tenant
+  customDomain           String?     @unique // الدومين المخصص (مثلاً store.nawaf.pro)
 }
 
 model Product {
