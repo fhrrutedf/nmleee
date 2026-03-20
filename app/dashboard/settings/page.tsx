@@ -43,6 +43,7 @@ export default function SettingsPage() {
         vodafoneCash: '',
         mtncashNumber: '',
         twoFactorEnabled: false,
+        phoneVisibility: 'HIDDEN' as 'PUBLIC' | 'HIDDEN' | 'WHATSAPP_ONLY',
     });
 
     const [show2FASetup, setShow2FASetup] = useState(false);
@@ -103,6 +104,7 @@ export default function SettingsPage() {
                     vodafoneCash: data.vodafoneCash || '',
                     mtncashNumber: data.mtncashNumber || '',
                     twoFactorEnabled: data.twoFactorEnabled || false,
+                    phoneVisibility: data.phoneVisibility || 'HIDDEN',
                 });
                 setOriginalUsername(data.username || '');
                 setPaymentData({
@@ -165,9 +167,11 @@ export default function SettingsPage() {
     };
 
     const setup2FA = async () => {
+        const loadingToast = toast.loading('جاري تجهيز إعدادات الأمان...');
         try {
             const res = await fetch('/api/user/2fa/setup', { method: 'POST' });
             const data = await res.json();
+            toast.dismiss(loadingToast);
             if (data.qrCode) {
                 setQrCode(data.qrCode);
                 setTempSecret(data.secret);
@@ -665,12 +669,21 @@ export default function SettingsPage() {
                                 <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الخصوصية والأمان المتقدم</h2>
 
                                 <div className="space-y-6">
-                                    <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800">
-                                        <h3 className="font-bold text-gray-900 dark:text-white mb-2">رؤية الملف الشخصي</h3>
-                                        <select className="input rounded-xl bg-white dark:bg-gray-900 shadow-sm border-gray-200">
-                                            <option>عام - يمكن لأي شخص رؤية ملفك الشخصي</option>
-                                            <option>خاص - فقط من تتابعهم</option>
+                                    <div className="p-5 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800">
+                                        <div className="flex items-center gap-2 mb-4 text-primary-charcoal dark:text-white">
+                                            <FiEye className="text-action-blue" />
+                                            <h3 className="font-bold">رؤية رقم الهاتف</h3>
+                                        </div>
+                                        <select 
+                                            value={profileData.phoneVisibility}
+                                            onChange={(e) => setProfileData({ ...profileData, phoneVisibility: e.target.value as any })}
+                                            className="input rounded-xl bg-white dark:bg-gray-900 shadow-sm border-gray-200"
+                                        >
+                                            <option value="PUBLIC">عام - يظهر للجميع في صفحة المبدع</option>
+                                            <option value="WHATSAPP_ONLY">عبر واتساب فقط - زر تواصل مباشر</option>
+                                            <option value="HIDDEN">مخفي - يظهر للإدارة فقط عند الضرورة</option>
                                         </select>
+                                        <p className="mt-2 text-xs text-text-muted">نوصي باختيار "مخفي" أو "واتساب فقط" لخصوصية أفضل.</p>
                                     </div>
 
                                     <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800">

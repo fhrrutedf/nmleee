@@ -11,16 +11,27 @@ export const metadata = {
 export default async function ExplorePage({
     searchParams,
 }: {
-    searchParams: Promise<{ q?: string; category?: string; sort?: string }>
+    searchParams: Promise<{ q?: string; category?: string; sort?: string; minPrice?: string; maxPrice?: string }>
 }) {
-    const { q: query = '', category = '', sort = 'newest' } = await searchParams;
+    const { q: query = '', category = '', sort = 'newest', minPrice = '', maxPrice = '' } = await searchParams;
+
+    const minP = minPrice ? parseFloat(minPrice) : undefined;
+    const maxP = maxPrice ? parseFloat(maxPrice) : undefined;
 
     // Build text search filter
     const searchFilter = query ? {
         OR: [
             { title: { contains: query, mode: 'insensitive' as const } },
-            { description: { contains: query, mode: 'insensitive' as const } }
+            { description: { contains: query, mode: 'insensitive' as const } },
+            { tags: { has: query } } // Include tags search
         ]
+    } : {};
+
+    const priceFilter = (minP !== undefined || maxP !== undefined) ? {
+        price: {
+            gte: minP,
+            lte: maxP
+        }
     } : {};
 
     // "courses" category means only show courses (not a DB category value)
@@ -38,7 +49,8 @@ export default async function ExplorePage({
                 where: {
                     isActive: true,
                     ...searchFilter,
-                    ...productCategoryFilter
+                    ...productCategoryFilter,
+                    ...priceFilter
                 },
                 include: { user: { select: { name: true, brandColor: true, avatar: true, username: true } } },
                 orderBy: sort === 'price_asc' ? { price: 'asc' } :
@@ -58,6 +70,7 @@ export default async function ExplorePage({
                     // @ts-ignore
                     status: 'APPROVED',
                     ...searchFilter,
+                    ...priceFilter
                 },
                 include: { user: { select: { name: true, brandColor: true, avatar: true, username: true } } },
                 orderBy: sort === 'price_asc' ? { price: 'asc' } :
@@ -101,43 +114,65 @@ export default async function ExplorePage({
                         آلاف المنتجات الرقمية والدورات التعليمية الموثوقة من نخبة صناع المحتوى والخبراء.
                     </p>
 
-                    <form className="flex flex-col md:flex-row gap-3 max-w-3xl mx-auto bg-white/10 dark:bg-black/20 p-2 sm:p-3 rounded-3xl backdrop-blur-md border border-white/20 shadow-2xl">
-                        <div className="relative flex-1">
-                            <FiSearch className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-300 text-xl" />
-                            <input
-                                type="text"
-                                name="q"
-                                defaultValue={query}
-                                placeholder="عمّ تبحث اليوم؟ كورس، كتاب، قالب..."
-                                className="w-full pl-4 pr-14 py-4 sm:py-5 rounded-2xl bg-white dark:bg-gray-900 border-none focus:ring-4 focus:ring-action-blue/30 outline-none text-lg text-primary-charcoal dark:text-white font-bold placeholder:font-normal placeholder:text-gray-400 dark:placeholder:text-gray-500 shadow-inner"
-                            />
+                    <form className="flex flex-col gap-4 max-w-4xl mx-auto bg-white/10 dark:bg-black/20 p-4 sm:p-5 rounded-3xl backdrop-blur-md border border-white/20 shadow-2xl">
+                        <div className="flex flex-col md:flex-row gap-3">
+                            <div className="relative flex-1">
+                                <FiSearch className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-300 text-xl" />
+                                <input
+                                    type="text"
+                                    name="q"
+                                    defaultValue={query}
+                                    placeholder="عمّ تبحث اليوم؟ كورس، كتاب، قالب..."
+                                    className="w-full pl-4 pr-14 py-4 sm:py-5 rounded-2xl bg-white dark:bg-gray-900 border-none focus:ring-4 focus:ring-action-blue/30 outline-none text-lg text-primary-charcoal dark:text-white font-bold placeholder:font-normal placeholder:text-gray-400 dark:placeholder:text-gray-500 shadow-inner"
+                                />
+                            </div>
+                            <div className="flex gap-3">
+                                <select
+                                    name="category"
+                                    defaultValue={category}
+                                    className="w-full md:w-auto py-4 sm:py-5 px-6 rounded-2xl border-none focus:ring-4 focus:ring-action-blue/30 outline-none bg-white dark:bg-gray-900 text-primary-charcoal dark:text-white font-bold cursor-pointer shadow-inner"
+                                >
+                                    <option value="">كل الأقسام</option>
+                                    <option value="courses">دورات تعليمية</option>
+                                    <option value="ebooks">كتب إلكترونية</option>
+                                    <option value="templates">قوالب وأدوات</option>
+                                </select>
+                                <button type="submit" className="bg-primary-charcoal dark:bg-action-blue text-white px-8 py-4 sm:py-5 rounded-2xl font-black hover:bg-black dark:hover:bg-blue-600 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 whitespace-nowrap text-lg flex items-center gap-2">
+                                    <FiSearch /> <span>بحث</span>
+                                </button>
+                            </div>
                         </div>
-                        <div className="flex gap-3">
-                            <select
-                                name="category"
-                                defaultValue={category}
-                                className="w-full md:w-auto py-4 sm:py-5 px-6 rounded-2xl border-none focus:ring-4 focus:ring-action-blue/30 outline-none bg-white dark:bg-gray-900 text-primary-charcoal dark:text-white font-bold cursor-pointer shadow-inner"
-                            >
-                                <option value="">كل الأقسام</option>
-                                <option value="courses">دورات تعليمية</option>
-                                <option value="ebooks">كتب إلكترونية</option>
-                                <option value="templates">قوالب وأدوات</option>
-                            </select>
+
+                        <div className="flex flex-wrap items-center gap-4 pt-2 border-t border-white/10 mt-2">
+                            <div className="flex items-center gap-2 bg-white/5 dark:bg-black/20 px-4 py-2 rounded-xl border border-white/10">
+                                <span className="text-sm font-bold opacity-70">السعر:</span>
+                                <input 
+                                    type="number" 
+                                    name="minPrice" 
+                                    placeholder="أقل" 
+                                    defaultValue={minPrice}
+                                    className="w-20 bg-transparent border-none outline-none text-sm font-black text-center focus:ring-0 placeholder:font-normal"
+                                />
+                                <span className="opacity-30">-</span>
+                                <input 
+                                    type="number" 
+                                    name="maxPrice" 
+                                    placeholder="أقصى" 
+                                    defaultValue={maxPrice}
+                                    className="w-20 bg-transparent border-none outline-none text-sm font-black text-center focus:ring-0 placeholder:font-normal"
+                                />
+                            </div>
 
                             <select
                                 name="sort"
                                 defaultValue={sort}
-                                className="hidden sm:block py-4 sm:py-5 px-6 rounded-2xl border-none focus:ring-4 focus:ring-action-blue/30 outline-none bg-white dark:bg-gray-900 text-primary-charcoal dark:text-white font-bold cursor-pointer shadow-inner"
+                                className="py-2 px-4 rounded-xl border border-white/10 bg-white/5 dark:bg-black/20 text-white text-sm font-bold cursor-pointer outline-none focus:bg-action-blue transition-colors"
                             >
-                                <option value="newest">الأحدث</option>
-                                <option value="popular">الأكثر مبيعاً</option>
-                                <option value="price_asc">الأقل سعراً</option>
-                                <option value="price_desc">الأعلى سعراً</option>
+                                <option value="newest" className="bg-primary-900">الأحدث</option>
+                                <option value="popular" className="bg-primary-900">الأكثر مبيعاً</option>
+                                <option value="price_asc" className="bg-primary-900">الأقل سعراً</option>
+                                <option value="price_desc" className="bg-primary-900">الأعلى سعراً</option>
                             </select>
-
-                            <button type="submit" className="bg-primary-charcoal dark:bg-action-blue text-white px-8 py-4 sm:py-5 rounded-2xl font-black hover:bg-black dark:hover:bg-blue-600 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 whitespace-nowrap text-lg flex items-center gap-2">
-                                <FiSearch /> <span className="hidden sm:inline">بحث</span>
-                            </button>
                         </div>
                     </form>
 

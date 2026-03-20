@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from 'react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
+import { NotificationListener } from '@/components/NotificationListener';
 
 export default function DashboardLayout({
     children,
@@ -120,7 +121,7 @@ export default function DashboardLayout({
             <aside className="hidden lg:flex fixed inset-y-0 right-0 bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex-col">
                 <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                     <div className="flex items-center justify-between">
-                        <h1 className="text-2xl font-bold bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent">تقانة</h1>
+                        <h1 className="text-2xl font-black bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent transform transition-transform hover:scale-105">تمالين</h1>
                     </div>
                     <p className="text-sm text-text-muted mt-2">مرحباً، {session.user?.name}</p>
                     <div className="mt-6 flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
@@ -163,7 +164,7 @@ export default function DashboardLayout({
                     className="lg:hidden fixed top-0 bottom-0 right-0 bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex flex-col overflow-y-auto overflow-x-hidden">
                     <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                         <div className="flex items-center justify-between">
-                            <h1 className="text-2xl font-bold bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent">تقانة</h1>
+                            <h1 className="text-2xl font-black bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent">تمالين</h1>
                             <button onClick={() => setSidebarOpen(false)} className="text-primary-charcoal hover:text-action-blue transition-colors">
                                 <FiX className="text-2xl" />
                             </button>
@@ -243,6 +244,7 @@ export default function DashboardLayout({
                     {children}
                 </main>
             </div>
+            <NotificationListener />
         </div>
     );
 }

@@ -10,7 +10,7 @@ export default function DangerZone() {
     const [confirmText, setConfirmText] = useState('');
     const [password, setPassword] = useState('');
     const [showModal, setShowModal] = useState(false);
-    const CONFIRM_PHRASE = 'إحذف حسابي نهائياً';
+    const CONFIRM_PHRASE = 'DELETE';
 
     const handleDelete = async () => {
         if (confirmText !== CONFIRM_PHRASE) {
@@ -104,20 +104,18 @@ export default function DangerZone() {
                                         />
                                     </div>
                                 </div>
-
-                                <div>
-                                    <label className="label text-gray-900 font-bold mb-2">
-                                        لفهمنا أنك قرأت التحذير، يرجى كتابة: <br/>
-                                        <span className="text-red-600 select-all">"{CONFIRM_PHRASE}"</span>
-                                    </label>
-                                    <input 
-                                        type="text" 
-                                        className="input text-center" 
-                                        placeholder="اكتب النص هنا"
-                                        value={confirmText}
-                                        onChange={e => setConfirmText(e.target.value)}
-                                    />
-                                </div>
+                                <h4 className="font-bold text-gray-900 mb-2">أمنيتي الأخيرة قبل الحذف</h4>
+                                <p className="text-sm text-gray-500 mb-4">
+                                    هذا الإجراء سيقوم بحذف متجرك ومنتجاتك وسجل مبيعاتك وأرباحك **نهائياً**. لتأكيد العملية، يرجى كتابة <span className="font-mono font-bold text-red-600 bg-red-50 px-1 rounded">DELETE</span> بالأسفل:
+                                </p>
+                                
+                                <input 
+                                    type="text"
+                                    className="input mb-4"
+                                    placeholder="اكتب DELETE هنا"
+                                    value={confirmText}
+                                    onChange={(e) => setConfirmText(e.target.value)}
+                                />
                             </div>
 
                             <div className="flex gap-4">
