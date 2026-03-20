@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useCart } from '@/contexts/CartContext';
-import { FiShoppingCart, FiX, FiTrash2 } from 'react-icons/fi';
+import { FiShoppingCart, FiX, FiTrash2, FiShoppingBag, FiArrowRight } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -19,115 +20,156 @@ export default function CartDrawer() {
         return () => window.removeEventListener('keydown', handleEsc);
     }, []);
 
+    // Lock body scroll when open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
     return (
         <>
             {/* Cart Button */}
             <button
                 onClick={() => setIsOpen(true)}
-                className="relative p-2 text-gray-700 hover:text-indigo-600 transition-colors"
+                className="relative p-2.5 text-gray-700 hover:text-action-blue transition-all bg-gray-50 hover:bg-white rounded-xl border border-transparent hover:border-gray-100 hover:shadow-sm group"
             >
-                <FiShoppingCart size={24} />
+                <FiShoppingCart size={22} className="group-hover:scale-110 transition-transform" />
                 {itemCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    <span className="absolute -top-1 -right-1 bg-action-blue text-white text-[10px] font-black rounded-full w-5 h-5 flex items-center justify-center ring-2 ring-white">
                         {itemCount}
                     </span>
                 )}
             </button>
 
-            {/* Overlay */}
-            {isOpen && (
-                <div
-                    className="fixed inset-0 bg-black bg-opacity-50 z-40"
-                    onClick={() => setIsOpen(false)}
-                />
-            )}
-
-            {/* Drawer */}
-            <div
-                className={`fixed top-0 left-0 h-full w-full max-w-md bg-white shadow-xl z-50 transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'
-                    }`}
-            >
-                <div className="flex flex-col h-full">
-                    {/* Header */}
-                    <div className="flex items-center justify-between p-4 border-b">
-                        <h2 className="text-xl font-bold text-gray-900">
-                            السلة ({itemCount})
-                        </h2>
-                        <button
+            {/* Backdrop & Drawer */}
+            <AnimatePresence>
+                {isOpen && (
+                    <>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
                             onClick={() => setIsOpen(false)}
-                            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                        >
-                            <FiX size={24} />
-                        </button>
-                    </div>
+                            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100]"
+                        />
 
-                    {/* Items */}
-                    <div className="flex-1 overflow-y-auto p-4">
-                        {items.length === 0 ? (
-                            <div className="text-center py-12">
-                                <FiShoppingCart size={64} className="mx-auto text-gray-300 mb-4" />
-                                <p className="text-gray-500">السلة فارغة</p>
+                        <motion.div
+                            initial={{ x: '100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '100%' }}
+                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                            className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-[101] flex flex-col"
+                        >
+                            {/* Header */}
+                            <div className="flex items-center justify-between p-6 border-b border-gray-100">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-action-blue/10 rounded-xl flex items-center justify-center text-action-blue">
+                                        <FiShoppingBag size={20} />
+                                    </div>
+                                    <h2 className="text-xl font-black text-primary-charcoal">
+                                        سلة المشتريات
+                                        <span className="text-sm font-bold text-gray-400 mr-2">({itemCount})</span>
+                                    </h2>
+                                </div>
+                                <button
+                                    onClick={() => setIsOpen(false)}
+                                    className="p-2 hover:bg-gray-100 rounded-xl text-gray-400 hover:text-gray-900 transition-colors"
+                                >
+                                    <FiX size={24} />
+                                </button>
                             </div>
-                        ) : (
-                            <div className="space-y-4">
-                                {items.map((item) => (
-                                    <div
-                                        key={item.id}
-                                        className="flex gap-3 p-3 border rounded-lg hover:shadow-md transition-shadow"
-                                    >
-                                        {item.image && (
-                                            <div className="relative w-20 h-20 flex-shrink-0">
-                                                <Image
-                                                    src={item.image}
-                                                    alt={item.title}
-                                                    fill
-                                                    className="object-cover rounded"
-                                                />
-                                            </div>
-                                        )}
-                                        <div className="flex-1 min-w-0">
-                                            <h3 className="font-medium text-gray-900 truncate">
-                                                {item.title}
-                                            </h3>
-                                            <p className="text-sm text-gray-500">
-                                                {item.type === 'course' ? 'كورس' : 'منتج'}
-                                            </p>
-                                            <p className="text-lg font-bold text-indigo-600 mt-1">
-                                                {item.price.toFixed(2)} ج.م
-                                            </p>
+
+                            {/* Items List */}
+                            <div className="flex-1 overflow-y-auto p-6 scrollbar-hide">
+                                {items.length === 0 ? (
+                                    <div className="h-full flex flex-col items-center justify-center text-center">
+                                        <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mb-6 text-gray-300">
+                                            <FiShoppingCart size={48} />
                                         </div>
-                                        <button
-                                            onClick={() => removeFromCart(item.id)}
-                                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg h-fit transition-colors"
+                                        <h3 className="text-lg font-bold text-gray-900 mb-2">سلتك فارغة حالياً</h3>
+                                        <p className="text-gray-500 text-sm max-w-[200px] mb-8">استكشف المنتجات الرقمية والدورات المميزة وأضفها هنا.</p>
+                                        <button 
+                                            onClick={() => setIsOpen(false)}
+                                            className="font-bold text-action-blue hover:underline"
                                         >
-                                            <FiTrash2 size={20} />
+                                            تصفح المتجر الآن
                                         </button>
                                     </div>
-                                ))}
+                                ) : (
+                                    <div className="space-y-4">
+                                        {items.map((item) => (
+                                            <motion.div
+                                                layout
+                                                initial={{ opacity: 0, y: 10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                key={item.id}
+                                                className="flex gap-4 p-4 bg-white border border-gray-100 rounded-[1.5rem] hover:shadow-lg hover:shadow-gray-200/50 transition-all group"
+                                            >
+                                                {item.image && (
+                                                    <div className="relative w-20 h-20 flex-shrink-0 rounded-2xl overflow-hidden shadow-sm">
+                                                        <Image
+                                                            src={item.image}
+                                                            alt={item.title}
+                                                            fill
+                                                            className="object-cover group-hover:scale-110 transition-transform duration-500"
+                                                        />
+                                                    </div>
+                                                )}
+                                                <div className="flex-1 min-w-0">
+                                                    <h3 className="font-bold text-primary-charcoal truncate mb-0.5">
+                                                        {item.title}
+                                                    </h3>
+                                                    <p className="text-xs font-bold text-gray-400 mb-2">
+                                                        {item.type === 'course' ? '📚 دورة تدريبية' : '📦 منتج رقمي'}
+                                                    </p>
+                                                    <p className="text-lg font-black text-action-blue">
+                                                        {item.price === 0 ? 'مجاني' : `${item.price.toFixed(2)} ج.م`}
+                                                    </p>
+                                                </div>
+                                                <button
+                                                    onClick={() => removeFromCart(item.id)}
+                                                    className="p-2 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-xl h-fit transition-all"
+                                                >
+                                                    <FiTrash2 size={18} />
+                                                </button>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
-                        )}
-                    </div>
 
-                    {/* Footer */}
-                    {items.length > 0 && (
-                        <div className="border-t p-4 space-y-4">
-                            <div className="flex items-center justify-between text-lg">
-                                <span className="font-medium text-gray-700">الإجمالي:</span>
-                                <span className="font-bold text-gray-900">
-                                    {getTotal().toFixed(2)} ج.م
-                                </span>
-                            </div>
-                            <Link
-                                href="/checkout"
-                                onClick={() => setIsOpen(false)}
-                                className="block w-full py-3 bg-indigo-600 text-white text-center rounded-lg font-medium hover:bg-indigo-700 transition-colors"
-                            >
-                                إتمام الشراء
-                            </Link>
-                        </div>
-                    )}
-                </div>
-            </div>
+                            {/* Footer Summary */}
+                            {items.length > 0 && (
+                                <div className="p-6 border-t border-gray-100 bg-gray-50/50 backdrop-blur-md">
+                                    <div className="flex items-center justify-between mb-6">
+                                        <span className="text-gray-500 font-bold">إجمالي المبلغ:</span>
+                                        <span className="text-2xl font-black text-primary-charcoal">
+                                            {getTotal().toFixed(2)} <span className="text-sm">ج.م</span>
+                                        </span>
+                                    </div>
+                                    <Link
+                                        href="/checkout"
+                                        onClick={() => setIsOpen(false)}
+                                        className="group w-full py-4 bg-action-blue text-white flex items-center justify-center gap-2 rounded-[1.25rem] font-black text-lg shadow-xl shadow-action-blue/20 hover:shadow-action-blue/40 hover:-translate-y-1 transition-all"
+                                    >
+                                        <span>إتمام الشراء</span>
+                                        <FiArrowRight className="group-hover:translate-x-1 transition-transform rotate-180" />
+                                    </Link>
+                                    <p className="text-center text-[10px] text-gray-400 mt-4 px-4 font-medium uppercase tracking-wider">
+                                        🔒 دفع آمن ومشفر بنسبة 100%
+                                    </p>
+                                </div>
+                            )}
+                        </motion.div>
+                    </>
+                )}
+            </AnimatePresence>
         </>
     );
 }

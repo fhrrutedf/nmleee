@@ -6,6 +6,8 @@ import {
     FiShoppingCart, FiTrash2, FiTag, FiCreditCard, FiLock,
     FiUpload, FiCopy, FiCheck, FiX, FiGlobe, FiArrowRight
 } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
+import showToast from '@/lib/toast';
 import {
     paymentMethodsByCountry,
     getPaymentMethodsForCountry,
@@ -134,9 +136,9 @@ export default function CheckoutPage() {
             if (res.ok) {
                 const data = await res.json();
                 setDiscount(data.discount);
-                alert(`تم تطبيق الكوبون! خصم ${data.discount} ج.م`);
+                showToast.success(`تم تطبيق الكوبون! خصم ${data.discount} ج.م`);
             } else {
-                alert('الكوبون غير صالح');
+                showToast.error('الكوبون غير صالح');
             }
         } catch (error) {
             console.error('Error validating coupon:', error);
@@ -152,7 +154,7 @@ export default function CheckoutPage() {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
-        if (file.size > 5 * 1024 * 1024) { alert('حجم الصورة أكبر من 5MB'); return; }
+        if (file.size > 5 * 1024 * 1024) { showToast.error('حجم الصورة أكبر من 5MB'); return; }
         setProofFile(file);
         const reader = new FileReader();
         reader.onload = () => setProofPreview(reader.result as string);
@@ -161,12 +163,12 @@ export default function CheckoutPage() {
 
     const handleCheckout = async () => {
         if (!formData.name || !formData.email) {
-            alert('يرجى ملء جميع الحقول المطلوبة');
+            showToast.error('يرجى ملء جميع الحقول المطلوبة');
             return;
         }
 
         if (!customerCountry) {
-            alert('يرجى اختيار دولتك');
+            showToast.error('يرجى اختيار دولتك');
             return;
         }
 
@@ -203,17 +205,17 @@ export default function CheckoutPage() {
             } else if (paymentMethod === 'manual') {
                 // Manual / Local Payment
                 if (!selectedLocalMethod) {
-                    alert('يرجى اختيار وسيلة الدفع المحلية');
+                    showToast.error('يرجى اختيار وسيلة الدفع المحلية');
                     setLoading(false);
                     return;
                 }
                 if (!transactionRef) {
-                    alert('يرجى إدخال رقم العملية');
+                    showToast.error('يرجى إدخال رقم العملية');
                     setLoading(false);
                     return;
                 }
                 if (!proofFile) {
-                    alert('يرجى رفع إيصال الدفع');
+                    showToast.error('يرجى رفع إيصال الدفع');
                     setLoading(false);
                     return;
                 }

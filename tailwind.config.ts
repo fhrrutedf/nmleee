@@ -66,7 +66,7 @@ const config: Config = {
             },
             fontFamily: {
                 sans: ['var(--font-ibm)', 'system-ui', 'sans-serif'],
-                heading: ['var(--font-tajawal)', 'system-ui', 'sans-serif'],
+                heading: ['var(--font-ibm)', 'system-ui', 'sans-serif'],
                 inter: ['var(--font-inter)', 'sans-serif'],
             },
             animation: {

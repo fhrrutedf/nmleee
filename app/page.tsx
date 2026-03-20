@@ -4,115 +4,9 @@ import Link from 'next/link';
 import { FiShoppingBag, FiVideo, FiCalendar, FiDollarSign, FiCheckCircle, FiArrowLeft, FiTrendingUp, FiLayers, FiShield, FiArrowDown } from 'react-icons/fi';
 import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
-
-// --- Premium Animation Components ---
-
-// 1. Text Reveal Animation (Word by Word)
-const RevealText = ({ text, className, delay = 0 }: { text: string, className?: string, delay?: number }) => {
-    const words = text.split(" ");
-
-    const container = {
-        hidden: { opacity: 0 },
-        visible: (i = 1) => ({
-            opacity: 1,
-            transition: { staggerChildren: 0.12, delayChildren: delay * 0.1 },
-        }),
-    };
-
-    const child = {
-        visible: {
-            opacity: 1,
-            y: 0,
-            rotateZ: 0,
-            transition: { type: "spring", damping: 12, stiffness: 100 },
-        },
-        hidden: {
-            opacity: 0,
-            y: 50,
-            rotateZ: 10,
-        },
-    };
-
-    return (
-        <motion.div style={{ overflow: "hidden", display: "flex", flexWrap: "wrap", justifyContent: "inherit" }} className="gap-x-4 gap-y-2" variants={container} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            {words.map((word, index) => (
-                <motion.span variants={child} style={{ display: "inline-block" }} key={index} className={className}>
-                    {word}
-                </motion.span>
-            ))}
-        </motion.div>
-    );
-};
-
-// 2. Magnetic Button (Follows mouse slightly)
-const MagneticButton = ({ children, className }: { children: React.ReactNode, className?: string }) => {
-    const ref = useRef<HTMLDivElement>(null);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-
-    const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
-        const { clientX, clientY } = e;
-        const { height, width, left, top } = ref.current!.getBoundingClientRect();
-        const middleX = clientX - (left + width / 2);
-        const middleY = clientY - (top + height / 2);
-        setPosition({ x: middleX * 0.2, y: middleY * 0.2 });
-    };
-
-    const reset = () => setPosition({ x: 0, y: 0 });
-
-    const { x, y } = position;
-    return (
-        <motion.div
-            style={{ position: "relative" }}
-            ref={ref}
-            onMouseMove={handleMouse}
-            onMouseLeave={reset}
-            animate={{ x, y }}
-            transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
-            className={className}
-        >
-            {children}
-        </motion.div>
-    );
-};
-
-// 3. 3D Tilt Card
-const TiltCard = ({ children, className }: { children: React.ReactNode, className?: string }) => {
-    const x = useSpring(0, { stiffness: 300, damping: 30 });
-    const y = useSpring(0, { stiffness: 300, damping: 30 });
-
-    function handleMouse(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        const rect = event.currentTarget.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
-        const mouseX = event.clientX - rect.left;
-        const mouseY = event.clientY - rect.top;
-        const xPct = mouseX / width - 0.5;
-        const yPct = mouseY / height - 0.5;
-        x.set(xPct);
-        y.set(yPct);
-    }
-
-    const rotateX = useTransform(y, [-0.5, 0.5], ["15deg", "-15deg"]);
-    const rotateY = useTransform(x, [-0.5, 0.5], ["-15deg", "15deg"]);
-
-    return (
-        <motion.div
-            style={{ rotateX, rotateY, transformStyle: "preserve-3d", perspective: 1000 }}
-            onMouseMove={handleMouse}
-            onMouseLeave={() => { x.set(0); y.set(0); }}
-            className={className}
-        >
-            <div style={{ transform: "translateZ(50px)" }} className="w-full h-full relative z-10">
-                {children}
-            </div>
-            {/* Soft Shadow behind the 3D card */}
-            <motion.div
-                className="absolute inset-0 bg-black/5 rounded-2xl -z-10 blur-xl"
-                style={{ transform: "translateZ(-20px)" }}
-            />
-        </motion.div>
-    );
-}
+import { RevealText } from '@/components/animations/RevealText';
+import { MagneticButton } from '@/components/animations/MagneticButton';
+import { TiltCard } from '@/components/animations/TiltCard';
 
 export default function Home() {
     // Scroll Progress for Parallax
@@ -120,31 +14,8 @@ export default function Home() {
     const yHero = useTransform(scrollYProgress, [0, 1], [0, 400]);
     const opacityHero = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [isHovering, setIsHovering] = useState(false);
-
-    useEffect(() => {
-        const updateMousePosition = (e: MouseEvent) => {
-            setMousePosition({ x: e.clientX, y: e.clientY });
-        };
-        window.addEventListener('mousemove', updateMousePosition);
-        return () => window.removeEventListener('mousemove', updateMousePosition);
-    }, []);
-
     return (
         <main className="min-h-screen bg-bg-light overflow-hidden relative cursor-default">
-
-            {/* Custom Cursor Overlay */}
-            <motion.div
-                className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 border-action-blue pointer-events-none z-[100] mix-blend-difference hidden md:block"
-                animate={{ x: mousePosition.x - 16, y: mousePosition.y - 16, scale: isHovering ? 2 : 1, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
-            />
-            <motion.div
-                className="fixed top-0 left-0 w-2 h-2 bg-action-blue rounded-full pointer-events-none z-[100] hidden md:block"
-                animate={{ x: mousePosition.x - 4, y: mousePosition.y - 4 }}
-                transition={{ type: "spring", stiffness: 1000, damping: 40, mass: 0.1 }}
-            />
 
 
 
@@ -208,8 +79,6 @@ export default function Home() {
                             >
                                 <MagneticButton>
                                     <Link href="/register"
-                                        onMouseEnter={() => setIsHovering(true)}
-                                        onMouseLeave={() => setIsHovering(false)}
                                         className="btn btn-primary text-lg px-8 py-4 w-full group relative rounded-xl"
                                     >
                                         <span className="relative z-10 flex items-center gap-2">أنشئ متجرك مجاناً</span>
@@ -218,8 +87,6 @@ export default function Home() {
                                 </MagneticButton>
                                 <MagneticButton>
                                     <Link href="#features"
-                                        onMouseEnter={() => setIsHovering(true)}
-                                        onMouseLeave={() => setIsHovering(false)}
                                         className="btn btn-secondary text-lg px-8 py-4 w-full rounded-xl"
                                     >
                                         استكشف المنصة
@@ -440,8 +307,6 @@ export default function Home() {
                                 viewport={{ once: true, margin: "-50px" }}
                                 transition={{ duration: 0.6, delay: idx * 0.1 }}
                                 whileHover={{ y: -10 }}
-                                onMouseEnter={() => setIsHovering(true)}
-                                onMouseLeave={() => setIsHovering(false)}
                                 className="group relative bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.1)] transition-all duration-300 border border-gray-100/80 overflow-hidden"
                             >
                                 {/* Animated Hover Gradient Background */}
@@ -470,11 +335,11 @@ export default function Home() {
 
             {/* Premium CTA Section */}
             <section className="py-32 relative overflow-hidden bg-gray-900 border-t-4 border-action-blue">
-                {/* Dynamic Mouse Tracking Light */}
-                <motion.div
-                    className="absolute top-0 left-0 w-full h-full pointer-events-none z-0"
+                {/* Static Glowing Background */}
+                <div 
+                    className="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-20"
                     style={{
-                        background: `radial-gradient(circle 800px at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.15), transparent 80%)`
+                        background: `radial-gradient(circle 800px at 50% 50%, rgba(59, 130, 246, 0.15), transparent 80%)`
                     }}
                 />
 
@@ -494,8 +359,6 @@ export default function Home() {
                         </p>
 
                         <div
-                            onMouseEnter={() => setIsHovering(true)}
-                            onMouseLeave={() => setIsHovering(false)}
                             className="inline-block"
                         >
                             <Link href="/register">

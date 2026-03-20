@@ -115,12 +115,12 @@ export const authOptions: AuthOptions = {
                         });
 
                         user.id = newUser.id;
-                        (user as any).username = newUser.username;
-                        (user as any).role = newUser.role;
+                        user.username = newUser.username;
+                        user.role = newUser.role;
                     } else {
                         user.id = existingUser.id;
-                        (user as any).username = existingUser.username;
-                        (user as any).role = existingUser.role;
+                        user.username = existingUser.username;
+                        user.role = existingUser.role;
                     }
                     return true;
                 } catch (error) {
@@ -131,13 +131,12 @@ export const authOptions: AuthOptions = {
             return true;
         },
         async jwt({ token, user, account }) {
-            if (user) {
                 token.sub = user.id;
+                token.id = user.id;
                 token.name = user.name;
                 token.email = user.email;
-                token.username = (user as any).username;
-                token.role = (user as any).role;
-            }
+                token.username = user.username;
+                token.role = user.role;
             // For Google sign-in, fetch username from DB if not in token
             if (account?.provider === 'google' && token.email && !token.username) {
                 const dbUser = await prisma.user.findUnique({ where: { email: token.email as string } });
@@ -153,9 +152,9 @@ export const authOptions: AuthOptions = {
             if (session?.user) {
                 session.user.name = token.name as string;
                 session.user.email = token.email as string;
-                (session.user as any).id = token.sub;
-                (session.user as any).username = token.username;
-                (session.user as any).role = token.role;
+                session.user.id = token.id as string;
+                session.user.username = token.username as string;
+                session.user.role = token.role as string;
             }
             return session;
         }

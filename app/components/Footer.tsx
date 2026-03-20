@@ -1,67 +1,120 @@
 'use client';
 
 import Link from 'next/link';
-import { FiLayers } from 'react-icons/fi';
+import { FiLayers, FiTwitter, FiLinkedin, FiFacebook, FiInstagram, FiMail, FiMapPin, FiPhone } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+
+const footerLinks = [
+    {
+        title: 'المنتج',
+        links: [
+            { name: 'المتجر', href: '/explore' },
+            { name: 'المميزات', href: '/#features' },
+            { name: 'الأسعار', href: '/pricing' },
+            { name: 'المدونة', href: '/blog' }
+        ]
+    },
+    {
+        title: 'الشركة',
+        links: [
+            { name: 'عن المنصة', href: '/about' },
+            { name: 'تواصل معنا', href: '/contact' },
+            { name: 'الأسئلة الشائعة', href: '/faq' }
+        ]
+    },
+    {
+        title: 'قانوني',
+        links: [
+            { name: 'سياسة الخصوصية', href: '/privacy' },
+            { name: 'الشروط والأحكام', href: '/terms' },
+            { name: 'سياسة الاسترجاع', href: '/refund' }
+        ]
+    }
+];
 
 export default function Footer() {
     return (
-        <footer className="bg-primary-charcoal text-gray-400 py-16 border-t border-gray-800/50 relative z-10 overflow-hidden">
+        <footer className="bg-primary-charcoal text-gray-400 py-20 border-t border-gray-800/50 relative z-10 overflow-hidden">
+            {/* Top Gradient Line */}
             <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-action-blue to-transparent opacity-50"></div>
-
+            
             <div className="container-custom relative z-10">
-                <div className="grid md:grid-cols-4 gap-12 mb-12">
-                    <div className="col-span-1 md:col-span-1">
-                        <div className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                            <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }}>
-                                <FiLayers className="text-action-blue" />
-                            </motion.div>
-                            منصتي الرقمية
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 mb-16">
+                    {/* Brand Section */}
+                    <div className="lg:col-span-2 space-y-8">
+                        <div>
+                            <Link href="/" className="inline-flex items-center gap-3 group">
+                                <motion.div 
+                                    whileHover={{ rotate: 180 }}
+                                    transition={{ duration: 0.5 }}
+                                    className="w-12 h-12 rounded-xl bg-action-blue flex items-center justify-center text-white shadow-lg shadow-action-blue/20"
+                                >
+                                    <FiLayers size={24} />
+                                </motion.div>
+                                <span className="text-2xl font-black text-white tracking-tight">منصتي الرقمية</span>
+                            </Link>
                         </div>
-                        <p className="leading-relaxed mb-6 font-medium">الشريك التقني الأول لصناع المحتوى العربي. نمنحك أفضل الأدوات لتكبر وتنتشر وتزيد أرباحك.</p>
+                        <p className="text-gray-400 leading-relaxed font-medium max-w-sm text-lg">
+                            قوتك في عالم التجارة الرقمية. نوفر لك أفضل الأدوات لإنشاء متجرك الخاص وبيع خبراتك ومنتجاتك للعالم العربي بكل سهولة وأمان.
+                        </p>
+                        <div className="flex flex-wrap gap-4">
+                            {[
+                                { icon: <FiFacebook />, href: '#' },
+                                { icon: <FiInstagram />, href: '#' },
+                                { icon: <FiTwitter />, href: '#' },
+                                { icon: <FiLinkedin />, href: '#' }
+                            ].map((social, i) => (
+                                <Link 
+                                    key={i} 
+                                    href={social.href}
+                                    className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-action-blue hover:text-white hover:border-action-blue hover:-translate-y-1 transition-all duration-300"
+                                >
+                                    {social.icon}
+                                </Link>
+                            ))}
+                        </div>
                     </div>
 
-                    <div>
-                        <h4 className="font-bold text-white mb-6 text-lg tracking-wider">المنتج</h4>
-                        <ul className="space-y-4">
-                            {['المميزات', 'الأسعار', 'المدونة'].map((link, i) => (
-                                <li key={i}>
-                                    <Link href={link === 'المميزات' ? '/features' : link === 'الأسعار' ? '/pricing' : link === 'المدونة' ? '/blog' : '/'} className="hover:text-white hover:-translate-x-2 inline-block transition-all duration-300">{link}</Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 className="font-bold text-white mb-6 text-lg tracking-wider">الشركة</h4>
-                        <ul className="space-y-4">
-                            {['عن المنصة', 'تواصل معنا'].map((link, i) => (
-                                <li key={i}>
-                                    <Link href={link === 'عن المنصة' ? '/about' : link === 'تواصل معنا' ? '/contact' : '/'} className="hover:text-white hover:-translate-x-2 inline-block transition-all duration-300">{link}</Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 className="font-bold text-white mb-6 text-lg tracking-wider">قانوني</h4>
-                        <ul className="space-y-4">
-                            {['سياسة الخصوصية', 'الشروط والأحكام'].map((link, i) => (
-                                <li key={i}>
-                                    <Link href={link === 'سياسة الخصوصية' ? '/privacy' : link === 'الشروط والأحكام' ? '/terms' : '/'} className="hover:text-white hover:-translate-x-2 inline-block transition-all duration-300">{link}</Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    {/* Links Sections */}
+                    {footerLinks.map((section, i) => (
+                        <div key={i} className="space-y-8">
+                            <h4 className="text-white font-black text-lg tracking-wide uppercase">
+                                {section.title}
+                            </h4>
+                            <ul className="space-y-4">
+                                {section.links.map((link, j) => (
+                                    <li key={j}>
+                                        <Link 
+                                            href={link.href} 
+                                            className="text-gray-400 hover:text-action-blue hover:translate-x-[-8px] flex items-center transition-all duration-300 font-bold"
+                                        >
+                                            {link.name}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
                 </div>
 
-                <div className="pt-8 border-t border-gray-800 text-center flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="font-medium">جميع الحقوق محفوظة &copy; {new Date().getFullYear()} منصتي الرقمية.</p>
-                    <div className="flex gap-4">
-                        {/* Placeholder for social links */}
-                        <div className="w-10 h-10 rounded-full bg-white/5 hover:bg-action-blue flex items-center justify-center transition-colors cursor-pointer text-white">X</div>
-                        <div className="w-10 h-10 rounded-full bg-white/5 hover:bg-action-blue flex items-center justify-center transition-colors cursor-pointer text-white">in</div>
-                        <div className="w-10 h-10 rounded-full bg-white/5 hover:bg-action-blue flex items-center justify-center transition-colors cursor-pointer text-white">Fb</div>
+                {/* Bottom Section */}
+                <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+                    <div className="flex flex-col md:flex-row items-center gap-4 text-sm font-bold">
+                        <p>جميع الحقوق محفوظة &copy; {new Date().getFullYear()} منصتي الرقمية.</p>
+                        <span className="hidden md:block w-1.5 h-1.5 rounded-full bg-gray-700"></span>
+                        <p className="flex items-center gap-2">
+                             صنع بكل ❤️ في المنطقة العربية
+                        </p>
+                    </div>
+                    
+                    <div className="flex items-center gap-8">
+                        <div className="flex items-center gap-2 text-sm">
+                            <FiMapPin className="text-action-blue" />
+                            <span>دبي، الإمارات العربية المتحدة</span>
+                        </div>
+                        <Link href="/contact" className="text-white font-black hover:text-action-blue transition-colors flex items-center gap-2">
+                             المركز التعليمي <FiInstagram />
+                        </Link>
                     </div>
                 </div>
             </div>

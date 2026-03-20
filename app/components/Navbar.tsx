@@ -1,53 +1,49 @@
 'use client';
 
 import Link from 'next/link';
-import { FiLayers } from 'react-icons/fi';
-import { motion } from 'framer-motion';
-import { useState, useRef } from 'react';
+import { FiLayers, FiMenu, FiX, FiChevronLeft } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { MagneticButton } from '@/components/animations/MagneticButton';
+import CartDrawer from '@/components/CartDrawer';
+import { usePathname } from 'next/navigation';
 
-// Magnetic Button
-const MagneticButton = ({ children, className }: { children: React.ReactNode, className?: string }) => {
-    const ref = useRef<HTMLDivElement>(null);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-
-    const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
-        const { clientX, clientY } = e;
-        const { height, width, left, top } = ref.current!.getBoundingClientRect();
-        const middleX = clientX - (left + width / 2);
-        const middleY = clientY - (top + height / 2);
-        setPosition({ x: middleX * 0.2, y: middleY * 0.2 });
-    };
-
-    const reset = () => setPosition({ x: 0, y: 0 });
-
-    const { x, y } = position;
-    return (
-        <motion.div
-            style={{ position: "relative" }}
-            ref={ref}
-            onMouseMove={handleMouse}
-            onMouseLeave={reset}
-            animate={{ x, y }}
-            transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
-            className={className}
-        >
-            {children}
-        </motion.div>
-    );
-};
+const navLinks = [
+    { title: 'المتجر', href: '/explore' },
+    { title: 'المميزات', href: '/#features' },
+    { title: 'الأسعار', href: '/pricing' },
+    { title: 'حول المنصة', href: '/about' },
+    { title: 'المدونة', href: '/blog' },
+    { title: 'تواصل معنا', href: '/contact' }
+];
 
 export default function Navbar() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
+
+    // Close menu on route change
+    useEffect(() => {
+        setIsMenuOpen(false);
+    }, [pathname]);
+
+    // Scroll lock
+    useEffect(() => {
+        if (isMenuOpen) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = 'unset';
+    }, [isMenuOpen]);
+
     return (
         <motion.header
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="glass-effect sticky top-0 z-50 shadow-sm border-b border-gray-100/50 bg-white/80 backdrop-blur-xl"
+            className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100/50"
         >
             <nav className="container-custom py-4">
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 md:gap-12">
-                        <Link href="/" className="text-xl md:text-2xl font-bold text-primary-charcoal flex items-center gap-2 group">
+                    {/* Logo & Desktop Nav */}
+                    <div className="flex items-center gap-12">
+                        <Link href="/" className="text-xl md:text-2xl font-bold font-heading text-primary-charcoal flex items-center gap-2 group">
                             <motion.span
                                 whileHover={{ rotate: 180, scale: 1.1 }}
                                 transition={{ type: "spring", stiffness: 200, damping: 10 }}
@@ -58,59 +54,107 @@ export default function Navbar() {
                             <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">منصتي الرقمية</span>
                         </Link>
 
-                        <div className="hidden md:flex items-center gap-8">
-                            {['المتجر', 'المميزات', 'الأسعار', 'حول المنصة', 'المدونة', 'تواصل معنا'].map((item, idx) => {
-                                const hrefs: Record<string, string> = {
-                                    'المتجر': '/explore',
-                                    'المميزات': '/features',
-                                    'الأسعار': '/pricing',
-                                    'حول المنصة': '/about',
-                                    'المدونة': '/blog',
-                                    'تواصل معنا': '/contact'
-                                };
-                                return (
-                                    <motion.div
-                                        key={idx}
-                                        whileHover={{ y: -3 }}
+                        <div className="hidden lg:flex items-center gap-8">
+                            {navLinks.map((link, idx) => (
+                                <motion.div key={idx} whileHover={{ y: -2 }}>
+                                    <Link 
+                                        href={link.href} 
+                                        className={`font-bold transition-all relative group py-2 ${pathname === link.href ? 'text-action-blue' : 'text-gray-500 hover:text-action-blue'}`}
                                     >
-                                        <Link href={hrefs[item] || '/'} className="text-gray-600 hover:text-action-blue font-bold transition-colors relative group py-2">
-                                            {item}
-                                            <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-action-blue transition-all duration-300 group-hover:w-full ease-out"></span>
-                                        </Link>
-                                    </motion.div>
-                                );
-                            })}
+                                        {link.title}
+                                        <span className={`absolute bottom-0 right-0 h-0.5 bg-action-blue transition-all duration-300 ease-out ${pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                                    </Link>
+                                </motion.div>
+                            ))}
                         </div>
                     </div>
 
+                    {/* Actions & Mobile Toggle */}
                     <div className="flex gap-2 md:gap-4 items-center">
-                        <MagneticButton>
-                            <Link href="/login"
-                                className="inline-block px-4 py-2 md:px-6 md:py-2.5 rounded-full font-bold text-sm md:text-base text-gray-700 hover:bg-gray-100 transition-colors"
-                            >
-                                دخول
-                            </Link>
-                        </MagneticButton>
-                        <MagneticButton>
-                            <Link href="/register"
-                                className="inline-block px-4 py-2 md:px-6 md:py-2.5 rounded-full font-bold text-sm md:text-base bg-action-blue text-white shadow-lg shadow-blue-500/30 hover:shadow-xl hover:-translate-y-0.5 transition-all overflow-hidden relative group"
-                            >
-                                <motion.span className="relative z-10 flex items-center gap-1 md:gap-2">
-                                    ابدأ مجاناً
-                                    <motion.span
-                                        initial={{ x: 0 }}
-                                        animate={{ x: [-2, 2, -2] }}
-                                        transition={{ repeat: Infinity, duration: 1.5 }}
-                                    >
-                                        🚀
-                                    </motion.span>
-                                </motion.span>
-                                <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 left-0 ease-out"></span>
-                            </Link>
-                        </MagneticButton>
+                        <div className="flex items-center gap-1 md:gap-3">
+                            <CartDrawer />
+                            
+                            <div className="hidden sm:flex items-center gap-2">
+                                <MagneticButton>
+                                    <Link href="/login" className="px-5 py-2.5 rounded-xl font-bold text-gray-600 hover:bg-gray-100 transition-colors">
+                                        دخول
+                                    </Link>
+                                </MagneticButton>
+                                <MagneticButton>
+                                    <Link href="/register" className="px-6 py-2.5 rounded-xl bg-action-blue text-white font-black shadow-lg shadow-action-blue/20 hover:shadow-action-blue/40 transition-all">
+                                        ابدأ مجاناً
+                                    </Link>
+                                </MagneticButton>
+                            </div>
+                        </div>
+
+                        {/* Mobile Toggle */}
+                        <button
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            className="lg:hidden p-2.5 bg-gray-50 hover:bg-white border border-transparent hover:border-gray-100 rounded-xl transition-all text-gray-600"
+                        >
+                            {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+                        </button>
                     </div>
                 </div>
             </nav>
+
+            {/* Mobile Menu Overlay */}
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setIsMenuOpen(false)}
+                            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[51] lg:hidden"
+                        />
+                        <motion.div
+                            initial={{ x: '100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '100%' }}
+                            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                            className="fixed top-0 right-0 h-full w-full max-w-xs bg-white z-[52] lg:hidden flex flex-col shadow-2xl"
+                        >
+                            <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+                                <span className="font-black text-xl text-primary-charcoal">القائمة</span>
+                                <button onClick={() => setIsMenuOpen(false)} className="p-2 bg-gray-50 rounded-lg text-gray-400">
+                                    <FiX size={20} />
+                                </button>
+                            </div>
+                            
+                            <div className="flex-1 overflow-y-auto p-6 space-y-2">
+                                {navLinks.map((link, idx) => (
+                                    <Link
+                                        key={idx}
+                                        href={link.href}
+                                        className={`flex items-center justify-between p-4 rounded-2xl font-bold transition-all ${pathname === link.href ? 'bg-action-blue/10 text-action-blue' : 'text-gray-600 hover:bg-gray-50'}`}
+                                    >
+                                        {link.title}
+                                        <FiChevronLeft className={pathname === link.href ? 'opacity-100' : 'opacity-30'} />
+                                    </Link>
+                                ))}
+                            </div>
+
+                            <div className="p-6 border-t border-gray-100 bg-gray-50/50 space-y-3">
+                                <Link 
+                                    href="/register" 
+                                    className="w-full py-4 bg-action-blue text-white rounded-2xl flex items-center justify-center font-black shadow-lg shadow-action-blue/20"
+                                >
+                                    أنشئ متجرك مجاناً
+                                </Link>
+                                <Link 
+                                    href="/login" 
+                                    className="w-full py-4 text-center font-bold text-gray-500 hover:text-primary-charcoal transition-colors"
+                                >
+                                    تسجيل الدخول
+                                </Link>
+                            </div>
+                        </motion.div>
+                    </>
+                )}
+            </AnimatePresence>
         </motion.header>
     );
 }
