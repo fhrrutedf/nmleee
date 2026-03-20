@@ -5,7 +5,7 @@ import {
     courseCompletionTemplate,
     marketingEmailTemplate,
 } from '@/lib/email-templates';
-import { sendTelegramMessage, newOrderMessage } from '@/lib/telegram';
+
 
 // ─── 1. إيميل الترحيب عند الشراء ────────────────────────────────────
 export async function triggerWelcomeEmail({ customerEmail, customerName, sellerId, productName }: {

@@ -1,422 +1,267 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import {
-    FiMail, FiShoppingCart, FiPackage, FiRefreshCw, FiBell,
-    FiBarChart2, FiSend, FiBookOpen, FiSave, FiToggleLeft,
-    FiToggleRight, FiClock, FiCheck, FiAlertCircle, FiEye
-} from 'react-icons/fi';
+import { useState, useEffect } from 'react';
+import { FiZap, FiMail, FiShoppingCart, FiClock, FiCheckCircle, FiEdit3, FiPercent, FiSave, FiAlertCircle } from 'react-icons/fi';
+import { apiGet, apiPut, handleApiError } from '@/lib/safe-fetch';
 import toast from 'react-hot-toast';
-import Link from 'next/link';
-
-type AutomationSettings = {
-    id?: string;
-    welcomeEmailEnabled: boolean;
-    welcomeEmailSubject: string;
-    welcomeEmailBody: string;
-    cartReminder1Enabled: boolean;
-    cartReminder2Enabled: boolean;
-    cartReminder3Enabled: boolean;
-    cartReminder3Discount: number | null;
-    cartReminder1Body: string;
-    cartReminder2Body: string;
-    cartReminder3Body: string;
-    postPurchase7Enabled: boolean;
-    postPurchase30Enabled: boolean;
-    postPurchase7Body: string;
-    postPurchase30Body: string;
-    subRemindersEnabled: boolean;
-    notifyOnSale: boolean;
-    notifyOnReview: boolean;
-    notifyOnQuestion: boolean;
-    notifyOnCompletion: boolean;
-    notifyOnRefund: boolean;
-    notifyMethods: string;
-    reportFrequency: string;
-    reportEnabled: boolean;
-    marketingEnabled: boolean;
-    inactiveUserDays: number;
-    inactiveUserDiscount: number | null;
-    eduFollowupEnabled: boolean;
-    inactivityDays: number;
-};
-
-const defaultSettings: AutomationSettings = {
-    welcomeEmailEnabled: false, welcomeEmailSubject: 'مرحباً بك! 🎉', welcomeEmailBody: '',
-    cartReminder1Enabled: false, cartReminder2Enabled: false, cartReminder3Enabled: false,
-    cartReminder3Discount: null, cartReminder1Body: '', cartReminder2Body: '', cartReminder3Body: '',
-    postPurchase7Enabled: false, postPurchase30Enabled: false, postPurchase7Body: '', postPurchase30Body: '',
-    subRemindersEnabled: false,
-    notifyOnSale: true, notifyOnReview: true, notifyOnQuestion: true, notifyOnCompletion: true, notifyOnRefund: true,
-    notifyMethods: 'both',
-    reportFrequency: 'weekly', reportEnabled: false,
-    marketingEnabled: false, inactiveUserDays: 30, inactiveUserDiscount: null,
-    eduFollowupEnabled: false, inactivityDays: 7,
-};
-
-const tabs = [
-    { id: 'welcome', label: 'إيميل الترحيب', icon: FiMail },
-    { id: 'cart', label: 'السلة المهجورة', icon: FiShoppingCart },
-    { id: 'post_purchase', label: 'ما بعد الشراء', icon: FiPackage },
-    { id: 'subscriptions', label: 'الاشتراكات', icon: FiRefreshCw },
-    { id: 'notifications', label: 'إشعاراتي', icon: FiBell },
-    { id: 'reports', label: 'التقارير', icon: FiBarChart2 },
-    { id: 'marketing', label: 'التسويق', icon: FiSend },
-    { id: 'education', label: 'التعليم', icon: FiBookOpen },
-];
-
-function Toggle({ enabled, onToggle, label }: { enabled: boolean; onToggle: () => void; label: string }) {
-    return (
-        <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{label}</span>
-            <button onClick={onToggle} className={`relative inline-flex h-7 w-14 items-center rounded-full transition-colors ${enabled ? 'bg-action-blue' : 'bg-gray-300 dark:bg-gray-600'}`}>
-                <span className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-md transition-transform ${enabled ? 'translate-x-8' : 'translate-x-1'}`} />
-            </button>
-        </div>
-    );
-}
-
-function TextareaField({ label, value, onChange, placeholder, hint }: { label: string; value: string; onChange: (v: string) => void; placeholder?: string; hint?: string }) {
-    return (
-        <div className="space-y-2">
-            <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">{label}</label>
-            {hint && <p className="text-xs text-text-muted">{hint}</p>}
-            <textarea
-                value={value}
-                onChange={e => onChange(e.target.value)}
-                placeholder={placeholder}
-                rows={4}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-bg-light text-sm resize-none focus:outline-none focus:border-action-blue transition-colors"
-            />
-        </div>
-    );
-}
+import { motion } from 'framer-motion';
 
 export default function AutomationPage() {
-    const [activeTab, setActiveTab] = useState('welcome');
-    const [settings, setSettings] = useState<AutomationSettings>(defaultSettings);
+    const [settings, setSettings] = useState<any>(null);
+    const [carts, setCarts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
 
     useEffect(() => {
-        const load = async () => {
+        const fetchData = async () => {
             try {
-                const res = await fetch('/api/automation/settings');
-                if (res.ok) {
-                    const data = await res.json();
-                    setSettings({ ...defaultSettings, ...data });
-                }
-            } catch { /* use defaults */ } finally {
+                const [settingsData, cartsData] = await Promise.all([
+                    apiGet('/api/seller/automation-settings'),
+                    apiGet('/api/seller/abandoned-carts')
+                ]);
+                setSettings(settingsData);
+                setCarts(cartsData || []);
+            } catch (err) {
+                handleApiError(err, 'تعذر تحميل بيانات الأتمتة');
+            } finally {
                 setLoading(false);
             }
         };
-        load();
+        fetchData();
     }, []);
 
-    const update = useCallback((key: keyof AutomationSettings, value: any) => {
-        setSettings(prev => ({ ...prev, [key]: value }));
-    }, []);
-
-    const save = async () => {
+    const handleSave = async () => {
         setSaving(true);
         try {
-            const res = await fetch('/api/automation/settings', {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(settings),
-            });
-            if (res.ok) {
-                toast.success('تم حفظ إعدادات الأتمتة ✓');
-            } else {
-                toast.error('فشل الحفظ');
-            }
-        } catch {
-            toast.error('خطأ في الاتصال');
+            await apiPut('/api/seller/automation-settings', settings);
+            toast.success('تم حفظ إعدادات الأتمتة بنجاح');
+        } catch (err) {
+            handleApiError(err, 'فشل حفظ الإعدادات');
         } finally {
             setSaving(false);
         }
     };
 
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center min-h-[400px]">
-                <div className="w-8 h-8 border-4 border-action-blue border-t-transparent rounded-full animate-spin" />
-            </div>
-        );
-    }
+    if (loading) return (
+        <div className="flex justify-center items-center min-h-[400px]">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        </div>
+    );
 
     return (
-        <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
+        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-black text-primary-charcoal dark:text-white">🤖 مركز الأتمتة</h1>
-                    <p className="text-text-muted mt-1">أتمتة التواصل مع عملائك وطلابك تلقائياً</p>
+                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <FiZap className="text-amber-500" />
+                        مركز الأتمتة والنمو
+                    </h1>
+                    <p className="text-slate-500 dark:text-slate-400 mt-1">قم بزيادة مبيعاتك تلقائياً باستخدام "دروع تمالين" للنمو.</p>
                 </div>
-                <div className="flex gap-3">
-                    <Link href="/dashboard/automation/logs" className="btn btn-outline flex items-center gap-2">
-                        <FiEye /> سجل الإيميلات
-                    </Link>
-                    <button onClick={save} disabled={saving} className="btn btn-primary flex items-center gap-2">
-                        {saving ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <FiSave />}
-                        {saving ? 'جاري الحفظ...' : 'حفظ الإعدادات'}
-                    </button>
-                </div>
+                <button 
+                    onClick={handleSave}
+                    disabled={saving}
+                    className="flex items-center gap-2 bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-xl font-bold transition-all disabled:opacity-50"
+                >
+                    <FiSave />
+                    {saving ? 'جاري الحفظ...' : 'حفظ الإعدادات'}
+                </button>
             </div>
 
-            {/* Tabs */}
-            <div className="flex flex-wrap gap-2 border-b border-gray-200 dark:border-gray-800 pb-4">
-                {tabs.map(tab => (
-                    <button
-                        key={tab.id}
-                        onClick={() => setActiveTab(tab.id)}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${activeTab === tab.id
-                                ? 'bg-action-blue text-white shadow-md'
-                                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-                            }`}
-                    >
-                        <tab.icon className="text-base" />
-                        {tab.label}
-                    </button>
-                ))}
-            </div>
-
-            {/* Content */}
-            <div className="bg-white dark:bg-card-white rounded-2xl border border-gray-100 dark:border-gray-800 p-6 space-y-6">
-
-                {/* 1. Welcome Email */}
-                {activeTab === 'welcome' && (
-                    <div className="space-y-5">
-                        <div>
-                            <h2 className="text-xl font-bold text-primary-charcoal dark:text-white">📧 إيميل الترحيب التلقائي</h2>
-                            <p className="text-sm text-text-muted mt-1">يُرسل تلقائياً لكل مشتري جديد عند إتمام أول عملية شراء منك</p>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Automation Toggles */}
+                <div className="lg:col-span-2 space-y-6">
+                    {/* Welcome Email */}
+                    <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+                        <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2.5 bg-sky-100 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400 rounded-xl">
+                                    <FiMail className="text-xl" />
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-lg">رسالة الترحيب الآلية</h3>
+                                    <p className="text-xs text-slate-500">تُرسل فوراً عند تسجيل أي طالب جديد في نظامك.</p>
+                                </div>
+                            </div>
+                            <label className="relative inline-flex items-center cursor-pointer">
+                                <input 
+                                    type="checkbox" 
+                                    className="sr-only peer"
+                                    checked={settings.welcomeEmailEnabled}
+                                    onChange={(e) => setSettings({ ...settings, welcomeEmailEnabled: e.target.checked })}
+                                />
+                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                            </label>
                         </div>
-                        <Toggle enabled={settings.welcomeEmailEnabled} onToggle={() => update('welcomeEmailEnabled', !settings.welcomeEmailEnabled)} label="تفعيل إيميل الترحيب" />
                         {settings.welcomeEmailEnabled && (
-                            <>
-                                <div className="space-y-2">
-                                    <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">موضوع الإيميل</label>
-                                    <input value={settings.welcomeEmailSubject} onChange={e => update('welcomeEmailSubject', e.target.value)} className="input w-full" placeholder="مرحباً بك! 🎉" />
+                            <div className="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                                <div>
+                                    <label className="block text-sm font-medium mb-1.5 opacity-70">عنوان الرسالة</label>
+                                    <input 
+                                        type="text" 
+                                        value={settings.welcomeEmailSubject}
+                                        onChange={(e) => setSettings({ ...settings, welcomeEmailSubject: e.target.value })}
+                                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                        placeholder="مرحباً بك في أكاديميتي!"
+                                    />
                                 </div>
-                                <TextareaField label="نص الإيميل (اختياري)" value={settings.welcomeEmailBody} onChange={v => update('welcomeEmailBody', v)} placeholder="اكتب رسالة ترحيب مخصصة... أو اتركها فارغة للرسالة الافتراضية" hint="متغيرات: {{اسم العميل}} {{اسم المنتج}}" />
-                            </>
+                                <div>
+                                    <label className="block text-sm font-medium mb-1.5 opacity-70">محتوى الرسالة</label>
+                                    <textarea 
+                                        value={settings.welcomeEmailBody}
+                                        onChange={(e) => setSettings({ ...settings, welcomeEmailBody: e.target.value })}
+                                        rows={3}
+                                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                        placeholder="شكراً لانضمامك إلينا..."
+                                    />
+                                </div>
+                            </div>
                         )}
-                    </div>
-                )}
+                    </section>
 
-                {/* 2. Abandoned Cart */}
-                {activeTab === 'cart' && (
-                    <div className="space-y-5">
-                        <div>
-                            <h2 className="text-xl font-bold text-primary-charcoal dark:text-white">🛒 تذكيرات السلة المهجورة</h2>
-                            <p className="text-sm text-text-muted mt-1">أرسل تذكيرات تلقائية للعملاء الذين لم يكملوا الشراء</p>
+                    {/* Abandoned Cart Engine */}
+                    <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm overflow-hidden relative">
+                        <div className="absolute top-4 left-4">
+                             <div className="flex items-center gap-1.5 bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                                <FiZap />
+                                نظام ذكي
+                             </div>
                         </div>
-                        <div className="space-y-4">
-                            <div className="border border-gray-200 dark:border-gray-700 rounded-xl p-4 space-y-3">
-                                <div className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300"><FiClock className="text-action-blue" /> تذكير 1 — بعد ساعة</div>
-                                <Toggle enabled={settings.cartReminder1Enabled} onToggle={() => update('cartReminder1Enabled', !settings.cartReminder1Enabled)} label="تفعيل التذكير الأول" />
-                                {settings.cartReminder1Enabled && <TextareaField label="نص الرسالة (اختياري)" value={settings.cartReminder1Body} onChange={v => update('cartReminder1Body', v)} placeholder="اتركه فارغاً للنص الافتراضي الودي..." />}
+
+                        <div className="flex items-center gap-3 mb-8">
+                            <div className="p-2.5 bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 rounded-xl">
+                                <FiShoppingCart className="text-xl" />
                             </div>
-                            <div className="border border-gray-200 dark:border-gray-700 rounded-xl p-4 space-y-3">
-                                <div className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300"><FiClock className="text-orange-500" /> تذكير 2 — بعد 24 ساعة</div>
-                                <Toggle enabled={settings.cartReminder2Enabled} onToggle={() => update('cartReminder2Enabled', !settings.cartReminder2Enabled)} label="تفعيل التذكير الثاني" />
-                                {settings.cartReminder2Enabled && <TextareaField label="نص الرسالة (اختياري)" value={settings.cartReminder2Body} onChange={v => update('cartReminder2Body', v)} placeholder="إبراز قيمة المنتج..." />}
+                            <div>
+                                <h3 className="font-bold text-lg">نظام استعادة السلال المفقودة</h3>
+                                <p className="text-xs text-slate-500">تحويل الأشخاص الذين لم يكملوا الشراء إلى عملاء حقيقيين.</p>
                             </div>
-                            <div className="border border-gray-200 dark:border-gray-700 rounded-xl p-4 space-y-3">
-                                <div className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300"><FiClock className="text-red-500" /> تذكير 3 — بعد 3 أيام (الأخير)</div>
-                                <Toggle enabled={settings.cartReminder3Enabled} onToggle={() => update('cartReminder3Enabled', !settings.cartReminder3Enabled)} label="تفعيل التذكير الأخير" />
-                                {settings.cartReminder3Enabled && (
-                                    <>
-                                        <TextareaField label="نص الرسالة (اختياري)" value={settings.cartReminder3Body} onChange={v => update('cartReminder3Body', v)} placeholder="عرض أخير..." />
-                                        <div className="space-y-2">
-                                            <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">نسبة الخصم (اختياري)</label>
-                                            <div className="flex items-center gap-3">
-                                                <input type="number" min={0} max={90} value={settings.cartReminder3Discount || ''} onChange={e => update('cartReminder3Discount', e.target.value ? Number(e.target.value) : null)} className="input w-32" placeholder="مثلاً: 10" />
-                                                <span className="text-text-muted">%</span>
-                                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                            {/* Reminder 1 */}
+                            <div className={`p-4 rounded-2xl border transition-all ${settings.cartReminder1Enabled ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
+                                <div className="flex items-center justify-between mb-4">
+                                    <span className="text-xs font-bold text-primary italic">#تذكير 1</span>
+                                    <input 
+                                        type="checkbox" 
+                                        checked={settings.cartReminder1Enabled}
+                                        onChange={(e) => setSettings({ ...settings, cartReminder1Enabled: e.target.checked })}
+                                        className="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary"
+                                    />
+                                </div>
+                                <h4 className="font-bold text-sm mb-1">بعد 60 دقيقة</h4>
+                                <p className="text-[10px] opacity-60">تذكير لطيف بالمنتجات التي لم تصل ليد العميل.</p>
+                            </div>
+
+                            {/* Reminder 2 */}
+                            <div className={`p-4 rounded-2xl border transition-all ${settings.cartReminder2Enabled ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
+                                <div className="flex items-center justify-between mb-4">
+                                    <span className="text-xs font-bold text-primary italic">#تذكير 2</span>
+                                    <input 
+                                        type="checkbox" 
+                                        checked={settings.cartReminder2Enabled}
+                                        onChange={(e) => setSettings({ ...settings, cartReminder2Enabled: e.target.checked })}
+                                        className="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary"
+                                    />
+                                </div>
+                                <h4 className="font-bold text-sm mb-1">بعد 24 ساعة</h4>
+                                <p className="text-[10px] opacity-60">تذكير بصور المنتجات وتاريخ الشراء الأصلي.</p>
+                            </div>
+
+                            {/* Reminder 3 (The Ultimate) */}
+                            <div className={`p-4 rounded-2xl border transition-all ${settings.cartReminder3Enabled ? 'border-emerald-500 bg-emerald-500/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
+                                <div className="flex items-center justify-between mb-4">
+                                    <span className="text-xs font-bold text-emerald-600 italic">#تذكير 3 (الأخير)</span>
+                                    <input 
+                                        type="checkbox" 
+                                        checked={settings.cartReminder3Enabled}
+                                        onChange={(e) => setSettings({ ...settings, cartReminder3Enabled: e.target.checked })}
+                                        className="w-4 h-4 rounded border-slate-300 text-emerald-500 focus:ring-emerald-500"
+                                    />
+                                </div>
+                                <h4 className="font-bold text-sm mb-1">بعد 3 أيام</h4>
+                                <div className="flex items-center gap-2 mt-2">
+                                     <FiPercent className="text-emerald-500" />
+                                     <span className="text-[10px] font-bold text-emerald-600">خصم 10% تلقائي</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {settings.cartReminder3Enabled && (
+                            <div className="bg-emerald-50 dark:bg-emerald-500/10 p-4 rounded-xl border border-emerald-100 dark:border-emerald-500/20 flex items-start gap-3">
+                                <FiAlertCircle className="text-emerald-500 mt-1 shrink-0" />
+                                <div>
+                                    <h5 className="font-bold text-sm text-emerald-700 dark:text-emerald-400 mb-1">استراتيجية الخصم التلقائي مفعلة</h5>
+                                    <p className="text-xs text-emerald-600 dark:text-emerald-500/80 leading-relaxed">
+                                        سيقوم النظام تلقائياً بتوليد كود خصم بنسبة 10% (لمرة واحدة) لهذا العميل وإرساله في الرسالة الأخيرة لتحفيزه على إتمام الدفعة فوراً.
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+                    </section>
+                </div>
+
+                {/* Live Activity Feed (Abandoned Carts) */}
+                <div className="space-y-6">
+                    <section className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl h-full flex flex-col">
+                        <div className="flex items-center justify-between mb-6">
+                            <h3 className="font-bold text-white flex items-center gap-2">
+                                <FiClock className="text-orange-500" />
+                                سلال مفقودة حالياً
+                            </h3>
+                            <span className="bg-slate-800 text-slate-400 text-[10px] px-2.5 py-1 rounded-full">{carts.length}</span>
+                        </div>
+
+                        <div className="space-y-4 flex-1 overflow-y-auto max-h-[600px] scrollbar-thin scrollbar-thumb-slate-700">
+                            {carts.length === 0 ? (
+                                <div className="flex flex-col items-center justify-center py-12 text-center opacity-40">
+                                    <FiShoppingCart className="text-4xl mb-3" />
+                                    <p className="text-xs font-medium text-white">لا توجد سلال مهجورة حالياً</p>
+                                </div>
+                            ) : (
+                                carts.map((cart: any) => (
+                                    <div key={cart.id} className="bg-slate-800/50 border border-slate-700 p-3.5 rounded-xl hover:bg-slate-800 transition-colors group">
+                                        <div className="flex justify-between items-start mb-2">
+                                            <span className="font-bold text-xs text-white truncate max-w-[140px]">{cart.customerEmail}</span>
+                                            <span className="text-[10px] text-slate-500">{new Date(cart.createdAt).toLocaleDateString('ar-EG', { day: '2-digit', month: 'short' })}</span>
                                         </div>
-                                    </>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {/* 3. Post-Purchase */}
-                {activeTab === 'post_purchase' && (
-                    <div className="space-y-5">
-                        <div>
-                            <h2 className="text-xl font-bold text-primary-charcoal dark:text-white">📦 إيميلات ما بعد الشراء</h2>
-                            <p className="text-sm text-text-muted mt-1">تواصل مع عملائك بعد الشراء لبناء علاقة قوية</p>
-                        </div>
-                        <div className="space-y-4">
-                            <div className="border border-gray-200 dark:border-gray-700 rounded-xl p-4 space-y-3">
-                                <div className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300"><FiCheck className="text-green-500" /> طلب التقييم — بعد 7 أيام</div>
-                                <Toggle enabled={settings.postPurchase7Enabled} onToggle={() => update('postPurchase7Enabled', !settings.postPurchase7Enabled)} label="تفعيل طلب التقييم" />
-                                {settings.postPurchase7Enabled && <TextareaField label="نص الرسالة (اختياري)" value={settings.postPurchase7Body} onChange={v => update('postPurchase7Body', v)} placeholder="اتركه فارغاً للنص الافتراضي..." />}
-                            </div>
-                            <div className="border border-gray-200 dark:border-gray-700 rounded-xl p-4 space-y-3">
-                                <div className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300"><FiSend className="text-purple-500" /> منتجات مقترحة (Upsell) — بعد 30 يوم</div>
-                                <Toggle enabled={settings.postPurchase30Enabled} onToggle={() => update('postPurchase30Enabled', !settings.postPurchase30Enabled)} label="تفعيل الـ Upsell" />
-                                {settings.postPurchase30Enabled && <TextareaField label="نص الرسالة (اختياري)" value={settings.postPurchase30Body} onChange={v => update('postPurchase30Body', v)} placeholder="اقتراح منتجات أخرى..." />}
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {/* 4. Subscriptions */}
-                {activeTab === 'subscriptions' && (
-                    <div className="space-y-5">
-                        <div>
-                            <h2 className="text-xl font-bold text-primary-charcoal dark:text-white">🔄 تذكيرات الاشتراكات</h2>
-                            <p className="text-sm text-text-muted mt-1">أرسل تذكيرات لمشتركيك قبل انتهاء اشتراكاتهم</p>
-                        </div>
-                        <Toggle enabled={settings.subRemindersEnabled} onToggle={() => update('subRemindersEnabled', !settings.subRemindersEnabled)} label="تفعيل تذكيرات التجديد" />
-                        {settings.subRemindersEnabled && (
-                            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 space-y-2">
-                                <p className="text-sm font-semibold text-blue-700 dark:text-blue-400">سيتم إرسال تذكير تلقائياً:</p>
-                                <ul className="text-sm text-blue-600 dark:text-blue-500 space-y-1 list-disc list-inside">
-                                    <li>قبل أسبوع من انتهاء الاشتراك</li>
-                                    <li>قبل يوم واحد من الانتهاء</li>
-                                    <li>يوم الانتهاء نفسه</li>
-                                </ul>
-                            </div>
-                        )}
-                    </div>
-                )}
-
-                {/* 5. Notifications */}
-                {activeTab === 'notifications' && (
-                    <div className="space-y-5">
-                        <div>
-                            <h2 className="text-xl font-bold text-primary-charcoal dark:text-white">🔔 إشعاراتي الفورية</h2>
-                            <p className="text-sm text-text-muted mt-1">اختر أي إشعارات تريد استقبالها وبأي طريقة</p>
-                        </div>
-                        <div className="space-y-3">
-                            <Toggle enabled={settings.notifyOnSale} onToggle={() => update('notifyOnSale', !settings.notifyOnSale)} label="💰 عند عملية بيع جديدة" />
-                            <Toggle enabled={settings.notifyOnReview} onToggle={() => update('notifyOnReview', !settings.notifyOnReview)} label="⭐ عند تقييم جديد" />
-                            <Toggle enabled={settings.notifyOnQuestion} onToggle={() => update('notifyOnQuestion', !settings.notifyOnQuestion)} label="❓ عند سؤال جديد من طالب" />
-                            <Toggle enabled={settings.notifyOnCompletion} onToggle={() => update('notifyOnCompletion', !settings.notifyOnCompletion)} label="🎓 عند إكمال طالب للكورس" />
-                            <Toggle enabled={settings.notifyOnRefund} onToggle={() => update('notifyOnRefund', !settings.notifyOnRefund)} label="⚠️ عند طلب استرجاع مبالغ" />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">طريقة الإشعار</label>
-                            <div className="flex gap-3 flex-wrap">
-                                {[
-                                    { value: 'email', label: '📧 إيميل فقط' },
-                                    { value: 'internal', label: '🔔 داخلي فقط' },
-                                    { value: 'both', label: '✅ الاثنان' },
-                                ].map(opt => (
-                                    <button key={opt.value} onClick={() => update('notifyMethods', opt.value)}
-                                        className={`px-4 py-2 rounded-xl text-sm font-semibold border-2 transition-colors ${settings.notifyMethods === opt.value ? 'border-action-blue bg-action-blue/10 text-action-blue' : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400'}`}>
-                                        {opt.label}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {/* 6. Reports */}
-                {activeTab === 'reports' && (
-                    <div className="space-y-5">
-                        <div>
-                            <h2 className="text-xl font-bold text-primary-charcoal dark:text-white">📊 التقارير الدورية</h2>
-                            <p className="text-sm text-text-muted mt-1">احصل على ملخص دوري بأداء متجرك</p>
-                        </div>
-                        <Toggle enabled={settings.reportEnabled} onToggle={() => update('reportEnabled', !settings.reportEnabled)} label="تفعيل التقارير الدورية" />
-                        {settings.reportEnabled && (
-                            <div className="space-y-2">
-                                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">تكرار التقرير</label>
-                                <div className="flex gap-3 flex-wrap">
-                                    {[
-                                        { value: 'daily', label: '📅 يومي' },
-                                        { value: 'weekly', label: '📅 أسبوعي' },
-                                        { value: 'monthly', label: '📅 شهري' },
-                                    ].map(opt => (
-                                        <button key={opt.value} onClick={() => update('reportFrequency', opt.value)}
-                                            className={`px-5 py-2 rounded-xl text-sm font-semibold border-2 transition-colors ${settings.reportFrequency === opt.value ? 'border-action-blue bg-action-blue/10 text-action-blue' : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400'}`}>
-                                            {opt.label}
-                                        </button>
-                                    ))}
-                                </div>
-                                <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4 mt-3">
-                                    <p className="text-sm text-green-700 dark:text-green-400 font-medium">📈 التقرير يشمل:</p>
-                                    <ul className="text-xs text-green-600 dark:text-green-500 mt-2 space-y-1 list-disc list-inside">
-                                        <li>عدد المبيعات والإيرادات</li>
-                                        <li>العملاء الجدد وأكثر منتج مبيعاً</li>
-                                        <li>عدد التقييمات الجديدة</li>
-                                        <li>مقارنة مع الفترة السابقة</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                )}
-
-                {/* 7. Marketing */}
-                {activeTab === 'marketing' && (
-                    <div className="space-y-5">
-                        <div>
-                            <h2 className="text-xl font-bold text-primary-charcoal dark:text-white">📣 أتمتة التسويق</h2>
-                            <p className="text-sm text-text-muted mt-1">أرسل حملات تسويقية وأعد استهداف العملاء الخاملين</p>
-                        </div>
-                        <Toggle enabled={settings.marketingEnabled} onToggle={() => update('marketingEnabled', !settings.marketingEnabled)} label="إعادة استهداف العملاء الخاملين تلقائياً" />
-                        {settings.marketingEnabled && (
-                            <div className="space-y-4">
-                                <div className="space-y-2">
-                                    <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">اعتبر العميل خاملاً بعد</label>
-                                    <div className="flex items-center gap-3">
-                                        <input type="number" min={7} max={180} value={settings.inactiveUserDays} onChange={e => update('inactiveUserDays', Number(e.target.value))} className="input w-24" />
-                                        <span className="text-text-muted text-sm">يوماً بدون شراء</span>
+                                        <p className="text-[10px] text-slate-400 mb-3 truncate leading-relaxed">🏷️ {cart.productNames.join(', ')}</p>
+                                        <div className="flex items-center justify-between gap-2 border-t border-slate-700/50 pt-2.5 mt-2.5">
+                                            <div className="flex items-center gap-1.5 bg-slate-900 px-2 py-0.5 rounded-lg border border-slate-700">
+                                                <span className="text-xs font-bold text-white">${cart.totalAmount.toFixed(2)}</span>
+                                            </div>
+                                            {cart.isConverted ? (
+                                                <span className="flex items-center gap-1 text-[9px] font-bold text-emerald-400">
+                                                    <FiCheckCircle />
+                                                    تمت استعادته
+                                                </span>
+                                            ) : (
+                                                <div className="flex gap-1">
+                                                    {[1,2,3].map(n => (
+                                                        <div 
+                                                            key={n} 
+                                                            className={`w-2 h-2 rounded-full ${(cart[`reminder${n}SentAt`]) ? 'bg-primary shadow-[0_0_8px_rgba(14,165,233,0.5)]' : 'bg-slate-700'}`}
+                                                            title={cart[`reminder${n}SentAt`] ? `تم إرسال التذكير ${n}` : `لم يُرسل التذكير ${n} بعد`}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">خصم إعادة الاستهداف (اختياري)</label>
-                                    <div className="flex items-center gap-3">
-                                        <input type="number" min={0} max={90} value={settings.inactiveUserDiscount || ''} onChange={e => update('inactiveUserDiscount', e.target.value ? Number(e.target.value) : null)} className="input w-24" placeholder="0" />
-                                        <span className="text-text-muted text-sm">%</span>
-                                    </div>
-                                </div>
-                                <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-                                    <Link href="/dashboard/automation/campaigns" className="btn btn-outline flex items-center gap-2 w-fit">
-                                        <FiSend /> إنشاء حملة تسويقية مجدولة
-                                    </Link>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                )}
-
-                {/* 8. Education */}
-                {activeTab === 'education' && (
-                    <div className="space-y-5">
-                        <div>
-                            <h2 className="text-xl font-bold text-primary-charcoal dark:text-white">📚 المتابعة التعليمية</h2>
-                            <p className="text-sm text-text-muted mt-1">شجّع طلابك على إكمال الكورسات بتذكيرات تلقائية</p>
+                                ))
+                            )}
                         </div>
-                        <Toggle enabled={settings.eduFollowupEnabled} onToggle={() => update('eduFollowupEnabled', !settings.eduFollowupEnabled)} label="تفعيل التذكيرات التعليمية" />
-                        {settings.eduFollowupEnabled && (
-                            <>
-                                <div className="space-y-2">
-                                    <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">أرسل تذكيراً إذا لم يفتح الطالب الكورس منذ</label>
-                                    <div className="flex items-center gap-3">
-                                        <input type="number" min={1} max={30} value={settings.inactivityDays} onChange={e => update('inactivityDays', Number(e.target.value))} className="input w-24" />
-                                        <span className="text-text-muted text-sm">أيام</span>
-                                    </div>
-                                </div>
-                                <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-xl p-4 space-y-2">
-                                    <p className="text-sm font-semibold text-purple-700 dark:text-purple-400">التذكيرات التلقائية تشمل:</p>
-                                    <ul className="text-sm text-purple-600 dark:text-purple-500 space-y-1 list-disc list-inside">
-                                        <li>تذكير للطالب الخامل مع شريط التقدم</li>
-                                        <li>إيميل تهنئة عند إتمام الكورس مع رابط الشهادة</li>
-                                        <li>اقتراح كورس تالٍ عند الإكمال</li>
-                                    </ul>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                )}
+
+                        <div className="mt-6 pt-6 border-t border-slate-800">
+                             <div className="flex items-center gap-2 text-xs text-slate-500">
+                                <FiAlertCircle />
+                                <span>يتم تحديث هذه القائمة تلقائياً كل 15 دقيقة.</span>
+                             </div>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
     );

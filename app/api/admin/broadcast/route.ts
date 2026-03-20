@@ -31,6 +31,23 @@ export async function POST(req: NextRequest) {
     const where: any = { isActive: true };
     if (target === 'sellers') where.role = 'SELLER';
     else if (target === 'admins') where.role = 'ADMIN';
+    else if (target === 'high-earners') {
+        where.role = 'SELLER';
+        where.totalEarnings = { gte: 1000 };
+    } else if (target === 'new-users') {
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+        where.createdAt = { gte: sevenDaysAgo };
+    } else if (target === 'inactive-sellers') {
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        where.role = 'SELLER';
+        where.products = {
+            none: {
+                createdAt: { gte: thirtyDaysAgo }
+            }
+        };
+    }
 
     const users = await prisma.user.findMany({
         where,

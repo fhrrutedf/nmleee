@@ -18,6 +18,14 @@ export async function POST(
         return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
 
+    // CTO Security Layer: Master Secret Check
+    const { secretKey } = await req.json().catch(() => ({}));
+    const masterSecret = process.env.ADMIN_MASTER_PASSWORD || 'TAMLEEN_SECURE_2024'; 
+    
+    if (secretKey !== masterSecret) {
+        return NextResponse.json({ error: 'Invalid Master Security Key' }, { status: 403 });
+    }
+
     const targetUser = await prisma.user.findUnique({
         where: { id: userId },
         select: { id: true, name: true, email: true, role: true, username: true },
