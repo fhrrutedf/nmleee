@@ -1,25 +1,26 @@
 'use client';
 
 import Link from 'next/link';
-import { FiLayers, FiTwitter, FiLinkedin, FiFacebook, FiInstagram, FiMail, FiMapPin, FiPhone } from 'react-icons/fi';
+import { FiLayers, FiTwitter, FiLinkedin, FiFacebook, FiInstagram, FiMail, FiMapPin, FiPhone, FiArrowUpRight } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 
 const footerLinks = [
     {
         title: 'المنتج',
         links: [
-            { name: 'المتجر', href: '/explore' },
+            { name: 'استكشف المنتجات', href: '/explore' },
             { name: 'المميزات', href: '/#features' },
-            { name: 'الأسعار', href: '/pricing' },
+            { name: 'خطط الأسعار', href: '/pricing' },
             { name: 'المدونة', href: '/blog' }
         ]
     },
     {
-        title: 'الشركة',
+        title: 'الدعم',
         links: [
-            { name: 'عن المنصة', href: '/about' },
+            { name: 'مركز المساعدة', href: '/help' },
             { name: 'تواصل معنا', href: '/contact' },
-            { name: 'الأسئلة الشائعة', href: '/faq' }
+            { name: 'الأسئلة الشائعة', href: '/faq' },
+            { name: 'حالة النظام', href: '/status' }
         ]
     },
     {
@@ -34,27 +35,28 @@ const footerLinks = [
 
 export default function Footer() {
     return (
-        <footer className="bg-primary-charcoal text-gray-400 py-20 border-t border-gray-800/50 relative z-10 overflow-hidden">
-            {/* Top Gradient Line */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-action-blue to-transparent opacity-50"></div>
+        <footer className="bg-slate-900 text-slate-400 py-24 relative overflow-hidden">
+            {/* Decorative Background Elements */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-indigo-600/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/3" />
+            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-primary-indigo-600/5 blur-[100px] rounded-full translate-y-1/2 -translate-x-1/3" />
             
-            <div className="container-custom relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 mb-16">
+            <div className="container mx-auto px-4 relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 mb-20">
                     {/* Brand Section */}
                     <div className="lg:col-span-2 space-y-8">
                         <div>
                             <Link href="/" className="inline-flex items-center gap-3 group">
                                 <motion.div 
                                     whileHover={{ rotate: 180 }}
-                                    transition={{ duration: 0.5 }}
-                                    className="w-12 h-12 rounded-xl bg-action-blue flex items-center justify-center text-white shadow-lg shadow-action-blue/20"
+                                    transition={{ duration: 0.6, ease: "circOut" }}
+                                    className="w-12 h-12 rounded-2xl bg-primary-indigo-600 flex items-center justify-center text-white shadow-xl shadow-indigo-500/20"
                                 >
                                     <FiLayers size={24} />
                                 </motion.div>
-                                <span className="text-2xl font-black text-white tracking-tight">منصتي الرقمية</span>
+                                <span className="text-3xl font-black text-white tracking-tighter">تمالين</span>
                             </Link>
                         </div>
-                        <p className="text-gray-400 leading-relaxed font-medium max-w-sm text-lg">
+                        <p className="text-slate-400 leading-relaxed font-medium max-w-sm text-lg">
                             قوتك في عالم التجارة الرقمية. نوفر لك أفضل الأدوات لإنشاء متجرك الخاص وبيع خبراتك ومنتجاتك للعالم العربي بكل سهولة وأمان.
                         </p>
                         <div className="flex flex-wrap gap-4">
@@ -67,7 +69,7 @@ export default function Footer() {
                                 <Link 
                                     key={i} 
                                     href={social.href}
-                                    className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-action-blue hover:text-white hover:border-action-blue hover:-translate-y-1 transition-all duration-300"
+                                    className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:bg-primary-indigo-600 hover:text-white hover:border-primary-indigo-600 hover:-translate-y-1.5 transition-all duration-500"
                                 >
                                     {social.icon}
                                 </Link>
@@ -78,7 +80,7 @@ export default function Footer() {
                     {/* Links Sections */}
                     {footerLinks.map((section, i) => (
                         <div key={i} className="space-y-8">
-                            <h4 className="text-white font-black text-lg tracking-wide uppercase">
+                            <h4 className="text-white font-black text-sm tracking-widest uppercase opacity-50">
                                 {section.title}
                             </h4>
                             <ul className="space-y-4">
@@ -86,9 +88,10 @@ export default function Footer() {
                                     <li key={j}>
                                         <Link 
                                             href={link.href} 
-                                            className="text-gray-400 hover:text-action-blue hover:translate-x-[-8px] flex items-center transition-all duration-300 font-bold"
+                                            className="text-slate-400 hover:text-white flex items-center gap-1 group transition-all duration-300 font-bold"
                                         >
                                             {link.name}
+                                            <FiArrowUpRight className="opacity-0 group-hover:opacity-100 -translate-y-1 translate-x-1 transition-all" />
                                         </Link>
                                     </li>
                                 ))}
@@ -99,22 +102,22 @@ export default function Footer() {
 
                 {/* Bottom Section */}
                 <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-                    <div className="flex flex-col md:flex-row items-center gap-4 text-sm font-bold">
-                        <p>جميع الحقوق محفوظة &copy; {new Date().getFullYear()} منصتي الرقمية.</p>
-                        <span className="hidden md:block w-1.5 h-1.5 rounded-full bg-gray-700"></span>
-                        <p className="flex items-center gap-2">
-                             صنع بكل ❤️ في المنطقة العربية
-                        </p>
+                    <div className="flex flex-col md:flex-row items-center gap-6 text-sm font-bold">
+                        <p>جميع الحقوق محفوظة &copy; {new Date().getFullYear()} تمالين.</p>
+                        <div className="flex items-center gap-6">
+                            <Link href="/privacy" className="hover:text-white transition-colors">الخصوصية</Link>
+                            <Link href="/terms" className="hover:text-white transition-colors">الشروط</Link>
+                        </div>
                     </div>
                     
                     <div className="flex items-center gap-8">
-                        <div className="flex items-center gap-2 text-sm">
-                            <FiMapPin className="text-action-blue" />
-                            <span>دبي، الإمارات العربية المتحدة</span>
+                        <div className="flex items-center gap-3 text-sm font-bold bg-white/5 px-6 py-3 rounded-2xl border border-white/5">
+                            <FiMapPin className="text-primary-indigo-500" />
+                            <span className="text-slate-300">المنطقة العربية، العالم</span>
                         </div>
-                        <Link href="/contact" className="text-white font-black hover:text-action-blue transition-colors flex items-center gap-2">
-                             المركز التعليمي <FiInstagram />
-                        </Link>
+                        <p className="flex items-center gap-2 text-sm font-bold text-slate-500">
+                             صنع بكل <span className="text-red-500 animate-pulse">❤️</span> للمبدعين
+                        </p>
                     </div>
                 </div>
             </div>

@@ -21,8 +21,8 @@ const ibmPlex = IBM_Plex_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
-    title: "منصة المنتجات الرقمية - بيع منتجاتك بكل سهولة",
-    description: "منصة متكاملة لبيع المنتجات الرقمية والدورات التدريبية مع نظام دفع وحجز مواعيد احترافي",
+    title: "تمالين — بيع وشراء المنتجات الرقمية بالعربي",
+    description: "المنصة الرائدة في العالم العربي لبيع الدورات، الكتب، والقوالب الرقمية. ابدأ مشروعك الرقمي اليوم بكل سهولة وأمان.",
 };
 
 export default function RootLayout({
@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ar" dir="rtl" suppressHydrationWarning>
-            <body className={`${ibmPlex.variable} ${inter.variable} font-sans antialiased text-primary-charcoal bg-bg-light flex flex-col min-h-screen`}>
+            <body className={`${ibmPlex.variable} ${inter.variable} font-sans antialiased text-slate-900 bg-white flex flex-col min-h-screen`}>
                 <Providers>
                     <NavbarWrapper />
                     <main className="flex-grow w-full overflow-x-hidden">
@@ -42,30 +42,23 @@ export default function RootLayout({
                     <Toaster
                         position="top-center"
                         toastOptions={{
-                            duration: 4000,
+                            duration: 5000,
                             style: {
                                 direction: 'rtl',
                                 fontFamily: 'var(--font-ibm)',
-                                borderRadius: '12px',
-                                padding: '12px 16px',
+                                borderRadius: '24px',
+                                padding: '16px 24px',
                                 fontSize: '14px',
-                                fontWeight: '500',
+                                fontWeight: '700',
+                                boxShadow: '0 20px 40px -10px rgba(99, 102, 241, 0.15)',
+                                border: '1px solid rgba(226, 232, 240, 0.8)',
+                                backdropFilter: 'blur(10px)',
                             },
                             success: {
                                 style: {
-                                    background: '#f0fdf4',
-                                    color: '#166534',
-                                    border: '1px solid #bbf7d0',
+                                    background: 'rgba(255, 255, 255, 0.95)',
+                                    color: '#4f46e5',
                                 },
-                                iconTheme: { primary: '#16a34a', secondary: '#f0fdf4' },
-                            },
-                            error: {
-                                style: {
-                                    background: '#fef2f2',
-                                    color: '#991b1b',
-                                    border: '1px solid #fecaca',
-                                },
-                                iconTheme: { primary: '#dc2626', secondary: '#fef2f2' },
                             },
                         }}
                     />
