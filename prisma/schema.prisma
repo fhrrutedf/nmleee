@@ -138,6 +138,10 @@ model User {
   supportTickets SupportTicket[] @relation("UserTickets")
   ticketMessages SupportTicketMessage[] @relation("TicketMessages")
   blogPosts     BlogPost[]
+
+  // Admin Control
+  custom_commission_rate Float?      // عمولة مخصصة لهذا البائع (تتخطى عمولة الاشتراك)
+  commission_note        String?     // ملاحظة حول العمولة المخصصة
 }
 
 model Product {
