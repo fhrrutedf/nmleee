@@ -680,21 +680,47 @@ export default function AdminDashboardPage() {
                                                             }`}>
                                                             {u.isActive ? 'نشط' : 'موقوف'}
                                                         </span>
+                                                        <div className="text-[10px] text-text-muted mt-1 uppercase font-bold">
+                                                            {u.planType || 'FREE'}
+                                                        </div>
                                                     </td>
                                                     <td className="py-3 px-3">
-                                                        <button
-                                                            onClick={() => toggleUser(u.id, !u.isActive)}
-                                                            disabled={togglingUser === u.id}
-                                                            title={u.isActive ? 'إيقاف الحساب' : 'تفعيل الحساب'}
-                                                            className={`p-1.5 rounded-lg transition-colors ${u.isActive
-                                                                ? 'bg-red-50 hover:bg-red-100 text-red-600'
-                                                                : 'bg-green-50 hover:bg-green-100 text-green-600'
-                                                                }`}
-                                                        >
-                                                            {togglingUser === u.id
-                                                                ? <div className="w-3.5 h-3.5 border-2 border-current/30 border-t-current rounded-full animate-spin" />
-                                                                : u.isActive ? <FiSlash className="text-sm" /> : <FiUnlock className="text-sm" />}
-                                                        </button>
+                                                        <div className="flex items-center gap-1.5">
+                                                            <div className="relative">
+                                                                <input 
+                                                                    type="number"
+                                                                    defaultValue={u.custom_commission_rate ?? ''}
+                                                                    placeholder="%"
+                                                                    className="input py-1 px-2 text-[10px] w-12 border-gray-200"
+                                                                    onBlur={async (e) => {
+                                                                        const rate = e.target.value === '' ? null : parseFloat(e.target.value);
+                                                                        try {
+                                                                            await fetch(`/api/admin/users/${u.id}`, {
+                                                                                method: 'PATCH',
+                                                                                headers: { 'Content-Type': 'application/json' },
+                                                                                body: JSON.stringify({ customCommissionRate: rate }),
+                                                                            });
+                                                                            showToast.success('تم تحديث العمولة');
+                                                                        } catch {
+                                                                            showToast.error('فشل التحديث');
+                                                                        }
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                            <button
+                                                                onClick={() => toggleUser(u.id, !u.isActive)}
+                                                                disabled={togglingUser === u.id}
+                                                                title={u.isActive ? 'إيقاف الحساب' : 'تفعيل الحساب'}
+                                                                className={`p-1.5 rounded-lg transition-colors ${u.isActive
+                                                                    ? 'bg-red-50 hover:bg-red-100 text-red-600'
+                                                                    : 'bg-green-50 hover:bg-green-100 text-green-600'
+                                                                    }`}
+                                                            >
+                                                                {togglingUser === u.id
+                                                                    ? <div className="w-3.5 h-3.5 border-2 border-current/30 border-t-current rounded-full animate-spin" />
+                                                                    : u.isActive ? <FiSlash className="text-sm" /> : <FiUnlock className="text-sm" />}
+                                                            </button>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             ))}

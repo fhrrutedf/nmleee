@@ -70,11 +70,19 @@ export async function getPlatformSettings() {
 
 /**
  * Get the correct commission rate for a seller's plan
+ * Also checks for custom commission rate override!
  */
 export function getCommissionRateForPlan(
-    planType: string,
+    user: { planType?: string; custom_commission_rate?: number | null },
     settings: { commissionRate: number; growthCommissionRate: number; proCommissionRate: number }
 ): number {
+    // 1. High-Priority: Admin-Set Custom Rate Override
+    if (user.custom_commission_rate !== undefined && user.custom_commission_rate !== null && user.custom_commission_rate >= 0) {
+        return user.custom_commission_rate;
+    }
+
+    // 2. Fallback: Plan-Based Rate
+    const planType = user.planType || 'FREE';
     switch (planType) {
         case 'PRO':    return settings.proCommissionRate;
         case 'GROWTH': return settings.growthCommissionRate;
@@ -245,8 +253,11 @@ export async function processPaymentCommission(orderId: string): Promise<void> {
     // Step 1: Ensure seller's plan is current (auto-downgrade if expired)
     const currentPlan = await ensurePlanCurrent(order.sellerId);
 
-    // Step 2: Get tiered commission rate
-    const commissionRate = getCommissionRateForPlan(currentPlan, settings);
+    // Step 2: Get tiered/custom commission rate
+    const seller = order.seller as any;
+    if (!seller) return;
+
+    const commissionRate = getCommissionRateForPlan(seller, settings);
     const { platformFee, sellerAmount } = calculateCommission(order.totalAmount, commissionRate);
 
     // Step 3: Get per-plan escrow days
@@ -259,7 +270,6 @@ export async function processPaymentCommission(orderId: string): Promise<void> {
 
     // Step 5: Calculate referral tree commission (الشجرة)
     let referralCommission = 0;
-    const seller = order.seller;
     const referredById = (seller as any)?.referredById;
 
     if (referredById && platformFee > 0) {
