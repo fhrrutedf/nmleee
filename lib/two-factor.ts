@@ -1,21 +1,17 @@
-import { generateSecret, generateURI, verify } from 'otplib';
+/* eslint-disable @typescript-eslint/no-require-imports */
+const { authenticator } = require('otplib');
 import QRCode from 'qrcode';
 
 /**
  * 2FA (Two-Factor Authentication) Helpers
- * استخدام مكتبة otplib (الإصدار 13+) لتوليد رموز TOTP
  */
 
 /**
  * توليد سر جديد للمستخدم
  */
 export function generateTwoFactorSecret(userEmail: string) {
-    const secret = generateSecret();
-    const otpauth = generateURI({
-        issuer: 'Tmleen Platform',
-        label: userEmail,
-        secret: secret
-    });
+    const secret = authenticator.generateSecret();
+    const otpauth = authenticator.keyuri(userEmail, 'Tmleen', secret);
     return { secret, otpauth };
 }
 
@@ -23,9 +19,17 @@ export function generateTwoFactorSecret(userEmail: string) {
  * توليد رمز QR لعرضه للمستخدم
  */
 export async function generateQRCode(otpauth: string) {
+    if (!otpauth) throw new Error('OTPAuth URI is required');
     try {
         return await QRCode.toDataURL(otpauth);
     } catch (err) {
+        // This catch block seems to be intended for an API route handler,
+        // as it references 'user' and 'NextResponse.json' which are not
+        // defined in this utility file.
+        // To maintain syntactic correctness and avoid introducing undefined
+        // variables, the original error handling is kept.
+        // If this function is meant to be part of an API route,
+        // 'user' and 'NextResponse' would need to be imported/defined.
         console.error('QR Code generation error:', err);
         throw err;
     }
@@ -35,8 +39,7 @@ export async function generateQRCode(otpauth: string) {
  * التحقق من الرمز المدخل من قبل المستخدم
  */
 export async function verifyTwoFactorToken(token: string, secret: string) {
-    const result = await verify({ token, secret });
-    return result.valid;
+    return authenticator.verify({ token, secret });
 }
 
 /**

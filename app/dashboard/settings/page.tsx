@@ -172,13 +172,19 @@ export default function SettingsPage() {
             const res = await fetch('/api/user/2fa/setup', { method: 'POST' });
             const data = await res.json();
             toast.dismiss(loadingToast);
-            if (data.qrCode) {
+            
+            if (res.ok && data.qrCode) {
                 setQrCode(data.qrCode);
                 setTempSecret(data.secret);
                 setShow2FASetup(true);
+            } else {
+                console.error('2FA error response:', data);
+                toast.error(data.error || 'فشل الحصول على رمز الـ QR، حاول مرة أخرى');
             }
         } catch (error) {
-            toast.error('فشل بدء إعداد 2FA');
+            toast.dismiss(loadingToast);
+            console.error('2FA fetch error:', error);
+            toast.error('حدث خطأ في الاتصال بالخادم');
         }
     };
 
