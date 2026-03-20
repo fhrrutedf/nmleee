@@ -38,19 +38,45 @@ export async function GET(request: NextRequest) {
         const session = await getServerSession(authOptions);
         const { searchParams } = new URL(request.url);
         const sellerId = searchParams.get('sellerId');
+        const q = searchParams.get('q');
+        const category = searchParams.get('category');
+        const tag = searchParams.get('tag');
+        const minPrice = searchParams.get('minPrice');
+        const maxPrice = searchParams.get('maxPrice');
 
         // Build the where clause
-        let where: any = {};
+        const where: any = {};
 
         if (sellerId) {
-            // Public request for a specific seller's courses (storefront)
-            where = { userId: sellerId, isActive: true };
-        } else if (session?.user) {
-            // Dashboard request — show only the logged-in user's courses
-            where = { userId: (session.user as any).id };
+            where.userId = sellerId;
+            where.isActive = true;
+        } else if (session?.user && !q && !category && !tag) {
+            // Only defaults to dashboard view if it's a simple request from dashboard
+            where.userId = (session.user as any).id;
         } else {
-            // Public request with no filter — only active courses
-            where = { isActive: true };
+            where.isActive = true;
+        }
+
+        // Add search filters
+        if (q) {
+            where.OR = [
+                { title: { contains: q, mode: 'insensitive' } },
+                { description: { contains: q, mode: 'insensitive' } }
+            ];
+        }
+
+        if (category) {
+            where.category = category;
+        }
+
+        if (tag) {
+            where.tags = { has: tag };
+        }
+
+        if (minPrice || maxPrice) {
+            where.price = {};
+            if (minPrice) where.price.gte = parseFloat(minPrice);
+            if (maxPrice) where.price.lte = parseFloat(maxPrice);
         }
 
         const courses = await prisma.course.findMany({
@@ -61,7 +87,8 @@ export async function GET(request: NextRequest) {
                     select: {
                         id: true,
                         name: true,
-                        username: true
+                        username: true,
+                        avatar: true
                     }
                 }
             }

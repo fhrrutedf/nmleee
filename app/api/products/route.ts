@@ -13,9 +13,41 @@ export async function GET(request: NextRequest) {
         }
 
         const userId = (session.user as any).id;
+        
+        // Extract query parameters
+        const { searchParams } = new URL(request.url);
+        const q = searchParams.get('q');
+        const category = searchParams.get('category');
+        const tag = searchParams.get('tag');
+        const minPrice = searchParams.get('minPrice');
+        const maxPrice = searchParams.get('maxPrice');
+
+        // Build where clause
+        const where: any = { userId };
+        
+        if (q) {
+            where.OR = [
+                { title: { contains: q, mode: 'insensitive' } },
+                { description: { contains: q, mode: 'insensitive' } }
+            ];
+        }
+        
+        if (category) {
+            where.category = category;
+        }
+        
+        if (tag) {
+            where.tags = { has: tag };
+        }
+        
+        if (minPrice || maxPrice) {
+            where.price = {};
+            if (minPrice) where.price.gte = parseFloat(minPrice);
+            if (maxPrice) where.price.lte = parseFloat(maxPrice);
+        }
 
         const products = await prisma.product.findMany({
-            where: { userId },
+            where,
             orderBy: { createdAt: 'desc' },
         });
 

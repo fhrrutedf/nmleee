@@ -121,7 +121,12 @@ export async function fulfillPurchase(orderId: string, userId?: string) {
                     sellerId: order.sellerId,
                     type: 'sale',
                     title: 'عملية بيع جديدة! 💰',
-                    content: `قام ${studentName} بشراء "${order.items[0]?.course?.title || order.items[0]?.product?.title || 'منتج'}" بقيمة ${order.totalAmount} ج.م`
+                    content: `قام ${studentName} بشراء "${order.items[0]?.course?.title || order.items[0]?.product?.title || 'منتج'}" بقيمة ${order.totalAmount} ج.م`,
+                    payload: {
+                        amount: order.totalAmount,
+                        customerName: studentName,
+                        productTitle: order.items[0]?.course?.title || order.items[0]?.product?.title || 'منتج'
+                    }
                 });
                 console.log(`[CHECKOUT_FULFILL] Notifications sent to seller.`);
             }

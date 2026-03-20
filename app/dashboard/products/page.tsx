@@ -13,6 +13,10 @@ export default function ProductsPage() {
     const [products, setProducts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
+    const [minPrice, setMinPrice] = useState('');
+    const [maxPrice, setMaxPrice] = useState('');
+    const [category, setCategory] = useState('');
+    const [showFilters, setShowFilters] = useState(false);
 
     useEffect(() => {
         fetchProducts();
@@ -40,9 +44,15 @@ export default function ProductsPage() {
         }
     };
 
-    const filtered = products.filter(p =>
-        p.title?.toLowerCase().includes(search.toLowerCase())
-    );
+    const filtered = products.filter(p => {
+        const matchesSearch = p.title?.toLowerCase().includes(search.toLowerCase());
+        const matchesMinPrice = minPrice === '' || p.price >= parseFloat(minPrice);
+        const matchesMaxPrice = maxPrice === '' || p.price <= parseFloat(maxPrice);
+        const matchesCategory = category === '' || p.category === category;
+        return matchesSearch && matchesMinPrice && matchesMaxPrice && matchesCategory;
+    });
+
+    const categories = Array.from(new Set(products.map(p => p.category).filter(Boolean)));
 
     return (
         <div className="space-y-6 pb-10">
@@ -62,17 +72,65 @@ export default function ProductsPage() {
                 </Link>
             </div>
 
-            {/* بحث */}
+            {/* بحث وفلترة */}
             {products.length > 0 && (
-                <div className="relative">
-                    <FiSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                    <input
-                        type="text"
-                        placeholder="ابحث عن منتج..."
-                        value={search}
-                        onChange={e => setSearch(e.target.value)}
-                        className="input pr-10 text-sm"
-                    />
+                <div className="space-y-4">
+                    <div className="flex gap-2">
+                        <div className="relative flex-1">
+                            <FiSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                            <input
+                                type="text"
+                                placeholder="ابحث عن منتج بالاسم..."
+                                value={search}
+                                onChange={e => setSearch(e.target.value)}
+                                className="input pr-10 text-sm h-12 rounded-2xl"
+                            />
+                        </div>
+                        <button 
+                            onClick={() => setShowFilters(!showFilters)}
+                            className={`btn h-12 px-4 rounded-2xl border ${showFilters ? 'bg-primary-50 border-primary-500 text-primary-600' : 'bg-white text-gray-600'}`}
+                        >
+                            تصفية متقدمة
+                        </button>
+                    </div>
+
+                    {showFilters && (
+                        <div className="p-5 bg-gray-50/50 border border-gray-100 rounded-3xl grid grid-cols-1 sm:grid-cols-3 gap-4 animate-fade-in">
+                            <div>
+                                <label className="text-xs font-bold text-gray-500 mb-2 block">التصنيف</label>
+                                <select 
+                                    className="input text-sm h-10 rounded-xl bg-white border-gray-200"
+                                    value={category}
+                                    onChange={e => setCategory(e.target.value)}
+                                >
+                                    <option value="">جميع التصنيفات</option>
+                                    {categories.map(cat => (
+                                        <option key={cat} value={cat}>{cat}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div>
+                                <label className="text-xs font-bold text-gray-500 mb-2 block">السعر من</label>
+                                <input 
+                                    type="number" 
+                                    className="input text-sm h-10 rounded-xl bg-white border-gray-200" 
+                                    placeholder="0"
+                                    value={minPrice}
+                                    onChange={e => setMinPrice(e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label className="text-xs font-bold text-gray-500 mb-2 block">السعر إلى</label>
+                                <input 
+                                    type="number" 
+                                    className="input text-sm h-10 rounded-xl bg-white border-gray-200" 
+                                    placeholder="بلا حدود"
+                                    value={maxPrice}
+                                    onChange={e => setMaxPrice(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
 

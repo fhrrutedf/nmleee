@@ -37,9 +37,11 @@ export async function triggerWelcomeEmail({ customerEmail, customerName, sellerI
     }
 }
 
+import { sendNotification, NotificationEvents } from '@/lib/novu';
+
 // ─── 2. إشعار البائع + صاحب المنصة عند بيع جديد ─────────────────────
-export async function triggerSellerNotification({ sellerId, type, title, content }: {
-    sellerId: string; type: 'sale' | 'review' | 'question' | 'completion' | 'refund'; title: string; content: string;
+export async function triggerSellerNotification({ sellerId, type, title, content, payload }: {
+    sellerId: string; type: 'sale' | 'review' | 'question' | 'completion' | 'refund'; title: string; content: string; payload?: any;
 }) {
     try {
         const [settings, seller] = await Promise.all([
@@ -59,12 +61,25 @@ export async function triggerSellerNotification({ sellerId, type, title, content
 
         const methods = settings?.notifyMethods || 'both';
 
+        // 1. إشعار داخلي (قاعدة البيانات)
         if (methods === 'internal' || methods === 'both') {
             await prisma.notification.create({
                 data: { type: 'INTERNAL', title, content, receiverId: sellerId },
             });
         }
 
+        // 2. إشعار عبر Novu (Real-time / Push / Email)
+        if (type === 'sale') {
+            await sendNotification(NotificationEvents.NEW_ORDER_SELLER, sellerId, {
+                title,
+                content,
+                amount: payload?.amount,
+                customerName: payload?.customerName,
+                productTitle: payload?.productTitle,
+            });
+        }
+
+        // 3. إيميل (Resend)
         if (methods === 'email' || methods === 'both') {
             const icons: Record<string, string> = { sale: '💰', review: '⭐', question: '❓', completion: '🎓', refund: '⚠️' };
             const html = `<!DOCTYPE html><html lang="ar" dir="rtl"><body style="font-family:Arial,sans-serif;background:#f8fafc;margin:0;padding:20px;"><div style="max-width:500px;margin:0 auto;background:#fff;border-radius:16px;padding:32px;box-shadow:0 4px 20px rgba(0,0,0,0.08);"><h2 style="color:#1e293b;font-size:20px;">${icons[type]} ${title}</h2><p style="color:#334155;font-size:16px;line-height:1.8;">${content}</p><a href="${process.env.NEXTAUTH_URL}/dashboard" style="background:#0ea5e9;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:700;">افتح لوحة التحكم</a></div></body></html>`;

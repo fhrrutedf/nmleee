@@ -3,7 +3,10 @@
 import { useState, useEffect } from 'react';
 import { FiDollarSign, FiClock, FiCheck, FiX } from 'react-icons/fi';
 import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
+import { isPayoutMethodConfigured, getPayoutMethodLabel } from '@/lib/payout-utils';
 import toast from 'react-hot-toast';
+import { FiAlertCircle, FiChevronLeft } from 'react-icons/fi';
+import Link from 'next/link';
 
 export default function PayoutsPage() {
     const [payouts, setPayouts] = useState([]);
@@ -14,11 +17,22 @@ export default function PayoutsPage() {
     });
     const [loading, setLoading] = useState(true);
     const [requestAmount, setRequestAmount] = useState('');
+    const [user, setUser] = useState<any>(null);
 
     useEffect(() => {
         fetchPayouts();
         fetchStats();
+        fetchProfile();
     }, []);
+
+    const fetchProfile = async () => {
+        try {
+            const data = await apiGet('/api/user/profile');
+            setUser(data);
+        } catch (error) {
+            console.error('Error fetching profile:', error);
+        }
+    };
 
     const fetchPayouts = async () => {
         try {
@@ -51,6 +65,11 @@ export default function PayoutsPage() {
 
         if (amount < 100) {
             toast.error('الحد الأدنى للسحب هو 100 ج.م');
+            return;
+        }
+
+        if (!user || !isPayoutMethodConfigured(user)) {
+            toast.error('يُرجى إعداد طريقة سحب مفعلة أولاً من الإعدادات');
             return;
         }
 
@@ -128,30 +147,73 @@ export default function PayoutsPage() {
             </div>
 
             {/* Request Payout Form */}
-            <div className="card">
-                <h2 className="text-xl font-bold mb-4">طلب سحب جديد</h2>
-                <form onSubmit={handleRequestPayout} className="space-y-4">
-                    <div>
-                        <label className="label">المبلغ (ج.م)</label>
-                        <input
-                            type="number"
-                            required
-                            min="100"
-                            step="0.01"
-                            className="input"
-                            placeholder="الحد الأدنى: 100 ج.م"
-                            value={requestAmount}
-                            onChange={(e) => setRequestAmount(e.target.value)}
-                        />
-                        <p className="text-sm text-gray-500 mt-1">
-                            الرصيد المتاح: {stats.availableBalance.toFixed(2)} ج.م
-                        </p>
-                    </div>
+            <div className="card bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-3xl overflow-hidden shadow-sm">
+                <div className="p-6 sm:p-8">
+                    <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                        <span className="w-1.5 h-6 bg-primary-500 rounded-full"></span>
+                        طلب سحب جديد
+                    </h2>
 
-                    <button type="submit" className="btn btn-primary">
-                        طلب السحب
-                    </button>
-                </form>
+                    {user && !isPayoutMethodConfigured(user) ? (
+                        <div className="bg-amber-50 border border-amber-200 p-6 rounded-2xl flex flex-col items-center text-center animate-fade-in">
+                            <FiAlertCircle className="text-4xl text-amber-500 mb-3" />
+                            <h3 className="font-bold text-amber-900 mb-2">طريقة السحب غير مكتملة</h3>
+                            <p className="text-sm text-amber-800 mb-6 max-w-sm">
+                                لم يتم إعداد أو تفعيل طريقة سحب حتى الآن. لتتمكن من استلام أرباحك، يرجى إضافة بياناتك البنكية أو وسيلة دفع أخرى.
+                            </p>
+                            <Link 
+                                href="/dashboard/settings?tab=payment" 
+                                className="btn btn-primary px-8 flex items-center gap-2"
+                            >
+                                <span>انتقل للإعدادات</span>
+                                <FiChevronLeft />
+                            </Link>
+                        </div>
+                    ) : (
+                        <form onSubmit={handleRequestPayout} className="space-y-6">
+                            {user?.payoutMethod && (
+                                <div className="p-3 bg-green-50 text-green-800 border border-green-100 rounded-xl text-sm flex items-center gap-2">
+                                    <FiCheckCircle className="text-green-500" />
+                                    <span>سيتم التحويل عبر: <strong>{getPayoutMethodLabel(user.payoutMethod)}</strong></span>
+                                    <Link href="/dashboard/settings?tab=payment" className="mr-auto text-xs text-green-600 underline">تعديل</Link>
+                                </div>
+                            )}
+                            
+                            <div className="space-y-2">
+                                <label className="label text-gray-700">المبلغ المطلوب (ج.م)</label>
+                                <div className="relative">
+                                    <FiDollarSign className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                                    <input
+                                        type="number"
+                                        required
+                                        min="100"
+                                        step="0.01"
+                                        className="input pr-12 text-lg font-bold"
+                                        placeholder="الحد الأدنى: 100 ج.م"
+                                        value={requestAmount}
+                                        onChange={(e) => setRequestAmount(e.target.value)}
+                                    />
+                                </div>
+                                <div className="flex justify-between items-center px-1">
+                                    <p className="text-sm text-gray-500">
+                                        الرصيد المتاح: <span className="font-bold text-gray-900">{stats.availableBalance.toFixed(2)} ج.م</span>
+                                    </p>
+                                    <button 
+                                        type="button" 
+                                        onClick={() => setRequestAmount(stats.availableBalance.toString())}
+                                        className="text-xs text-primary-600 hover:underline"
+                                    >
+                                        سحب الكل
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button type="submit" className="btn btn-primary w-full py-4 text-lg shadow-lg shadow-primary-500/20 active:scale-[0.98]">
+                                إرسال طلب السحب
+                            </button>
+                        </form>
+                    )}
+                </div>
             </div>
 
             {/* Payouts History */}

@@ -6,7 +6,10 @@ import { useSearchParams } from 'next/navigation';
 import { FiUser, FiMail, FiLock, FiGlobe, FiBell, FiCreditCard, FiShield, FiSave, FiUpload, FiEye, FiEyeOff, FiLink, FiCheckCircle, FiXCircle, FiCopy } from 'react-icons/fi';
 import { apiGet, apiPut, handleApiError } from '@/lib/safe-fetch';
 import FileUploader from '@/components/ui/FileUploader';
+import PayoutSettings from '@/components/dashboard/PayoutSettings';
+import DangerZone from '@/components/dashboard/DangerZone';
 import toast from 'react-hot-toast';
+import { FiAlertCircle, FiTrendingUp, FiExternalLink } from 'react-icons/fi';
 
 export default function SettingsPage() {
     const { data: session } = useSession();
@@ -30,8 +33,19 @@ export default function SettingsPage() {
         brandColor: '',
         facebook: '',
         instagram: '',
-        twitter: ''
+        twitter: '',
+        payoutMethod: '',
+        paypalEmail: '',
+        cryptoWallet: '',
+        shamCashNumber: '',
+        omtNumber: '',
+        zainCashNumber: '',
+        vodafoneCash: '',
+        mtncashNumber: '',
     });
+
+    const [originalUsername, setOriginalUsername] = useState('');
+    const [showUsernameWarning, setShowUsernameWarning] = useState(false);
 
     // Password Settings
     const [passwordData, setPasswordData] = useState({
@@ -72,8 +86,17 @@ export default function SettingsPage() {
                     brandColor: data.brandColor || '#0ea5e9',
                     facebook: data.facebook || '',
                     instagram: data.instagram || '',
-                    twitter: data.twitter || ''
+                    twitter: data.twitter || '',
+                    payoutMethod: data.payoutMethod || '',
+                    paypalEmail: data.paypalEmail || '',
+                    cryptoWallet: data.cryptoWallet || '',
+                    shamCashNumber: data.shamCashNumber || '',
+                    omtNumber: data.omtNumber || '',
+                    zainCashNumber: data.zainCashNumber || '',
+                    vodafoneCash: data.vodafoneCash || '',
+                    mtncashNumber: data.mtncashNumber || '',
                 });
+                setOriginalUsername(data.username || '');
                 setPaymentData({
                     bankName: data.bankName || '',
                     accountNumber: data.accountNumber || '',
@@ -261,10 +284,23 @@ export default function SettingsPage() {
                                             <input
                                                 type="text"
                                                 value={profileData.username}
-                                                onChange={(e) => setProfileData({ ...profileData, username: e.target.value })}
-                                                className="input rounded-l-none text-left"
+                                                onChange={(e) => {
+                                                    const newUsername = e.target.value.replace(/\s+/g, '-').toLowerCase();
+                                                    setProfileData({ ...profileData, username: newUsername });
+                                                    setShowUsernameWarning(newUsername !== originalUsername);
+                                                }}
+                                                className={`input rounded-l-none text-left ${showUsernameWarning ? 'border-amber-400 focus:ring-amber-400' : ''}`}
                                             />
                                         </div>
+                                        {showUsernameWarning && (
+                                            <div className="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 flex items-start gap-2 shadow-sm animate-fade-in">
+                                                <FiAlertCircle className="mt-0.5 shrink-0 text-amber-500" />
+                                                <p>
+                                                    <strong className="block mb-1">تحذير: تغيير اسم المستخدم</strong>
+                                                    سيؤدي هذا إلى تغيير رابط متجرك ومنتجاتك. جميع الروابط الخارجية التي شاركتها سابقاً في تويتر أو انستقرام ستتوقف عن العمل.
+                                                </p>
+                                            </div>
+                                        )}
                                     </div>
 
                                     <div>
@@ -474,66 +510,11 @@ export default function SettingsPage() {
                         {/* Payment Tab */}
                         {activeTab === 'payment' && (
                             <div className="space-y-8 animate-fade-in">
-                                <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">إعدادات الدفع</h2>
-
-                                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-                                    <p className="text-blue-800 dark:text-blue-200">
-                                        <strong>ملاحظة:</strong> سنستخدم هذه المعلومات لتحويل أرباحك
-                                    </p>
+                                <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-4">
+                                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">إعدادات تحويل الأرباح</h2>
+                                    <FiTrendingUp className="text-2xl text-primary-500" />
                                 </div>
-
-                                <div className="space-y-6 max-w-2xl">
-                                    <div>
-                                        <label className="label">اسم البنك</label>
-                                        <input
-                                            type="text"
-                                            value={paymentData.bankName}
-                                            onChange={(e) => setPaymentData({ ...paymentData, bankName: e.target.value })}
-                                            className="input"
-                                            placeholder="البنك الأهلي المصري"
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label className="label">رقم الحساب</label>
-                                        <input
-                                            type="text"
-                                            value={paymentData.accountNumber}
-                                            onChange={(e) => setPaymentData({ ...paymentData, accountNumber: e.target.value })}
-                                            className="input"
-                                            placeholder="1234567890"
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label className="label">اسم صاحب الحساب</label>
-                                        <input
-                                            type="text"
-                                            value={paymentData.accountName}
-                                            onChange={(e) => setPaymentData({ ...paymentData, accountName: e.target.value })}
-                                            className="input"
-                                        />
-                                    </div>
-
-                                    <div className="border-t border-gray-100 dark:border-gray-800 pt-6">
-                                        <h3 className="font-medium mb-3 text-primary-charcoal dark:text-white">بديل: PayPal</h3>
-                                        <label className="label">بريد PayPal الإلكتروني</label>
-                                        <input
-                                            type="email"
-                                            value={paymentData.paypalEmail}
-                                            onChange={(e) => setPaymentData({ ...paymentData, paypalEmail: e.target.value })}
-                                            className="input"
-                                            placeholder="your@email.com"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="pt-6 border-t border-gray-100 dark:border-gray-800">
-                                    <button className="btn btn-primary">
-                                        <FiSave />
-                                        <span>حفظ معلومات الدفع</span>
-                                    </button>
-                                </div>
+                                <PayoutSettings />
                             </div>
                         )}
 
@@ -622,37 +603,32 @@ export default function SettingsPage() {
                         {/* Privacy Tab */}
                         {activeTab === 'privacy' && (
                             <div className="space-y-8 animate-fade-in">
-                                <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الخصوصية والأمان</h2>
+                                <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الخصوصية والأمان المتقدم</h2>
 
                                 <div className="space-y-6">
-                                    <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-800">
-                                        <h3 className="font-medium text-primary-charcoal dark:text-white mb-2">رؤية الملف الشخصي</h3>
-                                        <select className="input">
+                                    <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800">
+                                        <h3 className="font-bold text-gray-900 dark:text-white mb-2">رؤية الملف الشخصي</h3>
+                                        <select className="input rounded-xl bg-white dark:bg-gray-900 shadow-sm border-gray-200">
                                             <option>عام - يمكن لأي شخص رؤية ملفك الشخصي</option>
                                             <option>خاص - فقط من تتابعهم</option>
                                         </select>
                                     </div>
 
-                                    <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-800">
-                                        <h3 className="font-medium text-primary-charcoal dark:text-white mb-2">رقم الهاتف</h3>
-                                        <select className="input">
-                                            <option>إظهار للجميع</option>
-                                            <option>إخفاء رقم الهاتف</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="p-4 bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-900/30 rounded-lg">
-                                        <h3 className="font-medium text-red-900 dark:text-red-400 mb-2">منطقة الخطر</h3>
-                                        <p className="text-sm text-red-700 dark:text-red-300 mb-4">العمليات التالية لا يمكن التراجع عنها</p>
-                                        <div className="space-y-2">
-                                            <button className="btn bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white w-full border-none">
-                                                تعطيل الحساب مؤقتاً
-                                            </button>
-                                            <button className="btn btn-outline border-red-500 text-red-500 hover:bg-red-500 hover:text-white dark:border-red-500 dark:text-red-500 dark:hover:bg-red-900/20 w-full">
-                                                حذف الحساب نهائياً
-                                            </button>
+                                    <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800">
+                                        <div className="flex items-center gap-2 mb-4">
+                                            <FiShield className="text-primary-500" />
+                                            <h3 className="font-bold text-gray-900 dark:text-white">التحقق بخطوتين (2FA)</h3>
+                                        </div>
+                                        <div className="bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-800 flex items-center justify-between">
+                                            <div>
+                                                <p className="text-sm font-medium">تأمين الحساب عبر تطبيق (TOTP)</p>
+                                                <p className="text-xs text-gray-500">استخدم Google Authenticator لتأمين دخولك</p>
+                                            </div>
+                                            <button className="btn btn-outline py-2 text-sm border-primary-100 hover:border-primary-500">تفعيل 2FA</button>
                                         </div>
                                     </div>
+
+                                    <DangerZone />
                                 </div>
                             </div>
                         )}
