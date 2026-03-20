@@ -11,16 +11,17 @@ import { getBunnySignedUrl } from '@/lib/bunny';
  */
 export async function GET(
     req: NextRequest,
-    { params }: { params: { lessonId: string } }
+    { params }: { params: Promise<{ lessonId: string }> }
 ) {
     try {
+        const { lessonId } = await params;
         const session = await getServerSession(authOptions);
         if (!session?.user?.email) {
             return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
         }
 
         const lesson: any = await prisma.lesson.findUnique({
-            where: { id: params.lessonId },
+            where: { id: lessonId },
             include: {
                 module: {
                     select: {

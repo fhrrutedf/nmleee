@@ -12,16 +12,17 @@ import { createBunnyVideo } from '@/lib/bunny';
  */
 export async function POST(
     req: NextRequest,
-    { params }: { params: { lessonId: string } }
+    { params }: { params: Promise<{ lessonId: string }> }
 ) {
     try {
+        const { lessonId } = await params;
         const session = await getServerSession(authOptions);
         if (!session?.user?.email) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
         const lesson = await prisma.lesson.findUnique({
-            where: { id: params.lessonId }
+            where: { id: lessonId }
         });
 
         if (!lesson) {
@@ -35,7 +36,7 @@ export async function POST(
 
         // 2. تحديث الدرس في قاعدة بياناتنا
         await (prisma.lesson as any).update({
-            where: { id: params.lessonId },
+            where: { id: lessonId },
             data: {
                 bunnyVideoId,
                 bunnyLibraryId: libraryId,
