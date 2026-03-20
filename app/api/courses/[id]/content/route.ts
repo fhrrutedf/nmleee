@@ -106,14 +106,14 @@ export async function GET(
         }
 
         // 4. Sanitize Quiz Questions (Remove correct answers)
-        const sanitizedModules = course.modules.map(module => ({
+        const sanitizedModules = course.modules.map((module: any) => ({
             ...module,
-            lessons: module.lessons.map(lesson => ({
+            lessons: module.lessons.map((lesson: any) => ({
                 ...lesson,
                 completed: lesson.progress?.[0]?.isCompleted || false,
                 lastPosition: lesson.progress?.[0]?.lastPosition || 0,
-                quizzes: lesson.quizzes.map(quiz => {
-                    const questions = (quiz.questions as any[]).map(q => {
+                quizzes: lesson.quizzes.map((quiz: any) => {
+                    const questions = (quiz.questions as any[]).map((q: any) => {
                         const { correctAnswer, ...rest } = q;
                         return rest;
                     });
