@@ -38,7 +38,7 @@ export default function AdminBroadcastPage() {
             setSubject('');
             setMessage('');
         } catch (err) {
-            handleApiError(err, 'فشل إرسال البث');
+            handleApiError(err);
         } finally {
             setSending(false);
         }

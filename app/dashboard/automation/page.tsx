@@ -22,7 +22,7 @@ export default function AutomationPage() {
                 setSettings(settingsData);
                 setCarts(cartsData || []);
             } catch (err) {
-                handleApiError(err, 'تعذر تحميل بيانات الأتمتة');
+                handleApiError(err);
             } finally {
                 setLoading(false);
             }
@@ -36,7 +36,7 @@ export default function AutomationPage() {
             await apiPut('/api/seller/automation-settings', settings);
             toast.success('تم حفظ إعدادات الأتمتة بنجاح');
         } catch (err) {
-            handleApiError(err, 'فشل حفظ الإعدادات');
+            handleApiError(err);
         } finally {
             setSaving(false);
         }
