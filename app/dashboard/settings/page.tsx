@@ -169,17 +169,13 @@ export default function SettingsPage() {
     const setup2FA = async () => {
         const loadingToast = toast.loading('جاري تجهيز إعدادات الأمان...');
         try {
-            const res = await fetch('/api/user/2fa/setup', { method: 'POST' });
-            const data = await res.json();
+            const data = await apiPost<{ qrCode: string, secret: string }>('/api/user/2fa/setup');
             toast.dismiss(loadingToast);
             
-            if (res.ok && data.qrCode) {
+            if (data.qrCode) {
                 setQrCode(data.qrCode);
                 setTempSecret(data.secret);
                 setShow2FASetup(true);
-            } else {
-                console.error('2FA error response:', data);
-                toast.error(data.error || 'فشل الحصول على رمز الـ QR، حاول مرة أخرى');
             }
         } catch (error) {
             toast.dismiss(loadingToast);
@@ -192,19 +188,11 @@ export default function SettingsPage() {
         if (!userToken) return toast.error('يرجى إدخال الرمز');
         setVerifying2FA(true);
         try {
-            const res = await fetch('/api/user/2fa/verify', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ token: userToken, secret: tempSecret })
-            });
-            if (res.ok) {
-                toast.success('تم تفعيل التحقق بخطوتين بنجاح! 🔒');
-                setProfileData({ ...profileData, twoFactorEnabled: true });
-                setShow2FASetup(false);
-                setUserToken('');
-            } else {
-                toast.error('الرمز غير صحيح، حاول مرة أخرى');
-            }
+            await apiPost('/api/user/2fa/verify', { token: userToken, secret: tempSecret });
+            toast.success('تم تفعيل التحقق بخطوتين بنجاح! 🔒');
+            setProfileData({ ...profileData, twoFactorEnabled: true });
+            setShow2FASetup(false);
+            setUserToken('');
         } catch (error) {
             toast.error('خطأ في التحقق');
         } finally {
@@ -215,11 +203,9 @@ export default function SettingsPage() {
     const disable2FA = async () => {
         if (!confirm('هل أنت متأكد من تعطيل التحقق بخطوتين؟ هذا يقلل من أمان حسابك.')) return;
         try {
-            const res = await fetch('/api/user/2fa/verify', { method: 'DELETE' });
-            if (res.ok) {
-                toast.success('تم تعطيل التحقق بخطوتين');
-                setProfileData({ ...profileData, twoFactorEnabled: false });
-            }
+            await apiDelete('/api/user/2fa/verify');
+            toast.success('تم تعطيل التحقق بخطوتين');
+            setProfileData({ ...profileData, twoFactorEnabled: false });
         } catch (error) {
             toast.error('فشل التعطيل');
         }

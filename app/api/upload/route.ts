@@ -25,8 +25,19 @@ export async function POST(request: Request) {
             );
         }
 
-        // التحقق من حجم الملف (500MB max للفيديو، 50MB للصور والملفات)
+        // التحقق من نوع وحجم الملف
         const isVideo = file.type.startsWith('video/');
+        const isImage = file.type.startsWith('image/');
+        const isAllowedDoc = ['application/pdf', 'application/zip', 'application/x-zip-compressed', 'application/octet-stream'].includes(file.type) || 
+                          file.name.endsWith('.zip') || file.name.endsWith('.pdf') || file.name.endsWith('.rar');
+
+        if (!isVideo && !isImage && !isAllowedDoc) {
+            return NextResponse.json(
+                { error: 'نوع الملف غير مدعوم. مسموح فقط بالصور، الفيديو، PDF، وZIP.' },
+                { status: 400 }
+            );
+        }
+
         const maxSize = isVideo ? 500 * 1024 * 1024 : 50 * 1024 * 1024;
         if (file.size > maxSize) {
             return NextResponse.json(

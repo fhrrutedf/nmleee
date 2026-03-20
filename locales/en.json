@@ -1,0 +1,23 @@
+{
+  "common": {
+    "dashboard": "Dashboard",
+    "home": "Home",
+    "logout": "Logout",
+    "save": "Save Changes",
+    "cancel": "Cancel"
+  },
+  "dashboard": {
+    "welcome": "Welcome back 👋",
+    "stats": "Statistics",
+    "total_earnings": "Total Earnings",
+    "active_courses": "Active Courses",
+    "sales": "Sales"
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": "Profile",
+    "security": "Security",
+    "two_factor": "Two-Factor Authentication (2FA)",
+    "two_factor_desc": "Add an extra layer of protection to your account by requiring a code from an authentication app."
+  }
+}

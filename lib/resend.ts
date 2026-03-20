@@ -1,13 +1,16 @@
+import { Resend } from 'resend';
 import nodemailer from 'nodemailer';
 
-export const FROM_EMAIL = process.env.BREVO_FROM_EMAIL || process.env.GMAIL_USER || 'noreply@tmleen.com';
-export const FROM_NAME = process.env.RESEND_FROM_NAME || 'المنصة';
+export const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || process.env.BREVO_FROM_EMAIL || process.env.GMAIL_USER || 'noreply@tmleen.com';
+export const FROM_NAME = process.env.RESEND_FROM_NAME || 'تمالين';
 
-// Create Brevo SMTP transporter
+const resendClient = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+
+// Create SMTP transporter as fallback
 function createTransporter() {
     return nodemailer.createTransport({
-        host: 'smtp-relay.brevo.com',
-        port: 587,
+        host: process.env.BREVO_SMTP_HOST || 'smtp-relay.brevo.com',
+        port: Number(process.env.BREVO_SMTP_PORT) || 587,
         secure: false,
         auth: {
             user: process.env.BREVO_SMTP_USER || '',
@@ -32,10 +35,27 @@ export async function sendEmail({
     fromName?: string;
 }) {
     try {
-        const transporter = createTransporter();
         const fromAddress = `${fromName || FROM_NAME} <${from || FROM_EMAIL}>`;
         const toAddress = toName ? `${toName} <${to}>` : to;
 
+        // 1. Try Resend SDK first
+        if (resendClient) {
+            const { data, error } = await resendClient.emails.send({
+                from: fromAddress,
+                to: [to],
+                subject,
+                html,
+            });
+
+            if (!error) {
+                console.log('✅ Email sent via Resend:', data?.id);
+                return { success: true, id: data?.id };
+            }
+            console.warn('⚠️ Resend failed, falling back to SMTP:', error);
+        }
+
+        // 2. Fallback to SMTP
+        const transporter = createTransporter();
         const info = await transporter.sendMail({
             from: fromAddress,
             to: toAddress,
@@ -43,15 +63,15 @@ export async function sendEmail({
             html,
         });
 
-        console.log('✅ Email sent via Brevo:', info.messageId);
+        console.log('✅ Email sent via SMTP (Fallback):', info.messageId);
         return { success: true, id: info.messageId };
     } catch (err: any) {
-        console.error('❌ Brevo email error:', err.message);
+        console.error('❌ All email providers failed:', err.message);
         return { success: false, error: err.message };
     }
 }
 
-// Compatibility stub for files that import `resend` directly
+// Compatibility stub for existing imports
 export const resend = {
     emails: {
         send: async (opts: any) => {
@@ -59,7 +79,8 @@ export const resend = {
                 to: Array.isArray(opts.to) ? opts.to[0] : opts.to,
                 subject: opts.subject,
                 html: opts.html || '<p></p>',
-                from: FROM_EMAIL,
+                from: opts.from || FROM_EMAIL,
+                fromName: opts.fromName || FROM_NAME,
             });
             return result.success
                 ? { data: { id: result.id }, error: null }

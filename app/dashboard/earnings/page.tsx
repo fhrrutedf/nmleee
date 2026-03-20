@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FiDollarSign, FiClock, FiCheck, FiTrendingUp, FiZap, FiShield, FiAlertCircle } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
 interface Balance {
     pending: number;
@@ -43,19 +44,15 @@ export default function EarningsPage() {
 
     const fetchData = async () => {
         try {
-            const [balanceRes, earningsRes] = await Promise.all([
-                fetch('/api/seller/balance'),
-                fetch('/api/seller/earnings'),
+            const [balanceData, earningsData] = await Promise.all([
+                apiGet('/api/seller/balance'),
+                apiGet('/api/seller/earnings'),
             ]);
 
-            if (balanceRes.ok && earningsRes.ok) {
-                const balanceData = await balanceRes.json();
-                const earningsData = await earningsRes.json();
-                setBalance(balanceData);
-                setEarnings(earningsData);
-            }
+            setBalance(balanceData);
+            setEarnings(earningsData);
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', handleApiError(error));
         } finally {
             setLoading(false);
         }
