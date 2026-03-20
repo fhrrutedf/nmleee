@@ -56,7 +56,6 @@ export async function GET(req: NextRequest) {
                     // Notify the seller
                     prisma.notification.create({
                         data: {
-                            userId: order.sellerId,
                             receiverId: order.sellerId,
                             type: 'INTERNAL',
                             title: '💰 تم تحرير أرباح جديدة!',
