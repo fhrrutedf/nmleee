@@ -5,8 +5,8 @@ import { prisma } from '@/lib/db';
 import { logActivity, LOG_ACTIONS } from '@/lib/activity-log';
 
 // GET Admin ticket info
-export async function GET(req: NextRequest, { params }: { params: Promise<{ ticketId: string }> }) {
-    const { ticketId } = await params;
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+    const { id: ticketId } = await params;
     const session = await getServerSession(authOptions);
     const user = session?.user as any;
     if (!user || user.role !== 'ADMIN') {
@@ -29,8 +29,8 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ tick
 }
 
 // PATCH Admin reply or status update
-export async function PATCH(req: NextRequest, { params }: { params: Promise<{ ticketId: string }> }) {
-    const { ticketId } = await params;
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+    const { id: ticketId } = await params;
     const session = await getServerSession(authOptions);
     const user = session?.user as any;
     if (!user || user.role !== 'ADMIN') {

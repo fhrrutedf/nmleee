@@ -124,7 +124,6 @@ async function main() {
                 duration: '40 ساعة',
                 sessions: 50,
                 tags: ['برمجة', 'تطوير ويب', 'React'],
-                features: ['50 درس', '40 ساعة', 'شهادة', 'مشاريع عملية'],
                 isActive: true,
                 userId: demoUser.id
             }
@@ -139,7 +138,6 @@ async function main() {
                 duration: '30 ساعة',
                 sessions: 35,
                 tags: ['تصميم', 'Photoshop', 'Illustrator'],
-                features: ['35 درس', '30 ساعة', 'ملفات PSD', 'دعم فني'],
                 isActive: true,
                 userId: demoUser.id
             }
@@ -154,7 +152,6 @@ async function main() {
                 duration: '25 ساعة',
                 sessions: 30,
                 tags: ['تسويق', 'SEO', 'سوشيال ميديا'],
-                features: ['30 درس', '25 ساعة', 'استراتيجيات', 'أدوات'],
                 isActive: true,
                 userId: demoUser.id
             }
@@ -172,11 +169,11 @@ async function main() {
                 code: 'WELCOME50',
                 type: 'percentage',
                 value: 50,
-                maxUses: 100,
-                usedCount: 0,
+                usageLimit: 100,
+                usageCount: 0,
                 minPurchase: 50,
                 isActive: true,
-                expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+                endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
                 userId: demoUser.id
             }
         }),
@@ -185,11 +182,11 @@ async function main() {
                 code: 'SAVE20',
                 type: 'fixed',
                 value: 20,
-                maxUses: 50,
-                usedCount: 0,
+                usageLimit: 50,
+                usageCount: 0,
                 minPurchase: 100,
                 isActive: true,
-                expiresAt: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
+                endDate: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
                 userId: demoUser.id
             }
         }),
@@ -198,8 +195,8 @@ async function main() {
                 code: 'FIRST10',
                 type: 'percentage',
                 value: 10,
-                maxUses: 200,
-                usedCount: 5,
+                usageLimit: 200,
+                usageCount: 5,
                 isActive: true,
                 userId: demoUser.id
             }

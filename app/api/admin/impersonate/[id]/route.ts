@@ -5,12 +5,12 @@ import { prisma } from '@/lib/db';
 import { logActivity, LOG_ACTIONS } from '@/lib/activity-log';
 import { encode } from 'next-auth/jwt';
 
-// POST /api/admin/impersonate/[userId]
+// POST /api/admin/impersonate/[id]
 export async function POST(
     req: NextRequest,
-    { params }: { params: Promise<{ userId: string }> }
+    { params }: { params: Promise<{ id: string }> }
 ) {
-    const { userId } = await params;
+    const { id: userId } = await params;
     const session = await getServerSession(authOptions);
     const adminUser = session?.user as any;
 
@@ -73,12 +73,12 @@ export async function POST(
     });
 }
 
-// DELETE /api/admin/impersonate/[userId] - end impersonation
+// DELETE /api/admin/impersonate/[id] - end impersonation
 export async function DELETE(
     req: NextRequest,
-    { params }: { params: Promise<{ userId: string }> }
+    { params }: { params: Promise<{ id: string }> }
 ) {
-    const { userId } = await params;
+    const { id: userId } = await params;
     await prisma.$executeRaw`
         UPDATE impersonation_sessions 
         SET ended_at = NOW() 
