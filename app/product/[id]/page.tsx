@@ -8,6 +8,7 @@ import 'react-quill-new/dist/quill.snow.css';
 import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 import VideoPlayer from '@/components/ui/VideoPlayer';
 import showToast from '@/lib/toast';
+import { useCurrency } from '@/hooks/useCurrency';
 
 const stripHtml = (html: string) => {
     if (!html) return '';
@@ -29,6 +30,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
     const [activeTab, setActiveTab] = useState('description');
     const [newReview, setNewReview] = useState({ rating: 5, comment: '', name: '' });
     const [activeMedia, setActiveMedia] = useState<{ type: 'image' | 'video', url: string } | null>(null);
+    const { formatPrice } = useCurrency();
 
     useEffect(() => {
         if (id) {
@@ -216,13 +218,13 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                                 </div>
 
                                 {/* Price Reveal */}
-                                <div className="mb-10 flex items-end gap-3">
+                                <div className="mb-10 flex items-end gap-3 leading-none">
                                     <span className="text-5xl sm:text-6xl font-black bg-gradient-to-br from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent transform transition-transform hover:scale-105 origin-right">
-                                        {product.price > 0 ? product.price.toFixed(2) : '0.00'}
+                                        {formatPrice(product.price || 0).value}
                                     </span>
-                                    <span className="text-2xl font-bold text-gray-400 dark:text-gray-500 mb-2 font-serif">ج.م</span>
-
-                                    {/* Discount Logic Display could be added here if product had discount fields */}
+                                    <span className="text-2xl font-bold text-gray-400 dark:text-gray-500 mb-2 font-serif">
+                                        {formatPrice(product.price || 0).symbol}
+                                    </span>
                                 </div>
 
                                 {/* Call to Actions */}

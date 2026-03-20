@@ -51,7 +51,7 @@ export default function Navbar() {
                             >
                                 <FiLayers className="text-xl" />
                             </motion.span>
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">منصتي الرقمية</span>
+                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">تمالين</span>
                         </Link>
 
                         <div className="hidden lg:flex items-center gap-8">

@@ -32,13 +32,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     if (!post) {
         return {
-            title: 'مقال غير موجود | منصتي الرقمية',
+            title: 'مقال غير موجود | تمالين',
         };
     }
 
     return {
-        title: `${post.title} | منصتي الرقمية`,
-        description: post.excerpt || 'قم بقراءة هذا المقال المميز على منصتي الرقمية',
+        title: `${post.title} | تمالين`,
+        description: post.excerpt || 'قم بقراءة هذا المقال المميز على تمالين',
         openGraph: {
             title: post.title,
             description: post.excerpt || '',
@@ -156,9 +156,36 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                         {/* Content */}
                         <article
-                            className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-primary-charcoal prose-p:text-gray-700 prose-a:text-action-blue prose-img:rounded-xl prose-p:leading-relaxed"
+                            className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-primary-charcoal prose-p:text-gray-700 prose-a:text-action-blue prose-img:rounded-xl prose-p:leading-relaxed mb-20"
                             dangerouslySetInnerHTML={{ __html: post.content }}
                         />
+
+                        {/* Conversion CTA Block */}
+                        <div className="bg-gradient-to-br from-action-blue to-purple-700 rounded-[2.5rem] p-8 md:p-12 text-white shadow-2xl shadow-action-blue/20 relative overflow-hidden group">
+                           {/* Decorative background elements */}
+                           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl group-hover:bg-white/20 transition-all duration-700"></div>
+                           <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/20 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl"></div>
+                           
+                           <div className="relative z-10 flex flex-col md:flex-row items-center gap-10">
+                               <div className="flex-1 text-center md:text-right">
+                                   <h3 className="text-2xl md:text-4xl font-black mb-4 leading-tight">جاهز لتحويل خبرتك إلى أرباح؟ 🚀</h3>
+                                   <p className="text-white/80 text-lg font-medium max-w-lg mb-8">انضم لآلاف المبدعين العرب الذين يبيعون منتجاتهم الرقمية ودوراتهم التدريبية عبر تمالين بكل سهولة.</p>
+                                   <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                                       <Link href="/register" className="px-8 py-4 bg-white text-action-blue rounded-2xl font-black text-xl shadow-xl hover:scale-105 transition-transform text-center">
+                                           أنشئ متجرك مجاناً
+                                       </Link>
+                                       <Link href="/explore" className="px-8 py-4 bg-white/10 text-white border border-white/20 rounded-2xl font-bold text-lg hover:bg-white/20 transition-all text-center">
+                                           استكشف المنتجات
+                                       </Link>
+                                   </div>
+                               </div>
+                               <div className="hidden lg:block shrink-0">
+                                    <div className="w-48 h-48 bg-white/20 rounded-full flex items-center justify-center p-4 backdrop-blur-md border border-white/30 rotate-12">
+                                        <div className="w-full h-full bg-white rounded-full flex items-center justify-center text-action-blue text-6xl shadow-inner">💰</div>
+                                    </div>
+                               </div>
+                           </div>
+                        </div>
 
                         {/* Share Section Removed to comply with constraints */}
                     </div>
