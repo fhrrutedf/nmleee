@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FiDollarSign, FiClock, FiCheck, FiX } from 'react-icons/fi';
+import { FiDollarSign, FiClock, FiCheck, FiX, FiCheckCircle } from 'react-icons/fi';
 import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 import { isPayoutMethodConfigured, getPayoutMethodLabel } from '@/lib/payout-utils';
 import toast from 'react-hot-toast';
