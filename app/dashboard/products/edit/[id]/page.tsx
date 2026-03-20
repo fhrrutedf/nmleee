@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import {
     FiArrowRight, FiUpload, FiDollarSign, FiPackage,
-    FiSave, FiX, FiFilm, FiEye, FiImage, FiCheck
+    FiSave, FiX, FiFilm, FiEye, FiImage, FiCheck, FiLayers
 } from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
 import FileUploader from '@/components/ui/FileUploader';
 import RichTextEditor from '@/components/ui/RichTextEditor';
+import { motion, AnimatePresence } from 'framer-motion';
 
 type PricingType = 'fixed' | 'free' | 'pwyw';
 
@@ -55,7 +56,6 @@ export default function EditProductPage() {
             if (response.ok) {
                 const data = await response.json();
 
-                // Determine pricing type
                 let pType: PricingType = 'fixed';
                 if (data.isFree || data.price === 0) pType = 'free';
                 else if (data.minPrice !== null && data.minPrice !== undefined) pType = 'pwyw';
@@ -84,7 +84,7 @@ export default function EditProductPage() {
             }
         } catch (error) {
             console.error('Error fetching product:', error);
-            showToast.error('حدث خطأ أثناء جلب بيانات المنتج');
+            showToast.error('حدث خطأ أثناء جلب البيانات');
         } finally {
             setLoading(false);
         }
@@ -93,19 +93,8 @@ export default function EditProductPage() {
     const update = (key: string, value: any) =>
         setFormData(prev => ({ ...prev, [key]: value }));
 
-    const getFileType = (name: string) => {
-        if (name.includes('pdf')) return 'pdf';
-        if (name.includes('video') || name.match(/\.(mp4|mov|avi|mkv)$/i)) return 'video';
-        if (name.match(/\.(zip|rar)$/i)) return 'zip';
-        if (name.match(/\.(mp3|wav)$/i)) return 'audio';
-        return 'other';
-    };
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!formData.image) return showToast.error('يرجى رفع صورة الغلاف');
-        if (!formData.fileUrl) return showToast.error('يرجى رفع ملف المنتج الأساسي');
-
         setSaving(true);
         const toastId = showToast.loading('جاري حفظ التعديلات...');
         try {
@@ -124,377 +113,236 @@ export default function EditProductPage() {
             });
             if (res.ok) {
                 showToast.dismiss(toastId);
-                showToast.success('تم حفظ التعديلات بنجاح! ✅');
+                showToast.success('تم التحديث بنجاح! 🎉');
                 router.push('/dashboard/products');
             } else {
-                throw new Error('خطأ في الحفظ');
+                throw new Error('فشل الحفظ');
             }
         } catch {
             showToast.dismiss(toastId);
-            showToast.error('حدث خطأ أثناء حفظ التعديلات');
+            showToast.error('حدث خطأ أثناء الحفظ');
         } finally {
             setSaving(false);
         }
     };
 
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center min-h-[50vh]">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-action-blue"></div>
-            </div>
-        );
-    }
+    if (loading) return null;
 
     return (
-        <div className="max-w-2xl mx-auto pb-20 px-4 animate-fade-in">
-            {/* Header */}
-            <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="px-1">
-                    <Link href="/dashboard/products" className="inline-flex items-center gap-2 text-text-muted hover:text-action-blue text-sm mb-4 transition-colors">
+        <div className="max-w-4xl mx-auto pb-24 px-4 overflow-hidden">
+            
+            {/* Elegant Header */}
+            <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white p-10 rounded-[3rem] border border-slate-50 shadow-premium">
+                <div className="space-y-2 max-w-xl">
+                    <Link href="/dashboard/products" className="inline-flex items-center gap-2 text-slate-400 hover:text-primary-indigo-600 font-bold text-xs mb-2 transition-colors">
                         <FiArrowRight /> العودة للمنتجات
                     </Link>
-                    <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white">تعديل المنتج</h1>
-                    <p className="text-sm text-text-muted mt-1">{formData.title}</p>
+                    <h1 className="text-3xl font-black text-slate-900 break-words leading-tight">{formData.title}</h1>
+                    <p className="text-slate-400 font-medium">تعديل التفاصيل المتقدمة وخيارات العرض</p>
                 </div>
-                <div className="flex items-center gap-3 self-start sm:self-auto px-1">
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${formData.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'}`}>
-                        {formData.isActive ? 'نشط ومرئي' : 'غير مدرج'}
-                    </span>
+                <div className="flex gap-4">
+                     <div className={`px-5 py-2 rounded-2xl text-xs font-black flex items-center gap-2 ${formData.isActive ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-400'}`}>
+                        <div className={`w-2 h-2 rounded-full ${formData.isActive ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300'}`} />
+                        {formData.isActive ? 'معروض للبيع' : 'مخفي من المتجر'}
+                    </div>
                 </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Basic Info */}
-                <Section title="المعلومات الأساسية" icon={<FiPackage />}>
-                    <div>
-                        <label className="label">عنوان المنتج <span className="text-red-500">*</span></label>
-                        <input
-                            type="text" required className="input"
-                            value={formData.title}
-                            onChange={e => update('title', e.target.value)}
-                        />
-                    </div>
-
-                    <div>
-                        <label className="label">وصف المنتج <span className="text-red-500">*</span></label>
-                        <div className="mt-1">
-                            <RichTextEditor
-                                value={formData.description}
-                                onChange={val => update('description', val)}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 gap-4">
-                        <div>
-                            <label className="label">التصنيف</label>
-                            <select className="input bg-white dark:bg-gray-800" value={formData.category} onChange={e => update('category', e.target.value)}>
-                                <option value="">اختر التصنيف</option>
-                                <option value="courses">دورات تدريبية</option>
-                                <option value="ebooks">كتب إلكترونية</option>
-                                <option value="templates">قوالب ومصادر</option>
-                                <option value="software">برمجيات وأدوات</option>
-                                <option value="graphics">جرافيك وتصاميم</option>
-                                <option value="other">أخرى</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label className="label">الوسوم (Tags)</label>
-                            <input
-                                type="text" className="input"
-                                placeholder="تصميم, فوتوشوب, جرافيك"
-                                value={formData.tags}
-                                onChange={e => update('tags', e.target.value)}
-                            />
-                        </div>
-                    </div>
-                </Section>
-
-                {/* Pricing */}
-                <Section title="التسعير" icon={<FiDollarSign />}>
-                    <div>
-                        <label className="label">نوع التسعير</label>
-                        <div className="grid grid-cols-3 gap-2">
-                            {[
-                                { value: 'fixed', label: 'سعر ثابت' },
-                                { value: 'pwyw', label: 'ادفع ما تريد' },
-                                { value: 'free', label: 'مجاني' },
-                            ].map(opt => (
-                                <button
-                                    key={opt.value} type="button"
-                                    onClick={() => update('pricingType', opt.value)}
-                                    className={`py-2.5 rounded-xl text-sm font-semibold border-2 transition-all ${formData.pricingType === opt.value
-                                        ? 'border-action-blue bg-action-blue/10 text-action-blue'
-                                        : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-action-blue/50'}`}
-                                >
-                                    {opt.label}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    {formData.pricingType !== 'free' && (
-                        <div className="grid sm:grid-cols-2 gap-4">
-                            <div>
-                                <label className="label">السعر (ج.م) <span className="text-red-500">*</span></label>
-                                <input
-                                    type="number" required min="0" step="0.01" className="input"
-                                    value={formData.price}
-                                    onChange={e => update('price', e.target.value)}
-                                />
-                            </div>
-                            {formData.pricingType === 'pwyw' && (
+            <form onSubmit={handleSubmit} className="space-y-10">
+                
+                <div className="grid lg:grid-cols-5 gap-10">
+                    
+                    {/* Main Settings Column */}
+                    <div className="lg:col-span-3 space-y-10">
+                        <Section title="بيانات المنتج الرئيسية" icon={<FiPackage />}>
+                            <div className="space-y-6">
                                 <div>
-                                    <label className="label">الحد الأدنى (ج.م)</label>
+                                    <label className="label-modern">اسم المنتج <span className="text-red-500">*</span></label>
                                     <input
-                                        type="number" min="0" step="0.01" className="input"
-                                        value={formData.minPrice}
-                                        onChange={e => update('minPrice', e.target.value)}
+                                        type="text" required className="input-modern"
+                                        value={formData.title}
+                                        onChange={e => update('title', e.target.value)}
                                     />
                                 </div>
-                            )}
-                        </div>
-                    )}
-                </Section>
-
-                {/* Cover Image */}
-                <Section title="صورة الغلاف" icon={<FiImage />}>
-                    <p className="text-sm text-text-muted -mt-1 mb-3">الصورة المصغرة التي ستظهر كغلاف للمنتج <span className="text-red-500">*</span></p>
-
-                    {formData.image ? (
-                        <div className="relative w-full max-w-xs">
-                            <img src={formData.image} alt="غلاف" className="w-full aspect-video object-cover rounded-xl border border-gray-200" />
-                            <button
-                                type="button"
-                                onClick={() => { update('image', ''); setShowCoverUploader(false); }}
-                                className="absolute -top-2 -right-2 bg-red-500 text-white w-7 h-7 rounded-full flex items-center justify-center shadow-md hover:bg-red-600 transition-colors"
-                            >
-                                <FiX size={14} />
-                            </button>
-                        </div>
-                    ) : showCoverUploader ? (
-                        <FileUploader
-                            maxFiles={1}
-                            accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
-                            onUploadSuccess={(urls) => { update('image', urls[0]); setShowCoverUploader(false); }}
-                        />
-                    ) : (
-                        <button type="button" onClick={() => setShowCoverUploader(true)} className="btn btn-outline w-full sm:w-auto">
-                            <FiUpload /> رفع/تغيير صورة الغلاف
-                        </button>
-                    )}
-                </Section>
-
-                {/* Trailer Video */}
-                <Section title="فيديو تعريفي (اختياري)" icon={<FiFilm />}>
-                    <p className="text-sm text-text-muted -mt-1 mb-3">مقطع قصير يحفز المشترين على الشراء</p>
-
-                    {formData.trailerUrl ? (
-                        <div className="flex items-center justify-between bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 p-3 rounded-xl">
-                            <div className="flex items-center gap-3">
-                                <FiFilm className="text-action-blue text-xl" />
-                                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 truncate max-w-[200px]" dir="ltr">
-                                    {formData.trailerUrl.split('/').pop()}
-                                </span>
-                            </div>
-                            <button type="button" onClick={() => update('trailerUrl', '')} className="text-red-500 hover:text-red-700 p-1">
-                                <FiX />
-                            </button>
-                        </div>
-                    ) : showTrailerUploader ? (
-                        <FileUploader
-                            maxFiles={1}
-                            accept={{ 'video/*': ['.mp4', '.mov', '.avi', '.mkv', '.webm'] }}
-                            onUploadSuccess={(urls) => { update('trailerUrl', urls[0]); setShowTrailerUploader(false); }}
-                        />
-                    ) : (
-                        <button type="button" onClick={() => setShowTrailerUploader(true)} className="btn btn-outline w-full sm:w-auto">
-                            <FiUpload /> رفع فيديو تعريفي
-                        </button>
-                    )}
-                </Section>
-
-                {/* Gallery */}
-                <Section title="معرض صور إضافي (اختياري)" icon={<FiImage />}>
-                    <p className="text-sm text-text-muted -mt-1 mb-3">أضف لقطات شاشة أو تفاصيل إضافية (متعدد)</p>
-
-                    {formData.images?.length > 0 && (
-                        <div className="grid grid-cols-3 gap-2 mb-3">
-                            {formData.images.map((url, i) => (
-                                <div key={i} className="relative aspect-video rounded-lg overflow-hidden border border-gray-200">
-                                    <img src={url} className="w-full h-full object-cover" alt="" />
-                                    <button
-                                        type="button"
-                                        onClick={() => update('images', formData.images.filter((_, idx) => idx !== i))}
-                                        className="absolute top-1 left-1 bg-red-500/80 text-white w-5 h-5 rounded-full flex items-center justify-center"
-                                    >
-                                        <FiX size={10} />
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-
-                    {showGalleryUploader ? (
-                        <FileUploader
-                            maxFiles={5}
-                            accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
-                            onUploadSuccess={(urls) => { update('images', [...(formData.images || []), ...urls]); setShowGalleryUploader(false); }}
-                        />
-                    ) : (
-                        <button type="button" onClick={() => setShowGalleryUploader(true)} className="btn btn-outline w-full sm:w-auto">
-                            <FiUpload /> إضافة صور للمعرض
-                        </button>
-                    )}
-                </Section>
-
-                {/* Main Product File */}
-                <Section title="ملف المنتج الأساسي" icon={<FiUpload />} accent>
-                    <p className="text-sm text-text-muted -mt-1 mb-3">
-                        الملف الذي سيحصل عليه المشتري بعد الدفع <span className="text-red-500">*</span>
-                    </p>
-
-                    {formData.fileUrl ? (
-                        <div className="flex items-center justify-between bg-green-50 dark:bg-green-900/20 border border-green-300 dark:border-green-800 p-3 rounded-xl">
-                            <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                                    <FiCheck className="text-green-600" />
-                                </div>
                                 <div>
-                                    <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">الملف موجود ومحمي</p>
-                                    <p className="text-xs text-gray-500 truncate max-w-[150px]" dir="ltr">{formData.fileUrl.split('/').pop()}</p>
+                                    <label className="label-modern">وصف المنتج الكامل <span className="text-red-500">*</span></label>
+                                    <div className="mt-2 min-h-[300px]">
+                                        <RichTextEditor
+                                            value={formData.description}
+                                            onChange={val => update('description', val)}
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                            <button type="button" onClick={() => update('fileUrl', '')} className="text-red-500 hover:text-red-700 p-1 flex items-center gap-1 text-xs font-bold">
-                                <FiX /> استبدال
-                            </button>
-                        </div>
-                    ) : showFileUploader ? (
-                        <FileUploader
-                            maxFiles={1}
-                            isPrivate={true}
-                            onUploadSuccess={(urls, names) => {
-                                update('fileUrl', urls[0]);
-                                if (names?.[0]) update('fileType', getFileType(names[0]));
-                                setShowFileUploader(false);
-                            }}
-                        />
-                    ) : (
-                        <button
-                            type="button"
-                            onClick={() => setShowFileUploader(true)}
-                            className="w-full py-4 border-2 border-dashed border-green-300 dark:border-green-700 rounded-xl text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors font-semibold flex items-center justify-center gap-2"
-                        >
-                            <FiUpload /> ارفع ملفاً جديداً
-                        </button>
-                    )}
-                </Section>
+                        </Section>
 
-                {/* Free Preview (Optional) */}
-                <Section title="معاينة مجانية (اختياري)" icon={<FiEye />}>
-                    <p className="text-sm text-text-muted -mt-1 mb-3">عينة مجانية تزيد من فرصة الشراء</p>
+                        <Section title="الأصول والملفات" icon={<FiLayers />}>
+                            <div className="space-y-8">
+                                {/* Digital File */}
+                                <div className="p-6 bg-primary-indigo-50/30 rounded-[2rem] border-2 border-dashed border-primary-indigo-100">
+                                    <label className="label-modern mb-3 block">ملف التسليم (الذي سيحمله المشتري) <span className="text-red-500">*</span></label>
+                                    {formData.fileUrl ? (
+                                        <div className="flex items-center justify-between bg-white p-4 rounded-2xl shadow-sm border border-primary-indigo-100 animate-fade-in">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 bg-primary-indigo-500 text-white rounded-xl flex items-center justify-center">
+                                                    <FiCheck />
+                                                </div>
+                                                <div className="text-right overflow-hidden">
+                                                    <p className="text-xs font-bold text-slate-600 truncate max-w-[150px]" dir="ltr">{formData.fileUrl.split('/').pop()}</p>
+                                                </div>
+                                            </div>
+                                            <button type="button" onClick={() => update('fileUrl', '')} className="text-red-400 hover:text-red-600 p-2"><FiX /></button>
+                                        </div>
+                                    ) : (
+                                        <button type="button" onClick={() => setShowFileUploader(true)} className="w-full py-8 text-primary-indigo-600 font-bold hover:bg-primary-indigo-50/50 transition-all rounded-3xl flex flex-col items-center gap-2">
+                                            <FiUpload /> رفع نسخة جديدة
+                                        </button>
+                                    )}
+                                    {showFileUploader && (
+                                        <div className="mt-4 bg-white p-4 rounded-3xl"><FileUploader isPrivate={true} onUploadSuccess={urls => { update('fileUrl', urls[0]); setShowFileUploader(false); }} /></div>
+                                    )}
+                                </div>
 
-                    {formData.previewFileUrl ? (
-                        <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-3 rounded-xl">
-                            <div className="flex items-center gap-3">
-                                <FiEye className="text-gray-500 text-xl" />
-                                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 truncate max-w-[200px]" dir="ltr">
-                                    {formData.previewFileUrl.split('/').pop()}
-                                </span>
+                                {/* Trailer */}
+                                <div className="p-6 bg-slate-50 rounded-[2rem] border border-slate-100">
+                                    <label className="label-modern mb-3 block">فيديو تعريفي (Trailer)</label>
+                                    {formData.trailerUrl ? (
+                                        <div className="flex items-center justify-between bg-white p-4 rounded-2xl border border-slate-200">
+                                            <div className="flex items-center gap-3 text-slate-600 font-bold text-xs"><FiFilm className="text-primary-indigo-600" /> فيديو مسجل</div>
+                                            <button type="button" onClick={() => update('trailerUrl', '')} className="text-red-400"><FiX /></button>
+                                        </div>
+                                    ) : (
+                                        <button type="button" onClick={() => setShowTrailerUploader(true)} className="w-full py-6 text-slate-400 font-bold hover:text-primary-indigo-600 hover:bg-white transition-all rounded-2xl flex items-center justify-center gap-2 border border-slate-200 border-dashed">
+                                            <FiUpload /> ربط فيديو تعريفي
+                                        </button>
+                                    )}
+                                    {showTrailerUploader && (
+                                         <div className="mt-4 bg-white p-4 rounded-3xl"><FileUploader onUploadSuccess={urls => { update('trailerUrl', urls[0]); setShowTrailerUploader(false); }} /></div>
+                                    )}
+                                </div>
                             </div>
-                            <button type="button" onClick={() => update('previewFileUrl', '')} className="text-red-500 hover:text-red-700 p-1">
-                                <FiX />
-                            </button>
-                        </div>
-                    ) : showPreviewUploader ? (
-                        <FileUploader
-                            maxFiles={1}
-                            onUploadSuccess={(urls) => { update('previewFileUrl', urls[0]); setShowPreviewUploader(false); }}
-                        />
-                    ) : (
-                        <button type="button" onClick={() => setShowPreviewUploader(true)} className="btn btn-outline w-full sm:w-auto">
-                            <FiUpload /> رفع ملف معاينة
+                        </Section>
+                    </div>
+
+                    {/* Visuals & Pricing Sidebar */}
+                    <div className="lg:col-span-2 space-y-10">
+                        <Section title="الواجهة البصرية" icon={<FiImage />}>
+                             <div className="space-y-6">
+                                <div>
+                                    <label className="label-modern">صورة الغلاف الرسمية</label>
+                                    <div className="mt-3 relative aspect-video rounded-3xl overflow-hidden border-4 border-white shadow-xl bg-slate-50">
+                                        {formData.image ? (
+                                            <>
+                                                <img src={formData.image} alt="Cover" className="w-full h-full object-cover" />
+                                                <button type="button" onClick={() => update('image', '')} className="absolute top-3 left-3 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg"><FiX /></button>
+                                            </>
+                                        ) : (
+                                            <button type="button" onClick={() => setShowCoverUploader(true)} className="w-full h-full flex flex-col items-center justify-center text-slate-300 font-bold gap-2">
+                                                <FiUpload size={30} /> رفع غلاف
+                                            </button>
+                                        )}
+                                        {showCoverUploader && (
+                                            <div className="absolute inset-0 bg-white p-4 z-10 overflow-auto"><FileUploader onUploadSuccess={urls => { update('image', urls[0]); setShowCoverUploader(false); }} /></div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="label-modern">معرض الصور الإضافي</label>
+                                    <div className="grid grid-cols-3 gap-2 mt-3">
+                                        {formData.images.map((img, i) => (
+                                            <div key={i} className="relative aspect-square rounded-xl overflow-hidden shadow-sm">
+                                                <img src={img} className="w-full h-full object-cover" />
+                                                <button type="button" onClick={() => update('images', formData.images.filter((_, idx) => idx !== i))} className="absolute top-1 left-1 bg-red-500 text-white w-5 h-5 rounded-full flex items-center justify-center text-[8px]"><FiX /></button>
+                                            </div>
+                                        ))}
+                                        {formData.images.length < 5 && (
+                                            <button type="button" onClick={() => setShowGalleryUploader(true)} className="aspect-square bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl flex items-center justify-center text-slate-300 hover:border-primary-indigo-300 hover:text-primary-indigo-400 transition-all">
+                                                <FiUpload />
+                                            </button>
+                                        )}
+                                    </div>
+                                    {showGalleryUploader && (
+                                        <div className="mt-2 p-4 bg-white rounded-2xl border border-slate-100 shadow-xl absolute z-20 max-w-[200px]"><FileUploader maxFiles={3} onUploadSuccess={urls => { update('images', [...formData.images, ...urls]); setShowGalleryUploader(false); }} /></div>
+                                    )}
+                                </div>
+                             </div>
+                        </Section>
+
+                        <Section title="التسعير والعرض" icon={<FiDollarSign />}>
+                             <div className="space-y-6">
+                                <div className="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-2xl">
+                                    {['fixed', 'pwyw', 'free'].map(type => (
+                                        <button
+                                            key={type} type="button"
+                                            onClick={() => update('pricingType', type)}
+                                            className={`py-2.5 rounded-xl text-xs font-black transition-all ${formData.pricingType === type ? 'bg-white text-primary-indigo-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                                        >
+                                            {type === 'fixed' ? 'سعر محدد' : type === 'pwyw' ? 'دعم اختياري' : 'مجاني'}
+                                        </button>
+                                    ))}
+                                </div>
+
+                                {formData.pricingType !== 'free' && (
+                                    <div>
+                                        <label className="label-modern">السعر الأساسي (ج.م)</label>
+                                        <input
+                                            type="number" step="0.01" className="input-modern text-center font-black"
+                                            value={formData.price}
+                                            onChange={e => update('price', e.target.value)}
+                                        />
+                                    </div>
+                                )}
+
+                                <div className="pt-6 border-t border-slate-50 space-y-4">
+                                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl hover:bg-slate-100 transition-colors cursor-pointer" onClick={() => update('isActive', !formData.isActive)}>
+                                        <div className="text-right">
+                                            <p className="text-sm font-black text-slate-700">تفعيل المنتج</p>
+                                            <p className="text-[10px] text-slate-400 font-medium">اجعله مرئياً في صفحة المتجر</p>
+                                        </div>
+                                        <div className={`w-12 h-6 rounded-full transition-all flex items-center px-1 ${formData.isActive ? 'bg-primary-indigo-600' : 'bg-slate-300'}`}>
+                                            <div className={`w-4 h-4 bg-white rounded-full transition-all ${formData.isActive ? 'translate-x-6' : 'translate-x-0'}`} />
+                                        </div>
+                                    </div>
+                                </div>
+                             </div>
+                        </Section>
+                    </div>
+                </div>
+
+                {/* Sticky Action Footer */}
+                <div className="sticky bottom-8 z-30 p-4 bg-slate-900/90 backdrop-blur-xl rounded-[2.5rem] flex items-center justify-between shadow-2xl border border-white/10 animate-slide-up mx-4">
+                    <div className="flex-1 text-white pr-4 hidden sm:block">
+                        <p className="text-xs opacity-60 font-medium">تذكر مراجعة كافة التفاصيل قبل الحفظ</p>
+                    </div>
+                    <div className="flex gap-4">
+                        <Link href="/dashboard/products" className="px-8 py-3.5 text-white/50 hover:text-white font-bold transition-all">إلغاء</Link>
+                        <button
+                            type="submit"
+                            disabled={saving}
+                            className="px-10 py-3.5 bg-gradient-to-r from-primary-indigo-500 to-indigo-600 text-white rounded-2xl font-black shadow-lg shadow-indigo-500/20 hover:scale-[1.02] transition-all disabled:opacity-50"
+                        >
+                            {saving ? 'جاري الحفظ...' : 'حفظ كافة التعديلات'}
                         </button>
-                    )}
-                </Section>
-
-                {/* Display Settings */}
-                <Section title="إعدادات الظهور" icon={<FiPackage />}>
-                    <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-800">
-                        <input
-                            type="checkbox"
-                            id="isActive"
-                            className="w-5 h-5 rounded border-gray-300 text-action-blue focus:ring-action-blue"
-                            checked={!formData.isActive}
-                            onChange={(e) => update('isActive', !e.target.checked)}
-                        />
-                        <div>
-                            <label htmlFor="isActive" className="font-bold cursor-pointer block text-primary-charcoal dark:text-white">
-                                إخفاء المنتج من المتجر
-                            </label>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">
-                                إذا تم الإخفاء، يمكن الوصول للمنتج عبر الرابط المباشر فقط.
-                            </p>
-                        </div>
                     </div>
-
-                    <div className="mt-4">
-                        <label className="label">ترتيب المنتج (رقم)</label>
-                        <input
-                            type="number" className="input" min="0"
-                            value={formData.displayOrder}
-                            onChange={e => update('displayOrder', parseInt(e.target.value) || 0)}
-                        />
-                        <p className="text-xs text-text-muted mt-1">الرقم الأصغر يظهر أولاً.</p>
-                    </div>
-                </Section>
-
-                {/* Action Buttons */}
-                <div className="flex flex-col-reverse sm:flex-row gap-3 pt-6 border-t border-gray-200 dark:border-gray-800">
-                    <Link href="/dashboard/products" className="btn btn-outline flex-1 justify-center">
-                        إلغاء التعديلات
-                    </Link>
-                    <button
-                        type="submit"
-                        disabled={saving || !formData.image || !formData.fileUrl}
-                        className="btn btn-primary flex-[2] justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                        {saving ? (
-                            <span className="flex items-center gap-2">
-                                <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                جاري الحفظ...
-                            </span>
-                        ) : (
-                            <span className="flex items-center gap-2">
-                                <FiSave /> حفظ التعديلات
-                            </span>
-                        )}
-                    </button>
                 </div>
             </form>
         </div>
     );
 }
 
-// Helper Section Comp
-function Section({
-    title, icon, children, accent = false
-}: {
-    title: string;
-    icon: React.ReactNode;
-    children: React.ReactNode;
-    accent?: boolean;
-}) {
+function Section({ title, icon, children }: any) {
     return (
-        <div className={`rounded-2xl border p-5 space-y-4 ${accent
-            ? 'bg-green-50/50 dark:bg-green-900/10 border-green-200 dark:border-green-800'
-            : 'bg-white dark:bg-card-white border-gray-100 dark:border-gray-800'
-            }`}>
-            <h2 className="font-bold text-base flex items-center gap-2 text-primary-charcoal dark:text-white">
-                <span className="text-action-blue">{icon}</span>
-                {title}
-            </h2>
-            {children}
+        <div className="bg-white rounded-[3rem] p-8 lg:p-10 shadow-premium border border-slate-50 space-y-6">
+            <div className="flex items-center gap-4 border-b border-slate-50 pb-6 -mx-2">
+                <div className="w-12 h-12 bg-primary-indigo-50 text-primary-indigo-600 rounded-2xl flex items-center justify-center shadow-sm">
+                    {icon}
+                </div>
+                <h2 className="text-lg font-black text-slate-900">{title}</h2>
+            </div>
+            <div className="space-y-4">
+                {children}
+            </div>
         </div>
     );
 }
