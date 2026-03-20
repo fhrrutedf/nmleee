@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { FiSave, FiX, FiUploadCloud, FiArrowRight, FiTrash2 } from 'react-icons/fi';
+import { FiSave, FiArrowRight, FiTrash2, FiCheckCircle } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import FileUploader from '@/components/ui/FileUploader';
+import BunnyUpload from '@/components/instructor/BunnyUpload';
 
 interface LessonData {
     id: string;
@@ -16,6 +17,8 @@ interface LessonData {
     isFree: boolean;
     isPublished: boolean;
     attachments: string[];
+    bunnyVideoId: string | null;
+    bunnyLibraryId: string | null;
     module: {
         course: {
             id: string;
@@ -41,6 +44,8 @@ export default function EditLessonPage() {
         isFree: false,
         isPublished: false,
         attachments: [] as string[],
+        bunnyVideoId: '',
+        bunnyLibraryId: '',
     });
 
     useEffect(() => {
@@ -62,6 +67,8 @@ export default function EditLessonPage() {
                     isFree: data.isFree || false,
                     isPublished: data.isPublished || false,
                     attachments: data.attachments || [],
+                    bunnyVideoId: data.bunnyVideoId || '',
+                    bunnyLibraryId: data.bunnyLibraryId || '',
                 });
             } else {
                 toast.error('الدرس غير موجود');
@@ -176,21 +183,34 @@ export default function EditLessonPage() {
                         />
                     </div>
 
-                    {/* Video */}
+                    {/* Video Section */}
                     <div className="space-y-4">
-                        <div>
-                            <label className="label">فيديو الدرس</label>
-                            {formData.videoUrl ? (
-                                <div className="relative group">
-                                    <video src={formData.videoUrl} controls className="w-full max-h-56 rounded-xl border border-gray-200 dark:border-gray-700" />
-                                    <button type="button" onClick={() => setFormData({ ...formData, videoUrl: '' })} className="absolute top-2 left-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
+                        <div className="p-6 bg-blue-50/30 dark:bg-action-blue/5 rounded-3xl border border-action-blue/10">
+                            <label className="label mb-4 opacity-70">إعدادات الفيديو (Bunny Stream)</label>
+                            
+                            {formData.bunnyVideoId ? (
+                                <div className="bg-white dark:bg-card-white p-6 rounded-2xl border border-gray-100 dark:border-gray-800 flex items-center justify-between shadow-sm">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 bg-green-500/10 text-green-500 rounded-xl flex items-center justify-center">
+                                            <FiCheckCircle size={24} />
+                                        </div>
+                                        <div>
+                                            <p className="font-black text-primary-charcoal dark:text-white">الفيديو مرتبط بـ Bunny</p>
+                                            <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">ID: {formData.bunnyVideoId}</p>
+                                        </div>
+                                    </div>
+                                    <button 
+                                        type="button" 
+                                        onClick={() => setFormData({ ...formData, bunnyVideoId: '', bunnyLibraryId: '' })}
+                                        className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors"
+                                    >
+                                        <FiTrash2 size={20} />
+                                    </button>
                                 </div>
                             ) : (
-                                <FileUploader
-                                    onUploadSuccess={(urls) => { if (urls.length > 0) setFormData({ ...formData, videoUrl: urls[0] }); }}
-                                    maxFiles={1}
-                                    accept={{ 'video/*': ['.mp4', '.webm', '.mov', '.avi'] }}
-                                    maxSize={500 * 1024 * 1024}
+                                <BunnyUpload 
+                                    lessonId={lessonId} 
+                                    onComplete={() => fetchLesson()} 
                                 />
                             )}
                         </div>
@@ -202,7 +222,7 @@ export default function EditLessonPage() {
                                 min="0"
                                 value={formData.videoDuration}
                                 onChange={(e) => setFormData({ ...formData, videoDuration: e.target.value })}
-                                placeholder="600"
+                                placeholder="مثلاً: 600 ثانية"
                                 className="input w-full"
                             />
                         </div>
@@ -238,7 +258,6 @@ export default function EditLessonPage() {
                             <div className="space-y-2 mb-3">
                                 {formData.attachments.map((attachment, index) => (
                                     <div key={index} className="flex items-center gap-2 bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700">
-                                        <FiUploadCloud className="text-action-blue flex-shrink-0" />
                                         <span className="flex-1 text-sm text-gray-700 dark:text-gray-300 truncate" dir="ltr">{attachment.split('/').pop()}</span>
                                         <button
                                             type="button"

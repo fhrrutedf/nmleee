@@ -3,63 +3,27 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { FiCheck, FiLock, FiChevronLeft, FiChevronRight, FiVideo, FiFileText, FiCheckSquare, FiAward, FiDownload } from 'react-icons/fi';
+import { FiCheck, FiLock, FiChevronLeft, FiChevronRight, FiVideo, FiFileText, FiCheckSquare, FiAward, FiDownload, FiMessageCircle, FiBarChart2, FiArrowRight } from 'react-icons/fi';
 import QuizPlayer from '@/components/QuizPlayer';
-
-interface Quiz {
-    id: string;
-    title: string;
-    passingScore: number;
-    timeLimit?: number;
-    questions: any[];
-}
-
-interface Lesson {
-    id: string;
-    title: string;
-    videoUrl?: string;
-    content?: string;
-    order: number;
-    completed?: boolean;
-    quizzes?: Quiz[];
-}
-
-interface Module {
-    id: string;
-    title: string;
-    lessons: Lesson[];
-}
-
-interface Course {
-    id: string;
-    title: string;
-    zoomLink?: string;
-    meetLink?: string;
-    modules: Module[];
-    isEnrolled: boolean;
-    certificate?: any;
-    user: {
-        brandColor?: string;
-        name?: string;
-        username?: string;
-    };
-}
+import AdvancedVideoPlayer from '@/components/lessons/AdvancedVideoPlayer';
+import LessonComments from '@/components/lessons/LessonComments';
 
 export default function LearnPage() {
     const params = useParams();
     const router = useRouter();
-    const { status: sessionStatus } = useSession();
-    const [course, setCourse] = useState<Course | null>(null);
-    const [activeItem, setActiveItem] = useState<{ type: 'lesson' | 'quiz', data: Lesson | Quiz } | null>(null);
+    const { data: session, status: sessionStatus } = useSession();
+    const [course, setCourse] = useState<any>(null);
+    const [activeItem, setActiveItem] = useState<{ type: 'lesson' | 'quiz', data: any } | null>(null);
     const [loading, setLoading] = useState(true);
     const [hasAccess, setHasAccess] = useState(false);
+    const [showComments, setShowComments] = useState(false);
 
     useEffect(() => {
         if (sessionStatus === 'authenticated') {
             fetchCourse();
         } else if (sessionStatus === 'unauthenticated') {
             setLoading(false);
-            router.push(`/login?callbackUrl=/learn/${params.slug}`);
+            // window.location.href = `/login?callbackUrl=/learn/${params.slug}`;
         }
     }, [sessionStatus, params.slug]);
 
@@ -69,9 +33,8 @@ export default function LearnPage() {
             if (response.ok) {
                 const data = await response.json();
                 setCourse(data);
-                setHasAccess(data.isEnrolled || false); // API now returns enrollment status
+                setHasAccess(data.isEnrolled || false);
 
-                // Set initial active item
                 if (data.modules?.[0]?.lessons?.[0]) {
                     setActiveItem({ type: 'lesson', data: data.modules[0].lessons[0] });
                 }
@@ -85,231 +48,271 @@ export default function LearnPage() {
         }
     };
 
-    const markComplete = async (lessonId: string) => {
+    const handleLessonComplete = async () => {
+        if (!activeItem || activeItem.type !== 'lesson') return;
+
         try {
             await fetch('/api/progress/mark-complete', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     courseId: course?.id,
-                    lessonId,
+                    lessonId: activeItem.data.id,
                 }),
             });
 
-            // Update local state is tricky without re-fetching, simplest is to mark current lesson as completed
-            if (course) {
-                const updatedModules = course.modules.map((module) => ({
-                    ...module,
-                    lessons: module.lessons.map((lesson) =>
-                        lesson.id === lessonId ? { ...lesson, completed: true } : lesson
-                    ),
-                }));
-                // Don't overwrite the whole course, just modules
-                setCourse(prev => prev ? ({ ...prev, modules: updatedModules }) : null);
-            }
+            // Update local state
+            setCourse((prev: any) => ({
+                ...prev,
+                modules: prev.modules.map((m: any) => ({
+                    ...m,
+                    lessons: m.lessons.map((l: any) => 
+                        l.id === activeItem.data.id ? { ...l, completed: true } : l
+                    )
+                }))
+            }));
         } catch (error) {
-            console.error('Error marking complete:', error);
+            console.error('Error marking lesson complete:', error);
         }
     };
 
     const handleQuizComplete = (score: number, isPassed: boolean) => {
-        // Refresh to maybe unlock certificate or show progress
         if (isPassed) {
-            alert(`أحسنت! لقد اجتزت الاختبار بنتيجة ${score.toFixed(1)}%`);
+            // alert(`أحسنت! لقد اجتزت الاختبار بنتيجة ${score.toFixed(1)}%`);
         }
     };
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
+                <div className="w-16 h-16 border-4 border-action-blue/20 border-t-action-blue rounded-full animate-spin mb-6"></div>
+                <p className="text-white/60 font-black tracking-widest uppercase">جاري تجهيز بيئة التعلم...</p>
             </div>
         );
     }
 
     if (!hasAccess && !loading) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div className="text-center p-8 bg-white rounded-lg shadow-lg">
-                    <FiLock size={64} className="mx-auto text-gray-300 mb-4" />
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                        ليس لديك صلاحية للوصول
+            <div className="min-h-screen bg-gray-950 flex items-center justify-center p-6">
+                <div className="max-w-md w-full text-center p-12 bg-gray-900 border border-white/5 rounded-[40px] shadow-2xl backdrop-blur-xl">
+                    <div className="w-24 h-24 bg-red-500/10 text-red-500 rounded-3xl flex items-center justify-center mx-auto mb-8 animate-pulse">
+                         <FiLock size={48} />
+                    </div>
+                    <h2 className="text-3xl font-black text-white mb-4">
+                        الوصول مقيد 🔒
                     </h2>
-                    <p className="text-gray-600 mb-6">يجب شراء الكورس أولاً لمشاهدة المحتوى</p>
+                    <p className="text-gray-400 mb-10 leading-relaxed font-medium">يبدو أنك لا تمتلك صلاحية لهذا المحتوى. اشتراكك يمنحك القوة للتعلم والتميز!</p>
                     <button
-                        onClick={() => router.push(`/courses`)}
-                        className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                        onClick={() => window.location.href = '/courses'}
+                        className="w-full py-5 bg-action-blue text-white rounded-2xl font-black text-lg hover:shadow-2xl hover:shadow-action-blue/30 transition-all active:scale-95 flex items-center justify-center gap-3"
                     >
-                        استعراض الكورسات
+                         استكشف الدورات المتاحة <FiArrowRight />
                     </button>
                 </div>
             </div>
         );
     }
 
-    if (!course) {
-        return <div className="text-center py-12">الكورس غير موجود</div>;
-    }
+    if (!course) return <div className="text-center py-24 text-white font-black">عذراً، محتوى الدورة غير متوفر حالياً.</div>;
 
-    const effectiveBrandColor = course.user?.brandColor;
+    const brandColor = course.user?.brandColor || '#0ea5e9';
+    const totalLessons = course.modules.reduce((acc: number, m: any) => acc + m.lessons.length, 0);
+    const completedCount = course.modules.reduce((acc: number, m: any) => acc + m.lessons.filter((l: any) => l.completed).length, 0);
+    const progressPercent = Math.round((completedCount / totalLessons) * 100);
 
     return (
-        <div className="min-h-screen bg-gray-900 flex flex-col md:flex-row h-screen overflow-hidden">
-            {effectiveBrandColor && (
-                <style dangerouslySetInnerHTML={{
-                    __html: `
-                    .text-indigo-600, .text-indigo-700 { color: ${effectiveBrandColor} !important; }
-                    .bg-indigo-600, .bg-indigo-500 { background-color: ${effectiveBrandColor} !important; }
-                    .bg-indigo-50 { background-color: ${effectiveBrandColor}15 !important; }
-                    .border-indigo-600, .border-indigo-500 { border-color: ${effectiveBrandColor} !important; }
-                    .hover\\:bg-indigo-700:hover { background-color: ${effectiveBrandColor}cc !important; }
-                    `
-                }} />
-            )}
-            {/* Sidebar */}
-            <div className="w-full md:w-80 bg-white border-l overflow-y-auto flex-shrink-0 z-10">
-                <div className="p-4 border-b bg-gray-50">
-                    <h2 className="font-bold text-gray-900 leading-tight mb-2">{course.title}</h2>
+        <div className="min-h-screen bg-gray-950 flex flex-col md:flex-row h-screen overflow-hidden font-sans">
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                .text-brand { color: ${brandColor} !important; }
+                .bg-brand { background-color: ${brandColor} !important; }
+                .border-brand { border-color: ${brandColor} !important; }
+                .text-indigo-600, .text-indigo-700 { color: ${brandColor} !important; }
+                .bg-indigo-600, .bg-indigo-500 { background-color: ${brandColor} !important; }
+                .bg-indigo-50 { background-color: ${brandColor}15 !important; }
+                .border-indigo-600, .border-indigo-500 { border-color: ${brandColor} !important; }
+                `
+            }} />
 
-                    {/* External Links */}
-                    <div className="flex flex-col gap-2 mt-3">
-                        {course.zoomLink && (
-                            <a href={course.zoomLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs text-blue-600 hover:underline">
-                                <FiVideo /> رابط Zoom المباشر
-                            </a>
-                        )}
-                        {course.meetLink && (
-                            <a href={course.meetLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs text-orange-600 hover:underline">
-                                <FiVideo /> رابط Google Meet
-                            </a>
-                        )}
-                        {course.certificate && (
-                            <a href={`/certificates/${course.certificate.id}`} target="_blank" className="flex items-center gap-2 text-xs text-green-600 hover:underline font-bold">
-                                <FiAward /> تحميل الشهادة
-                            </a>
-                        )}
+            {/* Side Navigation (The "Playbook") */}
+            <div className="w-full md:w-[380px] bg-gray-900 border-l border-white/5 flex flex-col h-full z-20 shadow-2xl">
+                {/* User Info & Progress */}
+                <div className="p-8 border-b border-white/5 bg-gradient-to-br from-gray-900 to-gray-800">
+                    <div className="flex items-center gap-4 mb-6">
+                        <div className="w-12 h-12 rounded-2xl bg-brand/10 border border-brand/20 flex items-center justify-center text-brand">
+                             <FiAward size={24} />
+                        </div>
+                        <div className="flex-1">
+                            <h2 className="font-black text-white text-lg leading-tight uppercase tracking-tight line-clamp-2">{course.title}</h2>
+                            <p className="text-gray-400 text-xs font-bold mt-1">بإشراف: <span className="text-brand">{course.user?.name}</span></p>
+                        </div>
+                    </div>
+
+                    <div className="space-y-3">
+                        <div className="flex justify-between items-end">
+                            <span className="text-xs font-black text-gray-500 uppercase tracking-widest">إنجازك الإجمالي</span>
+                            <span className="text-brand font-black text-lg">{progressPercent}%</span>
+                        </div>
+                        <div className="h-3 bg-white/5 rounded-full overflow-hidden p-0.5 border border-white/5">
+                            <div 
+                                className="h-full bg-brand rounded-full transition-all duration-1000 ease-out shadow-[0_0_15px_rgba(14,165,233,0.5)]" 
+                                style={{ width: `${progressPercent}%` }}
+                            />
+                        </div>
+                        <div className="flex justify-between text-[10px] text-gray-400 font-bold px-1">
+                             <span>اتمام {completedCount} من {totalLessons} درساً</span>
+                             {progressPercent === 100 && <span className="text-green-500 flex items-center gap-1"><FiCheck /> تهانينا!</span>}
+                        </div>
                     </div>
                 </div>
 
-                <div className="p-2">
-                    {course.modules.map((module, mIdx) => (
-                        <div key={module.id} className="mb-4">
-                            <h3 className="px-2 font-bold text-gray-700 text-sm mb-2 uppercase tracking-wider">
-                                {module.title}
-                            </h3>
-                            <div className="space-y-1">
-                                {module.lessons.map((lesson, lIdx) => (
-                                    <div key={lesson.id}>
-                                        {/* Lesson Item */}
-                                        <button
-                                            onClick={() => setActiveItem({ type: 'lesson', data: lesson })}
-                                            className={`w-full text-right p-3 rounded-lg transition-colors flex items-center gap-3 ${activeItem?.data.id === lesson.id && activeItem.type === 'lesson'
-                                                    ? 'bg-indigo-50 text-indigo-700 border-l-4 border-indigo-500'
-                                                    : 'hover:bg-gray-100 text-gray-700'
-                                                }`}
-                                        >
-                                            {lesson.completed ? (
-                                                <FiCheck className="text-green-500 flex-shrink-0" />
-                                            ) : (
-                                                <div className="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0" />
-                                            )}
-                                            <span className="text-sm font-medium flex-1 truncate">
-                                                {mIdx + 1}.{lIdx + 1} {lesson.title}
-                                            </span>
-                                            {lesson.videoUrl ? <FiVideo size={14} className="opacity-50" /> : <FiFileText size={14} className="opacity-50" />}
-                                        </button>
-
-                                        {/* Nested Quizzes */}
-                                        {lesson.quizzes?.map((quiz) => (
-                                            <button
-                                                key={quiz.id}
-                                                onClick={() => setActiveItem({ type: 'quiz', data: quiz })}
-                                                className={`w-full text-right p-2 pr-8 rounded-lg transition-colors flex items-center gap-2 mt-1 ${activeItem?.data.id === quiz.id && activeItem.type === 'quiz'
-                                                        ? 'bg-purple-50 text-purple-700'
-                                                        : 'hover:bg-gray-50 text-gray-600'
-                                                    }`}
-                                            >
-                                                <FiCheckSquare size={14} className="flex-shrink-0" />
-                                                <span className="text-xs">{quiz.title}</span>
-                                            </button>
-                                        ))}
-                                    </div>
-                                ))}
-                            </div>
+                {/* Content Navigator */}
+                <div className="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-6">
+                    {course.modules.map((module: any, mIdx: number) => (
+                        <div key={module.id} className="space-y-3">
+                             <h3 className="px-4 text-[11px] font-black text-gray-500 uppercase tracking-[3px] flex items-center gap-2">
+                                 <span className="w-1.5 h-1.5 rounded-full bg-brand/40"></span>
+                                 {module.title}
+                             </h3>
+                             <div className="space-y-1">
+                                 {module.lessons.map((lesson: any, lIdx: number) => (
+                                     <button
+                                         key={lesson.id}
+                                         onClick={() => setActiveItem({ type: 'lesson', data: lesson })}
+                                         className={`w-full text-right p-4 rounded-2xl transition-all duration-300 flex items-center gap-4 group ${
+                                             activeItem?.data.id === lesson.id && activeItem.type === 'lesson'
+                                             ? 'bg-brand/10 border border-brand/20 text-white shadow-lg'
+                                             : 'hover:bg-white/5 text-gray-400 opacity-70 hover:opacity-100'
+                                         }`}
+                                     >
+                                         <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 border transition-colors ${
+                                             lesson.completed 
+                                             ? 'bg-green-500 border-green-500 text-white' 
+                                             : 'border-white/10 group-hover:border-brand/40'
+                                         }`}>
+                                             {lesson.completed ? <FiCheck size={14} strokeWidth={3} /> : <span className="text-[10px] font-black">{lIdx + 1}</span>}
+                                         </div>
+                                         <span className={`text-sm font-bold flex-1 truncate ${activeItem?.data.id === lesson.id ? 'text-white' : ''}`}>
+                                             {lesson.title}
+                                         </span>
+                                         <div className="opacity-30 group-hover:opacity-100 transition-opacity">
+                                             {lesson.videoUrl || lesson.muxPlaybackId ? <FiVideo size={16} /> : <FiFileText size={16} />}
+                                         </div>
+                                     </button>
+                                 ))}
+                             </div>
                         </div>
                     ))}
                 </div>
+
+                {/* Sidebar Footer */}
+                <div className="p-6 bg-black/40 border-t border-white/5">
+                    <button 
+                        onClick={() => window.location.href = '/dashboard'}
+                        className="w-full py-4 bg-gray-800 hover:bg-gray-700 text-white/70 hover:text-white rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 uppercase tracking-widest"
+                    >
+                         <FiArrowRight rotate={180} /> العودة للوحة التحكم
+                    </button>
+                </div>
             </div>
 
-            {/* Main Content Area */}
-            <div className="flex-1 flex flex-col bg-gray-50 overflow-hidden relative">
-                {activeItem?.type === 'lesson' ? (
-                    <>
-                        {/* Video Player */}
-                        <div className="bg-black flex-shrink-0 relative">
-                            {/* Aspect Ratio 16:9 Container */}
-                            <div className="aspect-video w-full max-h-[60vh] flex items-center justify-center bg-black">
-                                {(activeItem.data as Lesson).videoUrl ? (
-                                    <video
-                                        key={activeItem.data.id}
-                                        controls
-                                        className="w-full h-full object-contain"
-                                        onEnded={() => markComplete(activeItem.data.id)}
-                                        src={(activeItem.data as Lesson).videoUrl}
-                                    >
-                                        المتصفح لا يدعم تشغيل الفيديو
-                                    </video>
-                                ) : (
-                                    <div className="text-gray-500 flex flex-col items-center">
-                                        <FiFileText size={48} className="mb-2" />
-                                        <p>هذا الدرس نصي فقط</p>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Content & Desc */}
-                        <div className="flex-1 overflow-y-auto p-8">
-                            <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm p-8">
-                                <div className="flex justify-between items-start mb-6">
-                                    <h1 className="text-2xl font-bold text-gray-900">
-                                        {(activeItem.data as Lesson).title}
-                                    </h1>
-                                    {!(Boolean((activeItem.data as Lesson).completed)) && (
-                                        <button
-                                            onClick={() => markComplete(activeItem.data.id)}
-                                            className="px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-2"
+            {/* Master Content Stage */}
+            <div className="flex-1 flex flex-col h-full bg-gray-950 overflow-hidden relative">
+                <main className="flex-1 overflow-y-auto custom-scrollbar p-6 lg:p-12">
+                    <div className="max-w-5xl mx-auto space-y-12">
+                        {activeItem?.type === 'lesson' ? (
+                            <>
+                                {/* Video Player Component */}
+                                <div className="space-y-8">
+                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-white/5">
+                                        <div className="space-y-1">
+                                            <div className="flex items-center gap-2 text-brand font-black text-[10px] tracking-[4px] uppercase mb-2">
+                                                <FiBarChart2 /> الدرس النشط
+                                            </div>
+                                            <h1 className="text-3xl md:text-4xl font-black text-white leading-tight">
+                                                {(activeItem.data as any).title}
+                                            </h1>
+                                        </div>
+                                        <button 
+                                            onClick={() => setShowComments(!showComments)}
+                                            className={`px-6 py-4 rounded-2xl font-black text-sm flex items-center gap-3 transition-all ${
+                                                showComments ? 'bg-brand text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                                            }`}
                                         >
-                                            <FiCheck /> اكتمال
+                                            <FiMessageCircle size={20} /> الأسئلة والنقاشات
                                         </button>
+                                    </div>
+
+                                    {(activeItem.data.videoUrl || activeItem.data.muxPlaybackId) ? (
+                                        <AdvancedVideoPlayer 
+                                            lessonId={activeItem.data.id}
+                                            courseId={course.id}
+                                            studentEmail={session?.user?.email || ''}
+                                            onComplete={handleLessonComplete}
+                                        />
+                                    ) : (
+                                        <div className="aspect-video w-full bg-gray-900 rounded-[40px] border border-white/5 flex flex-col items-center justify-center text-gray-500 shadow-inner">
+                                            <div className="w-24 h-24 rounded-full bg-white/5 flex items-center justify-center mb-6">
+                                                <FiFileText size={48} />
+                                            </div>
+                                            <p className="text-xl font-black">محتوى نصي فقط</p>
+                                        </div>
                                     )}
                                 </div>
 
-                                {(activeItem.data as Lesson).content && (
-                                    <div className="prose max-w-none text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: (activeItem.data as Lesson).content || '' }} />
-                                )}
+                                {/* Content Tabs/Sections */}
+                                <div className="grid grid-cols-1 lg:grid-cols-1 gap-12">
+                                     {/* Description & Text Content */}
+                                     {((activeItem.data as any).content || (activeItem.data as any).description) && (
+                                         <section className="bg-white dark:bg-card-white rounded-[40px] p-10 lg:p-12 shadow-xl">
+                                             <div className="prose prose-xl prose-invert max-w-none text-gray-600 dark:text-gray-300 font-medium leading-[1.8] dark:prose-headings:text-white dark:prose-strong:text-brand" 
+                                                  dangerouslySetInnerHTML={{ __html: (activeItem.data as any).content || (activeItem.data as any).description || '' }} 
+                                             />
+                                         </section>
+                                     )}
+
+                                     {/* Comments Section Toggle */}
+                                     {showComments && (
+                                         <LessonComments 
+                                            lessonId={activeItem.data.id} 
+                                            courseId={course.id} 
+                                         />
+                                     )}
+                                </div>
+                            </>
+                        ) : activeItem?.type === 'quiz' ? (
+                            <div className="py-12 flex justify-center">
+                                 <div className="w-full max-w-4xl">
+                                    <QuizPlayer
+                                        quiz={activeItem.data}
+                                        onComplete={handleQuizComplete}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    </>
-                ) : activeItem?.type === 'quiz' ? (
-                    <div className="flex-1 overflow-y-auto p-4 md:p-8 bg-gray-100 flex items-center justify-center">
-                        <div className="w-full max-w-3xl">
-                            <QuizPlayer
-                                quiz={activeItem.data as Quiz}
-                                onComplete={handleQuizComplete}
-                            />
-                        </div>
+                        ) : (
+                            <div className="h-full flex flex-col items-center justify-center text-gray-600 gap-4">
+                                <FiPlay size={64} className="opacity-10" />
+                                <p className="text-2xl font-black">اختر درساً للانتقال لمستوى جديد</p>
+                            </div>
+                        )}
                     </div>
-                ) : (
-                    <div className="flex-1 flex items-center justify-center text-gray-500">
-                        اختر درساً للبدء
-                    </div>
-                )}
-            {/* Simple Footer Overlay */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
-                <p className="text-gray-400 text-xs font-medium bg-black/50 px-3 py-1 rounded-full backdrop-blur-sm">
-                    مدعوم من منصة تقانة
-                </p>
+                </main>
+
+                {/* Master Navigation Bar */}
+                <div className="h-20 bg-gray-900 border-t border-white/5 px-8 flex items-center justify-between z-30">
+                     <div className="hidden md:flex items-center gap-3">
+                         <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">مدعوم من</span>
+                         <span className="px-3 py-1 bg-brand/10 text-brand rounded-full text-[10px] font-black">تقانة التعليمية</span>
+                     </div>
+                     
+                     <div className="flex gap-4">
+                         <button className="h-12 w-12 rounded-xl border border-white/5 text-gray-500 hover:text-white hover:bg-white/5 flex items-center justify-center transition-all">
+                             <FiChevronRight size={20} />
+                         </button>
+                         <button className="h-12 w-12 rounded-xl border border-white/5 text-gray-500 hover:text-white hover:bg-white/5 flex items-center justify-center transition-all">
+                             <FiChevronLeft size={20} />
+                         </button>
+                     </div>
                 </div>
             </div>
         </div>

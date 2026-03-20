@@ -8,8 +8,8 @@ export async function POST(
 ) {
     try {
         const body = await req.json();
-        const { enrollmentId, watchedDuration, isCompleted } = body;
-
+        const { enrollmentId, watchedDuration, isCompleted, lastPosition } = body;
+        
         if (!enrollmentId) {
             return NextResponse.json({ error: 'معرف التسجيل مطلوب' }, { status: 400 });
         }
@@ -17,7 +17,7 @@ export async function POST(
         const { lessonId } = await params;
 
         // Check if progress record exists
-        const existingProgress = await prisma.lessonProgress.findUnique({
+        const existingProgress = await (prisma.lessonProgress as any).findUnique({
             where: {
                 lessonId_enrollmentId: {
                     lessonId,
@@ -29,7 +29,7 @@ export async function POST(
         let progress;
         if (existingProgress) {
             // Update existing progress
-            progress = await prisma.lessonProgress.update({
+            progress = await (prisma.lessonProgress as any).update({
                 where: {
                     lessonId_enrollmentId: {
                         lessonId,
@@ -39,16 +39,18 @@ export async function POST(
                 data: {
                     ...(watchedDuration !== undefined && { watchedDuration }),
                     ...(typeof isCompleted === 'boolean' && { isCompleted }),
+                    ...(lastPosition !== undefined && { lastPosition }),
                     lastWatchedAt: new Date(),
                 },
             });
         } else {
             // Create new progress record
-            progress = await prisma.lessonProgress.create({
+            progress = await (prisma.lessonProgress as any).create({
                 data: {
                     lessonId,
                     enrollmentId,
                     watchedDuration: watchedDuration || 0,
+                    lastPosition: lastPosition || 0,
                     isCompleted: isCompleted || false,
                 },
             });

@@ -61,7 +61,7 @@ export async function GET(
         // 3. Fetch full course payload (Filtered for students, unfiltered for owners)
         const isStudentOnly = !isCreator && !isAdmin;
 
-        const course = await prisma.course.findUnique({
+        const course: any = await prisma.course.findUnique({
             where: { id: resolvedCourseId },
             include: {
                 modules: {
@@ -72,6 +72,10 @@ export async function GET(
                             where: isStudentOnly ? { isPublished: true } : {},
                             orderBy: { order: 'asc' },
                             include: {
+                                progress: {
+                                    where: { enrollmentId: enrollment?.id || 'none' },
+                                    select: { isCompleted: true, lastPosition: true }
+                                },
                                 quizzes: {
                                     where: isStudentOnly ? { isPublished: true } : {},
                                     select: {
@@ -106,6 +110,8 @@ export async function GET(
             ...module,
             lessons: module.lessons.map(lesson => ({
                 ...lesson,
+                completed: lesson.progress?.[0]?.isCompleted || false,
+                lastPosition: lesson.progress?.[0]?.lastPosition || 0,
                 quizzes: lesson.quizzes.map(quiz => {
                     const questions = (quiz.questions as any[]).map(q => {
                         const { correctAnswer, ...rest } = q;

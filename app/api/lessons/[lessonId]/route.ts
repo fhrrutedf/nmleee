@@ -65,19 +65,32 @@ export async function PUT(
         }
 
         const body = await req.json();
-        const { title, description, content, videoUrl, videoDuration, isPublished, isFree, attachments } = body;
+        const { 
+            title, 
+            description, 
+            content, 
+            videoUrl, 
+            videoDuration, 
+            isPublished, 
+            isFree, 
+            attachments,
+            bunnyVideoId,
+            bunnyLibraryId
+        } = body;
 
-        const updatedLesson = await prisma.lesson.update({
+        const updatedLesson = await (prisma.lesson as any).update({
             where: { id: lessonId },
             data: {
-                ...(title && { title }),
-                ...(description !== undefined && { description }),
-                ...(content !== undefined && { content }),
-                ...(videoUrl !== undefined && { videoUrl }),
-                ...(videoDuration !== undefined && { videoDuration: parseInt(videoDuration) }),
-                ...(typeof isPublished === 'boolean' && { isPublished }),
-                ...(typeof isFree === 'boolean' && { isFree }),
-                ...(attachments && { attachments }),
+                title,
+                description,
+                content,
+                videoUrl,
+                videoDuration: videoDuration ? parseInt(videoDuration.toString()) : null,
+                isPublished,
+                isFree,
+                attachments,
+                bunnyVideoId,
+                bunnyLibraryId
             },
         });
 

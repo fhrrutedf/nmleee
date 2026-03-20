@@ -657,12 +657,23 @@ model Lesson {
   title       String
   description String?
   content     String?  // محتوى نصي (Markdown)
-  videoUrl    String?  // رابط الفيديو
-  videoDuration Int?   // المدة بالثواني
   order       Int      @default(0)
   isPublished Boolean  @default(false)
-  isFree      Boolean  @default(false) // درس مجاني للمعاينة
-  
+  isFree      Boolean  @default(false)
+
+  // Standard Video
+  videoUrl    String?  // Legacy or external links
+  videoDuration Int?   // Duration in seconds
+
+  // Protected Video (Mux)
+  muxPlaybackId String?  // Playback ID from Mux
+  muxAssetId    String?  // Asset ID from Mux
+  bunnyVideoId    String?
+  bunnyLibraryId  String?
+  videoStatus   String? // 'processing', 'ready', 'error'
+  isProtected   Boolean @default(false)
+  // Forces signed URL usage
+
   // Resources
   attachments String[] @default([]) // روابط الملفات المرفقة
   
@@ -682,7 +693,8 @@ model Lesson {
 model LessonProgress {
   id              String   @id @default(uuid())
   isCompleted     Boolean  @default(false)
-  watchedDuration Int      @default(0) // بالثواني
+  watchedDuration Int      @default(0) // total watch time in seconds
+  lastPosition    Float    @default(0) // current timestamp in video (seconds)
   lastWatchedAt   DateTime @default(now())
   
   createdAt   DateTime @default(now())

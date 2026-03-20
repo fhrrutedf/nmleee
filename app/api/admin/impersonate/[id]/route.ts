@@ -48,6 +48,7 @@ export async function POST(
     const token = await encode({
         secret: process.env.NEXTAUTH_SECRET!,
         token: {
+            id: targetUser.id,
             sub: targetUser.id,
             name: targetUser.name,
             email: targetUser.email,

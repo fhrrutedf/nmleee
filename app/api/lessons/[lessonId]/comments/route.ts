@@ -1,63 +1,66 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '@/lib/db';
+import { getServerSession } from 'next-auth';
+import { authOptions } from "@/lib/auth";
+import { prisma } from '@/lib/db';
 
-// GET - جلب تعليقات الدرس
+/**
+ * GET: جلب التعليقات للدرس
+ * POST: إضافة تعليق جديد
+ */
 export async function GET(
     req: NextRequest,
-    { params }: { params: Promise<{ lessonId: string }> }
+    { params }: { params: { lessonId: string } }
 ) {
     try {
-        const { lessonId } = await params;
         const comments = await prisma.comment.findMany({
             where: {
-                lessonId,
-                parentId: null, // Only top-level comments
+                lessonId: params.lessonId,
+                parentId: null // الدرجة الأولى فقط
             },
-            orderBy: { createdAt: 'desc' },
             include: {
                 replies: {
-                    orderBy: { createdAt: 'asc' },
+                    orderBy: { createdAt: 'asc' }
                 }
-            }
+            },
+            orderBy: { createdAt: 'desc' }
         });
 
         return NextResponse.json(comments);
     } catch (error) {
-        console.error('Error fetching comments:', error);
-        return NextResponse.json({ error: 'حدث خطأ أثناء جلب التعليقات' }, { status: 500 });
+        return NextResponse.json({ error: 'Failed to fetch comments' }, { status: 500 });
     }
 }
 
-// POST - إضافة تعليق
 export async function POST(
     req: NextRequest,
-    { params }: { params: Promise<{ lessonId: string }> }
+    { params }: { params: { lessonId: string } }
 ) {
     try {
-        const body = await req.json();
-        const { content, authorName, authorEmail, parentId } = body;
-
-        if (!content || !authorName || !authorEmail) {
-            return NextResponse.json({ error: 'جميع الحقول مطلوبة' }, { status: 400 });
+        const session = await getServerSession(authOptions);
+        if (!session?.user?.email) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { lessonId } = await params;
+        const { content, parentId, courseId } = await req.json();
+
+        if (!content) {
+            return NextResponse.json({ error: 'Content is required' }, { status: 400 });
+        }
+
         const comment = await prisma.comment.create({
             data: {
                 content,
-                authorName,
-                authorEmail,
-                lessonId,
-                parentId: parentId || null,
-            },
-            include: {
-                replies: true,
+                authorName: session.user.name || 'مستخدم',
+                authorEmail: session.user.email,
+                lessonId: params.lessonId,
+                courseId,
+                parentId
             }
         });
 
-        return NextResponse.json(comment, { status: 201 });
+        return NextResponse.json(comment);
     } catch (error) {
-        console.error('Error creating comment:', error);
-        return NextResponse.json({ error: 'حدث خطأ أثناء إضافة التعليق' }, { status: 500 });
+        console.error("Comment Error:", error);
+        return NextResponse.json({ error: 'Failed to post comment' }, { status: 500 });
     }
 }
