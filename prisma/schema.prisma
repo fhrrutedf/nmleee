@@ -107,6 +107,10 @@ model User {
   googleCalendarTokenExpiry  DateTime?
   googleCalendarConnected    Boolean  @default(false)
   
+  // 2FA Security
+  twoFactorEnabled Boolean  @default(false)
+  twoFactorSecret  String?
+
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   

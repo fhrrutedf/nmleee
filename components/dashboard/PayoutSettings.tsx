@@ -58,6 +58,29 @@ export default function PayoutSettings() {
     };
 
     const handleSave = async (method: string) => {
+        // Validation logic
+        if (method === PayoutMethods.BANK && (!data.bankName || !data.accountNumber || !data.accountName)) {
+            return toast.error('يرجى إكمال جميع بيانات الحساب البنكي');
+        }
+        if (method === PayoutMethods.PAYPAL && !data.paypalEmail) {
+            return toast.error('يرجى إدخال بريد PayPal الإلكتروني');
+        }
+        if (method === PayoutMethods.CRYPTO && !data.cryptoWallet) {
+            return toast.error('يرجى إدخال عنوان محفظة USDT');
+        }
+        if (method === PayoutMethods.VODAFONE && !data.vodafoneCash) {
+            return toast.error('يرجى إدخال رقم محفظة فودافون كاش');
+        }
+        if (method === PayoutMethods.ZAINCASH && !data.zainCashNumber) {
+            return toast.error('يرجى إدخال رقم محفظة زين كاش');
+        }
+        if (method === PayoutMethods.SHAMCASH && !data.shamCashNumber) {
+            return toast.error('يرجى إدخال رقم محفظة شام كاش');
+        }
+        if (method === PayoutMethods.OMT && !data.omtNumber) {
+            return toast.error('يرجى إدخال رقم الـ OMT');
+        }
+
         setSaving(true);
         try {
             const payload = { ...data, payoutMethod: method };

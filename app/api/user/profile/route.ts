@@ -39,6 +39,7 @@ export async function GET(request: NextRequest) {
                 zainCashNumber: true,
                 vodafoneCash: true,
                 mtncashNumber: true,
+                twoFactorEnabled: true,
             },
         });
 

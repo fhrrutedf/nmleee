@@ -274,6 +274,7 @@ export default function NewProductPage() {
                                             placeholder="299"
                                             value={formData.price}
                                             onChange={e => update('price', e.target.value)}
+                                            onKeyDown={e => e.key === 'Enter' && e.preventDefault()}
                                         />
                                     </div>
                                 )}

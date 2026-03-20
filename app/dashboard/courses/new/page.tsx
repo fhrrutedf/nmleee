@@ -280,6 +280,7 @@ export default function NewCoursePage() {
                                                 placeholder="مثال: 499"
                                                 value={formData.price}
                                                 onChange={e => update('price', e.target.value)}
+                                                onKeyDown={e => e.key === 'Enter' && e.preventDefault()}
                                             />
                                         </div>
                                     )}

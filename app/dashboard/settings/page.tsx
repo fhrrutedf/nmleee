@@ -42,7 +42,14 @@ export default function SettingsPage() {
         zainCashNumber: '',
         vodafoneCash: '',
         mtncashNumber: '',
+        twoFactorEnabled: false,
     });
+
+    const [show2FASetup, setShow2FASetup] = useState(false);
+    const [qrCode, setQrCode] = useState('');
+    const [tempSecret, setTempSecret] = useState('');
+    const [userToken, setUserToken] = useState('');
+    const [verifying2FA, setVerifying2FA] = useState(false);
 
     const [originalUsername, setOriginalUsername] = useState('');
     const [showUsernameWarning, setShowUsernameWarning] = useState(false);
@@ -95,6 +102,7 @@ export default function SettingsPage() {
                     zainCashNumber: data.zainCashNumber || '',
                     vodafoneCash: data.vodafoneCash || '',
                     mtncashNumber: data.mtncashNumber || '',
+                    twoFactorEnabled: data.twoFactorEnabled || false,
                 });
                 setOriginalUsername(data.username || '');
                 setPaymentData({
@@ -153,6 +161,57 @@ export default function SettingsPage() {
             toast.error('فشل تغيير كلمة المرور: ' + handleApiError(error));
         } finally {
             setSaving(false);
+        }
+    };
+
+    const setup2FA = async () => {
+        try {
+            const res = await fetch('/api/user/2fa/setup', { method: 'POST' });
+            const data = await res.json();
+            if (data.qrCode) {
+                setQrCode(data.qrCode);
+                setTempSecret(data.secret);
+                setShow2FASetup(true);
+            }
+        } catch (error) {
+            toast.error('فشل بدء إعداد 2FA');
+        }
+    };
+
+    const verifyAndEnable2FA = async () => {
+        if (!userToken) return toast.error('يرجى إدخال الرمز');
+        setVerifying2FA(true);
+        try {
+            const res = await fetch('/api/user/2fa/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: userToken, secret: tempSecret })
+            });
+            if (res.ok) {
+                toast.success('تم تفعيل التحقق بخطوتين بنجاح! 🔒');
+                setProfileData({ ...profileData, twoFactorEnabled: true });
+                setShow2FASetup(false);
+                setUserToken('');
+            } else {
+                toast.error('الرمز غير صحيح، حاول مرة أخرى');
+            }
+        } catch (error) {
+            toast.error('خطأ في التحقق');
+        } finally {
+            setVerifying2FA(false);
+        }
+    };
+
+    const disable2FA = async () => {
+        if (!confirm('هل أنت متأكد من تعطيل التحقق بخطوتين؟ هذا يقلل من أمان حسابك.')) return;
+        try {
+            const res = await fetch('/api/user/2fa/verify', { method: 'DELETE' });
+            if (res.ok) {
+                toast.success('تم تعطيل التحقق بخطوتين');
+                setProfileData({ ...profileData, twoFactorEnabled: false });
+            }
+        } catch (error) {
+            toast.error('فشل التعطيل');
         }
     };
 
@@ -622,11 +681,58 @@ export default function SettingsPage() {
                                         <div className="bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-800 flex items-center justify-between">
                                             <div>
                                                 <p className="text-sm font-medium">تأمين الحساب عبر تطبيق (TOTP)</p>
-                                                <p className="text-xs text-gray-500">استخدم Google Authenticator لتأمين دخولك</p>
+                                                <p className="text-xs text-gray-500">
+                                                    {profileData.twoFactorEnabled ? 'مفعل - حسابك محمي بكلمة مرور ورمز تطبيق' : 'استخدم Google Authenticator لتأمين دخولك'}
+                                                </p>
                                             </div>
-                                            <button className="btn btn-outline py-2 text-sm border-primary-100 hover:border-primary-500">تفعيل 2FA</button>
+                                            {profileData.twoFactorEnabled ? (
+                                                <button onClick={disable2FA} className="btn bg-red-50 text-red-600 border-red-100 hover:bg-red-100 py-2 text-sm">تعطيل 2FA</button>
+                                            ) : (
+                                                <button onClick={setup2FA} className="btn btn-primary py-2 text-sm">تفعيل 2FA</button>
+                                            )}
                                         </div>
                                     </div>
+
+                                    {/* 2FA Setup Modal Partial */}
+                                    {show2FASetup && (
+                                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+                                            <div className="bg-white dark:bg-card-white rounded-[2.5rem] p-8 max-w-md w-full shadow-2xl space-y-6 text-center">
+                                                <h3 className="text-2xl font-black text-primary-charcoal dark:text-white">إعداد التحقق بخطوتين</h3>
+                                                <p className="text-sm text-text-muted">امسح رمز الـ QR التالي باستخدام تطبيق Authenticator (مثل Google أو Microsoft)</p>
+                                                
+                                                <div className="bg-white p-4 rounded-3xl inline-block border-4 border-primary-50">
+                                                    <img src={qrCode} alt="QR Code" className="w-48 h-48 mx-auto" />
+                                                </div>
+
+                                                <div className="space-y-4">
+                                                    <label className="label text-right">أدخل الرمز المكون من 6 أرقام</label>
+                                                    <input 
+                                                        type="text" 
+                                                        placeholder="000000" 
+                                                        className="input text-center text-2xl tracking-[0.5em] font-mono" 
+                                                        maxLength={6}
+                                                        value={userToken}
+                                                        onChange={(e) => setUserToken(e.target.value)}
+                                                    />
+                                                    <div className="flex gap-4 pt-4">
+                                                        <button 
+                                                            onClick={verifyAndEnable2FA} 
+                                                            disabled={verifying2FA}
+                                                            className="btn btn-primary flex-1 py-4"
+                                                        >
+                                                            {verifying2FA ? 'جاري التحقق...' : 'تفعيل الآن'}
+                                                        </button>
+                                                        <button 
+                                                            onClick={() => setShow2FASetup(false)} 
+                                                            className="btn bg-gray-100 text-gray-600 flex-1 py-4"
+                                                        >
+                                                            إلغاء
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
 
                                     <DangerZone />
                                 </div>
