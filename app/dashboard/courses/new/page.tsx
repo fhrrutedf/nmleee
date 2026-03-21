@@ -12,11 +12,13 @@ import FileUploader from '@/components/ui/FileUploader';
 import RichTextEditor from '@/components/ui/RichTextEditor';
 import { motion, AnimatePresence } from 'framer-motion';
 import StepProgress from '@/components/ui/StepProgress';
+import CourseContentBuilder from '@/components/instructor/CourseContentBuilder';
 
 const steps = [
     { id: 1, label: 'هوية الدورة' },
     { id: 2, label: 'مواصفات المحتوى' },
-    { id: 3, label: 'التسعير ووسائل البث' },
+    { id: 3, label: 'بناء المنهج' },
+    { id: 4, label: 'التسعير ووسائل البث' },
 ];
 
 export default function NewCoursePage() {
@@ -25,6 +27,7 @@ export default function NewCoursePage() {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const [isSavingDraft, setIsSavingDraft] = useState(false);
+    const [draftId, setDraftId] = useState<string | null>(null);
 
     // Upload Toggles
     const [showCoverUploader, setShowCoverUploader] = useState(false);
@@ -81,7 +84,7 @@ export default function NewCoursePage() {
     const update = (key: string, value: any) =>
         setFormData(prev => ({ ...prev, [key]: value }));
 
-    const nextStep = () => {
+    const nextStep = async () => {
         if (currentStep === 1) {
             if (!formData.title) return showToast.error('يرجى كتابة عنوان الدورة للمتابعة');
             if (!formData.category) return showToast.error('يرجى اختيار تصنيف للمتابعة');
@@ -89,6 +92,34 @@ export default function NewCoursePage() {
         }
         if (currentStep === 2) {
             if (!formData.description || formData.description.length < 20) return showToast.error('يرجى كتابة وصف تفصيلي للدورة للمتابعة');
+            
+            // Auto draft creation if moving past Step 2
+            if (!draftId) {
+                const toastId = showToast.loading('جاري تحضير بيئة المنهج الذكية...');
+                try {
+                    const res = await fetch('/api/courses', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            ...formData,
+                            price: 0,
+                            isActive: false, // Create as invisible draft
+                        }),
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        setDraftId(data.id);
+                        showToast.dismiss(toastId);
+                    } else {
+                        showToast.error('فشل تحضير المنهج');
+                        return; // Prevent advancing if failing
+                    }
+                } catch (e) {
+                    showToast.dismiss(toastId);
+                    showToast.error('خطأ في الاتصال بالخادم');
+                    return;
+                }
+            }
         }
         setCurrentStep(prev => prev + 1);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -101,7 +132,7 @@ export default function NewCoursePage() {
 
     const handlePreSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (currentStep === 3) {
+        if (currentStep === 4) {
             if (!formData.price) return showToast.error('يرجى تحديد سعر الدورة');
             setShowConfirmModal(true);
         }
@@ -110,10 +141,12 @@ export default function NewCoursePage() {
     const handleSubmit = async () => {
         setShowConfirmModal(false);
         setLoading(true);
-        const toastId = showToast.loading('جاري إنشاء دورتك التدريبية...');
+        const toastId = showToast.loading(draftId ? 'جاري إطلاق الأكاديمية ونشر البيانات...' : 'جاري إنشاء دورتك التدريبية...');
         try {
-            const res = await fetch('/api/courses', {
-                method: 'POST',
+            const method = draftId ? 'PUT' : 'POST';
+            const endpoint = draftId ? `/api/courses/${draftId}` : '/api/courses';
+            const res = await fetch(endpoint, {
+                method,
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     ...formData,
@@ -357,9 +390,30 @@ export default function NewCoursePage() {
                             </motion.div>
                         )}
 
-                        {/* Step 3: Sales & Real-World */}
+                        {/* Step 3: Curriculum Builder */}
                         {currentStep === 3 && (
                             <motion.div key="st3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-10">
+                                <Section title="ورشة بناء المحتوى المتقدم" icon={<FiLayers />}>
+                                    <div className="bg-slate-50/50 -mx-6 -mt-6 sm:-mx-10 sm:-mt-10 p-6 sm:p-10 rounded-t-[3rem] border-b border-slate-100">
+                                        <div className="max-w-xl">
+                                            <h3 className="text-xl font-black text-slate-800 mb-2">منهج الدورة الاحترافي</h3>
+                                            <p className="text-sm font-bold text-slate-500">تم حفظ بياناتك المبدئية بنجاح! الآن قم بترتيب الوحدات وإضافة مقاطع الفيديو، الاختباء، والمواد (جميع التعديلات هنا تحفظ تلقائياً دون الحاجة لضغط حفظ).</p>
+                                        </div>
+                                    </div>
+                                    {draftId ? (
+                                        <div className="pt-8">
+                                            <CourseContentBuilder courseId={draftId} />
+                                        </div>
+                                    ) : (
+                                        <div className="text-center p-10 text-red-500 font-bold bg-red-50 rounded-2xl border-2 border-red-100 italic">حدث خطأ. لم يتم التعرف على الدورة المؤقتة. الرجاء العودة والتأكد من البيانات.</div>
+                                    )}
+                                </Section>
+                            </motion.div>
+                        )}
+
+                        {/* Step 4: Sales & Real-World */}
+                        {currentStep === 4 && (
+                            <motion.div key="st4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-10">
                                 <Section title="التسعير والحاسبة الذكية" icon={<FiDollarSign />}>
                                     <div className="max-w-md mx-auto space-y-8 py-8">
                                         <div className="text-center space-y-4 relative">
@@ -451,12 +505,12 @@ export default function NewCoursePage() {
                             )}
                         </div>
                         <div className="w-full md:w-auto">
-                            {currentStep < 3 ? (
+                            {currentStep < 4 ? (
                                 <button
                                     type="button" onClick={nextStep}
                                     className="w-full md:w-auto px-12 py-4 bg-slate-900 text-white rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-black transition-all shadow-2xl active:scale-95 text-lg"
                                 >
-                                    المتابعة واختيار الإعدادات
+                                    {currentStep === 3 ? 'التالي لتسعير الدورة' : 'المتابعة واختيار الإعدادات'}
                                     <FiArrowLeft />
                                 </button>
                             ) : (
@@ -464,8 +518,8 @@ export default function NewCoursePage() {
                                     type="submit" disabled={loading}
                                     className="w-full md:w-auto px-12 py-4 bg-gradient-to-l from-primary-indigo-600 to-emerald-500 text-white rounded-2xl font-black flex items-center justify-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-indigo-200 active:scale-95 text-lg"
                                 >
-                                    {loading ? 'جاري التحضير...' : 'حفظ وانتقال لرفع الدروس'}
-                                    {!loading && <FiArrowLeft />}
+                                    {loading ? 'جاري التحضير...' : 'إطلاق الأكاديمية ونشر البيانات'}
+                                    {!loading && <FiCheck />}
                                 </button>
                             )}
                         </div>

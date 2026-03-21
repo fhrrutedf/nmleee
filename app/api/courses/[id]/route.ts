@@ -71,6 +71,8 @@ export async function PUT(
                 title: body.title,
                 description: body.description,
                 price: body.price !== undefined ? parseFloat(body.price) : undefined,
+                originalPrice: body.originalPrice ? parseFloat(body.originalPrice) : null,
+                enablePPP: body.enablePPP ?? false,
                 category: body.category,
                 image: body.image,
                 tags: body.tags,
@@ -80,6 +82,11 @@ export async function PUT(
                 zoomLink: body.zoomLink,
                 meetLink: body.meetLink,
                 trailerUrl: body.trailerUrl,
+                prerequisites: Array.isArray(body.prerequisites) ? body.prerequisites : (typeof body.prerequisites === 'string' ? body.prerequisites.split(',').map((p: string) => p.trim()).filter(Boolean) : []),
+                upsellCourseId: body.upsellCourseId || null,
+                upsellProductId: body.upsellProductId || null,
+                upsellPrice: body.upsellPrice ? parseFloat(body.upsellPrice) : null,
+                offerExpiresAt: body.offerExpiresAt ? new Date(body.offerExpiresAt) : null,
             },
         });
 
