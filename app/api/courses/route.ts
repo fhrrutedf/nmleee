@@ -134,6 +134,7 @@ export async function POST(request: NextRequest) {
                 meetLink: body.meetLink || null,
                 trailerUrl: body.trailerUrl || null,
                 attachments: body.attachments || [],
+                format: body.format || 'recorded',
                 userId: userId
             },
         });

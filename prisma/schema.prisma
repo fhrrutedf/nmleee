@@ -261,6 +261,7 @@ model Course {
   attachments String[] @default([]) // ملحقات إضافية للكورس
   
   // Course details
+  format      String   @default("recorded") // "online" or "recorded"
   duration    String?  // "4 أسابيع"
   level       String?  // مبتدئ، متوسط، متقدم
   

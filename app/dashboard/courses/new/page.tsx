@@ -43,6 +43,7 @@ export default function NewCoursePage() {
         tags: [] as string[],
         features: [] as string[],
         attachments: [] as string[],
+        format: 'recorded',
         isActive: true,
         zoomLink: '',
         meetLink: '',
@@ -194,6 +195,25 @@ export default function NewCoursePage() {
                                                 <option value="أعمال">إدارة وأعمال</option>
                                                 <option value="تسويق">تسويق إلكتروني</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-4 pt-10 border-t border-slate-50">
+                                        <label className="label-modern italic mb-4 block underline decoration-primary-indigo-100 underline-offset-8">نوع الدورة التدريبية وأسلوب التقديم <span className="text-red-500">*</span></label>
+                                        <div className="grid md:grid-cols-2 gap-6">
+                                            <button type="button" onClick={() => update('format', 'recorded')} className={`p-6 rounded-[2rem] border-2 text-right transition-all flex items-start gap-4 ${formData.format === 'recorded' ? 'border-primary-indigo-500 bg-primary-indigo-50 shadow-lg shadow-primary-indigo-100 scale-[1.02]' : 'border-slate-100 bg-white hover:border-slate-200'}`}>
+                                                <div className={`p-3 rounded-2xl ${formData.format === 'recorded' ? 'bg-primary-indigo-100 text-primary-indigo-600' : 'bg-slate-50 text-slate-400'}`}><FiVideo size={28}/></div>
+                                                <div>
+                                                    <h4 className={`font-black mb-1 text-lg ${formData.format === 'recorded' ? 'text-primary-indigo-700' : 'text-slate-700'}`}>دورة مسجلة (Asynchronous)</h4>
+                                                    <p className={`text-xs font-bold ${formData.format === 'recorded' ? 'text-primary-indigo-600/70' : 'text-slate-400 opacity-80'}`}>محتوى مسجل بالكامل، يتعلمه الطالب بالسرعة التي تناسبه.</p>
+                                                </div>
+                                            </button>
+                                            <button type="button" onClick={() => update('format', 'online')} className={`p-6 rounded-[2rem] border-2 text-right transition-all flex items-start gap-4 ${formData.format === 'online' ? 'border-emerald-500 bg-emerald-50 shadow-lg shadow-emerald-100 scale-[1.02]' : 'border-slate-100 bg-white hover:border-slate-200'}`}>
+                                                <div className={`p-3 rounded-2xl ${formData.format === 'online' ? 'bg-emerald-100 text-emerald-600' : 'bg-slate-50 text-slate-400'}`}><FiClock size={28}/></div>
+                                                <div>
+                                                    <h4 className={`font-black mb-1 text-lg ${formData.format === 'online' ? 'text-emerald-700' : 'text-slate-700'}`}>دورة حية (Live / Online)</h4>
+                                                    <p className={`text-xs font-bold ${formData.format === 'online' ? 'text-emerald-600/70' : 'text-slate-400 opacity-80'}`}>بث مباشر عبر Zoom / Meet ومقابلات في أوقات محددة.</p>
+                                                </div>
+                                            </button>
                                         </div>
                                     </div>
                                 </Section>
@@ -349,19 +369,21 @@ export default function NewCoursePage() {
                                     </div>
                                 </Section>
 
-                                <Section title="روابط البث والدروس الحية" icon={<FiLink />}>
-                                    <p className="text-[10px] text-slate-400 font-bold -mt-2 mb-6 text-right">أضف روابط الاجتماعات لتسهيل وصول طلابك فور الشراء للمحاضرات الحية المرافقة (اختياري)</p>
-                                    <div className="grid md:grid-cols-2 gap-8">
-                                        <div className="space-y-2">
-                                            <label className="text-xs font-black text-slate-500 flex items-center gap-2"><FiVideo className="text-blue-500" /> Zoom Meeting Link</label>
-                                            <input type="url" className="input-modern bg-slate-50/50" placeholder="https://zoom.us/j/..." value={formData.zoomLink} onChange={e => update('zoomLink', e.target.value)} />
+                                {formData.format === 'online' && (
+                                    <Section title="روابط البث والدروس الحية" icon={<FiLink />}>
+                                        <p className="text-[10px] text-slate-400 font-bold -mt-2 mb-6 text-right">أضف روابط الاجتماعات لتسهيل وصول طلابك فور الشراء للمحاضرات الحية المرافقة (اختياري)</p>
+                                        <div className="grid md:grid-cols-2 gap-8">
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-black text-slate-500 flex items-center gap-2"><FiVideo className="text-blue-500" /> Zoom Meeting Link</label>
+                                                <input type="url" className="input-modern bg-slate-50/50" placeholder="https://zoom.us/j/..." value={formData.zoomLink} onChange={e => update('zoomLink', e.target.value)} />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-black text-slate-500 flex items-center gap-2"><FiVideo className="text-emerald-500" /> Google Meet Link</label>
+                                                <input type="url" className="input-modern bg-slate-50/50" placeholder="https://meet.google.com/..." value={formData.meetLink} onChange={e => update('meetLink', e.target.value)} />
+                                            </div>
                                         </div>
-                                        <div className="space-y-2">
-                                            <label className="text-xs font-black text-slate-500 flex items-center gap-2"><FiVideo className="text-emerald-500" /> Google Meet Link</label>
-                                            <input type="url" className="input-modern bg-slate-50/50" placeholder="https://meet.google.com/..." value={formData.meetLink} onChange={e => update('meetLink', e.target.value)} />
-                                        </div>
-                                    </div>
-                                </Section>
+                                    </Section>
+                                )}
 
                                 <Section title="خيارات العرض فور الإنشاء" icon={<FiEye />}>
                                     <div className="flex items-center justify-between p-8 bg-slate-900 rounded-[3rem] border border-white/10 shadow-2xl transition-all cursor-pointer group hover:bg-slate-800" onClick={() => update('isActive', !formData.isActive)}>
