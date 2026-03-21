@@ -132,8 +132,8 @@ export default function NewProductPage() {
                     isFree: pricingType === 'free',
                     minPrice: pricingType === 'pwyw' ? parseFloat(formData.minPrice || '0') : null,
                     suggestedPrice: pricingType === 'pwyw' && formData.suggestedPrice ? parseFloat(formData.suggestedPrice) : null,
-                    tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
-                    prerequisites: formData.prerequisites.split(',').map(t => t.trim()).filter(Boolean),
+                    tags: (formData.tags || '').split(',').map(t => t.trim()).filter(Boolean),
+                    prerequisites: (formData.prerequisites || '').split(',').map(t => t.trim()).filter(Boolean),
                 }),
             });
             if (res.ok) {

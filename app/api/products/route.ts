@@ -84,6 +84,7 @@ export async function POST(request: NextRequest) {
                 originalPrice: body.originalPrice ? parseFloat(body.originalPrice) : null,
                 upsellPrice: body.upsellPrice ? parseFloat(body.upsellPrice) : null,
                 offerExpiresAt: body.offerExpiresAt ? new Date(body.offerExpiresAt) : null,
+                prerequisites: Array.isArray(body.prerequisites) ? body.prerequisites : (typeof body.prerequisites === 'string' && body.prerequisites ? body.prerequisites.split(',').map((t: string) => t.trim()).filter(Boolean) : []),
                 slug,
                 userId,
             },

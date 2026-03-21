@@ -118,7 +118,8 @@ export default function NewCoursePage() {
                 body: JSON.stringify({
                     ...formData,
                     price: parseFloat(formData.price || '0'),
-                    sessions: formData.sessions ? parseInt(formData.sessions) : null
+                    sessions: formData.sessions ? parseInt(formData.sessions) : null,
+                    prerequisites: formData.prerequisites ? formData.prerequisites.split(',').map(t => t.trim()).filter(Boolean) : [],
                 }),
             });
             if (res.ok) {
