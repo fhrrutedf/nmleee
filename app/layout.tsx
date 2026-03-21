@@ -35,6 +35,7 @@ export default function RootLayout({
         <html lang="ar" dir="rtl" suppressHydrationWarning>
             <body className={`${ibmPlex.variable} ${inter.variable} font-sans antialiased text-slate-900 bg-white flex flex-col min-h-screen`}>
                 <Providers>
+                    <ImpersonationBanner />
                     <NavbarWrapper />
                     <main className="flex-grow w-full overflow-x-hidden">
                         {children}

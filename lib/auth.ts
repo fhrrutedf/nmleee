@@ -77,7 +77,9 @@ export const authOptions: AuthOptions = {
         })
     ],
     session: {
-        strategy: "jwt"
+        strategy: "jwt",
+        maxAge: 48 * 60 * 60, // 48 hours
+        updateAge: 24 * 60 * 60, // 24 hours
     },
     pages: {
         signIn: "/login",
@@ -138,6 +140,8 @@ export const authOptions: AuthOptions = {
                 token.email = user.email;
                 token.username = (user as any).username;
                 token.role = (user as any).role;
+                token.isImpersonating = (user as any).isImpersonating;
+                token.originalAdminName = (user as any).originalAdminName;
             }
             
             // For Google sign-in, fetch username from DB if not in token
@@ -159,6 +163,8 @@ export const authOptions: AuthOptions = {
                 session.user.id = token.id as string;
                 session.user.username = token.username as string;
                 session.user.role = token.role as string;
+                (session.user as any).isImpersonating = token.isImpersonating;
+                (session.user as any).originalAdminName = token.originalAdminName;
             }
             return session;
         }
