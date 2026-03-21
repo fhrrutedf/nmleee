@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { FiUploadCloud, FiCheckCircle, FiLoader, FiAlertCircle } from 'react-icons/fi';
 
 interface BunnyUploadProps {
-    lessonId: string;
-    onComplete?: () => void;
+    lessonId?: string;
+    onComplete?: (data?: { videoId: string; libraryId: string }) => void;
 }
 
 export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) {
@@ -21,8 +21,13 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
         setUploading(true);
 
         try {
-            // 1. Get Upload Details from Backend
-            const initRes = await fetch(`/api/lessons/${lessonId}/bunny/upload`, { method: 'POST' });
+            // 1. Get Upload Details from Backend (either edit existing lesson or init draft)
+            const endpoint = lessonId ? `/api/lessons/${lessonId}/bunny/upload` : '/api/bunny/init';
+            const initRes = await fetch(endpoint, { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title: file.name })
+            });
             const { videoId, libraryId, apiKey } = await initRes.json();
 
             if (!initRes.ok) throw new Error('Failed to init upload');
@@ -42,9 +47,9 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
             };
 
             xhr.onload = () => {
-                if (xhr.status === 200) {
+                if (xhr.status === 200 || xhr.status === 201) {
                     setStatus('complete');
-                    if (onComplete) onComplete();
+                    if (onComplete) onComplete({ videoId, libraryId });
                 } else {
                     setStatus('error');
                 }

@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { FiSave, FiX, FiUploadCloud, FiEye } from 'react-icons/fi';
+import { FiSave, FiX, FiUploadCloud, FiEye, FiCheckCircle } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import FileUploader from '@/components/ui/FileUploader';
+import BunnyUpload from '@/components/instructor/BunnyUpload';
 
 export default function NewLessonPage() {
     const params = useParams();
@@ -21,6 +22,8 @@ export default function NewLessonPage() {
         videoDuration: '',
         isFree: false,
         attachments: [''],
+        bunnyVideoId: '',
+        bunnyLibraryId: ''
     });
 
     const addAttachment = () => {
@@ -117,16 +120,29 @@ export default function NewLessonPage() {
                         <div className="bg-white rounded-[3rem] p-10 shadow-2xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center justify-center text-center space-y-6">
                             <h3 className="font-black text-xl">فيديو الدرس 🔥</h3>
                             <div className="w-full">
-                                {formData.videoUrl ? (
-                                    <div className="relative group rounded-3xl overflow-hidden shadow-lg border-4 border-slate-100">
-                                        <video src={formData.videoUrl} controls className="w-full object-cover max-h-56 bg-black" />
-                                        <button type="button" onClick={() => setFormData(prev => ({ ...prev, videoUrl: '' }))} className="absolute top-3 left-3 bg-red-500 text-white rounded-full w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600 shadow-md font-bold">✕</button>
+                                {formData.bunnyVideoId ? (
+                                    <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 flex flex-col items-center text-center gap-4">
+                                        <div className="w-16 h-16 bg-green-500/10 text-green-500 rounded-2xl flex items-center justify-center mb-2">
+                                            <FiCheckCircle size={32} />
+                                        </div>
+                                        <div>
+                                            <p className="font-black text-slate-800 text-lg">مرفوع على سيرفرات Bunny</p>
+                                            <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">آمن وجاهز للعرض</p>
+                                        </div>
+                                        <button 
+                                            type="button" 
+                                            onClick={() => setFormData(p => ({ ...p, bunnyVideoId: '', bunnyLibraryId: '' }))}
+                                            className="px-6 py-2 mt-4 text-sm bg-white text-red-500 hover:bg-red-50 rounded-xl transition-colors shadow-sm font-bold"
+                                        >
+                                            إلغاء الفيديو
+                                        </button>
                                     </div>
                                 ) : (
-                                    <div className="w-full ring-4 ring-slate-50 rounded-3xl overflow-hidden hover:ring-primary-indigo-100 transition-all">
-                                        <FileUploader
-                                            onUploadSuccess={(urls) => { if (urls.length > 0) setFormData(prev => ({ ...prev, videoUrl: urls[0] })); }}
-                                            maxFiles={1} accept={{ 'video/*': ['.mp4', '.webm', '.mov', '.avi'] }} maxSize={500 * 1024 * 1024}
+                                    <div className="w-full">
+                                        <BunnyUpload
+                                            onComplete={(data) => { 
+                                                if (data) setFormData(prev => ({ ...prev, bunnyVideoId: data.videoId, bunnyLibraryId: data.libraryId }));
+                                            }}
                                         />
                                     </div>
                                 )}
