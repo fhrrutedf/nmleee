@@ -11,7 +11,7 @@ export default function SellerSupportPage() {
     const [tickets, setTickets] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [showNewModal, setShowNewModal] = useState(false);
-    const [newTicket, setNewTicket] = useState({ subject: '', category: 'GENERAL', message: '' });
+    const [newTicket, setNewTicket] = useState({ subject: '', category: 'GENERAL', message: '', attachmentUrl: '' });
     const [submitting, setSubmitting] = useState(false);
 
     useEffect(() => {
@@ -48,7 +48,7 @@ export default function SellerSupportPage() {
             if (res.ok) {
                 toast.success('تم فتح تذكرة دعم بنجاح');
                 setShowNewModal(false);
-                setNewTicket({ subject: '', category: 'GENERAL', message: '' });
+                setNewTicket({ subject: '', category: 'GENERAL', message: '', attachmentUrl: '' });
                 fetchTickets();
             } else {
                 toast.error(data.error || 'حدث خطأ');
@@ -204,6 +204,16 @@ export default function SellerSupportPage() {
                                     placeholder="يرجى كتابة كافة التفاصيل لمساعدتك بشكل أفضل وأسرع..."
                                     value={newTicket.message}
                                     onChange={e => setNewTicket({ ...newTicket, message: e.target.value })}
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">رابط المرفقات (اختياري)</label>
+                                <input
+                                    type="url"
+                                    className="input w-full"
+                                    placeholder="رابط لصورة أو ملف يوضح المشكلة..."
+                                    value={newTicket.attachmentUrl}
+                                    onChange={e => setNewTicket({ ...newTicket, attachmentUrl: e.target.value })}
                                 />
                             </div>
                         </div>

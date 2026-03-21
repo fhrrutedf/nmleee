@@ -83,5 +83,5 @@ export async function GET(request: NextRequest) {
 }
 
 function generateAffiliateCode(): string {
-    return 'AFF' + Math.random().toString(36).substring(2, 10).toUpperCase();
+    return 'aff' + Math.random().toString(36).substring(2, 10).toLowerCase();
 }

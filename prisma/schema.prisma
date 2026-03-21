@@ -1449,6 +1449,7 @@ model Broadcast {
   status          String   @default("PENDING") // PENDING, SENDING, COMPLETED, FAILED
   recipientCount  Int      @default(0)
   sentCount       Int      @default(0)
+  recipientCriteria String   @default("all")    // all, sellers, admins, high-earners, new-users
   
   scheduledAt     DateTime @default(now())
   createdAt       DateTime @default(now())

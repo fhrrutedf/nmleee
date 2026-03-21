@@ -15,6 +15,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
     const [ticket, setTicket] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
+    const [attachmentUrl, setAttachmentUrl] = useState('');
     const [submitting, setSubmitting] = useState(false);
 
     useEffect(() => {
@@ -48,12 +49,13 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
             const res = await fetch(`/api/tickets/${ticketId}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message }),
+                body: JSON.stringify({ message, attachmentUrl }),
             });
             const data = await res.json();
 
             if (res.ok) {
                 setMessage('');
+                setAttachmentUrl('');
                 fetchTicket(); // Refresh to get the new message
             } else {
                 toast.error(data.error || 'حدث خطأ');
@@ -134,6 +136,18 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                                     <p className={`whitespace-pre-wrap leading-relaxed ${isAdmin ? 'text-gray-700 dark:text-gray-300' : 'text-gray-800 dark:text-gray-200'}`}>
                                         {msg.message}
                                     </p>
+                                    {msg.attachmentUrl && (
+                                        <div className="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800">
+                                            <a 
+                                                href={msg.attachmentUrl} 
+                                                target="_blank" 
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-2 text-xs font-bold bg-white dark:bg-gray-800 px-3 py-2 rounded-lg border border-gray-100 hover:border-action-blue transition-colors"
+                                            >
+                                                📂 عرض المرفقات
+                                            </a>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         );
@@ -147,27 +161,32 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                         <p className="font-bold">هذه التذكرة مغلقة ولا يمكن إضافة المزيد من الردود عليها.</p>
                     </div>
                 ) : (
-                    <form onSubmit={handleReply} className="relative mt-8">
-                        <textarea
-                            rows={3}
-                            className="input w-full pr-14 resize-none rounded-2xl focus:ring-2 focus:ring-action-blue"
-                            placeholder="اكتب ردك هنا..."
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter' && !e.shiftKey) {
-                                    e.preventDefault();
-                                    handleReply(e);
-                                }
-                            }}
-                        />
-                        <button
-                            type="submit"
-                            disabled={submitting || !message.trim()}
-                            className="absolute top-3 left-4 w-10 h-10 bg-action-blue hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors shadow-md"
-                        >
-                            {submitting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FiSend />}
-                        </button>
+                    <form onSubmit={handleReply} className="space-y-4 mt-8">
+                        <div className="relative">
+                            <textarea
+                                rows={3}
+                                className="input w-full pr-14 resize-none rounded-2xl focus:ring-2 focus:ring-action-blue"
+                                placeholder="اكتب ردك هنا..."
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                            />
+                            <button
+                                type="submit"
+                                disabled={submitting || !message.trim()}
+                                className="absolute top-3 left-4 w-10 h-10 bg-action-blue hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors shadow-md"
+                            >
+                                {submitting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FiSend />}
+                            </button>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <input 
+                                type="url" 
+                                className="input text-xs py-2 h-auto" 
+                                placeholder="رابط مرفق جديد (اختياري)..."
+                                value={attachmentUrl}
+                                onChange={(e) => setAttachmentUrl(e.target.value)}
+                            />
+                        </div>
                     </form>
                 )}
             </div>

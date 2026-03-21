@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
                 content: message,
                 status: 'PENDING',
                 recipientCount: totalCount,
+                recipientCriteria: target || 'all',
                 scheduledAt: scheduledAt ? new Date(scheduledAt) : new Date(),
             }
         });
@@ -107,18 +108,34 @@ async function processBroadcast(broadcastId: string) {
     const platformSettings = await prisma.platformSettings.findFirst() || { platformName: 'تمالين' };
     const FROM = process.env.RESEND_FROM_EMAIL || 'no-reply@tmleen.com';
 
+    // 3. Define where filter based on criteria
+    const target = (broadcast as any).recipientCriteria;
+    const where: any = { isActive: true };
+    if (target === 'sellers') where.role = 'SELLER';
+    else if (target === 'admins') where.role = 'ADMIN';
+    else if (target === 'high-earners') {
+        where.role = 'SELLER';
+        where.totalEarnings = { gte: 1000 };
+    } else if (target === 'new-users') {
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+        where.createdAt = { gte: sevenDaysAgo };
+    }
+
     let processed = 0;
     const batchSize = 50;
     let hasMore = true;
-    let lastId = undefined;
+    let lastId: string | undefined = undefined;
 
     while (hasMore) {
         // Fetch recipients using keyset pagination for efficiency
-        const users = await prisma.user.findMany({
-            where: { isActive: true }, // Should match original 'target' logic
+        const users: any[] = await prisma.user.findMany({
+            where,
             take: batchSize,
-            skip: lastId ? 1 : 0,
-            cursor: lastId ? { id: lastId } : undefined,
+            ...(lastId ? { 
+                skip: 1, 
+                cursor: { id: lastId } 
+            } : {}),
             select: { id: true, email: true, name: true }
         });
 

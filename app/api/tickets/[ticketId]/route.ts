@@ -36,7 +36,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ tic
     const user = await prisma.user.findUnique({ where: { email: session.user.email } });
     if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 });
 
-    const { message } = await req.json();
+    const { message, attachmentUrl } = await req.json();
     if (!message) return NextResponse.json({ error: 'Message required' }, { status: 400 });
 
     const ticket = await prisma.supportTicket.findUnique({ where: { id: ticketId } });
@@ -55,6 +55,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ tic
                 senderId: user.id,
                 senderRole: user.role,
                 message,
+                attachmentUrl: attachmentUrl || null
             },
         });
 

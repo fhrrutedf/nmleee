@@ -300,16 +300,17 @@ export default function AppointmentsPage() {
                                     </div>
 
                                     <div className="flex flex-col items-end gap-3">
-                                        <span className={`px-4 py-2 rounded-full text-sm font-medium ${appointment.status === 'confirmed' ? 'bg-green-100 text-green-700' :
-                                            appointment.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                                                appointment.status === 'completed' ? 'bg-blue-100 text-blue-700' :
-                                                    'bg-red-100 text-red-700'
-                                            }`}>
                                             {appointment.status === 'confirmed' ? 'مؤكد' :
                                                 appointment.status === 'pending' ? 'قيد الانتظار' :
                                                     appointment.status === 'completed' ? 'مكتمل' :
                                                         'ملغي'}
                                         </span>
+
+                                        {appointment.isNotified && (
+                                            <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-[10px] font-bold border border-blue-100 flex items-center gap-1">
+                                                🔔 تم الإرسال
+                                            </span>
+                                        )}
 
                                         {appointment.price && (
                                             <span className="text-xl font-bold text-primary-600">

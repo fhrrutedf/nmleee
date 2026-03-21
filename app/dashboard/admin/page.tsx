@@ -208,10 +208,10 @@ export default function AdminDashboardPage() {
                         <option value="90">آخر 90 يوم</option>
                         <option value="365">آخر سنة</option>
                     </select>
-                    <button onClick={() => setShowBroadcast(true)}
-                        className="btn bg-purple-600 hover:bg-purple-700 text-white py-2 px-3 text-sm flex items-center gap-1.5">
-                        <FiSend /> إرسال بث
-                    </button>
+                    <Link href="/admin/broadcast"
+                        className="btn bg-purple-600 hover:bg-purple-700 text-white py-2 px-3 text-sm flex items-center gap-1.5 shadow-lg shadow-purple-500/20">
+                        <FiSend /> Broadcast Pro
+                    </Link>
                     <button
                         onClick={() => setAutoRefresh(!autoRefresh)}
                         className={`btn text-sm py-2 px-3 flex items-center gap-1.5 ${autoRefresh ? 'bg-green-100 text-green-700 hover:bg-green-200 border-none' : 'btn-outline border-gray-300'}`}
@@ -232,49 +232,7 @@ export default function AdminDashboardPage() {
                 </div>
             </div>
 
-            {/* Broadcast Modal */}
-            {showBroadcast && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-                    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-lg p-6 space-y-4">
-                        <div className="flex items-center justify-between">
-                            <h2 className="font-bold text-xl text-primary-charcoal dark:text-white flex items-center gap-2">
-                                <FiSend className="text-purple-600" /> إرسال رسالة جماعية
-                            </h2>
-                            <button onClick={() => setShowBroadcast(false)} className="text-text-muted hover:text-red-500">
-                                <FiX className="text-xl" />
-                            </button>
-                        </div>
-                        <div>
-                            <label className="label">المستلمون</label>
-                            <select value={broadcast.target} onChange={e => setBroadcast(b => ({ ...b, target: e.target.value }))} className="input w-full">
-                                <option value="sellers">البائعون فقط</option>
-                                <option value="all">جميع المستخدمين</option>
-                                <option value="admins">المشرفون فقط</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label className="label">عنوان الرسالة</label>
-                            <input type="text" value={broadcast.subject}
-                                onChange={e => setBroadcast(b => ({ ...b, subject: e.target.value }))}
-                                className="input w-full" placeholder="مثل: تحديثات جديدة في المنصة" />
-                        </div>
-                        <div>
-                            <label className="label">نص الرسالة</label>
-                            <textarea rows={5} value={broadcast.message}
-                                onChange={e => setBroadcast(b => ({ ...b, message: e.target.value }))}
-                                className="input w-full resize-none" placeholder="اكتب رسالتك هنا..." />
-                        </div>
-                        <div className="flex gap-3 pt-1">
-                            <button onClick={sendBroadcast} disabled={sending}
-                                className="flex-1 btn bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 flex items-center justify-center gap-2">
-                                {sending ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FiSend />}
-                                {sending ? 'جاري الإرسال...' : 'إرسال الآن'}
-                            </button>
-                            <button onClick={() => setShowBroadcast(false)} className="btn btn-outline px-6">إلغاء</button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {/* Legacy Broadcast Modal Removed - Now using /admin/broadcast */}
 
             {/* Tabs */}
             <div className="flex gap-2 flex-wrap">
