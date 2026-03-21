@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import NavbarWrapper from "@/app/components/NavbarWrapper";
 import FooterWrapper from "@/app/components/FooterWrapper";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import ImpersonationBanner from "@/components/ImpersonationBanner";
 
 const inter = Inter({
     subsets: ["latin"],
