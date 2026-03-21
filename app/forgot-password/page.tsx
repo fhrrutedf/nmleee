@@ -1,9 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { FiMail, FiCheckCircle, FiAlertCircle, FiArrowRight, FiLock } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
+};
 
 export default function ForgotPasswordPage() {
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [error, setError] = useState('');
@@ -32,83 +41,118 @@ export default function ForgotPasswordPage() {
         }
     };
 
-    if (status === 'success') {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-                <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 text-center animate-fade-in-up">
-                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                    </div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">تم الإرسال بنجاح!</h2>
-                    <p className="text-gray-600 mb-8 leading-relaxed">
-                        إذا كان البريد الإلكتروني مسجلاً لدينا، ستتلقى رابطاً لاستعادة كلمة المرور خلال دقائق.
-                        <br />
-                        <span className="text-sm text-gray-400 block mt-2">(تحقق من مجلد الرسائل المزعجة Spam)</span>
-                    </p>
-                    <Link href="/login" className="btn btn-primary w-full block py-3">
-                        العودة لتسجيل الدخول
-                    </Link>
-                </div>
-            </div>
-        );
-    }
-
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-            <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 animate-fade-in-up">
-                <div className="text-center mb-8">
-                    <h1 className="text-2xl font-bold text-gray-900 mb-2">نسيت كلمة المرور؟</h1>
-                    <p className="text-gray-500">أدخل بريدك الإلكتروني لاستعادة الوصول لحسابك</p>
-                </div>
+        <div className="min-h-screen flex items-center justify-center bg-bg-light relative overflow-hidden py-12 px-4">
+            {/* Background Decorations */}
+            <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-action-blue/10 rounded-full blur-[80px] -z-10 pointer-events-none"></div>
+            <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            البريد الإلكتروني
-                        </label>
-                        <input
-                            type="email"
-                            required
-                            className="input w-full ltr"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="name@example.com"
-                        />
-                    </div>
-
-                    {status === 'error' && (
-                        <div className="p-4 bg-red-50 border border-red-100 text-red-600 rounded-lg text-sm flex items-center gap-2">
-                            <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            {error}
+            <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                    visible: { transition: { staggerChildren: 0.1 } }
+                }}
+                className="max-w-md w-full relative z-10"
+            >
+                {/* Logo/Title */}
+                <motion.div variants={fadeInUp} className="text-center mb-10">
+                    <Link href="/" className="inline-block mb-6">
+                        <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-action-blue to-purple-600 flex items-center justify-center text-white shadow-xl shadow-action-blue/20">
+                            <span className="text-3xl font-bold">م</span>
                         </div>
-                    )}
+                    </Link>
+                    <h1 className="text-4xl font-bold text-primary-charcoal mb-3">نسيت كلمة المرور؟</h1>
+                    <p className="text-text-muted text-lg">أدخل بريدك الإلكتروني لاستعادة الوصول لحسابك</p>
+                </motion.div>
 
-                    <button
-                        type="submit"
-                        disabled={status === 'loading'}
-                        className="btn btn-primary w-full py-3 text-lg font-bold shadow-lg shadow-primary-500/30 flex justify-center items-center gap-2"
-                    >
-                        {status === 'loading' ? (
-                            <>
-                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                                جاري الإرسال...
-                            </>
+                <motion.div variants={fadeInUp} className="bg-white rounded-[2.5rem] shadow-2xl border border-gray-100 p-8 sm:p-10 relative overflow-hidden">
+                    <AnimatePresence mode="wait">
+                        {status === 'success' ? (
+                            <motion.div
+                                key="success"
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="text-center py-4"
+                            >
+                                <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-100 shadow-inner">
+                                    <FiCheckCircle size={40} />
+                                </div>
+                                <h2 className="text-2xl font-black text-gray-900 mb-4">تم الإرسال بنجاح!</h2>
+                                <p className="text-gray-500 mb-8 leading-relaxed">
+                                    إذا كان البريد الإلكتروني مسجلاً لدينا، ستتلقى رابطاً لاستعادة كلمة المرور خلال دقائق.
+                                    <span className="block mt-2 text-sm text-gray-400">(تحقق من مجلد الرسائل المزعجة Spam)</span>
+                                </p>
+                                <button
+                                    onClick={() => router.push('/login')}
+                                    className="btn btn-primary w-full py-4 rounded-xl flex items-center justify-center gap-2 font-bold"
+                                >
+                                    العودة لتسجيل الدخول
+                                </button>
+                            </motion.div>
                         ) : (
-                            'إرسال رابط الاستعادة'
-                        )}
-                    </button>
+                            <motion.div key="form" exit={{ opacity: 0, x: -20 }}>
+                                <form onSubmit={handleSubmit} className="space-y-6">
+                                    <div className="relative group">
+                                        <label className="block text-sm font-bold text-gray-700 mb-2 mr-1">البريد الإلكتروني</label>
+                                        <div className="relative">
+                                            <input
+                                                type="email"
+                                                required
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 pr-12 font-semibold focus:ring-2 focus:ring-action-blue focus:border-transparent outline-none transition-all ltr"
+                                                placeholder="name@example.com"
+                                            />
+                                            <FiMail className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl group-focus-within:text-action-blue transition-colors" />
+                                        </div>
+                                    </div>
 
-                    <div className="text-center pt-4 border-t border-gray-100">
-                        <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors">
-                            العودة لتسجيل الدخول
-                        </Link>
-                    </div>
-                </form>
-            </div>
+                                    {status === 'error' && (
+                                        <div className="p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm flex items-start gap-3 shadow-sm">
+                                            <FiAlertCircle className="mt-0.5 shrink-0" />
+                                            {error}
+                                        </div>
+                                    )}
+
+                                    <button
+                                        type="submit"
+                                        disabled={status === 'loading'}
+                                        className="w-full btn btn-primary py-4 rounded-2xl text-lg font-black shadow-lg shadow-action-blue/20 hover:shadow-action-blue/40 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:transform-none shadow-action-blue/30"
+                                    >
+                                        {status === 'loading' ? (
+                                            <>
+                                                <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                                جاري الإرسال...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <span>إرسال رابط الاستعادة</span>
+                                                <FiArrowRight className="rotate-180" />
+                                            </>
+                                        )}
+                                    </button>
+
+                                    <div className="text-center pt-6 border-t border-gray-100">
+                                        <Link href="/login" className="text-sm font-bold text-text-muted hover:text-action-blue transition-colors flex items-center justify-center gap-2 group">
+                                            <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+                                            العودة لتسجيل الدخول
+                                        </Link>
+                                    </div>
+                                </form>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </motion.div>
+
+                {/* Back Link */}
+                <motion.div variants={fadeInUp} className="text-center mt-8">
+                    <Link href="/" className="text-text-muted hover:text-primary-charcoal transition-colors text-sm font-medium flex items-center justify-center gap-2 group">
+                        <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+                        العودة للمنصة الرئيسية
+                    </Link>
+                </motion.div>
+            </motion.div>
         </div>
     );
 }

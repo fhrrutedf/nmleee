@@ -110,6 +110,7 @@ model User {
   // 2FA Security
   twoFactorEnabled Boolean  @default(false)
   twoFactorSecret  String?
+  phoneVisibility   String   @default("HIDDEN") // "PUBLIC" | "WHATSAPP_ONLY" | "HIDDEN"
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -172,6 +173,16 @@ model VerificationRequest {
   updatedAt       DateTime @updatedAt
 
   @@index([status])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  email     String
+  expires   DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
 }
 
 enum VerificationStatus {

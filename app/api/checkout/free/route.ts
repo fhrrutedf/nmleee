@@ -66,6 +66,18 @@ export async function POST(req: Request) {
             include: { items: true }
         });
 
+        // 1.1 Lead Magnet: Add to EmailSubscriber list automatically for free products
+        try {
+            await prisma.emailSubscriber.upsert({
+                where: { email: customerEmail },
+                update: { isActive: true },
+                create: { email: customerEmail, isActive: true }
+            });
+            console.log(`[Lead Magnet] Added ${customerEmail} to subscribers list.`);
+        } catch (subError) {
+            console.error('Failed to add to subscribers:', subError);
+        }
+
         // 2. Grant access: Enroll in courses (by email - works whether buyer has account or not)
         for (const item of items) {
             if (item.type === 'course') {

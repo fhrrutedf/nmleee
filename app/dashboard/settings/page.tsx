@@ -44,6 +44,7 @@ export default function SettingsPage() {
         mtncashNumber: '',
         twoFactorEnabled: false,
         phoneVisibility: 'HIDDEN' as 'PUBLIC' | 'HIDDEN' | 'WHATSAPP_ONLY',
+        customDomain: '',
     });
 
     const [show2FASetup, setShow2FASetup] = useState(false);
@@ -115,6 +116,7 @@ export default function SettingsPage() {
                     mtncashNumber: data.mtncashNumber || '',
                     twoFactorEnabled: data.twoFactorEnabled || false,
                     phoneVisibility: data.phoneVisibility || 'HIDDEN',
+                    customDomain: data.customDomain || '',
                 });
                 setOriginalUsername(data.username || '');
                 setPaymentData({
@@ -259,14 +261,29 @@ export default function SettingsPage() {
                 {profileData.username && (
                     <button
                         onClick={() => {
-                            const url = `${window.location.origin}/${profileData.username}`;
+                            let url = "";
+                            if (profileData.customDomain) {
+                                url = profileData.customDomain.startsWith('http') 
+                                    ? profileData.customDomain 
+                                    : `https://${profileData.customDomain}`;
+                            } else {
+                                url = `${window.location.origin}/${profileData.username}`;
+                            }
                             navigator.clipboard.writeText(url);
                             toast.success('تم نسخ رابط متجرك بنجاح!');
                         }}
-                        className="btn bg-white dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-action-blue text-primary-charcoal dark:text-white shadow-sm flex items-center gap-2 self-start sm:self-auto"
+                        className="group relative flex items-center gap-2 px-6 py-3 bg-white dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-action-blue text-primary-charcoal dark:text-white shadow-sm transition-all hover:-translate-y-0.5 rounded-2xl"
                     >
-                        <FiCopy className="text-action-blue" />
-                        <span>نسخ رابط المتجر</span>
+                        <div className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-action-blue group-hover:bg-action-blue group-hover:text-white transition-colors">
+                            <FiCopy size={14} />
+                        </div>
+                        <div className="text-right">
+                            <span className="block text-xs text-text-muted font-bold">رابط المتجر المباشر</span>
+                            <span className="block text-sm font-black truncate max-w-[150px]">
+                                {profileData.customDomain || `${profileData.username}.tmleen.com`}
+                            </span>
+                        </div>
+                        <FiExternalLink className="text-gray-300 group-hover:text-action-blue" size={14} />
                     </button>
                 )}
             </div>

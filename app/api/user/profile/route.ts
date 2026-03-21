@@ -40,6 +40,7 @@ export async function GET(request: NextRequest) {
                 vodafoneCash: true,
                 mtncashNumber: true,
                 twoFactorEnabled: true,
+                customDomain: true,
             },
         });
 
