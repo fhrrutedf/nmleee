@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { FiSave, FiX, FiUploadCloud } from 'react-icons/fi';
+import { FiSave, FiX, FiUploadCloud, FiEye } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import FileUploader from '@/components/ui/FileUploader';
 
@@ -35,12 +35,6 @@ export default function NewLessonPage() {
         setFormData({ ...formData, attachments: newAttachments });
     };
 
-    const updateAttachment = (index: number, value: string) => {
-        const newAttachments = [...formData.attachments];
-        newAttachments[index] = value;
-        setFormData({ ...formData, attachments: newAttachments });
-    };
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -59,170 +53,149 @@ export default function NewLessonPage() {
                 router.push(`/dashboard/courses/${courseId}/content`);
             } else {
                 const data = await response.json();
-                toast.error(data.error || 'حدث خطأ');
+                toast.error(data.error || 'حدث خطأ بشع!');
             }
         } catch (error) {
             console.error('Error creating lesson:', error);
-            toast.error('حدث خطأ أثناء إنشاء الدرس');
+            toast.error('لم نتمكن من الحفظ، حاول ثانية');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="min-h-screen bg-bg-light dark:bg-bg-light py-8 px-4">
-            <div className="max-w-4xl mx-auto pb-12">
-                <div className="bg-white dark:bg-card-white rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 sm:p-8">
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">إضافة درس جديد</h1>
+        <div className="bg-slate-50 min-h-screen text-slate-800 dir-rtl selection:bg-indigo-300 py-16 px-6">
+            <div className="max-w-4xl mx-auto relative">
+                <div className="mb-12 cursor-default flex items-center justify-between">
+                    <div>
+                        <h1 className="text-5xl font-black text-slate-900 leading-tight mb-2 tracking-tighter cursor-pointer relative z-10 hover:text-primary-indigo-600 transition-colors">
+                            إضافة درس جديد
+                        </h1>
+                        <p className="text-xl text-slate-500 font-medium mb-4 max-w-xl">
+                            قوم بإدراج الفيديوهات والاختبارات والمستندات بضغطة زر.
+                        </p>
+                    </div>
+                </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        {/* Title */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                عنوان الدرس *
-                            </label>
-                            <input
-                                type="text"
-                                required
-                                value={formData.title}
-                                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                                placeholder="مثال: مقدمة في React"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                            />
-                        </div>
-
-                        {/* Description */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                الوصف
-                            </label>
-                            <textarea
-                                value={formData.description}
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                placeholder="وصف مختصر للدرس"
-                                rows={3}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                            />
-                        </div>
-
-                        {/* Content (Markdown) */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                المحتوى النصي (Markdown)
-                            </label>
-                            <textarea
-                                value={formData.content}
-                                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                                placeholder="يمكنك استخدام Markdown للتنسيق..."
-                                rows={8}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-mono text-sm"
-                            />
-                        </div>
-
-                        {/* Video Upload & Duration */}
-                        <div className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    فيديو الدرس
-                                </label>
-                                {formData.videoUrl ? (
-                                    <div className="relative group">
-                                        <video src={formData.videoUrl} controls className="w-full max-h-56 rounded-xl border border-gray-200" />
-                                        <button type="button" onClick={() => setFormData({ ...formData, videoUrl: '' })} className="absolute top-2 left-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
-                                    </div>
-                                ) : (
-                                    <FileUploader
-                                        onUploadSuccess={(urls) => { if (urls.length > 0) setFormData({ ...formData, videoUrl: urls[0] }); }}
-                                        maxFiles={1}
-                                        accept={{ 'video/*': ['.mp4', '.webm', '.mov', '.avi'] }}
-                                        maxSize={500 * 1024 * 1024}
-                                    />
-                                )}
+                <form onSubmit={handleSubmit} className="space-y-10">
+                    <div className="bg-white rounded-[3rem] p-10 md:p-14 shadow-2xl shadow-slate-200/50 border border-slate-100 relative overflow-hidden group hover:border-primary-indigo-100 transition-all duration-500">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-primary-indigo-50 rounded-bl-[100px] -z-10 transition-all group-hover:scale-110" />
+                        
+                        <div className="space-y-8">
+                            <h2 className="text-2xl font-black flex items-center gap-4 text-slate-800">تفاصيل الدرس</h2>
+                            
+                            <div className="relative group/input">
+                                <label className="block text-sm font-bold text-slate-400 mb-2 tracking-widest uppercase transition-colors group-focus-within/input:text-primary-indigo-500">عنوان الدرس الجذاب</label>
+                                <input
+                                    type="text" required value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                    placeholder="مثال: مقدمة في بناء أفكار خارج الصندوق..."
+                                    className="w-full bg-slate-50 border-0 rounded-2xl px-6 py-5 text-lg font-bold text-slate-800 focus:ring-4 focus:ring-primary-indigo-500/10 focus:bg-white transition-all placeholder:text-slate-300"
+                                />
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    مدة الفيديو (بالثواني)
-                                </label>
+                            <div className="relative group/input">
+                                <label className="block text-sm font-bold text-slate-400 mb-2 tracking-widest uppercase transition-colors group-focus-within/input:text-primary-indigo-500">وصف تشويقي للدرس</label>
+                                <textarea
+                                    value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                    placeholder="ماذا سيتعلم الطالب من هذا الدرس؟" rows={2}
+                                    className="w-full bg-slate-50 border-0 rounded-2xl px-6 py-5 text-lg font-bold text-slate-800 focus:ring-4 focus:ring-primary-indigo-500/10 focus:bg-white transition-all placeholder:text-slate-300"
+                                />
+                            </div>
+
+                            <div className="relative group/input mt-8">
+                                <label className="block text-sm font-bold text-slate-400 mb-2 tracking-widest uppercase transition-colors group-focus-within/input:text-primary-indigo-500">المحتوى النصي المفصل (Markdown)</label>
+                                <textarea
+                                    value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                                    placeholder="اكتب الشرح، أو أضف روابط خارجية هنا..." rows={6}
+                                    className="w-full bg-slate-50 border-0 rounded-3xl px-6 py-5 font-medium text-slate-700 focus:ring-4 focus:ring-primary-indigo-500/10 focus:bg-white transition-all placeholder:text-slate-300"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-10">
+                        <div className="bg-white rounded-[3rem] p-10 shadow-2xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center justify-center text-center space-y-6">
+                            <h3 className="font-black text-xl">فيديو الدرس 🔥</h3>
+                            <div className="w-full">
+                                {formData.videoUrl ? (
+                                    <div className="relative group rounded-3xl overflow-hidden shadow-lg border-4 border-slate-100">
+                                        <video src={formData.videoUrl} controls className="w-full object-cover max-h-56 bg-black" />
+                                        <button type="button" onClick={() => setFormData(prev => ({ ...prev, videoUrl: '' }))} className="absolute top-3 left-3 bg-red-500 text-white rounded-full w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600 shadow-md font-bold">✕</button>
+                                    </div>
+                                ) : (
+                                    <div className="w-full ring-4 ring-slate-50 rounded-3xl overflow-hidden hover:ring-primary-indigo-100 transition-all">
+                                        <FileUploader
+                                            onUploadSuccess={(urls) => { if (urls.length > 0) setFormData(prev => ({ ...prev, videoUrl: urls[0] })); }}
+                                            maxFiles={1} accept={{ 'video/*': ['.mp4', '.webm', '.mov', '.avi'] }} maxSize={500 * 1024 * 1024}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                            <div className="w-full mt-4 text-right">
+                                <label className="block text-[10px] font-bold text-slate-400 mb-2 tracking-widest uppercase">المدة الزمنية (بالثواني)</label>
                                 <input
-                                    type="number"
-                                    min="0"
-                                    value={formData.videoDuration}
-                                    onChange={(e) => setFormData({ ...formData, videoDuration: e.target.value })}
-                                    placeholder="600"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                    type="number" min="0" value={formData.videoDuration} onChange={(e) => setFormData({ ...formData, videoDuration: e.target.value })}
+                                    placeholder="مثال: 600"
+                                    className="w-full bg-slate-50 border-0 rounded-xl px-4 py-3 font-bold text-slate-800 text-center focus:ring-4 focus:ring-primary-indigo-500/10"
                                 />
                             </div>
                         </div>
 
-                        {/* Free Preview */}
-                        <div className="flex items-center gap-3">
-                            <input
-                                type="checkbox"
-                                id="isFree"
-                                checked={formData.isFree}
-                                onChange={(e) => setFormData({ ...formData, isFree: e.target.checked })}
-                                className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                            />
-                            <label htmlFor="isFree" className="text-sm font-medium text-gray-700">
-                                درس مجاني للمعاينة
-                            </label>
-                        </div>
-
-                        {/* Attachments - File Upload */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                المرفقات (ملفات)
-                            </label>
-                            {formData.attachments.filter(a => a.trim() !== '').length > 0 && (
-                                <div className="space-y-2 mb-3">
-                                    {formData.attachments.filter(a => a.trim() !== '').map((attachment, index) => (
-                                        <div key={index} className="flex items-center gap-2 bg-gray-50 p-3 rounded-lg border">
-                                            <FiUploadCloud className="text-indigo-500" />
-                                            <span className="flex-1 text-sm text-gray-700 truncate dir-ltr text-left">{attachment.split('/').pop()}</span>
-                                            <button
-                                                type="button"
-                                                onClick={() => removeAttachment(index)}
-                                                className="px-2 py-1 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors text-sm"
-                                            >
-                                                <FiX />
-                                            </button>
-                                        </div>
-                                    ))}
+                        <div className="bg-white rounded-[3rem] p-10 shadow-2xl shadow-slate-200/50 border border-slate-100 flex flex-col">
+                            <h3 className="font-black text-xl mb-6 flex items-center gap-2">ملحقات وموارد الدرس 📚</h3>
+                            <div className="flex-1 space-y-4 flex flex-col justify-end">
+                                {formData.attachments.filter(a => a.trim() !== '').length > 0 && (
+                                    <div className="space-y-3 mb-6 bg-slate-50 p-4 rounded-2xl">
+                                        {formData.attachments.filter(a => a.trim() !== '').map((attachment, index) => (
+                                            <div key={index} className="flex items-center gap-3 bg-white p-3 rounded-xl shadow-sm border border-slate-100">
+                                                <FiUploadCloud className="text-primary-indigo-500 flex-shrink-0" size={20} />
+                                                <span className="flex-1 text-xs font-bold text-slate-600 truncate dir-ltr text-left">{attachment.split('/').pop()}</span>
+                                                <button
+                                                    type="button" onClick={() => removeAttachment(index)}
+                                                    className="w-8 h-8 flex items-center justify-center bg-red-50 text-red-600 rounded-lg hover:bg-red-500 hover:text-white transition-colors"
+                                                >
+                                                    <FiX />
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                                <div className="ring-4 ring-slate-50 rounded-3xl overflow-hidden hover:ring-primary-indigo-100 transition-all">
+                                    <FileUploader
+                                        onUploadSuccess={(urls) => { setFormData(prev => ({ ...prev, attachments: [...prev.attachments.filter(a => a.trim() !== ''), ...urls] })); }}
+                                        maxFiles={5} maxSize={100 * 1024 * 1024}
+                                    />
                                 </div>
-                            )}
-                            <FileUploader
-                                onUploadSuccess={(urls) => {
-                                    setFormData(prev => ({
-                                        ...prev,
-                                        attachments: [...prev.attachments.filter(a => a.trim() !== ''), ...urls]
-                                    }));
-                                }}
-                                maxFiles={5}
-                                maxSize={100 * 1024 * 1024}
-                            />
+                            </div>
                         </div>
+                    </div>
 
-                        {/* Actions */}
-                        <div className="flex gap-4 pt-4 border-t">
-                            <button
-                                type="submit"
-                                disabled={loading}
-                                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
-                            >
-                                <FiSave />
-                                {loading ? 'جاري الحفظ...' : 'حفظ الدرس'}
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => router.back()}
-                                className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
-                            >
-                                إلغاء
-                            </button>
+                    <div className="flex items-center justify-between p-8 bg-blue-900 rounded-[3rem] border border-blue-800 shadow-xl cursor-pointer hover:bg-blue-800 transition-colors group mt-8" onClick={() => setFormData({ ...formData, isFree: !formData.isFree })}>
+                        <div className="text-right">
+                            <h3 className="font-black text-white text-xl leading-tight transition-colors group-hover:text-amber-400">إتاحة كدرس مجاني (Free Preview) 👀</h3>
+                            <p className="text-xs text-blue-200 mt-2 max-w-lg leading-relaxed">اسمح للزوار بمشاهدة هذا الدرس مجاناً كإعلان تشويقي لدفعهم للاشتراك بالدورة الكاملة.</p>
                         </div>
-                    </form>
-                </div>
+                        <div className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.isFree ? 'bg-amber-500 outline-amber-500/30' : 'bg-blue-950 outline-blue-900'}`}>
+                            <div className={`w-6 h-6 bg-white rounded-full transition-all ${formData.isFree ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
+                        </div>
+                    </div>
+
+                    <div className="mt-16 flex flex-col md:flex-row items-center justify-between pt-10 border-t border-slate-200 gap-6">
+                        <button
+                            type="button" onClick={() => router.back()}
+                            className="w-full md:w-auto px-8 py-4 text-slate-500 font-bold hover:text-slate-800 border-2 border-slate-200 rounded-2xl transition-all hover:bg-slate-100"
+                        >
+                            إلغاء والعودة
+                        </button>
+                        <button
+                            type="submit" disabled={loading}
+                            className="w-full md:w-auto px-12 py-4 bg-slate-900 text-white rounded-2xl font-black flex items-center justify-center gap-3 hover:bg-black transition-all shadow-2xl shadow-indigo-200 active:scale-95 text-lg"
+                        >
+                            <FiSave size={24} />
+                            {loading ? 'جاري رفع الإبداع...' : 'اعتماد الدرس بنجاح'}
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     );

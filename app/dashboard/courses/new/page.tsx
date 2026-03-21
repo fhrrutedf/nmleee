@@ -464,8 +464,8 @@ export default function NewCoursePage() {
                                     type="submit" disabled={loading}
                                     className="w-full md:w-auto px-12 py-4 bg-gradient-to-l from-primary-indigo-600 to-emerald-500 text-white rounded-2xl font-black flex items-center justify-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-indigo-200 active:scale-95 text-lg"
                                 >
-                                    {loading ? 'جاري التدشين...' : 'بناء و إطلاق الأكاديمية'}
-                                    {!loading && <FiCheckSquare />}
+                                    {loading ? 'جاري التحضير...' : 'حفظ وانتقال لرفع الدروس'}
+                                    {!loading && <FiArrowLeft />}
                                 </button>
                             )}
                         </div>
