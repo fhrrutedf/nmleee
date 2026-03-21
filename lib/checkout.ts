@@ -79,9 +79,8 @@ export async function fulfillPurchase(orderId: string, userId?: string) {
         }
 
         // 3. تحديث ميزانية البائع (Escrow System)
-        // نقوم بذلك فقط إذا كان هناك حصة للبائع ولم يتم تحديثها سابقاً
-        if (order.sellerId && order.sellerAmount > 0) {
-            // نتحقق أولاً إذا كان الطلب مُعلماً كمدفوع مسبقاً في الميزانية (اختياري)
+        // نقوم بذلك فقط إذا كان هناك حصة للبائع ولم يتم تحديثها سابقاً (عن طريق processPaymentCommission)
+        if (order.sellerId && order.sellerAmount > 0 && order.payoutStatus !== 'pending') {
             await prisma.user.update({
                 where: { id: order.sellerId },
                 data: {
@@ -90,6 +89,8 @@ export async function fulfillPurchase(orderId: string, userId?: string) {
                 }
             });
             console.log(`[CHECKOUT_FULFILL] Updated seller balance: +${order.sellerAmount}`);
+        } else if (order.payoutStatus === 'pending') {
+            console.log(`[CHECKOUT_FULFILL] Seller balance already updated by commission module.`);
         }
 
         // 4. إرسال إشعارات البريد الإلكتروني

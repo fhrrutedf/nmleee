@@ -354,6 +354,8 @@ model Order {
   cryptoCoin        String?
   walletAddress     String?
   cryptoStatus      String?
+  cryptoPaidAmount  Float?    // المبلغ اللي اندفع فعلياً بالكريبتو
+  cryptoTotalAmount Float?    // المبلغ الإجمالي المطلوب بالكريبتو
   
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt

@@ -363,3 +363,47 @@ export async function sendGuestWelcomeEmail(
     }
 }
 
+// UnderPaid Notification (للعميل)
+export async function sendUnderPaidNotification(data: {
+    to: string;
+    customerName: string;
+    orderNumber: string;
+    paidAmount: number;
+    totalAmount: number;
+    remaining: number;
+}) {
+    try {
+        await sendMail({
+            from: FROM_EMAIL,
+            to: data.to,
+            subject: `⚠️ تنبيه: دفعة ناقصة للطلب ${data.orderNumber}`,
+            react: (
+                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl', lineHeight: '1.6' }}>
+                    <div style={{ backgroundColor: '#fff7ed', padding: '30px', borderRadius: '12px', border: '1px solid #fdba74', maxWidth: '600px', margin: '0 auto' }}>
+                        <h1 style={{ color: '#9a3412', marginBottom: '20px', textAlign: 'center' }}>مرحباً {data.customerName}! ⚠️</h1>
+                        <p style={{ color: '#475569', fontSize: '16px' }}>لقد استلمنا دفعتك للطلب رقم {data.orderNumber}، ولكن المبلغ كان أقل من المطلوب.</p>
+                        <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', margin: '20px 0', border: '1px solid #fed7aa' }}>
+                            <p style={{ margin: '5px 0' }}><strong>المبلغ المطلوب:</strong> {data.totalAmount.toFixed(2)} USDT</p>
+                            <p style={{ margin: '5px 0' }}><strong>المبلغ المدفوع:</strong> {data.paidAmount.toFixed(2)} USDT</p>
+                            <p style={{ margin: '5px 0', color: '#dc2626', fontWeight: 'bold' }}><strong>المبلغ المتبقي:</strong> {data.remaining.toFixed(2)} USDT</p>
+                        </div>
+                        <p style={{ color: '#475569' }}>يرجى إرسال المبلغ المتبقي لنفس عنوان المحفظة لتفعيل طلبك آلياً.</p>
+                        <div style={{ textAlign: 'center', marginTop: '30px' }}>
+                            <a href="https://tmleen.com/my-purchases" style={{
+                                backgroundColor: '#ea580c', color: 'white', padding: '14px 28px',
+                                borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
+                            }}>
+                                عرض تفاصيل الطلب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            ) as React.ReactElement,
+        });
+        console.log('✅ Underpaid notification sent to', data.to);
+        return { success: true };
+    } catch (error) {
+        console.error('❌ Email error:', error);
+        return { success: false, error };
+    }
+}
