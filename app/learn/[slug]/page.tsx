@@ -91,6 +91,32 @@ export default function LearnPage() {
         );
     }
 
+    useEffect(() => {
+        // Anti-Piracy: Disable Right Click & Keyboard Shortcuts
+        const handleContextMenu = (e: MouseEvent) => {
+            e.preventDefault();
+        };
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // Prevent F12, Ctrl+Shift+I, Ctrl+U, etc.
+            if (
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+                (e.ctrlKey && e.key === 'U')
+            ) {
+                e.preventDefault();
+            }
+        };
+
+        window.addEventListener('contextmenu', handleContextMenu);
+        window.addEventListener('keydown', handleKeyDown);
+        
+        return () => {
+            window.removeEventListener('contextmenu', handleContextMenu);
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+
     if (!hasAccess && !loading) {
         return (
             <div className="min-h-screen bg-gray-950 flex items-center justify-center p-6">

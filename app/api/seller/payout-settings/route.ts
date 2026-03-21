@@ -26,7 +26,15 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ error: 'المستخدم غير موجود' }, { status: 404 });
         }
 
-        return NextResponse.json(user);
+        // Decrypt sensitive data for the user
+        const { decryptPaymentJson, decryptPaymentData } = await import('@/lib/encryption');
+        
+        return NextResponse.json({
+            ...user,
+            bankDetails: decryptPaymentJson(user.bankDetails as any),
+            paypalEmail: user.paypalEmail ? decryptPaymentData(user.paypalEmail) : null,
+            cryptoWallet: user.cryptoWallet ? decryptPaymentData(user.cryptoWallet) : null,
+        });
     } catch (error) {
         console.error('Error fetching payout settings:', error);
         return NextResponse.json({ error: 'حدث خطأ' }, { status: 500 });
@@ -49,14 +57,17 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'طريقة دفع غير صالحة' }, { status: 400 });
         }
 
+        // Encrypt sensitive data
+        const { encryptPaymentJson, encryptPaymentData } = await import('@/lib/encryption');
+
         // Update user settings
         const user = await prisma.user.update({
             where: { email: session.user.email },
             data: {
                 payoutMethod: method,
-                bankDetails: method === 'bank' ? bankDetails : null,
-                paypalEmail: method === 'paypal' ? paypalEmail : null,
-                cryptoWallet: method === 'crypto' ? cryptoWallet : null,
+                bankDetails: method === 'bank' ? (encryptPaymentJson(bankDetails) as any) : null,
+                paypalEmail: method === 'paypal' ? encryptPaymentData(paypalEmail) : null,
+                cryptoWallet: method === 'crypto' ? encryptPaymentData(cryptoWallet) : null,
             },
         });
 

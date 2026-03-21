@@ -27,7 +27,22 @@ export async function GET(req: NextRequest) {
         },
     });
 
-    return NextResponse.json(payouts);
+    // Decrypt details for admin to process the payment
+    const { decryptPaymentJson, decryptPaymentData } = await import('@/lib/encryption');
+    
+    const decryptedPayouts = payouts.map(p => {
+        const pMod = { ...p } as any;
+        pMod.methodDetails = decryptPaymentJson(p.methodDetails as any);
+        
+        if (pMod.seller) {
+            pMod.seller.bankDetails = decryptPaymentJson(pMod.seller.bankDetails as any);
+            pMod.seller.paypalEmail = pMod.seller.paypalEmail ? decryptPaymentData(pMod.seller.paypalEmail) : null;
+            pMod.seller.cryptoWallet = pMod.seller.cryptoWallet ? decryptPaymentData(pMod.seller.cryptoWallet) : null;
+        }
+        return pMod;
+    });
+
+    return NextResponse.json(decryptedPayouts);
 }
 
 // PATCH /api/admin/payouts - approve or reject a payout

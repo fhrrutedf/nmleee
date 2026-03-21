@@ -78,13 +78,15 @@ export async function POST(request: NextRequest) {
         }
 
         // Prepare method details
-        let methodDetails = {};
+        const { decryptPaymentJson, decryptPaymentData, encryptPaymentJson } = await import('@/lib/encryption');
+        
+        let plainDetails: any = {};
         if (user.payoutMethod === 'bank') {
-            methodDetails = user.bankDetails || {};
+            plainDetails = decryptPaymentJson(user.bankDetails as any) || {};
         } else if (user.payoutMethod === 'paypal') {
-            methodDetails = { email: user.paypalEmail };
+            plainDetails = { email: user.paypalEmail ? decryptPaymentData(user.paypalEmail) : '' };
         } else if (user.payoutMethod === 'crypto') {
-            methodDetails = { wallet: user.cryptoWallet };
+            plainDetails = { wallet: user.cryptoWallet ? decryptPaymentData(user.cryptoWallet) : '' };
         }
 
         const payout = await prisma.payout.create({
@@ -93,7 +95,7 @@ export async function POST(request: NextRequest) {
                 sellerId: userId,
                 amount,
                 method: user.payoutMethod,
-                methodDetails,
+                methodDetails: encryptPaymentJson(plainDetails) as any, // Encrypt specifically for this record
                 status: 'PENDING',
             },
         });

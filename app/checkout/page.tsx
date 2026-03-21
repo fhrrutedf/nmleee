@@ -62,6 +62,7 @@ export default function CheckoutPage() {
     const [isRestricted, setIsRestricted] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'crypto' | 'manual'>('stripe');
     const [selectedLocalMethod, setSelectedLocalMethod] = useState<PaymentMethod | null>(null);
+    const [agreeToTerms, setAgreeToTerms] = useState(false);
 
     // Manual Payment Fields
     const [senderPhone, setSenderPhone] = useState('');
@@ -164,6 +165,11 @@ export default function CheckoutPage() {
     const handleCheckout = async () => {
         if (!formData.name || !formData.email) {
             showToast.error('يرجى ملء جميع الحقول المطلوبة');
+            return;
+        }
+
+        if (!agreeToTerms) {
+            showToast.error('يرجى الموافقة على شروط الخدمة وسياسة الاسترداد');
             return;
         }
 
@@ -730,7 +736,22 @@ export default function CheckoutPage() {
                                 </div>
                             )}
 
-                            {/* Pay Button */}
+                             {/* Terms & Conditions */}
+                             <div className="mb-6 flex items-start gap-2.5 bg-gray-50 p-4 rounded-xl border border-gray-100">
+                                 <input
+                                     type="checkbox"
+                                     id="terms"
+                                     checked={agreeToTerms}
+                                     onChange={(e) => setAgreeToTerms(e.target.checked)}
+                                     className="mt-1 w-4 h-4 rounded text-primary-600 focus:ring-primary-600 cursor-pointer"
+                                 />
+                                 <label htmlFor="terms" className="text-xs text-gray-500 leading-relaxed cursor-pointer select-none">
+                                     أنا أوافق على <a href="/terms" target="_blank" className="text-primary-600 font-bold hover:underline">شروط الخدمة</a> و <a href="/refund-policy" target="_blank" className="text-primary-600 font-bold hover:underline">سياسة الاسترداد</a>. 
+                                     أفهم أن هذا المحتوى رقمي وغير قابل للإرجاع بمجرد بدء التحميل أو المشاهدة.
+                                 </label>
+                             </div>
+
+                             {/* Pay Button */}
                             <button
                                 onClick={handleCheckout}
                                 disabled={loading}
