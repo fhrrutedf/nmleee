@@ -123,10 +123,11 @@ export default function NewCoursePage() {
                 }),
             });
             if (res.ok) {
+                const data = await res.json();
                 showToast.dismiss(toastId);
                 showToast.success('بداية رائعة! تم إنشاء الدورة بنجاح 🎓');
                 localStorage.removeItem('course_draft');
-                router.push('/dashboard/courses');
+                router.push(`/dashboard/courses/${data.id}/content`);
             } else {
                 throw new Error('فشل الحفظ');
             }
