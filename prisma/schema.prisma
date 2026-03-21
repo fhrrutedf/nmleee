@@ -144,6 +144,7 @@ model User {
   commission_note        String?     // ملاحظة حول العمولة المخصصة
   // Multi-tenant
   customDomain           String?     @unique // الدومين المخصص (مثلاً store.nawaf.pro)
+  lastIpAddress          String?
 }
 
 model Product {
@@ -901,6 +902,17 @@ model CouponUsage {
   @@index([couponId])
   @@index([orderId])
   @@index([customerEmail])
+}
+
+model RateLimit {
+  id        String   @id @default(uuid())
+  ip        String
+  key       String   // "register", "login", etc.
+  count     Int      @default(0)
+  lastAttempt DateTime @default(now())
+  
+  @@unique([ip, key])
+  @@index([ip])
 }
 
 // ============================================
