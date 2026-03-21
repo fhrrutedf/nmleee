@@ -17,6 +17,7 @@ interface ManualOrderAlertEmailProps {
     amount: number;
     paymentMethod: string;
     orderId: string;
+    proofUrl?: string;
 }
 
 export default function ManualOrderAlertEmail({
@@ -27,6 +28,7 @@ export default function ManualOrderAlertEmail({
     amount = 50,
     paymentMethod = 'شام كاش',
     orderId = '123',
+    proofUrl,
 }: ManualOrderAlertEmailProps) {
     return (
         <Html dir="rtl" lang="ar">
@@ -75,6 +77,15 @@ export default function ManualOrderAlertEmail({
                         >
                             مراجعة الطلب
                         </Button>
+
+                        {proofUrl && (
+                            <Button
+                                href={proofUrl}
+                                style={{ ...button, backgroundColor: '#0ea5e9', marginLeft: '10px' }}
+                            >
+                                📄 عرض الإيصال (رابط آمن)
+                            </Button>
+                        )}
 
                         <Text style={footer}>
                             منصة Tmleen - لوحة التحكم

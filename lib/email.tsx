@@ -128,6 +128,7 @@ export async function sendManualOrderAlert(data: {
     amount: number;
     paymentMethod: string;
     orderId: string;
+    proofUrl?: string;
 }) {
     try {
         await sendMail({
@@ -144,7 +145,50 @@ export async function sendManualOrderAlert(data: {
     }
 }
 
-// Manual Order Approved (للعميل)
+// Manual Order Review - (للعميل: نحن نراجع طلبك)
+export async function sendManualOrderReview(data: {
+    to: string;
+    customerName: string;
+    orderNumber: string;
+    amount: number;
+}) {
+    try {
+        await sendMail({
+            from: FROM_EMAIL,
+            to: data.to,
+            subject: `⏳ نحن نراجع دفعتك للطلب ${data.orderNumber}`,
+            react: (
+                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl', lineHeight: '1.6' }}>
+                    <div style={{ backgroundColor: '#fff7ed', padding: '30px', borderRadius: '12px', border: '1px solid #fed7aa', maxWidth: '600px', margin: '0 auto' }}>
+                        <h1 style={{ color: '#9a3412', marginBottom: '20px', textAlign: 'center' }}>مرحباً {data.customerName}! 👋</h1>
+                        <p style={{ color: '#4338ca', fontSize: '18px', fontWeight: 'bold' }}>لقد استلمنا بيانات الدفع الخاصة بك.</p>
+                        <p style={{ color: '#475569', fontSize: '16px' }}>طلبك رقم <span style={{ fontWeight: 'bold' }}>{data.orderNumber}</span> قيد المراجعة الآن من قبل فريق الحسابات.</p>
+                        <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', margin: '20px 0', border: '1px solid #fed7aa' }}>
+                            <p style={{ margin: '5px 0' }}><strong>المبلغ المرصود: </strong> ${data.amount.toFixed(2)}</p>
+                            <p style={{ margin: '5px 0' }}><strong>الحالة: </strong> قيد التحقق اليدوي</p>
+                        </div>
+                        <p style={{ color: '#64748b', fontSize: '14px' }}>سيتم إرسال إيميل آخر فور تفعيل الطلب (عادة ما يستغرق الأمر من 15 دقيقة إلى ساعتين خلال أوقات العمل).</p>
+                        <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                            <a href="https://tmleen.com/my-purchases" style={{
+                                backgroundColor: '#4338ca', color: 'white', padding: '14px 28px',
+                                borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
+                            }}>
+                                📦 متابعة حالة الطلب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            ) as React.ReactElement,
+        });
+        console.log('✅ Manual order review email sent to', data.to);
+        return { success: true };
+    } catch (error) {
+        console.error('❌ Email error:', error);
+        return { success: false, error };
+    }
+}
+
+// Manual Order Approved (للعميل: تم القبول بنجاح)
 export async function sendManualOrderApproved(data: {
     to: string;
     customerName: string;
@@ -161,10 +205,10 @@ export async function sendManualOrderApproved(data: {
             subject: `✅ تمت الموافقة على طلبك ${data.orderNumber}`,
             react: (
                 <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl', lineHeight: '1.6' }}>
-                    <div style={{ backgroundColor: '#f8fafc', padding: '30px', borderRadius: '12px', border: '1px solid #e2e8f0', maxWidth: '600px', margin: '0 auto' }}>
-                        <h1 style={{ color: '#0f172a', marginBottom: '20px', textAlign: 'center' }}>مرحباً {data.customerName}! 🎉</h1>
-                        <p style={{ color: '#475569', fontSize: '16px' }}>تمت الموافقة على طلبك بنجاح!</p>
-                        <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', margin: '20px 0', border: '1px solid #e2e8f0' }}>
+                    <div style={{ backgroundColor: '#f0fdf4', padding: '30px', borderRadius: '12px', border: '1px solid #bbf7d0', maxWidth: '600px', margin: '0 auto' }}>
+                        <h1 style={{ color: '#166534', marginBottom: '20px', textAlign: 'center' }}>مرحباً {data.customerName}! 🎉</h1>
+                        <p style={{ color: '#166534', fontSize: '16px', fontWeight: 'bold' }}>خبر سعيد! تمت الموافقة على طلبك بنجاح وتم تفعيل المنتجات في حسابك.</p>
+                        <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', margin: '20px 0', border: '1px solid #bbf7d0' }}>
                             <p style={{ margin: '5px 0' }}><strong>رقم الطلب: </strong> {data.orderNumber}</p>
                             <p style={{ margin: '5px 0' }}><strong>المبلغ: </strong> ${data.amount.toFixed(2)}</p>
                             {hasCourse && (
@@ -173,7 +217,7 @@ export async function sendManualOrderApproved(data: {
                         </div>
                         {hasCourse ? (
                             <>
-                                <p style={{ color: '#059669', fontWeight: 'bold', fontSize: '16px' }}>🎓 تم فتح الدورة! يمكنك الآن الوصول إلى محتوى الكورس والبدء بالتعلم.</p>
+                                <p style={{ color: '#059669', fontWeight: 'bold', fontSize: '16px' }}>🎓 تم فتح الدورة! يمكنك الآن البدء بالتعلم.</p>
                                 <div style={{ textAlign: 'center', marginTop: '20px' }}>
                                     <a href={`https://tmleen.com/learn/${data.courseId}`} style={{
                                         backgroundColor: '#059669', color: 'white', padding: '14px 28px',
@@ -186,16 +230,16 @@ export async function sendManualOrderApproved(data: {
                         ) : (
                             <div style={{ textAlign: 'center', marginTop: '20px' }}>
                                 <a href="https://tmleen.com/my-purchases" style={{
-                                    backgroundColor: '#10b981', color: 'white', padding: '14px 28px',
+                                    backgroundColor: '#166534', color: 'white', padding: '14px 28px',
                                     borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
                                 }}>
-                                    عرض مشترياتي
+                                    📦 عرض مشترياتي
                                 </a>
                             </div>
                         )}
                     </div>
                 </div>
-            ),
+            ) as React.ReactElement,
         });
         console.log('✅ Manual order approval sent to', data.to);
         return { success: true };

@@ -8,70 +8,91 @@ import { ensureUserAccount } from '@/lib/auth-utils';
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
-        const {
-            items,
-            customerName,
-            customerEmail,
-            customerPhone,
-            country,
-            paymentProvider,
-            senderPhone,
-            transactionRef,
-            paymentProof,
-            paymentNotes,
-            userId,
-        } = body;
+        // 1. SECURITY: Check for duplicate transaction reference
+        if (transactionRef) {
+            const existingOrder = await prisma.order.findFirst({
+                where: { transactionRef }
+            });
+            if (existingOrder) {
+                return NextResponse.json({ error: 'رقم العملية هذا تم استخدامه مسبقاً' }, { status: 400 });
+            }
+        }
 
-        // Calculate total
+        // 2. SECURITY & LOGIC: Calculate total and resolve sellers strictly from DB
         let totalUSD = 0;
-        for (const item of items) {
-            if (item.type === 'product') {
-                const product = await prisma.product.findUnique({
-                    where: { id: item.id },
-                });
-                totalUSD += product?.price || 0;
-            } else if (item.type === 'course') {
-                const course = await prisma.course.findUnique({
-                    where: { id: item.id },
-                });
-                totalUSD += course?.price || 0;
-            }
-        }
-
-        // Get seller ID from first item
+        const validatedItems = [];
         let sellerId = null;
-        if (items.length > 0) {
-            const firstItem = items[0];
-            if (firstItem.type === 'product') {
-                const product = await prisma.product.findUnique({
-                    where: { id: firstItem.id },
-                    select: { userId: true },
+
+        for (const item of items) {
+            let dbItem;
+            if (item.type === 'product') {
+                dbItem = await prisma.product.findUnique({
+                    where: { id: item.id },
+                    select: { id: true, price: true, userId: true, title: true }
                 });
-                sellerId = product?.userId;
-            } else if (firstItem.type === 'course') {
-                const course = await prisma.course.findUnique({
-                    where: { id: firstItem.id },
-                    select: { userId: true },
+            } else if (item.type === 'course') {
+                dbItem = await prisma.course.findUnique({
+                    where: { id: item.id },
+                    select: { id: true, price: true, userId: true, title: true }
                 });
-                sellerId = course?.userId;
             }
+
+            if (!dbItem) {
+                return NextResponse.json({ error: `المنتج غير موجود: ${item.id}` }, { status: 404 });
+            }
+
+            // Always use DB price, ignore client price
+            const price = dbItem.price || 0;
+            totalUSD += price;
+            
+            validatedItems.push({
+                ...item,
+                price: price, // Server-side validated price
+                title: dbItem.title,
+                userId: dbItem.userId
+            });
+
+            // Set main sellerId from first item (simplified for now)
+            if (!sellerId) sellerId = dbItem.userId;
         }
 
-        // Calculate commission from PlatformSettings (dynamic, admin-controlled)
+        // 3. LOGIC: Calculate commission
         const platformSettings = await getPlatformSettings();
         const { platformFee, sellerAmount } = calculateCommission(totalUSD, platformSettings.commissionRate);
         const escrowDays = platformSettings.escrowDays;
 
-        // Resolve buyer userId (required field) - Auto Register guests
+        // 4. LOGIC: Resolve buyer userId strictly
         let resolvedUserId = body.userId;
         if (!resolvedUserId && customerEmail) {
             resolvedUserId = await ensureUserAccount(customerEmail, customerName);
         }
         if (!resolvedUserId) {
-            resolvedUserId = sellerId; // ultimate fallback
+            resolvedUserId = sellerId; // fallback
         }
 
-        // Create order
+        // 5. SECURITY: Generate Signed URL for admin if proof is private
+        // Assumes paymentProof is a Supabase storage path or public URL
+        let adminProofUrl = paymentProof;
+        try {
+            if (paymentProof && !paymentProof.startsWith('http')) {
+                const { createClient } = await import('@supabase/supabase-js');
+                const supabase = createClient(
+                    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+                    process.env.SUPABASE_SERVICE_ROLE_KEY!
+                );
+                
+                // Assuming payments are in 'payments' bucket
+                const { data: signedData } = await supabase.storage
+                    .from('product-files') // Based on app/api/upload bucket logic
+                    .createSignedUrl(paymentProof, 86400); // 24 hours for admin review
+                
+                if (signedData?.signedUrl) adminProofUrl = signedData.signedUrl;
+            }
+        } catch (e) {
+            console.error('Failed to generate signed URL for admin:', e);
+        }
+
+        // 6. DB: Create order with validated data
         const order = await prisma.order.create({
             data: {
                 orderNumber: `ORD-${Date.now()}`,
@@ -81,49 +102,58 @@ export async function POST(req: NextRequest) {
                 totalAmount: totalUSD,
                 platformFee,
                 sellerAmount,
-                status: 'PENDING', // Will be PAID after verification
+                status: 'PENDING',
                 paymentMethod: 'manual',
                 paymentProvider,
                 paymentCountry: country,
                 senderPhone,
                 transactionRef,
-                paymentProof,
+                paymentProof, // Save original path/url
                 paymentNotes,
                 userId: resolvedUserId,
                 sellerId: sellerId || undefined,
                 payoutStatus: 'pending',
                 availableAt: new Date(Date.now() + escrowDays * 24 * 60 * 60 * 1000),
                 items: {
-                    create: items.map((item: any) => ({
+                    create: validatedItems.map((item) => ({
                         itemType: item.type,
                         productId: item.type === 'product' ? item.id : undefined,
                         courseId: item.type === 'course' ? item.id : undefined,
                         quantity: 1,
-                        price: item.price || 0,
+                        price: item.price, // FIXED: Now uses validated price
                     })),
                 },
             },
         });
 
-        // Send notifications
-        // 1. Alert Admin
+        // 7. NOTIFICATIONS: Correct workflow
+        // Alert Admin with Signed URL
+        const { sendManualOrderAlert, sendManualOrderReview } = await import('@/lib/email');
+        
         await sendManualOrderAlert({
-            adminEmail: process.env.ADMIN_EMAIL || 'admin@tmleen.com', // Fallback or env
+            adminEmail: process.env.ADMIN_EMAIL || 'admin@tmleen.com',
             adminName: 'Admin',
             orderNumber: order.orderNumber,
             customerName: customerName,
             customerEmail: customerEmail,
             amount: totalUSD,
-            paymentMethod: 'manual',
+            paymentMethod: `${paymentProvider} (${country})`,
             orderId: order.id,
+            proofUrl: adminProofUrl,
         });
 
-        // 2. Notify Customer
-        await sendManualOrderApproved({
+        // Notify Customer: RECEIVED, NOT APPROVED
+        await sendManualOrderReview({
             to: customerEmail,
             customerName: customerName,
             orderNumber: order.orderNumber,
             amount: totalUSD,
+        });
+
+        return NextResponse.json({
+            success: true,
+            orderNumber: order.orderNumber,
+            orderId: order.id,
         });
 
         return NextResponse.json({
