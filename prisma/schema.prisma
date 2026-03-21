@@ -146,6 +146,7 @@ model User {
   // Multi-tenant
   customDomain           String?     @unique // الدومين المخصص (مثلاً store.nawaf.pro)
   lastIpAddress          String?
+  timezone               String?     @default("UTC") // For appointment reminders
 
   // Verification Requests
   verificationRequests   VerificationRequest[]
@@ -308,6 +309,7 @@ model Appointment {
   // Meeting details
   date        DateTime
   meetingLink String?
+  isNotified  Boolean  @default(false) // Whether reminder was sent
   status      AppointmentStatus @default(PENDING)
   
   // Customer info
