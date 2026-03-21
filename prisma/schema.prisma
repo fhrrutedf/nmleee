@@ -1437,8 +1437,10 @@ model PlatformSettings {
   socialTwitter     String?
   socialYoutube     String?
 
-  updatedAt         DateTime @updatedAt
+  updatedAt         DateTime @default(now()) @updatedAt
   updatedBy         String?
+
+  @@map("platform_settings")
 }
 
 // ─── Broadcast System (Scalability Pro) ───────────────────

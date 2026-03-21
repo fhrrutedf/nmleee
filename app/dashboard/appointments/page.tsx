@@ -300,6 +300,12 @@ export default function AppointmentsPage() {
                                     </div>
 
                                     <div className="flex flex-col items-end gap-3">
+                                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                                            appointment.status === 'confirmed' ? 'bg-green-100 text-green-700' :
+                                            appointment.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
+                                            appointment.status === 'completed' ? 'bg-blue-100 text-blue-700' :
+                                            'bg-red-100 text-red-700'
+                                        }`}>
                                             {appointment.status === 'confirmed' ? 'مؤكد' :
                                                 appointment.status === 'pending' ? 'قيد الانتظار' :
                                                     appointment.status === 'completed' ? 'مكتمل' :
