@@ -84,7 +84,6 @@ export async function PUT(
                 trailerUrl: body.trailerUrl,
                 prerequisites: Array.isArray(body.prerequisites) ? body.prerequisites : (typeof body.prerequisites === 'string' ? body.prerequisites.split(',').map((p: string) => p.trim()).filter(Boolean) : []),
                 upsellCourseId: body.upsellCourseId || null,
-                upsellProductId: body.upsellProductId || null,
                 upsellPrice: body.upsellPrice ? parseFloat(body.upsellPrice) : null,
                 offerExpiresAt: body.offerExpiresAt ? new Date(body.offerExpiresAt) : null,
             },
