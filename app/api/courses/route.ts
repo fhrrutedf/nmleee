@@ -133,6 +133,7 @@ export async function POST(request: NextRequest) {
                 zoomLink: body.zoomLink || null,
                 meetLink: body.meetLink || null,
                 trailerUrl: body.trailerUrl || null,
+                attachments: body.attachments || [],
                 userId: userId
             },
         });

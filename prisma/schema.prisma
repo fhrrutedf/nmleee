@@ -258,6 +258,7 @@ model Course {
   
   // Media (Phase 3)
   trailerUrl  String?  // فيديو تعريفي للكورس
+  attachments String[] @default([]) // ملحقات إضافية للكورس
   
   // Course details
   duration    String?  // "4 أسابيع"
