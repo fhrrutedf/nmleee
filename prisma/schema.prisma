@@ -1142,6 +1142,7 @@ model AutomationSettings {
   marketingEnabled      Boolean @default(false)
   inactiveUserDays      Int     @default(30)
   inactiveUserDiscount  Float?
+  inactiveUserMessage   String?   @default("نفتقدك! 💙")
 
   // 8. Educational Follow-up
   eduFollowupEnabled    Boolean @default(false)
@@ -1186,6 +1187,7 @@ model EmailLog {
   sellerId    String
 
   createdAt   DateTime @default(now())
+  openedAt    DateTime?
 
   @@index([sellerId])
   @@index([type])

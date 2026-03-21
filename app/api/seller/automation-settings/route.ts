@@ -44,6 +44,10 @@ export async function PUT(req: NextRequest) {
             cartReminder3Body: data.cartReminder3Body,
             notifyOnSale: data.notifyOnSale,
             notifyMethods: data.notifyMethods,
+            marketingEnabled: data.marketingEnabled,
+            inactiveUserDays: data.inactiveUserDays ? parseInt(data.inactiveUserDays) : 30,
+            inactiveUserDiscount: data.inactiveUserDiscount ? parseFloat(data.inactiveUserDiscount) : null,
+            inactiveUserMessage: data.inactiveUserMessage,
         }
     });
 

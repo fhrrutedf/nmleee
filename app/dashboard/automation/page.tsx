@@ -201,6 +201,80 @@ export default function AutomationPage() {
                             </div>
                         )}
                     </section>
+
+                    {/* Inactive User Recovery (Phase 7) */}
+                    <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm overflow-hidden relative">
+                        <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2.5 bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-xl">
+                                    <FiZap className="text-xl" />
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-lg">نظام استعادة العملاء الخاملين</h3>
+                                    <p className="text-xs text-slate-500">ميزة ذكية لملاحقة العملاء الذين انقطعوا عن الشراء وإعادتهم لمتجرك.</p>
+                                </div>
+                            </div>
+                            <label className="relative inline-flex items-center cursor-pointer">
+                                <input 
+                                    type="checkbox" 
+                                    className="sr-only peer"
+                                    checked={settings.marketingEnabled}
+                                    onChange={(e) => setSettings({ ...settings, marketingEnabled: e.target.checked })}
+                                />
+                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            </label>
+                        </div>
+
+                        {settings.marketingEnabled && (
+                            <div className="space-y-6 pt-4 border-t border-slate-100 dark:border-slate-800 animate-in fade-in zoom-in-95 duration-300">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm font-medium mb-1.5 opacity-70">مدة الخمول (بالأيام)</label>
+                                        <div className="relative">
+                                            <FiClock className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                                            <input 
+                                                type="number" 
+                                                value={settings.inactiveUserDays}
+                                                onChange={(e) => setSettings({ ...settings, inactiveUserDays: parseInt(e.target.value) })}
+                                                className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-10 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 outline-none transition-all"
+                                                placeholder="30"
+                                            />
+                                        </div>
+                                        <p className="text-[10px] text-slate-500 mt-1.5">سيتم إرسال الإيميل بعد مرور هذه المدة من آخر طلب ناجح.</p>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium mb-1.5 opacity-70">نسبة الخصم المحفزة (%)</label>
+                                        <div className="relative">
+                                            <FiPercent className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                                            <input 
+                                                type="number" 
+                                                value={settings.inactiveUserDiscount || ''}
+                                                onChange={(e) => setSettings({ ...settings, inactiveUserDiscount: parseFloat(e.target.value) })}
+                                                className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-10 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 outline-none transition-all"
+                                                placeholder="10"
+                                            />
+                                        </div>
+                                        <p className="text-[10px] text-slate-500 mt-1.5">سيقوم النظام بتوليد كود خصم تلقائي بهذه النسبة صالح لمدة 7 أيام.</p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium mb-1.5 opacity-70">"رسالة الاشتياق" (محتوى الإيميل)</label>
+                                    <textarea 
+                                        value={settings.inactiveUserMessage || ''}
+                                        onChange={(e) => setSettings({ ...settings, inactiveUserMessage: e.target.value })}
+                                        rows={3}
+                                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 outline-none transition-all"
+                                        placeholder="مثلاً: مرحباً! لقد مر وقت طويل منذ آخر جلسة تعليمية لنا، تفضل هذا الخصم للعودة..."
+                                    />
+                                    <div className="mt-2 flex items-center gap-2 text-[10px] text-blue-600 font-medium">
+                                        <FiEdit3 />
+                                        <span>نصيحة: اجعل الرسالة شخصية وجذابة لزيادة معدل التحويل.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </section>
                 </div>
 
                 {/* Live Activity Feed (Abandoned Carts) */}
