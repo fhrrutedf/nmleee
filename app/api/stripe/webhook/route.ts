@@ -122,7 +122,7 @@ async function backgroundTasks(order: any, session: Stripe.Checkout.Session) {
                 await prisma.courseEnrollment.upsert({
                     where: { courseId_studentEmail: { courseId: item.courseId, studentEmail: customerEmail } },
                     update: {},
-                    create: { courseId: item.courseId, studentName, studentEmail, orderId: order.id }
+                    create: { courseId: item.courseId, studentName: customerName, studentEmail: customerEmail, orderId: order.id }
                 });
             }
         }
