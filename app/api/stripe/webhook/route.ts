@@ -143,10 +143,14 @@ async function backgroundTasks(order: any, session: Stripe.Checkout.Session) {
 
                 await prisma.appointment.create({
                     data: {
+                        title: `استشارة برمجية/جلسة مع ${customerName}`,
+                        price: totalAmount,
+                        duration: 60,
                         date: startDate,
                         status: 'CONFIRMED',
                         customerName,
                         customerEmail,
+                        customerPhone: order.customerPhone || '',
                         userId: sellerId,
                         orderId: order.id,
                         meetingLink: meetData?.meetLink || undefined
