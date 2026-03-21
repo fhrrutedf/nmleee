@@ -1321,6 +1321,7 @@ model SupportTicket {
 model SupportTicketMessage {
   id            String   @id @default(uuid())
   message       String
+  attachmentUrl String? // رابط المرفق (صورة أو ملف)
 
   ticketId      String
   ticket        SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
