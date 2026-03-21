@@ -4,11 +4,12 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import {
     FiArrowRight, FiUpload, FiDollarSign, FiBookOpen,
-    FiX, FiImage, FiCheck, FiArrowLeft, FiFilm, FiEye, FiLayers, FiPlus, FiClock, FiCheckSquare, FiVideo, FiLink, FiSave
+    FiX, FiImage, FiCheck, FiArrowLeft, FiFilm, FiEye, FiLayers, FiPlus, FiClock, FiCheckSquare, FiVideo, FiLink, FiSave, FiAlertCircle
 } from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
 import FileUploader from '@/components/ui/FileUploader';
+import BunnyUpload from '@/components/instructor/BunnyUpload';
 import RichTextEditor from '@/components/ui/RichTextEditor';
 import { motion, AnimatePresence } from 'framer-motion';
 import StepProgress from '@/components/ui/StepProgress';
@@ -111,6 +112,7 @@ export default function NewCoursePage() {
                         setDraftId(data.id);
                         showToast.dismiss(toastId);
                     } else {
+                        showToast.dismiss(toastId);
                         showToast.error('فشل تحضير المنهج');
                         return; // Prevent advancing if failing
                     }
@@ -285,23 +287,37 @@ export default function NewCoursePage() {
                                         </div>
 
                                         <div>
-                                            <label className="label-modern underline decoration-primary-indigo-100 underline-offset-4 mb-4 block">الفيديو التشويقي (Trailer)</label>
-                                            {formData.trailerUrl ? (
-                                                <div className="relative aspect-video rounded-[2.5rem] overflow-hidden border-2 border-slate-100 bg-black group">
-                                                    <video src={formData.trailerUrl} className="w-full h-full object-cover" />
-                                                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                       <button type="button" onClick={() => update('trailerUrl', '')} className="bg-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold shadow-2xl hover:scale-110 transition-transform"><FiX size={20} /></button>
+                                            <label className="label-modern underline decoration-primary-indigo-100 underline-offset-4 mb-4 block text-slate-700">الفيديو التشويقي (Trailer) 🔥</label>
+                                            <div className="relative aspect-video rounded-[2.5rem] bg-slate-50 border-4 border-white shadow-xl overflow-hidden group">
+                                                {formData.trailerUrl ? (
+                                                    <div className="flex flex-col items-center justify-center w-full h-full p-6 text-center">
+                                                        <div className="w-16 h-16 bg-indigo-50 text-indigo-500 rounded-2xl flex items-center justify-center mb-4">
+                                                            <FiFilm size={40} />
+                                                        </div>
+                                                        <p className="font-bold text-slate-800 text-sm">تم رفع فيديو ترويجي بنجاح</p>
+                                                        <button 
+                                                            type="button" 
+                                                            onClick={() => update('trailerUrl', '')} 
+                                                            className="mt-4 px-6 py-2 bg-red-50 text-red-500 text-xs font-black rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                                                        >
+                                                            حذف واستبدال الفيديو
+                                                        </button>
                                                     </div>
-                                                </div>
-                                            ) : (
-                                                <button type="button" onClick={() => setShowTrailerUploader(true)} className="w-full aspect-video border-2 border-dashed border-slate-200 rounded-[2.5rem] bg-slate-50 flex flex-col items-center justify-center text-slate-300 hover:text-primary-indigo-500 hover:bg-white transition-all hover:shadow-lg">
-                                                    <FiFilm size={40} className="mb-2" />
-                                                    <span className="text-[10px] font-black italic uppercase">Add Promo Video</span>
-                                                </button>
-                                            )}
-                                            {showTrailerUploader && (
-                                                <div className="mt-4 p-4 bg-white/90 backdrop-blur-md border rounded-3xl shadow-2xl relative z-30 text-right"><FileUploader onUploadSuccess={urls => { update('trailerUrl', urls[0]); setShowTrailerUploader(false); }} /></div>
-                                            )}
+                                                ) : (
+                                                    <div className="p-4 sm:p-8 w-full h-full flex flex-col justify-center">
+                                                        <p className="text-[10px] font-black text-slate-400 mb-6 text-center uppercase tracking-widest leading-relaxed">ارفع فيديو تعريفي لا يتجاوز دقيقتين لجذب انتباه الطلاب واقناعهم بالدورة</p>
+                                                        <BunnyUpload 
+                                                            onComplete={(data) => {
+                                                                if (data) {
+                                                                    const embedUrl = `https://iframe.mediadelivery.net/embed/${data.libraryId}/${data.videoId}`;
+                                                                    update('trailerUrl', embedUrl);
+                                                                }
+                                                            }}
+                                                        />
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <p className="text-[10px] text-indigo-400 font-bold mt-3 flex items-center gap-1 leading-relaxed"><FiAlertCircle /> ملاحظة: فيديوهات Bunny Stream مشفرة ولا يمكن تحميلها بشكل غير قانوني</p>
                                         </div>
                                     </div>
                                 </Section>

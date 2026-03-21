@@ -195,25 +195,63 @@ export default function CourseContentBuilder({ courseId }: CourseContentBuilderP
                                                 <span className="text-sm font-bold text-slate-400 bg-slate-100 w-8 h-8 rounded-lg flex items-center justify-center">
                                                     {lessonIndex + 1}
                                                 </span>
-                                                <div>
+                                                <div className="flex-1">
                                                     <h4 className="font-bold text-slate-800 text-base">{lesson.title}</h4>
-                                                    <div className="flex items-center gap-3 mt-1.5">
-                                                        <span className="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">
+                                                    <div className="flex flex-wrap items-center gap-2 mt-1.5">
+                                                        <span className="text-[10px] font-black tracking-tighter text-slate-400 bg-slate-100 px-2 py-0.5 rounded uppercase">
+                                                            درس رقم {lessonIndex + 1}
+                                                        </span>
+                                                        <span className="text-xs font-bold text-slate-500 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-md">
                                                             {formatDuration(lesson.videoDuration)}
                                                         </span>
                                                         {lesson.isFree && (
-                                                            <span className="text-xs font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-md">
-                                                                مجاني للمعاينة
+                                                            <span className="text-xs font-bold text-amber-700 bg-amber-50 border border-amber-100 px-2 py-0.5 rounded-md flex items-center gap-1">
+                                                                <FiEye className="inline" /> معاينة مجانية
+                                                            </span>
+                                                        )}
+                                                        {lesson.quizzes && lesson.quizzes.length > 0 && (
+                                                            <span className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-md flex items-center gap-1">
+                                                                <FiCheckSquare className="inline" /> {lesson.quizzes.length} اختبار متاح
                                                             </span>
                                                         )}
                                                     </div>
+
+                                                    {/* Nested Quizzes UI */}
+                                                    {lesson.quizzes && lesson.quizzes.length > 0 && (
+                                                        <div className="mt-3 space-y-2 pr-4 border-r-2 border-emerald-100">
+                                                            {lesson.quizzes.map((quiz) => (
+                                                                <div key={quiz.id} className="flex items-center justify-between text-xs font-bold text-slate-600 bg-slate-50/50 p-2 rounded-lg border border-slate-100">
+                                                                    <div className="flex items-center gap-2">
+                                                                        <div className="w-5 h-5 bg-emerald-100 text-emerald-600 rounded flex items-center justify-center text-[10px]">Q</div>
+                                                                        {quiz.title}
+                                                                    </div>
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => router.push(`/dashboard/quizzes/${quiz.id}/edit`)}
+                                                                        className="text-indigo-600 hover:text-indigo-800 px-2"
+                                                                    >
+                                                                        تعديل الاختبار
+                                                                    </button>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
-                                            <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+                                            <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => router.push(`/dashboard/quizzes/new?lessonId=${lesson.id}&id=${courseId}`)}
+                                                    className="flex-1 sm:flex-none px-3 py-2 text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-lg hover:bg-emerald-100 transition-colors flex items-center justify-center gap-1.5"
+                                                    title="إضافة اختبار تفاعلي لهذا الدرس لتقييم تقدم الطلاب ومستوى استيعابهم للمادة"
+                                                >
+                                                    <FiCheckSquare size={14} />
+                                                    إضافة اختبار
+                                                </button>
                                                 <button
                                                     type="button"
                                                     onClick={() => router.push(`/dashboard/lessons/${lesson.id}/edit`)}
-                                                    className="px-4 py-2 text-sm font-bold bg-white border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50 transition-colors"
+                                                    className="flex-1 sm:flex-none px-4 py-2 text-xs font-bold bg-white border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm"
                                                 >
                                                     تعديل الدرس
                                                 </button>
@@ -222,10 +260,25 @@ export default function CourseContentBuilder({ courseId }: CourseContentBuilderP
                                     ))}
                                 </div>
                             )}
+                            
+                            {/* Empty module state for lessons */}
+                            {module.lessons.length === 0 && (
+                                <div className="p-10 text-center bg-slate-50/30">
+                                    <p className="text-slate-400 font-bold text-sm">هذه الوحدة لا تحتوي على دروس حالياً.</p>
+                                    <button
+                                        type="button"
+                                        onClick={() => router.push(`/dashboard/courses/${courseId}/modules/${module.id}/lessons/new`)}
+                                        className="mt-3 text-indigo-600 font-black text-xs hover:underline"
+                                    >
+                                        + انقر هنا لإضافة أول فيديو أو درس
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 }
