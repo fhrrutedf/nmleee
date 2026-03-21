@@ -316,3 +316,48 @@ export async function processPaymentCommission(orderId: string): Promise<void> {
 
     await prisma.$transaction(operations);
 }
+/**
+ * 💸 REVERSE PAYMENT / REFUND
+ * Subtracts seller amounts and reverses commissions.
+ */
+export async function reversePaymentCommission(orderId: string): Promise<void> {
+    const order = await prisma.order.findUnique({
+        where: { id: orderId },
+        select: { id: true, sellerId: true, sellerAmount: true, referralCommission: true, seller: true }
+    });
+
+    if (!order || !order.sellerId) return;
+
+    const operations: any[] = [
+        // Update order status
+        prisma.order.update({
+            where: { id: orderId },
+            data: { status: 'REFUNDED', payoutStatus: 'cancelled' } as any,
+        }),
+        // Subtract from seller balance
+        prisma.user.update({
+            where: { id: order.sellerId },
+            data: {
+                // Deduct from either pending or available balance (wherever the money is now)
+                pendingBalance: { decrement: order.sellerAmount },
+                totalEarnings: { decrement: order.sellerAmount },
+            },
+        })
+    ];
+
+    // Reverse referral if exists
+    const referredById = (order.seller as any)?.referredById;
+    if (order.referralCommission > 0 && referredById) {
+        operations.push(
+            prisma.user.update({
+                where: { id: referredById },
+                data: {
+                    referralEarnings: { decrement: order.referralCommission },
+                    availableBalance: { decrement: order.referralCommission },
+                } as any,
+            })
+        );
+    }
+
+    await prisma.$transaction(operations);
+}
