@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
 
         if (amount < 100) {
             return NextResponse.json(
-                { error: 'الحد الأدنى للسحب هو 100 ج.م' },
+                { error: 'الحد الأدنى للسحب هو 100 $' },
                 { status: 400 }
             );
         }

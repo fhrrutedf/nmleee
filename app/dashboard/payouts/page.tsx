@@ -64,7 +64,7 @@ export default function PayoutsPage() {
         }
 
         if (amount < 100) {
-            toast.error('الحد الأدنى للسحب هو 100 ج.م');
+            toast.error('الحد الأدنى للسحب هو 100 $');
             return;
         }
 
@@ -126,7 +126,7 @@ export default function PayoutsPage() {
                         <span className="text-primary-100">إجمالي الأرباح</span>
                         <FiDollarSign className="text-2xl" />
                     </div>
-                    <div className="text-3xl font-bold">{stats.totalEarnings.toFixed(2)} ج.م</div>
+                    <div className="text-3xl font-bold">{stats.totalEarnings.toFixed(2)} $</div>
                 </div>
 
                 <div className="card bg-gradient-to-br from-green-500 to-green-600 text-white">
@@ -134,7 +134,7 @@ export default function PayoutsPage() {
                         <span className="text-green-100">الرصيد المتاح</span>
                         <FiDollarSign className="text-2xl" />
                     </div>
-                    <div className="text-3xl font-bold">{stats.availableBalance.toFixed(2)} ج.م</div>
+                    <div className="text-3xl font-bold">{stats.availableBalance.toFixed(2)} $</div>
                 </div>
 
                 <div className="card bg-gradient-to-br from-orange-500 to-orange-600 text-white">
@@ -142,7 +142,7 @@ export default function PayoutsPage() {
                         <span className="text-orange-100">طلبات قيد المراجعة</span>
                         <FiClock className="text-2xl" />
                     </div>
-                    <div className="text-3xl font-bold">{stats.pendingPayouts.toFixed(2)} ج.م</div>
+                    <div className="text-3xl font-bold">{stats.pendingPayouts.toFixed(2)} $</div>
                 </div>
             </div>
 
@@ -180,7 +180,7 @@ export default function PayoutsPage() {
                             )}
                             
                             <div className="space-y-2">
-                                <label className="label text-gray-700">المبلغ المطلوب (ج.م)</label>
+                                <label className="label text-gray-700">المبلغ المطلوب ($)</label>
                                 <div className="relative">
                                     <FiDollarSign className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                     <input
@@ -189,14 +189,14 @@ export default function PayoutsPage() {
                                         min="100"
                                         step="0.01"
                                         className="input pr-12 text-lg font-bold"
-                                        placeholder="الحد الأدنى: 100 ج.م"
+                                        placeholder="الحد الأدنى: 100 $"
                                         value={requestAmount}
                                         onChange={(e) => setRequestAmount(e.target.value)}
                                     />
                                 </div>
                                 <div className="flex justify-between items-center px-1">
                                     <p className="text-sm text-gray-500">
-                                        الرصيد المتاح: <span className="font-bold text-gray-900">{stats.availableBalance.toFixed(2)} ج.م</span>
+                                        الرصيد المتاح: <span className="font-bold text-gray-900">{stats.availableBalance.toFixed(2)} $</span>
                                     </p>
                                     <button 
                                         type="button" 
@@ -247,7 +247,7 @@ export default function PayoutsPage() {
                                             {new Date(payout.createdAt).toLocaleDateString('ar-EG')}
                                         </td>
                                         <td className="py-3 px-4 font-bold">
-                                            {payout.amount.toFixed(2)} ج.م
+                                            {payout.amount.toFixed(2)} $
                                         </td>
                                         <td className="py-3 px-4">
                                             <span className={`px-3 py-1 rounded-full text-sm ${getStatusColor(payout.status)}`}>

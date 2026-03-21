@@ -74,7 +74,7 @@ export default function AnalyticsPage() {
         labels: stats?.revenueChart?.labels || [],
         datasets: [
             {
-                label: 'الإيرادات (ج.م)',
+                label: 'الإيرادات ($)',
                 data: stats?.revenueChart?.data || [],
                 borderColor: 'rgb(79, 70, 229)',
                 backgroundColor: 'rgba(79, 70, 229, 0.1)',
@@ -148,7 +148,7 @@ export default function AnalyticsPage() {
                         <FiDollarSign className="text-2xl" />
                     </div>
                     <div className="text-3xl font-bold mb-1">
-                        {stats?.totalRevenue?.toFixed(2) || '0.00'} ج.م
+                        {stats?.totalRevenue?.toFixed(2) || '0.00'} $
                     </div>
                     <div className="flex items-center gap-2 text-sm text-primary-100">
                         <FiTrendingUp className="text-green-300" />
@@ -215,7 +215,7 @@ export default function AnalyticsPage() {
                             y: {
                                 beginAtZero: true,
                                 ticks: {
-                                    callback: (value) => `${value} ج.م`,
+                                    callback: (value) => `${value} $`,
                                 },
                             },
                         },
@@ -332,7 +332,7 @@ export default function AnalyticsPage() {
                                         </span>
                                     </td>
                                     <td className="py-3 px-4 font-bold text-primary-600">
-                                        {product.revenue.toFixed(2)} ج.م
+                                        {product.revenue.toFixed(2)} $
                                     </td>
                                 </tr>
                             )) || (

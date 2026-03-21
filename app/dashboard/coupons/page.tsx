@@ -168,7 +168,7 @@ export default function CouponsPage() {
                                 </div>
 
                                 <div className="text-3xl font-black text-action-blue dark:text-blue-400 mb-6 drop-shadow-sm">
-                                    {coupon.type === 'percentage' ? `${coupon.value}% خصم` : `${coupon.value} ج.م خصم`}
+                                    {coupon.type === 'percentage' ? `${coupon.value}% خصم` : `${coupon.value} $ خصم`}
                                 </div>
 
                                 <div className="space-y-3 font-medium text-sm text-gray-600 dark:text-gray-400">
@@ -189,7 +189,7 @@ export default function CouponsPage() {
                                     {coupon.minPurchase > 0 && (
                                         <div className="flex items-center gap-2">
                                             <FiTag className="text-gray-400" />
-                                            <span>حد أدنى للطلب: {coupon.minPurchase} ج.م</span>
+                                            <span>حد أدنى للطلب: {coupon.minPurchase} $</span>
                                         </div>
                                     )}
                                 </div>
@@ -267,7 +267,7 @@ export default function CouponsPage() {
                                         onChange={(e) => setFormData({ ...formData, type: e.target.value })}
                                     >
                                         <option value="percentage">نسبة مئوية (%)</option>
-                                        <option value="fixed">مبلغ ثابت (ج.م)</option>
+                                        <option value="fixed">مبلغ ثابت ($)</option>
                                     </select>
                                 </div>
 
@@ -286,7 +286,7 @@ export default function CouponsPage() {
                                             onChange={(e) => setFormData({ ...formData, value: e.target.value })}
                                         />
                                         <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center font-bold text-action-blue text-xl border-l border-action-blue/20 bg-action-blue/5">
-                                            {formData.type === 'percentage' ? '%' : 'ج.م'}
+                                            {formData.type === 'percentage' ? '%' : '$'}
                                         </div>
                                     </div>
                                 </div>
@@ -310,7 +310,7 @@ export default function CouponsPage() {
                                 </div>
 
                                 <div>
-                                    <label className="label text-gray-700 dark:text-gray-300">الحد الأدنى للطب (ج.م)</label>
+                                    <label className="label text-gray-700 dark:text-gray-300">الحد الأدنى للطب ($)</label>
                                     <input
                                         type="number"
                                         min="0"
@@ -324,13 +324,13 @@ export default function CouponsPage() {
 
                                 {formData.type === 'percentage' && (
                                     <div className="md:col-span-2">
-                                        <label className="label text-gray-700 dark:text-gray-300">الحد الأقصى للخصم (ج.م)</label>
+                                        <label className="label text-gray-700 dark:text-gray-300">الحد الأقصى للخصم ($)</label>
                                         <input
                                             type="number"
                                             min="0"
                                             step="0.01"
                                             className="input"
-                                            placeholder="الحماية من الخصومات الكبيرة جداً للحزم (مثال: 500 ج.م كحد أقصى)"
+                                            placeholder="الحماية من الخصومات الكبيرة جداً للحزم (مثال: 500 $ كحد أقصى)"
                                             value={formData.maxDiscount}
                                             onChange={(e) => setFormData({ ...formData, maxDiscount: e.target.value })}
                                         />

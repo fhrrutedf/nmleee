@@ -134,7 +134,7 @@ export default function CoursesPage() {
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-purple-100 text-sm font-medium">إجمالي القيمة</p>
-                            <p className="text-3xl font-bold mt-2">{stats.totalRevenue.toFixed(0)} <span className="text-sm font-normal opacity-80">ج.م</span></p>
+                            <p className="text-3xl font-bold mt-2">{stats.totalRevenue.toFixed(0)} <span className="text-sm font-normal opacity-80">$</span></p>
                         </div>
                         <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm">
                             <FiDollarSign className="text-2xl text-white" />
@@ -253,7 +253,7 @@ export default function CoursesPage() {
                             <div className="mt-auto">
                                 <div className="flex items-center justify-between mb-4">
                                     <span className="text-2xl font-bold text-primary-charcoal dark:text-white">
-                                        {course.price.toFixed(2)} <span className="text-xs font-normal text-text-muted">ج.م</span>
+                                        {course.price.toFixed(2)} <span className="text-xs font-normal text-text-muted">$</span>
                                     </span>
                                     {course.category && (
                                         <span className="px-2 py-1 bg-blue-50 dark:bg-blue-900/30 text-action-blue text-xs rounded-md">

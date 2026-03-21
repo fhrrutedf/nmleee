@@ -48,6 +48,24 @@ export default function LearnPage() {
         }
     };
 
+    const goToNextItem = () => {
+        if (!course || !activeItem) return;
+        const flatLessons = course.modules.flatMap((m: any) => m.lessons);
+        const currentIndex = flatLessons.findIndex((l: any) => l.id === activeItem.data.id);
+        if (currentIndex !== -1 && currentIndex < flatLessons.length - 1) {
+            setActiveItem({ type: 'lesson', data: flatLessons[currentIndex + 1] });
+        }
+    };
+
+    const goToPrevItem = () => {
+        if (!course || !activeItem) return;
+        const flatLessons = course.modules.flatMap((m: any) => m.lessons);
+        const currentIndex = flatLessons.findIndex((l: any) => l.id === activeItem.data.id);
+        if (currentIndex > 0) {
+            setActiveItem({ type: 'lesson', data: flatLessons[currentIndex - 1] });
+        }
+    };
+
     const handleLessonComplete = async () => {
         if (!activeItem || activeItem.type !== 'lesson') return;
 
@@ -71,6 +89,10 @@ export default function LearnPage() {
                     )
                 }))
             }));
+            
+            // Advance to next lesson smoothly
+            goToNextItem();
+            
         } catch (error) {
             console.error('Error marking lesson complete:', error);
         }
@@ -284,6 +306,25 @@ export default function LearnPage() {
                                             <p className="text-xl font-black">محتوى نصي فقط</p>
                                         </div>
                                     )}
+
+                                    {/* Action Buttons: Mark Complete & Navigation */}
+                                    <div className="flex flex-col sm:flex-row justify-between items-center mt-6 gap-4">
+                                        <div className="flex gap-4">
+                                            <button onClick={goToPrevItem} className="h-14 w-14 rounded-2xl border border-white/10 bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-white/50 hover:text-white transition-all shadow-md">
+                                                <FiChevronRight size={24} />
+                                            </button>
+                                            <button onClick={goToNextItem} className="h-14 w-14 rounded-2xl border border-white/10 bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-white/50 hover:text-white transition-all shadow-md">
+                                                <FiChevronLeft size={24} />
+                                            </button>
+                                        </div>
+                                        
+                                        <button 
+                                            onClick={handleLessonComplete}
+                                            className={`w-full sm:w-auto px-8 py-4 ${activeItem.data.completed ? 'bg-green-500 text-white shadow-lg shadow-green-500/30 font-black' : 'bg-green-500/10 text-green-500 border border-green-500/20 hover:bg-green-500 hover:text-white font-bold'} rounded-2xl transition-all flex justify-center items-center gap-3 tracking-widest uppercase active:scale-95`}
+                                        >
+                                            <FiCheckSquare size={24} /> {activeItem.data.completed ? 'مكتمل - التالي' : 'تم إكمال الدرس'}
+                                        </button>
+                                    </div>
                                 </div>
 
                                 {/* Content Tabs/Sections */}
@@ -328,14 +369,14 @@ export default function LearnPage() {
                 <div className="h-20 bg-gray-900 border-t border-white/5 px-8 flex items-center justify-between z-30">
                      <div className="hidden md:flex items-center gap-3">
                          <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">مدعوم من</span>
-                         <span className="px-3 py-1 bg-brand/10 text-brand rounded-full text-[10px] font-black">تقانة التعليمية</span>
+                         <span className="px-3 py-1 bg-brand/10 text-brand rounded-full text-[10px] font-black">تمالين</span>
                      </div>
                      
                      <div className="flex gap-4">
-                         <button className="h-12 w-12 rounded-xl border border-white/5 text-gray-500 hover:text-white hover:bg-white/5 flex items-center justify-center transition-all">
+                         <button onClick={goToPrevItem} className="h-12 w-12 rounded-xl border border-white/5 text-gray-500 hover:text-white hover:bg-white/5 flex items-center justify-center transition-all">
                              <FiChevronRight size={20} />
                          </button>
-                         <button className="h-12 w-12 rounded-xl border border-white/5 text-gray-500 hover:text-white hover:bg-white/5 flex items-center justify-center transition-all">
+                         <button onClick={goToNextItem} className="h-12 w-12 rounded-xl border border-white/5 text-gray-500 hover:text-white hover:bg-white/5 flex items-center justify-center transition-all">
                              <FiChevronLeft size={20} />
                          </button>
                      </div>

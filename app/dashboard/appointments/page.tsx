@@ -197,7 +197,7 @@ export default function AppointmentsPage() {
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-orange-100 text-sm">إجمالي الإيرادات</p>
-                            <p className="text-3xl font-bold mt-1">{totalRevenue.toFixed(0)} ج.م</p>
+                            <p className="text-3xl font-bold mt-1">{totalRevenue.toFixed(0)} $</p>
                         </div>
                         <FiDollarSign className="text-4xl text-orange-200" />
                     </div>
@@ -320,7 +320,7 @@ export default function AppointmentsPage() {
 
                                         {appointment.price && (
                                             <span className="text-xl font-bold text-primary-600">
-                                                {appointment.price} ج.م
+                                                {appointment.price} $
                                             </span>
                                         )}
 
@@ -393,7 +393,7 @@ export default function AppointmentsPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">السعر (ج.م) *</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">السعر ($) *</label>
                                     <input
                                         type="number"
                                         required

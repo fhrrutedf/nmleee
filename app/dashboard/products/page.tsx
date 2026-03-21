@@ -193,7 +193,7 @@ export default function ProductsPage() {
 
                                 <div className="flex items-center justify-between mb-3">
                                     <span className="text-xl font-black text-action-blue">
-                                        {product.isFree ? 'مجاني' : `${product.price} ج.م`}
+                                        {product.isFree ? 'مجاني' : `${product.price} $`}
                                     </span>
                                     <span className="text-xs text-gray-400">{product.soldCount || 0} مبيعة</span>
                                 </div>

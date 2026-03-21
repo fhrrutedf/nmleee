@@ -196,7 +196,7 @@ export default function DemoPage() {
                                                 <FiStar key={i} className="text-sm text-yellow-400 fill-yellow-400" />
                                             ))}
                                         </div>
-                                        <span className="text-2xl font-bold text-primary-600">{product.price} ج.م</span>
+                                        <span className="text-2xl font-bold text-primary-600">{product.price} $</span>
                                     </div>
                                 </div>
                             </div>

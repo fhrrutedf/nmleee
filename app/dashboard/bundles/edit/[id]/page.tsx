@@ -243,7 +243,7 @@ export default function EditBundlePage() {
                                                         )}
                                                         <div>
                                                             <p className={`font-bold line-clamp-2 leading-tight text-sm ${isSelected ? 'text-action-blue' : 'text-gray-900 dark:text-white'}`}>{product.title}</p>
-                                                            <p className="text-gray-500 text-xs mt-1 font-bold">{product.price} ج.م</p>
+                                                            <p className="text-gray-500 text-xs mt-1 font-bold">{product.price} $</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -273,14 +273,14 @@ export default function EditBundlePage() {
                                 <div className="space-y-4">
                                     <div>
                                         <label className="text-sm text-gray-500 mb-1 block">سعر المنتجات الفردية (إجمالي)</label>
-                                        <p className="text-xl font-bold text-gray-400 line-through decoration-red-500/50 decoration-2">{originalValue.toFixed(2)} ج.م</p>
+                                        <p className="text-xl font-bold text-gray-400 line-through decoration-red-500/50 decoration-2">{originalValue.toFixed(2)} $</p>
                                     </div>
 
                                     <div className="bg-action-blue/5 p-4 rounded-xl border border-action-blue/10">
                                         <label className="text-sm font-bold text-action-blue mb-2 block">سعر الباقة الإجمالي الجديد <span className="text-red-500">*</span></label>
                                         <div className="relative">
                                             <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                                                <span className="text-gray-500 font-bold">ج.م</span>
+                                                <span className="text-gray-500 font-bold">$</span>
                                             </div>
                                             <input
                                                 type="number"
@@ -297,7 +297,7 @@ export default function EditBundlePage() {
 
                                     {discountAmount > 0 && (
                                         <div className="bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 p-3 rounded-lg text-sm font-bold border border-green-100 dark:border-green-800">
-                                            سيوفر العميل {discountAmount.toFixed(2)} ج.م !
+                                            سيوفر العميل {discountAmount.toFixed(2)} $ !
                                         </div>
                                     )}
                                 </div>

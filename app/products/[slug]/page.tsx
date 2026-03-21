@@ -185,7 +185,7 @@ export default function ProductPage() {
                             {/* Price */}
                             <div className="bg-gray-50 rounded-lg p-6">
                                 <div className="text-4xl font-bold text-indigo-600 mb-4">
-                                    {product.price.toFixed(2)} ج.م
+                                    {product.price.toFixed(2)} $
                                 </div>
 
                                 <div className="space-y-3">
@@ -243,7 +243,7 @@ export default function ProductPage() {
             {/* Simple Footer */}
             <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-indigo-600 font-bold hover:underline">منصة تقانة</a>
+                    مدعوم من <a href="https://tmleen.com" className="text-indigo-600 font-bold hover:underline">منصة تمالين</a>
                 </p>
             </footer>
         </div>

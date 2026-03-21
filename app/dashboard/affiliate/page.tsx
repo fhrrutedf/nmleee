@@ -88,7 +88,7 @@ export default function AffiliatePage() {
                         <FiDollarSign className="text-2xl" />
                     </div>
                     <div className="text-3xl font-bold">
-                        {stats?.totalEarnings?.toFixed(2) || '0.00'} ج.م
+                        {stats?.totalEarnings?.toFixed(2) || '0.00'} $
                     </div>
                 </div>
 
@@ -173,9 +173,9 @@ export default function AffiliatePage() {
                                             {new Date(affiliate.createdAt).toLocaleDateString('ar-EG')}
                                         </td>
                                         <td className="py-3 px-4">{affiliate.productTitle}</td>
-                                        <td className="py-3 px-4">{affiliate.amount.toFixed(2)} ج.م</td>
+                                        <td className="py-3 px-4">{affiliate.amount.toFixed(2)} $</td>
                                         <td className="py-3 px-4 font-bold text-green-600">
-                                            +{affiliate.commission.toFixed(2)} ج.م
+                                            +{affiliate.commission.toFixed(2)} $
                                         </td>
                                         <td className="py-3 px-4">
                                             <span className={`px-3 py-1 rounded-full text-sm ${affiliate.status === 'paid'

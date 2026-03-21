@@ -65,13 +65,13 @@ export default function NewProductPage() {
 
     const nextStep = () => {
         if (currentStep === 1) {
-            if (!formData.fileUrl) return showToast.error('يرجى رفع الملف الرقمي الأساسي أولاً');
-            if (!formData.title) return showToast.error('يرجى كتابة اسم المنتج');
-            if (!formData.category) return showToast.error('يرجى اختيار تصنيف');
+            if (!formData.fileUrl) return showToast.error('يرجى رفع الملف الرقمي الأساسي أولاً للمتابعة');
+            if (!formData.title) return showToast.error('يرجى كتابة اسم المنتج للمتابعة');
+            if (!formData.category) return showToast.error('يرجى اختيار تصنيف للمتابعة');
         }
         if (currentStep === 2) {
-            if (!formData.image) return showToast.error('يرجى رفع صورة الغلاف');
-            if (!formData.description || formData.description.length < 10) return showToast.error('يرجى كتابة وصف موجز على الأقل');
+            if (!formData.image) return showToast.error('يرجى رفع صورة الغلاف للمتابعة');
+            if (!formData.description || formData.description.length < 10) return showToast.error('يرجى كتابة وصف موجز على الأقل للمتابعة');
         }
         setCurrentStep(prev => prev + 1);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -298,7 +298,7 @@ export default function NewProductPage() {
                                     {formData.pricingType !== 'free' && (
                                         <div className="grid md:grid-cols-2 gap-8">
                                             <div className="space-y-2">
-                                                <label className="label-modern">السعر النهائي (ج.م) <span className="text-red-500">*</span></label>
+                                                <label className="label-modern">السعر النهائي ($) <span className="text-red-500">*</span></label>
                                                 <input type="number" step="0.01" className="input-modern text-center font-black text-2xl" placeholder="299" value={formData.price} onChange={e => update('price', e.target.value)} />
                                             </div>
                                             {formData.pricingType === 'pwyw' && (

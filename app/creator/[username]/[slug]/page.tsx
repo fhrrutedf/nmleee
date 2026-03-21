@@ -178,7 +178,7 @@ export default function ProductPage() {
                                 <span className="text-5xl font-bold" style={{ color: brandColor }}>
                                     {typeof product.price === 'number' ? product.price.toFixed(0) : '0'}
                                 </span>
-                                <span className="text-2xl text-gray-600">ج.م</span>
+                                <span className="text-2xl text-gray-600">$</span>
                             </div>
                             <p className="text-sm text-gray-500">شامل الضريبة</p>
                         </div>

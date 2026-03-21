@@ -137,7 +137,7 @@ export default function CheckoutPage() {
             if (res.ok) {
                 const data = await res.json();
                 setDiscount(data.discount);
-                showToast.success(`تم تطبيق الكوبون! خصم ${data.discount} ج.م`);
+                showToast.success(`تم تطبيق الكوبون! خصم ${data.discount} $`);
             } else {
                 showToast.error('الكوبون غير صالح');
             }
@@ -463,7 +463,7 @@ export default function CheckoutPage() {
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-4">
-                                            <span className="font-bold text-gray-900">{item.price > 0 ? `${Number(item.price).toFixed(2)} ج.م` : 'مجاني'}</span>
+                                            <span className="font-bold text-gray-900">{item.price > 0 ? `${Number(item.price).toFixed(2)} $` : 'مجاني'}</span>
                                             <button onClick={() => removeFromCart(index)} className="text-gray-300 hover:text-red-500 transition-colors">
                                                 <FiTrash2 size={16} />
                                             </button>
@@ -652,16 +652,16 @@ export default function CheckoutPage() {
                             <div className="space-y-4 mb-8">
                                 <div className="flex justify-between text-gray-500">
                                     <span>المجموع الفرعي</span>
-                                    <span>{subtotal.toFixed(2)} ج.م</span>
+                                    <span>{subtotal.toFixed(2)} $</span>
                                 </div>
                                 <div className="flex justify-between text-green-600 font-bold">
                                     <span>الخصم</span>
-                                    <span>-{discount.toFixed(2)} ج.م</span>
+                                    <span>-{discount.toFixed(2)} $</span>
                                 </div>
                                 <div className="h-px bg-gray-100 my-4"></div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-xl font-bold text-gray-900">الإجمالي</span>
-                                    <span className="text-3xl font-black text-primary-700">{total.toFixed(2)} ج.م</span>
+                                    <span className="text-3xl font-black text-primary-700">{total.toFixed(2)} $</span>
                                 </div>
                                 {/* Show local currency equivalent for restricted countries */}
                                 {isRestricted && localPrice.currency !== 'USD' && total > 0 && (
@@ -776,7 +776,7 @@ export default function CheckoutPage() {
             {/* Simple Footer */}
             <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-primary-600 font-bold hover:underline">منصة تقانة</a>
+                    مدعوم من <a href="https://tmleen.com" className="text-primary-600 font-bold hover:underline">منصة تمالين</a>
                 </p>
             </footer>
         </div>

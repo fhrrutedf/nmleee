@@ -73,7 +73,7 @@ export default function DashboardPage() {
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
                 {[
-                    { title: 'إجمالي الأرباح', value: `${(stats.totalRevenue || 0).toLocaleString('ar-EG')} ج.م`, icon: FiDollarSign, badge: 'إرباح', color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/20' },
+                    { title: 'إجمالي الأرباح', value: `${(stats.totalRevenue || 0).toLocaleString('ar-EG')} $`, icon: FiDollarSign, badge: 'إرباح', color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/20' },
                     { title: 'إجمالي الطلبات', value: stats.totalOrders || 0, icon: FiShoppingCart, badge: 'طلب', color: 'text-action-blue', bg: 'bg-blue-50 dark:bg-blue-900/20' },
                     { title: 'المنتجات النشطة', value: stats.totalProducts || 0, icon: FiPackage, badge: 'نشط', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20' },
                     { title: 'الاستشارات القادمة', value: stats.totalAppointments || 0, icon: FiCalendar, badge: 'قريباً', color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/20' },

@@ -307,7 +307,7 @@ function Hero() {
                                 </div>
                                 <div>
                                     <p className="text-[10px] text-slate-400 font-bold">بدأ للتو مبيع</p>
-                                    <p className="text-sm font-black text-slate-800">450.00 ج.م</p>
+                                    <p className="text-sm font-black text-slate-800">450.00 $</p>
                                 </div>
                             </motion.div>
 

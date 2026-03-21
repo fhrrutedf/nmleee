@@ -62,7 +62,7 @@ export default function SellerDashboardPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     <StatsCard
                         title="إجمالي الإيرادات"
-                        value={`${overview.totalRevenue.toFixed(2)} ج.م`}
+                        value={`${overview.totalRevenue.toFixed(2)} $`}
                         change={overview.revenueChange}
                         icon={<FiDollarSign className="text-green-600" size={24} />}
                         bgColor="bg-green-100"
@@ -85,7 +85,7 @@ export default function SellerDashboardPage() {
 
                     <StatsCard
                         title="متوسط قيمة الطلب"
-                        value={`${overview.avgOrderValue.toFixed(2)} ج.م`}
+                        value={`${overview.avgOrderValue.toFixed(2)} $`}
                         icon={<FiDollarSign className="text-orange-600" size={24} />}
                         bgColor="bg-orange-100"
                     />
@@ -106,10 +106,10 @@ export default function SellerDashboardPage() {
                                         <div
                                             className="w-full bg-indigo-500 rounded-t hover:bg-indigo-600 transition-colors cursor-pointer relative"
                                             style={{ height: `${height}%` }}
-                                            title={`${item.revenue.toFixed(2)} ج.م - ${item.orders} طلب`}
+                                            title={`${item.revenue.toFixed(2)} $ - ${item.orders} طلب`}
                                         >
                                             <div className="hidden group-hover:block absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-2 py-1 rounded text-xs whitespace-nowrap">
-                                                {item.revenue.toFixed(0)} ج.م
+                                                {item.revenue.toFixed(0)} $
                                             </div>
                                         </div>
                                     </div>
@@ -163,7 +163,7 @@ export default function SellerDashboardPage() {
                                             {product?.salesCount} مبيعة
                                         </td>
                                         <td className="px-6 py-4 text-sm font-semibold text-gray-900">
-                                            {product?.revenue?.toFixed(2)} ج.م
+                                            {product?.revenue?.toFixed(2)} $
                                         </td>
                                     </tr>
                                 ))}

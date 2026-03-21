@@ -103,7 +103,7 @@ export default function NewSubscriptionPlanPage() {
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    السعر (ج.م) *
+                                    السعر ($) *
                                 </label>
                                 <input
                                     type="number"

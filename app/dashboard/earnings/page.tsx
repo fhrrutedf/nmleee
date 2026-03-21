@@ -139,7 +139,7 @@ export default function EarningsPage() {
                             </div>
                         </div>
                         <p className="text-4xl sm:text-5xl font-black text-primary-charcoal dark:text-white mb-2 tracking-tight">
-                            {balance?.available.toFixed(2) || '0.00'} <span className="text-xl sm:text-2xl text-gray-400">ج.م</span>
+                            {balance?.available.toFixed(2) || '0.00'} <span className="text-xl sm:text-2xl text-gray-400">$</span>
                         </p>
 
                         {balance && balance.available >= 50 ? (
@@ -152,7 +152,7 @@ export default function EarningsPage() {
                         ) : (
                             <div className="mt-6 flex items-center gap-2 text-sm text-gray-500 bg-gray-50 dark:bg-bg-light p-3 rounded-xl border border-gray-100 dark:border-gray-800 font-medium">
                                 <FiAlertCircle className="text-orange-500" />
-                                الحد الأدنى للسحب هو 50 ج.م
+                                الحد الأدنى للسحب هو 50 $
                             </div>
                         )}
                     </div>
@@ -169,7 +169,7 @@ export default function EarningsPage() {
                             </div>
                         </div>
                         <p className="text-4xl sm:text-5xl font-black text-primary-charcoal dark:text-white mb-2 tracking-tight">
-                            {balance?.pending.toFixed(2) || '0.00'} <span className="text-xl sm:text-2xl text-gray-400">ج.م</span>
+                            {balance?.pending.toFixed(2) || '0.00'} <span className="text-xl sm:text-2xl text-gray-400">$</span>
                         </p>
                         <div className="mt-6 flex items-center gap-2 text-sm text-gray-500 bg-gray-50 dark:bg-bg-light p-3 rounded-xl border border-gray-100 dark:border-gray-800 font-medium whitespace-nowrap overflow-hidden text-ellipsis">
                             <FiClock className="text-yellow-500 shrink-0" />
@@ -189,7 +189,7 @@ export default function EarningsPage() {
                             </div>
                         </div>
                         <p className="text-4xl sm:text-5xl font-black mb-2 tracking-tight">
-                            {balance?.total.toFixed(2) || '0.00'} <span className="text-xl sm:text-2xl text-white/50">ج.م</span>
+                            {balance?.total.toFixed(2) || '0.00'} <span className="text-xl sm:text-2xl text-white/50">$</span>
                         </p>
                         <p className="mt-6 flex items-center gap-2 text-sm text-white/80 bg-black/10 backdrop-blur-sm p-3 rounded-xl border border-white/10 font-medium">
                             استمر في الإبداع والبيع! 🚀
@@ -237,13 +237,13 @@ export default function EarningsPage() {
                                             {earning.item}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900 dark:text-white">
-                                            {earning.total.toFixed(2)} ج.م
+                                            {earning.total.toFixed(2)} $
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-red-500 font-medium">
-                                            -{earning.platformFee.toFixed(2)} ج.م
+                                            -{earning.platformFee.toFixed(2)} $
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-black text-green-600 dark:text-green-500">
-                                            +{earning.yourEarning.toFixed(2)} ج.م
+                                            +{earning.yourEarning.toFixed(2)} $
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             {getStatusBadge(earning.status, earning.availableAt)}
@@ -291,7 +291,7 @@ export default function EarningsPage() {
                                     </div>
                                 </div>
                                 <div className="mt-4 flex gap-4 text-sm font-bold border-t border-gray-200 dark:border-gray-700 pt-4">
-                                    <span className="text-green-600">رسوم السحب: 0.00 ج.م</span>
+                                    <span className="text-green-600">رسوم السحب: 0.00 $</span>
                                 </div>
                             </div>
 

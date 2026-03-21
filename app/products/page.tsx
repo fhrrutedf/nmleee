@@ -150,7 +150,7 @@ export default function ProductsPage() {
                                             ))}
                                         </div>
                                         <span className="text-2xl font-bold text-primary-600">
-                                            {product.price.toFixed(0)} ج.م
+                                            {product.price.toFixed(0)} $
                                         </span>
                                     </div>
                                 </div>

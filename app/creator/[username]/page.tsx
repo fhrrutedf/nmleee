@@ -228,7 +228,7 @@ export default function CreatorStorePage() {
                                             ))}
                                         </div>
                                         <span className="text-2xl font-bold" style={{ color: brandColor }}>
-                                            {product.price.toFixed(0)} ج.م
+                                            {product.price.toFixed(0)} $
                                         </span>
                                     </div>
                                 </div>

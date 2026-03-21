@@ -160,7 +160,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                     <div className="lg:col-span-1">
                         <div className="bg-white rounded-2xl shadow-lg p-8 sticky top-6 border border-gray-100">
                            <div className="text-center mb-8">
-                                <div className="text-5xl font-black text-primary-600 mb-2">{course.price.toFixed(2)} ج.م</div>
+                                <div className="text-5xl font-black text-primary-600 mb-2">{course.price.toFixed(2)} $</div>
                                 {course.isFree && <span className="inline-block px-4 py-1.5 bg-green-100 text-green-700 rounded-lg text-sm font-black">مجاني 🎉</span>}
                             </div>
                             <div className="space-y-4 mb-8">

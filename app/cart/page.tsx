@@ -130,7 +130,7 @@ export default function CartPage() {
                                     </div>
                                     <div className="mt-4 flex items-center justify-between">
                                         <span className="font-bold text-lg text-primary-600">
-                                            {item.price > 0 ? `${item.price.toFixed(2)} ج.م` : 'مجاني'}
+                                            {item.price > 0 ? `${item.price.toFixed(2)} $` : 'مجاني'}
                                         </span>
                                     </div>
                                 </div>
@@ -146,17 +146,17 @@ export default function CartPage() {
                             <div className="space-y-4 mb-6 pb-6 border-b border-gray-100">
                                 <div className="flex justify-between text-gray-600">
                                     <span>المجموع الفرعي</span>
-                                    <span>{subtotal.toFixed(2)} ج.م</span>
+                                    <span>{subtotal.toFixed(2)} $</span>
                                 </div>
                                 <div className="flex justify-between text-gray-600">
                                     <span>الخصم</span>
-                                    <span>0.00 ج.م</span>
+                                    <span>0.00 $</span>
                                 </div>
                             </div>
 
                             <div className="flex justify-between items-center mb-8">
                                 <span className="text-lg font-bold text-gray-900">الإجمالي</span>
-                                <span className="text-2xl font-bold text-primary-700">{subtotal.toFixed(2)} ج.م</span>
+                                <span className="text-2xl font-bold text-primary-700">{subtotal.toFixed(2)} $</span>
                             </div>
 
                             <button
@@ -180,7 +180,7 @@ export default function CartPage() {
             {/* Simple Footer */}
             <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-primary-600 font-bold hover:underline">منصة تقانة</a>
+                    مدعوم من <a href="https://tmleen.com" className="text-primary-600 font-bold hover:underline">منصة تمالين</a>
                 </p>
             </footer>
         </div>

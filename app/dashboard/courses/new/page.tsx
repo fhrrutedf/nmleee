@@ -53,12 +53,12 @@ export default function NewCoursePage() {
 
     const nextStep = () => {
         if (currentStep === 1) {
-            if (!formData.title) return showToast.error('يرجى كتابة عنوان الدورة');
-            if (!formData.category) return showToast.error('يرجى اختيار تصنيف');
-            if (!formData.image) return showToast.error('يرجى رفع صورة الغلاف');
+            if (!formData.title) return showToast.error('يرجى كتابة عنوان الدورة للمتابعة');
+            if (!formData.category) return showToast.error('يرجى اختيار تصنيف للمتابعة');
+            if (!formData.image) return showToast.error('يرجى رفع صورة الغلاف للمتابعة');
         }
         if (currentStep === 2) {
-            if (!formData.description || formData.description.length < 20) return showToast.error('يرجى كتابة وصف تفصيلي للدورة');
+            if (!formData.description || formData.description.length < 20) return showToast.error('يرجى كتابة وصف تفصيلي للدورة للمتابعة');
         }
         setCurrentStep(prev => prev + 1);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -268,7 +268,7 @@ export default function NewCoursePage() {
                         <motion.div key="st3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-10">
                             <Section title="تكلفة الاشتراك والاستحقاق" icon={<FiDollarSign />}>
                                 <div className="max-w-xs mx-auto text-center space-y-4 py-8">
-                                    <label className="label-modern italic tracking-widest uppercase opacity-40">السعر النقدي (ج.م)</label>
+                                    <label className="label-modern italic tracking-widest uppercase opacity-40">السعر النقدي ($)</label>
                                     <input type="number" step="0.01" className="bg-transparent border-0 border-b-4 border-primary-indigo-100 focus:border-primary-indigo-500 text-center text-5xl font-black text-slate-900 w-full outline-none transition-all placeholder:opacity-10" placeholder="000.00" value={formData.price} onChange={e => update('price', e.target.value)} />
                                     <p className="text-[10px] text-slate-400 font-bold uppercase">هذا السعر الذي سيظهر للطلاب في المتجر</p>
                                 </div>

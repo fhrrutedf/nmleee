@@ -118,7 +118,7 @@ export default function CustomersPage() {
                         <p className="text-3xl font-bold text-gray-900">
                             {customers.length > 0
                                 ? (customers.reduce((sum, c) => sum + c.totalSpent, 0) / customers.length).toFixed(0)
-                                : 0} ج.م
+                                : 0} $
                         </p>
                     </div>
                 </div>
@@ -159,7 +159,7 @@ export default function CustomersPage() {
                                             {customer.ordersCount} طلب
                                         </td>
                                         <td className="px-6 py-4 text-sm font-semibold text-gray-900">
-                                            {customer.totalSpent.toFixed(2)} ج.م
+                                            {customer.totalSpent.toFixed(2)} $
                                         </td>
                                         <td className="px-6 py-4 text-sm text-gray-900">
                                             {new Date(customer.firstPurchase).toLocaleDateString('ar-EG')}

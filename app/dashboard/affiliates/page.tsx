@@ -167,7 +167,7 @@ export default function AffiliatesPage() {
                     </div>
                     <div>
                         <p className="text-gray-500 font-bold mb-1">إجمالي العمولات المدفوعة</p>
-                        <h4 className="text-3xl font-black text-primary-charcoal dark:text-white">{affiliates.reduce((acc, curr) => acc + curr.commission, 0)} <span className="text-sm">ج.م</span></h4>
+                        <h4 className="text-3xl font-black text-primary-charcoal dark:text-white">{affiliates.reduce((acc, curr) => acc + curr.commission, 0)} <span className="text-sm">$</span></h4>
                     </div>
                 </div>
             </div>
@@ -217,7 +217,7 @@ export default function AffiliatesPage() {
                                         </td>
                                         <td className="px-6 py-5 whitespace-nowrap">
                                             <span className="inline-flex items-center gap-1 font-black text-green-600 bg-green-50 dark:bg-green-900/10 px-3 py-1 rounded-lg border border-green-100 dark:border-transparent">
-                                                {link.commissionType === 'percentage' ? `${link.commissionValue}% نسبة` : `${link.commissionValue} ج.م ثابت`}
+                                                {link.commissionType === 'percentage' ? `${link.commissionValue}% نسبة` : `${link.commissionValue} $ ثابت`}
                                             </span>
                                         </td>
                                         <td className="px-6 py-5 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
@@ -307,7 +307,7 @@ export default function AffiliatesPage() {
                                         >
                                             <option value="">-- اختر المنتج من قائمتك --</option>
                                             {products.map(p => (
-                                                <option key={p.id} value={p.id}>{p.title} (سعر: {p.price} ج.م)</option>
+                                                <option key={p.id} value={p.id}>{p.title} (سعر: {p.price} $)</option>
                                             ))}
                                         </select>
                                     </div>
@@ -321,7 +321,7 @@ export default function AffiliatesPage() {
                                                 onChange={(e) => setFormData({ ...formData, commissionType: e.target.value })}
                                             >
                                                 <option value="percentage">نسبة مئوية من المبيعة (%)</option>
-                                                <option value="fixed">مبلغ ثابت عن كل مبيعة (ج.م)</option>
+                                                <option value="fixed">مبلغ ثابت عن كل مبيعة ($)</option>
                                             </select>
                                         </div>
                                         <div>

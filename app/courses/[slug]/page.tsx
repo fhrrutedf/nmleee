@@ -257,11 +257,13 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                         <div className="font-bold text-gray-900 dark:text-white">{course.level || 'مبتدئ'}</div>
                                         <div className="text-xs text-gray-500 font-medium">المستوى المطلوب</div>
                                     </div>
-                                    <div className="text-center">
-                                        <div className="text-gray-400 mb-2 flex justify-center"><FiAward size={24} className="text-yellow-500" /></div>
-                                        <div className="font-bold text-gray-900 dark:text-white">نعم</div>
-                                        <div className="text-xs text-gray-500 font-medium">شهادة إتمام</div>
-                                    </div>
+                                    {course.modules && course.modules.reduce((acc, m) => acc + m.lessons.length, 0) > 0 && (
+                                        <div className="text-center">
+                                            <div className="text-gray-400 mb-2 flex justify-center"><FiAward size={24} className="text-yellow-500" /></div>
+                                            <div className="font-bold text-gray-900 dark:text-white">نعم</div>
+                                            <div className="text-xs text-gray-500 font-medium">شهادة إتمام</div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -368,7 +370,7 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                         <span className="text-5xl font-black bg-gradient-to-br from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent transform transition-transform hover:scale-105 origin-center">
                                             {course.price > 0 ? course.price.toFixed(2) : 'مجاني 🎉'}
                                         </span>
-                                        {course.price > 0 && <span className="text-xl font-bold text-gray-400 dark:text-gray-500 mb-1 font-serif">ج.م</span>}
+                                        {course.price > 0 && <span className="text-xl font-bold text-gray-400 dark:text-gray-500 mb-1 font-serif">$</span>}
                                     </div>
                                     <div className="mt-4 flex items-center justify-center gap-2 text-sm text-green-600 dark:text-green-500 font-bold bg-green-50 dark:bg-green-900/20 py-2 px-4 rounded-full border border-green-100 dark:border-green-900/30 w-max mx-auto">
                                         <FiCheckCircle size={16} /> وصول كامل ومباشر
@@ -460,7 +462,7 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
             {/* Simple Footer */}
             <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-action-blue font-bold hover:underline">منصة تقانة</a>
+                    مدعوم من <a href="https://tmleen.com" className="text-action-blue font-bold hover:underline">منصة تمالين</a>
                 </p>
             </footer>
         </div>

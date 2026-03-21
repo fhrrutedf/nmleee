@@ -18,7 +18,7 @@ export function PayWhatYouWant({
     minPrice,
     suggestedPrice,
     onPurchase,
-    currency = 'ج.م'
+    currency = '$'
 }: PayWhatYouWantProps) {
     const [customAmount, setCustomAmount] = useState<string>(
         suggestedPrice?.toString() || minPrice?.toString() || '0'

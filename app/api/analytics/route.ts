@@ -160,7 +160,7 @@ export async function GET(request: NextRequest) {
         const recentActivity = orders.slice(0, 5).map(order => ({
             type: 'order',
             title: 'طلب جديد',
-            description: `تم استلام طلب بقيمة ${order.totalAmount.toFixed(2)} ج.م`,
+            description: `تم استلام طلب بقيمة ${order.totalAmount.toFixed(2)} $`,
             time: new Date(order.createdAt).toLocaleDateString('ar-EG'),
         }));
 

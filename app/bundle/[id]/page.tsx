@@ -141,7 +141,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                         {/* Price (Middle) */}
                                         <div className="text-start flex flex-col justify-center flex-shrink-0 ps-1">
                                             <p className="text-[10px] sm:text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">السعر الأصلي</p>
-                                            <p className="text-xs sm:text-sm text-gray-500 line-through font-mono bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-md inline-block">{bp.product.price} ج.م</p>
+                                            <p className="text-xs sm:text-sm text-gray-500 line-through font-mono bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-md inline-block">{bp.product.price} $</p>
                                         </div>
 
                                         {/* Image (Last / Left in RTL) */}
@@ -175,11 +175,11 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                             <span className="text-5xl lg:text-6xl font-black tracking-tight" style={{ color: brandColor }}>
                                                 {bundle.price}
                                             </span>
-                                            <span className="text-2xl font-bold text-gray-500">ج.م</span>
+                                            <span className="text-2xl font-bold text-gray-500">$</span>
                                         </div>
                                         {originalPrice > bundle.price && (
                                             <div className="flex items-center justify-center gap-3 mt-4">
-                                                <span className="text-gray-400 line-through text-lg font-mono">{originalPrice} ج.م</span>
+                                                <span className="text-gray-400 line-through text-lg font-mono">{originalPrice} $</span>
                                                 <span className="bg-green-50 border border-green-200 text-green-700 dark:bg-green-900/30 dark:border-green-800 dark:text-green-400 text-sm font-black px-4 py-1.5 rounded-full shadow-sm">
                                                     وفر {discountPct}%
                                                 </span>
@@ -191,7 +191,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                     {discountPct > 0 && (
                                         <div className="rounded-2xl p-5 text-center transition-transform hover:scale-[1.02]" style={{ background: `${brandColor}08`, border: `1px dashed ${brandColor}40` }}>
                                             <p className="font-extrabold text-base leading-relaxed" style={{ color: brandColor }}>
-                                                🎉 صفقة رابحة! ستحتفظ بمبلغ {originalPrice - bundle.price} ج.م في جيبك.
+                                                🎉 صفقة رابحة! ستحتفظ بمبلغ {originalPrice - bundle.price} $ في جيبك.
                                             </p>
                                         </div>
                                     )}

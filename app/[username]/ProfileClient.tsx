@@ -319,7 +319,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                     })()}
                                     <div className="flex items-center justify-between mt-auto">
                                         <span className="text-2xl font-black" style={{ color: brandColor }}>
-                                            {featuredProduct.isFree || featuredProduct.price === 0 ? 'مجاني' : `${featuredProduct.price} ج.م`}
+                                            {featuredProduct.isFree || featuredProduct.price === 0 ? 'مجاني' : `${featuredProduct.price} $`}
                                         </span>
                                         <span className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-white font-bold text-sm shadow-lg group-hover:scale-105 transition-transform"
                                             style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}>
@@ -428,7 +428,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                     <div className="absolute top-2.5 right-2.5 flex flex-col gap-1.5">
                                                         {product.isFree || product.price === 0
                                                             ? <span className="bg-green-500 text-white text-[10px] font-black px-2 py-1 rounded-lg shadow">مجاني</span>
-                                                            : <span className="bg-black/70 backdrop-blur-sm text-white text-[10px] font-black px-2 py-1 rounded-lg">{product.price} ج.م</span>
+                                                            : <span className="bg-black/70 backdrop-blur-sm text-white text-[10px] font-black px-2 py-1 rounded-lg">{product.price} $</span>
                                                         }
                                                         {(product.category === 'courses' || product.category === 'course') && (
                                                             <span className="bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1">
@@ -456,7 +456,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                         )}
                                                         {!(product.soldCount > 0) && <span />}
                                                         <span className="text-base font-black" style={{ color: brandColor }}>
-                                                            {product.isFree || product.price === 0 ? 'مجاني' : `${product.price} ج.م`}
+                                                            {product.isFree || product.price === 0 ? 'مجاني' : `${product.price} $`}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -514,7 +514,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                 </div>
                                 <h3 className="text-2xl sm:text-3xl font-black mb-1">احجز استشارة خاصة</h3>
                                 <p className="text-white/80 text-sm">
-                                    {creator.consultationPrice > 0 ? `${creator.consultationPrice} ج.م / جلسة` : 'متاحة مجاناً'}
+                                    {creator.consultationPrice > 0 ? `${creator.consultationPrice} $ / جلسة` : 'متاحة مجاناً'}
                                 </p>
                             </div>
                             <Link
@@ -574,7 +574,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                             ت
                         </div>
                         <span className="text-xs text-gray-500 dark:text-gray-400">مدعوم من </span>
-                        <Link href="/" className="text-xs font-black" style={{ color: brandColor }}>منصة تقانة</Link>
+                        <Link href="/" className="text-xs font-black" style={{ color: brandColor }}>منصة تمالين</Link>
                     </div>
                 </div>
             </div>

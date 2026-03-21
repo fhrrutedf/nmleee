@@ -65,6 +65,7 @@ export default function FileUploader({
     );
 
     const uploadFile = (file: File) => {
+        const toastId = toast.loading(`جاري رفع ${truncateFilename(file.name)}...`);
         const formData = new FormData();
         formData.append("file", file);
         formData.append("type", file.type.startsWith("image/") ? "image" : "file");
@@ -88,6 +89,7 @@ export default function FileUploader({
         };
 
         xhr.onload = () => {
+            toast.dismiss(toastId);
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
                 setUploads((prev) => {
@@ -129,6 +131,7 @@ export default function FileUploader({
         };
 
         xhr.onerror = () => {
+            toast.dismiss(toastId);
             setUploads((prev) =>
                 prev.map((upload) =>
                     upload.file === file

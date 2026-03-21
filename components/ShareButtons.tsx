@@ -16,7 +16,7 @@ export function ShareButtons({
     productTitle,
     creatorName,
     price,
-    currency = 'ج.م'
+    currency = '$'
 }: ShareButtonsProps) {
     const whatsappMessage = encodeURIComponent(
         `🎯 ${productTitle}\n\nمن: ${creatorName}\n${price ? `السعر: ${price} ${currency}` : 'مجاني!'}\n\nشاهد المنتج:\n${productUrl}`

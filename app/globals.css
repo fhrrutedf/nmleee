@@ -111,7 +111,19 @@
   .input {
     background-color: var(--card-white);
     color: var(--primary-charcoal);
-    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-action-blue focus:border-transparent transition-all duration-200 outline-none dark:border-gray-700;
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300 outline-none dark:border-gray-700 shadow-sm focus:shadow-[0_0_15px_rgba(99,102,241,0.3)];
+  }
+
+  .input-modern {
+    @apply w-full bg-slate-50 border-2 border-slate-100/50 rounded-[1.5rem] px-6 py-4 text-slate-900 dark:text-white dark:bg-slate-900 font-bold tracking-tight outline-none transition-all duration-300 dark:border-gray-800;
+  }
+  
+  .input-modern:focus {
+    @apply bg-white dark:bg-slate-800 border-indigo-500 shadow-[0_0_20px_rgba(99,102,241,0.3)] dark:shadow-[0_0_20px_rgba(99,102,241,0.2)];
+  }
+
+  .input-modern::placeholder {
+    @apply opacity-40 font-medium;
   }
 
   .input::placeholder {

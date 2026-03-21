@@ -125,7 +125,7 @@ export default function FinancialsPage() {
     const revenueChartData = {
         labels: data.monthlyChart.labels,
         datasets: [{
-            label: 'الإيرادات (ج.م)',
+            label: 'الإيرادات ($)',
             data: data.monthlyChart.data,
             borderColor: 'rgb(59, 130, 246)',
             backgroundColor: 'rgba(59, 130, 246, 0.08)',
@@ -215,7 +215,7 @@ export default function FinancialsPage() {
                                 </div>
                                 <p className="text-3xl font-black text-primary-charcoal dark:text-white tracking-tight">
                                     {data.balance.available.toFixed(2)}
-                                    <span className="text-lg text-gray-400 mr-1">ج.م</span>
+                                    <span className="text-lg text-gray-400 mr-1">$</span>
                                 </p>
                                 {data.balance.available >= 50 && (
                                     <Link href="/dashboard/payouts" className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-green-600 hover:text-green-700 transition-colors">
@@ -237,7 +237,7 @@ export default function FinancialsPage() {
                                 </div>
                                 <p className="text-3xl font-black text-primary-charcoal dark:text-white tracking-tight">
                                     {data.balance.pending.toFixed(2)}
-                                    <span className="text-lg text-gray-400 mr-1">ج.م</span>
+                                    <span className="text-lg text-gray-400 mr-1">$</span>
                                 </p>
                                 <p className="mt-2 text-xs text-yellow-600 font-medium flex items-center gap-1">
                                     <FiClock size={12} />
@@ -258,7 +258,7 @@ export default function FinancialsPage() {
                                 </div>
                                 <p className="text-3xl font-black text-primary-charcoal dark:text-white tracking-tight">
                                     {data.thisMonthRevenue.toFixed(2)}
-                                    <span className="text-lg text-gray-400 mr-1">ج.م</span>
+                                    <span className="text-lg text-gray-400 mr-1">$</span>
                                 </p>
                                 <div className={`mt-2 text-xs font-bold flex items-center gap-1 ${data.revenueGrowth >= 0 ? 'text-green-600' : 'text-red-500'}`}>
                                     {data.revenueGrowth >= 0 ? <FiArrowUpRight size={14} /> : <FiArrowDownRight size={14} />}
@@ -279,11 +279,11 @@ export default function FinancialsPage() {
                                 </div>
                                 <p className="text-3xl font-black tracking-tight">
                                     {data.balance.total.toFixed(2)}
-                                    <span className="text-lg text-white/50 mr-1">ج.م</span>
+                                    <span className="text-lg text-white/50 mr-1">$</span>
                                 </p>
                                 <p className="mt-2 text-xs text-white/70 font-medium flex items-center gap-1">
                                     <FiStar size={12} />
-                                    تم سحب {data.payoutsSummary.totalWithdrawn.toFixed(2)} ج.م
+                                    تم سحب {data.payoutsSummary.totalWithdrawn.toFixed(2)} $
                                 </p>
                             </div>
                         </motion.div>
@@ -305,7 +305,7 @@ export default function FinancialsPage() {
                                         scales: {
                                             y: {
                                                 beginAtZero: true,
-                                                ticks: { callback: (v) => `${v} ج.م` },
+                                                ticks: { callback: (v) => `${v} $` },
                                                 grid: { color: 'rgba(0,0,0,0.04)' },
                                             },
                                             x: { grid: { display: false } },
@@ -376,9 +376,9 @@ export default function FinancialsPage() {
                                     {data.monthlyChart.labels.map((month, idx) => (
                                         <tr key={idx} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                                             <td className="px-6 py-4 font-bold text-primary-charcoal dark:text-white text-sm">{month}</td>
-                                            <td className="px-6 py-4 text-green-600 font-bold text-sm">{data.monthlyChart.data[idx].toFixed(2)} ج.م</td>
+                                            <td className="px-6 py-4 text-green-600 font-bold text-sm">{data.monthlyChart.data[idx].toFixed(2)} $</td>
                                             <td className="px-6 py-4 text-gray-600 dark:text-gray-300 text-sm">{data.monthlyChart.orders[idx]} طلب</td>
-                                            <td className="px-6 py-4 text-red-500 text-sm font-medium">-{data.monthlyChart.fees[idx].toFixed(2)} ج.م</td>
+                                            <td className="px-6 py-4 text-red-500 text-sm font-medium">-{data.monthlyChart.fees[idx].toFixed(2)} $</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -416,7 +416,7 @@ export default function FinancialsPage() {
                                             <p className="text-xs text-gray-500">{tx.customerName} • {tx.orderNumber}</p>
                                         </div>
                                         <div className="text-left">
-                                            <p className="font-black text-sm text-green-600">+{tx.sellerAmount.toFixed(2)} ج.م</p>
+                                            <p className="font-black text-sm text-green-600">+{tx.sellerAmount.toFixed(2)} $</p>
                                             <p className="text-xs text-gray-400">{tx.date ? new Date(tx.date).toLocaleDateString('ar-EG') : '-'}</p>
                                         </div>
                                     </div>
@@ -474,7 +474,7 @@ export default function FinancialsPage() {
                                 </div>
                                 <p className="text-3xl font-black tracking-tight">
                                     {data.referrals.earnings.toFixed(2)}
-                                    <span className="text-lg text-white/50 mr-1">ج.م</span>
+                                    <span className="text-lg text-white/50 mr-1">$</span>
                                 </p>
                             </div>
                         </motion.div>
@@ -561,7 +561,7 @@ export default function FinancialsPage() {
                         <div className="mt-6 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/10 dark:to-blue-900/10 rounded-2xl p-5 border border-purple-200/50 dark:border-purple-800/50">
                             <h4 className="font-bold text-primary-charcoal dark:text-white mb-2">💡 مثال توضيحي</h4>
                             <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                                لو أحد المستخدمين اللي سجلوا عبر رابطك باع منتج بقيمة <strong>100 ج.م</strong> وعمولة المنصة <strong>10 ج.م</strong>، فأنت تحصل على <strong>0.10 ج.م</strong> تلقائياً في رصيدك. مع مرور الوقت وكثرة المبيعات، الأرباح تتراكم!
+                                لو أحد المستخدمين اللي سجلوا عبر رابطك باع منتج بقيمة <strong>100 $</strong> وعمولة المنصة <strong>10 $</strong>، فأنت تحصل على <strong>0.10 $</strong> تلقائياً في رصيدك. مع مرور الوقت وكثرة المبيعات، الأرباح تتراكم!
                             </p>
                         </div>
                     </motion.div>

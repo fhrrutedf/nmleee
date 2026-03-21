@@ -285,7 +285,7 @@ export default function EditProductPage() {
 
                                 {formData.pricingType !== 'free' && (
                                     <div>
-                                        <label className="label-modern">السعر الأساسي (ج.م)</label>
+                                        <label className="label-modern">السعر الأساسي ($)</label>
                                         <input
                                             type="number" step="0.01" className="input-modern text-center font-black"
                                             value={formData.price}

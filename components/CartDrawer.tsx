@@ -129,7 +129,7 @@ export default function CartDrawer() {
                                                         {item.type === 'course' ? '📚 دورة تدريبية' : '📦 منتج رقمي'}
                                                     </p>
                                                     <p className="text-lg font-black text-action-blue">
-                                                        {item.price === 0 ? 'مجاني' : `${item.price.toFixed(2)} ج.م`}
+                                                        {item.price === 0 ? 'مجاني' : `${item.price.toFixed(2)} $`}
                                                     </p>
                                                 </div>
                                                 <button
@@ -150,7 +150,7 @@ export default function CartDrawer() {
                                     <div className="flex items-center justify-between mb-6">
                                         <span className="text-gray-500 font-bold">إجمالي المبلغ:</span>
                                         <span className="text-2xl font-black text-primary-charcoal">
-                                            {getTotal().toFixed(2)} <span className="text-sm">ج.م</span>
+                                            {getTotal().toFixed(2)} <span className="text-sm">$</span>
                                         </span>
                                     </div>
                                     <Link

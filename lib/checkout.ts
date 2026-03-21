@@ -122,7 +122,7 @@ export async function fulfillPurchase(orderId: string, userId?: string) {
                     sellerId: order.sellerId,
                     type: 'sale',
                     title: 'عملية بيع جديدة! 💰',
-                    content: `قام ${studentName} بشراء "${order.items[0]?.course?.title || order.items[0]?.product?.title || 'منتج'}" بقيمة ${order.totalAmount} ج.م`,
+                    content: `قام ${studentName} بشراء "${order.items[0]?.course?.title || order.items[0]?.product?.title || 'منتج'}" بقيمة ${order.totalAmount} $`,
                     payload: {
                         amount: order.totalAmount,
                         customerName: studentName,

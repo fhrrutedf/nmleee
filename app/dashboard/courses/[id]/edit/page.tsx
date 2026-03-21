@@ -289,7 +289,7 @@ export default function EditCoursePage() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="label-modern italic">السعر الإجمالي (ج.م)</label>
+                                    <label className="label-modern italic">السعر الإجمالي ($)</label>
                                     <input
                                         type="number" className="input-modern text-center font-black text-xl text-primary-indigo-600 border-2 border-primary-indigo-50"
                                         value={formData.price}

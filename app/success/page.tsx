@@ -178,7 +178,7 @@ function SuccessContent() {
                                 </div>
                                 <div className="flex justify-between items-center pt-2">
                                     <span className="text-gray-500 font-bold">المبلغ:</span>
-                                    <span className="font-black text-action-blue text-2xl">{order.totalAmount.toFixed(2)} ج.م</span>
+                                    <span className="font-black text-action-blue text-2xl">{order.totalAmount.toFixed(2)} $</span>
                                 </div>
                             </div>
 
@@ -309,7 +309,7 @@ function SuccessContent() {
                                                 </div>
                                                 <div className="flex-1 flex flex-col justify-center">
                                                     <h4 className="font-bold text-primary-charcoal dark:text-white text-sm line-clamp-1 group-hover:text-action-blue transition-colors">{upsell.title}</h4>
-                                                    <div className="font-black text-gray-900 dark:text-gray-200 mt-1">{upsell.price} ج.م</div>
+                                                    <div className="font-black text-gray-900 dark:text-gray-200 mt-1">{upsell.price} $</div>
                                                     <Link href={`/${upsell.id}`} className="text-action-blue font-bold text-sm mt-2 flex items-center gap-1">
                                                         عرض التفاصيل <FiArrowLeft />
                                                     </Link>
@@ -336,7 +336,7 @@ function SuccessContent() {
             </div>
             <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-action-blue font-bold hover:underline">منصة تقانة</a>
+                    مدعوم من <a href="https://tmleen.com" className="text-action-blue font-bold hover:underline">منصة تمالين</a>
                 </p>
             </footer>
         </div>

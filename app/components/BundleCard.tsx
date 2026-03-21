@@ -131,11 +131,11 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
                                 <span className="text-xl font-black" style={{ color: brandColor }}>
                                     {bundle.price}
                                 </span>
-                                <span className="text-sm font-bold text-gray-500">ج.م</span>
+                                <span className="text-sm font-bold text-gray-500">$</span>
                             </div>
                             {originalPrice > bundle.price && (
                                 <span className="text-xs text-gray-400 line-through">
-                                    {Number(originalPrice.toFixed(2))} ج.م
+                                    {Number(originalPrice.toFixed(2))} $
                                 </span>
                             )}
                         </div>

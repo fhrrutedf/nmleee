@@ -182,7 +182,7 @@ export default function BookAppointmentPage() {
                         <div className="mr-auto text-left">
                             <span className="block text-sm text-gray-500 mb-1">سعر الاستشارة</span>
                             <span className="text-2xl font-bold text-primary-600">
-                                {creator.consultationPrice > 0 ? `${creator.consultationPrice} ج.م` : 'مجانية'}
+                                {creator.consultationPrice > 0 ? `${creator.consultationPrice} $` : 'مجانية'}
                             </span>
                         </div>
                     </div>

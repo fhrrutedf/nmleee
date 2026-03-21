@@ -125,7 +125,7 @@ export default function CoursesPage() {
                                             ))}
                                         </div>
                                         <span className="text-2xl font-bold text-primary-600">
-                                            {course.price.toFixed(0)} ج.م
+                                            {course.price.toFixed(0)} $
                                         </span>
                                     </div>
                                 </div>

@@ -107,7 +107,7 @@ export default function BookAppointmentPage() {
                                                 <p className="text-sm text-gray-600">{service.duration}</p>
                                             </div>
                                             <div className="text-left">
-                                                <p className="text-2xl font-bold text-primary-600">{service.price} ج.م</p>
+                                                <p className="text-2xl font-bold text-primary-600">{service.price} $</p>
                                             </div>
                                         </label>
                                     ))}
@@ -313,7 +313,7 @@ export default function BookAppointmentPage() {
                                         <div className="flex justify-between items-center">
                                             <span className="font-medium">السعر</span>
                                             <span className="text-2xl font-bold text-primary-600">
-                                                {selectedService.price} ج.م
+                                                {selectedService.price} $
                                             </span>
                                         </div>
                                     </div>

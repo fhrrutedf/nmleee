@@ -98,7 +98,7 @@ export default function MyPurchasesPage() {
                             <div>
                                 <p className="text-purple-100 text-sm">إجمالي الإنفاق</p>
                                 <p className="text-3xl font-bold mt-1">
-                                    {purchases.reduce((sum: number, p: any) => sum + p.total, 0).toFixed(0)} ج.م
+                                    {purchases.reduce((sum: number, p: any) => sum + p.total, 0).toFixed(0)} $
                                 </p>
                             </div>
                             <FiClock className="text-4xl text-purple-200" />
@@ -142,7 +142,7 @@ export default function MyPurchasesPage() {
                                                 purchase.status === 'pending' ? 'قيد المعالجة' : 'ملغي'}
                                         </span>
                                         <p className="text-2xl font-bold text-primary-600 mt-2">
-                                            {purchase.total.toFixed(2)} ج.م
+                                            {purchase.total.toFixed(2)} $
                                         </p>
                                     </div>
                                 </div>

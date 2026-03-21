@@ -238,7 +238,7 @@ export function formatCurrency(amount: number, currency: string): string {
         USD: '$',
         SYP: 'ل.س',
         IQD: 'د.ع',
-        EGP: 'ج.م',
+        EGP: '$',
         SAR: 'ر.س',
     };
 

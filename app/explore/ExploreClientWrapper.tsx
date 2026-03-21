@@ -126,13 +126,13 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                                 <span className="text-green-500">مجاناً</span>
                                             ) : (
                                                 <span className="bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent flex items-baseline gap-1">
-                                                    {item.price} <span className="text-sm font-bold text-gray-400 dark:text-gray-500 ml-1">ج.م</span>
+                                                    {item.price} <span className="text-sm font-bold text-gray-400 dark:text-gray-500 ml-1">$</span>
                                                 </span>
                                             )}
                                         </span>
                                         {item.discountPrice && item.discountPrice < item.price && (
                                             <span className="text-sm text-gray-400 dark:text-gray-600 font-bold line-through block mt-0.5">
-                                                {item.price} ج.م
+                                                {item.price} $
                                             </span>
                                         )}
                                     </div>
