@@ -8,6 +8,20 @@ import { ensureUserAccount } from '@/lib/auth-utils';
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
+        const {
+            items,
+            customerName,
+            customerEmail,
+            customerPhone,
+            country,
+            paymentProvider,
+            senderPhone,
+            transactionRef,
+            paymentProof,
+            paymentNotes,
+            userId,
+        } = body;
+
         // 1. SECURITY: Check for duplicate transaction reference
         if (transactionRef) {
             const existingOrder = await prisma.order.findFirst({
