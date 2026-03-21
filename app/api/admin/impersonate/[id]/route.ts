@@ -36,6 +36,9 @@ export async function POST(
     }
 
     // Log impersonation
+    const { getClientIp } = await import('@/lib/activity-log');
+    const { sendTelegramAlert, AuditTemplates } = await import('@/lib/telegram');
+    
     await logActivity({
         actorId: adminUser.id,
         actorName: adminUser.name,
@@ -44,7 +47,15 @@ export async function POST(
         entityType: 'User',
         entityId: targetUser.id,
         details: { targetEmail: targetUser.email, adminEmail: adminUser.email },
+        ipAddress: getClientIp(req),
     });
+
+    // Send Telegram Alert
+    await sendTelegramAlert(AuditTemplates.sensitiveAction(
+        adminUser.name, 
+        'بداية انتحال شخصية', 
+        `الأدمن دخل بحساب: ${targetUser.email}`
+    ));
 
     // Create impersonation session record
     await prisma.$executeRaw`

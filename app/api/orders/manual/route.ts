@@ -28,7 +28,18 @@ export async function POST(req: NextRequest) {
                 where: { transactionRef }
             });
             if (existingOrder) {
-                return NextResponse.json({ error: 'رقم العملية هذا تم استخدامه مسبقاً' }, { status: 400 });
+                const { getClientIp, logActivity, LOG_ACTIONS } = await import('@/lib/activity-log');
+                const { sendTelegramAlert, AuditTemplates } = await import('@/lib/telegram');
+                
+                await logActivity({
+                    action: LOG_ACTIONS.PAYMENT_FAILED,
+                    details: { error: 'Duplicate Transaction Ref', ref: transactionRef },
+                    ipAddress: getClientIp(req),
+                });
+                
+                await sendTelegramAlert(AuditTemplates.failure('دفع متكرر', `محاولة استخدام إيصال مستخدم سابقاً: ${transactionRef}`));
+                
+                return NextResponse.json({ error: 'رقم العملية هذا تم استخدامه مسبقاً (محاولة تكرار)' }, { status: 400 });
             }
         }
 
@@ -175,8 +186,25 @@ export async function POST(req: NextRequest) {
             orderNumber: order.orderNumber,
             orderId: order.id,
         });
-    } catch (error) {
+    } catch (error: any) {
         console.error('Error creating manual order:', error);
-        return NextResponse.json({ error: 'حدث خطأ' }, { status: 500 });
+        
+        // LOG FAILURE: Lost Opportunity
+        try {
+            const { logActivity, LOG_ACTIONS, getClientIp } = await import('@/lib/activity-log');
+            const { sendTelegramAlert, AuditTemplates } = await import('@/lib/telegram');
+            
+            await logActivity({
+                action: LOG_ACTIONS.PAYMENT_FAILED,
+                details: { error: error.message, stack: error.stack },
+                ipAddress: getClientIp(req),
+            });
+
+            await sendTelegramAlert(AuditTemplates.failure('طلب يدوي', error.message));
+        } catch (e) {
+            console.error('Critical log failure:', e);
+        }
+
+        return NextResponse.json({ error: 'حدث خطأ أثناء معالجة الطلب' }, { status: 500 });
     }
 }

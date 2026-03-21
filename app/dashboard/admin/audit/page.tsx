@@ -34,6 +34,8 @@ const ACTION_LABELS: Record<string, { label: string; color: string }> = {
     'course.approved': { label: 'قبول كورس', color: 'bg-indigo-100 text-indigo-700' },
     'broadcast.sent': { label: 'إرسال بث', color: 'bg-pink-100 text-pink-700' },
     'admin.impersonation_started': { label: 'بدء انتحال', color: 'bg-orange-100 text-orange-700' },
+    'platform.payment_failed': { label: 'فشل دفع', color: 'bg-red-50 text-red-500' },
+    'platform.settings_updated': { label: 'تحديث منصة', color: 'bg-blue-50 text-blue-600' },
 };
 
 export default function AdminAuditLogsPage() {
@@ -46,8 +48,8 @@ export default function AdminAuditLogsPage() {
     const loadLogs = async () => {
         setLoading(true);
         try {
-            const data = await apiGet<AuditLog[]>(`/api/admin/audit-logs?limit=${limit}&offset=${page * limit}`);
-            setLogs(data);
+            const data = await apiGet<{ logs: AuditLog[], total: number }>(`/api/admin/activity-logs?limit=${limit}&offset=${page * limit}`);
+            setLogs(data.logs || []);
         } catch (err) {
             console.error(handleApiError(err));
         } finally {

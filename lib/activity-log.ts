@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/db';
+import { NextRequest } from 'next/server';
 
 export interface LogEntry {
     actorId?: string;
@@ -9,6 +10,15 @@ export interface LogEntry {
     entityId?: string;
     details?: Record<string, any>;
     ipAddress?: string;
+}
+
+/**
+ * Get client IP address from request headers
+ */
+export function getClientIp(req: NextRequest | Request): string {
+    const forwarded = (req as any).headers?.get?.('x-forwarded-for') || (req as any).headers?.['x-forwarded-for'];
+    if (forwarded) return forwarded.split(',')[0];
+    return '127.0.0.1';
 }
 
 /**
@@ -80,6 +90,7 @@ export const LOG_ACTIONS = {
     // Platform
     SETTINGS_UPDATED: 'platform.settings_updated',
     BROADCAST_SENT: 'broadcast.sent',
+    PAYMENT_FAILED: 'platform.payment_failed',
 
     // Admin
     IMPERSONATION_STARTED: 'admin.impersonation_started',

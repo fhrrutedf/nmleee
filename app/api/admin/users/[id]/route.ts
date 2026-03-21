@@ -26,7 +26,9 @@ export async function PATCH(
             UPDATE "User" SET custom_commission_rate = ${customCommissionRate === '' ? null : customCommissionRate}
             WHERE id = ${id}
         `;
-        const { logActivity, LOG_ACTIONS } = await import('@/lib/activity-log');
+        const { logActivity, LOG_ACTIONS, getClientIp } = await import('@/lib/activity-log');
+        const { sendTelegramAlert, AuditTemplates } = await import('@/lib/telegram');
+        
         await logActivity({
             actorId: (session?.user as any)?.id,
             actorName: (session?.user as any)?.name,
@@ -35,7 +37,15 @@ export async function PATCH(
             entityType: 'User',
             entityId: id,
             details: { customCommissionRate },
+            ipAddress: getClientIp(req),
         });
+
+        await sendTelegramAlert(AuditTemplates.sensitiveAction(
+            (session?.user as any)?.name,
+            'تغيير عمولة مستخدم',
+            `المستخدم ID: ${id} | العمولة الجديدة: ${customCommissionRate || 'الافتراضي'}`
+        ));
+
         if (Object.keys(updateData).length === 0) {
             return NextResponse.json({ success: true });
         }
@@ -66,6 +76,26 @@ export async function DELETE(
         data: { isActive: false },
         select: { id: true, name: true, email: true },
     });
+
+    const { logActivity, LOG_ACTIONS, getClientIp } = await import('@/lib/activity-log');
+    const { sendTelegramAlert, AuditTemplates } = await import('@/lib/telegram');
+
+    await logActivity({
+        actorId: (session?.user as any)?.id,
+        actorName: (session?.user as any)?.name,
+        actorRole: 'ADMIN',
+        action: LOG_ACTIONS.USER_BANNED,
+        entityType: 'User',
+        entityId: id,
+        details: { email: user.email },
+        ipAddress: getClientIp(req),
+    });
+
+    await sendTelegramAlert(AuditTemplates.sensitiveAction(
+        (session?.user as any)?.name,
+        'حظر مستخدم',
+        `اسم المستخدم: ${user.name} | البريد: ${user.email}`
+    ));
 
     return NextResponse.json({ success: true, user });
 }
