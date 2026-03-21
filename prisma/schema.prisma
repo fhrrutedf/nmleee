@@ -217,6 +217,13 @@ model Product {
   duration    String?                  // مدة الدورة
   sessions    Int?                     // عدد الجلسات
   features    String[] @default([])    // مميزات المنتج
+  prerequisites String[] @default([])  // المتطلبات المسبقة
+  
+  // Marketing & Pricing Features
+  originalPrice Float?                 // السعر الأصلي قبل الخصم
+  enablePPP     Boolean  @default(false) // نظام التسعير العادل (خصم تلقائي للدول النامية)
+  upsellProductId String?              // منتج إضافي مقترح (Sales Bump)
+  upsellPrice     Float?               // سعر العرض الإضافي
   
   // Pay What You Want (PWYW) Pricing
   minPrice    Float?   @default(0)     // الحد الأدنى للسعر (0 = free choice)
@@ -285,6 +292,14 @@ model Course {
   allowComments Boolean @default(true)
   requiresQuiz  Boolean @default(false)
   certificateTemplate String? // قالب الشهادة المخصص
+  prerequisites String[] @default([]) // المتطلبات أو المعدات المطلوبة
+
+  // Marketing & Scarcity
+  originalPrice   Float?              // السعر الأصلي للخصم الوهمي
+  enablePPP       Boolean  @default(false)
+  offerExpiresAt  DateTime?           // عداد انتهاء العرض
+  upsellCourseId  String?             // الكورس الإضافي في الـ Check-out
+  upsellPrice     Float?
   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

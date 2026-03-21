@@ -81,6 +81,9 @@ export async function POST(request: NextRequest) {
         const product = await prisma.product.create({
             data: {
                 ...body,
+                originalPrice: body.originalPrice ? parseFloat(body.originalPrice) : null,
+                upsellPrice: body.upsellPrice ? parseFloat(body.upsellPrice) : null,
+                offerExpiresAt: body.offerExpiresAt ? new Date(body.offerExpiresAt) : null,
                 slug,
                 userId,
             },

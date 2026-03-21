@@ -50,6 +50,12 @@ export default function NewProductPage() {
         pricingType: 'fixed' as PricingType,
         minPrice: '',
         suggestedPrice: '',
+        originalPrice: '',
+        enablePPP: false,
+        prerequisites: '',
+        upsellProductId: '',
+        upsellPrice: '',
+        offerExpiresAt: '',
         isActive: true, // Default to show
     });
 
@@ -127,6 +133,7 @@ export default function NewProductPage() {
                     minPrice: pricingType === 'pwyw' ? parseFloat(formData.minPrice || '0') : null,
                     suggestedPrice: pricingType === 'pwyw' && formData.suggestedPrice ? parseFloat(formData.suggestedPrice) : null,
                     tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
+                    prerequisites: formData.prerequisites.split(',').map(t => t.trim()).filter(Boolean),
                 }),
             });
             if (res.ok) {
@@ -309,9 +316,16 @@ export default function NewProductPage() {
                                      <div className="min-h-[400px]">
                                         <RichTextEditor value={formData.description} onChange={val => update('description', val)} />
                                      </div>
-                                     <div className="mt-8">
-                                        <label className="label-modern mb-2 block">الوسوم التسويقية (SEO Tags) - افصل بينها بفاصلة</label>
-                                        <input type="text" className="input-modern" placeholder="مثال: تصميم, تكنولوجيا, ملفات_جاهزة" value={formData.tags} onChange={e => update('tags', e.target.value)} />
+                                     <div className="mt-8 grid md:grid-cols-2 gap-8">
+                                        <div>
+                                            <label className="label-modern mb-2 block">الوسوم التسويقية (SEO Tags)</label>
+                                            <input type="text" className="input-modern" placeholder="مثال: تصميم, تكنولوجيا, ملفات_جاهزة" value={formData.tags} onChange={e => update('tags', e.target.value)} />
+                                        </div>
+                                        <div>
+                                            <label className="label-modern mb-2 block">متطلبات المشتري المسبقة (Prerequisites)</label>
+                                            <input type="text" className="input-modern" placeholder="مثال: لاب توب, اشتراك فوتوشوب" value={formData.prerequisites} onChange={e => update('prerequisites', e.target.value)} />
+                                            <p className="text-[10px] text-slate-400 mt-2 font-bold">افصل بفاصلة لعرضها كنقاط منظمة</p>
+                                        </div>
                                      </div>
                                 </Section>
                             </motion.div>
@@ -340,15 +354,27 @@ export default function NewProductPage() {
                                             <>
                                                 <div className="grid md:grid-cols-2 gap-8 items-end max-w-2xl mx-auto">
                                                     <div className="space-y-2">
-                                                        <label className="label-modern text-center block">السعر النهائي المعروض للزبون ($) <span className="text-red-500">*</span></label>
-                                                        <input type="number" step="0.01" className="bg-transparent border-0 border-b-4 border-slate-200 focus:border-emerald-500 text-center text-5xl font-black text-slate-900 w-full outline-none transition-all placeholder:text-slate-200" placeholder="00.00" value={formData.price} onChange={e => update('price', e.target.value)} />
+                                                        <label className="label-modern text-center block text-emerald-600">السعر النهائي بعد الخصم ($) <span className="text-red-500">*</span></label>
+                                                        <input type="number" step="0.01" className="bg-transparent border-0 border-b-4 border-emerald-500 text-center text-5xl font-black text-emerald-600 w-full outline-none transition-all placeholder:text-emerald-100" placeholder="00.00" value={formData.price} onChange={e => update('price', e.target.value)} />
                                                     </div>
-                                                    {formData.pricingType === 'pwyw' && (
+                                                    {formData.pricingType === 'pwyw' ? (
                                                         <div className="space-y-2">
-                                                            <label className="label-modern opacity-60 text-center block">أقل مبلغ لقبول إتمام الشراء ($)</label>
+                                                            <label className="label-modern opacity-60 text-center block">أقل مبلغ لقبوله ($)</label>
                                                             <input type="number" step="0.01" className="bg-transparent border-0 border-b-4 border-slate-200 focus:border-slate-500 text-center text-4xl font-black text-slate-400 w-full outline-none transition-all placeholder:text-slate-100" placeholder="0.00" value={formData.minPrice} onChange={e => update('minPrice', e.target.value)} />
                                                         </div>
+                                                    ) : (
+                                                        <div className="space-y-2 opacity-60 hover:opacity-100 transition-opacity">
+                                                            <label className="label-modern text-center block text-red-500">السعر الأصلي للخصم الوهمي ($)</label>
+                                                            <input type="number" step="0.01" className="bg-transparent border-0 border-b-4 border-slate-200 focus:border-red-400 text-center text-3xl font-black text-slate-400 line-through w-full outline-none transition-all placeholder:text-slate-200" placeholder="00.00" value={formData.originalPrice} onChange={e => update('originalPrice', e.target.value)} />
+                                                        </div>
                                                     )}
+                                                </div>
+                                                
+                                                <div className="max-w-2xl mx-auto pt-6 text-center space-y-4">
+                                                    <div className="flex flex-col items-center gap-2 mb-4">
+                                                        <label className="label-modern">عداد ندرة العرض (تاريخ الانتهاء)</label>
+                                                        <input type="datetime-local" className="input-modern text-center max-w-[250px] bg-slate-50 border-slate-200 text-xs font-bold" value={formData.offerExpiresAt} onChange={e => update('offerExpiresAt', e.target.value)} />
+                                                    </div>
                                                 </div>
                                                 
                                                 {/* Auto-Currency Net Earnings Box */}
@@ -389,10 +415,19 @@ export default function NewProductPage() {
                                     <div className="flex items-center justify-between p-8 bg-slate-900 rounded-[3rem] border border-white/10 shadow-xl transition-all cursor-pointer hover:bg-slate-800 group" onClick={() => update('isActive', !formData.isActive)}>
                                         <div className="text-right">
                                             <h3 className="font-black text-white text-xl leading-tight transition-colors group-hover:text-emerald-400">حالة ظهور المنتج في المتجر</h3>
-                                            <p className="text-xs text-slate-400 mt-1">{formData.isActive ? 'عرض وتسويق المنتج فوراً لجميع الزوار على صفحتك' : 'إخفاء المنتج عن العامة (ومشاركته للبيع عبر الرابط الخاص والمباشر فقط)'}</p>
                                         </div>
                                         <div className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.isActive ? 'bg-emerald-500 outline-emerald-500/30' : 'bg-slate-700 outline-slate-800'}`}>
                                             <div className={`w-6 h-6 bg-white rounded-full transition-all ${formData.isActive ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex items-center justify-between p-8 bg-blue-900 rounded-[3rem] border border-blue-800 shadow-lg transition-all cursor-pointer hover:bg-blue-800 group" onClick={() => update('enablePPP', !formData.enablePPP)}>
+                                        <div className="text-right">
+                                            <h3 className="font-black text-white text-xl leading-tight transition-colors group-hover:text-amber-400">تفعيل التسعير العادل (PPP Pricing) 🌍</h3>
+                                            <p className="text-xs text-blue-200 mt-1 max-w-lg leading-relaxed">تخفيض السعر تلقائياً للزوار من الدول النامية حسب القوة الشرائية، لضمان أعلى نسبة مبيعات للجميع دون حرمان أحد.</p>
+                                        </div>
+                                        <div className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-amber-500 outline-amber-500/30' : 'bg-blue-950 outline-blue-900'}`}>
+                                            <div className={`w-6 h-6 bg-white rounded-full transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
                                         </div>
                                     </div>
                                 </Section>

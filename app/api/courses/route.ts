@@ -135,6 +135,12 @@ export async function POST(request: NextRequest) {
                 trailerUrl: body.trailerUrl || null,
                 attachments: body.attachments || [],
                 format: body.format || 'recorded',
+                originalPrice: body.originalPrice ? parseFloat(body.originalPrice) : null,
+                enablePPP: body.enablePPP || false,
+                prerequisites: body.prerequisites || [],
+                upsellCourseId: body.upsellCourseId || null,
+                upsellPrice: body.upsellPrice ? parseFloat(body.upsellPrice) : null,
+                offerExpiresAt: body.offerExpiresAt ? new Date(body.offerExpiresAt) : null,
                 userId: userId
             },
         });

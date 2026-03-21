@@ -44,6 +44,12 @@ export default function NewCoursePage() {
         features: [] as string[],
         attachments: [] as string[],
         format: 'recorded',
+        originalPrice: '',
+        enablePPP: false,
+        prerequisites: '',
+        upsellCourseId: '',
+        upsellPrice: '',
+        offerExpiresAt: '',
         isActive: true,
         zoomLink: '',
         meetLink: '',
@@ -312,6 +318,11 @@ export default function NewCoursePage() {
 
                                     <div className="pt-10 grid md:grid-cols-2 gap-10">
                                         <div className="space-y-4">
+                                            <div className="mb-6">
+                                                <label className="label-modern text-xs">متطلبات المشتري المسبقة (Prerequisites)</label>
+                                                <input type="text" className="input-modern text-xs" placeholder="مثال: لابتوب، معرفة بالبرمجة" value={formData.prerequisites} onChange={e => update('prerequisites', e.target.value)} />
+                                                <p className="text-[10px] text-slate-400 mt-2 font-bold">افصل بفاصلة لعرضها كنقاط منظمة</p>
+                                            </div>
                                             <label className="label-modern text-xs">كلمات مفتاحية (Tags)</label>
                                             <div className="flex gap-2">
                                                 <input type="text" className="input-modern flex-1 text-xs" placeholder="أضف وسم..." value={tagInput} onChange={e => setTagInput(e.target.value)} onKeyPress={e => e.key === 'Enter' && (e.preventDefault(), addTag())} />
@@ -349,10 +360,19 @@ export default function NewCoursePage() {
                             <motion.div key="st3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-10">
                                 <Section title="التسعير والحاسبة الذكية" icon={<FiDollarSign />}>
                                     <div className="max-w-md mx-auto space-y-8 py-8">
-                                        <div className="text-center space-y-4">
-                                            <label className="label-modern italic tracking-widest uppercase opacity-40">السعر النقدي الأساسي ($)</label>
-                                            <input type="number" step="0.01" className="bg-transparent border-0 border-b-4 border-slate-200 focus:border-primary-indigo-500 text-center text-6xl font-black text-slate-900 w-full outline-none transition-all placeholder:text-slate-200 glow focus:ring-0" placeholder="00.00" value={formData.price} onChange={e => update('price', e.target.value)} />
-                                            <p className="text-[10px] text-slate-400 font-bold uppercase">هذا السعر الذي سيظهر للطلاب في المتجر</p>
+                                        <div className="text-center space-y-4 relative">
+                                            <label className="label-modern italic tracking-widest uppercase text-primary-indigo-500">السعر النهائي بعد الخصم ($)</label>
+                                            <input type="number" step="0.01" className="bg-transparent border-0 border-b-4 border-slate-200 focus:border-primary-indigo-500 text-center text-6xl font-black text-primary-indigo-600 w-full outline-none transition-all placeholder:text-slate-200 glow focus:ring-0" placeholder="00.00" value={formData.price} onChange={e => update('price', e.target.value)} />
+                                            <p className="text-[10px] text-slate-400 font-bold uppercase">هذا السعر الذي سيظهر للطلاب في المتجر لتفعيل الشراء</p>
+                                            <div className="absolute -top-4 -right-12 opacity-60 hover:opacity-100 transition-opacity w-32">
+                                                <label className="text-[9px] font-black text-red-400 mb-1 block">السعر الأصلي الوهمي</label>
+                                                <input type="number" step="0.01" className="bg-transparent border-0 border-b-2 border-red-200 focus:border-red-400 text-center text-xl font-black text-slate-400 line-through w-full outline-none transition-all placeholder:text-slate-200" placeholder="00.00" value={formData.originalPrice} onChange={e => update('originalPrice', e.target.value)} />
+                                            </div>
+                                        </div>
+
+                                        <div className="text-center space-y-4 border-t border-slate-100 pt-6">
+                                            <label className="label-modern">عداد الاستعجال والندرة (تاريخ الانتهاء)</label>
+                                            <input type="datetime-local" className="input-modern text-center max-w-[250px] mx-auto bg-slate-50 border-slate-200 text-xs font-bold" value={formData.offerExpiresAt} onChange={e => update('offerExpiresAt', e.target.value)} />
                                         </div>
 
                                         {/* Earnings Calculator */}
@@ -393,6 +413,16 @@ export default function NewCoursePage() {
                                         </div>
                                         <div className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.isActive ? 'bg-primary-indigo-500 outline-primary-indigo-500/30' : 'bg-slate-700 outline-slate-800'}`}>
                                             <div className={`w-6 h-6 bg-white rounded-full transition-all ${formData.isActive ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex items-center justify-between p-8 bg-blue-900 rounded-[3rem] border border-blue-800 shadow-lg transition-all cursor-pointer hover:bg-blue-800 group" onClick={() => update('enablePPP', !formData.enablePPP)}>
+                                        <div className="text-right">
+                                            <h3 className="font-black text-white text-xl leading-tight transition-colors group-hover:text-amber-400">تفعيل التسعير العادل (PPP Pricing) 🌍</h3>
+                                            <p className="text-xs text-blue-200 mt-1 max-w-lg leading-relaxed">تخفيض السعر تلقائياً للزوار من الدول النامية حسب القوة الشرائية، لضمان أعلى نسبة مبيعات للجميع دون حرمان أحد.</p>
+                                        </div>
+                                        <div className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-amber-500 outline-amber-500/30' : 'bg-blue-950 outline-blue-900'}`}>
+                                            <div className={`w-6 h-6 bg-white rounded-full transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
                                         </div>
                                     </div>
                                 </Section>
