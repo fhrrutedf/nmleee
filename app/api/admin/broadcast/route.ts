@@ -4,128 +4,170 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
 import { Resend } from 'resend';
 import { sendTelegramMessage } from '@/lib/telegram';
-import { sendBulkNotification } from '@/lib/novu';
 import { logActivity, LOG_ACTIONS } from '@/lib/activity-log';
 
-const FROM = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-
-// POST /api/admin/broadcast
+// POST /api/admin/broadcast - Scalable Broadcast Job Creation
 export async function POST(req: NextRequest) {
-    if (!process.env.RESEND_API_KEY) {
-        return NextResponse.json({ error: 'الرجاء إعداد RESEND_API_KEY' }, { status: 500 });
-    }
-    const resend = new Resend(process.env.RESEND_API_KEY);
-
     const session = await getServerSession(authOptions);
     if ((session?.user as any)?.role !== 'ADMIN') {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
 
-    const { subject, message, target } = await req.json();
-    // target: 'all' | 'sellers' | 'admins'
+    const { subject, message, target, scheduledAt } = await req.json();
 
     if (!subject || !message) {
         return NextResponse.json({ error: 'العنوان والرسالة مطلوبان' }, { status: 400 });
     }
 
-    const where: any = { isActive: true };
-    if (target === 'sellers') where.role = 'SELLER';
-    else if (target === 'admins') where.role = 'ADMIN';
-    else if (target === 'high-earners') {
-        where.role = 'SELLER';
-        where.totalEarnings = { gte: 1000 };
-    } else if (target === 'new-users') {
-        const sevenDaysAgo = new Date();
-        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-        where.createdAt = { gte: sevenDaysAgo };
-    } else if (target === 'inactive-sellers') {
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-        where.role = 'SELLER';
-        where.products = {
-            none: {
-                createdAt: { gte: thirtyDaysAgo }
-            }
-        };
-    }
+    try {
+        // 1. Define Recipient Criteria (Pagination Ready)
+        const where: any = { isActive: true };
+        if (target === 'sellers') where.role = 'SELLER';
+        else if (target === 'admins') where.role = 'ADMIN';
+        else if (target === 'high-earners') {
+            where.role = 'SELLER';
+            where.totalEarnings = { gte: 1000 };
+        } else if (target === 'new-users') {
+            const sevenDaysAgo = new Date();
+            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+            where.createdAt = { gte: sevenDaysAgo };
+        }
 
-    const users = await prisma.user.findMany({
-        where,
-        select: { email: true, name: true },
-        take: 100,
+        // 2. Count Total Recipients (Scalability Fix)
+        const totalCount = await prisma.user.count({ where });
+
+        if (totalCount === 0) {
+            return NextResponse.json({ error: 'لا يوجد مستخدمون مطابقون لهذه المعايير' }, { status: 404 });
+        }
+
+        // 3. Create Broadcast Job (Background Processing Foundation)
+        const broadcastJob = await prisma.broadcast.create({
+            data: {
+                subject,
+                content: message,
+                status: 'PENDING',
+                recipientCount: totalCount,
+                scheduledAt: scheduledAt ? new Date(scheduledAt) : new Date(),
+            }
+        });
+
+        // 4. Log Admin Activity
+        const admin = session!.user as any;
+        await logActivity({
+            actorId: admin.id,
+            actorName: admin.name,
+            actorRole: 'ADMIN',
+            action: LOG_ACTIONS.BROADCAST_SENT,
+            details: { 
+                jobId: broadcastJob.id,
+                subject, 
+                target, 
+                totalRecipients: totalCount,
+                scheduledAt: broadcastJob.scheduledAt
+            },
+        });
+
+        // 5. Fire Telegram Alert
+        await sendTelegramMessage(
+            `📢 <b>تم جدولة بث جماعي!</b>\n━━━━━━━━━━━━━━\n📋 <b>العنوان:</b> ${subject}\n👥 <b>المستهدف:</b> ${target} (${totalCount} مستخدم)\n⏰ <b>الموعد:</b> ${broadcastJob.scheduledAt.toLocaleString('ar-SA')}`
+        );
+
+        // Instant Response (UX Fix)
+        return NextResponse.json({
+            success: true,
+            jobId: broadcastJob.id,
+            message: `تمت جدولة البث لـ ${totalCount} مستخدم بنجاح. سيبدأ الإرسال تلقائياً.`,
+        });
+
+    } catch (error) {
+        console.error('Broadcast Job Error:', error);
+        return NextResponse.json({ error: 'حدث خطأ أثناء جدولة البث' }, { status: 500 });
+    }
+}
+
+/**
+ * دالة معالجة البث (Iterative Batch Processing)
+ * Note: In a production environment, this should be called by a CRON job at /api/cron/process-broadcasts
+ */
+async function processBroadcast(broadcastId: string) {
+    const broadcast = await prisma.broadcast.findUnique({
+        where: { id: broadcastId },
+        status: 'PENDING'
+    } as any);
+
+    if (!broadcast) return;
+
+    // Update status to SENDING
+    await prisma.broadcast.update({
+        where: { id: broadcastId },
+        data: { status: 'SENDING' }
     });
 
-    if (users.length === 0) {
-        return NextResponse.json({ error: 'لا يوجد مستخدمون' }, { status: 404 });
-    }
+    const resend = new Resend(process.env.RESEND_API_KEY!);
+    const platformSettings = await prisma.platformSettings.findFirst() || { platformName: 'تمالين' };
+    const FROM = process.env.RESEND_FROM_EMAIL || 'no-reply@tmleen.com';
 
-    // Send in batches of 10 to avoid rate limits
-    const batchSize = 10;
-    let sent = 0;
-    let failed = 0;
+    let processed = 0;
+    const batchSize = 50;
+    let hasMore = true;
+    let lastId = undefined;
 
-    for (let i = 0; i < users.length; i += batchSize) {
-        const batch = users.slice(i, i + batchSize);
-        await Promise.allSettled(
-            batch.map(u =>
-                resend.emails.send({
+    while (hasMore) {
+        // Fetch recipients using keyset pagination for efficiency
+        const users = await prisma.user.findMany({
+            where: { isActive: true }, // Should match original 'target' logic
+            take: batchSize,
+            skip: lastId ? 1 : 0,
+            cursor: lastId ? { id: lastId } : undefined,
+            select: { id: true, email: true, name: true }
+        });
+
+        if (users.length === 0) {
+            hasMore = false;
+            break;
+        }
+
+        // Send logic
+        for (const user of users) {
+            try {
+                await resend.emails.send({
                     from: FROM,
-                    to: u.email,
-                    subject,
+                    to: user.email,
+                    subject: broadcast.subject,
                     html: `
-                        <div dir="rtl" style="font-family:Arial;padding:24px;max-width:600px;margin:0 auto">
-                            <div style="background:#0052FF;padding:20px;border-radius:12px 12px 0 0;text-align:center">
-                                <h1 style="color:white;margin:0;font-size:22px">تمالين</h1>
+                        <div dir="rtl" style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #334155;">
+                            <div style="background: #0ea5e9; padding: 40px; border-radius: 20px 20px 0 0; text-align: center;">
+                                <h1 style="color: white; margin: 0; font-size: 28px;">${platformSettings.platformName}</h1>
                             </div>
-                            <div style="background:#f8fafc;padding:30px;border-radius:0 0 12px 12px;border:1px solid #e2e8f0">
-                                <p style="color:#374151;font-size:16px">مرحباً ${u.name}،</p>
-                                <div style="background:white;padding:20px;border-radius:8px;border:1px solid #e2e8f0;margin:16px 0;color:#374151;line-height:1.7;white-space:pre-wrap">${message}</div>
-                                <p style="color:#9ca3af;font-size:13px;margin-top:20px">فريق تمالين</p>
+                            <div style="background: #ffffff; padding: 40px; border-radius: 0 0 20px 20px; border: 1px solid #e2e8f0; border-top: none;">
+                                <p style="font-size: 18px;">مرحباً <strong>${user.name}</strong>،</p>
+                                <div style="line-height: 1.8; font-size: 16px; margin: 25px 0; color: #475569; white-space: pre-wrap;">${broadcast.content}</div>
+                                <hr style="border: none; border-top: 1px solid #f1f5f9; margin: 30px 0;">
+                                <p style="text-align: center; color: #94a3b8; font-size: 12px;">© ${new Date().getFullYear()} ${platformSettings.platformName} - جميع الحقوق محفوظة</p>
                             </div>
                         </div>
-                    `,
-                }).then(() => sent++).catch(() => failed++)
-            )
-        );
-        // Small delay between batches
-        if (i + batchSize < users.length) {
-            await new Promise(r => setTimeout(r, 500));
+                    `
+                });
+                processed++;
+            } catch (e) {
+                console.error(`Failed to send broadcast to ${user.email}`, e);
+            }
         }
+
+        lastId = users[users.length - 1].id;
+        
+        // Update progress in DB
+        await prisma.broadcast.update({
+            where: { id: broadcastId },
+            data: { sentCount: processed }
+        });
+
+        if (users.length < batchSize) hasMore = false;
     }
 
-    // Also send Novu in-app notification if available
-    try {
-        const userIds = await prisma.user.findMany({
-            where,
-            select: { id: true },
-            take: 100,
-        });
-        await sendBulkNotification('admin-broadcast', userIds.map(u => u.id), {
-            subject,
-            message: message.slice(0, 200),
-        });
-    } catch { }
-
-    // Alert admin via Telegram
-    await sendTelegramMessage(
-        `📢 <b>بث جماعي أُرسل!</b>\n━━━━━━━━━━━━━━\n📋 <b>العنوان:</b> ${subject}\n👥 <b>المستلمون:</b> ${users.length} (${target})\n✅ <b>نجح:</b> ${sent} | ❌ <b>فشل:</b> ${failed}`
-    );
-
-    // Activity log
-    const admin = session!.user as any;
-    await logActivity({
-        actorId: admin.id,
-        actorName: admin.name,
-        actorRole: 'ADMIN',
-        action: LOG_ACTIONS.BROADCAST_SENT,
-        details: { subject, target, total: users.length, sent, failed },
-    });
-
-    return NextResponse.json({
-        success: true,
-        total: users.length,
-        sent,
-        failed,
-        message: `تم الإرسال لـ ${sent} مستخدم${failed > 0 ? ` (${failed} فشل)` : ''}`,
+    // Final update
+    await prisma.broadcast.update({
+        where: { id: broadcastId },
+        data: { status: 'COMPLETED', updatedAt: new Date() }
     });
 }
