@@ -178,7 +178,7 @@ model VerificationRequest {
 model PasswordResetToken {
   id        String   @id @default(uuid())
   token     String   @unique
-  email     String
+  email     String   @unique
   expires   DateTime
   createdAt DateTime @default(now())
 
