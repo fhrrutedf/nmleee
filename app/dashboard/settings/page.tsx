@@ -78,6 +78,16 @@ export default function SettingsPage() {
         paypalEmail: ''
     });
 
+    // Verification Request (Phase 10)
+    const [verificationRequest, setVerificationRequest] = useState<{
+        id: string;
+        documentUrl: string;
+        documentType: string;
+        status: 'PENDING' | 'APPROVED' | 'REJECTED';
+        rejectionReason?: string;
+    } | null>(null);
+    const [verifyingDoc, setVerifyingDoc] = useState(false);
+
     useEffect(() => {
         const fetchProfile = async () => {
             try {
@@ -114,6 +124,10 @@ export default function SettingsPage() {
                     paypalEmail: ''
                 });
                 setCalendarConnected(data.googleCalendarConnected || false);
+
+                // Fetch verification status
+                const vReq = await apiGet('/api/seller/verification');
+                setVerificationRequest(vReq?.request || null);
             } catch (error) {
                 console.error('Error fetching profile:', handleApiError(error));
             }
@@ -211,12 +225,26 @@ export default function SettingsPage() {
         }
     };
 
+    const submitVerification = async (url: string, type: string) => {
+        setVerifyingDoc(true);
+        try {
+            const res = await apiPost('/api/seller/verification', { documentUrl: url, documentType: type });
+            setVerificationRequest(res.request);
+            toast.success('تم إرسال طلب التوثيق للمراجعة! ⏳');
+        } catch (error) {
+            toast.error(handleApiError(error));
+        } finally {
+            setVerifyingDoc(false);
+        }
+    };
+
     const tabs = [
         { id: 'profile', name: 'الملف الشخصي', icon: FiUser },
         { id: 'security', name: 'الأمان', icon: FiLock },
         { id: 'notifications', name: 'الإشعارات', icon: FiBell },
         { id: 'payment', name: 'الدفع', icon: FiCreditCard },
         { id: 'integrations', name: 'التكاملات', icon: FiLink },
+        { id: 'verification', name: 'توثيق الحساب', icon: FiCheckCircle },
         { id: 'privacy', name: 'الخصوصية', icon: FiShield }
     ];
 
@@ -531,7 +559,7 @@ export default function SettingsPage() {
                                         { key: 'orderNotifications', label: 'إشعارات الطلبات', desc: 'تلقي إشعارات عند استلام طلبات جديدة' },
                                         { key: 'marketingEmails', label: 'رسائل تسويقية', desc: 'تلقي عروض وتحديثات المنتجات' },
                                         { key: 'weeklyReport', label: 'التقرير الأسبوعي', desc: 'تلقي  ملخص أسبوعي بنشاطك' }
-                                    ].map((item) => (
+                                    ].map((item: any) => (
                                         <div key={item.key} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-800">
                                             <div>
                                                 <h3 className="font-medium text-primary-charcoal dark:text-white">{item.label}</h3>
@@ -540,7 +568,7 @@ export default function SettingsPage() {
                                             <label className="relative inline-flex items-center cursor-pointer">
                                                 <input
                                                     type="checkbox"
-                                                    checked={notificationSettings[item.key as keyof typeof notificationSettings]}
+                                                    checked={(notificationSettings as any)[item.key]}
                                                     onChange={(e) => setNotificationSettings({
                                                         ...notificationSettings,
                                                         [item.key]: e.target.checked
@@ -651,6 +679,78 @@ export default function SettingsPage() {
                                         </div>
                                         <span className="mr-auto bg-gray-100 dark:bg-gray-800 text-gray-500 text-xs px-3 py-1 rounded-full">قريباً</span>
                                     </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Verification Tab (Phase 10) */}
+                        {activeTab === 'verification' && (
+                            <div className="space-y-8 animate-fade-in">
+                                <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-4">
+                                    <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white">توثيق الحساب (Trust Badge)</h2>
+                                    <FiCheckCircle className={`text-3xl ${verificationRequest?.status === 'APPROVED' ? 'text-green-500' : 'text-action-blue'}`} />
+                                </div>
+
+                                <div className="max-w-2xl space-y-6">
+                                    {/* Current Status Banner */}
+                                    {verificationRequest ? (
+                                        <div className={`p-6 rounded-2xl border-2 flex items-start gap-4 ${
+                                            verificationRequest.status === 'APPROVED' ? 'bg-green-50 border-green-200 text-green-800' :
+                                            verificationRequest.status === 'REJECTED' ? 'bg-red-50 border-red-200 text-red-800' :
+                                            'bg-blue-50 border-blue-200 text-blue-800'
+                                        }`}>
+                                            <div className="text-3xl mt-1">
+                                                {verificationRequest.status === 'APPROVED' ? '✅' : 
+                                                 verificationRequest.status === 'REJECTED' ? '❌' : '⏳'}
+                                            </div>
+                                            <div>
+                                                <h3 className="font-bold text-lg">
+                                                    {verificationRequest.status === 'APPROVED' ? 'الحساب موثق بنجاح' :
+                                                     verificationRequest.status === 'REJECTED' ? 'تم رفض طلب التوثيق' :
+                                                     'طلبك قيد المراجعة حالياً'}
+                                                </h3>
+                                                <p className="text-sm opacity-90 mt-1">
+                                                    {verificationRequest.status === 'APPROVED' ? 'متجرك يحمل الآن العلامة الزرقاء لزيادة ثقة المشترين.' :
+                                                     verificationRequest.status === 'REJECTED' ? `السبب: ${verificationRequest.rejectionReason}` :
+                                                     'يستغرق التدقيق اليدوي من 24 إلى 48 ساعة عمل.'}
+                                                </p>
+                                                {verificationRequest.status === 'REJECTED' && (
+                                                    <button onClick={() => setVerificationRequest(null)} className="mt-4 text-xs font-bold underline">إعادة تقديم الطلب</button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <div className="bg-action-blue/5 p-6 rounded-2xl border border-action-blue/10 space-y-4">
+                                                <h3 className="font-bold text-lg text-action-blue">لماذا توثيق الحساب؟</h3>
+                                                <ul className="space-y-3 text-sm text-text-muted">
+                                                    <li className="flex items-center gap-2">🔹 الحصول على الشارة الزرقاء بجانب اسمك.</li>
+                                                    <li className="flex items-center gap-2">🔹 زيادة مبيعاتك بنسبة تصل إلى 35% بسبب الثقة.</li>
+                                                    <li className="flex items-center gap-2">🔹 أولوية الظهور في نتائج البحث.</li>
+                                                    <li className="flex items-center gap-2">🔹 سرعة في عمليات سحب الأرباح.</li>
+                                                </ul>
+                                            </div>
+
+                                            <div className="space-y-4">
+                                                <label className="label">نوع الوثيقة</label>
+                                                <select id="docType" className="input bg-gray-50">
+                                                    <option value="ID_CARD">الهوية الشخصية (ID Card)</option>
+                                                    <option value="PASSPORT">جواز السفر (Passport)</option>
+                                                </select>
+                                                
+                                                <label className="label">ارفع صورة واضحة للوثيقة (وجه وخلفية أو صفحة المعلومات)</label>
+                                                <FileUploader 
+                                                    onUploadSuccess={(urls) => {
+                                                        const type = (document.getElementById('docType') as HTMLSelectElement).value;
+                                                        submitVerification(urls[0], type);
+                                                    }}
+                                                    maxSize={5 * 1024 * 1024}
+                                                    accept={{ 'image/*': ['.jpg', '.png', '.jpeg'] }}
+                                                />
+                                                <p className="text-xs text-center text-text-muted">نحن نحترم خصوصيتك، سيتم حذف الملف فور الانتهاء من التدقيق اليدوي.</p>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         )}

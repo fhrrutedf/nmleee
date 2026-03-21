@@ -145,6 +145,39 @@ model User {
   // Multi-tenant
   customDomain           String?     @unique // الدومين المخصص (مثلاً store.nawaf.pro)
   lastIpAddress          String?
+
+  // Verification Requests
+  verificationRequests   VerificationRequest[]
+
+  @@index([email])
+  @@index([name])
+  @@index([role])
+  @@index([createdAt])
+}
+
+model VerificationRequest {
+  id              String   @id @default(uuid())
+  documentUrl     String   // رابط الهوية / جواز السفر
+  documentType    String   // "ID_CARD" | "PASSPORT"
+  status          VerificationStatus @default(PENDING)
+  rejectionReason String?
+  
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  processedBy     String?  // ID of the admin who approved/rejected
+  processedAt     DateTime?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([status])
+}
+
+enum VerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }
 
 model Product {

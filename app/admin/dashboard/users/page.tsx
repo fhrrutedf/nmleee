@@ -34,6 +34,7 @@ interface UserData {
         sellerOrders: number;
         orders: number;
     };
+    verificationRequests?: { id: string }[];
 }
 
 const containerVariants = {
@@ -318,6 +319,11 @@ export default function UsersManagement() {
                                                                 <FiCheckCircle className="text-blue-500 w-4 h-4" />
                                                             </div>
                                                         )}
+                                                        {user.verificationRequests && user.verificationRequests.length > 0 && (
+                                                            <div className="absolute -top-1 -right-1 bg-orange-500 text-white rounded-full p-0.5 animate-pulse" title="هناك طلب توثيق بانتظار المراجعة">
+                                                                <FiActivity className="w-2.5 h-2.5" />
+                                                            </div>
+                                                        )}
                                                     </div>
                                                     <div>
                                                         <div className="font-bold text-gray-900 dark:text-white flex items-center gap-2">
@@ -386,6 +392,15 @@ export default function UsersManagement() {
                                                     <button className="p-2 rounded-lg text-gray-400 hover:text-action-blue hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
                                                         <FiMoreVertical size={18} />
                                                     </button>
+                                                    {user.verificationRequests && user.verificationRequests.length > 0 && (
+                                                        <Link 
+                                                            href="/dashboard/admin/verification" 
+                                                            className="p-2 rounded-lg bg-orange-50 text-orange-600 hover:bg-orange-100 transition-all font-bold text-xs"
+                                                            title="مراجعة التوثيق"
+                                                        >
+                                                            مراجعة
+                                                        </Link>
+                                                    )}
                                                 </div>
                                             </td>
                                         </motion.tr>

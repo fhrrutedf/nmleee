@@ -30,6 +30,7 @@ interface Stats {
     totalSellers: number;
     totalProducts: number;
     totalCourses: number;
+    pendingVerifications: number;
 }
 
 interface RecentOrder {
@@ -248,6 +249,28 @@ export default function AdminDashboard() {
                                 </div>
                                 <div className="w-14 h-14 rounded-2xl bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 flex items-center justify-center group-hover:scale-110 transition-all">
                                     <FiAlertCircle className="text-2xl" />
+                                </div>
+                            </div>
+                        </motion.div>
+                    </Link>
+
+                    {/* Pending Seller Verifications (Phase 10) */}
+                    <Link href="/admin/verification">
+                        <motion.div variants={itemVariants} className={`bg-white dark:bg-card-white border rounded-[2rem] p-6 shadow-sm relative overflow-hidden group cursor-pointer transition-all ${
+                            (stats?.pendingVerifications || 0) > 0 ? 'border-primary-500 ring-2 ring-primary-500/20' : 'border-gray-100 dark:border-gray-800'
+                        }`}>
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+
+                            <div className="flex items-start justify-between">
+                                <div>
+                                    <h3 className="text-gray-500 dark:text-gray-400 font-bold mb-1">توثيقات بانتظار المراجعة</h3>
+                                    <div className="text-4xl font-black mb-4 text-primary-charcoal dark:text-white">{stats?.pendingVerifications || 0}</div>
+                                    <span className="text-sm font-bold flex items-center gap-1 text-primary-500 transition-colors">
+                                        إدارة الشارات الزرقاء <FiArrowUpRight />
+                                    </span>
+                                </div>
+                                <div className="w-14 h-14 rounded-2xl bg-primary-50 dark:bg-primary-900/20 text-primary-500 flex items-center justify-center group-hover:scale-110 transition-all">
+                                    <FiCheckCircle className="text-2xl" />
                                 </div>
                             </div>
                         </motion.div>

@@ -17,7 +17,7 @@ export async function GET() {
             select: { role: true },
         });
 
-        if (user?.role !== 'ADMIN') { // Enum comparison works with strings in Prisma
+        if (user?.role !== 'ADMIN') {
             return NextResponse.json({ error: 'غير مصرح' }, { status: 403 });
         }
 
@@ -26,14 +26,15 @@ export async function GET() {
             totalOrders,
             paidOrders,
             pendingOrders,
-            totalRevenue,
-            platformFees,
+            revenueAggregation,
+            feesAggregation,
             pendingPayouts,
             pendingManualOrders,
             totalUsers,
             totalSellers,
             totalProducts,
             totalCourses,
+            pendingVerifications
         ] = await Promise.all([
             prisma.order.count(),
             prisma.order.count({ where: { status: 'PAID' } }),
@@ -55,9 +56,10 @@ export async function GET() {
                 },
             }),
             prisma.user.count(),
-            prisma.user.count({ where: { role: 'SELLER' } }), // Prisma handles enum conversion
+            prisma.user.count({ where: { role: 'SELLER' } }),
             prisma.product.count(),
             prisma.course.count(),
+            prisma.verificationRequest.count({ where: { status: 'PENDING' } }),
         ]);
 
         // Recent orders
@@ -78,7 +80,7 @@ export async function GET() {
 
         // Top sellers
         const topSellers = await prisma.user.findMany({
-            where: { role: 'SELLER' }, // Enum filter
+            where: { role: 'SELLER' },
             orderBy: { totalEarnings: 'desc' },
             take: 5,
             select: {
@@ -98,14 +100,15 @@ export async function GET() {
                 totalOrders,
                 paidOrders,
                 pendingOrders,
-                totalRevenue: totalRevenue._sum.totalAmount || 0,
-                platformFees: platformFees._sum.platformFee || 0,
+                totalRevenue: revenueAggregation._sum.totalAmount || 0,
+                platformFees: feesAggregation._sum.platformFee || 0,
                 pendingPayouts,
                 pendingManualOrders,
                 totalUsers,
                 totalSellers,
                 totalProducts,
                 totalCourses,
+                pendingVerifications,
             },
             recentOrders,
             topSellers,

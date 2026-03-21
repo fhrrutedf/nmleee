@@ -22,6 +22,7 @@ export async function GET(req: NextRequest) {
         pendingManual, totalRevenue, periodRevenue,
         platformFees, topSellers, recentOrders,
         usersByCountry, ordersByMethod, recentUsers,
+        pendingVerifications,
     ] = await Promise.all([
         // Users
         prisma.user.count(),
@@ -89,6 +90,9 @@ export async function GET(req: NextRequest) {
                 _count: { select: { sellerOrders: true } },
             },
         }),
+
+        // Pending verifications
+        prisma.verificationRequest.count({ where: { status: 'PENDING' } }),
     ]);
 
     // Resolve seller names for top sellers
@@ -168,6 +172,7 @@ export async function GET(req: NextRequest) {
             totalRevenue: totalRevenue._sum.totalAmount ?? 0,
             periodRevenue: periodRevenue._sum.totalAmount ?? 0,
             platformFees: platformFees._sum.platformFee ?? 0,
+            pendingVerifications,
         },
         topSellers: topSellers.map(s => ({
             ...sellerMap[s.sellerId ?? ''],

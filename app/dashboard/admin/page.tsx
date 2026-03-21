@@ -188,6 +188,7 @@ export default function AdminDashboardPage() {
         { id: 'manual', icon: FiCreditCard, label: 'التحويلات', badge: pendingManual.length },
         { id: 'users', icon: FiUsers, label: 'المستخدمون', badge: 0 },
         { id: 'sellers', icon: FiUserCheck, label: 'البائعون', badge: 0 },
+        { id: 'verification', icon: FiShield, label: 'التوثيقات', badge: data?.overview?.pendingVerifications || 0 },
     ];
 
     return (
@@ -620,6 +621,24 @@ export default function AdminDashboardPage() {
                                     </div>
                                 </div>
                             ))}
+                        </div>
+                    )}
+
+                    {/* ══════════════ VERIFICATIONS ══════════════ */}
+                    {activeTab === 'verification' && (
+                        <div className="card space-y-4">
+                            <div className="flex items-center justify-between">
+                                <h2 className="font-bold text-xl text-primary-charcoal dark:text-white">طلبات توثيق الهوية</h2>
+                                <Link href="/dashboard/admin/verification" className="btn btn-primary py-2 px-4 text-sm flex items-center gap-2">
+                                    <FiEye /> فتح لوحة المراجعة الكاملة
+                                </Link>
+                            </div>
+                            {/* Short summary or list could go here, but redirecting to the dedicated page is better for UX */}
+                            <div className="p-10 text-center bg-gray-50 dark:bg-gray-800/20 rounded-[2rem] border border-dashed border-gray-200 dark:border-gray-700">
+                                <div className="text-4xl mb-4">🛂</div>
+                                <p className="text-text-muted">لديك <strong>{data?.overview?.pendingVerifications || 0}</strong> طلب توثيق بانتظار المراجعة.</p>
+                                <Link href="/dashboard/admin/verification" className="inline-block mt-4 text-action-blue font-bold hover:underline">انقر هنا لبدء المراجعة واتخاذ القرار</Link>
+                            </div>
                         </div>
                     )}
 
