@@ -14,8 +14,16 @@ interface Course {
     title: string;
     slug: string;
     description: string;
+    price: number;
     originalPrice?: number;
+    image?: string;
+    category?: string;
+    level?: string;
+    duration?: string;
+    trailerUrl?: string;
     offerExpiresAt?: string;
+    averageRating?: number;
+    reviewCount?: number;
     user: {
         name: string;
         avatar?: string;
