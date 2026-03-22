@@ -121,14 +121,14 @@ export async function GET(
 
         // 4. Sanitize Quiz Questions (Remove correct answers) ONLY for students
         const sanitizedModules = isStudentOnly 
-            ? course.modules.map((module: any) => ({
+            ? (course.modules || []).map((module: any) => ({
                 ...module,
-                lessons: module.lessons.map((lesson: any) => ({
+                lessons: (module.lessons || []).map((lesson: any) => ({
                     ...lesson,
                     completed: lesson.progress?.[0]?.isCompleted || false,
                     lastPosition: lesson.progress?.[0]?.lastPosition || 0,
-                    quizzes: lesson.quizzes.map((quiz: any) => {
-                        const questions = (quiz.questions as any[]).map((q: any) => {
+                    quizzes: (lesson.quizzes || []).map((quiz: any) => {
+                        const questions = (Array.isArray(quiz.questions) ? quiz.questions : []).map((q: any) => {
                             const { correctAnswer, ...rest } = q;
                             return rest;
                         });
@@ -136,9 +136,9 @@ export async function GET(
                     })
                 }))
             }))
-            : course.modules.map((module: any) => ({
+            : (course.modules || []).map((module: any) => ({
                 ...module,
-                lessons: module.lessons.map((lesson: any) => ({
+                lessons: (module.lessons || []).map((lesson: any) => ({
                     ...lesson,
                     completed: lesson.progress?.[0]?.isCompleted || false,
                     lastPosition: lesson.progress?.[0]?.lastPosition || 0,
@@ -148,7 +148,7 @@ export async function GET(
 
         const sanitizedCourseQuizzes = isStudentOnly && course.quizzes
             ? (course.quizzes || []).map((quiz: any) => {
-                const questions = (quiz.questions as any[]).map((q: any) => {
+                const questions = (Array.isArray(quiz.questions) ? quiz.questions : []).map((q: any) => {
                     const { correctAnswer, ...rest } = q;
                     return rest;
                 });

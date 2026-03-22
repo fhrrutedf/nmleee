@@ -99,8 +99,25 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
         );
     }
 
+    if (!quiz.questions || quiz.questions.length === 0) {
+        return (
+            <div className="bg-white rounded-xl shadow-lg p-12 text-center">
+                <FiAlertCircle className="mx-auto text-6xl text-orange-500 mb-4" />
+                <h2 className="text-2xl font-bold mb-4">اختبار بدون أسئلة</h2>
+                <p className="text-gray-500 mb-8">عذراً، لم يتم إضافة أسئلة لهذا الاختبار بعد.</p>
+                <button 
+                    onClick={() => window.location.reload()}
+                    className="px-8 py-3 bg-action-blue text-white rounded-xl font-bold"
+                >
+                    إغلاق
+                </button>
+            </div>
+        );
+    }
+
     const question = quiz.questions[currentQuestion];
 
+    if (!question) return null;
     return (
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
             {/* Header */}

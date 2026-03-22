@@ -50,7 +50,7 @@ export default function LearnPage() {
 
     const goToNextItem = () => {
         if (!course || !activeItem) return;
-        const flatLessons = course.modules.flatMap((m: any) => m.lessons);
+        const flatLessons = (course.modules || []).flatMap((m: any) => m.lessons || []);
         const currentIndex = flatLessons.findIndex((l: any) => l.id === activeItem.data.id);
         if (currentIndex !== -1 && currentIndex < flatLessons.length - 1) {
             setActiveItem({ type: 'lesson', data: flatLessons[currentIndex + 1] });
@@ -59,7 +59,7 @@ export default function LearnPage() {
 
     const goToPrevItem = () => {
         if (!course || !activeItem) return;
-        const flatLessons = course.modules.flatMap((m: any) => m.lessons);
+        const flatLessons = (course.modules || []).flatMap((m: any) => m.lessons || []);
         const currentIndex = flatLessons.findIndex((l: any) => l.id === activeItem.data.id);
         if (currentIndex > 0) {
             setActiveItem({ type: 'lesson', data: flatLessons[currentIndex - 1] });
@@ -82,9 +82,9 @@ export default function LearnPage() {
             // Update local state
             setCourse((prev: any) => ({
                 ...prev,
-                modules: prev.modules.map((m: any) => ({
+                modules: (prev.modules || []).map((m: any) => ({
                     ...m,
-                    lessons: m.lessons.map((l: any) => 
+                    lessons: (m.lessons || []).map((l: any) => 
                         l.id === activeItem.data.id ? { ...l, completed: true } : l
                     )
                 }))
@@ -164,9 +164,9 @@ export default function LearnPage() {
     if (!course) return <div className="text-center py-24 text-white font-black">عذراً، محتوى الدورة غير متوفر حالياً.</div>;
 
     const brandColor = course.user?.brandColor || '#0ea5e9';
-    const totalLessons = course.modules.reduce((acc: number, m: any) => acc + m.lessons.length, 0);
-    const completedCount = course.modules.reduce((acc: number, m: any) => acc + m.lessons.filter((l: any) => l.completed).length, 0);
-    const progressPercent = Math.round((completedCount / totalLessons) * 100);
+    const totalLessons = (course.modules || []).reduce((acc: number, m: any) => acc + (m.lessons || []).length, 0);
+    const completedCount = (course.modules || []).reduce((acc: number, m: any) => acc + (m.lessons || []).filter((l: any) => l.completed).length, 0);
+    const progressPercent = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
 
     return (
         <div className="min-h-screen bg-gray-950 flex flex-col md:flex-row h-screen overflow-hidden font-sans">
@@ -216,14 +216,14 @@ export default function LearnPage() {
 
                 {/* Content Navigator */}
                 <div className="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-6">
-                    {course.modules.map((module: any, mIdx: number) => (
+                    {(course.modules || []).map((module: any, mIdx: number) => (
                         <div key={module.id} className="space-y-3">
                              <h3 className="px-4 text-[11px] font-black text-gray-500 uppercase tracking-[3px] flex items-center gap-2">
                                  <span className="w-1.5 h-1.5 rounded-full bg-brand/40"></span>
                                  {module.title}
                              </h3>
                              <div className="space-y-1">
-                                 {module.lessons.map((lesson: any, lIdx: number) => (
+                                 {(module.lessons || []).map((lesson: any, lIdx: number) => (
                                      <button
                                          key={lesson.id}
                                          onClick={() => setActiveItem({ type: 'lesson', data: lesson })}

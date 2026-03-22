@@ -98,11 +98,11 @@ export default function AdvancedVideoPlayer({ lessonId, courseId, studentEmail, 
         </div>
     );
 
-    if (error) return (
+    if (error || !playbackData) return (
         <div className="aspect-video w-full bg-gray-950 flex flex-col items-center justify-center text-white p-8 text-center">
             <FiAlertCircle size={48} className="text-red-500 mb-4" />
             <h3 className="text-xl font-bold mb-2">فشل تحميل الفيديو</h3>
-            <p className="text-white/60 mb-6">{error}</p>
+            <p className="text-white/60 mb-6">{error || 'بيانات الفيديو غير متوفرة'}</p>
             <button 
                 onClick={fetchPlayback}
                 className="px-6 py-3 bg-action-blue rounded-xl font-bold flex items-center gap-2 hover:bg-blue-600 transition-colors"
@@ -115,7 +115,7 @@ export default function AdvancedVideoPlayer({ lessonId, courseId, studentEmail, 
     return (
         <div className="relative group bg-black aspect-video rounded-3xl overflow-hidden shadow-2xl">
             {/* Dynamic Provider Render */}
-            {playbackData.provider === 'bunny' ? (
+            {playbackData.provider === 'bunny' && playbackData.playbackUrl ? (
                 <iframe
                     src={playbackData.playbackUrl}
                     loading="lazy"
@@ -123,7 +123,7 @@ export default function AdvancedVideoPlayer({ lessonId, courseId, studentEmail, 
                     allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                     allowFullScreen
                 ></iframe>
-            ) : (
+            ) : playbackData.playbackUrl ? (
                 <video
                     ref={videoRef}
                     key={playbackData.playbackUrl}
@@ -138,6 +138,8 @@ export default function AdvancedVideoPlayer({ lessonId, courseId, studentEmail, 
                 >
                     متصفحك لا يدعم تشغيل الفيديوهات المشفرة.
                 </video>
+            ) : (
+                <div className="w-full h-full flex items-center justify-center text-gray-500">رابط الفيديو غير صالح</div>
             )}
 
             {/* Anti-Piracy Overlay (Watermark) */}
