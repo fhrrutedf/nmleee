@@ -21,6 +21,16 @@ const steps = [
     { id: 3, label: 'التسعير والعرض' },
 ];
 
+function generateSlug(title: string): string {
+    return title
+        .toLowerCase()
+        .replace(/[^\u0600-\u06FFa-z0-9\s-]/g, '')
+        .trim()
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .substring(0, 100);
+}
+
 export default function NewProductPage() {
     const router = useRouter();
     const [currentStep, setCurrentStep] = useState(1);
@@ -56,6 +66,10 @@ export default function NewProductPage() {
         upsellProductId: '',
         upsellPrice: '',
         offerExpiresAt: '',
+        slug: '',
+        stockLimit: '',
+        seoTitle: '',
+        seoDesc: '',
         isActive: true, // Default to show
     });
 
@@ -243,16 +257,37 @@ export default function NewProductPage() {
                                      <div className="grid md:grid-cols-2 gap-8">
                                         <div className="space-y-2">
                                             <label className="label-modern">الاسم التجاري للمنتج <span className="text-red-500">*</span></label>
-                                            <input type="text" className="input-modern glow focus:ring-0" placeholder="مثال: حقيبة أدوات تحرير الفيديو الاحترافية" value={formData.title} onChange={e => update('title', e.target.value)} />
+                                            <input 
+                                                type="text" 
+                                                className="input-modern glow focus:ring-0" 
+                                                placeholder="مثال: حقيبة أدوات تحرير الفيديو الاحترافية" 
+                                                value={formData.title} 
+                                                onChange={e => {
+                                                    update('title', e.target.value);
+                                                    if (!formData.slug) update('slug', generateSlug(e.target.value));
+                                                }} 
+                                            />
+                                            {formData.title && (
+                                                <p className="text-[10px] text-slate-400 font-bold px-2 flex items-center gap-1 overflow-hidden" dir="ltr">
+                                                    <span className="shrink-0 text-emerald-500">nawaf.pro/p/</span>
+                                                    <input 
+                                                        type="text" 
+                                                        className="bg-transparent border-none text-slate-500 p-0 hover:text-emerald-500 transition-colors w-full focus:ring-0" 
+                                                        value={formData.slug}
+                                                        onChange={e => update('slug', generateSlug(e.target.value))}
+                                                    />
+                                                </p>
+                                            )}
                                         </div>
                                         <div className="space-y-2">
                                             <label className="label-modern">التصنيف الرئيسي <span className="text-red-500">*</span></label>
                                             <select className="input-modern bg-white font-bold" value={formData.category} onChange={e => update('category', e.target.value)}>
                                                 <option value="">اختر التصنيف العام لمنتجك</option>
-                                                <option value="ebooks">كتب وملخصات إلكترونية</option>
-                                                <option value="courses">دورات ومحاضرات مغلقة</option>
-                                                <option value="templates">قوالب، تصاميم وحقائب</option>
-                                                <option value="software">برمجيات، سكريبتات وأدوات</option>
+                                                <option value="ebooks">📚 كتب وملخصات إلكترونية</option>
+                                                <option value="courses">🎓 دورات ومحاضرات مغلقة</option>
+                                                <option value="templates">🎨 قوالب، تصاميم وحقائب</option>
+                                                <option value="software">💻 برمجيات، سكريبتات وأدوات</option>
+                                                <option value="services">🛠️ خدمات استشارية / جلسات</option>
                                             </select>
                                         </div>
                                      </div>
@@ -326,6 +361,34 @@ export default function NewProductPage() {
                                             <input type="text" className="input-modern" placeholder="مثال: لاب توب, اشتراك فوتوشوب" value={formData.prerequisites} onChange={e => update('prerequisites', e.target.value)} />
                                             <p className="text-[10px] text-slate-400 mt-2 font-bold">افصل بفاصلة لعرضها كنقاط منظمة</p>
                                         </div>
+                                     </div>
+
+                                     {/* SEO Optimization Section */}
+                                     <div className="mt-12 pt-10 border-t border-slate-100">
+                                         <h4 className="text-lg font-black text-slate-800 mb-6 flex items-center gap-2">
+                                             <FiEye className="text-blue-500" /> تحسين محركات البحث والظهور (SEO) 🔍
+                                         </h4>
+                                         <div className="grid grid-cols-1 gap-8">
+                                             <div className="group">
+                                                 <label className="text-sm font-black text-slate-700 mb-3 block">عنوان البحث المخصص (SEO Title)</label>
+                                                 <input 
+                                                     type="text" 
+                                                     className="input-modern h-14 hover:border-blue-400 focus:border-blue-500 transition-colors" 
+                                                     placeholder="اتركه فارغاً ليقوم النظام بإنشائه تلقائياً" 
+                                                     value={formData.seoTitle} 
+                                                     onChange={e => update('seoTitle', e.target.value)} 
+                                                 />
+                                             </div>
+                                             <div className="group">
+                                                 <label className="text-sm font-black text-slate-700 mb-3 block">وصف البحث المخصص (SEO Description)</label>
+                                                 <textarea 
+                                                     className="input-modern h-32 resize-none py-5 hover:border-indigo-400 focus:border-indigo-500 transition-colors" 
+                                                     placeholder="اكتب وصفاً مختصراً يظهر تحت اسم منتجك في نتائج البحث." 
+                                                     value={formData.seoDesc} 
+                                                     onChange={e => update('seoDesc', e.target.value)} 
+                                                 />
+                                             </div>
+                                         </div>
                                      </div>
                                 </Section>
                             </motion.div>
@@ -430,6 +493,23 @@ export default function NewProductPage() {
                                             <div className={`w-6 h-6 bg-white rounded-full transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
                                         </div>
                                     </div>
+
+                                    {/* Stock Limit Section */}
+                                    <div className="p-8 bg-slate-50 border border-slate-200 rounded-[3rem] flex flex-col md:flex-row items-center justify-between gap-6 hover:shadow-md transition-shadow">
+                                        <div className="text-right flex-1">
+                                            <h3 className="font-black text-slate-800 text-xl leading-tight">حد المخزون (Inventory Control)</h3>
+                                            <p className="text-xs text-slate-400 mt-1 font-medium">اترك الحقل فارغاً إذا كان المنتج غير محدود الكمية.</p>
+                                        </div>
+                                        <div className="w-full md:w-32">
+                                            <input 
+                                                type="number" 
+                                                placeholder="∞" 
+                                                className="input-modern text-center font-black text-2xl h-16" 
+                                                value={formData.stockLimit} 
+                                                onChange={e => update('stockLimit', e.target.value)} 
+                                            />
+                                        </div>
+                                    </div>
                                 </Section>
                             </motion.div>
                         )}
@@ -510,7 +590,7 @@ export default function NewProductPage() {
                                     </div>
                                 </div>
                                 <div className="text-[10px] text-slate-400 font-bold bg-slate-50 border border-slate-100 px-3 py-1.5 rounded-lg flex items-center gap-1">
-                                    <FiPackage /> {formData.fileType.toUpperCase()}
+                                    <FiPackage /> {formData.fileType.toUpperCase()} {formData.stockLimit && `• بقيت ${formData.stockLimit}`}
                                 </div>
                             </div>
                             

@@ -234,6 +234,10 @@ model Product {
   soldCount   Int      @default(0)     // عدد المبيعات
   offerExpiresAt DateTime?             // تاريخ انتهاء العرض
   
+  // SEO Metadata
+  seoTitle    String?                  // عنوان مخصص لمحركات البحث
+  seoDesc     String?                  // وصف مخصص لمحركات البحث
+
   // Reviews
   averageRating Float?   @default(0)
   reviewCount   Int      @default(0)
