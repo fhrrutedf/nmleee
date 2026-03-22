@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
     try {
         const coupons = await prisma.coupon.findMany({
             include: {
-                seller: { select: { name: true, email: true } },
+                user: { select: { name: true, email: true } },
                 orders: { 
                     where: { isPaid: true },
                     select: { totalAmount: true } 
@@ -23,11 +23,15 @@ export async function GET(req: NextRequest) {
         });
 
         // Add calculated stats
-        const formatted = coupons.map(c => ({
-            ...c,
-            totalSales: c.orders.reduce((sum, o) => sum + (o.totalAmount || 0), 0),
-            orderCount: c.orders.length
-        }));
+        const formatted = coupons.map(c => {
+            const { user, ...rest } = c;
+            return {
+                ...rest,
+                seller: user,
+                totalSales: c.orders.reduce((sum, o) => sum + (o.totalAmount || 0), 0),
+                orderCount: c.orders.length
+            };
+        });
 
         return NextResponse.json(formatted);
     } catch (error) {
