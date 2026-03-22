@@ -163,7 +163,8 @@ export default function LearnPage() {
 
     if (!course) return <div className="text-center py-24 text-white font-black">عذراً، محتوى الدورة غير متوفر حالياً.</div>;
 
-    const brandColor = course.user?.brandColor || '#0ea5e9';
+    const brandColor = (course?.user as any)?.brandColor || '#0ea5e9';
+    const courseUser = course?.user || { name: 'المدرب' };
     const totalLessons = (course.modules || []).reduce((acc: number, m: any) => acc + (m.lessons || []).length, 0);
     const completedCount = (course.modules || []).reduce((acc: number, m: any) => acc + (m.lessons || []).filter((l: any) => l.completed).length, 0);
     const progressPercent = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
@@ -177,7 +178,7 @@ export default function LearnPage() {
                 .border-brand { border-color: ${brandColor} !important; }
                 .text-indigo-600, .text-indigo-700 { color: ${brandColor} !important; }
                 .bg-indigo-600, .bg-indigo-500 { background-color: ${brandColor} !important; }
-                .bg-indigo-50 { background-color: ${brandColor}15 !important; }
+                .bg-indigo-50 { background-color: ${brandColor.startsWith('#') ? brandColor + '15' : brandColor} !important; }
                 .border-indigo-600, .border-indigo-500 { border-color: ${brandColor} !important; }
                 `
             }} />
@@ -192,7 +193,7 @@ export default function LearnPage() {
                         </div>
                         <div className="flex-1">
                             <h2 className="font-black text-white text-lg leading-tight uppercase tracking-tight line-clamp-2">{course.title}</h2>
-                            <p className="text-gray-400 text-xs font-bold mt-1">بإشراف: <span className="text-brand">{course.user?.name}</span></p>
+                            <p className="text-gray-400 text-xs font-bold mt-1">بإشراف: <span className="text-brand">{(courseUser as any)?.name}</span></p>
                         </div>
                     </div>
 
@@ -259,7 +260,7 @@ export default function LearnPage() {
                         onClick={() => window.location.href = '/dashboard'}
                         className="w-full py-4 bg-gray-800 hover:bg-gray-700 text-white/70 hover:text-white rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 uppercase tracking-widest"
                     >
-                         <FiArrowRight rotate={180} /> العودة للوحة التحكم
+                         العودة للوحة التحكم
                     </button>
                 </div>
             </div>
