@@ -494,29 +494,54 @@ export default function NewCoursePage() {
                                 <Section title="التسعير والحاسبة الذكية" icon={<FiDollarSign />}>
                                     <div className="max-w-md mx-auto space-y-8 py-8">
                                         <div className="text-center space-y-4 relative">
-                                            <label className="label-modern italic tracking-widest uppercase text-primary-indigo-500">السعر النهائي بعد الخصم ($)</label>
-                                            <input type="number" step="0.01" className="bg-transparent border-0 border-b-4 border-slate-200 focus:border-primary-indigo-500 text-center text-6xl font-black text-primary-indigo-600 w-full outline-none transition-all placeholder:text-slate-200 glow focus:ring-0" placeholder="00.00" value={formData.price} onChange={e => update('price', e.target.value)} />
-                                            <p className="text-[10px] text-slate-400 font-bold uppercase">هذا السعر الذي سيظهر للطلاب في المتجر لتفعيل الشراء</p>
-                                            <div className="absolute -top-4 -right-12 opacity-60 hover:opacity-100 transition-opacity w-32">
-                                                <label className="text-[9px] font-black text-red-400 mb-1 block">السعر الأصلي الوهمي</label>
-                                                <input type="number" step="0.01" className="bg-transparent border-0 border-b-2 border-red-200 focus:border-red-400 text-center text-xl font-black text-slate-400 line-through w-full outline-none transition-all placeholder:text-slate-200" placeholder="00.00" value={formData.originalPrice} onChange={e => update('originalPrice', e.target.value)} />
+                                <Section title="التسعير والتسويق " icon={<FiDollarSign />}>
+                                    <div className="grid md:grid-cols-2 gap-10">
+                                        <div className="space-y-4">
+                                            <div className="flex items-center justify-between mb-4">
+                                                <label className="label-modern underline decoration-emerald-200 underline-offset-8">سعر البيع النهائي ($)</label>
+                                                <span className="text-[10px] font-black bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full uppercase tracking-tighter shadow-sm animate-pulse">السعر المعتمد</span>
+                                            </div>
+                                            <div className="relative group/price">
+                                                <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-emerald-50 text-emerald-600 rounded-r-2xl border-l border-emerald-100 transition-colors group-focus-within/price:bg-emerald-600 group-focus-within/price:text-white">
+                                                    <FiDollarSign size={24}/>
+                                                </div>
+                                                <input type="number" required className="input-modern pr-20 text-4xl font-black text-slate-800 focus:bg-white transition-all text-center tracking-tighter" placeholder="0.00" value={formData.price} onChange={e => update('price', e.target.value)} />
+                                            </div>
+                                            <div className="flex items-center justify-between p-4 bg-slate-50/50 rounded-2xl border border-slate-100 mt-4">
+                                                <span className="text-[11px] font-bold text-slate-400 italic">صافي أرباحك التقريبي (بعد عمولة المنصة 10%):</span>
+                                                <span className="text-lg font-black text-emerald-700">{netEarnings} $</span>
                                             </div>
                                         </div>
 
-                                        <div className="text-center space-y-4 border-t border-slate-100 pt-6">
-                                            <label className="label-modern">عداد الاستعجال والندرة (تاريخ الانتهاء)</label>
-                                            <input type="datetime-local" className="input-modern text-center max-w-[250px] mx-auto bg-slate-50 border-slate-200 text-xs font-bold" value={formData.offerExpiresAt} onChange={e => update('offerExpiresAt', e.target.value)} />
-                                        </div>
-
-                                        {/* Earnings Calculator */}
-                                        <div className="bg-emerald-50 border border-emerald-100 rounded-3xl p-6 flex items-center justify-between shadow-sm relative overflow-hidden">
-                                            <div className="absolute right-0 top-0 bottom-0 w-2 bg-emerald-400" />
-                                            <div>
-                                                <h4 className="text-sm font-black text-emerald-800">الربح الصافي الخاص بك لليوم</h4>
-                                                <p className="text-[10px] text-emerald-600/70 font-bold mt-1">بعد خصم 10% رسوم صيانة وتطوير المنصة</p>
+                                        <div className="space-y-4">
+                                            <div className="flex items-center justify-between mb-4">
+                                                <label className="label-modern underline decoration-red-200 underline-offset-8">السعر الوهمي / السابق ($)</label>
+                                                <span className="text-[10px] font-black bg-red-50 text-red-500 px-3 py-1 rounded-full uppercase tracking-tighter">للخصم فقط</span>
                                             </div>
-                                            <div className="text-left font-black text-3xl text-emerald-600 tracking-tighter" dir="ltr">
-                                                <span className="text-sm text-emerald-400 mr-1">$</span>{netEarnings}
+                                            <div className="relative group/price-old">
+                                                <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-slate-50 text-slate-400 rounded-r-2xl border-l border-slate-100 transition-colors group-focus-within/price-old:bg-red-500 group-focus-within/price-old:text-white">
+                                                    <FiX size={24}/>
+                                                </div>
+                                                <input type="number" className="input-modern pr-20 text-3xl font-black text-slate-400 line-through focus:bg-white transition-all text-center" placeholder="99.00" value={formData.originalPrice} onChange={e => update('originalPrice', e.target.value)} />
+                                            </div>
+                                            <p className="text-[10px] text-slate-400 font-bold leading-relaxed pr-2 italic">سيظهر هذا السعر مشطوباً لإغراء الطالب بعرض "لفترة محدودة" وفرصة لا تعوض.</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-12 pt-10 border-t border-slate-50">
+                                        <div className="grid md:grid-cols-2 gap-10">
+                                            <div className="space-y-4">
+                                                <label className="label-modern text-xs">تاريخ انتهاء عرض الخصم (اختياري)</label>
+                                                <input type="datetime-local" className="input-modern bg-amber-50/30 border-amber-100" value={formData.offerExpiresAt} onChange={e => update('offerExpiresAt', e.target.value)} />
+                                                <p className="text-[10px] text-amber-600 font-bold">سيظهر عداد تنازلي (Urgency) في صفحة البيع لتحفيز الشراء الفوري.</p>
+                                            </div>
+                                            <div className="space-y-4">
+                                                <label className="label-modern text-xs">كورس إضافي لعرضه في الدفع (Order Bump)</label>
+                                                <select className="input-modern bg-slate-50 text-xs font-bold" value={formData.upsellCourseId} onChange={e => update('upsellCourseId', e.target.value)}>
+                                                    <option value="">لا يوجد عرض إضافي</option>
+                                                    {/* We could fetch other courses here, for now it's static or empty */}
+                                                </select>
+                                                <p className="text-[10px] text-slate-400 font-bold italic">ارفع قيمة سلة الشراء عبر عرض كورس مكمل بخصم خاص.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -539,13 +564,13 @@ export default function NewCoursePage() {
                                 )}
 
                                 <Section title="خيارات العرض فور الإنشاء" icon={<FiEye />}>
-                                    <div className="flex items-center justify-between p-8 bg-slate-900 rounded-[3rem] border border-white/10 shadow-2xl transition-all cursor-pointer group hover:bg-slate-800" onClick={() => update('isActive', !formData.isActive)}>
+                                    <div className={`flex items-center justify-between p-8 rounded-[3rem] border transition-all cursor-pointer group hover:opacity-95 ${formData.isActive ? 'bg-slate-900 border-slate-800 shadow-2xl' : 'bg-white border-slate-100'}`} onClick={() => update('isActive', !formData.isActive)}>
                                         <div className="text-right">
-                                            <h3 className="font-black text-white text-xl leading-tight uppercase group-hover:text-primary-indigo-300 transition-colors">إطلاق وعرض الدورة للبيع</h3>
-                                            <p className="text-xs text-white/40 mt-1 font-bold">{formData.isActive ? 'الدورة ستظهر في واجهة المتجر الرئيسية للجميع' : 'الدورة ستبقى مخفية (وسيكون الوصول بالرابط السري فقط)'}</p>
+                                            <h3 className={`font-black text-xl leading-tight transition-colors ${formData.isActive ? 'text-white' : 'text-slate-800'}`}>إطلاق وعرض الدورة للبيع</h3>
+                                            <p className={`text-xs mt-1 font-bold ${formData.isActive ? 'text-white/40' : 'text-slate-400'}`}>{formData.isActive ? 'الدورة ستظهر في واجهة المتجر الرئيسية للجميع' : 'الدورة ستبقى مخفية (وسيكون الوصول بالرابط السري فقط)'}</p>
                                         </div>
-                                        <div className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.isActive ? 'bg-primary-indigo-500 outline-primary-indigo-500/30' : 'bg-slate-700 outline-slate-800'}`}>
-                                            <div className={`w-6 h-6 bg-white rounded-full transition-all ${formData.isActive ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
+                                        <div className={`w-14 h-8 rounded-full flex items-center px-1 transition-all ${formData.isActive ? 'bg-primary-indigo-500' : 'bg-slate-100'}`}>
+                                            <div className={`w-6 h-6 bg-white rounded-full transition-all shadow-md ${formData.isActive ? 'translate-x-[24px]' : 'translate-x-0'}`} />
                                         </div>
                                     </div>
                                     

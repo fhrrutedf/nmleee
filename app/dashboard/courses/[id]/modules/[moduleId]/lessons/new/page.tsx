@@ -70,11 +70,11 @@ export default function NewLessonPage() {
         <div className="bg-slate-50 min-h-screen text-slate-800 dir-rtl selection:bg-indigo-300 py-16 px-6">
             <div className="max-w-4xl mx-auto relative">
                 <div className="mb-12 cursor-default flex items-center justify-between">
-                    <div>
-                        <h1 className="text-5xl font-black text-slate-900 leading-tight mb-2 tracking-tighter cursor-pointer relative z-10 hover:text-primary-indigo-600 transition-colors">
+                    <div className="text-right">
+                        <h1 className="text-3xl md:text-5xl font-black text-slate-900 leading-tight mb-2 tracking-tighter cursor-pointer relative z-10 hover:text-primary-indigo-600 transition-colors">
                             إضافة درس جديد
                         </h1>
-                        <p className="text-xl text-slate-500 font-medium mb-4 max-w-xl">
+                        <p className="text-lg md:text-xl text-slate-500 font-medium mb-4 max-w-xl">
                             قوم بإدراج الفيديوهات والاختبارات والمستندات بضغطة زر.
                         </p>
                     </div>
@@ -186,13 +186,17 @@ export default function NewLessonPage() {
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-between p-8 bg-blue-900 rounded-[3rem] border border-blue-800 shadow-xl cursor-pointer hover:bg-blue-800 transition-colors group mt-8" onClick={() => setFormData({ ...formData, isFree: !formData.isFree })}>
-                        <div className="text-right">
-                            <h3 className="font-black text-white text-xl leading-tight transition-colors group-hover:text-amber-400">إتاحة كدرس مجاني (Free Preview) 👀</h3>
-                            <p className="text-xs text-blue-200 mt-2 max-w-lg leading-relaxed">اسمح للزوار بمشاهدة هذا الدرس مجاناً كإعلان تشويقي لدفعهم للاشتراك بالدورة الكاملة.</p>
+                    <div 
+                        className={`flex items-center justify-between p-8 rounded-[3rem] border transition-all cursor-pointer group mt-8 relative overflow-hidden ${formData.isFree ? 'bg-indigo-600 border-indigo-500 shadow-xl shadow-indigo-200' : 'bg-white border-slate-100 shadow-sm'}`} 
+                        onClick={() => setFormData({ ...formData, isFree: !formData.isFree })}
+                    >
+                        {formData.isFree && <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-indigo-700 opacity-50" />}
+                        <div className="text-right relative z-10">
+                            <h3 className={`font-black text-xl leading-tight transition-colors ${formData.isFree ? 'text-white' : 'text-slate-800'}`}>إتاحة كدرس مجاني (Free Preview) 👀</h3>
+                            <p className={`text-xs mt-2 max-w-lg leading-relaxed ${formData.isFree ? 'text-indigo-100' : 'text-slate-400 font-bold'}`}>اسمح للزوار بمشاهدة هذا الدرس مجاناً كإعلان تشويقي لدفعهم للاشتراك بالدورة الكاملة.</p>
                         </div>
-                        <div className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.isFree ? 'bg-amber-500 outline-amber-500/30' : 'bg-blue-950 outline-blue-900'}`}>
-                            <div className={`w-6 h-6 bg-white rounded-full transition-all ${formData.isFree ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
+                        <div className={`w-14 h-8 rounded-full flex items-center px-1 transition-all relative z-10 ${formData.isFree ? 'bg-white/20 backdrop-blur-md' : 'bg-slate-100'}`}>
+                            <div className={`w-6 h-6 rounded-full transition-all shadow-md ${formData.isFree ? 'translate-x-[24px] bg-amber-400' : 'translate-x-0 bg-white'}`} />
                         </div>
                     </div>
 

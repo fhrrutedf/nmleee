@@ -13,9 +13,11 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
     const [uploading, setUploading] = useState(false);
     const [progress, setProgress] = useState(0);
     const [status, setStatus] = useState<'idle' | 'init' | 'uploading' | 'complete' | 'error'>('idle');
+    const [instanceId] = useState(() => Math.random().toString(36).substring(7));
 
     const handleUpload = async () => {
         if (!file) return;
+        // ... rest of handleUpload ...
 
         setStatus('init');
         setUploading(true);
@@ -94,9 +96,9 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                         {uploading ? <FiLoader size={40} className="animate-spin" /> : <FiUploadCloud size={40} />}
                     </div>
 
-                    <div className="space-y-2">
-                        <h3 className="text-2xl font-black text-primary-charcoal dark:text-white">رفع فيديو جديد</h3>
-                        <p className="text-gray-400 font-medium">ارفع الفيديو مباشرة لخدمة Bunny Stream (مثل يوتيوب)</p>
+                    <div className="space-y-2 text-right">
+                        <h3 className="text-2xl font-black text-primary-charcoal dark:text-white">رفع المادة التعليمية</h3>
+                        <p className="text-gray-400 font-bold text-xs uppercase tracking-widest leading-relaxed">ارفع الفيديو مباشرة لخدمات Bunny Stream المشفرة</p>
                     </div>
 
                     {!uploading ? (
@@ -106,13 +108,13 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                                 accept="video/*" 
                                 onChange={(e) => setFile(e.target.files?.[0] || null)}
                                 className="hidden"
-                                id="bunny-upload-input"
+                                id={`bunny-upload-${instanceId}`}
                             />
                             <label 
-                                htmlFor="bunny-upload-input"
+                                htmlFor={`bunny-upload-${instanceId}`}
                                 className="inline-block px-10 py-5 bg-action-blue text-white rounded-2xl font-black text-lg cursor-pointer hover:shadow-2xl hover:shadow-action-blue/30 transition-all active:scale-95"
                             >
-                                {file ? file.name : 'اختر ملف الفيديو'}
+                                {file ? file.name : 'اختر ملف الفيديو للبدء'}
                             </label>
                             
                             {file && (
