@@ -148,13 +148,10 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                     __html: `
                     .text-action-blue { color: ${effectiveBrandColor} !important; }
                     .bg-action-blue { background-color: ${effectiveBrandColor} !important; }
-                    .bg-action-blue\\/10 { background-color: ${effectiveBrandColor}15 !important; }
                     .border-action-blue { border-color: ${effectiveBrandColor} !important; }
-                    .border-action-blue\\/30 { border-color: ${effectiveBrandColor}50 !important; }
                     .shadow-action-blue\\/20 { --tw-shadow-color: ${effectiveBrandColor}33 !important; }
                     .shadow-action-blue\\/40 { --tw-shadow-color: ${effectiveBrandColor}66 !important; }
                     .fill-action-blue { fill: ${effectiveBrandColor} !important; }
-                    .selection\\:bg-action-blue\\/20 *::selection { background-color: ${effectiveBrandColor}33 !important; }
                     .hover\\:text-action-blue:hover { color: ${effectiveBrandColor} !important; }
                     .hover\\:border-action-blue:hover { border-color: ${effectiveBrandColor} !important; }
                     `
