@@ -483,6 +483,5 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                     </p>
                 </footer>
             </div>
-        </div>
-    );
-}
+        );
+    }
