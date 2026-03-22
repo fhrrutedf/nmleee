@@ -34,8 +34,8 @@ export default function CourseQuizzesPage() {
             const res = await fetch(`/api/courses/${courseId}/content`);
             if (res.ok) {
                 const data = await res.json();
-                // Extract quizzes from modules/lessons
-                const allQuizzes: Quiz[] = [];
+                // Extract quizzes from Course and Modules/Lessons
+                const allQuizzes: Quiz[] = data.quizzes || [];
                 if (data.modules) {
                     for (const mod of data.modules) {
                         if (mod.lessons) {

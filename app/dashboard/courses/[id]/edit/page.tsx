@@ -42,7 +42,10 @@ export default function EditCoursePage() {
         title: '',
         description: '',
         price: '',
+        originalPrice: '',
         category: '',
+        level: 'beginner',
+        format: 'recorded',
         duration: '',
         sessions: '',
         image: '',
@@ -67,10 +70,14 @@ export default function EditCoursePage() {
             if (response.ok) {
                 const data = await response.json();
                 setFormData({
+                    ...data,
                     title: data.title || '',
                     description: data.description || '',
                     price: data.price?.toString() || '',
+                    originalPrice: data.originalPrice?.toString() || '',
                     category: data.category || '',
+                    level: data.level || 'beginner',
+                    format: data.format || 'recorded',
                     duration: data.duration || '',
                     sessions: data.sessions?.toString() || '',
                     image: data.image || '',
@@ -104,6 +111,7 @@ export default function EditCoursePage() {
                 body: JSON.stringify({
                     ...formData,
                     price: parseFloat(formData.price || '0'),
+                    originalPrice: formData.originalPrice ? parseFloat(formData.originalPrice) : null,
                     sessions: formData.sessions ? parseInt(formData.sessions) : null
                 }),
             });
@@ -191,6 +199,48 @@ export default function EditCoursePage() {
                                             value={formData.description}
                                             onChange={(val) => setFormData({ ...formData, description: val })}
                                         />
+                                    </div>
+                                </div>
+
+                                <div className="grid md:grid-cols-3 gap-6 pt-4">
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-black text-slate-500">التصنيف الرئيسي</label>
+                                        <select 
+                                            className="input-modern text-xs"
+                                            value={formData.category}
+                                            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                                        >
+                                            <option value="">اختر تصنيفاً...</option>
+                                            <option value="البرمجة والتكنولوجيا">البرمجة والتكنولوجيا</option>
+                                            <option value="التصميم والجرافيك">التصميم والجرافيك</option>
+                                            <option value="اللغات والآداب">اللغات والآداب</option>
+                                            <option value="العلوم الأكاديمية">العلوم الأكاديمية</option>
+                                            <option value="المهارات الشخصية">المهارات الشخصية</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-black text-slate-500">مستوى الدورة</label>
+                                        <select 
+                                            className="input-modern text-xs"
+                                            value={formData.level}
+                                            onChange={(e) => setFormData({ ...formData, level: e.target.value })}
+                                        >
+                                            <option value="beginner">مبتدئ</option>
+                                            <option value="intermediate">متوسط</option>
+                                            <option value="advanced">متقدم</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-black text-slate-500">نوع التدريب</label>
+                                        <select 
+                                            className="input-modern text-xs"
+                                            value={formData.format}
+                                            onChange={(e) => setFormData({ ...formData, format: e.target.value })}
+                                        >
+                                            <option value="recorded">مسجلة</option>
+                                            <option value="live">مباشرة عبر الإنترنت</option>
+                                            <option value="on-site">حضور شخصي</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -299,13 +349,23 @@ export default function EditCoursePage() {
                                     </div>
                                 </div>
 
-                                <div className="space-y-2">
-                                    <label className="label-modern italic">السعر الإجمالي ($)</label>
-                                    <input
-                                        type="number" className="input-modern text-center font-black text-xl text-primary-indigo-600 border-2 border-primary-indigo-50"
-                                        value={formData.price}
-                                        onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                                    />
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black text-slate-400">السعر النهائي ($)</label>
+                                        <input
+                                            type="number" className="input-modern text-center font-black text-xl text-primary-indigo-600 border-2 border-primary-indigo-50"
+                                            value={formData.price}
+                                            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black text-slate-400 italic">السعر قبل الخصم (اختياري)</label>
+                                        <input
+                                            type="number" className="input-modern text-center font-bold text-lg text-slate-400 border-2 border-slate-50 line-through"
+                                            value={formData.originalPrice}
+                                            onChange={(e) => setFormData({ ...formData, originalPrice: e.target.value })}
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className="pt-4 space-y-3">

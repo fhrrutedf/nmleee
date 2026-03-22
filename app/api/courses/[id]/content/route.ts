@@ -81,6 +81,8 @@ export async function GET(
                                     select: {
                                         id: true,
                                         title: true,
+                                        description: true,
+                                        isPublished: true,
                                         passingScore: true,
                                         timeLimit: true,
                                         questions: true,
@@ -88,6 +90,18 @@ export async function GET(
                                 }
                             }
                         }
+                    }
+                },
+                quizzes: {
+                    where: isStudentOnly ? { isPublished: true, lessonId: null } : { lessonId: null },
+                    select: {
+                        id: true,
+                        title: true,
+                        description: true,
+                        isPublished: true,
+                        passingScore: true,
+                        timeLimit: true,
+                        questions: true,
                     }
                 },
                 certificates: {
@@ -105,26 +119,47 @@ export async function GET(
             return new NextResponse('Course not found', { status: 404 });
         }
 
-        // 4. Sanitize Quiz Questions (Remove correct answers)
-        const sanitizedModules = course.modules.map((module: any) => ({
-            ...module,
-            lessons: module.lessons.map((lesson: any) => ({
-                ...lesson,
-                completed: lesson.progress?.[0]?.isCompleted || false,
-                lastPosition: lesson.progress?.[0]?.lastPosition || 0,
-                quizzes: lesson.quizzes.map((quiz: any) => {
-                    const questions = (quiz.questions as any[]).map((q: any) => {
-                        const { correctAnswer, ...rest } = q;
-                        return rest;
-                    });
-                    return { ...quiz, questions };
-                })
+        // 4. Sanitize Quiz Questions (Remove correct answers) ONLY for students
+        const sanitizedModules = isStudentOnly 
+            ? course.modules.map((module: any) => ({
+                ...module,
+                lessons: module.lessons.map((lesson: any) => ({
+                    ...lesson,
+                    completed: lesson.progress?.[0]?.isCompleted || false,
+                    lastPosition: lesson.progress?.[0]?.lastPosition || 0,
+                    quizzes: lesson.quizzes.map((quiz: any) => {
+                        const questions = (quiz.questions as any[]).map((q: any) => {
+                            const { correctAnswer, ...rest } = q;
+                            return rest;
+                        });
+                        return { ...quiz, questions };
+                    })
+                }))
             }))
-        }));
+            : course.modules.map((module: any) => ({
+                ...module,
+                lessons: module.lessons.map((lesson: any) => ({
+                    ...lesson,
+                    completed: lesson.progress?.[0]?.isCompleted || false,
+                    lastPosition: lesson.progress?.[0]?.lastPosition || 0,
+                    quizzes: lesson.quizzes || []
+                }))
+            }));
+
+        const sanitizedCourseQuizzes = isStudentOnly && course.quizzes
+            ? (course.quizzes || []).map((quiz: any) => {
+                const questions = (quiz.questions as any[]).map((q: any) => {
+                    const { correctAnswer, ...rest } = q;
+                    return rest;
+                });
+                return { ...quiz, questions };
+            })
+            : course.quizzes || [];
 
         return NextResponse.json({
             ...course,
             modules: sanitizedModules,
+            quizzes: sanitizedCourseQuizzes,
             isEnrolled: true, // They have access at this point
             enrollmentId: enrollment?.id,
             certificate: course.certificates[0] || null

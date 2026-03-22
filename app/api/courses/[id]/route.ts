@@ -9,19 +9,28 @@ export async function GET(
 ) {
     try {
         const { id } = await params;
-        const course = await prisma.course.findUnique({
-            where: { id },
-            include: {
-                user: {
-                    select: {
-                        id: true,
-                        name: true,
-                        username: true,
-                        brandColor: true,
-                    },
-                },
-            },
-        });
+        
+        let course = null;
+        
+        try {
+            // First look up by ID
+            course = await prisma.course.findUnique({
+                where: { id },
+                include: {
+                    user: { select: { id: true, name: true, username: true, brandColor: true } }
+                }
+            });
+        } catch (e) {}
+
+        if (!course) {
+            // Fallback to slug lookup
+            course = await prisma.course.findFirst({
+                where: { slug: id },
+                include: {
+                    user: { select: { id: true, name: true, username: true, brandColor: true } }
+                }
+            });
+        }
 
         if (!course) {
             return NextResponse.json({ error: 'الدورة غير موجودة' }, { status: 404 });
@@ -85,22 +94,29 @@ export async function PUT(
                 slug: slug || undefined,
                 title: body.title,
                 description: body.description,
-                price: (body.price !== undefined && body.price !== "") ? parseFloat(body.price) : 0,
-                originalPrice: (body.originalPrice && body.originalPrice !== "") ? parseFloat(body.originalPrice) : null,
-                enablePPP: body.enablePPP ?? false,
+                price: (body.price !== undefined && body.price !== "") ? parseFloat(body.price) : undefined,
+                originalPrice: (body.originalPrice !== undefined) ? (body.originalPrice === "" ? null : parseFloat(body.originalPrice)) : undefined,
+                enablePPP: body.enablePPP,
                 category: body.category,
                 image: body.image,
                 tags: body.tags,
+                format: body.format,
+                level: body.level,
                 duration: body.duration,
-                sessions: (body.sessions !== undefined && body.sessions !== "") ? parseInt(body.sessions) : null,
+                sessions: (body.sessions !== undefined) ? (body.sessions === "" ? null : parseInt(body.sessions)) : undefined,
                 isActive: body.isActive,
+                status: body.status,
                 zoomLink: body.zoomLink,
                 meetLink: body.meetLink,
                 trailerUrl: body.trailerUrl,
-                prerequisites: Array.isArray(body.prerequisites) ? body.prerequisites : (typeof body.prerequisites === 'string' ? body.prerequisites.split(',').map((p: string) => p.trim()).filter(Boolean) : []),
-                upsellCourseId: body.upsellCourseId || null,
-                upsellPrice: (body.upsellPrice && body.upsellPrice !== "") ? parseFloat(body.upsellPrice) : null,
-                offerExpiresAt: (body.offerExpiresAt && body.offerExpiresAt !== "") ? new Date(body.offerExpiresAt) : null,
+                allowComments: body.allowComments,
+                requiresQuiz: body.requiresQuiz,
+                isCertificateEnabled: body.isCertificateEnabled,
+                certificateTemplate: body.certificateTemplate,
+                prerequisites: Array.isArray(body.prerequisites) ? body.prerequisites : (typeof body.prerequisites === 'string' ? body.prerequisites.split(',').map((p: string) => p.trim()).filter(Boolean) : undefined),
+                upsellCourseId: body.upsellCourseId,
+                upsellPrice: (body.upsellPrice !== undefined) ? (body.upsellPrice === "" ? null : parseFloat(body.upsellPrice)) : undefined,
+                offerExpiresAt: (body.offerExpiresAt !== undefined) ? (body.offerExpiresAt === "" ? null : new Date(body.offerExpiresAt)) : undefined,
             },
         });
 
@@ -109,6 +125,48 @@ export async function PUT(
         console.error('Error updating course:', error);
         return NextResponse.json(
             { error: 'حدث خطأ في تحديث الدورة' },
+            { status: 500 }
+        );
+    }
+}
+
+export async function PATCH(
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
+) {
+    try {
+        const session = await getServerSession(authOptions);
+
+        if (!session || !(session.user as any)?.id) {
+            return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
+        }
+
+        const userId = (session.user as any).id;
+        const body = await request.json();
+        const { id } = await params;
+
+        const course = await prisma.course.findUnique({
+            where: { id },
+        });
+
+        if (!course) {
+            return NextResponse.json({ error: 'الدورة غير موجودة' }, { status: 404 });
+        }
+
+        if (course.userId !== userId && (session.user as any).role !== 'ADMIN') {
+            return NextResponse.json({ error: 'غير مصرح بتعديل هذه الدورة' }, { status: 403 });
+        }
+
+        const updatedCourse = await prisma.course.update({
+            where: { id },
+            data: body,
+        });
+
+        return NextResponse.json(updatedCourse);
+    } catch (error) {
+        console.error('Error patching course:', error);
+        return NextResponse.json(
+            { error: 'حدث خطأ أثناء تعديل حالة الدورة' },
             { status: 500 }
         );
     }

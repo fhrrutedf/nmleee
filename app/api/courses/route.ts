@@ -152,7 +152,8 @@ export async function POST(request: NextRequest) {
                 upsellCourseId: body.upsellCourseId || null,
                 upsellPrice: body.upsellPrice ? parseFloat(body.upsellPrice.toString()) : null,
                 offerExpiresAt: body.offerExpiresAt ? new Date(body.offerExpiresAt) : null,
-                userId: userId
+                userId: userId,
+                status: 'APPROVED'
             },
             include: {
                 user: {

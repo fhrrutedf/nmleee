@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
         // Get all paid orders for this user
         const orders = await prisma.order.findMany({
             where: {
-                customerEmail: session.user.email,
+                customerEmail: { equals: session.user.email, mode: 'insensitive' },
                 status: 'PAID',
             },
             include: {
@@ -32,6 +32,7 @@ export async function GET(req: NextRequest) {
                             select: {
                                 id: true,
                                 title: true,
+                                slug: true,
                                 image: true,
                             },
                         },
@@ -66,7 +67,7 @@ export async function GET(req: NextRequest) {
                             type: isCourse ? 'course' : 'product',
                             title: bp.product.title,
                             image: bp.product.image,
-                            slug: !isCourse ? bp.product.slug : undefined,
+                            slug: bp.product.slug || undefined,
                             progress: 0,
                             purchasedAt: order.createdAt,
                             fromBundle: item.bundle?.title
@@ -83,7 +84,7 @@ export async function GET(req: NextRequest) {
                             type: isCourse ? 'course' : 'product',
                             title: data.title || 'Unknown',
                             image: data.image,
-                            slug: !isCourse ? (data as any).slug : undefined,
+                            slug: data.slug || undefined,
                             progress: 0,
                             purchasedAt: order.createdAt,
                         });

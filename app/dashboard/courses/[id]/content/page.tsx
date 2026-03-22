@@ -82,6 +82,27 @@ export default function CourseContentPage() {
         return `${mins}:${secs.toString().padStart(2, '0')}`;
     };
 
+    const saveDraft = async () => {
+        try {
+            showToast.loading('جاري حفظ المسودة...');
+            const response = await fetch(`/api/courses/${courseId}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ isActive: false, status: 'PENDING_REVIEW' })
+            });
+            
+            if (response.ok) {
+                showToast.success('تم حفظ الدورة كمسودة بنجاح! 📥');
+                router.push('/dashboard/courses');
+            } else {
+                showToast.error('فشل في حفظ المسودة');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showToast.error('خطأ في الاتصال');
+        }
+    };
+
     const publishCourse = async () => {
         try {
             showToast.loading('جاري نشر الدورة...');
@@ -126,15 +147,21 @@ export default function CourseContentPage() {
                         <div className="w-full sm:w-auto flex flex-col sm:flex-row gap-3">
                             <button
                                 onClick={() => setShowModuleForm(true)}
-                                className="w-full sm:w-auto px-8 py-4 bg-indigo-600 text-white rounded-[1.5rem] font-black shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm"
+                                className="w-full sm:w-auto px-8 py-4 bg-white text-indigo-600 border border-indigo-100 rounded-[1.5rem] font-black shadow-sm hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-xs"
                             >
-                                <FiPlus /> وحدة جديدة (فصل)
+                                <FiPlus /> وحدة جديدة
+                            </button>
+                            <button
+                                onClick={() => saveDraft()}
+                                className="w-full sm:w-auto px-8 py-4 bg-slate-100 text-slate-600 rounded-[1.5rem] font-black hover:bg-slate-200 transition-all flex items-center justify-center gap-2 text-xs"
+                            >
+                                <FiEyeOff /> حفظ كمسودة
                             </button>
                             <button
                                 onClick={publishCourse}
-                                className="w-full sm:w-auto px-8 py-4 bg-emerald-500 text-white rounded-[1.5rem] font-black shadow-lg shadow-emerald-200 hover:bg-emerald-600 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm"
+                                className="w-full sm:w-auto px-8 py-4 bg-emerald-500 text-white rounded-[1.5rem] font-black shadow-lg shadow-emerald-200 hover:bg-emerald-600 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-xs"
                             >
-                                <FiCheckSquare /> نشر الدورة
+                                <FiCheckSquare /> نشر الدورة الآن
                             </button>
                         </div>
                     </div>
