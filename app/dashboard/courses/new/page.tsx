@@ -53,6 +53,7 @@ export default function NewCoursePage() {
         isActive: true,
         zoomLink: '',
         meetLink: '',
+        startTime: '', // New field for live sessions
     });
 
     const [tagInput, setTagInput] = useState('');
@@ -356,23 +357,37 @@ export default function NewCoursePage() {
                         {/* Step 2: Content Specs */}
                         {currentStep === 2 && (
                             <motion.div key="st2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-10">
-                                <Section title="الوصف التفصيلي" icon={<FiLayers />}>
-                                    <label className="label-modern mb-4 block font-black underline decoration-primary-indigo-200 underline-offset-8">ماذا سيتعلم الطالب؟ اكتب بوضوح <span className="text-red-500">*</span></label>
+                                <Section 
+                                    title={formData.format === 'online' ? "تفاصيل ومحتوى الجلسة الحية" : "الوصف التفصيلي للمنهج"} 
+                                    icon={<FiLayers />}
+                                >
+                                    <label className="label-modern mb-4 block font-black underline decoration-primary-indigo-200 underline-offset-8">
+                                        {formData.format === 'online' ? "ماذا سيتناول الطلاب في هذه الجلسة الحية؟" : "ماذا سيتعلم الطالب؟ اكتب بوضوح"} 
+                                        <span className="text-red-500">*</span>
+                                    </label>
                                     <div className="min-h-[400px]">
                                         <RichTextEditor value={formData.description} onChange={val => update('description', val)} />
                                     </div>
                                 </Section>
 
-                                <Section title="المواصفات التقنية" icon={<FiClock />}>
+                                <Section title="المواصفات والوقت" icon={<FiClock />}>
                                     <div className="grid md:grid-cols-2 gap-10">
                                         <div className="space-y-2">
-                                            <label className="text-xs font-black text-slate-400 italic">المدة الزمنية التقديرية (Duration)</label>
-                                            <input type="text" className="input-modern" placeholder="مثال: 12 ساعة تدريبية" value={formData.duration} onChange={e => update('duration', e.target.value)} />
+                                            <label className="text-xs font-black text-slate-400 italic">المدة الزمنية للجلسة / الدورة</label>
+                                            <input type="text" className="input-modern" placeholder={formData.format === 'online' ? "مثال: 90 دقيقة" : "مثال: 12 ساعة تدريبية"} value={formData.duration} onChange={e => update('duration', e.target.value)} />
                                         </div>
-                                        <div className="space-y-2">
-                                            <label className="text-xs font-black text-slate-400 italic">إجمالي عدد الدروس (Sessions)</label>
-                                            <input type="number" className="input-modern" placeholder="مثال: 24" value={formData.sessions} onChange={e => update('sessions', e.target.value)} />
-                                        </div>
+                                        {formData.format === 'online' ? (
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-black text-emerald-600 italic">موعد البث (بتوقيتك المحلي)</label>
+                                                <input type="datetime-local" className="input-modern border-emerald-100 bg-emerald-50/30" value={formData.startTime} onChange={e => update('startTime', e.target.value)} />
+                                                <p className="text-[9px] text-slate-400 font-bold">سيتم عرض الموعد للطالب حسب توقيته المحلي تلقائياً</p>
+                                            </div>
+                                        ) : (
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-black text-slate-400 italic">إجمالي عدد الدروس (Sessions)</label>
+                                                <input type="number" className="input-modern" placeholder="مثال: 24" value={formData.sessions} onChange={e => update('sessions', e.target.value)} />
+                                            </div>
+                                        )}
                                     </div>
 
                                     <div className="pt-10 border-t border-slate-50">
