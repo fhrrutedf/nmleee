@@ -21,11 +21,12 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({
             videoId: bunnyVideoId,
             libraryId: libraryId,
-            apiKey: process.env.BUNNY_API_KEY // Needed for XHR direct upload
+            apiKey: process.env.BUNNY_API_KEY, // Needed for XHR direct upload
+            hostname: process.env.BUNNY_HOSTNAME || 'video.bunnycdn.com'
         });
 
-    } catch (error) {
-        console.error('Bunny Init Error:', error);
-        return NextResponse.json({ error: 'Failed to init upload' }, { status: 500 });
+    } catch (error: any) {
+        console.error('Bunny Init Error:', error?.message || error);
+        return NextResponse.json({ error: error?.message || 'Failed to init upload' }, { status: 500 });
     }
 }

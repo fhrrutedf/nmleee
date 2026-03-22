@@ -21,23 +21,37 @@ export async function getBunnySignedUrl(libraryId: string, videoId: string, expi
     return `https://iframe.mediadelivery.net/embed/${libraryId}/${videoId}?token=${hash}&expires=${expires}`;
 }
 
-/**
- * الحصول على رابط رفع فيديو جديد لـ Bunny Stream (Instructor Flow)
- */
 export async function createBunnyVideo(title: string) {
     const apiKey = process.env.BUNNY_API_KEY;
     const libraryId = process.env.BUNNY_LIBRARY_ID;
+    
+    // Some libraries use a specific regional domain (e.g. ny.video.bunnycdn.com)
+    // Default is video.bunnycdn.com for standard region (Falkenstein, Germany)
+    const hostname = process.env.BUNNY_HOSTNAME || 'video.bunnycdn.com';
 
-    if (!apiKey || !libraryId) throw new Error('Bunny credentials missing');
+    if (!apiKey || !libraryId) {
+        throw new Error('بيانات الربط مع Bunny (BUNNY_API_KEY, BUNNY_LIBRARY_ID) غير مكتملة في الخادم');
+    }
 
-    const res = await fetch(`https://video.bunnycdn.com/library/${libraryId}/videos`, {
+    const res = await fetch(`https://${hostname}/library/${libraryId}/videos`, {
         method: 'POST',
         headers: {
             'AccessKey': apiKey,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ title })
+        body: JSON.stringify({ title: title || 'بدون عنوان' })
     });
 
-    return await res.json(); // { guid: "video_id" }
+    if (!res.ok) {
+        const text = await res.text();
+        console.error(`[BUNNY_INIT_ERROR] Status: ${res.status}. Body: ${text}`);
+        throw new Error(`فشل تفويض رفع الفيديو من سيرفر Bunny. الكود: ${res.status}`);
+    }
+
+    const data = await res.json();
+    if (!data.guid) {
+        throw new Error(`لم يقم Bunny بإرجاع معرف صالح للفيديو. الرد كان: ${JSON.stringify(data)}`);
+    }
+    
+    return data; // { guid: "video_id", ... }
 }

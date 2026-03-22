@@ -29,14 +29,15 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ title: file.name })
             });
-            const { videoId, libraryId, apiKey } = await initRes.json();
+            const { videoId, libraryId, apiKey, hostname, error } = await initRes.json();
 
-            if (!initRes.ok) throw new Error('Failed to init upload');
+            if (!initRes.ok) throw new Error(error || 'Failed to init upload');
 
             // 2. Direct Upload to Bunny (Using XHR for progress)
             setStatus('uploading');
             const xhr = new XMLHttpRequest();
-            xhr.open('PUT', `https://video.bunnycdn.com/library/${libraryId}/videos/${videoId}`, true);
+            const uploadHost = hostname || 'video.bunnycdn.com';
+            xhr.open('PUT', `https://${uploadHost}/library/${libraryId}/videos/${videoId}`, true);
             xhr.setRequestHeader('AccessKey', apiKey);
             xhr.setRequestHeader('Content-Type', 'application/octet-stream');
 

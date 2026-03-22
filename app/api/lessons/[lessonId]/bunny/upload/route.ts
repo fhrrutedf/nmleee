@@ -47,11 +47,12 @@ export async function POST(
         return NextResponse.json({
             videoId: bunnyVideoId,
             libraryId: libraryId,
-            apiKey: process.env.BUNNY_API_KEY // سنحتاجه للرفع المباشر من المتصفح
+            apiKey: process.env.BUNNY_API_KEY, // سنحتاجه للرفع المباشر من المتصفح
+            hostname: process.env.BUNNY_HOSTNAME || 'video.bunnycdn.com'
         });
 
-    } catch (error) {
-        console.error('Bunny Upload Error:', error);
-        return NextResponse.json({ error: 'Failed to init upload' }, { status: 500 });
+    } catch (error: any) {
+        console.error('Bunny Upload Error:', error?.message || error);
+        return NextResponse.json({ error: error?.message || 'Failed to init upload' }, { status: 500 });
     }
 }

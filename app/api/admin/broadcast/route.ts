@@ -102,8 +102,8 @@ export async function PATCH(req: NextRequest) {
             });
 
             await logActivity({
-                actorId: (session.user as any).id,
-                actorName: (session.user as any).name || 'Admin',
+                actorId: (session!.user as any).id,
+                actorName: (session!.user as any).name || 'Admin',
                 actorRole: 'ADMIN',
                 action: 'BROADCAST_STOPPED',
                 details: { jobId: id },
