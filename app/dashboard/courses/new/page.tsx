@@ -15,12 +15,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import StepProgress from '@/components/ui/StepProgress';
 import CourseContentBuilder from '@/components/instructor/CourseContentBuilder';
 
-const steps = [
-    { id: 1, label: 'هوية الدورة' },
-    { id: 2, label: 'مواصفات المحتوى' },
-    { id: 3, label: 'بناء المنهج' },
-    { id: 4, label: 'التسعير ووسائل البث' },
-];
+// Steps moved inside component to be dynamic
 
 export default function NewCoursePage() {
     const router = useRouter();
@@ -61,6 +56,13 @@ export default function NewCoursePage() {
 
     const [tagInput, setTagInput] = useState('');
     const [featureInput, setFeatureInput] = useState('');
+
+    const dynamicSteps = [
+        { id: 1, label: 'هوية الأكاديمية' },
+        { id: 2, label: 'مواصفات المحتوى' },
+        ...(formData.format === 'recorded' ? [{ id: 3, label: 'بناء المنهج' }] : []),
+        { id: 4, label: 'التسعير ووسائل البث' },
+    ];
 
     // Load Draft
     useEffect(() => {
@@ -128,14 +130,22 @@ export default function NewCoursePage() {
                     showToast.error('خطأ في الاتصال بالخادم');
                     return;
                 }
-            }
         }
-        setCurrentStep(prev => prev + 1);
+        
+        let targetStep = currentStep + 1;
+        if (currentStep === 2 && formData.format === 'online') {
+            targetStep = 4;
+        }
+        setCurrentStep(targetStep);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const prevStep = () => {
-        setCurrentStep(prev => prev - 1);
+        let targetStep = currentStep - 1;
+        if (currentStep === 4 && formData.format === 'online') {
+            targetStep = 2;
+        }
+        setCurrentStep(targetStep);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
@@ -222,7 +232,7 @@ export default function NewCoursePage() {
 
                 {/* Progress Bar */}
                 <div className="bg-white rounded-[3rem] p-6 lg:p-8 shadow-premium border border-slate-50 mb-10 overflow-hidden">
-                    <StepProgress steps={steps} currentStep={currentStep} />
+                    <StepProgress steps={dynamicSteps} currentStep={currentStep} />
                 </div>
 
                 <form onSubmit={handlePreSubmit} autoComplete="off" className="space-y-10">
@@ -535,7 +545,7 @@ export default function NewCoursePage() {
                                     type="button" onClick={nextStep}
                                     className="w-full md:w-auto px-12 py-4 bg-slate-900 text-white rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-black transition-all shadow-2xl active:scale-95 text-lg"
                                 >
-                                    {currentStep === 3 ? 'التالي لتسعير الدورة' : 'المتابعة واختيار الإعدادات'}
+                                    {currentStep === 3 || (currentStep === 2 && formData.format === 'online') ? 'التالي لتسعير الدورة' : 'المتابعة واختيار الإعدادات'}
                                     <FiArrowLeft />
                                 </button>
                             ) : (
