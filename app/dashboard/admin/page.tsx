@@ -178,7 +178,27 @@ export default function AdminDashboardPage() {
                 setBroadcast({ subject: '', message: '', target: 'sellers' });
             } else showToast.error(res.error ?? 'فشل الإرسال');
         } catch { showToast.error('حدث خطأ'); }
-        finally { setSending(false); }
+        finally { 
+            setSending(false); 
+            fetch('/api/admin/broadcast/list').then(r => r.json()).then(setAllBroadcasts);
+        }
+    };
+
+    const cancelBroadcast = async (id: string) => {
+        if (!confirm('هل أنت متأكد من إيقاف هذا البث؟ لن تُرسل الرسائل المتبقية.')) return;
+        try {
+            const res = await fetch('/api/admin/broadcast', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, action: 'stop' })
+            });
+            if (res.ok) {
+                showToast.success('تم إيقاف البث بنجاح');
+                fetch('/api/admin/broadcast/list').then(r => r.json()).then(setAllBroadcasts);
+            } else {
+                showToast.error('فشل في إيقاف البث');
+            }
+        } catch(e) { showToast.error('حدث خطأ بالاتصال'); }
     };
 
     const verifyOrder = async (orderId: string, action: 'approve' | 'reject') => {
@@ -394,8 +414,28 @@ export default function AdminDashboardPage() {
                                 <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
                                     {(allBroadcasts || []).map((b: any) => (
                                         <div key={b.id} className="p-4 bg-gray-50 border border-gray-100 rounded-2xl flex items-center justify-between">
-                                            <div><div className="font-bold text-sm">{b.subject}</div><div className="text-[9px] font-black uppercase text-action-blue">{b.criteria}</div></div>
-                                            <div className="text-right tracking-tighter"><div className="text-xs font-black">{b.completedRecipients} / {b.totalRecipients}</div><div className="text-[8px] font-black uppercase text-green-600">COMPLETED</div></div>
+                                            <div>
+                                                <div className="font-bold text-sm">{b.subject}</div>
+                                                <div className="text-[9px] font-black uppercase text-action-blue">{b.recipientCriteria}</div>
+                                            </div>
+                                            <div className="flex items-center gap-4 text-right tracking-tighter">
+                                                <div>
+                                                    <div className="text-xs font-black text-slate-800">{b.sentCount || 0} / {b.recipientCount}</div>
+                                                    <div className={`text-[8px] font-black uppercase ${
+                                                        b.status === 'CANCELLED' ? 'text-red-500' :
+                                                        b.status === 'COMPLETED' ? 'text-green-600' :
+                                                        'text-orange-500'
+                                                    }`}>{b.status}</div>
+                                                </div>
+                                                {(b.status === 'PENDING' || b.status === 'SENDING') && (
+                                                    <button 
+                                                        onClick={() => cancelBroadcast(b.id)} 
+                                                        className="px-3 py-1.5 bg-red-100 text-red-600 hover:bg-red-200 text-xs font-bold rounded-lg transition-colors border border-red-200"
+                                                    >
+                                                        إيقاف
+                                                    </button>
+                                                )}
+                                            </div>
                                         </div>
                                     ))}
                                 </div>

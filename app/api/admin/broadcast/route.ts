@@ -86,6 +86,39 @@ export async function POST(req: NextRequest) {
     }
 }
 
+export async function PATCH(req: NextRequest) {
+    const session = await getServerSession(authOptions);
+    if ((session?.user as any)?.role !== 'ADMIN') {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+    }
+
+    try {
+        const { id, action } = await req.json();
+
+        if (action === 'stop') {
+            const updated = await prisma.broadcast.update({
+                where: { id },
+                data: { status: 'CANCELLED' }
+            });
+
+            await logActivity({
+                actorId: (session.user as any).id,
+                actorName: (session.user as any).name || 'Admin',
+                actorRole: 'ADMIN',
+                action: 'BROADCAST_STOPPED',
+                details: { jobId: id },
+            });
+
+            return NextResponse.json({ success: true, status: updated.status });
+        }
+
+        return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
+    } catch (error) {
+        console.error('Broadcast Stop Error:', error);
+        return NextResponse.json({ error: 'حدث خطأ أثناء إيقاف البث' }, { status: 500 });
+    }
+}
+
 /**
  * دالة معالجة البث (Iterative Batch Processing)
  * Note: In a production environment, this should be called by a CRON job at /api/cron/process-broadcasts

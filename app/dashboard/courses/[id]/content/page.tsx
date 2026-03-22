@@ -82,6 +82,27 @@ export default function CourseContentPage() {
         return `${mins}:${secs.toString().padStart(2, '0')}`;
     };
 
+    const publishCourse = async () => {
+        try {
+            showToast.loading('جاري نشر الدورة...');
+            const response = await fetch(`/api/courses/${courseId}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ isActive: true, status: 'APPROVED' })
+            });
+            
+            if (response.ok) {
+                showToast.success('تم نشر الدورة بنجاح!');
+                router.push('/dashboard/courses'); // Redirect back to courses list
+            } else {
+                showToast.error('حدث خطأ أثناء نشر الدورة');
+            }
+        } catch (error) {
+            console.error('Error publishing course:', error);
+            showToast.error('تعذر الاتصال بالخادم لنشر الدورة');
+        }
+    };
+
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-slate-50">
@@ -102,12 +123,20 @@ export default function CourseContentPage() {
                             <h1 className="text-3xl font-black text-slate-900 leading-none">إدارة منهج الدورة 🎓</h1>
                             <p className="mt-3 text-slate-500 font-medium text-sm">استعرض مصفوفة المنهج، أضف الدروس، ونظّم تجربة التعلم</p>
                         </div>
-                        <button
-                            onClick={() => setShowModuleForm(true)}
-                            className="w-full sm:w-auto px-8 py-4 bg-indigo-600 text-white rounded-[1.5rem] font-black shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm"
-                        >
-                            <FiPlus /> وحدة جديدة (فصل)
-                        </button>
+                        <div className="w-full sm:w-auto flex flex-col sm:flex-row gap-3">
+                            <button
+                                onClick={() => setShowModuleForm(true)}
+                                className="w-full sm:w-auto px-8 py-4 bg-indigo-600 text-white rounded-[1.5rem] font-black shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm"
+                            >
+                                <FiPlus /> وحدة جديدة (فصل)
+                            </button>
+                            <button
+                                onClick={publishCourse}
+                                className="w-full sm:w-auto px-8 py-4 bg-emerald-500 text-white rounded-[1.5rem] font-black shadow-lg shadow-emerald-200 hover:bg-emerald-600 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm"
+                            >
+                                <FiCheckSquare /> نشر الدورة
+                            </button>
+                        </div>
                     </div>
                 </div>
 
