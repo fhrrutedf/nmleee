@@ -242,7 +242,7 @@ export default function CourseContentPage() {
                                                     </div>
                                                     <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
                                                         <button
-                                                            onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes/new?lessonId=${lesson.id}`)}
+                                                            onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes/new?lessonId=${lesson.id}&returnTo=${encodeURIComponent(`/dashboard/courses/${courseId}/content`)}`)}
                                                             className="p-1.5 text-xs bg-purple-50 text-purple-600 rounded hover:bg-purple-100 border border-purple-200 flex items-center gap-1 whitespace-nowrap"
                                                             title="إضافة اختبار"
                                                         >

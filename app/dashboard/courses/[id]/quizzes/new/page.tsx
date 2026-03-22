@@ -10,6 +10,14 @@ export default function NewQuizPage() {
     const params = useParams();
     const router = useRouter();
     const courseId = params.id as string;
+    const [returnTo, setReturnTo] = useState<string | null>(null);
+
+    useState(() => {
+        if (typeof window !== 'undefined') {
+            const urlParams = new URLSearchParams(window.location.search);
+            setReturnTo(urlParams.get('returnTo'));
+        }
+    });
 
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -43,7 +51,12 @@ export default function NewQuizPage() {
             });
 
             if (response.ok) {
-                router.push(`/dashboard/courses/${courseId}/quizzes`);
+                toast.success('تم حفظ الاختبار بنجاح');
+                if (returnTo) {
+                    router.push(returnTo);
+                } else {
+                    router.push(`/dashboard/courses/${courseId}/content`);
+                }
             } else {
                 const data = await response.json();
                 toast.error(data.error || 'حدث خطأ');

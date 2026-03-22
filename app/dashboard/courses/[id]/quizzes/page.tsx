@@ -88,7 +88,7 @@ export default function CourseQuizzesPage() {
                     <p className="text-text-muted text-sm mt-1">إدارة اختبارات وتقييمات الكورس</p>
                 </div>
                 <button
-                    onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes/new`)}
+                    onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes/new?returnTo=${encodeURIComponent(`/dashboard/courses/${courseId}/quizzes`)}`)}
                     className="btn btn-primary flex items-center gap-2 px-4 py-2.5"
                 >
                     <FiPlus /> اختبار جديد
@@ -126,7 +126,7 @@ export default function CourseQuizzesPage() {
                     <FiCheckSquare className="mx-auto text-gray-300 mb-4" size={48} />
                     <p className="text-text-muted text-lg mb-4">لا توجد اختبارات بعد</p>
                     <button
-                        onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes/new`)}
+                        onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes/new?returnTo=${encodeURIComponent(`/dashboard/courses/${courseId}/quizzes`)}`)}
                         className="btn btn-primary inline-flex items-center gap-2 px-6 py-3"
                     >
                         <FiPlus /> إنشاء أول اختبار

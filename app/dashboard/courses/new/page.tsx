@@ -68,6 +68,11 @@ export default function NewCoursePage() {
         if (saved) {
             try { setFormData(JSON.parse(saved)); } catch (e) {}
         }
+        const savedDraftId = localStorage.getItem('course_draft_id');
+        if (savedDraftId) setDraftId(savedDraftId);
+
+        const savedStep = localStorage.getItem('course_draft_step');
+        if (savedStep) setCurrentStep(parseInt(savedStep));
     }, []);
 
     // Auto Save Draft
@@ -76,11 +81,13 @@ export default function NewCoursePage() {
             if (formData.title || formData.description) {
                 setIsSavingDraft(true);
                 localStorage.setItem('course_draft', JSON.stringify(formData));
+                localStorage.setItem('course_draft_step', currentStep.toString());
+                if (draftId) localStorage.setItem('course_draft_id', draftId);
                 setTimeout(() => setIsSavingDraft(false), 1000);
             }
         }, 30000);
         return () => clearInterval(timer);
-    }, [formData]);
+    }, [formData, currentStep, draftId]);
 
     const update = (key: string, value: any) =>
         setFormData(prev => ({ ...prev, [key]: value }));
@@ -162,6 +169,8 @@ export default function NewCoursePage() {
                 showToast.dismiss(toastId);
                 showToast.success('بداية رائعة! تم إنشاء الدورة بنجاح 🎓');
                 localStorage.removeItem('course_draft');
+                localStorage.removeItem('course_draft_id');
+                localStorage.removeItem('course_draft_step');
                 router.push(`/dashboard/courses/${data.id}/content`);
             } else {
                 throw new Error('فشل الحفظ');

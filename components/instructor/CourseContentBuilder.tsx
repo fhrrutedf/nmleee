@@ -241,7 +241,7 @@ export default function CourseContentBuilder({ courseId }: CourseContentBuilderP
                                             <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
                                                 <button
                                                     type="button"
-                                                    onClick={() => router.push(`/dashboard/quizzes/new?lessonId=${lesson.id}&id=${courseId}`)}
+                                                    onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes/new?lessonId=${lesson.id}&returnTo=${encodeURIComponent('/dashboard/courses/new')}`)}
                                                     className="flex-1 sm:flex-none px-3 py-2 text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-lg hover:bg-emerald-100 transition-colors flex items-center justify-center gap-1.5"
                                                     title="إضافة اختبار تفاعلي لهذا الدرس لتقييم تقدم الطلاب ومستوى استيعابهم للمادة"
                                                 >
