@@ -263,6 +263,7 @@ model Product {
 model Course {
   id          String   @id @default(uuid())
   title       String
+  slug        String?  // URL-friendly slug
   description String
   price       Float
   image       String?
@@ -318,6 +319,10 @@ model Course {
   certificates Certificate[]
   affiliateLinks AffiliateLink[]
   comments    Comment[]
+
+  @@unique([userId, slug]) // Unique slug per creator
+  @@index([userId])
+  @@index([slug])
 }
 
 model Appointment {
