@@ -35,10 +35,10 @@ export async function GET(
         }
 
         // Get product - MUST belong to this creator (Data Isolation)
-        const product = await prisma.product.findFirst({
+        let product = await prisma.product.findFirst({
             where: {
                 slug,
-                userId: creator.id, // CRITICAL: Filter by creator
+                userId: creator.id,
                 isActive: true
             },
             include: {
@@ -47,11 +47,23 @@ export async function GET(
                     orderBy: { createdAt: 'desc' }
                 }
             }
-        });
+        }) as any;
+
+        // If not found in product table, try course table
+        if (!product) {
+            product = await prisma.course.findFirst({
+                where: {
+                    slug, // If courses have slugs
+                    userId: creator.id,
+                    isActive: true
+                }
+            });
+            if (product) product.itemType = 'course';
+        }
 
         if (!product) {
             return NextResponse.json(
-                { error: 'Product not found' },
+                { error: 'Item not found' },
                 { status: 404 }
             );
         }

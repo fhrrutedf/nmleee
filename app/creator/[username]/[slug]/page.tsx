@@ -173,14 +173,43 @@ export default function ProductPage() {
                         </div>
 
                         {/* Price */}
-                        <div className="bg-gray-50 rounded-xl p-6">
-                            <div className="flex items-baseline gap-2 mb-2">
-                                <span className="text-5xl font-bold" style={{ color: brandColor }}>
-                                    {typeof product.price === 'number' ? product.price.toFixed(0) : '0'}
-                                </span>
-                                <span className="text-2xl text-gray-600">$</span>
+                        <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+                            <div className="flex flex-col gap-2">
+                                {product.originalPrice && product.originalPrice > product.price && (
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-xl text-slate-400 line-through font-bold">
+                                            {product.originalPrice} $
+                                        </span>
+                                        <span className="bg-red-50 text-red-600 text-xs font-black px-2 py-1 rounded-lg uppercase tracking-wider">
+                                            وفر {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
+                                        </span>
+                                    </div>
+                                )}
+                                <div className="flex items-baseline gap-2">
+                                    <span className="text-6xl font-black tracking-tight" style={{ color: brandColor }}>
+                                        {typeof product.price === 'number' ? product.price.toFixed(0) : '0'}
+                                    </span>
+                                    <span className="text-2xl text-slate-500 font-bold">$</span>
+                                </div>
                             </div>
-                            <p className="text-sm text-gray-500">شامل الضريبة</p>
+                            
+                            {/* Urgency Countdown Placeholder (Simplified for now) */}
+                            {product.offerExpiresAt && new Date(product.offerExpiresAt) > new Date() && (
+                                <div className="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-100 flex items-center gap-3 animate-pulse">
+                                    <div className="w-10 h-10 bg-amber-500 text-white rounded-lg flex items-center justify-center">
+                                        <FiClock className="text-xl" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-black text-amber-800 uppercase tracking-widest">عرض لفترة محدودة</p>
+                                        <p className="text-sm font-bold text-amber-600">ينتهي العرض قريباً! سارع بالطلب</p>
+                                    </div>
+                                </div>
+                            )}
+                            
+                            <p className="text-sm text-slate-400 mt-4 font-medium flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                                وصول فوري وكامل للمحتوى مدى الحياة
+                            </p>
                         </div>
 
                         {/* Description */}
@@ -218,19 +247,30 @@ export default function ProductPage() {
                         </button>
 
                         {/* Additional Info */}
-                        <div className="grid grid-cols-2 gap-4 pt-6 border-t">
-                            {product.duration && (
-                                <div className="flex items-center gap-2 text-gray-600">
-                                    <FiClock />
-                                    <span className="text-sm">{product.duration}</span>
+                        <div className="grid grid-cols-2 gap-6 pt-8 border-t border-slate-100">
+                            {(product.duration || product.sessions) && (
+                                <div className="flex items-center gap-3 text-slate-600 group">
+                                    <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center group-hover:bg-slate-100 transition-colors">
+                                        <FiClock className="text-lg" />
+                                    </div>
+                                    <div>
+                                        <p className="text-[10px] uppercase font-black text-slate-400">المدة / الفصول</p>
+                                        <p className="text-sm font-bold text-slate-800">
+                                            {product.duration || ''} 
+                                            {product.sessions ? ` (${product.sessions} جلسة)` : ''}
+                                        </p>
+                                    </div>
                                 </div>
                             )}
-                            {product.studentsCount && (
-                                <div className="flex items-center gap-2 text-gray-600">
-                                    <FiUsers />
-                                    <span className="text-sm">{product.studentsCount} طالب</span>
+                            <div className="flex items-center gap-3 text-slate-600 group">
+                                <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center group-hover:bg-slate-100 transition-colors">
+                                    <FiUsers className="text-lg" />
                                 </div>
-                            )}
+                                <div>
+                                    <p className="text-[10px] uppercase font-black text-slate-400">الطلاب</p>
+                                    <p className="text-sm font-bold text-slate-800">{product.studentsCount || product.soldCount || 0} طالب</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

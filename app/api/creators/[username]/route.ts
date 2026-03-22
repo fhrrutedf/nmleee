@@ -60,6 +60,8 @@ export async function GET(
                 duration: true,
                 sessions: true,
                 isFree: true,
+                originalPrice: true,
+                offerExpiresAt: true,
             }
         });
 
@@ -79,6 +81,8 @@ export async function GET(
                 category: true,
                 duration: true,
                 sessions: true,
+                originalPrice: true,
+                offerExpiresAt: true,
             }
         });
 
