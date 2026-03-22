@@ -212,20 +212,22 @@ export default function NewProductPage() {
                                             
                                             {formData.fileUrl ? (
                                                 <div className="bg-white p-4 rounded-2xl shadow-sm border border-emerald-200 flex items-center justify-between">
-                                                    <div className="flex items-center gap-2 overflow-hidden">
+                                                    <div className="flex items-center gap-2 overflow-hidden text-right">
                                                         <FiCheck className="text-emerald-500 shrink-0" />
-                                                        <span className="text-xs font-bold truncate max-w-[120px]" dir="ltr">{formData.fileUrl.split('/').pop()}</span>
+                                                        <span className="text-xs font-bold truncate max-w-[150px]" dir="ltr">{formData.fileUrl.split('/').pop()}</span>
                                                     </div>
-                                                    <button type="button" onClick={() => update('fileUrl', '')} className="text-red-400 hover:text-red-600"><FiX /></button>
+                                                    <button type="button" onClick={() => update('fileUrl', '')} className="text-red-400 hover:text-red-600 p-2"><FiX /></button>
                                                 </div>
                                             ) : (
-                                                <button type="button" onClick={() => setShowFileUploader(true)} className="w-full py-6 text-slate-400 font-bold hover:text-emerald-600 transition-all bg-white rounded-3xl shadow-sm group-hover:shadow-md">
-                                                    <FiUpload className="mx-auto mb-2 text-emerald-500" size={32} />
-                                                    <span className="text-xs text-slate-500 block">اضغط وارفع (PDF, ZIP, Video, Audio)</span>
-                                                </button>
-                                            )}
-                                            {showFileUploader && (
-                                                <div className="mt-4 bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-2xl z-20 relative text-right flex flex-col justify-center"><FileUploader isPrivate={true} onUploadSuccess={(urls, names) => { update('fileUrl', urls[0]); if (names?.[0]) { update('fileType', getFileType(names[0])); if(!formData.title) update('title', names[0].split('.').slice(0, -1).join('.')); } setShowFileUploader(false); }} /></div>
+                                                <div className="bg-white rounded-3xl p-4 shadow-sm">
+                                                    <FileUploader isPrivate={true} onUploadSuccess={(urls, names) => { 
+                                                        update('fileUrl', urls[0]); 
+                                                        if (names?.[0]) { 
+                                                            update('fileType', getFileType(names[0])); 
+                                                            if(!formData.title) update('title', names[0].split('.').slice(0, -1).join('.')); 
+                                                        } 
+                                                    }} />
+                                                </div>
                                             )}
                                         </div>
 
@@ -299,50 +301,23 @@ export default function NewProductPage() {
                         {currentStep === 2 && (
                             <motion.div key="st2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-10">
                                 <Section title="الهواية البصرية والجاليري" icon={<FiImage />}>
-                                     <div className="grid md:grid-cols-5 gap-10">
-                                        {/* Main Cover (Image) */}
-                                        <div className="md:col-span-3">
-                                            <label className="label-modern mb-4 block underline decoration-emerald-200 underline-offset-4">صورة الغلاف الرسمية للمتجر (16:9) <span className="text-red-500">*</span></label>
-                                            <div className="relative aspect-video rounded-[3rem] bg-slate-50 border-4 border-white shadow-xl overflow-hidden group">
-                                                {formData.image ? (
-                                                    <>
-                                                        <img src={formData.image} alt="Cover" className="w-full h-full object-cover" />
-                                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                            <button type="button" onClick={() => update('image', '')} className="bg-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold shadow-2xl hover:scale-110 transition-transform"><FiX size={20}/></button>
-                                                        </div>
-                                                    </>
-                                                ) : (
-                                                    <button type="button" onClick={() => setShowCoverUploader(true)} className="w-full h-full flex flex-col items-center justify-center text-slate-300 gap-3 hover:bg-white hover:text-emerald-500 transition-all">
-                                                        <FiImage size={40} />
-                                                        <span className="text-sm font-black italic">ارفع غلاف المنتج الاحترافي</span>
-                                                    </button>
-                                                )}
-                                                {showCoverUploader && (
-                                                    <div className="absolute inset-0 bg-white/90 backdrop-blur-md p-6 overflow-auto text-right flex flex-col justify-center"><FileUploader onUploadSuccess={urls => { update('image', urls[0]); setShowCoverUploader(false); }} /></div>
-                                                )}
+                                     <div className="space-y-6">
+                                        <label className="label-modern mb-0 block underline decoration-emerald-200 underline-offset-4">صورة غلاف المنتج (16:9) <span className="text-red-500">*</span></label>
+                                        
+                                        {formData.image ? (
+                                            <div className="relative aspect-video rounded-[2.5rem] bg-slate-50 border-4 border-white shadow-xl overflow-hidden group">
+                                                <img src={formData.image} alt="Cover" className="w-full h-full object-cover" />
+                                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                    <button type="button" onClick={() => update('image', '')} className="bg-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold shadow-2xl hover:scale-110 transition-transform"><FiX size={20}/></button>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        {/* Mini Gallery (Images Only) */}
-                                        <div className="md:col-span-2">
-                                            <label className="label-modern mb-4 block underline decoration-emerald-200 underline-offset-4">معرض صور إضافي لبيئة المنتج (اختياري)</label>
-                                            <div className="grid grid-cols-2 gap-3 relative">
-                                                {formData.images.map((img, i) => (
-                                                    <div key={i} className="relative aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all border-2 border-white group">
-                                                        <img src={img} className="w-full h-full object-cover" />
-                                                        <button type="button" onClick={() => update('images', formData.images.filter((_, idx) => idx !== i))} className="absolute top-2 left-2 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><FiX size={12}/></button>
-                                                    </div>
-                                                ))}
-                                                {formData.images.length < 4 && (
-                                                    <button type="button" onClick={() => setShowGalleryUploader(true)} className="aspect-square bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center text-slate-300 hover:border-emerald-500 hover:bg-white transition-all">
-                                                        <FiPlus size={24}/>
-                                                    </button>
-                                                )}
+                                        ) : (
+                                            <div className="p-2 bg-slate-50 border-2 border-dashed border-slate-200 rounded-[2.5rem]">
+                                                <FileUploader 
+                                                    onUploadSuccess={urls => update('image', urls[0])} 
+                                                />
                                             </div>
-                                            {showGalleryUploader && (
-                                                <div className="mt-4 p-4 bg-white/90 backdrop-blur-md rounded-2xl border shadow-2xl absolute z-30 max-w-[200px] text-right left-0"><FileUploader maxFiles={3} onUploadSuccess={urls => { update('images', [...formData.images, ...urls]); setShowGalleryUploader(false); }} /></div>
-                                            )}
-                                        </div>
+                                        )}
                                      </div>
                                 </Section>
 
