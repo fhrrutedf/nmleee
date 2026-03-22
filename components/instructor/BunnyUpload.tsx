@@ -17,7 +17,6 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
 
     const handleUpload = async () => {
         if (!file) return;
-        // ... rest of handleUpload ...
 
         setStatus('init');
         setUploading(true);
@@ -72,76 +71,96 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
         }
     };
 
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = e.target.files?.[0];
+        if (selectedFile) {
+            setFile(selectedFile);
+            // Auto-start upload for better UX
+            setTimeout(() => {
+                const btn = document.getElementById(`start-upload-${instanceId}`);
+                if (btn) btn.click();
+            }, 100);
+        }
+    };
+
     return (
-        <div className="bg-white dark:bg-card-white border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-[32px] p-10 text-center transition-all hover:border-action-blue/50">
-            {status === 'complete' ? (
-                <div className="space-y-4 py-6">
-                    <div className="w-20 h-20 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <FiCheckCircle size={40} />
-                    </div>
-                    <h3 className="text-2xl font-black text-primary-charcoal dark:text-white">تم الرفع بنجاح!</h3>
-                    <p className="text-gray-500 font-medium">جاري المعالجة الآن على سيرفرات Bunny Stream...</p>
-                </div>
-            ) : status === 'error' ? (
-                <div className="space-y-4 py-6">
-                    <div className="w-20 h-20 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <FiAlertCircle size={40} />
-                    </div>
-                    <h3 className="text-2xl font-black text-primary-charcoal dark:text-white">خطأ في الرفع</h3>
-                    <button onClick={handleUpload} className="px-6 py-3 bg-action-blue text-white rounded-xl font-bold">إعادة المحاولة</button>
-                </div>
-            ) : (
-                <div className="space-y-6">
-                    <div className="w-24 h-24 bg-action-blue/10 text-action-blue rounded-[32px] flex items-center justify-center mx-auto mb-6">
-                        {uploading ? <FiLoader size={40} className="animate-spin" /> : <FiUploadCloud size={40} />}
-                    </div>
-
-                    <div className="space-y-2 text-right">
-                        <h3 className="text-2xl font-black text-primary-charcoal dark:text-white">رفع المادة التعليمية</h3>
-                        <p className="text-gray-400 font-bold text-xs uppercase tracking-widest leading-relaxed">ارفع الفيديو مباشرة لخدمات Bunny Stream المشفرة</p>
-                    </div>
-
-                    {!uploading ? (
-                        <>
-                            <input 
-                                type="file" 
-                                accept="video/*" 
-                                onChange={(e) => setFile(e.target.files?.[0] || null)}
-                                className="hidden"
-                                id={`bunny-upload-${instanceId}`}
-                            />
-                            <label 
-                                htmlFor={`bunny-upload-${instanceId}`}
-                                className="inline-block px-10 py-5 bg-action-blue text-white rounded-2xl font-black text-lg cursor-pointer hover:shadow-2xl hover:shadow-action-blue/30 transition-all active:scale-95"
-                            >
-                                {file ? file.name : 'اختر ملف الفيديو للبدء'}
-                            </label>
-                            
-                            {file && (
-                                <button 
-                                    onClick={handleUpload}
-                                    className="block mx-auto mt-4 text-action-blue font-bold hover:underline"
-                                >
-                                    اضغط للبدء بالرفع
-                                </button>
-                            )}
-                        </>
-                    ) : (
-                        <div className="max-w-md mx-auto space-y-4">
-                            <div className="h-4 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden border border-white/5">
-                                <div 
-                                    className="h-full bg-action-blue transition-all duration-300" 
-                                    style={{ width: `${progress}%` }}
-                                />
-                            </div>
-                            <p className="font-black text-action-blue text-xl">{progress}%</p>
-                            <p className="text-gray-400 text-sm font-bold animate-pulse uppercase tracking-widest">
-                                {status === 'init' ? 'جاري التحضير...' : 'جاري الرفع الآن...'}
-                            </p>
+        <div className="relative group transition-all w-full">
+            <div className={`bg-white dark:bg-card-white border-2 border-dashed rounded-[32px] p-6 sm:p-8 text-center transition-all ${uploading ? 'border-action-blue bg-action-blue/5 shadow-inner' : 'border-gray-200 dark:border-gray-800 hover:border-action-blue/50 hover:bg-slate-50'}`}>
+                {status === 'complete' ? (
+                    <div className="space-y-4 py-4 animate-in fade-in zoom-in duration-300">
+                        <div className="w-16 h-16 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <FiCheckCircle size={32} />
                         </div>
-                    )}
-                </div>
-            )}
+                        <h3 className="text-xl font-black text-primary-charcoal dark:text-white">تم الرفع!</h3>
+                        <p className="text-[10px] text-gray-500 font-black uppercase tracking-widest italic">جاري المعالجة الرقمية الآن</p>
+                    </div>
+                ) : status === 'error' ? (
+                    <div className="space-y-4 py-4 animate-in fade-in duration-300">
+                        <div className="w-16 h-16 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <FiAlertCircle size={32} />
+                        </div>
+                        <h3 className="text-xl font-black text-primary-charcoal dark:text-white">خطأ في الرفع</h3>
+                        <button 
+                            type="button"
+                            onClick={handleUpload} 
+                            className="px-6 py-2 bg-red-500 text-white rounded-xl font-bold text-xs hover:scale-105 transition-transform"
+                        >
+                            إعادة المحاولة
+                        </button>
+                    </div>
+                ) : (
+                    <div className="space-y-4">
+                        <div className={`w-16 h-16 bg-action-blue/10 text-action-blue rounded-2xl flex items-center justify-center mx-auto mb-2 transition-transform ${uploading ? 'animate-pulse scale-90' : 'group-hover:scale-110'}`}>
+                            {uploading ? <FiLoader size={32} className="animate-spin" /> : <FiUploadCloud size={32} />}
+                        </div>
+
+                        {!uploading ? (
+                            <div className="space-y-3">
+                                <div className="space-y-1">
+                                    <h3 className="text-sm font-black text-primary-charcoal dark:text-white">اسحب ملف الفيديو هنا</h3>
+                                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-relaxed">أو انقر لاختيار المحتوى</p>
+                                </div>
+                                <input 
+                                    type="file" 
+                                    accept="video/*" 
+                                    onChange={handleFileChange}
+                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                    id={`bunny-upload-${instanceId}`}
+                                />
+                                <div className="relative inline-block px-8 py-3 bg-action-blue text-white rounded-xl font-black text-[10px] shadow-lg shadow-action-blue/20 uppercase tracking-widest">
+                                    {file ? file.name : 'اختيار فيديو المعاملة'}
+                                </div>
+                                
+                                {file && (
+                                    <button 
+                                        type="button"
+                                        id={`start-upload-${instanceId}`}
+                                        onClick={(e) => { e.stopPropagation(); handleUpload(); }}
+                                        className="hidden"
+                                    >
+                                        Start
+                                    </button>
+                                )}
+                            </div>
+                        ) : (
+                            <div className="max-w-xs mx-auto space-y-3">
+                                <div className="h-2.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden border border-white/5 shadow-inner">
+                                    <div 
+                                        className="h-full bg-action-blue transition-all duration-300" 
+                                        style={{ width: `${progress}%` }}
+                                    />
+                                </div>
+                                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-tighter">
+                                    <span className="text-action-blue">{progress}%</span>
+                                    <span className="text-gray-400">
+                                        {status === 'init' ? 'تجهيز المنفذ...' : 'نقل البيانات...'}
+                                    </span>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

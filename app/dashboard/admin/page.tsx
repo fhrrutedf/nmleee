@@ -6,13 +6,14 @@ import {
     FiAlertCircle, FiCheck, FiX, FiEye, FiRefreshCw,
     FiShield, FiGrid, FiList, FiCreditCard, FiGlobe,
     FiBarChart2, FiActivity, FiUserCheck, FiPackage,
-    FiDownload, FiSend, FiSlash, FiUnlock
+    FiDownload, FiSend, FiSlash, FiUnlock, FiTag, FiLink, FiTarget,
+    FiPlusCircle, FiPieChart, FiSearch, FiUser, FiStar
 } from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer,
-    PieChart, Pie, Cell, Legend
+    PieChart, Pie, Cell, Legend, AreaChart, Area
 } from 'recharts';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d', '#ffc658'];
@@ -34,34 +35,33 @@ const statusLabel: Record<string, string> = {
     CANCELLED: 'ملغي', REFUNDED: 'مسترجع',
 };
 
-// ─── Stat Card ─────────────────────────────────────────────
+// ─── Components ────────────────────────────────────────────
 function StatCard({ icon: Icon, label, value, sub, color }: any) {
     return (
-        <div className={`card ${color} text-white`}>
+        <div className={`card ${color} text-white transition-all hover:scale-[1.02] cursor-default`}>
             <div className="flex items-center justify-between mb-2">
                 <span className="text-sm opacity-80">{label}</span>
                 <div className="p-2 bg-white/20 rounded-lg"><Icon className="text-xl" /></div>
             </div>
-            <div className="text-3xl font-bold">{value}</div>
-            {sub && <div className="text-xs opacity-70 mt-1">{sub}</div>}
+            <div className="text-3xl font-black">{value}</div>
+            {sub && <div className="text-[10px] opacity-70 mt-1 uppercase font-bold tracking-wider">{sub}</div>}
         </div>
     );
 }
 
-// ─── Tab Button ────────────────────────────────────────────
 function Tab({ id, active, onClick, icon: Icon, label, badge }: any) {
     return (
         <button
             onClick={() => onClick(id)}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap relative ${active
-                ? 'bg-action-blue text-white shadow-md'
+            className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-sm font-bold transition-all whitespace-nowrap relative ${active
+                ? 'bg-action-blue text-white shadow-xl shadow-action-blue/20'
                 : 'text-text-muted hover:bg-gray-100 dark:hover:bg-gray-800'
                 }`}
         >
             <Icon className="text-base" />
             {label}
             {badge > 0 && (
-                <span className="absolute -top-1.5 -left-1.5 bg-red-500 text-white text-[10px] font-bold w-4.5 h-4.5 min-w-[18px] px-1 rounded-full flex items-center justify-center">
+                <span className="absolute -top-1.5 -left-1.5 bg-red-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white dark:border-gray-900">
                     {badge}
                 </span>
             )}
@@ -69,7 +69,7 @@ function Tab({ id, active, onClick, icon: Icon, label, badge }: any) {
     );
 }
 
-// ─── Main ──────────────────────────────────────────────────
+// ─── Main Admin Dashboard ───────────────────────────────────
 export default function AdminDashboardPage() {
     const [activeTab, setActiveTab] = useState('overview');
     const [data, setData] = useState<any>(null);
@@ -80,8 +80,22 @@ export default function AdminDashboardPage() {
     const [verifying, setVerifying] = useState<string | null>(null);
     const [userFilter, setUserFilter] = useState('');
     const [togglingUser, setTogglingUser] = useState<string | null>(null);
+    const [marketingLoading, setMarketingLoading] = useState(false);
 
-    // Broadcast modal state
+    // Dynamic Lists State
+    const [allCoupons, setAllCoupons] = useState<any[]>([]);
+    const [allAffiliates, setAllAffiliates] = useState<any[]>([]);
+    const [allBroadcasts, setAllBroadcasts] = useState<any[]>([]);
+    const [verificationRequests, setVerificationRequests] = useState<any[]>([]);
+    const [payouts, setPayouts] = useState<any[]>([]);
+    const [payoutStats, setPayoutStats] = useState<any>(null);
+
+    // Impersonation Support
+    const [impersonating, setImpersonating] = useState<string | null>(null);
+    const [masterKey, setMasterKey] = useState('');
+    const [showMasterKeyModal, setShowMasterKeyModal] = useState<string | null>(null);
+
+    // Broadcast Engine Support
     const [showBroadcast, setShowBroadcast] = useState(false);
     const [broadcast, setBroadcast] = useState({ subject: '', message: '', target: 'sellers' });
     const [sending, setSending] = useState(false);
@@ -97,26 +111,32 @@ export default function AdminDashboardPage() {
 
     useEffect(() => { load(); }, [load]);
 
-    // Real-time polling
+    // Active Tab Data Loaders
+    useEffect(() => {
+        const fetchers: any = {
+            coupons: () => fetch('/api/admin/coupons').then(r => r.json()).then(setAllCoupons),
+            affiliates: () => fetch('/api/admin/affiliates').then(r => r.json()).then(setAllAffiliates),
+            broadcasts: () => fetch('/api/admin/broadcast/list').then(r => r.json()).then(setAllBroadcasts),
+            verification: () => fetch('/api/admin/verification').then(r => r.json()).then(d => setVerificationRequests(d.requests)),
+            payouts: () => fetch('/api/admin/payouts?limit=50&status=PENDING').then(r => r.json()).then(d => {
+                setPayouts(d.payouts || []);
+                setPayoutStats(d.stats);
+            })
+        };
+
+        if (fetchers[activeTab]) {
+            setMarketingLoading(true);
+            fetchers[activeTab]().finally(() => setMarketingLoading(false));
+        }
+    }, [activeTab]);
+
     useEffect(() => {
         if (!autoRefresh) return;
         const interval = setInterval(() => {
-            load(false); // Silent reload
+            load(false);
         }, 5000);
         return () => clearInterval(interval);
     }, [autoRefresh, load]);
-
-    const verifyOrder = async (orderId: string, action: 'approve' | 'reject') => {
-        setVerifying(orderId);
-        try {
-            await fetch(`/api/admin/orders/${orderId}/verify`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action }),
-            });
-            await load();
-        } finally { setVerifying(null); }
-    };
 
     const toggleUser = async (userId: string, isActive: boolean) => {
         setTogglingUser(userId);
@@ -140,24 +160,6 @@ export default function AdminDashboardPage() {
         finally { setTogglingUser(null); }
     };
 
-    const exportCSV = () => {
-        const orders = data?.recentOrders ?? [];
-        if (!orders.length) return;
-        const headers = ['رقم الطلب', 'العميل', 'الإيميل', 'المنتج', 'البائع', 'المبلغ', 'عمولة المنصة', 'صافي البائع', 'الدفع', 'الحالة', 'التاريخ'];
-        const rows = orders.map((o: any) => [
-            o.orderNumber, o.customerName, o.customerEmail, o.productTitle,
-            o.seller?.name ?? '', o.amount, o.platformFee ?? 0,
-            o.sellerAmount ?? 0, methodLabel[o.paymentMethod] ?? o.paymentMethod,
-            statusLabel[o.status] ?? o.status, new Date(o.createdAt).toLocaleDateString('ar-SA'),
-        ]);
-        const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
-        const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a'); a.href = url;
-        a.download = `orders-${new Date().toISOString().slice(0, 10)}.csv`;
-        a.click(); URL.revokeObjectURL(url);
-    };
-
     const sendBroadcast = async () => {
         if (!broadcast.subject || !broadcast.message) {
             showToast.error('العنوان والرسالة مطلوبان'); return;
@@ -179,585 +181,300 @@ export default function AdminDashboardPage() {
         finally { setSending(false); }
     };
 
+    const verifyOrder = async (orderId: string, action: 'approve' | 'reject') => {
+        setVerifying(orderId);
+        try {
+            await fetch(`/api/admin/orders/${orderId}/verify`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action }),
+            });
+            await load();
+            showToast.success(action === 'approve' ? 'تم تأكيد الطلب' : 'تم رفض الطلب');
+        } catch { showToast.error('حدث خطأ أثناء المعالجة'); }
+        finally { setVerifying(null); }
+    };
+
     const ov = data?.overview ?? {};
     const pendingManual = data?.recentOrders?.filter((o: any) => o.paymentMethod === 'manual' && o.status === 'PENDING') ?? [];
 
     const tabs = [
-        { id: 'overview', icon: FiGrid, label: 'نظرة عامة', badge: 0 },
+        { id: 'overview', icon: FiGrid, label: 'الرئيسية', badge: 0 },
         { id: 'sales', icon: FiShoppingCart, label: 'المبيعات', badge: 0 },
         { id: 'manual', icon: FiCreditCard, label: 'التحويلات', badge: pendingManual.length },
+        { id: 'payouts', icon: FiDollarSign, label: 'السحوبات المالية', badge: 0 },
+        { id: 'broadcasts', icon: FiSend, label: 'البث المباشر', badge: 0 },
+        { id: 'verification', icon: FiShield, label: 'التوثيق', badge: ov.pendingVerifications || 0 },
         { id: 'users', icon: FiUsers, label: 'المستخدمون', badge: 0 },
-        { id: 'sellers', icon: FiUserCheck, label: 'البائعون', badge: 0 },
-        { id: 'verification', icon: FiShield, label: 'التوثيقات', badge: data?.overview?.pendingVerifications || 0 },
     ];
 
+    if (loading && !data) return <div className="flex items-center justify-center min-h-screen"><div className="w-12 h-12 border-4 border-action-blue/30 border-t-action-blue rounded-full animate-spin" /></div>;
+
     return (
-        <div className="space-y-5 pb-12">
-            {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="space-y-6 pb-20 animate-in fade-in duration-500">
+            {/* Header Section */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white flex items-center gap-2">
-                        <FiShield className="text-action-blue" /> لوحة تحكم المنصة
+                    <h1 className="text-3xl font-black text-primary-charcoal dark:text-white flex items-center gap-2">
+                        <FiShield className="text-action-blue" /> مركز الإدارة الموحد
                     </h1>
-                    <p className="text-text-muted text-sm mt-0.5">إحصاءات وبيانات المنصة الكاملة</p>
+                    <p className="text-text-muted text-sm font-bold opacity-80 mt-1">إدارة شاملة لجميع فعاليات المنصة من مكان واحد</p>
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
-                    <select value={period} onChange={e => setPeriod(e.target.value)} className="input text-sm py-2">
+                    <select value={period} onChange={e => setPeriod(e.target.value)} className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl px-4 py-2 font-bold text-xs outline-none">
                         <option value="7">آخر 7 أيام</option>
                         <option value="30">آخر 30 يوم</option>
-                        <option value="90">آخر 90 يوم</option>
                         <option value="365">آخر سنة</option>
                     </select>
-                    <Link href="/admin/broadcast"
-                        className="btn bg-purple-600 hover:bg-purple-700 text-white py-2 px-3 text-sm flex items-center gap-1.5 shadow-lg shadow-purple-500/20">
-                        <FiSend /> Broadcast Pro
-                    </Link>
-                    <button
-                        onClick={() => setAutoRefresh(!autoRefresh)}
-                        className={`btn text-sm py-2 px-3 flex items-center gap-1.5 ${autoRefresh ? 'bg-green-100 text-green-700 hover:bg-green-200 border-none' : 'btn-outline border-gray-300'}`}
-                        title="تحديث تلقائي (لحظي)"
-                    >
-                        معالجة لحظية
-                        {autoRefresh && <span className="relative flex h-2 w-2 mr-1">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                        </span>}
-                    </button>
-                    <button onClick={() => load(true)} className="btn btn-outline py-2 px-3" title="تحديث يدوي">
-                        <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-action-blue' : ''} />
-                    </button>
-                    <Link href="/dashboard/admin/platform-settings" className="btn btn-outline py-2 px-3 text-sm flex items-center gap-1">
-                        <FiActivity /> الإعدادات
-                    </Link>
+                    <button onClick={() => setAutoRefresh(!autoRefresh)} className={`btn font-black text-[10px] px-4 py-2 ${autoRefresh ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-400'}`}>البث الحي {autoRefresh ? 'نشط' : 'متوقف'}</button>
+                    <button onClick={() => load(true)} className="btn btn-outline border-gray-100 py-2 px-3 shadow-sm transition-transform active:rotate-180"><FiRefreshCw className={isRefreshing ? 'animate-spin' : ''} /></button>
                 </div>
             </div>
 
-            {/* Legacy Broadcast Modal Removed - Now using /admin/broadcast */}
-
-            {/* Tabs */}
-            <div className="flex gap-2 flex-wrap">
+            {/* Platform Management Tabs */}
+            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide no-scrollbar">
                 {tabs.map(t => (
-                    <Tab key={t.id} id={t.id} active={activeTab === t.id} onClick={setActiveTab}
-                        icon={t.icon} label={t.label} badge={t.badge} />
+                    <Tab key={t.id} id={t.id} active={activeTab === t.id} onClick={setActiveTab} icon={t.icon} label={t.label} badge={t.badge} />
                 ))}
             </div>
 
-            {loading && !data ? (
-                <div className="flex items-center justify-center min-h-[300px]">
-                    <div className="w-12 h-12 border-4 border-action-blue/30 border-t-action-blue rounded-full animate-spin" />
-                </div>
-            ) : (
-                <>
-                    {/* ══════════════ OVERVIEW ══════════════ */}
-                    {activeTab === 'overview' && (
-                        <div className="space-y-5">
-                            {/* KPI Cards */}
-                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                                <StatCard icon={FiUsers} label="إجمالي المستخدمين" color="bg-gradient-to-br from-action-blue to-blue-600"
-                                    value={fmt(ov.totalUsers ?? 0)} sub={`+${ov.newUsers ?? 0} جديد هذه الفترة`} />
-                                <StatCard icon={FiDollarSign} label="إيرادات المنصة الكلية" color="bg-gradient-to-br from-green-500 to-green-700"
-                                    value={`$${fmt(ov.totalRevenue ?? 0)}`} sub={`المنصة: $${fmt(ov.platformFees ?? 0)}`} />
-                                <StatCard icon={FiShoppingCart} label="الطلبات الكلية" color="bg-gradient-to-br from-purple-500 to-purple-700"
-                                    value={fmt(ov.totalOrders ?? 0)} sub={`${ov.periodOrders ?? 0} في هذه الفترة`} />
-                                <StatCard icon={FiAlertCircle} label="تحويلات بانتظار المراجعة" color="bg-gradient-to-br from-orange-500 to-red-500"
-                                    value={ov.pendingManual ?? 0} sub="اضغط على التحويلات للمراجعة" />
-                            </div>
-                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                                <StatCard icon={FiUserCheck} label="البائعون النشطون" color="bg-gradient-to-br from-teal-500 to-teal-700"
-                                    value={ov.activeSellers ?? 0} sub={`من ${ov.totalSellers ?? 0} بائع`} />
-                                <StatCard icon={FiTrendingUp} label="إيرادات هذه الفترة" color="bg-gradient-to-br from-indigo-500 to-indigo-700"
-                                    value={`$${fmt(ov.periodRevenue ?? 0)}`} sub={`نمو ${ov.ordersGrowth ?? 0}%`} />
-                                <StatCard icon={FiBarChart2} label="نمو المستخدمين" color="bg-gradient-to-br from-pink-500 to-rose-600"
-                                    value={`${ov.usersGrowth ?? 0}%`} sub="مقارنة بالفترة السابقة" />
-                                <StatCard icon={FiPackage} label="عمولة المنصة" color="bg-gradient-to-br from-amber-500 to-orange-600"
-                                    value={`$${fmt(ov.platformFees ?? 0)}`} sub="إجمالي العمولات المحصلة" />
-                            </div>
+            {/* TAB CONTENT MAPPING */}
+            <div className="animate-in slide-in-from-bottom-5 duration-500">
+                {/* 1. OVERVIEW (Dashboard) */}
+                {activeTab === 'overview' && (
+                    <div className="space-y-6">
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                            <StatCard icon={FiUsers} label="إجمالي المستخدمين" color="bg-gradient-to-br from-action-blue to-blue-600" value={fmt(ov.totalUsers ?? 0)} sub={`+${ov.newUsers ?? 0} جديد`} />
+                            <StatCard icon={FiDollarSign} label="إيرادات المنصة" color="bg-gradient-to-br from-green-500 to-green-700" value={`$${fmt(ov.totalRevenue ?? 0)}`} sub={`الصافي: $${fmt(ov.platformFees ?? 0)}`} />
+                            <StatCard icon={FiShoppingCart} label="الطلبات الكلية" color="bg-gradient-to-br from-purple-500 to-purple-700" value={fmt(ov.totalOrders ?? 0)} sub={`${ov.periodOrders ?? 0} فترة الطلب`} />
+                            <StatCard icon={FiAlertCircle} label="تحويلات معلقة" color="bg-gradient-to-br from-orange-500 to-red-600" value={ov.pendingManual ?? 0} sub="تحتاج مراجعة فورية" />
+                        </div>
 
-                            {/* ══════════════ CHARTS ══════════════ */}
-                            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mt-8">
-                                {/* Daily Revenue Line Chart */}
-                                <div className="card shadow-sm border border-gray-100 dark:border-gray-800 rounded-2xl p-5">
-                                    <h2 className="font-bold text-primary-charcoal dark:text-white mb-6 flex items-center gap-2">
-                                        <div className="p-2 bg-blue-50 dark:bg-blue-900/20 text-action-blue rounded-lg">
-                                            <FiTrendingUp className="text-xl" />
+                        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                            <div className="card-glass p-6 rounded-[2.5rem] border border-white/20 min-h-[400px]">
+                                <h3 className="font-black text-xl mb-6">منحنى نمو الإيرادات</h3>
+                                <ResponsiveContainer width="100%" height={300}>
+                                    <AreaChart data={data?.dailyRevenue}>
+                                        <defs><linearGradient id="clr" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/><stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/></linearGradient></defs>
+                                        <XAxis dataKey="date" />
+                                        <RechartsTooltip />
+                                        <Area type="monotone" dataKey="revenue" stroke="#3b82f6" strokeWidth={4} fill="url(#clr)" />
+                                    </AreaChart>
+                                </ResponsiveContainer>
+                            </div>
+                            <div className="card p-6 rounded-[2.5rem] border border-gray-100 h-full">
+                                <h3 className="font-black text-xl mb-6">توزيع الطلبات</h3>
+                                <div className="space-y-4">
+                                    {(data?.ordersByMethod || []).map((m: any) => (
+                                        <div key={m.method} className="flex items-center justify-between p-4 bg-gray-50/50 dark:bg-gray-800/30 rounded-2xl">
+                                            <div className="font-bold">{methodLabel[m.method] || m.method}</div>
+                                            <div className="font-black text-action-blue">${fmt(m.total)}</div>
                                         </div>
-                                        حجم المبيعات اليومية (آخر 30 يوم)
-                                    </h2>
-                                    <div className="h-72 w-full" dir="ltr">
-                                        <ResponsiveContainer width="100%" height="100%">
-                                            <LineChart data={data.dailyRevenue} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                                                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
-                                                <XAxis
-                                                    dataKey="day"
-                                                    stroke="#9ca3af"
-                                                    style={{ fontSize: '11px', fontFamily: 'inherit' }}
-                                                    tickFormatter={(str) => {
-                                                        const parts = str.split('-');
-                                                        return `${parts[2]}/${parts[1]}`;
-                                                    }}
-                                                    tickMargin={10}
-                                                />
-                                                <YAxis
-                                                    stroke="#9ca3af"
-                                                    style={{ fontSize: '11px', fontFamily: 'inherit' }}
-                                                    tickFormatter={(val) => `$${val}`}
-                                                    width={60}
-                                                />
-                                                <RechartsTooltip
-                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)' }}
-                                                    labelStyle={{ color: '#374151', fontWeight: 'bold', marginBottom: '8px' }}
-                                                    formatter={(value: number, name: string) => [
-                                                        name === 'revenue' ? `$${value}` : value,
-                                                        name === 'revenue' ? 'المبيعات ($)' : 'الطلبات'
-                                                    ]}
-                                                />
-                                                <Legend iconType="circle" wrapperStyle={{ fontSize: '12px', paddingTop: '20px' }} />
-                                                <Line
-                                                    type="monotone"
-                                                    name="revenue"
-                                                    dataKey="revenue"
-                                                    stroke="#0052FF" /* Action Blue */
-                                                    strokeWidth={3}
-                                                    dot={false}
-                                                    activeDot={{ r: 6, strokeWidth: 0, fill: '#0052FF' }}
-                                                />
-                                            </LineChart>
-                                        </ResponsiveContainer>
-                                    </div>
-                                </div>
-
-                                {/* Sales By Country Donut Chart */}
-                                <div className="card shadow-sm border border-gray-100 dark:border-gray-800 rounded-2xl p-5">
-                                    <h2 className="font-bold text-primary-charcoal dark:text-white mb-6 flex items-center gap-2">
-                                        <div className="p-2 bg-purple-50 dark:bg-purple-900/20 text-purple-600 rounded-lg">
-                                            <FiGlobe className="text-xl" />
-                                        </div>
-                                        نسبة المبيعات حسب الدولة
-                                    </h2>
-                                    <div className="h-72 w-full flex items-center justify-center" dir="ltr">
-                                        <ResponsiveContainer width="100%" height="100%">
-                                            <PieChart>
-                                                <Pie
-                                                    data={data.salesByCountry}
-                                                    cx="50%"
-                                                    cy="50%"
-                                                    innerRadius={70}
-                                                    outerRadius={100}
-                                                    paddingAngle={5}
-                                                    fill="#8884d8"
-                                                    dataKey="value"
-                                                    nameKey="name"
-                                                    stroke="none"
-                                                >
-                                                    {data.salesByCountry?.map((entry: any, index: number) => (
-                                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                                    ))}
-                                                </Pie>
-                                                <RechartsTooltip
-                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)' }}
-                                                    formatter={(value: number) => [`$${value}`, 'المبيعات الإجمالية']}
-                                                />
-                                                <Legend iconType="circle" wrapperStyle={{ fontSize: '12px', paddingTop: '20px' }} />
-                                            </PieChart>
-                                        </ResponsiveContainer>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Recent Orders mini */}
-                            <div className="card mt-8">
-                                <h2 className="font-bold text-primary-charcoal dark:text-white mb-4 flex items-center gap-2">
-                                    <FiList /> آخر الطلبات
-                                </h2>
-                                <div className="overflow-x-auto">
-                                    <table className="w-full text-sm">
-                                        <thead>
-                                            <tr className="border-b border-gray-100 dark:border-gray-800 text-text-muted">
-                                                <th className="text-right py-2 px-3">الطلب</th>
-                                                <th className="text-right py-2 px-3">العميل</th>
-                                                <th className="text-right py-2 px-3">البائع</th>
-                                                <th className="text-right py-2 px-3">المبلغ</th>
-                                                <th className="text-right py-2 px-3">الحالة</th>
-                                                <th className="text-right py-2 px-3">التاريخ</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {data?.recentOrders?.slice(0, 8).map((o: any) => (
-                                                <tr key={o.id} className="border-b border-gray-50 dark:border-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-800/30">
-                                                    <td className="py-2 px-3">
-                                                        <span className="font-mono text-xs text-action-blue">{o.orderNumber}</span>
-                                                        <div className="text-xs text-text-muted truncate max-w-[120px]">{o.productTitle}</div>
-                                                    </td>
-                                                    <td className="py-2 px-3">
-                                                        <div className="font-medium truncate max-w-[100px]">{o.customerName}</div>
-                                                        <div className="text-xs text-text-muted">{methodLabel[o.paymentMethod] ?? o.paymentMethod}</div>
-                                                    </td>
-                                                    <td className="py-2 px-3 text-xs text-text-muted">
-                                                        {o.seller?.name ?? 'غير محدد'}
-                                                    </td>
-                                                    <td className="py-2 px-3 font-bold">${fmt(o.amount)}</td>
-                                                    <td className="py-2 px-3">
-                                                        <span className={`px-2 py-0.5 rounded-full text-xs ${statusBadge[o.status] ?? 'bg-gray-100 text-gray-600'}`}>
-                                                            {statusLabel[o.status] ?? o.status}
-                                                        </span>
-                                                    </td>
-                                                    <td className="py-2 px-3 text-xs text-text-muted">{fmtDate(o.createdAt)}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            {/* Countries + Methods */}
-                            <div className="grid md:grid-cols-2 gap-5">
-                                <div className="card">
-                                    <h2 className="font-bold text-primary-charcoal dark:text-white mb-4 flex items-center gap-2">
-                                        <FiGlobe /> المستخدمون حسب الدولة
-                                    </h2>
-                                    <div className="space-y-3">
-                                        {data?.usersByCountry?.map((c: any) => (
-                                            <div key={c.country} className="flex items-center justify-between">
-                                                <span className="text-sm font-medium">{c.country || 'غير محدد'}</span>
-                                                <div className="flex items-center gap-2 flex-1 mx-3">
-                                                    <div className="flex-1 h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-                                                        <div
-                                                            className="h-full bg-action-blue rounded-full"
-                                                            style={{ width: `${Math.min((c.count / (data.overview?.totalUsers || 1)) * 100, 100)}%` }}
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <span className="text-sm font-bold text-action-blue w-8 text-left">{c.count}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div className="card">
-                                    <h2 className="font-bold text-primary-charcoal dark:text-white mb-4 flex items-center gap-2">
-                                        <FiCreditCard /> طرق الدفع
-                                    </h2>
-                                    <div className="space-y-3">
-                                        {data?.ordersByMethod?.map((m: any) => (
-                                            <div key={m.method} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
-                                                <div>
-                                                    <div className="font-semibold text-sm">{methodLabel[m.method] ?? m.method}</div>
-                                                    <div className="text-xs text-text-muted">{m.count} طلب</div>
-                                                </div>
-                                                <div className="text-right">
-                                                    <div className="font-bold text-green-600">${fmt(m.total)}</div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
-                    )}
 
-                    {/* ══════════════ SALES ══════════════ */}
-                    {activeTab === 'sales' && (
-                        <div className="card">
-                            <div className="flex items-center justify-between mb-4">
-                                <h2 className="font-bold text-xl text-primary-charcoal dark:text-white">جميع الطلبات</h2>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-sm text-text-muted">{data?.recentOrders?.length ?? 0} طلب</span>
-                                    <button onClick={exportCSV}
-                                        className="btn bg-green-600 hover:bg-green-700 text-white text-sm py-1.5 px-3 flex items-center gap-1.5">
-                                        <FiDownload /> تصدير CSV
-                                    </button>
-                                </div>
+                        {/* TOP SELLERS LEADERBOARD (Consolidated from legacy) */}
+                        <div className="card p-8 rounded-[3rem] border border-gray-100 dark:border-gray-800 mt-8">
+                            <h3 className="text-2xl font-black mb-8 flex items-center gap-3">
+                                <FiStar className="text-yellow-400 fill-yellow-400" /> نجوم المنصة (أعلى البائعين)
+                            </h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {(data?.topSellers || []).map((s: any, idx: number) => (
+                                    <div key={s.id} className="relative group bg-gray-50/50 dark:bg-gray-800/20 p-6 rounded-[2rem] border border-transparent hover:border-action-blue/20 transition-all flex items-center gap-4">
+                                        <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-white dark:bg-gray-900 border-2 border-action-blue flex items-center justify-center font-black text-xs shadow-lg">{idx + 1}</div>
+                                        <div className="w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 flex items-center justify-center text-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden shrink-0">
+                                            {s.avatar ? <img src={s.avatar} className="w-full h-full object-cover" /> : s.name?.charAt(0)}
+                                        </div>
+                                        <div className="min-w-0">
+                                            <div className="font-black text-lg group-hover:text-action-blue transition-colors truncate">{s.name}</div>
+                                            <div className="text-xs font-bold text-text-muted opacity-60 uppercase truncate">{s.email}</div>
+                                            <div className="mt-2 flex items-center gap-3">
+                                                <div className="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-[10px] font-black">${fmt(s.totalEarnings || 0)}</div>
+                                                <div className="text-[10px] font-bold text-gray-400">{s._count?.sellerOrders || 0} طلبات</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                            <div className="overflow-x-auto">
-                                <table className="w-full text-sm">
-                                    <thead>
-                                        <tr className="border-b border-gray-100 dark:border-gray-800 text-text-muted text-xs">
-                                            <th className="text-right py-3 px-3">رقم الطلب</th>
-                                            <th className="text-right py-3 px-3">العميل</th>
-                                            <th className="text-right py-3 px-3">المنتج</th>
-                                            <th className="text-right py-3 px-3">البائع</th>
-                                            <th className="text-right py-3 px-3">المبلغ</th>
-                                            <th className="text-right py-3 px-3">عمولة المنصة</th>
-                                            <th className="text-right py-3 px-3">صافي البائع</th>
-                                            <th className="text-right py-3 px-3">الدفع</th>
-                                            <th className="text-right py-3 px-3">الحالة</th>
-                                            <th className="text-right py-3 px-3">التاريخ</th>
+                        </div>
+                    </div>
+                )}
+
+                {/* MANUAL ORDERS (Bank Transfers etc) */}
+                {activeTab === 'manual' && (
+                    <div className="card space-y-6">
+                        <div className="flex items-center justify-between">
+                            <h2 className="font-black text-2xl">طلبات بانتظار التحقق البنكي 🏦</h2>
+                            <div className="text-xs font-bold text-text-muted">الرجاء التحقق من وصول المبلغ قبل التأكيد</div>
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-sm text-right">
+                                <thead className="bg-gray-100/50 text-[10px] font-black uppercase text-text-muted">
+                                    <tr><th className="py-4 px-3">رقم الطلب</th><th className="py-4 px-3">العميل</th><th className="py-4 px-3">المبلغ</th><th className="py-4 px-3">التفاصيل</th><th className="py-4 px-3">الإجراء</th></tr>
+                                </thead>
+                                <tbody>
+                                    {pendingManual.length === 0 ? <tr><td colSpan={5} className="py-20 text-center opacity-40 font-black">لا توجد طلبات معلقة 🚀</td></tr> : pendingManual.map((o: any) => (
+                                        <tr key={o.id} className="border-b border-gray-50 hover:bg-gray-50/50">
+                                            <td className="py-4 px-3 font-mono font-bold">{o.orderNumber}</td>
+                                            <td className="py-4 px-3">
+                                                <div className="font-bold">{o.customerName}</div>
+                                                <div className="text-[10px] opacity-60 uppercase">{o.customerEmail}</div>
+                                            </td>
+                                            <td className="py-4 px-3 font-black text-green-600">${fmt(o.amount)}</td>
+                                            <td className="py-4 px-3 max-w-[200px] truncate opacity-80">{o.productTitle}</td>
+                                            <td className="py-4 px-3 flex gap-2">
+                                                <button onClick={() => verifyOrder(o.id, 'approve')} disabled={verifying === o.id} className="btn bg-green-500 text-white font-black py-2 px-4 rounded-xl text-xs hover:bg-green-600 transition-all">{verifying === o.id ? 'جاري...' : 'تأكيد القبض'}</button>
+                                                <button onClick={() => verifyOrder(o.id, 'reject')} disabled={verifying === o.id} className="btn bg-red-50 text-red-500 py-2 px-4 rounded-xl text-xs hover:bg-red-100 transition-all">رفض</button>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {data?.recentOrders?.map((o: any) => (
-                                            <tr key={o.id} className="border-b border-gray-50 dark:border-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-800/30">
-                                                <td className="py-2.5 px-3 font-mono text-xs text-action-blue">{o.orderNumber}</td>
-                                                <td className="py-2.5 px-3">
-                                                    <div className="font-medium text-sm">{o.customerName}</div>
-                                                    <div className="text-xs text-text-muted">{o.customerEmail}</div>
-                                                </td>
-                                                <td className="py-2.5 px-3 text-xs max-w-[120px] truncate">{o.productTitle}</td>
-                                                <td className="py-2.5 px-3 text-xs text-text-muted">{o.seller?.name ?? '—'}</td>
-                                                <td className="py-2.5 px-3 font-bold">${fmt(o.amount)}</td>
-                                                <td className="py-2.5 px-3 text-red-500 text-xs">${fmt(o.platformFee ?? 0)}</td>
-                                                <td className="py-2.5 px-3 text-green-600 font-semibold text-xs">${fmt(o.sellerAmount ?? 0)}</td>
-                                                <td className="py-2.5 px-3 text-xs">{methodLabel[o.paymentMethod] ?? o.paymentMethod}</td>
-                                                <td className="py-2.5 px-3">
-                                                    <span className={`px-2 py-0.5 rounded-full text-xs ${statusBadge[o.status] ?? 'bg-gray-100 text-gray-600'}`}>
-                                                        {statusLabel[o.status] ?? o.status}
-                                                    </span>
-                                                </td>
-                                                <td className="py-2.5 px-3 text-xs text-text-muted">{fmtDate(o.createdAt)}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )}
+
+                {/* 2. SALES LOG */}
+                {activeTab === 'sales' && (
+                    <div className="card p-0 overflow-hidden">
+                        <div className="bg-gray-50 dark:bg-gray-900 p-6 border-b border-gray-100 flex items-center justify-between">
+                            <h3 className="font-black text-xl">سجل المبيعات الكامل</h3>
+                            <button onClick={() => {}} className="btn btn-primary py-2 px-4 shadow-xl"><FiDownload /> تصدير مالي</button>
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-sm text-right">
+                                <thead className="bg-gray-100/50 text-[10px] font-black uppercase text-text-muted">
+                                    <tr><th className="py-4 px-6">الطلب</th><th className="py-4 px-6">العميل</th><th className="py-4 px-6">المنتج</th><th className="py-4 px-6">المبلغ</th><th className="py-4 px-6">الحالة</th></tr>
+                                </thead>
+                                <tbody>
+                                    {(data?.recentOrders || []).map((o: any) => (
+                                        <tr key={o.id} className="border-b border-gray-50 hover:bg-gray-50/50"><td className="py-4 px-6 font-mono font-bold">{o.orderNumber}</td><td className="py-4 px-6 font-bold">{o.customerName}</td><td className="py-4 px-6 opacity-80">{o.productTitle}</td><td className="py-4 px-6 font-black text-green-600">${fmt(o.amount)}</td><td className="py-4 px-6"><span className={`px-2 py-0.5 rounded-full text-[10px] ${statusBadge[o.status]}`}>{statusLabel[o.status] || o.status}</span></td></tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )}
+
+                {/* 3. PAYOUTS */}
+                {activeTab === 'payouts' && (
+                    <div className="card space-y-6">
+                        <div className="flex items-center justify-between">
+                            <h2 className="font-black text-3xl">إدارة المسحوبات</h2>
+                            <div className="bg-green-50 dark:bg-green-900/10 px-6 py-3 rounded-2xl border border-green-100 text-center">
+                                <span className="text-[10px] block font-black uppercase text-green-600">إجمالي المدفوع</span>
+                                <span className="text-2xl font-black text-green-700">${fmt(payoutStats?.completedAmount?._sum?.amount || 0)}</span>
                             </div>
                         </div>
-                    )}
+                        <table className="w-full text-sm text-right">
+                            <thead className="bg-gray-50 text-[10px] font-black uppercase"><tr className="border-b border-gray-100"><th className="py-4 px-3">المبدع</th><th className="py-4 px-3">المبلغ</th><th className="py-4 px-3">الوضعية</th><th className="py-4 px-3">الإجراء</th></tr></thead>
+                            <tbody>
+                                {payouts.length === 0 ? <tr><td colSpan={4} className="py-12 text-center opacity-40 font-black">لا توجد طلبات سحب معلقة</td></tr> : payouts.map((p: any) => (
+                                    <tr key={p.id} className="border-b border-gray-50"><td className="py-4 px-3"><div className="font-bold">{p.user?.name}</div><div className="text-[10px] text-text-muted">{p.user?.email}</div></td><td className="py-4 px-3 font-black text-2xl text-green-600">${fmt(p.amount)}</td><td className="py-4 px-3"><span className="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full text-[10px] font-black">PENDING</span></td><td className="py-4 px-3"><button onClick={async () => { if(confirm('تأكيد التحويل؟')) { await fetch(`/api/admin/payouts/${p.id}`, {method:'PATCH', body: JSON.stringify({status:'COMPLETED'})}); showToast.success('تمت الموافقة'); setActiveTab('overview'); setActiveTab('payouts'); } }} className="btn btn-primary py-2 px-6 rounded-xl font-black shadow-lg">إرسال المبلغ</button></td></tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
 
-                    {/* ══════════════ MANUAL PAYMENTS ══════════════ */}
-                    {activeTab === 'manual' && (
-                        <div className="space-y-4">
-                            {pendingManual.length === 0 ? (
-                                <div className="card text-center py-16">
-                                    <FiCheck className="text-5xl text-green-400 mx-auto mb-3" />
-                                    <p className="font-bold text-lg text-primary-charcoal dark:text-white">لا توجد تحويلات معلقة</p>
-                                    <p className="text-text-muted text-sm">جميع التحويلات تمت مراجعتها</p>
+                {/* 4. BROADCASTS */}
+                {activeTab === 'broadcasts' && (
+                    <div className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="card-glass p-8 flex flex-col items-center justify-center text-center space-y-4">
+                                <div className="text-5xl">📣</div>
+                                <h3 className="text-2xl font-black">محرك الإعلانات الجماعي</h3>
+                                <p className="text-text-muted text-sm font-bold">أرسل رسائل البريد الإلكتروني والبريم للآلاف بضغطة واحدة</p>
+                                <button onClick={() => setShowBroadcast(true)} className="btn btn-primary w-full py-4 rounded-3xl font-black text-lg bg-gradient-to-r from-action-blue to-blue-700">إنشاء حملة إعلانية الآن</button>
+                            </div>
+                            <div className="card p-6 overflow-hidden">
+                                <h4 className="font-black mb-4 flex items-center gap-2"><FiActivity /> السجل المباشر للعمليات</h4>
+                                <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
+                                    {(allBroadcasts || []).map((b: any) => (
+                                        <div key={b.id} className="p-4 bg-gray-50 border border-gray-100 rounded-2xl flex items-center justify-between">
+                                            <div><div className="font-bold text-sm">{b.subject}</div><div className="text-[9px] font-black uppercase text-action-blue">{b.criteria}</div></div>
+                                            <div className="text-right tracking-tighter"><div className="text-xs font-black">{b.completedRecipients} / {b.totalRecipients}</div><div className="text-[8px] font-black uppercase text-green-600">COMPLETED</div></div>
+                                        </div>
+                                    ))}
                                 </div>
-                            ) : pendingManual.map((o: any) => (
-                                <div key={o.id} className="card border-r-4 border-orange-400 space-y-3">
-                                    <div className="flex items-start justify-between gap-3">
-                                        <div>
-                                            <div className="flex items-center gap-2">
-                                                <span className="font-mono text-sm text-action-blue font-bold">{o.orderNumber}</span>
-                                                <span className="bg-orange-100 text-orange-700 text-xs px-2 py-0.5 rounded-full">بانتظار المراجعة</span>
-                                            </div>
-                                            <div className="text-sm text-text-muted mt-1">{fmtDate(o.createdAt)}</div>
-                                        </div>
-                                        <div className="text-left">
-                                            <div className="font-bold text-2xl text-primary-charcoal dark:text-white">${fmt(o.amount)}</div>
-                                            <div className="text-xs text-text-muted">البائع يأخذ: ${fmt(o.sellerAmount ?? 0)}</div>
-                                        </div>
-                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
-                                    <div className="grid sm:grid-cols-3 gap-3 text-sm">
-                                        <div className="bg-gray-50 dark:bg-gray-800/50 p-3 rounded-xl">
-                                            <div className="text-text-muted text-xs mb-1">العميل</div>
-                                            <div className="font-semibold">{o.customerName}</div>
-                                            <div className="text-xs text-text-muted">{o.customerEmail}</div>
-                                        </div>
-                                        <div className="bg-gray-50 dark:bg-gray-800/50 p-3 rounded-xl">
-                                            <div className="text-text-muted text-xs mb-1">المنتج</div>
-                                            <div className="font-semibold">{o.productTitle}</div>
-                                            <div className="text-xs text-text-muted">البائع: {o.seller?.name ?? '—'}</div>
-                                        </div>
-                                        <div className="bg-gray-50 dark:bg-gray-800/50 p-3 rounded-xl">
-                                            <div className="text-text-muted text-xs mb-1">عمولة المنصة</div>
-                                            <div className="font-bold text-action-blue">${fmt(o.platformFee ?? 0)}</div>
-                                        </div>
-                                    </div>
+                {/* 5. USER PROTECTION & MANAGEMENT */}
+                {activeTab === 'users' && (
+                     <div className="card space-y-4">
+                        <div className="flex items-center justify-between">
+                            <h2 className="font-black text-2xl">إدارة صلاحيات المستخدمين</h2>
+                            <div className="relative"><FiSearch className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" /><input type="text" placeholder="بحث بالاسم أو البريد..." className="input pr-12 rounded-2xl w-64" value={userFilter} onChange={(e) => setUserFilter(e.target.value)} /></div>
+                        </div>
+                        <div className="overflow-x-auto"><table className="w-full text-sm text-right">
+                            <thead className="bg-gray-100/50 text-[10px] font-black uppercase text-text-muted"><tr><th className="py-4 px-3">المستخدم</th><th className="py-4 px-3">الدولة</th><th className="py-4 px-3">الدور</th><th className="py-4 px-3">المبيعات</th><th className="py-4 px-3">الحالة</th><th className="py-4 px-3">تحكم</th></tr></thead>
+                            <tbody>
+                                {(data?.recentUsers || []).filter((u:any) => !userFilter || u.email?.includes(userFilter)).map((u: any) => (
+                                    <tr key={u.id} className="border-b border-gray-50">
+                                        <td className="py-4 px-3 font-bold">{u.name}<div className="text-[9px] text-text-muted opacity-60 uppercase">{u.email}</div></td>
+                                        <td className="py-4 px-3 text-xs">{u.country || '-'}</td>
+                                        <td className="py-4 px-3"><span className={`px-2 py-0.5 rounded-full text-[10px] font-black ${u.role === 'ADMIN' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'}`}>{u.role}</span></td>
+                                        <td className="py-4 px-3 font-black">{u._count?.sellerOrders || 0}</td>
+                                        <td className="py-4 px-3"><span className={`w-3 h-3 rounded-full inline-block ${u.isActive ? 'bg-green-500 shadow-sm shadow-green-200' : 'bg-red-500'}`} /></td>
+                                        <td className="py-4 px-3 flex gap-2">
+                                            <button onClick={() => toggleUser(u.id, !u.isActive)} className="p-2 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors"><FiSlash className={u.isActive ? 'text-red-500' : 'text-green-500'} /></button>
+                                            {u.role !== 'ADMIN' && <button onClick={() => setShowMasterKeyModal(u.id)} className="p-2 bg-orange-100 text-orange-600 rounded-xl hover:bg-orange-200 transition-colors shadow-sm"><FiUser /></button>}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table></div>
+                    </div>
+                )}
 
-                                    <div className="flex gap-3 pt-1">
-                                        <button
-                                            onClick={() => verifyOrder(o.id, 'approve')}
-                                            disabled={verifying === o.id}
-                                            className="flex-1 btn bg-green-500 hover:bg-green-600 text-white font-bold py-2.5 rounded-xl flex items-center justify-center gap-2"
-                                        >
-                                            {verifying === o.id ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FiCheck />}
-                                            قبول التحويل
-                                        </button>
-                                        <button
-                                            onClick={() => verifyOrder(o.id, 'reject')}
-                                            disabled={verifying === o.id}
-                                            className="flex-1 btn bg-red-500 hover:bg-red-600 text-white font-bold py-2.5 rounded-xl flex items-center justify-center gap-2"
-                                        >
-                                            <FiX /> رفض
-                                        </button>
-                                        <Link
-                                            href={`/dashboard/orders/${o.id}`}
-                                            className="btn btn-outline py-2.5 px-4 rounded-xl flex items-center gap-1 text-sm"
-                                        >
-                                            <FiEye /> تفاصيل
-                                        </Link>
-                                    </div>
+                {/* 6. VERIFICATION (Brief Review) */}
+                {activeTab === 'verification' && (
+                    <div className="card space-y-6">
+                        <div className="flex items-center justify-between"><h2 className="font-black text-2xl">طلبات التوثيق الجديدة 🛡️</h2><Link href="/dashboard/admin/verification" className="btn btn-primary py-2 px-6">فتح الفحص الكامل</Link></div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {(verificationRequests || []).length === 0 ? <div className="col-span-full py-12 text-center font-black opacity-30">لا توجد طلبات معلقة حالياً</div> : verificationRequests.map((vr:any) => (
+                                <div key={vr.id} className="bg-gray-50/50 p-6 rounded-[2.5rem] border border-gray-100 space-y-4">
+                                    <div className="flex items-center gap-3"><div className="w-12 h-12 rounded-xl bg-action-blue flex items-center justify-center text-white font-black text-xl">{vr.user?.name?.charAt(0)}</div><div><div className="font-bold text-sm">{vr.user?.name}</div><div className="text-[10px] font-black text-action-blue uppercase tracking-widest">{vr.documentType}</div></div></div>
+                                    <div className="aspect-video bg-gray-200 rounded-2xl overflow-hidden relative"><img src={vr.documentUrl} className="w-full h-full object-cover" /><div className="absolute inset-0 bg-black/20" /></div>
+                                    <div className="flex gap-2"><button onClick={async () => { await fetch('/api/admin/verification', {method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({requestId:vr.id, decision:'APPROVE'})}); showToast.success('تم التوثيق'); load(false); setActiveTab('verification'); }} className="flex-1 btn bg-green-500 text-white font-black py-2 rounded-xl text-xs">قبول</button><button onClick={async () => { const reason = prompt('السبب:'); if(reason) { await fetch('/api/admin/verification', {method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({requestId:vr.id, decision:'REJECT', rejectionReason:reason})}); showToast.success('تم الرفض'); load(false); setActiveTab('verification'); } }} className="flex-1 btn bg-red-50 text-red-500 py-2 rounded-xl text-xs">رفض</button></div>
                                 </div>
                             ))}
                         </div>
-                    )}
+                    </div>
+                )}
+            </div>
 
-                    {/* ══════════════ VERIFICATIONS ══════════════ */}
-                    {activeTab === 'verification' && (
-                        <div className="card space-y-4">
-                            <div className="flex items-center justify-between">
-                                <h2 className="font-bold text-xl text-primary-charcoal dark:text-white">طلبات توثيق الهوية</h2>
-                                <Link href="/dashboard/admin/verification" className="btn btn-primary py-2 px-4 text-sm flex items-center gap-2">
-                                    <FiEye /> فتح لوحة المراجعة الكاملة
-                                </Link>
-                            </div>
-                            {/* Short summary or list could go here, but redirecting to the dedicated page is better for UX */}
-                            <div className="p-10 text-center bg-gray-50 dark:bg-gray-800/20 rounded-[2rem] border border-dashed border-gray-200 dark:border-gray-700">
-                                <div className="text-4xl mb-4">🛂</div>
-                                <p className="text-text-muted">لديك <strong>{data?.overview?.pendingVerifications || 0}</strong> طلب توثيق بانتظار المراجعة.</p>
-                                <Link href="/dashboard/admin/verification" className="inline-block mt-4 text-action-blue font-bold hover:underline">انقر هنا لبدء المراجعة واتخاذ القرار</Link>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* ══════════════ USERS ══════════════ */}
-                    {activeTab === 'users' && (
-                        <div className="card space-y-4">
-                            <div className="flex items-center justify-between gap-3">
-                                <h2 className="font-bold text-xl text-primary-charcoal dark:text-white">
-                                    المستخدمون ({ov.totalUsers ?? 0})
-                                </h2>
-                                <input
-                                    type="text"
-                                    placeholder="بحث بالاسم أو الإيميل..."
-                                    value={userFilter}
-                                    onChange={e => setUserFilter(e.target.value)}
-                                    className="input text-sm py-2 max-w-xs"
-                                />
-                            </div>
-                            <div className="overflow-x-auto">
-                                <table className="w-full text-sm">
-                                    <thead>
-                                        <tr className="border-b border-gray-100 dark:border-gray-800 text-text-muted text-xs">
-                                            <th className="text-right py-3 px-3">المستخدم</th>
-                                            <th className="text-right py-3 px-3">الدولة</th>
-                                            <th className="text-right py-3 px-3">الدور</th>
-                                            <th className="text-right py-3 px-3">الطلبات</th>
-                                            <th className="text-right py-3 px-3">الانضمام</th>
-                                            <th className="text-right py-3 px-3">الحالة</th>
-                                            <th className="text-right py-3 px-3">إجراء</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {data?.recentUsers
-                                            ?.filter((u: any) =>
-                                                !userFilter ||
-                                                u.name?.toLowerCase().includes(userFilter.toLowerCase()) ||
-                                                u.email?.toLowerCase().includes(userFilter.toLowerCase())
-                                            )
-                                            .map((u: any) => (
-                                                <tr key={u.id} className="border-b border-gray-50 dark:border-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-800/30">
-                                                    <td className="py-3 px-3">
-                                                        <div className="font-semibold">{u.name || 'غير محدد'}</div>
-                                                        <div className="text-xs text-text-muted">{u.email}</div>
-                                                    </td>
-                                                    <td className="py-3 px-3 text-xs">{u.country || '—'}</td>
-                                                    <td className="py-3 px-3">
-                                                        <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${u.role === 'ADMIN' ? 'bg-red-100 text-red-700' :
-                                                            u.role === 'SELLER' ? 'bg-blue-100 text-blue-700' :
-                                                                'bg-gray-100 text-gray-600'
-                                                            }`}>
-                                                            {u.role === 'ADMIN' ? '🛡️ أدمن' : u.role === 'SELLER' ? '🏪 بائع' : '👤 عميل'}
-                                                        </span>
-                                                    </td>
-                                                    <td className="py-3 px-3 font-bold">{u._count?.sellerOrders ?? 0}</td>
-                                                    <td className="py-3 px-3 text-xs text-text-muted">{fmtDate(u.createdAt)}</td>
-                                                    <td className="py-3 px-3">
-                                                        <span className={`px-2 py-0.5 rounded-full text-xs ${u.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-                                                            }`}>
-                                                            {u.isActive ? 'نشط' : 'موقوف'}
-                                                        </span>
-                                                        <div className="text-[10px] text-text-muted mt-1 uppercase font-bold">
-                                                            {u.planType || 'FREE'}
-                                                        </div>
-                                                    </td>
-                                                    <td className="py-3 px-3">
-                                                        <div className="flex items-center gap-1.5">
-                                                            <div className="relative">
-                                                                <input 
-                                                                    type="number"
-                                                                    defaultValue={u.custom_commission_rate ?? ''}
-                                                                    placeholder="%"
-                                                                    className="input py-1 px-2 text-[10px] w-12 border-gray-200"
-                                                                    onBlur={async (e) => {
-                                                                        const rate = e.target.value === '' ? null : parseFloat(e.target.value);
-                                                                        try {
-                                                                            await fetch(`/api/admin/users/${u.id}`, {
-                                                                                method: 'PATCH',
-                                                                                headers: { 'Content-Type': 'application/json' },
-                                                                                body: JSON.stringify({ customCommissionRate: rate }),
-                                                                            });
-                                                                            showToast.success('تم تحديث العمولة');
-                                                                        } catch {
-                                                                            showToast.error('فشل التحديث');
-                                                                        }
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                            <button
-                                                                onClick={() => toggleUser(u.id, !u.isActive)}
-                                                                disabled={togglingUser === u.id}
-                                                                title={u.isActive ? 'إيقاف الحساب' : 'تفعيل الحساب'}
-                                                                className={`p-1.5 rounded-lg transition-colors ${u.isActive
-                                                                    ? 'bg-red-50 hover:bg-red-100 text-red-600'
-                                                                    : 'bg-green-50 hover:bg-green-100 text-green-600'
-                                                                    }`}
-                                                            >
-                                                                {togglingUser === u.id
-                                                                    ? <div className="w-3.5 h-3.5 border-2 border-current/30 border-t-current rounded-full animate-spin" />
-                                                                    : u.isActive ? <FiSlash className="text-sm" /> : <FiUnlock className="text-sm" />}
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* ══════════════ SELLERS ══════════════ */}
-                    {activeTab === 'sellers' && (
-                        <div className="card space-y-4">
-                            <h2 className="font-bold text-xl text-primary-charcoal dark:text-white">
-                                أفضل البائعون
-                            </h2>
-                            <div className="overflow-x-auto">
-                                <table className="w-full text-sm">
-                                    <thead>
-                                        <tr className="border-b border-gray-100 dark:border-gray-800 text-text-muted text-xs">
-                                            <th className="text-right py-3 px-3">#</th>
-                                            <th className="text-right py-3 px-3">البائع</th>
-                                            <th className="text-right py-3 px-3">إجمالي المبيعات</th>
-                                            <th className="text-right py-3 px-3">صافي الأرباح</th>
-                                            <th className="text-right py-3 px-3">عمولة المنصة</th>
-                                            <th className="text-right py-3 px-3">عدد الطلبات</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {data?.topSellers?.map((s: any, i: number) => (
-                                            <tr key={s.id} className="border-b border-gray-50 dark:border-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-800/30">
-                                                <td className="py-3 px-3">
-                                                    <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${i === 0 ? 'bg-yellow-100 text-yellow-700' :
-                                                        i === 1 ? 'bg-gray-200 text-gray-700' :
-                                                            i === 2 ? 'bg-orange-100 text-orange-700' :
-                                                                'bg-gray-50 text-gray-500'
-                                                        }`}>{i + 1}</div>
-                                                </td>
-                                                <td className="py-3 px-3">
-                                                    <div className="font-semibold">{s.name || 'غير محدد'}</div>
-                                                    <div className="text-xs text-text-muted">{s.email}</div>
-                                                </td>
-                                                <td className="py-3 px-3 font-bold">${fmt(s.totalRevenue)}</td>
-                                                <td className="py-3 px-3 text-green-600 font-bold">${fmt(s.netEarnings)}</td>
-                                                <td className="py-3 px-3 text-action-blue font-semibold">
-                                                    ${fmt(s.totalRevenue - s.netEarnings)}
-                                                </td>
-                                                <td className="py-3 px-3">
-                                                    <span className="bg-blue-50 text-action-blue px-2 py-0.5 rounded-full text-xs font-bold">
-                                                        {s.ordersCount} طلب
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    )}
-                </>
+            {/* MASTER KEY MODAL */}
+            {showMasterKeyModal && (
+                <div className="fixed inset-0 z-[60] flex items-center justify-center p-4"><div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setShowMasterKeyModal(null)}></div><div className="relative bg-white dark:bg-card-white w-full max-w-md rounded-[2.5rem] shadow-2xl p-10 space-y-6"><div className="text-center"><div className="text-5xl mb-4">🔐</div><h3 className="text-2xl font-black">الدخول المركزي (God Mode)</h3><p className="text-sm text-text-muted font-bold opacity-80">يرجى تأكيد هويتك باستخدام المفتاح الأمني المركزي</p></div><input type="password" value={masterKey} onChange={(e) => setMasterKey(e.target.value)} className="w-full bg-gray-100 border-none rounded-2xl px-6 py-4 font-black outline-none focus:ring-2 focus:ring-orange-500 text-center tracking-[1em]" placeholder="••••••••" /><div className="flex gap-4"><button onClick={async () => { setImpersonating(showMasterKeyModal); const r = await fetch(`/api/admin/impersonate/${showMasterKeyModal}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ secretKey: masterKey }), }); const res = await r.json(); if (r.ok && res.token) { window.location.href = '/dashboard'; } else { showToast.error(res.error || 'المفتاح غير صحيح'); } setImpersonating(null); }} className="flex-1 btn bg-orange-600 text-white font-black py-4 rounded-2xl shadow-xl">تحقق ودخول</button></div></div></div>
             )}
+
+            {/* BROADCAST MODAL */}
+            {showBroadcast && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+                    <div className="bg-white dark:bg-card-white rounded-[2.5rem] p-8 max-w-2xl w-full shadow-2xl space-y-8 max-h-[90vh] overflow-y-auto">
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-2xl font-black text-primary-charcoal dark:text-white flex items-center gap-2">🚀 حملة مراسلة جديدة</h2>
+                            <button onClick={() => setShowBroadcast(false)} className="p-2 hover:bg-gray-100 rounded-full"><FiX className="text-xl" /></button>
+                        </div>
+                        <div className="space-y-6">
+                            <div><label className="text-sm font-black mb-2 block">عنوان الحملة (Subject):</label><input type="text" className="input" placeholder="مثلاً: خصم جديد لجميع البائعين..." value={broadcast.subject} onChange={(e) => setBroadcast({ ...broadcast, subject: e.target.value })} /></div>
+                            <div><label className="text-sm font-black mb-2 block">الفئة المستهدفة:</label><select className="input" value={broadcast.target} onChange={(e) => setBroadcast({ ...broadcast, target: e.target.value })}><option value="all">الجميع</option><option value="sellers">البائعون فقط</option><option value="new_users">المستخدمون الجدد</option></select></div>
+                            <div><label className="text-sm font-black mb-2 block">محتوى الرسالة (Markdown):</label><textarea className="input min-h-[200px] font-mono text-sm" placeholder="اكتب رسالتك هنا..." value={broadcast.message} onChange={(e) => setBroadcast({ ...broadcast, message: e.target.value })} /></div>
+                        </div>
+                        <div className="bg-blue-50/50 p-6 rounded-3xl border border-blue-100 flex items-start gap-3">
+                            <FiAlertCircle className="text-action-blue mt-1 shrink-0" /><p className="text-xs text-blue-700 font-bold leading-relaxed">تنبيه: سيتم إرسال هذه الرسالة فوراً لجميع المستخدمين في الفئة المحددة. يرجى مراجعة المحتوى بعناية لتجنب إزعاج المستخدمين.</p>
+                        </div>
+                        <button onClick={sendBroadcast} disabled={sending} className="btn btn-primary w-full py-5 rounded-3xl font-black text-xl shadow-2xl shadow-action-blue/30">{sending ? 'جاري الإطلاق والتحضير...' : 'إرسال الحملة الآن'}</button>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 }

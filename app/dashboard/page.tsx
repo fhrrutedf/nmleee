@@ -1,6 +1,7 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FiTrendingUp, FiShoppingCart, FiDollarSign, FiPackage, FiCalendar, FiArrowUpRight, FiActivity, FiVideo, FiSettings, FiUsers } from 'react-icons/fi';
 import Link from 'next/link';
@@ -9,6 +10,7 @@ import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
 export default function DashboardPage() {
     const { data: session } = useSession();
+    const router = useRouter();
     const [stats, setStats] = useState({
         totalProducts: 0,
         totalAppointments: 0,
@@ -21,6 +23,11 @@ export default function DashboardPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        if (session?.user && (session.user as any).role === 'ADMIN') {
+            router.replace('/dashboard/admin');
+            return;
+        }
+        
         const fetchStats = async () => {
             try {
                 const data = await apiGet('/api/dashboard/stats');

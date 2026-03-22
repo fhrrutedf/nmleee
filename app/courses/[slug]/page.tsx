@@ -14,14 +14,8 @@ interface Course {
     title: string;
     slug: string;
     description: string;
-    price: number;
-    image?: string;
-    trailerUrl?: string;
-    category?: string;
-    level?: string;
-    duration?: string;
-    averageRating?: number;
-    reviewCount?: number;
+    originalPrice?: number;
+    offerExpiresAt?: string;
     user: {
         name: string;
         avatar?: string;
@@ -360,19 +354,41 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                     {/* Right Side - Sticky Purchase Card */}
                     <div className="lg:col-span-4 order-1 lg:order-2">
                         <div className="sticky top-24 bg-white dark:bg-card-white rounded-3xl shadow-2xl shadow-gray-200/50 dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-800 animate-fade-in-up">
-                            {/* Decorative Header */}
-                            <div className="h-6 w-full bg-gradient-to-r from-purple-500 to-action-blue"></div>
-
-                            <div className="p-8">
-                                {/* Price */}
-                                <div className="mb-8 pb-8 border-b border-gray-100 dark:border-gray-800 relative">
+                                      <div className="mb-8 pb-8 border-b border-gray-100 dark:border-gray-800 relative">
+                                    {course.originalPrice && course.originalPrice > course.price && (
+                                        <div className="flex items-center justify-center gap-2 mb-2">
+                                            <span className="text-xl text-gray-400 line-through font-bold">
+                                                {course.originalPrice.toFixed(2)} $
+                                            </span>
+                                            <span className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs font-black px-2 py-1 rounded-lg">
+                                                خصم {Math.round(((course.originalPrice - course.price) / course.originalPrice) * 100)}%
+                                            </span>
+                                        </div>
+                                    )}
                                     <div className="flex items-end gap-2 justify-center text-center mx-auto">
                                         <span className="text-5xl font-black bg-gradient-to-br from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent transform transition-transform hover:scale-105 origin-center">
                                             {course.price > 0 ? course.price.toFixed(2) : 'مجاني 🎉'}
                                         </span>
                                         {course.price > 0 && <span className="text-xl font-bold text-gray-400 dark:text-gray-500 mb-1 font-serif">$</span>}
                                     </div>
+
+                                    {/* Urgency Countdown Banner */}
+                                    {course.offerExpiresAt && new Date(course.offerExpiresAt) > new Date() && (
+                                        <div className="mt-6 p-4 bg-amber-50 dark:bg-amber-900/10 rounded-2xl border border-amber-100 dark:border-amber-900/20 flex items-center gap-3 animate-pulse">
+                                            <div className="w-10 h-10 bg-amber-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/20">
+                                                <FiClock className="text-xl" />
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-[10px] font-black text-amber-800 dark:text-amber-400 uppercase tracking-widest leading-none mb-1">عرض لفترة محدودة</p>
+                                                <p className="text-xs font-bold text-amber-600 dark:text-amber-500">سارع بالاشتراك قبل انتهاء العرض!</p>
+                                            </div>
+                                        </div>
+                                    )}
+
                                     <div className="mt-4 flex items-center justify-center gap-2 text-sm text-green-600 dark:text-green-500 font-bold bg-green-50 dark:bg-green-900/20 py-2 px-4 rounded-full border border-green-100 dark:border-green-900/30 w-max mx-auto">
+                                        <FiCheckCircle size={16} /> وصول كامل ومباشر
+                                    </div>
+                                </div>green-900/20 py-2 px-4 rounded-full border border-green-100 dark:border-green-900/30 w-max mx-auto">
                                         <FiCheckCircle size={16} /> وصول كامل ومباشر
                                     </div>
                                 </div>

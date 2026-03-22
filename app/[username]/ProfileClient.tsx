@@ -455,9 +455,16 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                             </span>
                                                         )}
                                                         {!(product.soldCount > 0) && <span />}
-                                                        <span className="text-base font-black" style={{ color: brandColor }}>
-                                                            {product.isFree || product.price === 0 ? 'مجاني' : `${product.price} $`}
-                                                        </span>
+                                                        <div className="flex flex-col items-end">
+                                                            {product.originalPrice && product.originalPrice > product.price && (
+                                                                <span className="text-[10px] text-gray-400 line-through font-bold leading-none mb-0.5">
+                                                                    {product.originalPrice} $
+                                                                </span>
+                                                            )}
+                                                            <span className="text-base font-black" style={{ color: brandColor }}>
+                                                                {product.isFree || product.price === 0 ? 'مجاني' : `${product.price} $`}
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </Link>

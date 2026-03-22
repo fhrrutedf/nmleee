@@ -23,6 +23,7 @@ import {
 import showToast from '@/lib/toast';
 import RichTextEditor from '@/components/ui/RichTextEditor';
 import FileUploader from '@/components/ui/FileUploader';
+import BunnyUpload from '@/components/instructor/BunnyUpload';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function EditCoursePage() {
@@ -244,20 +245,30 @@ export default function EditCoursePage() {
                                 </div>
 
                                 <div>
-                                    <label className="label-modern italic">فيديو تعريفي (Trailer)</label>
-                                    {formData.trailerUrl ? (
-                                        <div className="mt-3 relative rounded-2xl overflow-hidden shadow-lg border border-slate-100 group">
-                                            <video src={formData.trailerUrl} className="w-full aspect-video bg-black" />
-                                            <button type="button" onClick={() => setFormData({ ...formData, trailerUrl: '' })} className="absolute top-3 left-3 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg group-hover:opacity-100 transition-opacity"><FiX /></button>
-                                        </div>
-                                    ) : (
-                                        <button type="button" onClick={() => setShowTrailerUploader(true)} className="w-full py-6 mt-3 text-slate-400 font-bold hover:text-primary-indigo-600 hover:bg-slate-50 transition-all rounded-3xl flex items-center justify-center gap-2 border border-slate-200 border-dashed">
-                                            <FiPlus /> إضافة فيديو تشويقي
-                                        </button>
-                                    )}
-                                    {showTrailerUploader && (
-                                         <div className="mt-4 bg-white p-4 rounded-3xl border shadow-xl"><FileUploader onUploadSuccess={urls => { setFormData({ ...formData, trailerUrl: urls[0] }); setShowTrailerUploader(false); }} /></div>
-                                    )}
+                                    <label className="label-modern italic">فيديو تعريفي (Trailer) 🔥</label>
+                                    <div className="mt-3 relative aspect-video rounded-[2.5rem] overflow-hidden border-4 border-white shadow-xl bg-slate-50 group">
+                                        {formData.trailerUrl ? (
+                                            <>
+                                                <div className="w-full h-full flex flex-col items-center justify-center bg-slate-900 text-white">
+                                                    <FiVideo size={40} className="mb-2 text-primary-indigo-400" />
+                                                    <p className="font-bold text-xs">تم رفع الفيديو بنجاح</p>
+                                                    <button type="button" onClick={() => setFormData({ ...formData, trailerUrl: '' })} className="mt-4 px-6 py-2 bg-red-500 text-white text-[10px] font-black rounded-xl shadow-lg hover:scale-110 transition-transform">حذف واستبدال</button>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <div className="p-6 w-full h-full flex flex-col justify-center">
+                                                <BunnyUpload 
+                                                    onComplete={(data) => {
+                                                        if (data) {
+                                                            const embedUrl = `https://iframe.mediadelivery.net/embed/${data.libraryId}/${data.videoId}`;
+                                                            setFormData({ ...formData, trailerUrl: embedUrl });
+                                                        }
+                                                    }}
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                    <p className="text-[10px] text-slate-400 font-bold mt-2 italic px-2">الفيديو التعريفي يساعد الطلاب على فهم محتوى دورتك بسرعة واتخاذ قرار الشراء.</p>
                                 </div>
                              </div>
                         </Section>

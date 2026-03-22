@@ -22,7 +22,8 @@ export async function GET(req: NextRequest) {
         pendingManual, totalRevenue, periodRevenue,
         platformFees, topSellers, recentOrders,
         usersByCountry, ordersByMethod, recentUsers,
-        pendingVerifications,
+        pendingVerifications, totalCoupons, couponOrders,
+        totalAffiliates, affiliateStats
     ] = await Promise.all([
         // Users
         prisma.user.count(),
@@ -93,6 +94,17 @@ export async function GET(req: NextRequest) {
 
         // Pending verifications
         prisma.verificationRequest.count({ where: { status: 'PENDING' } }),
+
+        // Coupons
+        prisma.coupon.count(),
+        prisma.order.count({ where: { couponId: { not: null }, isPaid: true } }),
+
+        // Affiliates
+        prisma.affiliateLink.count(),
+        prisma.affiliateLink.aggregate({ 
+            where: { isActive: true },
+            _sum: { salesCount: true, clicks: true, commission: true } 
+        }),
     ]);
 
     // Resolve seller names for top sellers
@@ -173,6 +185,12 @@ export async function GET(req: NextRequest) {
             periodRevenue: periodRevenue._sum.totalAmount ?? 0,
             platformFees: platformFees._sum.platformFee ?? 0,
             pendingVerifications,
+            totalCoupons,
+            couponOrders,
+            totalAffiliates,
+            affiliateClicks: affiliateStats._sum.clicks ?? 0,
+            affiliateSales: affiliateStats._sum.salesCount ?? 0,
+            affiliateCommission: affiliateStats._sum.commission ?? 0,
         },
         topSellers: topSellers.map(s => ({
             ...sellerMap[s.sellerId ?? ''],

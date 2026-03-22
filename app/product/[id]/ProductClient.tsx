@@ -164,13 +164,38 @@ export default function ProductDetails({ product, reviews: initialReviews, id }:
                                     </div>
                                 </div>
 
-                                <div className="mb-10 flex items-end gap-3 leading-none">
-                                    <span className="text-5xl sm:text-6xl font-black bg-gradient-to-br from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent transform transition-transform hover:scale-105 origin-right">
-                                        {formatPrice(product.price || 0).value}
-                                    </span>
-                                    <span className="text-2xl font-bold text-gray-400 dark:text-gray-500 mb-2 font-serif">
-                                        {formatPrice(product.price || 0).symbol}
-                                    </span>
+                                <div className="mb-10">
+                                    {product.originalPrice && product.originalPrice > product.price && (
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <span className="text-xl text-gray-400 line-through font-bold">
+                                                {formatPrice(product.originalPrice).value} {formatPrice(product.originalPrice).symbol}
+                                            </span>
+                                            <span className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs font-black px-2 py-1 rounded-lg">
+                                                وفر {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
+                                            </span>
+                                        </div>
+                                    )}
+                                    <div className="flex items-end gap-3 leading-none">
+                                        <span className="text-5xl sm:text-6xl font-black bg-gradient-to-br from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent transform transition-transform hover:scale-105 origin-right">
+                                            {formatPrice(product.price || 0).value}
+                                        </span>
+                                        <span className="text-2xl font-bold text-gray-400 dark:text-gray-500 mb-2 font-serif">
+                                            {formatPrice(product.price || 0).symbol}
+                                        </span>
+                                    </div>
+
+                                    {/* Urgency Countdown Banner */}
+                                    {product.offerExpiresAt && new Date(product.offerExpiresAt) > new Date() && (
+                                        <div className="mt-6 p-4 bg-amber-50 dark:bg-amber-900/10 rounded-2xl border border-amber-100 dark:border-amber-900/20 flex items-center gap-3 animate-pulse">
+                                            <div className="w-10 h-10 bg-amber-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/20">
+                                                <FiClock className="text-xl" />
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-[10px] font-black text-amber-800 dark:text-amber-400 uppercase tracking-widest leading-none mb-1">عرض لفترة محدودة</p>
+                                                <p className="text-xs font-bold text-amber-600 dark:text-amber-500">ينتهي العرض قريباً! سارع بالطلب</p>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="space-y-4">
