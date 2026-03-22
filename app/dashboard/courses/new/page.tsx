@@ -130,6 +130,7 @@ export default function NewCoursePage() {
                     showToast.error('خطأ في الاتصال بالخادم');
                     return;
                 }
+            }
         }
         
         let targetStep = currentStep + 1;

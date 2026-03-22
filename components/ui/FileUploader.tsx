@@ -22,7 +22,7 @@ export default function FileUploader({
 }: FileUploaderProps) {
 
     // Truncates long filenames while preserving extension
-    const truncateFilename = (name: string, maxLen = 30): string => {
+    const truncateFilename = (name: string, maxLen = 20): string => {
         if (name.length <= maxLen) return name;
         const dotIndex = name.lastIndexOf('.');
         const ext = dotIndex > 0 ? name.substring(dotIndex) : '';
@@ -65,7 +65,7 @@ export default function FileUploader({
     );
 
     const uploadFile = (file: File) => {
-        const toastId = toast.loading(`جاري رفع ${truncateFilename(file.name)}...`);
+        // Removed global toast loading to prevent UI overlap on mobile
         const formData = new FormData();
         formData.append("file", file);
         formData.append("type", file.type.startsWith("image/") ? "image" : "file");
@@ -89,7 +89,6 @@ export default function FileUploader({
         };
 
         xhr.onload = () => {
-            toast.dismiss(toastId);
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
                 setUploads((prev) => {
@@ -131,7 +130,6 @@ export default function FileUploader({
         };
 
         xhr.onerror = () => {
-            toast.dismiss(toastId);
             setUploads((prev) =>
                 prev.map((upload) =>
                     upload.file === file
