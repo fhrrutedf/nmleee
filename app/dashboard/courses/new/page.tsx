@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
     FiArrowRight, FiUpload, FiDollarSign, FiBookOpen,
-    FiX, FiImage, FiCheck, FiArrowLeft, FiFilm, FiEye, FiLayers, FiPlus, FiClock, FiCheckSquare, FiVideo, FiLink, FiSave, FiAlertCircle
+    FiX, FiImage, FiCheck, FiArrowLeft, FiFilm, FiEye, FiLayers, FiPlus, FiClock, FiCheckSquare, FiVideo, FiLink, FiSave, FiAlertCircle, FiEdit2
 } from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
