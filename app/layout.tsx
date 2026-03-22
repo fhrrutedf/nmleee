@@ -7,6 +7,7 @@ import NavbarWrapper from "@/app/components/NavbarWrapper";
 import FooterWrapper from "@/app/components/FooterWrapper";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import ImpersonationBanner from "@/components/ImpersonationBanner";
+import AffiliateBanner from "@/components/marketing/AffiliateBanner";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
         <html lang="ar" dir="rtl" suppressHydrationWarning>
             <body className={`${ibmPlex.variable} ${inter.variable} font-sans antialiased text-slate-900 bg-white flex flex-col min-h-screen`}>
                 <Providers>
+                    <AffiliateBanner />
                     <ImpersonationBanner />
                     <NavbarWrapper />
                     <main className="flex-grow w-full overflow-x-hidden">

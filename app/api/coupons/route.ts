@@ -12,6 +12,15 @@ export async function GET() {
 
         const coupons = await prisma.coupon.findMany({
             where: { userId: session.user.id },
+            include: {
+                _count: {
+                    select: { orders: true }
+                },
+                orders: {
+                    where: { status: 'COMPLETED' }, // Ensure we only count finished sales
+                    select: { totalAmount: true, createdAt: true }
+                }
+            },
             orderBy: { createdAt: 'desc' }
         });
 

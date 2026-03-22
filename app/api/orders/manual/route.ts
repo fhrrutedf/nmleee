@@ -20,6 +20,7 @@ export async function POST(req: NextRequest) {
             paymentProof,
             paymentNotes,
             userId,
+            affiliateRef, // Code from cookie/storage
         } = body;
 
         // 1. SECURITY: Check for duplicate transaction reference
@@ -137,6 +138,7 @@ export async function POST(req: NextRequest) {
                 paymentNotes,
                 userId: resolvedUserId,
                 sellerId: sellerId || undefined,
+                affiliateLinkId: affiliateRef ? (await prisma.affiliateLink.findUnique({ where: { code: affiliateRef.toUpperCase() } }))?.id : undefined,
                 payoutStatus: 'pending',
                 availableAt: new Date(Date.now() + escrowDays * 24 * 60 * 60 * 1000),
                 items: {

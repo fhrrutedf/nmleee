@@ -1001,6 +1001,10 @@ model AffiliateLink {
   commissionType  String // "percentage" | "fixed"
   commissionValue Float
   
+  // Tiered Commissions (Optional)
+  tierThreshold   Int?     // Number of sales required to trigger second tier
+  tierValue       Float?   // Second tier commission value
+  
   // Stats
   clicks      Int      @default(0)
   salesCount  Int      @default(0)

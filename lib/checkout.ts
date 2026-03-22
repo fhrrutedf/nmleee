@@ -33,6 +33,8 @@ export async function fulfillPurchase(orderId: string, userId?: string) {
                 },
                 user: true,
                 seller: true,
+                coupon: true,
+                affiliateLink: true,
             }
         });
 
@@ -118,17 +120,60 @@ export async function fulfillPurchase(orderId: string, userId?: string) {
                 });
 
                 // ج. إشعار البائع بالبيع
+                const couponText = order.coupon ? ` باستخدام كود الخصم (${order.coupon.code})` : '';
                 await triggerSellerNotification({
                     sellerId: order.sellerId,
                     type: 'sale',
                     title: 'عملية بيع جديدة! 💰',
-                    content: `قام ${studentName} بشراء "${order.items[0]?.course?.title || order.items[0]?.product?.title || 'منتج'}" بقيمة ${order.totalAmount} $`,
+                    content: `مبروك! لقد بعت "${order.items[0]?.course?.title || order.items[0]?.product?.title || 'منتج'}" بقيمة ${order.totalAmount} $${couponText}`,
                     payload: {
                         amount: order.totalAmount,
                         customerName: studentName,
-                        productTitle: order.items[0]?.course?.title || order.items[0]?.product?.title || 'منتج'
+                        productTitle: order.items[0]?.course?.title || order.items[0]?.product?.title || 'منتج',
+                        couponCode: order.coupon?.code
                     }
                 });
+
+                // د. تحديث إحصائيات الأفلييت (Affiliate Stats)
+                if (order.affiliateLinkId) {
+                    const affLink = await prisma.affiliateLink.findUnique({
+                        where: { id: order.affiliateLinkId }
+                    });
+
+                    if (affLink) {
+                        const newSalesCount = affLink.salesCount + 1;
+                        await prisma.affiliateLink.update({
+                            where: { id: affLink.id },
+                            data: {
+                                salesCount: { increment: 1 },
+                                revenue: { increment: order.totalAmount },
+                                // Logic for tiered commission could be added here for future sales
+                            }
+                        });
+
+                        // د.٢ تسجيل عملية البيع في السجل (Ledger)
+                        const commissionAmount = affLink.commissionType === 'percentage' 
+                            ? (order.totalAmount * affLink.commissionValue) / 100
+                            : affLink.commissionValue;
+
+                        await prisma.affiliateSale.create({
+                            data: {
+                                affiliateLinkId: affLink.id,
+                                orderId: order.id,
+                                amount: order.totalAmount,
+                                commission: commissionAmount,
+                                status: 'PENDING', // Will be confirmed later by admin
+                                sellerId: order.sellerId || ''
+                            }
+                        });
+
+                        // Check tier threshold
+                        if (affLink.tierThreshold && newSalesCount >= affLink.tierThreshold && affLink.tierValue) {
+                            console.log(`[AFFILIATE_UPGRADE] Link ${affLink.code} reached tier!`);
+                        }
+                    }
+                }
+                
                 console.log(`[CHECKOUT_FULFILL] Notifications sent to seller.`);
             }
         } catch (noticeErr) {

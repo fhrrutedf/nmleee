@@ -15,6 +15,7 @@ import {
     formatCurrency,
     type PaymentMethod,
 } from '@/config/paymentMethods';
+import { getCookie } from '@/lib/marketing';
 
 // الدول المحظورة التي لا تدعم Stripe
 const RESTRICTED_COUNTRIES = ['SY', 'IQ'];
@@ -181,7 +182,7 @@ export default function CheckoutPage() {
         setLoading(true);
 
         try {
-            const affiliateRef = sessionStorage.getItem('affiliate_ref') || localStorage.getItem('affiliate_ref');
+            const affiliateRef = getCookie('aff_code') || sessionStorage.getItem('affiliate_ref') || localStorage.getItem('affiliate_ref');
 
             if (total === 0) {
                 // Free Checkout Bypass

@@ -1,8 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FiPlus, FiTag, FiCalendar, FiUsers, FiClock, FiTrash2, FiAlertCircle, FiCheckCircle, FiAlertTriangle } from 'react-icons/fi';
+import { FiPlus, FiTag, FiCalendar, FiUsers, FiClock, FiTrash2, FiAlertCircle, FiCheckCircle, FiAlertTriangle, FiTrendingUp, FiDollarSign } from 'react-icons/fi';
 import showToast from '@/lib/toast';
+import { LineChart, Line, ResponsiveContainer, YAxis, Tooltip } from 'recharts';
+import { format, subDays, isSameDay } from 'date-fns';
 
 export default function CouponsPage() {
     const [coupons, setCoupons] = useState<any[]>([]);
@@ -167,8 +169,31 @@ export default function CouponsPage() {
                                     </button>
                                 </div>
 
-                                <div className="text-3xl font-black text-action-blue dark:text-blue-400 mb-6 drop-shadow-sm">
-                                    {coupon.type === 'percentage' ? `${coupon.value}% خصم` : `${coupon.value} $ خصم`}
+                                <div className="flex items-center justify-between mb-6">
+                                    <div className="text-3xl font-black text-action-blue dark:text-blue-400 drop-shadow-sm">
+                                        {coupon.type === 'percentage' ? `${coupon.value}% خصم` : `${coupon.value} $ خصم`}
+                                    </div>
+                                    <div className="text-right">
+                                        <div className="text-[10px] uppercase font-bold text-gray-400 tracking-tighter">إجمالي المبيعات</div>
+                                        <div className="text-lg font-black text-green-600 flex items-center justify-end">
+                                            <FiDollarSign size={14} />
+                                            {coupon.orders?.reduce((sum: number, o: any) => sum + o.totalAmount, 0).toLocaleString() || 0}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Sparkline Activity */}
+                                <div className="h-10 w-full mb-6 opacity-60 hover:opacity-100 transition-opacity">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <LineChart data={(() => {
+                                            const days = Array.from({ length: 14 }).map((_, i) => subDays(new Date(), 13 - i));
+                                            return days.map(d => ({
+                                                count: coupon.orders?.filter((o: any) => isSameDay(new Date(o.createdAt), d)).length || 0
+                                            }));
+                                        })()}>
+                                            <Line type="monotone" dataKey="count" stroke="#6366f1" strokeWidth={2} dot={false} />
+                                        </LineChart>
+                                    </ResponsiveContainer>
                                 </div>
 
                                 <div className="space-y-3 font-medium text-sm text-gray-600 dark:text-gray-400">
