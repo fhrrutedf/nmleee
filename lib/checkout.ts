@@ -158,12 +158,11 @@ export async function fulfillPurchase(orderId: string, userId?: string) {
 
                         await prisma.affiliateSale.create({
                             data: {
-                                affiliateLinkId: affLink.id,
+                                linkId: affLink.id,
                                 orderId: order.id,
                                 amount: order.totalAmount,
                                 commission: commissionAmount,
-                                status: 'PENDING', // Will be confirmed later by admin
-                                sellerId: order.sellerId || ''
+                                status: 'pending', // Will be confirmed later by admin
                             }
                         });
 

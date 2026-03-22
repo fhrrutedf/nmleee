@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { 
     FiSend, FiUsers, FiCalendar, FiClock, FiCheckCircle, 
-    FiAlertCircle, FiLoader, FiSearch, FiTarget, FiInfo 
+    FiAlertCircle, FiLoader, FiSearch, FiTarget, FiInfo,
+    FiSmartphone, FiEye, FiTrash2, FiSlash, FiRotateCcw
 } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -67,12 +68,40 @@ export default function AdminBroadcastPage() {
         }
     };
 
+    const handleSendTest = async () => {
+        if (!newBroadcast.subject || !newBroadcast.message) {
+            toast.error('يرجى كتابة العنوان والرسالة أولاً');
+            return;
+        }
+        try {
+            const res = await fetch('/api/admin/broadcast/test', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newBroadcast),
+            });
+            if (res.ok) toast.success('تم إرسال النسخة التجريبية لبريدك');
+            else toast.error('فشل إرسال التجربة');
+        } catch { toast.error('خطأ في الاتصال'); }
+    };
+
+    const handleCancelJob = async (id: string) => {
+        if (!confirm('هل أنت متأكد من إيقاف هذا البث فوراً؟ لن يمكن التراجع.')) return;
+        try {
+            const res = await fetch(`/api/admin/broadcast/${id}/cancel`, { method: 'PATCH' });
+            if (res.ok) {
+                toast.success('تم إيقاف البث');
+                fetchJobs();
+            }
+        } catch { toast.error('فشل إيقاف البث'); }
+    };
+
     const getStatusStyle = (status: string) => {
         switch (status) {
             case 'PENDING': return 'bg-yellow-100 text-yellow-700 border-yellow-200';
             case 'SENDING': return 'bg-blue-100 text-blue-700 border-blue-200 animate-pulse';
             case 'COMPLETED': return 'bg-green-100 text-green-700 border-green-200';
             case 'FAILED': return 'bg-red-100 text-red-700 border-red-200';
+            case 'CANCELLED': return 'bg-gray-100 text-gray-500 border-gray-300 line-through';
             default: return 'bg-gray-100 text-gray-700 border-gray-200';
         }
     };
@@ -83,6 +112,7 @@ export default function AdminBroadcastPage() {
             case 'SENDING': return 'جاري الإرسال...';
             case 'COMPLETED': return 'تم الإرسال بنجاح';
             case 'FAILED': return 'فشل الإرسال';
+            case 'CANCELLED': return 'تم الإلغاء';
             default: return status;
         }
     };
@@ -153,37 +183,100 @@ export default function AdminBroadcastPage() {
                                 </div>
                             </div>
 
-                            <div className="space-y-2">
-                                <label className="text-sm font-bold text-gray-700">عنوان الرسالة (Subject)</label>
-                                <input 
-                                    type="text" 
-                                    placeholder="مثال: تحديث شروط الاستخدام الجديدة..."
-                                    className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all"
-                                    value={newBroadcast.subject}
-                                    onChange={e => setNewBroadcast({...newBroadcast, subject: e.target.value})}
-                                />
-                            </div>
+                            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                                <div className="space-y-6">
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-bold text-gray-700">عنوان الرسالة (Subject)</label>
+                                        <input 
+                                            type="text" 
+                                            placeholder="مثال: تحديث شروط الاستخدام الجديدة..."
+                                            className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all"
+                                            value={newBroadcast.subject}
+                                            onChange={e => setNewBroadcast({...newBroadcast, subject: e.target.value})}
+                                        />
+                                    </div>
 
-                            <div className="space-y-2">
-                                <label className="text-sm font-bold text-gray-700">نص الرسالة (Content - HTML Supported)</label>
-                                <textarea 
-                                    rows={8}
-                                    placeholder="اكتب رسالتك لجميع المستخدمين هنا..."
-                                    className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all resize-none"
-                                    value={newBroadcast.message}
-                                    onChange={e => setNewBroadcast({...newBroadcast, message: e.target.value})}
-                                />
-                                <p className="text-[10px] text-gray-400 font-medium">* سيتم إرسال هذه الرسالة في قالب 'تمالين' الرسمي تلقائياً.</p>
-                            </div>
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-bold text-gray-700">نص الرسالة (Content)</label>
+                                        <textarea 
+                                            rows={12}
+                                            placeholder="اكتب رسالتك لجميع المستخدمين هنا..."
+                                            className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all resize-none"
+                                            value={newBroadcast.message}
+                                            onChange={e => setNewBroadcast({...newBroadcast, message: e.target.value})}
+                                        />
+                                        <p className="text-[10px] text-gray-400 font-medium">* سيتم إرسال هذه الرسالة في قالب 'تمالين' الرسمي تلقائياً.</p>
+                                    </div>
 
-                            <button 
-                                type="submit"
-                                disabled={submitting}
-                                className="w-full bg-action-blue hover:bg-blue-700 text-white font-black py-5 rounded-2xl shadow-xl shadow-action-blue/30 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
-                            >
-                                {submitting ? <FiLoader className="animate-spin text-2xl" /> : <FiSend className="text-xl" />}
-                                {submitting ? 'جاري التحضير وجدولة المهام...' : 'إرسال البث الآن'}
-                            </button>
+                                    <div className="flex gap-4">
+                                        <button 
+                                            type="button" 
+                                            onClick={handleSendTest}
+                                            className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-2"
+                                        >
+                                            <FiEye /> إرسال تجربة لي
+                                        </button>
+                                        <button 
+                                            type="submit"
+                                            disabled={submitting}
+                                            className="flex-[2] bg-action-blue hover:bg-blue-700 text-white font-black py-4 rounded-2xl shadow-xl shadow-action-blue/30 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                                        >
+                                            {submitting ? <FiLoader className="animate-spin text-xl" /> : <FiSend className="text-lg" />}
+                                            {submitting ? 'جاري الجدولة...' : 'إرسال البث الآن'}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Mobile Preview Shell */}
+                                <div className="hidden xl:block">
+                                    <div className="sticky top-8 space-y-4">
+                                        <label className="text-sm font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
+                                            <FiSmartphone /> معاينة الجوال (Live)
+                                        </label>
+                                        <div className="relative mx-auto w-[300px] h-[580px] bg-slate-100 rounded-[3rem] border-[10px] border-slate-900 shadow-2xl overflow-hidden">
+                                            {/* Screen Content */}
+                                            <div className="h-full flex flex-col bg-white">
+                                                {/* Phone Status Bar */}
+                                                <div className="h-6 bg-slate-900 flex justify-between px-6 pt-1">
+                                                    <span className="text-[10px] text-white">9:41</span>
+                                                    <div className="flex gap-1 items-center">
+                                                        <div className="w-2 h-2 bg-white rounded-full opacity-50" />
+                                                        <div className="w-4 h-2 bg-green-400 rounded-sm" />
+                                                    </div>
+                                                </div>
+                                                {/* Email App Header */}
+                                                <div className="p-4 bg-slate-50 border-b flex items-center gap-3">
+                                                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-black text-xs">
+                                                        T
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-[10px] font-black text-gray-900">تمالين - Tamleen</div>
+                                                        <div className="text-[8px] text-gray-400">{newBroadcast.subject || 'بدون عنوان...'}</div>
+                                                    </div>
+                                                </div>
+                                                {/* Email Body Template */}
+                                                <div className="flex-1 overflow-y-auto bg-gray-50 p-2">
+                                                    <div className="bg-white rounded-lg shadow-sm overflow-hidden border">
+                                                        <div className="p-4 bg-blue-600 text-center">
+                                                            <div className="text-white font-black text-xs tracking-widest">TAMLEEN</div>
+                                                        </div>
+                                                        <div className="p-4 space-y-4">
+                                                            <div className="text-xs font-bold text-gray-900">مرحباً أدمن،</div>
+                                                            <div className="text-[10px] text-gray-600 whitespace-pre-wrap leading-relaxed min-h-[100px]">
+                                                                {newBroadcast.message || 'اكتبي شيئاً لترى المعاينة...'}
+                                                            </div>
+                                                            <div className="h-px bg-gray-100" />
+                                                            <div className="text-[8px] text-center text-gray-400 italic">شركة تمالين - 2026</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {/* Home Indicator */}
+                                            <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-24 h-1 bg-slate-900 rounded-full opacity-20" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </motion.div>
                 </div>
@@ -230,21 +323,35 @@ export default function AdminBroadcastPage() {
                                 </div>
                             ) : (
                                 jobs.map(job => (
-                                    <div key={job.id} className="p-5 hover:bg-gray-50 transition-colors">
+                                    <div key={job.id} className="p-5 hover:bg-gray-50 transition-colors group">
                                         <div className="flex justify-between items-start mb-2">
-                                            <h4 className="font-bold text-sm truncate max-w-[150px]">{job.subject}</h4>
-                                            <span className={`text-[10px] px-2 py-0.5 rounded-full border font-bold ${getStatusStyle(job.status)}`}>
-                                                {getStatusLabel(job.status)}
-                                            </span>
+                                            <div className="flex-1 min-w-0">
+                                                <h4 className="font-bold text-sm truncate">{job.subject}</h4>
+                                                <span className="text-[8px] text-gray-400 font-medium font-mono uppercase tracking-tighter block">{job.id}</span>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                {job.status === 'SENDING' && (
+                                                    <button 
+                                                        onClick={() => handleCancelJob(job.id)}
+                                                        className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-all"
+                                                        title="إيقاف طوارئ"
+                                                    >
+                                                        <FiSlash size={14} />
+                                                    </button>
+                                                )}
+                                                <span className={`text-[10px] px-2 py-0.5 rounded-full border font-bold ${getStatusStyle(job.status)}`}>
+                                                    {getStatusLabel(job.status)}
+                                                </span>
+                                            </div>
                                         </div>
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-4 text-[10px] text-gray-500 font-bold">
                                                 <span className="flex items-center gap-1"><FiUsers /> {job.sentCount}/{job.recipientCount}</span>
                                                 <span className="flex items-center gap-1"><FiCalendar /> {new Date(job.createdAt).toLocaleDateString()}</span>
                                             </div>
-                                            <div className="w-16 h-1 bg-gray-200 rounded-full overflow-hidden">
+                                            <div className="w-20 h-1.5 bg-gray-100 rounded-full overflow-hidden">
                                                 <div 
-                                                    className="h-full bg-green-500 transition-all duration-1000" 
+                                                    className={`h-full transition-all duration-1000 ${job.status === 'CANCELLED' ? 'bg-gray-300' : 'bg-green-500'}`} 
                                                     style={{ width: `${(job.sentCount / job.recipientCount) * 100}%` }}
                                                 />
                                             </div>

@@ -144,6 +144,14 @@ async function processBroadcast(broadcastId: string) {
             break;
         }
 
+        // --- KILL SWITCH CHECK ---
+        const currentJob = await prisma.broadcast.findUnique({ where: { id: broadcastId }, select: { status: true } });
+        if (currentJob?.status === 'CANCELLED') {
+            console.log(`[BROADCAST_CANCEL] Kill switch triggered for job: ${broadcastId}`);
+            hasMore = false;
+            break;
+        }
+
         // Send logic
         for (const user of users) {
             try {
