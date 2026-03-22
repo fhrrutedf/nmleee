@@ -388,9 +388,6 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                     <div className="mt-4 flex items-center justify-center gap-2 text-sm text-green-600 dark:text-green-500 font-bold bg-green-50 dark:bg-green-900/20 py-2 px-4 rounded-full border border-green-100 dark:border-green-900/30 w-max mx-auto">
                                         <FiCheckCircle size={16} /> وصول كامل ومباشر
                                     </div>
-                                </div>green-900/20 py-2 px-4 rounded-full border border-green-100 dark:border-green-900/30 w-max mx-auto">
-                                        <FiCheckCircle size={16} /> وصول كامل ومباشر
-                                    </div>
                                 </div>
 
                                 {/* Rating block */}
@@ -474,13 +471,13 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                         </div>
                     </div>
                 </div>
+                {/* Simple Footer */}
+                <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
+                    <p className="text-gray-500 dark:text-gray-400 font-medium">
+                        مدعوم من <a href="https://tmleen.com" className="text-action-blue font-bold hover:underline">منصة تمالين</a>
+                    </p>
+                </footer>
             </div>
-            {/* Simple Footer */}
-            <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
-                <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-action-blue font-bold hover:underline">منصة تمالين</a>
-                </p>
-            </footer>
         </div>
     );
 }

@@ -491,11 +491,8 @@ export default function NewCoursePage() {
                         {/* Step 4: Sales & Real-World */}
                         {currentStep === 4 && (
                             <motion.div key="st4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-10">
-                                <Section title="التسعير والحاسبة الذكية" icon={<FiDollarSign />}>
-                                    <div className="max-w-md mx-auto space-y-8 py-8">
-                                        <div className="text-center space-y-4 relative">
                                 <Section title="التسعير والتسويق " icon={<FiDollarSign />}>
-                                    <div className="grid md:grid-cols-2 gap-10">
+                                    <div className="grid md:grid-cols-2 gap-10 pt-4">
                                         <div className="space-y-4">
                                             <div className="flex items-center justify-between mb-4">
                                                 <label className="label-modern underline decoration-emerald-200 underline-offset-8">سعر البيع النهائي ($)</label>
