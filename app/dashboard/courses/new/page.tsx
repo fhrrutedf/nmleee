@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
     FiArrowRight, FiUpload, FiDollarSign, FiBookOpen,
     FiX, FiImage, FiCheck, FiArrowLeft, FiFilm, FiEye, FiLayers, FiPlus, FiClock, FiCheckSquare, FiVideo, FiLink, FiSave, FiAlertCircle
@@ -19,6 +19,7 @@ import CourseContentBuilder from '@/components/instructor/CourseContentBuilder';
 
 export default function NewCoursePage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [currentStep, setCurrentStep] = useState(1);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -66,6 +67,13 @@ export default function NewCoursePage() {
 
     // Load Draft
     useEffect(() => {
+        if (searchParams.get('new') === 'true') {
+            localStorage.removeItem('course_draft');
+            localStorage.removeItem('course_draft_id');
+            localStorage.removeItem('course_draft_step');
+            return;
+        }
+
         const saved = localStorage.getItem('course_draft');
         if (saved) {
             try { setFormData(JSON.parse(saved)); } catch (e) {}
@@ -75,20 +83,21 @@ export default function NewCoursePage() {
 
         const savedStep = localStorage.getItem('course_draft_step');
         if (savedStep) setCurrentStep(parseInt(savedStep));
-    }, []);
+    }, [searchParams]);
 
     // Auto Save Draft
     useEffect(() => {
-        const timer = setInterval(() => {
-            if (formData.title || formData.description) {
-                setIsSavingDraft(true);
-                localStorage.setItem('course_draft', JSON.stringify(formData));
-                localStorage.setItem('course_draft_step', currentStep.toString());
-                if (draftId) localStorage.setItem('course_draft_id', draftId);
-                setTimeout(() => setIsSavingDraft(false), 1000);
-            }
-        }, 30000);
-        return () => clearInterval(timer);
+        if (!formData.title && !formData.description) return;
+
+        const timer = setTimeout(() => {
+            setIsSavingDraft(true);
+            localStorage.setItem('course_draft', JSON.stringify(formData));
+            localStorage.setItem('course_draft_step', currentStep.toString());
+            if (draftId) localStorage.setItem('course_draft_id', draftId);
+            setTimeout(() => setIsSavingDraft(false), 1000);
+        }, 1000); // Debounce save by 1 second
+
+        return () => clearTimeout(timer);
     }, [formData, currentStep, draftId]);
 
     const update = (key: string, value: any) =>

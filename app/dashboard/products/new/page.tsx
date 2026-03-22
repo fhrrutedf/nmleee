@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
     FiArrowRight, FiUpload, FiDollarSign, FiPackage,
     FiX, FiImage, FiCheck, FiArrowLeft, FiFilm, FiEye, FiLayers, FiPlus, FiSave, FiLock, FiCheckSquare
@@ -33,6 +33,7 @@ function generateSlug(title: string): string {
 
 export default function NewProductPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [currentStep, setCurrentStep] = useState(1);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -75,22 +76,28 @@ export default function NewProductPage() {
 
     // Load Draft
     useEffect(() => {
+        if (searchParams.get('new') === 'true') {
+            localStorage.removeItem('product_draft');
+            return;
+        }
+
         const saved = localStorage.getItem('product_draft');
         if (saved) {
             try { setFormData(JSON.parse(saved)); } catch (e) {}
         }
-    }, []);
+    }, [searchParams]);
 
     // Auto Save Draft
     useEffect(() => {
-        const timer = setInterval(() => {
-            if (formData.title || formData.description) {
-                setIsSavingDraft(true);
-                localStorage.setItem('product_draft', JSON.stringify(formData));
-                setTimeout(() => setIsSavingDraft(false), 1000);
-            }
-        }, 30000);
-        return () => clearInterval(timer);
+        if (!formData.title && !formData.description) return;
+
+        const timer = setTimeout(() => {
+            setIsSavingDraft(true);
+            localStorage.setItem('product_draft', JSON.stringify(formData));
+            setTimeout(() => setIsSavingDraft(false), 1000);
+        }, 1000); // Debounce save by 1 second
+
+        return () => clearTimeout(timer);
     }, [formData]);
 
     const update = (key: string, value: any) =>

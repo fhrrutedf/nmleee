@@ -64,7 +64,7 @@ export default function ProductsPage() {
                     <p className="text-sm text-text-muted mt-1">إدارة جميع منتجاتك من مكان واحد</p>
                 </div>
                 <Link
-                    href="/dashboard/products/new"
+                    href="/dashboard/products/new?new=true"
                     className="btn btn-primary gap-2 w-full sm:w-auto justify-center"
                 >
                     <FiPlus className="text-lg" />

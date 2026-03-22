@@ -86,7 +86,7 @@ export default function CoursesPage() {
                     <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white">الدورات التدريبية</h1>
                     <p className="text-text-muted mt-2">إدارة شاملة لجميع دوراتك التدريبية ومحتواها التعليمي</p>
                 </div>
-                <Link href="/dashboard/courses/new" className="btn btn-primary shadow-lg hover:shadow-blue-500/25">
+                <Link href="/dashboard/courses/new?new=true" className="btn btn-primary shadow-lg hover:shadow-blue-500/25">
                     <FiPlus className="ml-2 text-xl" />
                     <span>إضافة دورة جديدة</span>
                 </Link>
