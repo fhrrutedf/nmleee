@@ -65,9 +65,24 @@ export async function PUT(
             return NextResponse.json({ error: 'غير مصرح بتعديل هذه الدورة' }, { status: 403 });
         }
 
+        // Generate slug if it doesn't exist (Retroactive fix)
+        let slug = (course as any).slug;
+        if (!slug && body.title) {
+            slug = body.title.toLowerCase().replace(/[^\u0600-\u06FFa-z0-9\s-]/g, '').trim().replace(/\s+/g, '-').replace(/-+/g, '-').substring(0, 100);
+            
+            // Check uniqueness
+            let counter = 1;
+            const originalSlug = slug;
+            while (await prisma.course.findFirst({ where: { userId, slug, id: { not: id } } }) || await prisma.product.findFirst({ where: { userId, slug } })) {
+                slug = `${originalSlug}-${counter}`;
+                counter++;
+            }
+        }
+
         const updatedCourse = await prisma.course.update({
             where: { id },
             data: {
+                slug: slug || undefined,
                 title: body.title,
                 description: body.description,
                 price: body.price !== undefined ? parseFloat(body.price) : undefined,

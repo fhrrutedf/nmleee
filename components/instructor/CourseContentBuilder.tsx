@@ -26,9 +26,10 @@ interface Lesson {
 
 interface CourseContentBuilderProps {
     courseId: string;
+    onLessonsChange?: (count: number) => void;
 }
 
-export default function CourseContentBuilder({ courseId }: CourseContentBuilderProps) {
+export default function CourseContentBuilder({ courseId, onLessonsChange }: CourseContentBuilderProps) {
     const router = useRouter();
     const [modules, setModules] = useState<Module[]>([]);
     const [loading, setLoading] = useState(true);
@@ -38,6 +39,13 @@ export default function CourseContentBuilder({ courseId }: CourseContentBuilderP
     useEffect(() => {
         if (courseId) fetchModules();
     }, [courseId]);
+
+    useEffect(() => {
+        if (!loading && onLessonsChange) {
+            const totalLessons = modules.reduce((acc, mod) => acc + (mod.lessons?.length || 0), 0);
+            onLessonsChange(totalLessons);
+        }
+    }, [modules, loading, onLessonsChange]);
 
     const fetchModules = async () => {
         try {

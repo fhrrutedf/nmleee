@@ -25,6 +25,11 @@ export default function NewCoursePage() {
     const [loading, setLoading] = useState(false);
     const [isSavingDraft, setIsSavingDraft] = useState(false);
     const [draftId, setDraftId] = useState<string | null>(null);
+    const [lessonCount, setLessonCount] = useState(0);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [finalCourseId, setFinalCourseId] = useState<string | null>(null);
+    const [finalSlug, setFinalSlug] = useState<string | null>(null);
+    const [creatorUsername, setCreatorUsername] = useState<string | null>(null);
 
     // Upload Toggles
     const [showCoverUploader, setShowCoverUploader] = useState(false);
@@ -142,6 +147,13 @@ export default function NewCoursePage() {
                 }
             }
         }
+
+        if (currentStep === 3) {
+            // Validation for Recorded courses - must have at least one lesson
+            if (formData.format === 'recorded' && lessonCount === 0) {
+                return showToast.error('خطوة أخيرة هامة: يرجى إضافة "درس واحد" على الأقل لنتمكن من المتابعة لتسعير دورتك 🎓');
+            }
+        }
         
         let targetStep = currentStep + 1;
         if (currentStep === 2 && formData.format === 'online') {
@@ -192,7 +204,12 @@ export default function NewCoursePage() {
                 localStorage.removeItem('course_draft');
                 localStorage.removeItem('course_draft_id');
                 localStorage.removeItem('course_draft_step');
-                router.push(`/dashboard/courses/${data.id}/content`);
+                setFinalCourseId(data.id);
+                setFinalSlug(data.slug);
+                setCreatorUsername(data.user?.username || null);
+                setShowSuccessModal(true);
+                // Notification: We stay here and show a success modal instead of immediate push
+                // router.push(`/dashboard/courses/${data.id}/content`);
             } else {
                 throw new Error('فشل الحفظ');
             }
@@ -462,7 +479,7 @@ export default function NewCoursePage() {
                                     </div>
                                     {draftId ? (
                                         <div className="pt-8">
-                                            <CourseContentBuilder courseId={draftId} />
+                                            <CourseContentBuilder courseId={draftId} onLessonsChange={setLessonCount} />
                                         </div>
                                     ) : (
                                         <div className="text-center p-10 text-red-500 font-bold bg-red-50 rounded-2xl border-2 border-red-100 italic">حدث خطأ. لم يتم التعرف على الدورة المؤقتة. الرجاء العودة والتأكد من البيانات.</div>
@@ -652,6 +669,59 @@ export default function NewCoursePage() {
                              </div>
                         </motion.div>
                     </div>
+                )}
+
+                {showSuccessModal && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.8, opacity: 0, y: 50 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                            className="bg-white rounded-[4rem] p-12 max-w-xl w-full shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border border-white/20 text-center relative overflow-hidden"
+                        >
+                            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary-indigo-500 via-emerald-500 to-primary-indigo-500 animate-gradient-x" />
+                            
+                            <div className="w-24 h-24 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-10 text-4xl shadow-lg ring-8 ring-emerald-50">🎓</div>
+                            
+                            <div className="space-y-4 mb-12">
+                                <h2 className="text-4xl font-black text-slate-900 tracking-tight leading-none">تهانينا! دورتك جاهزة ✨</h2>
+                                <p className="text-slate-500 font-bold text-lg leading-relaxed">تم إطلاق الأكاديمية بنجاح الآن. يمكنك البدء باستقبال الطلاب أو الاستمرار في تحسين المنهج.</p>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <button
+                                    onClick={() => router.push(`/dashboard/courses/${finalCourseId}/content`)}
+                                    className="w-full py-5 bg-primary-indigo-600 text-white rounded-3xl font-black flex items-center justify-center gap-3 hover:bg-primary-indigo-700 transition-all shadow-xl active:scale-95"
+                                >
+                                    إدارة الدروس <FiLayers />
+                                </button>
+                                <button
+                                    onClick={() => router.push(`/dashboard/courses/${finalCourseId}/edit`)}
+                                    className="w-full py-5 bg-slate-900 text-white rounded-3xl font-black flex items-center justify-center gap-3 hover:bg-black transition-all shadow-xl active:scale-95"
+                                >
+                                    تعديل التفاصيل <FiEdit2 />
+                                </button>
+                                <button
+                                    onClick={() => router.push('/dashboard/courses')}
+                                    className="w-full py-5 bg-slate-100 text-slate-600 rounded-3xl font-black hover:bg-slate-200 transition-all flex items-center justify-center gap-3 active:scale-95"
+                                >
+                                    لوحة التحكم <FiArrowLeft />
+                                </button>
+                                <Link
+                                    href={creatorUsername && finalSlug ? `/${creatorUsername}/products/${finalSlug}` : `/dashboard/courses/${finalCourseId}/content`}
+                                    target="_blank"
+                                    className="w-full py-5 bg-emerald-100 text-emerald-700 rounded-3xl font-black hover:bg-emerald-200 transition-all flex items-center justify-center gap-3 active:scale-95 shadow-sm"
+                                >
+                                    لمحة عن المتجر <FiEye />
+                                </Link>
+                            </div>
+                        </motion.div>
+                    </motion.div>
                 )}
             </AnimatePresence>
         </div>

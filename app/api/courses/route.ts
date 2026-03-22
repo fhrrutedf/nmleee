@@ -14,17 +14,23 @@ function generateSlug(title: string): string {
         .substring(0, 100); // Limit length
 }
 
-// Helper to ensure unique slug
+// Helper to ensure unique slug across both products and courses for a user
 async function ensureUniqueSlug(baseSlug: string, userId: string): Promise<string> {
     let slug = baseSlug;
     let counter = 1;
 
     while (true) {
-        const existing = await prisma.product.findFirst({
+        // Check products
+        const existingProduct = await prisma.product.findFirst({
             where: { userId, slug }
         });
 
-        if (!existing) {
+        // Check courses
+        const existingCourse = await prisma.course.findFirst({
+            where: { userId, slug }
+        });
+
+        if (!existingProduct && !existingCourse) {
             return slug;
         }
 
@@ -118,9 +124,14 @@ export async function POST(request: NextRequest) {
         const body = await request.json();
         const userId = (session.user as any).id;
 
+        // Generate unique slug
+        const baseSlug = generateSlug(body.title);
+        const slug = await ensureUniqueSlug(baseSlug, userId);
+
         // إنشاء دورة جديدة
         const course = await prisma.course.create({
             data: {
+                slug,
                 title: body.title,
                 description: body.description,
                 price: body.price ? parseFloat(body.price.toString()) : 0,
@@ -143,6 +154,13 @@ export async function POST(request: NextRequest) {
                 offerExpiresAt: body.offerExpiresAt ? new Date(body.offerExpiresAt) : null,
                 userId: userId
             },
+            include: {
+                user: {
+                    select: {
+                        username: true
+                    }
+                }
+            }
         });
 
         return NextResponse.json(course, { status: 201 });
