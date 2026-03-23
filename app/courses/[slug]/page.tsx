@@ -47,6 +47,7 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
     const [isInCart, setIsInCart] = useState(false);
     const [buyingNow, setBuyingNow] = useState(false);
     const [activeModule, setActiveModule] = useState<number | null>(0);
+    const [trailerSignedUrl, setTrailerSignedUrl] = useState<string | null>(null);
 
     useEffect(() => {
         if (slug) {
@@ -54,6 +55,16 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
             trackAffiliateClick();
         }
     }, [slug]);
+
+    // جلب الـ Trailer URL الموقع من الـ Backend لتجنب خطأ 403 مع Bunny Stream
+    useEffect(() => {
+        if (course?.trailerUrl) {
+            fetch(`/api/courses/${slug}/trailer`)
+                .then(r => r.json())
+                .then(data => { if (data.trailerUrl) setTrailerSignedUrl(data.trailerUrl); })
+                .catch(() => setTrailerSignedUrl(course.trailerUrl ?? null));
+        }
+    }, [course?.trailerUrl, slug]);
 
     useEffect(() => {
         if (course) {
@@ -216,17 +227,23 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                     </h2>
                                 </div>
                                 <div className="relative aspect-video w-full bg-gray-900">
-                                    <iframe
-                                        src={
-                                            course.trailerUrl.includes('youtube.com/watch')
-                                                ? course.trailerUrl.replace('watch?v=', 'embed/').split('&')[0]
-                                                : course.trailerUrl
-                                        }
-                                        title="Course Trailer"
-                                        className="absolute inset-0 w-full h-full"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                    ></iframe>
+                                    {trailerSignedUrl ? (
+                                        <iframe
+                                            src={
+                                                course.trailerUrl.includes('youtube.com/watch')
+                                                    ? course.trailerUrl.replace('watch?v=', 'embed/').split('&')[0]
+                                                    : trailerSignedUrl
+                                            }
+                                            title="Course Trailer"
+                                            className="absolute inset-0 w-full h-full"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+                                            allowFullScreen
+                                        ></iframe>
+                                    ) : (
+                                        <div className="absolute inset-0 flex items-center justify-center bg-gray-950">
+                                            <div className="animate-spin rounded-full h-10 w-10 border-2 border-transparent border-b-white/50" />
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         )}

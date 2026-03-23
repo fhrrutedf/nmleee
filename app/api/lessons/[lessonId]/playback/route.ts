@@ -61,7 +61,8 @@ export async function GET(
         let playbackUrl = lesson.videoUrl;
         let provider: 'mux' | 'bunny' | 'native' = 'native';
         
-        if (lesson.bunnyVideoId && lesson.bunnyLibraryId) {
+        if (lesson.bunnyVideoId) {
+            // bunnyLibraryId قد يكون null - getBunnySignedUrl ستستخدم BUNNY_LIBRARY_ID من .env كـ fallback
              playbackUrl = await getBunnySignedUrl(lesson.bunnyLibraryId, lesson.bunnyVideoId);
              provider = 'bunny';
         } else if (lesson.muxPlaybackId) {

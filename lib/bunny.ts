@@ -3,22 +3,65 @@ import crypto from 'crypto';
 /**
  * توليد رابط تشغيل موقع (Signed URL/Token) لخدمة Bunny Stream
  * يمنع الوصول غير المصرح ويحمي الفيديوهات من التسريب
+ * 
+ * الخوارزمية: token = SHA256_HEX(securityKey + videoId + expires)
+ * المصدر: https://docs.bunny.net/docs/stream-embedding-videos
  */
-export async function getBunnySignedUrl(libraryId: string, videoId: string, expirationSeconds: number = 3600) {
+export async function getBunnySignedUrl(
+    libraryId: string | null | undefined,
+    videoId: string,
+    expirationSeconds: number = 3600
+): Promise<string> {
     const securityKey = process.env.BUNNY_SECURITY_KEY;
+    // استخدام المكتبة المُمررة، أو الرجوع للمكتبة الافتراضية من .env
+    const resolvedLibraryId = libraryId || process.env.BUNNY_LIBRARY_ID;
+
+    if (!resolvedLibraryId) {
+        console.error('[BUNNY] BUNNY_LIBRARY_ID is not defined in .env and no libraryId was passed.');
+        return `https://iframe.mediadelivery.net/embed/unknown/${videoId}`;
+    }
+
     if (!securityKey) {
-        console.warn('BUNNY_SECURITY_KEY is not defined. Returning public embed URL.');
-        return `https://iframe.mediadelivery.net/embed/${libraryId}/${videoId}`;
+        console.warn('[BUNNY] BUNNY_SECURITY_KEY is not defined. Returning public embed URL (403 may occur).');
+        return `https://iframe.mediadelivery.net/embed/${resolvedLibraryId}/${videoId}`;
     }
 
     const expires = Math.floor(Date.now() / 1000) + expirationSeconds;
     
-    // الصيغة المطلوبة من Bunny Stream للـ Token
-    // token = sha256(security_key + video_id + expires)
+    // الصيغة الرسمية من Bunny Stream للـ Token Authentication
+    // token = sha256(security_key + video_id + expires) → hex digest
     const stringToHash = securityKey + videoId + expires.toString();
     const hash = crypto.createHash('sha256').update(stringToHash).digest('hex');
 
-    return `https://iframe.mediadelivery.net/embed/${libraryId}/${videoId}?token=${hash}&expires=${expires}`;
+    return `https://iframe.mediadelivery.net/embed/${resolvedLibraryId}/${videoId}?token=${hash}&expires=${expires}`;
+}
+
+/**
+ * فحص رابط Bunny Embed وتوقيعه إذا لزم الأمر
+ * يُستخدم للـ Trailer URLs التي قد تكون Bunny أو YouTube أو غيرها
+ */
+export async function signBunnyEmbedIfNeeded(url: string, expirationSeconds: number = 3600): Promise<string> {
+    if (!url) return url;
+
+    // فحص إذا كان الرابط من Bunny (iframe.mediadelivery.net أو player.mediadelivery.net)
+    const bunnyEmbedMatch = url.match(
+        /(?:iframe|player)\.mediadelivery\.net\/embed\/(\d+)\/([a-f0-9-]+)/i
+    );
+
+    if (!bunnyEmbedMatch) {
+        // ليس رابط Bunny، إرجاعه كما هو (YouTube, Vimeo, إلخ)
+        return url;
+    }
+
+    const [, libraryId, videoId] = bunnyEmbedMatch;
+    
+    // إذا كان الرابط يحتوي على token بالفعل، إرجاعه مباشرة
+    if (url.includes('token=')) {
+        return url;
+    }
+
+    // توليد رابط موقع جديد
+    return getBunnySignedUrl(libraryId, videoId, expirationSeconds);
 }
 
 export async function createBunnyVideo(title: string) {
