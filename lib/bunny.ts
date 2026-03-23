@@ -22,7 +22,7 @@ export async function getBunnySignedUrl(
     }
 
     // إرجاع الرابط بدون token أو expires لحل مشكلة الـ 403 بعد تعطيل الحماية يدوياً
-    return `https://player.mediadelivery.net/embed/${resolvedLibraryId}/${cleanVideoId}`;
+    return `https://player.mediadelivery.net/embed/${resolvedLibraryId}/${cleanVideoId}?autoplay=false`;
 }
 
 /**
