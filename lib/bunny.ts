@@ -12,7 +12,7 @@ export async function getBunnySignedUrl(
     videoId: string,
     expirationSeconds: number = 3600
 ): Promise<string> {
-    const securityKey = process.env.BUNNY_SECURITY_KEY;
+    const securityKey = process.env.BUNNY_SECURITY_KEY?.trim();
     // استخدام المكتبة المُمررة، أو الرجوع للمكتبة الافتراضية من .env
     const resolvedLibraryId = libraryId || process.env.BUNNY_LIBRARY_ID;
 
@@ -28,12 +28,20 @@ export async function getBunnySignedUrl(
 
     const expires = Math.floor(Date.now() / 1000) + expirationSeconds;
     
+    // تأكد من أن الـ Video ID هو lowercase
+    const cleanVideoId = videoId.toString().trim().toLowerCase();
+    
     // الصيغة الرسمية من Bunny Stream للـ Token Authentication
     // token = sha256(security_key + video_id + expires) → hex digest
-    const stringToHash = securityKey + videoId + expires.toString();
+    const stringToHash = securityKey + cleanVideoId + expires.toString();
     const hash = crypto.createHash('sha256').update(stringToHash).digest('hex');
 
-    return `https://iframe.mediadelivery.net/embed/${resolvedLibraryId}/${videoId}?token=${hash}&expires=${expires}`;
+    const finalUrl = `https://iframe.mediadelivery.net/embed/${resolvedLibraryId}/${cleanVideoId}?token=${hash}&expires=${expires}`;
+    
+    // Debug Log (Only in dev if needed)
+    // console.log(`[BUNNY_SIGNED] Lib: ${resolvedLibraryId}, Video: ${cleanVideoId}, Expires: ${expires}, Token: ${hash}`);
+
+    return finalUrl;
 }
 
 /**
