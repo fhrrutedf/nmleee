@@ -18,11 +18,11 @@ export async function getBunnySignedUrl(
 
     if (!resolvedLibraryId) {
         console.error('[BUNNY] BUNNY_LIBRARY_ID is not defined.');
-        return `https://iframe.mediadelivery.net/embed/unknown/${cleanVideoId}`;
+        return `https://player.mediadelivery.net/embed/unknown/${cleanVideoId}`;
     }
 
     // إرجاع الرابط بدون token أو expires لحل مشكلة الـ 403 بعد تعطيل الحماية يدوياً
-    return `https://iframe.mediadelivery.net/embed/${resolvedLibraryId}/${cleanVideoId}`;
+    return `https://player.mediadelivery.net/embed/${resolvedLibraryId}/${cleanVideoId}`;
 }
 
 /**
@@ -41,7 +41,7 @@ export async function signBunnyEmbedIfNeeded(url: string, expirationSeconds: num
     const [, libraryId, videoId] = bunnyEmbedMatch;
     
     // إرجاع الرابط النظيف (بدون توكنات سابقة في حال وجودها)
-    return `https://iframe.mediadelivery.net/embed/${libraryId}/${videoId}`;
+    return `https://player.mediadelivery.net/embed/${libraryId}/${videoId}`;
 }
 
 export async function createBunnyVideo(title: string) {
