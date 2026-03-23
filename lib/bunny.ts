@@ -12,44 +12,29 @@ export async function getBunnySignedUrl(
     videoId: string,
     expirationSeconds: number = 3600
 ): Promise<string> {
-    const securityKey = process.env.BUNNY_SECURITY_KEY?.trim();
-    const resolvedLibraryId = libraryId || process.env.BUNNY_LIBRARY_ID;
+    const resolvedLibraryId = libraryId || process.env.BUNNY_LIBRARY_ID || '621056';
     const cleanVideoId = videoId.toString().trim().toLowerCase();
 
-    if (!resolvedLibraryId || !securityKey) {
-        // إذا لم توجد مفاتيح، نرسل الرابط خام كحل أخير (قد يعطي 403)
-        return `https://iframe.mediadelivery.net/embed/${resolvedLibraryId || 'unknown'}/${cleanVideoId}`;
-    }
-
-    const expires = Math.floor(Date.now() / 1000) + expirationSeconds;
-    
-    // الصيغة الدقيقة لـ Bunny Stream v2:
-    // path = /embed/LIBRARY_ID/VIDEO_ID
-    // stringToHash = securityKey + path + expires
-    const path = `/embed/${resolvedLibraryId}/${cleanVideoId}`;
-    const stringToHash = securityKey + path + expires.toString();
-    const hash = crypto.createHash('sha256').update(stringToHash).digest('hex');
-
-    return `https://iframe.mediadelivery.net${path}?token=${hash}&expires=${expires}`;
+    // إرجاع الرابط "خام" بدون أي توكنات أو تشفير (Clean URL)
+    return `https://iframe.mediadelivery.net/embed/${resolvedLibraryId}/${cleanVideoId}`;
 }
 
 /**
- * فحص رابط Bunny Embed وتوقيعه إذا لزم الأمر
- * (حالياً يرجع الرابط نظيفاً بدون توقيع)
+ * فحص وتجريد الرابط من أي توقيع سابق لإرجاعه نظيفاً
  */
 export async function signBunnyEmbedIfNeeded(url: string, expirationSeconds: number = 3600): Promise<string> {
     if (!url) return url;
 
     const bunnyEmbedMatch = url.match(
-        /(?:iframe|player)\.mediadelivery\.net\/embed\/(\d+)\/([a-f0-9-]+)/i
+        /(?:iframe|player|video)\.(?:mediadelivery\.net|bunnycdn\.com)\/(?:embed|play)\/(\d+)\/([a-f0-9-]+)/i
     );
 
     if (!bunnyEmbedMatch) return url;
 
     const [, libraryId, videoId] = bunnyEmbedMatch;
     
-    // توليد رابط موقع جديد باستخدام التشفير
-    return getBunnySignedUrl(libraryId, videoId, expirationSeconds);
+    // إرجاع الرابط النظيف باستخدام الدالة المبسطة
+    return getBunnySignedUrl(libraryId, videoId);
 }
 
 export async function createBunnyVideo(title: string) {
