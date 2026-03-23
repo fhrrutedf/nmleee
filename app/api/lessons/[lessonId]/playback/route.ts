@@ -36,12 +36,10 @@ export async function GET(
         }
 
         // 1. التحقق من اشتراك المستخدم
-        const enrollment = await prisma.courseEnrollment.findUnique({
+        const enrollment = await prisma.courseEnrollment.findFirst({
             where: {
-                courseId_studentEmail: {
-                    courseId: lesson.module.courseId,
-                    studentEmail: session.user.email
-                }
+                courseId: lesson.module.courseId,
+                studentEmail: { equals: session.user.email, mode: 'insensitive' }
             }
         });
 
