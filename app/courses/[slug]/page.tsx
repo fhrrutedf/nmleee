@@ -217,7 +217,11 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                 </div>
                                 <div className="relative aspect-video w-full bg-gray-900">
                                     <iframe
-                                        src={course.trailerUrl.replace('watch?v=', 'embed/').split('&')[0]}
+                                        src={
+                                            course.trailerUrl.includes('youtube.com/watch')
+                                                ? course.trailerUrl.replace('watch?v=', 'embed/').split('&')[0]
+                                                : course.trailerUrl
+                                        }
                                         title="Course Trailer"
                                         className="absolute inset-0 w-full h-full"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -233,11 +237,17 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                 <h2 className="text-2xl font-black text-primary-charcoal dark:text-white mb-6 flex items-center gap-2">
                                     <FiBookOpen className="text-action-blue" /> نظرة عامة
                                 </h2>
-                                <div className="prose prose-lg sm:prose-xl max-w-none dark:prose-invert text-gray-600 dark:text-gray-300 leading-relaxed font-medium">
-                                    {course.description.split('\n').map((line, idx) => (
-                                        <p key={idx} className="mb-4">{line}</p>
-                                    ))}
-                                </div>
+                                <div
+                                    className="prose prose-lg sm:prose-xl max-w-none dark:prose-invert text-gray-600 dark:text-gray-300 leading-relaxed font-medium"
+                                    dangerouslySetInnerHTML={{
+                                        __html: course.description
+                                            ? course.description
+                                                .replace(/&nbsp;/g, ' ')
+                                                .replace(/<p><\/p>/g, '')
+                                                .replace(/<p>\s*<\/p>/g, '')
+                                            : ''
+                                    }}
+                                />
 
                                 {/* Key Highlight Stats */}
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-3xl border border-gray-100 dark:border-gray-800">
