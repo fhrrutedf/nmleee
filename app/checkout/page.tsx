@@ -664,6 +664,14 @@ export default function CheckoutPage() {
                                     <span className="text-xl font-bold text-gray-900">الإجمالي</span>
                                     <span className="text-3xl font-black text-primary-700">{total.toFixed(2)} $</span>
                                 </div>
+
+                                {/* Mix of Free and Paid Alert */}
+                                {cart.some(item => item.price === 0) && cart.some(item => item.price > 0) && (
+                                    <div className="mt-4 p-3 bg-blue-50 border border-blue-100 rounded-xl text-[11px] text-blue-700 leading-relaxed font-bold">
+                                        💡 ملاحظة: سلتك تحتوي على منتجات مجانية ومدفوعة. المنتجات المجانية ستظهر في حسابك فوراً بعد إتمام الطلب، بينما المدفوعة ستنتظر تأكيد الدفع.
+                                    </div>
+                                )}
+
                                 {/* Show local currency equivalent for restricted countries */}
                                 {isRestricted && localPrice.currency !== 'USD' && total > 0 && (
                                     <div className="text-sm text-gray-400 text-left">
