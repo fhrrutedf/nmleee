@@ -35,7 +35,14 @@ export async function GET(
             return NextResponse.json({ error: 'الدرس غير موجود' }, { status: 404 });
         }
 
-        // 1. التحقق من اشتراك المستخدم
+        // 1. التحقق من هوية المستخدم وصلاحياته
+        const user = await prisma.user.findUnique({
+            where: { email: session.user.email }
+        });
+
+        const isAdmin = user?.role === 'ADMIN';
+
+        // التحقق من اشتراك المستخدم (كطالب)
         const enrollment = await prisma.courseEnrollment.findFirst({
             where: {
                 courseId: lesson.module.courseId,
@@ -43,19 +50,30 @@ export async function GET(
             }
         });
 
-        if (!enrollment) {
+        // التحقق مما إذا كان المستخدم هو منشئ الكورس
+        const course = await prisma.course.findUnique({
+            where: { id: lesson.module.courseId },
+            select: { userId: true }
+        });
+        const isCreator = course?.userId === user?.id;
+
+        // السماح بالوصول إذا كان (طالب مشترك) أو (أدمن) أو (منشئ الكورس)
+        if (!enrollment && !isAdmin && !isCreator) {
             return NextResponse.json({ error: 'يجب الاشتراك في الكورس لمشاهدة الفيديو' }, { status: 403 });
         }
 
-        // 2. التحقق من التقدم السابق للدرس لتمريره للـ Player
-        const progress: any = await prisma.lessonProgress.findUnique({
-            where: {
-                lessonId_enrollmentId: {
-                    lessonId: lesson.id,
-                    enrollmentId: enrollment.id
+        // 2. التحقق من التقدم السابق للدرس لتمريره للـ Player (اختياري للطلاب فقط)
+        let progress: any = null;
+        if (enrollment) {
+            progress = await prisma.lessonProgress.findUnique({
+                where: {
+                    lessonId_enrollmentId: {
+                        lessonId: lesson.id,
+                        enrollmentId: enrollment.id
+                    }
                 }
-            }
-        });
+            });
+        }
 
         // 3. توليد الرابط الموقع إذا كان الفيديو محمياً
         let playbackUrl = lesson.videoUrl;
