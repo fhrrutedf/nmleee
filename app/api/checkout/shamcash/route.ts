@@ -33,7 +33,13 @@ export async function POST(req: NextRequest) {
 
         // --- DYNAMIC SETTINGS LOGIC ---
         const platformSettings = await prisma.platformSettings.findFirst() || { 
-            commissionRate: 10, freeEscrowDays: 14, sypExchangeRate: 15000 
+            commissionRate: 10, 
+            freeEscrowDays: 14, 
+            sypExchangeRate: 15000,
+            growthCommissionRate: 5,
+            growthEscrowDays: 7,
+            proCommissionRate: 2,
+            proEscrowDays: 3
         };
 
         const seller = await prisma.user.findUnique({ 
