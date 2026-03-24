@@ -53,8 +53,33 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
         if (slug) {
             fetchCourse();
             trackAffiliateClick();
+            trackView();
         }
     }, [slug]);
+
+    const trackView = async () => {
+        if (typeof window !== 'undefined' && course?.id) {
+            try {
+                await fetch('/api/analytics/track', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        courseId: course.id,
+                        referrer: document.referrer || 'direct'
+                    }),
+                });
+            } catch (e) {
+                console.error('Tracking Error:', e);
+            }
+        }
+    };
+
+    // تتبع المشاهدة فور توفر بيانات الكورس
+    useEffect(() => {
+        if (course?.id) {
+            trackView();
+        }
+    }, [course?.id]);
 
     // جلب الـ Trailer URL الموقع من الـ Backend لتجنب خطأ 403 مع Bunny Stream
     useEffect(() => {

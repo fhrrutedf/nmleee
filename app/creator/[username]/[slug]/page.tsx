@@ -23,6 +23,23 @@ export default function ProductPage() {
         fetchProductData();
     }, [username, slug]);
 
+    const trackView = async (pId: string) => {
+        if (typeof window !== 'undefined' && pId) {
+            try {
+                await fetch('/api/analytics/track', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        productId: pId,
+                        referrer: document.referrer || 'direct'
+                    }),
+                });
+            } catch (e) {
+                console.error('Tracking Error:', e);
+            }
+        }
+    };
+
     const fetchProductData = async () => {
         try {
             const res = await fetch(`/api/creators/${username}/products/${slug}`);
@@ -30,6 +47,8 @@ export default function ProductPage() {
                 const data = await res.json();
                 setProduct(data.product);
                 setCreator(data.creator);
+                // تتبع المشاهدة فور التحميل
+                if (data.product?.id) trackView(data.product.id);
             }
         } catch (error) {
             console.error('Error:', error);
