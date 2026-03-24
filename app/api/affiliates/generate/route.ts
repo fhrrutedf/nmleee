@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
         // جلب نسبة العمولة الافتراضية من إعدادات المنصة أو البائع (Security Fix)
         const settings = await prisma.platformSettings.findFirst();
-        const finalCommissionRate = settings?.referralCommissionRate || 10; // الافتراضي 10% إذا لم يوجد إعداد
+        const finalCommissionRate = settings?.referralCommissionRate ?? 10; // الافتراضي 10% إذا لم يوجد إعداد في لوحة التحكم (Dynamic)
 
         // إنشاء كود تسويقي موحد الحالة (Case Normalization)
         // نستخدم حروفاً وأرقاماً ونحولها لـ lowercase لضمان التطابق دائماً

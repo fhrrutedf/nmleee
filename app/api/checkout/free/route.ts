@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { ensureUserAccount } from '@/lib/auth-utils';
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         const { items, customerName, affiliateRef } = body;
@@ -42,7 +42,23 @@ export async function POST(req: Request) {
             buyerUserId = await ensureUserAccount(customerEmail, customerName);
         }
 
-        // 1. Create a "Free" Order with correct userId = BUYER (not seller)
+        // 1. البحث عن رابط المسوق إذا وجد كود في الكوكيز أو الطلب
+        const refCode = affiliateRef || req.cookies.get('ref_code')?.value;
+        let affiliateLinkId = null;
+
+        if (refCode) {
+            const link = await prisma.affiliateLink.findUnique({ where: { code: refCode } });
+            if (link && link.isActive) {
+                affiliateLinkId = link.id;
+                // تحديث عداد المبيعات حتى في الطلبات المجانية
+                await prisma.affiliateLink.update({
+                    where: { id: link.id },
+                    data: { salesCount: { increment: 1 } }
+                });
+            }
+        }
+
+        // 2. Create a "Free" Order with correct userId = BUYER (not seller)
         const order = await prisma.order.create({
             data: {
                 orderNumber: `FR-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
@@ -53,6 +69,7 @@ export async function POST(req: Request) {
                 customerPhone: body.customerPhone || undefined,
                 sellerId: sellerId,
                 userId: buyerUserId,
+                affiliateLinkId, // ربط الطلب بالمسوق
                 items: {
                     create: items.map((item: any) => ({
                         productId: item.type === 'product' ? item.id : undefined,

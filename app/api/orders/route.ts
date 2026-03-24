@@ -29,6 +29,15 @@ export async function GET(request: NextRequest) {
                         product: true,
                     },
                 },
+                affiliateLink: {
+                    include: {
+                        user: {
+                            select: {
+                                name: true,
+                            },
+                        },
+                    },
+                },
             },
             orderBy: { createdAt: 'desc' },
         });

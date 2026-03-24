@@ -9,11 +9,16 @@ function Tracker() {
     useEffect(() => {
         const ref = searchParams.get('ref');
         if (ref) {
-            // حفظ كود الإحالة في الـ localStorage لمدة زمنية معينة (أو دائم حتى يتغير)
+            // حفظ كود الإحالة في المتصفح
             localStorage.setItem('affiliate_ref', ref);
-
-            // للحماية والموثوقية أيضاً، نخزنه في Session
             sessionStorage.setItem('affiliate_ref', ref);
+
+            // استدعاء API التتبع لتسجيل النقرة وتعيين الكوكيز (HTTP-only)
+            fetch('/api/affiliate/track', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: ref })
+            }).catch(err => console.error('Tracking Error:', err));
         }
     }, [searchParams]);
 

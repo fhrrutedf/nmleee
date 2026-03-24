@@ -106,7 +106,7 @@ export default function AffiliatesPage() {
     };
 
     const copyToClipboard = async (code: string) => {
-        const prodUrl = `${window.location.origin}/browse?ref=${code}`; // Note: Depending on your routing, update this URL format!
+        const prodUrl = `${window.location.origin}/explore?ref=${code}`; // Note: Depending on your routing, update this URL format!
         try {
             await navigator.clipboard.writeText(prodUrl);
             showToast.success('تم نسخ الرابط! يمكنك مشاركته مع المسوق');

@@ -166,6 +166,7 @@ export default function OrdersPage() {
                                     <th className="text-right py-4 px-6 text-sm font-semibold text-primary-charcoal dark:text-white">التاريخ</th>
                                     <th className="text-right py-4 px-6 text-sm font-semibold text-primary-charcoal dark:text-white">العميل</th>
                                     <th className="text-right py-4 px-6 text-sm font-semibold text-primary-charcoal dark:text-white">المنتجات</th>
+                                    <th className="text-right py-4 px-6 text-sm font-semibold text-primary-charcoal dark:text-white">المسوق</th>
                                     <th className="text-right py-4 px-6 text-sm font-semibold text-primary-charcoal dark:text-white">المبلغ</th>
                                     <th className="text-right py-4 px-6 text-sm font-semibold text-primary-charcoal dark:text-white">الحالة</th>
                                 </tr>
@@ -201,6 +202,16 @@ export default function OrdersPage() {
                                                     </div>
                                                 ))}
                                             </div>
+                                        </td>
+                                        <td className="py-4 px-6 text-sm">
+                                            {order.affiliateLink?.user?.name ? (
+                                                <div className="flex flex-col">
+                                                    <span className="font-bold text-action-blue">{order.affiliateLink.user.name}</span>
+                                                    <span className="text-[10px] text-gray-400 font-mono">{order.affiliateLink.code}</span>
+                                                </div>
+                                            ) : (
+                                                <span className="text-gray-300">—</span>
+                                            )}
                                         </td>
                                         <td className="py-4 px-6 font-bold text-primary-charcoal dark:text-white">
                                             <div>{order.totalAmount.toFixed(2)} $</div>

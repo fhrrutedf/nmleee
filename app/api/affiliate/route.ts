@@ -63,9 +63,9 @@ export async function GET(request: NextRequest) {
             status: ref.status,
         }));
 
-        // Get dynamic platform settings
-        const settings = await prisma.platformSettings.findFirst() || { referralCommissionRate: 1 };
-        const commissionRate = settings.referralCommissionRate || 1;
+        // Get dynamic platform settings (Default to 10% if not set in admin)
+        const settings = await prisma.platformSettings.findFirst();
+        const commissionRate = settings?.referralCommissionRate ?? 10;
 
         return NextResponse.json({
             stats: {

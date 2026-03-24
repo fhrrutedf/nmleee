@@ -88,7 +88,18 @@ export async function POST(req: NextRequest) {
         const availableAt = new Date();
         availableAt.setDate(availableAt.getDate() + (escrowDays || 7));
 
-        // 1. Create TMLEEN Order with Dynamic Logistics
+        // 1. البحث عن رابط المسوق إذا وجد كود في الكوكيز أو الطلب
+        const refCode = affiliateRef || req.cookies.get('ref_code')?.value;
+        let affiliateLinkId = null;
+
+        if (refCode) {
+            const link = await prisma.affiliateLink.findUnique({ where: { code: refCode } });
+            if (link && link.isActive) {
+                affiliateLinkId = link.id;
+            }
+        }
+
+        // 2. Create TMLEEN Order with Dynamic Logistics
         const orderNumber = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
         const tmleenOrder = await prisma.order.create({
             data: {
@@ -108,6 +119,7 @@ export async function POST(req: NextRequest) {
                 sellerAmount,      // Using correct schema field
                 lockedExchangeRate: platformSettings.usdToSyp || 15000,
                 availableAt,       // When funds become withdrawable
+                affiliateLinkId: affiliateLinkId, // ربط الطلب بالمسوق
                 items: {
                     create: items.map((item: any) => ({
                         itemType: item.type,
