@@ -57,12 +57,8 @@ export default async function ProductPage({ params }: Props) {
 
     if (!product) notFound();
 
-    // 1. Fetch Reviews (Social Proof)
-    const reviews = await prisma.review?.findMany({
-        where: { productId: id },
-        include: { user: true },
-        orderBy: { createdAt: 'desc' }
-    }) || [];
+    // 1. Fetch Reviews (Temp: empty array since Review model is not in schema yet)
+    const reviews: any[] = [];
 
     // 2. Fetch Platform Settings for Dynamic Support Number
     const settings = await prisma.platformSettings.findFirst({
