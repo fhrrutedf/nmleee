@@ -31,7 +31,32 @@ export async function POST(req: NextRequest) {
         if (!userId) userId = sellerId;
         if (sellerId) await ensurePlanCurrent(sellerId);
 
-        let subtotal = items.reduce((sum: number, item: any) => sum + item.price, 0);
+        // --- DYNAMIC SETTINGS LOGIC ---
+        const platformSettings = await prisma.platformSettings.findFirst() || { 
+            commissionRate: 10, freeEscrowDays: 14, sypExchangeRate: 15000 
+        };
+
+        const seller = await prisma.user.findUnique({ 
+            where: { id: sellerId },
+            include: { activeSubscription: true }
+        });
+
+        // Determine correct commission and escrow based on plan
+        let commissionRate = platformSettings.commissionRate;
+        let escrowDays = platformSettings.freeEscrowDays;
+
+        if (seller?.activeSubscription) {
+            const planSlug = seller.activeSubscription.planSlug;
+            if (planSlug === 'growth') {
+                commissionRate = platformSettings.growthCommissionRate || 5;
+                escrowDays = platformSettings.growthEscrowDays || 7;
+            } else if (planSlug === 'pro') {
+                commissionRate = platformSettings.proCommissionRate || 2;
+                escrowDays = platformSettings.proEscrowDays || 3;
+            }
+        }
+
+        const subtotal = items.reduce((sum: number, item: any) => sum + item.price, 0);
         let discount = 0;
         let couponId = null;
 
@@ -48,9 +73,14 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        const total = subtotal - discount;
+        const totalUSD = subtotal - discount;
+        const totalSYP = Math.round(totalUSD * (platformSettings.sypExchangeRate || 15000));
 
-        // 1. إنشاء الطلب مؤقتاً في منصتنا (موقعك تمكين) بحالة PENDING
+        // Calculate Availability Date for the seller payout
+        const availableAt = new Date();
+        availableAt.setDate(availableAt.getDate() + (escrowDays || 7));
+
+        // 1. Create TMLEEN Order with Dynamic Logistics
         const orderNumber = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
         const tmleenOrder = await prisma.order.create({
             data: {
@@ -60,12 +90,14 @@ export async function POST(req: NextRequest) {
                 customerName: customerInfo.name,
                 customerEmail: customerInfo.email,
                 customerPhone: customerInfo.phone || '',
-                totalAmount: total,
+                totalAmount: totalUSD,
                 status: 'PENDING',
                 paymentProvider: 'shamcash',
                 paymentMethod: 'manual',
                 couponId,
                 discount,
+                commissionRate, // Store for historical tracking
+                availableAt,    // When funds become withdrawable
                 items: {
                     create: items.map((item: any) => ({
                         itemType: item.type,
@@ -78,12 +110,12 @@ export async function POST(req: NextRequest) {
             }
         });
 
-        // 2. إرسال الطلب إلى بوابة شام كاش لإنشاء الكود المرجعي
+        // 2. Gateway Handshake
         const gatewayRes = await fetch(`${SHAM_CASH_URL}/api/orders`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                amount: total, // يمكن إضافة تحويل عملة هنا من الدولار للسوري
+                amount: totalSYP, // Sending local currency amount
                 currency: 'SYP',
                 user_email: customerInfo.email,
                 user_name: customerInfo.name,
@@ -93,24 +125,22 @@ export async function POST(req: NextRequest) {
             })
         });
 
-        if (!gatewayRes.ok) {
-            throw new Error('فشل الاتصال ببوابة شام كاش');
-        }
+        if (!gatewayRes.ok) throw new Error('فشل بوابة الدفع');
 
         const gatewayData = await gatewayRes.json();
 
-        // 3. نُرجع الكود المرجعي لواجهة المستخدم (React/Next) ليعرضه
         return NextResponse.json({
             success: true,
             orderId: tmleenOrder.id,
-            total,
+            total: totalUSD,
+            totalLocal: totalSYP,
             shamCashRefCode: gatewayData.ref_code,
             expiresIn: gatewayData.expires_in_minutes,
-            instructions: `يرجى تحويل ${total} ل.س وإضافة الملاحظة: ${gatewayData.ref_code}`
+            instructions: `يرجى تحويل ${totalSYP.toLocaleString()} ل.س وإضافة الملاحظة: ${gatewayData.ref_code}`
         });
 
     } catch (error) {
-        console.error('Error in ShamCash checkout:', error);
-        return NextResponse.json({ error: 'حدث خطأ' }, { status: 500 });
+        console.error('Checkout Sync Error:', error);
+        return NextResponse.json({ error: 'حدث خطأ في مزامنة البيانات' }, { status: 500 });
     }
 }
