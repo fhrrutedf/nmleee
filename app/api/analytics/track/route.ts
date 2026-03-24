@@ -5,7 +5,7 @@ export async function POST(request: NextRequest) {
     try {
         const { productId, courseId, referrer } = await request.json();
         const userAgent = request.headers.get('user-agent') || '';
-        const ipAddress = request.headers.get('x-forwarded-for') || request.ip || 'unknown';
+        const ipAddress = request.headers.get('x-forwarded-for')?.split(',')[0] || '127.0.0.1';
 
         // تسجيل المشاهدة في قاعدة البيانات
         await prisma.productView.create({

@@ -99,19 +99,54 @@ export default function ProductsPage() {
 
     const categories = Array.from(new Set(products.map(p => p.category).filter(Boolean)));
 
+    // --- COMMERCIAL STATS LOGIC ---
+    const totalSales = products.reduce((acc, p) => acc + (p.soldCount || 0), 0);
+    const totalInventoryValue = products.reduce((acc, p) => acc + (p.price * (p.soldCount || 0)), 0);
+    const topProduct = products.length > 0 ? [...products].sort((a, b) => (b.soldCount || 0) - (a.soldCount || 0))[0] : null;
+
     return (
         <div className="space-y-8 pb-32 text-right px-2 md:px-6" dir="rtl">
             
+            {/* --- TOP PERFORMERS SUMMARY --- */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in slide-in-from-top-4 duration-500">
+                <div className="bg-white dark:bg-card-white p-6 rounded-[2rem] border border-slate-50 dark:border-gray-800 shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
+                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-emerald-50 dark:bg-emerald-900/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                    <div className="relative">
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">تقدير صافي الأرباح 💰</p>
+                        <h4 className="text-3xl font-black text-slate-900 dark:text-white">{(totalInventoryValue * 0.85).toFixed(2)} <span className="text-sm font-bold text-slate-400">$</span></h4>
+                        <p className="text-[10px] text-emerald-500 font-bold mt-2 flex items-center gap-1">بعد خصم عمولة المنصة التقريبية</p>
+                    </div>
+                </div>
+
+                <div className="bg-white dark:bg-card-white p-6 rounded-[2rem] border border-slate-50 dark:border-gray-800 shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
+                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary-indigo-50 dark:bg-indigo-900/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                    <div className="relative">
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">المنتج النجم (الأكثر مبيلاً) ⭐</p>
+                        <h4 className="text-lg font-black text-slate-900 dark:text-white truncate">{topProduct?.title || 'لا يوجد مبيعات بعد'}</h4>
+                        <p className="text-[10px] text-primary-indigo-600 font-bold mt-2 uppercase tracking-tighter">باع {topProduct?.soldCount || 0} نسخة إجمالاً</p>
+                    </div>
+                </div>
+
+                <div className="bg-slate-900 text-white p-6 rounded-[2rem] shadow-xl relative overflow-hidden group">
+                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/5 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                    <div className="relative">
+                        <p className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-2">إجمالي قيمة المبيعات (GMV)</p>
+                        <h4 className="text-3xl font-black">{totalInventoryValue.toFixed(0)} <span className="text-sm font-bold text-white/30">$</span></h4>
+                        <p className="text-[10px] text-white/60 font-bold mt-2">لديك {products.length} منتجات في متجرك</p>
+                    </div>
+                </div>
+            </div>
+
             {/* --- HEADER --- */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white rounded-[2rem] p-8 shadow-sm border border-slate-50">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white dark:bg-card-white rounded-[2rem] p-8 shadow-sm border border-slate-50 dark:border-gray-800">
                 <div>
-                    <h1 className="text-3xl font-black text-slate-900 leading-tight">إدارة المنتجات الرقمية 📦</h1>
-                    <p className="text-slate-400 font-bold text-xs mt-2 uppercase tracking-widest">تعديل سريع • تحكم شامل • إحصائيات</p>
+                    <h1 className="text-3xl font-black text-slate-900 dark:text-white leading-tight">إدارة المنتجات الرقمية 📦</h1>
+                    <p className="text-slate-400 font-bold text-xs mt-2 uppercase tracking-widest">تعديل سريع • تحكم شامل • إحصائيات الأرباح</p>
                 </div>
                 <div className="flex gap-3">
                     <button 
                         onClick={fetchProducts}
-                        className="w-12 h-12 flex items-center justify-center bg-slate-50 text-slate-400 rounded-2xl hover:bg-slate-100 transition-all border border-slate-100"
+                        className="w-12 h-12 flex items-center justify-center bg-slate-50 dark:bg-gray-800 text-slate-400 rounded-2xl hover:bg-slate-100 dark:hover:bg-gray-700 transition-all border border-slate-100 dark:border-gray-700"
                     >
                         <FiRefreshCw className={loading ? 'animate-spin' : ''} />
                     </button>
@@ -131,14 +166,14 @@ export default function ProductsPage() {
                     <input 
                         type="text" 
                         placeholder="ابحث عن منتج..."
-                        className="w-full h-14 pr-12 pl-4 bg-white border border-slate-100 rounded-[1.2rem] text-sm font-bold shadow-sm focus:ring-4 focus:ring-primary-indigo-50/50 outline-none transition-all"
+                        className="w-full h-14 pr-12 pl-4 bg-white dark:bg-card-white border border-slate-100 dark:border-gray-800 rounded-[1.2rem] text-sm font-bold shadow-sm focus:ring-4 focus:ring-primary-indigo-50/50 outline-none transition-all dark:text-white"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
                 </div>
                 <div>
                     <select 
-                        className="w-full h-14 bg-white border border-slate-100 rounded-[1.2rem] px-4 text-xs font-black text-slate-500 outline-none shadow-sm cursor-pointer"
+                        className="w-full h-14 bg-white dark:bg-card-white border border-slate-100 dark:border-gray-800 rounded-[1.2rem] px-4 text-xs font-black text-slate-500 outline-none shadow-sm cursor-pointer"
                         value={filterCategory}
                         onChange={(e) => setFilterCategory(e.target.value)}
                     >
@@ -147,20 +182,21 @@ export default function ProductsPage() {
                     </select>
                 </div>
                 <div className="bg-slate-900 text-white flex items-center justify-center rounded-[1.2rem] h-14 shadow-xl">
-                    <p className="text-[10px] font-black uppercase tracking-widest">إجمالي المنتجات: {products.length}</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-center px-4">إجمالي المنتجات: {products.length}</p>
                 </div>
             </div>
 
             {/* --- PRODUCTS TABLE --- */}
-            <div className="bg-white rounded-[2.5rem] shadow-premium border border-slate-50 overflow-hidden">
+            <div className="bg-white dark:bg-card-white rounded-[2.5rem] shadow-premium border border-slate-50 dark:border-gray-800 overflow-hidden">
                 <div className="overflow-x-auto no-scrollbar">
                     <table className="w-full text-right border-collapse">
                         <thead>
-                            <tr className="bg-slate-50/50 border-b border-slate-100">
+                            <tr className="bg-slate-50/50 dark:bg-gray-900/50 border-b border-slate-100 dark:border-gray-800">
                                 <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">المنتج والاسم التجاري</th>
                                 <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">التصنيف</th>
                                 <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">السعر ($)</th>
-                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">المبيعات</th>
+                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">الأرباح (الصافي)</th>
+                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">تاريخ النشر</th>
                                 <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">الحالة</th>
                                 <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">إجراءات</th>
                             </tr>
@@ -221,14 +257,22 @@ export default function ProductsPage() {
                                         </td>
                                         <td className="p-6 text-center">
                                             <div className="flex flex-col items-center">
-                                                <span className="text-sm font-black text-slate-700">{product.soldCount || 0}</span>
-                                                <p className="text-[9px] text-slate-300 font-bold uppercase tracking-tighter">مرة</p>
+                                                <div className="flex items-center gap-1">
+                                                    <span className="text-sm font-black text-emerald-600 dark:text-emerald-500">{(product.price * (product.soldCount || 0) * 0.85).toFixed(2)}</span>
+                                                    <span className="text-[10px] font-bold text-slate-400">$</span>
+                                                </div>
+                                                <p className="text-[9px] text-slate-300 dark:text-slate-600 font-bold uppercase tracking-tighter">باع {product.soldCount || 0} مرات</p>
                                             </div>
+                                        </td>
+                                        <td className="p-6 text-center">
+                                            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500">
+                                                {new Date(product.createdAt).toLocaleDateString('ar-EG', { day: 'numeric', month: 'short' })}
+                                            </span>
                                         </td>
                                         <td className="p-6 text-center">
                                             <button 
                                                 onClick={() => toggleStatus(product)}
-                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-black transition-all ${product.isActive ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-slate-50 text-slate-400 border border-slate-100'}`}
+                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-black transition-all ${product.isActive ? 'bg-emerald-50 text-emerald-600 border border-emerald-100 dark:bg-emerald-900/20 dark:border-emerald-900' : 'bg-slate-50 text-slate-400 border border-slate-100 dark:bg-gray-800 dark:border-gray-700'}`}
                                             >
                                                 {product.isActive ? '● نشط' : '○ مسودة'}
                                             </button>
