@@ -37,20 +37,18 @@ export async function POST(req: NextRequest) {
         };
 
         const seller = await prisma.user.findUnique({ 
-            where: { id: sellerId },
-            include: { activeSubscription: true }
+            where: { id: sellerId }
         });
 
-        // Determine correct commission and escrow based on plan
+        // Determine correct commission and escrow based on planType
         let commissionRate = platformSettings.commissionRate;
         let escrowDays = platformSettings.freeEscrowDays;
 
-        if (seller?.activeSubscription) {
-            const planSlug = seller.activeSubscription.planSlug;
-            if (planSlug === 'growth') {
+        if (seller) {
+            if (seller.planType === 'GROWTH') {
                 commissionRate = platformSettings.growthCommissionRate || 5;
                 escrowDays = platformSettings.growthEscrowDays || 7;
-            } else if (planSlug === 'pro') {
+            } else if (seller.planType === 'PRO') {
                 commissionRate = platformSettings.proCommissionRate || 2;
                 escrowDays = platformSettings.proEscrowDays || 3;
             }
