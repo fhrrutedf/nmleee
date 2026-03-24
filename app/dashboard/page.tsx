@@ -23,10 +23,8 @@ export default function DashboardPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (session?.user && (session.user as any).role === 'ADMIN') {
-            router.replace('/dashboard/admin');
-            return;
-        }
+        // Removed automatic redirect for ADMIN to allow them to see personal stats
+        // Admin can still access the admin center from the sidebar manual links
         
         const fetchStats = async () => {
             try {
