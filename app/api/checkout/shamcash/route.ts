@@ -75,6 +75,8 @@ export async function POST(req: NextRequest) {
                 }
                 couponId = coupon.id;
             }
+        }
+
         const totalUSD = subtotal - discount;
         const totalSYP = Math.round(totalUSD * (platformSettings.usdToSyp || 15000));
 
