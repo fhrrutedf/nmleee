@@ -1,5 +1,6 @@
 import { Resend } from 'resend';
 import nodemailer from 'nodemailer';
+import { render } from '@react-email/components';
 
 export const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || process.env.BREVO_FROM_EMAIL || process.env.GMAIL_USER || 'noreply@tmleen.com';
 export const FROM_NAME = process.env.RESEND_FROM_NAME || 'تمالين';
@@ -24,18 +25,20 @@ export async function sendEmail({
     toName,
     subject,
     html,
+    react,
     from,
     fromName,
 }: {
     to: string;
     toName?: string;
     subject: string;
-    html: string;
+    html?: string;
+    react?: React.ReactElement;
     from?: string;
     fromName?: string;
 }) {
     try {
-        const fromAddress = `${fromName || FROM_NAME} <${from || FROM_EMAIL}>`;
+        const fromAddress = fromName || from ? `${fromName || FROM_NAME} <${from || FROM_EMAIL}>` : `${FROM_NAME} <${FROM_EMAIL}>`;
         const toAddress = toName ? `${toName} <${to}>` : to;
 
         // 1. Try Resend SDK first
@@ -44,7 +47,8 @@ export async function sendEmail({
                 from: fromAddress,
                 to: [to],
                 subject,
-                html,
+                html: html || undefined,
+                react: react || undefined,
             });
 
             if (!error) {
@@ -56,11 +60,13 @@ export async function sendEmail({
 
         // 2. Fallback to SMTP
         const transporter = createTransporter();
+        const htmlContent = react ? await render(react) : html || '';
+        
         const info = await transporter.sendMail({
             from: fromAddress,
             to: toAddress,
             subject,
-            html,
+            html: htmlContent,
         });
 
         console.log('✅ Email sent via SMTP (Fallback):', info.messageId);

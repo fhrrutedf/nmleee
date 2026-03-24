@@ -1,8 +1,8 @@
-import { Resend } from 'resend';
+import { sendEmail } from './resend';
 import OrderConfirmationEmail from '@/emails/OrderConfirmation';
 import PayoutApprovedEmail from '@/emails/PayoutApproved';
 import ManualOrderAlertEmail from '@/emails/ManualOrderAlert';
-const resend = new Resend(process.env.RESEND_API_KEY);
+
 const FROM_EMAIL = process.env.FROM_EMAIL || process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
 
 async function sendMail({ from, to, subject, html, react }: {
@@ -12,25 +12,19 @@ async function sendMail({ from, to, subject, html, react }: {
     html?: string;
     react?: React.ReactElement;
 }) {
-    try {
-        const { data, error } = await resend.emails.send({
-            from: from || FROM_EMAIL,
-            to,
-            subject,
-            html: html || undefined,
-            react: react || undefined,
-        });
+    const result = await sendEmail({
+        from: from || FROM_EMAIL,
+        to,
+        subject,
+        html,
+        react,
+    });
 
-        if (error) {
-            console.error('❌ Resend logic error:', error);
-            throw error;
-        }
-
-        return data;
-    } catch (err) {
-        console.error('❌ Resend connection error:', err);
-        throw err;
+    if (!result.success) {
+        throw new Error(result.error);
     }
+
+    return result;
 }
 
 // Order Confirmation
