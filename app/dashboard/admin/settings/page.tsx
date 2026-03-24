@@ -167,15 +167,15 @@ export default function AdminSettingsPage() {
                              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <label className="block">
                                     <span className="text-xs font-black text-slate-500 mb-2 block">سعر الليرة السورية (SYP)</span>
-                                    <input type="number" value={settings.sypExchangeRate || 15000} onChange={(e) => handleChange('sypExchangeRate', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-black" />
+                                    <input type="number" value={settings.usdToSyp || 15000} onChange={(e) => handleChange('usdToSyp', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-black" />
                                 </label>
                                 <label className="block">
                                     <span className="text-xs font-black text-slate-500 mb-2 block">سعر الدينار العراقي (IQD)</span>
-                                    <input type="number" value={settings.iqdExchangeRate || 1310} onChange={(e) => handleChange('iqdExchangeRate', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-black" />
+                                    <input type="number" value={settings.usdToIqd || 1310} onChange={(e) => handleChange('usdToIqd', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-black" />
                                 </label>
                                 <label className="block">
                                     <span className="text-xs font-black text-slate-500 mb-2 block">سعر الجنيه المصري (EGP)</span>
-                                    <input type="number" value={settings.egpExchangeRate || 48} onChange={(e) => handleChange('egpExchangeRate', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-black" />
+                                    <input type="number" value={settings.usdToEgp || 48} onChange={(e) => handleChange('usdToEgp', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-black" />
                                 </label>
                              </div>
                         </motion.div>

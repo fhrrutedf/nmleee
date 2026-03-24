@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
         const platformSettings = await prisma.platformSettings.findFirst() || { 
             commissionRate: 10, 
             freeEscrowDays: 14, 
-            sypExchangeRate: 15000,
+            usdToSyp: 15000,
             growthCommissionRate: 5,
             growthEscrowDays: 7,
             proCommissionRate: 2,
@@ -75,10 +75,8 @@ export async function POST(req: NextRequest) {
                 }
                 couponId = coupon.id;
             }
-        }
-
         const totalUSD = subtotal - discount;
-        const totalSYP = Math.round(totalUSD * (platformSettings.sypExchangeRate || 15000));
+        const totalSYP = Math.round(totalUSD * (platformSettings.usdToSyp || 15000));
 
         // Calculate Availability Date for the seller payout
         const availableAt = new Date();
