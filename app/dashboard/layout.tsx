@@ -89,19 +89,15 @@ export default function DashboardLayout({
         { href: '/dashboard/support', icon: FiMessageSquare, label: 'مركز المساعدة والتذاكر', type: 'shared' },
         { href: '/dashboard/settings', icon: FiSettings, label: 'الإعدادات', type: 'shared' },
 
-        // Admin only
-        { href: '/dashboard/admin', icon: FiShield, label: 'لوحة الادمن', type: 'admin' },
-        { href: '/dashboard/admin/users', icon: FiUsers, label: 'المستخدمين', type: 'admin' },
-        { href: '/dashboard/admin/products', icon: FiPackage, label: 'المنتجات والمحتوى', type: 'admin' },
-        { href: '/dashboard/admin/moderation', icon: FiShield, label: 'المراجعة والرقابة', type: 'admin' },
-        { href: '/dashboard/admin/orders', icon: FiShoppingCart, label: 'الطلبات', type: 'admin' },
-        { href: '/dashboard/admin/manual-orders', icon: FiActivity, label: 'طلبات الدفع اليدوي', type: 'admin' },
-        { href: '/dashboard/admin/payouts', icon: FiDollarSign, label: 'المالية والسحوبات', type: 'admin' },
-        { href: '/dashboard/admin/tools', icon: FiActivity, label: '🔧 أدوات الادمن', type: 'admin' },
-        { href: '/dashboard/admin/broadcast', icon: FiZap, label: '🚀 البث الذكي', type: 'admin' },
-        { href: '/dashboard/admin/audit', icon: FiActivity, label: '📜 سجل الرقابة', type: 'admin' },
-        { href: '/dashboard/admin/blog', icon: FiBookOpen, label: 'إدارة المدونة', type: 'admin' },
-        { href: '/dashboard/admin/students', icon: FiUsers, label: '🎓 الطلاب', type: 'admin' },
+        // Admin only - Unified Admin Center
+        { href: '/dashboard/admin', icon: FiShield, label: 'مركز الإدارة', type: 'admin' },
+        { href: '/dashboard/admin/users', icon: FiUsers, label: 'إدارة الأعضاء', type: 'admin' },
+        { href: '/dashboard/admin/products', icon: FiPackage, label: 'المحتوى العام', type: 'admin' },
+        { href: '/dashboard/admin/orders', icon: FiShoppingCart, label: 'إدارة الطلبات', type: 'admin' },
+        { href: '/dashboard/admin/manual-orders', icon: FiActivity, label: 'المدفوعات اليدوية', type: 'admin' },
+        { href: '/dashboard/admin/payouts', icon: FiDollarSign, label: 'السحوبات والمالية', type: 'admin' },
+        { href: '/dashboard/admin/broadcast', icon: FiZap, label: '🚀 البث الذكي للمنصة', type: 'admin' },
+        { href: '/dashboard/admin/blog', icon: FiBookOpen, label: 'المقالات والمدونة', type: 'admin' },
         { href: '/dashboard/admin/platform-settings', icon: FiSettings, label: 'إعدادات المنصة', type: 'admin' },
     ];
 
