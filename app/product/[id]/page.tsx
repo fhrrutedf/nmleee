@@ -57,14 +57,21 @@ export default async function ProductPage({ params }: Props) {
 
     if (!product) notFound();
 
-    const reviews = await prisma.review.findMany({
-        where: { productId: id },
-        orderBy: { createdAt: 'desc' }
+    // Fetch Platform Settings for Dynamic Support Number
+    const settings = await prisma.platformSettings.findFirst({
+        orderBy: { updatedAt: 'desc' }
     });
 
     // Serialize dates for client component
     const serializedProduct = JSON.parse(JSON.stringify(product));
     const serializedReviews = JSON.parse(JSON.stringify(reviews));
 
-    return <ProductClient product={serializedProduct} reviews={serializedReviews} id={id} />;
+    return (
+        <ProductClient 
+            product={serializedProduct} 
+            reviews={serializedReviews} 
+            id={id} 
+            supportWhatsapp={settings?.supportWhatsapp || '963934360340'} // Fallback to your number if settings not found
+        />
+    );
 }
