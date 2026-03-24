@@ -265,8 +265,8 @@ export async function processPaymentCommission(orderId: string): Promise<void> {
     const availableAt = new Date(order.paidAt ?? new Date());
     availableAt.setDate(availableAt.getDate() + escrowDays);
 
-    // Step 4: Lock exchange rate at payment time
-    const lockedExchangeRate = settings.usdToEgp; // Lock EGP rate
+    // Step 4: Lock exchange rate at payment time (Default to SYP rate for now)
+    const lockedExchangeRate = settings.usdToSyp || 15000;
 
     // Step 5: Calculate referral tree commission (الشجرة)
     let referralCommission = 0;
