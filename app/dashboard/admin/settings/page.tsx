@@ -124,6 +124,15 @@ export default function AdminSettingsPage() {
                                         <span className="text-xs font-black text-slate-500 uppercase mb-2 block">باقة المحترفين (PRO)</span>
                                         <input type="number" value={settings.proCommissionRate} onChange={(e) => handleChange('proCommissionRate', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-black focus:ring-4 focus:ring-primary-indigo-50" />
                                     </label>
+                                    <div className="pt-6 border-t border-slate-100 dark:border-gray-800">
+                                        <label className="block">
+                                            <span className="text-xs font-black text-primary-indigo-600 uppercase mb-2 block flex items-center gap-2">
+                                                <FiTrendingUp size={14} /> نسبة عمولة المسوقين (من عمولة المنصة)
+                                            </span>
+                                            <input type="number" value={settings.referralCommissionRate || 1} onChange={(e) => handleChange('referralCommissionRate', e.target.value)} className="w-full h-14 px-5 bg-primary-indigo-50/30 dark:bg-primary-indigo-900/10 border-dashed border-2 border-primary-indigo-100 dark:border-primary-indigo-900/30 rounded-2xl text-lg font-black text-primary-indigo-700" />
+                                            <p className="text-[10px] text-slate-400 font-bold mt-2 italic px-2">ملاحظة: هذه النسبة تدفع للمسوق الذي جلب البائع من صافي عمولة المنصة.</p>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                             
