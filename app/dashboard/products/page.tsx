@@ -2,27 +2,33 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { FiPlus, FiEdit2, FiTrash2, FiPackage, FiEye, FiSearch } from 'react-icons/fi';
+import { 
+    FiPlus, FiEdit2, FiTrash2, FiPackage, FiEye, FiSearch, 
+    FiMoreVertical, FiCheck, FiX, FiExternalLink, FiDollarSign,
+    FiFilter, FiRefreshCw
+} from 'react-icons/fi';
 import Link from 'next/link';
 import Image from 'next/image';
-import { apiGet, apiDelete, handleApiError } from '@/lib/safe-fetch';
+import { apiGet, apiDelete, apiPost, handleApiError } from '@/lib/safe-fetch';
 import showToast from '@/lib/toast';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ProductsPage() {
     const { data: session } = useSession();
     const [products, setProducts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
-    const [minPrice, setMinPrice] = useState('');
-    const [maxPrice, setMaxPrice] = useState('');
-    const [category, setCategory] = useState('');
-    const [showFilters, setShowFilters] = useState(false);
+    const [filterCategory, setFilterCategory] = useState('');
+    const [editingPriceId, setEditingPriceId] = useState<string | null>(null);
+    const [tempPrice, setTempPrice] = useState('');
+    const [openMenuId, setOpenMenuId] = useState<string | null>(null);
 
     useEffect(() => {
         fetchProducts();
     }, []);
 
     const fetchProducts = async () => {
+        setLoading(true);
         try {
             const data = await apiGet('/api/products');
             setProducts(data);
@@ -33,208 +39,266 @@ export default function ProductsPage() {
         }
     };
 
+    const toggleStatus = async (product: any) => {
+        const toastId = showToast.loading('جاري تحديث الحالة...');
+        try {
+            const response = await fetch(`/api/products/${product.id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...product, isActive: !product.isActive }),
+            });
+            if (response.ok) {
+                showToast.dismiss(toastId);
+                showToast.success('تم تحديث حالة المنتج بنجاح');
+                fetchProducts();
+            }
+        } catch (error) {
+            showToast.dismiss(toastId);
+            showToast.error('فشل التحديث');
+        }
+    };
+
+    const updatePrice = async (id: string) => {
+        if (!tempPrice || isNaN(parseFloat(tempPrice))) return;
+        const toastId = showToast.loading('جاري تحديث السعر...');
+        try {
+            const product = products.find(p => p.id === id);
+            const response = await fetch(`/api/products/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...product, price: parseFloat(tempPrice) }),
+            });
+            if (response.ok) {
+                showToast.dismiss(toastId);
+                showToast.success('تم تحديث السعر ✅');
+                setEditingPriceId(null);
+                fetchProducts();
+            }
+        } catch (error) {
+            showToast.dismiss(toastId);
+            showToast.error('خطأ في التحديث');
+        }
+    };
+
     const deleteProduct = async (id: string) => {
-        if (!confirm('هل أنت متأكد من حذف هذا المنتج؟')) return;
+        if (!confirm('هل أنت متأكد من حذف هذا المنتج نهائياً؟')) return;
         try {
             await apiDelete(`/api/products/${id}`);
-            showToast.success('تم حذف المنتج');
+            showToast.success('تم الحذف بنجاح');
             fetchProducts();
         } catch (error) {
-            showToast.error('فشل الحذف: ' + handleApiError(error));
+            showToast.error('فشل في الحذف');
         }
     };
 
     const filtered = products.filter(p => {
         const matchesSearch = p.title?.toLowerCase().includes(search.toLowerCase());
-        const matchesMinPrice = minPrice === '' || p.price >= parseFloat(minPrice);
-        const matchesMaxPrice = maxPrice === '' || p.price <= parseFloat(maxPrice);
-        const matchesCategory = category === '' || p.category === category;
-        return matchesSearch && matchesMinPrice && matchesMaxPrice && matchesCategory;
+        const matchesCategory = filterCategory === '' || p.category === filterCategory;
+        return matchesSearch && matchesCategory;
     });
 
     const categories = Array.from(new Set(products.map(p => p.category).filter(Boolean)));
 
     return (
-        <div className="space-y-6 pb-10">
-
-            {/* رأس الصفحة */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="space-y-8 pb-32 text-right px-2 md:px-6" dir="rtl">
+            
+            {/* --- HEADER --- */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white rounded-[2rem] p-8 shadow-sm border border-slate-50">
                 <div>
-                    <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white">المنتجات الرقمية</h1>
-                    <p className="text-sm text-text-muted mt-1">إدارة جميع منتجاتك من مكان واحد</p>
+                    <h1 className="text-3xl font-black text-slate-900 leading-tight">إدارة المنتجات الرقمية 📦</h1>
+                    <p className="text-slate-400 font-bold text-xs mt-2 uppercase tracking-widest">تعديل سريع • تحكم شامل • إحصائيات</p>
                 </div>
-                <Link
-                    href="/dashboard/products/new?new=true"
-                    className="btn btn-primary gap-2 w-full sm:w-auto justify-center"
-                >
-                    <FiPlus className="text-lg" />
-                    إضافة منتج جديد
-                </Link>
-            </div>
-
-            {/* بحث وفلترة */}
-            {products.length > 0 && (
-                <div className="space-y-4">
-                    <div className="flex gap-2">
-                        <div className="relative flex-1">
-                            <FiSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                            <input
-                                type="text"
-                                placeholder="ابحث عن منتج بالاسم..."
-                                value={search}
-                                onChange={e => setSearch(e.target.value)}
-                                className="input pr-10 text-sm h-12 rounded-2xl"
-                            />
-                        </div>
-                        <button 
-                            onClick={() => setShowFilters(!showFilters)}
-                            className={`btn h-12 px-4 rounded-2xl border ${showFilters ? 'bg-primary-50 border-primary-500 text-primary-600' : 'bg-white text-gray-600'}`}
-                        >
-                            تصفية متقدمة
-                        </button>
-                    </div>
-
-                    {showFilters && (
-                        <div className="p-5 bg-gray-50/50 border border-gray-100 rounded-3xl grid grid-cols-1 sm:grid-cols-3 gap-4 animate-fade-in">
-                            <div>
-                                <label className="text-xs font-bold text-gray-500 mb-2 block">التصنيف</label>
-                                <select 
-                                    className="input text-sm h-10 rounded-xl bg-white border-gray-200"
-                                    value={category}
-                                    onChange={e => setCategory(e.target.value)}
-                                >
-                                    <option value="">جميع التصنيفات</option>
-                                    {categories.map(cat => (
-                                        <option key={cat} value={cat}>{cat}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div>
-                                <label className="text-xs font-bold text-gray-500 mb-2 block">السعر من</label>
-                                <input 
-                                    type="number" 
-                                    className="input text-sm h-10 rounded-xl bg-white border-gray-200" 
-                                    placeholder="0"
-                                    value={minPrice}
-                                    onChange={e => setMinPrice(e.target.value)}
-                                />
-                            </div>
-                            <div>
-                                <label className="text-xs font-bold text-gray-500 mb-2 block">السعر إلى</label>
-                                <input 
-                                    type="number" 
-                                    className="input text-sm h-10 rounded-xl bg-white border-gray-200" 
-                                    placeholder="بلا حدود"
-                                    value={maxPrice}
-                                    onChange={e => setMaxPrice(e.target.value)}
-                                />
-                            </div>
-                        </div>
-                    )}
-                </div>
-            )}
-
-            {/* حالة التحميل */}
-            {loading && (
-                <div className="flex items-center justify-center py-24">
-                    <div className="w-10 h-10 border-4 border-action-blue border-t-transparent rounded-full animate-spin" />
-                </div>
-            )}
-
-            {/* لا يوجد منتجات */}
-            {!loading && products.length === 0 && (
-                <div className="flex flex-col items-center justify-center py-24 text-center px-4">
-                    <div className="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-5">
-                        <FiPackage className="text-4xl text-gray-400" />
-                    </div>
-                    <h2 className="text-xl font-bold text-primary-charcoal dark:text-white mb-2">لا توجد منتجات بعد</h2>
-                    <p className="text-text-muted mb-6 max-w-sm">ابدأ ببيع دوراتك أو كتبك أو قوالبك الرقمية</p>
-                    <Link href="/dashboard/products/new" className="btn btn-primary">
-                        <FiPlus /> أضف أول منتج
+                <div className="flex gap-3">
+                    <button 
+                        onClick={fetchProducts}
+                        className="w-12 h-12 flex items-center justify-center bg-slate-50 text-slate-400 rounded-2xl hover:bg-slate-100 transition-all border border-slate-100"
+                    >
+                        <FiRefreshCw className={loading ? 'animate-spin' : ''} />
+                    </button>
+                    <Link
+                        href="/dashboard/products/new?new=true"
+                        className="px-8 py-3.5 bg-primary-indigo-600 text-white rounded-[1.5rem] font-black text-sm flex items-center justify-center gap-2 shadow-xl shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95 transition-all"
+                    >
+                        <FiPlus /> إضافة منتج جديد
                     </Link>
                 </div>
-            )}
+            </div>
 
-            {/* شبكة المنتجات */}
-            {!loading && filtered.length > 0 && (
-                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                    {filtered.map((product: any) => (
-                        <div
-                            key={product.id}
-                            className="bg-white dark:bg-card-white rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-shadow"
-                        >
-                            {/* صورة المنتج */}
-                            <div className="relative h-44 bg-gray-100 dark:bg-gray-800">
-                                {product.image ? (
-                                    <Image
-                                        src={product.image}
-                                        alt={product.title}
-                                        fill
-                                        sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                                        className="object-cover"
-                                    />
-                                ) : (
-                                    <div className="flex items-center justify-center h-full">
-                                        <FiPackage className="text-5xl text-gray-300" />
-                                    </div>
-                                )}
-                                {/* شارة الحالة */}
-                                <span className={`absolute top-2 right-2 text-xs font-bold px-2.5 py-1 rounded-full ${product.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
-                                    {product.isActive ? '● نشط' : '○ مخفي'}
-                                </span>
-                            </div>
-
-                            {/* تفاصيل */}
-                            <div className="p-4 flex flex-col flex-1">
-                                <h3 className="font-bold text-primary-charcoal dark:text-white mb-1 line-clamp-1">{product.title}</h3>
-                                <p className="text-xs text-text-muted line-clamp-2 mb-3 flex-1">
-                                    {product.description ? product.description.replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ') : 'بدون وصف'}
-                                </p>
-
-                                <div className="flex items-center justify-between mb-3">
-                                    <span className="text-xl font-black text-action-blue">
-                                        {product.isFree ? 'مجاني' : `${product.price} $`}
-                                    </span>
-                                    <span className="text-xs text-gray-400">{product.soldCount || 0} مبيعة</span>
-                                </div>
-
-                                {/* أزرار */}
-                                <div className="flex gap-2 pt-3 border-t border-gray-100 dark:border-gray-800">
-                                    <Link
-                                        href={`/dashboard/products/edit/${product.id}`}
-                                        className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-action-blue hover:text-white text-gray-700 dark:text-gray-300 transition-colors text-sm font-semibold"
-                                    >
-                                        <FiEdit2 size={14} /> تعديل
-                                    </Link>
-                                    <Link
-                                        href={`/@${(session?.user as any)?.username}/${product.slug || product.id}`}
-                                        target="_blank"
-                                        className="flex items-center justify-center p-2 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-blue-50 hover:text-action-blue text-gray-500 transition-colors"
-                                        title="معاينة"
-                                    >
-                                        <FiEye size={16} />
-                                    </Link>
-                                    <button
-                                        onClick={() => deleteProduct(product.id)}
-                                        className="flex items-center justify-center p-2 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-red-50 hover:text-red-500 text-gray-500 transition-colors"
-                                        title="حذف"
-                                    >
-                                        <FiTrash2 size={16} />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+            {/* --- FILTERS BAR --- */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="md:col-span-2 relative">
+                    <FiSearch className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300" />
+                    <input 
+                        type="text" 
+                        placeholder="ابحث عن منتج..."
+                        className="w-full h-14 pr-12 pl-4 bg-white border border-slate-100 rounded-[1.2rem] text-sm font-bold shadow-sm focus:ring-4 focus:ring-primary-indigo-50/50 outline-none transition-all"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
                 </div>
-            )}
-
-            {/* لا نتائج بحث */}
-            {!loading && products.length > 0 && filtered.length === 0 && (
-                <div className="text-center py-16 text-text-muted">
-                    <FiSearch className="text-4xl mx-auto mb-3 text-gray-300" />
-                    <p>لا توجد نتائج لـ "{search}"</p>
+                <div>
+                    <select 
+                        className="w-full h-14 bg-white border border-slate-100 rounded-[1.2rem] px-4 text-xs font-black text-slate-500 outline-none shadow-sm cursor-pointer"
+                        value={filterCategory}
+                        onChange={(e) => setFilterCategory(e.target.value)}
+                    >
+                        <option value="">جميع التصنيفات</option>
+                        {categories.map((cat: any) => <option key={cat} value={cat}>{cat}</option>)}
+                    </select>
                 </div>
-            )}
+                <div className="bg-slate-900 text-white flex items-center justify-center rounded-[1.2rem] h-14 shadow-xl">
+                    <p className="text-[10px] font-black uppercase tracking-widest">إجمالي المنتجات: {products.length}</p>
+                </div>
+            </div>
+
+            {/* --- PRODUCTS TABLE --- */}
+            <div className="bg-white rounded-[2.5rem] shadow-premium border border-slate-50 overflow-hidden">
+                <div className="overflow-x-auto no-scrollbar">
+                    <table className="w-full text-right border-collapse">
+                        <thead>
+                            <tr className="bg-slate-50/50 border-b border-slate-100">
+                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">المنتج والاسم التجاري</th>
+                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">التصنيف</th>
+                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">السعر ($)</th>
+                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">المبيعات</th>
+                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">الحالة</th>
+                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">إجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-50">
+                            <AnimatePresence>
+                                {filtered.map((product) => (
+                                    <motion.tr 
+                                        key={product.id}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        className="hover:bg-slate-50/20 transition-colors group"
+                                    >
+                                        <td className="p-6">
+                                            <div className="flex items-center gap-4 min-w-[250px]">
+                                                <div className="w-14 h-14 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 shrink-0 shadow-sm">
+                                                    <img src={product.image || '/placeholder-product.png'} className="w-full h-full object-cover" alt="" />
+                                                </div>
+                                                <div>
+                                                    <h3 className={`text-sm font-black line-clamp-1 ${product.title?.includes('Screenshot') ? 'text-red-500 italic' : 'text-slate-900'}`}>
+                                                        {product.title || 'بدون اسم'}
+                                                    </h3>
+                                                    {product.title?.includes('Screenshot') && (
+                                                        <p className="text-[9px] text-red-400 font-bold mt-1">⚠️ اسم غير احترافي (يجب تعديله)</p>
+                                                    )}
+                                                    <p className="text-[10px] text-slate-400 mt-1 font-bold">Slug: {product.slug || 'لا يوجد'}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td className="p-6 text-center">
+                                            <span className="px-3 py-1 bg-white border border-slate-100 rounded-lg text-[10px] font-black text-slate-500 shadow-sm lowercase">
+                                                {product.category || 'غير مصنف'}
+                                            </span>
+                                        </td>
+                                        <td className="p-6 text-center">
+                                            {editingPriceId === product.id ? (
+                                                <div className="flex items-center justify-center gap-2 animate-in zoom-in-95 duration-200">
+                                                    <input 
+                                                        autoFocus
+                                                        type="number"
+                                                        className="w-20 h-9 p-2 text-center text-xs font-black border-2 border-primary-indigo-100 rounded-lg focus:ring-0 outline-none"
+                                                        value={tempPrice}
+                                                        onChange={(e) => setTempPrice(e.target.value)}
+                                                        onKeyPress={(e) => e.key === 'Enter' && updatePrice(product.id)}
+                                                    />
+                                                    <button onClick={() => updatePrice(product.id)} className="w-8 h-8 bg-emerald-500 text-white rounded-lg flex items-center justify-center hover:bg-emerald-600 transition-colors"><FiCheck size={14} /></button>
+                                                    <button onClick={() => setEditingPriceId(null)} className="w-8 h-8 bg-slate-100 text-slate-400 rounded-lg flex items-center justify-center"><FiX size={14} /></button>
+                                                </div>
+                                            ) : (
+                                                <button 
+                                                    onClick={() => { setEditingPriceId(product.id); setTempPrice(product.price.toString()); }}
+                                                    className="inline-flex items-center gap-2 group/price"
+                                                >
+                                                    <span className="text-lg font-black text-slate-900">{product.price}</span>
+                                                    <span className="text-[10px] font-black text-primary-indigo-600 bg-primary-indigo-50 px-1.5 py-0.5 rounded opacity-100 sm:opacity-0 group-hover/price:opacity-100 transition-opacity">تعديل</span>
+                                                </button>
+                                            )}
+                                        </td>
+                                        <td className="p-6 text-center">
+                                            <div className="flex flex-col items-center">
+                                                <span className="text-sm font-black text-slate-700">{product.soldCount || 0}</span>
+                                                <p className="text-[9px] text-slate-300 font-bold uppercase tracking-tighter">مرة</p>
+                                            </div>
+                                        </td>
+                                        <td className="p-6 text-center">
+                                            <button 
+                                                onClick={() => toggleStatus(product)}
+                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-black transition-all ${product.isActive ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-slate-50 text-slate-400 border border-slate-100'}`}
+                                            >
+                                                {product.isActive ? '● نشط' : '○ مسودة'}
+                                            </button>
+                                        </td>
+                                        <td className="p-6 text-center relative">
+                                            <div className="flex items-center justify-center gap-2">
+                                                <Link 
+                                                    href={`/dashboard/products/edit/${product.id}`}
+                                                    className="w-10 h-10 bg-white border border-slate-100 rounded-xl flex items-center justify-center text-slate-400 hover:text-primary-indigo-600 hover:bg-primary-indigo-50 transition-all shadow-sm"
+                                                    title="تعديل كامل"
+                                                >
+                                                    <FiEdit2 size={16} />
+                                                </Link>
+                                                <button 
+                                                    onClick={() => setOpenMenuId(openMenuId === product.id ? null : product.id)}
+                                                    className="w-10 h-10 bg-white border border-slate-100 rounded-xl flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-all"
+                                                >
+                                                    <FiMoreVertical size={18} />
+                                                </button>
+
+                                                {/* Dropdown Menu */}
+                                                {openMenuId === product.id && (
+                                                    <>
+                                                        <div className="fixed inset-0 z-40" onClick={() => setOpenMenuId(null)} />
+                                                        <div className="absolute left-6 top-[80%] z-50 w-44 bg-white rounded-2xl shadow-2xl border border-slate-50 p-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                                                            <Link 
+                                                                href={`/@${(session?.user as any)?.username || 'user'}/${product.slug || product.id}`}
+                                                                target="_blank"
+                                                                className="flex items-center gap-3 w-full p-3 hover:bg-slate-50 rounded-xl text-slate-600 font-black text-xs transition-colors"
+                                                            >
+                                                                <FiExternalLink /> صفحة المنتج
+                                                            </Link>
+                                                            <button 
+                                                                onClick={() => { setOpenMenuId(null); deleteProduct(product.id); }}
+                                                                className="flex items-center gap-3 w-full p-3 hover:bg-red-50 rounded-xl text-red-500 font-black text-xs transition-colors border-t border-slate-50 mt-1 pt-3"
+                                                            >
+                                                                <FiTrash2 /> حذف نهائياً
+                                                            </button>
+                                                        </div>
+                                                    </>
+                                                )}
+                                            </div>
+                                        </td>
+                                    </motion.tr>
+                                ))}
+                            </AnimatePresence>
+                        </tbody>
+                    </table>
+                </div>
+
+                {!loading && filtered.length === 0 && (
+                    <div className="text-center py-20 bg-white">
+                        <FiPackage size={48} className="mx-auto text-slate-100 mb-4" />
+                        <h3 className="text-slate-400 font-black">لا توجد منتجات مطابقة للبحث</h3>
+                    </div>
+                )}
+            </div>
+
+            {/* --- QUICK ACTION BAR --- */}
+            <div className="fixed bottom-8 left-0 right-0 z-[100] px-4 pointer-events-none">
+                <div className="max-w-md mx-auto bg-slate-900 text-white p-4 rounded-[2.5rem] shadow-2xl flex items-center justify-between border border-white/10 pointer-events-auto animate-slide-up">
+                    <div className="pr-6">
+                        <p className="text-[10px] font-black uppercase tracking-widest opacity-40 leading-none mb-1">تعديل سريع</p>
+                        <p className="text-xs font-black italic">اضغط على "السعر" لتعديله فوراً</p>
+                    </div>
+                    <div className="w-12 h-12 bg-primary-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-primary-indigo-500/20">
+                        <FiDollarSign />
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
