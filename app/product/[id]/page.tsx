@@ -57,7 +57,14 @@ export default async function ProductPage({ params }: Props) {
 
     if (!product) notFound();
 
-    // Fetch Platform Settings for Dynamic Support Number
+    // 1. Fetch Reviews (Social Proof)
+    const reviews = await prisma.review?.findMany({
+        where: { productId: id },
+        include: { user: true },
+        orderBy: { createdAt: 'desc' }
+    }) || [];
+
+    // 2. Fetch Platform Settings for Dynamic Support Number
     const settings = await prisma.platformSettings.findFirst({
         orderBy: { updatedAt: 'desc' }
     });
