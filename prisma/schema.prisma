@@ -1439,7 +1439,7 @@ model PlatformSettings {
   freeEscrowDays      Int     @default(14)   // أيام حجز FREE
   growthEscrowDays    Int     @default(7)    // أيام حجز GROWTH
   proEscrowDays       Int     @default(1)    // أيام حجز PRO (24 ساعة)
-  referralCommissionRate Float @default(1)   // نسبة عمولة الإحالة % (من عمولة المنصة)
+  referralCommissionRate Float @default(10)   // نسبة عمولة الإحالة % (من عمولة المنصة)
 
   // Platform wallet numbers
   syriatelCash      String?

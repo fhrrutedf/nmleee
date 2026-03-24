@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
 
         // Generate affiliate link
         const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
-        const affiliateLink = `${baseUrl}?ref=${affiliateCode}`;
+        const affiliateLink = `${baseUrl}/explore?ref=${affiliateCode}`;
 
         // Get affiliate stats
         const referrals = await prisma.affiliateReferral.findMany({

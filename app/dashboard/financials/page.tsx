@@ -65,7 +65,7 @@ export default function FinancialsPage() {
 
     const copyReferralLink = useCallback(() => {
         if (!data) return;
-        const link = `${window.location.origin}/register?ref=${data.referrals.username}`;
+        const link = `${window.location.origin}/explore?ref=${data.referrals.username}`;
         navigator.clipboard.writeText(link).then(() => {
             setCopied(true);
             setTimeout(() => setCopied(false), 2500);
@@ -514,7 +514,7 @@ export default function FinancialsPage() {
                         <p className="text-sm text-gray-500 mb-4">شارك هذا الرابط مع أصدقائك. عندما يسجّلون عبره ويبيعون، تكسب تلقائياً!</p>
                         <div className="flex items-center gap-3">
                             <div className="flex-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-mono text-gray-700 dark:text-gray-300 truncate" dir="ltr">
-                                {typeof window !== 'undefined' ? `${window.location.origin}/register?ref=${data.referrals.username}` : `...`}
+                                {typeof window !== 'undefined' ? `${window.location.origin}/explore?ref=${data.referrals.username}` : `...`}
                             </div>
                             <button
                                 onClick={copyReferralLink}

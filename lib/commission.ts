@@ -29,7 +29,7 @@ export async function getPlatformSettings() {
                 freeEscrowDays: (settings as any).freeEscrowDays ?? 14,
                 growthEscrowDays: (settings as any).growthEscrowDays ?? 7,
                 proEscrowDays: (settings as any).proEscrowDays ?? 1,
-                referralCommissionRate: (settings as any).referralCommissionRate ?? 1,
+                referralCommissionRate: (settings as any).referralCommissionRate ?? 10,
                 minPayoutAmount: settings.minPayoutAmount ?? 50,
                 usdToSyp: settings.usdToSyp ?? 13000,
                 usdToIqd: settings.usdToIqd ?? 1300,
@@ -57,7 +57,7 @@ export async function getPlatformSettings() {
     return {
         commissionRate: 10, growthCommissionRate: 5, proCommissionRate: 2,
         escrowDays: 7, freeEscrowDays: 14, growthEscrowDays: 7, proEscrowDays: 1,
-        referralCommissionRate: 1,
+        referralCommissionRate: 10,
         minPayoutAmount: 50,
         usdToSyp: 13000, usdToIqd: 1300, usdToEgp: 50, usdToAed: 3.67,
         syriatelCash: null, mtnCash: null, zainCash: null, shamCash: null,

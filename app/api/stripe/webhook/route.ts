@@ -65,11 +65,14 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
             data: { status: 'PAID', isPaid: true, paidAt: new Date() }
         });
 
-        // 2. Financial Logic (Commission, Escrow, Referrals)
+        // 2. Financial Logic (Commission, Escrow, Referrals Tree)
         await processPaymentCommission(orderId);
 
-        // 3. BACKGROUND TASKS (Non-blocking but vital)
-        // These are triggered but we don't 'await' them to ensure Stripe gets 200 Fast.
+        // 3. Fulfill Items (Enrollments & Product Affiliate Stats)
+        const { fulfillPurchase } = await import('@/lib/checkout');
+        await fulfillPurchase(orderId);
+
+        // 4. Auxiliary Tasks (Calendar, External Notifications)
         backgroundTasks(order, session);
 
     } catch (error: any) {
@@ -116,16 +119,8 @@ async function backgroundTasks(order: any, session: Stripe.Checkout.Session) {
     try {
         const { items, sellerId, customerEmail, customerName, totalAmount } = order;
 
-        // I. Digital Item Enrollments (Courses)
-        for (const item of items) {
-            if (item.courseId) {
-                await prisma.courseEnrollment.upsert({
-                    where: { courseId_studentEmail: { courseId: item.courseId, studentEmail: customerEmail } },
-                    update: {},
-                    create: { courseId: item.courseId, studentName: customerName, studentEmail: customerEmail, orderId: order.id }
-                });
-            }
-        }
+        // I. Digital Item Enrollments (Handled by fulfillPurchase now)
+        // Leaving logic empty to avoid duplicates if accidentally called later
 
         // II. Appointment / Calendar (if present in paymentNotes)
         if (order.paymentNotes && sellerId) {
@@ -159,25 +154,8 @@ async function backgroundTasks(order: any, session: Stripe.Checkout.Session) {
             } catch (e) { console.error('Calendar failing...', e); }
         }
 
-        // III. Emails & Notifications
-        await sendOrderConfirmation({
-            to: customerEmail,
-            customerName,
-            orderNumber: order.orderNumber,
-            totalAmount,
-            items: [] // fetch titles locally in prod
-        });
-
         if (sellerId) {
             await markCartConverted(customerEmail, sellerId);
-            await triggerWelcomeEmail({ customerEmail, customerName, sellerId, productName: 'منتجاتك المشتراة' });
-            await triggerSellerNotification({
-                sellerId,
-                type: 'sale',
-                title: '💰 مبيعة جديدة',
-                content: `استلمت $${totalAmount} من ${customerName}`,
-                payload: { amount: totalAmount }
-            });
         }
 
     } catch (e) {

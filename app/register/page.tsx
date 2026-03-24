@@ -139,11 +139,14 @@ export default function RegisterPage() {
         setLoading(true);
 
         try {
+            const affiliateRef = typeof window !== 'undefined' ? (sessionStorage.getItem('affiliate_ref') || localStorage.getItem('affiliate_ref')) : undefined;
+
             await apiPost('/api/auth/register', {
                 ...formData,
                 phone: phoneNumber ? `+${getCountryCallingCode(selectedCountry)}${phoneNumber.replace(/^0+/, '')}` : undefined,
                 country: currentCountry?.nameAr,
                 countryCode: selectedCountry,
+                ref: affiliateRef || undefined,
             });
 
             setSuccessMsg('تم إنشاء حسابك بنجاح! جاري تحويلك...');

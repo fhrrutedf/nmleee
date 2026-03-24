@@ -49,8 +49,12 @@ export async function POST(req: NextRequest) {
                     });
 
                     // تفعيل الكورسات / المنتجات (هذه دالة من منصة تمكين جاهزة)
-                    if (order.items && order.items.length > 0) {
                         try {
+                            // 1. معالجة عمولات شجرة الإحالات (Referral Tree)
+                            const { processPaymentCommission } = await import('@/lib/commission');
+                            await processPaymentCommission(order.id);
+
+                            // 2. تفعيل المشتريات (Courses/Products)
                             await fulfillPurchase(order.id, order.userId);
                         } catch (err) {
                             console.error('[FULFILL_Purchase_ERROR]', err);
