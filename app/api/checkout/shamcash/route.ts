@@ -80,6 +80,10 @@ export async function POST(req: NextRequest) {
         const totalUSD = subtotal - discount;
         const totalSYP = Math.round(totalUSD * (platformSettings.usdToSyp || 15000));
 
+        // Calculate Fee and Seller Net
+        const platformFee = (totalUSD * commissionRate) / 100;
+        const sellerAmount = totalUSD - platformFee;
+
         // Calculate Availability Date for the seller payout
         const availableAt = new Date();
         availableAt.setDate(availableAt.getDate() + (escrowDays || 7));
@@ -100,8 +104,10 @@ export async function POST(req: NextRequest) {
                 paymentMethod: 'manual',
                 couponId,
                 discount,
-                commissionRate, // Store for historical tracking
-                availableAt,    // When funds become withdrawable
+                platformFee,       // Using correct schema field
+                sellerAmount,      // Using correct schema field
+                lockedExchangeRate: platformSettings.usdToSyp || 15000,
+                availableAt,       // When funds become withdrawable
                 items: {
                     create: items.map((item: any) => ({
                         itemType: item.type,
