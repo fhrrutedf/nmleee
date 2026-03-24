@@ -11,7 +11,7 @@ import { toast } from 'react-hot-toast';
 
 export default function AffiliatePage() {
     const [stats, setStats] = useState<any>(null);
-    const [affiliates, setAffiliates] = useState([]);
+    const [affiliates, setAffiliates] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [affiliateLink, setAffiliateLink] = useState('');
     const [copied, setCopied] = useState(false);
@@ -136,7 +136,7 @@ export default function AffiliatePage() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {affiliates.map((aff, i) => (
+                                {affiliates.map((aff: any, i: number) => (
                                     <motion.tr 
                                         initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}
                                         key={aff.id} className="group hover:bg-slate-50/10 transition-colors border-b last:border-0 border-slate-50 dark:border-gray-800"
