@@ -15,177 +15,175 @@ export async function GET(request: NextRequest) {
         const { searchParams } = new URL(request.url);
         const period = parseInt(searchParams.get('period') || '30');
 
-        // Calculate date range
+        // 1. حساب الفترات الزمنية
         const startDate = new Date();
         startDate.setDate(startDate.getDate() - period);
+        
+        const previousStartDate = new Date(startDate);
+        previousStartDate.setDate(previousStartDate.getDate() - period);
 
-        // Get user's products
-        const products = await prisma.product.findMany({
+        // 2. جلب معرفات الكورسات والمنتجات التابعة للبائع
+        const sellerProducts = await prisma.product.findMany({
             where: { userId },
-            select: { id: true },
+            select: { id: true, title: true }
+        });
+        const sellerCourses = await prisma.course.findMany({
+            where: { userId },
+            select: { id: true, title: true }
         });
 
-        const productIds = products.map(p => p.id);
+        const productIds = sellerProducts.map(p => p.id);
+        const courseIds = sellerCourses.map(c => c.id);
 
-        // Total Revenue
-        const orders = await prisma.order.findMany({
+        // 3. جلب المبيعات الحقيقية (Real Sales)
+        const currentOrders = await prisma.order.findMany({
             where: {
-                items: {
-                    some: {
-                        productId: { in: productIds },
-                    },
-                },
+                sellerId: userId,
                 createdAt: { gte: startDate },
                 status: 'COMPLETED',
             },
-            include: {
-                items: {
-                    where: {
-                        productId: { in: productIds },
-                    },
-                },
-            },
+            include: { items: true }
         });
 
-        const totalRevenue = orders.reduce((sum, order) => sum + order.totalAmount, 0);
-        const totalOrders = orders.length;
+        const previousOrders = await prisma.order.findMany({
+            where: {
+                sellerId: userId,
+                createdAt: { gte: previousStartDate, lt: startDate },
+                status: 'COMPLETED',
+            }
+        });
 
-        // Revenue chart data
+        // 4. جلب المشاهدات الحقيقية (Real Views)
+        const currentViews = await prisma.productView.findMany({
+            where: {
+                OR: [
+                    { productId: { in: productIds } },
+                    { courseId: { in: courseIds } }
+                ],
+                createdAt: { gte: startDate }
+            }
+        });
+
+        const previousViewsCount = await prisma.productView.count({
+            where: {
+                OR: [
+                    { productId: { in: productIds } },
+                    { courseId: { in: courseIds } }
+                ],
+                createdAt: { gte: previousStartDate, lt: startDate }
+            }
+        });
+
+        // --- حساب الأرقام المحورية ---
+        const totalRevenue = currentOrders.reduce((sum, o) => sum + o.totalAmount, 0);
+        const totalSales = currentOrders.length;
+        const totalViews = currentViews.length;
+
+        const previousRevenue = previousOrders.reduce((sum, o) => sum + o.totalAmount, 0);
+        const previousSales = previousOrders.length;
+
+        const revenueGrowth = previousRevenue > 0 ? ((totalRevenue - previousRevenue) / previousRevenue) * 100 : 0;
+        const salesGrowth = previousSales > 0 ? ((totalSales - previousSales) / previousSales) * 100 : 0;
+        const viewsGrowth = previousViewsCount > 0 ? ((totalViews - previousViewsCount) / previousViewsCount) * 100 : 0;
+        
+        // معدل التحويل الحقيقي
+        const conversionRate = totalViews > 0 ? ((totalSales / totalViews) * 100) : 0;
+
+        // --- تحليل مصادر الزيارات (Traffic Sources) ---
+        const sourcesMap: Record<string, number> = {
+            'Facebook': 0,
+            'WhatsApp': 0,
+            'Google/Search': 0,
+            'Instagram/Tiktok': 0,
+            'Direct/Other': 0
+        };
+
+        currentViews.forEach(v => {
+            const ref = v.referrer?.toLowerCase() || '';
+            if (ref.includes('facebook') || ref.includes('fb.me')) sourcesMap['Facebook']++;
+            else if (ref.includes('wa.me') || ref.includes('whatsapp')) sourcesMap['WhatsApp']++;
+            else if (ref.includes('google') || ref.includes('bing')) sourcesMap['Google/Search']++;
+            else if (ref.includes('instagram') || ref.includes('t.co') || ref.includes('tiktok')) sourcesMap['Instagram/Tiktok']++;
+            else sourcesMap['Direct/Other']++;
+        });
+
+        // --- جلب أداء كل منتج بدقة ---
+        const productPerformance = await Promise.all([
+            ...sellerProducts.map(async (p) => {
+                const pViews = currentViews.filter(v => v.productId === p.id).length;
+                const pSales = currentOrders.filter(o => o.items.some(i => i.productId === p.id)).length;
+                const pRevenue = currentOrders.filter(o => o.items.some(i => i.productId === p.id))
+                    .reduce((sum, o) => sum + (o.items.find(i => i.productId === p.id)?.price || 0), 0);
+                
+                return {
+                    title: p.title,
+                    type: 'product',
+                    views: pViews,
+                    sales: pSales,
+                    revenue: pRevenue,
+                    conversionRate: pViews > 0 ? (pSales / pViews) * 100 : 0
+                };
+            }),
+            ...sellerCourses.map(async (c) => {
+                const cViews = currentViews.filter(v => v.courseId === c.id).length;
+                const cSales = currentOrders.filter(o => o.items.some(i => i.courseId === c.id)).length;
+                const cRevenue = currentOrders.filter(o => o.items.some(i => i.courseId === c.id))
+                    .reduce((sum, o) => sum + (o.items.find(i => i.courseId === c.id)?.price || 0), 0);
+
+                return {
+                    title: c.title,
+                    type: 'course',
+                    views: cViews,
+                    sales: cSales,
+                    revenue: cRevenue,
+                    conversionRate: cViews > 0 ? (cSales / cViews) * 100 : 0
+                };
+            })
+        ]);
+
+        // --- بيانات الرسم البياني ---
         const revenueByDay = new Map<string, number>();
-        orders.forEach(order => {
-            const day = order.createdAt.toISOString().split('T')[0];
-            revenueByDay.set(day, (revenueByDay.get(day) || 0) + order.totalAmount);
+        currentOrders.forEach(o => {
+            const day = o.createdAt.toISOString().split('T')[0];
+            revenueByDay.set(day, (revenueByDay.get(day) || 0) + o.totalAmount);
         });
 
         const labels: string[] = [];
-        const data: number[] = [];
+        const chartData: number[] = [];
         for (let i = period - 1; i >= 0; i--) {
             const date = new Date();
             date.setDate(date.getDate() - i);
             const day = date.toISOString().split('T')[0];
             labels.push(new Date(day).toLocaleDateString('ar-EG', { month: 'short', day: 'numeric' }));
-            data.push(revenueByDay.get(day) || 0);
+            chartData.push(revenueByDay.get(day) || 0);
         }
-
-        // Top products
-        const productSales = new Map<string, { title: string; sales: number; revenue: number }>();
-
-        for (const order of orders) {
-            for (const item of order.items) {
-                if (!item.productId) continue;
-
-                const product = await prisma.product.findUnique({
-                    where: { id: item.productId },
-                    select: { title: true },
-                });
-
-                if (product) {
-                    const current = productSales.get(item.productId) || {
-                        title: product.title,
-                        sales: 0,
-                        revenue: 0
-                    };
-                    current.sales += item.quantity;
-                    current.revenue += item.price * item.quantity;
-                    productSales.set(item.productId, current);
-                }
-            }
-        }
-
-        const topProducts = Array.from(productSales.values())
-            .sort((a, b) => b.sales - a.sales)
-            .slice(0, 5);
-
-        // Product performance
-        const productPerformance = await Promise.all(
-            products.slice(0, 10).map(async (product) => {
-                const fullProduct = await prisma.product.findUnique({
-                    where: { id: product.id },
-                });
-
-                const sales = orders.reduce((sum, order) => {
-                    return sum + order.items
-                        .filter(item => item.productId === product.id)
-                        .reduce((itemSum, item) => itemSum + item.quantity, 0);
-                }, 0);
-
-                const revenue = orders.reduce((sum, order) => {
-                    return sum + order.items
-                        .filter(item => item.productId === product.id)
-                        .reduce((itemSum, item) => itemSum + (item.price * item.quantity), 0);
-                }, 0);
-
-                // Simulate views (in production, you'd track this)
-                const views = Math.floor(Math.random() * 500) + 100;
-                const conversionRate = views > 0 ? ((sales / views) * 100).toFixed(2) : '0.00';
-
-                return {
-                    title: fullProduct?.title || 'Unknown',
-                    sales,
-                    views,
-                    conversionRate: parseFloat(conversionRate),
-                    revenue,
-                };
-            })
-        );
-
-        // Calculate previous period for growth
-        const previousStartDate = new Date(startDate);
-        previousStartDate.setDate(previousStartDate.getDate() - period);
-
-        const previousOrders = await prisma.order.findMany({
-            where: {
-                items: {
-                    some: {
-                        productId: { in: productIds },
-                    },
-                },
-                createdAt: { gte: previousStartDate, lt: startDate },
-                status: 'COMPLETED',
-            },
-        });
-
-        const previousRevenue = previousOrders.reduce((sum, order) => sum + order.totalAmount, 0);
-        const previousOrdersCount = previousOrders.length;
-
-        const revenueGrowth = previousRevenue > 0
-            ? (((totalRevenue - previousRevenue) / previousRevenue) * 100).toFixed(1)
-            : '0.0';
-
-        const ordersGrowth = previousOrdersCount > 0
-            ? (((totalOrders - previousOrdersCount) / previousOrdersCount) * 100).toFixed(1)
-            : '0.0';
-
-        // Recent activity (simulate for now)
-        const recentActivity = orders.slice(0, 5).map(order => ({
-            type: 'order',
-            title: 'طلب جديد',
-            description: `تم استلام طلب بقيمة ${order.totalAmount.toFixed(2)} $`,
-            time: new Date(order.createdAt).toLocaleDateString('ar-EG'),
-        }));
 
         return NextResponse.json({
             totalRevenue,
-            totalOrders,
-            totalViews: Math.floor(Math.random() * 5000) + 1000, // Simulate
-            conversionRate: totalOrders > 0 ? ((totalOrders / 1000) * 100).toFixed(1) : '0.0',
-            revenueGrowth: parseFloat(revenueGrowth),
-            ordersGrowth: parseFloat(ordersGrowth),
-            viewsGrowth: Math.floor(Math.random() * 50) + 10, // Simulate
+            totalOrders: totalSales,
+            totalViews,
+            conversionRate: conversionRate.toFixed(1),
+            revenueGrowth: parseFloat(revenueGrowth.toFixed(1)),
+            ordersGrowth: parseFloat(salesGrowth.toFixed(1)),
+            viewsGrowth: parseFloat(viewsGrowth.toFixed(1)),
             revenueChart: {
                 labels,
-                data,
+                data: chartData,
             },
-            topProducts,
-            productPerformance,
-            trafficSources: [45, 25, 15, 10, 5], // Simulate
-            recentActivity,
+            topProducts: productPerformance.sort((a, b) => b.revenue - a.revenue).slice(0, 5),
+            productPerformance: productPerformance.sort((a, b) => b.views - a.views).slice(0, 10),
+            trafficSources: Object.values(sourcesMap),
+            recentActivity: currentOrders.slice(0, 5).map(o => ({
+                id: o.id,
+                type: 'sale',
+                title: 'مبيعة جديدة',
+                description: `تم بيع منتج بقيمة ${o.totalAmount} $`,
+                time: o.createdAt
+            }))
         });
+
     } catch (error) {
-        console.error('Error fetching analytics:', error);
-        return NextResponse.json(
-            { error: 'حدث خطأ في جلب الإحصائيات' },
-            { status: 500 }
-        );
+        console.error('Real Analytics Error:', error);
+        return NextResponse.json({ error: 'حدث خطأ في جلب البيانات الحقيقية' }, { status: 500 });
     }
 }

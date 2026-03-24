@@ -1487,3 +1487,26 @@ model Broadcast {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
+
+// ─── Real Analytics System (Data Intelligence) ────────────
+model ProductView {
+  id          String   @id @default(uuid())
+  productId   String?  // ID of the product viewed
+  courseId    String?  // ID of the course viewed
+  
+  // Viewer Info
+  ipAddress   String?
+  userAgent   String?  // Device/Browser info
+  referrer    String?  // e.g. "facebook.com", "google.com"
+  
+  // Logic
+  isUnique    Boolean  @default(true) // session-based unique visit
+  
+  createdAt   DateTime @default(now())
+
+  @@index([productId])
+  @@index([courseId])
+  @@index([referrer])
+  @@index([createdAt])
+}
+
