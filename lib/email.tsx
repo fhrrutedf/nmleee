@@ -1,22 +1,9 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import OrderConfirmationEmail from '@/emails/OrderConfirmation';
 import PayoutApprovedEmail from '@/emails/PayoutApproved';
 import ManualOrderAlertEmail from '@/emails/ManualOrderAlert';
-import { render } from '@react-email/components';
-
-const FROM_EMAIL = process.env.BREVO_FROM_EMAIL || process.env.GMAIL_USER || 'noreply@tmleen.com';
-
-function createTransporter() {
-    return nodemailer.createTransport({
-        host: 'smtp-relay.brevo.com',
-        port: 587,
-        secure: false,
-        auth: {
-            user: process.env.BREVO_SMTP_USER || '',
-            pass: process.env.BREVO_SMTP_KEY || '',
-        },
-    });
-}
+const resend = new Resend(process.env.RESEND_API_KEY);
+const FROM_EMAIL = process.env.FROM_EMAIL || process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
 
 async function sendMail({ from, to, subject, html, react }: {
     from: string;
@@ -25,9 +12,25 @@ async function sendMail({ from, to, subject, html, react }: {
     html?: string;
     react?: React.ReactElement;
 }) {
-    const transporter = createTransporter();
-    const htmlContent = react ? await render(react) : html || '';
-    return transporter.sendMail({ from, to, subject, html: htmlContent });
+    try {
+        const { data, error } = await resend.emails.send({
+            from: from || FROM_EMAIL,
+            to,
+            subject,
+            html: html || undefined,
+            react: react || undefined,
+        });
+
+        if (error) {
+            console.error('❌ Resend logic error:', error);
+            throw error;
+        }
+
+        return data;
+    } catch (err) {
+        console.error('❌ Resend connection error:', err);
+        throw err;
+    }
 }
 
 // Order Confirmation
