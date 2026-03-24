@@ -1,8 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FiUsers, FiDollarSign, FiTrendingUp, FiCopy, FiCheck, FiLink } from 'react-icons/fi';
+import { 
+    FiUsers, FiDollarSign, FiTrendingUp, FiCopy, FiCheck, 
+    FiLink, FiLayers, FiShield, FiInfo, FiActivity, FiShare2
+} from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
 import { apiGet, handleApiError } from '@/lib/safe-fetch';
+import { toast } from 'react-hot-toast';
 
 export default function AffiliatePage() {
     const [stats, setStats] = useState<any>(null);
@@ -22,7 +27,7 @@ export default function AffiliatePage() {
             setAffiliates(data.affiliates);
             setAffiliateLink(data.affiliateLink);
         } catch (error) {
-            console.error('Error fetching affiliate data:', handleApiError(error));
+            console.error('Affiliate Fetch Error:', handleApiError(error));
         } finally {
             setLoading(false);
         }
@@ -31,161 +36,120 @@ export default function AffiliatePage() {
     const copyLink = () => {
         navigator.clipboard.writeText(affiliateLink);
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        toast.success('تم نسخ رابط شركاء النجاح! 🔥');
+        setTimeout(() => setCopied(false), 3000);
     };
 
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-600"></div>
-            </div>
-        );
-    }
+    if (loading) return (
+        <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-primary-indigo-600"></div>
+        </div>
+    );
 
     return (
-        <div className="space-y-6">
-            {/* Header */}
-            <div>
-                <h1 className="text-3xl font-bold">برنامج الأفلييت (التسويق بالعمولة)</h1>
-                <p className="text-gray-600 mt-1">اكسب عمولات من كل عملية بيع تتم عبر رابطك</p>
-            </div>
-
-            {/* Your Affiliate Link */}
-            <div className="card bg-gradient-to-br from-primary-500 to-primary-600 text-white">
-                <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                    <FiLink />
-                    رابط الأفلييت الخاص بك
-                </h2>
-                <div className="bg-white/10 backdrop-blur rounded-lg p-4 mb-4">
-                    <code className="text-sm break-all">{affiliateLink}</code>
-                </div>
-                <button
-                    onClick={copyLink}
-                    className="btn bg-white text-primary-600 hover:bg-gray-100 w-full"
-                >
-                    {copied ? (
-                        <>
-                            <FiCheck className="inline ml-2" />
-                            تم النسخ!
-                        </>
-                    ) : (
-                        <>
-                            <FiCopy className="inline ml-2" />
-                            نسخ الرابط
-                        </>
-                    )}
-                </button>
-                <p className="text-sm text-primary-100 mt-4">
-                    شارك هذا الرابط مع أصدقائك واحصل على عمولة {stats?.commissionRate || 10}% من كل عملية شراء!
-                </p>
-            </div>
-
-            {/* Stats Cards */}
-            <div className="grid md:grid-cols-3 gap-6">
-                <div className="card bg-gradient-to-br from-green-500 to-green-600 text-white">
-                    <div className="flex items-center justify-between mb-2">
-                        <span className="text-green-100">إجمالي العمولات</span>
-                        <FiDollarSign className="text-2xl" />
-                    </div>
-                    <div className="text-3xl font-bold">
-                        {stats?.totalEarnings?.toFixed(2) || '0.00'} $
-                    </div>
-                </div>
-
-                <div className="card bg-gradient-to-br from-blue-500 to-blue-600 text-white">
-                    <div className="flex items-center justify-between mb-2">
-                        <span className="text-blue-100">عدد الإحالات</span>
-                        <FiUsers className="text-2xl" />
-                    </div>
-                    <div className="text-3xl font-bold">{stats?.totalReferrals || 0}</div>
-                </div>
-
-                <div className="card bg-gradient-to-br from-purple-500 to-purple-600 text-white">
-                    <div className="flex items-center justify-between mb-2">
-                        <span className="text-purple-100">معدل التحويل</span>
-                        <FiTrendingUp className="text-2xl" />
-                    </div>
-                    <div className="text-3xl font-bold">{stats?.conversionRate || 0}%</div>
-                </div>
-            </div>
-
-            {/* How It Works */}
-            <div className="card">
-                <h2 className="text-2xl font-bold mb-6">كيف يعمل البرنامج؟</h2>
-                <div className="grid md:grid-cols-3 gap-6">
-                    <div className="text-center">
-                        <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span className="text-2xl font-bold text-primary-600">1</span>
+        <div className="space-y-8 pb-32 max-w-7xl mx-auto px-4 md:px-0" dir="rtl">
+            
+            {/* --- HERO / LINK SECTION --- */}
+            <div className="relative overflow-hidden bg-white dark:bg-card-white rounded-[2.5rem] p-1 shadow-sm border border-slate-50 dark:border-gray-800">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary-indigo-400/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                <div className="relative p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-12">
+                    <div className="max-w-xl text-center md:text-right">
+                        <span className="px-4 py-1.5 bg-primary-indigo-50 dark:bg-primary-indigo-900/40 text-primary-indigo-600 dark:text-primary-indigo-300 rounded-full text-xs font-black uppercase tracking-widest mb-6 inline-block">
+                            برنامج شركاء النجاح 💎
+                        </span>
+                        <h1 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white leading-[1.2] mb-4">اكسب عمولتك فوراً <br/> مع كل إحالة ناجحة!</h1>
+                        <p className="text-slate-400 font-bold leading-relaxed mb-8">شارك رابطك الخاص واربح <span className="text-primary-indigo-600">{stats?.commissionRate || 1}%</span> من إجمالي عمولة المنصة على أي منتج يتم شراؤه عبرك. الأرباح تصلك فورياً دون انتظار.</p>
+                        
+                        <div className="flex flex-col sm:flex-row items-stretch gap-4">
+                             <div className="flex-1 h-16 bg-slate-50 dark:bg-gray-900 rounded-2xl flex items-center px-6 border border-slate-100 dark:border-gray-800 relative group overflow-hidden">
+                                <FiLink className="text-slate-400 shrink-0" size={20} />
+                                <code className="text-sm font-black text-slate-600 dark:text-slate-300 mr-4 truncate select-all">{affiliateLink}</code>
+                             </div>
+                             <button 
+                                onClick={copyLink}
+                                className={`px-10 h-16 rounded-2xl font-black text-sm flex items-center justify-center gap-3 transition-all ${copied ? 'bg-emerald-500 text-white shadow-emerald-200' : 'bg-primary-indigo-600 text-white shadow-xl shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95'}`}
+                             >
+                                {copied ? <FiCheck size={20} /> : <FiCopy size={20} />}
+                                {copied ? 'تم النسخ' : 'نسخ الرابط'}
+                             </button>
                         </div>
-                        <h3 className="font-bold mb-2">شارك رابطك</h3>
-                        <p className="text-gray-600 text-sm">
-                            شارك رابط الأفلييت الخاص بك على السوشيال ميديا أو مع أصدقائك
-                        </p>
                     </div>
-
-                    <div className="text-center">
-                        <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span className="text-2xl font-bold text-primary-600">2</span>
+                    <div className="relative shrink-0 md:ml-12">
+                        <div className="w-48 h-48 bg-primary-indigo-600 rounded-[3rem] rotate-12 flex items-center justify-center shadow-2xl shadow-primary-indigo-400 animate-bounce-slow">
+                             <FiShare2 size={80} className="text-white -rotate-12" />
                         </div>
-                        <h3 className="font-bold mb-2">يقوم الزوار بالشراء</h3>
-                        <p className="text-gray-600 text-sm">
-                            عندما يشتري شخص ما منتجاً عبر رابطك
-                        </p>
-                    </div>
-
-                    <div className="text-center">
-                        <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span className="text-2xl font-bold text-primary-600">3</span>
+                        <div className="absolute -bottom-4 -right-4 bg-white dark:bg-gray-900 p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-slate-50 dark:border-gray-800 rotate-[-8deg] animate-pulse">
+                            <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-600"><FiTrendingUp size={20} /></div>
+                            <div>
+                                <p className="text-[10px] font-black text-slate-400 uppercase">اربح حصتك</p>
+                                <p className="text-sm font-black text-emerald-600">نسبة {stats?.commissionRate || 1}%</p>
+                            </div>
                         </div>
-                        <h3 className="font-bold mb-2">احصل على عمولتك</h3>
-                        <p className="text-gray-600 text-sm">
-                            احصل على {stats?.commissionRate || 10}% من قيمة كل عملية بيع
-                        </p>
                     </div>
                 </div>
             </div>
 
-            {/* Referrals Table */}
-            <div className="card">
-                <h2 className="text-xl font-bold mb-6">سجل الإحالات</h2>
+            {/* --- STATS GRID --- */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                 {[
+                    { label: 'إجمالي الأرباح', val: `${stats?.totalEarnings?.toFixed(2) || '0.00'} $`, icon: FiDollarSign, color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-900/10' },
+                    { label: 'عدد الإحالات', val: stats?.totalReferrals || 0, icon: FiUsers, color: 'text-primary-indigo-600', bg: 'bg-primary-indigo-50 dark:bg-primary-indigo-900/10' },
+                    { label: 'معدل التحويل', val: `${stats?.conversionRate || 0}%`, icon: FiActivity, color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/10' }
+                 ].map((card, i) => (
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
+                        key={i} className="bg-white dark:bg-card-white p-8 rounded-[2rem] border border-slate-50 dark:border-gray-800 shadow-sm flex flex-col items-center text-center group hover:border-primary-indigo-200 transition-colors"
+                    >
+                        <div className={`w-16 h-16 ${card.bg} rounded-2xl flex items-center justify-center ${card.color} mb-6 transition-transform group-hover:scale-110`}>
+                            <card.icon size={28} />
+                        </div>
+                        <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">{card.label}</h4>
+                        <p className="text-3xl font-black text-slate-900 dark:text-white leading-tight">{card.val}</p>
+                    </motion.div>
+                 ))}
+            </div>
+
+            {/* --- REFERRALS TABLE --- */}
+            <div className="bg-white dark:bg-card-white rounded-[2.5rem] border border-slate-50 dark:border-gray-800 shadow-sm overflow-hidden">
+                <div className="p-8 border-b border-slate-50 dark:border-gray-800 flex items-center justify-between">
+                    <div>
+                        <h3 className="text-lg font-black text-slate-900 dark:text-white">سجل إحالاتك الناجحة 🏆</h3>
+                        <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">تتبع أرباحك لحظة بلحظة</p>
+                    </div>
+                </div>
+                
                 {affiliates.length === 0 ? (
-                    <div className="text-center py-12 text-gray-500">
-                        <FiUsers className="text-6xl text-gray-300 mx-auto mb-4" />
-                        <p>لا توجد إحالات بعد</p>
-                        <p className="text-sm mt-2">ابدأ بمشاركة رابطك للحصول على عمولات!</p>
+                    <div className="py-24 flex flex-col items-center text-center">
+                        <div className="w-24 h-24 bg-slate-50 dark:bg-gray-900 rounded-full flex items-center justify-center text-slate-300 mb-6"><FiUsers size={40} /></div>
+                        <h4 className="text-xl font-black text-slate-400">لا توجد مبيعات بعد</h4>
+                        <p className="text-sm font-bold text-slate-300 max-w-xs mt-2 italic">ابدأ بمشاركة رابطك في المجموعات المهتمة واكسب أول عمولة لك اليوم!</p>
                     </div>
                 ) : (
-                    <div className="overflow-x-auto">
-                        <table className="w-full">
+                    <div className="overflow-x-auto overflow-visible">
+                        <table className="w-full text-right border-collapse">
                             <thead>
-                                <tr className="border-b">
-                                    <th className="text-right py-3 px-4">التاريخ</th>
-                                    <th className="text-right py-3 px-4">المنتج</th>
-                                    <th className="text-right py-3 px-4">المبلغ</th>
-                                    <th className="text-right py-3 px-4">العمولة</th>
-                                    <th className="text-right py-3 px-4">الحالة</th>
+                                <tr className="bg-slate-50/50 dark:bg-gray-900/50">
+                                    <th className="py-5 px-8 text-xs font-black text-slate-500 uppercase">التاريخ</th>
+                                    <th className="py-5 px-8 text-xs font-black text-slate-500 uppercase">المنتج المُباع</th>
+                                    <th className="py-5 px-8 text-xs font-black text-slate-500 uppercase">القيمة</th>
+                                    <th className="py-5 px-8 text-xs font-black text-slate-500 uppercase text-left">عمولتك $</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {affiliates.map((affiliate: any) => (
-                                    <tr key={affiliate.id} className="border-b hover:bg-gray-50">
-                                        <td className="py-3 px-4">
-                                            {new Date(affiliate.createdAt).toLocaleDateString('ar-EG')}
-                                        </td>
-                                        <td className="py-3 px-4">{affiliate.productTitle}</td>
-                                        <td className="py-3 px-4">{affiliate.amount.toFixed(2)} $</td>
-                                        <td className="py-3 px-4 font-bold text-green-600">
-                                            +{affiliate.commission.toFixed(2)} $
-                                        </td>
-                                        <td className="py-3 px-4">
-                                            <span className={`px-3 py-1 rounded-full text-sm ${affiliate.status === 'paid'
-                                                ? 'bg-green-100 text-green-700'
-                                                : 'bg-yellow-100 text-yellow-700'
-                                                }`}>
-                                                {affiliate.status === 'paid' ? 'مدفوع' : 'قيد الانتظار'}
+                                {affiliates.map((aff, i) => (
+                                    <motion.tr 
+                                        initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}
+                                        key={aff.id} className="group hover:bg-slate-50/10 transition-colors border-b last:border-0 border-slate-50 dark:border-gray-800"
+                                    >
+                                        <td className="py-6 px-8 text-xs font-bold text-slate-400">{new Date(aff.createdAt).toLocaleDateString('ar-EG', { day: 'numeric', month: 'short' })}</td>
+                                        <td className="py-6 px-8 font-black text-slate-900 dark:text-white text-sm">{aff.productTitle}</td>
+                                        <td className="py-6 px-8 text-sm font-black text-slate-500">{aff.amount.toFixed(2)} $</td>
+                                        <td className="py-6 px-8 text-left">
+                                            <span className="inline-flex items-center h-10 px-6 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 font-bold text-sm">
+                                                +{aff.commission.toFixed(2)} $
                                             </span>
                                         </td>
-                                    </tr>
+                                    </motion.tr>
                                 ))}
                             </tbody>
                         </table>
@@ -193,28 +157,18 @@ export default function AffiliatePage() {
                 )}
             </div>
 
-            {/* Tips */}
-            <div className="card bg-gradient-to-br from-orange-50 to-yellow-50 border-2 border-orange-200">
-                <h3 className="font-bold text-lg mb-4 text-orange-800">💡 نصائح لزيادة أرباحك:</h3>
-                <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start gap-2">
-                        <span className="text-orange-600 mt-1">•</span>
-                        <span>شارك رابطك على حساباتك على السوشيال ميديا بانتظام</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                        <span className="text-orange-600 mt-1">•</span>
-                        <span>اكتب مراجعة صادقة عن المنتجات التي تسوّق لها</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                        <span className="text-orange-600 mt-1">•</span>
-                        <span>استهدف المجموعات والمجتمعات المهتمة بالمحتوى الذي تروّج له</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                        <span className="text-orange-600 mt-1">•</span>
-                        <span>قدّم قيمة حقيقية لجمهورك قبل طلب الشراء</span>
-                    </li>
-                </ul>
+            {/* --- TIP SECTION --- */}
+            <div className="bg-primary-indigo-900 text-white rounded-[2.5rem] p-12 relative overflow-hidden group">
+                <div className="absolute right-0 top-0 w-96 h-96 bg-primary-indigo-800 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 opacity-40"></div>
+                <div className="relative flex flex-col md:flex-row items-center gap-12">
+                    <div className="w-20 h-20 bg-white/10 rounded-2xl flex items-center justify-center text-primary-indigo-300 shrink-0"><FiInfo size={40} /></div>
+                    <div className="flex-1 text-center md:text-right">
+                        <h4 className="text-xl font-black mb-2 leading-tight">كيف تضاعف أرباحك؟ 💰</h4>
+                        <p className="text-primary-indigo-200/60 font-bold text-sm leading-relaxed">السر في المحتوى التعليمي. قم بعمل فيديو شرح للمنتج أو الكورس الذي تروّج له على تيك توك أو يوتيوب وضع رابطك في البايو. الزوار الذين يثقون في شرحك هم الأكثر شراءً!</p>
+                    </div>
+                </div>
             </div>
+
         </div>
     );
 }

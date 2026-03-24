@@ -63,12 +63,16 @@ export async function GET(request: NextRequest) {
             status: ref.status,
         }));
 
+        // Get dynamic platform settings
+        const settings = await prisma.platformSettings.findFirst() || { referralCommissionRate: 1 };
+        const commissionRate = settings.referralCommissionRate || 1;
+
         return NextResponse.json({
             stats: {
                 totalEarnings,
                 totalReferrals,
                 conversionRate: parseFloat(conversionRate),
-                commissionRate: 10, // 10% commission
+                commissionRate: commissionRate, 
             },
             affiliates: affiliatesData,
             affiliateLink,
