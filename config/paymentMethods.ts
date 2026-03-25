@@ -153,3 +153,17 @@ export function convertCurrency(amountUSD: number, countryCode: string): {
         currency: 'USD',
     };
 }
+
+export function formatCurrency(amount: number, currency: string): string {
+    const symbols: Record<string, string> = {
+        USD: '$',
+        SYP: 'ل.س',
+        EGP: 'ج.م',
+        IQD: 'د.ع'
+    };
+
+    const symbol = symbols[currency] || currency;
+    const formatted = new Intl.NumberFormat('ar-EG').format(amount);
+
+    return `${formatted} ${symbol}`;
+}
