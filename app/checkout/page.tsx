@@ -1,245 +1,117 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import {
-    FiShoppingCart, FiTrash2, FiTag, FiCreditCard, FiLock,
-    FiUpload, FiCopy, FiCheck, FiX, FiGlobe, FiArrowRight
-} from 'react-icons/fi';
+import { FiGlobe, FiShield, FiAlertTriangle, FiArrowRight, FiCheckCircle } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import showToast from '@/lib/toast';
 import {
-    paymentMethodsByCountry,
     getPaymentMethodsForCountry,
     convertCurrency,
-    formatCurrency,
     type PaymentMethod,
 } from '@/config/paymentMethods';
 import { getCookie } from '@/lib/marketing';
 
-// الدول المحظورة التي لا تدعم Stripe
-const RESTRICTED_COUNTRIES = ['SY', 'IQ'];
-
-// أرقام محافظ المنصة
-const PLATFORM_WALLETS: Record<string, string> = {
-    shamcash: '0933000000',
-    omt: '0933000000',
-    hawala: '0933000000',
-    mtncash: '0955000000',
-    zaincash: '07801000000',
-    qicard: '07801000000',
-    asiahawala: '07801000000',
-    vodafonecash: '01000000000',
-    fawry: 'FAWRY-1234567',
-    instapay: '01000000000',
-    stcpay: '0500000000',
-    banktransfer: 'SA00 0000 0000 0000 0000 0000',
-    westernunion: 'Platform Admin',
-};
-
-const COUNTRY_FLAGS: Record<string, string> = {
-    SY: '🇸🇾', IQ: '🇮🇶', EG: '🇪🇬', SA: '🇸🇦', DEFAULT: '🌍',
-};
+// Components
+import OrderSummary from '@/components/checkout/OrderSummary';
+import ManualPaymentCard from '@/components/checkout/ManualPaymentCard';
 
 export default function CheckoutPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const isDirect = searchParams.get('direct') === 'true';
 
+    // State
     const [cart, setCart] = useState<any[]>([]);
-    const [appointmentDetails, setAppointmentDetails] = useState<any>(null);
-
-    const [couponCode, setCouponCode] = useState('');
-    const [discount, setDiscount] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phone: ''
-    });
-
-    // Country & Payment State
+    
+    // User Info
+    const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
     const [customerCountry, setCustomerCountry] = useState('');
-    const [isRestricted, setIsRestricted] = useState(false);
-    const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'crypto' | 'manual'>('stripe');
+    const [isSyria, setIsSyria] = useState(false);
+    
+    // Selection Logic
+    const [paymentMethod, setPaymentMethod] = useState<'crypto' | 'manual'>('crypto');
     const [selectedLocalMethod, setSelectedLocalMethod] = useState<PaymentMethod | null>(null);
     const [agreeToTerms, setAgreeToTerms] = useState(false);
+    
+    // Manual/Syria Data
+    const [manualData, setManualData] = useState({
+        senderPhone: '',
+        transactionRef: '',
+        proofFile: null as File | null,
+        notes: ''
+    });
 
-    // Manual Payment Fields
-    const [senderPhone, setSenderPhone] = useState('');
-    const [transactionRef, setTransactionRef] = useState('');
-    const [paymentNotes, setPaymentNotes] = useState('');
-    const [proofFile, setProofFile] = useState<File | null>(null);
-    const [proofPreview, setProofPreview] = useState<string | null>(null);
-    const [copied, setCopied] = useState(false);
-    const fileInputRef = useRef<HTMLInputElement>(null);
+    // Subtotals
+    const [couponCode, setCouponCode] = useState('');
+    const [discount, setDiscount] = useState(0);
 
+    // Load Cart
     useEffect(() => {
-        if (isDirect) {
-            const directItems = JSON.parse(sessionStorage.getItem('direct_checkout_items') || '[]');
-            const details = JSON.parse(sessionStorage.getItem('appointment_details') || 'null');
-            setCart(directItems);
-            setAppointmentDetails(details);
-        } else {
-            const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
-            setCart(savedCart);
-        }
-    }, [isDirect]);
+        const items = isDirect 
+            ? JSON.parse(sessionStorage.getItem('direct_checkout_items') || '[]')
+            : JSON.parse(localStorage.getItem('cart') || '[]');
+        if (!items || items.length === 0) router.push('/market');
+        setCart(items);
+    }, [isDirect, router]);
 
-    // Auto-detect country
+    // Geo-Detect (Nawaf requested auto-detection for Syria)
     useEffect(() => {
         fetch('/api/geo')
             .then(r => r.ok ? r.json() : { country: 'DEFAULT' })
             .then(d => {
                 const code = d.country || 'DEFAULT';
                 setCustomerCountry(code);
-                if (RESTRICTED_COUNTRIES.includes(code)) {
-                    setIsRestricted(true);
+                if (code === 'SY') {
+                    setIsSyria(true);
                     setPaymentMethod('manual');
+                } else {
+                    setIsSyria(false);
+                    setPaymentMethod('crypto');
                 }
-            })
-            .catch(() => setCustomerCountry('DEFAULT'));
+            }).catch(() => { setCustomerCountry('DEFAULT'); setPaymentMethod('crypto'); });
     }, []);
 
-    // Update restriction status when country changes manually
-    const handleCountryChange = (code: string) => {
-        setCustomerCountry(code);
-        const restricted = RESTRICTED_COUNTRIES.includes(code);
-        setIsRestricted(restricted);
-        if (restricted) {
-            setPaymentMethod('manual');
-        } else {
-            setPaymentMethod('stripe');
-        }
-        setSelectedLocalMethod(null);
-    };
-
-    const removeFromCart = (index: number) => {
-        const newCart = cart.filter((_, i) => i !== index);
-        setCart(newCart);
-        if (!isDirect) {
-            localStorage.setItem('cart', JSON.stringify(newCart));
-        } else {
-            sessionStorage.setItem('direct_checkout_items', JSON.stringify(newCart));
-            if (newCart.length === 0) {
-                sessionStorage.removeItem('appointment_details');
-            }
-        }
-    };
-
-    const applyCoupon = async () => {
-        if (!couponCode) return;
-        try {
-            const res = await fetch('/api/coupons/validate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ code: couponCode, total: subtotal })
-            });
-            if (res.ok) {
-                const data = await res.json();
-                setDiscount(data.discount);
-                showToast.success(`تم تطبيق الكوبون! خصم ${data.discount} $`);
-            } else {
-                showToast.error('الكوبون غير صالح');
-            }
-        } catch (error) {
-            console.error('Error validating coupon:', error);
-        }
-    };
-
-    const handleCopy = (text: string) => {
-        navigator.clipboard.writeText(text);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    };
-
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-        if (file.size > 5 * 1024 * 1024) { showToast.error('حجم الصورة أكبر من 5MB'); return; }
-        setProofFile(file);
-        const reader = new FileReader();
-        reader.onload = () => setProofPreview(reader.result as string);
-        reader.readAsDataURL(file);
-    };
-
     const handleCheckout = async () => {
-        if (!formData.name || !formData.email) {
-            showToast.error('يرجى ملء جميع الحقول المطلوبة');
-            return;
-        }
-
-        if (!agreeToTerms) {
-            showToast.error('يرجى الموافقة على شروط الخدمة وسياسة الاسترداد');
-            return;
-        }
-
-        if (!customerCountry) {
-            showToast.error('يرجى اختيار دولتك');
-            return;
-        }
+        if (!formData.name || !formData.email) return showToast.error('يرجى ملء الاسم والبريد');
+        if (!agreeToTerms) return showToast.error('يرجى الموافقة على الشروط');
 
         setLoading(true);
-
         try {
-            const affiliateRef = getCookie('aff_code') || sessionStorage.getItem('affiliate_ref') || localStorage.getItem('affiliate_ref');
-
-            if (total === 0) {
-                // Free Checkout Bypass
-                const res = await fetch('/api/checkout/free', {
+            const affRef = getCookie('aff_code') || sessionStorage.getItem('affiliate_ref');
+            
+            if (paymentMethod === 'crypto') {
+                // Automated Coinremitter Logic
+                const res = await fetch('/api/coinremitter/checkout', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         items: cart,
-                        customerEmail: formData.email,
-                        customerName: formData.name,
-                        customerPhone: formData.phone,
-                        affiliateRef: affiliateRef
+                        customerInfo: formData,
+                        affiliateRef: affRef,
+                        discount
                     })
                 });
                 if (res.ok) {
                     const data = await res.json();
-                    if (!isDirect) localStorage.removeItem('cart');
-                    else {
-                        sessionStorage.removeItem('direct_checkout_items');
-                        sessionStorage.removeItem('appointment_details');
-                    }
-                    router.push(`/success?order_id=${data.orderId}`);
-                } else {
-                    const error = await res.json();
-                    alert(error.error || 'حدث خطأ في إنشاء الطلب المجاني');
-                }
-            } else if (paymentMethod === 'manual') {
-                // Manual / Local Payment
-                if (!selectedLocalMethod) {
-                    showToast.error('يرجى اختيار وسيلة الدفع المحلية');
-                    setLoading(false);
-                    return;
-                }
-                if (!transactionRef) {
-                    showToast.error('يرجى إدخال رقم العملية');
-                    setLoading(false);
-                    return;
-                }
-                if (!proofFile) {
-                    showToast.error('يرجى رفع إيصال الدفع');
-                    setLoading(false);
-                    return;
-                }
+                    window.location.href = data.url;
+                } else showToast.error('فشل بدء عملية دفع الكريبتو');
 
-                // Upload proof image
-                let proofUrl = '';
-                if (proofFile) {
-                    const fd = new FormData();
-                    fd.append('file', proofFile);
-                    fd.append('type', 'image');
-                    const upRes = await fetch('/api/upload', { method: 'POST', body: fd });
-                    if (upRes.ok) {
-                        const d = await upRes.json();
-                        proofUrl = d.url;
-                    }
+            } else if (paymentMethod === 'manual' && isSyria) {
+                if (!selectedLocalMethod || !manualData.transactionRef || !manualData.proofFile) {
+                    return showToast.error('يرجى اختيار وسيلة وإدخال رقم المرجع وصورة الإيصال');
                 }
+                
+                // Upload Proof
+                const fd = new FormData();
+                fd.append('file', manualData.proofFile);
+                fd.append('type', 'image');
+                const upRes = await fetch('/api/upload', { method: 'POST', body: fd });
+                if (!upRes.ok) throw new Error('فشل رفع الإيصال');
+                const upD = await upRes.json();
 
+                // Create Order (Pending Admin Approval)
                 const res = await fetch('/api/orders/manual', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -248,71 +120,23 @@ export default function CheckoutPage() {
                         customerName: formData.name,
                         customerEmail: formData.email,
                         customerPhone: formData.phone,
-                        country: customerCountry,
+                        country: 'SY',
                         paymentProvider: selectedLocalMethod.id,
-                        senderPhone,
-                        transactionRef,
-                        paymentProof: proofUrl,
-                        paymentNotes,
-                        affiliateRef: affiliateRef,
+                        transactionRef: manualData.transactionRef,
+                        paymentProof: upD.url,
+                        paymentNotes: manualData.notes,
+                        affiliateRef: affRef,
                     })
                 });
-
                 if (res.ok) {
-                    const data = await res.json();
+                    const d = await res.json();
                     if (!isDirect) localStorage.removeItem('cart');
-                    else {
-                        sessionStorage.removeItem('direct_checkout_items');
-                        sessionStorage.removeItem('appointment_details');
-                    }
-                    router.push(`/success?order_id=${data.orderId}&manual=true`);
-                } else {
-                    const error = await res.json();
-                    alert(error.error || 'حدث خطأ في إنشاء الطلب');
-                }
-            } else if (paymentMethod === 'stripe') {
-                const res = await fetch('/api/stripe/checkout', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        items: cart,
-                        customerEmail: formData.email,
-                        customerName: formData.name,
-                        couponCode: discount > 0 ? couponCode : null,
-                        appointmentDetails: appointmentDetails,
-                        affiliateRef: affiliateRef
-                    })
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    window.location.href = data.url;
-                } else {
-                    alert('حدث خطأ في إنشاء طلب الدفع عبر البطاقة');
-                }
-            } else if (paymentMethod === 'crypto') {
-                const res = await fetch('/api/coinremitter/checkout', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        items: cart,
-                        customerEmail: formData.email,
-                        customerName: formData.name,
-                        couponCode: discount > 0 ? couponCode : null,
-                        appointmentDetails: appointmentDetails,
-                        totalAmountInUsd: total,
-                        affiliateRef: affiliateRef
-                    })
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    router.push(`/checkout/crypto/${data.orderId}`);
-                } else {
-                    alert('حدث خطأ في إنشاء فاتورة العملات الرقمية. تأكد من إعدادات API.');
-                }
+                    router.push(`/success?order_id=${d.orderId}&manual=true`);
+                } else showToast.error('فشل إرسال الطلب اليدوي');
             }
-        } catch (error) {
-            console.error('Error creating checkout session:', error);
-            alert('حدث خطأ. حاول مرة أخرى');
+        } catch (err) {
+            console.error(err);
+            showToast.error('حدث خطأ أثناء المعالجة');
         } finally {
             setLoading(false);
         }
@@ -320,474 +144,255 @@ export default function CheckoutPage() {
 
     const subtotal = cart.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
     const total = subtotal - discount;
-
-    const countryConfig = customerCountry ? getPaymentMethodsForCountry(customerCountry) : null;
-    const localPrice = customerCountry
-        ? convertCurrency(total, customerCountry)
-        : { amount: total, currency: 'USD' };
-
-    if (cart.length === 0) {
-        return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div className="text-center">
-                    <FiShoppingCart className="text-6xl text-gray-300 mx-auto mb-4" />
-                    <h2 className="text-2xl font-bold mb-2">السلة فارغة</h2>
-                    <p className="text-gray-600 mb-6">لم تضف أي منتجات بعد</p>
-                    <button
-                        onClick={() => router.push('/')}
-                        className="btn btn-primary"
-                    >
-                        تصفح المنتجات
-                    </button>
-                </div>
-            </div>
-        );
-    }
-
-    const effectiveBrandColor = cart.find(item => item.brandColor)?.brandColor;
+    const countryMethods = getPaymentMethodsForCountry(isSyria ? 'SY' : 'DEFAULT');
+    const localPrice = isSyria ? convertCurrency(total, 'SY') : { amount: total, currency: 'USD' };
 
     return (
-        <div
-            className="min-h-screen bg-gray-50 py-12"
-            style={effectiveBrandColor ? { '--brand': effectiveBrandColor } as React.CSSProperties : {}}
-        >
-            {effectiveBrandColor && (
-                <style dangerouslySetInnerHTML={{
-                    __html: `
-                    .text-primary-600, .text-primary-700 { color: ${effectiveBrandColor} !important; }
-                    .text-primary-700 { filter: brightness(0.85); }
-                    .bg-primary-600 { background-color: ${effectiveBrandColor} !important; }
-                    .bg-primary-50 { background-color: ${effectiveBrandColor}15 !important; }
-                    .border-primary-600 { border-color: ${effectiveBrandColor} !important; }
-                    .ring-1.ring-primary-600, .ring-primary-600 { --tw-ring-color: ${effectiveBrandColor} !important; }
-                    .focus\\:ring-primary-600:focus, .focus\\:ring-2:focus { --tw-ring-color: ${effectiveBrandColor} !important; }
-                    .btn-primary { background-color: ${effectiveBrandColor} !important; border-color: ${effectiveBrandColor} !important; }
-                    .btn-primary:hover { background-color: ${effectiveBrandColor} !important; filter: brightness(0.85); }
-                    .shadow-primary-500\\/30 { --tw-shadow-color: ${effectiveBrandColor}4d !important; }
-                    .hover\\:text-primary-600:hover { color: ${effectiveBrandColor} !important; }
-                    a[class*="text-primary"] { color: ${effectiveBrandColor} !important; }
-                    input[type="radio"].text-primary-600 { accent-color: ${effectiveBrandColor} !important; }
-                    `
-                }} />
-            )}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
-                <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900">إتمام عملية الشراء</h1>
+        <div className="min-h-screen bg-[#0a0f1e] text-slate-100 py-12 md:py-24 font-sans selection:bg-emerald-500/30">
+            {/* Background Accents */}
+            <div className="fixed inset-0 pointer-events-none opacity-20">
+                <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-600 rounded-full blur-[120px]"></div>
+                <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-amber-600 rounded-full blur-[100px]"></div>
+            </div>
+
+            <div className="max-w-6xl mx-auto px-6 relative z-10">
+                
+                {/* Simplified Header */}
+                <div className="mb-16 text-center">
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-4 py-2 rounded-full text-emerald-400 text-xs font-black uppercase tracking-[0.2em] mb-6"
+                    >
+                        <FiShield /> نظام دفع مشفر وآمن
+                    </motion.div>
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white tracking-tight">إتمام الشراء</h1>
+                    <p className="text-slate-400 mt-4 max-w-lg mx-auto font-medium">خطوة واحدة تفصلك عن المحتوى الرقمي المتميز. تفعيل فوري ومضمون.</p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                    {/* Left Column: Form */}
-                    <div className="lg:col-span-7 space-y-8">
-                        {/* Customer Info */}
-                        <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-                            <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                                <span className="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm">1</span>
-                                المعلومات الشخصية
-                            </h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">الاسم الكامل *</label>
-                                    <input
-                                        type="text"
-                                        required
-                                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-600 focus:border-transparent outline-none transition-all"
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                    
+                    {/* Main Form Area */}
+                    <div className="lg:col-span-7 space-y-10">
+                        
+                        {/* 1. Customer Info */}
+                        <div className="bg-[#111827]/60 backdrop-blur-3xl border border-white/5 p-8 rounded-[2.5rem] shadow-2xl">
+                            <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-3">
+                                <span className="w-1.5 h-6 bg-emerald-500 rounded-full"></span>
+                                البيانات الشخصية
+                            </h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="space-y-2">
+                                    <label className="text-[11px] font-black uppercase tracking-widest text-slate-500 px-1">الاسم الكامل *</label>
+                                    <input 
+                                        type="text" 
                                         value={formData.name}
-                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                        onChange={e => setFormData({ ...formData, name: e.target.value })}
+                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:bg-white/[0.08] focus:border-emerald-500 outline-none transition-all font-bold text-white"
+                                        placeholder="الاسم الثلاثي..."
                                     />
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">البريد الإلكتروني *</label>
-                                    <input
-                                        type="email"
-                                        required
-                                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-600 focus:border-transparent outline-none transition-all text-left"
+                                <div className="space-y-2">
+                                    <label className="text-[11px] font-black uppercase tracking-widest text-slate-500 px-1">البريد الإلكتروني *</label>
+                                    <input 
+                                        type="email" 
+                                        dir="ltr"
                                         value={formData.email}
-                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        dir="ltr"
+                                        onChange={e => setFormData({ ...formData, email: e.target.value })}
+                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:bg-white/[0.08] focus:border-emerald-500 outline-none transition-all font-bold text-white text-left"
+                                        placeholder="email@example.com"
                                     />
-                                    <p className="text-[10px] text-gray-400 mt-1">سيتم إرسال روابط التحميل وبيانات الدخول إلى هذا البريد</p>
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">رقم الهاتف (اختياري)</label>
-                                    <input
-                                        type="tel"
-                                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-600 focus:border-transparent outline-none transition-all text-left"
-                                        value={formData.phone}
-                                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                        dir="ltr"
-                                    />
-                                </div>
-                                {/* Country Selector */}
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                                        <FiGlobe className="inline ml-1" />
-                                        الدولة *
-                                    </label>
-                                    <select
-                                        value={customerCountry}
-                                        onChange={(e) => handleCountryChange(e.target.value)}
-                                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-600 focus:border-transparent outline-none transition-all"
-                                        required
-                                    >
-                                        <option value="">اختر دولتك</option>
-                                        {Object.entries(paymentMethodsByCountry).map(([code, cfg]) => (
-                                            <option key={code} value={code}>
-                                                {COUNTRY_FLAGS[code] || '🌍'} {cfg.nameAr}
-                                            </option>
-                                        ))}
-                                    </select>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Order Items Summary */}
-                        <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-                            <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                                <FiShoppingCart className="text-primary-600" /> مراجعة المنتجات
-                            </h2>
-                            <div className="divide-y divide-gray-100">
-                                {cart.map((item, index) => (
-                                    <div key={index} className="py-4 flex justify-between items-center group">
-                                        <div className="flex gap-4 items-center">
-                                            <div className="w-16 h-16 bg-gray-50 rounded-xl overflow-hidden border border-gray-100 flex-shrink-0">
-                                                {item.image ? (
-                                                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
-                                                ) : (
-                                                    <div className="w-full h-full flex items-center justify-center">
-                                                        <FiShoppingCart className="text-gray-300" />
-                                                    </div>
-                                                )}
+                        {/* 2. Payment Strategy Selection */}
+                        <div className="bg-[#111827]/60 backdrop-blur-3xl border border-white/5 p-8 rounded-[2.5rem] shadow-2xl">
+                            <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-3">
+                                <span className="w-1.5 h-6 bg-amber-500 rounded-full"></span>
+                                اختيار طريقة الدفع
+                            </h3>
+
+                            <div className="flex gap-4 mb-10 overflow-x-auto pb-4 custom-scrollbar">
+                                {/* Crypto is available to Everyone */}
+                                <PaymentMethodTab 
+                                    id="crypto" 
+                                    current={paymentMethod} 
+                                    onClick={() => setPaymentMethod('crypto')}
+                                    icon="🪙"
+                                    label="عملات رقمية"
+                                    desc="USDT (TRC20)"
+                                />
+
+                                {/* Manual is ONLY for Syria as requested */}
+                                {isSyria && (
+                                    <PaymentMethodTab 
+                                        id="manual" 
+                                        current={paymentMethod} 
+                                        onClick={() => setPaymentMethod('manual')}
+                                        icon="🇸🇾"
+                                        label="دفع محلي"
+                                        desc="تحويل يدوي"
+                                    />
+                                )}
+                            </div>
+
+                            {/* Payment Method Content */}
+                            <AnimatePresence mode="wait">
+                                {paymentMethod === 'crypto' && (
+                                    <motion.div 
+                                        key="crypto-box"
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, scale: 0.98 }}
+                                        className="p-8 rounded-[2rem] bg-emerald-500/5 border border-emerald-500/10 text-center space-y-6"
+                                    >
+                                        <div className="w-20 h-20 bg-emerald-500/20 text-emerald-400 rounded-[2rem] flex items-center justify-center mx-auto text-4xl">🪙</div>
+                                        <div>
+                                            <h4 className="text-xl font-black text-white">دفع آمن بالـ USDT</h4>
+                                            <p className="text-sm text-slate-400 mt-2 leading-relaxed">سيتم توجيهك إلى بوابة Coinremitter لإتمام الدفع. تفعيل فوري بمجرد تأكيد المعاملة.</p>
+                                        </div>
+                                        <div className="pt-4 flex flex-wrap justify-center gap-4">
+                                            <span className="bg-emerald-500/10 px-4 py-2 rounded-xl text-xs font-bold text-emerald-400">تشفير AES-256</span>
+                                            <span className="bg-emerald-500/10 px-4 py-2 rounded-xl text-xs font-bold text-emerald-400">أقل رسوم غاز</span>
+                                        </div>
+                                    </motion.div>
+                                )}
+
+                                {paymentMethod === 'manual' && (
+                                    <motion.div 
+                                        key="manual-box"
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, scale: 0.98 }}
+                                    >
+                                        {!selectedLocalMethod ? (
+                                            <div className="space-y-3">
+                                                {countryMethods.methods.map(m => (
+                                                    <button 
+                                                        key={m.id}
+                                                        onClick={() => setSelectedLocalMethod(m)}
+                                                        className="w-full group bg-white/5 hover:bg-white/[0.08] hover:border-amber-500/50 border border-white/5 p-6 rounded-[1.5rem] flex items-center justify-between transition-all"
+                                                    >
+                                                        <div className="flex items-center gap-4">
+                                                            <span className="text-3xl grayscale group-hover:grayscale-0 transition-all">{m.icon}</span>
+                                                            <div className="text-right">
+                                                                <h5 className="font-bold text-white mb-0.5">{m.nameAr}</h5>
+                                                                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{m.id.replace('cash', '')}</p>
+                                                            </div>
+                                                        </div>
+                                                        <FiArrowRight className="text-slate-600 group-hover:text-amber-500 transition-colors" />
+                                                    </button>
+                                                ))}
                                             </div>
-                                            <div>
-                                                <h3 className="font-bold text-gray-900 line-clamp-1">{item.title}</h3>
-                                                <span className="text-xs text-gray-400 capitalize">{item.type}</span>
+                                        ) : (
+                                            <ManualPaymentCard 
+                                                method={selectedLocalMethod}
+                                                walletAddress={selectedLocalMethod.id === 'shamcash' ? '09xxxxx' : '09yyyyy'} // In prod, fetch from plat settings
+                                                localPrice={localPrice}
+                                                usdTotal={total}
+                                                onDataChange={setManualData}
+                                                onBack={() => setSelectedLocalMethod(null)}
+                                                theme="dark"
+                                            />
+                                        )}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Agreement */}
+                        <div className="flex items-center gap-3 px-8">
+                            <input 
+                                type="checkbox" 
+                                id="terms_agree" 
+                                checked={agreeToTerms}
+                                onChange={e => setAgreeToTerms(e.target.checked)}
+                                className="w-5 h-5 rounded-lg border-white/10 bg-white/5 text-emerald-500 focus:ring-emerald-500/20 cursor-pointer"
+                            />
+                            <label htmlFor="terms_agree" className="text-sm text-slate-500 font-medium cursor-pointer">
+                                أوافق على شروط الموقع وسياسة الخصوصية
+                            </label>
+                        </div>
+                    </div>
+
+                    {/* Order Summary Sidebar */}
+                    <div className="lg:col-span-5 relative">
+                        {/* Summary for Dark Theme */}
+                        <div className="bg-[#111827]/80 backdrop-blur-3xl border border-white/5 p-8 rounded-[2.5rem] shadow-3xl sticky top-24 space-y-8">
+                            <h3 className="text-2xl font-black text-white">ملخص الطلب</h3>
+                            
+                            <div className="space-y-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                                {cart.map((item, idx) => (
+                                    <div key={idx} className="flex justify-between items-center group">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-emerald-500 font-black">#</div>
+                                            <div className="min-w-0">
+                                                <h4 className="text-sm font-bold text-white truncate w-40">{item.title}</h4>
+                                                <p className="text-[10px] text-slate-500 uppercase font-black">{item.type}</p>
                                             </div>
                                         </div>
-                                        <div className="flex items-center gap-4">
-                                            <span className="font-bold text-gray-900">{item.price > 0 ? `${Number(item.price).toFixed(2)} $` : 'مجاني'}</span>
-                                            <button onClick={() => removeFromCart(index)} className="text-gray-300 hover:text-red-500 transition-colors">
-                                                <FiTrash2 size={16} />
-                                            </button>
+                                        <div className="text-right">
+                                            <span className="font-mono text-white font-black">{item.price.toFixed(2)} $</span>
                                         </div>
                                     </div>
                                 ))}
                             </div>
-                        </div>
 
-                        {/* Manual Payment Section - Only shows for restricted countries */}
-                        {paymentMethod === 'manual' && total > 0 && countryConfig && (
-                            <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-                                <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                                    <span className="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm">3</span>
-                                    الدفع المحلي — {COUNTRY_FLAGS[customerCountry] || '🌍'} {countryConfig.nameAr}
-                                </h2>
-
-                                {/* Notice */}
-                                <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-2xl text-sm text-amber-800">
-                                    <strong>⚠️ ملاحظة:</strong> الدفع يتم مباشرة إلى محفظة المنصة. بعد التحقق من الدفعة سيتم تفعيل طلبك.
-                                </div>
-
-                                {/* Local Method Selection */}
-                                {!selectedLocalMethod ? (
-                                    <div className="grid gap-3">
-                                        {countryConfig.methods.filter(m => m.enabled).map(method => (
-                                            <button
-                                                key={method.id}
-                                                onClick={() => setSelectedLocalMethod(method)}
-                                                className="w-full bg-gray-50 hover:bg-primary-50 rounded-2xl border-2 border-gray-100 hover:border-primary-600 p-4 flex items-center gap-3.5 transition-all duration-200 group"
-                                            >
-                                                <span className="text-2xl">{method.icon}</span>
-                                                <div className="text-right flex-1">
-                                                    <p className="font-bold text-gray-900 text-sm group-hover:text-primary-600 transition-colors">{method.nameAr}</p>
-                                                    <p className="text-[11px] text-gray-400">{method.name}</p>
-                                                </div>
-                                                <FiArrowRight className="text-gray-300 group-hover:text-primary-600 transition-colors rotate-180" size={16} />
-                                            </button>
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <div className="space-y-4">
-                                        {/* Change Method Button */}
-                                        <button
-                                            onClick={() => setSelectedLocalMethod(null)}
-                                            className="text-xs text-gray-400 hover:text-primary-600 font-medium flex items-center gap-1"
-                                        >
-                                            <FiArrowRight size={14} />
-                                            تغيير وسيلة الدفع
-                                        </button>
-
-                                        {/* Selected Method + Amount */}
-                                        <div className="bg-gradient-to-br from-primary-50 to-purple-50 rounded-2xl border border-primary-600/10 p-4">
-                                            <div className="flex items-center gap-2 mb-3">
-                                                <span className="text-xl">{selectedLocalMethod.icon}</span>
-                                                <span className="font-bold text-sm">{selectedLocalMethod.nameAr}</span>
-                                            </div>
-                                            <p className="text-sm text-gray-600 mb-2">المبلغ المطلوب:</p>
-                                            <p className="text-2xl font-black text-gray-900">
-                                                {formatCurrency(localPrice.amount, localPrice.currency)}
-                                            </p>
-                                            {localPrice.currency !== 'USD' && (
-                                                <p className="text-xs text-gray-400 mt-1">≈ ${total.toFixed(2)} USD</p>
-                                            )}
-                                        </div>
-
-                                        {/* Platform Wallet */}
-                                        <div className="bg-gray-50 rounded-2xl border border-gray-200 p-4">
-                                            <label className="text-xs text-gray-400 font-medium block mb-1.5">رقم محفظة المنصة ({selectedLocalMethod.nameAr})</label>
-                                            <div className="flex items-center gap-2">
-                                                <div className="flex-1 bg-white rounded-xl px-3.5 py-3 font-mono text-base font-bold text-gray-900 tracking-wider text-left border border-gray-100" dir="ltr">
-                                                    {PLATFORM_WALLETS[selectedLocalMethod.id] || '—'}
-                                                </div>
-                                                <button
-                                                    onClick={() => handleCopy(PLATFORM_WALLETS[selectedLocalMethod.id] || '')}
-                                                    className={`shrink-0 w-11 h-11 rounded-xl flex items-center justify-center transition-all ${copied ? 'bg-emerald-500 text-white' : 'bg-primary-600 text-white hover:opacity-90 active:scale-95'}`}
-                                                >
-                                                    {copied ? <FiCheck size={18} /> : <FiCopy size={16} />}
-                                                </button>
-                                            </div>
-                                            {copied && <p className="text-[11px] text-emerald-500 mt-1.5 font-medium">✓ تم النسخ</p>}
-                                        </div>
-
-                                        {/* Manual Payment Form Fields */}
-                                        <div className="space-y-4">
-                                            <div>
-                                                <label className="block text-sm font-semibold text-gray-900 mb-1">رقم هاتف المُرسل</label>
-                                                <input
-                                                    type="tel"
-                                                    value={senderPhone}
-                                                    onChange={e => setSenderPhone(e.target.value)}
-                                                    placeholder="الرقم الذي حوّلت منه"
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-600 focus:border-transparent outline-none transition-all text-left"
-                                                    dir="ltr"
-                                                />
-                                            </div>
-
-                                            <div>
-                                                <label className="block text-sm font-semibold text-gray-900 mb-1">
-                                                    رقم العملية <span className="text-red-500">*</span>
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    value={transactionRef}
-                                                    onChange={e => setTransactionRef(e.target.value)}
-                                                    placeholder="Transaction ID / رقم المرجع"
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-600 focus:border-transparent outline-none transition-all text-left"
-                                                    dir="ltr"
-                                                    required
-                                                />
-                                            </div>
-
-                                            {/* Receipt Upload */}
-                                            <div>
-                                                <label className="block text-sm font-semibold text-gray-900 mb-1">
-                                                    إيصال الدفع <span className="text-red-500">*</span>
-                                                </label>
-                                                <input type="file" ref={fileInputRef} accept="image/*" onChange={handleFileChange} className="hidden" />
-                                                {proofPreview ? (
-                                                    <div className="relative">
-                                                        <img src={proofPreview} alt="إيصال" className="w-full rounded-xl border border-gray-200 max-h-44 object-cover" />
-                                                        <button
-                                                            onClick={() => { setProofFile(null); setProofPreview(null); }}
-                                                            className="absolute top-2 left-2 w-7 h-7 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg"
-                                                        >
-                                                            <FiX size={14} />
-                                                        </button>
-                                                    </div>
-                                                ) : (
-                                                    <button
-                                                        onClick={() => fileInputRef.current?.click()}
-                                                        className="w-full border-2 border-dashed border-gray-200 rounded-xl p-6 flex flex-col items-center gap-2 hover:border-primary-600/40 hover:bg-primary-50 transition-all group"
-                                                    >
-                                                        <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-primary-50 transition-colors">
-                                                            <FiUpload className="text-gray-400 group-hover:text-primary-600" size={20} />
-                                                        </div>
-                                                        <p className="text-xs text-gray-400 group-hover:text-primary-600 font-medium">اضغط لرفع صورة الإيصال</p>
-                                                        <p className="text-[10px] text-gray-300">PNG, JPG حتى 5MB</p>
-                                                    </button>
-                                                )}
-                                            </div>
-
-                                            {/* Notes */}
-                                            <div>
-                                                <label className="block text-sm font-semibold text-gray-900 mb-1">ملاحظات (اختياري)</label>
-                                                <textarea
-                                                    value={paymentNotes}
-                                                    onChange={e => setPaymentNotes(e.target.value)}
-                                                    placeholder="أي معلومات إضافية..."
-                                                    rows={2}
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-600 focus:border-transparent outline-none transition-all resize-none"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Right Column: Order Summary */}
-                    <div className="lg:col-span-5">
-                        <div className="bg-white p-8 rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-50 sticky top-24">
-                            <h2 className="text-2xl font-bold mb-8">ملخص الطلب</h2>
-
-                            {/* Coupon Section */}
-                            <div className="mb-8">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">هل لديك كود خصم؟</label>
-                                <div className="flex gap-2">
-                                    <input
-                                        type="text"
-                                        placeholder="كود الخصم"
-                                        className="flex-1 px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-primary-600 transition-all font-mono"
-                                        value={couponCode}
-                                        onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                                    />
-                                    <button
-                                        onClick={applyCoupon}
-                                        className="px-6 py-3 bg-gray-900 text-white rounded-xl font-bold hover:bg-black transition-colors flex items-center gap-2"
-                                    >
-                                        <FiTag /> تطبيق
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className="space-y-4 mb-8">
-                                <div className="flex justify-between text-gray-500">
-                                    <span>المجموع الفرعي</span>
+                            <div className="pt-8 border-t border-white/5 space-y-4">
+                                <div className="flex justify-between text-slate-400 text-sm font-bold">
+                                    <span>المجموع</span>
                                     <span>{subtotal.toFixed(2)} $</span>
                                 </div>
-                                <div className="flex justify-between text-green-600 font-bold">
-                                    <span>الخصم</span>
-                                    <span>-{discount.toFixed(2)} $</span>
+                                <div className="flex justify-between items-end">
+                                    <span className="text-slate-400 text-sm font-bold">الإجمالي</span>
+                                    <span className="text-4xl font-black text-white">{total.toFixed(2)} <span className="text-lg text-emerald-500">$</span></span>
                                 </div>
-                                <div className="h-px bg-gray-100 my-4"></div>
-                                <div className="flex justify-between items-center">
-                                    <span className="text-xl font-bold text-gray-900">الإجمالي</span>
-                                    <span className="text-3xl font-black text-primary-700">{total.toFixed(2)} $</span>
-                                </div>
-
-                                {/* Mix of Free and Paid Alert */}
-                                {cart.some(item => item.price === 0) && cart.some(item => item.price > 0) && (
-                                    <div className="mt-4 p-3 bg-blue-50 border border-blue-100 rounded-xl text-[11px] text-blue-700 leading-relaxed font-bold">
-                                        💡 ملاحظة: سلتك تحتوي على منتجات مجانية ومدفوعة. المنتجات المجانية ستظهر في حسابك فوراً بعد إتمام الطلب، بينما المدفوعة ستنتظر تأكيد الدفع.
-                                    </div>
-                                )}
-
-                                {/* Show local currency equivalent for restricted countries */}
-                                {isRestricted && localPrice.currency !== 'USD' && total > 0 && (
-                                    <div className="text-sm text-gray-400 text-left">
-                                        ≈ {formatCurrency(localPrice.amount, localPrice.currency)}
-                                    </div>
-                                )}
                             </div>
-
-                            {/* Payment Method Selection */}
-                            {total > 0 && (
-                                <div className="mb-8 p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                                    <h3 className="text-sm font-bold text-gray-400 mb-4 uppercase tracking-wider">وسيلة الدفع</h3>
-                                    <div className="grid grid-cols-1 gap-3">
-                                        {/* Stripe - only for non-restricted */}
-                                        {!isRestricted && (
-                                            <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'stripe' ? 'border-primary-600 bg-primary-50 ring-1 ring-primary-600' : 'border-gray-200 hover:border-gray-300'}`}>
-                                                <input
-                                                    type="radio"
-                                                    value="stripe"
-                                                    checked={paymentMethod === 'stripe'}
-                                                    onChange={() => setPaymentMethod('stripe')}
-                                                    className="w-4 h-4 text-primary-600"
-                                                />
-                                                <FiCreditCard className="text-xl ml-3 text-primary-600" />
-                                                <div className="flex-1 mr-2">
-                                                    <span className="font-bold block text-sm">البطاقة البنكية (Visa/Mastercard)</span>
-                                                    <span className="text-xs text-gray-500">دفع سريع وآمن عبر Stripe</span>
-                                                </div>
-                                            </label>
-                                        )}
-
-                                        {/* Crypto - available for all */}
-                                        <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'crypto' ? 'border-primary-600 bg-primary-50 ring-1 ring-primary-600' : 'border-gray-200 hover:border-gray-300'}`}>
-                                            <input
-                                                type="radio"
-                                                value="crypto"
-                                                checked={paymentMethod === 'crypto'}
-                                                onChange={() => setPaymentMethod('crypto')}
-                                                className="w-4 h-4 text-primary-600"
-                                            />
-                                            <span className="text-xl mx-2">🪙</span>
-                                            <div className="flex-1 mr-2">
-                                                <span className="font-bold block text-sm">عملات رقمية (USDT)</span>
-                                                <span className="text-xs text-gray-500">دفع عبر شبكة TRC20</span>
-                                            </div>
-                                        </label>
-
-                                        {/* Manual/Local - always shown, auto-selected for restricted */}
-                                        <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition-all ${paymentMethod === 'manual' ? 'border-primary-600 bg-primary-50 ring-1 ring-primary-600' : 'border-gray-200 hover:border-gray-300'}`}>
-                                            <input
-                                                type="radio"
-                                                value="manual"
-                                                checked={paymentMethod === 'manual'}
-                                                onChange={() => setPaymentMethod('manual')}
-                                                className="w-4 h-4 text-primary-600"
-                                            />
-                                            <span className="text-xl mx-2">💵</span>
-                                            <div className="flex-1 mr-2">
-                                                <span className="font-bold block text-sm">
-                                                    دفع محلي {customerCountry && countryConfig ? `(${countryConfig.nameAr})` : ''}
-                                                </span>
-                                                <span className="text-xs text-gray-500">
-                                                    {isRestricted ? 'شام كاش، MTN، زين كاش...' : 'تحويل يدوي عبر محفظة محلية'}
-                                                </span>
-                                            </div>
-                                            {isRestricted && (
-                                                <span className="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-bold">مطلوب</span>
-                                            )}
-                                        </label>
-                                    </div>
-                                </div>
-                            )}
-
-                             {/* Terms & Conditions */}
-                             <div className="mb-6 flex items-start gap-2.5 bg-gray-50 p-4 rounded-xl border border-gray-100">
-                                 <input
-                                     type="checkbox"
-                                     id="terms"
-                                     checked={agreeToTerms}
-                                     onChange={(e) => setAgreeToTerms(e.target.checked)}
-                                     className="mt-1 w-4 h-4 rounded text-primary-600 focus:ring-primary-600 cursor-pointer"
-                                 />
-                                 <label htmlFor="terms" className="text-xs text-gray-500 leading-relaxed cursor-pointer select-none">
-                                     أنا أوافق على <a href="/terms" target="_blank" className="text-primary-600 font-bold hover:underline">شروط الخدمة</a> و <a href="/refund-policy" target="_blank" className="text-primary-600 font-bold hover:underline">سياسة الاسترداد</a>. 
-                                     أفهم أن هذا المحتوى رقمي وغير قابل للإرجاع بمجرد بدء التحميل أو المشاهدة.
-                                 </label>
-                             </div>
-
-                             {/* Pay Button */}
+                            
                             <button
                                 onClick={handleCheckout}
                                 disabled={loading}
-                                className="w-full btn btn-primary text-lg py-4 flex items-center justify-center gap-2 mt-4"
+                                className={`w-full group h-20 relative overflow-hidden rounded-[2.5rem] font-black text-xl transition-all shadow-2xl ${loading ? 'opacity-50' : 'active:scale-95 shadow-emerald-500/20'}`}
                             >
-                                <FiCreditCard />
-                                <span>{loading ? 'جاري التحويل...' : (total === 0 ? 'إتمام الطلب مجاناً' : 'الدفع الآن')}</span>
-                            </button>
-
-                            {/* Security */}
-                            {total > 0 && (
-                                <div className="mt-4 flex items-center justify-center gap-2 text-sm text-gray-500">
-                                    <FiLock />
-                                    <span>{paymentMethod === 'manual' ? 'الدفع يتم للمنصة مباشرة — نظام Escrow آمن' : 'دفع آمن ومشفر بواسطة Stripe'}</span>
+                                <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-emerald-400"></div>
+                                <div className="relative flex items-center justify-center gap-3 text-white">
+                                    {loading ? (
+                                        <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
+                                    ) : (
+                                        <>إتمام الطلب الآن <FiArrowRight className="group-hover:translate-x-[-10px] transition-transform" /></>
+                                    )}
                                 </div>
-                            )}
+                            </button>
+                            
+                            <div className="flex flex-col gap-4">
+                                <div className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl">
+                                    <FiCheckCircle className="text-emerald-500 shrink-0" />
+                                    <p className="text-[10px] font-bold text-slate-400 leading-relaxed">سيتم تفعيل طلبك آلياً (للكريبتو) أو خلال ساعة (للدفع اليدوي) بعد مراجعة الإيصال.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {/* Simple Footer */}
-            <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
-                <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-primary-600 font-bold hover:underline">منصة تمالين</a>
-                </p>
-            </footer>
         </div>
+    );
+}
+
+// Sub-component for Dark Selection Tabs
+function PaymentMethodTab({ id, current, onClick, icon, label, desc }: any) {
+    const active = current === id;
+    return (
+        <button 
+            onClick={onClick}
+            className={`min-w-[140px] p-4 rounded-3xl border-2 transition-all text-right relative overflow-hidden group ${active ? 'bg-white/5 border-emerald-500' : 'bg-transparent border-white/5 hover:border-white/10'}`}
+        >
+            <div className="relative z-10">
+                <span className="text-2xl mb-4 block group-hover:scale-110 transition-transform">{icon}</span>
+                <h5 className={`font-black text-sm whitespace-nowrap ${active ? 'text-white' : 'text-slate-500'}`}>{label}</h5>
+                <p className={`text-[10px] font-bold mt-1 ${active ? 'text-emerald-500' : 'text-slate-600'}`}>{desc}</p>
+            </div>
+            {active && <div className="absolute top-0 right-0 w-8 h-8 bg-emerald-500/10 rounded-bl-3xl"></div>}
+        </button>
     );
 }
