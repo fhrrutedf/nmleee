@@ -329,10 +329,10 @@ export default function AdminPlatformSettingsPage() {
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                            <RateInput label="SYP سوريا" value={settings.usdToSyp} onChange={v => update('usdToSyp', v)} flag="🇸🇾" />
-                            <RateInput label="IQD العراق" value={settings.usdToIqd} onChange={v => update('usdToIqd', v)} flag="🇮🇶" />
-                            <RateInput label="EGP مصر" value={settings.usdToEgp} onChange={v => update('usdToEgp', v)} flag="🇪🇬" />
-                            <RateInput label="AED الإمارات" value={settings.usdToAed} onChange={v => update('usdToAed', v)} flag="🇦🇪" />
+                            <RateInput label="SYP سوريا" value={settings.usdToSyp} onChange={(v: number) => update('usdToSyp', v)} flag="🇸🇾" />
+                            <RateInput label="IQD العراق" value={settings.usdToIqd} onChange={(v: number) => update('usdToIqd', v)} flag="🇮🇶" />
+                            <RateInput label="EGP مصر" value={settings.usdToEgp} onChange={(v: number) => update('usdToEgp', v)} flag="🇪🇬" />
+                            <RateInput label="AED الإمارات" value={settings.usdToAed} onChange={(v: number) => update('usdToAed', v)} flag="🇦🇪" />
                         </div>
                     </div>
                 </div>
@@ -346,10 +346,10 @@ export default function AdminPlatformSettingsPage() {
                             <FiPhone className="text-amber-500" /> محافظ الدفع اليدوي
                         </h3>
                         <div className="space-y-4">
-                            <WalletInput label="شام كاش" value={settings.shamCash} onChange={v => update('shamCash', v)} />
-                            <WalletInput label="زين كاش" value={settings.zainCash} onChange={v => update('zainCash', v)} />
-                            <WalletInput label="MTN كاش" value={settings.mtnCash} onChange={v => update('mtnCash', v)} />
-                            <WalletInput label="OMT" value={settings.omtNumber} onChange={v => update('omtNumber', v)} />
+                            <WalletInput label="شام كاش" value={settings.shamCash} onChange={(v: string) => update('shamCash', v)} />
+                            <WalletInput label="زين كاش" value={settings.zainCash} onChange={(v: string) => update('zainCash', v)} />
+                            <WalletInput label="MTN كاش" value={settings.mtnCash} onChange={(v: string) => update('mtnCash', v)} />
+                            <WalletInput label="OMT" value={settings.omtNumber} onChange={(v: string) => update('omtNumber', v)} />
                         </div>
                     </div>
 
@@ -359,9 +359,9 @@ export default function AdminPlatformSettingsPage() {
                             <FiShare2 className="text-pink-500" /> التواصل الاجتماعي
                         </h3>
                         <div className="space-y-4">
-                            <SocialInput icon={<FaTelegram />} label="Telegram" value={settings.socialTelegram} onChange={v => update('socialTelegram', v)} />
-                            <SocialInput icon={<FaInstagram />} label="Instagram" value={settings.socialInstagram} onChange={v => update('socialInstagram', v)} />
-                            <SocialInput icon={<FaWhatsapp />} label="Support WhatsApp" value={settings.supportWhatsapp} onChange={v => update('supportWhatsapp', v)} />
+                            <SocialInput icon={<FaTelegram />} label="Telegram" value={settings.socialTelegram} onChange={(v: string) => update('socialTelegram', v)} />
+                            <SocialInput icon={<FaInstagram />} label="Instagram" value={settings.socialInstagram} onChange={(v: string) => update('socialInstagram', v)} />
+                            <SocialInput icon={<FaWhatsapp />} label="Support WhatsApp" value={settings.supportWhatsapp} onChange={(v: string) => update('supportWhatsapp', v)} />
                         </div>
                     </div>
                 </div>
@@ -371,7 +371,16 @@ export default function AdminPlatformSettingsPage() {
 }
 
 // Helper Components
-function CommissionInput({ label, value, days, onRateChange, onDaysChange, color }: any) {
+interface CommissionInputProps {
+    label: string;
+    value: number;
+    days: number;
+    onRateChange: (v: number) => void;
+    onDaysChange: (v: number) => void;
+    color: string;
+}
+
+function CommissionInput({ label, value, days, onRateChange, onDaysChange, color }: CommissionInputProps) {
     return (
         <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-[2rem] border border-gray-100 dark:border-gray-800 text-center">
             <p className={`text-[10px] font-black uppercase tracking-widest mb-4 ${color}`}>{label}</p>
@@ -389,7 +398,7 @@ function CommissionInput({ label, value, days, onRateChange, onDaysChange, color
     );
 }
 
-function RateInput({ label, value, onChange, flag }: any) {
+function RateInput({ label, value, onChange, flag }: { label: string; value: number; onChange: (v: number) => void; flag: string }) {
     return (
         <div className="space-y-2">
             <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest">{flag} {label}</label>
@@ -398,7 +407,7 @@ function RateInput({ label, value, onChange, flag }: any) {
     );
 }
 
-function WalletInput({ label, value, onChange }: any) {
+function WalletInput({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
     return (
         <div className="space-y-1">
             <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest px-2">{label}</label>
@@ -407,7 +416,7 @@ function WalletInput({ label, value, onChange }: any) {
     );
 }
 
-function SocialInput({ icon, label, value, onChange }: any) {
+function SocialInput({ icon, label, value, onChange }: { icon: any; label: string; value: string; onChange: (v: string) => void }) {
     return (
         <div className="flex items-center gap-3">
             <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-xl text-gray-400">{icon}</div>
