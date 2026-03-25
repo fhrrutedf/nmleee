@@ -34,6 +34,7 @@ export const NotificationEvents = {
     NEW_ORDER_SELLER: 'new-order-seller',
     PAYOUT_REQUEST: 'payout-request',
     PAYOUT_COMPLETED: 'payout-completed',
+    PLATFORM_ALERT: 'platform-alert',
 
     // Appointment events
     APPOINTMENT_BOOKED: 'appointment-booked',

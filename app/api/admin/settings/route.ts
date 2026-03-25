@@ -35,7 +35,7 @@ export async function GET() {
     }
 }
 
-export async function PATCH(request: NextRequest) {
+export async function PUT(request: NextRequest) {
     try {
         const session = await getServerSession(authOptions);
         if (!session?.user || (session.user as any).role !== 'ADMIN') {
@@ -60,4 +60,8 @@ export async function PATCH(request: NextRequest) {
         console.error('Settings Update Error:', error);
         return NextResponse.json({ error: 'Failed to update settings' }, { status: 500 });
     }
+}
+
+export async function PATCH(request: NextRequest) {
+    return PUT(request);
 }

@@ -129,12 +129,36 @@ export async function POST(req: Request) {
 
         } else if (realStatus === "Under Paid") {
             const remaining = totalAmountFloat - paidAmountFloat;
-            const percentage = (paidAmountFloat / totalAmountFloat) * 100;
+            const paidRatio = paidAmountFloat / totalAmountFloat;
+
+            // 🛡️ FINANCIAL LOGIC: 0.5% Under-payment Tolerance
+            if (paidRatio >= 0.995) {
+                console.log(`[TOLERANCE]: Order ${order.orderNumber} under-paid by only ${(1 - paidRatio) * 100}%. Accepting payment.`);
+                
+                await prisma.order.update({
+                    where: { id: order.id },
+                    data: {
+                        status: "COMPLETED",
+                        isPaid: true,
+                        paidAt: new Date(),
+                        cryptoStatus: "Paid (Under-payment Tolerated)",
+                        cryptoPaidAmount: paidAmountFloat,
+                        cryptoTotalAmount: totalAmountFloat,
+                        paymentNotes: `Accepted with 0.5% tolerance. Missing: ${remaining.toFixed(6)} USDT.`
+                    }
+                });
+
+                await processPaymentCommission(order.id);
+                await fulfillPurchase(order.id, order.userId);
+                return NextResponse.json({ success: true, message: "Accepted within tolerance." });
+            }
+
+            const percentage = paidRatio * 100;
 
             await prisma.order.update({
                 where: { id: order.id },
                 data: { 
-                    cryptoStatus: `Under Paid (${percentage.toFixed(0)}% paid)`,
+                    cryptoStatus: `Under Paid (${percentage.toFixed(1)}% paid)`,
                     paymentNotes: `Paid: ${paidAmountFloat}, Required: ${totalAmountFloat}. Remaining: ${remaining.toFixed(2)} USDT.`,
                     cryptoPaidAmount: paidAmountFloat,
                     cryptoTotalAmount: totalAmountFloat

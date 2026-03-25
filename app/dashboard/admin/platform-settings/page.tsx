@@ -40,6 +40,9 @@ interface PlatformSettings {
     spaceremitApiKey: string;
     spaceremitMerchantId: string;
     spaceremitWebhookSecret: string;
+    gatewayFee: number;
+    withdrawalsEnabled: boolean;
+    highValueAlertThreshold: number;
 }
 
 export default function AdminPlatformSettingsPage() {
@@ -77,9 +80,13 @@ export default function AdminPlatformSettingsPage() {
         spaceremitApiKey: '',
         spaceremitMerchantId: '',
         spaceremitWebhookSecret: '',
+        gatewayFee: 2.5,
+        withdrawalsEnabled: true,
+        highValueAlertThreshold: 500,
     });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
+    const [auditing, setAuditing] = useState(false);
 
     useEffect(() => {
         fetch('/api/admin/settings')
@@ -93,6 +100,21 @@ export default function AdminPlatformSettingsPage() {
 
     const update = (key: keyof PlatformSettings, value: any) => {
         setSettings(s => ({ ...s, [key]: value }));
+    };
+
+    const handleAuditorCheck = async () => {
+        setAuditing(true);
+        try {
+            const res = await fetch('/api/cron/reconcile-payments');
+            const data = await res.json();
+            if (data.success) {
+                showToast.success(`تم فحص ${data.stats.found} طلبات وتعويض ${data.stats.fulfilled} منها.`);
+            }
+        } catch {
+            showToast.error('فشل اتصال الموظف الرقمي');
+        } finally {
+            setAuditing(false);
+        }
     };
 
     const handleSave = async () => {
@@ -125,47 +147,106 @@ export default function AdminPlatformSettingsPage() {
 
     return (
         <div className="max-w-5xl mx-auto space-y-8 pb-20 px-4">
-            {/* Header */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white dark:bg-gray-900 p-6 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800">
-                <div>
-                    <h1 className="text-2xl font-black text-gray-900 dark:text-white flex items-center gap-3">
-                        <FiSettings className="text-emerald-500" /> إعدادات الإمبراطورية المالية
-                    </h1>
-                    <p className="text-gray-500 text-sm mt-1">إدارة العمولات، بوابات الدفع، وأسعار الصرف الحية</p>
+            {/* Header / Central Dashboard */}
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white dark:bg-gray-900 p-8 rounded-[2.5rem] shadow-sm border border-gray-100 dark:border-gray-800">
+                <div className="flex items-center gap-5">
+                    <div className="p-4 bg-emerald-100 dark:bg-emerald-900/30 rounded-3xl text-emerald-600">
+                        <FiSettings className="text-3xl" />
+                    </div>
+                    <div>
+                        <h1 className="text-2xl font-black text-gray-900 dark:text-white">مركز القيادة والسيولة</h1>
+                        <p className="text-gray-500 text-sm mt-1">الموظف الرقمي نشط ويراقب البوابات المالية الآن</p>
+                    </div>
                 </div>
-                <button
-                    onClick={handleSave}
-                    disabled={saving}
-                    className="w-full md:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-black px-8 py-4 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-emerald-500/20 disabled:opacity-50"
-                >
-                    {saving ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FiSave />}
-                    حفظ التغييرات النهائية
-                </button>
+                <div className="flex items-center gap-3">
+                    <button
+                        onClick={handleAuditorCheck}
+                        disabled={auditing}
+                        className="bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 px-6 py-4 rounded-2xl font-black text-sm flex items-center gap-3 transition-all active:scale-95 disabled:opacity-50"
+                    >
+                        {auditing ? <div className="w-4 h-4 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" /> : <FiZap />}
+                        جرد المدفوعات (الموظف الرقمي)
+                    </button>
+                    <button
+                        onClick={handleSave}
+                        disabled={saving}
+                        className="bg-emerald-600 hover:bg-emerald-700 text-white font-black px-8 py-4 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-emerald-500/20 disabled:opacity-50"
+                    >
+                        {saving ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FiSave />}
+                        تحديث الإمبراطورية
+                    </button>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 
-                {/* Right Column: Financials */}
+                {/* Right Column: Key Financial Controls */}
                 <div className="lg:col-span-8 space-y-8">
                     
-                    {/* 1. Spaceremit Integration */}
-                    <div className="bg-white dark:bg-gray-900 p-8 rounded-[2.5rem] shadow-sm border border-gray-100 dark:border-gray-800 space-y-6">
-                        <div className="flex items-center justify-between">
+                    {/* 1. Quick Financial Actions (Panic Button & High Value Alert) */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {/* Panic Button */}
+                        <div className={`p-8 rounded-[2.5rem] border shadow-sm transition-all ${settings.withdrawalsEnabled ? 'bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800' : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-900/50'}`}>
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="font-black text-gray-900 dark:text-white">تجميد السيولة (Panic Button)</h3>
+                                <label className="relative inline-flex items-center cursor-pointer">
+                                    <input 
+                                        type="checkbox" 
+                                        className="sr-only peer" 
+                                        checked={settings.withdrawalsEnabled}
+                                        onChange={e => update('withdrawalsEnabled', e.target.checked)}
+                                    />
+                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-600"></div>
+                                </label>
+                            </div>
+                            <p className="text-xs text-gray-500">عند التعطيل، يتم إيقاف جميع طلبات سحب الأرباح من البائعين فوراً.</p>
+                        </div>
+
+                        {/* High Value Alert Threshold */}
+                        <div className="bg-white dark:bg-gray-900 p-8 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-sm">
+                            <h3 className="font-black text-gray-900 dark:text-white mb-4">حد التنبيه للعمليات الكبيرة</h3>
+                            <div className="relative">
+                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-500 font-bold">$</span>
+                                <input
+                                    type="number"
+                                    value={settings.highValueAlertThreshold}
+                                    onChange={e => update('highValueAlertThreshold', parseFloat(e.target.value))}
+                                    className="w-full bg-gray-50 dark:bg-gray-800 border-none rounded-2xl px-10 py-4 font-black text-lg text-emerald-600 focus:ring-2 focus:ring-emerald-500/20 outline-none"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* 2. Spaceremit Integration & Gateway Fee */}
+                    <div className="bg-white dark:bg-gray-900 p-8 rounded-[2.5rem] shadow-sm border border-gray-100 dark:border-gray-800 space-y-8">
+                        <div className="flex items-center justify-between border-b border-gray-50 dark:border-gray-800 pb-6">
                             <div className="flex items-center gap-4">
                                 <div className="p-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl text-emerald-600">
                                     <FiZap className="text-2xl" />
                                 </div>
-                                <h2 className="text-xl font-black text-gray-900 dark:text-white">بوابة Spaceremit (نظام الدفع الآلي)</h2>
+                                <h2 className="text-xl font-black text-gray-900 dark:text-white">بوابة Spaceremit ورسوم الموقع</h2>
                             </div>
-                            <label className="relative inline-flex items-center cursor-pointer">
-                                <input 
-                                    type="checkbox" 
-                                    className="sr-only peer" 
-                                    checked={settings.spaceremitEnabled}
-                                    onChange={e => update('spaceremitEnabled', e.target.checked)}
-                                />
-                                <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-600"></div>
-                            </label>
+                            <div className="flex items-center gap-6">
+                                <div className="text-left">
+                                    <label className="text-[10px] font-black text-gray-400 uppercase block mb-1">رسوم بوابة الدفع %</label>
+                                    <input 
+                                        type="number" 
+                                        step="0.1"
+                                        value={settings.gatewayFee}
+                                        onChange={e => update('gatewayFee', parseFloat(e.target.value))}
+                                        className="w-20 bg-gray-50 dark:bg-gray-800 border-none rounded-xl px-2 py-2 font-black text-indigo-500 text-center focus:ring-2 focus:ring-indigo-500/20"
+                                    />
+                                </div>
+                                <label className="relative inline-flex items-center cursor-pointer">
+                                    <input 
+                                        type="checkbox" 
+                                        className="sr-only peer" 
+                                        checked={settings.spaceremitEnabled}
+                                        onChange={e => update('spaceremitEnabled', e.target.checked)}
+                                    />
+                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-600"></div>
+                                </label>
+                            </div>
                         </div>
 
                         <div className="grid md:grid-cols-2 gap-6">
@@ -205,20 +286,20 @@ export default function AdminPlatformSettingsPage() {
                         </div>
                     </div>
 
-                    {/* 2. Commissions - 4 Tiers */}
+                    {/* 3. Commissions - 4 Tiers */}
                     <div className="bg-white dark:bg-gray-900 p-8 rounded-[2.5rem] shadow-sm border border-gray-100 dark:border-gray-800 space-y-8">
                         <div className="flex items-center gap-4 border-b border-gray-50 dark:border-gray-800 pb-6">
                             <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-2xl text-blue-600">
                                 <FiDollarSign className="text-2xl" />
                             </div>
-                            <h2 className="text-xl font-black text-gray-900 dark:text-white">هيكل العمولات والحجز (Escrow)</h2>
+                            <h2 className="text-xl font-black text-gray-900 dark:text-white">باقات البائعين والعمولات</h2>
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                            <CommissionInput label="FREE Tier %" value={settings.commissionRate} days={settings.freeEscrowDays} onRateChange={v => update('commissionRate', v)} onDaysChange={v => update('freeEscrowDays', v)} color="text-gray-400" />
-                            <CommissionInput label="GROWTH Tier %" value={settings.growthCommissionRate} days={settings.growthEscrowDays} onRateChange={v => update('growthCommissionRate', v)} onDaysChange={v => update('growthEscrowDays', v)} color="text-indigo-500" />
-                            <CommissionInput label="PRO Tier %" value={settings.proCommissionRate} days={settings.proEscrowDays} onRateChange={v => update('proCommissionRate', v)} onDaysChange={v => update('proEscrowDays', v)} color="text-emerald-500" />
-                            <CommissionInput label="AGENCY Tier %" value={settings.agencyCommissionRate} days={settings.agencyEscrowDays} onRateChange={v => update('agencyCommissionRate', v)} onDaysChange={v => update('agencyEscrowDays', v)} color="text-amber-500" />
+                            <CommissionInput label="FREE Tier %" value={settings.commissionRate} days={settings.freeEscrowDays} onRateChange={(v: number) => update('commissionRate', v)} onDaysChange={(v: number) => update('freeEscrowDays', v)} color="text-gray-400" />
+                            <CommissionInput label="GROWTH Tier %" value={settings.growthCommissionRate} days={settings.growthEscrowDays} onRateChange={(v: number) => update('growthCommissionRate', v)} onDaysChange={(v: number) => update('growthEscrowDays', v)} color="text-indigo-500" />
+                            <CommissionInput label="PRO Tier %" value={settings.proCommissionRate} days={settings.proEscrowDays} onRateChange={(v: number) => update('proCommissionRate', v)} onDaysChange={(v: number) => update('proEscrowDays', v)} color="text-emerald-500" />
+                            <CommissionInput label="AGENCY Tier %" value={settings.agencyCommissionRate} days={settings.agencyEscrowDays} onRateChange={(v: number) => update('agencyCommissionRate', v)} onDaysChange={(v: number) => update('agencyEscrowDays', v)} color="text-amber-500" />
                         </div>
                     </div>
 

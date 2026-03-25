@@ -5,6 +5,7 @@ export interface CommissionSplit {
     sellerAmount: number;
     commissionRate: number;
     referralAmount: number;
+    gatewayFee: number; // Added: Cost of the checkout provider
 }
 
 // ─── Decimal-safe helpers ─────────────────────────────────
@@ -52,6 +53,9 @@ export async function getPlatformSettings() {
                 socialFacebook: settings.socialFacebook,
                 socialTwitter: settings.socialTwitter,
                 socialYoutube: settings.socialYoutube,
+                gatewayFee: (settings as any).gatewayFee ?? 2.5,
+                withdrawalsEnabled: (settings as any).withdrawalsEnabled ?? true,
+                highValueAlertThreshold: (settings as any).highValueAlertThreshold ?? 500,
             };
         }
     } catch { /* table may not exist yet */ }
@@ -68,6 +72,9 @@ export async function getPlatformSettings() {
         platformName: 'منصتي الرقمية', supportEmail: null, supportWhatsapp: null,
         socialTelegram: null, socialInstagram: null, socialFacebook: null,
         socialTwitter: null, socialYoutube: null,
+        gatewayFee: 2.5,
+        withdrawalsEnabled: true,
+        highValueAlertThreshold: 500,
     };
 }
 
@@ -111,11 +118,26 @@ export function getEscrowDaysForPlan(
 
 /**
  * Calculate commission split for a transaction (tiered)
+ * NEW: Subtracts gateway fees (e.g. 2.5%) before splitting profit
  */
-export function calculateCommission(totalAmount: number, commissionRate: number): CommissionSplit {
-    const platformFee = round2((totalAmount * commissionRate) / 100);
-    const sellerAmount = round2(totalAmount - platformFee);
-    return { platformFee, sellerAmount, commissionRate, referralAmount: 0 };
+export function calculateCommission(
+    totalAmount: number, 
+    commissionRate: number, 
+    gatewayFeeRate: number = 2.5 // Default gateway cost (Spaceremit/Stripe/etc)
+): CommissionSplit {
+    const gatewayFee = round2((totalAmount * gatewayFeeRate) / 100);
+    const netTotal = totalAmount - gatewayFee;
+
+    const platformFee = round2((netTotal * commissionRate) / 100);
+    const sellerAmount = round2(netTotal - platformFee);
+
+    return { 
+        platformFee, 
+        sellerAmount, 
+        commissionRate, 
+        referralAmount: 0, 
+        gatewayFee 
+    };
 }
 
 /**
@@ -263,40 +285,49 @@ export async function processPaymentCommission(orderId: string): Promise<void> {
     if (!seller) return;
 
     const commissionRate = getCommissionRateForPlan(seller, settings);
-    const { platformFee, sellerAmount } = calculateCommission(order.totalAmount, commissionRate);
+    
+    // Step 2b: Calculate Gateway Fees (Spaceremit/Card dynamic from settings)
+    const isLocalManual = order.paymentMethod?.includes('shamcash') || order.paymentMethod?.includes('mtn');
+    const gatewayFeeRate = isLocalManual ? 0 : (settings.gatewayFee ?? 2.5);
+
+    const { platformFee, sellerAmount, gatewayFee } = calculateCommission(
+        order.totalAmount, 
+        commissionRate, 
+        gatewayFeeRate
+    );
 
     // Step 3: Get per-plan escrow days
     const escrowDays = getEscrowDaysForPlan(currentPlan, settings);
     const availableAt = new Date(order.paidAt ?? new Date());
     availableAt.setDate(availableAt.getDate() + escrowDays);
 
-    // Step 4: Lock exchange rate at payment time (Default to SYP rate for now)
-    const lockedExchangeRate = settings.usdToSyp || 15000;
+    // Step 4: Lock exchange rate at payment time
+    const lockedExchangeRate = order.lockedExchangeRate || settings.usdToSyp || 15000;
 
-    // Step 5: Calculate referral tree commission (الشجرة)
+    // Step 5: Calculate referral tree commission
     let referralCommission = 0;
     const referredById = (seller as any)?.referredById;
 
     if (referredById && platformFee > 0) {
-        // 1% of platform fee goes to the referrer
         referralCommission = round2((platformFee * settings.referralCommissionRate) / 100);
     }
 
-    // Step 6: Atomic transaction — update everything together
+    // Step 6: Atomic transaction
     const operations: any[] = [
-        // Update order with commission data + locked rate
+        // Update order with commission data + locked rate + ON_HOLD status
         prisma.order.update({
             where: { id: orderId },
             data: {
                 platformFee,
                 sellerAmount,
-                payoutStatus: 'pending',
+                gatewayFee, // Store gateway cost
+                payoutStatus: 'ON_HOLD', // New professional status
                 availableAt,
                 lockedExchangeRate,
                 referralCommission,
             } as any,
         }),
-        // Add to seller's pending balance + total earnings
+        // Add to seller's pending balance
         prisma.user.update({
             where: { id: order.sellerId },
             data: {
@@ -320,6 +351,48 @@ export async function processPaymentCommission(orderId: string): Promise<void> {
     }
 
     await prisma.$transaction(operations);
+
+    // Watchdog: High-Value Alert
+    if (order.totalAmount >= (settings.highValueAlertThreshold ?? 500)) {
+        await triggerHighValueAlert(order);
+    }
+}
+
+async function triggerHighValueAlert(order: any) {
+    try {
+        const admins = await prisma.user.findMany({
+            where: { role: 'ADMIN' },
+            select: { id: true }
+        });
+
+        const userIds = admins.map(a => a.id);
+        if (userIds.length === 0) return;
+
+        const payload = {
+            title: '💸 تنبيه: عملية كبيرة قيد التنفيذ',
+            content: `تم تسجيل عملية شراء بقيمة $${order.totalAmount} بواسطة ${order.customerName}. رقم الطلب: ${order.orderNumber}`,
+            orderId: order.id,
+            amount: order.totalAmount
+        };
+
+        // 1. Internal Notifications
+        await prisma.notification.createMany({
+            data: userIds.map(id => ({
+                receiverId: id,
+                type: 'INTERNAL',
+                title: payload.title,
+                content: payload.content
+            }))
+        });
+
+        // 2. Novu (Push/Email if configured)
+        const { sendBulkNotification, NotificationEvents } = await import('@/lib/novu');
+        await sendBulkNotification(NotificationEvents.PLATFORM_ALERT, userIds, payload);
+
+        console.log(`[WATCHDOG]: High value alert triggered for $${order.totalAmount}`);
+    } catch (err) {
+        console.error('[WATCHDOG_ERROR]:', err);
+    }
 }
 /**
  * 💸 REVERSE PAYMENT / REFUND

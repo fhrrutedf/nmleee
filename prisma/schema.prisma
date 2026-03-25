@@ -1471,13 +1471,19 @@ model PlatformSettings {
   socialTwitter     String?
   socialYoutube     String?
 
-  // Payment Gateway Toggles
-  spaceremitEnabled   Boolean  @default(true)   // بوابة Spaceremit
-  spaceremitApiKey    String?  // مفتاح الربط
-  spaceremitMerchantId String? // رقم التاجر
-  spaceremitWebhookSecret String? // رمز سر التنبيهات
-  shamcashEnabled     Boolean  @default(true)   // بوابة شام كاش
-  stripeEnabled       Boolean  @default(false)  // Stripe
+  // Payment Gateway Toggles & Fees
+  spaceremitEnabled   Boolean  @default(true)
+  spaceremitApiKey    String?
+  spaceremitMerchantId String?
+  spaceremitWebhookSecret String?
+  gatewayFee          Float    @default(2.5)    // رسوم بوابة الدفع الخارجية %
+  
+  // Security & Liquidity Controls
+  withdrawalsEnabled  Boolean  @default(true)   // زر الطوارئ لإيقاف السحب
+  highValueAlertThreshold Float @default(500)   // التنبيه للعمليات الكبيرة $
+  
+  shamcashEnabled     Boolean  @default(true)
+  stripeEnabled       Boolean  @default(false)
 
   updatedAt         DateTime @default(now()) @updatedAt
   updatedBy         String?

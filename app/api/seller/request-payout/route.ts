@@ -37,6 +37,14 @@ export async function POST(req: NextRequest) {
         const currentPlan = await ensurePlanCurrent(user.id);
         const settings = await getPlatformSettings();
 
+        // 🚨 SECURITY: Panic Button / Global Withdrawal Freeze
+        if (!settings.withdrawalsEnabled) {
+            return NextResponse.json(
+                { error: 'تم تعليق عمليات السحب مؤقتاً لأسباب أمنية. يرجى مراجعة الدعم الفني.' },
+                { status: 403 }
+            );
+        }
+
         // Validate payout method is set
         if (!user.payoutMethod) {
             return NextResponse.json(

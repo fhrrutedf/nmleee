@@ -97,6 +97,7 @@ export interface TierCommission {
     netFlow: number;           // sanity check = platform + seller + affiliate ≈ totalAmount
     commissionRate: number;
     affiliateRate: number;
+    gatewayFee: number; // Added: Cost of the checkout provider
 }
 
 /**
@@ -113,44 +114,47 @@ export function calculateTieredCommission(
     totalAmount: number,
     planType: 'FREE' | 'PRO' | 'GROWTH' | 'AGENCY',
     affiliateRate: number = 0,         // % the affiliate earns from SELLER's portion
-    customCommissionRate?: number | null
+    customCommissionRate?: number | null,
+    gatewayFeeRate: number = 2.5       // New: Dynamic rate from settings
 ): TierCommission {
-    // 1. Determine platform commission rate
+    // 1. Mandatory Gateway Fee (Spaceremit cost dynamic)
+    const gatewayFee = round2((totalAmount * gatewayFeeRate) / 100);
+    const netTotal = totalAmount - gatewayFee;
+
+    // 2. Determine platform commission rate
     let commissionRate: number;
 
     if (customCommissionRate !== undefined && customCommissionRate !== null && customCommissionRate >= 0) {
         commissionRate = customCommissionRate; // Admin overrides everything
     } else {
         switch (planType) {
-            case 'AGENCY':
-            case 'GROWTH': commissionRate = 0;  break;  // Gateway fees only
+            case 'AGENCY': commissionRate = 0;  break;  // $49/mo + 0% platform fee
             case 'PRO':    commissionRate = 5;  break;
+            case 'GROWTH': commissionRate = 5;  break;
             default:       commissionRate = 10; break;  // FREE tier
         }
     }
 
-    // 2. Platform fee (using safe integer math)
-    const platformFee = safePercent(totalAmount, commissionRate);
-    const grossSellerAmount = round2(totalAmount - platformFee);
+    // 3. Platform fee (of the net total after gateway fee)
+    const platformFee = round2((netTotal * commissionRate) / 100);
+    const grossSellerAmount = round2(netTotal - platformFee);
 
-    // 3. Affiliate share (% of seller's gross, not of total)
+    // 4. Affiliate share (% of seller's gross)
     const affiliateAmount = affiliateRate > 0
-        ? safePercent(grossSellerAmount, affiliateRate)
+        ? round2((grossSellerAmount * affiliateRate) / 100)
         : 0;
 
-    // 4. Final seller net
+    // 5. Final seller net
     const sellerAmount = round2(grossSellerAmount - affiliateAmount);
 
-    // 5. Sanity check (should equal totalAmount ± rounding)
-    const netFlow = round2(platformFee + sellerAmount + affiliateAmount);
-
     return {
-        platformFee: round2(platformFee),
+        platformFee,
         sellerAmount,
-        affiliateAmount: round2(affiliateAmount),
-        netFlow,
+        affiliateAmount,
+        netFlow: round2(platformFee + sellerAmount + affiliateAmount + gatewayFee),
         commissionRate,
         affiliateRate,
+        gatewayFee,
     };
 }
 

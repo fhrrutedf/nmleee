@@ -149,7 +149,8 @@ export async function POST(req: NextRequest) {
             totalAmount,
             currentPlanType,
             affiliateRate,
-            seller?.custom_commission_rate ?? null
+            seller?.custom_commission_rate ?? null,
+            settings.gatewayFee ?? 2.5
         );
 
         // ── 7. Escrow: calculate when funds become available ──────────
