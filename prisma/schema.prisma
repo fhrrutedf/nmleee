@@ -1473,6 +1473,9 @@ model PlatformSettings {
 
   // Payment Gateway Toggles
   spaceremitEnabled   Boolean  @default(true)   // بوابة Spaceremit
+  spaceremitApiKey    String?  // مفتاح الربط
+  spaceremitMerchantId String? // رقم التاجر
+  spaceremitWebhookSecret String? // رمز سر التنبيهات
   shamcashEnabled     Boolean  @default(true)   // بوابة شام كاش
   stripeEnabled       Boolean  @default(false)  // Stripe
 
