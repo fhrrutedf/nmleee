@@ -25,10 +25,12 @@ export async function getPlatformSettings() {
                 commissionRate: settings.commissionRate ?? 10,
                 growthCommissionRate: (settings as any).growthCommissionRate ?? 5,
                 proCommissionRate: (settings as any).proCommissionRate ?? 2,
+                agencyCommissionRate: (settings as any).agencyCommissionRate ?? 0,
                 escrowDays: settings.escrowDays ?? 7,
                 freeEscrowDays: (settings as any).freeEscrowDays ?? 14,
                 growthEscrowDays: (settings as any).growthEscrowDays ?? 7,
                 proEscrowDays: (settings as any).proEscrowDays ?? 1,
+                agencyEscrowDays: (settings as any).agencyEscrowDays ?? 1,
                 referralCommissionRate: (settings as any).referralCommissionRate ?? 10,
                 minPayoutAmount: settings.minPayoutAmount ?? 50,
                 usdToSyp: settings.usdToSyp ?? 13000,
@@ -41,6 +43,7 @@ export async function getPlatformSettings() {
                 shamCash: settings.shamCash,
                 omtNumber: settings.omtNumber,
                 whishNumber: settings.whishNumber,
+                vodafoneCashNumber: (settings as any).vodafoneCashNumber,
                 platformName: settings.platformName ?? 'منصتي الرقمية',
                 supportEmail: settings.supportEmail,
                 supportWhatsapp: settings.supportWhatsapp,
@@ -55,13 +58,13 @@ export async function getPlatformSettings() {
 
     // Default fallback
     return {
-        commissionRate: 10, growthCommissionRate: 5, proCommissionRate: 2,
-        escrowDays: 7, freeEscrowDays: 14, growthEscrowDays: 7, proEscrowDays: 1,
+        commissionRate: 10, growthCommissionRate: 5, proCommissionRate: 2, agencyCommissionRate: 0,
+        escrowDays: 7, freeEscrowDays: 14, growthEscrowDays: 7, proEscrowDays: 1, agencyEscrowDays: 1,
         referralCommissionRate: 10,
         minPayoutAmount: 50,
         usdToSyp: 13000, usdToIqd: 1300, usdToEgp: 50, usdToAed: 3.67,
         syriatelCash: null, mtnCash: null, zainCash: null, shamCash: null,
-        omtNumber: null, whishNumber: null,
+        omtNumber: null, whishNumber: null, vodafoneCashNumber: null,
         platformName: 'منصتي الرقمية', supportEmail: null, supportWhatsapp: null,
         socialTelegram: null, socialInstagram: null, socialFacebook: null,
         socialTwitter: null, socialYoutube: null,
@@ -74,7 +77,7 @@ export async function getPlatformSettings() {
  */
 export function getCommissionRateForPlan(
     user: { planType?: string; custom_commission_rate?: number | null },
-    settings: { commissionRate: number; growthCommissionRate: number; proCommissionRate: number }
+    settings: { commissionRate: number; growthCommissionRate: number; proCommissionRate: number; agencyCommissionRate?: number }
 ): number {
     // 1. High-Priority: Admin-Set Custom Rate Override
     if (user.custom_commission_rate !== undefined && user.custom_commission_rate !== null && user.custom_commission_rate >= 0) {
@@ -84,9 +87,10 @@ export function getCommissionRateForPlan(
     // 2. Fallback: Plan-Based Rate
     const planType = user.planType || 'FREE';
     switch (planType) {
-        case 'PRO':    return settings.proCommissionRate;
-        case 'GROWTH': return settings.growthCommissionRate;
-        default:       return settings.commissionRate; // FREE
+        case 'AGENCY': return settings.agencyCommissionRate ?? 0;   // $49/mo + 0% platform fee
+        case 'PRO':    return settings.proCommissionRate;            // $19/mo + 5%
+        case 'GROWTH': return settings.growthCommissionRate;         // 5%
+        default:       return settings.commissionRate;               // FREE = 10%
     }
 }
 
@@ -95,12 +99,13 @@ export function getCommissionRateForPlan(
  */
 export function getEscrowDaysForPlan(
     planType: string,
-    settings: { freeEscrowDays: number; growthEscrowDays: number; proEscrowDays: number }
+    settings: { freeEscrowDays: number; growthEscrowDays: number; proEscrowDays: number; agencyEscrowDays?: number }
 ): number {
     switch (planType) {
+        case 'AGENCY': return settings.agencyEscrowDays ?? 1;  // Agency: 1-day escrow
         case 'PRO':    return settings.proEscrowDays;
         case 'GROWTH': return settings.growthEscrowDays;
-        default:       return settings.freeEscrowDays; // FREE
+        default:       return settings.freeEscrowDays;          // FREE: 14 days
     }
 }
 

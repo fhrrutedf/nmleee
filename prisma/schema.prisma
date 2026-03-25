@@ -570,6 +570,7 @@ enum PlanType {
   FREE
   GROWTH
   PRO
+  AGENCY
 }
 
 enum OrderStatus {
@@ -1436,9 +1437,11 @@ model PlatformSettings {
   // Tiered Commission Rates
   growthCommissionRate Float  @default(5)    // عمولة GROWTH %
   proCommissionRate   Float   @default(2)    // عمولة PRO %
+  agencyCommissionRate Float  @default(0)    // عمولة AGENCY % ($49/mo + 0% — gateway fees only)
   freeEscrowDays      Int     @default(14)   // أيام حجز FREE
   growthEscrowDays    Int     @default(7)    // أيام حجز GROWTH
   proEscrowDays       Int     @default(1)    // أيام حجز PRO (24 ساعة)
+  agencyEscrowDays    Int     @default(1)    // أيام حجز AGENCY
   referralCommissionRate Float @default(10)   // نسبة عمولة الإحالة % (من عمولة المنصة)
 
   // Platform wallet numbers
@@ -1448,6 +1451,7 @@ model PlatformSettings {
   shamCash          String?
   omtNumber         String?
   whishNumber       String?
+  vodafoneCashNumber String?  // Vodafone Cash Egypt platform wallet
 
   // Currency rates (admin-set)
   usdToSyp          Float    @default(13000)
@@ -1466,6 +1470,11 @@ model PlatformSettings {
   socialFacebook    String?
   socialTwitter     String?
   socialYoutube     String?
+
+  // Payment Gateway Toggles
+  spaceremitEnabled   Boolean  @default(true)   // بوابة Spaceremit
+  shamcashEnabled     Boolean  @default(true)   // بوابة شام كاش
+  stripeEnabled       Boolean  @default(false)  // Stripe
 
   updatedAt         DateTime @default(now()) @updatedAt
   updatedBy         String?
