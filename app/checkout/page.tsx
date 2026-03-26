@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Script from 'next/script';
 import { FiGlobe, FiShield, FiAlertTriangle, FiArrowRight, FiCheckCircle, FiCreditCard } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import showToast from '@/lib/toast';
@@ -53,6 +52,61 @@ export default function CheckoutPage() {
     const spFormRef = useRef<HTMLFormElement>(null);
     const [spOrderData, setSpOrderData] = useState<any>(null);
     const [spScriptLoaded, setSpScriptLoaded] = useState(false);
+
+    // Load Spaceremit JS when order data is ready
+    useEffect(() => {
+        if (!spOrderData) return;
+        if (spScriptLoaded) return; // Already loaded
+
+        // Save order info on window for the callbacks
+        (window as any).__SP_ORDER_ID = spOrderData.orderId;
+        (window as any).__SP_ORDER_NUMBER = spOrderData.orderNumber;
+
+        // 1. Set config FIRST (global vars Spaceremit expects)
+        (window as any).SP_PUBLIC_KEY = process.env.NEXT_PUBLIC_SPACEREMIT_PUBLIC_KEY || '';
+        (window as any).SP_FORM_ID = '#spaceremit-hidden-form';
+        (window as any).SP_SELECT_RADIO_NAME = 'sp-pay-type-radio';
+        (window as any).LOCAL_METHODS_BOX_STATUS = true;
+        (window as any).LOCAL_METHODS_PARENT_ID = '#spaceremit-local-methods-pay';
+        (window as any).CARD_BOX_STATUS = true;
+        (window as any).CARD_BOX_PARENT_ID = '#spaceremit-card-pay';
+        (window as any).SP_FORM_AUTO_SUBMIT_WHEN_GET_CODE = true;
+
+        // Callbacks
+        (window as any).SP_SUCCESSFUL_PAYMENT = (spaceremit_code: string) => {
+            const orderId = (window as any).__SP_ORDER_ID;
+            const orderNumber = (window as any).__SP_ORDER_NUMBER;
+            fetch('/api/webhooks/spaceremit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ SP_payment_code: spaceremit_code, notes: orderNumber })
+            }).finally(() => {
+                window.location.href = `/success?orderId=${orderId}`;
+            });
+        };
+        (window as any).SP_FAILD_PAYMENT = () => {
+            const orderId = (window as any).__SP_ORDER_ID;
+            window.location.href = `/cancel?orderId=${orderId}`;
+        };
+        (window as any).SP_RECIVED_MESSAGE = (msg: string) => console.log('[Spaceremit]:', msg);
+        (window as any).SP_NEED_AUTH = (link: string) => { window.location.href = link; };
+
+        // 2. Load the Spaceremit JS script AFTER config is set
+        const script = document.createElement('script');
+        script.src = 'https://spaceremit.com/api/v2/js_script/spaceremit.js';
+        script.async = true;
+        script.onload = () => {
+            console.log('[Spaceremit] JS loaded successfully');
+            setSpScriptLoaded(true);
+        };
+        script.onerror = () => console.error('[Spaceremit] Failed to load JS script');
+        document.body.appendChild(script);
+
+        return () => {
+            // Cleanup on unmount
+            try { document.body.removeChild(script); } catch {}
+        };
+    }, [spOrderData]);
 
     // Load Cart
     useEffect(() => {
@@ -116,16 +170,9 @@ export default function CheckoutPage() {
 
                 if (res.ok) {
                     const data = await res.json();
-                    // Step 2: Set order data for the Spaceremit form & trigger it
+                    // Show the Spaceremit payment overlay
                     setSpOrderData(data);
-                    showToast.success('جاري تحويلك لبوابة الدفع...');
-                    
-                    // Give the form time to render, then submit
-                    setTimeout(() => {
-                        if (spFormRef.current) {
-                            spFormRef.current.submit();
-                        }
-                    }, 1500);
+                    // Spaceremit JS will handle everything from here
                 } else {
                     const errData = await res.json().catch(() => ({}));
                     showToast.error(errData.error || 'فشل بدء عملية الدفع');
@@ -298,87 +345,71 @@ export default function CheckoutPage() {
                 </div>
             </div>
 
-            {/* ═══ Hidden Spaceremit V2 Payment Form ═══ */}
-            {spOrderData && (
-                <>
-                    <Script
-                        src="https://spaceremit.com/api/v2/js_script/spaceremit.js"
-                        strategy="afterInteractive"
-                        onLoad={() => setSpScriptLoaded(true)}
-                    />
-                    <Script id="spaceremit-config" strategy="afterInteractive">
-                        {`
-                            const SP_PUBLIC_KEY = "${process.env.NEXT_PUBLIC_SPACEREMIT_PUBLIC_KEY || ''}";
-                            const SP_FORM_ID = "#spaceremit-hidden-form";
-                            const SP_SELECT_RADIO_NAME = "sp-pay-type-radio";
-                            const LOCAL_METHODS_BOX_STATUS = true;
-                            const LOCAL_METHODS_PARENT_ID = "#sp-local-methods";
-                            const CARD_BOX_STATUS = true;
-                            const CARD_BOX_PARENT_ID = "#sp-card-methods";
-                            let SP_FORM_AUTO_SUBMIT_WHEN_GET_CODE = true;
+            {/* ═══ Spaceremit V2 Payment Overlay ═══ */}
+            <div 
+                className={`fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-300 ${spOrderData ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+            >
+                <div className="bg-[#0f1729] rounded-3xl p-8 max-w-lg w-full shadow-2xl border border-white/10 max-h-[90vh] overflow-y-auto">
+                    <div className="flex items-center justify-between mb-6">
+                        <h3 className="text-xl font-black text-white flex items-center gap-2">
+                            <FiCreditCard className="text-emerald-400" /> إتمام الدفع
+                        </h3>
+                        <button 
+                            type="button" 
+                            onClick={() => setSpOrderData(null)} 
+                            className="w-8 h-8 rounded-full bg-white/10 hover:bg-red-500/20 text-white hover:text-red-400 flex items-center justify-center transition-colors text-sm font-bold"
+                        >
+                            ✕
+                        </button>
+                    </div>
 
-                            function SP_SUCCESSFUL_PAYMENT(spaceremit_code) {
-                                // Save payment code to our server
-                                fetch('/api/webhooks/spaceremit', {
-                                    method: 'POST',
-                                    headers: { 'Content-Type': 'application/json' },
-                                    body: JSON.stringify({
-                                        SP_payment_code: spaceremit_code,
-                                        notes: '${spOrderData.orderNumber}'
-                                    })
-                                }).then(() => {
-                                    window.location.href = '/success?orderId=${spOrderData.orderId}';
-                                }).catch(() => {
-                                    window.location.href = '/success?orderId=${spOrderData.orderId}';
-                                });
-                            }
-                            function SP_FAILD_PAYMENT() {
-                                window.location.href = '/cancel?orderId=${spOrderData.orderId}';
-                            }
-                            function SP_RECIVED_MESSAGE(message) { console.log('[Spaceremit]:', message); }
-                            function SP_NEED_AUTH(target_auth_link) { window.location.href = target_auth_link; }
-                        `}
-                    </Script>
+                    {spOrderData && (
+                        <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4 mb-6 text-center">
+                            <p className="text-emerald-400 text-sm font-bold">المبلغ المطلوب</p>
+                            <p className="text-3xl font-black text-white mt-1">{spOrderData.total} <span className="text-lg text-slate-400">USD</span></p>
+                            <p className="text-xs text-slate-500 mt-1 font-mono">#{spOrderData.orderNumber}</p>
+                        </div>
+                    )}
+
                     <form
                         id="spaceremit-hidden-form"
                         ref={spFormRef}
-                        className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center p-4"
-                        style={{ display: spOrderData ? 'flex' : 'none' }}
                     >
-                        <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 max-w-md w-full shadow-2xl">
-                            <h3 className="text-xl font-black text-center mb-6 text-gray-900 dark:text-white">اختر طريقة الدفع</h3>
-                            <input type="hidden" name="amount" value={spOrderData.total} />
-                            <input type="hidden" name="currency" value={spOrderData.currency || 'USD'} />
-                            <input type="hidden" name="fullname" value={spOrderData.customerName} />
-                            <input type="hidden" name="email" value={spOrderData.customerEmail} />
-                            <input type="hidden" name="notes" value={spOrderData.orderNumber} />
+                        <input type="hidden" name="amount" value={spOrderData?.total || 0} />
+                        <input type="hidden" name="currency" value="USD" />
+                        <input type="hidden" name="fullname" value={spOrderData?.customerName || ''} />
+                        <input type="hidden" name="email" value={spOrderData?.customerEmail || ''} />
+                        <input type="hidden" name="notes" value={spOrderData?.orderNumber || ''} />
 
-                            <div className="sp-one-type-select mb-4">
-                                <input type="radio" name="sp-pay-type-radio" value="local-methods-pay" id="sp_local_methods_radio" defaultChecked className="hidden" />
-                                <label htmlFor="sp_local_methods_radio" className="block p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 cursor-pointer mb-3">
-                                    <div className="font-bold text-emerald-700 dark:text-emerald-400">🌍 طرق الدفع المحلية</div>
-                                </label>
-                                <div id="sp-local-methods" className="space-y-2"></div>
-                            </div>
-
-                            <div className="sp-one-type-select mb-6">
-                                <input type="radio" name="sp-pay-type-radio" value="card-pay" id="sp_card_radio" className="hidden" />
-                                <label htmlFor="sp_card_radio" className="block p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 cursor-pointer mb-3">
-                                    <div className="font-bold text-gray-700 dark:text-gray-300">💳 الدفع بالبطاقة</div>
-                                </label>
-                                <div id="sp-card-methods"></div>
-                            </div>
-
-                            <button type="submit" className="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white rounded-2xl font-black text-lg transition-colors">
-                                ادفع {spOrderData.total} $
-                            </button>
-                            <button type="button" onClick={() => setSpOrderData(null)} className="w-full mt-3 py-3 text-gray-500 hover:text-red-500 font-bold text-sm transition-colors">
-                                إلغاء
-                            </button>
+                        <div className="sp-one-type-select mb-4">
+                            <input type="radio" name="sp-pay-type-radio" value="local-methods-pay" id="sp_local_methods_radio" defaultChecked />
+                            <label htmlFor="sp_local_methods_radio" className="block p-4 rounded-xl border-2 border-emerald-500/50 bg-emerald-500/5 cursor-pointer mb-3 hover:bg-emerald-500/10 transition-colors">
+                                <div className="font-bold text-emerald-400 flex items-center gap-2">🌍 طرق الدفع المحلية</div>
+                                <p className="text-xs text-slate-500 mt-1">فودافون كاش · زين كاش · محافظ إلكترونية</p>
+                            </label>
+                            <div id="spaceremit-local-methods-pay" className="space-y-2 min-h-[20px]"></div>
                         </div>
+
+                        <div className="sp-one-type-select mb-6">
+                            <input type="radio" name="sp-pay-type-radio" value="card-pay" id="sp_card_radio" />
+                            <label htmlFor="sp_card_radio" className="block p-4 rounded-xl border-2 border-white/10 bg-white/5 cursor-pointer mb-3 hover:border-blue-500/50 hover:bg-blue-500/5 transition-colors">
+                                <div className="font-bold text-white flex items-center gap-2">💳 الدفع بالبطاقة</div>
+                                <p className="text-xs text-slate-500 mt-1">Visa · Mastercard · بطاقات دولية</p>
+                            </label>
+                            <div id="spaceremit-card-pay"></div>
+                        </div>
+
+                        <button type="submit" className="w-full py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-2xl font-black text-lg transition-all shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 transform hover:-translate-y-0.5">
+                            ادفع الآن
+                        </button>
                     </form>
-                </>
-            )}
+
+                    <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
+                        <FiShield className="text-emerald-500" />
+                        <span>مدعوم بتشفير SSL من Spaceremit</span>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
