@@ -27,26 +27,26 @@ export async function GET(
             return NextResponse.json({ error: 'البائع غير موجود' }, { status: 404 });
         }
 
-        const config = await prisma.platformConfig.findUnique({ where: { id: 'singleton' } });
+        const config = await prisma.platformSettings.findUnique({ where: { id: 'singleton' } });
 
         // Return available payment methods for seller and fallback platform accounts
         const methods = {
             name: user.name,
-            shamCash: user.shamCashNumber || config?.shamCashPhone,
-            omt: user.omtNumber || config?.omtPhone,
-            zainCash: user.zainCashNumber || config?.zainCashPhone,
-            vodafoneCash: user.vodafoneCash || config?.vodafoneCash,
-            mtncash: user.mtncashNumber || config?.mtnCashPhone,
+            shamCash: user.shamCashNumber || config?.shamCash,
+            omt: user.omtNumber || config?.omtNumber,
+            zainCash: user.zainCashNumber || config?.zainCash,
+            vodafoneCash: user.vodafoneCash || config?.vodafoneCashNumber,
+            mtncash: user.mtncashNumber || config?.mtnCash,
             bank: user.bankName && user.accountNumber ? {
                 name: user.bankName,
                 account: user.accountNumber,
             } : null,
             platformWallets: config ? {
-                shamCash: config.shamCashPhone,
-                omt: config.omtPhone,
-                zainCash: config.zainCashPhone,
-                vodafoneCash: config.vodafoneCash,
-                mtnCash: config.mtnCashPhone,
+                shamCash: config.shamCash,
+                omt: config.omtNumber,
+                zainCash: config.zainCash,
+                vodafoneCash: config.vodafoneCashNumber,
+                mtnCash: config.mtnCash,
                 usdToSyp: config.usdToSyp,
                 usdToIqd: config.usdToIqd,
                 usdToEgp: config.usdToEgp
