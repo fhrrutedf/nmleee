@@ -42,49 +42,51 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'بيانات العميل ناقصة' }, { status: 400 });
         }
 
-        // ── 2. Smart Product/Course Identification (V2 Logic) ────────
+        // ── 2. Resilient Item Resolution (V2 Global Checkout) ────────
         const resolvedItems = await Promise.all(
             items.map(async (item: any) => {
+                const rawId = String(item.id || '').trim();
                 const requestedType = item.type || item.itemType;
+                
                 let dbItem: any = null;
                 let finalType = 'product';
 
-                // A. Direct Lookup (Optimized by Type)
-                if (requestedType === 'course') {
-                    dbItem = await prisma.course.findUnique({
-                        where: { id: item.id },
-                        select: { id: true, userId: true, price: true, title: true }
-                    });
-                    finalType = 'course';
-                } else if (requestedType === 'bundle') {
-                    dbItem = await prisma.bundle.findUnique({
-                        where: { id: item.id },
-                        select: { id: true, userId: true, price: true, title: true }
-                    });
-                    finalType = 'bundle';
-                } else if (requestedType === 'product') {
-                    dbItem = await prisma.product.findUnique({
-                        where: { id: item.id },
-                        select: { id: true, userId: true, price: true, title: true }
-                    });
-                    finalType = 'product';
-                }
-
-                // B. Smart Fallback (Search all tables if direct lookup fails)
-                if (!dbItem) {
-                    const [product, course, bundle] = await Promise.all([
-                        prisma.product.findUnique({ where: { id: item.id }, select: { id: true, userId: true, price: true, title: true } }),
-                        prisma.course.findUnique({ where: { id: item.id }, select: { id: true, userId: true, price: true, title: true } }),
-                        prisma.bundle.findUnique({ where: { id: item.id }, select: { id: true, userId: true, price: true, title: true } })
+                // Helper to search all tables for a specific ID
+                const findInAllTables = async (id: string) => {
+                    const [p, c, b] = await Promise.all([
+                        prisma.product.findUnique({ where: { id }, select: { id: true, userId: true, price: true, title: true } }),
+                        prisma.course.findUnique({ where: { id: id }, select: { id: true, userId: true, price: true, title: true } }),
+                        prisma.bundle.findUnique({ where: { id: id }, select: { id: true, userId: true, price: true, title: true } })
                     ]);
+                    if (p) return { item: p, type: 'product' };
+                    if (c) return { item: c, type: 'course' };
+                    if (b) return { item: b, type: 'bundle' };
+                    return null;
+                };
 
-                    if (product) { dbItem = product; finalType = 'product'; }
-                    else if (course) { dbItem = course; finalType = 'course'; }
-                    else if (bundle) { dbItem = bundle; finalType = 'bundle'; }
+                // A. Try direct lookup first
+                const result = await findInAllTables(rawId);
+                
+                if (result) {
+                    dbItem = result.item;
+                    finalType = result.type;
+                } else {
+                    // B. DB MISS - Log error for diagnosis
+                    console.error(`[SPACEREMIT_CHECKOUT] ITEM_NOT_FOUND in DB: "${rawId}"`);
                 }
 
+                // C. FINAL FALLBACK: Trust Frontend Data (MANDATORY per user prompt)
+                // If the DB couldn't find it, we use the values passed by the frontend 
+                // to ensure the user can complete the payment.
                 if (!dbItem) {
-                    throw new Error(`ITEM_NOT_FOUND: Could not resolve item with ID ${item.id}`);
+                    console.warn(`[SPACEREMIT_CHECKOUT] Using Frontend Fallback for ID: ${rawId}`);
+                    return {
+                        id: rawId,
+                        type: requestedType || 'product',
+                        price: Number(item.price || 0),
+                        userId: null, // Will use admin fallback below
+                        name: item.title || item.name || 'Digital Item'
+                    };
                 }
 
                 return {
@@ -215,15 +217,23 @@ export async function POST(req: NextRequest) {
                     affiliateLinkId,
                     referralCommission: commission.affiliateAmount,
                     couponId,
+                    paymentNotes: resolvedItems.some(ri => !ri.userId) ? '⚠️ تم استخدام بيانات الواجهة الأمامية لبعض العناصر بسبب تعذر العثور عليها في قاعدة البيانات' : '',
                     items: {
-                        create: resolvedItems.map((ri: any) => ({
-                            itemType: ri.type,
-                            productId: ri.type === 'product' ? ri.id : null,
-                            courseId:  ri.type === 'course'  ? ri.id : null,
-                            bundleId:  ri.type === 'bundle'  ? ri.id : null,
-                            price: ri.price,
-                            quantity: 1,
-                        }))
+                        create: resolvedItems.map((ri: any) => {
+                            // Foreign Key Protection: 
+                            // Only link to DB records if they were successfully resolved from the DB.
+                            // If ri.userId is null, it means we're in fallback mode.
+                            const isDbBacked = !!ri.userId;
+                            
+                            return {
+                                itemType: ri.type,
+                                productId: (isDbBacked && ri.type === 'product') ? ri.id : null,
+                                courseId:  (isDbBacked && ri.type === 'course')  ? ri.id : null,
+                                bundleId:  (isDbBacked && ri.type === 'bundle')  ? ri.id : null,
+                                price: ri.price,
+                                quantity: 1,
+                            };
+                        })
                     }
                 } as any
             });
