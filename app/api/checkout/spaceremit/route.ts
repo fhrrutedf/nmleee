@@ -71,32 +71,51 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'طريقة الدفع غير مدعومة' }, { status: 400 });
         }
 
-        // ── 2. Resolve seller from first item ────────────────────────
+        // ── 2. Server-side verification of all items ────────────────
+        const resolvedItems = await Promise.all(
+            items.map(async (item: any) => {
+                let dbItem: any = null;
+                if (item.type === 'product') {
+                    dbItem = await prisma.product.findUnique({
+                        where: { id: item.id },
+                        select: { id: true, userId: true, price: true, name: true }
+                    });
+                } else if (item.type === 'course') {
+                    dbItem = await prisma.course.findUnique({
+                        where: { id: item.id },
+                        select: { id: true, userId: true, price: true, title: true }
+                    });
+                } else if (item.type === 'bundle') {
+                    dbItem = await prisma.bundle.findUnique({
+                        where: { id: item.id },
+                        select: { id: true, userId: true, price: true, name: true }
+                    });
+                }
+
+                if (!dbItem) {
+                    throw new Error(`ITEM_NOT_FOUND: ${item.type} with ID ${item.id}`);
+                }
+
+                return {
+                    id: dbItem.id,
+                    type: item.type,
+                    price: Number(dbItem.price),
+                    userId: dbItem.userId,
+                    name: dbItem.name || dbItem.title || 'Product'
+                };
+            })
+        );
+
         const session = await getServerSession(authOptions);
         const buyerUserId = (session?.user as any)?.id || null;
 
-        const firstItem = items[0];
-        let sellerId = '';
-
-        if (firstItem.type === 'product') {
-            const product = await prisma.product.findUnique({
-                where: { id: firstItem.id },
-                select: { userId: true }
-            });
-            sellerId = product?.userId || '';
-        } else if (firstItem.type === 'course') {
-            const course = await prisma.course.findUnique({
-                where: { id: firstItem.id },
-                select: { userId: true }
-            });
-            sellerId = course?.userId || '';
-        }
+        // Determine seller (prioritize first item owner, fallback to ADMIN)
+        let sellerId = resolvedItems[0].userId;
 
         if (!sellerId) {
-            console.log('[SPACEREMIT_SELLER_FALLBACK] No seller found for item, defaulting to system admin.');
             const admin = await prisma.user.findFirst({
                 where: { role: 'ADMIN' },
-                select: { id: true, custom_commission_rate: true }
+                select: { id: true }
             });
             sellerId = admin?.id || '';
         }
@@ -105,13 +124,12 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'لا يمكن تحديد البائع أو النظام غير مهيأ' }, { status: 400 });
         }
 
-        // Ensure seller plan is current (auto-downgrade expired plans)
+        // Ensure seller plan is current
         let currentPlanType: 'FREE' | 'PRO' | 'GROWTH' | 'AGENCY' = 'FREE';
         try {
             const plan = await ensurePlanCurrent(sellerId);
             currentPlanType = (plan as any) || 'FREE';
         } catch (e) {
-            console.error('[SPACEREMIT_PLAN_FALLBACK] Error resolving seller plan, using FREE:', e);
             currentPlanType = 'FREE';
         }
 
@@ -123,26 +141,22 @@ export async function POST(req: NextRequest) {
         // ── 3. Platform settings + currency rates ────────────────────
         const settings = await getPlatformSettings();
 
-        // ── 4. Price calculation ─────────────────────────────────────
+        // ── 4. Price calculation (BASED ON DB PRICES, NOT CART) ──────
         const subtotal = round2(
-            items.reduce((sum: number, item: any) => sum + item.price, 0)
+            resolvedItems.reduce((sum: number, item: any) => sum + item.price, 0)
         );
 
         // Apply coupon
         let discount = 0;
         let couponId: string | null = null;
-
         if (couponCode) {
             const coupon = await prisma.coupon.findUnique({
                 where: { code: couponCode.toUpperCase() }
             });
-
             if (coupon && coupon.isActive) {
                 if (coupon.type === 'percentage') {
                     discount = round2((subtotal * coupon.value) / 100);
-                    if (coupon.maxDiscount && discount > coupon.maxDiscount) {
-                        discount = coupon.maxDiscount;
-                    }
+                    if (coupon.maxDiscount && discount > coupon.maxDiscount) discount = coupon.maxDiscount;
                 } else if (coupon.type === 'fixed') {
                     discount = Math.min(coupon.value, subtotal);
                 }
@@ -151,12 +165,8 @@ export async function POST(req: NextRequest) {
         }
 
         const totalAmount = round2(subtotal - discount);
-
         if (totalAmount <= 0) {
-            return NextResponse.json(
-                { error: 'المبلغ الإجمالي يجب أن يكون أكبر من صفر' },
-                { status: 400 }
-            );
+            return NextResponse.json({ error: 'المبلغ الإجمالي يجب أن يكون أكبر من صفر' }, { status: 400 });
         }
 
         // ── 5. Resolve affiliate link ─────────────────────────────────
@@ -169,17 +179,15 @@ export async function POST(req: NextRequest) {
                 where: { code: refCode },
                 select: { id: true, isActive: true, commissionValue: true, commissionType: true }
             });
-
             if (link?.isActive) {
                 affiliateLinkId = link.id;
-                // Seller-defined affiliate commission rate
                 affiliateRate = link.commissionType === 'percentage'
                     ? link.commissionValue
                     : round2((link.commissionValue / totalAmount) * 100);
             }
         }
 
-        // ── 6. Tiered commission split (decimal-safe) ─────────────────
+        // ── 6. Tiered commission split ───────────────────────────────
         const commission = calculateTieredCommission(
             totalAmount,
             currentPlanType,
@@ -188,7 +196,7 @@ export async function POST(req: NextRequest) {
             settings.gatewayFee ?? 2.5
         );
 
-        // ── 7. Escrow: calculate when funds become available ──────────
+        // ── 7. Escrow and Exchange ──────────────────────────────────
         const escrowDays = (() => {
             switch (currentPlanType) {
                 case 'PRO':             return settings.proEscrowDays;
@@ -201,16 +209,14 @@ export async function POST(req: NextRequest) {
         const availableAt = new Date();
         availableAt.setDate(availableAt.getDate() + escrowDays);
 
-        // Lock exchange rate at payment time (for local currency display)
         const lockedExchangeRate = (() => {
             switch (paymentMethod as SpaceremitPaymentMethod) {
                 case 'vodafone_cash': return settings.usdToEgp;
                 case 'zaincash':      return settings.usdToIqd;
-                default:              return 1; // USD-based
+                default:              return 1;
             }
         })();
 
-        // Calculate local currency amount for display
         const localAmount = round2(totalAmount * lockedExchangeRate);
         const localCurrency = (() => {
             switch (paymentMethod as SpaceremitPaymentMethod) {
@@ -220,46 +226,42 @@ export async function POST(req: NextRequest) {
             }
         })();
 
-        // ── 8. Create Order in DB ─────────────────────────────────────
+        // ── 8. Create Order in DB (ATOMIC TRANSACTION) ──────────────
         const orderNumber = `SPR-${Date.now()}-${Math.floor(Math.random() * 9000 + 1000)}`;
 
-        const order = await prisma.order.create({
-            data: {
-                orderNumber,
-                userId: buyerUserId || sellerId,
-                sellerId,
-                customerName: customerInfo.name,
-                customerEmail: customerInfo.email.toLowerCase().trim(),
-                customerPhone: customerInfo.phone || '',
-                totalAmount,
-                discount,
-                status: 'PENDING',
-                paymentProvider: 'spaceremit',
-                paymentMethod: paymentMethod,
-
-                // Commission breakdown (decimal-safe integers stored)
-                platformFee: commission.platformFee,
-                sellerAmount: commission.sellerAmount,
-                lockedExchangeRate,
-                availableAt,
-
-                // Referral/Affiliate
-                affiliateLinkId,
-                referralCommission: commission.affiliateAmount,
-
-                couponId,
-
-                items: {
-                    create: items.map((item: any) => ({
-                        itemType: item.type,
-                        productId: item.type === 'product' ? item.id : null,
-                        courseId:  item.type === 'course'  ? item.id : null,
-                        bundleId:  item.type === 'bundle'  ? item.id : null,
-                        price: item.price,
-                        quantity: 1,
-                    }))
-                }
-            } as any
+        const order = await prisma.$transaction(async (tx) => {
+            return await tx.order.create({
+                data: {
+                    orderNumber,
+                    userId: buyerUserId || sellerId,
+                    sellerId,
+                    customerName: customerInfo.name,
+                    customerEmail: customerInfo.email.toLowerCase().trim(),
+                    customerPhone: customerInfo.phone || '',
+                    totalAmount,
+                    discount,
+                    status: 'PENDING',
+                    paymentProvider: 'spaceremit',
+                    paymentMethod: paymentMethod,
+                    platformFee: commission.platformFee,
+                    sellerAmount: commission.sellerAmount,
+                    lockedExchangeRate,
+                    availableAt,
+                    affiliateLinkId,
+                    referralCommission: commission.affiliateAmount,
+                    couponId,
+                    items: {
+                        create: resolvedItems.map((ri: any) => ({
+                            itemType: ri.type,
+                            productId: ri.type === 'product' ? ri.id : null,
+                            courseId:  ri.type === 'course'  ? ri.id : null,
+                            bundleId:  ri.type === 'bundle'  ? ri.id : null,
+                            price: ri.price,
+                            quantity: 1,
+                        }))
+                    }
+                } as any
+            });
         });
 
         // ── 9. Create Spaceremit payment session ──────────────────────
