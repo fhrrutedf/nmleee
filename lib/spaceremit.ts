@@ -9,8 +9,10 @@ import crypto from 'crypto';
 
 // ─── Configuration ────────────────────────────────────────
 const SPACEREMIT_API_URL = process.env.SPACEREMIT_API_URL || 'https://api.spaceremit.com/v1';
-const SPACEREMIT_MERCHANT_ID = process.env.SPACEREMIT_MERCHANT_ID || '';
-const SPACEREMIT_API_KEY = process.env.SPACEREMIT_API_KEY || '';
+
+// Direct mapping from Vercel Envs (Supports both legacy and new naming)
+const SPACEREMIT_MERCHANT_ID = process.env.SPACEREMIT_PUBLIC_KEY || process.env.SPACEREMIT_MERCHANT_ID || '';
+const SPACEREMIT_API_KEY = process.env.SPACEREMIT_SECRET_KEY || process.env.SPACEREMIT_API_KEY || '';
 const SPACEREMIT_WEBHOOK_SECRET = process.env.SPACEREMIT_WEBHOOK_SECRET || '';
 
 // ─── Types ─────────────────────────────────────────────────

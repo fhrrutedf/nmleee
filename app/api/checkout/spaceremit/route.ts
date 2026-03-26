@@ -28,9 +28,19 @@ export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         
-        // ── 0. Diagnostics Check ───────────────────────────────────────
-        if (!process.env.SPACEREMIT_API_KEY || !process.env.SPACEREMIT_MERCHANT_ID) {
-            console.warn('⚠️ تنبيه: مفاتيح Spaceremit غير معرفة بالكامل في السيرفر (SPACEREMIT_API_KEY / SPACEREMIT_MERCHANT_ID)');
+        // ── 0. Diagnostics Check (Debug Footprint) ────────────────────
+        const mId = process.env.SPACEREMIT_PUBLIC_KEY || process.env.SPACEREMIT_MERCHANT_ID;
+        const sKey = process.env.SPACEREMIT_SECRET_KEY || process.env.SPACEREMIT_API_KEY;
+
+        console.log('[SPACEREMIT_INIT_DEBUG]', {
+            hasPublicKey: !!mId,
+            publicPrefix: mId ? mId.substring(0, 4) + '...' : 'MISSING',
+            hasSecretKey: !!sKey,
+            secretPrefix: sKey ? sKey.substring(0, 4) + '...' : 'MISSING'
+        });
+
+        if (!mId || !sKey) {
+            console.warn('⚠️ تنبيه: مفاتيح Spaceremit غير معرفة بالكامل في السيرفر (SPACEREMIT_PUBLIC_KEY / SPACEREMIT_SECRET_KEY)');
             return NextResponse.json({ 
                 error: 'بوابة الدفع غير مهيأة بشكل صحيح على السيرفر',
                 code: 'SPACEREMIT_ENV_MISSING' 
