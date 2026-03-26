@@ -42,25 +42,27 @@ export async function GET(req: NextRequest) {
 
         for (const order of pendingOrders) {
             try {
-                // A. Spaceremit Reconcilation
+                // A. Spaceremit Reconciliation (V2 Logic)
                 if (order.paymentProvider === 'spaceremit' && order.paymentId) {
                     const statusData = await getSpaceremitPaymentStatus(order.paymentId);
                     
-                    if (statusData.status === 'SUCCESS' || statusData.status === 'PAID') {
+                    if (statusData.isCompleted) {
                         console.log(`[RECONCILER]: Recovered Spaceremit order ${order.orderNumber}`);
                         
+                        // Update order status atomically
                         await prisma.order.update({
                             where: { id: order.id },
                             data: {
-                                status: 'COMPLETED',
+                                status: 'PAID',
                                 isPaid: true,
-                                paidAt: new Date(statusData.paid_at || Date.now()),
-                                transactionRef: statusData.transaction_ref || order.transactionRef
-                            }
+                                paidAt: new Date(),
+                                transactionRef: order.paymentId // The code itself is the ref
+                            } as any
                         });
 
+                        // Process commissions and fulfillment
                         await processPaymentCommission(order.id);
-                        await fulfillPurchase(order.id, order.userId);
+                        await fulfillPurchase(order.id);
                         stats.fulfilled++;
                     }
                 }
