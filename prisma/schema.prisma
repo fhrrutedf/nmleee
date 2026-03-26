@@ -372,6 +372,7 @@ model Order {
   // Commission & Escrow Fields
   platformFee       Float    @default(0)    // عمولة المنصة
   sellerAmount      Float    @default(0)    // حصة البائع
+  gatewayFee        Float?   @default(0)    // عمولة البوابة (Spaceremit/Stripe)
   
   // Seller Info
   sellerId          String?
