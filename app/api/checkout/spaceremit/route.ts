@@ -4,275 +4,157 @@ import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { ensurePlanCurrent, getPlatformSettings } from '@/lib/commission';
 import { ensureUserAccount } from '@/lib/auth-utils';
-import {
-    createSpaceremitPayment,
-    calculateTieredCommission,
-    round2,
-    type SpaceremitPaymentMethod,
-} from '@/lib/spaceremit';
+import { createSpaceremitPayment, calculateTieredCommission, round2 } from '@/lib/spaceremit';
 
 export async function POST(req: NextRequest) {
+    console.log('[SPACEREMIT_V2] Initiating global checkout transaction...');
+    
     try {
-        const body = await req.json();
-        
+        const body = await req.json().catch(() => ({}));
+        const { items, customerInfo, paymentMethod, couponCode, affiliateRef } = body;
+
+        // 1. Basic Validation
+        if (!items?.length) return NextResponse.json({ error: 'سلة المشتريات فارغة' }, { status: 400 });
+        if (!customerInfo?.email) return NextResponse.json({ error: 'بيانات العميل ناقصة' }, { status: 400 });
+
+        // 2. Fetch Keys (Environment Guard)
         const mKey = process.env.SPACEREMIT_PUBLIC_KEY || process.env.SPACEREMIT_MERCHANT_ID;
         const sKey = process.env.SPACEREMIT_SECRET_KEY || process.env.SPACEREMIT_API_KEY;
-
         if (!mKey || !sKey) {
-            return NextResponse.json({ 
-                error: 'بوابة الدفع غير مهيأة بشكل صحيح على السيرفر (V2 Required)',
-                code: 'SPACEREMIT_ENV_MISSING' 
-            }, { status: 500 });
+            console.error('[SPACEREMIT_V2] API keys are missing in Vercel environment.');
+            return NextResponse.json({ error: 'بوابة الدفع غير مهيأة (Env Missing)' }, { status: 500 });
         }
 
-        const {
-            items,
-            customerInfo,
-            paymentMethod,
-            couponCode,
-            affiliateRef,
-        } = body;
+        // 3. Resilient Product Resolution
+        const resolvedItems = [];
+        for (const item of items) {
+            const rawId = String(item.id || '').trim();
+            
+            // Try Product -> Course -> Bundle sequentially for maximum stability
+            let dbEntry = await prisma.product.findUnique({ where: { id: rawId }, select: { id: true, userId: true, price: true, title: true } });
+            let type = 'product';
 
-        // ── 1. Validate request ──────────────────────────────────────
-        if (!items || items.length === 0) {
-            return NextResponse.json({ error: 'سلة المشتريات فارغة' }, { status: 400 });
+            if (!dbEntry) {
+                dbEntry = await prisma.course.findUnique({ where: { id: rawId }, select: { id: true, userId: true, price: true, title: true } }) as any;
+                type = 'course';
+            }
+            if (!dbEntry) {
+                dbEntry = await prisma.bundle.findUnique({ where: { id: rawId }, select: { id: true, userId: true, price: true, title: true } }) as any;
+                type = 'bundle';
+            }
+
+            if (dbEntry) {
+                resolvedItems.push({ id: dbEntry.id, type, price: Number(dbEntry.price), userId: dbEntry.userId, name: dbEntry.title });
+            } else {
+                // Fallback to Frontend Data as requested by user
+                console.warn(`[SPACEREMIT_V2] Using frontend fallback for item: ${rawId}`);
+                resolvedItems.push({ 
+                    id: rawId, 
+                    type: item.type || 'product', 
+                    price: Number(item.price || 0), 
+                    userId: null, 
+                    name: item.title || 'Digital Item' 
+                });
+            }
         }
 
-        if (!customerInfo?.email || !customerInfo?.name) {
-            return NextResponse.json({ error: 'بيانات العميل ناقصة' }, { status: 400 });
+        // 4. User and Seller Setup
+        const session = await getServerSession(authOptions).catch(() => null);
+        let buyerId = (session?.user as any)?.id || null;
+        if (!buyerId) {
+            buyerId = await ensureUserAccount(customerInfo.email, customerInfo.name || 'عميل تمالين');
         }
 
-        // ── 2. Resilient Item Resolution (V2 Global Checkout) ────────
-        const resolvedItems = await Promise.all(
-            items.map(async (item: any) => {
-                const rawId = String(item.id || '').trim();
-                const requestedType = item.type || item.itemType;
-                
-                let dbItem: any = null;
-                let finalType = 'product';
-
-                // Helper to search all tables for a specific ID
-                const findInAllTables = async (id: string) => {
-                    const [p, c, b] = await Promise.all([
-                        prisma.product.findUnique({ where: { id }, select: { id: true, userId: true, price: true, title: true } }),
-                        prisma.course.findUnique({ where: { id: id }, select: { id: true, userId: true, price: true, title: true } }),
-                        prisma.bundle.findUnique({ where: { id: id }, select: { id: true, userId: true, price: true, title: true } })
-                    ]);
-                    if (p) return { item: p, type: 'product' };
-                    if (c) return { item: c, type: 'course' };
-                    if (b) return { item: b, type: 'bundle' };
-                    return null;
-                };
-
-                // A. Try direct lookup first
-                const result = await findInAllTables(rawId);
-                
-                if (result) {
-                    dbItem = result.item;
-                    finalType = result.type;
-                } else {
-                    // B. DB MISS - Log error for diagnosis
-                    console.error(`[SPACEREMIT_CHECKOUT] ITEM_NOT_FOUND in DB: "${rawId}"`);
-                }
-
-                // C. FINAL FALLBACK: Trust Frontend Data (MANDATORY per user prompt)
-                // If the DB couldn't find it, we use the values passed by the frontend 
-                // to ensure the user can complete the payment.
-                if (!dbItem) {
-                    console.warn(`[SPACEREMIT_CHECKOUT] Using Frontend Fallback for ID: ${rawId}`);
-                    return {
-                        id: rawId,
-                        type: requestedType || 'product',
-                        price: Number(item.price || 0),
-                        userId: null, // Will use admin fallback below
-                        name: item.title || item.name || 'Digital Item'
-                    };
-                }
-
-                return {
-                    id: dbItem.id,
-                    type: finalType,
-                    price: Number(dbItem.price),
-                    userId: dbItem.userId,
-                    name: dbItem.title || 'Item'
-                };
-            })
-        );
-
-        // ── 3. Automatic Account Creation (GUEST -> USER) ────────────
-        const session = await getServerSession(authOptions);
-        let buyerUserId = (session?.user as any)?.id || null;
-
-        if (!buyerUserId && customerInfo.email) {
-            // Auto-create or get existing user by email
-            buyerUserId = await ensureUserAccount(customerInfo.email, customerInfo.name);
-            console.log(`[SPACEREMIT_V2] Auto-created/Found user account: ${buyerUserId}`);
-        }
-
-        // Determine seller (prioritize first item owner)
-        let sellerId = resolvedItems[0].userId;
-
+        const firstItem = resolvedItems[0];
+        let sellerId = firstItem.userId;
         if (!sellerId) {
-            const admin = await prisma.user.findFirst({
-                where: { role: 'ADMIN' },
-                select: { id: true }
-            });
+            const admin = await prisma.user.findFirst({ where: { role: 'ADMIN' }, select: { id: true } });
             sellerId = admin?.id || '';
         }
 
-        // Ensure seller plan is current
-        let currentPlanType: 'FREE' | 'PRO' | 'GROWTH' | 'AGENCY' = 'FREE';
-        try {
-            const plan = await ensurePlanCurrent(sellerId);
-            currentPlanType = (plan as any) || 'FREE';
-        } catch {
-            currentPlanType = 'FREE';
-        }
+        // 5. Commission & Platform Logic
+        const [settings, seller] = await Promise.all([
+            getPlatformSettings(),
+            prisma.user.findUnique({ where: { id: sellerId }, select: { planType: true, custom_commission_rate: true } })
+        ]);
 
-        const seller = await prisma.user.findUnique({
-            where: { id: sellerId },
-            select: { custom_commission_rate: true },
-        });
-
-        const settings = await getPlatformSettings();
-
-        // ── 4. Price calculation (DB BACKED) ─────────────────────────
-        const subtotal = round2(
-            resolvedItems.reduce((sum: number, item: any) => sum + item.price, 0)
-        );
-
+        const planType = (await ensurePlanCurrent(sellerId).catch(() => 'FREE')) as any;
+        const subtotal = round2(resolvedItems.reduce((acc, i) => acc + i.price, 0));
+        
+        // Coupon logic (simplified)
         let discount = 0;
-        let couponId: string | null = null;
+        let couponId = null;
         if (couponCode) {
-            const coupon = await prisma.coupon.findUnique({
-                where: { code: couponCode.toUpperCase() }
-            });
-            if (coupon && coupon.isActive) {
-                if (coupon.type === 'percentage') {
-                    discount = round2((subtotal * coupon.value) / 100);
-                } else if (coupon.type === 'fixed') {
-                    discount = Math.min(coupon.value, subtotal);
-                }
+            const coupon = await prisma.coupon.findUnique({ where: { code: couponCode.toUpperCase() } });
+            if (coupon?.isActive) {
+                discount = coupon.type === 'percentage' ? round2((subtotal * coupon.value) / 100) : Math.min(coupon.value, subtotal);
                 couponId = coupon.id;
             }
         }
 
         const totalAmount = round2(subtotal - discount);
-        if (totalAmount <= 0) {
-            return NextResponse.json({ error: 'المبلغ الإجمالي يجب أن يكون أكبر من صفر' }, { status: 400 });
-        }
+        const commission = calculateTieredCommission(totalAmount, planType, 0, seller?.custom_commission_rate, settings.gatewayFee || 2.5);
 
-        // ── 5. Affiliate Support ─────────────────────────────────────
-        const refCode = affiliateRef || req.cookies.get('ref_code')?.value;
-        let affiliateLinkId: string | null = null;
-        let affiliateRate = 0;
-
-        if (refCode) {
-            const link = await prisma.affiliateLink.findUnique({
-                where: { code: refCode },
-                select: { id: true, isActive: true, commissionValue: true, commissionType: true }
-            });
-            if (link?.isActive) {
-                affiliateLinkId = link.id;
-                affiliateRate = link.commissionType === 'percentage'
-                    ? link.commissionValue
-                    : round2((link.commissionValue / totalAmount) * 100);
-            }
-        }
-
-        // ── 6. Commission & Fees (Subtract Gateway Fee FIRST) ──────
-        const commission = calculateTieredCommission(
-            totalAmount,
-            currentPlanType,
-            affiliateRate,
-            seller?.custom_commission_rate ?? null,
-            settings.gatewayFee ?? 2.5
-        );
-
-        // Escrow Calculation
-        const escrowDays = settings.freeEscrowDays || 10;
-        const availableAt = new Date();
-        availableAt.setDate(availableAt.getDate() + escrowDays);
-
-        // ── 7. Database Order Record ────────────────────────────────
+        // 6. DB Transaction (Order Creation)
         const orderNumber = `SPR-${Date.now()}`;
-
-        const order = await prisma.$transaction(async (tx) => {
-            return await tx.order.create({
-                data: {
-                    orderNumber,
-                    userId: buyerUserId, // Assured by auto-creation above
-                    sellerId,
-                    customerName: customerInfo.name,
-                    customerEmail: customerInfo.email.toLowerCase().trim(),
-                    customerPhone: customerInfo.phone || '',
-                    totalAmount,
-                    discount,
-                    status: 'PENDING',
-                    paymentProvider: 'spaceremit',
-                    paymentMethod: paymentMethod || 'global_card',
-                    platformFee: commission.platformFee,
-                    sellerAmount: commission.sellerAmount,
-                    availableAt,
-                    affiliateLinkId,
-                    referralCommission: commission.affiliateAmount,
-                    couponId,
-                    paymentNotes: resolvedItems.some(ri => !ri.userId) ? '⚠️ تم استخدام بيانات الواجهة الأمامية لبعض العناصر بسبب تعذر العثور عليها في قاعدة البيانات' : '',
-                    items: {
-                        create: resolvedItems.map((ri: any) => {
-                            // Foreign Key Protection: 
-                            // Only link to DB records if they were successfully resolved from the DB.
-                            // If ri.userId is null, it means we're in fallback mode.
-                            const isDbBacked = !!ri.userId;
-                            
-                            return {
-                                itemType: ri.type,
-                                productId: (isDbBacked && ri.type === 'product') ? ri.id : null,
-                                courseId:  (isDbBacked && ri.type === 'course')  ? ri.id : null,
-                                bundleId:  (isDbBacked && ri.type === 'bundle')  ? ri.id : null,
-                                price: ri.price,
-                                quantity: 1,
-                            };
-                        })
-                    }
-                } as any
-            });
+        const order = await prisma.order.create({
+            data: {
+                orderNumber,
+                userId: buyerId,
+                sellerId,
+                customerName: customerInfo.name || 'Customer',
+                customerEmail: customerInfo.email.toLowerCase().trim(),
+                customerPhone: customerInfo.phone || '',
+                totalAmount,
+                discount,
+                status: 'PENDING',
+                paymentProvider: 'spaceremit',
+                paymentMethod: paymentMethod || 'global_card',
+                platformFee: commission.platformFee,
+                sellerAmount: commission.sellerAmount,
+                gatewayFee: commission.gatewayFee,
+                affiliateLinkId: null, // Basic for now
+                couponId,
+                paymentNotes: firstItem.userId ? '' : '⚠️ وضع التوافق: بيانات من الواجهة الأمامية',
+                items: {
+                    create: resolvedItems.map(ri => ({
+                        itemType: ri.type,
+                        productId: (ri.userId && ri.type === 'product') ? ri.id : null,
+                        courseId:  (ri.userId && ri.type === 'course')  ? ri.id : null,
+                        bundleId:  (ri.userId && ri.type === 'bundle')  ? ri.id : null,
+                        price: ri.price,
+                        quantity: 1,
+                    }))
+                }
+            } as any
         });
 
-        // ── 8. Spaceremit V2 Integration ────────────────────────────
+        // 7. Gateway Handshake
         const appUrl = process.env.NEXTAUTH_URL || 'https://tmleen.com';
-
-        const paymentParams = {
+        const paymentData = await createSpaceremitPayment({
             amount: totalAmount,
-            currency: 'USD' as const,
-            customerName: customerInfo.name,
+            currency: 'USD',
+            customerName: customerInfo.name || 'Customer',
             customerEmail: customerInfo.email,
-            orderId: orderNumber, // Passing orderNumber to notes/order_number
+            orderId: orderNumber,
             successUrl: `${appUrl}/success?orderId=${order.id}`,
             failureUrl: `${appUrl}/cancel?orderId=${order.id}`,
-            method: paymentMethod as SpaceremitPaymentMethod,
-        };
-
-        const paymentSession = await createSpaceremitPayment(paymentParams);
-
-        // Update Order with Gateway Reference
-        await prisma.order.update({
-            where: { id: order.id },
-            data: { paymentId: paymentSession.paymentId } as any,
+            method: (paymentMethod as any) || 'global_card',
         });
+
+        // Update with Remote ID
+        await prisma.order.update({ where: { id: order.id }, data: { paymentId: paymentData.paymentId } as any });
 
         return NextResponse.json({
             success: true,
             orderId: order.id,
-            orderNumber,
-            paymentUrl: paymentSession.paymentUrl,
-            paymentId: paymentSession.paymentId,
-            breakdown: commission
+            paymentUrl: paymentData.paymentUrl,
+            paymentId: paymentData.paymentId,
+            total: totalAmount
         });
 
     } catch (error: any) {
-        process.stdout.write(`[SPACEREMIT_CRITICAL] ${error.message}\n`);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        console.error('[SPACEREMIT_FATAL]', error);
+        return NextResponse.json({ error: error.message || 'Error occurred during checkout handshake' }, { status: 500 });
     }
 }
-
