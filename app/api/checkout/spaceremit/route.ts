@@ -45,41 +45,54 @@ export async function POST(req: NextRequest) {
         // ── 2. Smart Product/Course Identification (V2 Logic) ────────
         const resolvedItems = await Promise.all(
             items.map(async (item: any) => {
-                // Smart Search: Try both tables to handle cross-linking or legacy data
-                let dbItem = await prisma.product.findUnique({
-                    where: { id: item.id },
-                    select: { id: true, userId: true, price: true, title: true }
-                });
+                const requestedType = item.type || item.itemType;
+                let dbItem: any = null;
+                let finalType = 'product';
 
-                let itemType = 'product';
-
-                if (!dbItem) {
+                // A. Direct Lookup (Optimized by Type)
+                if (requestedType === 'course') {
                     dbItem = await prisma.course.findUnique({
                         where: { id: item.id },
                         select: { id: true, userId: true, price: true, title: true }
-                    }) as any;
-                    itemType = 'course';
-                }
-
-                if (!dbItem) {
-                    // Fallback to bundle if still not found
+                    });
+                    finalType = 'course';
+                } else if (requestedType === 'bundle') {
                     dbItem = await prisma.bundle.findUnique({
                         where: { id: item.id },
                         select: { id: true, userId: true, price: true, title: true }
-                    }) as any;
-                    itemType = 'bundle';
+                    });
+                    finalType = 'bundle';
+                } else if (requestedType === 'product') {
+                    dbItem = await prisma.product.findUnique({
+                        where: { id: item.id },
+                        select: { id: true, userId: true, price: true, title: true }
+                    });
+                    finalType = 'product';
+                }
+
+                // B. Smart Fallback (Search all tables if direct lookup fails)
+                if (!dbItem) {
+                    const [product, course, bundle] = await Promise.all([
+                        prisma.product.findUnique({ where: { id: item.id }, select: { id: true, userId: true, price: true, title: true } }),
+                        prisma.course.findUnique({ where: { id: item.id }, select: { id: true, userId: true, price: true, title: true } }),
+                        prisma.bundle.findUnique({ where: { id: item.id }, select: { id: true, userId: true, price: true, title: true } })
+                    ]);
+
+                    if (product) { dbItem = product; finalType = 'product'; }
+                    else if (course) { dbItem = course; finalType = 'course'; }
+                    else if (bundle) { dbItem = bundle; finalType = 'bundle'; }
                 }
 
                 if (!dbItem) {
-                    throw new Error(`ITEM_NOT_FOUND: ID ${item.id}`);
+                    throw new Error(`ITEM_NOT_FOUND: Could not resolve item with ID ${item.id}`);
                 }
 
                 return {
                     id: dbItem.id,
-                    type: itemType,
+                    type: finalType,
                     price: Number(dbItem.price),
                     userId: dbItem.userId,
-                    name: dbItem.title || 'Product'
+                    name: dbItem.title || 'Item'
                 };
             })
         );
