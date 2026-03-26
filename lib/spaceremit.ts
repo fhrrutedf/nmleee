@@ -205,19 +205,20 @@ export async function createSpaceremitPayment(
     });
 
     if (!response.ok) {
-        let errorData = {};
+        let errorData: any = {};
+        const rawBody = await response.text().catch(() => 'UNREADABLE');
+        
         try {
-            errorData = await response.json();
+            errorData = JSON.parse(rawBody);
         } catch {
-            const raw = await response.text().catch(() => 'No response body');
-            errorData = { raw };
+            errorData = { raw: rawBody };
         }
         
         const errorMessage = `Spaceremit API error: ${response.status} — ${JSON.stringify(errorData)}`;
-        console.error('[SPACEREMIT_API_CRITICAL_FAILURE]', {
+        console.error('[SPACEREMIT_API_RAW_RESPONSE_DEBUG]', {
             status: response.status,
-            errorData,
-            bodySent: { ...body, merchant_id: '***', customer: { ...body.customer, email: '***@***.***' } } // Mask sensitive data
+            rawBody,
+            errorData
         });
         
         throw new Error(errorMessage);

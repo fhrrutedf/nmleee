@@ -93,7 +93,16 @@ export async function POST(req: NextRequest) {
         }
 
         if (!sellerId) {
-            return NextResponse.json({ error: 'لا يمكن تحديد البائع' }, { status: 400 });
+            console.log('[SPACEREMIT_SELLER_FALLBACK] No seller found for item, defaulting to system admin.');
+            const admin = await prisma.user.findFirst({
+                where: { role: 'ADMIN' },
+                select: { id: true, custom_commission_rate: true }
+            });
+            sellerId = admin?.id || '';
+        }
+
+        if (!sellerId) {
+            return NextResponse.json({ error: 'لا يمكن تحديد البائع أو النظام غير مهيأ' }, { status: 400 });
         }
 
         // Ensure seller plan is current (auto-downgrade expired plans)
@@ -256,9 +265,9 @@ export async function POST(req: NextRequest) {
         // ── 9. Create Spaceremit payment session ──────────────────────
         const appUrl = process.env.NEXTAUTH_URL || 'https://tmleen.com';
 
-        const paymentSession = await createSpaceremitPayment({
+        const paymentParams = {
             amount: totalAmount,
-            currency: 'USD',
+            currency: 'USD' as const,
             localAmount,
             localCurrency,
             method: paymentMethod as SpaceremitPaymentMethod,
@@ -269,7 +278,11 @@ export async function POST(req: NextRequest) {
             description: `Tmleen Order #${orderNumber}`,
             successUrl: `${appUrl}/success?orderId=${order.id}`,
             failureUrl: `${appUrl}/cancel?orderId=${order.id}`,
-        });
+        };
+
+        console.log('[SPACEREMIT_PAYMENT_PAYLOAD_DEBUG]', paymentParams);
+
+        const paymentSession = await createSpaceremitPayment(paymentParams);
 
         // Store Spaceremit payment ID in order
         await prisma.order.update({
