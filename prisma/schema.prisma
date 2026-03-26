@@ -13,24 +13,7 @@ datasource db {
 }
 
 // ─── Platform Settings (Singleton) ────────────────────────
-model PlatformConfig {
-  id              String   @id @default("singleton")
-  
-  // Exchange Rates
-  usdToSyp        Float    @default(15000)
-  usdToIqd        Float    @default(1320)
-  usdToEgp        Float    @default(50)
-  
-  // Platform Wallets / Phones for Manual Payments
-  shamCashPhone   String?
-  omtPhone        String?
-  zainCashPhone   String?
-  vodafoneCash    String?
-  mtnCashPhone    String?
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-}
+// PlatformConfig model has been merged into PlatformSettings (platform_settings table)
 
 
 
@@ -245,6 +228,8 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
+  currency    String?  @default("USD")
+  
   // Relations
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -308,6 +293,8 @@ model Course {
   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  
+  currency    String?  @default("USD")
   
   // Relations
   userId      String
@@ -433,6 +420,8 @@ model Order {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   
+  currency    String?   @default("USD")
+  
   // Coupon & Discount
   couponId    String?
   coupon      Coupon?  @relation(fields: [couponId], references: [id])
@@ -518,7 +507,9 @@ model OrderItem {
   course    Course?  @relation(fields: [courseId], references: [id])
   
   bundleId  String?
-  bundle    Bundle?  @relation(fields: [bundleId], references: [id])
+  bundle    Bundle?  @relation(fields: [bundleId], references: [id], onDelete: Cascade)
+  
+  currency  String?  @default("USD")
   
   licenseKeyId String? // in case there's a license generated
 }
@@ -1473,9 +1464,6 @@ model PlatformSettings {
 
   // Payment Gateway Toggles & Fees
   spaceremitEnabled   Boolean  @default(true)
-  spaceremitApiKey    String?
-  spaceremitMerchantId String?
-  spaceremitWebhookSecret String?
   gatewayFee          Float    @default(2.5)    // رسوم بوابة الدفع الخارجية %
   
   // Security & Liquidity Controls

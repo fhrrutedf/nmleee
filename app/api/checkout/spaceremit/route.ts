@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
                 if (item.type === 'product') {
                     dbItem = await prisma.product.findUnique({
                         where: { id: item.id },
-                        select: { id: true, userId: true, price: true, name: true }
+                        select: { id: true, userId: true, price: true, title: true }
                     });
                 } else if (item.type === 'course') {
                     dbItem = await prisma.course.findUnique({
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
                 } else if (item.type === 'bundle') {
                     dbItem = await prisma.bundle.findUnique({
                         where: { id: item.id },
-                        select: { id: true, userId: true, price: true, name: true }
+                        select: { id: true, userId: true, price: true, title: true }
                     });
                 }
 
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest) {
                     type: item.type,
                     price: Number(dbItem.price),
                     userId: dbItem.userId,
-                    name: dbItem.name || dbItem.title || 'Product'
+                    name: dbItem.title || 'Product'
                 };
             })
         );
