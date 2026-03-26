@@ -27,6 +27,15 @@ import {
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
+        
+        // ── 0. Diagnostics Check ───────────────────────────────────────
+        if (!process.env.SPACEREMIT_API_KEY || !process.env.SPACEREMIT_MERCHANT_ID) {
+            console.warn('⚠️ تنبيه: مفاتيح Spaceremit غير معرفة بالكامل في السيرفر (SPACEREMIT_API_KEY / SPACEREMIT_MERCHANT_ID)');
+            return NextResponse.json({ 
+                error: 'بوابة الدفع غير مهيأة بشكل صحيح على السيرفر',
+                code: 'SPACEREMIT_ENV_MISSING' 
+            }, { status: 500 });
+        }
 
         const {
             items,
@@ -78,7 +87,14 @@ export async function POST(req: NextRequest) {
         }
 
         // Ensure seller plan is current (auto-downgrade expired plans)
-        const currentPlanType = await ensurePlanCurrent(sellerId) as 'FREE' | 'PRO' | 'GROWTH' | 'AGENCY';
+        let currentPlanType: 'FREE' | 'PRO' | 'GROWTH' | 'AGENCY' = 'FREE';
+        try {
+            const plan = await ensurePlanCurrent(sellerId);
+            currentPlanType = (plan as any) || 'FREE';
+        } catch (e) {
+            console.error('[SPACEREMIT_PLAN_FALLBACK] Error resolving seller plan, using FREE:', e);
+            currentPlanType = 'FREE';
+        }
 
         const seller = await prisma.user.findUnique({
             where: { id: sellerId },
@@ -274,19 +290,35 @@ export async function POST(req: NextRequest) {
             },
         });
 
-    } catch (error) {
-        console.error('[SPACEREMIT_CHECKOUT_ERROR]', error);
+    } catch (error: any) {
+        console.error('[SPACEREMIT_CHECKOUT_CRITICAL_ERROR]', {
+            message: error?.message,
+            stack: error?.stack,
+            error: JSON.stringify(error, Object.getOwnPropertyNames(error))
+        });
 
-        if (error instanceof Error && error.message.includes('Spaceremit API error')) {
-            return NextResponse.json(
-                { error: 'خطأ في بوابة الدفع — يرجى المحاولة لاحقاً', details: error.message },
-                { status: 502 }
-            );
+        // Specific Error Mapping for UI
+        let userMessage = 'حدث خطأ أثناء معالجة الدفع';
+        let statusCode = 500;
+
+        if (error.message?.includes('502')) {
+            userMessage = 'فشل الاتصال بسيرفر Spaceremit - يرجى المحاولة لاحقاً';
+            statusCode = 502;
+        } else if (error.message?.includes('401') || error.message?.includes('invalid key')) {
+            userMessage = 'مفتاح API الخاص ببوابة الدفع غير صالح';
+            statusCode = 401;
+        } else if (error.message?.includes('400')) {
+            userMessage = 'بيانات الطلب غير مقبولة من قبل بوابة الدفع';
+            statusCode = 400;
         }
 
         return NextResponse.json(
-            { error: 'حدث خطأ أثناء معالجة الدفع' },
-            { status: 500 }
+            { 
+                error: userMessage, 
+                details: error.message,
+                timestamp: new Date().toISOString()
+            },
+            { status: statusCode }
         );
     }
 }

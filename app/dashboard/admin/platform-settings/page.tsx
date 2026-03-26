@@ -37,9 +37,6 @@ interface PlatformSettings {
     socialYoutube: string;
     // Spaceremit Configuration
     spaceremitEnabled: boolean;
-    spaceremitApiKey: string;
-    spaceremitMerchantId: string;
-    spaceremitWebhookSecret: string;
     gatewayFee: number;
     withdrawalsEnabled: boolean;
     highValueAlertThreshold: number;
@@ -77,9 +74,6 @@ export default function AdminPlatformSettingsPage() {
         socialTwitter: '',
         socialYoutube: '',
         spaceremitEnabled: false,
-        spaceremitApiKey: '',
-        spaceremitMerchantId: '',
-        spaceremitWebhookSecret: '',
         gatewayFee: 2.5,
         withdrawalsEnabled: true,
         highValueAlertThreshold: 500,
@@ -249,40 +243,11 @@ export default function AdminPlatformSettingsPage() {
                             </div>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div className="md:col-span-2">
-                                <label className="text-xs font-black text-gray-400 uppercase tracking-widest mb-2 block">Merchant ID (رقم التاجر)</label>
-                                <input
-                                    type="text"
-                                    value={settings.spaceremitMerchantId}
-                                    onChange={e => update('spaceremitMerchantId', e.target.value)}
-                                    className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl px-5 py-4 font-mono text-sm focus:border-emerald-500 outline-none transition-all"
-                                    placeholder="sp_xxxxxx"
-                                />
-                            </div>
-                            <div>
-                                <label className="text-xs font-black text-gray-400 uppercase tracking-widest mb-2 block">API Key (مفتاح الربط)</label>
-                                <div className="relative">
-                                    <FiKey className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                                    <input
-                                        type="password"
-                                        value={settings.spaceremitApiKey}
-                                        onChange={e => update('spaceremitApiKey', e.target.value)}
-                                        className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl px-5 py-4 pl-12 font-mono text-sm focus:border-emerald-500 outline-none transition-all"
-                                        placeholder="sk_live_xxxx"
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <label className="text-xs font-black text-gray-400 uppercase tracking-widest mb-2 block">Webhook Secret</label>
-                                <input
-                                    type="password"
-                                    value={settings.spaceremitWebhookSecret}
-                                    onChange={e => update('spaceremitWebhookSecret', e.target.value)}
-                                    className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl px-5 py-4 font-mono text-sm focus:border-emerald-500 outline-none transition-all"
-                                    placeholder="wh_xxxx"
-                                />
-                            </div>
+                        <div className="bg-indigo-50 dark:bg-indigo-900/10 p-6 rounded-2xl border border-indigo-100 dark:border-indigo-900/30">
+                            <p className="text-xs text-indigo-600 dark:text-indigo-400 font-medium leading-relaxed">
+                                💡 يتم إدارة مفاتيح الربط (API Keys) و (Merchant ID) بشكل آمن عبر متغيرات البيئة في الاستضافة (Vercel Envs). 
+                                يمكنك فقط تفعيل/تعطيل البوابة وتعديل الرسوم من هنا.
+                            </p>
                         </div>
                     </div>
 
