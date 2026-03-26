@@ -115,55 +115,10 @@ export function calculateTieredCommission(
     };
 }
 
-// ─── API Client ────────────────────────────────────────────
-
-/**
- * Create a new Spaceremit payment session (V2 Logic).
- * Fields: amount, currency, fullname, email, notes (order_number)
- */
-export async function createSpaceremitPayment(
-    params: SpaceremitPaymentRequest
-): Promise<SpaceremitPaymentResponse> {
-    const body = {
-        api_key: SPACEREMIT_API_KEY,
-        amount: params.amount,
-        currency: params.currency || 'USD',
-        fullname: params.customerName,
-        email: params.customerEmail,
-        notes: params.orderId, // Put order number in notes as requested
-        success_url: params.successUrl,
-        fail_url: params.failureUrl,
-        webhook_url: params.webhookUrl || `${process.env.NEXTAUTH_URL}/api/webhooks/spaceremit`,
-    };
-
-    const response = await fetch(`${SPACEREMIT_API_URL}/create_payment`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(body),
-    });
-
-    if (!response.ok) {
-        const rawBody = await response.text();
-        throw new Error(`Spaceremit API V2 Error: ${response.status} — ${rawBody}`);
-    }
-
-    const data = await response.json();
-
-    if (!data.status || data.status === 'error') {
-        throw new Error(`Spaceremit API Error: ${data.message || 'Unknown error'}`);
-    }
-
-    return {
-        success: true,
-        paymentId: data.payment_code || data.id,
-        paymentUrl: data.payment_url || data.checkout_url,
-        expiresAt: data.expires_at,
-        reference: data.reference,
-    };
-}
+// ─── NOTE ──────────────────────────────────────────────────
+// Spaceremit V2 does NOT have a server-side REST API for creating payments.
+// Payments are created via a CLIENT-SIDE JavaScript form.
+// The server-side API only supports verifying payments via payment_info.
 
 /**
  * Verify a Spaceremit webhook signature.
@@ -196,8 +151,8 @@ export async function getSpaceremitPaymentStatus(paymentCode: string) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            api_key: SPACEREMIT_API_KEY,
-            payment_code: paymentCode,
+            private_key: SPACEREMIT_API_KEY,
+            payment_id: paymentCode,
         }),
     });
 
@@ -206,12 +161,20 @@ export async function getSpaceremitPaymentStatus(paymentCode: string) {
         throw new Error(`Spaceremit Status Check Failed: ${response.status} - ${raw}`);
     }
 
-    const data = await response.json();
+    const result = await response.json();
+    // V2 official response structure:
+    // { response_status: 'success', data: { status_tag: 'A', total_amount: '1.00', notes: 'SPR-xxx', ... } }
+    const data = result.data || result;
+    const tag = data.status_tag || '';
+
     return {
-        success: data.status === 'success',
-        isCompleted: data.tag === 'A' || data.status_code === 'completed' || data.message === 'Completed',
-        amount: data.amount,
-        currency: data.currency,
+        success: result.response_status === 'success',
+        // Accept tags: A (Completed), B (Pending), D (Holding), E (Need Review)
+        isCompleted: ['A', 'B', 'D', 'E'].includes(tag),
+        isPaid: tag === 'A',
+        amount: parseFloat(data.total_amount || data.amount || '0'),
+        currency: data.currency || 'USD',
+        notes: data.notes || '',
         raw: data
     };
 }

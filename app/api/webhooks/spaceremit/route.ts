@@ -49,8 +49,13 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'No order reference' }, { status: 400 });
         }
 
-        const order = await prisma.order.findUnique({
-            where: { orderNumber },
+        const order = await prisma.order.findFirst({
+            where: {
+                OR: [
+                    { orderNumber },
+                    { transactionRef: paymentCode }
+                ]
+            },
             include: { user: true }
         });
 
@@ -72,7 +77,8 @@ export async function POST(req: NextRequest) {
                     status: 'PAID',
                     isPaid: true,
                     paidAt: new Date(),
-                    transactionRef: paymentCode
+                    transactionRef: paymentCode,
+                    paymentId: paymentCode, // Store for reconciliation
                 } as any
             });
 
@@ -82,7 +88,7 @@ export async function POST(req: NextRequest) {
 
         await fulfillPurchase(order.id);
 
-        console.log(`[SPACEREMIT_WEBHOOK] SUCCESS: Order ${order.orderNumber} confirmed via Double-Check (Tag A)`);
+        console.log(`[SPACEREMIT_WEBHOOK] SUCCESS: Order ${order.orderNumber} confirmed via Double-Check`);
 
         return NextResponse.json({ status: 'success', orderId: order.id });
 

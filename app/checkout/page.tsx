@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Script from 'next/script';
 import { FiGlobe, FiShield, FiAlertTriangle, FiArrowRight, FiCheckCircle, FiCreditCard } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import showToast from '@/lib/toast';
@@ -48,6 +49,11 @@ export default function CheckoutPage() {
     const [couponCode, setCouponCode] = useState('');
     const [discount, setDiscount] = useState(0);
 
+    // Spaceremit Client-Side Form
+    const spFormRef = useRef<HTMLFormElement>(null);
+    const [spOrderData, setSpOrderData] = useState<any>(null);
+    const [spScriptLoaded, setSpScriptLoaded] = useState(false);
+
     // Load Cart
     useEffect(() => {
         const items = isDirect 
@@ -92,10 +98,10 @@ export default function CheckoutPage() {
             if (paymentMethod === 'spaceremit') {
                 if (!selectedLocalMethod) return showToast.error('يرجى اختيار وسيلة الدفع');
                 
-                // Map frontend IDs to Spaceremit backend IDs
                 let methodId = selectedLocalMethod.id;
                 if (methodId === 'crypto_usdt') methodId = 'usdt_trc20';
 
+                // Step 1: Create the order on our server
                 const res = await fetch('/api/checkout/spaceremit', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -107,10 +113,23 @@ export default function CheckoutPage() {
                         affiliateRef: affRef
                     })
                 });
+
                 if (res.ok) {
-                    const d = await res.json();
-                    window.location.href = d.paymentUrl; // Use paymentUrl from SPR API
-                } else showToast.error('فشل بدء عملية الدفع التلقائي');
+                    const data = await res.json();
+                    // Step 2: Set order data for the Spaceremit form & trigger it
+                    setSpOrderData(data);
+                    showToast.success('جاري تحويلك لبوابة الدفع...');
+                    
+                    // Give the form time to render, then submit
+                    setTimeout(() => {
+                        if (spFormRef.current) {
+                            spFormRef.current.submit();
+                        }
+                    }, 1500);
+                } else {
+                    const errData = await res.json().catch(() => ({}));
+                    showToast.error(errData.error || 'فشل بدء عملية الدفع');
+                }
 
             } else if (paymentMethod === 'manual' && isSyria) {
                 if (!selectedLocalMethod || !manualData.transactionRef || !manualData.proofFile) {
@@ -278,6 +297,88 @@ export default function CheckoutPage() {
                     </div>
                 </div>
             </div>
+
+            {/* ═══ Hidden Spaceremit V2 Payment Form ═══ */}
+            {spOrderData && (
+                <>
+                    <Script
+                        src="https://spaceremit.com/api/v2/js_script/spaceremit.js"
+                        strategy="afterInteractive"
+                        onLoad={() => setSpScriptLoaded(true)}
+                    />
+                    <Script id="spaceremit-config" strategy="afterInteractive">
+                        {`
+                            const SP_PUBLIC_KEY = "${process.env.NEXT_PUBLIC_SPACEREMIT_PUBLIC_KEY || ''}";
+                            const SP_FORM_ID = "#spaceremit-hidden-form";
+                            const SP_SELECT_RADIO_NAME = "sp-pay-type-radio";
+                            const LOCAL_METHODS_BOX_STATUS = true;
+                            const LOCAL_METHODS_PARENT_ID = "#sp-local-methods";
+                            const CARD_BOX_STATUS = true;
+                            const CARD_BOX_PARENT_ID = "#sp-card-methods";
+                            let SP_FORM_AUTO_SUBMIT_WHEN_GET_CODE = true;
+
+                            function SP_SUCCESSFUL_PAYMENT(spaceremit_code) {
+                                // Save payment code to our server
+                                fetch('/api/webhooks/spaceremit', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        SP_payment_code: spaceremit_code,
+                                        notes: '${spOrderData.orderNumber}'
+                                    })
+                                }).then(() => {
+                                    window.location.href = '/success?orderId=${spOrderData.orderId}';
+                                }).catch(() => {
+                                    window.location.href = '/success?orderId=${spOrderData.orderId}';
+                                });
+                            }
+                            function SP_FAILD_PAYMENT() {
+                                window.location.href = '/cancel?orderId=${spOrderData.orderId}';
+                            }
+                            function SP_RECIVED_MESSAGE(message) { console.log('[Spaceremit]:', message); }
+                            function SP_NEED_AUTH(target_auth_link) { window.location.href = target_auth_link; }
+                        `}
+                    </Script>
+                    <form
+                        id="spaceremit-hidden-form"
+                        ref={spFormRef}
+                        className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center p-4"
+                        style={{ display: spOrderData ? 'flex' : 'none' }}
+                    >
+                        <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 max-w-md w-full shadow-2xl">
+                            <h3 className="text-xl font-black text-center mb-6 text-gray-900 dark:text-white">اختر طريقة الدفع</h3>
+                            <input type="hidden" name="amount" value={spOrderData.total} />
+                            <input type="hidden" name="currency" value={spOrderData.currency || 'USD'} />
+                            <input type="hidden" name="fullname" value={spOrderData.customerName} />
+                            <input type="hidden" name="email" value={spOrderData.customerEmail} />
+                            <input type="hidden" name="notes" value={spOrderData.orderNumber} />
+
+                            <div className="sp-one-type-select mb-4">
+                                <input type="radio" name="sp-pay-type-radio" value="local-methods-pay" id="sp_local_methods_radio" defaultChecked className="hidden" />
+                                <label htmlFor="sp_local_methods_radio" className="block p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 cursor-pointer mb-3">
+                                    <div className="font-bold text-emerald-700 dark:text-emerald-400">🌍 طرق الدفع المحلية</div>
+                                </label>
+                                <div id="sp-local-methods" className="space-y-2"></div>
+                            </div>
+
+                            <div className="sp-one-type-select mb-6">
+                                <input type="radio" name="sp-pay-type-radio" value="card-pay" id="sp_card_radio" className="hidden" />
+                                <label htmlFor="sp_card_radio" className="block p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 cursor-pointer mb-3">
+                                    <div className="font-bold text-gray-700 dark:text-gray-300">💳 الدفع بالبطاقة</div>
+                                </label>
+                                <div id="sp-card-methods"></div>
+                            </div>
+
+                            <button type="submit" className="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white rounded-2xl font-black text-lg transition-colors">
+                                ادفع {spOrderData.total} $
+                            </button>
+                            <button type="button" onClick={() => setSpOrderData(null)} className="w-full mt-3 py-3 text-gray-500 hover:text-red-500 font-bold text-sm transition-colors">
+                                إلغاء
+                            </button>
+                        </div>
+                    </form>
+                </>
+            )}
         </div>
     );
 }
