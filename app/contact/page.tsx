@@ -58,7 +58,7 @@ export default function ContactPage() {
     return (
         <div className="min-h-screen bg-bg-light relative overflow-hidden">
             {/* Background Elements */}
-            <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-action-blue/10 rounded-full blur-[80px] -z-10 pointer-events-none"></div>
+            <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-accent/10 rounded-full blur-[80px] -z-10 pointer-events-none"></div>
             <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
 
             <div className="max-w-7xl mx-auto px-4 py-20 lg:py-32 relative z-10">
@@ -69,11 +69,11 @@ export default function ContactPage() {
                     variants={fadeInUp}
                     className="text-center mb-20 max-w-3xl mx-auto"
                 >
-                    <span className="inline-block py-1.5 px-4 rounded-full bg-blue-100/50 text-action-blue font-bold tracking-wider text-sm mb-6 border border-blue-200">
+                    <span className="inline-block py-1.5 px-4 rounded-full bg-blue-100/50 text-accent font-bold tracking-wider text-sm mb-6 border border-blue-200">
                         نحن دائماً في الخدمة
                     </span>
-                    <h1 className="text-5xl md:text-6xl font-bold text-primary-charcoal mb-6 font-heading">
-                        لنبقَ على <span className="text-transparent bg-clip-text bg-gradient-to-r from-action-blue to-purple-600">تواصل</span>
+                    <h1 className="text-5xl md:text-6xl font-bold text-ink mb-6 font-heading">
+                        لنبقَ على <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-600">تواصل</span>
                     </h1>
                     <p className="text-xl text-text-muted font-light leading-relaxed">
                         سواء كان لديك استفسار، تعليق، أو تحتاج إلى مساعدة... فريقنا جاهز للرد عليك في أسرع وقت ممكن.
@@ -90,7 +90,7 @@ export default function ContactPage() {
                     >
                         {[
                             {
-                                icon: <FiMail className="text-2xl text-action-blue" />,
+                                icon: <FiMail className="text-2xl text-accent" />,
                                 title: 'البريد الإلكتروني',
                                 lines: ['support@tmleen.com', 'info@tmleen.com'],
                                 bg: 'bg-blue-50',
@@ -122,7 +122,7 @@ export default function ContactPage() {
                                     {info.icon}
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-xl mb-3 text-primary-charcoal">{info.title}</h3>
+                                    <h3 className="font-bold text-xl mb-3 text-ink">{info.title}</h3>
                                     {info.lines.map((line, i) => (
                                         <p key={i} className="text-text-muted font-medium mb-1" dir={info.title === 'الهاتف الساخن' ? 'ltr' : 'rtl'}>{line}</p>
                                     ))}
@@ -141,9 +141,9 @@ export default function ContactPage() {
                     >
                         <div className="bg-white rounded-xl shadow-2xl shadow-gray-200/50 p-8 md:p-12 border border-gray-100 overflow-hidden relative">
                             {/* Decorative element inside form */}
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-action-blue/10 to-transparent rounded-bl-[100px] pointer-events-none"></div>
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent/10 to-transparent rounded-bl-[100px] pointer-events-none"></div>
 
-                            <h2 className="text-3xl font-bold mb-8 text-primary-charcoal">أرسل لنا رسالة المباشرة</h2>
+                            <h2 className="text-3xl font-bold mb-8 text-ink">أرسل لنا رسالة المباشرة</h2>
 
                             <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -153,11 +153,11 @@ export default function ContactPage() {
                                             id="name"
                                             value={formData.name}
                                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                            className="block w-full px-5 py-4 text-primary-charcoal bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-action-blue focus:border-transparent transition-all peer"
+                                            className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
                                             placeholder=" "
                                             required
                                         />
-                                        <label htmlFor="name" className="absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-action-blue peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 right-4">
+                                        <label htmlFor="name" className="absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-accent peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 right-4">
                                             الاسم الكامل <span className="text-red-500">*</span>
                                         </label>
                                     </div>
@@ -168,11 +168,11 @@ export default function ContactPage() {
                                             id="email"
                                             value={formData.email}
                                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                            className="block w-full px-5 py-4 text-primary-charcoal bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-action-blue focus:border-transparent transition-all peer"
+                                            className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
                                             placeholder=" "
                                             required
                                         />
-                                        <label htmlFor="email" className="absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-action-blue peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 right-4">
+                                        <label htmlFor="email" className="absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-accent peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 right-4">
                                             البريد الإلكتروني <span className="text-red-500">*</span>
                                         </label>
                                     </div>
@@ -184,11 +184,11 @@ export default function ContactPage() {
                                         id="subject"
                                         value={formData.subject}
                                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                                        className="block w-full px-5 py-4 text-primary-charcoal bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-action-blue focus:border-transparent transition-all peer"
+                                        className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
                                         placeholder=" "
                                         required
                                     />
-                                    <label htmlFor="subject" className="absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-action-blue peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 right-4">
+                                    <label htmlFor="subject" className="absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-accent peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 right-4">
                                         عنوان الرسالة <span className="text-red-500">*</span>
                                     </label>
                                 </div>
@@ -198,12 +198,12 @@ export default function ContactPage() {
                                         id="message"
                                         value={formData.message}
                                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                        className="block w-full px-5 py-4 text-primary-charcoal bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-action-blue focus:border-transparent transition-all peer resize-none"
+                                        className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer resize-none"
                                         placeholder=" "
                                         rows={6}
                                         required
                                     />
-                                    <label htmlFor="message" className="absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-6 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-action-blue peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-8 peer-focus:top-6 peer-focus:scale-75 peer-focus:-translate-y-4 right-4">
+                                    <label htmlFor="message" className="absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-6 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-accent peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-8 peer-focus:top-6 peer-focus:scale-75 peer-focus:-translate-y-4 right-4">
                                         تفاصيل الرسالة... <span className="text-red-500">*</span>
                                     </label>
                                 </div>
@@ -214,7 +214,7 @@ export default function ContactPage() {
                                     type="submit"
                                     disabled={loading || success}
                                     className={`w-full text-lg py-5 rounded-2xl flex items-center justify-center gap-3 font-bold transition-all duration-300 shadow-xl
-                                        ${success ? 'bg-green-500 text-white shadow-green-500/30' : 'bg-action-blue text-white hover:bg-blue-700 shadow-action-blue/30'}
+                                        ${success ? 'bg-green-500 text-white shadow-green-500/30' : 'bg-accent text-white hover:bg-blue-700 shadow-accent/30'}
                                         ${loading ? 'opacity-80 cursor-not-allowed' : ''}
                                     `}
                                 >

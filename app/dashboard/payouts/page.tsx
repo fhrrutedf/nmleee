@@ -121,7 +121,7 @@ export default function PayoutsPage() {
 
             {/* Stats Cards */}
             <div className="grid md:grid-cols-3 gap-6">
-                <div className="card bg-gradient-to-br from-primary-500 to-primary-600 text-white">
+                <div className="card bg-gradient-to-br from-accent to-accent text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-primary-100">إجمالي الأرباح</span>
                         <FiDollarSign className="text-2xl" />
@@ -150,7 +150,7 @@ export default function PayoutsPage() {
             <div className="card bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-3xl overflow-hidden shadow-sm">
                 <div className="p-6 sm:p-8">
                     <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                        <span className="w-1.5 h-6 bg-primary-500 rounded-full"></span>
+                        <span className="w-1.5 h-6 bg-accent rounded-full"></span>
                         طلب سحب جديد
                     </h2>
 
@@ -201,14 +201,14 @@ export default function PayoutsPage() {
                                     <button 
                                         type="button" 
                                         onClick={() => setRequestAmount(stats.availableBalance.toString())}
-                                        className="text-xs text-primary-600 hover:underline"
+                                        className="text-xs text-accent hover:underline"
                                     >
                                         سحب الكل
                                     </button>
                                 </div>
                             </div>
 
-                            <button type="submit" className="btn btn-primary w-full py-4 text-lg shadow-lg shadow-primary-500/20 active:scale-[0.98]">
+                            <button type="submit" className="btn btn-primary w-full py-4 text-lg shadow-lg shadow-accent/20 active:scale-[0.98]">
                                 إرسال طلب السحب
                             </button>
                         </form>
@@ -222,7 +222,7 @@ export default function PayoutsPage() {
 
                 {loading ? (
                     <div className="text-center py-8">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto"></div>
                     </div>
                 ) : payouts.length === 0 ? (
                     <div className="text-center py-8 text-gray-500">

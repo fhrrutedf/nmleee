@@ -63,7 +63,7 @@ export default function DashboardPage() {
             className="space-y-8 pb-12"
         >
             {/* Welcome Section */}
-            <motion.div variants={item} className="bg-gradient-to-r from-primary-charcoal to-gray-800 rounded-2xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+            <motion.div variants={item} className="bg-gradient-to-r from-ink to-gray-800 rounded-2xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
                 <div className="relative z-10">
                     <h1 className="text-2xl sm:text-4xl font-bold mb-3 leading-tight">مرحباً، {session?.user?.name}! 👋</h1>
                     <p className="text-gray-300 max-w-xl">
@@ -72,14 +72,14 @@ export default function DashboardPage() {
                 </div>
                 {/* Abstract Background Shapes */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"></div>
-                <div className="absolute bottom-0 left-0 w-48 h-48 bg-action-blue/20 rounded-full translate-y-1/3 -translate-x-1/4 blur-2xl"></div>
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/20 rounded-full translate-y-1/3 -translate-x-1/4 blur-2xl"></div>
             </motion.div>
 
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
                 {[
                     { title: 'إجمالي الأرباح', value: `${(stats.totalRevenue || 0).toLocaleString('ar-EG')} $`, icon: FiDollarSign, badge: 'إرباح', color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/20' },
-                    { title: 'إجمالي الطلبات', value: stats.totalOrders || 0, icon: FiShoppingCart, badge: 'طلب', color: 'text-action-blue', bg: 'bg-blue-50 dark:bg-blue-900/20' },
+                    { title: 'إجمالي الطلبات', value: stats.totalOrders || 0, icon: FiShoppingCart, badge: 'طلب', color: 'text-accent', bg: 'bg-blue-50 dark:bg-blue-900/20' },
                     { title: 'المنتجات النشطة', value: stats.totalProducts || 0, icon: FiPackage, badge: 'نشط', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20' },
                     { title: 'الاستشارات القادمة', value: stats.totalAppointments || 0, icon: FiCalendar, badge: 'قريباً', color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/20' },
                     { title: 'عدد الطلاب', value: stats.totalStudents || 0, icon: FiUsers, badge: 'طالب', color: 'text-teal-500', bg: 'bg-teal-50 dark:bg-teal-900/20' }
@@ -95,7 +95,7 @@ export default function DashboardPage() {
                         </div>
                         <h3 className="text-text-muted text-sm font-medium mb-1">{stat.title}</h3>
                         <div className="flex items-end justify-between">
-                            <p className="text-2xl font-bold text-primary-charcoal dark:text-white">
+                            <p className="text-2xl font-bold text-ink dark:text-white">
                                 {loading ? '...' : stat.value}
                             </p>
                             {stat.title === 'إجمالي الأرباح' && (
@@ -119,7 +119,7 @@ export default function DashboardPage() {
                 <motion.div variants={item} className="lg:col-span-2 card min-h-[400px] flex flex-col">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-xl font-bold flex items-center gap-2">
-                            <FiActivity className="text-action-blue" /> النظرة العامة
+                            <FiActivity className="text-accent" /> النظرة العامة
                         </h2>
                         <select className="bg-bg-light dark:bg-gray-800 border-none rounded-lg text-sm px-3 py-1 text-text-muted focus:ring-0">
                             <option>آخر 7 أيام</option>
@@ -132,7 +132,7 @@ export default function DashboardPage() {
                         <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
                             <FiActivity className="text-3xl text-gray-400" />
                         </div>
-                        <h3 className="text-lg font-medium text-primary-charcoal mb-2">لا توجد بيانات كافية للرسم البياني</h3>
+                        <h3 className="text-lg font-medium text-ink mb-2">لا توجد بيانات كافية للرسم البياني</h3>
                         <p className="text-text-muted max-w-sm mx-auto">
                             ستظهر هنا إحصائياتك التفصيلية بمجرد البدء في استقبال الطلبات وحجز الاستشارات.
                         </p>
@@ -141,7 +141,7 @@ export default function DashboardPage() {
 
                 {/* Quick Actions */}
                 <motion.div variants={item} className="space-y-4">
-                    <h2 className="text-xl font-bold text-primary-charcoal mb-4">إجراءات سريعة</h2>
+                    <h2 className="text-xl font-bold text-ink mb-4">إجراءات سريعة</h2>
                     {[
                         { title: 'إضافة منتج جديد', desc: 'بيع كتاب، ملف، أو قالب', icon: FiPackage, href: '/dashboard/products/new', color: 'bg-blue-500' },
                         { title: 'إنشاء دورة تدريبية', desc: 'شارك خبرتك مع العالم', icon: FiVideo, href: '/dashboard/courses/new', color: 'bg-purple-500' },
@@ -152,7 +152,7 @@ export default function DashboardPage() {
                                 <action.icon className="text-xl" />
                             </div>
                             <div>
-                                <h3 className="font-bold text-primary-charcoal dark:text-white group-hover:text-action-blue transition-colors">{action.title}</h3>
+                                <h3 className="font-bold text-ink dark:text-white group-hover:text-accent transition-colors">{action.title}</h3>
                                 <p className="text-xs text-text-muted">{action.desc}</p>
                             </div>
                             <div className="mr-auto opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0">

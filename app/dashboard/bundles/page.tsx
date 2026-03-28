@@ -50,7 +50,7 @@ export default function BundlesPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-action-blue"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
             </div>
         );
     }
@@ -60,7 +60,7 @@ export default function BundlesPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white">الباقات والحزم</h1>
+                    <h1 className="text-2xl font-bold text-ink dark:text-white">الباقات والحزم</h1>
                     <p className="text-text-muted mt-1">اجمع أكثر من منتج في باقة واحدة لزيادة المبيعات</p>
                 </div>
                 <Link href="/dashboard/bundles/new" className="btn btn-primary flex items-center gap-2">
@@ -75,7 +75,7 @@ export default function BundlesPage() {
                     <div className="w-16 h-16 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
                         <FiPackage className="text-2xl text-gray-400" />
                     </div>
-                    <h3 className="text-xl font-bold text-primary-charcoal dark:text-white mb-2">لا توجد باقات بعد</h3>
+                    <h3 className="text-xl font-bold text-ink dark:text-white mb-2">لا توجد باقات بعد</h3>
                     <p className="text-text-muted mb-6">قم بإنشاء وتجميع باقات خاصة بمنتجاتك لتوفير أسعار مميزة لعملائك</p>
                     <Link href="/dashboard/bundles/new" className="btn btn-primary inline-flex">
                         أضف أول باقة
@@ -93,7 +93,7 @@ export default function BundlesPage() {
                                         <FiPackage className="text-4xl text-gray-300" />
                                     </div>
                                 )}
-                                <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-action-blue text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                                <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-accent text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
                                     <FiPackage />
                                     <span>{bundle.products?.length || 0} منتجات</span>
                                 </div>
@@ -106,7 +106,7 @@ export default function BundlesPage() {
                                 </p>
 
                                 <div className="flex items-center justify-between mb-4">
-                                    <div className="text-xl font-bold text-primary-charcoal dark:text-white bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-700">
+                                    <div className="text-xl font-bold text-ink dark:text-white bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-700">
                                         {bundle.price} $
                                     </div>
                                     <div className="text-sm text-gray-500 flex items-center gap-1">

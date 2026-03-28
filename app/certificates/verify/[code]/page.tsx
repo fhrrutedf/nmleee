@@ -20,7 +20,7 @@ export default async function VerifyCertificatePage(props: { params: Promise<{ c
         return (
             <div className="min-h-screen bg-bg-light flex flex-col items-center justify-center p-6 text-center">
                 <FiXCircle className="text-6xl text-red-500 mb-4" />
-                <h1 className="text-3xl font-bold text-primary-charcoal mb-2">شهادة غير صالحة</h1>
+                <h1 className="text-3xl font-bold text-ink mb-2">شهادة غير صالحة</h1>
                 <p className="text-text-muted">عذراً، لم نتمكن من العثور على شهادة برمز التحقق هذا. يرجى التأكد من الرابط والمحاولة مرة أخرى.</p>
             </div>
         );
@@ -31,7 +31,7 @@ export default async function VerifyCertificatePage(props: { params: Promise<{ c
             <div className="max-w-3xl mx-auto">
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-action-blue to-purple-600 px-8 py-12 text-center text-white relative">
+                    <div className="bg-gradient-to-r from-accent to-purple-600 px-8 py-12 text-center text-white relative">
                         <div className="absolute top-4 right-4 flex items-center gap-2 bg-white/20 px-3 py-1 rounded-full text-sm backdrop-blur-sm">
                             <FiCheckCircle className="text-green-300" />
                             <span>موثقة رسمياً</span>
@@ -46,7 +46,7 @@ export default async function VerifyCertificatePage(props: { params: Promise<{ c
                         <h2 className="text-3xl font-bold text-gray-900 mb-8">{certificate.studentName}</h2>
 
                         <p className="text-gray-500 mb-2">لإتمامه بنجاح دورة:</p>
-                        <h3 className="text-2xl font-bold text-action-blue mb-8">"{certificate.courseName}"</h3>
+                        <h3 className="text-2xl font-bold text-accent mb-8">"{certificate.courseName}"</h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 mb-8 text-right">
                             <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">

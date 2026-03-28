@@ -133,8 +133,8 @@ export default function IntegrationsPage() {
         <div className="space-y-8">
             {/* Header */}
             <div>
-                <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white flex items-center gap-3">
-                    <FiLink2 className="text-action-blue" />
+                <h1 className="text-3xl font-bold text-ink dark:text-white flex items-center gap-3">
+                    <FiLink2 className="text-accent" />
                     التكاملات
                 </h1>
                 <p className="text-text-muted mt-2">
@@ -161,10 +161,10 @@ export default function IntegrationsPage() {
             )}
 
             {/* Reminder info box */}
-            <div className="bg-action-blue/5 border border-action-blue/20 rounded-2xl p-5 flex gap-4 items-start">
-                <FiClock className="text-action-blue text-2xl flex-shrink-0 mt-0.5" />
+            <div className="bg-accent/5 border border-accent/20 rounded-2xl p-5 flex gap-4 items-start">
+                <FiClock className="text-accent text-2xl flex-shrink-0 mt-0.5" />
                 <div>
-                    <p className="font-bold text-action-blue">إرسال رابط الاجتماع تلقائياً</p>
+                    <p className="font-bold text-accent">إرسال رابط الاجتماع تلقائياً</p>
                     <p className="text-text-muted text-sm mt-1">
                         عند ربط أي خدمة، يتم إرسال رابط الاجتماع للعميل <strong>قبل 30 دقيقة</strong> من الموعد تلقائياً عبر البريد الإلكتروني — لا تحتاج لأي إجراء يدوي.
                     </p>
@@ -184,7 +184,7 @@ export default function IntegrationsPage() {
                             ? 'border-green-200 dark:border-green-800'
                             : integration.status === 'coming_soon'
                                 ? 'border-dashed border-gray-200 dark:border-gray-700 opacity-70'
-                                : 'border-gray-100 dark:border-gray-800 hover:border-action-blue/40'
+                                : 'border-gray-100 dark:border-gray-800 hover:border-accent/40'
                             }`}
                     >
                         {/* Header */}
@@ -194,7 +194,7 @@ export default function IntegrationsPage() {
                                     {integration.icon}
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-bold text-primary-charcoal dark:text-white">
+                                    <h3 className="text-lg font-bold text-ink dark:text-white">
                                         {integration.name}
                                     </h3>
                                     {integration.status === 'connected' && (
@@ -223,7 +223,7 @@ export default function IntegrationsPage() {
                         {/* Features */}
                         <ul className="space-y-2 mb-5">
                             {integration.features.map((f, idx) => (
-                                <li key={idx} className="flex items-center gap-2 text-sm text-primary-charcoal dark:text-gray-300">
+                                <li key={idx} className="flex items-center gap-2 text-sm text-ink dark:text-gray-300">
                                     <FiCheckCircle className="text-green-500 flex-shrink-0" />
                                     {f}
                                 </li>

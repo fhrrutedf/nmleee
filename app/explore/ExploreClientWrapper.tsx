@@ -34,9 +34,9 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                         className="group relative block h-full outline-none"
                     >
                         {/* Hover Glow Behind Card */}
-                        <div className="absolute -inset-1 bg-gradient-to-br from-action-blue/50 to-purple-600/50 rounded-xl blur-xl opacity-0 group-hover:opacity-60 group-focus-visible:opacity-60 transition duration-500 delay-75 -z-10 mt-4 mx-2"></div>
+                        <div className="absolute -inset-1 bg-gradient-to-br from-accent/50 to-purple-600/50 rounded-xl blur-xl opacity-0 group-hover:opacity-60 group-focus-visible:opacity-60 transition duration-500 delay-75 -z-10 mt-4 mx-2"></div>
 
-                        <div className="bg-white dark:bg-card-white rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col h-full ring-2 ring-transparent group-focus-visible:ring-action-blue">
+                        <div className="bg-white dark:bg-card-white rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col h-full ring-2 ring-transparent group-focus-visible:ring-accent">
                             {/* Media Thumbnails Area */}
                             <div className="aspect-[4/3] bg-gray-100 dark:bg-gray-800 relative overflow-hidden group-hover:after:absolute group-hover:after:inset-0 group-hover:after:bg-black/10 transition-all after:transition-colors">
                                 {(item.thumbnail || item.image || (item.images && item.images[0])) ? (
@@ -102,7 +102,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                 </div>
                                 <span className="text-[11px] text-gray-400 dark:text-gray-500 font-bold mb-2 block">{item.user?.name || 'مبدع مستقل'}</span>
 
-                                <h3 className="font-extrabold text-gray-900 dark:text-white text-lg leading-snug mb-3 line-clamp-2 group-hover:text-action-blue transition-colors will-change-transform">
+                                <h3 className="font-extrabold text-gray-900 dark:text-white text-lg leading-snug mb-3 line-clamp-2 group-hover:text-accent transition-colors will-change-transform">
                                     {item.title}
                                 </h3>
 
@@ -121,11 +121,11 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                 {/* Card Footer: Price & Action */}
                                 <div className="mt-auto pt-5 flex items-center justify-between border-t border-gray-50 dark:border-gray-800/60">
                                     <div>
-                                        <span className="font-bold text-2xl text-primary-charcoal dark:text-white">
+                                        <span className="font-bold text-2xl text-ink dark:text-white">
                                             {item.price === 0 ? (
                                                 <span className="text-green-500">مجاناً</span>
                                             ) : (
-                                                <span className="bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent flex items-baseline gap-1">
+                                                <span className="bg-gradient-to-r from-accent to-purple-600 bg-clip-text text-transparent flex items-baseline gap-1">
                                                     {item.price} <span className="text-sm font-bold text-gray-400 dark:text-gray-500 ml-1">$</span>
                                                 </span>
                                             )}
@@ -137,7 +137,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                         )}
                                     </div>
 
-                                    <div className="w-12 h-12 rounded-[1rem] bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:bg-action-blue group-hover:text-white group-hover:shadow-lg group-hover:shadow-action-blue/30 transition-all duration-300 transform group-hover:-rotate-6">
+                                    <div className="w-12 h-12 rounded-[1rem] bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:bg-accent group-hover:text-white group-hover:shadow-lg group-hover:shadow-accent/30 transition-all duration-300 transform group-hover:-rotate-6">
                                         <FiShoppingCart size={20} />
                                     </div>
                                 </div>

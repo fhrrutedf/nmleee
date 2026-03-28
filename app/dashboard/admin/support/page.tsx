@@ -54,8 +54,8 @@ export default function AdminSupportPage() {
         <div className="space-y-6 max-w-7xl mx-auto pb-12">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white flex items-center gap-3">
-                        <FiMessageSquare className="text-action-blue" />
+                    <h1 className="text-3xl font-bold text-ink dark:text-white flex items-center gap-3">
+                        <FiMessageSquare className="text-accent" />
                         نظام تذاكر الدعم الفني
                     </h1>
                     <p className="text-text-muted mt-2 font-medium">إدارة تذاكر البائعين والعملاء والإجابة على الاستفسارات</p>
@@ -70,12 +70,12 @@ export default function AdminSupportPage() {
 
             {loading ? (
                 <div className="flex items-center justify-center min-h-[400px]">
-                    <div className="w-12 h-12 border-4 border-action-blue/30 border-t-action-blue rounded-full animate-spin" />
+                    <div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
                 </div>
             ) : tickets.length === 0 ? (
                 <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-12 text-center text-gray-500 flex flex-col items-center justify-center min-h-[400px]">
                     <FiMessageSquare className="text-gray-300 dark:text-gray-700 mb-4" size={64} />
-                    <h3 className="text-xl font-bold mb-2 text-primary-charcoal dark:text-white">لا توجد تذاكر حالياً</h3>
+                    <h3 className="text-xl font-bold mb-2 text-ink dark:text-white">لا توجد تذاكر حالياً</h3>
                     <p>لا يوجد تذاكر دعم فني تتطابق مع التصفية الحالية ({getStatusLabel(statusFilter)})</p>
                 </div>
             ) : (
@@ -91,7 +91,7 @@ export default function AdminSupportPage() {
                                         <FiHash /> {ticket.ticketNumber.replace('TKT-', '')}
                                     </span>
                                 </div>
-                                <h3 className="font-bold text-lg text-primary-charcoal dark:text-white mb-2 line-clamp-2" title={ticket.subject}>
+                                <h3 className="font-bold text-lg text-ink dark:text-white mb-2 line-clamp-2" title={ticket.subject}>
                                     {ticket.subject}
                                 </h3>
                                 <div className="flex items-center gap-2 mb-4 text-sm text-gray-500 font-medium">
@@ -108,7 +108,7 @@ export default function AdminSupportPage() {
                                 <div className="text-xs text-gray-400 flex items-center gap-1 font-medium">
                                     <FiClock /> {new Date(ticket.updatedAt).toLocaleDateString('ar-SA')} ({ticket._count?.messages || 0} ردود)
                                 </div>
-                                <Link href={`/dashboard/admin/support/${ticket.id}`} className="btn btn-primary py-1.5 px-4 text-sm shadow-md shadow-action-blue/20">
+                                <Link href={`/dashboard/admin/support/${ticket.id}`} className="btn btn-primary py-1.5 px-4 text-sm shadow-md shadow-accent/20">
                                     معاينة و رد
                                 </Link>
                             </div>

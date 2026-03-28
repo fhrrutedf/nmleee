@@ -68,7 +68,7 @@ function SuccessContent() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-action-blue border-t-transparent"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent border-t-transparent"></div>
             </div>
         );
     }
@@ -76,7 +76,7 @@ function SuccessContent() {
     if (!order) {
         return (
             <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 dark:bg-bg-dark">
-                <h1 className="text-2xl font-bold mb-4 text-primary-charcoal dark:text-white">طلب غير موجود</h1>
+                <h1 className="text-2xl font-bold mb-4 text-ink dark:text-white">طلب غير موجود</h1>
                 <Link href="/" className="btn btn-primary">العودة للرئيسية</Link>
             </div>
         )
@@ -103,7 +103,7 @@ function SuccessContent() {
             {effectiveBrandColor && (
                 <style dangerouslySetInnerHTML={{
                     __html: `
-                    .text-action-blue, .text-indigo-600 { color: ${effectiveBrandColor} !important; }
+                    .text-accent, .text-indigo-600 { color: ${effectiveBrandColor} !important; }
                     .bg-indigo-600 { background-color: ${effectiveBrandColor} !important; }
                     .btn-primary { background-color: ${effectiveBrandColor} !important; border-color: ${effectiveBrandColor} !important; }
                     .hover\\:bg-indigo-700:hover, .hover\\:bg-blue-600:hover { background-color: ${effectiveBrandColor}cc !important; }
@@ -158,15 +158,15 @@ function SuccessContent() {
                     <div className="flex flex-col md:flex-row">
                         {/* ===== ORDER DETAILS ===== */}
                         <div className="p-8 md:p-12 md:w-1/2 border-b md:border-b-0 md:border-l border-gray-100 dark:border-gray-800">
-                            <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-6">تفاصيل طلبك</h2>
+                            <h2 className="text-2xl font-bold text-ink dark:text-white mb-6">تفاصيل طلبك</h2>
                             <div className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 space-y-4 mb-8">
                                 <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-3">
                                     <span className="text-gray-500 font-medium">رقم العملية:</span>
-                                    <span className="font-bold text-primary-charcoal dark:text-gray-200 font-mono text-sm">{order.orderNumber}</span>
+                                    <span className="font-bold text-ink dark:text-gray-200 font-mono text-sm">{order.orderNumber}</span>
                                 </div>
                                 <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-3">
                                     <span className="text-gray-500 font-medium">الإيميل:</span>
-                                    <span className="font-bold text-primary-charcoal dark:text-gray-200 text-sm">{order.customerEmail}</span>
+                                    <span className="font-bold text-ink dark:text-gray-200 text-sm">{order.customerEmail}</span>
                                 </div>
                                 <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-3">
                                     <span className="text-gray-500 font-medium">الحالة:</span>
@@ -178,7 +178,7 @@ function SuccessContent() {
                                 </div>
                                 <div className="flex justify-between items-center pt-2">
                                     <span className="text-gray-500 font-bold">المبلغ:</span>
-                                    <span className="font-bold text-action-blue text-2xl">{order.totalAmount.toFixed(2)} $</span>
+                                    <span className="font-bold text-accent text-2xl">{order.totalAmount.toFixed(2)} $</span>
                                 </div>
                             </div>
 
@@ -244,7 +244,7 @@ function SuccessContent() {
                                 {isPending && !isPaid ? (
                                     <Link
                                         href="/"
-                                        className="block w-full py-4 bg-primary-charcoal hover:bg-black dark:bg-action-blue dark:hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg"
+                                        className="block w-full py-4 bg-ink hover:bg-black dark:bg-accent dark:hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg"
                                     >
                                         تصفح المزيد من المنتجات
                                     </Link>
@@ -261,7 +261,7 @@ function SuccessContent() {
                                             ) : (
                                                 <Link
                                                     href={`/login?callbackUrl=/learn/${courseItem.id}`}
-                                                    className="block w-full py-4 bg-action-blue hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg flex justify-center items-center gap-2"
+                                                    className="block w-full py-4 bg-accent hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg flex justify-center items-center gap-2"
                                                 >
                                                     <FiLock className="text-xl" /> تسجيل الدخول لبدء الدورة 🎓
                                                 </Link>
@@ -269,14 +269,14 @@ function SuccessContent() {
                                         ) : (
                                             <Link
                                                 href="/my-purchases"
-                                                className="block w-full py-4 bg-primary-charcoal hover:bg-black dark:bg-action-blue dark:hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg"
+                                                className="block w-full py-4 bg-ink hover:bg-black dark:bg-accent dark:hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg"
                                             >
                                                 تحميل المنتجات
                                             </Link>
                                         )}
                                         <Link
                                             href="/"
-                                            className="block w-full py-4 border-2 border-gray-200 dark:border-gray-700 text-primary-charcoal dark:text-gray-300 text-center rounded-xl font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                                            className="block w-full py-4 border-2 border-gray-200 dark:border-gray-700 text-ink dark:text-gray-300 text-center rounded-xl font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                                         >
                                             تصفح المزيد من المنتجات
                                         </Link>
@@ -293,11 +293,11 @@ function SuccessContent() {
                                         <div className="p-2 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-600 rounded-xl">
                                             <FiGift size={20} />
                                         </div>
-                                        <h3 className="text-xl font-bold text-primary-charcoal dark:text-white">قد يعجبك أيضاً!</h3>
+                                        <h3 className="text-xl font-bold text-ink dark:text-white">قد يعجبك أيضاً!</h3>
                                     </div>
                                     <div className="space-y-4">
                                         {upsells.map((upsell) => (
-                                            <div key={upsell.id} className="bg-white dark:bg-card-white border border-gray-200 dark:border-gray-800 rounded-2xl p-4 flex gap-4 hover:border-action-blue transition-colors group">
+                                            <div key={upsell.id} className="bg-white dark:bg-card-white border border-gray-200 dark:border-gray-800 rounded-2xl p-4 flex gap-4 hover:border-accent transition-colors group">
                                                 <div className="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden shrink-0">
                                                     {upsell.image ? (
                                                         <img src={upsell.image} alt={upsell.title} className="w-full h-full object-cover" />
@@ -308,13 +308,13 @@ function SuccessContent() {
                                                     )}
                                                 </div>
                                                 <div className="flex-1 flex flex-col justify-center">
-                                                    <h4 className="font-bold text-primary-charcoal dark:text-white text-sm line-clamp-1 group-hover:text-action-blue transition-colors">{upsell.title}</h4>
+                                                    <h4 className="font-bold text-ink dark:text-white text-sm line-clamp-1 group-hover:text-accent transition-colors">{upsell.title}</h4>
                                                     <div className="font-bold text-gray-900 dark:text-gray-200 mt-1">{upsell.price} $</div>
-                                                    <Link href={`/${upsell.id}`} className="text-action-blue font-bold text-sm mt-2 flex items-center gap-1">
+                                                    <Link href={`/${upsell.id}`} className="text-accent font-bold text-sm mt-2 flex items-center gap-1">
                                                         عرض التفاصيل <FiArrowLeft />
                                                     </Link>
                                                 </div>
-                                                <button className="self-center p-3 bg-action-blue text-white rounded-xl shadow-lg shadow-action-blue/20 hover:bg-blue-600 transition-colors" title="إضافة للسلة">
+                                                <button className="self-center p-3 bg-accent text-white rounded-xl shadow-lg shadow-accent/20 hover:bg-blue-600 transition-colors" title="إضافة للسلة">
                                                     <FiShoppingCart />
                                                 </button>
                                             </div>
@@ -323,10 +323,10 @@ function SuccessContent() {
                                 </div>
                             ) : (
                                 <div className="h-full flex flex-col items-center justify-center text-center py-12">
-                                    <div className="w-24 h-24 bg-blue-50 dark:bg-blue-900/20 text-action-blue rounded-full flex items-center justify-center mb-6">
+                                    <div className="w-24 h-24 bg-blue-50 dark:bg-blue-900/20 text-accent rounded-full flex items-center justify-center mb-6">
                                         <FiPackage size={40} />
                                     </div>
-                                    <h3 className="text-xl font-bold text-primary-charcoal dark:text-white mb-2">رحلة سعيدة وموفقة!</h3>
+                                    <h3 className="text-xl font-bold text-ink dark:text-white mb-2">رحلة سعيدة وموفقة!</h3>
                                     <p className="text-text-muted">نتمنى أن يكون المنتج قد لبى توقعاتك.</p>
                                 </div>
                             )}
@@ -336,7 +336,7 @@ function SuccessContent() {
             </div>
             <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-action-blue font-bold hover:underline">منصة تمالين</a>
+                    مدعوم من <a href="https://tmleen.com" className="text-accent font-bold hover:underline">منصة تمالين</a>
                 </p>
             </footer>
         </div>
@@ -347,7 +347,7 @@ export default function SuccessPage() {
     return (
         <Suspense fallback={
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div className="w-12 h-12 border-4 border-action-blue/20 border-t-action-blue rounded-full animate-spin"></div>
+                <div className="w-12 h-12 border-4 border-accent/20 border-t-accent rounded-full animate-spin"></div>
             </div>
         }>
             <SuccessContent />

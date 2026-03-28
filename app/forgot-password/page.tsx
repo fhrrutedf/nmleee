@@ -44,7 +44,7 @@ export default function ForgotPasswordPage() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-bg-light relative overflow-hidden py-12 px-4">
             {/* Background Decorations */}
-            <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-action-blue/10 rounded-full blur-[80px] -z-10 pointer-events-none"></div>
+            <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-accent/10 rounded-full blur-[80px] -z-10 pointer-events-none"></div>
             <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
 
             <motion.div
@@ -58,11 +58,11 @@ export default function ForgotPasswordPage() {
                 {/* Logo/Title */}
                 <motion.div variants={fadeInUp} className="text-center mb-10">
                     <Link href="/" className="inline-block mb-6">
-                        <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-action-blue to-purple-600 flex items-center justify-center text-white shadow-xl shadow-action-blue/20">
+                        <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-accent to-purple-600 flex items-center justify-center text-white shadow-xl shadow-accent/20">
                             <span className="text-3xl font-bold">م</span>
                         </div>
                     </Link>
-                    <h1 className="text-4xl font-bold text-primary-charcoal mb-3">نسيت كلمة المرور؟</h1>
+                    <h1 className="text-4xl font-bold text-ink mb-3">نسيت كلمة المرور؟</h1>
                     <p className="text-text-muted text-lg">أدخل بريدك الإلكتروني لاستعادة الوصول لحسابك</p>
                 </motion.div>
 
@@ -101,10 +101,10 @@ export default function ForgotPasswordPage() {
                                                 required
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
-                                                className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 pr-12 font-semibold focus:ring-2 focus:ring-action-blue focus:border-transparent outline-none transition-all ltr"
+                                                className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 pr-12 font-semibold focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all ltr"
                                                 placeholder="name@example.com"
                                             />
-                                            <FiMail className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl group-focus-within:text-action-blue transition-colors" />
+                                            <FiMail className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl group-focus-within:text-accent transition-colors" />
                                         </div>
                                     </div>
 
@@ -118,7 +118,7 @@ export default function ForgotPasswordPage() {
                                     <button
                                         type="submit"
                                         disabled={status === 'loading'}
-                                        className="w-full btn btn-primary py-4 rounded-2xl text-lg font-bold shadow-lg shadow-action-blue/20 hover:shadow-action-blue/40 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:transform-none shadow-action-blue/30"
+                                        className="w-full btn btn-primary py-4 rounded-2xl text-lg font-bold shadow-lg shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:transform-none shadow-accent/30"
                                     >
                                         {status === 'loading' ? (
                                             <>
@@ -134,7 +134,7 @@ export default function ForgotPasswordPage() {
                                     </button>
 
                                     <div className="text-center pt-6 border-t border-gray-100">
-                                        <Link href="/login" className="text-sm font-bold text-text-muted hover:text-action-blue transition-colors flex items-center justify-center gap-2 group">
+                                        <Link href="/login" className="text-sm font-bold text-text-muted hover:text-accent transition-colors flex items-center justify-center gap-2 group">
                                             <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                                             العودة لتسجيل الدخول
                                         </Link>
@@ -147,7 +147,7 @@ export default function ForgotPasswordPage() {
 
                 {/* Back Link */}
                 <motion.div variants={fadeInUp} className="text-center mt-8">
-                    <Link href="/" className="text-text-muted hover:text-primary-charcoal transition-colors text-sm font-medium flex items-center justify-center gap-2 group">
+                    <Link href="/" className="text-text-muted hover:text-ink transition-colors text-sm font-medium flex items-center justify-center gap-2 group">
                         <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                         العودة للمنصة الرئيسية
                     </Link>

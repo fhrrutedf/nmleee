@@ -190,7 +190,7 @@ export default function CourseContentPage() {
 
                 {/* Modules List */}
                 {modules.length === 0 ? (
-                    <div className="text-center py-20 bg-white rounded-[3.5rem] border-2 border-dashed border-slate-200 shadow-sm">
+                    <div className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200 shadow-sm">
                         <div className="text-slate-200 text-7xl mb-6 flex justify-center"><FiLayers /></div>
                         <h3 className="text-xl font-bold text-slate-900 mb-2">المنهج فارغ تماماً</h3>
                         <p className="text-slate-400 font-bold text-sm mb-8">ابدأ بإنشاء أول وحدة دراسية لتبدأ بإضافة الدروس</p>

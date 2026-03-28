@@ -82,7 +82,7 @@ export default function CourseQuizzesPage() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white flex items-center gap-2">
+                    <h1 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
                         <FiCheckSquare className="text-purple-600" /> اختبارات الدورة
                     </h1>
                     <p className="text-text-muted text-sm mt-1">إدارة اختبارات وتقييمات الكورس</p>
@@ -107,7 +107,7 @@ export default function CourseQuizzesPage() {
                 </div>
                 <div className="card">
                     <p className="text-xs text-text-muted font-bold uppercase">إجمالي الأسئلة</p>
-                    <p className="text-2xl font-bold text-action-blue mt-1">
+                    <p className="text-2xl font-bold text-accent mt-1">
                         {quizzes.reduce((sum, q) => {
                             const questions = Array.isArray(q.questions) ? q.questions : [];
                             return sum + questions.length;
@@ -139,7 +139,7 @@ export default function CourseQuizzesPage() {
                             <div className="flex items-center justify-between p-5">
                                 <div className="flex-1">
                                     <div className="flex items-center gap-3">
-                                        <h3 className="font-bold text-primary-charcoal dark:text-white">{quiz.title}</h3>
+                                        <h3 className="font-bold text-ink dark:text-white">{quiz.title}</h3>
                                         {quiz.isPublished ? (
                                             <span className="px-2 py-0.5 text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full flex items-center gap-1">
                                                 <FiEye size={10} /> منشور

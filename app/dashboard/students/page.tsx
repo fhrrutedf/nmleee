@@ -48,11 +48,11 @@ export default async function StudentsPage() {
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-action-blue/10 flex items-center justify-center">
-                        <FiUsers className="text-xl text-action-blue" />
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
+                        <FiUsers className="text-xl text-accent" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white">إدارة الطلاب والشهادات</h1>
+                        <h1 className="text-2xl font-bold text-ink dark:text-white">إدارة الطلاب والشهادات</h1>
                         <p className="text-text-muted mt-1 text-sm">عرض وتحليل بيانات طلابك وإصدار الشهادات والتواصل معهم</p>
                     </div>
                 </div>

@@ -94,7 +94,7 @@ export default function CourseModerationPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="w-10 h-10 border-4 border-action-blue/30 border-t-action-blue rounded-full animate-spin" />
+                <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
             </div>
         );
     }
@@ -103,8 +103,8 @@ export default function CourseModerationPage() {
         <div className="max-w-6xl mx-auto space-y-6 pb-12">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white flex items-center gap-2">
-                        <FiShield className="text-action-blue" /> حارس المحتوى (المراجعة)
+                    <h1 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
+                        <FiShield className="text-accent" /> حارس المحتوى (المراجعة)
                     </h1>
                     <p className="text-text-muted text-sm mt-1">كافة الكورسات المدرجة حديثاً تنتظر الموافقة للظهور في السوق</p>
                 </div>
@@ -135,7 +135,7 @@ export default function CourseModerationPage() {
                             {courses.map((course) => (
                                 <tr key={course.id} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                                     <td className="px-5 py-4">
-                                        <p className="font-bold text-primary-charcoal dark:text-white">
+                                        <p className="font-bold text-ink dark:text-white">
                                             {course.title.length > 30 ? course.title.substring(0, 30) + '...' : course.title}
                                         </p>
                                     </td>

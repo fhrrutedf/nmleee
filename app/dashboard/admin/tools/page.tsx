@@ -21,7 +21,7 @@ const methodLabel: Record<string, string> = {
 function Tab({ id, active, onClick, icon: Icon, label, badge }: any) {
     return (
         <button onClick={() => onClick(id)}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap relative ${active ? 'bg-action-blue text-white shadow-md' : 'text-text-muted hover:bg-gray-100 dark:hover:bg-gray-800'
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap relative ${active ? 'bg-accent text-white shadow-md' : 'text-text-muted hover:bg-gray-100 dark:hover:bg-gray-800'
                 }`}>
             <Icon className="text-base" />{label}
             {badge > 0 && <span className="absolute -top-1.5 -left-1.5 bg-red-500 text-white text-[10px] min-w-[18px] px-1 rounded-full">{badge}</span>}
@@ -161,8 +161,8 @@ export default function AdminPayoutsPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                    <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white flex items-center gap-2">
-                        <FiShield className="text-action-blue" /> أدوات الإدارة المتقدمة
+                    <h1 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
+                        <FiShield className="text-accent" /> أدوات الإدارة المتقدمة
                     </h1>
                     <p className="text-text-muted text-sm mt-0.5">عمولات · سحوبات · موافقات · سجل النشاط</p>
                 </div>
@@ -188,7 +188,7 @@ export default function AdminPayoutsPage() {
             {activeTab === 'payouts' && (
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                        <h2 className="font-bold text-lg text-primary-charcoal dark:text-white">
+                        <h2 className="font-bold text-lg text-ink dark:text-white">
                             طلبات السحب <span className="text-sm text-text-muted mr-2">({payouts.length})</span>
                         </h2>
                         <button onClick={exportPayoutsCSV}
@@ -200,14 +200,14 @@ export default function AdminPayoutsPage() {
                     {payouts.length === 0 ? (
                         <div className="card text-center py-12">
                             <FiCheckCircle className="text-5xl text-green-400 mx-auto mb-3" />
-                            <p className="font-bold text-primary-charcoal dark:text-white">لا توجد طلبات سحب</p>
+                            <p className="font-bold text-ink dark:text-white">لا توجد طلبات سحب</p>
                         </div>
                     ) : payouts.map((p: any) => (
                         <div key={p.id} className={`card space-y-3 border-r-4 ${p.status === 'PENDING' ? 'border-orange-400' : p.status === 'COMPLETED' ? 'border-green-400' : 'border-red-400'}`}>
                             <div className="flex items-start justify-between gap-3">
                                 <div>
                                     <div className="flex items-center gap-2">
-                                        <span className="font-mono text-sm text-action-blue font-bold">{p.payoutNumber}</span>
+                                        <span className="font-mono text-sm text-accent font-bold">{p.payoutNumber}</span>
                                         <span className={`text-xs px-2 py-0.5 rounded-full ${p.status === 'PENDING' ? 'bg-orange-100 text-orange-700' : p.status === 'COMPLETED' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                                             {p.status === 'PENDING' ? '⏳ معلق' : p.status === 'COMPLETED' ? '✅ مكتمل' : '❌ مرفوض'}
                                         </span>
@@ -215,7 +215,7 @@ export default function AdminPayoutsPage() {
                                     <div className="text-xs text-text-muted mt-1">{fmtDate(p.createdAt)}</div>
                                 </div>
                                 <div className="text-left">
-                                    <div className="font-bold text-2xl text-primary-charcoal dark:text-white">${fmt(p.amount)}</div>
+                                    <div className="font-bold text-2xl text-ink dark:text-white">${fmt(p.amount)}</div>
                                     <div className="text-xs text-text-muted">{methodLabel[p.method] ?? p.method}</div>
                                 </div>
                             </div>
@@ -248,7 +248,7 @@ export default function AdminPayoutsPage() {
                                         <input type="text" value={txId} onChange={e => setTxId(e.target.value)}
                                             placeholder="ادخل رقم الحوالة..." className="input text-xs py-1 w-full" />
                                     ) : (
-                                        <div className="text-xs font-mono text-action-blue">{p.transactionId || '—'}</div>
+                                        <div className="text-xs font-mono text-accent">{p.transactionId || '—'}</div>
                                     )}
                                 </div>
                             </div>
@@ -274,20 +274,20 @@ export default function AdminPayoutsPage() {
             {/* ══════════════ COURSES REVIEW ══════════════ */}
             {activeTab === 'courses' && (
                 <div className="space-y-4">
-                    <h2 className="font-bold text-lg text-primary-charcoal dark:text-white">
+                    <h2 className="font-bold text-lg text-ink dark:text-white">
                         كورسات بانتظار المراجعة <span className="text-sm text-text-muted mr-2">({courses.length})</span>
                     </h2>
 
                     {courses.length === 0 ? (
                         <div className="card text-center py-12">
                             <FiCheckCircle className="text-5xl text-green-400 mx-auto mb-3" />
-                            <p className="font-bold text-primary-charcoal dark:text-white">لا توجد كورسات بانتظار المراجعة</p>
+                            <p className="font-bold text-ink dark:text-white">لا توجد كورسات بانتظار المراجعة</p>
                         </div>
                     ) : courses.map((c: any) => (
                         <div key={c.id} className="card space-y-3 border-r-4 border-blue-400">
                             <div className="flex items-start justify-between gap-3">
                                 <div className="flex-1">
-                                    <div className="font-bold text-lg text-primary-charcoal dark:text-white">{c.title}</div>
+                                    <div className="font-bold text-lg text-ink dark:text-white">{c.title}</div>
                                     <div className="text-sm text-text-muted">المدرب: {c.user?.name} · {c._count?.sections ?? 0} أقسام</div>
                                     <div className="text-xs text-text-muted mt-1">{fmtDate(c.createdAt)}</div>
                                 </div>
@@ -326,7 +326,7 @@ export default function AdminPayoutsPage() {
             {activeTab === 'commission' && (
                 <div className="card space-y-4">
                     <div>
-                        <h2 className="font-bold text-xl text-primary-charcoal dark:text-white mb-1">عمولات مخصصة للبائعين</h2>
+                        <h2 className="font-bold text-xl text-ink dark:text-white mb-1">عمولات مخصصة للبائعين</h2>
                         <p className="text-sm text-text-muted">تجاوز العمولة العالمية لبائعين محددين (يطبق على الطلبات الجديدة فقط)</p>
                     </div>
                     <div className="overflow-x-auto">
@@ -350,7 +350,7 @@ export default function AdminPayoutsPage() {
                                                 <div className="text-xs text-text-muted">{p.seller.email}</div>
                                             </td>
                                             <td className="py-3 px-3">
-                                                <span className="font-bold text-action-blue text-lg">
+                                                <span className="font-bold text-accent text-lg">
                                                     {p.seller.custom_commission_rate !== null && p.seller.custom_commission_rate !== undefined
                                                         ? `${p.seller.custom_commission_rate}%`
                                                         : 'افتراضي'}
@@ -374,7 +374,7 @@ export default function AdminPayoutsPage() {
                                             <td className="py-3 px-3">
                                                 <button
                                                     onClick={() => loginAsUser(p.seller.id, p.seller.name)}
-                                                    className="btn bg-blue-50 hover:bg-blue-100 text-action-blue text-xs py-1.5 px-3 flex items-center gap-1">
+                                                    className="btn bg-blue-50 hover:bg-blue-100 text-accent text-xs py-1.5 px-3 flex items-center gap-1">
                                                     <FiLogIn /> دخول كـ
                                                 </button>
                                             </td>
@@ -395,7 +395,7 @@ export default function AdminPayoutsPage() {
             {/* ══════════════ ACTIVITY LOGS ══════════════ */}
             {activeTab === 'logs' && (
                 <div className="card space-y-3">
-                    <h2 className="font-bold text-xl text-primary-charcoal dark:text-white">📋 الصندوق الأسود - سجل النشاط</h2>
+                    <h2 className="font-bold text-xl text-ink dark:text-white">📋 الصندوق الأسود - سجل النشاط</h2>
                     {logs.length === 0 ? (
                         <div className="text-center py-8 text-text-muted">
                             <FiActivity className="text-4xl mx-auto mb-2 opacity-30" />
@@ -408,7 +408,7 @@ export default function AdminPayoutsPage() {
                                     <div className="text-2xl mt-0.5">{logActionIcon[log.action] ?? '📌'}</div>
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2 flex-wrap">
-                                            <span className="font-semibold text-primary-charcoal dark:text-white text-sm">
+                                            <span className="font-semibold text-ink dark:text-white text-sm">
                                                 {log.actor_name ?? 'System'}
                                             </span>
                                             <span className={`text-xs px-1.5 py-0.5 rounded ${log.actor_role === 'ADMIN' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-blue-600'}`}>
@@ -438,7 +438,7 @@ export default function AdminPayoutsPage() {
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
                     <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-4">
                         <div className="flex items-center justify-between">
-                            <h2 className="font-bold text-lg text-primary-charcoal dark:text-white flex items-center gap-2">
+                            <h2 className="font-bold text-lg text-ink dark:text-white flex items-center gap-2">
                                 <FiAlertTriangle className="text-red-500" />
                                 رفض: {rejectModal.title}
                             </h2>
@@ -465,7 +465,7 @@ export default function AdminPayoutsPage() {
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
                     <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-sm p-6 space-y-4">
                         <div className="flex items-center justify-between">
-                            <h2 className="font-bold text-lg text-primary-charcoal dark:text-white">
+                            <h2 className="font-bold text-lg text-ink dark:text-white">
                                 <FiPercent className="inline ml-2 text-purple-600" />
                                 عمولة مخصصة لـ {commModal.name}
                             </h2>

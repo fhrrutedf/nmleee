@@ -49,9 +49,9 @@ const plans = [
         storage: '15 جيجابايت',
         students: 'حتى 1,000 طالب',
         support: 'بريد + دردشة مباشرة',
-        color: 'from-action-blue to-action-secondary',
-        border: 'border-action-blue/50',
-        btnClass: 'bg-gradient-to-r from-action-blue to-action-secondary hover:brightness-110 shadow-lg text-white font-inter tracking-wide',
+        color: 'from-accent to-action-secondary',
+        border: 'border-accent/50',
+        btnClass: 'bg-gradient-to-r from-accent to-action-secondary hover:brightness-110 shadow-lg text-white font-inter tracking-wide',
         popular: true,
         features: [
             '50 منتج رقمي',
@@ -161,13 +161,13 @@ export default function PricingPage() {
         <div className="min-h-screen bg-bg-light dark:bg-gray-950">
             {/* Hero Section */}
             <section className="relative py-20 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-charcoal via-purple-900/50 to-primary-charcoal" />
+                <div className="absolute inset-0 bg-gradient-to-br from-ink via-purple-900/50 to-ink" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,18,149,0.15)_0%,transparent_70%)]" />
                 <div className="relative max-w-5xl mx-auto px-4 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 bg-action-blue/10 border border-action-blue/20 text-action-blue px-5 py-2.5 rounded-full text-sm font-bold mb-8 backdrop-blur-xl shadow-[0_0_30px_rgba(0,82,255,0.15)]"
+                        className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 text-accent px-5 py-2.5 rounded-full text-sm font-bold mb-8 backdrop-blur-xl shadow-[0_0_30px_rgba(0,82,255,0.15)]"
                     >
                         🚀 عرض إطلاق حصري — خصم 50% لأول 3 أشهر لأول 500 بائع!
                     </motion.div>
@@ -179,7 +179,7 @@ export default function PricingPage() {
                         className="text-4xl md:text-6xl font-bold text-white mb-6"
                     >
                         اختر باقتك وابدأ{' '}
-                        <span className="bg-gradient-to-r from-action-blue to-purple-400 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-accent to-purple-400 bg-clip-text text-transparent">
                             البيع اليوم
                         </span>
                     </motion.h1>
@@ -228,7 +228,7 @@ export default function PricingPage() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.1 }}
                             className={`relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-3xl border ${plan.border} shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden
-                                ${plan.popular ? 'ring-1 ring-action-blue/50 ring-offset-4 ring-offset-bg-light dark:ring-offset-gray-950 scale-105 lg:scale-105 z-10' : ''}`}
+                                ${plan.popular ? 'ring-1 ring-accent/50 ring-offset-4 ring-offset-bg-light dark:ring-offset-gray-950 scale-105 lg:scale-105 z-10' : ''}`}
                         >
                             {/* Popular Badge */}
                             {plan.badge && (
@@ -239,25 +239,25 @@ export default function PricingPage() {
 
                             <div className="p-6 flex flex-col flex-1">
                                 {/* Plan name */}
-                                <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-1">{plan.name}</h3>
+                                <h3 className="text-2xl font-bold text-ink dark:text-white mb-1">{plan.name}</h3>
                                 <p className="text-text-muted text-sm mb-6">{plan.description}</p>
 
                                 {/* Price */}
                                 <div className="mb-6">
                                     {plan.custom ? (
                                         <div>
-                                            <span className="text-4xl font-bold text-primary-charcoal dark:text-white">مخصص</span>
+                                            <span className="text-4xl font-bold text-ink dark:text-white">مخصص</span>
                                             <p className="text-text-muted text-sm mt-1">يبدأ من $199/شهر</p>
                                         </div>
                                     ) : plan.monthlyPrice === 0 ? (
                                         <div>
-                                            <span className="text-5xl font-bold text-primary-charcoal dark:text-white">مجاناً</span>
+                                            <span className="text-5xl font-bold text-ink dark:text-white">مجاناً</span>
                                             <p className="text-text-muted text-sm mt-1">للأبد</p>
                                         </div>
                                     ) : (
                                         <div>
                                             <div className="flex items-end gap-1 font-inter">
-                                                <span className="text-5xl font-bold text-primary-charcoal dark:text-white tracking-tight">
+                                                <span className="text-5xl font-bold text-ink dark:text-white tracking-tight">
                                                     ${isYearly ? Math.round(plan.yearlyPrice / 12) : plan.monthlyPrice}
                                                 </span>
                                                 <span className="text-text-muted mb-2 font-sans">/شهر</span>
@@ -275,28 +275,28 @@ export default function PricingPage() {
                                 <div className="space-y-2 mb-6 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl">
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">عمولة المنصة</span>
-                                        <span className={`font-bold ${plan.commission === '0%' ? 'text-green-600' : 'text-primary-charcoal dark:text-white'}`}>
+                                        <span className={`font-bold ${plan.commission === '0%' ? 'text-green-600' : 'text-ink dark:text-white'}`}>
                                             {plan.commission}
                                         </span>
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">المنتجات</span>
-                                        <span className="font-bold text-primary-charcoal dark:text-white">{plan.maxProducts}</span>
+                                        <span className="font-bold text-ink dark:text-white">{plan.maxProducts}</span>
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">التخزين</span>
-                                        <span className="font-bold text-primary-charcoal dark:text-white">{plan.storage}</span>
+                                        <span className="font-bold text-ink dark:text-white">{plan.storage}</span>
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">الطلاب</span>
-                                        <span className="font-bold text-primary-charcoal dark:text-white">{plan.students}</span>
+                                        <span className="font-bold text-ink dark:text-white">{plan.students}</span>
                                     </div>
                                 </div>
 
                                 {/* Features */}
                                 <ul className="space-y-2 mb-8 flex-1">
                                     {plan.features.map((f, idx) => (
-                                        <li key={idx} className="flex items-start gap-3 text-sm text-primary-charcoal dark:text-gray-300">
+                                        <li key={idx} className="flex items-start gap-3 text-sm text-ink dark:text-gray-300">
                                             <span className="text-success-green mt-0.5 flex-shrink-0 bg-success-green/10 rounded-full p-0.5 text-[10px]">✔</span>
                                             {f}
                                         </li>
@@ -332,7 +332,7 @@ export default function PricingPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="mt-12 relative overflow-hidden bg-gradient-to-r from-action-blue to-purple-600 rounded-3xl p-8 text-white text-center"
+                    className="mt-12 relative overflow-hidden bg-gradient-to-r from-accent to-purple-600 rounded-3xl p-8 text-white text-center"
                 >
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15)_0%,transparent_60%)]" />
                     <div className="relative">
@@ -343,7 +343,7 @@ export default function PricingPage() {
                         </p>
                         <Link
                             href="/register?plan=starter"
-                            className="inline-block bg-white text-action-blue font-bold px-8 py-3.5 rounded-2xl hover:shadow-2xl transition-all hover:-translate-y-0.5 text-lg"
+                            className="inline-block bg-white text-accent font-bold px-8 py-3.5 rounded-2xl hover:shadow-2xl transition-all hover:-translate-y-0.5 text-lg"
                         >
                             احجز مقعدك الآن ←
                         </Link>
@@ -358,11 +358,11 @@ export default function PricingPage() {
                     className="mt-8 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 p-8 text-center"
                 >
                     <div className="text-4xl mb-3">🤝</div>
-                    <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-2">
+                    <h3 className="text-2xl font-bold text-ink dark:text-white mb-2">
                         برنامج الإحالة — اكسب معنا
                     </h3>
                     <p className="text-text-muted mb-4 max-w-lg mx-auto">
-                        شارك رابطك مع أصدقائك واكسب <strong className="text-action-blue">20% عمولة متكررة</strong> شهرياً عن كل بائع جديد يشترك في باقة مدفوعة.
+                        شارك رابطك مع أصدقائك واكسب <strong className="text-accent">20% عمولة متكررة</strong> شهرياً عن كل بائع جديد يشترك في باقة مدفوعة.
                     </p>
                     <Link href="/register" className="btn btn-primary px-8 py-3">
                         ابدأ وشارك رابطك
@@ -373,7 +373,7 @@ export default function PricingPage() {
                 <div className="mt-12 text-center">
                     <button
                         onClick={() => setShowComparison(!showComparison)}
-                        className="text-action-blue font-bold underline underline-offset-4 text-sm hover:opacity-80 transition-opacity"
+                        className="text-accent font-bold underline underline-offset-4 text-sm hover:opacity-80 transition-opacity"
                     >
                         {showComparison ? '▲ إخفاء' : '▼ إظهار'} مقارنة تفصيلية بين الباقات
                     </button>
@@ -389,19 +389,19 @@ export default function PricingPage() {
                         <table className="w-full text-sm">
                             <thead>
                                 <tr className="border-b border-gray-100 dark:border-gray-800">
-                                    <th className="text-right p-4 font-bold text-primary-charcoal dark:text-white w-40">الميزة</th>
+                                    <th className="text-right p-4 font-bold text-ink dark:text-white w-40">الميزة</th>
                                     {['انطلاقة', 'رواد', 'تميز', 'مؤسسات'].map(name => (
-                                        <th key={name} className="p-4 font-bold text-primary-charcoal dark:text-white text-center">{name}</th>
+                                        <th key={name} className="p-4 font-bold text-ink dark:text-white text-center">{name}</th>
                                     ))}
                                 </tr>
                             </thead>
                             <tbody>
                                 {comparisonFeatures.map((row, i) => (
                                     <tr key={i} className={`border-b border-gray-50 dark:border-gray-800/50 ${i % 2 === 0 ? 'bg-gray-50/50 dark:bg-gray-800/20' : ''}`}>
-                                        <td className="p-4 font-medium text-primary-charcoal dark:text-gray-300">{row.feature}</td>
+                                        <td className="p-4 font-medium text-ink dark:text-gray-300">{row.feature}</td>
                                         {[row.free, row.starter, row.pro, row.enterprise].map((val, j) => (
                                             <td key={j} className="p-4 text-center">
-                                                <span className={val === '❌' ? 'text-gray-300' : val === '✅' ? 'text-green-500 text-lg' : 'font-bold text-primary-charcoal dark:text-white'}>
+                                                <span className={val === '❌' ? 'text-gray-300' : val === '✅' ? 'text-green-500 text-lg' : 'font-bold text-ink dark:text-white'}>
                                                     {val}
                                                 </span>
                                             </td>
@@ -415,7 +415,7 @@ export default function PricingPage() {
 
                 {/* FAQ */}
                 <div className="mt-16 max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-bold text-center text-primary-charcoal dark:text-white mb-10">
+                    <h2 className="text-3xl font-bold text-center text-ink dark:text-white mb-10">
                         أسئلة شائعة
                     </h2>
                     {[
@@ -432,7 +432,7 @@ export default function PricingPage() {
                             transition={{ delay: i * 0.05 }}
                             className="border-b border-gray-100 dark:border-gray-800 py-6"
                         >
-                            <h4 className="font-bold text-primary-charcoal dark:text-white mb-2">{faq.q}</h4>
+                            <h4 className="font-bold text-ink dark:text-white mb-2">{faq.q}</h4>
                             <p className="text-text-muted text-sm leading-relaxed">{faq.a}</p>
                         </motion.div>
                     ))}

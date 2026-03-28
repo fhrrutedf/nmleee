@@ -106,16 +106,16 @@ export default function NewBundlePage() {
     return (
         <div className="max-w-5xl mx-auto space-y-6 pb-12">
             <div className="mb-8">
-                <Link href="/dashboard/bundles" className="text-text-muted hover:text-action-blue inline-flex items-center gap-2 mb-4 transition-colors font-medium">
+                <Link href="/dashboard/bundles" className="text-text-muted hover:text-accent inline-flex items-center gap-2 mb-4 transition-colors font-medium">
                     <FiArrowRight />
                     <span>العودة للباقات</span>
                 </Link>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                    <div className="w-12 h-12 bg-action-blue/10 rounded-xl flex items-center justify-center shrink-0">
-                        <FiPackage className="text-xl text-action-blue" />
+                    <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center shrink-0">
+                        <FiPackage className="text-xl text-accent" />
                     </div>
                     <div>
-                        <h1 className="text-2xl sm:text-3xl font-bold text-primary-charcoal dark:text-white">إنشاء باقة جديدة</h1>
+                        <h1 className="text-2xl sm:text-3xl font-bold text-ink dark:text-white">إنشاء باقة جديدة</h1>
                         <p className="text-sm sm:text-base text-text-muted mt-1 font-medium">قم بتجميع منتجاتك لبيعها معاً بسعر مخفض ومميز لعملائك</p>
                     </div>
                 </div>
@@ -149,7 +149,7 @@ export default function NewBundlePage() {
 
                             <div>
                                 <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
-                                    <FiImage className="text-action-blue" />
+                                    <FiImage className="text-accent" />
                                     غلاف الباقة التعريفي
                                 </h3>
                                 {formData.image ? (
@@ -173,7 +173,7 @@ export default function NewBundlePage() {
                                         }}
                                     />
                                 ) : (
-                                    <button type="button" onClick={() => setShowCoverUploader(true)} className="btn btn-outline border-dashed w-full h-32 text-gray-500 hover:text-action-blue hover:border-action-blue">
+                                    <button type="button" onClick={() => setShowCoverUploader(true)} className="btn btn-outline border-dashed w-full h-32 text-gray-500 hover:text-accent hover:border-accent">
                                         <FiImage className="text-2xl mb-2" />
                                         رفع صورة غلاف للباقة
                                     </button>
@@ -191,7 +191,7 @@ export default function NewBundlePage() {
                             <div className="py-8 text-center text-gray-500">
                                 لا يوجد لديك منتجات لإضافتها!
                                 <br />
-                                <Link href="/dashboard/products/new" className="text-action-blue font-bold underline mt-2 block">أضف منتجاتك أولاً</Link>
+                                <Link href="/dashboard/products/new" className="text-accent font-bold underline mt-2 block">أضف منتجاتك أولاً</Link>
                             </div>
                         ) : (
                             <div className="grid sm:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-200">
@@ -201,11 +201,11 @@ export default function NewBundlePage() {
                                         <div
                                             key={product.id}
                                             onClick={() => toggleProduct(product.id)}
-                                            className={`p-4 rounded-2xl cursor-pointer border-2 transition-all flex items-start gap-4 ${isSelected ? 'border-action-blue bg-action-blue/5' : 'border-gray-100 hover:border-action-blue/30 dark:border-gray-800'}`}
+                                            className={`p-4 rounded-2xl cursor-pointer border-2 transition-all flex items-start gap-4 ${isSelected ? 'border-accent bg-accent/5' : 'border-gray-100 hover:border-accent/30 dark:border-gray-800'}`}
                                         >
                                             <div className="mt-1 flex-shrink-0">
                                                 {isSelected ? (
-                                                    <FiCheckSquare className="text-xl text-action-blue bg-white rounded" />
+                                                    <FiCheckSquare className="text-xl text-accent bg-white rounded" />
                                                 ) : (
                                                     <FiSquare className="text-xl text-gray-300" />
                                                 )}
@@ -216,7 +216,7 @@ export default function NewBundlePage() {
                                                         <img src={product.image} className="w-12 h-12 object-cover rounded-lg shrink-0" alt="product" />
                                                     )}
                                                     <div>
-                                                        <p className={`font-bold line-clamp-2 leading-tight text-sm ${isSelected ? 'text-action-blue' : 'text-gray-900 dark:text-white'}`}>{product.title}</p>
+                                                        <p className={`font-bold line-clamp-2 leading-tight text-sm ${isSelected ? 'text-accent' : 'text-gray-900 dark:text-white'}`}>{product.title}</p>
                                                         <p className="text-gray-500 text-xs mt-1 font-bold">{product.price} $</p>
                                                     </div>
                                                 </div>
@@ -243,15 +243,15 @@ export default function NewBundlePage() {
                                 </div>
                             )}
 
-                            <h3 className="font-bold text-xl mb-4 text-primary-charcoal dark:text-white">تسعير الباقة</h3>
+                            <h3 className="font-bold text-xl mb-4 text-ink dark:text-white">تسعير الباقة</h3>
                             <div className="space-y-4">
                                 <div>
                                     <label className="text-sm text-gray-500 mb-1 block">سعر المنتجات الفردية (إجمالي)</label>
                                     <p className="text-xl font-bold text-gray-400 line-through decoration-red-500/50 decoration-2">{originalValue.toFixed(2)} $</p>
                                 </div>
 
-                                <div className="bg-action-blue/5 p-4 rounded-xl border border-action-blue/10">
-                                    <label className="text-sm font-bold text-action-blue mb-2 block">سعر الباقة الإجمالي الجديد <span className="text-red-500">*</span></label>
+                                <div className="bg-accent/5 p-4 rounded-xl border border-accent/10">
+                                    <label className="text-sm font-bold text-accent mb-2 block">سعر الباقة الإجمالي الجديد <span className="text-red-500">*</span></label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                                             <span className="text-gray-500 font-bold">$</span>
@@ -261,7 +261,7 @@ export default function NewBundlePage() {
                                             required
                                             min="0"
                                             step="0.01"
-                                            className="w-full pl-4 pr-14 py-4 rounded-xl border border-action-blue/20 bg-white dark:bg-gray-800 text-2xl font-bold focus:ring-4 ring-action-blue/20 outline-none transition-all shadow-inner"
+                                            className="w-full pl-4 pr-14 py-4 rounded-xl border border-accent/20 bg-white dark:bg-gray-800 text-2xl font-bold focus:ring-4 ring-accent/20 outline-none transition-all shadow-inner"
                                             placeholder="0.00"
                                             value={formData.price}
                                             onChange={(e) => setFormData({ ...formData, price: e.target.value })}
@@ -281,7 +281,7 @@ export default function NewBundlePage() {
                         <button
                             type="submit"
                             disabled={loading || formData.productIds.length < 2 || !formData.price || !formData.title}
-                            className="w-full btn btn-primary text-lg py-4 shadow-xl shadow-action-blue/20 hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full btn btn-primary text-lg py-4 shadow-xl shadow-accent/20 hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {loading ? (
                                 <span className="flex items-center justify-center gap-2">

@@ -85,7 +85,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                    <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white">التقييمات والمراجعات</h2>
+                    <h2 className="text-2xl font-bold text-ink dark:text-white">التقييمات والمراجعات</h2>
                     <div className="flex items-center gap-3 mt-2">
                         <div className="flex items-center gap-1">
                             {renderStars(parseFloat(averageRating))}
@@ -116,7 +116,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                                 <input
                                     type="text"
                                     required
-                                    className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all placeholder:font-normal text-gray-800 dark:text-gray-200"
+                                    className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all placeholder:font-normal text-gray-800 dark:text-gray-200"
                                     placeholder="أدخل اسمك"
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -145,7 +145,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                             <textarea
                                 required
                                 rows={4}
-                                className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all resize-none placeholder:font-normal text-gray-800 dark:text-gray-200"
+                                className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none placeholder:font-normal text-gray-800 dark:text-gray-200"
                                 placeholder="شارك رأيك عن المنتج..."
                                 value={formData.comment}
                                 onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
@@ -153,7 +153,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                         </div>
 
                         <div className="flex gap-2 pt-2">
-                            <button type="submit" className="btn btn-primary flex-1 py-3 text-lg font-bold shadow-lg shadow-action-blue/20">
+                            <button type="submit" className="btn btn-primary flex-1 py-3 text-lg font-bold shadow-lg shadow-accent/20">
                                 إرسال التقييم
                             </button>
                             <button
@@ -171,7 +171,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
             <div className="space-y-6">
                 {loading || !hasMounted ? (
                     <div className="text-center py-12">
-                        <div className="animate-spin rounded-full h-12 w-12 border-4 border-action-blue border-t-transparent mx-auto"></div>
+                        <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent border-t-transparent mx-auto"></div>
                     </div>
                 ) : reviews.length === 0 ? (
                     <div className="text-center py-12 px-4 bg-gray-50 dark:bg-gray-800/20 rounded-3xl border border-dashed border-gray-200 dark:border-gray-700">
@@ -192,7 +192,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                                     </div>
                                     <div>
                                         <div className="flex items-center gap-3 mb-1">
-                                            <h4 className="font-bold text-lg text-primary-charcoal dark:text-white">{review.name}</h4>
+                                            <h4 className="font-bold text-lg text-ink dark:text-white">{review.name}</h4>
                                             <div className="flex items-center gap-0.5">
                                                 {[...Array(5)].map((_, i) => (
                                                     <FiStar

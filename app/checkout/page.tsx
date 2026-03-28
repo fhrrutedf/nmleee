@@ -291,7 +291,7 @@ export default function CheckoutPage() {
                                                 <button 
                                                     key={m.id} 
                                                     onClick={() => setSelectedLocalMethod(m)} 
-                                                    className={`p-7 rounded-[2.2rem] border-2 text-right transition-all group ${selectedLocalMethod?.id === m.id ? 'border-blue-500 bg-blue-500/5' : 'border-white/5 bg-white/5 hover:border-white/10'}`}
+                                                    className={`p-7 rounded-2xl border-2 text-right transition-all group ${selectedLocalMethod?.id === m.id ? 'border-blue-500 bg-blue-500/5' : 'border-white/5 bg-white/5 hover:border-white/10'}`}
                                                 >
                                                     <span className="text-3xl mb-3 block group-hover:scale-110 transition-transform">{m.icon}</span>
                                                     <h5 className="font-bold text-white">{m.nameAr}</h5>
@@ -417,7 +417,7 @@ export default function CheckoutPage() {
 function PaymentMethodTab({ id, current, onClick, icon, label, desc }: any) {
     const active = current === id;
     return (
-        <button onClick={onClick} className={`min-w-[160px] p-6 rounded-[2.2rem] border-2 transition-all text-right relative overflow-hidden group ${active ? 'bg-white/5 border-blue-500' : 'bg-transparent border-white/5 hover:border-white/10'}`}>
+        <button onClick={onClick} className={`min-w-[160px] p-6 rounded-2xl border-2 transition-all text-right relative overflow-hidden group ${active ? 'bg-white/5 border-blue-500' : 'bg-transparent border-white/5 hover:border-white/10'}`}>
             <span className="text-3xl mb-4 block group-hover:scale-110 transition-transform">{icon}</span>
             <h5 className={`font-bold text-xs whitespace-nowrap ${active ? 'text-white' : 'text-slate-500'}`}>{label}</h5>
             <p className={`text-[9px] font-bold mt-1 ${active ? 'text-blue-500' : 'text-slate-600'}`}>{desc}</p>

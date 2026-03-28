@@ -208,12 +208,12 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                                 >
                                     <div className="flex justify-between items-start mb-2">
                                         <div className="flex items-center gap-3">
-                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${selectedQuestionId === q.id ? 'bg-fuchsia-600 text-white' : 'bg-gray-100 dark:bg-gray-800 text-primary-charcoal dark:text-gray-300'
+                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${selectedQuestionId === q.id ? 'bg-fuchsia-600 text-white' : 'bg-gray-100 dark:bg-gray-800 text-ink dark:text-gray-300'
                                                 }`}>
                                                 {q.authorName.charAt(0).toUpperCase()}
                                             </div>
                                             <div>
-                                                <h3 className={`text-sm font-bold ${selectedQuestionId === q.id ? 'text-fuchsia-900 dark:text-fuchsia-300' : 'text-primary-charcoal dark:text-gray-200'}`}>
+                                                <h3 className={`text-sm font-bold ${selectedQuestionId === q.id ? 'text-fuchsia-900 dark:text-fuchsia-300' : 'text-ink dark:text-gray-200'}`}>
                                                     {q.authorName}
                                                 </h3>
                                                 <div className="flex items-center gap-1 mt-0.5 text-[10px] text-gray-400">
@@ -227,7 +227,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                                             {q.isResolved ? (
                                                 <span className="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-600 text-[10px] font-bold rounded-full">محلول</span>
                                             ) : q._count.replies > 0 ? (
-                                                <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-action-blue text-[10px] font-bold rounded-full">تم الرد</span>
+                                                <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-accent text-[10px] font-bold rounded-full">تم الرد</span>
                                             ) : (
                                                 <span className="px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-orange-600 text-[10px] font-bold rounded-full">جديد</span>
                                             )}
@@ -262,7 +262,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                                 <div>
                                     <div className="flex items-center gap-2 text-xs font-semibold text-gray-400 dark:text-gray-500 mb-2">
                                         <span onClick={() => setSelectedQuestionId(null)} className="md:hidden text-fuchsia-600 cursor-pointer ml-2">← رجوع لردود</span>
-                                        <span className="text-primary-charcoal dark:text-gray-300">{selectedThread.course?.title || 'تم الحذف'}</span>
+                                        <span className="text-ink dark:text-gray-300">{selectedThread.course?.title || 'تم الحذف'}</span>
                                         {selectedThread.lesson && (
                                             <>
                                                 <span>/</span>
@@ -273,7 +273,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                                         )}
                                     </div>
                                     <div className="flex items-center gap-3">
-                                        <h2 className="text-lg font-bold text-primary-charcoal dark:text-white">تفاصيل النقاش</h2>
+                                        <h2 className="text-lg font-bold text-ink dark:text-white">تفاصيل النقاش</h2>
                                         {selectedThread.isResolved && (
                                             <span className="flex items-center gap-1 bg-green-100 text-green-600 dark:bg-green-900/30 px-3 py-1 rounded-full text-xs font-bold">
                                                 <FiCheckCircle /> تم الحل
@@ -298,12 +298,12 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
 
                                 {/* 1. The Main Question */}
                                 <div className="flex gap-4">
-                                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center font-bold text-lg text-primary-charcoal dark:text-gray-300 flex-shrink-0">
+                                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center font-bold text-lg text-ink dark:text-gray-300 flex-shrink-0">
                                         {selectedThread.authorName.charAt(0).toUpperCase()}
                                     </div>
                                     <div className="flex-1 bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 p-5 rounded-2xl rounded-tr-sm shadow-sm">
                                         <div className="flex justify-between items-center mb-3">
-                                            <span className="font-bold text-sm text-primary-charcoal dark:text-gray-200">{selectedThread.authorName} <span className="text-xs text-gray-400 font-normal mr-2">الطالب</span></span>
+                                            <span className="font-bold text-sm text-ink dark:text-gray-200">{selectedThread.authorName} <span className="text-xs text-gray-400 font-normal mr-2">الطالب</span></span>
                                             <span className="text-xs text-gray-400 flex items-center gap-1"><FiClock /> {timeAgo(selectedThread.createdAt)}</span>
                                         </div>
                                         <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed box-border break-words whitespace-pre-wrap">
@@ -375,7 +375,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                         <div className={`w-24 h-24 rounded-full ${ACCENT_COLOR} bg-opacity-10 flex items-center justify-center mb-6`}>
                             <FiMessageSquare className={`text-4xl ${ACCENT_TEXT}`} />
                         </div>
-                        <h2 className="text-2xl font-bold text-primary-charcoal dark:text-gray-300 mb-2">لوحة النقاشات</h2>
+                        <h2 className="text-2xl font-bold text-ink dark:text-gray-300 mb-2">لوحة النقاشات</h2>
                         <p className="max-w-sm">
                             اختر محادثة أو سؤال من القائمة الجانبية لعرض التفاصيل وتوجيه رد مباشر للطلاب بطريقة احترافية.
                         </p>

@@ -79,7 +79,7 @@ export default function NewBlogPost() {
                             </label>
                             <input
                                 type="text"
-                                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-action-blue"
+                                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-accent"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 onBlur={generateSlug}
@@ -93,7 +93,7 @@ export default function NewBlogPost() {
                             </label>
                             <input
                                 type="text"
-                                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-action-blue text-left"
+                                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-accent text-left"
                                 value={slug}
                                 onChange={(e) => setSlug(e.target.value)}
                                 dir="ltr"
@@ -178,7 +178,7 @@ export default function NewBlogPost() {
                         <button
                             onClick={handleSave}
                             disabled={isSaving}
-                            className="w-full bg-action-blue text-white py-3 rounded-xl font-bold hover:bg-blue-600 flex justify-center items-center gap-2 transition"
+                            className="w-full bg-accent text-white py-3 rounded-xl font-bold hover:bg-blue-600 flex justify-center items-center gap-2 transition"
                         >
                             {isSaving ? (
                                 <span>جاري الحفظ...</span>

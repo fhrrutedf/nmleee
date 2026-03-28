@@ -34,7 +34,7 @@ export default function CoursesPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
             </div>
         );
     }
@@ -89,7 +89,7 @@ export default function CoursesPage() {
                                 )}
 
                                 <div className="p-6">
-                                    <h3 className="font-bold text-xl mb-3 line-clamp-2 group-hover:text-primary-600 transition-colors">
+                                    <h3 className="font-bold text-xl mb-3 line-clamp-2 group-hover:text-accent transition-colors">
                                         {course.title}
                                     </h3>
 
@@ -124,7 +124,7 @@ export default function CoursesPage() {
                                                 />
                                             ))}
                                         </div>
-                                        <span className="text-2xl font-bold text-primary-600">
+                                        <span className="text-2xl font-bold text-accent">
                                             {course.price.toFixed(0)} $
                                         </span>
                                     </div>

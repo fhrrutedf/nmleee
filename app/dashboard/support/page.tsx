@@ -82,7 +82,7 @@ export default function SellerSupportPage() {
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-[400px]">
-            <div className="w-12 h-12 border-4 border-action-blue/30 border-t-action-blue rounded-full animate-spin" />
+            <div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
         </div>
     );
 
@@ -90,15 +90,15 @@ export default function SellerSupportPage() {
         <div className="space-y-6 max-w-6xl mx-auto pb-12">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white flex items-center gap-3">
-                        <FiMessageSquare className="text-action-blue" />
+                    <h1 className="text-3xl font-bold text-ink dark:text-white flex items-center gap-3">
+                        <FiMessageSquare className="text-accent" />
                         الدعم الفني
                     </h1>
                     <p className="text-text-muted mt-2 font-medium">نحن هنا لمساعدتك! افتح تذكرة وسيقوم فريق الدعم بالرد عليك في أسرع وقت.</p>
                 </div>
                 <button
                     onClick={() => setShowNewModal(true)}
-                    className="btn btn-primary py-3 px-6 shadow-xl shadow-action-blue/20 flex items-center gap-2"
+                    className="btn btn-primary py-3 px-6 shadow-xl shadow-accent/20 flex items-center gap-2"
                 >
                     <FiPlus /> تذكرة جديدة
                 </button>
@@ -128,10 +128,10 @@ export default function SellerSupportPage() {
                             <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                                 {tickets.map(ticket => (
                                     <tr key={ticket.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                                        <td className="px-6 py-4 font-mono text-action-blue font-bold">
+                                        <td className="px-6 py-4 font-mono text-accent font-bold">
                                             {ticket.ticketNumber}
                                         </td>
-                                        <td className="px-6 py-4 font-bold text-primary-charcoal dark:text-gray-100 max-w-xs truncate">
+                                        <td className="px-6 py-4 font-bold text-ink dark:text-gray-100 max-w-xs truncate">
                                             {ticket.subject}
                                         </td>
                                         <td className="px-6 py-4 text-gray-500">
@@ -147,7 +147,7 @@ export default function SellerSupportPage() {
                                             <FiClock /> {new Date(ticket.updatedAt).toLocaleDateString('ar-SA')}
                                         </td>
                                         <td className="px-6 py-4 text-center">
-                                            <Link href={`/dashboard/support/${ticket.id}`} className="text-action-blue hover:text-blue-700 font-bold underline text-sm">
+                                            <Link href={`/dashboard/support/${ticket.id}`} className="text-accent hover:text-blue-700 font-bold underline text-sm">
                                                 عرض الردود ({ticket._count?.messages || 0})
                                             </Link>
                                         </td>
@@ -164,8 +164,8 @@ export default function SellerSupportPage() {
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex justify-center items-center p-4">
                     <div className="bg-white dark:bg-card-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden transform transition-all">
                         <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-900/50">
-                            <h2 className="text-xl font-bold text-primary-charcoal dark:text-white flex items-center gap-2">
-                                <FiPlus className="text-action-blue" /> فتح تذكرة درعم جديدة
+                            <h2 className="text-xl font-bold text-ink dark:text-white flex items-center gap-2">
+                                <FiPlus className="text-accent" /> فتح تذكرة درعم جديدة
                             </h2>
                             <button onClick={() => setShowNewModal(false)} className="text-gray-400 hover:text-red-500">
                                 <FiAlertCircle className="w-6 h-6" />

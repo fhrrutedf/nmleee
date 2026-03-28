@@ -122,10 +122,10 @@ export default function AdminBroadcastPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div className="space-y-2">
-                    <span className="inline-flex items-center gap-2 bg-blue-50 text-action-blue px-3 py-1 rounded-full text-sm font-bold border border-blue-100">
+                    <span className="inline-flex items-center gap-2 bg-blue-50 text-accent px-3 py-1 rounded-full text-sm font-bold border border-blue-100">
                         <FiTarget /> نظام التواصل الجماعي
                     </span>
-                    <h1 className="text-4xl font-bold text-primary-charcoal">البث الجماعي وخدمة الإشعارات</h1>
+                    <h1 className="text-4xl font-bold text-ink">البث الجماعي وخدمة الإشعارات</h1>
                     <p className="text-text-muted font-medium text-lg">أداة احترافية لإرسال رسائل الإيميل والإشعارات لآلاف المستخدمين بضغطة واحدة.</p>
                 </div>
                 <div className="flex gap-4">
@@ -145,7 +145,7 @@ export default function AdminBroadcastPage() {
                     >
                         <div className="p-8 border-b border-gray-50 flex items-center justify-between">
                             <h2 className="text-xl font-bold flex items-center gap-2">
-                                <FiSend className="text-action-blue" /> إنشاء بث جديد
+                                <FiSend className="text-accent" /> إنشاء بث جديد
                             </h2>
                             <span className="text-xs text-text-muted font-bold px-3 py-1 bg-gray-50 rounded-lg">Powered by Resend Queue</span>
                         </div>
@@ -156,7 +156,7 @@ export default function AdminBroadcastPage() {
                                     <label className="text-sm font-bold text-gray-700">المستهدفين (Audience)</label>
                                     <div className="relative">
                                         <select 
-                                            className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all appearance-none"
+                                            className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all appearance-none"
                                             value={newBroadcast.target}
                                             onChange={e => setNewBroadcast({...newBroadcast, target: e.target.value})}
                                         >
@@ -174,7 +174,7 @@ export default function AdminBroadcastPage() {
                                     <div className="relative">
                                         <input 
                                             type="datetime-local" 
-                                            className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all"
+                                            className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
                                             value={newBroadcast.scheduledAt}
                                             onChange={e => setNewBroadcast({...newBroadcast, scheduledAt: e.target.value})}
                                         />
@@ -190,7 +190,7 @@ export default function AdminBroadcastPage() {
                                         <input 
                                             type="text" 
                                             placeholder="مثال: تحديث شروط الاستخدام الجديدة..."
-                                            className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all"
+                                            className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
                                             value={newBroadcast.subject}
                                             onChange={e => setNewBroadcast({...newBroadcast, subject: e.target.value})}
                                         />
@@ -201,7 +201,7 @@ export default function AdminBroadcastPage() {
                                         <textarea 
                                             rows={12}
                                             placeholder="اكتب رسالتك لجميع المستخدمين هنا..."
-                                            className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all resize-none"
+                                            className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none"
                                             value={newBroadcast.message}
                                             onChange={e => setNewBroadcast({...newBroadcast, message: e.target.value})}
                                         />
@@ -219,7 +219,7 @@ export default function AdminBroadcastPage() {
                                         <button 
                                             type="submit"
                                             disabled={submitting}
-                                            className="flex-[2] bg-action-blue hover:bg-blue-700 text-white font-bold py-4 rounded-2xl shadow-xl shadow-action-blue/30 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                                            className="flex-[2] bg-accent hover:bg-blue-700 text-white font-bold py-4 rounded-2xl shadow-xl shadow-accent/30 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
                                         >
                                             {submitting ? <FiLoader className="animate-spin text-xl" /> : <FiSend className="text-lg" />}
                                             {submitting ? 'جاري الجدولة...' : 'إرسال البث الآن'}
@@ -284,7 +284,7 @@ export default function AdminBroadcastPage() {
                 {/* Tracking & Quick Stats */}
                 <div className="space-y-8">
                     {/* Stats Card */}
-                    <div className="bg-gradient-to-br from-gray-900 to-primary-charcoal rounded-xl p-8 text-white shadow-2xl relative overflow-hidden">
+                    <div className="bg-gradient-to-br from-gray-900 to-ink rounded-xl p-8 text-white shadow-2xl relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-[100px]" />
                         <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
                             <FiSearch className="text-blue-400" /> لمحة سريعة

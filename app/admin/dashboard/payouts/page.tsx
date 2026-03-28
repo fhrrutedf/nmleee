@@ -116,7 +116,7 @@ export default function PayoutsManagement() {
     const getStatusStyle = (status: string) => {
         switch (status) {
             case 'PENDING': return 'bg-orange-50 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400 border-orange-200 dark:border-orange-800/50';
-            case 'PROCESSING': return 'bg-blue-50 text-action-blue dark:bg-blue-900/20 dark:text-blue-400 border-blue-200 dark:border-blue-800/50';
+            case 'PROCESSING': return 'bg-blue-50 text-accent dark:bg-blue-900/20 dark:text-blue-400 border-blue-200 dark:border-blue-800/50';
             case 'COMPLETED': return 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400 border-green-200 dark:border-green-800/50';
             case 'REJECTED': return 'bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400 border-red-200 dark:border-red-800/50';
             default: return 'bg-gray-50 text-gray-700 dark:bg-gray-800 dark:text-gray-400';
@@ -147,7 +147,7 @@ export default function PayoutsManagement() {
             {/* Header */}
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="text-3xl md:text-4xl font-bold text-primary-charcoal dark:text-white mb-2 tracking-tight flex items-center gap-3">
+                    <h1 className="text-3xl md:text-4xl font-bold text-ink dark:text-white mb-2 tracking-tight flex items-center gap-3">
                         <div className="w-12 h-12 rounded-2xl bg-green-500/10 text-green-600 flex items-center justify-center">
                             <FiDollarSign />
                         </div>
@@ -162,7 +162,7 @@ export default function PayoutsManagement() {
                 <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
                     <div className="px-5 py-3 flex flex-col items-center">
                         <span className="text-gray-400 text-xs">إجمالي الطلبات</span>
-                        <span className="text-primary-charcoal dark:text-white text-lg">{stats.totalPayouts}</span>
+                        <span className="text-ink dark:text-white text-lg">{stats.totalPayouts}</span>
                     </div>
                     <div className="px-5 py-3 flex flex-col items-center">
                         <span className="text-orange-500 text-xs">معلق بالمراجعة</span>
@@ -191,7 +191,7 @@ export default function PayoutsManagement() {
                             placeholder="ابحث برقم الطلب أو البائع..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all text-primary-charcoal dark:text-white"
+                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all text-ink dark:text-white"
                         />
                         <button type="submit" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-green-500 transition-colors">
                             <FiSearch size={18} />
@@ -207,7 +207,7 @@ export default function PayoutsManagement() {
                             <select
                                 value={statusFilter}
                                 onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }}
-                                className="bg-transparent border-none focus:outline-none text-primary-charcoal dark:text-white cursor-pointer pr-4"
+                                className="bg-transparent border-none focus:outline-none text-ink dark:text-white cursor-pointer pr-4"
                             >
                                 <option value="ALL">الكل</option>
                                 <option value="PENDING">قيد المراجعة</option>

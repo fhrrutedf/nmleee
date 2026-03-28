@@ -125,7 +125,7 @@ export default function EditLessonPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="w-10 h-10 border-4 border-action-blue/30 border-t-action-blue rounded-full animate-spin" />
+                <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
             </div>
         );
     }
@@ -136,15 +136,15 @@ export default function EditLessonPage() {
         <div className="max-w-4xl mx-auto pb-12">
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-sm text-text-muted mb-6">
-                <button onClick={() => router.push(`/dashboard/courses/${lesson.module.course.id}/content`)} className="hover:text-action-blue transition-colors">
+                <button onClick={() => router.push(`/dashboard/courses/${lesson.module.course.id}/content`)} className="hover:text-accent transition-colors">
                     محتوى الدورة
                 </button>
                 <FiArrowRight size={12} />
-                <span className="text-primary-charcoal dark:text-white font-medium">تعديل: {lesson.title}</span>
+                <span className="text-ink dark:text-white font-medium">تعديل: {lesson.title}</span>
             </div>
 
             <div className="card">
-                <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-6">تعديل الدرس</h1>
+                <h1 className="text-2xl font-bold text-ink dark:text-white mb-6">تعديل الدرس</h1>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Title */}
@@ -185,7 +185,7 @@ export default function EditLessonPage() {
 
                     {/* Video Section */}
                     <div className="space-y-4">
-                        <div className="p-6 bg-blue-50/30 dark:bg-action-blue/5 rounded-3xl border border-action-blue/10">
+                        <div className="p-6 bg-blue-50/30 dark:bg-accent/5 rounded-3xl border border-accent/10">
                             <label className="label mb-4 opacity-70">إعدادات الفيديو (Bunny Stream)</label>
                             
                             {formData.bunnyVideoId ? (
@@ -195,7 +195,7 @@ export default function EditLessonPage() {
                                             <FiCheckCircle size={24} />
                                         </div>
                                         <div>
-                                            <p className="font-bold text-primary-charcoal dark:text-white">الفيديو مرتبط بـ Bunny</p>
+                                            <p className="font-bold text-ink dark:text-white">الفيديو مرتبط بـ Bunny</p>
                                             <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">ID: {formData.bunnyVideoId}</p>
                                         </div>
                                     </div>
@@ -235,9 +235,9 @@ export default function EditLessonPage() {
                                 type="checkbox"
                                 checked={formData.isFree}
                                 onChange={(e) => setFormData({ ...formData, isFree: e.target.checked })}
-                                className="w-4 h-4 text-action-blue border-gray-300 rounded focus:ring-action-blue"
+                                className="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent"
                             />
-                            <span className="text-sm font-medium text-primary-charcoal dark:text-white">درس مجاني للمعاينة</span>
+                            <span className="text-sm font-medium text-ink dark:text-white">درس مجاني للمعاينة</span>
                         </label>
 
                         <label className="flex items-center gap-3 cursor-pointer">
@@ -247,7 +247,7 @@ export default function EditLessonPage() {
                                 onChange={(e) => setFormData({ ...formData, isPublished: e.target.checked })}
                                 className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                             />
-                            <span className="text-sm font-medium text-primary-charcoal dark:text-white">منشور</span>
+                            <span className="text-sm font-medium text-ink dark:text-white">منشور</span>
                         </label>
                     </div>
 

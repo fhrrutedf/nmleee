@@ -30,7 +30,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                         للمبدعين وصناع المحتوى
                     </span>
                     <h1 className="text-4xl md:text-6xl font-bold mb-6 font-heading">
-                        مدونة <span className="text-action-blue">المعرفة</span>
+                        مدونة <span className="text-accent">المعرفة</span>
                     </h1>
                     <p className="text-xl opacity-80 max-w-2xl mx-auto mb-10 text-gray-300">
                         اكتشف أحدث المقالات، النصائح، والاستراتيجيات لتنمية أعمالك الرقمية وتحقيق النجاح.
@@ -43,7 +43,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                             placeholder="ابحث في المقالات..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full py-4 pl-12 pr-6 rounded-full text-gray-800 shadow-xl focus:outline-none focus:ring-2 focus:ring-action-blue"
+                            className="w-full py-4 pl-12 pr-6 rounded-full text-gray-800 shadow-xl focus:outline-none focus:ring-2 focus:ring-accent"
                         />
                         <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
                     </div>
@@ -60,7 +60,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                 key={idx}
                                 onClick={() => setSelectedCategory(cat)}
                                 className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${selectedCategory === cat
-                                    ? 'bg-action-blue text-white shadow-md transform scale-105'
+                                    ? 'bg-accent text-white shadow-md transform scale-105'
                                     : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
                                     }`}
                             >
@@ -91,7 +91,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                             <div className="flex items-center gap-4 text-xs text-gray-500 mb-3">
                                                 <span className="flex items-center gap-1"><FiCalendar /> {new Date(post.createdAt).toLocaleDateString("ar")}</span>
                                             </div>
-                                            <h2 className="text-xl font-bold mb-3 text-primary-charcoal group-hover:text-action-blue transition-colors leading-tight">
+                                            <h2 className="text-xl font-bold mb-3 text-ink group-hover:text-accent transition-colors leading-tight">
                                                 {post.title}
                                             </h2>
                                             <p className="text-gray-500 mb-6 text-sm line-clamp-3">
@@ -105,7 +105,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                                     </div>
                                                     <span className="text-sm font-medium text-gray-700">{post.authorName || post.user?.name || 'الكاتب'}</span>
                                                 </div>
-                                                <Link href={`/blog/${post.slug}`} className="text-action-blue font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all">
+                                                <Link href={`/blog/${post.slug}`} className="text-accent font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all">
                                                     اقرأ المزيد <FiArrowLeft />
                                                 </Link>
                                             </div>
@@ -119,7 +119,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                 <div className="mt-12 text-center">
                                     <button
                                         onClick={() => setVisibleCount(prev => prev + 6)}
-                                        className="px-8 py-3 bg-white border border-gray-200 text-primary-charcoal font-bold rounded-xl hover:bg-gray-50 hover:text-action-blue transition-colors shadow-sm"
+                                        className="px-8 py-3 bg-white border border-gray-200 text-ink font-bold rounded-xl hover:bg-gray-50 hover:text-accent transition-colors shadow-sm"
                                     >
                                         تحميل المزيد
                                     </button>
@@ -132,7 +132,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                             <p className="text-gray-500">جرب البحث بكلمات مختلفة أو تغيير التصنيف.</p>
                             <button
                                 onClick={() => { setSelectedCategory('الكل'); setSearchQuery(''); }}
-                                className="mt-4 text-action-blue font-bold px-6 py-2 bg-blue-50 rounded-lg hover:bg-blue-100"
+                                className="mt-4 text-accent font-bold px-6 py-2 bg-blue-50 rounded-lg hover:bg-blue-100"
                             >
                                 إزالة الفلاتر
                             </button>

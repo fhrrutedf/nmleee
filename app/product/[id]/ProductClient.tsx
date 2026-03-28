@@ -115,14 +115,14 @@ export default function ProductDetails({
             {product.user?.brandColor && (
                 <style dangerouslySetInnerHTML={{
                     __html: `
-                    .text-action-blue { color: ${product.user.brandColor} !important; }
-                    .bg-action-blue { background-color: ${product.user.brandColor} !important; }
-                    .border-action-blue { border-color: ${product.user.brandColor} !important; }
-                    .ring-action-blue { --tw-ring-color: ${product.user.brandColor} !important; }
-                    .from-action-blue { --tw-gradient-from: ${product.user.brandColor} !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
-                    .hover\\:text-action-blue:hover { color: ${product.user.brandColor} !important; filter: brightness(0.9); }
-                    .hover\\:bg-action-blue:hover { background-color: ${product.user.brandColor} !important; filter: brightness(0.9); }
-                    .shadow-action-blue\\/20 { --tw-shadow-color: ${product.user.brandColor}33 !important; }
+                    .text-accent { color: ${product.user.brandColor} !important; }
+                    .bg-accent { background-color: ${product.user.brandColor} !important; }
+                    .border-accent { border-color: ${product.user.brandColor} !important; }
+                    .ring-accent { --tw-ring-color: ${product.user.brandColor} !important; }
+                    .from-accent { --tw-gradient-from: ${product.user.brandColor} !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
+                    .hover\\:text-accent:hover { color: ${product.user.brandColor} !important; filter: brightness(0.9); }
+                    .hover\\:bg-accent:hover { background-color: ${product.user.brandColor} !important; filter: brightness(0.9); }
+                    .shadow-accent\\/20 { --tw-shadow-color: ${product.user.brandColor}33 !important; }
                     `
                 }} />
             )}
@@ -130,22 +130,22 @@ export default function ProductDetails({
 
                 {/* Breadcrumb Navigation */}
                 <div className="flex items-center gap-3 text-sm font-bold text-gray-500 dark:text-gray-400 mb-8 overflow-x-auto whitespace-nowrap scrollbar-hide py-2">
-                    <Link href="/" className="hover:text-action-blue transition-colors flex items-center gap-1"><FiStar /> الرئيسية</Link>
+                    <Link href="/" className="hover:text-accent transition-colors flex items-center gap-1"><FiStar /> الرئيسية</Link>
                     <span className="text-gray-300 dark:text-gray-700">/</span>
-                    <Link href="/explore" className="hover:text-action-blue transition-colors">تصفح المنتجات</Link>
+                    <Link href="/explore" className="hover:text-accent transition-colors">تصفح المنتجات</Link>
                     <span className="text-gray-300 dark:text-gray-700">/</span>
-                    <span className="text-primary-charcoal dark:text-gray-200 truncate max-w-[200px] sm:max-w-md">{product.title}</span>
+                    <span className="text-ink dark:text-gray-200 truncate max-w-[200px] sm:max-w-md">{product.title}</span>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
                     {/* Left Column: Product Info Card */}
                     <div className="lg:col-span-5 order-2 lg:order-1 relative">
                         <div className="sticky top-24 bg-white dark:bg-card-white rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-800 animate-fade-in-up">
-                            <div className="h-6 w-full bg-gradient-to-r from-action-blue via-purple-500 to-pink-500"></div>
+                            <div className="h-6 w-full bg-gradient-to-r from-accent via-purple-500 to-pink-500"></div>
                             <div className="p-8 sm:p-10">
                                 <div className="flex flex-wrap gap-2 mb-6">
                                     {product.category && (
-                                        <span className="px-4 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-action-blue dark:text-blue-400 rounded-lg text-sm font-bold tracking-wide border border-blue-100 dark:border-blue-900/30">
+                                        <span className="px-4 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-accent dark:text-blue-400 rounded-lg text-sm font-bold tracking-wide border border-blue-100 dark:border-blue-900/30">
                                             {product.category === 'courses' ? '👨‍🏫 دورة متكاملة' : product.category === 'ebooks' ? '📚 كتاب إلكتروني' : product.category}
                                         </span>
                                     )}
@@ -156,7 +156,7 @@ export default function ProductDetails({
                                     )}
                                 </div>
 
-                                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-charcoal dark:text-white mb-6 leading-tight tracking-tight">
+                                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink dark:text-white mb-6 leading-tight tracking-tight">
                                     {product.title}
                                 </h1>
 
@@ -166,11 +166,11 @@ export default function ProductDetails({
                                             <FiStar className="fill-yellow-500 mr-1" />
                                             <span className="font-bold">{product.averageRating?.toFixed(1) || '5.0'}</span>
                                         </div>
-                                        <span className="text-gray-500 dark:text-gray-400 font-medium text-sm group-hover:text-action-blue transition-colors">({reviews.length} تقييم)</span>
+                                        <span className="text-gray-500 dark:text-gray-400 font-medium text-sm group-hover:text-accent transition-colors">({reviews.length} تقييم)</span>
                                     </div>
                                     <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 font-medium text-sm">
-                                        <FiShoppingCart className="text-action-blue" />
-                                        <span className="font-bold text-primary-charcoal dark:text-gray-200">{(product.soldCount || 0) + 12} مبيعة اليوم</span> {/** إضافة رقم وهمي صغير للزخم التسويقي إذا كانت المبيعات قليلة **/}
+                                        <FiShoppingCart className="text-accent" />
+                                        <span className="font-bold text-ink dark:text-gray-200">{(product.soldCount || 0) + 12} مبيعة اليوم</span> {/** إضافة رقم وهمي صغير للزخم التسويقي إذا كانت المبيعات قليلة **/}
                                     </div>
                                 </div>
 
@@ -212,7 +212,7 @@ export default function ProductDetails({
                                     <button
                                         onClick={buyNow}
                                         disabled={buyingNow}
-                                        className="w-full btn btn-primary text-xl py-5 rounded-2xl shadow-xl shadow-action-blue/20 hover:shadow-action-blue/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-bold disabled:opacity-80 disabled:cursor-not-allowed"
+                                        className="w-full btn btn-primary text-xl py-5 rounded-2xl shadow-xl shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-bold disabled:opacity-80 disabled:cursor-not-allowed"
                                         style={product.user?.brandColor ? { backgroundColor: product.user.brandColor, borderColor: product.user.brandColor } : {}}
                                     >
                                         {buyingNow ? (
@@ -232,7 +232,7 @@ export default function ProductDetails({
                                         <button
                                             onClick={addToCart}
                                             disabled={addingToCart}
-                                            className="w-full btn text-lg py-4 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-primary-charcoal dark:text-gray-200 font-bold hover:border-action-blue hover:text-action-blue dark:hover:border-action-blue transition-colors disabled:opacity-60"
+                                            className="w-full btn text-lg py-4 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-ink dark:text-gray-200 font-bold hover:border-accent hover:text-accent dark:hover:border-accent transition-colors disabled:opacity-60"
                                         >
                                             {addingToCart ? (
                                                 <span className="w-5 h-5 rounded-full border-2 border-current border-t-transparent animate-spin inline-block" />
@@ -261,7 +261,7 @@ export default function ProductDetails({
                     {/* Right Column: Media & Details */}
                     <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col gap-10">
                         <div className="group relative">
-                            <div className="absolute -inset-1 bg-gradient-to-r from-action-blue to-purple-600 rounded-xl blur-xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                            <div className="absolute -inset-1 bg-gradient-to-r from-accent to-purple-600 rounded-xl blur-xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
                             <div className="relative bg-black rounded-xl overflow-hidden shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10 aspect-[16/10] sm:aspect-video flex items-center justify-center animate-fade-in-up">
                                 {activeMedia?.type === 'video' ? (
                                     <div className="w-full h-full">
@@ -284,7 +284,7 @@ export default function ProductDetails({
                                     <button
                                         key={idx}
                                         onClick={() => setActiveMedia(item as any)}
-                                        className={`relative shrink-0 w-32 h-20 sm:w-40 sm:h-24 rounded-2xl overflow-hidden transition-all duration-300 snap-start shadow-sm ${activeMedia?.url === item.url ? 'ring-4 ring-action-blue scale-105 z-10' : 'ring-1 ring-gray-200 dark:ring-gray-700 opacity-60 hover:opacity-100 filter grayscale hover:grayscale-0'}`}
+                                        className={`relative shrink-0 w-32 h-20 sm:w-40 sm:h-24 rounded-2xl overflow-hidden transition-all duration-300 snap-start shadow-sm ${activeMedia?.url === item.url ? 'ring-4 ring-accent scale-105 z-10' : 'ring-1 ring-gray-200 dark:ring-gray-700 opacity-60 hover:opacity-100 filter grayscale hover:grayscale-0'}`}
                                     >
                                         {item.type === 'video' ? (
                                             <div className="w-full h-full bg-gray-900 flex items-center justify-center relative">
@@ -303,7 +303,7 @@ export default function ProductDetails({
 
                         <div className="mt-8 bg-gradient-to-r from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 rounded-3xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden group">
                             <div className="flex items-center gap-6 relative z-10 w-full sm:w-auto">
-                                 <Link href={`/${product.user?.username || 'seller'}`} className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-action-blue to-purple-600 rounded-2xl flex items-center justify-center font-bold text-3xl text-white shadow-xl overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                                 <Link href={`/${product.user?.username || 'seller'}`} className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-accent to-purple-600 rounded-2xl flex items-center justify-center font-bold text-3xl text-white shadow-xl overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
                                      {product.user?.avatar ? (
                                          <img src={product.user.avatar} className="w-full h-full object-cover" alt={product.user.name} />
                                      ) : (
@@ -311,9 +311,9 @@ export default function ProductDetails({
                                      )}
                                  </Link>
                                  <div>
-                                     <p className="text-xs font-bold tracking-widest uppercase text-action-blue mb-1">صانع المحتوى</p>
+                                     <p className="text-xs font-bold tracking-widest uppercase text-accent mb-1">صانع المحتوى</p>
                                      <Link href={`/${product.user?.username || 'seller'}`}>
-                                         <h3 className="font-bold text-2xl text-gray-900 dark:text-white mb-2 hover:text-action-blue transition-colors">{product.user?.name || 'البائع'}</h3>
+                                         <h3 className="font-bold text-2xl text-gray-900 dark:text-white mb-2 hover:text-accent transition-colors">{product.user?.name || 'البائع'}</h3>
                                      </Link>
                                      <div className="flex gap-2">
                                         <button 
@@ -342,20 +342,20 @@ export default function ProductDetails({
                             <div className="flex overflow-x-auto border-b border-gray-100 dark:border-gray-800 scrollbar-hide">
                                 <button
                                     onClick={() => setActiveTab('description')}
-                                    className={`flex-1 min-w-[150px] py-6 px-4 font-bold text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'description' ? 'text-action-blue' : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'}`}
+                                    className={`flex-1 min-w-[150px] py-6 px-4 font-bold text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'description' ? 'text-accent' : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'}`}
                                 >
-                                    <FiBook className={activeTab === 'description' ? "text-action-blue" : "text-gray-400"} />
+                                    <FiBook className={activeTab === 'description' ? "text-accent" : "text-gray-400"} />
                                     محتوى وتفاصيل
-                                    {activeTab === 'description' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-action-blue rounded-t-full"></div>)}
+                                    {activeTab === 'description' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-accent rounded-t-full"></div>)}
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('reviews')}
-                                    className={`flex-1 min-w-[150px] py-6 px-4 font-bold text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'reviews' ? 'text-action-blue' : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'}`}
+                                    className={`flex-1 min-w-[150px] py-6 px-4 font-bold text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'reviews' ? 'text-accent' : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'}`}
                                 >
-                                    <FiMessageSquare className={activeTab === 'reviews' ? "text-action-blue" : "text-gray-400"} />
+                                    <FiMessageSquare className={activeTab === 'reviews' ? "text-accent" : "text-gray-400"} />
                                     تجارب المشترين
                                     <span className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs px-2 py-1 rounded-full">{reviews.length}</span>
-                                    {activeTab === 'reviews' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-action-blue rounded-t-full"></div>)}
+                                    {activeTab === 'reviews' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-accent rounded-t-full"></div>)}
                                 </button>
                             </div>
 
@@ -373,7 +373,7 @@ export default function ProductDetails({
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                                     <div>
                                                         <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">اسمك الأول</label>
-                                                        <input type="text" value={newReview.name} onChange={(e) => setNewReview({ ...newReview, name: e.target.value })} className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all placeholder:font-normal" placeholder="يكفي الاسم الأول فقط" required />
+                                                        <input type="text" value={newReview.name} onChange={(e) => setNewReview({ ...newReview, name: e.target.value })} className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all placeholder:font-normal" placeholder="يكفي الاسم الأول فقط" required />
                                                     </div>
                                                     <div>
                                                         <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">التقييم من 5</label>
@@ -386,9 +386,9 @@ export default function ProductDetails({
                                                 </div>
                                                 <div>
                                                     <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">تعليقك وتقييمك (بصدق)</label>
-                                                    <textarea value={newReview.comment} onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })} className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-action-blue outline-none transition-all resize-none placeholder:font-normal" rows={3} placeholder="كيف كانت تجربتك؟ وهل استفدت من المادة؟" required />
+                                                    <textarea value={newReview.comment} onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })} className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none placeholder:font-normal" rows={3} placeholder="كيف كانت تجربتك؟ وهل استفدت من المادة؟" required />
                                                 </div>
-                                                <button type="submit" className="btn btn-primary px-8 py-3 rounded-xl font-bold shadow-lg shadow-action-blue/20">إرسال التقييم</button>
+                                                <button type="submit" className="btn btn-primary px-8 py-3 rounded-xl font-bold shadow-lg shadow-accent/20">إرسال التقييم</button>
                                             </form>
                                         </div>
 
@@ -406,7 +406,7 @@ export default function ProductDetails({
                                                         <div className="flex items-center gap-3 mb-3">
                                                             <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center font-bold text-gray-500">{review.name.charAt(0)}</div>
                                                             <div>
-                                                                <h4 className="font-bold text-lg text-primary-charcoal dark:text-white">{review.name}</h4>
+                                                                <h4 className="font-bold text-lg text-ink dark:text-white">{review.name}</h4>
                                                                 <div className="flex items-center gap-0.5">
                                                                     {[...Array(5)].map((_, i) => (<FiStar key={i} className={`text-sm ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200 dark:text-gray-700'}`} />))}
                                                                 </div>
@@ -425,7 +425,7 @@ export default function ProductDetails({
                 </div>
             </div>
             <footer className="mt-16 py-8 border-t border-gray-100 dark:border-gray-800 text-center">
-                <p className="text-gray-500 dark:text-gray-400 font-medium">مدعوم من <a href="https://tmleen.com" className="text-primary-600 font-bold hover:underline">منصة تمالين</a></p>
+                <p className="text-gray-500 dark:text-gray-400 font-medium">مدعوم من <a href="https://tmleen.com" className="text-accent font-bold hover:underline">منصة تمالين</a></p>
             </footer>
         </div>
     );

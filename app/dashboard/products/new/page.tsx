@@ -588,7 +588,7 @@ export default function NewProductPage() {
             <AnimatePresence>
                 {showConfirmModal && (
                     <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/50 backdrop-blur-xl animate-fade-in">
-                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-[3.5rem] p-12 max-w-sm w-full text-center space-y-10 shadow-2xl">
+                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-3xl p-12 max-w-sm w-full text-center space-y-10 shadow-2xl">
                              <div className="w-24 h-24 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mx-auto text-5xl"><FiCheckSquare /></div>
                              <div className="space-y-2">
                                  <h3 className="text-3xl font-bold text-slate-900 leading-tight">جاهز للانطلاق!</h3>
@@ -608,7 +608,7 @@ export default function NewProductPage() {
 
 function Section({ title, icon, description, children }: any) {
     return (
-        <div className="bg-white rounded-[3.5rem] p-8 lg:p-14 shadow-lg border border-slate-50 space-y-10 overflow-hidden relative">
+        <div className="bg-white rounded-3xl p-8 lg:p-14 shadow-lg border border-slate-50 space-y-10 overflow-hidden relative">
             <div className="flex items-center gap-5">
                 <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center text-3xl shadow-sm shrink-0">
                     {icon}

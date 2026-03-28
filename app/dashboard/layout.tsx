@@ -55,8 +55,8 @@ export default function DashboardLayout({
         return (
             <div className="min-h-[100dvh] flex items-center justify-center bg-bg-light dark:bg-bg-light">
                 <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-action-blue border-t-transparent mx-auto"></div>
-                    <p className="mt-4 text-primary-charcoal font-medium">جاري التحميل...</p>
+                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent border-t-transparent mx-auto"></div>
+                    <p className="mt-4 text-ink font-medium">جاري التحميل...</p>
                 </div>
             </div>
         );
@@ -121,11 +121,11 @@ export default function DashboardLayout({
             <aside className="hidden lg:flex fixed inset-y-0 right-0 bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex-col">
                 <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                     <div className="flex items-center justify-between">
-                        <h1 className="text-2xl font-bold bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent transform transition-transform hover:scale-105">تمالين</h1>
+                        <h1 className="text-2xl font-bold bg-gradient-to-r from-accent to-purple-600 bg-clip-text text-transparent transform transition-transform hover:scale-105">تمالين</h1>
                     </div>
                     <p className="text-sm text-text-muted mt-2">مرحباً، {session.user?.name}</p>
                     <div className="mt-6 flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
-                        <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'store' ? 'bg-white dark:bg-card-white text-action-blue shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}>
+                        <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'store' ? 'bg-white dark:bg-card-white text-accent shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}>
                             <FiBriefcase className="text-sm" /> المتجر
                         </button>
                         <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'academy' ? 'bg-white dark:bg-card-white text-purple-600 shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}>
@@ -140,7 +140,7 @@ export default function DashboardLayout({
                         const active = isActive || isHome;
                         return (
                             <Link key={item.href} href={item.href}
-                                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group w-full ${active ? 'bg-action-blue text-white shadow-md shadow-action-blue/25' : 'text-primary-charcoal hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-action-blue'}`}>
+                                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group w-full ${active ? 'bg-accent text-white shadow-md shadow-accent/25' : 'text-ink hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-accent'}`}>
                                 <item.icon className={`text-lg flex-shrink-0 transition-transform duration-200 ${active ? '' : 'group-hover:scale-110'}`} />
                                 <span className="font-semibold text-sm truncate flex-1 text-right">{item.label}</span>
                                 {active && <span className="mr-auto w-1.5 h-1.5 rounded-full bg-white/70" />}
@@ -149,7 +149,7 @@ export default function DashboardLayout({
                     })}
                 </nav>
                 <div className="p-4 border-t border-gray-100 dark:border-gray-800 space-y-2">
-                    <Link href="/explore" className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-action-blue w-full transition-colors text-sm font-medium">
+                    <Link href="/explore" className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-accent w-full transition-colors text-sm font-medium">
                         <FiGlobe className="text-lg" /><span>استكشف المتجر</span>
                     </Link>
                     <button onClick={() => signOut({ callbackUrl: '/' })} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 w-full transition-colors text-sm font-medium">
@@ -164,14 +164,14 @@ export default function DashboardLayout({
                     className="lg:hidden fixed top-0 bottom-0 right-0 bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex flex-col overflow-y-auto overflow-x-hidden">
                     <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                         <div className="flex items-center justify-between">
-                            <h1 className="text-2xl font-bold bg-gradient-to-r from-action-blue to-purple-600 bg-clip-text text-transparent">تمالين</h1>
-                            <button onClick={() => setSidebarOpen(false)} className="text-primary-charcoal hover:text-action-blue transition-colors">
+                            <h1 className="text-2xl font-bold bg-gradient-to-r from-accent to-purple-600 bg-clip-text text-transparent">تمالين</h1>
+                            <button onClick={() => setSidebarOpen(false)} className="text-ink hover:text-accent transition-colors">
                                 <FiX className="text-2xl" />
                             </button>
                         </div>
                         <p className="text-sm text-text-muted mt-2">مرحباً، {session.user?.name}</p>
                         <div className="mt-6 flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
-                            <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'store' ? 'bg-white dark:bg-card-white text-action-blue shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}>
+                            <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'store' ? 'bg-white dark:bg-card-white text-accent shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}>
                                 <FiBriefcase className="text-sm" /> المتجر
                             </button>
                             <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'academy' ? 'bg-white dark:bg-card-white text-purple-600 shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}>
@@ -186,7 +186,7 @@ export default function DashboardLayout({
                             const active = isActive || isHome;
                             return (
                                 <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
-                                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group w-full ${active ? 'bg-action-blue text-white shadow-md shadow-action-blue/25' : 'text-primary-charcoal hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-action-blue'}`}>
+                                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group w-full ${active ? 'bg-accent text-white shadow-md shadow-accent/25' : 'text-ink hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-accent'}`}>
                                     <item.icon className={`text-lg flex-shrink-0 transition-transform duration-200 ${active ? '' : 'group-hover:scale-110'}`} />
                                     <span className="font-semibold text-sm truncate flex-1 text-right">{item.label}</span>
                                     {active && <span className="mr-auto w-1.5 h-1.5 rounded-full bg-white/70" />}
@@ -195,7 +195,7 @@ export default function DashboardLayout({
                         })}
                     </nav>
                     <div className="p-4 border-t border-gray-100 dark:border-gray-800 space-y-2">
-                        <Link href="/explore" onClick={() => setSidebarOpen(false)} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-action-blue w-full transition-colors text-sm font-medium">
+                        <Link href="/explore" onClick={() => setSidebarOpen(false)} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-accent w-full transition-colors text-sm font-medium">
                             <FiGlobe className="text-lg" /><span>استكشف المتجر</span>
                         </Link>
                         <button onClick={() => signOut({ callbackUrl: '/' })} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 w-full transition-colors text-sm font-medium">
@@ -213,7 +213,7 @@ export default function DashboardLayout({
                     <div className="px-4 sm:px-6 py-4 flex items-center justify-between">
                         <button
                             onClick={() => setSidebarOpen(true)}
-                            className="lg:hidden text-primary-charcoal hover:text-action-blue"
+                            className="lg:hidden text-ink hover:text-accent"
                         >
                             <FiMenu className="text-2xl" />
                         </button>
@@ -222,7 +222,7 @@ export default function DashboardLayout({
                             <ThemeToggle />
                             <Link
                                 href="/explore"
-                                className="hidden md:flex items-center gap-2 text-sm text-gray-500 hover:text-action-blue transition-colors font-medium"
+                                className="hidden md:flex items-center gap-2 text-sm text-gray-500 hover:text-accent transition-colors font-medium"
                             >
                                 <FiGlobe />
                                 <span>المتجر</span>

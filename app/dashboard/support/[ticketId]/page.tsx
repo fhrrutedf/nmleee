@@ -69,7 +69,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-[400px]">
-            <div className="w-12 h-12 border-4 border-action-blue/30 border-t-action-blue rounded-full animate-spin" />
+            <div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
         </div>
     );
 
@@ -91,7 +91,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
 
     return (
         <div className="space-y-6 max-w-4xl mx-auto pb-12">
-            <Link href="/dashboard/support" className="flex items-center gap-2 text-action-blue hover:text-blue-700 font-bold mb-4 w-fit transition-colors">
+            <Link href="/dashboard/support" className="flex items-center gap-2 text-accent hover:text-blue-700 font-bold mb-4 w-fit transition-colors">
                 <FiArrowRight /> العودة لمركز الدعم
             </Link>
 
@@ -99,14 +99,14 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-100 dark:border-gray-800 pb-6 mb-6">
                     <div>
                         <div className="flex items-center gap-3 mb-2">
-                            <span className="font-mono text-sm text-action-blue font-bold px-3 py-1 bg-action-blue/10 rounded-full">
+                            <span className="font-mono text-sm text-accent font-bold px-3 py-1 bg-accent/10 rounded-full">
                                 {ticket.ticketNumber}
                             </span>
                             <span className={`px-3 py-1 text-xs font-bold rounded-full ${statusInfo.css}`}>
                                 {statusInfo.label}
                             </span>
                         </div>
-                        <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white">
+                        <h1 className="text-2xl font-bold text-ink dark:text-white">
                             {ticket.subject}
                         </h1>
                     </div>
@@ -121,12 +121,12 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                         const isAdmin = msg.senderRole === 'ADMIN';
                         return (
                             <div key={msg.id} className={`flex gap-4 ${isAdmin ? '' : 'flex-row-reverse'}`}>
-                                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${isAdmin ? 'bg-gradient-to-br from-action-blue to-purple-600' : 'bg-gray-200 dark:bg-gray-800'}`}>
+                                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${isAdmin ? 'bg-gradient-to-br from-accent to-purple-600' : 'bg-gray-200 dark:bg-gray-800'}`}>
                                     {isAdmin ? <FiMessageSquare className="text-white" /> : <FiUser className="text-gray-500" />}
                                 </div>
-                                <div className={`max-w-[80%] rounded-2xl p-5 ${isAdmin ? 'bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none' : 'bg-action-blue/10 dark:bg-action-blue/20 text-action-blue rounded-tl-none'}`}>
+                                <div className={`max-w-[80%] rounded-2xl p-5 ${isAdmin ? 'bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none' : 'bg-accent/10 dark:bg-accent/20 text-accent rounded-tl-none'}`}>
                                     <div className="flex items-center gap-2 mb-2">
-                                        <span className={`font-bold text-sm ${isAdmin ? 'text-primary-charcoal dark:text-white' : 'text-action-blue'}`}>
+                                        <span className={`font-bold text-sm ${isAdmin ? 'text-ink dark:text-white' : 'text-accent'}`}>
                                             {isAdmin ? 'فريق الدعم (المنصة)' : 'أنت'}
                                         </span>
                                         <span className="text-xs text-gray-400">
@@ -142,7 +142,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                                                 href={msg.attachmentUrl} 
                                                 target="_blank" 
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center gap-2 text-xs font-bold bg-white dark:bg-gray-800 px-3 py-2 rounded-lg border border-gray-100 hover:border-action-blue transition-colors"
+                                                className="inline-flex items-center gap-2 text-xs font-bold bg-white dark:bg-gray-800 px-3 py-2 rounded-lg border border-gray-100 hover:border-accent transition-colors"
                                             >
                                                 📂 عرض المرفقات
                                             </a>
@@ -165,7 +165,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                         <div className="relative">
                             <textarea
                                 rows={3}
-                                className="input w-full pr-14 resize-none rounded-2xl focus:ring-2 focus:ring-action-blue"
+                                className="input w-full pr-14 resize-none rounded-2xl focus:ring-2 focus:ring-accent"
                                 placeholder="اكتب ردك هنا..."
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
@@ -173,7 +173,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                             <button
                                 type="submit"
                                 disabled={submitting || !message.trim()}
-                                className="absolute top-3 left-4 w-10 h-10 bg-action-blue hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors shadow-md"
+                                className="absolute top-3 left-4 w-10 h-10 bg-accent hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors shadow-md"
                             >
                                 {submitting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FiSend />}
                             </button>

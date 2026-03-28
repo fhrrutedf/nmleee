@@ -203,7 +203,7 @@ export default function BookAppointmentPage() {
                                 </label>
                                 <div className="grid grid-cols-2 gap-4">
                                     <label className={`flex items-center gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${formData.type === 'online'
-                                            ? 'border-primary-500 bg-primary-50'
+                                            ? 'border-accent bg-primary-50'
                                             : 'border-gray-200 hover:border-primary-300'
                                         }`}>
                                         <input
@@ -222,7 +222,7 @@ export default function BookAppointmentPage() {
                                     </label>
 
                                     <label className={`flex items-center gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${formData.type === 'inperson'
-                                            ? 'border-primary-500 bg-primary-50'
+                                            ? 'border-accent bg-primary-50'
                                             : 'border-gray-200 hover:border-primary-300'
                                         }`}>
                                         <input

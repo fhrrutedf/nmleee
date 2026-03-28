@@ -51,8 +51,8 @@ const plans = [
         students: 'حتى 1,000 طالب',
         support: 'بريد + دردشة مباشرة',
         color: 'from-blue-500 to-purple-600',
-        border: 'border-action-blue',
-        btnClass: 'bg-action-blue hover:bg-action-blue/90 text-white',
+        border: 'border-accent',
+        btnClass: 'bg-accent hover:bg-accent/90 text-white',
         popular: true,
         features: [
             '50 منتج رقمي',
@@ -201,14 +201,14 @@ export default function BillingPage() {
         <div className="space-y-8 max-w-7xl mx-auto">
             {/* Hero Section */}
             <section className="relative py-12 overflow-hidden rounded-3xl mb-8">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-charcoal via-purple-900/50 to-primary-charcoal" />
+                <div className="absolute inset-0 bg-gradient-to-br from-ink via-purple-900/50 to-ink" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,18,149,0.15)_0%,transparent_70%)]" />
                 <div className="relative max-w-5xl mx-auto px-4 text-center">
                     {/* Launch Offer Badge */}
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 bg-action-blue/20 border border-action-blue/40 text-action-blue px-4 py-2 rounded-full text-sm font-bold mb-6 backdrop-blur-sm"
+                        className="inline-flex items-center gap-2 bg-accent/20 border border-accent/40 text-accent px-4 py-2 rounded-full text-sm font-bold mb-6 backdrop-blur-sm"
                     >
                         🚀 عرض إطلاق حصري — خصم 50% لأول 3 أشهر لأول 500 بائع!
                     </motion.div>
@@ -220,7 +220,7 @@ export default function BillingPage() {
                         className="text-4xl md:text-5xl font-bold text-white mb-6"
                     >
                         إدارة اشتراكك — رقِ باقتك{' '}
-                        <span className="bg-gradient-to-r from-action-blue to-purple-400 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-accent to-purple-400 bg-clip-text text-transparent">
                             الآن
                         </span>
                     </motion.h1>
@@ -269,7 +269,7 @@ export default function BillingPage() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.1 }}
                             className={`relative bg-white dark:bg-gray-900 rounded-3xl border-2 ${plan.border} shadow-xl flex flex-col overflow-hidden
-                                ${plan.popular ? 'ring-2 ring-action-blue ring-offset-4 ring-offset-bg-light dark:ring-offset-gray-950 scale-105 lg:scale-105 my-2 lg:my-0 z-10' : ''}`}
+                                ${plan.popular ? 'ring-2 ring-accent ring-offset-4 ring-offset-bg-light dark:ring-offset-gray-950 scale-105 lg:scale-105 my-2 lg:my-0 z-10' : ''}`}
                         >
                             {/* Popular Badge */}
                             {plan.badge && (
@@ -286,25 +286,25 @@ export default function BillingPage() {
 
                             <div className="p-6 flex flex-col flex-1">
                                 {/* Plan name */}
-                                <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-1">{plan.name}</h3>
+                                <h3 className="text-2xl font-bold text-ink dark:text-white mb-1">{plan.name}</h3>
                                 <p className="text-text-muted text-sm mb-6">{plan.description}</p>
 
                                 {/* Price */}
                                 <div className="mb-6">
                                     {plan.custom ? (
                                         <div>
-                                            <span className="text-4xl font-bold text-primary-charcoal dark:text-white">مخصص</span>
+                                            <span className="text-4xl font-bold text-ink dark:text-white">مخصص</span>
                                             <p className="text-text-muted text-sm mt-1">يبدأ من $199/شهر</p>
                                         </div>
                                     ) : plan.monthlyPrice === 0 ? (
                                         <div>
-                                            <span className="text-5xl font-bold text-primary-charcoal dark:text-white">مجاناً</span>
+                                            <span className="text-5xl font-bold text-ink dark:text-white">مجاناً</span>
                                             <p className="text-text-muted text-sm mt-1">للأبد</p>
                                         </div>
                                     ) : (
                                         <div>
                                             <div className="flex items-end gap-1">
-                                                <span className="text-5xl font-bold text-primary-charcoal dark:text-white">
+                                                <span className="text-5xl font-bold text-ink dark:text-white">
                                                     ${isYearly ? Math.round(plan.yearlyPrice / 12) : plan.monthlyPrice}
                                                 </span>
                                                 <span className="text-text-muted mb-2">/شهر</span>
@@ -322,28 +322,28 @@ export default function BillingPage() {
                                 <div className="space-y-2 mb-6 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl">
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">عمولة المنصة</span>
-                                        <span className={`font-bold ${plan.commission === '0%' ? 'text-green-600' : 'text-primary-charcoal dark:text-white'}`}>
+                                        <span className={`font-bold ${plan.commission === '0%' ? 'text-green-600' : 'text-ink dark:text-white'}`}>
                                             {plan.commission}
                                         </span>
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">المنتجات</span>
-                                        <span className="font-bold text-primary-charcoal dark:text-white">{plan.maxProducts}</span>
+                                        <span className="font-bold text-ink dark:text-white">{plan.maxProducts}</span>
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">التخزين</span>
-                                        <span className="font-bold text-primary-charcoal dark:text-white">{plan.storage}</span>
+                                        <span className="font-bold text-ink dark:text-white">{plan.storage}</span>
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">الطلاب</span>
-                                        <span className="font-bold text-primary-charcoal dark:text-white">{plan.students}</span>
+                                        <span className="font-bold text-ink dark:text-white">{plan.students}</span>
                                     </div>
                                 </div>
 
                                 {/* Features */}
                                 <ul className="space-y-2 mb-8 flex-1">
                                     {plan.features.map((f, idx) => (
-                                        <li key={idx} className="flex items-start gap-2 text-sm text-primary-charcoal dark:text-gray-300">
+                                        <li key={idx} className="flex items-start gap-2 text-sm text-ink dark:text-gray-300">
                                             <span className="text-green-500 mt-0.5 flex-shrink-0">✓</span>
                                             {f}
                                         </li>
@@ -385,7 +385,7 @@ export default function BillingPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="mt-12 relative overflow-hidden bg-gradient-to-r from-action-blue to-purple-600 rounded-3xl p-8 text-white text-center"
+                    className="mt-12 relative overflow-hidden bg-gradient-to-r from-accent to-purple-600 rounded-3xl p-8 text-white text-center"
                 >
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15)_0%,transparent_60%)]" />
                     <div className="relative">
@@ -397,7 +397,7 @@ export default function BillingPage() {
                             <span className="bg-white/20 px-3 py-1 rounded-full mx-2 font-bold">۴۸۳ مقعد</span>
                         </p>
                         <button
-                            className="inline-block bg-white text-action-blue font-bold px-8 py-3.5 rounded-2xl hover:shadow-2xl transition-all hover:-translate-y-0.5 text-lg"
+                            className="inline-block bg-white text-accent font-bold px-8 py-3.5 rounded-2xl hover:shadow-2xl transition-all hover:-translate-y-0.5 text-lg"
                         >
                             قم بالترقية الآن ←
                         </button>
@@ -412,11 +412,11 @@ export default function BillingPage() {
                     className="mt-8 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 p-8 text-center"
                 >
                     <div className="text-4xl mb-3">🤝</div>
-                    <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-2">
+                    <h3 className="text-2xl font-bold text-ink dark:text-white mb-2">
                         برنامج الإحالة — اكسب معنا
                     </h3>
                     <p className="text-text-muted mb-4 max-w-lg mx-auto">
-                        شارك رابطك مع أصدقائك واكسب <strong className="text-action-blue">20% عمولة متكررة</strong> شهرياً عن كل بائع جديد يشترك في باقة مدفوعة.
+                        شارك رابطك مع أصدقائك واكسب <strong className="text-accent">20% عمولة متكررة</strong> شهرياً عن كل بائع جديد يشترك في باقة مدفوعة.
                     </p>
                     <Link href="/dashboard/affiliate" className="btn btn-primary px-8 py-3">
                         اذهب إلى التسويق بالعمولة
@@ -427,7 +427,7 @@ export default function BillingPage() {
                 <div className="mt-12 text-center">
                     <button
                         onClick={() => setShowComparison(!showComparison)}
-                        className="text-action-blue font-bold underline underline-offset-4 text-sm hover:opacity-80 transition-opacity"
+                        className="text-accent font-bold underline underline-offset-4 text-sm hover:opacity-80 transition-opacity"
                     >
                         {showComparison ? '▲ إخفاء' : '▼ إظهار'} مقارنة تفصيلية بين الباقات
                     </button>
@@ -443,19 +443,19 @@ export default function BillingPage() {
                         <table className="w-full text-sm">
                             <thead>
                                 <tr className="border-b border-gray-100 dark:border-gray-800">
-                                    <th className="text-right p-4 font-bold text-primary-charcoal dark:text-white w-40">الميزة</th>
+                                    <th className="text-right p-4 font-bold text-ink dark:text-white w-40">الميزة</th>
                                     {['انطلاقة', 'رواد', 'تميز', 'مؤسسات'].map(name => (
-                                        <th key={name} className="p-4 font-bold text-primary-charcoal dark:text-white text-center">{name}</th>
+                                        <th key={name} className="p-4 font-bold text-ink dark:text-white text-center">{name}</th>
                                     ))}
                                 </tr>
                             </thead>
                             <tbody>
                                 {comparisonFeatures.map((row, i) => (
                                     <tr key={i} className={`border-b border-gray-50 dark:border-gray-800/50 ${i % 2 === 0 ? 'bg-gray-50/50 dark:bg-gray-800/20' : ''}`}>
-                                        <td className="p-4 font-medium text-primary-charcoal dark:text-gray-300">{row.feature}</td>
+                                        <td className="p-4 font-medium text-ink dark:text-gray-300">{row.feature}</td>
                                         {[row.free, row.starter, row.pro, row.enterprise].map((val, j) => (
                                             <td key={j} className="p-4 text-center">
-                                                <span className={val === '❌' ? 'text-gray-300' : val === '✅' ? 'text-green-500 text-lg' : 'font-bold text-primary-charcoal dark:text-white'}>
+                                                <span className={val === '❌' ? 'text-gray-300' : val === '✅' ? 'text-green-500 text-lg' : 'font-bold text-ink dark:text-white'}>
                                                     {val}
                                                 </span>
                                             </td>
@@ -469,7 +469,7 @@ export default function BillingPage() {
 
                 {/* FAQ */}
                 <div className="mt-16 max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-bold text-center text-primary-charcoal dark:text-white mb-10">
+                    <h2 className="text-3xl font-bold text-center text-ink dark:text-white mb-10">
                         أسئلة شائعة
                     </h2>
                     {[
@@ -486,7 +486,7 @@ export default function BillingPage() {
                             transition={{ delay: i * 0.05 }}
                             className="border-b border-gray-100 dark:border-gray-800 py-6"
                         >
-                            <h4 className="font-bold text-primary-charcoal dark:text-white mb-2">{faq.q}</h4>
+                            <h4 className="font-bold text-ink dark:text-white mb-2">{faq.q}</h4>
                             <p className="text-text-muted text-sm leading-relaxed">{faq.a}</p>
                         </motion.div>
                     ))}

@@ -32,12 +32,12 @@ export default function AboutPage() {
     return (
         <div className="min-h-screen bg-bg-light overflow-hidden">
             {/* Hero Section */}
-            <section className="relative bg-gradient-to-br from-primary-charcoal to-gray-900 text-white py-32 overflow-hidden items-center flex">
+            <section className="relative bg-gradient-to-br from-ink to-gray-900 text-white py-32 overflow-hidden items-center flex">
                 {/* Decorative Background */}
                 <motion.div
                     animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute top-0 right-0 w-96 h-96 bg-action-blue/20 rounded-full mix-blend-screen filter blur-[100px]"
+                    className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full mix-blend-screen filter blur-[100px]"
                 />
                 <motion.div
                     animate={{ scale: [1, 1.5, 1], x: [0, -100, 0] }}
@@ -53,7 +53,7 @@ export default function AboutPage() {
                             transition={{ duration: 0.8, type: "spring", bounce: 0.5 }}
                             className="text-5xl md:text-7xl font-bold mb-6 font-heading"
                         >
-                            عن <span className="text-transparent bg-clip-text bg-gradient-to-r from-action-blue to-purple-400">منصتنا</span>
+                            عن <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-400">منصتنا</span>
                         </motion.h1>
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
@@ -78,7 +78,7 @@ export default function AboutPage() {
                         className="grid grid-cols-2 lg:grid-cols-4 gap-8"
                     >
                         {[
-                            { icon: <FiUsers className="text-3xl text-action-blue" />, value: "10,000+", label: "مستخدم نشط", border: "border-blue-100", bg: "bg-blue-50" },
+                            { icon: <FiUsers className="text-3xl text-accent" />, value: "10,000+", label: "مستخدم نشط", border: "border-blue-100", bg: "bg-blue-50" },
                             { icon: <FiShoppingCart className="text-3xl text-green-500" />, value: "50,000+", label: "عملية بيع", border: "border-green-100", bg: "bg-green-50" },
                             { icon: <FiTrendingUp className="text-3xl text-purple-500" />, value: "5,000+", label: "منتج رقمي", border: "border-purple-100", bg: "bg-purple-50" },
                             { icon: <FiAward className="text-3xl text-orange-500" />, value: "98%", label: "رضا العملاء", border: "border-orange-100", bg: "bg-orange-50" }
@@ -108,8 +108,8 @@ export default function AboutPage() {
                             viewport={{ once: true, amount: 0.3 }}
                             variants={staggerContainer}
                         >
-                            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-bold mb-8 font-heading text-primary-charcoal">
-                                رسالتنا <span className="text-action-blue">و رؤيتنا</span>
+                            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-bold mb-8 font-heading text-ink">
+                                رسالتنا <span className="text-accent">و رؤيتنا</span>
                             </motion.h2>
                             <motion.p variants={fadeInUp} className="text-lg text-text-muted mb-6 leading-relaxed">
                                 نؤمن بأن كل شخص لديه موهبة فريدة يمكن أن تحدث فرقاً. منصتنا توفر البيئة المثالية للمبدعين العرب لتحويل مهاراتهم ومعرفتهم إلى منتجات رقمية وخدمات قيّمة تصل إلى الملايين.
@@ -120,8 +120,8 @@ export default function AboutPage() {
                             <motion.div variants={fadeInUp}>
                                 <ul className="space-y-4">
                                     {['تمكين صناع القرار', 'توسيع نطاق المعرفة', 'تسهيل التجارة الرقمية'].map((item, i) => (
-                                        <li key={i} className="flex items-center gap-3 text-primary-charcoal font-medium">
-                                            <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-action-blue">
+                                        <li key={i} className="flex items-center gap-3 text-ink font-medium">
+                                            <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-accent">
                                                 <FiCheckCircle />
                                             </div>
                                             {item}
@@ -139,7 +139,7 @@ export default function AboutPage() {
                             className="relative"
                         >
                             {/* Decorative Frame */}
-                            <div className="absolute -inset-4 bg-gradient-to-tr from-action-blue/30 to-purple-500/30 rounded-3xl blur-2xl -z-10"></div>
+                            <div className="absolute -inset-4 bg-gradient-to-tr from-accent/30 to-purple-500/30 rounded-3xl blur-2xl -z-10"></div>
 
                             <div className="rounded-3xl overflow-hidden shadow-2xl border-8 border-white">
                                 <motion.img
@@ -159,9 +159,9 @@ export default function AboutPage() {
                             >
                                 <div className="text-right">
                                     <div className="text-sm text-gray-500 font-medium">تأسست عام</div>
-                                    <div className="text-2xl font-bold text-action-blue">2024</div>
+                                    <div className="text-2xl font-bold text-accent">2024</div>
                                 </div>
-                                <div className="w-12 h-12 bg-blue-50 text-action-blue rounded-full flex items-center justify-center">
+                                <div className="w-12 h-12 bg-blue-50 text-accent rounded-full flex items-center justify-center">
                                     <FiAward className="text-2xl" />
                                 </div>
                             </motion.div>
@@ -180,7 +180,7 @@ export default function AboutPage() {
                         variants={fadeInUp}
                         className="text-center mb-16"
                     >
-                        <h2 className="text-4xl md:text-5xl font-bold text-primary-charcoal mb-6 font-heading">لماذا تختار <span className="text-action-blue">منصتنا؟</span></h2>
+                        <h2 className="text-4xl md:text-5xl font-bold text-ink mb-6 font-heading">لماذا تختار <span className="text-accent">منصتنا؟</span></h2>
                         <p className="text-xl text-text-muted">صممت بعناية لتكون الشريك المثالي لنجاحك الرقمي</p>
                     </motion.div>
 
@@ -208,7 +208,7 @@ export default function AboutPage() {
                                 <div className={`w-14 h-14 bg-${feature.color}-100 text-${feature.color}-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                                     <FiCheckCircle className="text-2xl" />
                                 </div>
-                                <h3 className="text-2xl font-bold mb-3 text-primary-charcoal group-hover:text-action-blue transition-colors">{feature.title}</h3>
+                                <h3 className="text-2xl font-bold mb-3 text-ink group-hover:text-accent transition-colors">{feature.title}</h3>
                                 <p className="text-text-muted font-medium leading-relaxed">{feature.desc}</p>
                             </motion.div>
                         ))}
@@ -217,7 +217,7 @@ export default function AboutPage() {
             </section>
 
             {/* CTA Section */}
-            <section className="py-24 bg-gradient-to-r from-primary-charcoal to-gray-900 overflow-hidden relative">
+            <section className="py-24 bg-gradient-to-r from-ink to-gray-900 overflow-hidden relative">
                 <motion.div
                     animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -235,7 +235,7 @@ export default function AboutPage() {
                         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block">
                             <Link
                                 href="/register"
-                                className="bg-action-blue text-white shadow-xl shadow-action-blue/30 px-10 py-5 rounded-full font-bold text-xl hover:bg-white hover:text-action-blue transition-colors flex items-center gap-3 group"
+                                className="bg-accent text-white shadow-xl shadow-accent/30 px-10 py-5 rounded-full font-bold text-xl hover:bg-white hover:text-accent transition-colors flex items-center gap-3 group"
                             >
                                 ابدأ الآن مجاناً
                             </Link>

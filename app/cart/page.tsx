@@ -77,14 +77,14 @@ export default function CartPage() {
             {effectiveBrandColor && (
                 <style dangerouslySetInnerHTML={{
                     __html: `
-                    .text-primary-600, .text-primary-700, .text-primary-600 a { color: ${effectiveBrandColor} !important; }
+                    .text-accent, .text-primary-700, .text-accent a { color: ${effectiveBrandColor} !important; }
                     .text-primary-700 { color: ${effectiveBrandColor} !important; filter: brightness(0.85); }
-                    .bg-primary-600 { background-color: ${effectiveBrandColor} !important; }
+                    .bg-accent { background-color: ${effectiveBrandColor} !important; }
                     .btn-primary { background-color: ${effectiveBrandColor} !important; border-color: ${effectiveBrandColor} !important; }
                     .btn-primary:hover { background-color: ${effectiveBrandColor} !important; filter: brightness(0.85); }
-                    .shadow-primary-500\\/30 { --tw-shadow-color: ${effectiveBrandColor}4d !important; }
-                    .hover\\:text-primary-600:hover { color: ${effectiveBrandColor} !important; }
-                    .focus\\:ring-primary-500:focus { --tw-ring-color: ${effectiveBrandColor} !important; }
+                    .shadow-accent\\/30 { --tw-shadow-color: ${effectiveBrandColor}4d !important; }
+                    .hover\\:text-accent:hover { color: ${effectiveBrandColor} !important; }
+                    .focus\\:ring-accent:focus { --tw-ring-color: ${effectiveBrandColor} !important; }
                     a[class*="text-primary"] { color: ${effectiveBrandColor} !important; }
                     `
                 }} />
@@ -129,7 +129,7 @@ export default function CartPage() {
                                         </button>
                                     </div>
                                     <div className="mt-4 flex items-center justify-between">
-                                        <span className="font-bold text-lg text-primary-600">
+                                        <span className="font-bold text-lg text-accent">
                                             {item.price > 0 ? `${item.price.toFixed(2)} $` : 'مجاني'}
                                         </span>
                                     </div>
@@ -161,14 +161,14 @@ export default function CartPage() {
 
                             <button
                                 onClick={() => router.push('/checkout')}
-                                className="w-full btn btn-primary py-4 text-lg font-bold shadow-lg shadow-primary-500/30 flex items-center justify-center gap-2"
+                                className="w-full btn btn-primary py-4 text-lg font-bold shadow-lg shadow-accent/30 flex items-center justify-center gap-2"
                             >
                                 <span>إتمام عملية الدفع</span>
                                 <FiArrowRight className="rtl:rotate-180" />
                             </button>
 
                             <div className="mt-4 text-center">
-                                <Link href="/products" className="text-sm text-gray-500 hover:text-primary-600 underline">
+                                <Link href="/products" className="text-sm text-gray-500 hover:text-accent underline">
                                     الاستمرار في التسوق
                                 </Link>
                             </div>
@@ -180,7 +180,7 @@ export default function CartPage() {
             {/* Simple Footer */}
             <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-primary-600 font-bold hover:underline">منصة تمالين</a>
+                    مدعوم من <a href="https://tmleen.com" className="text-accent font-bold hover:underline">منصة تمالين</a>
                 </p>
             </footer>
         </div>

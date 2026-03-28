@@ -83,7 +83,7 @@ function LoginContent() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-bg-light relative overflow-hidden py-12 px-4 transition-colors duration-300">
             {/* Background Decorations */}
-            <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-action-blue/10 rounded-full blur-[80px] -z-10 pointer-events-none"></div>
+            <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-accent/10 rounded-full blur-[80px] -z-10 pointer-events-none"></div>
             <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
 
             <motion.div
@@ -98,18 +98,18 @@ function LoginContent() {
                         <motion.div
                             whileHover={{ rotate: 180, scale: 1.1 }}
                             transition={{ type: "spring", stiffness: 200, damping: 10 }}
-                            className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-action-blue to-purple-600 flex items-center justify-center text-white shadow-xl shadow-action-blue/20"
+                            className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-accent to-purple-600 flex items-center justify-center text-white shadow-xl shadow-accent/20"
                         >
                             <span className="text-3xl font-bold">م</span>
                         </motion.div>
                     </Link>
-                    <h1 className="text-4xl font-bold text-primary-charcoal mb-3 font-heading">مرحباً بعودتك!</h1>
+                    <h1 className="text-4xl font-bold text-ink mb-3 font-heading">مرحباً بعودتك!</h1>
                     <p className="text-text-muted text-lg">سجل دخولك لإدارة متجرك ومنتجاتك</p>
                 </motion.div>
 
                 {/* Login Form */}
                 <motion.div variants={fadeInUp} className="bg-white rounded-xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-gray-100 p-8 sm:p-10 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-action-blue/5 to-transparent rounded-bl-[100px] pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent/5 to-transparent rounded-bl-[100px] pointer-events-none"></div>
 
                     {/* Google Sign-In Button */}
                     <motion.button
@@ -163,10 +163,10 @@ function LoginContent() {
                                 required
                                 value={formData.email}
                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                className="block w-full px-5 py-4 text-primary-charcoal bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-action-blue focus:border-transparent transition-all peer"
+                                className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
                                 placeholder=" "
                             />
-                            <label htmlFor="email" className="absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-action-blue peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 right-4 flex items-center gap-2">
+                            <label htmlFor="email" className="absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-accent peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 right-4 flex items-center gap-2">
                                 <FiMail className="text-lg" />
                                 البريد الإلكتروني
                             </label>
@@ -180,10 +180,10 @@ function LoginContent() {
                                 required
                                 value={formData.password}
                                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                className="block w-full px-5 py-4 text-primary-charcoal bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-action-blue focus:border-transparent transition-all peer"
+                                className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
                                 placeholder=" "
                             />
-                            <label htmlFor="password" className="absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-action-blue peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 right-4 flex items-center gap-2">
+                            <label htmlFor="password" className="absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-accent peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 right-4 flex items-center gap-2">
                                 <FiLock className="text-lg" />
                                 كلمة المرور
                             </label>
@@ -191,7 +191,7 @@ function LoginContent() {
 
                         {/* Forgot Password */}
                         <div className="text-left py-1">
-                            <Link href="/forgot-password" className="text-action-blue hover:text-blue-700 text-sm font-bold transition-colors inline-block relative border-b border-transparent hover:border-blue-700">
+                            <Link href="/forgot-password" className="text-accent hover:text-blue-700 text-sm font-bold transition-colors inline-block relative border-b border-transparent hover:border-blue-700">
                                 نسيت كلمة المرور؟
                             </Link>
                         </div>
@@ -203,7 +203,7 @@ function LoginContent() {
                             type="submit"
                             disabled={loading}
                             className={`w-full text-lg py-5 rounded-2xl flex items-center justify-center gap-3 font-bold transition-all duration-300 shadow-xl text-white
-                                ${loading ? 'bg-blue-400 cursor-not-allowed shadow-none' : 'bg-action-blue hover:bg-blue-700 shadow-action-blue/30'}
+                                ${loading ? 'bg-blue-400 cursor-not-allowed shadow-none' : 'bg-accent hover:bg-blue-700 shadow-accent/30'}
                             `}
                         >
                             {loading ? (
@@ -221,7 +221,7 @@ function LoginContent() {
                     <div className="mt-8 text-center border-t border-gray-100 pt-6">
                         <p className="text-text-muted font-medium">
                             ليس لديك حساب؟{' '}
-                            <Link href="/register" className="text-action-blue hover:text-blue-700 font-bold transition-colors">
+                            <Link href="/register" className="text-accent hover:text-blue-700 font-bold transition-colors">
                                 أنشئ حسابك المجاني
                             </Link>
                         </p>
@@ -230,7 +230,7 @@ function LoginContent() {
 
                 {/* Back to Home */}
                 <motion.div variants={fadeInUp} className="text-center mt-8">
-                    <Link href="/" className="text-text-muted hover:text-primary-charcoal transition-colors text-sm font-medium flex items-center justify-center gap-2 group">
+                    <Link href="/" className="text-text-muted hover:text-ink transition-colors text-sm font-medium flex items-center justify-center gap-2 group">
                         <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                         العودة للمنصة
                     </Link>
@@ -244,7 +244,7 @@ export default function LoginPage() {
     return (
         <Suspense fallback={
             <div className="min-h-screen flex items-center justify-center bg-bg-light">
-                <div className="w-12 h-12 border-4 border-action-blue/20 border-t-action-blue rounded-full animate-spin"></div>
+                <div className="w-12 h-12 border-4 border-accent/20 border-t-accent rounded-full animate-spin"></div>
             </div>
         }>
             <LoginContent />

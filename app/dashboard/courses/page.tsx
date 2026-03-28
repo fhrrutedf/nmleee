@@ -83,7 +83,7 @@ export default function CoursesPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white">الدورات التدريبية</h1>
+                    <h1 className="text-3xl font-bold text-ink dark:text-white">الدورات التدريبية</h1>
                     <p className="text-text-muted mt-2">إدارة شاملة لجميع دوراتك التدريبية ومحتواها التعليمي</p>
                 </div>
                 <Link href="/dashboard/courses/new?new=true" className="btn btn-primary shadow-lg hover:shadow-blue-500/25">
@@ -174,14 +174,14 @@ export default function CoursesPage() {
             {/* Courses Grid */}
             {loading ? (
                 <div className="min-h-[300px] flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-action-blue border-t-transparent mx-auto"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent border-t-transparent mx-auto"></div>
                 </div>
             ) : filteredCourses.length === 0 ? (
                 <div className="card text-center py-16 px-6 border-2 border-dashed border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/20">
                     <div className="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-6">
                         <FiVideo className="text-4xl text-gray-400" />
                     </div>
-                    <h3 className="text-xl font-bold text-primary-charcoal dark:text-white mb-2">لا توجد دورات مطابقة</h3>
+                    <h3 className="text-xl font-bold text-ink dark:text-white mb-2">لا توجد دورات مطابقة</h3>
                     <p className="text-text-muted mb-6">
                         {searchTerm || filterStatus !== 'all'
                             ? 'جرب تغيير شروط البحث أو الفلتر'
@@ -229,7 +229,7 @@ export default function CoursesPage() {
 
                             {/* معلومات الدورة */}
                             <div className="flex-1">
-                                <h3 className="text-lg font-bold text-primary-charcoal dark:text-white mb-2 line-clamp-1 group-hover:text-action-blue transition-colors">{course.title}</h3>
+                                <h3 className="text-lg font-bold text-ink dark:text-white mb-2 line-clamp-1 group-hover:text-accent transition-colors">{course.title}</h3>
                                 <p className="text-text-muted text-sm mb-4 line-clamp-2 min-h-[40px]">
                                     {course.description ? course.description.replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ') : 'لا يوجد وصف مختصر'}
                                 </p>
@@ -252,11 +252,11 @@ export default function CoursesPage() {
                             {/* السعر والأزرار */}
                             <div className="mt-auto">
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="text-2xl font-bold text-primary-charcoal dark:text-white">
+                                    <span className="text-2xl font-bold text-ink dark:text-white">
                                         {course.price.toFixed(2)} <span className="text-xs font-normal text-text-muted">$</span>
                                     </span>
                                     {course.category && (
-                                        <span className="px-2 py-1 bg-blue-50 dark:bg-blue-900/30 text-action-blue text-xs rounded-md">
+                                        <span className="px-2 py-1 bg-blue-50 dark:bg-blue-900/30 text-accent text-xs rounded-md">
                                             {course.category}
                                         </span>
                                     )}

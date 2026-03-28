@@ -167,7 +167,7 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
         return (
             <div className="min-h-[70vh] bg-bg-light dark:bg-bg-dark flex flex-col items-center justify-center p-4 text-center">
                 <FiVideo className="text-6xl text-gray-300 dark:text-gray-700 mb-6" />
-                <h1 className="text-2xl font-bold mb-4 text-primary-charcoal dark:text-gray-200">هذه الدورة التدريبية غير موجودة أو تم حذفها</h1>
+                <h1 className="text-2xl font-bold mb-4 text-ink dark:text-gray-200">هذه الدورة التدريبية غير موجودة أو تم حذفها</h1>
                 <Link href="/courses" className="btn btn-primary mt-4">
                     تصفح الدورات التدريبية
                 </Link>
@@ -178,18 +178,18 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
     const effectiveBrandColor = course.user.brandColor;
 
     return (
-        <div className="min-h-screen bg-bg-light dark:bg-bg-dark pt-4 pb-12 font-sans selection:bg-action-blue/20 dark:selection:bg-action-blue/40">
+        <div className="min-h-screen bg-bg-light dark:bg-bg-dark pt-4 pb-12 font-sans selection:bg-accent/20 dark:selection:bg-accent/40">
             {effectiveBrandColor && (
                 <style dangerouslySetInnerHTML={{
                     __html: `
-                    .text-action-blue { color: ${effectiveBrandColor} !important; }
-                    .bg-action-blue { background-color: ${effectiveBrandColor} !important; }
-                    .border-action-blue { border-color: ${effectiveBrandColor} !important; }
-                    .shadow-action-blue\\/20 { --tw-shadow-color: ${effectiveBrandColor}33 !important; }
-                    .shadow-action-blue\\/40 { --tw-shadow-color: ${effectiveBrandColor}66 !important; }
-                    .fill-action-blue { fill: ${effectiveBrandColor} !important; }
-                    .hover\\:text-action-blue:hover { color: ${effectiveBrandColor} !important; }
-                    .hover\\:border-action-blue:hover { border-color: ${effectiveBrandColor} !important; }
+                    .text-accent { color: ${effectiveBrandColor} !important; }
+                    .bg-accent { background-color: ${effectiveBrandColor} !important; }
+                    .border-accent { border-color: ${effectiveBrandColor} !important; }
+                    .shadow-accent\\/20 { --tw-shadow-color: ${effectiveBrandColor}33 !important; }
+                    .shadow-accent\\/40 { --tw-shadow-color: ${effectiveBrandColor}66 !important; }
+                    .fill-accent { fill: ${effectiveBrandColor} !important; }
+                    .hover\\:text-accent:hover { color: ${effectiveBrandColor} !important; }
+                    .hover\\:border-accent:hover { border-color: ${effectiveBrandColor} !important; }
                     `
                 }} />
             )}
@@ -197,11 +197,11 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
 
                 {/* Breadcrumb Navigation */}
                 <div className="flex items-center gap-3 text-sm font-bold text-gray-500 dark:text-gray-400 mb-8 overflow-x-auto whitespace-nowrap scrollbar-hide py-2">
-                    <Link href="/" className="hover:text-action-blue transition-colors flex items-center gap-1"><FiBookOpen /> الأكاديمية</Link>
+                    <Link href="/" className="hover:text-accent transition-colors flex items-center gap-1"><FiBookOpen /> الأكاديمية</Link>
                     <span className="text-gray-300 dark:text-gray-700">/</span>
-                    <Link href="/courses" className="hover:text-action-blue transition-colors">الدورات</Link>
+                    <Link href="/courses" className="hover:text-accent transition-colors">الدورات</Link>
                     <span className="text-gray-300 dark:text-gray-700">/</span>
-                    <span className="text-primary-charcoal dark:text-gray-200 truncate max-w-[200px] sm:max-w-md">{course.title}</span>
+                    <span className="text-ink dark:text-gray-200 truncate max-w-[200px] sm:max-w-md">{course.title}</span>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -209,7 +209,7 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                     <div className="lg:col-span-8 order-2 lg:order-1 flex flex-col gap-10">
                         {/* Course Hero & Image */}
                         <div className="group relative animate-fade-in-up">
-                            <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-action-blue rounded-xl blur-xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                            <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-accent rounded-xl blur-xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
                             <div className="relative bg-gray-900 rounded-xl overflow-hidden shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10 aspect-[16/9] flex items-center justify-center">
                                 {course.image ? (
                                     <img
@@ -247,8 +247,8 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                         {course.trailerUrl && (
                             <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden mt-6">
                                 <div className="p-8 sm:p-10 pb-6 border-b border-gray-100 dark:border-gray-800">
-                                    <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white flex items-center gap-2">
-                                        <FiPlayCircle className="text-action-blue" /> فيديو تعريفي
+                                    <h2 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
+                                        <FiPlayCircle className="text-accent" /> فيديو تعريفي
                                     </h2>
                                 </div>
                                 <div className="relative aspect-video w-full bg-gray-900">
@@ -276,8 +276,8 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                         {/* Description & Overview */}
                         <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
                             <div className="p-8 sm:p-10">
-                                <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-6 flex items-center gap-2">
-                                    <FiBookOpen className="text-action-blue" /> نظرة عامة
+                                <h2 className="text-2xl font-bold text-ink dark:text-white mb-6 flex items-center gap-2">
+                                    <FiBookOpen className="text-accent" /> نظرة عامة
                                 </h2>
                                 <div
                                     className="prose prose-lg sm:prose-xl max-w-none dark:prose-invert text-gray-600 dark:text-gray-300 leading-relaxed font-medium"
@@ -299,7 +299,7 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                         <div className="text-xs text-gray-500 font-medium">المدة الإجمالية</div>
                                     </div>
                                     <div className="text-center">
-                                        <div className="text-gray-400 mb-2 flex justify-center"><FiVideo size={24} className="text-action-blue" /></div>
+                                        <div className="text-gray-400 mb-2 flex justify-center"><FiVideo size={24} className="text-accent" /></div>
                                         <div className="font-bold text-gray-900 dark:text-white">{course.modules?.reduce((acc, m) => acc + m.lessons.length, 0) || 0}</div>
                                         <div className="text-xs text-gray-500 font-medium">درس تفاعلي</div>
                                     </div>
@@ -322,22 +322,22 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                         {/* Curriculum / Modules (Accordion) */}
                         {course.modules && course.modules.length > 0 && (
                             <div>
-                                <h2 className="text-2xl md:text-3xl font-bold text-primary-charcoal dark:text-white mb-6 flex items-center gap-3">
+                                <h2 className="text-2xl md:text-3xl font-bold text-ink dark:text-white mb-6 flex items-center gap-3">
                                     محتوى الدورة
-                                    <span className="bg-action-blue/10 text-action-blue text-sm px-3 py-1 rounded-full">{course.modules.length} فصول</span>
+                                    <span className="bg-accent/10 text-accent text-sm px-3 py-1 rounded-full">{course.modules.length} فصول</span>
                                 </h2>
                                 <div className="space-y-4">
                                     {course.modules.map((module, idx) => (
                                         <div
                                             key={idx}
-                                            className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:border-action-blue/30 transition-colors"
+                                            className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:border-accent/30 transition-colors"
                                         >
                                             <button
                                                 onClick={() => toggleModule(idx)}
                                                 className="w-full flex items-center justify-between p-6 text-right focus:outline-none bg-gray-50/50 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
                                             >
                                                 <div className="flex items-center gap-4">
-                                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold transition-colors ${activeModule === idx ? 'bg-action-blue text-white shadow-md' : 'bg-white dark:bg-gray-800 text-gray-500 shadow-sm border border-gray-100 dark:border-gray-700'}`}>
+                                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold transition-colors ${activeModule === idx ? 'bg-accent text-white shadow-md' : 'bg-white dark:bg-gray-800 text-gray-500 shadow-sm border border-gray-100 dark:border-gray-700'}`}>
                                                         {idx + 1}
                                                     </div>
                                                     <div>
@@ -368,7 +368,7 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                                                 {module.lessons.map((lesson, lessonIdx) => (
                                                                     <div key={lessonIdx} className="flex items-center justify-between p-3 sm:p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 group transition-colors">
                                                                         <div className="flex items-center gap-3">
-                                                                            <FiPlayCircle className="text-gray-400 group-hover:text-action-blue transition-colors text-xl" />
+                                                                            <FiPlayCircle className="text-gray-400 group-hover:text-accent transition-colors text-xl" />
                                                                             <span className="font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">{lesson.title}</span>
                                                                         </div>
                                                                         <FiLock className="text-gray-300 dark:text-gray-600 text-sm" />
@@ -387,9 +387,9 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
 
                         {/* Instructor Banner inside content */}
                         <div className="mt-8 bg-gradient-to-r from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 rounded-3xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden group">
-                            <div className="absolute inset-0 bg-gradient-to-l from-action-blue/5 to-transparent pointer-events-none"></div>
+                            <div className="absolute inset-0 bg-gradient-to-l from-accent/5 to-transparent pointer-events-none"></div>
                             <div className="flex items-center gap-6 relative z-10 w-full sm:w-auto">
-                                <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-action-blue to-purple-600 rounded-2xl flex items-center justify-center font-bold text-3xl text-white shadow-xl overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                                <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-accent to-purple-600 rounded-2xl flex items-center justify-center font-bold text-3xl text-white shadow-xl overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
                                     {course.user?.avatar ? (
                                         <img src={course.user.avatar} className="w-full h-full object-cover" alt={course.user.name} />
                                     ) : (
@@ -397,12 +397,12 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                     )}
                                 </div>
                                 <div>
-                                    <p className="text-xs font-bold tracking-widest uppercase text-action-blue mb-1">المدرب</p>
+                                    <p className="text-xs font-bold tracking-widest uppercase text-accent mb-1">المدرب</p>
                                     <h3 className="font-bold text-2xl text-gray-900 dark:text-white mb-2">{course.user.name}</h3>
                                     <p className="text-gray-500 dark:text-gray-400 text-sm max-w-sm">خبير ومتخصص في هذا المجال ومقدم هذه الدورة التدريبية.</p>
                                 </div>
                             </div>
-                            <Link href={`/${course.user.username || 'user'}`} className="w-full sm:w-auto px-6 py-3 rounded-xl bg-white dark:bg-gray-800 text-primary-charcoal dark:text-white font-bold border-2 border-gray-100 dark:border-gray-700 hover:border-action-blue dark:hover:border-action-blue transition-colors text-center shadow-sm relative z-10 whitespace-nowrap">
+                            <Link href={`/${course.user.username || 'user'}`} className="w-full sm:w-auto px-6 py-3 rounded-xl bg-white dark:bg-gray-800 text-ink dark:text-white font-bold border-2 border-gray-100 dark:border-gray-700 hover:border-accent dark:hover:border-accent transition-colors text-center shadow-sm relative z-10 whitespace-nowrap">
                                 تصفح جميع أعماله
                             </Link>
                         </div>
@@ -464,8 +464,8 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                         </span>
                                     </div>
                                 ) : (
-                                    <div className="flex items-center justify-center gap-2 mb-8 bg-blue-50 dark:bg-blue-900/20 text-action-blue dark:text-blue-400 p-4 rounded-2xl border border-blue-100 dark:border-blue-900/30 font-bold text-sm">
-                                        <FiStar className="fill-action-blue" /> كن أول من يقيم هذه الدورة
+                                    <div className="flex items-center justify-center gap-2 mb-8 bg-blue-50 dark:bg-blue-900/20 text-accent dark:text-blue-400 p-4 rounded-2xl border border-blue-100 dark:border-blue-900/30 font-bold text-sm">
+                                        <FiStar className="fill-accent" /> كن أول من يقيم هذه الدورة
                                     </div>
                                 )}
 
@@ -474,7 +474,7 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                     <button
                                         onClick={buyNow}
                                         disabled={buyingNow}
-                                        className="w-full btn btn-primary text-xl py-5 rounded-2xl shadow-xl shadow-action-blue/20 hover:shadow-action-blue/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-bold disabled:opacity-80"
+                                        className="w-full btn btn-primary text-xl py-5 rounded-2xl shadow-xl shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-bold disabled:opacity-80"
                                         style={effectiveBrandColor ? { backgroundColor: effectiveBrandColor, borderColor: effectiveBrandColor } : {}}
                                     >
                                         {buyingNow ? (
@@ -493,7 +493,7 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                     {!isInCart ? (
                                         <button
                                             onClick={handleAddToCart}
-                                            className="w-full btn text-lg py-4 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-primary-charcoal dark:text-gray-200 font-bold hover:border-action-blue hover:text-action-blue dark:hover:border-action-blue transition-colors flex items-center justify-center gap-2"
+                                            className="w-full btn text-lg py-4 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-ink dark:text-gray-200 font-bold hover:border-accent hover:text-accent dark:hover:border-accent transition-colors flex items-center justify-center gap-2"
                                         >
                                             <FiShoppingCart /> أضف للسلة
                                         </button>
@@ -511,7 +511,7 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                 <div className="mt-8 pt-8 border-t border-gray-100 dark:border-gray-800">
                                     <ul className="space-y-4">
                                         <li className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300 font-medium">
-                                            <div className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/20 text-action-blue flex items-center justify-center">
+                                            <div className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/20 text-accent flex items-center justify-center">
                                                 <FiMonitor />
                                             </div>
                                             مشاهدة عبر أي جهاز متصل بالانترنت
@@ -531,7 +531,7 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                 {/* Simple Footer */}
                 <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
                     <p className="text-gray-500 dark:text-gray-400 font-medium">
-                        مدعوم من <a href="https://tmleen.com" className="text-action-blue font-bold hover:underline">منصة تمالين</a>
+                        مدعوم من <a href="https://tmleen.com" className="text-accent font-bold hover:underline">منصة تمالين</a>
                     </p>
                 </footer>
             </div>

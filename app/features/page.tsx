@@ -107,12 +107,12 @@ export default function FeaturesPage() {
     return (
         <div ref={containerRef} className="min-h-screen bg-bg-light overflow-hidden">
             {/* Hero Parallax Section */}
-            <section className="relative h-[80vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-primary-charcoal">
+            <section className="relative h-[80vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-ink">
                 <motion.div style={{ y: yParallax, opacity: opacityFade }} className="absolute inset-0 z-0">
                     {/* Abstract Grid Background */}
                     <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_0%,#000_70%,transparent_100%)]"></div>
                     {/* Glowing Orbs */}
-                    <div className="absolute top-1/4 start-1/4 w-96 h-96 bg-action-blue/30 rounded-full blur-[120px]"></div>
+                    <div className="absolute top-1/4 start-1/4 w-96 h-96 bg-accent/30 rounded-full blur-[120px]"></div>
                     <div className="absolute bottom-1/4 end-1/4 w-96 h-96 bg-purple-500/30 rounded-full blur-[120px]"></div>
                 </motion.div>
 
@@ -173,13 +173,13 @@ export default function FeaturesPage() {
                                     {feature.icon}
                                 </motion.div>
 
-                                <h3 className="text-2xl font-bold mb-4 text-primary-charcoal group-hover:text-white transition-colors duration-300">{feature.title}</h3>
+                                <h3 className="text-2xl font-bold mb-4 text-ink group-hover:text-white transition-colors duration-300">{feature.title}</h3>
 
                                 <p className="text-text-muted leading-relaxed font-medium group-hover:text-white/80 transition-colors duration-300">
                                     {feature.description}
                                 </p>
 
-                                <div className="mt-8 flex items-center gap-2 text-action-blue font-bold opacity-0 group-hover:opacity-100 group-hover:text-white transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                <div className="mt-8 flex items-center gap-2 text-accent font-bold opacity-0 group-hover:opacity-100 group-hover:text-white transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                                     <span>اكتشف المزيد</span>
                                     <FiArrowLeft className="group-hover:-translate-x-2 rtl:group-hover:translate-x-2 transition-transform duration-300" />
                                 </div>
@@ -190,7 +190,7 @@ export default function FeaturesPage() {
             </section>
 
             {/* Scrolling Integration Section */}
-            <section className="py-32 bg-primary-charcoal text-white overflow-hidden relative">
+            <section className="py-32 bg-ink text-white overflow-hidden relative">
                 <div className="container-custom text-center relative z-10 mb-20">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -206,8 +206,8 @@ export default function FeaturesPage() {
 
                 {/* Infinite Marquee of Logos */}
                 <div className="relative flex overflow-x-hidden">
-                    <div className="absolute inset-y-0 start-0 w-32 bg-gradient-to-r rtl:bg-gradient-to-l from-primary-charcoal to-transparent z-10"></div>
-                    <div className="absolute inset-y-0 end-0 w-32 bg-gradient-to-l rtl:bg-gradient-to-r from-primary-charcoal to-transparent z-10"></div>
+                    <div className="absolute inset-y-0 start-0 w-32 bg-gradient-to-r rtl:bg-gradient-to-l from-ink to-transparent z-10"></div>
+                    <div className="absolute inset-y-0 end-0 w-32 bg-gradient-to-l rtl:bg-gradient-to-r from-ink to-transparent z-10"></div>
 
                     <motion.div
                         animate={{ x: [0, -2000] }}
@@ -218,7 +218,7 @@ export default function FeaturesPage() {
                         {[1, 2, 3].map((set) => (
                             <div key={set} className="flex gap-8 items-center">
                                 {['Google Analytics', 'Zoom', 'Stripe', 'PayPal', 'Mailchimp', 'Zapier', 'Slack', 'Meta Pixel', 'TikTok Ads'].map((logo, idx) => (
-                                    <div key={idx} className="text-2xl md:text-3xl font-bold border border-white/10 bg-white/5 backdrop-blur-sm px-10 py-5 rounded-2xl hover:bg-action-blue hover:text-white hover:border-action-blue hover:scale-105 transition-all duration-300 cursor-pointer">
+                                    <div key={idx} className="text-2xl md:text-3xl font-bold border border-white/10 bg-white/5 backdrop-blur-sm px-10 py-5 rounded-2xl hover:bg-accent hover:text-white hover:border-accent hover:scale-105 transition-all duration-300 cursor-pointer">
                                         {logo}
                                     </div>
                                 ))}
@@ -238,7 +238,7 @@ export default function FeaturesPage() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5 }}
-                        className="bg-gradient-to-br from-action-blue to-purple-600 rounded-2xl p-12 md:p-20 shadow-[0_30px_60px_-15px_rgba(0,82,255,0.4)]"
+                        className="bg-gradient-to-br from-accent to-purple-600 rounded-2xl p-12 md:p-20 shadow-[0_30px_60px_-15px_rgba(0,82,255,0.4)]"
                     >
                         <h2 className="text-4xl md:text-6xl font-bold mb-8 text-white font-heading">مستعد للبدء بقوة؟</h2>
                         <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-2xl mx-auto font-light">
@@ -246,7 +246,7 @@ export default function FeaturesPage() {
                         </p>
 
                         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block">
-                            <Link href="/register" className="bg-white text-action-blue font-bold text-xl px-12 py-5 rounded-full shadow-xl hover:shadow-2xl hover:bg-gray-50 flex items-center gap-3 transition-all">
+                            <Link href="/register" className="bg-white text-accent font-bold text-xl px-12 py-5 rounded-full shadow-xl hover:shadow-2xl hover:bg-gray-50 flex items-center gap-3 transition-all">
                                 أنشئ حسابك المجاني الآن
                             </Link>
                         </motion.div>

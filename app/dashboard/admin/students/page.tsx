@@ -96,8 +96,8 @@ export default function AdminStudentsPage() {
         <div className="max-w-4xl mx-auto space-y-6 pb-12">
             {/* Header */}
             <div>
-                <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white flex items-center gap-2">
-                    <FiUsers className="text-action-blue" /> الطلاب
+                <h1 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
+                    <FiUsers className="text-accent" /> الطلاب
                 </h1>
                 <p className="text-text-muted text-sm mt-1">عرض الطلاب حسب المدرب (شجرة)</p>
             </div>
@@ -106,11 +106,11 @@ export default function AdminStudentsPage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 <div className="card">
                     <p className="text-xs text-text-muted font-bold uppercase">إجمالي الطلاب</p>
-                    <p className="text-2xl font-bold text-action-blue mt-1">{totalStudents}</p>
+                    <p className="text-2xl font-bold text-accent mt-1">{totalStudents}</p>
                 </div>
                 <div className="card">
                     <p className="text-xs text-text-muted font-bold uppercase">المدربين</p>
-                    <p className="text-2xl font-bold text-primary-charcoal dark:text-white mt-1">{trainers.length}</p>
+                    <p className="text-2xl font-bold text-ink dark:text-white mt-1">{trainers.length}</p>
                 </div>
                 <div className="card">
                     <p className="text-xs text-text-muted font-bold uppercase">الكورسات النشطة</p>
@@ -135,7 +135,7 @@ export default function AdminStudentsPage() {
             {/* Trainers Tree */}
             {loading ? (
                 <div className="flex items-center justify-center py-20">
-                    <div className="w-10 h-10 border-4 border-action-blue/30 border-t-action-blue rounded-full animate-spin" />
+                    <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
                 </div>
             ) : filteredTrainers.length === 0 ? (
                 <div className="card p-12 text-center">
@@ -156,17 +156,17 @@ export default function AdminStudentsPage() {
                                         {trainer.avatar ? (
                                             <img src={trainer.avatar} alt="" className="w-full h-full object-cover" />
                                         ) : (
-                                            <FiUser size={20} className="text-action-blue" />
+                                            <FiUser size={20} className="text-accent" />
                                         )}
                                     </div>
                                     <div className="text-right">
-                                        <p className="font-bold text-primary-charcoal dark:text-white">{trainer.name || 'مدرب'}</p>
+                                        <p className="font-bold text-ink dark:text-white">{trainer.name || 'مدرب'}</p>
                                         <p className="text-xs text-text-muted">@{trainer.username} · {trainer.email}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <div className="text-right">
-                                        <p className="text-2xl font-bold text-action-blue">{trainer.totalStudents}</p>
+                                        <p className="text-2xl font-bold text-accent">{trainer.totalStudents}</p>
                                         <p className="text-[10px] text-text-muted uppercase font-bold">طالب</p>
                                     </div>
                                     <div className="flex items-center gap-2 text-xs text-text-muted">
@@ -185,7 +185,7 @@ export default function AdminStudentsPage() {
                                 <div className="border-t border-gray-100 dark:border-gray-700">
                                     {loadingStudents === trainer.id ? (
                                         <div className="flex items-center justify-center py-8">
-                                            <div className="w-8 h-8 border-4 border-action-blue/30 border-t-action-blue rounded-full animate-spin" />
+                                            <div className="w-8 h-8 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
                                         </div>
                                     ) : (
                                         <div className="overflow-x-auto">
@@ -202,7 +202,7 @@ export default function AdminStudentsPage() {
                                                     {(trainerStudents[trainer.id] || []).map(student => (
                                                         <tr key={student.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
                                                             <td className="px-4 py-3">
-                                                                <p className="font-bold text-primary-charcoal dark:text-white text-xs">{student.name}</p>
+                                                                <p className="font-bold text-ink dark:text-white text-xs">{student.name}</p>
                                                                 <p className="text-[11px] text-text-muted">{student.email}</p>
                                                             </td>
                                                             <td className="px-4 py-3 text-xs text-gray-600 dark:text-gray-300">{student.courseTitle}</td>
@@ -210,7 +210,7 @@ export default function AdminStudentsPage() {
                                                                 <div className="flex items-center gap-2">
                                                                     <div className="w-20 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
                                                                         <div
-                                                                            className={`h-1.5 rounded-full ${student.isCompleted ? 'bg-green-500' : 'bg-action-blue'}`}
+                                                                            className={`h-1.5 rounded-full ${student.isCompleted ? 'bg-green-500' : 'bg-accent'}`}
                                                                             style={{ width: `${student.progress}%` }}
                                                                         />
                                                                     </div>

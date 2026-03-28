@@ -54,7 +54,7 @@ function Tab({ id, active, onClick, icon: Icon, label, badge }: any) {
         <button
             onClick={() => onClick(id)}
             className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-sm font-bold transition-all whitespace-nowrap relative ${active
-                ? 'bg-action-blue text-white shadow-xl shadow-action-blue/20'
+                ? 'bg-accent text-white shadow-xl shadow-accent/20'
                 : 'text-text-muted hover:bg-gray-100 dark:hover:bg-gray-800'
                 }`}
         >
@@ -228,15 +228,15 @@ export default function AdminDashboardPage() {
         { id: 'users', icon: FiUsers, label: 'المستخدمون', badge: 0 },
     ];
 
-    if (loading && !data) return <div className="flex items-center justify-center min-h-screen"><div className="w-12 h-12 border-4 border-action-blue/30 border-t-action-blue rounded-full animate-spin" /></div>;
+    if (loading && !data) return <div className="flex items-center justify-center min-h-screen"><div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-full animate-spin" /></div>;
 
     return (
         <div className="space-y-6 pb-20 animate-in fade-in duration-500">
             {/* Header Section */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white flex items-center gap-2">
-                        <FiShield className="text-action-blue" /> مركز الإدارة الموحد
+                    <h1 className="text-3xl font-bold text-ink dark:text-white flex items-center gap-2">
+                        <FiShield className="text-accent" /> مركز الإدارة الموحد
                     </h1>
                     <p className="text-text-muted text-sm font-bold opacity-80 mt-1">إدارة شاملة لجميع فعاليات المنصة من مكان واحد</p>
                 </div>
@@ -264,7 +264,7 @@ export default function AdminDashboardPage() {
                 {activeTab === 'overview' && (
                     <div className="space-y-6">
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                            <StatCard icon={FiUsers} label="إجمالي المستخدمين" color="bg-gradient-to-br from-action-blue to-blue-600" value={fmt(ov.totalUsers ?? 0)} sub={`+${ov.newUsers ?? 0} جديد`} />
+                            <StatCard icon={FiUsers} label="إجمالي المستخدمين" color="bg-gradient-to-br from-accent to-blue-600" value={fmt(ov.totalUsers ?? 0)} sub={`+${ov.newUsers ?? 0} جديد`} />
                             <StatCard icon={FiDollarSign} label="إيرادات المنصة" color="bg-gradient-to-br from-green-500 to-green-700" value={`$${fmt(ov.totalRevenue ?? 0)}`} sub={`الصافي: $${fmt(ov.platformFees ?? 0)}`} />
                             <StatCard icon={FiShoppingCart} label="الطلبات الكلية" color="bg-gradient-to-br from-purple-500 to-purple-700" value={fmt(ov.totalOrders ?? 0)} sub={`${ov.periodOrders ?? 0} فترة الطلب`} />
                             <StatCard icon={FiAlertCircle} label="تحويلات معلقة" color="bg-gradient-to-br from-orange-500 to-red-600" value={ov.pendingManual ?? 0} sub="تحتاج مراجعة فورية" />
@@ -288,7 +288,7 @@ export default function AdminDashboardPage() {
                                     {(data?.ordersByMethod || []).map((m: any) => (
                                         <div key={m.method} className="flex items-center justify-between p-4 bg-gray-50/50 dark:bg-gray-800/30 rounded-2xl">
                                             <div className="font-bold">{methodLabel[m.method] || m.method}</div>
-                                            <div className="font-bold text-action-blue">${fmt(m.total)}</div>
+                                            <div className="font-bold text-accent">${fmt(m.total)}</div>
                                         </div>
                                     ))}
                                 </div>
@@ -302,13 +302,13 @@ export default function AdminDashboardPage() {
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {(data?.topSellers || []).map((s: any, idx: number) => (
-                                    <div key={s.id} className="relative group bg-gray-50/50 dark:bg-gray-800/20 p-6 rounded-xl border border-transparent hover:border-action-blue/20 transition-all flex items-center gap-4">
-                                        <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-white dark:bg-gray-900 border-2 border-action-blue flex items-center justify-center font-bold text-xs shadow-lg">{idx + 1}</div>
+                                    <div key={s.id} className="relative group bg-gray-50/50 dark:bg-gray-800/20 p-6 rounded-xl border border-transparent hover:border-accent/20 transition-all flex items-center gap-4">
+                                        <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-white dark:bg-gray-900 border-2 border-accent flex items-center justify-center font-bold text-xs shadow-lg">{idx + 1}</div>
                                         <div className="w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 flex items-center justify-center text-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden shrink-0">
                                             {s.avatar ? <img src={s.avatar} className="w-full h-full object-cover" /> : s.name?.charAt(0)}
                                         </div>
                                         <div className="min-w-0">
-                                            <div className="font-bold text-lg group-hover:text-action-blue transition-colors truncate">{s.name}</div>
+                                            <div className="font-bold text-lg group-hover:text-accent transition-colors truncate">{s.name}</div>
                                             <div className="text-xs font-bold text-text-muted opacity-60 uppercase truncate">{s.email}</div>
                                             <div className="mt-2 flex items-center gap-3">
                                                 <div className="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-[10px] font-bold">${fmt(s.totalEarnings || 0)}</div>
@@ -407,7 +407,7 @@ export default function AdminDashboardPage() {
                                 <div className="text-5xl">📣</div>
                                 <h3 className="text-2xl font-bold">محرك الإعلانات الجماعي</h3>
                                 <p className="text-text-muted text-sm font-bold">أرسل رسائل البريد الإلكتروني والبريم للآلاف بضغطة واحدة</p>
-                                <button onClick={() => setShowBroadcast(true)} className="btn btn-primary w-full py-4 rounded-3xl font-bold text-lg bg-gradient-to-r from-action-blue to-blue-700">إنشاء حملة إعلانية الآن</button>
+                                <button onClick={() => setShowBroadcast(true)} className="btn btn-primary w-full py-4 rounded-3xl font-bold text-lg bg-gradient-to-r from-accent to-blue-700">إنشاء حملة إعلانية الآن</button>
                             </div>
                             <div className="card p-6 overflow-hidden">
                                 <h4 className="font-bold mb-4 flex items-center gap-2"><FiActivity /> السجل المباشر للعمليات</h4>
@@ -416,7 +416,7 @@ export default function AdminDashboardPage() {
                                         <div key={b.id} className="p-4 bg-gray-50 border border-gray-100 rounded-2xl flex items-center justify-between">
                                             <div>
                                                 <div className="font-bold text-sm">{b.subject}</div>
-                                                <div className="text-[9px] font-bold uppercase text-action-blue">{b.recipientCriteria}</div>
+                                                <div className="text-[9px] font-bold uppercase text-accent">{b.recipientCriteria}</div>
                                             </div>
                                             <div className="flex items-center gap-4 text-right tracking-tighter">
                                                 <div>
@@ -479,7 +479,7 @@ export default function AdminDashboardPage() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {(verificationRequests || []).length === 0 ? <div className="col-span-full py-12 text-center font-bold opacity-30">لا توجد طلبات معلقة حالياً</div> : verificationRequests.map((vr:any) => (
                                 <div key={vr.id} className="bg-gray-50/50 p-6 rounded-xl border border-gray-100 space-y-4">
-                                    <div className="flex items-center gap-3"><div className="w-12 h-12 rounded-xl bg-action-blue flex items-center justify-center text-white font-bold text-xl">{vr.user?.name?.charAt(0)}</div><div><div className="font-bold text-sm">{vr.user?.name}</div><div className="text-[10px] font-bold text-action-blue uppercase tracking-widest">{vr.documentType}</div></div></div>
+                                    <div className="flex items-center gap-3"><div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center text-white font-bold text-xl">{vr.user?.name?.charAt(0)}</div><div><div className="font-bold text-sm">{vr.user?.name}</div><div className="text-[10px] font-bold text-accent uppercase tracking-widest">{vr.documentType}</div></div></div>
                                     <div className="aspect-video bg-gray-200 rounded-2xl overflow-hidden relative"><img src={vr.documentUrl} className="w-full h-full object-cover" /><div className="absolute inset-0 bg-black/20" /></div>
                                     <div className="flex gap-2"><button onClick={async () => { await fetch('/api/admin/verification', {method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({requestId:vr.id, decision:'APPROVE'})}); showToast.success('تم التوثيق'); load(false); setActiveTab('verification'); }} className="flex-1 btn bg-green-500 text-white font-bold py-2 rounded-xl text-xs">قبول</button><button onClick={async () => { const reason = prompt('السبب:'); if(reason) { await fetch('/api/admin/verification', {method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({requestId:vr.id, decision:'REJECT', rejectionReason:reason})}); showToast.success('تم الرفض'); load(false); setActiveTab('verification'); } }} className="flex-1 btn bg-red-50 text-red-500 py-2 rounded-xl text-xs">رفض</button></div>
                                 </div>
@@ -499,7 +499,7 @@ export default function AdminDashboardPage() {
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
                     <div className="bg-white dark:bg-card-white rounded-xl p-8 max-w-2xl w-full shadow-2xl space-y-8 max-h-[90vh] overflow-y-auto">
                         <div className="flex justify-between items-center">
-                            <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white flex items-center gap-2">🚀 حملة مراسلة جديدة</h2>
+                            <h2 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">🚀 حملة مراسلة جديدة</h2>
                             <button onClick={() => setShowBroadcast(false)} className="p-2 hover:bg-gray-100 rounded-full"><FiX className="text-xl" /></button>
                         </div>
                         <div className="space-y-6">
@@ -508,9 +508,9 @@ export default function AdminDashboardPage() {
                             <div><label className="text-sm font-bold mb-2 block">محتوى الرسالة (Markdown):</label><textarea className="input min-h-[200px] font-mono text-sm" placeholder="اكتب رسالتك هنا..." value={broadcast.message} onChange={(e) => setBroadcast({ ...broadcast, message: e.target.value })} /></div>
                         </div>
                         <div className="bg-blue-50/50 p-6 rounded-3xl border border-blue-100 flex items-start gap-3">
-                            <FiAlertCircle className="text-action-blue mt-1 shrink-0" /><p className="text-xs text-blue-700 font-bold leading-relaxed">تنبيه: سيتم إرسال هذه الرسالة فوراً لجميع المستخدمين في الفئة المحددة. يرجى مراجعة المحتوى بعناية لتجنب إزعاج المستخدمين.</p>
+                            <FiAlertCircle className="text-accent mt-1 shrink-0" /><p className="text-xs text-blue-700 font-bold leading-relaxed">تنبيه: سيتم إرسال هذه الرسالة فوراً لجميع المستخدمين في الفئة المحددة. يرجى مراجعة المحتوى بعناية لتجنب إزعاج المستخدمين.</p>
                         </div>
-                        <button onClick={sendBroadcast} disabled={sending} className="btn btn-primary w-full py-5 rounded-3xl font-bold text-xl shadow-2xl shadow-action-blue/30">{sending ? 'جاري الإطلاق والتحضير...' : 'إرسال الحملة الآن'}</button>
+                        <button onClick={sendBroadcast} disabled={sending} className="btn btn-primary w-full py-5 rounded-3xl font-bold text-xl shadow-2xl shadow-accent/30">{sending ? 'جاري الإطلاق والتحضير...' : 'إرسال الحملة الآن'}</button>
                     </div>
                 </div>
             )}

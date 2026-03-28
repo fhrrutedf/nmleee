@@ -60,10 +60,10 @@ export default function EmailLogsPage() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <Link href="/dashboard/automation" className="flex items-center gap-2 text-text-muted hover:text-action-blue text-sm mb-2 transition-colors">
+                    <Link href="/dashboard/automation" className="flex items-center gap-2 text-text-muted hover:text-accent text-sm mb-2 transition-colors">
                         <FiArrowLeft /> العودة للأتمتة
                     </Link>
-                    <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white">📬 سجل الإيميلات</h1>
+                    <h1 className="text-2xl font-bold text-ink dark:text-white">📬 سجل الإيميلات</h1>
                     <p className="text-text-muted text-sm mt-1">آخر 100 إيميل تم إرسالها</p>
                 </div>
                 <button onClick={load} className="btn btn-outline flex items-center gap-2">
@@ -89,7 +89,7 @@ export default function EmailLogsPage() {
             <div className="flex gap-2">
                 {(['all', 'sent', 'failed'] as const).map(f => (
                     <button key={f} onClick={() => setFilter(f)}
-                        className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${filter === f ? 'bg-action-blue text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'}`}>
+                        className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${filter === f ? 'bg-accent text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'}`}>
                         {f === 'all' ? 'الكل' : f === 'sent' ? 'مُرسَل ✓' : 'فشل ✗'}
                     </button>
                 ))}
@@ -99,7 +99,7 @@ export default function EmailLogsPage() {
             <div className="bg-white dark:bg-card-white rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
                 {loading ? (
                     <div className="flex items-center justify-center h-32">
-                        <div className="w-6 h-6 border-4 border-action-blue border-t-transparent rounded-full animate-spin" />
+                        <div className="w-6 h-6 border-4 border-accent border-t-transparent rounded-full animate-spin" />
                     </div>
                 ) : filtered.length === 0 ? (
                     <div className="text-center py-16 text-text-muted">
@@ -130,7 +130,7 @@ export default function EmailLogsPage() {
                                                 </span>
                                             </td>
                                             <td className="px-4 py-3">
-                                                <p className="font-medium text-primary-charcoal dark:text-white">{log.toName || log.toEmail}</p>
+                                                <p className="font-medium text-ink dark:text-white">{log.toName || log.toEmail}</p>
                                                 <p className="text-xs text-text-muted">{log.toEmail}</p>
                                             </td>
                                             <td className="px-4 py-3 text-gray-600 dark:text-gray-400 max-w-[200px] truncate">{log.subject}</td>

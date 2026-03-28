@@ -307,7 +307,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                             : <span className="text-xs font-bold text-blue-600 bg-blue-100 dark:bg-blue-900/30 px-2 py-0.5 rounded-full flex items-center gap-1"><FiPackage size={10} /> منتج رقمي</span>
                                         }
                                     </div>
-                                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-action-blue transition-colors line-clamp-2">
+                                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-accent transition-colors line-clamp-2">
                                         {featuredProduct.title}
                                     </h3>
                                     {featuredProduct.description && (() => {
@@ -459,7 +459,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                             : <span className="text-[9px] font-bold uppercase tracking-tighter text-blue-600 bg-blue-100 px-2 py-0.5 rounded-md">ملف رقمي</span>
                                                         }
                                                     </div>
-                                                    <h3 className="font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-action-blue transition-colors text-sm leading-tight h-10">
+                                                    <h3 className="font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-accent transition-colors text-sm leading-tight h-10">
                                                         {cleanTitle(product.title, product.category)}
                                                     </h3>
                                                     {product.description && stripHtml(product.description) && (

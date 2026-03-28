@@ -137,7 +137,7 @@ export default function ProductsManagement() {
             {/* Header */}
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="text-3xl md:text-4xl font-bold text-primary-charcoal dark:text-white mb-2 tracking-tight flex items-center gap-3">
+                    <h1 className="text-3xl md:text-4xl font-bold text-ink dark:text-white mb-2 tracking-tight flex items-center gap-3">
                         <div className="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-600 flex items-center justify-center">
                             <FiPackage />
                         </div>
@@ -153,10 +153,10 @@ export default function ProductsManagement() {
                     <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
                         <div className="px-5 py-3 flex flex-col items-center">
                             <span className="text-gray-400 text-xs">إجمالي</span>
-                            <span className="text-primary-charcoal dark:text-white text-lg">{stats.totalItems}</span>
+                            <span className="text-ink dark:text-white text-lg">{stats.totalItems}</span>
                         </div>
                         <div className="px-5 py-3 flex flex-col items-center">
-                            <span className="text-action-blue text-xs">منتج رقمي</span>
+                            <span className="text-accent text-xs">منتج رقمي</span>
                             <span className="text-blue-600 dark:text-blue-400 text-lg">{stats.totalProducts}</span>
                         </div>
                         <div className="px-5 py-3 flex flex-col items-center">
@@ -200,7 +200,7 @@ export default function ProductsManagement() {
                             placeholder="ابحث باسم المنتج أو الدورة..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all text-primary-charcoal dark:text-white"
+                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all text-ink dark:text-white"
                         />
                         <button type="submit" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-500 transition-colors">
                             <FiSearch size={18} />
@@ -216,7 +216,7 @@ export default function ProductsManagement() {
                             <select
                                 value={typeFilter}
                                 onChange={(e) => { setTypeFilter(e.target.value); setPage(1); }}
-                                className="bg-transparent border-none focus:outline-none text-primary-charcoal dark:text-white cursor-pointer pr-4"
+                                className="bg-transparent border-none focus:outline-none text-ink dark:text-white cursor-pointer pr-4"
                             >
                                 <option value="ALL">الكل</option>
                                 <option value="PRODUCT">منتجات رقمية</option>
@@ -230,7 +230,7 @@ export default function ProductsManagement() {
                             <select
                                 value={statusFilter}
                                 onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }}
-                                className="bg-transparent border-none focus:outline-none text-primary-charcoal dark:text-white cursor-pointer pr-4"
+                                className="bg-transparent border-none focus:outline-none text-ink dark:text-white cursor-pointer pr-4"
                             >
                                 <option value="ALL">الكل</option>
                                 <option value="ACTIVE">نشط ومعروض</option>
@@ -274,7 +274,7 @@ export default function ProductsManagement() {
                                         <motion.tr variants={itemVariants} key={item.id} className="border-b border-gray-50 dark:border-gray-800/60 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
                                             <td className="py-4 px-6">
                                                 <div className="flex items-center gap-3">
-                                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${item.itemType === 'COURSE' ? 'bg-purple-50 text-purple-500 dark:bg-purple-900/20' : 'bg-blue-50 text-action-blue dark:bg-blue-900/20'}`}>
+                                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${item.itemType === 'COURSE' ? 'bg-purple-50 text-purple-500 dark:bg-purple-900/20' : 'bg-blue-50 text-accent dark:bg-blue-900/20'}`}>
                                                         {item.itemType === 'COURSE' ? <FiPlayCircle size={20} /> : <FiImage size={20} />}
                                                     </div>
                                                     <div>
@@ -297,7 +297,7 @@ export default function ProductsManagement() {
                                                 {item.isFree ? (
                                                     <span className="text-green-500 font-bold bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded text-xs">مجاني</span>
                                                 ) : (
-                                                    <span className="font-bold text-primary-charcoal dark:text-white">${item.price.toFixed(2)}</span>
+                                                    <span className="font-bold text-ink dark:text-white">${item.price.toFixed(2)}</span>
                                                 )}
                                             </td>
                                             <td className="py-4 px-6 text-center text-sm font-bold text-gray-500">
@@ -316,7 +316,7 @@ export default function ProductsManagement() {
                                                     <Link
                                                         href={item.itemType === 'COURSE' ? `/course/${item.id}` : `/product/${item.id}`}
                                                         target="_blank"
-                                                        className="p-2 rounded-lg text-gray-400 hover:text-action-blue hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                                                        className="p-2 rounded-lg text-gray-400 hover:text-accent hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
                                                         title="عرض في المتجر"
                                                     >
                                                         <FiEyeOff size={18} />

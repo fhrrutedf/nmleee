@@ -14,8 +14,8 @@
     --border: #E5E7EB;
 
     /* Backward-compatible tokens */
-    --primary-charcoal: #1A1A1A;
-    --action-blue: #2563EB;
+    --ink: #1A1A1A;
+    --accent: #2563EB;
     --action-secondary: #1D4ED8;
     --bg-light: #F9FAFB;
     --card-white: #FFFFFF;
@@ -31,8 +31,8 @@
     --muted: #9CA3AF;
     --border: #374151;
 
-    --primary-charcoal: #F9FAFB;
-    --action-blue: #60A5FA;
+    --ink: #F9FAFB;
+    --accent: #60A5FA;
     --action-secondary: #3B82F6;
     --bg-light: #111827;
     --card-white: #1F2937;

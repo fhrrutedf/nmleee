@@ -65,8 +65,8 @@ export default function AdminAuditLogsPage() {
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white flex items-center gap-2">
-                        <FiShield className="text-action-blue" /> سجل الرقابة والأنشطة
+                    <h1 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
+                        <FiShield className="text-accent" /> سجل الرقابة والأنشطة
                     </h1>
                     <p className="text-text-muted text-sm mt-1">تتبع جميع الحركات الحساسة التي تمت على المنصة</p>
                 </div>
@@ -118,7 +118,7 @@ export default function AdminAuditLogsPage() {
                                 <tr key={log.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
                                     <td className="px-5 py-4">
                                         <div className="flex items-center gap-2">
-                                            <div className="w-8 h-8 rounded-full bg-action-blue/10 text-action-blue flex items-center justify-center font-bold text-xs">
+                                            <div className="w-8 h-8 rounded-full bg-accent/10 text-accent flex items-center justify-center font-bold text-xs">
                                                 {log.actor_name?.charAt(0) || 'S'}
                                             </div>
                                             <div>
@@ -136,12 +136,12 @@ export default function AdminAuditLogsPage() {
                                         {log.entity_type && (
                                             <div className="flex items-center gap-1.5 text-xs">
                                                 <span className="text-text-muted">{log.entity_type}:</span>
-                                                <span className="font-mono text-action-blue truncate max-w-[100px]">{log.entity_id}</span>
+                                                <span className="font-mono text-accent truncate max-w-[100px]">{log.entity_id}</span>
                                             </div>
                                         )}
                                     </td>
                                     <td className="px-5 py-4">
-                                        <div className="text-[11px] text-primary-charcoal dark:text-gray-300 max-w-xs truncate">
+                                        <div className="text-[11px] text-ink dark:text-gray-300 max-w-xs truncate">
                                             {log.details ? JSON.stringify(log.details) : '—'}
                                         </div>
                                     </td>

@@ -255,7 +255,7 @@ export default function SettingsPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-bold text-primary-charcoal dark:text-white">الإعدادات</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-ink dark:text-white">الإعدادات</h1>
                     <p className="text-sm sm:text-base text-text-muted mt-2">إدارة حسابك وتفضيلاتك</p>
                 </div>
                 {profileData.username && (
@@ -272,9 +272,9 @@ export default function SettingsPage() {
                             navigator.clipboard.writeText(url);
                             toast.success('تم نسخ رابط متجرك بنجاح!');
                         }}
-                        className="group relative flex items-center gap-2 px-6 py-3 bg-white dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-action-blue text-primary-charcoal dark:text-white shadow-sm transition-all hover:-translate-y-0.5 rounded-2xl"
+                        className="group relative flex items-center gap-2 px-6 py-3 bg-white dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-accent text-ink dark:text-white shadow-sm transition-all hover:-translate-y-0.5 rounded-2xl"
                     >
-                        <div className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-action-blue group-hover:bg-action-blue group-hover:text-white transition-colors">
+                        <div className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-colors">
                             <FiCopy size={14} />
                         </div>
                         <div className="text-right">
@@ -283,7 +283,7 @@ export default function SettingsPage() {
                                 {profileData.customDomain || `${profileData.username}.tmleen.com`}
                             </span>
                         </div>
-                        <FiExternalLink className="text-gray-300 group-hover:text-action-blue" size={14} />
+                        <FiExternalLink className="text-gray-300 group-hover:text-accent" size={14} />
                     </button>
                 )}
             </div>
@@ -297,7 +297,7 @@ export default function SettingsPage() {
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`flex-1 lg:w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors whitespace-nowrap ${activeTab === tab.id
-                                    ? 'bg-action-blue text-white font-medium shadow-md'
+                                    ? 'bg-accent text-white font-medium shadow-md'
                                     : 'text-text-muted hover:bg-gray-50 dark:hover:bg-gray-800'
                                     }`}
                             >
@@ -314,7 +314,7 @@ export default function SettingsPage() {
                         {/* Profile Tab */}
                         {activeTab === 'profile' && (
                             <div className="space-y-8 animate-fade-in">
-                                <h2 className="text-xl sm:text-2xl font-bold text-primary-charcoal dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الملف الشخصي</h2>
+                                <h2 className="text-xl sm:text-2xl font-bold text-ink dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الملف الشخصي</h2>
 
                                 {/* Avatar & Cover Upload */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -322,7 +322,7 @@ export default function SettingsPage() {
                                     <div className="space-y-3">
                                         <label className="label">الصورة الشخصية (Avatar)</label>
                                         <div className="flex flex-col items-center gap-4 p-4 border border-dashed border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800/50">
-                                            <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-action-blue to-purple-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg ring-4 ring-white dark:ring-gray-900 border border-gray-100 dark:border-gray-800 shrink-0 relative group">
+                                            <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-accent to-purple-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg ring-4 ring-white dark:ring-gray-900 border border-gray-100 dark:border-gray-800 shrink-0 relative group">
                                                 {profileData.avatar ? (
                                                     <img src={profileData.avatar} alt="Avatar" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                                                 ) : (
@@ -343,7 +343,7 @@ export default function SettingsPage() {
                                     <div className="space-y-3">
                                         <label className="label">صورة الغلاف (Cover)</label>
                                         <div className="flex flex-col gap-4 p-4 border border-dashed border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800/50">
-                                            <div className="h-24 w-full rounded-xl overflow-hidden bg-gradient-to-br from-action-blue to-purple-600 flex items-center justify-center text-white font-bold shadow-inner relative group">
+                                            <div className="h-24 w-full rounded-xl overflow-hidden bg-gradient-to-br from-accent to-purple-600 flex items-center justify-center text-white font-bold shadow-inner relative group">
                                                 {profileData.coverImage ? (
                                                     <img src={profileData.coverImage} alt="Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                                                 ) : (
@@ -509,7 +509,7 @@ export default function SettingsPage() {
                         {/* Security Tab */}
                         {activeTab === 'security' && (
                             <div className="space-y-8 animate-fade-in">
-                                <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الأمان وكلمة المرور</h2>
+                                <h2 className="text-2xl font-bold text-ink dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الأمان وكلمة المرور</h2>
 
                                 <div className="space-y-6 max-w-lg">
                                     <div>
@@ -568,7 +568,7 @@ export default function SettingsPage() {
                         {/* Notifications Tab */}
                         {activeTab === 'notifications' && (
                             <div className="space-y-8 animate-fade-in">
-                                <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">إعدادات الإشعارات</h2>
+                                <h2 className="text-2xl font-bold text-ink dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">إعدادات الإشعارات</h2>
 
                                 <div className="space-y-4">
                                     {[
@@ -579,7 +579,7 @@ export default function SettingsPage() {
                                     ].map((item: any) => (
                                         <div key={item.key} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-800">
                                             <div>
-                                                <h3 className="font-medium text-primary-charcoal dark:text-white">{item.label}</h3>
+                                                <h3 className="font-medium text-ink dark:text-white">{item.label}</h3>
                                                 <p className="text-sm text-text-muted">{item.desc}</p>
                                             </div>
                                             <label className="relative inline-flex items-center cursor-pointer">
@@ -592,7 +592,7 @@ export default function SettingsPage() {
                                                     })}
                                                     className="sr-only peer"
                                                 />
-                                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-action-blue"></div>
+                                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
                                             </label>
                                         </div>
                                     ))}
@@ -612,7 +612,7 @@ export default function SettingsPage() {
                             <div className="space-y-8 animate-fade-in">
                                 <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-4">
                                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">إعدادات تحويل الأرباح</h2>
-                                    <FiTrendingUp className="text-2xl text-primary-500" />
+                                    <FiTrendingUp className="text-2xl text-accent" />
                                 </div>
                                 <PayoutSettings />
                             </div>
@@ -621,7 +621,7 @@ export default function SettingsPage() {
                         {/* Integrations Tab */}
                         {activeTab === 'integrations' && (
                             <div className="space-y-8 animate-fade-in">
-                                <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">التكاملات والخدمات المرتبطة</h2>
+                                <h2 className="text-2xl font-bold text-ink dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">التكاملات والخدمات المرتبطة</h2>
 
                                 {integrationMsg && (
                                     <div className={`p-4 rounded-xl flex items-center gap-3 font-medium ${integrationMsg.type === 'success'
@@ -634,7 +634,7 @@ export default function SettingsPage() {
                                 )}
 
                                 {/* Google Calendar */}
-                                <div className="p-6 border-2 border-gray-100 dark:border-gray-800 rounded-2xl hover:border-action-blue/30 transition-all">
+                                <div className="p-6 border-2 border-gray-100 dark:border-gray-800 rounded-2xl hover:border-accent/30 transition-all">
                                     <div className="flex items-center justify-between flex-wrap gap-4">
                                         <div className="flex items-center gap-4">
                                             <div className="w-14 h-14 rounded-xl bg-white shadow-md border border-gray-100 flex items-center justify-center">
@@ -644,7 +644,7 @@ export default function SettingsPage() {
                                                 </svg>
                                             </div>
                                             <div>
-                                                <h3 className="text-lg font-bold text-primary-charcoal dark:text-white">Google Calendar & Meet</h3>
+                                                <h3 className="text-lg font-bold text-ink dark:text-white">Google Calendar & Meet</h3>
                                                 <p className="text-sm text-text-muted">أنشئ مواعيد تلقائياً مع رابط Google Meet عند كل حجز</p>
                                             </div>
                                         </div>
@@ -691,7 +691,7 @@ export default function SettingsPage() {
                                             <span className="text-2xl">🎥</span>
                                         </div>
                                         <div>
-                                            <h3 className="text-lg font-bold text-primary-charcoal dark:text-white">Zoom</h3>
+                                            <h3 className="text-lg font-bold text-ink dark:text-white">Zoom</h3>
                                             <p className="text-sm text-text-muted">قريباً - ربط حسابك على Zoom</p>
                                         </div>
                                         <span className="mr-auto bg-gray-100 dark:bg-gray-800 text-gray-500 text-xs px-3 py-1 rounded-full">قريباً</span>
@@ -704,8 +704,8 @@ export default function SettingsPage() {
                         {activeTab === 'verification' && (
                             <div className="space-y-8 animate-fade-in">
                                 <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-4">
-                                    <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white">توثيق الحساب (Trust Badge)</h2>
-                                    <FiCheckCircle className={`text-3xl ${verificationRequest?.status === 'APPROVED' ? 'text-green-500' : 'text-action-blue'}`} />
+                                    <h2 className="text-2xl font-bold text-ink dark:text-white">توثيق الحساب (Trust Badge)</h2>
+                                    <FiCheckCircle className={`text-3xl ${verificationRequest?.status === 'APPROVED' ? 'text-green-500' : 'text-accent'}`} />
                                 </div>
 
                                 <div className="max-w-2xl space-y-6">
@@ -738,8 +738,8 @@ export default function SettingsPage() {
                                         </div>
                                     ) : (
                                         <>
-                                            <div className="bg-action-blue/5 p-6 rounded-2xl border border-action-blue/10 space-y-4">
-                                                <h3 className="font-bold text-lg text-action-blue">لماذا توثيق الحساب؟</h3>
+                                            <div className="bg-accent/5 p-6 rounded-2xl border border-accent/10 space-y-4">
+                                                <h3 className="font-bold text-lg text-accent">لماذا توثيق الحساب؟</h3>
                                                 <ul className="space-y-3 text-sm text-text-muted">
                                                     <li className="flex items-center gap-2">🔹 الحصول على الشارة الزرقاء بجانب اسمك.</li>
                                                     <li className="flex items-center gap-2">🔹 زيادة مبيعاتك بنسبة تصل إلى 35% بسبب الثقة.</li>
@@ -775,12 +775,12 @@ export default function SettingsPage() {
                         {/* Privacy Tab */}
                         {activeTab === 'privacy' && (
                             <div className="space-y-8 animate-fade-in">
-                                <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الخصوصية والأمان المتقدم</h2>
+                                <h2 className="text-2xl font-bold text-ink dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الخصوصية والأمان المتقدم</h2>
 
                                 <div className="space-y-6">
                                     <div className="p-5 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800">
-                                        <div className="flex items-center gap-2 mb-4 text-primary-charcoal dark:text-white">
-                                            <FiEye className="text-action-blue" />
+                                        <div className="flex items-center gap-2 mb-4 text-ink dark:text-white">
+                                            <FiEye className="text-accent" />
                                             <h3 className="font-bold">رؤية رقم الهاتف</h3>
                                         </div>
                                         <select 
@@ -797,7 +797,7 @@ export default function SettingsPage() {
 
                                     <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800">
                                         <div className="flex items-center gap-2 mb-4">
-                                            <FiShield className="text-primary-500" />
+                                            <FiShield className="text-accent" />
                                             <h3 className="font-bold text-gray-900 dark:text-white">التحقق بخطوتين (2FA)</h3>
                                         </div>
                                         <div className="bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-800 flex items-center justify-between">
@@ -819,7 +819,7 @@ export default function SettingsPage() {
                                     {show2FASetup && (
                                         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
                                             <div className="bg-white dark:bg-card-white rounded-xl p-8 max-w-md w-full shadow-2xl space-y-6 text-center">
-                                                <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white">إعداد التحقق بخطوتين</h3>
+                                                <h3 className="text-2xl font-bold text-ink dark:text-white">إعداد التحقق بخطوتين</h3>
                                                 <p className="text-sm text-text-muted">امسح رمز الـ QR التالي باستخدام تطبيق Authenticator (مثل Google أو Microsoft)</p>
                                                 
                                                 <div className="bg-white p-4 rounded-3xl inline-block border-4 border-primary-50">

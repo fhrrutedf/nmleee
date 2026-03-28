@@ -157,14 +157,14 @@ export default function RegisterPage() {
         }
     };
 
-    const inputClass = "block w-full px-5 py-4 text-primary-charcoal bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-action-blue focus:border-transparent transition-all peer";
-    const labelClass = "absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-action-blue peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 right-4 flex items-center gap-2";
+    const inputClass = "block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer";
+    const labelClass = "absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-accent peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 right-4 flex items-center gap-2";
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-bg-light relative overflow-hidden py-12 px-4 shadow-inner transtion-all duration-500">
             <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-md w-full relative z-10">
                 <div className="text-center mb-8">
-                    <h1 className="text-4xl font-bold text-primary-charcoal mb-2 font-heading">أنشئ حسابك المجاني</h1>
+                    <h1 className="text-4xl font-bold text-ink mb-2 font-heading">أنشئ حسابك المجاني</h1>
                     <p className="text-text-muted text-base">ابدأ رحلتك في بيع المنتجات الرقمية بسهولة</p>
                 </div>
 
@@ -230,12 +230,12 @@ export default function RegisterPage() {
                             <input type="password" required value={formData.confirmPassword} onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })} className={inputClass} placeholder="تأكيد الباسورد" />
                         </div>
 
-                        <motion.button whileHover={{ scale: 1.02 }} type="submit" disabled={loading} className="w-full py-5 rounded-2xl bg-action-blue text-white font-bold shadow-lg hover:shadow-action-blue/30 transition-all flex items-center justify-center gap-3">
+                        <motion.button whileHover={{ scale: 1.02 }} type="submit" disabled={loading} className="w-full py-5 rounded-2xl bg-accent text-white font-bold shadow-lg hover:shadow-accent/30 transition-all flex items-center justify-center gap-3">
                             {loading ? <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <>إنشاء حساب مجاني <FiArrowRight className="rotate-180" /></>}
                         </motion.button>
                     </form>
                     <div className="mt-8 text-center pt-6 border-t border-gray-100">
-                        <Link href="/login" className="text-action-blue font-bold">لديك حساب؟ سجل دخولك</Link>
+                        <Link href="/login" className="text-accent font-bold">لديك حساب؟ سجل دخولك</Link>
                     </div>
                 </motion.div>
             </motion.div>

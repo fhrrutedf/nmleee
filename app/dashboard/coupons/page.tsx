@@ -116,7 +116,7 @@ export default function CouponsPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-action-blue border-t-transparent"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent border-t-transparent"></div>
             </div>
         );
     }
@@ -125,12 +125,12 @@ export default function CouponsPage() {
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white">الكوبونات والخصومات</h1>
+                    <h1 className="text-3xl font-bold text-ink dark:text-white">الكوبونات والخصومات</h1>
                     <p className="text-text-muted mt-1 font-medium">أنشئ أكواد خصم وعروض لمضاعفة مبيعاتك.</p>
                 </div>
                 <button
                     onClick={() => setShowModal(true)}
-                    className="btn btn-primary flex items-center gap-2 shadow-lg shadow-action-blue/20 hover:-translate-y-1 transition-transform"
+                    className="btn btn-primary flex items-center gap-2 shadow-lg shadow-accent/20 hover:-translate-y-1 transition-transform"
                 >
                     <FiPlus />
                     <span>إنشاء كوبون جديد</span>
@@ -143,7 +143,7 @@ export default function CouponsPage() {
                     <div className="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
                         <FiTag className="text-3xl text-gray-400" />
                     </div>
-                    <h3 className="text-xl font-bold text-primary-charcoal dark:text-white mb-2">لا توجد كوبونات فعالة!</h3>
+                    <h3 className="text-xl font-bold text-ink dark:text-white mb-2">لا توجد كوبونات فعالة!</h3>
                     <p className="text-text-muted mb-6 max-w-md mx-auto">الكوبونات هي طريقة ممتازة لتحفيز عملائك على الشراء فوراً وزيادة مبيعاتك وأرباحك.</p>
                     <button onClick={() => setShowModal(true)} className="btn btn-primary px-8">
                         أضف أول كوبون
@@ -154,12 +154,12 @@ export default function CouponsPage() {
                     {coupons.map((coupon) => (
                         <div key={coupon.id} className={`bg-white dark:bg-card-white rounded-2xl border ${coupon.isActive ? 'border-gray-200 dark:border-gray-700' : 'border-gray-100 dark:border-gray-800 opacity-70'} shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow relative`}>
                             {/* Top Accent */}
-                            <div className={`h-2 w-full ${coupon.isActive ? 'bg-gradient-to-r from-action-blue to-purple-500' : 'bg-gray-300 dark:bg-gray-700'}`}></div>
+                            <div className={`h-2 w-full ${coupon.isActive ? 'bg-gradient-to-r from-accent to-purple-500' : 'bg-gray-300 dark:bg-gray-700'}`}></div>
 
                             <div className="p-6">
                                 <div className="flex justify-between items-start mb-4">
                                     <div className="inline-block px-4 py-1.5 bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg">
-                                        <h3 className="text-xl font-bold text-primary-charcoal dark:text-gray-200 tracking-wider font-mono">{coupon.code}</h3>
+                                        <h3 className="text-xl font-bold text-ink dark:text-gray-200 tracking-wider font-mono">{coupon.code}</h3>
                                     </div>
                                     <button
                                         onClick={() => toggleStatus(coupon.id, coupon.isActive, coupon.code)}
@@ -170,7 +170,7 @@ export default function CouponsPage() {
                                 </div>
 
                                 <div className="flex items-center justify-between mb-6">
-                                    <div className="text-3xl font-bold text-action-blue dark:text-blue-400 drop-shadow-sm">
+                                    <div className="text-3xl font-bold text-accent dark:text-blue-400 drop-shadow-sm">
                                         {coupon.type === 'percentage' ? `${coupon.value}% خصم` : `${coupon.value} $ خصم`}
                                     </div>
                                     <div className="text-right">
@@ -262,8 +262,8 @@ export default function CouponsPage() {
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-center p-4">
                     <div className="bg-white dark:bg-card-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto transform transition-all">
                         <div className="sticky top-0 bg-white dark:bg-card-white p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center z-10">
-                            <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white flex items-center gap-2">
-                                <FiTag className="text-action-blue" /> إضافة كوبون خصم جديد
+                            <h2 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
+                                <FiTag className="text-accent" /> إضافة كوبون خصم جديد
                             </h2>
                             <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-red-500 bg-gray-100 dark:bg-gray-800 p-2 rounded-full transition-colors">
                                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -298,7 +298,7 @@ export default function CouponsPage() {
 
                                 <div className="md:col-span-2">
                                     <label className="label font-bold text-gray-700 dark:text-gray-300">قيمة الخصم <span className="text-red-500">*</span></label>
-                                    <div className="relative border border-action-blue/20 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-action-blue/30 transition-shadow bg-blue-50/30 dark:bg-blue-900/10">
+                                    <div className="relative border border-accent/20 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-accent/30 transition-shadow bg-blue-50/30 dark:bg-blue-900/10">
                                         <input
                                             type="number"
                                             required
@@ -310,7 +310,7 @@ export default function CouponsPage() {
                                             value={formData.value}
                                             onChange={(e) => setFormData({ ...formData, value: e.target.value })}
                                         />
-                                        <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center font-bold text-action-blue text-xl border-l border-action-blue/20 bg-action-blue/5">
+                                        <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center font-bold text-accent text-xl border-l border-accent/20 bg-accent/5">
                                             {formData.type === 'percentage' ? '%' : '$'}
                                         </div>
                                     </div>
@@ -318,7 +318,7 @@ export default function CouponsPage() {
 
                                 {/* Advanced Options Toggle could be added here, currently displaying directly */}
                                 <div className="md:col-span-2 pt-4 border-t border-gray-100 dark:border-gray-800">
-                                    <h4 className="text-lg font-bold mb-4 flex items-center gap-2"><FiClock className="text-action-blue" /> الإعدادات والقيود المتطورة (اختياري)</h4>
+                                    <h4 className="text-lg font-bold mb-4 flex items-center gap-2"><FiClock className="text-accent" /> الإعدادات والقيود المتطورة (اختياري)</h4>
                                 </div>
 
                                 <div>
@@ -385,7 +385,7 @@ export default function CouponsPage() {
 
                             <div className="pt-6 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-4 mt-6">
                                 <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline border-transparent bg-gray-100 dark:bg-gray-800 px-6 font-bold shadow-sm">إلغاء</button>
-                                <button type="submit" className="btn btn-primary px-8 font-bold shadow-xl shadow-action-blue/20 flex items-center gap-2 text-lg">
+                                <button type="submit" className="btn btn-primary px-8 font-bold shadow-xl shadow-accent/20 flex items-center gap-2 text-lg">
                                     <FiCheckCircle /> <span>اعتماد الكوبون وحفظه</span>
                                 </button>
                             </div>

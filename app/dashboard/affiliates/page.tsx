@@ -118,7 +118,7 @@ export default function AffiliatesPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-charcoal border-t-transparent"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink border-t-transparent"></div>
             </div>
         );
     }
@@ -127,14 +127,14 @@ export default function AffiliatesPage() {
         <div className="space-y-8">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white flex items-center gap-2">
-                        <FiUsers className="text-action-blue" /> نظام التسويق بالعمولة
+                    <h1 className="text-3xl font-bold text-ink dark:text-white flex items-center gap-2">
+                        <FiUsers className="text-accent" /> نظام التسويق بالعمولة
                     </h1>
                     <p className="text-text-muted mt-2 font-medium">حوّل عملائك إلى مسوقين لمنتجاتك وضاعف أرباحك بطريقة ذكية.</p>
                 </div>
                 <button
                     onClick={() => setShowModal(true)}
-                    className="btn bg-action-blue hover:bg-blue-600 text-white flex items-center gap-2 shadow-lg shadow-action-blue/20 hover:-translate-y-1 transition-transform"
+                    className="btn bg-accent hover:bg-blue-600 text-white flex items-center gap-2 shadow-lg shadow-accent/20 hover:-translate-y-1 transition-transform"
                 >
                     <FiPlus />
                     <span>إضافة مسوق جديد</span>
@@ -149,7 +149,7 @@ export default function AffiliatesPage() {
                     </div>
                     <div>
                         <p className="text-gray-500 font-bold mb-1">عدد المسوقين النشطين</p>
-                        <h4 className="text-3xl font-bold text-primary-charcoal dark:text-white">{affiliates.filter(a => a.isActive).length}</h4>
+                        <h4 className="text-3xl font-bold text-ink dark:text-white">{affiliates.filter(a => a.isActive).length}</h4>
                     </div>
                 </div>
                 <div className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-3xl p-6 shadow-sm flex items-center gap-4">
@@ -158,7 +158,7 @@ export default function AffiliatesPage() {
                     </div>
                     <div>
                         <p className="text-gray-500 font-bold mb-1">إجمالي المبيعات المحققة</p>
-                        <h4 className="text-3xl font-bold text-primary-charcoal dark:text-white">{affiliates.reduce((acc, curr) => acc + curr.salesCount, 0)}</h4>
+                        <h4 className="text-3xl font-bold text-ink dark:text-white">{affiliates.reduce((acc, curr) => acc + curr.salesCount, 0)}</h4>
                     </div>
                 </div>
                 <div className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-3xl p-6 shadow-sm flex items-center gap-4">
@@ -167,7 +167,7 @@ export default function AffiliatesPage() {
                     </div>
                     <div>
                         <p className="text-gray-500 font-bold mb-1">إجمالي العمولات المدفوعة</p>
-                        <h4 className="text-3xl font-bold text-primary-charcoal dark:text-white">{affiliates.reduce((acc, curr) => acc + curr.commission, 0)} <span className="text-sm">$</span></h4>
+                        <h4 className="text-3xl font-bold text-ink dark:text-white">{affiliates.reduce((acc, curr) => acc + curr.commission, 0)} <span className="text-sm">$</span></h4>
                     </div>
                 </div>
             </div>
@@ -178,7 +178,7 @@ export default function AffiliatesPage() {
                     <div className="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
                         <FiLink className="text-3xl text-gray-400" />
                     </div>
-                    <h3 className="text-xl font-bold text-primary-charcoal dark:text-white mb-2">لا يوجد مسوقين مضافين حالياً</h3>
+                    <h3 className="text-xl font-bold text-ink dark:text-white mb-2">لا يوجد مسوقين مضافين حالياً</h3>
                     <p className="text-text-muted mb-6 max-w-md mx-auto">شارك أرباحك مع أشخاص آخرين وضع نظام تسويق بالعمولة لجلب المزيد من الزوار لمنتجاتك.</p>
                 </div>
             ) : (
@@ -200,7 +200,7 @@ export default function AffiliatesPage() {
                                     <tr key={link.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                                         <td className="px-6 py-5 whitespace-nowrap">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 text-action-blue rounded-full flex items-center justify-center font-bold">
+                                                <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 text-accent rounded-full flex items-center justify-center font-bold">
                                                     {link.user?.name?.charAt(0) || <FiUsers />}
                                                 </div>
                                                 <div>
@@ -223,7 +223,7 @@ export default function AffiliatesPage() {
                                         <td className="px-6 py-5 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
                                             <div className="flex items-center gap-4 font-medium">
                                                 <div title="عدد الزيارات للرابط" className="flex items-center tracking-wider"><FiActivity className="ml-1 text-blue-500" /> {link.clicks}</div>
-                                                <div title="عدد المبيعات" className="flex items-center text-primary-charcoal dark:text-white font-bold"><FiCheckCircle className="ml-1 text-green-500" /> {link.salesCount}</div>
+                                                <div title="عدد المبيعات" className="flex items-center text-ink dark:text-white font-bold"><FiCheckCircle className="ml-1 text-green-500" /> {link.salesCount}</div>
                                             </div>
                                         </td>
                                         <td className="px-6 py-5 whitespace-nowrap">
@@ -240,7 +240,7 @@ export default function AffiliatesPage() {
                                             <div className="flex justify-center items-center gap-2">
                                                 <button
                                                     onClick={() => copyToClipboard(link.code)}
-                                                    className="p-2 text-action-blue bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 rounded-xl transition-colors"
+                                                    className="p-2 text-accent bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 rounded-xl transition-colors"
                                                     title="نسخ الرابط لمشاركته مع المسوق"
                                                 >
                                                     <FiCopy size={18} />
@@ -267,8 +267,8 @@ export default function AffiliatesPage() {
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-center p-4">
                     <div className="bg-white dark:bg-card-white rounded-3xl shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto transform transition-all">
                         <div className="sticky top-0 bg-white dark:bg-card-white p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center z-10">
-                            <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white flex items-center gap-2">
-                                <FiLink className="text-action-blue" /> تكليف مسوق جديد
+                            <h2 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
+                                <FiLink className="text-accent" /> تكليف مسوق جديد
                             </h2>
                             <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-red-500 bg-gray-100 dark:bg-gray-800 p-2 rounded-full transition-colors">
                                 <FiTrash2 className="w-5 h-5" />
@@ -349,7 +349,7 @@ export default function AffiliatesPage() {
 
                             <div className="pt-6 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-4 mt-6">
                                 <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline border-transparent bg-gray-100 dark:bg-gray-800 px-6 font-bold shadow-sm">إلغاء الأمر</button>
-                                <button type="submit" disabled={products.length === 0} className="btn btn-primary px-8 font-bold shadow-xl shadow-action-blue/20 flex items-center gap-2 text-lg">
+                                <button type="submit" disabled={products.length === 0} className="btn btn-primary px-8 font-bold shadow-xl shadow-accent/20 flex items-center gap-2 text-lg">
                                     <FiCheckCircle /> <span>إنشاء وحفظ</span>
                                 </button>
                             </div>

@@ -322,7 +322,7 @@ export default function EditCoursePage() {
                              </div>
 
                              {modules.length === 0 ? (
-                                 <div className="text-center py-20 bg-white rounded-[3.5rem] border-2 border-dashed border-slate-100 mt-6">
+                                 <div className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-100 mt-6">
                                      <FiLayers size={48} className="mx-auto text-slate-100 mb-4" />
                                      <p className="text-slate-300 font-bold">المنهج فارغ حالياً</p>
                                      <button onClick={() => router.push(`/dashboard/courses/${courseId}/content`)} className="mt-6 px-8 py-3 bg-slate-900 text-white rounded-xl text-xs font-bold">ابدأ الآن</button>
@@ -377,7 +377,7 @@ export default function EditCoursePage() {
                     )}
 
                     {activeTab === 'students' && (
-                        <div className="bg-white rounded-[3.5rem] p-16 text-center border-2 border-dashed border-slate-100 shadow-sm">
+                        <div className="bg-white rounded-3xl p-16 text-center border-2 border-dashed border-slate-100 shadow-sm">
                              <div className="w-20 h-20 bg-primary-indigo-50 text-primary-indigo-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-sm">
                                 <FiUsers size={32} />
                              </div>

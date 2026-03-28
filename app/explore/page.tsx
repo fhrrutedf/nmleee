@@ -101,7 +101,7 @@ export default async function ExplorePage({
         <div className="min-h-screen bg-bg-light dark:bg-bg-dark pt-20 pb-24">
 
             {/* Spectacular Cover Search Area */}
-            <div className="relative bg-gradient-to-br from-action-blue to-purple-800 text-white overflow-hidden pb-16 pt-20 px-4 sm:px-6">
+            <div className="relative bg-gradient-to-br from-accent to-purple-800 text-white overflow-hidden pb-16 pt-20 px-4 sm:px-6">
                 <div className="absolute inset-0 pattern-dots text-white/5 mix-blend-overlay"></div>
                 <div className="absolute -top-24 -right-24 w-96 h-96 bg-white/10 blur-[100px] rounded-full"></div>
                 <div className="absolute top-1/2 -left-24 w-72 h-72 bg-purple-500/20 blur-[80px] rounded-full"></div>
@@ -123,21 +123,21 @@ export default async function ExplorePage({
                                     name="q"
                                     defaultValue={query}
                                     placeholder="عمّ تبحث اليوم؟ كورس، كتاب، قالب..."
-                                    className="w-full pl-4 pr-14 py-4 sm:py-5 rounded-2xl bg-white dark:bg-gray-900 border-none focus:ring-4 focus:ring-action-blue/30 outline-none text-lg text-primary-charcoal dark:text-white font-bold placeholder:font-normal placeholder:text-gray-400 dark:placeholder:text-gray-500 shadow-inner"
+                                    className="w-full pl-4 pr-14 py-4 sm:py-5 rounded-2xl bg-white dark:bg-gray-900 border-none focus:ring-4 focus:ring-accent/30 outline-none text-lg text-ink dark:text-white font-bold placeholder:font-normal placeholder:text-gray-400 dark:placeholder:text-gray-500 shadow-inner"
                                 />
                             </div>
                             <div className="flex gap-3">
                                 <select
                                     name="category"
                                     defaultValue={category}
-                                    className="w-full md:w-auto py-4 sm:py-5 px-6 rounded-2xl border-none focus:ring-4 focus:ring-action-blue/30 outline-none bg-white dark:bg-gray-900 text-primary-charcoal dark:text-white font-bold cursor-pointer shadow-inner"
+                                    className="w-full md:w-auto py-4 sm:py-5 px-6 rounded-2xl border-none focus:ring-4 focus:ring-accent/30 outline-none bg-white dark:bg-gray-900 text-ink dark:text-white font-bold cursor-pointer shadow-inner"
                                 >
                                     <option value="">كل الأقسام</option>
                                     <option value="courses">دورات تعليمية</option>
                                     <option value="ebooks">كتب إلكترونية</option>
                                     <option value="templates">قوالب وأدوات</option>
                                 </select>
-                                <button type="submit" className="bg-primary-charcoal dark:bg-action-blue text-white px-8 py-4 sm:py-5 rounded-2xl font-bold hover:bg-black dark:hover:bg-blue-600 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 whitespace-nowrap text-lg flex items-center gap-2">
+                                <button type="submit" className="bg-ink dark:bg-accent text-white px-8 py-4 sm:py-5 rounded-2xl font-bold hover:bg-black dark:hover:bg-blue-600 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 whitespace-nowrap text-lg flex items-center gap-2">
                                     <FiSearch /> <span>بحث</span>
                                 </button>
                             </div>
@@ -166,7 +166,7 @@ export default async function ExplorePage({
                             <select
                                 name="sort"
                                 defaultValue={sort}
-                                className="py-2 px-4 rounded-xl border border-white/10 bg-white/5 dark:bg-black/20 text-white text-sm font-bold cursor-pointer outline-none focus:bg-action-blue transition-colors"
+                                className="py-2 px-4 rounded-xl border border-white/10 bg-white/5 dark:bg-black/20 text-white text-sm font-bold cursor-pointer outline-none focus:bg-accent transition-colors"
                             >
                                 <option value="newest" className="bg-primary-900">الأحدث</option>
                                 <option value="popular" className="bg-primary-900">الأكثر مبيعاً</option>
@@ -177,7 +177,7 @@ export default async function ExplorePage({
                     </form>
 
                     <div className="mt-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-                        <Link href="/register" className="inline-flex items-center gap-2 bg-white text-action-blue px-8 py-3.5 rounded-full font-bold text-lg hover:bg-gray-50 transition-all shadow-[0_8px_30px_rgba(255,255,255,0.2)] hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(255,255,255,0.3)] group">
+                        <Link href="/register" className="inline-flex items-center gap-2 bg-white text-accent px-8 py-3.5 rounded-full font-bold text-lg hover:bg-gray-50 transition-all shadow-[0_8px_30px_rgba(255,255,255,0.2)] hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(255,255,255,0.3)] group">
                             ابدأ مجاناً - أنشئ حسابك
                             <FiArrowRight className="rotate-180 group-hover:-translate-x-1 transition-transform" />
                         </Link>
@@ -188,13 +188,13 @@ export default async function ExplorePage({
             {/* Results Grid */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-12">
                 <div className="mb-10 flex flex-col sm:flex-row justify-between items-center gap-4 bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 p-4 sm:p-6 rounded-3xl shadow-sm">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-primary-charcoal dark:text-white flex items-center gap-3">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-ink dark:text-white flex items-center gap-3">
                         {query ? (
-                            <><FiSearch className="text-action-blue" /> نتائج البحث عن "<span className="text-action-blue">{query}</span>"</>
+                            <><FiSearch className="text-accent" /> نتائج البحث عن "<span className="text-accent">{query}</span>"</>
                         ) : category ? (
-                            <><FiLayers className="text-action-blue" /> تصفح قسم: <span className="text-action-blue">{category === 'courses' ? 'دورات تعليمية' : category === 'ebooks' ? 'كتب إلكترونية' : category}</span></>
+                            <><FiLayers className="text-accent" /> تصفح قسم: <span className="text-accent">{category === 'courses' ? 'دورات تعليمية' : category === 'ebooks' ? 'كتب إلكترونية' : category}</span></>
                         ) : sort === 'popular' ? (
-                            <><FiTrendingUp className="text-action-blue" /> الأكثر مبيعاً وتقييماً</>
+                            <><FiTrendingUp className="text-accent" /> الأكثر مبيعاً وتقييماً</>
                         ) : (
                             <><FiStar className="text-yellow-400" /> أحدث الإضافات للمتجر</>
                         )}
@@ -209,7 +209,7 @@ export default async function ExplorePage({
                             <select
                                 name="sort"
                                 defaultValue={sort}
-                                className="w-full p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-primary-charcoal dark:text-white font-bold"
+                                className="w-full p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-ink dark:text-white font-bold"
                             >
                                 <option value="newest">ترتيب: الأحدث</option>
                                 <option value="popular">الأكثر مبيعاً</option>
@@ -225,14 +225,14 @@ export default async function ExplorePage({
 
                 {allItems.length === 0 ? (
                     <div className="text-center py-24 bg-white dark:bg-card-white rounded-3xl border border-dashed border-gray-300 dark:border-gray-700 shadow-sm px-4">
-                        <div className="w-28 h-28 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-6 text-action-blue">
+                        <div className="w-28 h-28 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-6 text-accent">
                             <FiSearch className="text-5xl" />
                         </div>
-                        <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-3">للأسف، لم نجد نتائج مطابقة لبحثك</h3>
+                        <h3 className="text-2xl font-bold text-ink dark:text-white mb-3">للأسف، لم نجد نتائج مطابقة لبحثك</h3>
                         <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-8 text-lg">
                             جرب استخدام كلمات مفتاحية أخرى، أو قم بتغيير الفلاتر والأقسام للوصول لما تبحث عنه.
                         </p>
-                        <Link href="/explore" className="btn btn-primary px-8 py-3 text-lg font-bold shadow-xl shadow-action-blue/20">
+                        <Link href="/explore" className="btn btn-primary px-8 py-3 text-lg font-bold shadow-xl shadow-accent/20">
                             استكشف المتجر بالكامل
                         </Link>
                     </div>

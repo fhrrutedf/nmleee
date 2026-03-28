@@ -155,8 +155,8 @@ export default function AdminOrdersManagement() {
             {/* Header */}
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="text-3xl md:text-4xl font-bold text-primary-charcoal dark:text-white mb-2 tracking-tight flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-action-blue flex items-center justify-center">
+                    <h1 className="text-3xl md:text-4xl font-bold text-ink dark:text-white mb-2 tracking-tight flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-accent flex items-center justify-center">
                             <FiShoppingCart />
                         </div>
                         إدارة الطلبات
@@ -171,7 +171,7 @@ export default function AdminOrdersManagement() {
                     <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
                         <div className="px-5 py-3 flex flex-col items-center">
                             <span className="text-gray-400 text-xs">إجمالي</span>
-                            <span className="text-primary-charcoal dark:text-white text-lg">{stats.totalOrders}</span>
+                            <span className="text-ink dark:text-white text-lg">{stats.totalOrders}</span>
                         </div>
                         <div className="px-5 py-3 flex flex-col items-center">
                             <span className="text-green-500 text-xs">مكتمل ومدفوع</span>
@@ -196,7 +196,7 @@ export default function AdminOrdersManagement() {
                             </span>}
                         </button>
                         <button onClick={() => fetchOrders(true)} className="btn bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 py-2 px-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800">
-                            <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-action-blue' : 'text-gray-500 w-4 h-4'} />
+                            <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-accent' : 'text-gray-500 w-4 h-4'} />
                         </button>
                     </div>
                 </div>
@@ -218,9 +218,9 @@ export default function AdminOrdersManagement() {
                             placeholder="ابحث برقم الطلب، اسم العميل، اسم البائع..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-action-blue/50 focus:border-action-blue transition-all text-primary-charcoal dark:text-white"
+                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all text-ink dark:text-white"
                         />
-                        <button type="submit" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-action-blue transition-colors">
+                        <button type="submit" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-accent transition-colors">
                             <FiSearch size={18} />
                         </button>
                     </form>
@@ -229,12 +229,12 @@ export default function AdminOrdersManagement() {
                     <div className="flex items-center gap-3 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
                         {/* Status Filter */}
                         <div className="flex items-center gap-2 text-sm font-bold text-gray-500 bg-white dark:bg-gray-900 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700">
-                            <FiFilter className="text-action-blue" />
+                            <FiFilter className="text-accent" />
                             الحالة:
                             <select
                                 value={statusFilter}
                                 onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }}
-                                className="bg-transparent border-none focus:outline-none text-primary-charcoal dark:text-white cursor-pointer pr-4"
+                                className="bg-transparent border-none focus:outline-none text-ink dark:text-white cursor-pointer pr-4"
                             >
                                 <option value="ALL">الكل</option>
                                 <option value="PENDING">معلق/بانتظار الدفع</option>
@@ -249,7 +249,7 @@ export default function AdminOrdersManagement() {
                             <select
                                 value={typeFilter}
                                 onChange={(e) => { setTypeFilter(e.target.value); setPage(1); }}
-                                className="bg-transparent border-none focus:outline-none text-primary-charcoal dark:text-white cursor-pointer pr-4"
+                                className="bg-transparent border-none focus:outline-none text-ink dark:text-white cursor-pointer pr-4"
                             >
                                 <option value="ALL">الكل</option>
                                 <option value="online">إلكتروني (مباشر)</option>
@@ -263,7 +263,7 @@ export default function AdminOrdersManagement() {
                 <div className="overflow-x-auto">
                     {loading && orders.length === 0 ? (
                         <div className="p-12 flex flex-col items-center justify-center text-gray-400">
-                            <div className="w-8 h-8 border-2 border-gray-200 border-t-action-blue rounded-full animate-spin mb-4"></div>
+                            <div className="w-8 h-8 border-2 border-gray-200 border-t-accent rounded-full animate-spin mb-4"></div>
                             جاري تحميل الطلبات...
                         </div>
                     ) : (
@@ -340,7 +340,7 @@ export default function AdminOrdersManagement() {
                                                         {getStatusText(order.status)}
                                                     </span>
                                                     {order.paymentMethod === 'manual' && order.status === 'PENDING' && (
-                                                        <button className="text-[10px] flex items-center gap-1 font-bold text-action-blue hover:text-blue-700 transition-colors bg-blue-50 hover:bg-blue-100 px-2 py-1 rounded w-full justify-center">
+                                                        <button className="text-[10px] flex items-center gap-1 font-bold text-accent hover:text-blue-700 transition-colors bg-blue-50 hover:bg-blue-100 px-2 py-1 rounded w-full justify-center">
                                                             <FiEye /> مرجعة الإيصال
                                                         </button>
                                                     )}

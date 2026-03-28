@@ -54,7 +54,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
                     <input
                         type="text"
                         placeholder="ابحث بالاسم، الإيميل، أو اسم الدورة..."
-                        className="w-full pl-4 pr-10 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-bg-light focus:outline-none focus:ring-2 focus:ring-action-blue/20 transition-all text-sm"
+                        className="w-full pl-4 pr-10 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-bg-light focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all text-sm"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
@@ -113,7 +113,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
                                         <div className="flex items-center gap-2">
                                             <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 min-w-[100px] max-w-[150px]">
                                                 <div
-                                                    className={`h-2 rounded-full ${student.isCompleted ? 'bg-green-500' : 'bg-action-blue'}`}
+                                                    className={`h-2 rounded-full ${student.isCompleted ? 'bg-green-500' : 'bg-accent'}`}
                                                     style={{ width: `${student.progress}%` }}
                                                 />
                                             </div>
@@ -127,7 +127,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-2">
                                             <button
-                                                className="p-2 text-action-blue hover:bg-action-blue/10 rounded-lg transition-colors"
+                                                className="p-2 text-accent hover:bg-accent/10 rounded-lg transition-colors"
                                                 title="إرسال رسالة"
                                             >
                                                 <FiMail />

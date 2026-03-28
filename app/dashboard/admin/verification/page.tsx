@@ -74,10 +74,10 @@ export default function AdminVerificationPage() {
         <div className="p-6 lg:p-10 max-w-7xl mx-auto w-full space-y-8">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white">طلبات توثيق الحساب</h1>
+                    <h1 className="text-3xl font-bold text-ink dark:text-white">طلبات توثيق الحساب</h1>
                     <p className="text-text-muted mt-1">مراجعة هوية البائعين لمنح الشارة الزرقاء (Trust Badge)</p>
                 </div>
-                <div className="bg-action-blue/10 text-action-blue px-4 py-2 rounded-xl font-bold border border-action-blue/20">
+                <div className="bg-accent/10 text-accent px-4 py-2 rounded-xl font-bold border border-accent/20">
                     {requests.length} طلب معلق
                 </div>
             </div>
@@ -85,7 +85,7 @@ export default function AdminVerificationPage() {
             {requests.length === 0 ? (
                 <div className="card bg-white dark:bg-card-white p-20 text-center rounded-xl border border-gray-100 dark:border-gray-800">
                     <div className="text-6xl mb-4">🎉</div>
-                    <h3 className="text-xl font-bold text-primary-charcoal dark:text-white">لا توجد طلبات معلقة حالياً</h3>
+                    <h3 className="text-xl font-bold text-ink dark:text-white">لا توجد طلبات معلقة حالياً</h3>
                     <p className="text-text-muted">كل شيء تحت السيطرة!</p>
                 </div>
             ) : (
@@ -100,7 +100,7 @@ export default function AdminVerificationPage() {
                                     alt="Document" 
                                 />
                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                    <a href={request.documentUrl} target="_blank" className="btn btn-primary bg-white text-action-blue hover:bg-white/90">
+                                    <a href={request.documentUrl} target="_blank" className="btn btn-primary bg-white text-accent hover:bg-white/90">
                                         <FiEye /> عرض كامل
                                     </a>
                                 </div>
@@ -111,11 +111,11 @@ export default function AdminVerificationPage() {
 
                             <div className="p-6 space-y-4">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-action-blue to-purple-600 flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-purple-600 flex items-center justify-center text-white text-xl font-bold shadow-lg">
                                         {request.user.avatar ? <img src={request.user.avatar} className="w-full h-full object-cover rounded-xl" /> : request.user.name.charAt(0)}
                                     </div>
                                     <div className="overflow-hidden">
-                                        <h3 className="font-bold text-primary-charcoal dark:text-white truncate">{request.user.name}</h3>
+                                        <h3 className="font-bold text-ink dark:text-white truncate">{request.user.name}</h3>
                                         <p className="text-xs text-text-muted truncate">{request.user.email}</p>
                                     </div>
                                 </div>

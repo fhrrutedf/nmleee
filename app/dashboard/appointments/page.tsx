@@ -122,7 +122,7 @@ export default function AppointmentsPage() {
     if (status === 'loading' || loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
             </div>
         );
     }
@@ -211,7 +211,7 @@ export default function AppointmentsPage() {
                         <button
                             onClick={() => setActiveTab('upcoming')}
                             className={`pb-4 px-2 border-b-2 font-medium transition-colors ${activeTab === 'upcoming'
-                                ? 'border-primary-600 text-primary-600'
+                                ? 'border-accent text-accent'
                                 : 'border-transparent text-gray-500 hover:text-gray-700'
                                 }`}
                         >
@@ -220,7 +220,7 @@ export default function AppointmentsPage() {
                         <button
                             onClick={() => setActiveTab('completed')}
                             className={`pb-4 px-2 border-b-2 font-medium transition-colors ${activeTab === 'completed'
-                                ? 'border-primary-600 text-primary-600'
+                                ? 'border-accent text-accent'
                                 : 'border-transparent text-gray-500 hover:text-gray-700'
                                 }`}
                         >
@@ -229,7 +229,7 @@ export default function AppointmentsPage() {
                         <button
                             onClick={() => setActiveTab('cancelled')}
                             className={`pb-4 px-2 border-b-2 font-medium transition-colors ${activeTab === 'cancelled'
-                                ? 'border-primary-600 text-primary-600'
+                                ? 'border-accent text-accent'
                                 : 'border-transparent text-gray-500 hover:text-gray-700'
                                 }`}
                         >
@@ -260,7 +260,7 @@ export default function AppointmentsPage() {
                             >
                                 <div className="flex items-start justify-between">
                                     <div className="flex items-start gap-4 flex-1">
-                                        <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white flex-shrink-0">
+                                        <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent rounded-full flex items-center justify-center text-white flex-shrink-0">
                                             <FiUser className="text-2xl" />
                                         </div>
                                         <div className="flex-1">
@@ -270,22 +270,22 @@ export default function AppointmentsPage() {
 
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-gray-600 mb-4">
                                                 <div className="flex items-center gap-2">
-                                                    <FiCalendar className="text-primary-600" />
+                                                    <FiCalendar className="text-accent" />
                                                     <span>{new Date(appointment.date).toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
-                                                    <FiClock className="text-primary-600" />
+                                                    <FiClock className="text-accent" />
                                                     <span>{appointment.time}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
-                                                    <FiVideo className="text-primary-600" />
+                                                    <FiVideo className="text-accent" />
                                                     <span>{appointment.type === 'online' ? 'عبر الإنترنت' : 'شخصياً'}</span>
                                                 </div>
                                             </div>
 
                                             {appointment.notes && (
                                                 <div className="flex items-start gap-2 text-sm text-gray-600 mb-3">
-                                                    <FiMessageSquare className="text-primary-600 mt-1" />
+                                                    <FiMessageSquare className="text-accent mt-1" />
                                                     <p className="flex-1">{appointment.notes}</p>
                                                 </div>
                                             )}
@@ -319,7 +319,7 @@ export default function AppointmentsPage() {
                                         )}
 
                                         {appointment.price && (
-                                            <span className="text-xl font-bold text-primary-600">
+                                            <span className="text-xl font-bold text-accent">
                                                 {appointment.price} $
                                             </span>
                                         )}

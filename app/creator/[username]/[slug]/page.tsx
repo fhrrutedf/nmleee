@@ -66,7 +66,7 @@ export default function ProductPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
             </div>
         );
     }
@@ -93,9 +93,9 @@ export default function ProductPage() {
             <div className="bg-white border-b">
                 <div className="max-w-6xl mx-auto px-4 py-4">
                     <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <Link href="/" className="hover:text-primary-600">الرئيسية</Link>
+                        <Link href="/" className="hover:text-accent">الرئيسية</Link>
                         <span>/</span>
-                        <Link href={`/@${creator.username}`} className="hover:text-primary-600">
+                        <Link href={`/@${creator.username}`} className="hover:text-accent">
                             @{creator.username}
                         </Link>
                         <span>/</span>
@@ -148,7 +148,7 @@ export default function ProductPage() {
                                     </div>
                                 )}
                                 <div>
-                                    <p className="font-bold group-hover:text-primary-600 transition-colors">
+                                    <p className="font-bold group-hover:text-accent transition-colors">
                                         {creator.name}
                                     </p>
                                     <p className="text-sm text-gray-500">@{creator.username}</p>

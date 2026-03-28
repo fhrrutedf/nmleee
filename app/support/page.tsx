@@ -50,7 +50,7 @@ export default function SupportPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                     <Link href="/contact" className="bg-white rounded-xl shadow-sm p-6 hover:shadow-lg transition-shadow text-center group">
                         <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                            <FiMessageCircle className="text-3xl text-primary-600" />
+                            <FiMessageCircle className="text-3xl text-accent" />
                         </div>
                         <h3 className="font-bold text-lg mb-2">تواصل معنا</h3>
                         <p className="text-gray-600 text-sm">أرسل رسالة للدعم الفني</p>
@@ -76,7 +76,7 @@ export default function SupportPage() {
                 {/* FAQs */}
                 <div className="bg-white rounded-xl shadow-sm p-8">
                     <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-                        <FiHelpCircle className="text-primary-600" />
+                        <FiHelpCircle className="text-accent" />
                         الأسئلة الشائعة
                     </h2>
                     <div className="space-y-6">
@@ -99,7 +99,7 @@ export default function SupportPage() {
                     <p className="text-lg mb-6">فريق الدعم جاهز لمساعدتك 24/7</p>
                     <Link
                         href="/contact"
-                        className="inline-block bg-white text-primary-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
+                        className="inline-block bg-white text-accent px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
                     >
                         تواصل معنا الآن
                     </Link>

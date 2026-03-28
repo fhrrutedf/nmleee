@@ -185,8 +185,8 @@ export default function UsersManagement() {
             {/* Header */}
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="text-3xl md:text-4xl font-bold text-primary-charcoal dark:text-white mb-2 tracking-tight flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-2xl bg-action-blue/10 text-action-blue flex items-center justify-center">
+                    <h1 className="text-3xl md:text-4xl font-bold text-ink dark:text-white mb-2 tracking-tight flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center">
                             <FiUsers />
                         </div>
                         إدارة المستخدمين
@@ -200,7 +200,7 @@ export default function UsersManagement() {
                 <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
                     <div className="px-5 py-3 flex flex-col items-center">
                         <span className="text-gray-400 text-xs">إجمالي</span>
-                        <span className="text-primary-charcoal dark:text-white text-lg">{stats.totalUsers}</span>
+                        <span className="text-ink dark:text-white text-lg">{stats.totalUsers}</span>
                     </div>
                     <div className="px-5 py-3 flex flex-col items-center">
                         <span className="text-purple-500 text-xs">بائع نشط</span>
@@ -226,7 +226,7 @@ export default function UsersManagement() {
                         </span>}
                     </button>
                     <button onClick={() => fetchUsers(true)} className="btn bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 py-2 px-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800">
-                        <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-action-blue' : 'text-gray-500 w-4 h-4'} />
+                        <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-accent' : 'text-gray-500 w-4 h-4'} />
                     </button>
                 </div>
             </div>
@@ -247,9 +247,9 @@ export default function UsersManagement() {
                             placeholder="ابحث بالاسم أو البريد الإلكتروني..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-action-blue/50 focus:border-action-blue transition-all text-primary-charcoal dark:text-white"
+                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all text-ink dark:text-white"
                         />
-                        <button type="submit" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-action-blue transition-colors">
+                        <button type="submit" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-accent transition-colors">
                             <FiSearch size={18} />
                         </button>
                     </form>
@@ -257,12 +257,12 @@ export default function UsersManagement() {
                     {/* Filters */}
                     <div className="flex items-center gap-3 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
                         <div className="flex items-center gap-2 text-sm font-bold text-gray-500 bg-white dark:bg-gray-900 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700">
-                            <FiFilter className="text-action-blue" />
+                            <FiFilter className="text-accent" />
                             الفئة:
                             <select
                                 value={roleFilter}
                                 onChange={(e) => { setRoleFilter(e.target.value); setPage(1); }}
-                                className="bg-transparent border-none focus:outline-none text-primary-charcoal dark:text-white cursor-pointer pr-4"
+                                className="bg-transparent border-none focus:outline-none text-ink dark:text-white cursor-pointer pr-4"
                             >
                                 <option value="ALL">الجميع</option>
                                 <option value="SELLER">البائعين</option>
@@ -276,7 +276,7 @@ export default function UsersManagement() {
                 <div className="overflow-x-auto">
                     {loading && users.length === 0 ? (
                         <div className="p-12 flex flex-col items-center justify-center text-gray-400">
-                            <div className="w-8 h-8 border-2 border-gray-200 border-t-action-blue rounded-full animate-spin mb-4"></div>
+                            <div className="w-8 h-8 border-2 border-gray-200 border-t-accent rounded-full animate-spin mb-4"></div>
                             جاري تحميل حسابات المستخدمين...
                         </div>
                     ) : (
@@ -350,7 +350,7 @@ export default function UsersManagement() {
                                                 {user.role === 'SELLER' ? (
                                                     <div className="flex flex-col gap-1 items-center justify-center text-xs text-gray-500 font-bold">
                                                         <span title="مبيعات البائع">📦 {user._count.sellerOrders} طلب</span>
-                                                        <span className="text-action-blue" title="إجمالي الأرباح">${user.totalEarnings.toFixed(2)}</span>
+                                                        <span className="text-accent" title="إجمالي الأرباح">${user.totalEarnings.toFixed(2)}</span>
                                                     </div>
                                                 ) : (
                                                     <div className="text-xs text-gray-500 font-bold">
@@ -390,7 +390,7 @@ export default function UsersManagement() {
                                                     >
                                                         {user.isActive ? <FiXCircle size={18} /> : <FiCheckCircle size={18} />}
                                                     </button>
-                                                    <button className="p-2 rounded-lg text-gray-400 hover:text-action-blue hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+                                                    <button className="p-2 rounded-lg text-gray-400 hover:text-accent hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
                                                         <FiMoreVertical size={18} />
                                                     </button>
                                                     {user.verificationRequests && user.verificationRequests.length > 0 && (
@@ -443,7 +443,7 @@ export default function UsersManagement() {
         {planModal && (
             <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setPlanModal(null)}>
                 <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl max-w-md w-full p-8" onClick={e => e.stopPropagation()}>
-                    <h3 className="text-xl font-bold text-primary-charcoal dark:text-white mb-2 flex items-center gap-2">
+                    <h3 className="text-xl font-bold text-ink dark:text-white mb-2 flex items-center gap-2">
                         <FiAward className="text-purple-500" /> إدارة باقة المستخدم
                     </h3>
                     <p className="text-sm text-gray-500 mb-6">{planModal.userName} — الباقة الحالية: <strong>{planModal.currentPlan}</strong></p>
@@ -483,7 +483,7 @@ export default function UsersManagement() {
                         <button
                             onClick={savePlan}
                             disabled={savingPlan || selectedPlan === planModal.currentPlan}
-                            className="flex-1 bg-gradient-to-r from-purple-600 to-action-blue text-white py-3 rounded-xl font-bold text-sm hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex-1 bg-gradient-to-r from-purple-600 to-accent text-white py-3 rounded-xl font-bold text-sm hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {savingPlan ? 'جاري الحفظ...' : 'تحديث الباقة'}
                         </button>
