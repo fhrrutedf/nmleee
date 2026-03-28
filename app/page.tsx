@@ -1,472 +1,188 @@
 'use client';
 
 import Link from 'next/link';
-import { FiShoppingBag, FiVideo, FiCalendar, FiDollarSign, FiCheckCircle, FiArrowLeft, FiTrendingUp, FiShield, FiEdit3, FiGlobe } from 'react-icons/fi';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { TiltCard } from '@/components/animations/TiltCard';
-import Testimonials from '@/components/sections/Testimonials';
+import { FiShoppingBag, FiVideo, FiCalendar, FiDollarSign, FiArrowLeft, FiTrendingUp, FiShield, FiCheckCircle, FiGlobe, FiLock, FiSmartphone, FiZap } from 'react-icons/fi';
 
 export default function Home() {
     return (
         <main className="min-h-screen bg-white">
             <Hero />
-            
-            {/* How It Works Section */}
-            <section className="py-24 bg-white relative overflow-hidden">
-                <div className="container mx-auto px-4 relative z-10">
-                    <div className="text-center mb-20 max-w-2xl mx-auto">
-                        <motion.span 
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="text-brand-900 font-bold text-sm tracking-widest uppercase bg-brand-50 px-4 py-2 rounded-full inline-block mb-4"
-                        >
-                            كيف نبدأ؟
-                        </motion.span>
-                        <motion.h2 
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.1 }}
-                            className="text-4xl md:text-5xl font-black text-navy-900"
-                        >
-                            حوّل معرفتك لمنتج بضغطة زر
-                        </motion.h2>
+
+            {/* How It Works */}
+            <section className="py-24 bg-white border-b border-gray-100">
+                <div className="max-w-5xl mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <p className="text-sm font-semibold text-accent mb-3 tracking-wide">كيف يعمل؟</p>
+                        <h2 className="text-3xl md:text-4xl font-bold text-ink">ثلاث خطوات فقط للبدء</h2>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
-                        {/* Step 1 */}
-                        <motion.div 
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="relative group flex flex-col items-center text-center"
-                        >
-                            <div className="w-24 h-24 bg-brand-50 text-brand-900 rounded-[2rem] flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform duration-500 shadow-premium">
-                                <FiEdit3 />
+                    <div className="grid md:grid-cols-3 gap-16">
+                        {[
+                            { num: '01', title: 'أنشئ حسابك', desc: 'سجّل مجاناً واختر اسم متجرك. لا تحتاج بطاقة ائتمان أو خبرة تقنية.' },
+                            { num: '02', title: 'ارفع منتجاتك', desc: 'أضف ملفاتك الرقمية، دوراتك، أو خدماتك الاستشارية. نتكفل بالاستضافة والحماية.' },
+                            { num: '03', title: 'شارك وابدأ البيع', desc: 'شارك رابط متجرك واستقبل الطلبات. أرباحك تصل لحسابك بشكل مباشر.' },
+                        ].map((step) => (
+                            <div key={step.num} className="text-center">
+                                <div className="text-5xl font-bold text-gray-100 mb-4 font-inter" dir="ltr">{step.num}</div>
+                                <h3 className="text-xl font-bold text-ink mb-3">{step.title}</h3>
+                                <p className="text-gray-500 leading-relaxed text-[15px]">{step.desc}</p>
                             </div>
-                            <h3 className="text-2xl font-black text-navy-900 mb-4">أنشئ متجرك</h3>
-                            <p className="text-slate-500 leading-relaxed font-medium">خطوات بسيطة وسريعة لتجهيز ملفك الشخصي وربط حسابك البنكي بكل سهولة.</p>
-                            <div className="hidden lg:block absolute top-12 left-full w-20 h-0.5 border-t-2 border-dashed border-slate-100 -translate-x-10 -translate-y-4" />
-                        </motion.div>
-
-                        {/* Step 2 */}
-                        <motion.div 
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.1 }}
-                            className="relative group flex flex-col items-center text-center"
-                        >
-                            <div className="w-24 h-24 bg-brand-900 text-white rounded-[2.5rem] flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform duration-500 shadow-glow">
-                                <FiGlobe />
-                            </div>
-                            <h3 className="text-2xl font-black text-navy-900 mb-4">ارفع ملفاتك</h3>
-                            <p className="text-slate-500 leading-relaxed font-medium">ارفع دروسك، كتبك، أو قوالبك على خوادمنا الآمنة والمستقرة والمحمية تماماً.</p>
-                            <div className="hidden lg:block absolute top-12 left-full w-20 h-0.5 border-t-2 border-dashed border-slate-100 -translate-x-10 -translate-y-4" />
-                        </motion.div>
-
-                        {/* Step 3 */}
-                        <motion.div 
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.2 }}
-                            className="relative group flex flex-col items-center text-center"
-                        >
-                            <div className="w-24 h-24 bg-brand-50 text-brand-900 rounded-[2rem] flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform duration-500 shadow-premium">
-                                <FiTrendingUp />
-                            </div>
-                            <h3 className="text-2xl font-black text-navy-900 mb-4">ابدأ البيع</h3>
-                            <p className="text-slate-500 leading-relaxed font-medium">شارك رابط متجرك مع جمهورك واستقبل الأرباح مباشرة عبر وسائل دفع محلية.</p>
-                        </motion.div>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            <Testimonials />
+            {/* Features */}
+            <section id="features" className="py-24 bg-subtle">
+                <div className="max-w-5xl mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <p className="text-sm font-semibold text-accent mb-3 tracking-wide">المميزات</p>
+                        <h2 className="text-3xl md:text-4xl font-bold text-ink">كل ما تحتاجه في مكان واحد</h2>
+                        <p className="text-gray-500 mt-4 max-w-xl mx-auto">لا تحتاج أدوات متفرقة. تمالين تجمع لك المتجر، الدورات، الحجوزات، والدفع في منصة واحدة.</p>
+                    </div>
 
-            {/* Bottom CTA Section */}
-            <section className="py-24 container mx-auto px-4">
-                <motion.div 
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    className="bg-brand-900 rounded-[3rem] p-12 lg:p-24 text-center text-white relative overflow-hidden"
-                >
-                    <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent pointer-events-none" />
-                    
-                    <h2 className="text-4xl lg:text-6xl font-black mb-8 relative z-10">هل أنت مستعد لمشاركة عالمك؟</h2>
-                    <p className="text-xl lg:text-2xl text-white/80 font-medium mb-12 max-w-2xl mx-auto relative z-10">
-                        انضم إلى آلاف المبدعين الذين حولوا خبراتهم لمنتجات رقمية ناجحة.
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {[
+                            { icon: <FiShoppingBag />, title: 'متجر رقمي كامل', desc: 'بع الكتب، القوالب، الملفات، أو أي منتج رقمي آخر. متجرك جاهز خلال دقائق.' },
+                            { icon: <FiVideo />, title: 'دورات تدريبية', desc: 'أنشئ دورات بالفيديو مع نظام متابعة تقدم الطلاب والشهادات.' },
+                            { icon: <FiCalendar />, title: 'استشارات ومواعيد', desc: 'بع وقتك بالساعة مع تقويم ذكي مربوط بـ Google Calendar.' },
+                            { icon: <FiDollarSign />, title: 'دفع عالمي', desc: 'استقبل مدفوعات من أي مكان. ندعم بوابات دفع محلية وعالمية.' },
+                            { icon: <FiTrendingUp />, title: 'تسويق بالعمولة', desc: 'فعّل نظام المسوقين بالعمولة وخلّ الآخرين يبيعون عنك.' },
+                            { icon: <FiLock />, title: 'حماية المحتوى', desc: 'نحمي ملفاتك من النسخ والتحميل غير المصرح به.' },
+                        ].map((f, i) => (
+                            <div key={i} className="bg-white rounded-xl p-6 border border-gray-200/60 hover:shadow-md transition-shadow duration-150">
+                                <div className="w-10 h-10 rounded-lg bg-accent-light flex items-center justify-center text-accent text-lg mb-4">
+                                    {f.icon}
+                                </div>
+                                <h3 className="text-[16px] font-bold text-ink mb-2">{f.title}</h3>
+                                <p className="text-gray-500 text-sm leading-relaxed">{f.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Social Proof / Trust */}
+            <section className="py-20 bg-white border-y border-gray-100">
+                <div className="max-w-4xl mx-auto px-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        {[
+                            { value: 'مجاني', label: 'للبدء — بدون بطاقة ائتمان' },
+                            { value: '0%', label: 'رسوم اشتراك شهري' },
+                            { value: '24/7', label: 'دعم فني متواصل' },
+                            { value: 'عالمي', label: 'بوابات دفع لكل الدول' },
+                        ].map((s, i) => (
+                            <div key={i}>
+                                <div className="text-2xl md:text-3xl font-bold text-ink mb-2">{s.value}</div>
+                                <div className="text-sm text-gray-500">{s.label}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Who is this for? */}
+            <section className="py-24 bg-white">
+                <div className="max-w-5xl mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <p className="text-sm font-semibold text-accent mb-3 tracking-wide">لمن هذه المنصة؟</p>
+                        <h2 className="text-3xl md:text-4xl font-bold text-ink">تمالين مصممة لأصحاب المعرفة</h2>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {[
+                            { emoji: '🎓', title: 'المدربون والمعلمون', desc: 'أنشئ أكاديميتك الرقمية مع نظام إدارة طلاب متكامل' },
+                            { emoji: '✍️', title: 'الكتّاب والمصممون', desc: 'بع كتبك وقوالبك وملفاتك الرقمية بسهولة تامة' },
+                            { emoji: '💼', title: 'المستشارون والخبراء', desc: 'نظّم مواعيدك وبع استشاراتك بالساعة مع تقويم ذكي' },
+                        ].map((p, i) => (
+                            <div key={i} className="text-center p-8 rounded-xl border border-gray-200/60 hover:border-gray-300 transition-colors">
+                                <div className="text-4xl mb-4">{p.emoji}</div>
+                                <h3 className="text-lg font-bold text-ink mb-2">{p.title}</h3>
+                                <p className="text-gray-500 text-sm leading-relaxed">{p.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Bottom CTA */}
+            <section className="py-20 bg-ink">
+                <div className="max-w-3xl mx-auto px-6 text-center">
+                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                        ابدأ ببيع منتجاتك الرقمية اليوم
+                    </h2>
+                    <p className="text-gray-400 text-lg mb-8 max-w-xl mx-auto">
+                        أنشئ حسابك مجاناً واحصل على متجرك الرقمي خلال دقائق. لا تحتاج خبرة تقنية.
                     </p>
-                    
-                    <div className="flex flex-wrap items-center justify-center gap-6 relative z-10">
-                        <Link href="/auth/register" className="px-12 py-5 bg-gold-700 text-white rounded-2xl font-black text-lg hover:bg-gold-600 hover:scale-105 transition-all shadow-gold">
+                    <div className="flex flex-wrap justify-center gap-4">
+                        <Link
+                            href="/register"
+                            className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-ink rounded-lg font-semibold text-sm hover:bg-gray-100 transition-colors"
+                        >
                             سجل حسابك مجاناً
+                            <FiArrowLeft />
                         </Link>
-                        <Link href="/how-it-works" className="px-10 py-5 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-2xl font-black text-lg hover:bg-white/20 transition-all">
-                            تحدث مع مستشارنا
+                        <Link
+                            href="/explore"
+                            className="inline-flex items-center gap-2 px-8 py-3.5 border border-gray-600 text-gray-300 rounded-lg font-semibold text-sm hover:border-gray-400 hover:text-white transition-colors"
+                        >
+                            تصفح المنتجات
                         </Link>
                     </div>
-                </motion.div>
+                </div>
             </section>
         </main>
     );
 }
 
 function Hero() {
-    const { scrollYProgress } = useScroll();
-
     return (
-        <main className="min-h-screen bg-bg-light overflow-hidden relative cursor-default">
-
-            {/* Hero Section */}
-            <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden flex items-center bg-[#FAFBFC]">
-                
-                {/* Subtle Background */}
-                <div className="absolute inset-0 z-0 pointer-events-none">
-                    <motion.div 
-                        animate={{ 
-                            scale: [1, 1.2, 1],
-                            x: [0, 100, 0],
-                            y: [0, -50, 0]
-                        }} 
-                        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                        className="absolute top-[-10%] right-[-5%] w-[800px] h-[800px] bg-brand-100/40 rounded-full blur-[120px]" 
-                    />
-                    <motion.div 
-                        animate={{ 
-                            scale: [1, 1.1, 1],
-                            x: [0, -80, 0],
-                            y: [0, 60, 0]
-                        }} 
-                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                        className="absolute bottom-[-10%] left-[-5%] w-[700px] h-[700px] bg-brand-200/30 rounded-full blur-[100px]" 
-                    />
+        <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-white">
+            <div className="max-w-4xl mx-auto px-6 text-center">
+                {/* Badge */}
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-accent-light border border-blue-100 rounded-full text-sm font-semibold text-accent mb-8">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                    منصة بيع المنتجات الرقمية
                 </div>
 
-                <div className="container-custom relative z-10">
-                    <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-                        
-                        {/* Text Content */}
-                        <motion.div 
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8 }}
-                            className="lg:col-span-7 text-right"
-                        >
-                            <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 }}
-                                className="inline-flex items-center gap-2 px-4 py-2 bg-brand-50 border border-brand-100 text-brand-900 rounded-full text-sm font-bold mb-8 shadow-sm"
-                            >
-                                <span className="relative flex h-2 w-2">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-900"></span>
-                                </span>
-                                منصة &quot;تمالين&quot; — الخيار الأول للمبدعين العرب
-                            </motion.div>
+                {/* Headline */}
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-ink leading-[1.15] mb-6">
+                    بع منتجاتك الرقمية<br />
+                    من مكان واحد.
+                </h1>
 
-                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-heading text-navy-900 leading-[1.1] tracking-tight">
-                                حول خبرتك الرقمية إلى <br />
-                                <span className="relative inline-block text-brand-900">
-                                    إمبراطورية رابحة
-                                    <motion.span 
-                                        initial={{ width: 0 }}
-                                        animate={{ width: '100%' }}
-                                        transition={{ delay: 0.8, duration: 1.2 }}
-                                        className="absolute bottom-2 left-0 h-3 bg-brand-100 -z-10"
-                                    />
-                                </span>
-                            </h1>
+                {/* Subheadline */}
+                <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    أنشئ متجرك، ارفع دوراتك وكتبك ومنتجاتك الرقمية، واستقبل
+                    الأرباح مباشرة — بدون رسوم اشتراك وبدون تعقيد.
+                </p>
 
-                            <motion.p
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.4 }}
-                                className="text-xl text-slate-600 mb-10 leading-relaxed max-w-2xl font-medium"
-                            >
-                                لا تكتفِ ببيع المنتجات، ابنِ علامتك التجارية. نوفر لك البنية التحتية المتكاملة لبيع الدورات، الكتب، والخدمات الاستشارية في دقائق.
-                            </motion.p>
-
-                            <div className="flex flex-col sm:flex-row-reverse justify-end gap-4">
-                                <Link href="/register">
-                                    <motion.div
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                        className="bg-brand-900 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-xl shadow-emerald-900/15 flex items-center gap-3 group"
-                                    >
-                                        انطلق الآن مجاناً
-                                        <FiArrowLeft className="group-hover:-translate-x-2 transition-transform" />
-                                    </motion.div>
-                                </Link>
-                                <Link href="#features">
-                                    <motion.div
-                                        whileHover={{ backgroundColor: '#f1f5f9' }}
-                                        className="bg-white border border-slate-200 text-slate-700 px-10 py-5 rounded-2xl font-bold text-lg shadow-sm"
-                                    >
-                                        مشاهدة العرض الحي
-                                    </motion.div>
-                                </Link>
-                            </div>
-
-                            {/* Trust Badges */}
-                            <motion.div 
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1 }}
-                                className="mt-12 flex items-center justify-end gap-8 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
-                            >
-                                <div className="flex flex-col items-center gap-1">
-                                    <FiShield className="text-2xl" />
-                                    <span className="text-[10px] font-bold uppercase tracking-wider">دفع آمن</span>
-                                </div>
-                                <div className="w-[1px] h-8 bg-slate-200"></div>
-                                <div className="flex flex-col items-center gap-1">
-                                    <FiCheckCircle className="text-2xl" />
-                                    <span className="text-[10px] font-bold uppercase tracking-wider">موثق رسمياً</span>
-                                </div>
-                                <div className="w-[1px] h-8 bg-slate-200"></div>
-                                <div className="flex flex-col items-center gap-1">
-                                    <FiTrendingUp className="text-2xl" />
-                                    <span className="text-[10px] font-bold uppercase tracking-wider">دعم 24/7</span>
-                                </div>
-                            </motion.div>
-                        </motion.div>
-
-                        {/* Visual Mockups */}
-                        <motion.div 
-                            initial={{ opacity: 0, scale: 0.9, x: -50 }}
-                            animate={{ opacity: 1, scale: 1, x: 0 }}
-                            transition={{ duration: 1, delay: 0.2 }}
-                            className="lg:col-span-5 relative hidden lg:block"
-                        >
-                            {/* Main Dashboard Card */}
-                            <TiltCard className="bg-white/70 backdrop-blur-2xl rounded-[3rem] p-8 shadow-premium border border-white/50 relative z-20 overflow-hidden">
-                                <div className="flex items-center justify-between mb-8">
-                                    <div className="flex gap-2">
-                                        <div className="w-3 h-3 rounded-full bg-slate-200"></div>
-                                        <div className="w-3 h-3 rounded-full bg-slate-200"></div>
-                                        <div className="w-3 h-3 rounded-full bg-slate-200"></div>
-                                    </div>
-                                    <div className="px-3 py-1 bg-brand-50 rounded-lg text-[10px] font-bold text-brand-900">DASHBOARD</div>
-                                </div>
-
-                                <div className="space-y-6">
-                                    <div className="p-5 bg-white rounded-2xl shadow-sm border border-slate-50">
-                                        <p className="text-xs text-slate-400 font-bold mb-1">إجمالي المبيعات (اليوم)</p>
-                                        <p className="text-3xl font-black text-navy-900">$2,840.00</p>
-                                        <div className="w-full h-1 bg-slate-100 rounded-full mt-3 overflow-hidden">
-                                            <motion.div 
-                                                initial={{ width: 0 }} animate={{ width: '70%' }} 
-                                                transition={{ duration: 2, delay: 1 }}
-                                                className="h-full bg-brand-900" 
-                                            />
-                                        </div>
-                                    </div>
-                                    
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="p-4 bg-brand-50 rounded-2xl border border-brand-100">
-                                            <FiShoppingBag className="text-brand-900 mb-2" />
-                                            <p className="text-xs text-brand-800 font-bold">128 طلب</p>
-                                        </div>
-                                        <div className="p-4 bg-gold-50 rounded-2xl border border-gold-100">
-                                            <FiTrendingUp className="text-gold-700 mb-2" />
-                                            <p className="text-xs text-gold-800 font-bold">12 منتج</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-brand-500/10 blur-[60px] rounded-full"></div>
-                            </TiltCard>
-
-                            {/* Floating Sales Badge */}
-                            <motion.div
-                                animate={{ y: [0, -15, 0] }}
-                                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                                className="absolute -top-10 -right-10 z-30 bg-white p-4 rounded-2xl shadow-2xl border border-slate-100 flex items-center gap-4"
-                            >
-                                <div className="w-12 h-12 rounded-full bg-brand-50 flex items-center justify-center text-brand-900">
-                                    <FiDollarSign size={24} />
-                                </div>
-                                <div>
-                                    <p className="text-[10px] text-slate-400 font-bold">بدأ للتو مبيع</p>
-                                    <p className="text-sm font-black text-navy-900">450.00 $</p>
-                                </div>
-                            </motion.div>
-
-                            {/* Floating User Badge */}
-                            <motion.div
-                                animate={{ y: [0, 15, 0] }}
-                                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                className="absolute bottom-10 -left-20 z-30 bg-white p-4 rounded-2xl shadow-2xl border border-slate-100 flex items-center gap-4"
-                            >
-                                <div className="flex -space-x-4 space-x-reverse">
-                                    {[1, 2, 3].map(i => (
-                                        <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
-                                            <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="user" />
-                                        </div>
-                                    ))}
-                                </div>
-                                <div>
-                                    <p className="text-[10px] text-slate-400 font-bold">انضم لمجتمعنا</p>
-                                    <p className="text-sm font-black text-navy-900">+10,000 مبدع</p>
-                                </div>
-                            </motion.div>
-
-                            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border-2 border-slate-100 rounded-full opacity-50"></div>
-                            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] border border-slate-50 rounded-full opacity-30"></div>
-                        </motion.div>
-                    </div>
-                </div>
-            </section>
-
-
-            {/* Stats Section */}
-            <motion.section
-                className="bg-navy-900 text-white py-20 relative overflow-hidden"
-            >
-                <motion.div
-                    style={{ y: useTransform(scrollYProgress, [0.2, 0.5], [0, 200]) }}
-                    className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] z-0"
-                />
-
-                <div className="container-custom relative z-10">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center divide-x divide-gray-700/50 divide-x-reverse">
-                        {[
-                            { value: "متنامية", label: "منصة تنمو باستمرار مع صناع المحتوى", delay: 0 },
-                            { value: "0%", label: "رسوم تأسيس أو تكاليف خفية للانطلاق", delay: 0.1 },
-                            { value: "غير محدود", label: "حرية الإبداع ونمو الأرباح لشركائنا", delay: 0.2 },
-                            { value: "24/7", label: "فريق دعم فني جاهز لخدمتك دوماً", delay: 0.3 }
-                        ].map((stat, idx) => (
-                            <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, y: 50, scale: 0.8 }}
-                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                                viewport={{ once: true, margin: "-100px" }}
-                                transition={{ type: "spring", stiffness: 100, damping: 20, delay: stat.delay }}
-                                className="group cursor-default"
-                            >
-                                <motion.div
-                                    whileHover={{ scale: 1.1, color: '#10B981' }}
-                                    className="text-5xl md:text-6xl font-bold mb-4 text-white transition-colors duration-300 drop-shadow-[0_0_15px_rgba(16,185,129,0.2)]"
-                                >
-                                    {stat.value}
-                                </motion.div>
-                                <div className="text-gray-400 font-medium leading-relaxed group-hover:text-gray-300 transition-colors max-w-xs mx-auto">{stat.label}</div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </motion.section>
-
-            {/* Features Grid */}
-            <section id="features" className="py-32 bg-gray-50 relative">
-                <div className="container-custom relative z-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="text-center mb-20 max-w-3xl mx-auto"
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+                    <Link
+                        href="/register"
+                        className="inline-flex items-center gap-2 px-8 py-3.5 bg-ink text-white rounded-lg font-semibold text-sm hover:bg-gray-800 transition-colors"
                     >
-                        <motion.span
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            className="inline-block py-1 px-3 rounded-full bg-brand-50 text-brand-900 font-bold tracking-wider uppercase text-xs mb-6"
-                        >
-                            قوة لا محدودة
-                        </motion.span>
-                        <h2 className="text-4xl md:text-5xl font-bold mb-6 font-heading text-navy-900">كل الأدوات التي تحتاجها <br /><span className="text-brand-900">للنجاح في مكان واحد</span></h2>
-                        <p className="text-xl text-gray-500 font-medium">صممنا المنصة لتمنحك حرية الإبداع وقوة التجارة الإلكترونية، بدون أي تعقيدات برمجية.</p>
-                    </motion.div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {[
-                            { icon: <FiShoppingBag />, title: "متجر متكامل باسمك", desc: "امتلك هويتك الرقمية بالكامل مع متجر احترافي يعكس علامتك التجارية ويجذب جمهورك.", color: "from-emerald-700 to-emerald-500" },
-                            { icon: <FiDollarSign />, title: "بوابات دفع عالمية", desc: "استقبل مدفوعاتك من أي مكان في العالم بكل العملات وبدون أي تعقيدات تقنية.", color: "from-emerald-600 to-teal-400" },
-                            { icon: <FiTrendingUp />, title: "تسويق وعمولات", desc: "ضاعف مبيعاتك من خلال نظام المسوقين بالعمولة المدمج وشبكة شركاء النجاح.", color: "from-amber-700 to-amber-500" },
-                            { icon: <FiVideo />, title: "استضافة الفيديو", desc: "نظام آمن ومحمي لرفع دوراتك ومحتواك المرئي مع منع التحميل والنسخ غير المصرح به.", color: "from-navy-800 to-navy-600" },
-                            { icon: <FiCalendar />, title: "حجوزات واستشارات", desc: "نظم وقتك وبع استشاراتك بالساعة مع تقويم ذكي متزامن مع Google Calendar.", color: "from-teal-600 to-emerald-400" },
-                            { icon: <FiShield />, title: "حماية حقوقك", desc: "تقنيات متقدمة لحماية منتجاتك الرقمية من القرصنة وإعادة التوزيع بفضل التشفير القوي.", color: "from-emerald-800 to-emerald-600" }
-                        ].map((feature, idx) => (
-                            <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-50px" }}
-                                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                                whileHover={{ y: -10 }}
-                                className="group relative bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.1)] transition-all duration-300 border border-gray-100/80 overflow-hidden"
-                            >
-                                <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`} />
-
-                                <div className="relative z-10">
-                                    <div className="relative w-16 h-16 mb-8 group-hover:scale-110 transition-transform duration-500 ease-out">
-                                        <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-20 rounded-2xl rotate-6 group-hover:rotate-12 transition-transform duration-500`} />
-                                        <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg -rotate-3 group-hover:rotate-0 transition-transform duration-500`}>
-                                            {feature.icon}
-                                        </div>
-                                    </div>
-                                    <h3 className="text-2xl font-bold mb-4 text-navy-900 group-hover:text-brand-900 transition-colors duration-300">{feature.title}</h3>
-                                    <p className="text-gray-500 leading-relaxed font-medium">
-                                        {feature.desc}
-                                    </p>
-                                </div>
-
-                                <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r ${feature.color} w-0 group-hover:w-full transition-all duration-700 ease-in-out`} />
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Premium CTA Section */}
-            <section className="py-32 relative overflow-hidden bg-navy-900 border-t-4 border-brand-900">
-                <div 
-                    className="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-20"
-                    style={{
-                        background: `radial-gradient(circle 800px at 50% 50%, rgba(6, 78, 59, 0.2), transparent 80%)`
-                    }}
-                />
-
-                <div className="container-custom text-center relative z-10">
-                    <motion.div
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        whileInView={{ scale: 1, opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, type: "spring", bounce: 0.4 }}
+                        ابدأ مجاناً
+                        <FiArrowLeft />
+                    </Link>
+                    <Link
+                        href="#features"
+                        className="inline-flex items-center gap-2 px-8 py-3.5 border border-gray-200 text-gray-700 rounded-lg font-semibold text-sm hover:border-gray-400 transition-colors"
                     >
-                        <h2 className="text-5xl md:text-7xl font-bold mb-8 font-heading text-white leading-tight">
-                            ابدأ في تحقيق أرباحك <br />
-                            <span className="text-brand-400">من اليوم الأول</span>
-                        </h2>
-                        <p className="text-2xl mb-12 text-gray-400 max-w-2xl mx-auto font-medium">
-                            انضم لآلاف المبدعين، المنصة مجانية تماماً للتجربة ولا تحتاج بطاقة ائتمانية.
-                        </p>
-
-                        <div className="inline-block">
-                            <Link href="/register">
-                                <motion.div
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="relative group cursor-pointer"
-                                >
-                                    <div className="absolute -inset-1 bg-gradient-to-r from-brand-800 to-brand-500 rounded-full blur opacity-70 group-hover:opacity-100 transition duration-500 group-hover:duration-200"></div>
-                                    <div className="relative flex items-center gap-4 bg-navy-900 px-12 py-6 rounded-full leading-none text-white text-2xl font-bold">
-                                        انطلق الآن
-                                        <FiArrowLeft className="group-hover:-translate-x-2 transition-transform duration-300" />
-                                    </div>
-                                </motion.div>
-                            </Link>
-                        </div>
-                    </motion.div>
+                        تعرف على المميزات
+                    </Link>
                 </div>
-            </section>
 
-
-        </main>
+                {/* Trust Bar */}
+                <div className="flex items-center justify-center gap-6 text-gray-400 text-xs">
+                    <span className="flex items-center gap-1.5"><FiCheckCircle /> مجاني للبدء</span>
+                    <span className="w-1 h-1 rounded-full bg-gray-300"></span>
+                    <span className="flex items-center gap-1.5"><FiShield /> دفع آمن ومشفر</span>
+                    <span className="w-1 h-1 rounded-full bg-gray-300"></span>
+                    <span className="flex items-center gap-1.5"><FiGlobe /> دعم عربي وعالمي</span>
+                </div>
+            </div>
+        </section>
     );
 }

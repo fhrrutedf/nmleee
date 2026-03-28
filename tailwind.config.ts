@@ -11,115 +11,126 @@ const config: Config = {
         extend: {
             colors: {
                 // ══════════════════════════════════════
-                // Tmleen Brand System v1.0
+                // Tmleen Brand System v2.0
+                // Inspired by: Kajabi, Gumroad, Podia
                 // ══════════════════════════════════════
 
-                // Primary: Deep Emerald — Growth, Success, High Value
-                'brand': {
-                    50: '#ECFDF5',
-                    100: '#D1FAE5',
-                    200: '#A7F3D0',
-                    300: '#6EE7B7',
-                    400: '#34D399',
-                    500: '#10B981',
-                    600: '#059669',
-                    700: '#047857',
-                    800: '#065F46',
-                    900: '#064E3B', // PRIMARY BRAND COLOR
-                    950: '#022c22',
+                // Ink — near-black for text & primary buttons
+                'ink': '#1A1A1A',
+
+                // Accent — ONE blue, used sparingly
+                'accent': {
+                    DEFAULT: '#2563EB',
+                    hover: '#1D4ED8',
+                    light: '#EFF6FF',
+                    muted: '#93C5FD',
+                    50: '#EFF6FF',
+                    100: '#DBEAFE',
+                    200: '#BFDBFE',
+                    300: '#93C5FD',
+                    400: '#60A5FA',
+                    500: '#3B82F6',
+                    600: '#2563EB',
+                    700: '#1D4ED8',
+                    800: '#1E40AF',
+                    900: '#1E3A8A',
                 },
 
-                // Secondary: Midnight Navy — Authority, Professionalism
-                'navy': {
-                    50: '#F8FAFC',
-                    100: '#F1F5F9',
-                    200: '#E2E8F0',
-                    300: '#CBD5E1',
-                    400: '#94A3B8',
-                    500: '#64748B',
-                    600: '#475569',
-                    700: '#334155',
-                    800: '#1E293B',
-                    900: '#0F172A', // SECONDARY BRAND COLOR
-                    950: '#020617',
-                },
+                // Surface grays
+                'surface': '#FFFFFF',
+                'subtle': '#F9FAFB',
+                'muted': '#6B7280',
+                'border-color': '#E5E7EB',
 
-                // Accent: Burnt Gold — CTA Only
-                'gold': {
-                    50: '#FFFBEB',
-                    100: '#FEF3C7',
-                    200: '#FDE68A',
-                    300: '#FCD34D',
-                    400: '#FBBF24',
-                    500: '#F59E0B',
-                    600: '#D97706',
-                    700: '#B45309', // ACCENT CTA COLOR
-                    800: '#92400E',
-                    900: '#78350F',
-                },
+                // Semantic
+                'success': { DEFAULT: '#16A34A', light: '#F0FDF4' },
+                'warning': { DEFAULT: '#D97706', light: '#FFFBEB' },
+                'danger': { DEFAULT: '#DC2626', light: '#FEF2F2' },
 
-                // Utility: Sage Green — Success States
-                'sage': {
-                    DEFAULT: '#10B981',
-                    light: '#34D399',
-                    dark: '#059669',
-                },
-
-                // Semantic aliases (backward-compatible)
-                'primary-charcoal': '#0F172A',
+                // ── Backward compatible aliases ──
+                // These map old class names to new colors so existing
+                // dashboard/settings pages don't break.
+                'primary-charcoal': '#1A1A1A',
                 'action-blue': {
-                    DEFAULT: '#064E3B',
-                    hover: '#065F46',
+                    DEFAULT: '#2563EB',
+                    hover: '#1D4ED8',
                 },
                 'action-secondary': {
-                    DEFAULT: '#047857',
-                    hover: '#065F46',
-                    light: '#A7F3D0',
+                    DEFAULT: '#1D4ED8',
+                    hover: '#1E40AF',
+                    light: '#DBEAFE',
                 },
                 'success-green': {
-                    DEFAULT: '#10B981',
-                    light: '#D1FAE5',
+                    DEFAULT: '#16A34A',
+                    light: '#F0FDF4',
                 },
-                'bg-light': '#F8FAFC',
+                'bg-light': '#F9FAFB',
                 'card-white': '#FFFFFF',
-                'text-muted': '#64748B',
-                'border-glass': 'rgba(255, 255, 255, 0.1)',
-                'bg-glass': 'rgba(255, 255, 255, 0.7)',
+                'text-muted': '#6B7280',
+                'border-glass': 'rgba(0, 0, 0, 0.06)',
+                'bg-glass': 'rgba(255, 255, 255, 0.9)',
 
-                // Legacy primary kept for any remaining references
-                primary: {
-                    50: '#ECFDF5',
-                    100: '#D1FAE5',
-                    200: '#A7F3D0',
-                    300: '#6EE7B7',
-                    400: '#34D399',
-                    500: '#10B981',
-                    600: '#059669',
-                    700: '#047857',
-                    800: '#065F46',
-                    900: '#064E3B',
+                // Legacy scales (kept for dashboard pages)
+                'brand': {
+                    50: '#EFF6FF',
+                    100: '#DBEAFE',
+                    200: '#BFDBFE',
+                    300: '#93C5FD',
+                    400: '#60A5FA',
+                    500: '#3B82F6',
+                    600: '#2563EB',
+                    700: '#1D4ED8',
+                    800: '#1E40AF',
+                    900: '#1E3A8A',
+                    950: '#172554',
                 },
-
-                // Map old indigo references to emerald
+                'navy': {
+                    50: '#F9FAFB',
+                    100: '#F3F4F6',
+                    200: '#E5E7EB',
+                    300: '#D1D5DB',
+                    400: '#9CA3AF',
+                    500: '#6B7280',
+                    600: '#4B5563',
+                    700: '#374151',
+                    800: '#1F2937',
+                    900: '#111827',
+                    950: '#030712',
+                },
+                primary: {
+                    50: '#EFF6FF',
+                    100: '#DBEAFE',
+                    200: '#BFDBFE',
+                    300: '#93C5FD',
+                    400: '#60A5FA',
+                    500: '#3B82F6',
+                    600: '#2563EB',
+                    700: '#1D4ED8',
+                    800: '#1E40AF',
+                    900: '#1E3A8A',
+                },
                 'primary-indigo': {
-                    50: '#ECFDF5',
-                    100: '#D1FAE5',
-                    200: '#A7F3D0',
-                    300: '#6EE7B7',
-                    400: '#34D399',
-                    500: '#10B981',
-                    600: '#059669',
-                    700: '#047857',
-                    800: '#065F46',
-                    900: '#064E3B',
-                    950: '#022c22',
+                    50: '#EFF6FF',
+                    100: '#DBEAFE',
+                    200: '#BFDBFE',
+                    300: '#93C5FD',
+                    400: '#60A5FA',
+                    500: '#3B82F6',
+                    600: '#2563EB',
+                    700: '#1D4ED8',
+                    800: '#1E40AF',
+                    900: '#1E3A8A',
+                    950: '#172554',
                 },
             },
             boxShadow: {
-                'premium': '0 20px 50px -12px rgba(6, 78, 59, 0.08)',
-                'glass': '0 8px 32px 0 rgba(6, 78, 59, 0.05)',
-                'glow': '0 0 20px rgba(6, 78, 59, 0.15)',
-                'gold': '0 4px 14px rgba(180, 83, 9, 0.25)',
+                'sm': '0 1px 2px rgba(0, 0, 0, 0.04)',
+                'md': '0 4px 12px rgba(0, 0, 0, 0.06)',
+                'lg': '0 8px 24px rgba(0, 0, 0, 0.06)',
+                'premium': '0 20px 50px -12px rgba(0, 0, 0, 0.08)',
+                'glass': '0 4px 16px rgba(0, 0, 0, 0.04)',
+                'glow': 'none',
+                'gold': 'none',
             },
             fontFamily: {
                 sans: ['var(--font-ibm)', 'system-ui', 'sans-serif'],
@@ -127,11 +138,8 @@ const config: Config = {
                 inter: ['var(--font-inter)', 'sans-serif'],
             },
             animation: {
-                'fade-in': 'fadeIn 0.5s ease-in-out',
-                'slide-up': 'slideUp 0.5s ease-out',
-                'float': 'float 6s ease-in-out infinite',
-                'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                'shimmer': 'shimmer 2s infinite',
+                'fade-in': 'fadeIn 0.3s ease-out',
+                'slide-up': 'slideUp 0.3s ease-out',
             },
             keyframes: {
                 fadeIn: {
@@ -139,16 +147,8 @@ const config: Config = {
                     '100%': { opacity: '1' },
                 },
                 slideUp: {
-                    '0%': { transform: 'translateY(20px)', opacity: '0' },
+                    '0%': { transform: 'translateY(10px)', opacity: '0' },
                     '100%': { transform: 'translateY(0)', opacity: '1' },
-                },
-                float: {
-                    '0%, 100%': { transform: 'translateY(0)' },
-                    '50%': { transform: 'translateY(-10px)' },
-                },
-                shimmer: {
-                    '0%': { backgroundPosition: '-1000px 0' },
-                    '100%': { backgroundPosition: '1000px 0' },
                 },
             },
         },

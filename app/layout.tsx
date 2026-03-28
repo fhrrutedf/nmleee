@@ -48,22 +48,21 @@ export default function RootLayout({
                     <Toaster
                         position="top-center"
                         toastOptions={{
-                            duration: 5000,
+                            duration: 4000,
                             style: {
                                 direction: 'rtl',
                                 fontFamily: 'var(--font-ibm)',
-                                borderRadius: '12px',
-                                padding: '16px 24px',
+                                borderRadius: '8px',
+                                padding: '12px 20px',
                                 fontSize: '14px',
-                                fontWeight: '700',
-                                boxShadow: '0 20px 40px -10px rgba(6, 78, 59, 0.12)',
-                                border: '1px solid rgba(226, 232, 240, 0.8)',
-                                backdropFilter: 'blur(10px)',
+                                fontWeight: '600',
+                                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                                border: '1px solid #E5E7EB',
                             },
                             success: {
                                 style: {
-                                    background: 'rgba(255, 255, 255, 0.95)',
-                                    color: '#064E3B',
+                                    background: '#FFFFFF',
+                                    color: '#1A1A1A',
                                 },
                             },
                         }}

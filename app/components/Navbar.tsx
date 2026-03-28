@@ -2,9 +2,7 @@
 
 import Link from 'next/link';
 import { FiMenu, FiX, FiChevronLeft } from 'react-icons/fi';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { MagneticButton } from '@/components/animations/MagneticButton';
 import CartDrawer from '@/components/CartDrawer';
 import { usePathname } from 'next/navigation';
 
@@ -12,149 +10,118 @@ const navLinks = [
     { title: 'المتجر', href: '/explore' },
     { title: 'المميزات', href: '/#features' },
     { title: 'الأسعار', href: '/pricing' },
-    { title: 'حول المنصة', href: '/about' },
     { title: 'المدونة', href: '/blog' },
-    { title: 'تواصل معنا', href: '/contact' }
 ];
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
 
-    // Close menu on route change
+    useEffect(() => { setIsMenuOpen(false); }, [pathname]);
     useEffect(() => {
-        setIsMenuOpen(false);
-    }, [pathname]);
-
-    // Scroll lock
-    useEffect(() => {
-        if (isMenuOpen) document.body.style.overflow = 'hidden';
-        else document.body.style.overflow = 'unset';
+        document.body.style.overflow = isMenuOpen ? 'hidden' : 'unset';
     }, [isMenuOpen]);
 
     return (
-        <motion.header
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100/50"
-        >
-            <nav className="container-custom py-4">
+        <header className="sticky top-0 z-50 bg-white border-b border-gray-100">
+            <nav className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5">
                 <div className="flex items-center justify-between">
-                    {/* Logo & Desktop Nav */}
-                    <div className="flex items-center gap-12">
-                        <Link href="/" className="text-xl md:text-2xl font-bold font-heading text-primary-charcoal flex items-center gap-2 group">
-                            <motion.span
-                                whileHover={{ rotate: 180, scale: 1.1 }}
-                                transition={{ type: "spring", stiffness: 200, damping: 10 }}
-                                className="w-10 h-10 rounded-xl bg-brand-900 flex items-center justify-center text-white shadow-lg shadow-emerald-900/20"
-                            >
-                                <svg width="20" height="20" viewBox="0 0 40 40" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M8 32 L20 8 L32 32" /><path d="M14 22 H26" /></svg>
-                            </motion.span>
-                            <span className="text-navy-900 font-black">تمالين</span>
+                    {/* Logo & Nav */}
+                    <div className="flex items-center gap-10">
+                        <Link href="/" className="flex items-center gap-2.5 group">
+                            <div className="w-8 h-8 rounded-lg bg-ink flex items-center justify-center text-white text-sm font-bold">
+                                ت
+                            </div>
+                            <span className="text-lg font-bold text-ink">تمالين</span>
                         </Link>
 
-                        <div className="hidden lg:flex items-center gap-8">
+                        <div className="hidden lg:flex items-center gap-6">
                             {navLinks.map((link, idx) => (
-                                <motion.div key={idx} whileHover={{ y: -2 }}>
-                                    <Link 
-                                        href={link.href} 
-                                        className={`font-bold transition-all relative group py-2 ${pathname === link.href ? 'text-action-blue' : 'text-gray-500 hover:text-action-blue'}`}
-                                    >
-                                        {link.title}
-                                        <span className={`absolute bottom-0 right-0 h-0.5 bg-action-blue transition-all duration-300 ease-out ${pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
-                                    </Link>
-                                </motion.div>
+                                <Link
+                                    key={idx}
+                                    href={link.href}
+                                    className={`text-sm font-medium transition-colors ${pathname === link.href ? 'text-ink' : 'text-gray-500 hover:text-ink'}`}
+                                >
+                                    {link.title}
+                                </Link>
                             ))}
                         </div>
                     </div>
 
-                    {/* Actions & Mobile Toggle */}
-                    <div className="flex gap-2 md:gap-4 items-center">
-                        <div className="flex items-center gap-1 md:gap-3">
-                            <CartDrawer />
-                            
-                            <div className="hidden sm:flex items-center gap-2">
-                                <MagneticButton>
-                                    <Link href="/login" className="px-5 py-2.5 rounded-xl font-bold text-gray-600 hover:bg-gray-100 transition-colors">
-                                        دخول
-                                    </Link>
-                                </MagneticButton>
-                                <MagneticButton>
-                                    <Link href="/register" className="px-6 py-2.5 rounded-xl bg-brand-900 text-white font-black shadow-lg shadow-emerald-900/20 hover:shadow-emerald-900/40 transition-all">
-                                        ابدأ مجاناً
-                                    </Link>
-                                </MagneticButton>
-                            </div>
+                    {/* Actions */}
+                    <div className="flex gap-2 items-center">
+                        <CartDrawer />
+
+                        <div className="hidden sm:flex items-center gap-2">
+                            <Link
+                                href="/login"
+                                className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-ink transition-colors"
+                            >
+                                دخول
+                            </Link>
+                            <Link
+                                href="/register"
+                                className="px-5 py-2 rounded-lg bg-ink text-white text-sm font-semibold hover:bg-gray-800 transition-colors"
+                            >
+                                ابدأ مجاناً
+                            </Link>
                         </div>
 
-                        {/* Mobile Toggle */}
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="lg:hidden p-2.5 bg-gray-50 hover:bg-white border border-transparent hover:border-gray-100 rounded-xl transition-all text-gray-600"
+                            className="lg:hidden p-2 text-gray-600 hover:text-ink"
                         >
-                            {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+                            {isMenuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
                         </button>
                     </div>
                 </div>
             </nav>
 
-            {/* Mobile Menu Overlay */}
-            <AnimatePresence>
-                {isMenuOpen && (
-                    <>
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setIsMenuOpen(false)}
-                            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[51] lg:hidden"
-                        />
-                        <motion.div
-                            initial={{ x: '100%' }}
-                            animate={{ x: 0 }}
-                            exit={{ x: '100%' }}
-                            transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                            className="fixed top-0 right-0 h-full w-full max-w-xs bg-white z-[52] lg:hidden flex flex-col shadow-2xl"
-                        >
-                            <div className="p-6 border-b border-gray-100 flex items-center justify-between">
-                                <span className="font-black text-xl text-primary-charcoal">القائمة</span>
-                                <button onClick={() => setIsMenuOpen(false)} className="p-2 bg-gray-50 rounded-lg text-gray-400">
-                                    <FiX size={20} />
-                                </button>
-                            </div>
-                            
-                            <div className="flex-1 overflow-y-auto p-6 space-y-2">
-                                {navLinks.map((link, idx) => (
-                                    <Link
-                                        key={idx}
-                                        href={link.href}
-                                        className={`flex items-center justify-between p-4 rounded-2xl font-bold transition-all ${pathname === link.href ? 'bg-action-blue/10 text-action-blue' : 'text-gray-600 hover:bg-gray-50'}`}
-                                    >
-                                        {link.title}
-                                        <FiChevronLeft className={pathname === link.href ? 'opacity-100' : 'opacity-30'} />
-                                    </Link>
-                                ))}
-                            </div>
+            {/* Mobile Menu */}
+            {isMenuOpen && (
+                <>
+                    <div
+                        className="fixed inset-0 bg-black/30 z-[51] lg:hidden"
+                        onClick={() => setIsMenuOpen(false)}
+                    />
+                    <div className="fixed top-0 right-0 h-full w-full max-w-xs bg-white z-[52] lg:hidden flex flex-col shadow-xl">
+                        <div className="p-5 border-b border-gray-100 flex items-center justify-between">
+                            <span className="font-bold text-ink">القائمة</span>
+                            <button onClick={() => setIsMenuOpen(false)} className="p-1.5 text-gray-400 hover:text-ink">
+                                <FiX size={20} />
+                            </button>
+                        </div>
 
-                            <div className="p-6 border-t border-gray-100 bg-gray-50/50 space-y-3">
-                                <Link 
-                                    href="/register" 
-                                    className="w-full py-4 bg-brand-900 text-white rounded-2xl flex items-center justify-center font-black shadow-lg shadow-emerald-900/20"
+                        <div className="flex-1 overflow-y-auto p-4 space-y-1">
+                            {navLinks.map((link, idx) => (
+                                <Link
+                                    key={idx}
+                                    href={link.href}
+                                    className={`flex items-center justify-between p-3 rounded-lg text-sm font-medium transition-colors ${pathname === link.href ? 'bg-accent-light text-accent' : 'text-gray-600 hover:bg-gray-50'}`}
                                 >
-                                    أنشئ متجرك مجاناً
+                                    {link.title}
+                                    <FiChevronLeft className="opacity-30" />
                                 </Link>
-                                <Link 
-                                    href="/login" 
-                                    className="w-full py-4 text-center font-bold text-gray-500 hover:text-primary-charcoal transition-colors"
-                                >
-                                    تسجيل الدخول
-                                </Link>
-                            </div>
-                        </motion.div>
-                    </>
-                )}
-            </AnimatePresence>
-        </motion.header>
+                            ))}
+                        </div>
+
+                        <div className="p-4 border-t border-gray-100 space-y-2">
+                            <Link
+                                href="/register"
+                                className="w-full py-3 bg-ink text-white rounded-lg flex items-center justify-center font-semibold text-sm"
+                            >
+                                ابدأ مجاناً
+                            </Link>
+                            <Link
+                                href="/login"
+                                className="w-full py-3 text-center text-sm font-medium text-gray-500"
+                            >
+                                تسجيل الدخول
+                            </Link>
+                        </div>
+                    </div>
+                </>
+            )}
+        </header>
     );
 }
