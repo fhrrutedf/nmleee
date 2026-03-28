@@ -48,39 +48,39 @@ export default function MyAppointmentsPage() {
         <div className="min-h-screen bg-gray-50 py-12">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold gradient-text mb-2">مواعيدي</h1>
+                    <h1 className="text-3xl font-bold text-ink mb-2">مواعيدي</h1>
                     <p className="text-gray-600">جميع المواعيد التي حجزتها</p>
                 </div>
 
                 {/* Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-6">
+                    <div className="bg-white border border-gray-200 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-blue-100 text-sm">القادمة</p>
-                                <p className="text-3xl font-bold mt-1">{upcoming.length}</p>
+                                <p className="text-gray-500 text-sm">القادمة</p>
+                                <p className="text-3xl font-bold mt-1 text-ink">{upcoming.length}</p>
                             </div>
-                            <FiCalendar className="text-4xl text-blue-200" />
+                            <FiCalendar className="text-4xl text-gray-300" />
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-6">
+                    <div className="bg-white border border-gray-200 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-green-100 text-sm">المكتملة</p>
-                                <p className="text-3xl font-bold mt-1">{completed.length}</p>
+                                <p className="text-gray-500 text-sm">المكتملة</p>
+                                <p className="text-3xl font-bold mt-1 text-ink">{completed.length}</p>
                             </div>
-                            <FiCheckCircle className="text-4xl text-green-200" />
+                            <FiCheckCircle className="text-4xl text-gray-300" />
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-br from-red-500 to-red-600 text-white rounded-xl p-6">
+                    <div className="bg-white border border-gray-200 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-red-100 text-sm">الملغاة</p>
-                                <p className="text-3xl font-bold mt-1">{cancelled.length}</p>
+                                <p className="text-gray-500 text-sm">الملغاة</p>
+                                <p className="text-3xl font-bold mt-1 text-ink">{cancelled.length}</p>
                             </div>
-                            <FiX className="text-4xl text-red-200" />
+                            <FiX className="text-4xl text-gray-300" />
                         </div>
                     </div>
                 </div>

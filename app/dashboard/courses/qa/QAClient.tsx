@@ -273,7 +273,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                                         )}
                                     </div>
                                     <div className="flex items-center gap-3">
-                                        <h2 className="text-lg font-black text-primary-charcoal dark:text-white">تفاصيل النقاش</h2>
+                                        <h2 className="text-lg font-bold text-primary-charcoal dark:text-white">تفاصيل النقاش</h2>
                                         {selectedThread.isResolved && (
                                             <span className="flex items-center gap-1 bg-green-100 text-green-600 dark:bg-green-900/30 px-3 py-1 rounded-full text-xs font-bold">
                                                 <FiCheckCircle /> تم الحل
@@ -298,7 +298,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
 
                                 {/* 1. The Main Question */}
                                 <div className="flex gap-4">
-                                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center font-black text-lg text-primary-charcoal dark:text-gray-300 flex-shrink-0">
+                                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center font-bold text-lg text-primary-charcoal dark:text-gray-300 flex-shrink-0">
                                         {selectedThread.authorName.charAt(0).toUpperCase()}
                                     </div>
                                     <div className="flex-1 bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 p-5 rounded-2xl rounded-tr-sm shadow-sm">
@@ -327,7 +327,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                                                 {reply.content}
                                             </p>
                                         </div>
-                                        <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full ${ACCENT_COLOR} flex items-center justify-center font-black text-white flex-shrink-0 shadow-md shadow-fuchsia-500/20`}>
+                                        <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full ${ACCENT_COLOR} flex items-center justify-center font-bold text-white flex-shrink-0 shadow-md shadow-fuchsia-500/20`}>
                                             <FiUser />
                                         </div>
                                     </div>

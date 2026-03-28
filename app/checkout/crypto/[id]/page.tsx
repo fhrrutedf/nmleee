@@ -90,7 +90,7 @@ export default function CryptoCheckoutPage() {
             <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
                 <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center border-t-8 border-green-500">
                     <FiCheckCircle className="text-6xl text-green-500 mx-auto mb-4" />
-                    <h2 className="text-2xl font-black mb-2 text-primary-charcoal">تم الدفع بنجاح!</h2>
+                    <h2 className="text-2xl font-bold mb-2 text-primary-charcoal">تم الدفع بنجاح!</h2>
                     <p className="text-gray-600 mb-6">شكراً لك، تمت العملية بنجاح. سيتم توجيهك للمنتج...</p>
                     <button onClick={() => router.push('/dashboard/purchases')} className="btn btn-primary w-full">الانتقال للمشتريات</button>
                 </div>
@@ -106,7 +106,7 @@ export default function CryptoCheckoutPage() {
             <div className="max-w-2xl mx-auto">
                 <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
                     <div className="bg-gradient-to-r from-primary-charcoal to-gray-800 p-6 text-center text-white">
-                        <h1 className="text-2xl font-black mb-1">دفع العملات الرقمية</h1>
+                        <h1 className="text-2xl font-bold mb-1">دفع العملات الرقمية</h1>
                         <p className="text-gray-300 text-sm">أرسل المبلغ بدقة إلى العنوان أدناه باستخدام شبكة TRC20</p>
                     </div>
 
@@ -137,7 +137,7 @@ export default function CryptoCheckoutPage() {
                                             <FiClock className="text-2xl animate-pulse" />
                                             <div>
                                                 <p className="text-sm font-bold opacity-80">الوقت المتبقي للدفع</p>
-                                                <p className="text-2xl font-black font-mono">
+                                                <p className="text-2xl font-bold font-mono">
                                                     {minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}
                                                 </p>
                                             </div>

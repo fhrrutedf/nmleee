@@ -159,7 +159,7 @@ export default function CouponsPage() {
                             <div className="p-6">
                                 <div className="flex justify-between items-start mb-4">
                                     <div className="inline-block px-4 py-1.5 bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg">
-                                        <h3 className="text-xl font-black text-primary-charcoal dark:text-gray-200 tracking-wider font-mono">{coupon.code}</h3>
+                                        <h3 className="text-xl font-bold text-primary-charcoal dark:text-gray-200 tracking-wider font-mono">{coupon.code}</h3>
                                     </div>
                                     <button
                                         onClick={() => toggleStatus(coupon.id, coupon.isActive, coupon.code)}
@@ -170,12 +170,12 @@ export default function CouponsPage() {
                                 </div>
 
                                 <div className="flex items-center justify-between mb-6">
-                                    <div className="text-3xl font-black text-action-blue dark:text-blue-400 drop-shadow-sm">
+                                    <div className="text-3xl font-bold text-action-blue dark:text-blue-400 drop-shadow-sm">
                                         {coupon.type === 'percentage' ? `${coupon.value}% خصم` : `${coupon.value} $ خصم`}
                                     </div>
                                     <div className="text-right">
                                         <div className="text-[10px] uppercase font-bold text-gray-400 tracking-tighter">إجمالي المبيعات</div>
-                                        <div className="text-lg font-black text-green-600 flex items-center justify-end">
+                                        <div className="text-lg font-bold text-green-600 flex items-center justify-end">
                                             <FiDollarSign size={14} />
                                             {coupon.orders?.reduce((sum: number, o: any) => sum + o.totalAmount, 0).toLocaleString() || 0}
                                         </div>

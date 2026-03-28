@@ -74,7 +74,7 @@ export default function AdminVerificationPage() {
         <div className="p-6 lg:p-10 max-w-7xl mx-auto w-full space-y-8">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-3xl font-black text-primary-charcoal dark:text-white">طلبات توثيق الحساب</h1>
+                    <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white">طلبات توثيق الحساب</h1>
                     <p className="text-text-muted mt-1">مراجعة هوية البائعين لمنح الشارة الزرقاء (Trust Badge)</p>
                 </div>
                 <div className="bg-action-blue/10 text-action-blue px-4 py-2 rounded-xl font-bold border border-action-blue/20">
@@ -83,7 +83,7 @@ export default function AdminVerificationPage() {
             </div>
 
             {requests.length === 0 ? (
-                <div className="card bg-white dark:bg-card-white p-20 text-center rounded-[2.5rem] border border-gray-100 dark:border-gray-800">
+                <div className="card bg-white dark:bg-card-white p-20 text-center rounded-xl border border-gray-100 dark:border-gray-800">
                     <div className="text-6xl mb-4">🎉</div>
                     <h3 className="text-xl font-bold text-primary-charcoal dark:text-white">لا توجد طلبات معلقة حالياً</h3>
                     <p className="text-text-muted">كل شيء تحت السيطرة!</p>
@@ -91,7 +91,7 @@ export default function AdminVerificationPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {requests.map((request) => (
-                        <div key={request.id} className="card bg-white dark:bg-card-white rounded-[2.5rem] border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-2xl transition-all group">
+                        <div key={request.id} className="card bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-2xl transition-all group">
                             {/* Document Preview */}
                             <div className="h-48 bg-gray-100 dark:bg-gray-900 relative overflow-hidden">
                                 <img 
@@ -104,7 +104,7 @@ export default function AdminVerificationPage() {
                                         <FiEye /> عرض كامل
                                     </a>
                                 </div>
-                                <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter">
+                                <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
                                     {request.documentType.replace('_', ' ')}
                                 </div>
                             </div>
@@ -154,7 +154,7 @@ export default function AdminVerificationPage() {
             {/* Rejection Modal */}
             {showRejectionModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-                    <div className="bg-white dark:bg-card-white rounded-[2.5rem] p-8 max-w-md w-full shadow-2xl space-y-6">
+                    <div className="bg-white dark:bg-card-white rounded-xl p-8 max-w-md w-full shadow-2xl space-y-6">
                         <div className="flex items-center gap-3 text-red-500">
                             <FiAlertCircle className="text-2xl" />
                             <h3 className="text-xl font-bold">سبب رفض التوثيق</h3>

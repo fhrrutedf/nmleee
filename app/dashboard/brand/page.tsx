@@ -115,7 +115,7 @@ export default function BrandEditorPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-black text-primary-charcoal">🎨 الهوية البصرية</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-primary-charcoal">🎨 الهوية البصرية</h1>
                     <p className="text-text-muted mt-1 text-sm">خصص مظهر متجرك ليعكس علامتك التجارية الفريدة</p>
                 </div>
                 <div className="flex gap-3">
@@ -131,7 +131,7 @@ export default function BrandEditorPage() {
                     <button
                         onClick={saveBrand}
                         disabled={saving}
-                        className="flex items-center gap-2 px-6 py-3 bg-brand-900 text-white rounded-2xl font-black text-sm shadow-lg shadow-emerald-900/20 hover:bg-brand-800 transition-all disabled:opacity-60"
+                        className="flex items-center gap-2 px-6 py-3 bg-brand-900 text-white rounded-2xl font-bold text-sm shadow-lg shadow-blue-900/20 hover:bg-brand-800 transition-all disabled:opacity-60"
                     >
                         <FiSave /> {saving ? 'جاري الحفظ...' : 'حفظ التغييرات'}
                     </button>
@@ -147,7 +147,7 @@ export default function BrandEditorPage() {
                         <div className="flex items-center gap-3 mb-6">
                             <div className="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center text-brand-900"><FiDroplet /></div>
                             <div>
-                                <h2 className="text-lg font-black text-navy-900">الألوان</h2>
+                                <h2 className="text-lg font-bold text-navy-900">الألوان</h2>
                                 <p className="text-xs text-text-muted">اختر لوحة ألوان جاهزة أو حدد ألوانك يدوياً</p>
                             </div>
                         </div>
@@ -218,7 +218,7 @@ export default function BrandEditorPage() {
                         <div className="flex items-center gap-3 mb-6">
                             <div className="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center text-brand-900"><FiType /></div>
                             <div>
-                                <h2 className="text-lg font-black text-navy-900">الخطوط</h2>
+                                <h2 className="text-lg font-bold text-navy-900">الخطوط</h2>
                                 <p className="text-xs text-text-muted">اختر نمط الخط الذي يناسب هوية متجرك</p>
                             </div>
                         </div>
@@ -229,7 +229,7 @@ export default function BrandEditorPage() {
                                     onClick={() => setBrand({ ...brand, brandFont: f.id })}
                                     className={`relative p-4 rounded-2xl border-2 text-center transition-all hover:scale-[1.02] ${brand.brandFont === f.id ? 'border-brand-900 bg-brand-50/50 shadow-md' : 'border-gray-100 hover:border-gray-200'}`}
                                 >
-                                    <div className="text-2xl font-black text-navy-900 mb-1">{f.preview.slice(0, 2)}</div>
+                                    <div className="text-2xl font-bold text-navy-900 mb-1">{f.preview.slice(0, 2)}</div>
                                     <div className="text-sm font-bold text-gray-800">{f.name}</div>
                                     <div className="text-[10px] text-text-muted mt-0.5">{f.desc}</div>
                                     {brand.brandFont === f.id && (
@@ -245,7 +245,7 @@ export default function BrandEditorPage() {
                         <div className="flex items-center gap-3 mb-6">
                             <div className="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center text-brand-900"><FiSquare /></div>
                             <div>
-                                <h2 className="text-lg font-black text-navy-900">شكل الأزرار</h2>
+                                <h2 className="text-lg font-bold text-navy-900">شكل الأزرار</h2>
                                 <p className="text-xs text-text-muted">حدد نمط الزوايا لأزرار متجرك</p>
                             </div>
                         </div>
@@ -278,7 +278,7 @@ export default function BrandEditorPage() {
                         <div className="flex items-center gap-3 mb-6">
                             <div className="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center text-brand-900"><FiLayout /></div>
                             <div>
-                                <h2 className="text-lg font-black text-navy-900">تخطيط المنتجات</h2>
+                                <h2 className="text-lg font-bold text-navy-900">تخطيط المنتجات</h2>
                                 <p className="text-xs text-text-muted">اختر طريقة عرض منتجاتك في واجهة المتجر</p>
                             </div>
                         </div>
@@ -305,7 +305,7 @@ export default function BrandEditorPage() {
                         <div className="flex items-center gap-3 mb-6">
                             <div className="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center text-brand-900"><FiEdit3 /></div>
                             <div>
-                                <h2 className="text-lg font-black text-navy-900">بانر المتجر والشعار الكتابي</h2>
+                                <h2 className="text-lg font-bold text-navy-900">بانر المتجر والشعار الكتابي</h2>
                                 <p className="text-xs text-text-muted">شعار نصي قصير ظاهر تحت اسمك + بانر مخصص</p>
                             </div>
                         </div>
@@ -349,7 +349,7 @@ export default function BrandEditorPage() {
                 {/* ─── Right Column: Live Preview ─── */}
                 <div className="lg:col-span-1">
                     <div className="sticky top-28 space-y-4">
-                        <h3 className="text-sm font-black text-gray-400 uppercase tracking-widest">معاينة حية</h3>
+                        <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest">معاينة حية</h3>
 
                         {/* Mini Storefront Preview */}
                         <div className="bg-white rounded-3xl border border-gray-100 shadow-lg overflow-hidden">
@@ -368,7 +368,7 @@ export default function BrandEditorPage() {
                             {/* Avatar */}
                             <div className="px-5 -mt-8 relative z-10">
                                 <div
-                                    className="w-16 h-16 rounded-2xl border-4 border-white shadow-xl overflow-hidden flex items-center justify-center text-white text-xl font-black"
+                                    className="w-16 h-16 rounded-2xl border-4 border-white shadow-xl overflow-hidden flex items-center justify-center text-white text-xl font-bold"
                                     style={{ background: `linear-gradient(135deg, ${brand.brandColor}, ${brand.brandSecondaryColor})` }}
                                 >
                                     {brand.avatar ? (
@@ -381,7 +381,7 @@ export default function BrandEditorPage() {
 
                             {/* Info */}
                             <div className="px-5 pt-3 pb-5">
-                                <h4 className="font-black text-gray-900 text-base">{brand.name || 'اسم المتجر'}</h4>
+                                <h4 className="font-bold text-gray-900 text-base">{brand.name || 'اسم المتجر'}</h4>
                                 <p className="text-[10px] font-bold mt-0.5" style={{ color: brand.brandColor }}>@{brand.username || 'username'}</p>
                                 {brand.storeTagline && (
                                     <p className="text-xs text-gray-500 mt-1 leading-relaxed">{brand.storeTagline}</p>
@@ -406,7 +406,7 @@ export default function BrandEditorPage() {
 
                                 {/* CTA Preview */}
                                 <button
-                                    className="w-full mt-4 py-2.5 text-white text-xs font-black shadow-md"
+                                    className="w-full mt-4 py-2.5 text-white text-xs font-bold shadow-md"
                                     style={{ background: brand.brandColor, borderRadius: btnRadius }}
                                 >
                                     تواصل مع البائع

@@ -161,17 +161,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         />
 
                         {/* Conversion CTA Block */}
-                        <div className="bg-gradient-to-br from-action-blue to-purple-700 rounded-[2.5rem] p-8 md:p-12 text-white shadow-2xl shadow-action-blue/20 relative overflow-hidden group">
+                        <div className="bg-gradient-to-br from-action-blue to-purple-700 rounded-xl p-8 md:p-12 text-white shadow-2xl shadow-action-blue/20 relative overflow-hidden group">
                            {/* Decorative background elements */}
                            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl group-hover:bg-white/20 transition-all duration-700"></div>
                            <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/20 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl"></div>
                            
                            <div className="relative z-10 flex flex-col md:flex-row items-center gap-10">
                                <div className="flex-1 text-center md:text-right">
-                                   <h3 className="text-2xl md:text-4xl font-black mb-4 leading-tight">جاهز لتحويل خبرتك إلى أرباح؟ 🚀</h3>
+                                   <h3 className="text-2xl md:text-4xl font-bold mb-4 leading-tight">جاهز لتحويل خبرتك إلى أرباح؟ 🚀</h3>
                                    <p className="text-white/80 text-lg font-medium max-w-lg mb-8">انضم لآلاف المبدعين العرب الذين يبيعون منتجاتهم الرقمية ودوراتهم التدريبية عبر تمالين بكل سهولة.</p>
                                    <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                                       <Link href="/register" className="px-8 py-4 bg-white text-action-blue rounded-2xl font-black text-xl shadow-xl hover:scale-105 transition-transform text-center">
+                                       <Link href="/register" className="px-8 py-4 bg-white text-action-blue rounded-2xl font-bold text-xl shadow-xl hover:scale-105 transition-transform text-center">
                                            أنشئ متجرك مجاناً
                                        </Link>
                                        <Link href="/explore" className="px-8 py-4 bg-white/10 text-white border border-white/20 rounded-2xl font-bold text-lg hover:bg-white/20 transition-all text-center">

@@ -106,7 +106,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                                 {statusInfo.label}
                             </span>
                         </div>
-                        <h1 className="text-2xl font-black text-primary-charcoal dark:text-white">
+                        <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white">
                             {ticket.subject}
                         </h1>
                     </div>

@@ -199,13 +199,13 @@ export default function ProductPage() {
                                         <span className="text-xl text-slate-400 line-through font-bold">
                                             {product.originalPrice} $
                                         </span>
-                                        <span className="bg-red-50 text-red-600 text-xs font-black px-2 py-1 rounded-lg uppercase tracking-wider">
+                                        <span className="bg-red-50 text-red-600 text-xs font-bold px-2 py-1 rounded-lg uppercase tracking-wider">
                                             وفر {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
                                         </span>
                                     </div>
                                 )}
                                 <div className="flex items-baseline gap-2">
-                                    <span className="text-6xl font-black tracking-tight" style={{ color: brandColor }}>
+                                    <span className="text-6xl font-bold tracking-tight" style={{ color: brandColor }}>
                                         {typeof product.price === 'number' ? product.price.toFixed(0) : '0'}
                                     </span>
                                     <span className="text-2xl text-slate-500 font-bold">$</span>
@@ -219,7 +219,7 @@ export default function ProductPage() {
                                         <FiClock className="text-xl" />
                                     </div>
                                     <div>
-                                        <p className="text-xs font-black text-amber-800 uppercase tracking-widest">عرض لفترة محدودة</p>
+                                        <p className="text-xs font-bold text-amber-800 uppercase tracking-widest">عرض لفترة محدودة</p>
                                         <p className="text-sm font-bold text-amber-600">ينتهي العرض قريباً! سارع بالطلب</p>
                                     </div>
                                 </div>
@@ -273,7 +273,7 @@ export default function ProductPage() {
                                         <FiClock className="text-lg" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] uppercase font-black text-slate-400">المدة / الفصول</p>
+                                        <p className="text-[10px] uppercase font-bold text-slate-400">المدة / الفصول</p>
                                         <p className="text-sm font-bold text-slate-800">
                                             {product.duration || ''} 
                                             {product.sessions ? ` (${product.sessions} جلسة)` : ''}
@@ -286,7 +286,7 @@ export default function ProductPage() {
                                     <FiUsers className="text-lg" />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] uppercase font-black text-slate-400">الطلاب</p>
+                                    <p className="text-[10px] uppercase font-bold text-slate-400">الطلاب</p>
                                     <p className="text-sm font-bold text-slate-800">{product.studentsCount || product.soldCount || 0} طالب</p>
                                 </div>
                             </div>

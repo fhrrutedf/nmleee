@@ -173,7 +173,7 @@ export default function UsersManagement() {
 
     const planBadge = (planType?: string) => {
         switch (planType) {
-            case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400">🚀 GROWTH</span>;
+            case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400">🚀 GROWTH</span>;
             case 'PRO': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400">👑 PRO</span>;
             default: return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400">🆓 FREE</span>;
         }
@@ -185,7 +185,7 @@ export default function UsersManagement() {
             {/* Header */}
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="text-3xl md:text-4xl font-black text-primary-charcoal dark:text-white mb-2 tracking-tight flex items-center gap-3">
+                    <h1 className="text-3xl md:text-4xl font-bold text-primary-charcoal dark:text-white mb-2 tracking-tight flex items-center gap-3">
                         <div className="w-12 h-12 rounded-2xl bg-action-blue/10 text-action-blue flex items-center justify-center">
                             <FiUsers />
                         </div>
@@ -235,7 +235,7 @@ export default function UsersManagement() {
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
-                className="bg-white dark:bg-card-white rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col min-h-[500px]"
+                className="bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col min-h-[500px]"
             >
                 {/* Controls Bar */}
                 <div className="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/20 flex flex-col lg:flex-row gap-4 justify-between items-center">
@@ -338,7 +338,7 @@ export default function UsersManagement() {
                                                 </div>
                                             </td>
                                             <td className="py-4 px-6">
-                                                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black tracking-widest uppercase ${user.role === 'ADMIN' ? 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400' :
+                                                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase ${user.role === 'ADMIN' ? 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400' :
                                                     user.role === 'SELLER' ? 'bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400' :
                                                         'bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400'
                                                     }`}>
@@ -443,7 +443,7 @@ export default function UsersManagement() {
         {planModal && (
             <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setPlanModal(null)}>
                 <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl max-w-md w-full p-8" onClick={e => e.stopPropagation()}>
-                    <h3 className="text-xl font-black text-primary-charcoal dark:text-white mb-2 flex items-center gap-2">
+                    <h3 className="text-xl font-bold text-primary-charcoal dark:text-white mb-2 flex items-center gap-2">
                         <FiAward className="text-purple-500" /> إدارة باقة المستخدم
                     </h3>
                     <p className="text-sm text-gray-500 mb-6">{planModal.userName} — الباقة الحالية: <strong>{planModal.currentPlan}</strong></p>

@@ -127,7 +127,7 @@ export default function LearnPage() {
                     <div className="absolute inset-0 border-4 border-blue-500/20 rounded-full"></div>
                     <div className="absolute inset-0 border-4 border-t-blue-500 rounded-full animate-spin"></div>
                 </div>
-                <p className="mt-8 text-white/40 font-black tracking-[0.2em] uppercase text-xs">جاري تجهيز بيئة التعلم</p>
+                <p className="mt-8 text-white/40 font-bold tracking-[0.2em] uppercase text-xs">جاري تجهيز بيئة التعلم</p>
             </div>
         );
     }
@@ -135,13 +135,13 @@ export default function LearnPage() {
     if (!hasAccess) {
         return (
             <div className="min-h-screen bg-gray-950 flex items-center justify-center p-6 text-right" dir="rtl">
-                <div className="max-w-md w-full p-10 bg-gray-900 border border-white/5 rounded-[2.5rem] shadow-2xl">
+                <div className="max-w-md w-full p-10 bg-gray-900 border border-white/5 rounded-xl shadow-2xl">
                     <div className="w-20 h-20 bg-red-500/10 text-red-500 rounded-3xl flex items-center justify-center mx-auto mb-8">
                         <FiLock size={40} />
                     </div>
-                    <h2 className="text-2xl font-black text-white mb-3">الوصول مقيد</h2>
+                    <h2 className="text-2xl font-bold text-white mb-3">الوصول مقيد</h2>
                     <p className="text-gray-400 mb-8 leading-relaxed">تحتاج للاشتراك في هذه الدورة لتتمكن من مشاهدة محتواها.</p>
-                    <button onClick={() => router.push('/courses')} className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black transition-all flex items-center justify-center gap-3">
+                    <button onClick={() => router.push('/courses')} className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-bold transition-all flex items-center justify-center gap-3">
                         استكشف الدورات <FiArrowRight />
                     </button>
                 </div>
@@ -180,13 +180,13 @@ export default function LearnPage() {
                         <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">
                             <FiAward size={16} />
                         </div>
-                        <h1 className="text-sm font-black text-white truncate max-w-[200px] lg:max-w-sm">{course.title}</h1>
+                        <h1 className="text-sm font-bold text-white truncate max-w-[200px] lg:max-w-sm">{course.title}</h1>
                     </div>
                 </div>
 
                 <div className="flex items-center gap-3">
                     <div className="hidden sm:flex flex-col items-end gap-1.5 ml-4">
-                        <div className="flex justify-between w-32 text-[10px] font-black text-gray-500 uppercase tracking-wider">
+                        <div className="flex justify-between w-32 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
                             <span>إنجازك</span>
                             <span className="text-blue-400">{progressPercent}%</span>
                         </div>
@@ -199,7 +199,7 @@ export default function LearnPage() {
                         className="w-10 h-10 md:w-auto md:px-5 md:h-11 flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 text-gray-300 rounded-xl transition-all"
                     >
                         <FiHome className="md:hidden" />
-                        <span className="hidden md:block text-xs font-black">الرئيسية</span>
+                        <span className="hidden md:block text-xs font-bold">الرئيسية</span>
                     </button>
                 </div>
             </header>
@@ -227,7 +227,7 @@ export default function LearnPage() {
                                 className={`fixed lg:relative top-0 right-0 h-full w-[300px] md:w-[350px] bg-gray-900 border-l border-white/5 z-50 flex flex-col shadow-2xl lg:shadow-none`}
                             >
                                 <div className="p-6 border-b border-white/5 flex items-center justify-between lg:hidden">
-                                    <span className="font-black text-white">محتوى الدورة</span>
+                                    <span className="font-bold text-white">محتوى الدورة</span>
                                     <button onClick={() => setIsSidebarOpen(false)} className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-white">
                                         <FiX size={20} />
                                     </button>
@@ -236,7 +236,7 @@ export default function LearnPage() {
                                 <div className="flex-1 overflow-y-auto p-4 space-y-6 custom-scrollbar">
                                     {modules.map((module: any) => (
                                         <div key={module.id} className="space-y-2">
-                                            <h3 className="px-3 text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">{module.title}</h3>
+                                            <h3 className="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">{module.title}</h3>
                                             <div className="space-y-1">
                                                 {(module.lessons || []).map((l: any, idx: number) => {
                                                     const isActive = activeItem?.data?.id === l.id;
@@ -249,7 +249,7 @@ export default function LearnPage() {
                                                             }}
                                                             className={`w-full text-right p-3.5 rounded-2xl flex items-center gap-3 transition-all ${isActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'hover:bg-white/5 text-gray-400'}`}
                                                         >
-                                                            <div className={`w-6 h-6 rounded-lg shrink-0 flex items-center justify-center text-[10px] font-black border transition-colors ${l.completed ? 'bg-emerald-500 border-emerald-500 text-white' : isActive ? 'bg-white/20 border-transparent text-white' : 'border-white/10 text-gray-500'}`}>
+                                                            <div className={`w-6 h-6 rounded-lg shrink-0 flex items-center justify-center text-[10px] font-bold border transition-colors ${l.completed ? 'bg-blue-500 border-blue-500 text-white' : isActive ? 'bg-white/20 border-transparent text-white' : 'border-white/10 text-gray-500'}`}>
                                                                 {l.completed ? <FiCheck size={12} strokeWidth={4} /> : idx + 1}
                                                             </div>
                                                             <span className="flex-1 text-xs font-bold truncate">{l.title}</span>
@@ -264,7 +264,7 @@ export default function LearnPage() {
 
                                 <div className="p-4 border-t border-white/5 hidden lg:block">
                                     <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
-                                        <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1">دعم فني</p>
+                                        <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">دعم فني</p>
                                         <p className="text-xs text-gray-400">تواجه مشكلة؟ تواصل معنا عبر الوتساب.</p>
                                     </div>
                                 </div>
@@ -282,17 +282,17 @@ export default function LearnPage() {
                                 {/* Lesson Header */}
                                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                                     <div className="space-y-2">
-                                        <div className="flex items-center gap-2 text-blue-500 font-black text-[10px] uppercase tracking-widest">
+                                        <div className="flex items-center gap-2 text-blue-500 font-bold text-[10px] uppercase tracking-widest">
                                             <FiBarChart2 />
                                             <span>الدرس النشط حالياً</span>
                                         </div>
-                                        <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-white leading-tight">
+                                        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight">
                                             {activeItem.data.title}
                                         </h2>
                                     </div>
                                     <button 
                                         onClick={() => setShowComments(!showComments)}
-                                        className={`flex items-center justify-center gap-2 h-12 px-6 rounded-2xl font-black text-xs transition-all ${showComments ? 'bg-blue-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'}`}
+                                        className={`flex items-center justify-center gap-2 h-12 px-6 rounded-2xl font-bold text-xs transition-all ${showComments ? 'bg-blue-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'}`}
                                     >
                                         <FiMessageCircle size={18} />
                                         <span>قسم النقاشات</span>
@@ -301,8 +301,8 @@ export default function LearnPage() {
 
                                 {/* Video Player Card */}
                                 <div className="relative group">
-                                    <div className="absolute -inset-4 bg-blue-600/5 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-duration-500"></div>
-                                    <div className="relative overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] border border-white/5 bg-gray-900 shadow-2xl">
+                                    <div className="absolute -inset-4 bg-blue-600/5 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-duration-500"></div>
+                                    <div className="relative overflow-hidden rounded-[1.5rem] md:rounded-xl border border-white/5 bg-gray-900 shadow-2xl">
                                         {activeItem.type === 'lesson' ? (
                                             (activeItem.data.videoUrl || activeItem.data.bunnyVideoId) ? (
                                                 <AdvancedVideoPlayer 
@@ -314,7 +314,7 @@ export default function LearnPage() {
                                             ) : (
                                                 <div className="aspect-video flex flex-col items-center justify-center text-gray-600">
                                                     <FiFileText size={64} className="mb-4 opacity-20" />
-                                                    <p className="font-black text-sm uppercase tracking-widest">محتوى نصي فقط</p>
+                                                    <p className="font-bold text-sm uppercase tracking-widest">محتوى نصي فقط</p>
                                                 </div>
                                             )
                                         ) : (
@@ -335,7 +335,7 @@ export default function LearnPage() {
                                     </div>
                                     <button 
                                         onClick={handleLessonComplete}
-                                        className={`w-full sm:w-auto px-10 h-14 rounded-2xl font-black flex items-center justify-center gap-3 transition-all ${lesson?.completed ? 'bg-emerald-500 text-white' : 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 hover:bg-emerald-500 hover:text-white'}`}
+                                        className={`w-full sm:w-auto px-10 h-14 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all ${lesson?.completed ? 'bg-blue-500 text-white' : 'bg-blue-500/10 text-blue-500 border border-blue-500/20 hover:bg-blue-500 hover:text-white'}`}
                                     >
                                         <FiCheckSquare size={20} />
                                         <span>{lesson?.completed ? 'تم إكمال الدرس ✓' : 'تحديد كمكتمل'}</span>
@@ -346,10 +346,10 @@ export default function LearnPage() {
                                 <div className="space-y-6">
                                     <div className="flex items-center gap-3">
                                         <div className="h-px bg-white/5 flex-1"></div>
-                                        <span className="text-[10px] font-black text-gray-600 uppercase tracking-[0.3em]">عن هذا الدرس</span>
+                                        <span className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.3em]">عن هذا الدرس</span>
                                         <div className="h-px bg-white/5 flex-1"></div>
                                     </div>
-                                    <div className="bg-white/[0.02] border border-white/5 p-6 md:p-10 rounded-[2rem] text-gray-300 leading-relaxed font-medium">
+                                    <div className="bg-white/[0.02] border border-white/5 p-6 md:p-10 rounded-xl text-gray-300 leading-relaxed font-medium">
                                         {activeItem.data.content ? (
                                             <div className="prose prose-invert max-w-none prose-p:leading-relaxed" dangerouslySetInnerHTML={{ __html: activeItem.data.content }} />
                                         ) : (
@@ -375,21 +375,21 @@ export default function LearnPage() {
                         ) : (
                             <div className="h-[60vh] flex flex-col items-center justify-center text-gray-700 opacity-20">
                                 <FiPlay size={100} strokeWidth={1} />
-                                <p className="mt-6 font-black text-2xl uppercase tracking-widest">اختر درساً للبدء</p>
+                                <p className="mt-6 font-bold text-2xl uppercase tracking-widest">اختر درساً للبدء</p>
                             </div>
                         )}
                     </div>
                 </main>
 
                 {/* --- BOTTOM MOBILE CONTROLS --- */}
-                <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-gray-900/80 backdrop-blur-2xl border border-white/10 px-4 py-3 rounded-[2rem] shadow-2xl z-40">
+                <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-gray-900/80 backdrop-blur-2xl border border-white/10 px-4 py-3 rounded-xl shadow-2xl z-40">
                     <button onClick={goToPrevItem} className="w-10 h-10 flex items-center justify-center text-gray-400">
                         <FiChevronRight size={20} />
                     </button>
                     <div className="w-px h-6 bg-white/10"></div>
                     <button 
                          onClick={() => setIsSidebarOpen(true)}
-                         className="flex items-center gap-2 px-3 text-[10px] font-black text-white uppercase tracking-widest"
+                         className="flex items-center gap-2 px-3 text-[10px] font-bold text-white uppercase tracking-widest"
                     >
                         <span>محتوى الدورة</span>
                         <div className="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center text-[8px]">{completedCount}/{totalLessons}</div>

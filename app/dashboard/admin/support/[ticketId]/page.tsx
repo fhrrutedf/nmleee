@@ -181,7 +181,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                             <span className="font-mono text-sm text-action-blue font-bold px-3 py-1 bg-action-blue/10 rounded-full">
                                 {ticket.ticketNumber}
                             </span>
-                            <h1 className="text-2xl font-black text-primary-charcoal dark:text-white line-clamp-1" title={ticket.subject}>
+                            <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white line-clamp-1" title={ticket.subject}>
                                 {ticket.subject}
                             </h1>
                         </div>

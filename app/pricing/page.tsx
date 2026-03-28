@@ -176,7 +176,7 @@ export default function PricingPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-4xl md:text-6xl font-black text-white mb-6"
+                        className="text-4xl md:text-6xl font-bold text-white mb-6"
                     >
                         اختر باقتك وابدأ{' '}
                         <span className="bg-gradient-to-r from-action-blue to-purple-400 bg-clip-text text-transparent">
@@ -239,25 +239,25 @@ export default function PricingPage() {
 
                             <div className="p-6 flex flex-col flex-1">
                                 {/* Plan name */}
-                                <h3 className="text-2xl font-black text-primary-charcoal dark:text-white mb-1">{plan.name}</h3>
+                                <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-1">{plan.name}</h3>
                                 <p className="text-text-muted text-sm mb-6">{plan.description}</p>
 
                                 {/* Price */}
                                 <div className="mb-6">
                                     {plan.custom ? (
                                         <div>
-                                            <span className="text-4xl font-black text-primary-charcoal dark:text-white">مخصص</span>
+                                            <span className="text-4xl font-bold text-primary-charcoal dark:text-white">مخصص</span>
                                             <p className="text-text-muted text-sm mt-1">يبدأ من $199/شهر</p>
                                         </div>
                                     ) : plan.monthlyPrice === 0 ? (
                                         <div>
-                                            <span className="text-5xl font-black text-primary-charcoal dark:text-white">مجاناً</span>
+                                            <span className="text-5xl font-bold text-primary-charcoal dark:text-white">مجاناً</span>
                                             <p className="text-text-muted text-sm mt-1">للأبد</p>
                                         </div>
                                     ) : (
                                         <div>
                                             <div className="flex items-end gap-1 font-inter">
-                                                <span className="text-5xl font-black text-primary-charcoal dark:text-white tracking-tight">
+                                                <span className="text-5xl font-bold text-primary-charcoal dark:text-white tracking-tight">
                                                     ${isYearly ? Math.round(plan.yearlyPrice / 12) : plan.monthlyPrice}
                                                 </span>
                                                 <span className="text-text-muted mb-2 font-sans">/شهر</span>
@@ -337,13 +337,13 @@ export default function PricingPage() {
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15)_0%,transparent_60%)]" />
                     <div className="relative">
                         <div className="text-4xl mb-3">🎉</div>
-                        <h3 className="text-2xl font-black mb-2">عرض الإطلاق الحصري</h3>
+                        <h3 className="text-2xl font-bold mb-2">عرض الإطلاق الحصري</h3>
                         <p className="text-white/80 mb-4 max-w-xl mx-auto">
                             خصم <strong>50%</strong> لأول 3 أشهر لأول <strong>500 بائع</strong> يسجلون في الباقات المدفوعة.
                         </p>
                         <Link
                             href="/register?plan=starter"
-                            className="inline-block bg-white text-action-blue font-black px-8 py-3.5 rounded-2xl hover:shadow-2xl transition-all hover:-translate-y-0.5 text-lg"
+                            className="inline-block bg-white text-action-blue font-bold px-8 py-3.5 rounded-2xl hover:shadow-2xl transition-all hover:-translate-y-0.5 text-lg"
                         >
                             احجز مقعدك الآن ←
                         </Link>
@@ -358,7 +358,7 @@ export default function PricingPage() {
                     className="mt-8 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 p-8 text-center"
                 >
                     <div className="text-4xl mb-3">🤝</div>
-                    <h3 className="text-2xl font-black text-primary-charcoal dark:text-white mb-2">
+                    <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-2">
                         برنامج الإحالة — اكسب معنا
                     </h3>
                     <p className="text-text-muted mb-4 max-w-lg mx-auto">
@@ -415,7 +415,7 @@ export default function PricingPage() {
 
                 {/* FAQ */}
                 <div className="mt-16 max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-black text-center text-primary-charcoal dark:text-white mb-10">
+                    <h2 className="text-3xl font-bold text-center text-primary-charcoal dark:text-white mb-10">
                         أسئلة شائعة
                     </h2>
                     {[

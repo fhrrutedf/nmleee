@@ -226,20 +226,20 @@ export default function CheckoutPage() {
     const localPrice = customerCountry ? convertCurrency(total, customerCountry) : { amount: total, currency: 'USD' };
 
     return (
-        <div className="min-h-screen bg-[#0a0f1e] text-slate-100 py-12 md:py-24 font-sans selection:bg-emerald-500/30">
+        <div className="min-h-screen bg-[#0a0f1e] text-slate-100 py-12 md:py-24 font-sans selection:bg-blue-500/30">
             {/* Background Accents (Premium Emerald) */}
             <div className="fixed inset-0 pointer-events-none opacity-20">
-                <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-600 rounded-full blur-[120px]"></div>
+                <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-600 rounded-full blur-[120px]"></div>
                 <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-amber-600 rounded-full blur-[100px]"></div>
             </div>
 
             <div className="max-w-6xl mx-auto px-6 relative z-10">
                 
                 <div className="mb-16 text-center">
-                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-4 py-2 rounded-full text-emerald-400 text-xs font-black uppercase tracking-[0.2em] mb-6">
+                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-4 py-2 rounded-full text-blue-400 text-xs font-bold uppercase tracking-[0.2em] mb-6">
                         <FiShield /> نظام دفع ذكي ودولي
                     </motion.div>
-                    <h1 className="text-4xl md:text-6xl font-black text-white">إتمام الشراء</h1>
+                    <h1 className="text-4xl md:text-6xl font-bold text-white">إتمام الشراء</h1>
                     <p className="text-slate-400 mt-4 max-w-lg mx-auto font-medium">نظام دفع مؤمن عالمياً يدعم البطاقات البنكية، الكريبتو والمحافظ المحلية.</p>
                 </div>
 
@@ -247,30 +247,30 @@ export default function CheckoutPage() {
                     <div className="lg:col-span-7 space-y-10">
                         
                         {/* 1. Customer Info */}
-                        <div className="bg-[#111827]/60 backdrop-blur-3xl border border-white/5 p-8 rounded-[2.5rem] shadow-2xl">
+                        <div className="bg-[#111827]/60 backdrop-blur-3xl border border-white/5 p-8 rounded-xl shadow-2xl">
                             <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-3">
-                                <span className="w-1.5 h-6 bg-emerald-500 rounded-full"></span> البيانات الشخصية والدولة
+                                <span className="w-1.5 h-6 bg-blue-500 rounded-full"></span> البيانات الشخصية والدولة
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-2 md:col-span-2">
-                                    <label className="text-[11px] font-black uppercase tracking-widest text-slate-500 px-1">الدولة *</label>
-                                    <select value={customerCountry} onChange={e => handleCountryLogic(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:bg-white/[0.08] focus:border-emerald-500 outline-none transition-all font-bold text-white appearance-none">
+                                    <label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 px-1">الدولة *</label>
+                                    <select value={customerCountry} onChange={e => handleCountryLogic(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:bg-white/[0.08] focus:border-blue-500 outline-none transition-all font-bold text-white appearance-none">
                                         {Object.entries(paymentMethodsByCountry).map(([code, cfg]) => <option key={code} value={code}>{cfg.nameAr}</option>)}
                                     </select>
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-[11px] font-black uppercase tracking-widest text-slate-500 px-1">الاسم الكامل *</label>
-                                    <input type="text" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:bg-white/[0.08] focus:border-emerald-500 outline-none transition-all font-bold text-white text-right" placeholder="الأسم..." />
+                                    <label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 px-1">الاسم الكامل *</label>
+                                    <input type="text" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:bg-white/[0.08] focus:border-blue-500 outline-none transition-all font-bold text-white text-right" placeholder="الأسم..." />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-[11px] font-black uppercase tracking-widest text-slate-500 px-1">البريد الإلكتروني *</label>
-                                    <input type="email" dir="ltr" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:bg-white/[0.08] focus:border-emerald-500 outline-none transition-all font-bold text-white text-left" placeholder="email@example.com" />
+                                    <label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 px-1">البريد الإلكتروني *</label>
+                                    <input type="email" dir="ltr" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:bg-white/[0.08] focus:border-blue-500 outline-none transition-all font-bold text-white text-left" placeholder="email@example.com" />
                                 </div>
                             </div>
                         </div>
 
                         {/* 2. Payment Selection Area */}
-                        <div className="bg-[#111827]/60 backdrop-blur-3xl border border-white/5 p-8 rounded-[2.5rem] shadow-2xl">
+                        <div className="bg-[#111827]/60 backdrop-blur-3xl border border-white/5 p-8 rounded-xl shadow-2xl">
                             <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-3">
                                 <span className="w-1.5 h-6 bg-amber-500 rounded-full"></span> اختيار طريقة الدفع
                             </h3>
@@ -291,16 +291,16 @@ export default function CheckoutPage() {
                                                 <button 
                                                     key={m.id} 
                                                     onClick={() => setSelectedLocalMethod(m)} 
-                                                    className={`p-7 rounded-[2.2rem] border-2 text-right transition-all group ${selectedLocalMethod?.id === m.id ? 'border-emerald-500 bg-emerald-500/5' : 'border-white/5 bg-white/5 hover:border-white/10'}`}
+                                                    className={`p-7 rounded-[2.2rem] border-2 text-right transition-all group ${selectedLocalMethod?.id === m.id ? 'border-blue-500 bg-blue-500/5' : 'border-white/5 bg-white/5 hover:border-white/10'}`}
                                                 >
                                                     <span className="text-3xl mb-3 block group-hover:scale-110 transition-transform">{m.icon}</span>
-                                                    <h5 className="font-black text-white">{m.nameAr}</h5>
-                                                    <p className="text-[10px] text-emerald-500 uppercase font-black mt-1">تفعيل آلي وفوري</p>
+                                                    <h5 className="font-bold text-white">{m.nameAr}</h5>
+                                                    <p className="text-[10px] text-blue-500 uppercase font-bold mt-1">تفعيل آلي وفوري</p>
                                                 </button>
                                             ))}
                                         </div>
-                                        <div className="flex items-center gap-3 bg-emerald-500/5 p-6 rounded-[1.5rem] border border-emerald-500/10">
-                                            <FiCheckCircle size={18} className="text-emerald-500 shrink-0" />
+                                        <div className="flex items-center gap-3 bg-blue-500/5 p-6 rounded-[1.5rem] border border-blue-500/10">
+                                            <FiCheckCircle size={18} className="text-blue-500 shrink-0" />
                                             <p className="text-xs text-slate-400 leading-relaxed font-medium">
                                                 جميع عمليات الدفع تتم عبر بوابة **Spaceremit** الآمنة. ندعم أكثر من 70 وسيلة دفع حول العالم.
                                             </p>
@@ -313,7 +313,7 @@ export default function CheckoutPage() {
                                         {!selectedLocalMethod ? (
                                             <div className="space-y-3">
                                                 {countryMethods.methods.map(m => (
-                                                    <button key={m.id} onClick={() => setSelectedLocalMethod(m)} className="w-full group bg-white/5 border border-white/5 p-6 rounded-[2rem] flex items-center justify-between transition-all hover:bg-white/[0.08]">
+                                                    <button key={m.id} onClick={() => setSelectedLocalMethod(m)} className="w-full group bg-white/5 border border-white/5 p-6 rounded-xl flex items-center justify-between transition-all hover:bg-white/[0.08]">
                                                         <div className="flex items-center gap-4">
                                                             <span className="text-3xl">{m.icon}</span>
                                                             <div className="text-right">
@@ -334,7 +334,7 @@ export default function CheckoutPage() {
                         </div>
 
                         <div className="flex items-center gap-3 px-8">
-                            <input type="checkbox" id="terms_agree" checked={agreeToTerms} onChange={e => setAgreeToTerms(e.target.checked)} className="w-5 h-5 rounded-lg border-white/10 bg-white/5 text-emerald-500 focus:ring-emerald-500/20 cursor-pointer" />
+                            <input type="checkbox" id="terms_agree" checked={agreeToTerms} onChange={e => setAgreeToTerms(e.target.checked)} className="w-5 h-5 rounded-lg border-white/10 bg-white/5 text-blue-500 focus:ring-blue-500/20 cursor-pointer" />
                             <label htmlFor="terms_agree" className="text-sm text-slate-500 font-medium cursor-pointer">أوافق على شروط الموقع وسياسة الخصوصية</label>
                         </div>
                     </div>
@@ -351,8 +351,8 @@ export default function CheckoutPage() {
             >
                 <div className="bg-[#0f1729] rounded-3xl p-8 max-w-lg w-full shadow-2xl border border-white/10 max-h-[90vh] overflow-y-auto">
                     <div className="flex items-center justify-between mb-6">
-                        <h3 className="text-xl font-black text-white flex items-center gap-2">
-                            <FiCreditCard className="text-emerald-400" /> إتمام الدفع
+                        <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                            <FiCreditCard className="text-blue-400" /> إتمام الدفع
                         </h3>
                         <button 
                             type="button" 
@@ -364,9 +364,9 @@ export default function CheckoutPage() {
                     </div>
 
                     {spOrderData && (
-                        <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4 mb-6 text-center">
-                            <p className="text-emerald-400 text-sm font-bold">المبلغ المطلوب</p>
-                            <p className="text-3xl font-black text-white mt-1">{spOrderData.total} <span className="text-lg text-slate-400">USD</span></p>
+                        <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 mb-6 text-center">
+                            <p className="text-blue-400 text-sm font-bold">المبلغ المطلوب</p>
+                            <p className="text-3xl font-bold text-white mt-1">{spOrderData.total} <span className="text-lg text-slate-400">USD</span></p>
                             <p className="text-xs text-slate-500 mt-1 font-mono">#{spOrderData.orderNumber}</p>
                         </div>
                     )}
@@ -383,8 +383,8 @@ export default function CheckoutPage() {
 
                         <div className="sp-one-type-select mb-4">
                             <input type="radio" name="sp-pay-type-radio" value="local-methods-pay" id="sp_local_methods_radio" defaultChecked />
-                            <label htmlFor="sp_local_methods_radio" className="block p-4 rounded-xl border-2 border-emerald-500/50 bg-emerald-500/5 cursor-pointer mb-3 hover:bg-emerald-500/10 transition-colors">
-                                <div className="font-bold text-emerald-400 flex items-center gap-2">🌍 طرق الدفع المحلية</div>
+                            <label htmlFor="sp_local_methods_radio" className="block p-4 rounded-xl border-2 border-blue-500/50 bg-blue-500/5 cursor-pointer mb-3 hover:bg-blue-500/10 transition-colors">
+                                <div className="font-bold text-blue-400 flex items-center gap-2">🌍 طرق الدفع المحلية</div>
                                 <p className="text-xs text-slate-500 mt-1">فودافون كاش · زين كاش · محافظ إلكترونية</p>
                             </label>
                             <div id="spaceremit-local-methods-pay" className="space-y-2 min-h-[20px]"></div>
@@ -399,13 +399,13 @@ export default function CheckoutPage() {
                             <div id="spaceremit-card-pay"></div>
                         </div>
 
-                        <button type="submit" className="w-full py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-2xl font-black text-lg transition-all shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 transform hover:-translate-y-0.5">
+                        <button type="submit" className="w-full py-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-2xl font-bold text-lg transition-all shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transform hover:-translate-y-0.5">
                             ادفع الآن
                         </button>
                     </form>
 
                     <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
-                        <FiShield className="text-emerald-500" />
+                        <FiShield className="text-blue-500" />
                         <span>مدعوم بتشفير SSL من Spaceremit</span>
                     </div>
                 </div>
@@ -417,10 +417,10 @@ export default function CheckoutPage() {
 function PaymentMethodTab({ id, current, onClick, icon, label, desc }: any) {
     const active = current === id;
     return (
-        <button onClick={onClick} className={`min-w-[160px] p-6 rounded-[2.2rem] border-2 transition-all text-right relative overflow-hidden group ${active ? 'bg-white/5 border-emerald-500' : 'bg-transparent border-white/5 hover:border-white/10'}`}>
+        <button onClick={onClick} className={`min-w-[160px] p-6 rounded-[2.2rem] border-2 transition-all text-right relative overflow-hidden group ${active ? 'bg-white/5 border-blue-500' : 'bg-transparent border-white/5 hover:border-white/10'}`}>
             <span className="text-3xl mb-4 block group-hover:scale-110 transition-transform">{icon}</span>
-            <h5 className={`font-black text-xs whitespace-nowrap ${active ? 'text-white' : 'text-slate-500'}`}>{label}</h5>
-            <p className={`text-[9px] font-bold mt-1 ${active ? 'text-emerald-500' : 'text-slate-600'}`}>{desc}</p>
+            <h5 className={`font-bold text-xs whitespace-nowrap ${active ? 'text-white' : 'text-slate-500'}`}>{label}</h5>
+            <p className={`text-[9px] font-bold mt-1 ${active ? 'text-blue-500' : 'text-slate-600'}`}>{desc}</p>
         </button>
     );
 }

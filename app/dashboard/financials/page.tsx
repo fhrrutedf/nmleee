@@ -52,7 +52,7 @@ interface FinancialData {
 
 const planBadge: Record<string, { label: string; color: string; bg: string; icon: string }> = {
     FREE: { label: 'مجانية', color: 'text-gray-600', bg: 'bg-gray-100 dark:bg-gray-800', icon: '🆓' },
-    GROWTH: { label: 'Growth', color: 'text-emerald-600', bg: 'bg-emerald-50 dark:bg-emerald-900/20', icon: '🚀' },
+    GROWTH: { label: 'Growth', color: 'text-blue-600', bg: 'bg-blue-50 dark:bg-blue-900/20', icon: '🚀' },
     PRO: { label: 'Pro', color: 'text-purple-600', bg: 'bg-purple-50 dark:bg-purple-900/20', icon: '👑' },
 };
 
@@ -167,7 +167,7 @@ export default function FinancialsPage() {
             {/* Header */}
             <motion.div variants={item} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-black text-primary-charcoal dark:text-white flex items-center gap-3">
+                    <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white flex items-center gap-3">
                         <FiPieChart className="text-action-blue" />
                         حالتي المالية
                     </h1>
@@ -213,7 +213,7 @@ export default function FinancialsPage() {
                                         <FiCheck size={20} />
                                     </div>
                                 </div>
-                                <p className="text-3xl font-black text-primary-charcoal dark:text-white tracking-tight">
+                                <p className="text-3xl font-bold text-primary-charcoal dark:text-white tracking-tight">
                                     {data.balance.available.toFixed(2)}
                                     <span className="text-lg text-gray-400 mr-1">$</span>
                                 </p>
@@ -235,7 +235,7 @@ export default function FinancialsPage() {
                                         <FiShield size={20} />
                                     </div>
                                 </div>
-                                <p className="text-3xl font-black text-primary-charcoal dark:text-white tracking-tight">
+                                <p className="text-3xl font-bold text-primary-charcoal dark:text-white tracking-tight">
                                     {data.balance.pending.toFixed(2)}
                                     <span className="text-lg text-gray-400 mr-1">$</span>
                                 </p>
@@ -256,7 +256,7 @@ export default function FinancialsPage() {
                                         <FiTrendingUp size={20} />
                                     </div>
                                 </div>
-                                <p className="text-3xl font-black text-primary-charcoal dark:text-white tracking-tight">
+                                <p className="text-3xl font-bold text-primary-charcoal dark:text-white tracking-tight">
                                     {data.thisMonthRevenue.toFixed(2)}
                                     <span className="text-lg text-gray-400 mr-1">$</span>
                                 </p>
@@ -277,7 +277,7 @@ export default function FinancialsPage() {
                                         <FiDollarSign size={20} />
                                     </div>
                                 </div>
-                                <p className="text-3xl font-black tracking-tight">
+                                <p className="text-3xl font-bold tracking-tight">
                                     {data.balance.total.toFixed(2)}
                                     <span className="text-lg text-white/50 mr-1">$</span>
                                 </p>
@@ -416,7 +416,7 @@ export default function FinancialsPage() {
                                             <p className="text-xs text-gray-500">{tx.customerName} • {tx.orderNumber}</p>
                                         </div>
                                         <div className="text-left">
-                                            <p className="font-black text-sm text-green-600">+{tx.sellerAmount.toFixed(2)} $</p>
+                                            <p className="font-bold text-sm text-green-600">+{tx.sellerAmount.toFixed(2)} $</p>
                                             <p className="text-xs text-gray-400">{tx.date ? new Date(tx.date).toLocaleDateString('ar-EG') : '-'}</p>
                                         </div>
                                     </div>
@@ -472,7 +472,7 @@ export default function FinancialsPage() {
                                         <FiDollarSign size={20} />
                                     </div>
                                 </div>
-                                <p className="text-3xl font-black tracking-tight">
+                                <p className="text-3xl font-bold tracking-tight">
                                     {data.referrals.earnings.toFixed(2)}
                                     <span className="text-lg text-white/50 mr-1">$</span>
                                 </p>
@@ -486,7 +486,7 @@ export default function FinancialsPage() {
                                     <FiUsers size={20} />
                                 </div>
                             </div>
-                            <p className="text-3xl font-black text-primary-charcoal dark:text-white tracking-tight">
+                            <p className="text-3xl font-bold text-primary-charcoal dark:text-white tracking-tight">
                                 {data.referrals.count}
                                 <span className="text-lg text-gray-400 mr-1">مستخدم</span>
                             </p>
@@ -499,7 +499,7 @@ export default function FinancialsPage() {
                                     <FiTrendingUp size={20} />
                                 </div>
                             </div>
-                            <p className="text-3xl font-black text-primary-charcoal dark:text-white tracking-tight">
+                            <p className="text-3xl font-bold text-primary-charcoal dark:text-white tracking-tight">
                                 1<span className="text-lg text-gray-400 mr-1">%</span>
                             </p>
                             <p className="mt-1 text-xs text-gray-500 font-medium">من عمولة المنصة لكل بيعة</p>

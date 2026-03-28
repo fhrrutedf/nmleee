@@ -149,7 +149,7 @@ export default function AffiliatesPage() {
                     </div>
                     <div>
                         <p className="text-gray-500 font-bold mb-1">عدد المسوقين النشطين</p>
-                        <h4 className="text-3xl font-black text-primary-charcoal dark:text-white">{affiliates.filter(a => a.isActive).length}</h4>
+                        <h4 className="text-3xl font-bold text-primary-charcoal dark:text-white">{affiliates.filter(a => a.isActive).length}</h4>
                     </div>
                 </div>
                 <div className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-3xl p-6 shadow-sm flex items-center gap-4">
@@ -158,7 +158,7 @@ export default function AffiliatesPage() {
                     </div>
                     <div>
                         <p className="text-gray-500 font-bold mb-1">إجمالي المبيعات المحققة</p>
-                        <h4 className="text-3xl font-black text-primary-charcoal dark:text-white">{affiliates.reduce((acc, curr) => acc + curr.salesCount, 0)}</h4>
+                        <h4 className="text-3xl font-bold text-primary-charcoal dark:text-white">{affiliates.reduce((acc, curr) => acc + curr.salesCount, 0)}</h4>
                     </div>
                 </div>
                 <div className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-3xl p-6 shadow-sm flex items-center gap-4">
@@ -167,7 +167,7 @@ export default function AffiliatesPage() {
                     </div>
                     <div>
                         <p className="text-gray-500 font-bold mb-1">إجمالي العمولات المدفوعة</p>
-                        <h4 className="text-3xl font-black text-primary-charcoal dark:text-white">{affiliates.reduce((acc, curr) => acc + curr.commission, 0)} <span className="text-sm">$</span></h4>
+                        <h4 className="text-3xl font-bold text-primary-charcoal dark:text-white">{affiliates.reduce((acc, curr) => acc + curr.commission, 0)} <span className="text-sm">$</span></h4>
                     </div>
                 </div>
             </div>
@@ -216,7 +216,7 @@ export default function AffiliatesPage() {
                                             <span className="text-xs text-gray-400 font-mono mt-1 block">CODE: {link.code}</span>
                                         </td>
                                         <td className="px-6 py-5 whitespace-nowrap">
-                                            <span className="inline-flex items-center gap-1 font-black text-green-600 bg-green-50 dark:bg-green-900/10 px-3 py-1 rounded-lg border border-green-100 dark:border-transparent">
+                                            <span className="inline-flex items-center gap-1 font-bold text-green-600 bg-green-50 dark:bg-green-900/10 px-3 py-1 rounded-lg border border-green-100 dark:border-transparent">
                                                 {link.commissionType === 'percentage' ? `${link.commissionValue}% نسبة` : `${link.commissionValue} $ ثابت`}
                                             </span>
                                         </td>

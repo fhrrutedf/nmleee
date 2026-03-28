@@ -279,7 +279,7 @@ export default function SettingsPage() {
                         </div>
                         <div className="text-right">
                             <span className="block text-xs text-text-muted font-bold">رابط المتجر المباشر</span>
-                            <span className="block text-sm font-black truncate max-w-[150px]">
+                            <span className="block text-sm font-bold truncate max-w-[150px]">
                                 {profileData.customDomain || `${profileData.username}.tmleen.com`}
                             </span>
                         </div>
@@ -818,8 +818,8 @@ export default function SettingsPage() {
                                     {/* 2FA Setup Modal Partial */}
                                     {show2FASetup && (
                                         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-                                            <div className="bg-white dark:bg-card-white rounded-[2.5rem] p-8 max-w-md w-full shadow-2xl space-y-6 text-center">
-                                                <h3 className="text-2xl font-black text-primary-charcoal dark:text-white">إعداد التحقق بخطوتين</h3>
+                                            <div className="bg-white dark:bg-card-white rounded-xl p-8 max-w-md w-full shadow-2xl space-y-6 text-center">
+                                                <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white">إعداد التحقق بخطوتين</h3>
                                                 <p className="text-sm text-text-muted">امسح رمز الـ QR التالي باستخدام تطبيق Authenticator (مثل Google أو Microsoft)</p>
                                                 
                                                 <div className="bg-white p-4 rounded-3xl inline-block border-4 border-primary-50">

@@ -109,38 +109,38 @@ export default function ProductsPage() {
             
             {/* --- TOP PERFORMERS SUMMARY --- */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in slide-in-from-top-4 duration-500">
-                <div className="bg-white dark:bg-card-white p-6 rounded-[2rem] border border-slate-50 dark:border-gray-800 shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
-                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-emerald-50 dark:bg-emerald-900/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                <div className="bg-white dark:bg-card-white p-6 rounded-xl border border-slate-50 dark:border-gray-800 shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
+                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-blue-50 dark:bg-blue-900/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
                     <div className="relative">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">تقدير صافي الأرباح 💰</p>
-                        <h4 className="text-3xl font-black text-slate-900 dark:text-white">{(totalInventoryValue * 0.85).toFixed(2)} <span className="text-sm font-bold text-slate-400">$</span></h4>
-                        <p className="text-[10px] text-emerald-500 font-bold mt-2 flex items-center gap-1">بعد خصم عمولة المنصة التقريبية</p>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">تقدير صافي الأرباح 💰</p>
+                        <h4 className="text-3xl font-bold text-slate-900 dark:text-white">{(totalInventoryValue * 0.85).toFixed(2)} <span className="text-sm font-bold text-slate-400">$</span></h4>
+                        <p className="text-[10px] text-blue-500 font-bold mt-2 flex items-center gap-1">بعد خصم عمولة المنصة التقريبية</p>
                     </div>
                 </div>
 
-                <div className="bg-white dark:bg-card-white p-6 rounded-[2rem] border border-slate-50 dark:border-gray-800 shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
+                <div className="bg-white dark:bg-card-white p-6 rounded-xl border border-slate-50 dark:border-gray-800 shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary-indigo-50 dark:bg-indigo-900/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
                     <div className="relative">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">المنتج النجم (الأكثر مبيلاً) ⭐</p>
-                        <h4 className="text-lg font-black text-slate-900 dark:text-white truncate">{topProduct?.title || 'لا يوجد مبيعات بعد'}</h4>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">المنتج النجم (الأكثر مبيلاً) ⭐</p>
+                        <h4 className="text-lg font-bold text-slate-900 dark:text-white truncate">{topProduct?.title || 'لا يوجد مبيعات بعد'}</h4>
                         <p className="text-[10px] text-primary-indigo-600 font-bold mt-2 uppercase tracking-tighter">باع {topProduct?.soldCount || 0} نسخة إجمالاً</p>
                     </div>
                 </div>
 
-                <div className="bg-slate-900 text-white p-6 rounded-[2rem] shadow-xl relative overflow-hidden group">
+                <div className="bg-slate-900 text-white p-6 rounded-xl shadow-xl relative overflow-hidden group">
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/5 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
                     <div className="relative">
-                        <p className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-2">إجمالي قيمة المبيعات (GMV)</p>
-                        <h4 className="text-3xl font-black">{totalInventoryValue.toFixed(0)} <span className="text-sm font-bold text-white/30">$</span></h4>
+                        <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2">إجمالي قيمة المبيعات (GMV)</p>
+                        <h4 className="text-3xl font-bold">{totalInventoryValue.toFixed(0)} <span className="text-sm font-bold text-white/30">$</span></h4>
                         <p className="text-[10px] text-white/60 font-bold mt-2">لديك {products.length} منتجات في متجرك</p>
                     </div>
                 </div>
             </div>
 
             {/* --- HEADER --- */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white dark:bg-card-white rounded-[2rem] p-8 shadow-sm border border-slate-50 dark:border-gray-800">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white dark:bg-card-white rounded-xl p-8 shadow-sm border border-slate-50 dark:border-gray-800">
                 <div>
-                    <h1 className="text-3xl font-black text-slate-900 dark:text-white leading-tight">إدارة المنتجات الرقمية 📦</h1>
+                    <h1 className="text-3xl font-bold text-slate-900 dark:text-white leading-tight">إدارة المنتجات الرقمية 📦</h1>
                     <p className="text-slate-400 font-bold text-xs mt-2 uppercase tracking-widest">تعديل سريع • تحكم شامل • إحصائيات الأرباح</p>
                 </div>
                 <div className="flex gap-3">
@@ -152,7 +152,7 @@ export default function ProductsPage() {
                     </button>
                     <Link
                         href="/dashboard/products/new?new=true"
-                        className="px-8 py-3.5 bg-primary-indigo-600 text-white rounded-[1.5rem] font-black text-sm flex items-center justify-center gap-2 shadow-xl shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95 transition-all"
+                        className="px-8 py-3.5 bg-primary-indigo-600 text-white rounded-[1.5rem] font-bold text-sm flex items-center justify-center gap-2 shadow-xl shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95 transition-all"
                     >
                         <FiPlus /> إضافة منتج جديد
                     </Link>
@@ -173,7 +173,7 @@ export default function ProductsPage() {
                 </div>
                 <div>
                     <select 
-                        className="w-full h-14 bg-white dark:bg-card-white border border-slate-100 dark:border-gray-800 rounded-[1.2rem] px-4 text-xs font-black text-slate-500 outline-none shadow-sm cursor-pointer"
+                        className="w-full h-14 bg-white dark:bg-card-white border border-slate-100 dark:border-gray-800 rounded-[1.2rem] px-4 text-xs font-bold text-slate-500 outline-none shadow-sm cursor-pointer"
                         value={filterCategory}
                         onChange={(e) => setFilterCategory(e.target.value)}
                     >
@@ -182,23 +182,23 @@ export default function ProductsPage() {
                     </select>
                 </div>
                 <div className="bg-slate-900 text-white flex items-center justify-center rounded-[1.2rem] h-14 shadow-xl">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-center px-4">إجمالي المنتجات: {products.length}</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-center px-4">إجمالي المنتجات: {products.length}</p>
                 </div>
             </div>
 
             {/* --- PRODUCTS TABLE --- */}
-            <div className="bg-white dark:bg-card-white rounded-[2.5rem] shadow-premium border border-slate-50 dark:border-gray-800 overflow-hidden">
+            <div className="bg-white dark:bg-card-white rounded-xl shadow-lg border border-slate-50 dark:border-gray-800 overflow-hidden">
                 <div className="overflow-x-auto no-scrollbar">
                     <table className="w-full text-right border-collapse">
                         <thead>
                             <tr className="bg-slate-50/50 dark:bg-gray-900/50 border-b border-slate-100 dark:border-gray-800">
-                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">المنتج والاسم التجاري</th>
-                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">التصنيف</th>
-                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">السعر ($)</th>
-                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">الأرباح (الصافي)</th>
-                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">تاريخ النشر</th>
-                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">الحالة</th>
-                                <th className="p-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">إجراءات</th>
+                                <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">المنتج والاسم التجاري</th>
+                                <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">التصنيف</th>
+                                <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">السعر ($)</th>
+                                <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">الأرباح (الصافي)</th>
+                                <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">تاريخ النشر</th>
+                                <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">الحالة</th>
+                                <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">إجراءات</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-50">
@@ -216,7 +216,7 @@ export default function ProductsPage() {
                                                     <img src={product.image || '/placeholder-product.png'} className="w-full h-full object-cover" alt="" />
                                                 </div>
                                                 <div>
-                                                    <h3 className={`text-sm font-black line-clamp-1 ${product.title?.includes('Screenshot') ? 'text-red-500 italic' : 'text-slate-900'}`}>
+                                                    <h3 className={`text-sm font-bold line-clamp-1 ${product.title?.includes('Screenshot') ? 'text-red-500 italic' : 'text-slate-900'}`}>
                                                         {product.title || 'بدون اسم'}
                                                     </h3>
                                                     {product.title?.includes('Screenshot') && (
@@ -227,7 +227,7 @@ export default function ProductsPage() {
                                             </div>
                                         </td>
                                         <td className="p-6 text-center">
-                                            <span className="px-3 py-1 bg-white border border-slate-100 rounded-lg text-[10px] font-black text-slate-500 shadow-sm lowercase">
+                                            <span className="px-3 py-1 bg-white border border-slate-100 rounded-lg text-[10px] font-bold text-slate-500 shadow-sm lowercase">
                                                 {product.category || 'غير مصنف'}
                                             </span>
                                         </td>
@@ -237,12 +237,12 @@ export default function ProductsPage() {
                                                     <input 
                                                         autoFocus
                                                         type="number"
-                                                        className="w-20 h-9 p-2 text-center text-xs font-black border-2 border-primary-indigo-100 rounded-lg focus:ring-0 outline-none"
+                                                        className="w-20 h-9 p-2 text-center text-xs font-bold border-2 border-primary-indigo-100 rounded-lg focus:ring-0 outline-none"
                                                         value={tempPrice}
                                                         onChange={(e) => setTempPrice(e.target.value)}
                                                         onKeyPress={(e) => e.key === 'Enter' && updatePrice(product.id)}
                                                     />
-                                                    <button onClick={() => updatePrice(product.id)} className="w-8 h-8 bg-emerald-500 text-white rounded-lg flex items-center justify-center hover:bg-emerald-600 transition-colors"><FiCheck size={14} /></button>
+                                                    <button onClick={() => updatePrice(product.id)} className="w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors"><FiCheck size={14} /></button>
                                                     <button onClick={() => setEditingPriceId(null)} className="w-8 h-8 bg-slate-100 text-slate-400 rounded-lg flex items-center justify-center"><FiX size={14} /></button>
                                                 </div>
                                             ) : (
@@ -250,15 +250,15 @@ export default function ProductsPage() {
                                                     onClick={() => { setEditingPriceId(product.id); setTempPrice(product.price.toString()); }}
                                                     className="inline-flex items-center gap-2 group/price"
                                                 >
-                                                    <span className="text-lg font-black text-slate-900">{product.price}</span>
-                                                    <span className="text-[10px] font-black text-primary-indigo-600 bg-primary-indigo-50 px-1.5 py-0.5 rounded opacity-100 sm:opacity-0 group-hover/price:opacity-100 transition-opacity">تعديل</span>
+                                                    <span className="text-lg font-bold text-slate-900">{product.price}</span>
+                                                    <span className="text-[10px] font-bold text-primary-indigo-600 bg-primary-indigo-50 px-1.5 py-0.5 rounded opacity-100 sm:opacity-0 group-hover/price:opacity-100 transition-opacity">تعديل</span>
                                                 </button>
                                             )}
                                         </td>
                                         <td className="p-6 text-center">
                                             <div className="flex flex-col items-center">
                                                 <div className="flex items-center gap-1">
-                                                    <span className="text-sm font-black text-emerald-600 dark:text-emerald-500">{(product.price * (product.soldCount || 0) * 0.85).toFixed(2)}</span>
+                                                    <span className="text-sm font-bold text-blue-600 dark:text-blue-500">{(product.price * (product.soldCount || 0) * 0.85).toFixed(2)}</span>
                                                     <span className="text-[10px] font-bold text-slate-400">$</span>
                                                 </div>
                                                 <p className="text-[9px] text-slate-300 dark:text-slate-600 font-bold uppercase tracking-tighter">باع {product.soldCount || 0} مرات</p>
@@ -272,7 +272,7 @@ export default function ProductsPage() {
                                         <td className="p-6 text-center">
                                             <button 
                                                 onClick={() => toggleStatus(product)}
-                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-black transition-all ${product.isActive ? 'bg-emerald-50 text-emerald-600 border border-emerald-100 dark:bg-emerald-900/20 dark:border-emerald-900' : 'bg-slate-50 text-slate-400 border border-slate-100 dark:bg-gray-800 dark:border-gray-700'}`}
+                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all ${product.isActive ? 'bg-blue-50 text-blue-600 border border-blue-100 dark:bg-blue-900/20 dark:border-blue-900' : 'bg-slate-50 text-slate-400 border border-slate-100 dark:bg-gray-800 dark:border-gray-700'}`}
                                             >
                                                 {product.isActive ? '● نشط' : '○ مسودة'}
                                             </button>
@@ -301,13 +301,13 @@ export default function ProductsPage() {
                                                             <Link 
                                                                 href={`/@${(session?.user as any)?.username || 'user'}/${product.slug || product.id}`}
                                                                 target="_blank"
-                                                                className="flex items-center gap-3 w-full p-3 hover:bg-slate-50 rounded-xl text-slate-600 font-black text-xs transition-colors"
+                                                                className="flex items-center gap-3 w-full p-3 hover:bg-slate-50 rounded-xl text-slate-600 font-bold text-xs transition-colors"
                                                             >
                                                                 <FiExternalLink /> صفحة المنتج
                                                             </Link>
                                                             <button 
                                                                 onClick={() => { setOpenMenuId(null); deleteProduct(product.id); }}
-                                                                className="flex items-center gap-3 w-full p-3 hover:bg-red-50 rounded-xl text-red-500 font-black text-xs transition-colors border-t border-slate-50 mt-1 pt-3"
+                                                                className="flex items-center gap-3 w-full p-3 hover:bg-red-50 rounded-xl text-red-500 font-bold text-xs transition-colors border-t border-slate-50 mt-1 pt-3"
                                                             >
                                                                 <FiTrash2 /> حذف نهائياً
                                                             </button>
@@ -326,17 +326,17 @@ export default function ProductsPage() {
                 {!loading && filtered.length === 0 && (
                     <div className="text-center py-20 bg-white">
                         <FiPackage size={48} className="mx-auto text-slate-100 mb-4" />
-                        <h3 className="text-slate-400 font-black">لا توجد منتجات مطابقة للبحث</h3>
+                        <h3 className="text-slate-400 font-bold">لا توجد منتجات مطابقة للبحث</h3>
                     </div>
                 )}
             </div>
 
             {/* --- QUICK ACTION BAR --- */}
             <div className="fixed bottom-8 left-0 right-0 z-[100] px-4 pointer-events-none">
-                <div className="max-w-md mx-auto bg-slate-900 text-white p-4 rounded-[2.5rem] shadow-2xl flex items-center justify-between border border-white/10 pointer-events-auto animate-slide-up">
+                <div className="max-w-md mx-auto bg-slate-900 text-white p-4 rounded-xl shadow-2xl flex items-center justify-between border border-white/10 pointer-events-auto animate-slide-up">
                     <div className="pr-6">
-                        <p className="text-[10px] font-black uppercase tracking-widest opacity-40 leading-none mb-1">تعديل سريع</p>
-                        <p className="text-xs font-black italic">اضغط على "السعر" لتعديله فوراً</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 leading-none mb-1">تعديل سريع</p>
+                        <p className="text-xs font-bold italic">اضغط على "السعر" لتعديله فوراً</p>
                     </div>
                     <div className="w-12 h-12 bg-primary-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-primary-indigo-500/20">
                         <FiDollarSign />

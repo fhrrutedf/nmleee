@@ -143,7 +143,7 @@ export default function AppointmentsPage() {
             {/* Header */}
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-3xl font-bold gradient-text">إدارة الجلسات والاستشارات</h1>
+                    <h1 className="text-3xl font-bold text-ink">إدارة الجلسات والاستشارات</h1>
                     <p className="text-gray-600 mt-2">جدول جلساتك الاستشارية</p>
                 </div>
                 <div className="flex items-center gap-3">

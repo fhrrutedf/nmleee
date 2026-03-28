@@ -13,7 +13,7 @@ export default function NotFound() {
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h1 className="text-9xl font-black text-gray-200">404</h1>
+                    <h1 className="text-9xl font-bold text-gray-200">404</h1>
                 </motion.div>
 
                 <motion.div

@@ -147,7 +147,7 @@ export default function PayoutsManagement() {
             {/* Header */}
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="text-3xl md:text-4xl font-black text-primary-charcoal dark:text-white mb-2 tracking-tight flex items-center gap-3">
+                    <h1 className="text-3xl md:text-4xl font-bold text-primary-charcoal dark:text-white mb-2 tracking-tight flex items-center gap-3">
                         <div className="w-12 h-12 rounded-2xl bg-green-500/10 text-green-600 flex items-center justify-center">
                             <FiDollarSign />
                         </div>
@@ -179,7 +179,7 @@ export default function PayoutsManagement() {
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
-                className="bg-white dark:bg-card-white rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col min-h-[500px]"
+                className="bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col min-h-[500px]"
             >
                 {/* Controls Bar */}
                 <div className="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/20 flex flex-col lg:flex-row gap-4 justify-between items-center">
@@ -275,7 +275,7 @@ export default function PayoutsManagement() {
                                                 </div>
                                             </td>
                                             <td className="py-4 px-6">
-                                                <div className="font-black text-green-600 text-lg">
+                                                <div className="font-bold text-green-600 text-lg">
                                                     ${payout.amount.toFixed(2)}
                                                 </div>
                                             </td>
@@ -285,7 +285,7 @@ export default function PayoutsManagement() {
                                                 </div>
                                             </td>
                                             <td className="py-4 px-6 text-center">
-                                                <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-black tracking-widest border ${getStatusStyle(payout.status)}`}>
+                                                <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold tracking-widest border ${getStatusStyle(payout.status)}`}>
                                                     {getStatusText(payout.status)}
                                                 </span>
                                             </td>

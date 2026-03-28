@@ -97,7 +97,7 @@ export default function AdminStudentsPage() {
             <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Header */}
                 <div className="mb-8">
-                    <h1 className="text-3xl font-black text-gray-900 dark:text-white">🎓 الطلاب</h1>
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">🎓 الطلاب</h1>
                     <p className="text-gray-500 mt-1">عرض الطلاب حسب المدرب (شجرة)</p>
                 </div>
 
@@ -105,15 +105,15 @@ export default function AdminStudentsPage() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
                         <p className="text-xs text-gray-400 font-bold uppercase">إجمالي الطلاب</p>
-                        <p className="text-2xl font-black text-indigo-600 mt-1">{totalStudents}</p>
+                        <p className="text-2xl font-bold text-indigo-600 mt-1">{totalStudents}</p>
                     </div>
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
                         <p className="text-xs text-gray-400 font-bold uppercase">المدربين</p>
-                        <p className="text-2xl font-black text-gray-900 dark:text-white mt-1">{trainers.length}</p>
+                        <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{trainers.length}</p>
                     </div>
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
                         <p className="text-xs text-gray-400 font-bold uppercase">الكورسات النشطة</p>
-                        <p className="text-2xl font-black text-emerald-600 mt-1">{trainers.reduce((s, t) => s + t.courses.length, 0)}</p>
+                        <p className="text-2xl font-bold text-blue-600 mt-1">{trainers.reduce((s, t) => s + t.courses.length, 0)}</p>
                     </div>
                 </div>
 
@@ -165,7 +165,7 @@ export default function AdminStudentsPage() {
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <div className="text-right">
-                                            <p className="text-2xl font-black text-indigo-600">{trainer.totalStudents}</p>
+                                            <p className="text-2xl font-bold text-indigo-600">{trainer.totalStudents}</p>
                                             <p className="text-[10px] text-gray-400 uppercase font-bold">طالب</p>
                                         </div>
                                         <div className="flex items-center gap-2 text-xs text-gray-400">
@@ -209,12 +209,12 @@ export default function AdminStudentsPage() {
                                                                     <div className="flex items-center gap-2">
                                                                         <div className="w-20 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
                                                                             <div
-                                                                                className={`h-1.5 rounded-full ${student.isCompleted ? 'bg-emerald-500' : 'bg-indigo-500'}`}
+                                                                                className={`h-1.5 rounded-full ${student.isCompleted ? 'bg-blue-500' : 'bg-indigo-500'}`}
                                                                                 style={{ width: `${student.progress}%` }}
                                                                             />
                                                                         </div>
                                                                         <span className="text-[11px]">{student.progress}%</span>
-                                                                        {student.isCompleted && <FiCheckCircle size={12} className="text-emerald-500" />}
+                                                                        {student.isCompleted && <FiCheckCircle size={12} className="text-blue-500" />}
                                                                     </div>
                                                                 </td>
                                                                 <td className="px-4 py-3 text-[11px] text-gray-400">

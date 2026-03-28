@@ -94,7 +94,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                     {/* Left: Bundle Details */}
                     <div className="lg:col-span-7 space-y-8">
                         {/* Header Card */}
-                        <div className="bg-white dark:bg-gray-900 rounded-[2rem] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-gray-100 dark:border-gray-800 transition-shadow">
+                        <div className="bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-gray-100 dark:border-gray-800 transition-shadow">
                             <div className="h-2.5 w-full" style={{ background: `linear-gradient(90deg, ${brandColor}, ${brandColor}80)` }} />
                             <div className="p-8 sm:p-10">
                                 <div className="flex flex-wrap items-center gap-3 mb-6">
@@ -107,7 +107,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                         </span>
                                     )}
                                 </div>
-                                <h1 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white mb-6 leading-tight">
+                                <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
                                     {bundle.title}
                                 </h1>
                                 {bundle.description && (
@@ -118,8 +118,8 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                         </div>
 
                         {/* Products Included */}
-                        <div className="bg-white dark:bg-gray-900 rounded-[2rem] p-8 sm:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-gray-100 dark:border-gray-800">
-                            <h2 className="font-black text-2xl text-gray-900 dark:text-white mb-8 flex items-center gap-3">
+                        <div className="bg-white dark:bg-gray-900 rounded-xl p-8 sm:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-gray-100 dark:border-gray-800">
+                            <h2 className="font-bold text-2xl text-gray-900 dark:text-white mb-8 flex items-center gap-3">
                                 <span className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `${brandColor}15` }}>
                                     <FiPackage className="text-xl" style={{ color: brandColor }} />
                                 </span>
@@ -165,14 +165,14 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                     {/* Right: Purchase Sidebar */}
                     <div className="lg:col-span-5 relative">
                         <div className="sticky top-24">
-                            <div className="bg-white dark:bg-gray-900 rounded-[2rem] border border-gray-100 dark:border-gray-800 overflow-hidden shadow-[0_20px_40px_rgb(0,0,0,0.08)] dark:shadow-none">
+                            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden shadow-[0_20px_40px_rgb(0,0,0,0.08)] dark:shadow-none">
                                 <div className="h-2.5 w-full" style={{ background: `linear-gradient(90deg, ${brandColor}, ${brandColor}80)` }} />
                                 <div className="p-8 sm:p-10 space-y-8">
                                     {/* Price Section */}
                                     <div className="text-center">
                                         <p className="text-sm font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">الإجمالي بعد الخصم</p>
                                         <div className="flex items-center justify-center gap-2 mb-2">
-                                            <span className="text-5xl lg:text-6xl font-black tracking-tight" style={{ color: brandColor }}>
+                                            <span className="text-5xl lg:text-6xl font-bold tracking-tight" style={{ color: brandColor }}>
                                                 {bundle.price}
                                             </span>
                                             <span className="text-2xl font-bold text-gray-500">$</span>
@@ -180,7 +180,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                         {originalPrice > bundle.price && (
                                             <div className="flex items-center justify-center gap-3 mt-4">
                                                 <span className="text-gray-400 line-through text-lg font-mono">{originalPrice} $</span>
-                                                <span className="bg-green-50 border border-green-200 text-green-700 dark:bg-green-900/30 dark:border-green-800 dark:text-green-400 text-sm font-black px-4 py-1.5 rounded-full shadow-sm">
+                                                <span className="bg-green-50 border border-green-200 text-green-700 dark:bg-green-900/30 dark:border-green-800 dark:text-green-400 text-sm font-bold px-4 py-1.5 rounded-full shadow-sm">
                                                     وفر {discountPct}%
                                                 </span>
                                             </div>
@@ -219,7 +219,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                         <button
                                             onClick={handleBuyNow}
                                             disabled={buying}
-                                            className="w-full py-5 rounded-2xl text-white font-black text-xl flex items-center justify-center gap-3 shadow-[0_8px_20px_rgb(0,0,0,0.12)] transition-all hover:-translate-y-1 hover:shadow-[0_12px_25px_rgb(0,0,0,0.18)] disabled:opacity-80 disabled:hover:translate-y-0"
+                                            className="w-full py-5 rounded-2xl text-white font-bold text-xl flex items-center justify-center gap-3 shadow-[0_8px_20px_rgb(0,0,0,0.12)] transition-all hover:-translate-y-1 hover:shadow-[0_12px_25px_rgb(0,0,0,0.18)] disabled:opacity-80 disabled:hover:translate-y-0"
                                             style={{ background: `linear-gradient(135deg, ${brandColor}, ${brandColor}cc)` }}
                                         >
                                             {buying ? (

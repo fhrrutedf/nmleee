@@ -238,7 +238,7 @@ export default function FeaturesPage() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5 }}
-                        className="bg-gradient-to-br from-action-blue to-purple-600 rounded-[3rem] p-12 md:p-20 shadow-[0_30px_60px_-15px_rgba(0,82,255,0.4)]"
+                        className="bg-gradient-to-br from-action-blue to-purple-600 rounded-2xl p-12 md:p-20 shadow-[0_30px_60px_-15px_rgba(0,82,255,0.4)]"
                     >
                         <h2 className="text-4xl md:text-6xl font-bold mb-8 text-white font-heading">مستعد للبدء بقوة؟</h2>
                         <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-2xl mx-auto font-light">

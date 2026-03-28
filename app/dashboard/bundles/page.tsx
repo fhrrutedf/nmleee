@@ -106,7 +106,7 @@ export default function BundlesPage() {
                                 </p>
 
                                 <div className="flex items-center justify-between mb-4">
-                                    <div className="text-xl font-black text-primary-charcoal dark:text-white bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-700">
+                                    <div className="text-xl font-bold text-primary-charcoal dark:text-white bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-700">
                                         {bundle.price} $
                                     </div>
                                     <div className="text-sm text-gray-500 flex items-center gap-1">

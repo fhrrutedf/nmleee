@@ -66,7 +66,7 @@ export default function ForgotPasswordPage() {
                     <p className="text-text-muted text-lg">أدخل بريدك الإلكتروني لاستعادة الوصول لحسابك</p>
                 </motion.div>
 
-                <motion.div variants={fadeInUp} className="bg-white rounded-[2.5rem] shadow-2xl border border-gray-100 p-8 sm:p-10 relative overflow-hidden">
+                <motion.div variants={fadeInUp} className="bg-white rounded-xl shadow-2xl border border-gray-100 p-8 sm:p-10 relative overflow-hidden">
                     <AnimatePresence mode="wait">
                         {status === 'success' ? (
                             <motion.div
@@ -78,7 +78,7 @@ export default function ForgotPasswordPage() {
                                 <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-100 shadow-inner">
                                     <FiCheckCircle size={40} />
                                 </div>
-                                <h2 className="text-2xl font-black text-gray-900 mb-4">تم الإرسال بنجاح!</h2>
+                                <h2 className="text-2xl font-bold text-gray-900 mb-4">تم الإرسال بنجاح!</h2>
                                 <p className="text-gray-500 mb-8 leading-relaxed">
                                     إذا كان البريد الإلكتروني مسجلاً لدينا، ستتلقى رابطاً لاستعادة كلمة المرور خلال دقائق.
                                     <span className="block mt-2 text-sm text-gray-400">(تحقق من مجلد الرسائل المزعجة Spam)</span>
@@ -118,7 +118,7 @@ export default function ForgotPasswordPage() {
                                     <button
                                         type="submit"
                                         disabled={status === 'loading'}
-                                        className="w-full btn btn-primary py-4 rounded-2xl text-lg font-black shadow-lg shadow-action-blue/20 hover:shadow-action-blue/40 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:transform-none shadow-action-blue/30"
+                                        className="w-full btn btn-primary py-4 rounded-2xl text-lg font-bold shadow-lg shadow-action-blue/20 hover:shadow-action-blue/40 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:transform-none shadow-action-blue/30"
                                     >
                                         {status === 'loading' ? (
                                             <>

@@ -47,7 +47,7 @@ interface InvoiceData {
 
 const STATUS_STYLE: Record<string, { bg: string; icon: ReactNode; label: string }> = {
     pending: { bg: 'bg-amber-100 text-amber-800', icon: <FiClock size={12} />, label: 'قيد الانتظار' },
-    verified: { bg: 'bg-emerald-100 text-emerald-800', icon: <FiCheckCircle size={12} />, label: 'تم التحقق' },
+    verified: { bg: 'bg-blue-100 text-blue-800', icon: <FiCheckCircle size={12} />, label: 'تم التحقق' },
     rejected: { bg: 'bg-red-100 text-red-800', icon: <FiXCircle size={12} />, label: 'مرفوض' },
 };
 
@@ -104,7 +104,7 @@ export default function AdminInvoicesPage() {
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Header */}
                 <div className="mb-8">
-                    <h1 className="text-3xl font-black text-gray-900 dark:text-white">🧾 الفواتير</h1>
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">🧾 الفواتير</h1>
                     <p className="text-gray-500 mt-1">إدارة وعرض فواتير المنصة</p>
                 </div>
 
@@ -268,7 +268,7 @@ export default function AdminInvoicesPage() {
                             {/* Header */}
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <h3 className="text-lg font-black text-gray-900 dark:text-white">🧾 {selectedInvoice.invoiceNumber}</h3>
+                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">🧾 {selectedInvoice.invoiceNumber}</h3>
                                     <p className="text-xs text-gray-400">طلب: {selectedInvoice.order.orderNumber}</p>
                                 </div>
                                 <button onClick={() => setSelectedInvoice(null)} className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">

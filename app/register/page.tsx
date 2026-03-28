@@ -168,7 +168,7 @@ export default function RegisterPage() {
                     <p className="text-text-muted text-base">ابدأ رحلتك في بيع المنتجات الرقمية بسهولة</p>
                 </div>
 
-                <motion.div variants={fadeInUp} className="bg-white rounded-[2.5rem] shadow-2xl border border-gray-100 p-8 sm:p-10 relative">
+                <motion.div variants={fadeInUp} className="bg-white rounded-xl shadow-2xl border border-gray-100 p-8 sm:p-10 relative">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-transparent rounded-bl-[100px] pointer-events-none" />
                     <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
                         <AnimatePresence>

@@ -81,7 +81,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                         </div>
 
                         <div className="bg-white rounded-2xl shadow-lg p-8">
-                            <h1 className="text-3xl font-black text-gray-900 mb-4">{course.title}</h1>
+                            <h1 className="text-3xl font-bold text-gray-900 mb-4">{course.title}</h1>
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="flex items-center gap-1">
                                     {[...Array(5)].map((_, i) => (<FiStar key={i} className={`text-lg ${i < Math.floor(course.averageRating || 5) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`} />))}
@@ -94,20 +94,20 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                                     <div className="text-center p-4 bg-gray-50 rounded-xl">
                                         <FiClock className="text-2xl text-primary-600 mx-auto mb-2" />
                                         <p className="text-xs text-gray-500 mb-1">المدة</p>
-                                        <p className="font-black text-sm">{course.duration}</p>
+                                        <p className="font-bold text-sm">{course.duration}</p>
                                     </div>
                                 )}
                                 {course.sessions && (
                                     <div className="text-center p-4 bg-gray-50 rounded-xl">
                                         <FiVideo className="text-2xl text-primary-600 mx-auto mb-2" />
                                         <p className="text-xs text-gray-500 mb-1">الجلسات</p>
-                                        <p className="font-black text-sm">{course.sessions} جلسة</p>
+                                        <p className="font-bold text-sm">{course.sessions} جلسة</p>
                                     </div>
                                 )}
                                 <div className="text-center p-4 bg-gray-50 rounded-xl">
                                     <FiAward className="text-2xl text-primary-600 mx-auto mb-2" />
                                     <p className="text-xs text-gray-500 mb-1">الشهادة</p>
-                                    <p className="font-black text-sm">متاحة</p>
+                                    <p className="font-bold text-sm">متاحة</p>
                                 </div>
                             </div>
 
@@ -115,7 +115,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                                 {['description', 'features', 'reviews'].map((tab) => (
                                     <button
                                         key={tab} onClick={() => setActiveTab(tab)}
-                                        className={`pb-4 px-2 border-b-2 font-black transition-colors whitespace-nowrap ${activeTab === tab ? 'border-primary-600 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+                                        className={`pb-4 px-2 border-b-2 font-bold transition-colors whitespace-nowrap ${activeTab === tab ? 'border-primary-600 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
                                     >
                                         {tab === 'description' ? 'الوصف' : tab === 'features' ? 'محتوى الدورة' : `التقييمات (${reviews.length})`}
                                     </button>
@@ -142,7 +142,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                                             reviews.map((review: any) => (
                                                 <div key={review.id} className="p-6 bg-gray-50 rounded-2xl">
                                                     <div className="flex items-center justify-between mb-3">
-                                                        <span className="font-black">{review.name}</span>
+                                                        <span className="font-bold">{review.name}</span>
                                                         <div className="flex items-center gap-1">
                                                             {[...Array(5)].map((_, i) => (<FiStar key={i} className={`text-sm ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`} />))}
                                                         </div>
@@ -160,12 +160,12 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                     <div className="lg:col-span-1">
                         <div className="bg-white rounded-2xl shadow-lg p-8 sticky top-6 border border-gray-100">
                            <div className="text-center mb-8">
-                                <div className="text-5xl font-black text-primary-600 mb-2">{course.price.toFixed(2)} $</div>
-                                {course.isFree && <span className="inline-block px-4 py-1.5 bg-green-100 text-green-700 rounded-lg text-sm font-black">مجاني 🎉</span>}
+                                <div className="text-5xl font-bold text-primary-600 mb-2">{course.price.toFixed(2)} $</div>
+                                {course.isFree && <span className="inline-block px-4 py-1.5 bg-green-100 text-green-700 rounded-lg text-sm font-bold">مجاني 🎉</span>}
                             </div>
                             <div className="space-y-4 mb-8">
-                                <button onClick={enrollNow} className="w-full btn btn-primary text-xl py-5 rounded-2xl font-black shadow-xl shadow-primary-600/20">سجّل الآن</button>
-                                <button onClick={addToCart} className="w-full btn btn-outline text-xl py-4 rounded-2xl border-2 font-black">أضف للسلة</button>
+                                <button onClick={enrollNow} className="w-full btn btn-primary text-xl py-5 rounded-2xl font-bold shadow-xl shadow-primary-600/20">سجّل الآن</button>
+                                <button onClick={addToCart} className="w-full btn btn-outline text-xl py-4 rounded-2xl border-2 font-bold">أضف للسلة</button>
                             </div>
                             <div className="space-y-3 text-sm font-bold">
                                 <div className="flex items-center gap-3 text-gray-700"><FiCheckCircle className="text-green-500 text-lg" /><span>الوصول مدى الحياة</span></div>

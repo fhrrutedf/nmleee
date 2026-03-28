@@ -122,7 +122,7 @@ function SuccessContent() {
                                 {hasCourse ? (
                                     <>
                                         <FiLock size={80} className="mx-auto mb-6 drop-shadow-md" />
-                                        <h1 className="text-4xl font-black mb-3 drop-shadow-sm">الكورس مقفل حالياً 🔒</h1>
+                                        <h1 className="text-4xl font-bold mb-3 drop-shadow-sm">الكورس مقفل حالياً 🔒</h1>
                                         <p className="text-amber-50 font-medium text-lg max-w-lg mx-auto">
                                             تم استلام طلبك! سيتم فتح الكورس بعد التأكد من الدفع من قبل الإدارة. سنرسل لك رابط التسجيل عبر البريد الإلكتروني.
                                         </p>
@@ -130,7 +130,7 @@ function SuccessContent() {
                                 ) : (
                                     <>
                                         <FiClock size={80} className="mx-auto mb-6 drop-shadow-md" />
-                                        <h1 className="text-4xl font-black mb-3 drop-shadow-sm">تم استلام طلبك! ⏳</h1>
+                                        <h1 className="text-4xl font-bold mb-3 drop-shadow-sm">تم استلام طلبك! ⏳</h1>
                                         <p className="text-amber-50 font-medium text-lg max-w-lg mx-auto">
                                             شكراً لك! سنتحقق من الدفعة وسنرسل لك التأكيد عبر البريد الإلكتروني.
                                         </p>
@@ -140,11 +140,11 @@ function SuccessContent() {
                         </div>
                     ) : (
                         /* Auto Payment — Confirmed */
-                        <div className="bg-gradient-to-br from-green-500 to-emerald-600 text-white p-12 text-center relative overflow-hidden">
+                        <div className="bg-gradient-to-br from-green-500 to-blue-600 text-white p-12 text-center relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
                             <div className="relative z-10">
                                 <FiCheckCircle size={80} className="mx-auto mb-6 drop-shadow-md" />
-                                <h1 className="text-4xl font-black mb-3 drop-shadow-sm">تم الدفع بنجاح! 🎉</h1>
+                                <h1 className="text-4xl font-bold mb-3 drop-shadow-sm">تم الدفع بنجاح! 🎉</h1>
                                 <p className="text-green-50 font-medium text-lg max-w-lg mx-auto">
                                     {hasCourse
                                         ? 'تم تفعيل الدورة بنجاح! يمكنك البدء بالتعلم فوراً.'
@@ -178,7 +178,7 @@ function SuccessContent() {
                                 </div>
                                 <div className="flex justify-between items-center pt-2">
                                     <span className="text-gray-500 font-bold">المبلغ:</span>
-                                    <span className="font-black text-action-blue text-2xl">{order.totalAmount.toFixed(2)} $</span>
+                                    <span className="font-bold text-action-blue text-2xl">{order.totalAmount.toFixed(2)} $</span>
                                 </div>
                             </div>
 
@@ -309,7 +309,7 @@ function SuccessContent() {
                                                 </div>
                                                 <div className="flex-1 flex flex-col justify-center">
                                                     <h4 className="font-bold text-primary-charcoal dark:text-white text-sm line-clamp-1 group-hover:text-action-blue transition-colors">{upsell.title}</h4>
-                                                    <div className="font-black text-gray-900 dark:text-gray-200 mt-1">{upsell.price} $</div>
+                                                    <div className="font-bold text-gray-900 dark:text-gray-200 mt-1">{upsell.price} $</div>
                                                     <Link href={`/${upsell.id}`} className="text-action-blue font-bold text-sm mt-2 flex items-center gap-1">
                                                         عرض التفاصيل <FiArrowLeft />
                                                     </Link>

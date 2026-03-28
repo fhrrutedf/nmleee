@@ -141,25 +141,25 @@ export default function CourseContentPage() {
                     </button>
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
                         <div>
-                            <h1 className="text-3xl font-black text-slate-900 leading-none">إدارة منهج الدورة 🎓</h1>
+                            <h1 className="text-3xl font-bold text-slate-900 leading-none">إدارة منهج الدورة 🎓</h1>
                             <p className="mt-3 text-slate-500 font-medium text-sm">استعرض مصفوفة المنهج، أضف الدروس، ونظّم تجربة التعلم</p>
                         </div>
                         <div className="w-full sm:w-auto flex flex-col sm:flex-row gap-3">
                             <button
                                 onClick={() => setShowModuleForm(true)}
-                                className="w-full sm:w-auto px-8 py-4 bg-white text-indigo-600 border border-indigo-100 rounded-[1.5rem] font-black shadow-sm hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-xs"
+                                className="w-full sm:w-auto px-8 py-4 bg-white text-indigo-600 border border-indigo-100 rounded-[1.5rem] font-bold shadow-sm hover:bg-slate-50 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-xs"
                             >
                                 <FiPlus /> وحدة جديدة
                             </button>
                             <button
                                 onClick={() => saveDraft()}
-                                className="w-full sm:w-auto px-8 py-4 bg-slate-100 text-slate-600 rounded-[1.5rem] font-black hover:bg-slate-200 transition-all flex items-center justify-center gap-2 text-xs"
+                                className="w-full sm:w-auto px-8 py-4 bg-slate-100 text-slate-600 rounded-[1.5rem] font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-2 text-xs"
                             >
                                 <FiEyeOff /> حفظ كمسودة
                             </button>
                             <button
                                 onClick={publishCourse}
-                                className="w-full sm:w-auto px-8 py-4 bg-emerald-500 text-white rounded-[1.5rem] font-black shadow-lg shadow-emerald-200 hover:bg-emerald-600 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-xs"
+                                className="w-full sm:w-auto px-8 py-4 bg-blue-500 text-white rounded-[1.5rem] font-bold shadow-lg shadow-blue-200 hover:bg-blue-600 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-xs"
                             >
                                 <FiCheckSquare /> نشر الدورة الآن
                             </button>
@@ -169,8 +169,8 @@ export default function CourseContentPage() {
 
                 {/* New Module Form */}
                 {showModuleForm && (
-                    <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-indigo-100 p-8 mb-10 border border-indigo-100 ring-4 ring-indigo-50/50 transition-all animate-in slide-in-from-top-4 duration-300">
-                        <h3 className="text-xl font-black text-slate-900 mb-6">اسم الوحدة التعليمية</h3>
+                    <div className="bg-white rounded-xl shadow-2xl shadow-indigo-100 p-8 mb-10 border border-indigo-100 ring-4 ring-indigo-50/50 transition-all animate-in slide-in-from-top-4 duration-300">
+                        <h3 className="text-xl font-bold text-slate-900 mb-6">اسم الوحدة التعليمية</h3>
                         <div className="flex flex-col sm:flex-row gap-4">
                             <input
                                 type="text"
@@ -181,8 +181,8 @@ export default function CourseContentPage() {
                                 autoFocus
                             />
                             <div className="flex gap-2">
-                                <button onClick={createModule} className="flex-1 sm:flex-none px-8 py-4 bg-indigo-600 text-white rounded-2xl font-black text-sm">حفظ</button>
-                                <button onClick={() => { setShowModuleForm(false); setNewModuleTitle(''); }} className="flex-1 sm:flex-none px-6 py-4 bg-slate-100 text-slate-500 rounded-2xl font-black text-sm">إلغاء</button>
+                                <button onClick={createModule} className="flex-1 sm:flex-none px-8 py-4 bg-indigo-600 text-white rounded-2xl font-bold text-sm">حفظ</button>
+                                <button onClick={() => { setShowModuleForm(false); setNewModuleTitle(''); }} className="flex-1 sm:flex-none px-6 py-4 bg-slate-100 text-slate-500 rounded-2xl font-bold text-sm">إلغاء</button>
                             </div>
                         </div>
                     </div>
@@ -192,25 +192,25 @@ export default function CourseContentPage() {
                 {modules.length === 0 ? (
                     <div className="text-center py-20 bg-white rounded-[3.5rem] border-2 border-dashed border-slate-200 shadow-sm">
                         <div className="text-slate-200 text-7xl mb-6 flex justify-center"><FiLayers /></div>
-                        <h3 className="text-xl font-black text-slate-900 mb-2">المنهج فارغ تماماً</h3>
+                        <h3 className="text-xl font-bold text-slate-900 mb-2">المنهج فارغ تماماً</h3>
                         <p className="text-slate-400 font-bold text-sm mb-8">ابدأ بإنشاء أول وحدة دراسية لتبدأ بإضافة الدروس</p>
-                        <button onClick={() => setShowModuleForm(true)} className="px-10 py-4 bg-slate-900 text-white font-black rounded-2xl hover:bg-black transition-all shadow-xl">تحضير أول وحدة</button>
+                        <button onClick={() => setShowModuleForm(true)} className="px-10 py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-black transition-all shadow-xl">تحضير أول وحدة</button>
                     </div>
                 ) : (
                     <div className="space-y-8">
                         {modules.map((module, i) => (
-                            <div key={module.id} className="bg-white rounded-[3rem] shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition-all duration-300 group">
+                            <div key={module.id} className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition-all duration-300 group">
                                 {/* Module Header */}
                                 <div className="p-6 sm:p-8 bg-slate-50/50 border-b border-slate-100">
                                     <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
                                         <div className="flex items-center gap-4 w-full lg:w-auto">
-                                            <div className="w-12 h-12 bg-white rounded-2xl border border-slate-200 flex items-center justify-center font-black text-slate-400 shadow-sm group-hover:text-indigo-600 group-hover:border-indigo-100 transition-colors">
+                                            <div className="w-12 h-12 bg-white rounded-2xl border border-slate-200 flex items-center justify-center font-bold text-slate-400 shadow-sm group-hover:text-indigo-600 group-hover:border-indigo-100 transition-colors">
                                                 {i + 1}
                                             </div>
                                             <div className="flex-1">
-                                                <h3 className="text-lg font-black text-slate-800 break-words">{module.title}</h3>
+                                                <h3 className="text-lg font-bold text-slate-800 break-words">{module.title}</h3>
                                                 <div className="flex items-center gap-2 mt-1">
-                                                    <span className={`px-2 py-0.5 text-[9px] font-black uppercase tracking-widest rounded-full ${module.isPublished ? 'bg-green-100 text-green-700' : 'bg-slate-200 text-slate-500'}`}>
+                                                    <span className={`px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest rounded-full ${module.isPublished ? 'bg-green-100 text-green-700' : 'bg-slate-200 text-slate-500'}`}>
                                                         {module.isPublished ? 'منشور للطلاب' : 'مسودة'}
                                                     </span>
                                                     <span className="text-[10px] text-slate-400 font-bold">• {module._count.lessons} درس</span>
@@ -219,7 +219,7 @@ export default function CourseContentPage() {
                                         </div>
                                         <button
                                             onClick={() => router.push(`/dashboard/courses/${courseId}/modules/${module.id}/lessons/new`)}
-                                            className="w-full lg:w-auto px-6 py-2.5 bg-indigo-50 text-indigo-700 rounded-xl font-black text-xs hover:bg-indigo-100 transition-all flex items-center justify-center gap-2 border border-indigo-100"
+                                            className="w-full lg:w-auto px-6 py-2.5 bg-indigo-50 text-indigo-700 rounded-xl font-bold text-xs hover:bg-indigo-100 transition-all flex items-center justify-center gap-2 border border-indigo-100"
                                         >
                                             <FiPlus /> إضافة درس للوحدة
                                         </button>
@@ -232,20 +232,20 @@ export default function CourseContentPage() {
                                         <div key={lesson.id} className="p-6 hover:bg-slate-50/30 transition-colors">
                                             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                                                 <div className="flex items-center gap-4 flex-1 w-full sm:w-auto">
-                                                    <span className="text-xs font-black text-slate-300 w-6">{li + 1}</span>
+                                                    <span className="text-xs font-bold text-slate-300 w-6">{li + 1}</span>
                                                     <div className="flex-1 min-w-0">
                                                         <h4 className="font-bold text-slate-800 text-sm truncate">{lesson.title}</h4>
                                                         <div className="flex items-center gap-3 mt-1.5 font-bold">
                                                             <span className="text-[10px] text-slate-400 uppercase tracking-tighter" dir="ltr">{formatDuration(lesson.videoDuration)}</span>
                                                             {lesson.isFree && <span className="text-[9px] bg-amber-50 text-amber-600 px-2 py-0.5 rounded border border-amber-100">معاينة مجانية</span>}
-                                                            {lesson.isPublished ? <FiEye className="text-emerald-500" size={12}/> : <FiEyeOff className="text-slate-300" size={12}/>}
+                                                            {lesson.isPublished ? <FiEye className="text-blue-500" size={12}/> : <FiEyeOff className="text-slate-300" size={12}/>}
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
                                                     <button
                                                         onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes/new?lessonId=${lesson.id}&returnTo=${encodeURIComponent(`/dashboard/courses/${courseId}/content`)}`)}
-                                                        className="px-4 py-1.5 bg-emerald-50 text-emerald-700 rounded-lg font-black text-[10px] flex items-center gap-1.5 border border-emerald-100 hover:bg-emerald-100 transition-colors"
+                                                        className="px-4 py-1.5 bg-blue-50 text-blue-700 rounded-lg font-bold text-[10px] flex items-center gap-1.5 border border-blue-100 hover:bg-blue-100 transition-colors"
                                                     >
                                                         <FiCheckSquare size={12}/> اختبار
                                                     </button>
@@ -261,7 +261,7 @@ export default function CourseContentPage() {
                                             {lesson.quizzes && lesson.quizzes.length > 0 && (
                                                 <div className="mt-4 flex flex-wrap gap-2 pr-10">
                                                     {lesson.quizzes.map(q => (
-                                                        <span key={q.id} className="text-[9px] font-black bg-white text-indigo-500 border border-indigo-100 px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1.5">
+                                                        <span key={q.id} className="text-[9px] font-bold bg-white text-indigo-500 border border-indigo-100 px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1.5">
                                                             <FiCheckSquare size={10} /> {q.title}
                                                         </span>
                                                     ))}

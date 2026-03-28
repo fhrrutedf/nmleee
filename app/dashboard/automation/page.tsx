@@ -171,30 +171,30 @@ export default function AutomationPage() {
                             </div>
 
                             {/* Reminder 3 (The Ultimate) */}
-                            <div className={`p-4 rounded-2xl border transition-all ${settings.cartReminder3Enabled ? 'border-emerald-500 bg-emerald-500/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
+                            <div className={`p-4 rounded-2xl border transition-all ${settings.cartReminder3Enabled ? 'border-blue-500 bg-blue-500/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="text-xs font-bold text-emerald-600 italic">#تذكير 3 (الأخير)</span>
+                                    <span className="text-xs font-bold text-blue-600 italic">#تذكير 3 (الأخير)</span>
                                     <input 
                                         type="checkbox" 
                                         checked={settings.cartReminder3Enabled}
                                         onChange={(e) => setSettings({ ...settings, cartReminder3Enabled: e.target.checked })}
-                                        className="w-4 h-4 rounded border-slate-300 text-emerald-500 focus:ring-emerald-500"
+                                        className="w-4 h-4 rounded border-slate-300 text-blue-500 focus:ring-blue-500"
                                     />
                                 </div>
                                 <h4 className="font-bold text-sm mb-1">بعد 3 أيام</h4>
                                 <div className="flex items-center gap-2 mt-2">
-                                     <FiPercent className="text-emerald-500" />
-                                     <span className="text-[10px] font-bold text-emerald-600">خصم 10% تلقائي</span>
+                                     <FiPercent className="text-blue-500" />
+                                     <span className="text-[10px] font-bold text-blue-600">خصم 10% تلقائي</span>
                                 </div>
                             </div>
                         </div>
 
                         {settings.cartReminder3Enabled && (
-                            <div className="bg-emerald-50 dark:bg-emerald-500/10 p-4 rounded-xl border border-emerald-100 dark:border-emerald-500/20 flex items-start gap-3">
-                                <FiAlertCircle className="text-emerald-500 mt-1 shrink-0" />
+                            <div className="bg-blue-50 dark:bg-blue-500/10 p-4 rounded-xl border border-blue-100 dark:border-blue-500/20 flex items-start gap-3">
+                                <FiAlertCircle className="text-blue-500 mt-1 shrink-0" />
                                 <div>
-                                    <h5 className="font-bold text-sm text-emerald-700 dark:text-emerald-400 mb-1">استراتيجية الخصم التلقائي مفعلة</h5>
-                                    <p className="text-xs text-emerald-600 dark:text-emerald-500/80 leading-relaxed">
+                                    <h5 className="font-bold text-sm text-blue-700 dark:text-blue-400 mb-1">استراتيجية الخصم التلقائي مفعلة</h5>
+                                    <p className="text-xs text-blue-600 dark:text-blue-500/80 leading-relaxed">
                                         سيقوم النظام تلقائياً بتوليد كود خصم بنسبة 10% (لمرة واحدة) لهذا العميل وإرساله في الرسالة الأخيرة لتحفيزه على إتمام الدفعة فوراً.
                                     </p>
                                 </div>
@@ -307,7 +307,7 @@ export default function AutomationPage() {
                                                 <span className="text-xs font-bold text-white">${cart.totalAmount.toFixed(2)}</span>
                                             </div>
                                             {cart.isConverted ? (
-                                                <span className="flex items-center gap-1 text-[9px] font-bold text-emerald-400">
+                                                <span className="flex items-center gap-1 text-[9px] font-bold text-blue-400">
                                                     <FiCheckCircle />
                                                     تمت استعادته
                                                 </span>

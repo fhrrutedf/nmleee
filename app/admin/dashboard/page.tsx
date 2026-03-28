@@ -118,7 +118,7 @@ export default function AdminDashboard() {
             {/* Header */}
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl md:text-4xl font-black text-primary-charcoal dark:text-white mb-2 tracking-tight">
+                    <h1 className="text-3xl md:text-4xl font-bold text-primary-charcoal dark:text-white mb-2 tracking-tight">
                         نظرة عامة
                     </h1>
                     <p className="text-gray-500 dark:text-gray-400 font-medium">
@@ -142,7 +142,7 @@ export default function AdminDashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
                     {/* Revenue Card (Glassmorphism) */}
-                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
                         <div className="absolute -right-6 -top-6 w-24 h-24 bg-action-blue/10 rounded-full blur-2xl group-hover:bg-action-blue/20 transition-all"></div>
                         <div className="flex justify-between items-start mb-4 relative z-10">
                             <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/20 text-action-blue flex items-center justify-center text-xl">
@@ -153,13 +153,13 @@ export default function AdminDashboard() {
                             </span>
                         </div>
                         <h3 className="text-gray-500 dark:text-gray-400 font-bold text-sm mb-1 relative z-10">إجمالي الإيرادات</h3>
-                        <p className="text-3xl font-black text-primary-charcoal dark:text-white relative z-10">
+                        <p className="text-3xl font-bold text-primary-charcoal dark:text-white relative z-10">
                             ${stats?.totalRevenue.toFixed(2)}
                         </p>
                     </motion.div>
 
                     {/* Platform Fees Card */}
-                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
                         <div className="absolute -right-6 -top-6 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
                         <div className="flex justify-between items-start mb-4 relative z-10">
                             <div className="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 flex items-center justify-center text-xl">
@@ -170,13 +170,13 @@ export default function AdminDashboard() {
                             </span>
                         </div>
                         <h3 className="text-gray-500 dark:text-gray-400 font-bold text-sm mb-1 relative z-10">أرباح المنصة (العمولة)</h3>
-                        <p className="text-3xl font-black text-primary-charcoal dark:text-white relative z-10">
+                        <p className="text-3xl font-bold text-primary-charcoal dark:text-white relative z-10">
                             ${stats?.platformFees.toFixed(2)}
                         </p>
                     </motion.div>
 
                     {/* Orders Card */}
-                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
                         <div className="absolute -right-6 -top-6 w-24 h-24 bg-orange-500/10 rounded-full blur-2xl group-hover:bg-orange-500/20 transition-all"></div>
                         <div className="flex justify-between items-start mb-4 relative z-10">
                             <div className="w-12 h-12 rounded-2xl bg-orange-50 dark:bg-orange-900/20 text-orange-500 flex items-center justify-center text-xl">
@@ -188,7 +188,7 @@ export default function AdminDashboard() {
                         </div>
                         <h3 className="text-gray-500 dark:text-gray-400 font-bold text-sm mb-1 relative z-10">إجمالي الطلبات</h3>
                         <div className="flex items-baseline gap-2 relative z-10">
-                            <p className="text-3xl font-black text-primary-charcoal dark:text-white">{stats?.totalOrders}</p>
+                            <p className="text-3xl font-bold text-primary-charcoal dark:text-white">{stats?.totalOrders}</p>
                             <span className="text-sm font-bold text-gray-400 border-r border-gray-200 dark:border-gray-700 pr-2 mr-1">
                                 {stats?.paidOrders} مدفوع
                             </span>
@@ -196,7 +196,7 @@ export default function AdminDashboard() {
                     </motion.div>
 
                     {/* Users Card */}
-                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
                         <div className="absolute -right-6 -top-6 w-24 h-24 bg-green-500/10 rounded-full blur-2xl group-hover:bg-green-500/20 transition-all"></div>
                         <div className="flex justify-between items-start mb-4 relative z-10">
                             <div className="w-12 h-12 rounded-2xl bg-green-50 dark:bg-green-900/20 text-green-600 flex items-center justify-center text-xl">
@@ -207,7 +207,7 @@ export default function AdminDashboard() {
                             </span>
                         </div>
                         <h3 className="text-gray-500 dark:text-gray-400 font-bold text-sm mb-1 relative z-10">إجمالي المستخدمين</h3>
-                        <p className="text-3xl font-black text-primary-charcoal dark:text-white relative z-10">
+                        <p className="text-3xl font-bold text-primary-charcoal dark:text-white relative z-10">
                             {stats?.totalUsers}
                         </p>
                     </motion.div>
@@ -217,13 +217,13 @@ export default function AdminDashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Alerts/Pending Payouts */}
                     <Link href="/admin/dashboard/payouts">
-                        <motion.div variants={itemVariants} className="bg-gradient-to-br from-gray-900 to-black rounded-[2rem] p-6 text-white shadow-xl relative overflow-hidden group cursor-pointer hover:shadow-2xl transition-all">
+                        <motion.div variants={itemVariants} className="bg-gradient-to-br from-gray-900 to-black rounded-xl p-6 text-white shadow-xl relative overflow-hidden group cursor-pointer hover:shadow-2xl transition-all">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-xl"></div>
 
                             <div className="flex items-start justify-between">
                                 <div>
                                     <h3 className="text-gray-400 font-bold mb-1">سحوبات معلقة بانتظار المراجعة</h3>
-                                    <div className="text-4xl font-black mb-4">{stats?.pendingPayouts}</div>
+                                    <div className="text-4xl font-bold mb-4">{stats?.pendingPayouts}</div>
                                     <span className="text-sm font-bold flex items-center gap-1 text-action-blue hover:text-white transition-colors">
                                         مراجعة الطلبات <FiArrowUpRight />
                                     </span>
@@ -237,13 +237,13 @@ export default function AdminDashboard() {
 
                     {/* Pending Manual Orders */}
                     <Link href="/admin/dashboard/orders?type=manual">
-                        <motion.div variants={itemVariants} className="bg-white dark:bg-card-white border border-yellow-200 dark:border-yellow-900/30 rounded-[2rem] p-6 shadow-sm relative overflow-hidden group cursor-pointer hover:border-yellow-400 transition-all">
+                        <motion.div variants={itemVariants} className="bg-white dark:bg-card-white border border-yellow-200 dark:border-yellow-900/30 rounded-xl p-6 shadow-sm relative overflow-hidden group cursor-pointer hover:border-yellow-400 transition-all">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
 
                             <div className="flex items-start justify-between">
                                 <div>
                                     <h3 className="text-gray-500 dark:text-gray-400 font-bold mb-1">حوالات يدوية معلقة</h3>
-                                    <div className="text-4xl font-black mb-4 text-primary-charcoal dark:text-white">{stats?.pendingManualOrders}</div>
+                                    <div className="text-4xl font-bold mb-4 text-primary-charcoal dark:text-white">{stats?.pendingManualOrders}</div>
                                     <span className="text-sm font-bold flex items-center gap-1 text-yellow-600 transition-colors">
                                         التحقق من الدفعات <FiArrowUpRight />
                                     </span>
@@ -257,7 +257,7 @@ export default function AdminDashboard() {
 
                     {/* Pending Seller Verifications (Phase 10) */}
                     <Link href="/admin/verification">
-                        <motion.div variants={itemVariants} className={`bg-white dark:bg-card-white border rounded-[2rem] p-6 shadow-sm relative overflow-hidden group cursor-pointer transition-all ${
+                        <motion.div variants={itemVariants} className={`bg-white dark:bg-card-white border rounded-xl p-6 shadow-sm relative overflow-hidden group cursor-pointer transition-all ${
                             (stats?.pendingVerifications || 0) > 0 ? 'border-primary-500 ring-2 ring-primary-500/20' : 'border-gray-100 dark:border-gray-800'
                         }`}>
                             <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
@@ -265,7 +265,7 @@ export default function AdminDashboard() {
                             <div className="flex items-start justify-between">
                                 <div>
                                     <h3 className="text-gray-500 dark:text-gray-400 font-bold mb-1">توثيقات بانتظار المراجعة</h3>
-                                    <div className="text-4xl font-black mb-4 text-primary-charcoal dark:text-white">{stats?.pendingVerifications || 0}</div>
+                                    <div className="text-4xl font-bold mb-4 text-primary-charcoal dark:text-white">{stats?.pendingVerifications || 0}</div>
                                     <span className="text-sm font-bold flex items-center gap-1 text-primary-500 transition-colors">
                                         إدارة الشارات الزرقاء <FiArrowUpRight />
                                     </span>
@@ -278,13 +278,13 @@ export default function AdminDashboard() {
                     </Link>
 
                     {/* Content Inventory Status */}
-                    <motion.div variants={itemVariants} className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-[2rem] p-6 shadow-sm relative overflow-hidden group">
+                    <motion.div variants={itemVariants} className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-6 shadow-sm relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-action-blue/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
 
                         <div className="flex items-start justify-between">
                             <div>
                                 <h3 className="text-gray-500 dark:text-gray-400 font-bold mb-1">المحتوى المعروض</h3>
-                                <div className="text-4xl font-black mb-4 text-primary-charcoal dark:text-white">
+                                <div className="text-4xl font-bold mb-4 text-primary-charcoal dark:text-white">
                                     {(stats?.totalProducts || 0) + (stats?.totalCourses || 0)}
                                 </div>
                                 <div className="text-sm font-bold text-gray-500 flex gap-4">
@@ -303,9 +303,9 @@ export default function AdminDashboard() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-10">
 
                     {/* Recent Orders Table */}
-                    <motion.div variants={itemVariants} className="lg:col-span-2 bg-white dark:bg-card-white rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col">
+                    <motion.div variants={itemVariants} className="lg:col-span-2 bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col">
                         <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-gray-900/20">
-                            <h2 className="text-lg font-black text-primary-charcoal dark:text-white flex items-center gap-2">
+                            <h2 className="text-lg font-bold text-primary-charcoal dark:text-white flex items-center gap-2">
                                 <FiActivity className="text-action-blue" /> أحدث الطلبات
                             </h2>
                             <Link href="/admin/dashboard/orders" className="text-sm font-bold text-action-blue hover:underline">
@@ -345,7 +345,7 @@ export default function AdminDashboard() {
                                                     </div>
                                                 </td>
                                                 <td className="py-4 px-6">
-                                                    <div className="font-black text-primary-charcoal dark:text-white text-lg">
+                                                    <div className="font-bold text-primary-charcoal dark:text-white text-lg">
                                                         ${order.totalAmount.toFixed(2)}
                                                     </div>
                                                 </td>
@@ -366,9 +366,9 @@ export default function AdminDashboard() {
                     </motion.div>
 
                     {/* Top Sellers Leaderboard */}
-                    <motion.div variants={itemVariants} className="bg-white dark:bg-card-white rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col">
+                    <motion.div variants={itemVariants} className="bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col">
                         <div className="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/20">
-                            <h2 className="text-lg font-black text-primary-charcoal dark:text-white flex items-center gap-2">
+                            <h2 className="text-lg font-bold text-primary-charcoal dark:text-white flex items-center gap-2">
                                 <FiTrendingUp className="text-action-blue" /> أفضل البائعين
                             </h2>
                         </div>
@@ -390,7 +390,7 @@ export default function AdminDashboard() {
                                                         </div>
                                                     )}
                                                     {/* Rank badge */}
-                                                    <div className={`absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black outline outline-2 outline-white dark:outline-card-white ${index === 0 ? 'bg-yellow-400 text-yellow-900' :
+                                                    <div className={`absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold outline outline-2 outline-white dark:outline-card-white ${index === 0 ? 'bg-yellow-400 text-yellow-900' :
                                                             index === 1 ? 'bg-gray-300 text-gray-800' :
                                                                 index === 2 ? 'bg-orange-300 text-orange-900' :
                                                                     'bg-gray-100 dark:bg-gray-800 text-gray-500'
@@ -404,7 +404,7 @@ export default function AdminDashboard() {
                                                 </div>
                                             </div>
                                             <div className="text-left">
-                                                <div className="font-black text-action-blue text-lg">
+                                                <div className="font-bold text-action-blue text-lg">
                                                     ${seller.totalEarnings.toFixed(2)}
                                                 </div>
                                                 <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Revenue</div>

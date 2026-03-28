@@ -104,7 +104,7 @@ export default function AppointmentSettingsPage() {
         <div className="space-y-6 max-w-4xl mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h1 className="text-2xl md:text-3xl font-bold gradient-text">إعدادات توفر الاستشارات</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold text-ink">إعدادات توفر الاستشارات</h1>
                     <p className="text-gray-600 mt-2 text-sm md:text-base">حدد أوقات عملك والأيام المتاحة لاستقبال الجلسات والاستشارات</p>
                 </div>
                 <button

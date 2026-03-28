@@ -67,41 +67,41 @@ export default function MyPurchasesPage() {
             <div className="max-w-7xl mx-auto px-4">
                 {/* Header */}
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold gradient-text mb-2">مشترياتي</h1>
+                    <h1 className="text-3xl font-bold text-ink mb-2">مشترياتي</h1>
                     <p className="text-gray-600">جميع المنتجات والدورات التي اشتريتها</p>
                 </div>
 
                 {/* Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-6">
+                    <div className="bg-white border border-gray-200 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-blue-100 text-sm">إجمالي المشتريات</p>
-                                <p className="text-3xl font-bold mt-1">{purchases.length}</p>
+                                <p className="text-gray-500 text-sm">إجمالي المشتريات</p>
+                                <p className="text-3xl font-bold mt-1 text-ink">{purchases.length}</p>
                             </div>
-                            <FiPackage className="text-4xl text-blue-200" />
+                            <FiPackage className="text-4xl text-gray-300" />
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-6">
+                    <div className="bg-white border border-gray-200 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-green-100 text-sm">متاحة للتحميل</p>
-                                <p className="text-3xl font-bold mt-1">{purchases.filter((p: any) => p.status === 'completed').length}</p>
+                                <p className="text-gray-500 text-sm">متاحة للتحميل</p>
+                                <p className="text-3xl font-bold mt-1 text-ink">{purchases.filter((p: any) => p.status === 'completed').length}</p>
                             </div>
-                            <FiCheckCircle className="text-4xl text-green-200" />
+                            <FiCheckCircle className="text-4xl text-gray-300" />
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl p-6">
+                    <div className="bg-white border border-gray-200 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-purple-100 text-sm">إجمالي الإنفاق</p>
-                                <p className="text-3xl font-bold mt-1">
+                                <p className="text-gray-500 text-sm">إجمالي الإنفاق</p>
+                                <p className="text-3xl font-bold mt-1 text-ink">
                                     {purchases.reduce((sum: number, p: any) => sum + p.total, 0).toFixed(0)} $
                                 </p>
                             </div>
-                            <FiClock className="text-4xl text-purple-200" />
+                            <FiClock className="text-4xl text-gray-300" />
                         </div>
                     </div>
                 </div>
@@ -141,7 +141,7 @@ export default function MyPurchasesPage() {
                                             {purchase.status === 'completed' ? 'مكتمل' :
                                                 purchase.status === 'pending' ? 'قيد المعالجة' : 'ملغي'}
                                         </span>
-                                        <p className="text-2xl font-bold text-primary-600 mt-2">
+                                        <p className="text-2xl font-bold text-ink mt-2">
                                             {purchase.total.toFixed(2)} $
                                         </p>
                                     </div>
@@ -158,8 +158,8 @@ export default function MyPurchasesPage() {
                                                     className="w-20 h-20 object-cover rounded-lg"
                                                 />
                                             ) : (
-                                                <div className="w-20 h-20 bg-gradient-to-br from-primary-100 to-primary-200 rounded-lg flex items-center justify-center">
-                                                    <FiPackage className="text-3xl text-primary-400" />
+                                                <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center">
+                                                    <FiPackage className="text-3xl text-gray-400" />
                                                 </div>
                                             )}
                                             <div className="flex-1">

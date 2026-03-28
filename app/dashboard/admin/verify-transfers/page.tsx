@@ -53,7 +53,7 @@ export default function VerifyTransfersPage() {
     return (
         <div className="p-6 max-w-4xl mx-auto min-h-[80vh]">
             <div className="mb-8">
-                <h1 className="text-3xl font-black text-gray-900 dark:text-white flex items-center gap-3 mb-2">
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3 mb-2">
                     <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 text-blue-600 rounded-xl flex items-center justify-center shadow-inner">
                         <FiCpu className="text-2xl" />
                     </div>
@@ -109,7 +109,7 @@ export default function VerifyTransfersPage() {
                             <button
                                 onClick={handleVerify}
                                 disabled={loading}
-                                className="w-full py-4 mt-auto bg-green-600 hover:bg-green-700 text-white font-black text-lg rounded-xl shadow-[0_8px_20px_rgba(22,163,74,0.3)] transition-all hover:-translate-y-1 disabled:opacity-50 disabled:hover:translate-y-0 flex items-center justify-center gap-2"
+                                className="w-full py-4 mt-auto bg-green-600 hover:bg-green-700 text-white font-bold text-lg rounded-xl shadow-[0_8px_20px_rgba(22,163,74,0.3)] transition-all hover:-translate-y-1 disabled:opacity-50 disabled:hover:translate-y-0 flex items-center justify-center gap-2"
                             >
                                 {loading ? (
                                     <span className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin flex-shrink-0" />

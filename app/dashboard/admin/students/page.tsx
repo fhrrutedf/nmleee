@@ -106,15 +106,15 @@ export default function AdminStudentsPage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 <div className="card">
                     <p className="text-xs text-text-muted font-bold uppercase">إجمالي الطلاب</p>
-                    <p className="text-2xl font-black text-action-blue mt-1">{totalStudents}</p>
+                    <p className="text-2xl font-bold text-action-blue mt-1">{totalStudents}</p>
                 </div>
                 <div className="card">
                     <p className="text-xs text-text-muted font-bold uppercase">المدربين</p>
-                    <p className="text-2xl font-black text-primary-charcoal dark:text-white mt-1">{trainers.length}</p>
+                    <p className="text-2xl font-bold text-primary-charcoal dark:text-white mt-1">{trainers.length}</p>
                 </div>
                 <div className="card">
                     <p className="text-xs text-text-muted font-bold uppercase">الكورسات النشطة</p>
-                    <p className="text-2xl font-black text-green-600 mt-1">{trainers.reduce((s, t) => s + t.courses.length, 0)}</p>
+                    <p className="text-2xl font-bold text-green-600 mt-1">{trainers.reduce((s, t) => s + t.courses.length, 0)}</p>
                 </div>
             </div>
 
@@ -166,7 +166,7 @@ export default function AdminStudentsPage() {
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <div className="text-right">
-                                        <p className="text-2xl font-black text-action-blue">{trainer.totalStudents}</p>
+                                        <p className="text-2xl font-bold text-action-blue">{trainer.totalStudents}</p>
                                         <p className="text-[10px] text-text-muted uppercase font-bold">طالب</p>
                                     </div>
                                     <div className="flex items-center gap-2 text-xs text-text-muted">

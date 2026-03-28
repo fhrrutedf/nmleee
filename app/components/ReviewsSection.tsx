@@ -85,7 +85,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                    <h2 className="text-2xl font-black text-primary-charcoal dark:text-white">التقييمات والمراجعات</h2>
+                    <h2 className="text-2xl font-bold text-primary-charcoal dark:text-white">التقييمات والمراجعات</h2>
                     <div className="flex items-center gap-3 mt-2">
                         <div className="flex items-center gap-1">
                             {renderStars(parseFloat(averageRating))}
@@ -108,7 +108,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
             {/* Add Review Form */}
             {showForm && (
                 <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 p-8 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-inner">
-                    <h3 className="font-black text-xl mb-6 text-gray-900 dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
+                    <h3 className="font-bold text-xl mb-6 text-gray-900 dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
                     <form onSubmit={handleSubmit} className="space-y-0">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                             <div>
@@ -187,7 +187,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-100 dark:bg-gray-800 rounded-full group-hover:bg-yellow-400 transition-colors"></div>
                             <div className="pl-6 pb-2">
                                 <div className="flex items-center gap-3 mb-3">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 rounded-full flex items-center justify-center font-black text-gray-500 dark:text-gray-400 border border-white dark:border-gray-800 shadow-sm">
+                                    <div className="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 rounded-full flex items-center justify-center font-bold text-gray-500 dark:text-gray-400 border border-white dark:border-gray-800 shadow-sm">
                                         {review.name.charAt(0)}
                                     </div>
                                     <div>

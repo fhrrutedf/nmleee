@@ -264,7 +264,7 @@ export default function EditBundlePage() {
                         <div className="sticky top-24 space-y-6">
                             <div className="bg-white dark:bg-card-white rounded-3xl p-6 shadow-xl shadow-gray-100 dark:shadow-gray-900 border border-gray-100 dark:border-gray-800 relative overflow-hidden">
                                 {discountPercentage > 0 && (
-                                    <div className="absolute top-0 right-0 bg-green-500 text-white px-4 py-1 rounded-bl-2xl font-black text-sm shadow-md">
+                                    <div className="absolute top-0 right-0 bg-green-500 text-white px-4 py-1 rounded-bl-2xl font-bold text-sm shadow-md">
                                         خصم {discountPercentage}%
                                     </div>
                                 )}
@@ -287,7 +287,7 @@ export default function EditBundlePage() {
                                                 required
                                                 min="0"
                                                 step="0.01"
-                                                className="w-full pl-4 pr-14 py-4 rounded-xl border border-action-blue/20 bg-white dark:bg-gray-800 text-2xl font-black focus:ring-4 ring-action-blue/20 outline-none transition-all shadow-inner"
+                                                className="w-full pl-4 pr-14 py-4 rounded-xl border border-action-blue/20 bg-white dark:bg-gray-800 text-2xl font-bold focus:ring-4 ring-action-blue/20 outline-none transition-all shadow-inner"
                                                 placeholder="0.00"
                                                 value={formData.price}
                                                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}

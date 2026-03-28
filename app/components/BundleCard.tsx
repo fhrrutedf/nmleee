@@ -57,7 +57,7 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
                 {/* Savings Badge */}
                 {discountPct > 0 && (
                     <div
-                        className="absolute top-4 start-4 text-white text-xs font-black px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 z-10"
+                        className="absolute top-4 start-4 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 z-10"
                         style={{ background: `linear-gradient(135deg, #10b981, #059669)` }}
                     >
                         <FiZap size={11} />
@@ -67,7 +67,7 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
 
                 {/* Bundle Badge */}
                 <div
-                    className="absolute top-4 end-4 text-white text-xs font-black px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 z-10"
+                    className="absolute top-4 end-4 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 z-10"
                     style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}
                 >
                     <FiPackage size={11} />
@@ -109,7 +109,7 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
                     </p>
 
                     {/* Title */}
-                    <h3 className="text-center font-black text-gray-900 dark:text-white text-base leading-snug mb-2 line-clamp-2">
+                    <h3 className="text-center font-bold text-gray-900 dark:text-white text-base leading-snug mb-2 line-clamp-2">
                         {bundle.title}
                     </h3>
 
@@ -128,7 +128,7 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
                     >
                         <div>
                             <div className="flex items-baseline gap-1.5">
-                                <span className="text-xl font-black" style={{ color: brandColor }}>
+                                <span className="text-xl font-bold" style={{ color: brandColor }}>
                                     {bundle.price}
                                 </span>
                                 <span className="text-sm font-bold text-gray-500">$</span>

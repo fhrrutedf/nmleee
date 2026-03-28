@@ -68,11 +68,11 @@ export default function BookAppointmentPage() {
     const today = new Date().toISOString().split('T')[0];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 py-12">
+        <div className="min-h-screen bg-subtle py-12">
             <div className="max-w-4xl mx-auto px-4">
                 {/* Header */}
                 <div className="text-center mb-8">
-                    <h1 className="text-4xl font-bold gradient-text mb-3">احجز موعد استشارة</h1>
+                    <h1 className="text-3xl font-bold text-ink mb-3">احجز موعد استشارة</h1>
                     <p className="text-xl text-gray-600">اختر الوقت المناسب لك وسنتواصل معك</p>
                 </div>
 
@@ -90,8 +90,8 @@ export default function BookAppointmentPage() {
                                         <label
                                             key={service.id}
                                             className={`relative flex items-center gap-4 p-4 border-2 rounded-lg cursor-pointer transition-all ${formData.service === service.id
-                                                    ? 'border-primary-500 bg-primary-50'
-                                                    : 'border-gray-200 hover:border-primary-300'
+                                                    ? 'border-accent bg-accent-light'
+                                                    : 'border-gray-200 hover:border-gray-400'
                                                 }`}
                                         >
                                             <input
@@ -107,7 +107,7 @@ export default function BookAppointmentPage() {
                                                 <p className="text-sm text-gray-600">{service.duration}</p>
                                             </div>
                                             <div className="text-left">
-                                                <p className="text-2xl font-bold text-primary-600">{service.price} $</p>
+                                                <p className="text-2xl font-bold text-ink">{service.price} $</p>
                                             </div>
                                         </label>
                                     ))}
@@ -214,7 +214,7 @@ export default function BookAppointmentPage() {
                                             onChange={(e) => setFormData({ ...formData, type: e.target.value })}
                                             className="sr-only"
                                         />
-                                        <FiVideo className="text-2xl text-primary-600" />
+                                        <FiVideo className="text-2xl text-ink" />
                                         <div>
                                             <p className="font-medium">عبر الإنترنت</p>
                                             <p className="text-xs text-gray-500">Zoom/Google Meet</p>
@@ -233,7 +233,7 @@ export default function BookAppointmentPage() {
                                             onChange={(e) => setFormData({ ...formData, type: e.target.value })}
                                             className="sr-only"
                                         />
-                                        <FiMapPin className="text-2xl text-primary-600" />
+                                        <FiMapPin className="text-2xl text-ink" />
                                         <div>
                                             <p className="font-medium">شخصياً</p>
                                             <p className="text-xs text-gray-500">في المكتب</p>
@@ -312,7 +312,7 @@ export default function BookAppointmentPage() {
                                     <div className="pt-4 border-t">
                                         <div className="flex justify-between items-center">
                                             <span className="font-medium">السعر</span>
-                                            <span className="text-2xl font-bold text-primary-600">
+                                            <span className="text-2xl font-bold text-ink">
                                                 {selectedService.price} $
                                             </span>
                                         </div>

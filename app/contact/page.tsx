@@ -139,7 +139,7 @@ export default function ContactPage() {
                         variants={slideInLeft}
                         className="lg:col-span-2 lg:order-1 relative"
                     >
-                        <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-gray-200/50 p-8 md:p-12 border border-gray-100 overflow-hidden relative">
+                        <div className="bg-white rounded-xl shadow-2xl shadow-gray-200/50 p-8 md:p-12 border border-gray-100 overflow-hidden relative">
                             {/* Decorative element inside form */}
                             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-action-blue/10 to-transparent rounded-bl-[100px] pointer-events-none"></div>
 

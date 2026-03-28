@@ -10,7 +10,7 @@ const TARGET_SEGMENTS = [
     { id: 'all', name: 'الجميع', icon: FiUsers, color: 'text-slate-500' },
     { id: 'sellers', name: 'البائعين فقط', icon: FiZap, color: 'text-amber-500' },
     { id: 'inactive-sellers', name: 'بائعين غير نشطين (>30 يوم)', icon: FiActivity, color: 'text-orange-500' },
-    { id: 'high-earners', name: 'الأكثر ربحاً (> $1000)', icon: FiTarget, color: 'text-emerald-500' },
+    { id: 'high-earners', name: 'الأكثر ربحاً (> $1000)', icon: FiTarget, color: 'text-blue-500' },
     { id: 'new-users', name: 'المسجلين الجدد (الأسبوع الأخير)', icon: FiCheckCircle, color: 'text-sky-500' },
     { id: 'admins', name: 'فريق الإدارة', icon: FiMail, color: 'text-rose-500' },
 ];
@@ -103,19 +103,19 @@ export default function AdminBroadcastPage() {
                         <motion.div 
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-100 dark:border-emerald-500/20 p-6 rounded-3xl flex items-center justify-between"
+                            className="bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 p-6 rounded-3xl flex items-center justify-between"
                         >
                             <div className="flex items-center gap-4">
-                                <div className="p-3 bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-2xl">
+                                <div className="p-3 bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-2xl">
                                     <FiCheckCircle className="text-2xl" />
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-emerald-800 dark:text-emerald-300">تم إكمال البث بنجاح!</h4>
-                                    <p className="text-sm text-emerald-600 dark:text-emerald-500/80">وصلت رسائلك لـ {result.sent} شخص ({result.total} مستهدف).</p>
+                                    <h4 className="font-bold text-blue-800 dark:text-blue-300">تم إكمال البث بنجاح!</h4>
+                                    <p className="text-sm text-blue-600 dark:text-blue-500/80">وصلت رسائلك لـ {result.sent} شخص ({result.total} مستهدف).</p>
                                 </div>
                             </div>
                             <div className="text-right">
-                                <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400">%{Math.round((result.sent / result.total) * 100) || 100}</span>
+                                <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">%{Math.round((result.sent / result.total) * 100) || 100}</span>
                                 <p className="text-[10px] uppercase font-bold tracking-widest opacity-50">دقة الوصول</p>
                             </div>
                         </motion.div>

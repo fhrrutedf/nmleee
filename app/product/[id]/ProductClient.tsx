@@ -145,18 +145,18 @@ export default function ProductDetails({
                             <div className="p-8 sm:p-10">
                                 <div className="flex flex-wrap gap-2 mb-6">
                                     {product.category && (
-                                        <span className="px-4 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-action-blue dark:text-blue-400 rounded-lg text-sm font-black tracking-wide border border-blue-100 dark:border-blue-900/30">
+                                        <span className="px-4 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-action-blue dark:text-blue-400 rounded-lg text-sm font-bold tracking-wide border border-blue-100 dark:border-blue-900/30">
                                             {product.category === 'courses' ? '👨‍🏫 دورة متكاملة' : product.category === 'ebooks' ? '📚 كتاب إلكتروني' : product.category}
                                         </span>
                                     )}
                                     {product.isFree && (
-                                        <span className="px-4 py-1.5 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-lg text-sm font-black tracking-wide border border-green-100 dark:border-green-900/30">
+                                        <span className="px-4 py-1.5 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-lg text-sm font-bold tracking-wide border border-green-100 dark:border-green-900/30">
                                             🎁 مجاني
                                         </span>
                                     )}
                                 </div>
 
-                                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-primary-charcoal dark:text-white mb-6 leading-tight tracking-tight">
+                                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-charcoal dark:text-white mb-6 leading-tight tracking-tight">
                                     {product.title}
                                 </h1>
 
@@ -170,7 +170,7 @@ export default function ProductDetails({
                                     </div>
                                     <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 font-medium text-sm">
                                         <FiShoppingCart className="text-action-blue" />
-                                        <span className="font-black text-primary-charcoal dark:text-gray-200">{(product.soldCount || 0) + 12} مبيعة اليوم</span> {/** إضافة رقم وهمي صغير للزخم التسويقي إذا كانت المبيعات قليلة **/}
+                                        <span className="font-bold text-primary-charcoal dark:text-gray-200">{(product.soldCount || 0) + 12} مبيعة اليوم</span> {/** إضافة رقم وهمي صغير للزخم التسويقي إذا كانت المبيعات قليلة **/}
                                     </div>
                                 </div>
 
@@ -180,13 +180,13 @@ export default function ProductDetails({
                                             <span className="text-xl text-gray-400 line-through font-bold">
                                                 {formatPrice(product.originalPrice).value} {formatPrice(product.originalPrice).symbol}
                                             </span>
-                                            <span className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs font-black px-2 py-1 rounded-lg">
+                                            <span className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs font-bold px-2 py-1 rounded-lg">
                                                 وفر {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
                                             </span>
                                         </div>
                                     )}
                                     <div className="flex items-end gap-3 leading-none">
-                                        <span className="text-5xl sm:text-6xl font-black bg-gradient-to-br from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent transform transition-transform hover:scale-105 origin-right">
+                                        <span className="text-5xl sm:text-6xl font-bold bg-gradient-to-br from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent transform transition-transform hover:scale-105 origin-right">
                                             {formatPrice(product.price || 0).value}
                                         </span>
                                         <span className="text-2xl font-bold text-gray-400 dark:text-gray-500 mb-2 font-serif">
@@ -201,7 +201,7 @@ export default function ProductDetails({
                                                 <FiClock className="text-xl" />
                                             </div>
                                             <div className="text-right">
-                                                <p className="text-[10px] font-black text-amber-800 dark:text-amber-400 uppercase tracking-widest leading-none mb-1">عرض لفترة محدودة</p>
+                                                <p className="text-[10px] font-bold text-amber-800 dark:text-amber-400 uppercase tracking-widest leading-none mb-1">عرض لفترة محدودة</p>
                                                 <p className="text-xs font-bold text-amber-600 dark:text-amber-500">ينتهي العرض قريباً! سارع بالطلب</p>
                                             </div>
                                         </div>
@@ -212,7 +212,7 @@ export default function ProductDetails({
                                     <button
                                         onClick={buyNow}
                                         disabled={buyingNow}
-                                        className="w-full btn btn-primary text-xl py-5 rounded-2xl shadow-xl shadow-action-blue/20 hover:shadow-action-blue/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-black disabled:opacity-80 disabled:cursor-not-allowed"
+                                        className="w-full btn btn-primary text-xl py-5 rounded-2xl shadow-xl shadow-action-blue/20 hover:shadow-action-blue/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-bold disabled:opacity-80 disabled:cursor-not-allowed"
                                         style={product.user?.brandColor ? { backgroundColor: product.user.brandColor, borderColor: product.user.brandColor } : {}}
                                     >
                                         {buyingNow ? (
@@ -261,8 +261,8 @@ export default function ProductDetails({
                     {/* Right Column: Media & Details */}
                     <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col gap-10">
                         <div className="group relative">
-                            <div className="absolute -inset-1 bg-gradient-to-r from-action-blue to-purple-600 rounded-[2.5rem] blur-xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-                            <div className="relative bg-black rounded-[2rem] overflow-hidden shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10 aspect-[16/10] sm:aspect-video flex items-center justify-center animate-fade-in-up">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-action-blue to-purple-600 rounded-xl blur-xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                            <div className="relative bg-black rounded-xl overflow-hidden shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10 aspect-[16/10] sm:aspect-video flex items-center justify-center animate-fade-in-up">
                                 {activeMedia?.type === 'video' ? (
                                     <div className="w-full h-full">
                                         <VideoPlayer src={activeMedia.url} videoId={product.id} title={product.title} poster={product.image} />
@@ -303,7 +303,7 @@ export default function ProductDetails({
 
                         <div className="mt-8 bg-gradient-to-r from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 rounded-3xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden group">
                             <div className="flex items-center gap-6 relative z-10 w-full sm:w-auto">
-                                 <Link href={`/${product.user?.username || 'seller'}`} className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-action-blue to-purple-600 rounded-2xl flex items-center justify-center font-black text-3xl text-white shadow-xl overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                                 <Link href={`/${product.user?.username || 'seller'}`} className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-action-blue to-purple-600 rounded-2xl flex items-center justify-center font-bold text-3xl text-white shadow-xl overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
                                      {product.user?.avatar ? (
                                          <img src={product.user.avatar} className="w-full h-full object-cover" alt={product.user.name} />
                                      ) : (
@@ -313,7 +313,7 @@ export default function ProductDetails({
                                  <div>
                                      <p className="text-xs font-bold tracking-widest uppercase text-action-blue mb-1">صانع المحتوى</p>
                                      <Link href={`/${product.user?.username || 'seller'}`}>
-                                         <h3 className="font-black text-2xl text-gray-900 dark:text-white mb-2 hover:text-action-blue transition-colors">{product.user?.name || 'البائع'}</h3>
+                                         <h3 className="font-bold text-2xl text-gray-900 dark:text-white mb-2 hover:text-action-blue transition-colors">{product.user?.name || 'البائع'}</h3>
                                      </Link>
                                      <div className="flex gap-2">
                                         <button 
@@ -332,17 +332,17 @@ export default function ProductDetails({
                                  </div>
                              </div>
                              <div className="hidden sm:flex flex-col items-center justify-center p-4 bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-dashed border-gray-200 dark:border-gray-700">
-                                <p className="text-[10px] font-black uppercase text-gray-400 mb-1">متصل الآن</p>
+                                <p className="text-[10px] font-bold uppercase text-gray-400 mb-1">متصل الآن</p>
                                 <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse shadow-sm shadow-green-500/50" />
                              </div>
                         </div>
 
                         {/* Interactive Content Tabs */}
-                        <div className="bg-white dark:bg-card-white rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden mt-4">
+                        <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden mt-4">
                             <div className="flex overflow-x-auto border-b border-gray-100 dark:border-gray-800 scrollbar-hide">
                                 <button
                                     onClick={() => setActiveTab('description')}
-                                    className={`flex-1 min-w-[150px] py-6 px-4 font-black text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'description' ? 'text-action-blue' : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'}`}
+                                    className={`flex-1 min-w-[150px] py-6 px-4 font-bold text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'description' ? 'text-action-blue' : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'}`}
                                 >
                                     <FiBook className={activeTab === 'description' ? "text-action-blue" : "text-gray-400"} />
                                     محتوى وتفاصيل
@@ -350,7 +350,7 @@ export default function ProductDetails({
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('reviews')}
-                                    className={`flex-1 min-w-[150px] py-6 px-4 font-black text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'reviews' ? 'text-action-blue' : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'}`}
+                                    className={`flex-1 min-w-[150px] py-6 px-4 font-bold text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'reviews' ? 'text-action-blue' : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'}`}
                                 >
                                     <FiMessageSquare className={activeTab === 'reviews' ? "text-action-blue" : "text-gray-400"} />
                                     تجارب المشترين
@@ -368,7 +368,7 @@ export default function ProductDetails({
                                     <div className="space-y-10 animate-fade-in-up">
                                         {/* Review Input Box */}
                                         <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 p-8 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-inner">
-                                            <h3 className="font-black text-xl mb-6 text-gray-900 dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
+                                            <h3 className="font-bold text-xl mb-6 text-gray-900 dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
                                             <form onSubmit={submitReview} className="space-y-5">
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                                     <div>
@@ -404,7 +404,7 @@ export default function ProductDetails({
                                                     <div key={review.id} className="relative group pl-6 pb-2">
                                                         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-100 dark:bg-gray-800 rounded-full group-hover:bg-yellow-400 transition-colors"></div>
                                                         <div className="flex items-center gap-3 mb-3">
-                                                            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center font-black text-gray-500">{review.name.charAt(0)}</div>
+                                                            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center font-bold text-gray-500">{review.name.charAt(0)}</div>
                                                             <div>
                                                                 <h4 className="font-bold text-lg text-primary-charcoal dark:text-white">{review.name}</h4>
                                                                 <div className="flex items-center gap-0.5">

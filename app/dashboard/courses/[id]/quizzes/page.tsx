@@ -99,15 +99,15 @@ export default function CourseQuizzesPage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 <div className="card">
                     <p className="text-xs text-text-muted font-bold uppercase">إجمالي الاختبارات</p>
-                    <p className="text-2xl font-black text-purple-600 mt-1">{quizzes.length}</p>
+                    <p className="text-2xl font-bold text-purple-600 mt-1">{quizzes.length}</p>
                 </div>
                 <div className="card">
                     <p className="text-xs text-text-muted font-bold uppercase">منشور</p>
-                    <p className="text-2xl font-black text-green-600 mt-1">{quizzes.filter(q => q.isPublished).length}</p>
+                    <p className="text-2xl font-bold text-green-600 mt-1">{quizzes.filter(q => q.isPublished).length}</p>
                 </div>
                 <div className="card">
                     <p className="text-xs text-text-muted font-bold uppercase">إجمالي الأسئلة</p>
-                    <p className="text-2xl font-black text-action-blue mt-1">
+                    <p className="text-2xl font-bold text-action-blue mt-1">
                         {quizzes.reduce((sum, q) => {
                             const questions = Array.isArray(q.questions) ? q.questions : [];
                             return sum + questions.length;

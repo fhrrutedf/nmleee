@@ -124,7 +124,7 @@ export default function PayoutsClient({ initialPayouts }: { initialPayouts: any[
                             <div className="lg:w-64 flex flex-col justify-between items-end border-t lg:border-t-0 lg:border-r border-gray-100 pt-4 lg:pt-0 pl-0 pr-0 lg:pr-6 gap-4">
                                 <div className="text-right w-full flex lg:flex-col justify-between items-center lg:items-end">
                                     <span className="block text-gray-500 text-sm mb-1">المبلغ المطلوب</span>
-                                    <span className="text-3xl font-black text-green-600">${payout.amount}</span>
+                                    <span className="text-3xl font-bold text-green-600">${payout.amount}</span>
                                 </div>
 
                                 <div className="w-full">

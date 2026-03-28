@@ -54,7 +54,7 @@ export default function AdminSupportPage() {
         <div className="space-y-6 max-w-7xl mx-auto pb-12">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-black text-primary-charcoal dark:text-white flex items-center gap-3">
+                    <h1 className="text-3xl font-bold text-primary-charcoal dark:text-white flex items-center gap-3">
                         <FiMessageSquare className="text-action-blue" />
                         نظام تذاكر الدعم الفني
                     </h1>

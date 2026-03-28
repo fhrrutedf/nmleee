@@ -34,9 +34,9 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                         className="group relative block h-full outline-none"
                     >
                         {/* Hover Glow Behind Card */}
-                        <div className="absolute -inset-1 bg-gradient-to-br from-action-blue/50 to-purple-600/50 rounded-[2.5rem] blur-xl opacity-0 group-hover:opacity-60 group-focus-visible:opacity-60 transition duration-500 delay-75 -z-10 mt-4 mx-2"></div>
+                        <div className="absolute -inset-1 bg-gradient-to-br from-action-blue/50 to-purple-600/50 rounded-xl blur-xl opacity-0 group-hover:opacity-60 group-focus-visible:opacity-60 transition duration-500 delay-75 -z-10 mt-4 mx-2"></div>
 
-                        <div className="bg-white dark:bg-card-white rounded-[2rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col h-full ring-2 ring-transparent group-focus-visible:ring-action-blue">
+                        <div className="bg-white dark:bg-card-white rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col h-full ring-2 ring-transparent group-focus-visible:ring-action-blue">
                             {/* Media Thumbnails Area */}
                             <div className="aspect-[4/3] bg-gray-100 dark:bg-gray-800 relative overflow-hidden group-hover:after:absolute group-hover:after:inset-0 group-hover:after:bg-black/10 transition-all after:transition-colors">
                                 {(item.thumbnail || item.image || (item.images && item.images[0])) ? (
@@ -55,7 +55,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                 {/* Top Badges */}
                                 <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
                                     {item.itemType === 'course' ? (
-                                        <span className="bg-blue-500/90 dark:bg-blue-600/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-black text-white shadow-lg border border-white/20">
+                                        <span className="bg-blue-500/90 dark:bg-blue-600/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-white shadow-lg border border-white/20">
                                             دورة تدريبية
                                         </span>
                                     ) : item.category ? (
@@ -65,7 +65,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                     ) : null}
 
                                     {(item.isFree || item.price === 0) && (
-                                        <span className="bg-green-500/95 backdrop-blur-md px-4 py-1.5 rounded-full text-[11px] font-black tracking-widest text-white shadow-lg border border-white/20 animate-pulse-slow">
+                                        <span className="bg-green-500/95 backdrop-blur-md px-4 py-1.5 rounded-full text-[11px] font-bold tracking-widest text-white shadow-lg border border-white/20 animate-pulse-slow">
                                             مجاني
                                         </span>
                                     )}
@@ -83,7 +83,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                                 <img src={item.user.avatar} className="w-14 h-14 rounded-xl shadow-md border-2 border-white dark:border-gray-800 object-cover" alt="creator" />
                                             ) : (
                                                 <div
-                                                    className="w-14 h-14 rounded-xl shadow-md border-2 border-white dark:border-gray-800 flex items-center justify-center text-xl text-white font-black uppercase"
+                                                    className="w-14 h-14 rounded-xl shadow-md border-2 border-white dark:border-gray-800 flex items-center justify-center text-xl text-white font-bold uppercase"
                                                     style={{ backgroundColor: item.user.brandColor || '#4F46E5', backgroundImage: 'linear-gradient(to bottom right, rgba(255,255,255,0.2), rgba(0,0,0,0.2))' }}
                                                 >
                                                     {item.user.name?.charAt(0) || 'M'}
@@ -121,7 +121,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                 {/* Card Footer: Price & Action */}
                                 <div className="mt-auto pt-5 flex items-center justify-between border-t border-gray-50 dark:border-gray-800/60">
                                     <div>
-                                        <span className="font-black text-2xl text-primary-charcoal dark:text-white">
+                                        <span className="font-bold text-2xl text-primary-charcoal dark:text-white">
                                             {item.price === 0 ? (
                                                 <span className="text-green-500">مجاناً</span>
                                             ) : (

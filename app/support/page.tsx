@@ -30,7 +30,7 @@ export default function SupportPage() {
             <div className="max-w-7xl mx-auto px-4 py-12">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h1 className="text-5xl font-bold gradient-text mb-4">مركز الدعم</h1>
+                    <h1 className="text-3xl font-bold text-ink mb-4">مركز الدعم</h1>
                     <p className="text-xl text-gray-600">كيف يمكننا مساعدتك اليوم؟</p>
                 </div>
 
@@ -94,7 +94,7 @@ export default function SupportPage() {
                 </div>
 
                 {/* CTA */}
-                <div className="mt-12 bg-gradient-to-r from-primary-600 to-purple-700 rounded-xl p-8 text-center text-white">
+                <div className="mt-12 bg-ink rounded-xl p-8 text-center text-white">
                     <h3 className="text-2xl font-bold mb-4">لم تجد ما تبحث عنه؟</h3>
                     <p className="text-lg mb-6">فريق الدعم جاهز لمساعدتك 24/7</p>
                     <Link

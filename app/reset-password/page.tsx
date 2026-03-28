@@ -65,7 +65,7 @@ function ResetPasswordForm() {
                 <div className="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
                     <FiAlertCircle size={32} />
                 </div>
-                <h1 className="text-2xl font-black mb-4 dark:text-white">رابط غير صالح</h1>
+                <h1 className="text-2xl font-bold mb-4 dark:text-white">رابط غير صالح</h1>
                 <p className="text-gray-500 dark:text-gray-400 mb-8">رابط إعادة التعيين هذا غير صالح أو قد انتهت صلاحيته. يرجى طلب رابط جديد.</p>
                 <button onClick={() => router.push('/forgot-password')} className="btn btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
                     <FiArrowRight /> اطلب رابطاً جديداً
@@ -80,7 +80,7 @@ function ResetPasswordForm() {
                 <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                     <FiCheckCircle size={32} />
                 </div>
-                <h1 className="text-2xl font-black mb-4 dark:text-white">تم بنجاح!</h1>
+                <h1 className="text-2xl font-bold mb-4 dark:text-white">تم بنجاح!</h1>
                 <p className="text-gray-500 dark:text-gray-400 mb-8">لقد تم تحديث كلمة المرور الخاصة بك. سيتم تحويلك لصفحة تسجيل الدخول تلقائياً.</p>
                 <button onClick={() => router.push('/login')} className="btn btn-primary w-full py-4 rounded-xl font-bold">
                     تسجيل الدخول الآن
@@ -98,7 +98,7 @@ function ResetPasswordForm() {
                         <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 text-action-blue rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-100 dark:border-blue-800/30">
                             <FiLock size={28} />
                         </div>
-                        <h1 className="text-2xl font-black text-gray-900 dark:text-white">إعادة تعيين كلمة المرور</h1>
+                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">إعادة تعيين كلمة المرور</h1>
                         <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm">أدخل كلمة المرور الجديدة لحسابك</p>
                     </div>
 
@@ -141,7 +141,7 @@ function ResetPasswordForm() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full btn btn-primary py-4 rounded-xl text-lg font-black shadow-lg shadow-action-blue/20 hover:shadow-action-blue/40 transform hover:-translate-y-1 transition-all disabled:opacity-70 disabled:transform-none disabled:cursor-not-allowed"
+                            className="w-full btn btn-primary py-4 rounded-xl text-lg font-bold shadow-lg shadow-action-blue/20 hover:shadow-action-blue/40 transform hover:-translate-y-1 transition-all disabled:opacity-70 disabled:transform-none disabled:cursor-not-allowed"
                         >
                             {loading ? (
                                 <div className="flex items-center justify-center gap-3">

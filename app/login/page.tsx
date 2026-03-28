@@ -108,7 +108,7 @@ function LoginContent() {
                 </motion.div>
 
                 {/* Login Form */}
-                <motion.div variants={fadeInUp} className="bg-white rounded-[2.5rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-gray-100 p-8 sm:p-10 relative overflow-hidden">
+                <motion.div variants={fadeInUp} className="bg-white rounded-xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-gray-100 p-8 sm:p-10 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-action-blue/5 to-transparent rounded-bl-[100px] pointer-events-none"></div>
 
                     {/* Google Sign-In Button */}

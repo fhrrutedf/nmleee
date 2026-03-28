@@ -44,7 +44,7 @@ export default function CoursesPage() {
             <div className="max-w-7xl mx-auto px-4 py-12">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h1 className="text-5xl font-bold gradient-text mb-4">الدورات التدريبية</h1>
+                    <h1 className="text-3xl font-bold text-ink mb-4">الدورات التدريبية</h1>
                     <p className="text-xl text-gray-600">تعلم مهارات جديدة مع خبراء المجال</p>
                 </div>
 

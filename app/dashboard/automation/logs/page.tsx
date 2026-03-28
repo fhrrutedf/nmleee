@@ -63,7 +63,7 @@ export default function EmailLogsPage() {
                     <Link href="/dashboard/automation" className="flex items-center gap-2 text-text-muted hover:text-action-blue text-sm mb-2 transition-colors">
                         <FiArrowLeft /> العودة للأتمتة
                     </Link>
-                    <h1 className="text-2xl font-black text-primary-charcoal dark:text-white">📬 سجل الإيميلات</h1>
+                    <h1 className="text-2xl font-bold text-primary-charcoal dark:text-white">📬 سجل الإيميلات</h1>
                     <p className="text-text-muted text-sm mt-1">آخر 100 إيميل تم إرسالها</p>
                 </div>
                 <button onClick={load} className="btn btn-outline flex items-center gap-2">
@@ -79,7 +79,7 @@ export default function EmailLogsPage() {
                     { label: 'فشل', value: stats.failed, color: 'text-red-600' },
                 ].map(stat => (
                     <div key={stat.label} className="bg-white dark:bg-card-white rounded-2xl border border-gray-100 dark:border-gray-800 p-4 text-center">
-                        <p className={`text-3xl font-black ${stat.color}`}>{stat.value}</p>
+                        <p className={`text-3xl font-bold ${stat.color}`}>{stat.value}</p>
                         <p className="text-text-muted text-sm">{stat.label}</p>
                     </div>
                 ))}

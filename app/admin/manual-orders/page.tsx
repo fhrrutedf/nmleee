@@ -35,8 +35,8 @@ interface ManualOrder {
 
 const STATUS_CONFIG: Record<string, { label: string; bg: string; icon: ReactNode }> = {
     PENDING: { label: 'قيد الانتظار', bg: 'bg-amber-100 text-amber-800', icon: <FiClock size={14} /> },
-    PAID: { label: 'مقبول ✓', bg: 'bg-emerald-100 text-emerald-800', icon: <FiCheckCircle size={14} /> },
-    COMPLETED: { label: 'مقبول ✓', bg: 'bg-emerald-100 text-emerald-800', icon: <FiCheckCircle size={14} /> },
+    PAID: { label: 'مقبول ✓', bg: 'bg-blue-100 text-blue-800', icon: <FiCheckCircle size={14} /> },
+    COMPLETED: { label: 'مقبول ✓', bg: 'bg-blue-100 text-blue-800', icon: <FiCheckCircle size={14} /> },
     REJECTED: { label: 'مرفوض ✗', bg: 'bg-red-100 text-red-800', icon: <FiXCircle size={14} /> },
     CANCELLED: { label: 'ملغي', bg: 'bg-gray-100 text-gray-600', icon: <FiXCircle size={14} /> },
 };
@@ -132,7 +132,7 @@ export default function ManualOrdersPage() {
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Header */}
                 <div className="mb-8">
-                    <h1 className="text-3xl font-black text-gray-900 dark:text-white">📋 الطلبات اليدوية</h1>
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">📋 الطلبات اليدوية</h1>
                     <p className="text-gray-500 mt-1">إدارة ومراجعة طلبات الدفع اليدوية</p>
                 </div>
 
@@ -140,19 +140,19 @@ export default function ManualOrdersPage() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
                         <p className="text-xs text-gray-400 font-bold uppercase">الإجمالي</p>
-                        <p className="text-2xl font-black text-gray-900 dark:text-white mt-1">{orders.length}</p>
+                        <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{orders.length}</p>
                     </div>
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-amber-100 dark:border-amber-900/30 shadow-sm">
                         <p className="text-xs text-amber-500 font-bold uppercase">قيد الانتظار</p>
-                        <p className="text-2xl font-black text-amber-600 mt-1">{pendingCount}</p>
+                        <p className="text-2xl font-bold text-amber-600 mt-1">{pendingCount}</p>
                     </div>
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-emerald-100 dark:border-emerald-900/30 shadow-sm">
-                        <p className="text-xs text-emerald-500 font-bold uppercase">مقبول</p>
-                        <p className="text-2xl font-black text-emerald-600 mt-1">{approvedCount}</p>
+                    <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-blue-100 dark:border-blue-900/30 shadow-sm">
+                        <p className="text-xs text-blue-500 font-bold uppercase">مقبول</p>
+                        <p className="text-2xl font-bold text-blue-600 mt-1">{approvedCount}</p>
                     </div>
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-red-100 dark:border-red-900/30 shadow-sm">
                         <p className="text-xs text-red-500 font-bold uppercase">مرفوض</p>
-                        <p className="text-2xl font-black text-red-600 mt-1">{rejectedCount}</p>
+                        <p className="text-2xl font-bold text-red-600 mt-1">{rejectedCount}</p>
                     </div>
                 </div>
 
@@ -234,7 +234,7 @@ export default function ManualOrdersPage() {
                                             {/* Payment Info */}
                                             <div className="space-y-2">
                                                 <h4 className="text-xs font-bold text-gray-400 uppercase">تفاصيل الدفع</h4>
-                                                <p className="font-black text-lg text-gray-900 dark:text-white">${order.totalAmount.toFixed(2)}</p>
+                                                <p className="font-bold text-lg text-gray-900 dark:text-white">${order.totalAmount.toFixed(2)}</p>
                                                 <p className="text-xs text-gray-500">{order.paymentProvider} — {order.paymentCountry}</p>
                                                 {order.transactionRef && (
                                                     <p className="text-xs font-mono text-gray-500">رقم العملية: {order.transactionRef}</p>
@@ -272,7 +272,7 @@ export default function ManualOrdersPage() {
                                             <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700 flex gap-3">
                                                 <button
                                                     onClick={() => handleApprove(order.id)}
-                                                    className="flex-1 px-4 py-2.5 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors flex items-center justify-center gap-2 font-bold text-sm shadow-sm"
+                                                    className="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-bold text-sm shadow-sm"
                                                 >
                                                     <FiCheck /> موافقة
                                                 </button>
@@ -296,7 +296,7 @@ export default function ManualOrdersPage() {
             {selectedOrder && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50" onClick={() => setSelectedOrder(null)}>
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-md w-full shadow-2xl" onClick={e => e.stopPropagation()}>
-                        <h3 className="text-lg font-black text-gray-900 dark:text-white mb-4">
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
                             رفض الطلب {selectedOrder.orderNumber}
                         </h3>
                         <textarea

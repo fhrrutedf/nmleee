@@ -195,7 +195,7 @@ export default function EditLessonPage() {
                                             <FiCheckCircle size={24} />
                                         </div>
                                         <div>
-                                            <p className="font-black text-primary-charcoal dark:text-white">الفيديو مرتبط بـ Bunny</p>
+                                            <p className="font-bold text-primary-charcoal dark:text-white">الفيديو مرتبط بـ Bunny</p>
                                             <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">ID: {formData.bunnyVideoId}</p>
                                         </div>
                                     </div>

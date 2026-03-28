@@ -179,7 +179,7 @@ export default function ManualCheckoutPage() {
                         <FiChevronLeft size={22} />
                     </Link>
                     <h1 className="text-base font-bold text-gray-900 dark:text-white">الدفع اليدوي — Escrow</h1>
-                    <div className="mr-auto flex items-center gap-1.5 text-[11px] text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 px-2.5 py-1 rounded-full font-semibold">
+                    <div className="mr-auto flex items-center gap-1.5 text-[11px] text-blue-600 bg-blue-50 dark:bg-blue-900/20 px-2.5 py-1 rounded-full font-semibold">
                         <FiShield size={12} />
                         <span>آمن</span>
                     </div>
@@ -216,7 +216,7 @@ export default function ManualCheckoutPage() {
                     <div className="flex items-center justify-between">
                         <span className="text-xs text-gray-400 font-medium">المبلغ المطلوب</span>
                         <div className="text-left">
-                            <p className="text-xl font-black text-gray-900 dark:text-white">
+                            <p className="text-xl font-bold text-gray-900 dark:text-white">
                                 {formatCurrency(localPrice.amount, localPrice.currency)}
                             </p>
                             {localPrice.currency !== 'USD' && (
@@ -323,12 +323,12 @@ export default function ManualCheckoutPage() {
                                 </div>
                                 <button
                                     onClick={() => handleCopy(PLATFORM_WALLETS[selectedMethod.id] || '')}
-                                    className={`shrink-0 w-11 h-11 rounded-xl flex items-center justify-center transition-all ${copied ? 'bg-emerald-500 text-white' : 'bg-[#0052FF] text-white hover:bg-[#0052FF]/90 active:scale-95'}`}
+                                    className={`shrink-0 w-11 h-11 rounded-xl flex items-center justify-center transition-all ${copied ? 'bg-blue-500 text-white' : 'bg-[#0052FF] text-white hover:bg-[#0052FF]/90 active:scale-95'}`}
                                 >
                                     {copied ? <FiCheck size={18} /> : <FiCopy size={16} />}
                                 </button>
                             </div>
-                            {copied && <p className="text-[11px] text-emerald-500 mt-1.5 font-medium">✓ تم النسخ</p>}
+                            {copied && <p className="text-[11px] text-blue-500 mt-1.5 font-medium">✓ تم النسخ</p>}
                         </div>
 
                         {/* Form */}
@@ -435,10 +435,10 @@ export default function ManualCheckoutPage() {
                 ═══════════════════════════════════════════════════ */}
                 {step === 3 && orderResult && (
                     <div className="text-center py-6 animate-in fade-in">
-                        <div className="w-16 h-16 mx-auto bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mb-4">
-                            <FiCheckCircle className="text-emerald-500" size={34} />
+                        <div className="w-16 h-16 mx-auto bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4">
+                            <FiCheckCircle className="text-blue-500" size={34} />
                         </div>
-                        <h2 className="text-xl font-black text-gray-900 dark:text-white mb-1.5">تم إرسال طلبك!</h2>
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1.5">تم إرسال طلبك!</h2>
                         <p className="text-gray-400 text-xs mb-5 leading-relaxed max-w-xs mx-auto">
                             سيتم مراجعة الدفعة من قبل فريقنا وتفعيل طلبك خلال ساعات قليلة.
                         </p>

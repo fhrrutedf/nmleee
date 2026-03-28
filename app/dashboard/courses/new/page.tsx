@@ -248,7 +248,7 @@ export default function NewCoursePage() {
                         <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-slate-400 hover:text-primary-indigo-600 font-bold text-xs mb-4 transition-colors">
                             <FiArrowRight /> العودة للدورات
                         </Link>
-                        <h1 className="text-4xl font-black text-slate-900 tracking-tight">بناء أكاديمية جديدة</h1>
+                        <h1 className="text-4xl font-bold text-slate-900 tracking-tight">بناء أكاديمية جديدة</h1>
                         <p className="text-slate-500 font-medium mt-2">صمم تجربة تعلم فريدة لطلابك، وابدأ بعرض كافة التفاصيل الجذابة</p>
                     </div>
                     {isSavingDraft && (
@@ -259,7 +259,7 @@ export default function NewCoursePage() {
                 </div>
 
                 {/* Progress Bar */}
-                <div className="bg-white rounded-[3rem] p-6 lg:p-8 shadow-premium border border-slate-50 mb-10 overflow-hidden">
+                <div className="bg-white rounded-2xl p-6 lg:p-8 shadow-lg border border-slate-50 mb-10 overflow-hidden">
                     <StepProgress steps={dynamicSteps} currentStep={currentStep} />
                 </div>
 
@@ -290,18 +290,18 @@ export default function NewCoursePage() {
                                     <div className="space-y-4 pt-10 border-t border-slate-50">
                                         <label className="label-modern italic mb-4 block underline decoration-primary-indigo-100 underline-offset-8">نوع الدورة التدريبية وأسلوب التقديم <span className="text-red-500">*</span></label>
                                         <div className="grid md:grid-cols-2 gap-6">
-                                            <button type="button" onClick={() => update('format', 'recorded')} className={`p-6 rounded-[2rem] border-2 text-right transition-all flex items-start gap-4 ${formData.format === 'recorded' ? 'border-primary-indigo-500 bg-primary-indigo-50 shadow-lg shadow-primary-indigo-100 scale-[1.02]' : 'border-slate-100 bg-white hover:border-slate-200'}`}>
+                                            <button type="button" onClick={() => update('format', 'recorded')} className={`p-6 rounded-xl border-2 text-right transition-all flex items-start gap-4 ${formData.format === 'recorded' ? 'border-primary-indigo-500 bg-primary-indigo-50 shadow-lg shadow-primary-indigo-100 scale-[1.02]' : 'border-slate-100 bg-white hover:border-slate-200'}`}>
                                                 <div className={`p-3 rounded-2xl ${formData.format === 'recorded' ? 'bg-primary-indigo-100 text-primary-indigo-600' : 'bg-slate-50 text-slate-400'}`}><FiVideo size={28}/></div>
                                                 <div>
-                                                    <h4 className={`font-black mb-1 text-lg ${formData.format === 'recorded' ? 'text-primary-indigo-700' : 'text-slate-700'}`}>دورة مسجلة (Asynchronous)</h4>
+                                                    <h4 className={`font-bold mb-1 text-lg ${formData.format === 'recorded' ? 'text-primary-indigo-700' : 'text-slate-700'}`}>دورة مسجلة (Asynchronous)</h4>
                                                     <p className={`text-xs font-bold ${formData.format === 'recorded' ? 'text-primary-indigo-600/70' : 'text-slate-400 opacity-80'}`}>محتوى مسجل بالكامل، يتعلمه الطالب بالسرعة التي تناسبه.</p>
                                                 </div>
                                             </button>
-                                            <button type="button" onClick={() => update('format', 'online')} className={`p-6 rounded-[2rem] border-2 text-right transition-all flex items-start gap-4 ${formData.format === 'online' ? 'border-emerald-500 bg-emerald-50 shadow-lg shadow-emerald-100 scale-[1.02]' : 'border-slate-100 bg-white hover:border-slate-200'}`}>
-                                                <div className={`p-3 rounded-2xl ${formData.format === 'online' ? 'bg-emerald-100 text-emerald-600' : 'bg-slate-50 text-slate-400'}`}><FiClock size={28}/></div>
+                                            <button type="button" onClick={() => update('format', 'online')} className={`p-6 rounded-xl border-2 text-right transition-all flex items-start gap-4 ${formData.format === 'online' ? 'border-blue-500 bg-blue-50 shadow-lg shadow-blue-100 scale-[1.02]' : 'border-slate-100 bg-white hover:border-slate-200'}`}>
+                                                <div className={`p-3 rounded-2xl ${formData.format === 'online' ? 'bg-blue-100 text-blue-600' : 'bg-slate-50 text-slate-400'}`}><FiClock size={28}/></div>
                                                 <div>
-                                                    <h4 className={`font-black mb-1 text-lg ${formData.format === 'online' ? 'text-emerald-700' : 'text-slate-700'}`}>دورة حية (Live / Online)</h4>
-                                                    <p className={`text-xs font-bold ${formData.format === 'online' ? 'text-emerald-600/70' : 'text-slate-400 opacity-80'}`}>بث مباشر عبر Zoom / Meet ومقابلات في أوقات محددة.</p>
+                                                    <h4 className={`font-bold mb-1 text-lg ${formData.format === 'online' ? 'text-blue-700' : 'text-slate-700'}`}>دورة حية (Live / Online)</h4>
+                                                    <p className={`text-xs font-bold ${formData.format === 'online' ? 'text-blue-600/70' : 'text-slate-400 opacity-80'}`}>بث مباشر عبر Zoom / Meet ومقابلات في أوقات محددة.</p>
                                                 </div>
                                             </button>
                                         </div>
@@ -312,7 +312,7 @@ export default function NewCoursePage() {
                                     <div className="grid md:grid-cols-2 gap-10">
                                         <div>
                                             <label className="label-modern underline decoration-primary-indigo-100 underline-offset-4 mb-4 block">غلاف الدورة الأساسي (16:9) <span className="text-red-500">*</span></label>
-                                            <div className="relative aspect-video rounded-[2.5rem] bg-slate-50 border-4 border-white shadow-xl overflow-hidden group">
+                                            <div className="relative aspect-video rounded-xl bg-slate-50 border-4 border-white shadow-xl overflow-hidden group">
                                                 {formData.image ? (
                                                     <>
                                                         <img src={formData.image} alt="Cover" className="w-full h-full object-cover" />
@@ -323,19 +323,19 @@ export default function NewCoursePage() {
                                                 ) : (
                                                     <button type="button" onClick={() => setShowCoverUploader(true)} className="w-full h-full flex flex-col items-center justify-center text-slate-300 gap-3 hover:bg-white hover:text-primary-indigo-500 transition-all">
                                                         <FiImage size={40} />
-                                                        <span className="text-xs font-black italic">أفلت صورة الغلاف هنا للرفع</span>
+                                                        <span className="text-xs font-bold italic">أفلت صورة الغلاف هنا للرفع</span>
                                                     </button>
                                                 )}
                                                 {showCoverUploader && (
                                                     <div className="absolute inset-0 bg-white/90 backdrop-blur-md p-6 overflow-auto text-right z-20 flex flex-col justify-center"><FileUploader onUploadSuccess={urls => { update('image', urls[0]); setShowCoverUploader(false); }} /></div>
                                                 )}
                                             </div>
-                                            <p className="text-[10px] text-emerald-600 font-bold mt-3 flex items-center gap-1"><FiCheckSquare/> يتم تشفير مسار ملفاتك بشكل آمن لحظياً</p>
+                                            <p className="text-[10px] text-blue-600 font-bold mt-3 flex items-center gap-1"><FiCheckSquare/> يتم تشفير مسار ملفاتك بشكل آمن لحظياً</p>
                                         </div>
 
                                         <div>
                                             <label className="label-modern underline decoration-primary-indigo-100 underline-offset-4 mb-4 block text-slate-700">الفيديو التشويقي (Trailer) 🔥</label>
-                                            <div className="relative aspect-video rounded-[2.5rem] bg-slate-50 border-4 border-white shadow-xl overflow-hidden group">
+                                            <div className="relative aspect-video rounded-xl bg-slate-50 border-4 border-white shadow-xl overflow-hidden group">
                                                 {formData.trailerUrl ? (
                                                     <div className="flex flex-col items-center justify-center w-full h-full p-6 text-center">
                                                         <div className="w-16 h-16 bg-indigo-50 text-indigo-500 rounded-2xl flex items-center justify-center mb-4">
@@ -345,14 +345,14 @@ export default function NewCoursePage() {
                                                         <button 
                                                             type="button" 
                                                             onClick={() => update('trailerUrl', '')} 
-                                                            className="mt-4 px-6 py-2 bg-red-50 text-red-500 text-xs font-black rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                                                            className="mt-4 px-6 py-2 bg-red-50 text-red-500 text-xs font-bold rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-sm"
                                                         >
                                                             حذف واستبدال الفيديو
                                                         </button>
                                                     </div>
                                                 ) : (
                                                     <div className="p-4 sm:p-8 w-full h-full flex flex-col justify-center">
-                                                        <p className="text-[10px] font-black text-slate-400 mb-6 text-center uppercase tracking-widest leading-relaxed">ارفع فيديو تعريفي لا يتجاوز دقيقتين لجذب انتباه الطلاب واقناعهم بالدورة</p>
+                                                        <p className="text-[10px] font-bold text-slate-400 mb-6 text-center uppercase tracking-widest leading-relaxed">ارفع فيديو تعريفي لا يتجاوز دقيقتين لجذب انتباه الطلاب واقناعهم بالدورة</p>
                                                         <BunnyUpload 
                                                             onComplete={(data) => {
                                                                 if (data) {
@@ -378,7 +378,7 @@ export default function NewCoursePage() {
                                     title={formData.format === 'online' ? "تفاصيل ومحتوى الجلسة الحية" : "الوصف التفصيلي للمنهج"} 
                                     icon={<FiLayers />}
                                 >
-                                    <label className="label-modern mb-4 block font-black underline decoration-primary-indigo-200 underline-offset-8">
+                                    <label className="label-modern mb-4 block font-bold underline decoration-primary-indigo-200 underline-offset-8">
                                         {formData.format === 'online' ? "ماذا سيتناول الطلاب في هذه الجلسة الحية؟" : "ماذا سيتعلم الطالب؟ اكتب بوضوح"} 
                                         <span className="text-red-500">*</span>
                                     </label>
@@ -390,18 +390,18 @@ export default function NewCoursePage() {
                                 <Section title="المواصفات والوقت" icon={<FiClock />}>
                                     <div className="grid md:grid-cols-2 gap-10">
                                         <div className="space-y-2">
-                                            <label className="text-xs font-black text-slate-400 italic">المدة الزمنية للجلسة / الدورة</label>
+                                            <label className="text-xs font-bold text-slate-400 italic">المدة الزمنية للجلسة / الدورة</label>
                                             <input type="text" className="input-modern" placeholder={formData.format === 'online' ? "مثال: 90 دقيقة" : "مثال: 12 ساعة تدريبية"} value={formData.duration} onChange={e => update('duration', e.target.value)} />
                                         </div>
                                         {formData.format === 'online' ? (
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black text-emerald-600 italic">موعد البث (بتوقيتك المحلي)</label>
-                                                <input type="datetime-local" className="input-modern border-emerald-100 bg-emerald-50/30" value={formData.startTime} onChange={e => update('startTime', e.target.value)} />
+                                                <label className="text-xs font-bold text-blue-600 italic">موعد البث (بتوقيتك المحلي)</label>
+                                                <input type="datetime-local" className="input-modern border-blue-100 bg-blue-50/30" value={formData.startTime} onChange={e => update('startTime', e.target.value)} />
                                                 <p className="text-[9px] text-slate-400 font-bold">سيتم عرض الموعد للطالب حسب توقيته المحلي تلقائياً</p>
                                             </div>
                                         ) : (
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black text-slate-400 italic">إجمالي عدد الدروس (Sessions)</label>
+                                                <label className="text-xs font-bold text-slate-400 italic">إجمالي عدد الدروس (Sessions)</label>
                                                 <input type="number" className="input-modern" placeholder="مثال: 24" value={formData.sessions} onChange={e => update('sessions', e.target.value)} />
                                             </div>
                                         )}
@@ -451,11 +451,11 @@ export default function NewCoursePage() {
                                             <label className="label-modern text-xs">مميزات حصرية ينالها الطالب</label>
                                             <div className="flex gap-2">
                                                 <input type="text" className="input-modern flex-1 text-xs" placeholder="مثال: شهادة معتمدة" value={featureInput} onChange={e => setFeatureInput(e.target.value)} onKeyPress={e => e.key === 'Enter' && (e.preventDefault(), addFeature())} />
-                                                <button type="button" onClick={addFeature} className="w-10 h-10 bg-emerald-500 text-white rounded-[1rem] flex items-center justify-center font-bold tracking-tighter hover:bg-emerald-600 transition-colors"><FiPlus /></button>
+                                                <button type="button" onClick={addFeature} className="w-10 h-10 bg-blue-500 text-white rounded-[1rem] flex items-center justify-center font-bold tracking-tighter hover:bg-blue-600 transition-colors"><FiPlus /></button>
                                             </div>
                                             <ul className="space-y-3">
                                                 {formData.features.map(f => (
-                                                    <li key={f} className="text-[11px] font-black text-slate-600 bg-emerald-50/50 p-2.5 rounded-xl flex items-center justify-between border-r-4 border-emerald-400 group">
+                                                    <li key={f} className="text-[11px] font-bold text-slate-600 bg-blue-50/50 p-2.5 rounded-xl flex items-center justify-between border-r-4 border-blue-400 group">
                                                         {f}
                                                         <FiX className="cursor-pointer text-slate-300 group-hover:text-red-500" onClick={() => update('features', formData.features.filter(i => i !== f))} />
                                                     </li>
@@ -473,7 +473,7 @@ export default function NewCoursePage() {
                                 <Section title="ورشة بناء المحتوى المتقدم" icon={<FiLayers />}>
                                     <div className="bg-slate-50/50 -mx-6 -mt-6 sm:-mx-10 sm:-mt-10 p-6 sm:p-10 rounded-t-[3rem] border-b border-slate-100">
                                         <div className="max-w-xl">
-                                            <h3 className="text-xl font-black text-slate-800 mb-2">منهج الدورة الاحترافي</h3>
+                                            <h3 className="text-xl font-bold text-slate-800 mb-2">منهج الدورة الاحترافي</h3>
                                             <p className="text-sm font-bold text-slate-500">تم حفظ بياناتك المبدئية بنجاح! الآن قم بترتيب الوحدات وإضافة مقاطع الفيديو، الاختباء، والمواد (جميع التعديلات هنا تحفظ تلقائياً دون الحاجة لضغط حفظ).</p>
                                         </div>
                                     </div>
@@ -495,31 +495,31 @@ export default function NewCoursePage() {
                                     <div className="grid md:grid-cols-2 gap-10 pt-4">
                                         <div className="space-y-4">
                                             <div className="flex items-center justify-between mb-4">
-                                                <label className="label-modern underline decoration-emerald-200 underline-offset-8">سعر البيع النهائي ($)</label>
-                                                <span className="text-[10px] font-black bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full uppercase tracking-tighter shadow-sm animate-pulse">السعر المعتمد</span>
+                                                <label className="label-modern underline decoration-blue-200 underline-offset-8">سعر البيع النهائي ($)</label>
+                                                <span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-full uppercase tracking-tighter shadow-sm animate-pulse">السعر المعتمد</span>
                                             </div>
                                             <div className="relative group/price">
-                                                <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-emerald-50 text-emerald-600 rounded-r-2xl border-l border-emerald-100 transition-colors group-focus-within/price:bg-emerald-600 group-focus-within/price:text-white">
+                                                <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-blue-50 text-blue-600 rounded-r-2xl border-l border-blue-100 transition-colors group-focus-within/price:bg-blue-600 group-focus-within/price:text-white">
                                                     <FiDollarSign size={24}/>
                                                 </div>
-                                                <input type="number" required className="input-modern pr-20 text-4xl font-black text-slate-800 focus:bg-white transition-all text-center tracking-tighter" placeholder="0.00" value={formData.price} onChange={e => update('price', e.target.value)} />
+                                                <input type="number" required className="input-modern pr-20 text-4xl font-bold text-slate-800 focus:bg-white transition-all text-center tracking-tighter" placeholder="0.00" value={formData.price} onChange={e => update('price', e.target.value)} />
                                             </div>
                                             <div className="flex items-center justify-between p-4 bg-slate-50/50 rounded-2xl border border-slate-100 mt-4">
                                                 <span className="text-[11px] font-bold text-slate-400 italic">صافي أرباحك التقريبي (بعد عمولة المنصة 10%):</span>
-                                                <span className="text-lg font-black text-emerald-700">{netEarnings} $</span>
+                                                <span className="text-lg font-bold text-blue-700">{netEarnings} $</span>
                                             </div>
                                         </div>
 
                                         <div className="space-y-4">
                                             <div className="flex items-center justify-between mb-4">
                                                 <label className="label-modern underline decoration-red-200 underline-offset-8">السعر الوهمي / السابق ($)</label>
-                                                <span className="text-[10px] font-black bg-red-50 text-red-500 px-3 py-1 rounded-full uppercase tracking-tighter">للخصم فقط</span>
+                                                <span className="text-[10px] font-bold bg-red-50 text-red-500 px-3 py-1 rounded-full uppercase tracking-tighter">للخصم فقط</span>
                                             </div>
                                             <div className="relative group/price-old">
                                                 <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-slate-50 text-slate-400 rounded-r-2xl border-l border-slate-100 transition-colors group-focus-within/price-old:bg-red-500 group-focus-within/price-old:text-white">
                                                     <FiX size={24}/>
                                                 </div>
-                                                <input type="number" className="input-modern pr-20 text-3xl font-black text-slate-400 line-through focus:bg-white transition-all text-center" placeholder="99.00" value={formData.originalPrice} onChange={e => update('originalPrice', e.target.value)} />
+                                                <input type="number" className="input-modern pr-20 text-3xl font-bold text-slate-400 line-through focus:bg-white transition-all text-center" placeholder="99.00" value={formData.originalPrice} onChange={e => update('originalPrice', e.target.value)} />
                                             </div>
                                             <p className="text-[10px] text-slate-400 font-bold leading-relaxed pr-2 italic">سيظهر هذا السعر مشطوباً لإغراء الطالب بعرض "لفترة محدودة" وفرصة لا تعوض.</p>
                                         </div>
@@ -549,11 +549,11 @@ export default function NewCoursePage() {
                                         <p className="text-[10px] text-slate-400 font-bold -mt-2 mb-6 text-right">أضف روابط الاجتماعات لتسهيل وصول طلابك فور الشراء للمحاضرات الحية المرافقة (اختياري)</p>
                                         <div className="grid md:grid-cols-2 gap-8">
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black text-slate-500 flex items-center gap-2"><FiVideo className="text-blue-500" /> Zoom Meeting Link</label>
+                                                <label className="text-xs font-bold text-slate-500 flex items-center gap-2"><FiVideo className="text-blue-500" /> Zoom Meeting Link</label>
                                                 <input type="url" className="input-modern bg-slate-50/50" placeholder="https://zoom.us/j/..." value={formData.zoomLink} onChange={e => update('zoomLink', e.target.value)} />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-black text-slate-500 flex items-center gap-2"><FiVideo className="text-emerald-500" /> Google Meet Link</label>
+                                                <label className="text-xs font-bold text-slate-500 flex items-center gap-2"><FiVideo className="text-blue-500" /> Google Meet Link</label>
                                                 <input type="url" className="input-modern bg-slate-50/50" placeholder="https://meet.google.com/..." value={formData.meetLink} onChange={e => update('meetLink', e.target.value)} />
                                             </div>
                                         </div>
@@ -561,9 +561,9 @@ export default function NewCoursePage() {
                                 )}
 
                                 <Section title="خيارات العرض فور الإنشاء" icon={<FiEye />}>
-                                    <div className={`flex items-center justify-between p-8 rounded-[3rem] border transition-all cursor-pointer group hover:opacity-95 ${formData.isActive ? 'bg-slate-900 border-slate-800 shadow-2xl' : 'bg-white border-slate-100'}`} onClick={() => update('isActive', !formData.isActive)}>
+                                    <div className={`flex items-center justify-between p-8 rounded-2xl border transition-all cursor-pointer group hover:opacity-95 ${formData.isActive ? 'bg-slate-900 border-slate-800 shadow-2xl' : 'bg-white border-slate-100'}`} onClick={() => update('isActive', !formData.isActive)}>
                                         <div className="text-right">
-                                            <h3 className={`font-black text-xl leading-tight transition-colors ${formData.isActive ? 'text-white' : 'text-slate-800'}`}>إطلاق وعرض الدورة للبيع</h3>
+                                            <h3 className={`font-bold text-xl leading-tight transition-colors ${formData.isActive ? 'text-white' : 'text-slate-800'}`}>إطلاق وعرض الدورة للبيع</h3>
                                             <p className={`text-xs mt-1 font-bold ${formData.isActive ? 'text-white/40' : 'text-slate-400'}`}>{formData.isActive ? 'الدورة ستظهر في واجهة المتجر الرئيسية للجميع' : 'الدورة ستبقى مخفية (وسيكون الوصول بالرابط السري فقط)'}</p>
                                         </div>
                                         <div className={`w-14 h-8 rounded-full flex items-center px-1 transition-all ${formData.isActive ? 'bg-primary-indigo-500' : 'bg-slate-100'}`}>
@@ -571,9 +571,9 @@ export default function NewCoursePage() {
                                         </div>
                                     </div>
                                     
-                                    <div className="flex items-center justify-between p-8 bg-blue-900 rounded-[3rem] border border-blue-800 shadow-lg transition-all cursor-pointer hover:bg-blue-800 group" onClick={() => update('enablePPP', !formData.enablePPP)}>
+                                    <div className="flex items-center justify-between p-8 bg-blue-900 rounded-2xl border border-blue-800 shadow-lg transition-all cursor-pointer hover:bg-blue-800 group" onClick={() => update('enablePPP', !formData.enablePPP)}>
                                         <div className="text-right">
-                                            <h3 className="font-black text-white text-xl leading-tight transition-colors group-hover:text-amber-400">تفعيل التسعير العادل (PPP Pricing) 🌍</h3>
+                                            <h3 className="font-bold text-white text-xl leading-tight transition-colors group-hover:text-amber-400">تفعيل التسعير العادل (PPP Pricing) 🌍</h3>
                                             <p className="text-xs text-blue-200 mt-1 max-w-lg leading-relaxed">تخفيض السعر تلقائياً للزوار من الدول النامية حسب القوة الشرائية، لضمان أعلى نسبة مبيعات للجميع دون حرمان أحد.</p>
                                         </div>
                                         <div className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-amber-500 outline-amber-500/30' : 'bg-blue-950 outline-blue-900'}`}>
@@ -607,7 +607,7 @@ export default function NewCoursePage() {
                             {currentStep < 4 ? (
                                 <button
                                     type="button" onClick={nextStep}
-                                    className="w-full md:w-auto px-12 py-4 bg-slate-900 text-white rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-black transition-all shadow-2xl active:scale-95 text-lg"
+                                    className="w-full md:w-auto px-12 py-4 bg-slate-900 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-black transition-all shadow-2xl active:scale-95 text-lg"
                                 >
                                     {currentStep === 3 || (currentStep === 2 && formData.format === 'online') ? 'التالي لتسعير الدورة' : 'المتابعة واختيار الإعدادات'}
                                     <FiArrowLeft />
@@ -615,7 +615,7 @@ export default function NewCoursePage() {
                             ) : (
                                 <button
                                     type="submit" disabled={loading}
-                                    className="w-full md:w-auto px-12 py-4 bg-gradient-to-l from-primary-indigo-600 to-emerald-500 text-white rounded-2xl font-black flex items-center justify-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-indigo-200 active:scale-95 text-lg"
+                                    className="w-full md:w-auto px-12 py-4 bg-gradient-to-l from-primary-indigo-600 to-blue-500 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-indigo-200 active:scale-95 text-lg"
                                 >
                                     {loading ? 'جاري التحضير...' : 'إطلاق الأكاديمية ونشر البيانات'}
                                     {!loading && <FiCheck />}
@@ -631,23 +631,23 @@ export default function NewCoursePage() {
                 <div className="sticky top-10 space-y-6">
                     <div className="flex items-center gap-2 text-primary-indigo-600 mb-6">
                         <FiEye size={20} />
-                        <h3 className="font-black text-sm uppercase tracking-widest">معاينة الطالب المباشرة</h3>
+                        <h3 className="font-bold text-sm uppercase tracking-widest">معاينة الطالب المباشرة</h3>
                     </div>
 
                     {/* Miniature Course Card */}
-                    <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-premium overflow-hidden transition-all hover:shadow-2xl hover:-translate-y-1">
+                    <div className="bg-white rounded-xl border border-slate-100 shadow-lg overflow-hidden transition-all hover:shadow-2xl hover:-translate-y-1">
                         <div className="aspect-video bg-slate-100 relative overflow-hidden flex items-center justify-center text-slate-300">
                             {formData.image ? 
                                 <img src={formData.image} alt="Preview" className="w-full h-full object-cover" /> 
                             : <span className="font-bold text-xs"><FiImage size={32} className="mx-auto opacity-50 mb-2"/> سيظهر الغلاف هنا</span>}
                             
-                            <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1.5 font-black text-[10px] text-slate-800 rounded-xl">
+                            <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1.5 font-bold text-[10px] text-slate-800 rounded-xl">
                                 {formData.category || 'تصنيف الدورة'}
                             </div>
                         </div>
                         
                         <div className="p-6">
-                            <h4 className="font-black text-lg text-slate-900 line-clamp-2 leading-tight min-h-[50px]">
+                            <h4 className="font-bold text-lg text-slate-900 line-clamp-2 leading-tight min-h-[50px]">
                                 {formData.title || 'اسم الدورة التدريبية سيظهر هنا، اكتب عنواناً قوياً لجذب الانتباه...'}
                             </h4>
                             
@@ -658,7 +658,7 @@ export default function NewCoursePage() {
                             </div>
 
                             <div className="flex justify-between items-center mt-6 pt-4 border-t border-slate-50">
-                                <div className="text-xl font-black text-slate-900" dir="ltr">
+                                <div className="text-xl font-bold text-slate-900" dir="ltr">
                                     <span className="text-sm text-slate-400 mr-1">$</span>
                                     {formData.price || '0.00'}
                                 </div>
@@ -668,7 +668,7 @@ export default function NewCoursePage() {
                                 </div>
                             </div>
                             
-                            <button className="w-full mt-4 py-3 bg-slate-50 text-slate-400 font-black rounded-2xl text-xs" disabled>
+                            <button className="w-full mt-4 py-3 bg-slate-50 text-slate-400 font-bold rounded-2xl text-xs" disabled>
                                 اشتراك وإضافة للسلة
                             </button>
                         </div>
@@ -680,13 +680,13 @@ export default function NewCoursePage() {
                 {showConfirmModal && (
                     <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xl animate-fade-in">
                         <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-[3.5rem] p-12 max-w-sm w-full text-center space-y-10 shadow-2xl border border-slate-50">
-                             <div className="w-24 h-24 bg-primary-indigo-50 text-primary-indigo-600 rounded-[2.5rem] flex items-center justify-center mx-auto text-5xl shadow-sm"><FiCheckSquare /></div>
+                             <div className="w-24 h-24 bg-primary-indigo-50 text-primary-indigo-600 rounded-xl flex items-center justify-center mx-auto text-5xl shadow-sm"><FiCheckSquare /></div>
                              <div className="space-y-2">
-                                 <h3 className="text-3xl font-black text-slate-900 leading-tight">جاهز للانطلاق!</h3>
-                                 <p className="text-sm text-slate-400 font-black uppercase tracking-widest">سيتم نشر الأكاديمية وتفعيل القبول التلقائي</p>
+                                 <h3 className="text-3xl font-bold text-slate-900 leading-tight">جاهز للانطلاق!</h3>
+                                 <p className="text-sm text-slate-400 font-bold uppercase tracking-widest">سيتم نشر الأكاديمية وتفعيل القبول التلقائي</p>
                              </div>
                              <div className="flex flex-col gap-4">
-                                <button onClick={handleSubmit} className="w-full py-5 bg-gradient-to-l from-primary-indigo-600 to-emerald-500 text-white rounded-3xl font-black shadow-lg hover:opacity-90 transition-all text-lg">تأكيد ونشر الأكاديمية الآن</button>
+                                <button onClick={handleSubmit} className="w-full py-5 bg-gradient-to-l from-primary-indigo-600 to-blue-500 text-white rounded-3xl font-bold shadow-lg hover:opacity-90 transition-all text-lg">تأكيد ونشر الأكاديمية الآن</button>
                                 <button onClick={() => setShowConfirmModal(false)} className="w-full py-2 text-slate-400 font-bold text-xs uppercase hover:text-slate-600 transition-all">مراجعة المحتوى التفصيلي</button>
                              </div>
                         </motion.div>
@@ -706,38 +706,38 @@ export default function NewCoursePage() {
                             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
                             className="bg-white rounded-[4rem] p-12 max-w-xl w-full shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border border-white/20 text-center relative overflow-hidden"
                         >
-                            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary-indigo-500 via-emerald-500 to-primary-indigo-500 animate-gradient-x" />
+                            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary-indigo-500 via-blue-500 to-primary-indigo-500 animate-gradient-x" />
                             
-                            <div className="w-24 h-24 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-10 text-4xl shadow-lg ring-8 ring-emerald-50">🎓</div>
+                            <div className="w-24 h-24 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-10 text-4xl shadow-lg ring-8 ring-blue-50">🎓</div>
                             
                             <div className="space-y-4 mb-12">
-                                <h2 className="text-4xl font-black text-slate-900 tracking-tight leading-none">تهانينا! دورتك جاهزة ✨</h2>
+                                <h2 className="text-4xl font-bold text-slate-900 tracking-tight leading-none">تهانينا! دورتك جاهزة ✨</h2>
                                 <p className="text-slate-500 font-bold text-lg leading-relaxed">تم إطلاق الأكاديمية بنجاح الآن. يمكنك البدء باستقبال الطلاب أو الاستمرار في تحسين المنهج.</p>
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <button
                                     onClick={() => router.push(`/dashboard/courses/${finalCourseId}/content`)}
-                                    className="w-full py-5 bg-primary-indigo-600 text-white rounded-3xl font-black flex items-center justify-center gap-3 hover:bg-primary-indigo-700 transition-all shadow-xl active:scale-95"
+                                    className="w-full py-5 bg-primary-indigo-600 text-white rounded-3xl font-bold flex items-center justify-center gap-3 hover:bg-primary-indigo-700 transition-all shadow-xl active:scale-95"
                                 >
                                     إدارة الدروس <FiLayers />
                                 </button>
                                 <button
                                     onClick={() => router.push(`/dashboard/courses/${finalCourseId}/edit`)}
-                                    className="w-full py-5 bg-slate-900 text-white rounded-3xl font-black flex items-center justify-center gap-3 hover:bg-black transition-all shadow-xl active:scale-95"
+                                    className="w-full py-5 bg-slate-900 text-white rounded-3xl font-bold flex items-center justify-center gap-3 hover:bg-black transition-all shadow-xl active:scale-95"
                                 >
                                     تعديل التفاصيل <FiEdit2 />
                                 </button>
                                 <button
                                     onClick={() => router.push('/dashboard/courses')}
-                                    className="w-full py-5 bg-slate-100 text-slate-600 rounded-3xl font-black hover:bg-slate-200 transition-all flex items-center justify-center gap-3 active:scale-95"
+                                    className="w-full py-5 bg-slate-100 text-slate-600 rounded-3xl font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-3 active:scale-95"
                                 >
                                     لوحة التحكم <FiArrowLeft />
                                 </button>
                                 <Link
                                     href={creatorUsername && finalSlug ? `/${creatorUsername}/products/${finalSlug}` : `/dashboard/courses/${finalCourseId}/content`}
                                     target="_blank"
-                                    className="w-full py-5 bg-emerald-100 text-emerald-700 rounded-3xl font-black hover:bg-emerald-200 transition-all flex items-center justify-center gap-3 active:scale-95 shadow-sm"
+                                    className="w-full py-5 bg-blue-100 text-blue-700 rounded-3xl font-bold hover:bg-blue-200 transition-all flex items-center justify-center gap-3 active:scale-95 shadow-sm"
                                 >
                                     لمحة عن المتجر <FiEye />
                                 </Link>
@@ -752,13 +752,13 @@ export default function NewCoursePage() {
 
 function Section({ title, icon, children }: any) {
     return (
-        <div className="bg-white rounded-[3.5rem] p-8 lg:p-14 shadow-premium border border-slate-50 space-y-10 overflow-hidden relative">
+        <div className="bg-white rounded-[3.5rem] p-8 lg:p-14 shadow-lg border border-slate-50 space-y-10 overflow-hidden relative">
             <div className="flex items-center gap-5">
                 <div className="w-16 h-16 bg-slate-50 text-slate-900 rounded-3xl flex items-center justify-center text-3xl shadow-sm group-hover:scale-110 transition-transform shrink-0">
                     {icon}
                 </div>
                 <div className="text-right">
-                    <h2 className="text-2xl font-black text-slate-900 tracking-tight">{title}</h2>
+                    <h2 className="text-2xl font-bold text-slate-900 tracking-tight">{title}</h2>
                     <div className="h-1.5 w-12 bg-primary-indigo-100 rounded-full mt-2" />
                 </div>
             </div>

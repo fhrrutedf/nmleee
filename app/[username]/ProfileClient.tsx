@@ -147,7 +147,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                     {creator.avatar ? (
                                         <Image src={creator.avatar} alt={creator.name} fill className="object-cover" priority />
                                     ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-4xl font-black text-white" style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}>
+                                        <div className="w-full h-full flex items-center justify-center text-4xl font-bold text-white" style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}>
                                             {creator.name?.charAt(0)?.toUpperCase()}
                                         </div>
                                     )}
@@ -162,7 +162,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                             <div className="flex-1 text-center sm:text-right w-full min-w-0">
                                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                                     <div>
-                                        <h1 className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white">{creator.name}</h1>
+                                        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{creator.name}</h1>
                                         <p className="text-sm font-bold mt-0.5 font-mono" style={{ color: brandColor }}>@{creator.username}</p>
                                     </div>
 
@@ -246,7 +246,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                 { icon: <FiAward />, value: '4.9', label: 'تقييم عام' },
                             ].map((stat, i) => (
                                 <div key={i} className="text-center group cursor-default">
-                                    <div className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white group-hover:scale-110 transition-transform duration-300">
+                                    <div className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white group-hover:scale-110 transition-transform duration-300">
                                         {stat.value}
                                         {stat.label === 'تقييم عام' && <FiStar className="inline mr-1 text-sm text-yellow-400 fill-yellow-400" />}
                                     </div>
@@ -271,7 +271,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                     >
                         <div className="flex items-center gap-2 mb-4">
                             <FiZap className="text-lg" style={{ color: brandColor }} />
-                            <h2 className="font-black text-lg text-gray-900 dark:text-white">المنتج المميز</h2>
+                            <h2 className="font-bold text-lg text-gray-900 dark:text-white">المنتج المميز</h2>
                         </div>
 
                         <Link href={(() => {
@@ -293,7 +293,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-l from-white dark:from-gray-900 via-transparent to-transparent hidden sm:block" />
                                     <div className="absolute top-3 right-3">
-                                        <span className="text-xs font-black px-3 py-1.5 rounded-full text-white shadow-lg" style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}>
+                                        <span className="text-xs font-bold px-3 py-1.5 rounded-full text-white shadow-lg" style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}>
                                             ⭐ مميز
                                         </span>
                                     </div>
@@ -307,7 +307,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                             : <span className="text-xs font-bold text-blue-600 bg-blue-100 dark:bg-blue-900/30 px-2 py-0.5 rounded-full flex items-center gap-1"><FiPackage size={10} /> منتج رقمي</span>
                                         }
                                     </div>
-                                    <h3 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white mb-2 group-hover:text-action-blue transition-colors line-clamp-2">
+                                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-action-blue transition-colors line-clamp-2">
                                         {featuredProduct.title}
                                     </h3>
                                     {featuredProduct.description && (() => {
@@ -331,7 +331,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                         ) : null;
                                     })()}
                                     <div className="flex items-center justify-between mt-auto">
-                                        <span className="text-2xl font-black" style={{ color: brandColor }}>
+                                        <span className="text-2xl font-bold" style={{ color: brandColor }}>
                                             {featuredProduct.isFree || featuredProduct.price === 0 ? 'مجاني' : `${featuredProduct.price} $`}
                                         </span>
                                         <span className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-white font-bold text-sm shadow-lg group-hover:scale-105 transition-transform"
@@ -353,7 +353,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                     <div className="flex items-center justify-between mb-5">
                         <div className="flex items-center gap-2">
                             <FiAward className="text-xl" style={{ color: brandColor }} />
-                            <h2 className="font-black text-xl text-gray-900 dark:text-white">
+                            <h2 className="font-bold text-xl text-gray-900 dark:text-white">
                                 جميع المنتجات
                                 <span className="mr-2 text-sm font-bold px-2.5 py-0.5 rounded-full text-white" style={{ background: brandColor }}>{products.length}</span>
                             </h2>
@@ -440,8 +440,8 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                     {/* Badges */}
                                                     <div className="absolute top-2.5 right-2.5 flex flex-col gap-1.5">
                                                         {product.isFree || product.price === 0
-                                                            ? <span className="bg-green-500 text-white text-[10px] font-black px-2 py-1 rounded-lg shadow">مجاني</span>
-                                                            : <span className="bg-black/70 backdrop-blur-sm text-white text-[10px] font-black px-2 py-1 rounded-lg">{product.price} $</span>
+                                                            ? <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-lg shadow">مجاني</span>
+                                                            : <span className="bg-black/70 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-lg">{product.price} $</span>
                                                         }
                                                         {(product.category === 'courses' || product.category === 'course') && (
                                                             <span className="bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1">
@@ -455,11 +455,11 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                 <div className="p-5 backdrop-blur-md bg-white/40 dark:bg-gray-900/40 border-t border-white/20">
                                                     <div className="flex items-center gap-2 mb-2">
                                                         {product.category === 'courses'
-                                                            ? <span className="text-[9px] font-black uppercase tracking-tighter text-purple-600 bg-purple-100 px-2 py-0.5 rounded-md">دورة VIP</span>
-                                                            : <span className="text-[9px] font-black uppercase tracking-tighter text-blue-600 bg-blue-100 px-2 py-0.5 rounded-md">ملف رقمي</span>
+                                                            ? <span className="text-[9px] font-bold uppercase tracking-tighter text-purple-600 bg-purple-100 px-2 py-0.5 rounded-md">دورة VIP</span>
+                                                            : <span className="text-[9px] font-bold uppercase tracking-tighter text-blue-600 bg-blue-100 px-2 py-0.5 rounded-md">ملف رقمي</span>
                                                         }
                                                     </div>
-                                                    <h3 className="font-black text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-action-blue transition-colors text-sm leading-tight h-10">
+                                                    <h3 className="font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-action-blue transition-colors text-sm leading-tight h-10">
                                                         {cleanTitle(product.title, product.category)}
                                                     </h3>
                                                     {product.description && stripHtml(product.description) && (
@@ -478,7 +478,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                                 </span>
                                                             )}
                                                         </div>
-                                                        <div className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-white text-[10px] font-black shadow-lg transition-all group-hover:scale-105 group-hover:shadow-xl" 
+                                                        <div className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-white text-[10px] font-bold shadow-lg transition-all group-hover:scale-105 group-hover:shadow-xl" 
                                                             style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}>
                                                             <FiShoppingCart size={11} /> شراء سريع
                                                         </div>
@@ -500,7 +500,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                     <div className="mt-16">
                         <div className="flex items-center gap-2 mb-6">
                             <FiPackage className="text-2xl" style={{ color: brandColor }} />
-                            <h2 className="font-black text-2xl text-gray-900 dark:text-white">
+                            <h2 className="font-bold text-2xl text-gray-900 dark:text-white">
                                 باقات التوفير
                                 <span className="mr-3 text-sm font-bold px-3 py-1 rounded-full text-white shadow-sm" style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}>
                                     {bundles.length} باقات متاحة
@@ -536,14 +536,14 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                     <FiClock className="text-white/80" />
                                     <span className="text-white/80 text-sm font-bold uppercase tracking-widest">جلسة 1-على-1</span>
                                 </div>
-                                <h3 className="text-2xl sm:text-3xl font-black mb-1">احجز استشارة خاصة</h3>
+                                <h3 className="text-2xl sm:text-3xl font-bold mb-1">احجز استشارة خاصة</h3>
                                 <p className="text-white/80 text-sm">
                                     {creator.consultationPrice > 0 ? `${creator.consultationPrice} $ / جلسة` : 'متاحة مجاناً'}
                                 </p>
                             </div>
                             <Link
                                 href={`/${creator.username}/book`}
-                                className="flex-shrink-0 px-8 py-3.5 bg-white font-black rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all text-sm"
+                                className="flex-shrink-0 px-8 py-3.5 bg-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all text-sm"
                                 style={{ color: brandColor }}
                             >
                                 احجز الآن ←
@@ -557,7 +557,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                 ══════════════════════════════════════════ */}
                 {(creator.email || creator.phone) && (
                     <div className="mt-10 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 p-6 sm:p-8">
-                        <h2 className="font-black text-xl text-gray-900 dark:text-white mb-5 flex items-center gap-2">
+                        <h2 className="font-bold text-xl text-gray-900 dark:text-white mb-5 flex items-center gap-2">
                             <FiMessageCircle style={{ color: brandColor }} />
                             تواصل مع البائع
                         </h2>
@@ -593,12 +593,12 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                 ══════════════════════════════════════════ */}
                 <div className="mt-12 mb-8 text-center">
                     <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-gray-900 rounded-full border border-gray-200 dark:border-gray-700 shadow-sm">
-                        <div className="w-5 h-5 rounded-full flex items-center justify-center text-white text-[8px] font-black"
+                        <div className="w-5 h-5 rounded-full flex items-center justify-center text-white text-[8px] font-bold"
                             style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}>
                             ت
                         </div>
                         <span className="text-xs text-gray-500 dark:text-gray-400">مدعوم من </span>
-                        <Link href="/" className="text-xs font-black" style={{ color: brandColor }}>منصة تمالين</Link>
+                        <Link href="/" className="text-xs font-bold" style={{ color: brandColor }}>منصة تمالين</Link>
                     </div>
                 </div>
             </div>

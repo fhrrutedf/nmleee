@@ -107,7 +107,7 @@ export default async function ExplorePage({
                 <div className="absolute top-1/2 -left-24 w-72 h-72 bg-purple-500/20 blur-[80px] rounded-full"></div>
 
                 <div className="max-w-4xl mx-auto relative z-10 text-center animate-fade-in-up">
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-black mb-6 drop-shadow-lg leading-tight">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg leading-tight">
                         اكتشف الإبداع بلا حدود
                     </h1>
                     <p className="text-lg sm:text-xl text-blue-50 dark:text-gray-200 mb-10 max-w-2xl mx-auto font-medium drop-shadow-sm">
@@ -137,7 +137,7 @@ export default async function ExplorePage({
                                     <option value="ebooks">كتب إلكترونية</option>
                                     <option value="templates">قوالب وأدوات</option>
                                 </select>
-                                <button type="submit" className="bg-primary-charcoal dark:bg-action-blue text-white px-8 py-4 sm:py-5 rounded-2xl font-black hover:bg-black dark:hover:bg-blue-600 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 whitespace-nowrap text-lg flex items-center gap-2">
+                                <button type="submit" className="bg-primary-charcoal dark:bg-action-blue text-white px-8 py-4 sm:py-5 rounded-2xl font-bold hover:bg-black dark:hover:bg-blue-600 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 whitespace-nowrap text-lg flex items-center gap-2">
                                     <FiSearch /> <span>بحث</span>
                                 </button>
                             </div>
@@ -151,7 +151,7 @@ export default async function ExplorePage({
                                     name="minPrice" 
                                     placeholder="أقل" 
                                     defaultValue={minPrice}
-                                    className="w-20 bg-transparent border-none outline-none text-sm font-black text-center focus:ring-0 placeholder:font-normal"
+                                    className="w-20 bg-transparent border-none outline-none text-sm font-bold text-center focus:ring-0 placeholder:font-normal"
                                 />
                                 <span className="opacity-30">-</span>
                                 <input 
@@ -159,7 +159,7 @@ export default async function ExplorePage({
                                     name="maxPrice" 
                                     placeholder="أقصى" 
                                     defaultValue={maxPrice}
-                                    className="w-20 bg-transparent border-none outline-none text-sm font-black text-center focus:ring-0 placeholder:font-normal"
+                                    className="w-20 bg-transparent border-none outline-none text-sm font-bold text-center focus:ring-0 placeholder:font-normal"
                                 />
                             </div>
 
@@ -177,7 +177,7 @@ export default async function ExplorePage({
                     </form>
 
                     <div className="mt-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-                        <Link href="/register" className="inline-flex items-center gap-2 bg-white text-action-blue px-8 py-3.5 rounded-full font-black text-lg hover:bg-gray-50 transition-all shadow-[0_8px_30px_rgba(255,255,255,0.2)] hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(255,255,255,0.3)] group">
+                        <Link href="/register" className="inline-flex items-center gap-2 bg-white text-action-blue px-8 py-3.5 rounded-full font-bold text-lg hover:bg-gray-50 transition-all shadow-[0_8px_30px_rgba(255,255,255,0.2)] hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(255,255,255,0.3)] group">
                             ابدأ مجاناً - أنشئ حسابك
                             <FiArrowRight className="rotate-180 group-hover:-translate-x-1 transition-transform" />
                         </Link>
@@ -188,7 +188,7 @@ export default async function ExplorePage({
             {/* Results Grid */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-12">
                 <div className="mb-10 flex flex-col sm:flex-row justify-between items-center gap-4 bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 p-4 sm:p-6 rounded-3xl shadow-sm">
-                    <h2 className="text-2xl sm:text-3xl font-black text-primary-charcoal dark:text-white flex items-center gap-3">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-primary-charcoal dark:text-white flex items-center gap-3">
                         {query ? (
                             <><FiSearch className="text-action-blue" /> نتائج البحث عن "<span className="text-action-blue">{query}</span>"</>
                         ) : category ? (
@@ -228,7 +228,7 @@ export default async function ExplorePage({
                         <div className="w-28 h-28 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-6 text-action-blue">
                             <FiSearch className="text-5xl" />
                         </div>
-                        <h3 className="text-2xl font-black text-primary-charcoal dark:text-white mb-3">للأسف، لم نجد نتائج مطابقة لبحثك</h3>
+                        <h3 className="text-2xl font-bold text-primary-charcoal dark:text-white mb-3">للأسف، لم نجد نتائج مطابقة لبحثك</h3>
                         <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-8 text-lg">
                             جرب استخدام كلمات مفتاحية أخرى، أو قم بتغيير الفلاتر والأقسام للوصول لما تبحث عنه.
                         </p>
