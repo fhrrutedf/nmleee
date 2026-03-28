@@ -230,7 +230,7 @@ export default function CheckoutPage() {
             {/* Background Accents (Premium Emerald) */}
             <div className="fixed inset-0 pointer-events-none opacity-20">
                 <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-600 rounded-full blur-[120px]"></div>
-                <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-amber-600 rounded-full blur-[100px]"></div>
+                <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent-hover rounded-full blur-[100px]"></div>
             </div>
 
             <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -272,7 +272,7 @@ export default function CheckoutPage() {
                         {/* 2. Payment Selection Area */}
                         <div className="bg-[#111827]/60 backdrop-blur-3xl border border-white/5 p-8 rounded-xl shadow-2xl">
                             <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-3">
-                                <span className="w-1.5 h-6 bg-amber-500 rounded-full"></span> اختيار طريقة الدفع
+                                <span className="w-1.5 h-6 bg-accent rounded-full"></span> اختيار طريقة الدفع
                             </h3>
 
                             <div className="flex gap-4 mb-10 overflow-x-auto pb-4 custom-scrollbar">
@@ -321,7 +321,7 @@ export default function CheckoutPage() {
                                                                 <p className="text-[10px] text-slate-500 uppercase tracking-widest">{m.id}</p>
                                                             </div>
                                                         </div>
-                                                        <FiArrowRight className="text-slate-600 group-hover:text-amber-500 transition-colors" />
+                                                        <FiArrowRight className="text-slate-600 group-hover:text-blue-500 transition-colors" />
                                                     </button>
                                                 ))}
                                             </div>

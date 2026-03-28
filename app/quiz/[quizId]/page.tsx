@@ -244,7 +244,7 @@ export default function TakeQuizPage() {
                         {loading ? 'جاري التقديم...' : 'تقديم الاختبار'}
                     </button>
                     {answers.some(a => a === null) && (
-                        <p className="text-sm text-amber-600 mt-2 text-center">
+                        <p className="text-sm text-accent mt-2 text-center">
                             يرجى الإجابة على جميع الأسئلة قبل التقديم
                         </p>
                     )}

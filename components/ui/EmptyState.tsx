@@ -28,7 +28,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
                     </div>
                 </div>
             )}
-            <h3 className="text-xl font-bold text-primary-charcoal dark:text-white mb-2">
+            <h3 className="text-xl font-bold text-ink dark:text-white mb-2">
                 {title}
             </h3>
             <p className="text-text-muted max-w-md mb-6">

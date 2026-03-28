@@ -214,13 +214,13 @@ export default function ProductPage() {
                             
                             {/* Urgency Countdown Placeholder (Simplified for now) */}
                             {product.offerExpiresAt && new Date(product.offerExpiresAt) > new Date() && (
-                                <div className="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-100 flex items-center gap-3 animate-pulse">
-                                    <div className="w-10 h-10 bg-amber-500 text-white rounded-lg flex items-center justify-center">
+                                <div className="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-100 flex items-center gap-3 animate-pulse">
+                                    <div className="w-10 h-10 bg-accent text-white rounded-lg flex items-center justify-center">
                                         <FiClock className="text-xl" />
                                     </div>
                                     <div>
-                                        <p className="text-xs font-bold text-amber-800 uppercase tracking-widest">عرض لفترة محدودة</p>
-                                        <p className="text-sm font-bold text-amber-600">ينتهي العرض قريباً! سارع بالطلب</p>
+                                        <p className="text-xs font-bold text-blue-800 uppercase tracking-widest">عرض لفترة محدودة</p>
+                                        <p className="text-sm font-bold text-accent">ينتهي العرض قريباً! سارع بالطلب</p>
                                     </div>
                                 </div>
                             )}

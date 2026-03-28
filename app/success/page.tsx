@@ -116,14 +116,14 @@ function SuccessContent() {
                     {/* ===== HEADER ===== */}
                     {isPending && !isPaid ? (
                         /* Manual Payment — Pending */
-                        <div className="bg-gradient-to-br from-amber-500 to-orange-600 text-white p-12 text-center relative overflow-hidden">
+                        <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white p-12 text-center relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
                             <div className="relative z-10">
                                 {hasCourse ? (
                                     <>
                                         <FiLock size={80} className="mx-auto mb-6 drop-shadow-md" />
                                         <h1 className="text-4xl font-bold mb-3 drop-shadow-sm">الكورس مقفل حالياً 🔒</h1>
-                                        <p className="text-amber-50 font-medium text-lg max-w-lg mx-auto">
+                                        <p className="text-blue-50 font-medium text-lg max-w-lg mx-auto">
                                             تم استلام طلبك! سيتم فتح الكورس بعد التأكد من الدفع من قبل الإدارة. سنرسل لك رابط التسجيل عبر البريد الإلكتروني.
                                         </p>
                                     </>
@@ -131,7 +131,7 @@ function SuccessContent() {
                                     <>
                                         <FiClock size={80} className="mx-auto mb-6 drop-shadow-md" />
                                         <h1 className="text-4xl font-bold mb-3 drop-shadow-sm">تم استلام طلبك! ⏳</h1>
-                                        <p className="text-amber-50 font-medium text-lg max-w-lg mx-auto">
+                                        <p className="text-blue-50 font-medium text-lg max-w-lg mx-auto">
                                             شكراً لك! سنتحقق من الدفعة وسنرسل لك التأكيد عبر البريد الإلكتروني.
                                         </p>
                                     </>
@@ -171,7 +171,7 @@ function SuccessContent() {
                                 <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-3">
                                     <span className="text-gray-500 font-medium">الحالة:</span>
                                     {isPending && !isPaid ? (
-                                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-700">قيد التحقق</span>
+                                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-700">قيد التحقق</span>
                                     ) : (
                                         <span className="text-xs font-bold px-3 py-1 rounded-full bg-green-100 text-green-700">تم الدفع ✓</span>
                                     )}
@@ -186,14 +186,14 @@ function SuccessContent() {
                             {isPending && !isPaid ? (
                                 <div className="space-y-4 mb-8">
                                     {hasCourse ? (
-                                        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-900/30 rounded-2xl p-5">
-                                            <p className="text-sm text-amber-900 dark:text-amber-300 font-medium leading-relaxed">
+                                        <div className="bg-blue-50 dark:bg-amber-900/20 border border-blue-100 dark:border-amber-900/30 rounded-2xl p-5">
+                                            <p className="text-sm text-blue-900 dark:text-amber-300 font-medium leading-relaxed">
                                                 🔒 <strong>الكورس مقفل حالياً</strong> حتى يتم التأكد من الدفع من قبل الإدارة. بعد التحقق، سنرسل لك رابط التسجيل والوصول عبر البريد الإلكتروني.
                                             </p>
                                         </div>
                                     ) : (
-                                        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-900/30 rounded-2xl p-5">
-                                            <p className="text-sm text-amber-900 dark:text-amber-300 font-medium leading-relaxed">
+                                        <div className="bg-blue-50 dark:bg-amber-900/20 border border-blue-100 dark:border-amber-900/30 rounded-2xl p-5">
+                                            <p className="text-sm text-blue-900 dark:text-amber-300 font-medium leading-relaxed">
                                                 ⏳ <strong>سنتحقق من إيصال الدفع</strong> وسنرسل لك رسالة تأكيد + المنتج عبر البريد الإلكتروني خلال وقت قصير.
                                             </p>
                                         </div>

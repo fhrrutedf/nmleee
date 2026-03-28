@@ -35,7 +35,7 @@ export const NotificationListener = () => {
                 notif.type === 'SALE' ? <FiDollarSign className="text-green-500" /> :
                 notif.type === 'CUSTOMER' ? <FiUserPlus className="text-blue-500" /> :
                 notif.type === 'ORDER' ? <FiShoppingBag className="text-purple-500" /> :
-                <FiBell className="text-action-blue" />;
+                <FiBell className="text-accent" />;
 
             toast.custom((t) => (
                 <div
@@ -51,7 +51,7 @@ export const NotificationListener = () => {
                                 </div>
                             </div>
                             <div className="mr-4 flex-1">
-                                <p className="text-sm font-black text-primary-charcoal dark:text-white">
+                                <p className="text-sm font-bold text-ink dark:text-white">
                                     {notif.title}
                                 </p>
                                 <p className="mt-1 text-sm text-text-muted">
@@ -66,7 +66,7 @@ export const NotificationListener = () => {
                                 toast.dismiss(t.id);
                                 markAsRead(notif.id);
                             }}
-                            className="w-full border border-transparent rounded-none rounded-l-2xl p-4 flex items-center justify-center text-sm font-bold text-action-blue hover:text-blue-700 focus:outline-none"
+                            className="w-full border border-transparent rounded-none rounded-l-2xl p-4 flex items-center justify-center text-sm font-bold text-accent hover:text-blue-700 focus:outline-none"
                         >
                             تجاهل
                         </button>

@@ -170,7 +170,7 @@ export default function AnalyticsPage() {
                 </div>
 
                 {/* Total Views */}
-                <div className="card bg-gradient-to-br from-orange-500 to-orange-600 text-white">
+                <div className="card bg-gradient-to-br from-orange-500 to-blue-800 text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-orange-100">مشاهدات المنتجات</span>
                         <FiEye className="text-2xl" />

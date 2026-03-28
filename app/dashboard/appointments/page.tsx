@@ -193,7 +193,7 @@ export default function AppointmentsPage() {
                     </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl p-6 shadow-lg">
+                <div className="bg-gradient-to-br from-orange-500 to-blue-800 text-white rounded-xl p-6 shadow-lg">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-orange-100 text-sm">إجمالي الإيرادات</p>

@@ -94,11 +94,11 @@ export default function CourseBuilder({
             <div className="flex gap-4 p-5 bg-primary-indigo-50 border border-primary-indigo-100 rounded-3xl">
                 <div className="flex-1">
                     <p className="text-xs font-bold text-primary-indigo-600 uppercase mb-1">الدروس</p>
-                    <p className="text-2xl font-black text-slate-900">{stats.count} درس</p>
+                    <p className="text-2xl font-bold text-slate-900">{stats.count} درس</p>
                 </div>
                 <div className="flex-1 border-r border-primary-indigo-100 pr-5">
                     <p className="text-xs font-bold text-primary-indigo-600 uppercase mb-1">إجمالي الوقت</p>
-                    <p className="text-2xl font-black text-slate-900">{stats.total} دقيقـة</p>
+                    <p className="text-2xl font-bold text-slate-900">{stats.total} دقيقـة</p>
                 </div>
                 <div className="flex items-center text-primary-indigo-600">
                     <FiEye className="text-2xl" />
@@ -120,7 +120,7 @@ export default function CourseBuilder({
                                                         <FiMove size={18} />
                                                     </div>
                                                     <input 
-                                                        className="font-black text-slate-900 bg-transparent border-none focus:ring-0 p-0 w-full"
+                                                        className="font-bold text-slate-900 bg-transparent border-none focus:ring-0 p-0 w-full"
                                                         value={section.title}
                                                         onChange={(e) => {
                                                             const upd = sections.map(s => s.id === section.id ? { ...s, title: e.target.value } : s);
@@ -168,7 +168,7 @@ export default function CourseBuilder({
                                                                             />
                                                                         </div>
                                                                         <div className="flex items-center gap-4">
-                                                                            <span className="text-[10px] font-black text-slate-400 flex items-center gap-1">
+                                                                            <span className="text-[10px] font-bold text-slate-400 flex items-center gap-1">
                                                                                 <FiEdit3 /> {lesson.duration}m
                                                                             </span>
                                                                             <button type="button" className="opacity-0 group-hover/lesson:opacity-100 text-slate-400 hover:text-red-500 transition-all"><FiTrash2 size={14} /></button>
@@ -194,7 +194,7 @@ export default function CourseBuilder({
             <button 
                 type="button"
                 onClick={addSection} 
-                className="w-full py-4 border-2 border-dashed border-slate-200 rounded-3xl text-slate-400 font-black hover:border-primary-indigo-400 hover:text-primary-indigo-600 transition-all flex items-center justify-center gap-2"
+                className="w-full py-4 border-2 border-dashed border-slate-200 rounded-3xl text-slate-400 font-bold hover:border-primary-indigo-400 hover:text-primary-indigo-600 transition-all flex items-center justify-center gap-2"
             >
                 <FiPlus /> إضافة قسم جديد للمنهج
             </button>

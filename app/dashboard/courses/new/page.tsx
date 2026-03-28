@@ -529,8 +529,8 @@ export default function NewCoursePage() {
                                         <div className="grid md:grid-cols-2 gap-10">
                                             <div className="space-y-4">
                                                 <label className="label-modern text-xs">تاريخ انتهاء عرض الخصم (اختياري)</label>
-                                                <input type="datetime-local" className="input-modern bg-amber-50/30 border-amber-100" value={formData.offerExpiresAt} onChange={e => update('offerExpiresAt', e.target.value)} />
-                                                <p className="text-[10px] text-amber-600 font-bold">سيظهر عداد تنازلي (Urgency) في صفحة البيع لتحفيز الشراء الفوري.</p>
+                                                <input type="datetime-local" className="input-modern bg-blue-50/30 border-blue-100" value={formData.offerExpiresAt} onChange={e => update('offerExpiresAt', e.target.value)} />
+                                                <p className="text-[10px] text-blue-600 font-bold">سيظهر عداد تنازلي (Urgency) في صفحة البيع لتحفيز الشراء الفوري.</p>
                                             </div>
                                             <div className="space-y-4">
                                                 <label className="label-modern text-xs">كورس إضافي لعرضه في الدفع (Order Bump)</label>
@@ -573,10 +573,10 @@ export default function NewCoursePage() {
                                     
                                     <div className="flex items-center justify-between p-8 bg-blue-900 rounded-2xl border border-blue-800 shadow-lg transition-all cursor-pointer hover:bg-blue-800 group" onClick={() => update('enablePPP', !formData.enablePPP)}>
                                         <div className="text-right">
-                                            <h3 className="font-bold text-white text-xl leading-tight transition-colors group-hover:text-amber-400">تفعيل التسعير العادل (PPP Pricing) 🌍</h3>
+                                            <h3 className="font-bold text-white text-xl leading-tight transition-colors group-hover:text-blue-400">تفعيل التسعير العادل (PPP Pricing) 🌍</h3>
                                             <p className="text-xs text-blue-200 mt-1 max-w-lg leading-relaxed">تخفيض السعر تلقائياً للزوار من الدول النامية حسب القوة الشرائية، لضمان أعلى نسبة مبيعات للجميع دون حرمان أحد.</p>
                                         </div>
-                                        <div className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-amber-500 outline-amber-500/30' : 'bg-blue-950 outline-blue-900'}`}>
+                                        <div className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-blue-500 outline-blue-500/30' : 'bg-blue-950 outline-blue-900'}`}>
                                             <div className={`w-6 h-6 bg-white rounded-full transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
                                         </div>
                                     </div>

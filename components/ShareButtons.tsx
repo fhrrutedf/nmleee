@@ -74,7 +74,7 @@ export function AffiliateReferralLink({
 
     return (
         <div className="card p-4">
-            <h4 className="font-semibold text-primary-charcoal dark:text-white mb-2">
+            <h4 className="font-semibold text-ink dark:text-white mb-2">
                 رابط الإحالة الخاص بك
             </h4>
             <div className="flex gap-2">

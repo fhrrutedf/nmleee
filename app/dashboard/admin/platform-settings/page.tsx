@@ -264,7 +264,7 @@ export default function AdminPlatformSettingsPage() {
                             <CommissionInput label="FREE Tier %" value={settings.commissionRate} days={settings.freeEscrowDays} onRateChange={(v: number) => update('commissionRate', v)} onDaysChange={(v: number) => update('freeEscrowDays', v)} color="text-gray-400" />
                             <CommissionInput label="GROWTH Tier %" value={settings.growthCommissionRate} days={settings.growthEscrowDays} onRateChange={(v: number) => update('growthCommissionRate', v)} onDaysChange={(v: number) => update('growthEscrowDays', v)} color="text-indigo-500" />
                             <CommissionInput label="PRO Tier %" value={settings.proCommissionRate} days={settings.proEscrowDays} onRateChange={(v: number) => update('proCommissionRate', v)} onDaysChange={(v: number) => update('proEscrowDays', v)} color="text-blue-500" />
-                            <CommissionInput label="AGENCY Tier %" value={settings.agencyCommissionRate} days={settings.agencyEscrowDays} onRateChange={(v: number) => update('agencyCommissionRate', v)} onDaysChange={(v: number) => update('agencyEscrowDays', v)} color="text-amber-500" />
+                            <CommissionInput label="AGENCY Tier %" value={settings.agencyCommissionRate} days={settings.agencyEscrowDays} onRateChange={(v: number) => update('agencyCommissionRate', v)} onDaysChange={(v: number) => update('agencyEscrowDays', v)} color="text-blue-500" />
                         </div>
                     </div>
 
@@ -308,7 +308,7 @@ export default function AdminPlatformSettingsPage() {
                     {/* Platform Wallets (Manual SY) */}
                     <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-6">
                         <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                            <FiPhone className="text-amber-500" /> محافظ الدفع اليدوي
+                            <FiPhone className="text-blue-500" /> محافظ الدفع اليدوي
                         </h3>
                         <div className="space-y-4">
                             <WalletInput label="شام كاش" value={settings.shamCash} onChange={(v: string) => update('shamCash', v)} />

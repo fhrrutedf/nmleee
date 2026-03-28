@@ -393,8 +393,8 @@ export default function SettingsPage() {
                                             />
                                         </div>
                                         {showUsernameWarning && (
-                                            <div className="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 flex items-start gap-2 shadow-sm animate-fade-in">
-                                                <FiAlertCircle className="mt-0.5 shrink-0 text-amber-500" />
+                                            <div className="mt-2 p-3 bg-blue-50 border border-amber-200 rounded-xl text-xs text-blue-800 flex items-start gap-2 shadow-sm animate-fade-in">
+                                                <FiAlertCircle className="mt-0.5 shrink-0 text-blue-500" />
                                                 <p>
                                                     <strong className="block mb-1">تحذير: تغيير اسم المستخدم</strong>
                                                     سيؤدي هذا إلى تغيير رابط متجرك ومنتجاتك. جميع الروابط الخارجية التي شاركتها سابقاً في تويتر أو انستقرام ستتوقف عن العمل.

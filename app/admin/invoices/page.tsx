@@ -46,7 +46,7 @@ interface InvoiceData {
 }
 
 const STATUS_STYLE: Record<string, { bg: string; icon: ReactNode; label: string }> = {
-    pending: { bg: 'bg-amber-100 text-amber-800', icon: <FiClock size={12} />, label: 'قيد الانتظار' },
+    pending: { bg: 'bg-blue-100 text-blue-800', icon: <FiClock size={12} />, label: 'قيد الانتظار' },
     verified: { bg: 'bg-blue-100 text-blue-800', icon: <FiCheckCircle size={12} />, label: 'تم التحقق' },
     rejected: { bg: 'bg-red-100 text-red-800', icon: <FiXCircle size={12} />, label: 'مرفوض' },
 };

@@ -37,11 +37,11 @@ export default function CartDrawer() {
             {/* Cart Button */}
             <button
                 onClick={() => setIsOpen(true)}
-                className="relative p-2.5 text-gray-700 hover:text-action-blue transition-all bg-gray-50 hover:bg-white rounded-xl border border-transparent hover:border-gray-100 hover:shadow-sm group"
+                className="relative p-2.5 text-gray-700 hover:text-accent transition-all bg-gray-50 hover:bg-white rounded-xl border border-transparent hover:border-gray-100 hover:shadow-sm group"
             >
                 <FiShoppingCart size={22} className="group-hover:scale-110 transition-transform" />
                 {itemCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-action-blue text-white text-[10px] font-black rounded-full w-5 h-5 flex items-center justify-center ring-2 ring-white">
+                    <span className="absolute -top-1 -right-1 bg-accent text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center ring-2 ring-white">
                         {itemCount}
                     </span>
                 )}
@@ -69,10 +69,10 @@ export default function CartDrawer() {
                             {/* Header */}
                             <div className="flex items-center justify-between p-6 border-b border-gray-100">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-action-blue/10 rounded-xl flex items-center justify-center text-action-blue">
+                                    <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center text-accent">
                                         <FiShoppingBag size={20} />
                                     </div>
-                                    <h2 className="text-xl font-black text-primary-charcoal">
+                                    <h2 className="text-xl font-bold text-ink">
                                         سلة المشتريات
                                         <span className="text-sm font-bold text-gray-400 mr-2">({itemCount})</span>
                                     </h2>
@@ -96,7 +96,7 @@ export default function CartDrawer() {
                                         <p className="text-gray-500 text-sm max-w-[200px] mb-8">استكشف المنتجات الرقمية والدورات المميزة وأضفها هنا.</p>
                                         <button 
                                             onClick={() => setIsOpen(false)}
-                                            className="font-bold text-action-blue hover:underline"
+                                            className="font-bold text-accent hover:underline"
                                         >
                                             تصفح المتجر الآن
                                         </button>
@@ -122,13 +122,13 @@ export default function CartDrawer() {
                                                     </div>
                                                 )}
                                                 <div className="flex-1 min-w-0">
-                                                    <h3 className="font-bold text-primary-charcoal truncate mb-0.5">
+                                                    <h3 className="font-bold text-ink truncate mb-0.5">
                                                         {item.title}
                                                     </h3>
                                                     <p className="text-xs font-bold text-gray-400 mb-2">
                                                         {item.type === 'course' ? '📚 دورة تدريبية' : '📦 منتج رقمي'}
                                                     </p>
-                                                    <p className="text-lg font-black text-action-blue">
+                                                    <p className="text-lg font-bold text-accent">
                                                         {item.price === 0 ? 'مجاني' : `${item.price.toFixed(2)} $`}
                                                     </p>
                                                 </div>
@@ -149,14 +149,14 @@ export default function CartDrawer() {
                                 <div className="p-6 border-t border-gray-100 bg-gray-50/50 backdrop-blur-md">
                                     <div className="flex items-center justify-between mb-6">
                                         <span className="text-gray-500 font-bold">إجمالي المبلغ:</span>
-                                        <span className="text-2xl font-black text-primary-charcoal">
+                                        <span className="text-2xl font-bold text-ink">
                                             {getTotal().toFixed(2)} <span className="text-sm">$</span>
                                         </span>
                                     </div>
                                     <Link
                                         href="/checkout"
                                         onClick={() => setIsOpen(false)}
-                                        className="group w-full py-4 bg-action-blue text-white flex items-center justify-center gap-2 rounded-[1.25rem] font-black text-lg shadow-xl shadow-action-blue/20 hover:shadow-action-blue/40 hover:-translate-y-1 transition-all"
+                                        className="group w-full py-4 bg-accent text-white flex items-center justify-center gap-2 rounded-[1.25rem] font-bold text-lg shadow-xl shadow-accent/20 hover:shadow-accent/40 hover:-translate-y-1 transition-all"
                                     >
                                         <span>إتمام الشراء</span>
                                         <FiArrowRight className="group-hover:translate-x-1 transition-transform rotate-180" />

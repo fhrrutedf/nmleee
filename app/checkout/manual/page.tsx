@@ -448,8 +448,8 @@ export default function ManualCheckoutPage() {
                             <p className="text-lg font-mono font-bold text-[#0052FF]">{orderResult.orderNumber}</p>
                         </div>
 
-                        <div className="bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 rounded-2xl p-3.5 text-xs font-medium flex items-start gap-2.5 text-right max-w-sm mx-auto mb-6">
-                            <FiClock className="text-amber-500 mt-0.5 shrink-0" size={16} />
+                        <div className="bg-blue-50 dark:bg-amber-900/20 text-blue-700 dark:text-amber-400 rounded-2xl p-3.5 text-xs font-medium flex items-start gap-2.5 text-right max-w-sm mx-auto mb-6">
+                            <FiClock className="text-blue-500 mt-0.5 shrink-0" size={16} />
                             <span>احتفظ برقم الطلب. ستصلك رسالة تأكيد على بريدك الإلكتروني فور الموافقة.</span>
                         </div>
 

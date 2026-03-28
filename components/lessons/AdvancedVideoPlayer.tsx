@@ -105,7 +105,7 @@ export default function AdvancedVideoPlayer({ lessonId, courseId, studentEmail, 
             <p className="text-white/60 mb-6">{error || 'بيانات الفيديو غير متوفرة'}</p>
             <button 
                 onClick={fetchPlayback}
-                className="px-6 py-3 bg-action-blue rounded-xl font-bold flex items-center gap-2 hover:bg-blue-600 transition-colors"
+                className="px-6 py-3 bg-accent rounded-xl font-bold flex items-center gap-2 hover:bg-blue-600 transition-colors"
             >
                 <FiRefreshCw /> إعادة المحاولة
             </button>
@@ -145,13 +145,13 @@ export default function AdvancedVideoPlayer({ lessonId, courseId, studentEmail, 
             {/* Anti-Piracy Overlay (Watermark) */}
             <div className="absolute top-8 left-8 pointer-events-none opacity-20 select-none hidden md:block">
                  <div className="flex flex-col gap-1 items-start bg-black/40 p-3 rounded-xl backdrop-blur-md">
-                     <p className="text-[10px] font-black text-white uppercase tracking-widest leading-none">Protected by Tamleen</p>
-                     <p className="text-[8px] font-bold text-action-blue opacity-50">{studentEmail || 'Authenticating...'}</p>
+                     <p className="text-[10px] font-bold text-white uppercase tracking-widest leading-none">Protected by Tamleen</p>
+                     <p className="text-[8px] font-bold text-accent opacity-50">{studentEmail || 'Authenticating...'}</p>
                  </div>
             </div>
 
              {/* Dynamic Watermark (Moves around to prevent cropping) */}
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.03] select-none text-[80px] font-black text-white rotate-[-30deg]">
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.03] select-none text-[80px] font-bold text-white rotate-[-30deg]">
                  TAMLEEN
              </div>
         </div>

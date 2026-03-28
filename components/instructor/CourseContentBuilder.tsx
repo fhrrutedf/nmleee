@@ -101,7 +101,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
                 <div>
-                    <h2 className="text-2xl font-black text-slate-800">محتوى وتسلسل الدورة</h2>
+                    <h2 className="text-2xl font-bold text-slate-800">محتوى وتسلسل الدورة</h2>
                     <p className="mt-2 text-slate-500 font-medium text-sm">
                         قم ببناء المنهج وتقسيمه لدروس ومقاطع فيديو. (تُحفظ البيانات تلقائياً هنا)
                     </p>
@@ -178,7 +178,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                         {moduleIndex + 1}
                                     </div>
                                     <div>
-                                        <h3 className="text-lg font-black text-slate-800">{module.title}</h3>
+                                        <h3 className="text-lg font-bold text-slate-800">{module.title}</h3>
                                         <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">{module._count.lessons} درس متاح</p>
                                     </div>
                                 </div>
@@ -206,19 +206,19 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                                 <div className="flex-1">
                                                     <h4 className="font-bold text-slate-800 text-base">{lesson.title}</h4>
                                                     <div className="flex flex-wrap items-center gap-2 mt-1.5">
-                                                        <span className="text-[10px] font-black tracking-tighter text-slate-400 bg-slate-100 px-2 py-0.5 rounded uppercase">
+                                                        <span className="text-[10px] font-bold tracking-tighter text-slate-400 bg-slate-100 px-2 py-0.5 rounded uppercase">
                                                             درس رقم {lessonIndex + 1}
                                                         </span>
                                                         <span className="text-xs font-bold text-slate-500 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-md">
                                                             {formatDuration(lesson.videoDuration)}
                                                         </span>
                                                         {lesson.isFree && (
-                                                            <span className="text-xs font-bold text-amber-700 bg-amber-50 border border-amber-100 px-2 py-0.5 rounded-md flex items-center gap-1">
+                                                            <span className="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-md flex items-center gap-1">
                                                                 <FiEye className="inline" /> معاينة مجانية
                                                             </span>
                                                         )}
                                                         {lesson.quizzes && lesson.quizzes.length > 0 && (
-                                                            <span className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-md flex items-center gap-1">
+                                                            <span className="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-md flex items-center gap-1">
                                                                 <FiCheckSquare className="inline" /> {lesson.quizzes.length} اختبار متاح
                                                             </span>
                                                         )}
@@ -226,11 +226,11 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
 
                                                     {/* Nested Quizzes UI */}
                                                     {lesson.quizzes && lesson.quizzes.length > 0 && (
-                                                        <div className="mt-3 space-y-2 pr-4 border-r-2 border-emerald-100">
+                                                        <div className="mt-3 space-y-2 pr-4 border-r-2 border-blue-100">
                                                             {lesson.quizzes.map((quiz) => (
                                                                 <div key={quiz.id} className="flex items-center justify-between text-xs font-bold text-slate-600 bg-slate-50/50 p-2 rounded-lg border border-slate-100">
                                                                     <div className="flex items-center gap-2">
-                                                                        <div className="w-5 h-5 bg-emerald-100 text-emerald-600 rounded flex items-center justify-center text-[10px]">Q</div>
+                                                                        <div className="w-5 h-5 bg-blue-100 text-blue-600 rounded flex items-center justify-center text-[10px]">Q</div>
                                                                         {quiz.title}
                                                                     </div>
                                                                     <button
@@ -250,7 +250,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                                 <button
                                                     type="button"
                                                     onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes/new?lessonId=${lesson.id}&returnTo=${encodeURIComponent('/dashboard/courses/new')}`)}
-                                                    className="flex-1 sm:flex-none px-3 py-2 text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-lg hover:bg-emerald-100 transition-colors flex items-center justify-center gap-1.5"
+                                                    className="flex-1 sm:flex-none px-3 py-2 text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100 rounded-lg hover:bg-blue-100 transition-colors flex items-center justify-center gap-1.5"
                                                     title="إضافة اختبار تفاعلي لهذا الدرس لتقييم تقدم الطلاب ومستوى استيعابهم للمادة"
                                                 >
                                                     <FiCheckSquare size={14} />
@@ -276,7 +276,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                     <button
                                         type="button"
                                         onClick={() => router.push(`/dashboard/courses/${courseId}/modules/${module.id}/lessons/new`)}
-                                        className="mt-3 text-indigo-600 font-black text-xs hover:underline"
+                                        className="mt-3 text-indigo-600 font-bold text-xs hover:underline"
                                     >
                                         + انقر هنا لإضافة أول فيديو أو درس
                                     </button>

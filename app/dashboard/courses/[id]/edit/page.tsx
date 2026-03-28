@@ -354,7 +354,7 @@ export default function EditCoursePage() {
                                                              <div className="truncate">
                                                                  <h4 className="text-xs font-bold text-slate-700 truncate">{l.title}</h4>
                                                                  <div className="flex items-center gap-2 mt-1 opacity-60">
-                                                                    {l.isFree && <span className="text-[8px] bg-amber-50 text-amber-600 px-1.5 py-0.5 rounded font-bold italic">معاينة</span>}
+                                                                    {l.isFree && <span className="text-[8px] bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-bold italic">معاينة</span>}
                                                                     {l.bunnyVideoId ? <FiVideo size={10} className="text-primary-indigo-400" /> : <FiFileText size={10} />}
                                                                     {l.isPublished ? <FiEye className="text-blue-500" size={10} /> : <FiEyeOff size={10} />}
                                                                  </div>

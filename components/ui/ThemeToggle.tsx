@@ -22,7 +22,7 @@ export function ThemeToggle() {
     return (
         <button
             onClick={() => setTheme(isDark ? 'light' : 'dark')}
-            className="relative w-12 h-7 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-action-blue"
+            className="relative w-12 h-7 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
             aria-label="Toggle Dark Mode"
         >
             <motion.div

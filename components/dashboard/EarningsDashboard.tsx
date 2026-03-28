@@ -66,7 +66,7 @@ function fmt(n: number, decimals = 2): string {
 // ─── Status Badge ───────────────────────────────────────────
 function StatusBadge({ status }: { status: WithdrawalRecord['status'] }) {
     const map: Record<string, { label: string; cls: string }> = {
-        PENDING:    { label: 'قيد المراجعة', cls: 'bg-amber-50 text-amber-700 border border-amber-100' },
+        PENDING:    { label: 'قيد المراجعة', cls: 'bg-blue-50 text-blue-700 border border-blue-100' },
         PROCESSING: { label: 'قيد التحويل',  cls: 'bg-blue-50 text-blue-700 border border-blue-100' },
         PAID:       { label: 'تم الدفع',      cls: 'bg-accent-light text-accent border border-accent/10' },
         COMPLETED:  { label: 'مكتمل',         cls: 'bg-accent-light text-accent border border-accent/10' },
@@ -215,8 +215,8 @@ export default function EarningsDashboard() {
 
             {/* ── Alerts ─────────────────────────────────── */}
             {!payoutMethodConfigured && (
-                <div className="flex items-start gap-4 p-5 bg-amber-50 border border-amber-200 rounded-2xl text-sm text-amber-900 shadow-sm shadow-amber-900/5">
-                    <FiAlertTriangle className="mt-0.5 shrink-0 text-amber-500" size={20} />
+                <div className="flex items-start gap-4 p-5 bg-blue-50 border border-blue-200 rounded-2xl text-sm text-blue-900 shadow-sm shadow-blue-900/5">
+                    <FiAlertTriangle className="mt-0.5 shrink-0 text-blue-500" size={20} />
                     <p className="leading-relaxed">لم تقم بإعداد طريقة الاستلام بعد. يرجى الذهاب إلى <strong>الإعدادات → طريقة الاستلام</strong> لتفعيل السحب.</p>
                 </div>
             )}
@@ -328,7 +328,7 @@ function BalanceCard({
 }) {
     const colors = {
         accent: { bg: 'bg-accent-light', icon: 'bg-accent', text: 'text-accent', amt: 'text-ink' },
-        amber:  { bg: 'bg-amber-50',     icon: 'bg-amber-500',  text: 'text-amber-700', amt: 'text-ink' },
+        amber:  { bg: 'bg-blue-50',     icon: 'bg-blue-500',  text: 'text-blue-700', amt: 'text-ink' },
         blue:   { bg: 'bg-blue-50',      icon: 'bg-blue-500',   text: 'text-blue-700',  amt: 'text-ink' },
         purple: { bg: 'bg-purple-50',    icon: 'bg-purple-500', text: 'text-purple-700', amt: 'text-ink' },
     };
@@ -366,7 +366,7 @@ function OverviewTab({ balance, minPayoutAmount }: { balance: BalanceSummary; mi
                 </div>
                 <div className="h-3 bg-gray-50 rounded-full overflow-hidden mb-6">
                     <div
-                        className={`h-full rounded-full transition-all duration-1000 ${reachedMin ? 'bg-accent' : 'bg-amber-400'}`}
+                        className={`h-full rounded-full transition-all duration-1000 ${reachedMin ? 'bg-accent' : 'bg-blue-400'}`}
                         style={{ width: `${progressPct}%` }}
                     />
                 </div>
@@ -388,7 +388,7 @@ function OverviewTab({ balance, minPayoutAmount }: { balance: BalanceSummary; mi
                 <div className="space-y-4">
                     {[
                         { label: 'إجمالي الأرباح', val: balance.totalEarnings, cls: 'text-ink font-bold' },
-                        { label: 'قيد الحجز (Escrow)', val: balance.pending, cls: 'text-amber-600' },
+                        { label: 'قيد الحجز (Escrow)', val: balance.pending, cls: 'text-blue-600' },
                         { label: 'متاح للسحب', val: balance.available, cls: 'text-accent' },
                         { label: 'طلبات سحب قيد المراجعة', val: balance.pendingWithdrawals, cls: 'text-blue-500' },
                         { label: 'صافي قابل للسحب', val: balance.spendable, cls: 'text-ink font-bold text-lg' },
@@ -428,7 +428,7 @@ function ScheduleTab({ releases }: { releases: UpcomingRelease[] }) {
                     return (
                         <div key={i} className="flex items-center justify-between p-6 hover:bg-gray-50 transition-all">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-500">
+                                <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-500">
                                     <FiClock size={20} />
                                 </div>
                                 <div>

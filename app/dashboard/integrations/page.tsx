@@ -209,7 +209,7 @@ export default function IntegrationsPage() {
                                         </span>
                                     )}
                                     {integration.status === 'coming_soon' && (
-                                        <span className="inline-flex items-center gap-1.5 text-amber-600 text-xs font-medium bg-amber-50 dark:bg-amber-900/20 px-2.5 py-1 rounded-full mt-1">
+                                        <span className="inline-flex items-center gap-1.5 text-accent text-xs font-medium bg-blue-50 dark:bg-amber-900/20 px-2.5 py-1 rounded-full mt-1">
                                             قريباً
                                         </span>
                                     )}

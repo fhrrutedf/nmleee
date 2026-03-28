@@ -197,7 +197,7 @@ export default function NewLessonPage() {
                             <p className={`text-[10px] mt-1 max-w-lg leading-relaxed ${formData.isFree ? 'text-indigo-100' : 'text-slate-400 font-bold'}`}>اسمح للزوار بمشاهدة هذا الدرس مجاناً كإعلان تشويقي.</p>
                         </div>
                         <div className={`w-12 h-7 rounded-full flex items-center px-1 transition-all relative z-10 ${formData.isFree ? 'bg-white/20 backdrop-blur-md' : 'bg-slate-100'}`}>
-                            <div className={`w-5 h-5 rounded-full transition-all shadow-md ${formData.isFree ? 'translate-x-[20px] bg-amber-400' : 'translate-x-0 bg-white'}`} />
+                            <div className={`w-5 h-5 rounded-full transition-all shadow-md ${formData.isFree ? 'translate-x-[20px] bg-blue-400' : 'translate-x-0 bg-white'}`} />
                         </div>
                     </div>
 

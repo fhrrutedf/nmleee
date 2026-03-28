@@ -196,13 +196,13 @@ export default function ProductDetails({
 
                                     {/* Urgency Countdown Banner */}
                                     {product.offerExpiresAt && new Date(product.offerExpiresAt) > new Date() && (
-                                        <div className="mt-6 p-4 bg-amber-50 dark:bg-amber-900/10 rounded-2xl border border-amber-100 dark:border-amber-900/20 flex items-center gap-3 animate-pulse">
-                                            <div className="w-10 h-10 bg-amber-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/20">
+                                        <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/10 rounded-2xl border border-blue-100 dark:border-blue-900/20 flex items-center gap-3 animate-pulse">
+                                            <div className="w-10 h-10 bg-blue-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
                                                 <FiClock className="text-xl" />
                                             </div>
                                             <div className="text-right">
-                                                <p className="text-[10px] font-bold text-amber-800 dark:text-amber-400 uppercase tracking-widest leading-none mb-1">عرض لفترة محدودة</p>
-                                                <p className="text-xs font-bold text-amber-600 dark:text-amber-500">ينتهي العرض قريباً! سارع بالطلب</p>
+                                                <p className="text-[10px] font-bold text-blue-800 dark:text-blue-400 uppercase tracking-widest leading-none mb-1">عرض لفترة محدودة</p>
+                                                <p className="text-xs font-bold text-blue-600 dark:text-blue-500">ينتهي العرض قريباً! سارع بالطلب</p>
                                             </div>
                                         </div>
                                     )}

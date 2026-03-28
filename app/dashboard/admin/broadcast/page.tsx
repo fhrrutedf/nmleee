@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 
 const TARGET_SEGMENTS = [
     { id: 'all', name: 'الجميع', icon: FiUsers, color: 'text-slate-500' },
-    { id: 'sellers', name: 'البائعين فقط', icon: FiZap, color: 'text-amber-500' },
+    { id: 'sellers', name: 'البائعين فقط', icon: FiZap, color: 'text-blue-500' },
     { id: 'inactive-sellers', name: 'بائعين غير نشطين (>30 يوم)', icon: FiActivity, color: 'text-orange-500' },
     { id: 'high-earners', name: 'الأكثر ربحاً (> $1000)', icon: FiTarget, color: 'text-blue-500' },
     { id: 'new-users', name: 'المسجلين الجدد (الأسبوع الأخير)', icon: FiCheckCircle, color: 'text-sky-500' },
@@ -83,7 +83,7 @@ export default function AdminBroadcastPage() {
                                     className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-primary/10 outline-none transition-all resize-none leading-relaxed"
                                 />
                                 <p className="text-[10px] text-slate-400 mt-2 italic flex items-center gap-1">
-                                    <FiAlertTriangle className="text-amber-500" />
+                                    <FiAlertTriangle className="text-blue-500" />
                                     تذكير: سيتم وضع محتوى رسالتك داخل "قالب تمالين الرسمي" الموحد لضمان الاحترافية.
                                 </p>
                             </div>
@@ -152,9 +152,9 @@ export default function AdminBroadcastPage() {
                         </div>
 
                         <div className="mt-8 pt-6 border-t border-slate-800/50">
-                             <div className="flex items-start gap-4 p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl">
-                                <FiAlertTriangle className="text-amber-500 mt-1 shrink-0" />
-                                <p className="text-[11px] text-amber-500/80 leading-relaxed font-medium">
+                             <div className="flex items-start gap-4 p-4 bg-accent/10 border border-amber-500/20 rounded-2xl">
+                                <FiAlertTriangle className="text-blue-500 mt-1 shrink-0" />
+                                <p className="text-[11px] text-blue-500/80 leading-relaxed font-medium">
                                     تحذير: البث العشوائي والمتكرر قد يؤدي إلى تصنيف خادم الإيميلات كـ Spam. استخدم "البث الذكي" فقط للرسائل الهامة.
                                 </p>
                              </div>

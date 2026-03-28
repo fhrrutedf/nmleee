@@ -64,7 +64,7 @@ interface Stats {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-    PENDING: 'bg-amber-100 text-amber-800',
+    PENDING: 'bg-blue-100 text-blue-800',
     PAID: 'bg-blue-100 text-blue-800',
     COMPLETED: 'bg-blue-100 text-blue-800',
     CANCELLED: 'bg-red-100 text-red-800',
@@ -170,12 +170,12 @@ export default function AdminSalesPage() {
                         </div>
                         <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
                             <div className="flex items-center gap-3 mb-2">
-                                <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
-                                    <FiClock className="text-amber-600" size={20} />
+                                <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-amber-900/30 flex items-center justify-center">
+                                    <FiClock className="text-accent" size={20} />
                                 </div>
                                 <span className="text-xs text-gray-400 font-medium">طلبات معلقة</span>
                             </div>
-                            <p className="text-2xl font-bold text-amber-600">{stats.pendingCount}</p>
+                            <p className="text-2xl font-bold text-accent">{stats.pendingCount}</p>
                         </div>
                         <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
                             <div className="flex items-center gap-3 mb-2">

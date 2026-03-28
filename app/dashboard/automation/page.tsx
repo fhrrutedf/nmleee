@@ -54,7 +54,7 @@ export default function AutomationPage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                        <FiZap className="text-amber-500" />
+                        <FiZap className="text-blue-500" />
                         مركز الأتمتة والنمو
                     </h1>
                     <p className="text-slate-500 dark:text-slate-400 mt-1">قم بزيادة مبيعاتك تلقائياً باستخدام "دروع تمالين" للنمو.</p>
@@ -123,7 +123,7 @@ export default function AutomationPage() {
                     {/* Abandoned Cart Engine */}
                     <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm overflow-hidden relative">
                         <div className="absolute top-4 left-4">
-                             <div className="flex items-center gap-1.5 bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                             <div className="flex items-center gap-1.5 bg-blue-100 dark:bg-accent/20 text-accent dark:text-amber-400 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
                                 <FiZap />
                                 نظام ذكي
                              </div>

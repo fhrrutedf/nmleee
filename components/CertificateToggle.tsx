@@ -51,7 +51,7 @@ export function CertificateToggle({
 
                 <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-lg font-semibold text-primary-charcoal dark:text-white">
+                        <h3 className="text-lg font-semibold text-ink dark:text-white">
                             شهادة إتمام الدورة
                         </h3>
 

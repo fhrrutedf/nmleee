@@ -45,7 +45,7 @@ export default function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-black text-slate-900 mt-6"
+            className="text-4xl md:text-5xl font-bold text-slate-900 mt-6"
           >
             نحن نبني المستقبل <br/> <span className="text-primary-indigo-600">بثقتكم</span>
           </motion.h2>
@@ -63,7 +63,7 @@ export default function Testimonials() {
             >
               <div className="flex gap-1 mb-6">
                 {[...Array(t.rating)].map((_, idx) => (
-                  <FiStar key={idx} className="text-amber-400 fill-amber-400" />
+                  <FiStar key={idx} className="text-blue-400 fill-blue-400" />
                 ))}
               </div>
               <p className="text-slate-600 leading-relaxed font-medium mb-8 text-lg">
@@ -72,7 +72,7 @@ export default function Testimonials() {
               <div className="flex items-center gap-4 border-t border-slate-50 pt-6">
                 <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-2xl object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
                 <div>
-                  <h4 className="font-black text-slate-900">{t.name}</h4>
+                  <h4 className="font-bold text-slate-900">{t.name}</h4>
                   <p className="text-xs text-slate-400 font-bold">{t.role}</p>
                 </div>
               </div>

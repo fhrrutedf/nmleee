@@ -237,7 +237,7 @@ export default function CourseContentPage() {
                                                         <h4 className="font-bold text-slate-800 text-sm truncate">{lesson.title}</h4>
                                                         <div className="flex items-center gap-3 mt-1.5 font-bold">
                                                             <span className="text-[10px] text-slate-400 uppercase tracking-tighter" dir="ltr">{formatDuration(lesson.videoDuration)}</span>
-                                                            {lesson.isFree && <span className="text-[9px] bg-amber-50 text-amber-600 px-2 py-0.5 rounded border border-amber-100">معاينة مجانية</span>}
+                                                            {lesson.isFree && <span className="text-[9px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded border border-blue-100">معاينة مجانية</span>}
                                                             {lesson.isPublished ? <FiEye className="text-blue-500" size={12}/> : <FiEyeOff className="text-slate-300" size={12}/>}
                                                         </div>
                                                     </div>

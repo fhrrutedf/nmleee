@@ -34,7 +34,7 @@ interface ManualOrder {
 }
 
 const STATUS_CONFIG: Record<string, { label: string; bg: string; icon: ReactNode }> = {
-    PENDING: { label: 'قيد الانتظار', bg: 'bg-amber-100 text-amber-800', icon: <FiClock size={14} /> },
+    PENDING: { label: 'قيد الانتظار', bg: 'bg-blue-100 text-blue-800', icon: <FiClock size={14} /> },
     PAID: { label: 'مقبول ✓', bg: 'bg-blue-100 text-blue-800', icon: <FiCheckCircle size={14} /> },
     COMPLETED: { label: 'مقبول ✓', bg: 'bg-blue-100 text-blue-800', icon: <FiCheckCircle size={14} /> },
     REJECTED: { label: 'مرفوض ✗', bg: 'bg-red-100 text-red-800', icon: <FiXCircle size={14} /> },
@@ -142,9 +142,9 @@ export default function ManualOrdersPage() {
                         <p className="text-xs text-gray-400 font-bold uppercase">الإجمالي</p>
                         <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{orders.length}</p>
                     </div>
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-amber-100 dark:border-amber-900/30 shadow-sm">
-                        <p className="text-xs text-amber-500 font-bold uppercase">قيد الانتظار</p>
-                        <p className="text-2xl font-bold text-amber-600 mt-1">{pendingCount}</p>
+                    <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-blue-100 dark:border-amber-900/30 shadow-sm">
+                        <p className="text-xs text-blue-500 font-bold uppercase">قيد الانتظار</p>
+                        <p className="text-2xl font-bold text-accent mt-1">{pendingCount}</p>
                     </div>
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-blue-100 dark:border-blue-900/30 shadow-sm">
                         <p className="text-xs text-blue-500 font-bold uppercase">مقبول</p>
