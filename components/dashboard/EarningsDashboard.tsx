@@ -66,15 +66,15 @@ function fmt(n: number, decimals = 2): string {
 // ─── Status Badge ───────────────────────────────────────────
 function StatusBadge({ status }: { status: WithdrawalRecord['status'] }) {
     const map: Record<string, { label: string; cls: string }> = {
-        PENDING:    { label: 'قيد المراجعة', cls: 'bg-amber-100 text-amber-700' },
-        PROCESSING: { label: 'قيد التحويل',  cls: 'bg-blue-100 text-blue-700' },
-        PAID:       { label: 'تم الدفع',      cls: 'bg-emerald-100 text-emerald-700' },
-        COMPLETED:  { label: 'مكتمل',         cls: 'bg-emerald-100 text-emerald-700' },
-        REJECTED:   { label: 'مرفوض',         cls: 'bg-red-100 text-red-700' },
+        PENDING:    { label: 'قيد المراجعة', cls: 'bg-amber-50 text-amber-700 border border-amber-100' },
+        PROCESSING: { label: 'قيد التحويل',  cls: 'bg-blue-50 text-blue-700 border border-blue-100' },
+        PAID:       { label: 'تم الدفع',      cls: 'bg-accent-light text-accent border border-accent/10' },
+        COMPLETED:  { label: 'مكتمل',         cls: 'bg-accent-light text-accent border border-accent/10' },
+        REJECTED:   { label: 'مرفوض',         cls: 'bg-red-50 text-red-700 border border-red-100' },
     };
-    const { label, cls } = map[status] || { label: status, cls: 'bg-gray-100 text-gray-600' };
+    const { label, cls } = map[status] || { label: status, cls: 'bg-gray-50 text-gray-600 border border-gray-100' };
     return (
-        <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${cls}`}>
+        <span className={`text-[10px] font-bold px-2.5 py-1 rounded-lg ${cls}`}>
             {label}
         </span>
     );
@@ -168,7 +168,7 @@ export default function EarningsDashboard() {
             <div className="animate-pulse space-y-6">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[...Array(4)].map((_, i) => (
-                        <div key={i} className="h-28 bg-gray-100 rounded-2xl" />
+                        <div key={i} className="h-28 bg-gray-50 rounded-2xl" />
                     ))}
                 </div>
                 <div className="h-64 bg-gray-50 rounded-2xl" />
@@ -183,20 +183,20 @@ export default function EarningsDashboard() {
 
     // ── Render ──────────────────────────────────────────────
     return (
-        <div className="space-y-6" dir="rtl">
+        <div className="space-y-8" dir="rtl">
 
             {/* ── Header ─────────────────────────────────── */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900">لوحة الأرباح</h2>
-                    <p className="text-sm text-gray-500 mt-0.5">جميع المبالغ بالدولار الأمريكي (USD)</p>
+                    <h2 className="text-2xl font-bold text-ink">لوحة الأرباح</h2>
+                    <p className="text-sm text-gray-400 mt-1">جميع المبالغ بالدولار الأمريكي (USD)</p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                     <button
                         id="refresh-earnings-btn"
                         onClick={() => fetchData(true)}
                         disabled={refreshing}
-                        className="p-2 rounded-xl border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors"
+                        className="p-2.5 rounded-xl border border-gray-100 text-gray-500 hover:bg-gray-50 transition-colors"
                         title="تحديث"
                     >
                         <FiRefreshCw className={refreshing ? 'animate-spin' : ''} />
@@ -205,7 +205,7 @@ export default function EarningsDashboard() {
                         id="open-withdraw-modal-btn"
                         onClick={() => setShowWithdrawModal(true)}
                         disabled={balance.spendable <= 0 || hasPendingWithdraw || !payoutMethodConfigured}
-                        className="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm"
+                        className="flex items-center gap-2 px-6 py-3 bg-ink text-white rounded-xl font-bold hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md active:scale-95"
                     >
                         <FiArrowDownCircle className="text-lg" />
                         طلب سحب
@@ -215,25 +215,25 @@ export default function EarningsDashboard() {
 
             {/* ── Alerts ─────────────────────────────────── */}
             {!payoutMethodConfigured && (
-                <div className="flex items-start gap-3 p-4 bg-amber-50 border border-amber-200 rounded-2xl text-sm text-amber-800">
-                    <FiAlertTriangle className="mt-0.5 shrink-0 text-amber-500" size={18} />
-                    <p>لم تقم بإعداد طريقة الاستلام بعد. يرجى الذهاب إلى <strong>الإعدادات → طريقة الاستلام</strong> لتفعيل السحب.</p>
+                <div className="flex items-start gap-4 p-5 bg-amber-50 border border-amber-200 rounded-2xl text-sm text-amber-900 shadow-sm shadow-amber-900/5">
+                    <FiAlertTriangle className="mt-0.5 shrink-0 text-amber-500" size={20} />
+                    <p className="leading-relaxed">لم تقم بإعداد طريقة الاستلام بعد. يرجى الذهاب إلى <strong>الإعدادات → طريقة الاستلام</strong> لتفعيل السحب.</p>
                 </div>
             )}
             {hasPendingWithdraw && (
-                <div className="flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 rounded-2xl text-sm text-blue-800">
-                    <FiShield className="mt-0.5 shrink-0 text-blue-500" size={18} />
-                    <p>لديك طلب سحب قيد المراجعة حالياً. يمكنك تقديم طلب جديد بعد معالجة الطلب الحالي.</p>
+                <div className="flex items-start gap-4 p-5 bg-blue-50 border border-blue-100 rounded-2xl text-sm text-blue-900 shadow-sm shadow-blue-900/5">
+                    <FiShield className="mt-0.5 shrink-0 text-blue-500" size={20} />
+                    <p className="leading-relaxed">لديك طلب سحب قيد المراجعة حالياً. يمكنك تقديم طلب جديد بعد معالجة الطلب الحالي.</p>
                 </div>
             )}
 
             {/* ── Balance Cards ───────────────────────────── */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <BalanceCard
                     label="الرصيد المتاح"
                     value={balance.spendable}
                     icon={<FiCheckCircle />}
-                    color="emerald"
+                    color="accent"
                     sub="قابل للسحب الآن"
                     highlight
                 />
@@ -261,8 +261,8 @@ export default function EarningsDashboard() {
             </div>
 
             {/* ── Tabs ───────────────────────────────────── */}
-            <div className="border-b border-gray-200">
-                <nav className="flex gap-1">
+            <div className="border-b border-gray-100">
+                <nav className="flex gap-2">
                     {([
                         { id: 'overview', label: 'نظرة عامة', icon: FiDollarSign },
                         { id: 'schedule', label: 'مواعيد الإفراج', icon: FiCalendar },
@@ -272,13 +272,13 @@ export default function EarningsDashboard() {
                             key={tab.id}
                             id={`earnings-tab-${tab.id}`}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${
+                            className={`flex items-center gap-2 px-6 py-4 text-sm font-bold border-b-2 transition-all ${
                                 activeTab === tab.id
-                                    ? 'border-emerald-500 text-emerald-600'
-                                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                                    ? 'border-accent text-accent'
+                                    : 'border-transparent text-gray-400 hover:text-ink'
                             }`}
                         >
-                            <tab.icon size={15} />
+                            <tab.icon size={16} />
                             {tab.label}
                         </button>
                     ))}
@@ -287,17 +287,19 @@ export default function EarningsDashboard() {
 
             {/* ── Tab Content ─────────────────────────────── */}
 
-            {activeTab === 'overview' && (
-                <OverviewTab balance={balance} minPayoutAmount={minPayoutAmount} />
-            )}
+            <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+                {activeTab === 'overview' && (
+                    <OverviewTab balance={balance} minPayoutAmount={minPayoutAmount} />
+                )}
 
-            {activeTab === 'schedule' && (
-                <ScheduleTab releases={upcomingReleases} />
-            )}
+                {activeTab === 'schedule' && (
+                    <ScheduleTab releases={upcomingReleases} />
+                )}
 
-            {activeTab === 'history' && (
-                <HistoryTab withdrawals={withdrawals} />
-            )}
+                {activeTab === 'history' && (
+                    <HistoryTab withdrawals={withdrawals} />
+                )}
+            </div>
 
             {/* ── Withdraw Modal ──────────────────────────── */}
             {showWithdrawModal && (
@@ -321,28 +323,29 @@ function BalanceCard({
     label, value, icon, color, sub, highlight
 }: {
     label: string; value: number; icon: React.ReactNode;
-    color: 'emerald' | 'amber' | 'blue' | 'purple';
+    color: 'accent' | 'amber' | 'blue' | 'purple';
     sub?: string; highlight?: boolean;
 }) {
     const colors = {
-        emerald: { bg: 'bg-emerald-50', icon: 'bg-emerald-500', text: 'text-emerald-700', amt: 'text-emerald-600' },
-        amber:   { bg: 'bg-amber-50',   icon: 'bg-amber-500',   text: 'text-amber-700',   amt: 'text-amber-600' },
-        blue:    { bg: 'bg-blue-50',     icon: 'bg-blue-500',    text: 'text-blue-700',    amt: 'text-blue-600' },
-        purple:  { bg: 'bg-purple-50',   icon: 'bg-purple-500',  text: 'text-purple-700',  amt: 'text-purple-600' },
+        accent: { bg: 'bg-accent-light', icon: 'bg-accent', text: 'text-accent', amt: 'text-ink' },
+        amber:  { bg: 'bg-amber-50',     icon: 'bg-amber-500',  text: 'text-amber-700', amt: 'text-ink' },
+        blue:   { bg: 'bg-blue-50',      icon: 'bg-blue-500',   text: 'text-blue-700',  amt: 'text-ink' },
+        purple: { bg: 'bg-purple-50',    icon: 'bg-purple-500', text: 'text-purple-700', amt: 'text-ink' },
     };
     const c = colors[color];
+    
     return (
-        <div className={`p-4 rounded-2xl ${highlight ? 'bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-200' : `${c.bg} border border-${color}-100`}`}>
-            <div className="flex items-center justify-between mb-3">
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center text-white ${highlight ? 'bg-white/20' : c.icon}`}>
+        <div className={`p-6 rounded-2xl transition-all hover:shadow-lg ${highlight ? 'bg-ink text-white ring-1 ring-white/5' : `${c.bg} border border-transparent hover:border-gray-200`}`}>
+            <div className="flex items-center justify-between mb-4">
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-white ${highlight ? 'bg-white/10' : c.icon}`}>
                     {icon}
                 </div>
             </div>
-            <p className={`text-2xl font-bold font-mono ${highlight ? 'text-white' : c.amt}`}>
+            <p className={`text-3xl font-bold tracking-tight font-inter ${highlight ? 'text-white' : c.amt}`}>
                 ${fmt(value)}
             </p>
-            <p className={`text-xs mt-1 font-medium ${highlight ? 'text-emerald-100' : c.text}`}>{label}</p>
-            {sub && <p className={`text-xs mt-0.5 ${highlight ? 'text-white/70' : 'text-gray-500'}`}>{sub}</p>}
+            <p className={`text-xs mt-1.5 font-bold uppercase tracking-wider ${highlight ? 'text-white/60' : 'text-gray-400'}`}>{label}</p>
+            {sub && <p className={`text-[10px] mt-1 ${highlight ? 'text-white/40' : 'text-gray-400'}`}>{sub}</p>}
         </div>
     );
 }
@@ -352,47 +355,48 @@ function OverviewTab({ balance, minPayoutAmount }: { balance: BalanceSummary; mi
     const reachedMin = balance.spendable >= minPayoutAmount;
 
     return (
-        <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Minimum payout progress */}
-            <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
-                <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-gray-800">الحد الأدنى للسحب</h3>
-                    <span className={`text-sm font-bold ${reachedMin ? 'text-emerald-600' : 'text-gray-500'}`}>
+            <div className="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
+                <div className="flex items-center justify-between mb-6">
+                    <h3 className="font-bold text-ink">الحد الأدنى للسحب</h3>
+                    <span className={`text-sm font-bold font-inter ${reachedMin ? 'text-accent' : 'text-gray-400'}`}>
                         ${fmt(balance.spendable)} / ${fmt(minPayoutAmount)}
                     </span>
                 </div>
-                <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
+                <div className="h-3 bg-gray-50 rounded-full overflow-hidden mb-6">
                     <div
-                        className={`h-full rounded-full transition-all duration-700 ${reachedMin ? 'bg-emerald-500' : 'bg-amber-400'}`}
+                        className={`h-full rounded-full transition-all duration-1000 ${reachedMin ? 'bg-accent' : 'bg-amber-400'}`}
                         style={{ width: `${progressPct}%` }}
                     />
                 </div>
                 {reachedMin ? (
-                    <p className="text-xs text-emerald-600 mt-2 font-medium">
-                        ✓ وصلت للحد الأدنى — يمكنك السحب الآن!
-                    </p>
+                    <div className="flex items-center gap-2 p-4 bg-accent-light rounded-2xl text-accent text-sm font-bold">
+                        <FiCheckCircle size={18} />
+                        وصبت للحد الأدنى — يمكنك السحب الآن!
+                    </div>
                 ) : (
-                    <p className="text-xs text-gray-500 mt-2">
-                        تحتاج ${fmt(minPayoutAmount - balance.spendable)} إضافية للوصول إلى الحد الأدنى
+                    <p className="text-sm text-gray-500 bg-gray-50 p-4 rounded-2xl">
+                        تحتاج <span className="font-bold text-ink">${fmt(minPayoutAmount - balance.spendable)}</span> إضافية للوصول إلى الحد الأدنى
                     </p>
                 )}
             </div>
 
             {/* Financial summary */}
-            <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
-                <h3 className="font-semibold text-gray-800 mb-4">ملخص مالي</h3>
-                <div className="space-y-3">
+            <div className="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
+                <h3 className="font-bold text-ink mb-6">ملخص مالي</h3>
+                <div className="space-y-4">
                     {[
-                        { label: 'إجمالي الأرباح', val: balance.totalEarnings, cls: 'text-gray-900' },
+                        { label: 'إجمالي الأرباح', val: balance.totalEarnings, cls: 'text-ink font-bold' },
                         { label: 'قيد الحجز (Escrow)', val: balance.pending, cls: 'text-amber-600' },
-                        { label: 'متاح للسحب', val: balance.available, cls: 'text-emerald-600' },
-                        { label: 'طلبات سحب قيد المراجعة', val: balance.pendingWithdrawals, cls: 'text-blue-600' },
-                        { label: 'صافي قابل للسحب', val: balance.spendable, cls: 'text-emerald-700 font-bold' },
+                        { label: 'متاح للسحب', val: balance.available, cls: 'text-accent' },
+                        { label: 'طلبات سحب قيد المراجعة', val: balance.pendingWithdrawals, cls: 'text-blue-500' },
+                        { label: 'صافي قابل للسحب', val: balance.spendable, cls: 'text-ink font-bold text-lg' },
                         { label: 'أرباح الإحالات', val: balance.referralEarnings, cls: 'text-purple-600' },
                     ].map(row => (
-                        <div key={row.label} className="flex justify-between items-center py-1.5 border-b border-gray-50 last:border-0">
-                            <span className="text-sm text-gray-600">{row.label}</span>
-                            <span className={`text-sm font-mono font-semibold ${row.cls}`}>${fmt(row.val)}</span>
+                        <div key={row.label} className="flex justify-between items-center py-2 border-b border-gray-50 last:border-0 last:pt-4 last:mt-2">
+                            <span className="text-sm text-gray-500 font-medium">{row.label}</span>
+                            <span className={`text-sm font-inter ${row.cls}`}>${fmt(row.val)}</span>
                         </div>
                     ))}
                 </div>
@@ -404,39 +408,39 @@ function OverviewTab({ balance, minPayoutAmount }: { balance: BalanceSummary; mi
 function ScheduleTab({ releases }: { releases: UpcomingRelease[] }) {
     if (releases.length === 0) {
         return (
-            <div className="bg-white border border-gray-100 rounded-2xl p-10 shadow-sm text-center text-gray-400">
-                <FiCalendar className="mx-auto text-4xl mb-3 opacity-30" />
-                <p>لا توجد مبالغ معلقة قادمة</p>
+            <div className="bg-white border border-gray-100 rounded-3xl p-16 shadow-sm text-center">
+                <FiCalendar className="mx-auto text-4xl mb-4 text-gray-100" />
+                <p className="text-gray-400 font-bold">لا توجد مبالغ معلقة قادمة</p>
             </div>
         );
     }
 
     return (
-        <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
-            <div className="p-4 border-b border-gray-50">
-                <h3 className="font-semibold text-gray-800">مواعيد الإفراج عن الأرباح المحجوزة</h3>
-                <p className="text-xs text-gray-500 mt-0.5">يتم الإفراج تلقائياً بعد فترة الحجز</p>
+        <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
+            <div className="p-6 border-b border-gray-50">
+                <h3 className="font-bold text-ink">مواعيد الإفراج عن الأرباح المحجوزة</h3>
+                <p className="text-xs text-gray-400 mt-1">يتم الإفراج تلقائياً بعد فترة الحجز</p>
             </div>
             <div className="divide-y divide-gray-50">
                 {releases.map((r, i) => {
                     const date = new Date(r.releaseDate);
                     const daysLeft = Math.ceil((date.getTime() - Date.now()) / 86_400_000);
                     return (
-                        <div key={i} className="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
-                                    <FiClock size={18} />
+                        <div key={i} className="flex items-center justify-between p-6 hover:bg-gray-50 transition-all">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-500">
+                                    <FiClock size={20} />
                                 </div>
                                 <div>
-                                    <p className="text-sm font-medium text-gray-800">
+                                    <p className="text-sm font-bold text-ink">
                                         {date.toLocaleDateString('ar-EG', { day: 'numeric', month: 'long', year: 'numeric' })}
                                     </p>
-                                    <p className="text-xs text-gray-500">
+                                    <p className="text-xs text-gray-400 mt-0.5 font-bold">
                                         {daysLeft <= 0 ? 'اليوم' : `بعد ${daysLeft} يوم`}
                                     </p>
                                 </div>
                             </div>
-                            <span className="text-lg font-bold font-mono text-emerald-600">${fmt(r.amount)}</span>
+                            <span className="text-xl font-bold font-inter text-ink tracking-tight">${fmt(r.amount)}</span>
                         </div>
                     );
                 })}
@@ -448,34 +452,34 @@ function ScheduleTab({ releases }: { releases: UpcomingRelease[] }) {
 function HistoryTab({ withdrawals }: { withdrawals: WithdrawalRecord[] }) {
     if (withdrawals.length === 0) {
         return (
-            <div className="bg-white border border-gray-100 rounded-2xl p-10 shadow-sm text-center text-gray-400">
-                <FiList className="mx-auto text-4xl mb-3 opacity-30" />
-                <p>لا توجد عمليات سحب بعد</p>
+            <div className="bg-white border border-gray-100 rounded-3xl p-16 shadow-sm text-center">
+                <FiList className="mx-auto text-4xl mb-4 text-gray-100" />
+                <p className="text-gray-400 font-bold">لا توجد عمليات سحب بعد</p>
             </div>
         );
     }
 
     return (
-        <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
+        <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
             <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                     <thead className="bg-gray-50 border-b border-gray-100">
                         <tr>
-                            <th className="text-right p-4 font-semibold text-gray-600">رقم الطلب</th>
-                            <th className="text-right p-4 font-semibold text-gray-600">المبلغ</th>
-                            <th className="text-right p-4 font-semibold text-gray-600">الطريقة</th>
-                            <th className="text-right p-4 font-semibold text-gray-600">الحالة</th>
-                            <th className="text-right p-4 font-semibold text-gray-600">التاريخ</th>
+                            <th className="text-right p-5 font-bold text-gray-500 uppercase tracking-widest text-[10px]">رقم الطلب</th>
+                            <th className="text-right p-5 font-bold text-gray-500 uppercase tracking-widest text-[10px]">المبلغ</th>
+                            <th className="text-right p-5 font-bold text-gray-500 uppercase tracking-widest text-[10px]">الطريقة</th>
+                            <th className="text-right p-5 font-bold text-gray-500 uppercase tracking-widest text-[10px]">الحالة</th>
+                            <th className="text-right p-5 font-bold text-gray-500 uppercase tracking-widest text-[10px]">التاريخ</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-50">
                         {withdrawals.map(w => (
-                            <tr key={w.id} className="hover:bg-gray-50 transition-colors">
-                                <td className="p-4 font-mono text-xs text-gray-500">{w.payoutNumber}</td>
-                                <td className="p-4 font-bold font-mono text-gray-900">${fmt(w.amount)}</td>
-                                <td className="p-4 text-gray-600 capitalize">{w.method}</td>
-                                <td className="p-4"><StatusBadge status={w.status} /></td>
-                                <td className="p-4 text-gray-500 text-xs">
+                            <tr key={w.id} className="hover:bg-gray-50 transition-all font-inter">
+                                <td className="p-5 font-bold text-xs text-gray-400">#{w.payoutNumber}</td>
+                                <td className="p-5 font-bold text-ink">${fmt(w.amount)}</td>
+                                <td className="p-5 text-gray-500 font-bold uppercase text-[11px]">{w.method}</td>
+                                <td className="p-5"><StatusBadge status={w.status} /></td>
+                                <td className="p-5 text-gray-400 text-xs font-bold">
                                     {new Date(w.requestedAt).toLocaleDateString('ar-EG')}
                                 </td>
                             </tr>
@@ -502,39 +506,39 @@ function WithdrawModal({
     const isValid = numericAmount >= minPayoutAmount && numericAmount <= spendable;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md p-6 animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/60 backdrop-blur-sm animate-in fade-in duration-300">
+            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8 animate-in zoom-in-95 duration-300">
                 {/* Header */}
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between mb-8">
                     <div>
-                        <h3 className="text-xl font-bold text-gray-900">طلب سحب الأرباح</h3>
-                        <p className="text-sm text-gray-500 mt-0.5">سيتم المراجعة خلال 2-3 أيام عمل</p>
+                        <h3 className="text-xl font-bold text-ink">طلب سحب الأرباح</h3>
+                        <p className="text-xs text-gray-400 mt-1 uppercase tracking-wider font-bold">Review-only Withdrawal</p>
                     </div>
                     <button
                         id="close-withdraw-modal-btn"
                         onClick={onClose}
-                        className="p-2 rounded-xl hover:bg-gray-100 text-gray-400 transition-colors"
+                        className="p-2.5 rounded-xl hover:bg-gray-50 text-gray-400 transition-all"
                     >
                         <FiX size={20} />
                     </button>
                 </div>
 
                 {/* Available balance */}
-                <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 mb-5">
-                    <p className="text-sm text-emerald-700 font-medium">الرصيد المتاح</p>
-                    <p className="text-3xl font-bold text-emerald-600 font-mono mt-1">${fmt(spendable)}</p>
-                    <p className="text-xs text-emerald-600/70 mt-1">
-                        الحد الأدنى: ${fmt(minPayoutAmount)}
-                    </p>
+                <div className="bg-ink rounded-3xl p-6 mb-6 text-white text-center shadow-xl shadow-ink/20">
+                    <p className="text-xs text-white/40 font-bold uppercase tracking-[0.2em] mb-1">Available for Withdrawal</p>
+                    <p className="text-4xl font-bold font-inter tracking-tighter">${fmt(spendable)}</p>
+                    <div className="mt-4 inline-flex px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold text-white/60">
+                        Minimum Withdrawal: ${fmt(minPayoutAmount)}
+                    </div>
                 </div>
 
                 {/* Amount input */}
-                <div className="mb-5">
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <div className="mb-6">
+                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 pr-1">
                         المبلغ المراد سحبه (USD)
                     </label>
-                    <div className="relative">
-                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">$</span>
+                    <div className="relative group">
+                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 font-bold font-inter">$</span>
                         <input
                             id="withdraw-amount-input"
                             type="number"
@@ -543,13 +547,13 @@ function WithdrawModal({
                             step="0.01"
                             value={amount}
                             onChange={e => onAmountChange(e.target.value)}
-                            className="w-full pr-9 pl-4 py-3 border border-gray-200 rounded-xl text-lg font-mono focus:outline-none focus:ring-2 focus:ring-emerald-400 text-left"
+                            className="w-full pl-9 pr-4 py-4 border-2 border-gray-100 rounded-2xl text-xl font-bold font-inter focus:outline-none focus:border-ink transition-all text-left"
                             dir="ltr"
                             placeholder={`${minPayoutAmount}.00`}
                         />
                     </div>
                     {/* Quick fill buttons */}
-                    <div className="flex gap-2 mt-2">
+                    <div className="flex gap-2 mt-4">
                         {[25, 50, 100].map(pct => {
                             const val = round2((spendable * pct) / 100);
                             if (val < minPayoutAmount) return null;
@@ -557,21 +561,22 @@ function WithdrawModal({
                                 <button
                                     key={pct}
                                     onClick={() => onAmountChange(val.toString())}
-                                    className="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 font-medium transition-colors"
+                                    className="text-[10px] px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl text-gray-500 font-bold transition-all"
                                 >
-                                    {pct}% (${fmt(val, 0)})
+                                    {pct}% 
                                 </button>
                             );
                         })}
                         <button
                             onClick={() => onAmountChange(spendable.toString())}
-                            className="text-xs px-3 py-1 bg-emerald-50 hover:bg-emerald-100 rounded-lg text-emerald-600 font-medium transition-colors"
+                            className="text-[10px] px-4 py-2 bg-accent-light hover:bg-accent/20 rounded-xl text-accent font-bold transition-all mr-auto"
                         >
-                            الكل
+                            سحب الكل
                         </button>
                     </div>
                     {numericAmount > 0 && !isValid && (
-                        <p className="text-xs text-red-500 mt-2">
+                        <p className="text-xs text-red-500 mt-3 flex items-center gap-1 font-bold">
+                            <FiAlertTriangle size={14} />
                             {numericAmount < minPayoutAmount
                                 ? `الحد الأدنى $${minPayoutAmount}`
                                 : `لا يمكن سحب أكثر من $${fmt(spendable)}`}
@@ -580,10 +585,10 @@ function WithdrawModal({
                 </div>
 
                 {/* Info */}
-                <div className="bg-gray-50 rounded-xl p-3 mb-5 text-xs text-gray-600 space-y-1">
-                    <p>• سيتم إرسال المبلغ عبر طريقة الاستلام المحددة في حسابك</p>
-                    <p>• رسوم السحب: لا توجد رسوم إضافية من المنصة</p>
-                    <p>• وقت المعالجة: 2-3 أيام عمل</p>
+                <div className="bg-gray-50 rounded-2xl p-4 mb-8 text-[10px] text-gray-400 font-bold space-y-2 leading-relaxed">
+                    <p className="flex items-start gap-2">• <span className="flex-1">سيتم إرسال المبلغ عبر طريقة الاستلام المحددة في حسابك.</span></p>
+                    <p className="flex items-start gap-2">• <span className="flex-1">رسوم السحب: لا توجد رسوم إضافية من المنصة.</span></p>
+                    <p className="flex items-start gap-2">• <span className="flex-1">وقت المعالجة: من 2 إلى 3 أيام عمل للمراجعة والأمان.</span></p>
                 </div>
 
                 {/* Submit */}
@@ -591,15 +596,15 @@ function WithdrawModal({
                     id="confirm-withdraw-btn"
                     onClick={onSubmit}
                     disabled={!isValid || submitting}
-                    className="w-full py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-lg hover:bg-emerald-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm shadow-emerald-200"
+                    className="w-full py-4 bg-ink text-white rounded-2xl font-bold text-lg hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-xl shadow-ink/20 active:scale-[0.98]"
                 >
                     {submitting ? (
-                        <span className="flex items-center justify-center gap-2">
+                        <span className="flex items-center justify-center gap-3">
                             <FiRefreshCw className="animate-spin" />
                             جاري إرسال الطلب...
                         </span>
                     ) : (
-                        `تأكيد سحب $${numericAmount > 0 ? fmt(numericAmount) : '—'}`
+                        `تأكيد السحب $${numericAmount > 0 ? fmt(numericAmount) : '—'}`
                     )}
                 </button>
             </div>
