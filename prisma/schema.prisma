@@ -32,8 +32,14 @@ model User {
   logoUrl       String?
   signatureUrl  String?
   
-  // Platform customization
-  brandColor    String?   @default("#0ea5e9")
+  // Platform customization (Brand Identity System)
+  brandColor          String?   @default("#064E3B")
+  brandSecondaryColor String?
+  brandFont           String?   @default("default")   // "default" | "modern" | "elegant" | "bold"
+  brandButtonStyle    String?   @default("rounded")    // "rounded" | "pill" | "square"
+  brandLayout         String?   @default("grid")       // "grid" | "list" | "masonry"
+  storeBanner         String?                          // Custom banner for storefront
+  storeTagline        String?                          // Short tagline under store name
   website       String?
   facebook      String?
   instagram     String?

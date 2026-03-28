@@ -52,18 +52,18 @@ export default function RootLayout({
                             style: {
                                 direction: 'rtl',
                                 fontFamily: 'var(--font-ibm)',
-                                borderRadius: '24px',
+                                borderRadius: '12px',
                                 padding: '16px 24px',
                                 fontSize: '14px',
                                 fontWeight: '700',
-                                boxShadow: '0 20px 40px -10px rgba(99, 102, 241, 0.15)',
+                                boxShadow: '0 20px 40px -10px rgba(6, 78, 59, 0.12)',
                                 border: '1px solid rgba(226, 232, 240, 0.8)',
                                 backdropFilter: 'blur(10px)',
                             },
                             success: {
                                 style: {
                                     background: 'rgba(255, 255, 255, 0.95)',
-                                    color: '#4f46e5',
+                                    color: '#064E3B',
                                 },
                             },
                         }}

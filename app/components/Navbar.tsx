@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FiLayers, FiMenu, FiX, FiChevronLeft } from 'react-icons/fi';
+import { FiMenu, FiX, FiChevronLeft } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { MagneticButton } from '@/components/animations/MagneticButton';
@@ -47,11 +47,11 @@ export default function Navbar() {
                             <motion.span
                                 whileHover={{ rotate: 180, scale: 1.1 }}
                                 transition={{ type: "spring", stiffness: 200, damping: 10 }}
-                                className="w-10 h-10 rounded-xl bg-gradient-to-br from-action-blue to-purple-600 flex items-center justify-center text-white shadow-lg shadow-action-blue/20"
+                                className="w-10 h-10 rounded-xl bg-brand-900 flex items-center justify-center text-white shadow-lg shadow-emerald-900/20"
                             >
-                                <FiLayers className="text-xl" />
+                                <svg width="20" height="20" viewBox="0 0 40 40" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M8 32 L20 8 L32 32" /><path d="M14 22 H26" /></svg>
                             </motion.span>
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">تمالين</span>
+                            <span className="text-navy-900 font-black">تمالين</span>
                         </Link>
 
                         <div className="hidden lg:flex items-center gap-8">
@@ -81,7 +81,7 @@ export default function Navbar() {
                                     </Link>
                                 </MagneticButton>
                                 <MagneticButton>
-                                    <Link href="/register" className="px-6 py-2.5 rounded-xl bg-action-blue text-white font-black shadow-lg shadow-action-blue/20 hover:shadow-action-blue/40 transition-all">
+                                    <Link href="/register" className="px-6 py-2.5 rounded-xl bg-brand-900 text-white font-black shadow-lg shadow-emerald-900/20 hover:shadow-emerald-900/40 transition-all">
                                         ابدأ مجاناً
                                     </Link>
                                 </MagneticButton>
@@ -140,7 +140,7 @@ export default function Navbar() {
                             <div className="p-6 border-t border-gray-100 bg-gray-50/50 space-y-3">
                                 <Link 
                                     href="/register" 
-                                    className="w-full py-4 bg-action-blue text-white rounded-2xl flex items-center justify-center font-black shadow-lg shadow-action-blue/20"
+                                    className="w-full py-4 bg-brand-900 text-white rounded-2xl flex items-center justify-center font-black shadow-lg shadow-emerald-900/20"
                                 >
                                     أنشئ متجرك مجاناً
                                 </Link>

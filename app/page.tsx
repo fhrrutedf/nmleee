@@ -1,11 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { FiShoppingBag, FiVideo, FiCalendar, FiDollarSign, FiCheckCircle, FiArrowLeft, FiTrendingUp, FiLayers, FiShield, FiArrowDown, FiEdit3, FiGlobe } from 'react-icons/fi';
-import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
-import { RevealText } from '@/components/animations/RevealText';
-import { MagneticButton } from '@/components/animations/MagneticButton';
+import { FiShoppingBag, FiVideo, FiCalendar, FiDollarSign, FiCheckCircle, FiArrowLeft, FiTrendingUp, FiShield, FiEdit3, FiGlobe } from 'react-icons/fi';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { TiltCard } from '@/components/animations/TiltCard';
 import Testimonials from '@/components/sections/Testimonials';
 
@@ -22,7 +19,7 @@ export default function Home() {
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="text-primary-indigo-600 font-bold text-sm tracking-widest uppercase bg-indigo-50 px-4 py-2 rounded-full inline-block mb-4"
+                            className="text-brand-900 font-bold text-sm tracking-widest uppercase bg-brand-50 px-4 py-2 rounded-full inline-block mb-4"
                         >
                             كيف نبدأ؟
                         </motion.span>
@@ -31,7 +28,7 @@ export default function Home() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="text-4xl md:text-5xl font-black text-slate-900"
+                            className="text-4xl md:text-5xl font-black text-navy-900"
                         >
                             حوّل معرفتك لمنتج بضغطة زر
                         </motion.h2>
@@ -45,13 +42,11 @@ export default function Home() {
                             viewport={{ once: true }}
                             className="relative group flex flex-col items-center text-center"
                         >
-                            <div className="w-24 h-24 bg-primary-indigo-50 text-primary-indigo-600 rounded-[2rem] flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform duration-500 shadow-premium">
+                            <div className="w-24 h-24 bg-brand-50 text-brand-900 rounded-[2rem] flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform duration-500 shadow-premium">
                                 <FiEdit3 />
                             </div>
-                            <h3 className="text-2xl font-black text-slate-900 mb-4">أنشئ متجرك</h3>
+                            <h3 className="text-2xl font-black text-navy-900 mb-4">أنشئ متجرك</h3>
                             <p className="text-slate-500 leading-relaxed font-medium">خطوات بسيطة وسريعة لتجهيز ملفك الشخصي وربط حسابك البنكي بكل سهولة.</p>
-                            
-                            {/* Connector Line (Desktop Only) */}
                             <div className="hidden lg:block absolute top-12 left-full w-20 h-0.5 border-t-2 border-dashed border-slate-100 -translate-x-10 -translate-y-4" />
                         </motion.div>
 
@@ -63,13 +58,11 @@ export default function Home() {
                             transition={{ delay: 0.1 }}
                             className="relative group flex flex-col items-center text-center"
                         >
-                            <div className="w-24 h-24 bg-indigo-600 text-white rounded-[2.5rem] flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform duration-500 shadow-glow">
+                            <div className="w-24 h-24 bg-brand-900 text-white rounded-[2.5rem] flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform duration-500 shadow-glow">
                                 <FiGlobe />
                             </div>
-                            <h3 className="text-2xl font-black text-slate-900 mb-4">ارفع ملفاتك</h3>
+                            <h3 className="text-2xl font-black text-navy-900 mb-4">ارفع ملفاتك</h3>
                             <p className="text-slate-500 leading-relaxed font-medium">ارفع دروسك، كتبك، أو قوالبك على خوادمنا الآمنة والمستقرة والمحمية تماماً.</p>
-                            
-                            {/* Connector Line (Desktop Only) */}
                             <div className="hidden lg:block absolute top-12 left-full w-20 h-0.5 border-t-2 border-dashed border-slate-100 -translate-x-10 -translate-y-4" />
                         </motion.div>
 
@@ -81,10 +74,10 @@ export default function Home() {
                             transition={{ delay: 0.2 }}
                             className="relative group flex flex-col items-center text-center"
                         >
-                            <div className="w-24 h-24 bg-primary-indigo-50 text-primary-indigo-600 rounded-[2rem] flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform duration-500 shadow-premium">
+                            <div className="w-24 h-24 bg-brand-50 text-brand-900 rounded-[2rem] flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform duration-500 shadow-premium">
                                 <FiTrendingUp />
                             </div>
-                            <h3 className="text-2xl font-black text-slate-900 mb-4">ابدأ البيع</h3>
+                            <h3 className="text-2xl font-black text-navy-900 mb-4">ابدأ البيع</h3>
                             <p className="text-slate-500 leading-relaxed font-medium">شارك رابط متجرك مع جمهورك واستقبل الأرباح مباشرة عبر وسائل دفع محلية.</p>
                         </motion.div>
                     </div>
@@ -99,7 +92,7 @@ export default function Home() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="bg-primary-indigo-600 rounded-[4rem] p-12 lg:p-24 text-center text-white relative overflow-hidden shadow-glow"
+                    className="bg-brand-900 rounded-[3rem] p-12 lg:p-24 text-center text-white relative overflow-hidden"
                 >
                     <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent pointer-events-none" />
                     
@@ -109,10 +102,10 @@ export default function Home() {
                     </p>
                     
                     <div className="flex flex-wrap items-center justify-center gap-6 relative z-10">
-                        <Link href="/auth/register" className="px-12 py-5 bg-white text-primary-indigo-600 rounded-3xl font-black text-lg hover:bg-slate-50 hover:scale-105 transition-all shadow-xl shadow-indigo-900/10">
+                        <Link href="/auth/register" className="px-12 py-5 bg-gold-700 text-white rounded-2xl font-black text-lg hover:bg-gold-600 hover:scale-105 transition-all shadow-gold">
                             سجل حسابك مجاناً
                         </Link>
-                        <Link href="/how-it-works" className="px-10 py-5 bg-primary-indigo-700/50 backdrop-blur-md text-white border border-white/10 rounded-3xl font-black text-lg hover:bg-primary-indigo-700/80 transition-all">
+                        <Link href="/how-it-works" className="px-10 py-5 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-2xl font-black text-lg hover:bg-white/20 transition-all">
                             تحدث مع مستشارنا
                         </Link>
                     </div>
@@ -123,20 +116,15 @@ export default function Home() {
 }
 
 function Hero() {
-    // Scroll Progress for Parallax
     const { scrollYProgress } = useScroll();
-    const yHero = useTransform(scrollYProgress, [0, 1], [0, 400]);
-    const opacityHero = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
     return (
         <main className="min-h-screen bg-bg-light overflow-hidden relative cursor-default">
 
-
-
-            {/* Dynamic Hero Section - 2026 Redesign */}
-            <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden flex items-center bg-[#fcfcfd]">
+            {/* Hero Section */}
+            <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden flex items-center bg-[#FAFBFC]">
                 
-                {/* Advanced Animated Background (Mesh Gradient & Grain) */}
+                {/* Subtle Background */}
                 <div className="absolute inset-0 z-0 pointer-events-none">
                     <motion.div 
                         animate={{ 
@@ -145,7 +133,7 @@ function Hero() {
                             y: [0, -50, 0]
                         }} 
                         transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                        className="absolute top-[-10%] right-[-5%] w-[800px] h-[800px] bg-primary-indigo-100/40 rounded-full blur-[120px]" 
+                        className="absolute top-[-10%] right-[-5%] w-[800px] h-[800px] bg-brand-100/40 rounded-full blur-[120px]" 
                     />
                     <motion.div 
                         animate={{ 
@@ -154,15 +142,14 @@ function Hero() {
                             y: [0, 60, 0]
                         }} 
                         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                        className="absolute bottom-[-10%] left-[-5%] w-[700px] h-[700px] bg-action-secondary-light/30 rounded-full blur-[100px]" 
+                        className="absolute bottom-[-10%] left-[-5%] w-[700px] h-[700px] bg-brand-200/30 rounded-full blur-[100px]" 
                     />
-                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay"></div>
                 </div>
 
                 <div className="container-custom relative z-10">
                     <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
                         
-                        {/* Text Content - Right Side (Arabic) */}
+                        {/* Text Content */}
                         <motion.div 
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -173,24 +160,24 @@ function Hero() {
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.2 }}
-                                className="inline-flex items-center gap-2 px-4 py-2 bg-primary-indigo-50 border border-primary-indigo-100 text-primary-indigo-600 rounded-full text-sm font-bold mb-8 shadow-sm"
+                                className="inline-flex items-center gap-2 px-4 py-2 bg-brand-50 border border-brand-100 text-brand-900 rounded-full text-sm font-bold mb-8 shadow-sm"
                             >
                                 <span className="relative flex h-2 w-2">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-indigo-400 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-indigo-600"></span>
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-900"></span>
                                 </span>
-                                منصة "تمالين" — الخيار الأول للمبدعين العرب
+                                منصة &quot;تمالين&quot; — الخيار الأول للمبدعين العرب
                             </motion.div>
 
-                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-heading text-slate-900 leading-[1.1] tracking-tight">
+                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-heading text-navy-900 leading-[1.1] tracking-tight">
                                 حول خبرتك الرقمية إلى <br />
-                                <span className="relative inline-block text-primary-indigo-600">
+                                <span className="relative inline-block text-brand-900">
                                     إمبراطورية رابحة
                                     <motion.span 
                                         initial={{ width: 0 }}
                                         animate={{ width: '100%' }}
                                         transition={{ delay: 0.8, duration: 1.2 }}
-                                        className="absolute bottom-2 left-0 h-3 bg-primary-indigo-100 -z-10"
+                                        className="absolute bottom-2 left-0 h-3 bg-brand-100 -z-10"
                                     />
                                 </span>
                             </h1>
@@ -209,7 +196,7 @@ function Hero() {
                                     <motion.div
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
-                                        className="bg-primary-indigo-600 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-xl shadow-indigo-200 flex items-center gap-3 group"
+                                        className="bg-brand-900 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-xl shadow-emerald-900/15 flex items-center gap-3 group"
                                     >
                                         انطلق الآن مجاناً
                                         <FiArrowLeft className="group-hover:-translate-x-2 transition-transform" />
@@ -249,7 +236,7 @@ function Hero() {
                             </motion.div>
                         </motion.div>
 
-                        {/* Visual Mockups - Left Side (Desktop Only) */}
+                        {/* Visual Mockups */}
                         <motion.div 
                             initial={{ opacity: 0, scale: 0.9, x: -50 }}
                             animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -264,36 +251,35 @@ function Hero() {
                                         <div className="w-3 h-3 rounded-full bg-slate-200"></div>
                                         <div className="w-3 h-3 rounded-full bg-slate-200"></div>
                                     </div>
-                                    <div className="px-3 py-1 bg-primary-indigo-50 rounded-lg text-[10px] font-bold text-primary-indigo-600">DASHBOARD</div>
+                                    <div className="px-3 py-1 bg-brand-50 rounded-lg text-[10px] font-bold text-brand-900">DASHBOARD</div>
                                 </div>
 
                                 <div className="space-y-6">
                                     <div className="p-5 bg-white rounded-2xl shadow-sm border border-slate-50">
                                         <p className="text-xs text-slate-400 font-bold mb-1">إجمالي المبيعات (اليوم)</p>
-                                        <p className="text-3xl font-black text-slate-900">$2,840.00</p>
+                                        <p className="text-3xl font-black text-navy-900">$2,840.00</p>
                                         <div className="w-full h-1 bg-slate-100 rounded-full mt-3 overflow-hidden">
                                             <motion.div 
                                                 initial={{ width: 0 }} animate={{ width: '70%' }} 
                                                 transition={{ duration: 2, delay: 1 }}
-                                                className="h-full bg-primary-indigo-500" 
+                                                className="h-full bg-brand-900" 
                                             />
                                         </div>
                                     </div>
                                     
                                     <div className="grid grid-cols-2 gap-4">
-                                        <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
-                                            <FiShoppingBag className="text-emerald-600 mb-2" />
-                                            <p className="text-xs text-emerald-800 font-bold">128 طلب</p>
+                                        <div className="p-4 bg-brand-50 rounded-2xl border border-brand-100">
+                                            <FiShoppingBag className="text-brand-900 mb-2" />
+                                            <p className="text-xs text-brand-800 font-bold">128 طلب</p>
                                         </div>
-                                        <div className="p-4 bg-blue-50 rounded-2xl border border-blue-100">
-                                            <FiLayers className="text-blue-600 mb-2" />
-                                            <p className="text-xs text-blue-800 font-bold">12 منتج</p>
+                                        <div className="p-4 bg-gold-50 rounded-2xl border border-gold-100">
+                                            <FiTrendingUp className="text-gold-700 mb-2" />
+                                            <p className="text-xs text-gold-800 font-bold">12 منتج</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* Abstract Glow Effect */}
-                                <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-indigo-500/10 blur-[60px] rounded-full"></div>
+                                <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-brand-500/10 blur-[60px] rounded-full"></div>
                             </TiltCard>
 
                             {/* Floating Sales Badge */}
@@ -302,12 +288,12 @@ function Hero() {
                                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                                 className="absolute -top-10 -right-10 z-30 bg-white p-4 rounded-2xl shadow-2xl border border-slate-100 flex items-center gap-4"
                             >
-                                <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+                                <div className="w-12 h-12 rounded-full bg-brand-50 flex items-center justify-center text-brand-900">
                                     <FiDollarSign size={24} />
                                 </div>
                                 <div>
                                     <p className="text-[10px] text-slate-400 font-bold">بدأ للتو مبيع</p>
-                                    <p className="text-sm font-black text-slate-800">450.00 $</p>
+                                    <p className="text-sm font-black text-navy-900">450.00 $</p>
                                 </div>
                             </motion.div>
 
@@ -326,11 +312,10 @@ function Hero() {
                                 </div>
                                 <div>
                                     <p className="text-[10px] text-slate-400 font-bold">انضم لمجتمعنا</p>
-                                    <p className="text-sm font-black text-slate-800">+10,000 مبدع</p>
+                                    <p className="text-sm font-black text-navy-900">+10,000 مبدع</p>
                                 </div>
                             </motion.div>
 
-                            {/* Background Elements */}
                             <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border-2 border-slate-100 rounded-full opacity-50"></div>
                             <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] border border-slate-50 rounded-full opacity-30"></div>
                         </motion.div>
@@ -339,11 +324,10 @@ function Hero() {
             </section>
 
 
-            {/* Features Stats (Parallax Number Counters) */}
+            {/* Stats Section */}
             <motion.section
-                className="bg-primary-charcoal text-white py-20 relative overflow-hidden"
+                className="bg-navy-900 text-white py-20 relative overflow-hidden"
             >
-                {/* Dynamic Grid Background */}
                 <motion.div
                     style={{ y: useTransform(scrollYProgress, [0.2, 0.5], [0, 200]) }}
                     className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] z-0"
@@ -366,8 +350,8 @@ function Hero() {
                                 className="group cursor-default"
                             >
                                 <motion.div
-                                    whileHover={{ scale: 1.1, color: '#3B82F6' }}
-                                    className="text-5xl md:text-6xl font-bold mb-4 text-white transition-colors duration-300 drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+                                    whileHover={{ scale: 1.1, color: '#10B981' }}
+                                    className="text-5xl md:text-6xl font-bold mb-4 text-white transition-colors duration-300 drop-shadow-[0_0_15px_rgba(16,185,129,0.2)]"
                                 >
                                     {stat.value}
                                 </motion.div>
@@ -378,7 +362,7 @@ function Hero() {
                 </div>
             </motion.section>
 
-            {/* Features Grid with Hover Cards */}
+            {/* Features Grid */}
             <section id="features" className="py-32 bg-gray-50 relative">
                 <div className="container-custom relative z-10">
                     <motion.div
@@ -391,22 +375,22 @@ function Hero() {
                         <motion.span
                             initial={{ opacity: 0, scale: 0.5 }}
                             whileInView={{ opacity: 1, scale: 1 }}
-                            className="inline-block py-1 px-3 rounded-full bg-blue-100 text-action-blue font-bold tracking-wider uppercase text-xs mb-6"
+                            className="inline-block py-1 px-3 rounded-full bg-brand-50 text-brand-900 font-bold tracking-wider uppercase text-xs mb-6"
                         >
                             قوة لا محدودة
                         </motion.span>
-                        <h2 className="text-4xl md:text-5xl font-bold mb-6 font-heading text-primary-charcoal">كل الأدوات التي تحتاجها <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-action-blue to-purple-600">للنجاح في مكان واحد</span></h2>
+                        <h2 className="text-4xl md:text-5xl font-bold mb-6 font-heading text-navy-900">كل الأدوات التي تحتاجها <br /><span className="text-brand-900">للنجاح في مكان واحد</span></h2>
                         <p className="text-xl text-gray-500 font-medium">صممنا المنصة لتمنحك حرية الإبداع وقوة التجارة الإلكترونية، بدون أي تعقيدات برمجية.</p>
                     </motion.div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {[
-                            { icon: <FiShoppingBag />, title: "متجر متكامل باسمك", desc: "امتلك هويتك الرقمية بالكامل مع متجر احترافي يعكس علامتك التجارية ويجذب جمهورك.", color: "from-blue-500 to-cyan-400" },
-                            { icon: <FiDollarSign />, title: "بوابات دفع عالمية", desc: "استقبل مدفوعاتك من أي مكان في العالم بكل العملات وبدون أي تعقيدات تقنية.", color: "from-green-500 to-emerald-400" },
-                            { icon: <FiTrendingUp />, title: "تسويق وعمولات", desc: "ضاعف مبيعاتك من خلال نظام المسوقين بالعمولة المدمج وشبكة شركاء النجاح.", color: "from-purple-500 to-pink-500" },
-                            { icon: <FiVideo />, title: "استضافة الفيديو", desc: "نظام آمن ومحمي لرفع دوراتك ومحتواك المرئي مع منع التحميل والنسخ غير المصرح به.", color: "from-red-500 to-orange-500" },
-                            { icon: <FiCalendar />, title: "حجوزات واستشارات", desc: "نظم وقتك وبع استشاراتك بالساعة مع تقويم ذكي متزامن مع Google Calendar.", color: "from-orange-400 to-yellow-400" },
-                            { icon: <FiShield />, title: "حماية حقوقك", desc: "تقنيات متقدمة لحماية منتجاتك الرقمية من القرصنة وإعادة التوزيع بفضل التشفير القوي.", color: "from-indigo-500 to-blue-600" }
+                            { icon: <FiShoppingBag />, title: "متجر متكامل باسمك", desc: "امتلك هويتك الرقمية بالكامل مع متجر احترافي يعكس علامتك التجارية ويجذب جمهورك.", color: "from-emerald-700 to-emerald-500" },
+                            { icon: <FiDollarSign />, title: "بوابات دفع عالمية", desc: "استقبل مدفوعاتك من أي مكان في العالم بكل العملات وبدون أي تعقيدات تقنية.", color: "from-emerald-600 to-teal-400" },
+                            { icon: <FiTrendingUp />, title: "تسويق وعمولات", desc: "ضاعف مبيعاتك من خلال نظام المسوقين بالعمولة المدمج وشبكة شركاء النجاح.", color: "from-amber-700 to-amber-500" },
+                            { icon: <FiVideo />, title: "استضافة الفيديو", desc: "نظام آمن ومحمي لرفع دوراتك ومحتواك المرئي مع منع التحميل والنسخ غير المصرح به.", color: "from-navy-800 to-navy-600" },
+                            { icon: <FiCalendar />, title: "حجوزات واستشارات", desc: "نظم وقتك وبع استشاراتك بالساعة مع تقويم ذكي متزامن مع Google Calendar.", color: "from-teal-600 to-emerald-400" },
+                            { icon: <FiShield />, title: "حماية حقوقك", desc: "تقنيات متقدمة لحماية منتجاتك الرقمية من القرصنة وإعادة التوزيع بفضل التشفير القوي.", color: "from-emerald-800 to-emerald-600" }
                         ].map((feature, idx) => (
                             <motion.div
                                 key={idx}
@@ -417,7 +401,6 @@ function Hero() {
                                 whileHover={{ y: -10 }}
                                 className="group relative bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.1)] transition-all duration-300 border border-gray-100/80 overflow-hidden"
                             >
-                                {/* Animated Hover Gradient Background */}
                                 <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`} />
 
                                 <div className="relative z-10">
@@ -427,13 +410,12 @@ function Hero() {
                                             {feature.icon}
                                         </div>
                                     </div>
-                                    <h3 className="text-2xl font-bold mb-4 text-primary-charcoal group-hover:text-action-blue transition-colors duration-300">{feature.title}</h3>
+                                    <h3 className="text-2xl font-bold mb-4 text-navy-900 group-hover:text-brand-900 transition-colors duration-300">{feature.title}</h3>
                                     <p className="text-gray-500 leading-relaxed font-medium">
                                         {feature.desc}
                                     </p>
                                 </div>
 
-                                {/* Bottom Accent Line */}
                                 <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r ${feature.color} w-0 group-hover:w-full transition-all duration-700 ease-in-out`} />
                             </motion.div>
                         ))}
@@ -442,12 +424,11 @@ function Hero() {
             </section>
 
             {/* Premium CTA Section */}
-            <section className="py-32 relative overflow-hidden bg-gray-900 border-t-4 border-action-blue">
-                {/* Static Glowing Background */}
+            <section className="py-32 relative overflow-hidden bg-navy-900 border-t-4 border-brand-900">
                 <div 
                     className="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-20"
                     style={{
-                        background: `radial-gradient(circle 800px at 50% 50%, rgba(59, 130, 246, 0.15), transparent 80%)`
+                        background: `radial-gradient(circle 800px at 50% 50%, rgba(6, 78, 59, 0.2), transparent 80%)`
                     }}
                 />
 
@@ -460,23 +441,21 @@ function Hero() {
                     >
                         <h2 className="text-5xl md:text-7xl font-bold mb-8 font-heading text-white leading-tight">
                             ابدأ في تحقيق أرباحك <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">من اليوم الأول</span>
+                            <span className="text-brand-400">من اليوم الأول</span>
                         </h2>
                         <p className="text-2xl mb-12 text-gray-400 max-w-2xl mx-auto font-medium">
                             انضم لآلاف المبدعين، المنصة مجانية تماماً للتجربة ولا تحتاج بطاقة ائتمانية.
                         </p>
 
-                        <div
-                            className="inline-block"
-                        >
+                        <div className="inline-block">
                             <Link href="/register">
                                 <motion.div
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     className="relative group cursor-pointer"
                                 >
-                                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur opacity-70 group-hover:opacity-100 transition duration-500 group-hover:duration-200 animate-tilt"></div>
-                                    <div className="relative flex items-center gap-4 bg-gray-900 px-12 py-6 rounded-full leading-none text-white text-2xl font-bold">
+                                    <div className="absolute -inset-1 bg-gradient-to-r from-brand-800 to-brand-500 rounded-full blur opacity-70 group-hover:opacity-100 transition duration-500 group-hover:duration-200"></div>
+                                    <div className="relative flex items-center gap-4 bg-navy-900 px-12 py-6 rounded-full leading-none text-white text-2xl font-bold">
                                         انطلق الآن
                                         <FiArrowLeft className="group-hover:-translate-x-2 transition-transform duration-300" />
                                     </div>

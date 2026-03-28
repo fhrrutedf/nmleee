@@ -6,7 +6,7 @@ import Link from 'next/link';
 import {
     FiHome, FiShoppingBag, FiVideo, FiCalendar, FiDollarSign,
     FiSettings, FiLogOut, FiMenu, FiX, FiTag, FiLink2,
-    FiTrendingUp, FiCreditCard, FiExternalLink, FiGlobe, FiActivity, FiUsers, FiPackage, FiZap,
+    FiTrendingUp, FiCreditCard, FiExternalLink, FiGlobe, FiActivity, FiUsers, FiPackage, FiZap, FiDroplet,
     FiBriefcase, FiBookOpen, FiMessageSquare, FiShield, FiShoppingCart, FiPieChart
 } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
@@ -76,6 +76,7 @@ export default function DashboardLayout({
         { href: '/dashboard/coupons', icon: FiTag, label: 'الكوبونات', type: 'store' },
         { href: '/dashboard/affiliates', icon: FiLink2, label: 'التسويق بالعمولة', type: 'store' },
         { href: '/dashboard/automation', icon: FiZap, label: 'الأتمتة', type: 'store' },
+        { href: '/dashboard/brand', icon: FiDroplet, label: '🎨 الهوية البصرية', type: 'store' },
 
         { href: '/dashboard/courses', icon: FiVideo, label: 'الدورات التدريبية', type: 'academy' },
         { href: '/dashboard/students', icon: FiUsers, label: 'الطلاب والشهادات', type: 'academy' },

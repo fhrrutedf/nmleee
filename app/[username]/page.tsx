@@ -24,7 +24,13 @@ export async function generateMetadata(
             bio: true,
             avatar: true,
             coverImage: true,
-            brandColor: true
+            brandColor: true,
+            brandSecondaryColor: true,
+            brandFont: true,
+            brandButtonStyle: true,
+            brandLayout: true,
+            storeBanner: true,
+            storeTagline: true,
         }
     });
 
@@ -81,6 +87,12 @@ export default async function CreatorProfilePage({ params }: Props) {
             avatar: true,
             coverImage: true,
             brandColor: true,
+            brandSecondaryColor: true,
+            brandFont: true,
+            brandButtonStyle: true,
+            brandLayout: true,
+            storeBanner: true,
+            storeTagline: true,
             facebook: true,
             twitter: true,
             instagram: true,

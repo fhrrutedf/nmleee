@@ -4,24 +4,30 @@
 
 @layer base {
   :root {
-    --primary-charcoal: #1e1b4b;
-    --action-blue: #0052FF;
-    --action-secondary: #8B5CF6;
+    /* ══ Tmleen Brand System v1.0 ══ */
+    --brand-emerald: #064E3B;
+    --brand-navy: #0F172A;
+    --brand-ghost: #F8FAFC;
+    --brand-gold: #B45309;
+    --brand-sage: #10B981;
+
+    /* Semantic Tokens */
+    --primary-charcoal: #0F172A;
+    --action-blue: #064E3B;
+    --action-secondary: #047857;
     --bg-light: #F8FAFC;
     --card-white: #FFFFFF;
-    --text-muted: #6b7280;
+    --text-muted: #64748B;
   }
 
-  /* Dark mode implementation */
+  /* Dark mode */
   .dark {
-    --primary-charcoal: #f8fafc;
-    /* Changed to lighter for dark mode text */
-    --action-blue: #0052FF;
-    --action-secondary: #8B5CF6;
+    --primary-charcoal: #F8FAFC;
+    --action-blue: #10B981;
+    --action-secondary: #34D399;
     --bg-light: #0F172A;
-    /* Deep Slate */
-    --card-white: #1e293b;
-    --text-muted: #94a3b8;
+    --card-white: #1E293B;
+    --text-muted: #94A3B8;
   }
 
   * {
@@ -35,7 +41,6 @@
   body {
     background-color: var(--bg-light);
     color: var(--primary-charcoal);
-    /* Typography Fixes */
     font-feature-settings: "kern" 1;
     font-kerning: normal;
     -webkit-font-smoothing: antialiased;
@@ -43,64 +48,65 @@
     line-height: 1.6;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
-    /* Max 700 as requested */
     color: var(--primary-charcoal);
     line-height: 1.25;
-    /* Tighter for headings */
   }
 
-  p,
-  span,
-  div,
-  li,
-  a {
+  p, span, div, li, a {
     font-weight: 400;
-    /* Regular for body */
   }
 }
 
 @layer components {
 
-  /* Updated Button Styles */
+  /* ── Buttons ── */
   .btn {
     @apply px-6 py-3 rounded-xl font-medium transition-all duration-300 ease-in-out flex items-center justify-center gap-2;
     letter-spacing: 0;
   }
 
   .btn-primary {
-    background: linear-gradient(135deg, var(--action-blue), var(--action-secondary));
+    background: var(--brand-emerald);
     color: #FFFFFF;
-    @apply shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 border border-white/10;
+    @apply shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
   }
 
   .btn-primary:hover {
-    filter: brightness(1.1);
+    background: #065F46;
   }
 
   .btn-secondary {
     background-color: var(--card-white);
     color: var(--primary-charcoal);
-    border: 1px solid #E5E7EB;
+    border: 1px solid #E2E8F0;
     @apply shadow-sm hover:shadow-md hover:bg-gray-50 dark:hover:bg-gray-800 dark:border-gray-700;
   }
 
-  .btn-outline {
-    @apply border-2 border-action-blue text-action-blue hover:bg-action-blue hover:text-white dark:hover:bg-blue-600;
+  .btn-cta {
+    background: var(--brand-gold);
+    color: #FFFFFF;
+    @apply shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
   }
 
-  /* Updated Card Styles */
+  .btn-cta:hover {
+    background: #D97706;
+  }
+
+  .btn-outline {
+    @apply border-2 text-emerald-800 hover:text-white dark:hover:bg-emerald-800;
+    border-color: var(--brand-emerald);
+  }
+
+  .btn-outline:hover {
+    background: var(--brand-emerald);
+  }
+
+  /* ── Cards ── */
   .card {
     background-color: var(--card-white);
     @apply rounded-2xl transition-shadow duration-300 p-6 border border-gray-100/50 shadow-sm dark:border-gray-800;
-
-    /* Ensure card content breathes */
     line-height: 1.6;
   }
 
@@ -108,18 +114,21 @@
     @apply shadow-md;
   }
 
+  /* ── Inputs ── */
   .input {
     background-color: var(--card-white);
     color: var(--primary-charcoal);
-    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300 outline-none dark:border-gray-700 shadow-sm focus:shadow-[0_0_15px_rgba(99,102,241,0.3)];
+    @apply w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:border-emerald-700 transition-all duration-300 outline-none dark:border-gray-700 shadow-sm;
+    --tw-ring-color: rgba(6, 78, 59, 0.2);
   }
 
   .input-modern {
-    @apply w-full bg-slate-50 border-2 border-slate-100/50 rounded-[1.5rem] px-6 py-4 text-slate-900 dark:text-white dark:bg-slate-900 font-bold tracking-tight outline-none transition-all duration-300 dark:border-gray-800;
+    @apply w-full bg-slate-50 border-2 border-slate-100/50 rounded-xl px-6 py-4 text-slate-900 dark:text-white dark:bg-slate-900 font-bold tracking-tight outline-none transition-all duration-300 dark:border-gray-800;
   }
-  
+
   .input-modern:focus {
-    @apply bg-white dark:bg-slate-800 border-indigo-500 shadow-[0_0_20px_rgba(99,102,241,0.3)] dark:shadow-[0_0_20px_rgba(99,102,241,0.2)];
+    @apply bg-white dark:bg-slate-800 border-emerald-700;
+    box-shadow: 0 0 20px rgba(6, 78, 59, 0.12);
   }
 
   .input-modern::placeholder {
@@ -139,12 +148,14 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
+  /* ── Gradient Text (Emerald) ── */
   .gradient-text {
-    @apply bg-gradient-to-r from-action-blue to-action-secondary bg-clip-text text-transparent;
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #064E3B, #10B981);
   }
 
   .dark .gradient-text {
-    @apply from-blue-400 to-purple-400;
+    background-image: linear-gradient(135deg, #34D399, #6EE7B7);
   }
 
   .glass-effect {
@@ -162,17 +173,13 @@
   }
 
   @keyframes float {
-
-    0%,
-    100% {
+    0%, 100% {
       transform: translateY(0px);
     }
-
     50% {
       transform: translateY(-20px);
     }
   }
-
 }
 
 /* Custom scrollbar */

@@ -10,58 +10,116 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                // New Design System Colors - Refined for 2026
-                'primary-charcoal': '#0f172a', // Deeper navy for better contrast
-                'primary-indigo': {
-                    50: '#eef2ff',
-                    100: '#e0e7ff',
-                    200: '#c7d2fe',
-                    300: '#a5b4fc',
-                    400: '#818cf8',
-                    500: '#6366f1', // Main Indigo Brand Color
-                    600: '#4f46e5',
-                    700: '#4338ca',
-                    800: '#3730a3',
-                    900: '#312e81',
-                    950: '#1e1b4b',
+                // ══════════════════════════════════════
+                // Tmleen Brand System v1.0
+                // ══════════════════════════════════════
+
+                // Primary: Deep Emerald — Growth, Success, High Value
+                'brand': {
+                    50: '#ECFDF5',
+                    100: '#D1FAE5',
+                    200: '#A7F3D0',
+                    300: '#6EE7B7',
+                    400: '#34D399',
+                    500: '#10B981',
+                    600: '#059669',
+                    700: '#047857',
+                    800: '#065F46',
+                    900: '#064E3B', // PRIMARY BRAND COLOR
+                    950: '#022c22',
                 },
+
+                // Secondary: Midnight Navy — Authority, Professionalism
+                'navy': {
+                    50: '#F8FAFC',
+                    100: '#F1F5F9',
+                    200: '#E2E8F0',
+                    300: '#CBD5E1',
+                    400: '#94A3B8',
+                    500: '#64748B',
+                    600: '#475569',
+                    700: '#334155',
+                    800: '#1E293B',
+                    900: '#0F172A', // SECONDARY BRAND COLOR
+                    950: '#020617',
+                },
+
+                // Accent: Burnt Gold — CTA Only
+                'gold': {
+                    50: '#FFFBEB',
+                    100: '#FEF3C7',
+                    200: '#FDE68A',
+                    300: '#FCD34D',
+                    400: '#FBBF24',
+                    500: '#F59E0B',
+                    600: '#D97706',
+                    700: '#B45309', // ACCENT CTA COLOR
+                    800: '#92400E',
+                    900: '#78350F',
+                },
+
+                // Utility: Sage Green — Success States
+                'sage': {
+                    DEFAULT: '#10B981',
+                    light: '#34D399',
+                    dark: '#059669',
+                },
+
+                // Semantic aliases (backward-compatible)
+                'primary-charcoal': '#0F172A',
                 'action-blue': {
-                    DEFAULT: '#2563eb', // More vibrant blue
-                    hover: '#1d4ed8',
+                    DEFAULT: '#064E3B',
+                    hover: '#065F46',
                 },
-                'action-secondary': { // Electric Purple
-                    DEFAULT: '#8b5cf6',
-                    hover: '#7c3aed',
-                    light: '#c4b5fd',
+                'action-secondary': {
+                    DEFAULT: '#047857',
+                    hover: '#065F46',
+                    light: '#A7F3D0',
                 },
                 'success-green': {
-                    DEFAULT: '#10b981',
-                    light: '#d1fae5',
+                    DEFAULT: '#10B981',
+                    light: '#D1FAE5',
                 },
-                'bg-light': '#f8fafc', 
-                'card-white': '#ffffff',
-                'text-muted': '#64748b',
+                'bg-light': '#F8FAFC',
+                'card-white': '#FFFFFF',
+                'text-muted': '#64748B',
                 'border-glass': 'rgba(255, 255, 255, 0.1)',
                 'bg-glass': 'rgba(255, 255, 255, 0.7)',
 
-                // Existing colors kept for backward compatibility
+                // Legacy primary kept for any remaining references
                 primary: {
-                    50: '#f0f9ff',
-                    100: '#e0f2fe',
-                    200: '#bae6fd',
-                    300: '#7dd3fc',
-                    400: '#38bdf8',
-                    500: '#0ea5e9',
-                    600: '#0284c7',
-                    700: '#0369a1',
-                    800: '#075985',
-                    900: '#0c4a6e',
+                    50: '#ECFDF5',
+                    100: '#D1FAE5',
+                    200: '#A7F3D0',
+                    300: '#6EE7B7',
+                    400: '#34D399',
+                    500: '#10B981',
+                    600: '#059669',
+                    700: '#047857',
+                    800: '#065F46',
+                    900: '#064E3B',
+                },
+
+                // Map old indigo references to emerald
+                'primary-indigo': {
+                    50: '#ECFDF5',
+                    100: '#D1FAE5',
+                    200: '#A7F3D0',
+                    300: '#6EE7B7',
+                    400: '#34D399',
+                    500: '#10B981',
+                    600: '#059669',
+                    700: '#047857',
+                    800: '#065F46',
+                    900: '#064E3B',
+                    950: '#022c22',
                 },
             },
             boxShadow: {
-                'premium': '0 20px 50px -12px rgba(0, 0, 0, 0.08)',
-                'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
-                'glow': '0 0 20px rgba(99, 102, 241, 0.3)',
+                'premium': '0 20px 50px -12px rgba(6, 78, 59, 0.08)',
+                'glass': '0 8px 32px 0 rgba(6, 78, 59, 0.05)',
+                'glow': '0 0 20px rgba(6, 78, 59, 0.15)',
+                'gold': '0 4px 14px rgba(180, 83, 9, 0.25)',
             },
             fontFamily: {
                 sans: ['var(--font-ibm)', 'system-ui', 'sans-serif'],

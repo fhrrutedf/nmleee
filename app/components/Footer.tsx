@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FiLayers, FiTwitter, FiLinkedin, FiFacebook, FiInstagram, FiMail, FiMapPin, FiPhone, FiArrowUpRight } from 'react-icons/fi';
+import { FiTwitter, FiLinkedin, FiFacebook, FiInstagram, FiArrowUpRight, FiMapPin } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 
 const footerLinks = [
@@ -35,10 +35,10 @@ const footerLinks = [
 
 export default function Footer() {
     return (
-        <footer className="bg-slate-900 text-slate-400 py-24 relative overflow-hidden">
-            {/* Decorative Background Elements */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-indigo-600/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/3" />
-            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-primary-indigo-600/5 blur-[100px] rounded-full translate-y-1/2 -translate-x-1/3" />
+        <footer className="bg-navy-900 text-slate-400 py-24 relative overflow-hidden">
+            {/* Decorative Background */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-800/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/3" />
+            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-brand-800/10 blur-[100px] rounded-full translate-y-1/2 -translate-x-1/3" />
             
             <div className="container mx-auto px-4 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 mb-20">
@@ -49,9 +49,12 @@ export default function Footer() {
                                 <motion.div 
                                     whileHover={{ rotate: 180 }}
                                     transition={{ duration: 0.6, ease: "circOut" }}
-                                    className="w-12 h-12 rounded-2xl bg-primary-indigo-600 flex items-center justify-center text-white shadow-xl shadow-indigo-500/20"
+                                    className="w-12 h-12 rounded-2xl bg-brand-900 flex items-center justify-center text-white shadow-xl shadow-emerald-900/20"
                                 >
-                                    <FiLayers size={24} />
+                                    <svg width="24" height="24" viewBox="0 0 40 40" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M8 32 L20 8 L32 32" />
+                                        <path d="M14 22 H26" />
+                                    </svg>
                                 </motion.div>
                                 <span className="text-3xl font-black text-white tracking-tighter">تمالين</span>
                             </Link>
@@ -69,7 +72,7 @@ export default function Footer() {
                                 <Link 
                                     key={i} 
                                     href={social.href}
-                                    className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:bg-primary-indigo-600 hover:text-white hover:border-primary-indigo-600 hover:-translate-y-1.5 transition-all duration-500"
+                                    className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:bg-brand-900 hover:text-white hover:border-brand-900 hover:-translate-y-1.5 transition-all duration-500"
                                 >
                                     {social.icon}
                                 </Link>
@@ -112,7 +115,7 @@ export default function Footer() {
                     
                     <div className="flex items-center gap-8">
                         <div className="flex items-center gap-3 text-sm font-bold bg-white/5 px-6 py-3 rounded-2xl border border-white/5">
-                            <FiMapPin className="text-primary-indigo-500" />
+                            <FiMapPin className="text-brand-500" />
                             <span className="text-slate-300">المنطقة العربية، العالم</span>
                         </div>
                         <p className="flex items-center gap-2 text-sm font-bold text-slate-500">
