@@ -222,7 +222,7 @@ export default function SellerSupportPage() {
                             <button
                                 onClick={() => setShowNewModal(false)}
                                 disabled={submitting}
-                                className="btn btn-outline"
+                                className="btn btn-accent"
                             >
                                 إلغاء
                             </button>

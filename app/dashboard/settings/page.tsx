@@ -656,7 +656,7 @@ export default function SettingsPage() {
                                                         <FiCheckCircle />
                                                         متصل
                                                     </span>
-                                                    <a href="/api/google/calendar/connect" className="btn btn-outline text-sm border-red-300 text-red-500 hover:bg-red-50">
+                                                    <a href="/api/google/calendar/connect" className="btn btn-accent text-sm border-red-300 text-red-500 hover:bg-red-50">
                                                         قطع الاتصال
                                                     </a>
                                                 </>

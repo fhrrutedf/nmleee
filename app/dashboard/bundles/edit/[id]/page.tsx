@@ -201,7 +201,7 @@ export default function EditBundlePage() {
                                             }}
                                         />
                                     ) : (
-                                        <button type="button" onClick={() => setShowCoverUploader(true)} className="btn btn-outline border-dashed w-full h-32 text-gray-500 hover:text-[#10B981] hover:border-emerald-600">
+                                        <button type="button" onClick={() => setShowCoverUploader(true)} className="btn btn-accent border-dashed w-full h-32 text-gray-500 hover:text-[#10B981] hover:border-emerald-600">
                                             <FiImage className="text-2xl mb-2" />
                                             رفع صورة غلاف للباقة
                                         </button>

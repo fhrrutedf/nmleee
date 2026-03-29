@@ -31,7 +31,7 @@ export default function CancelPage() {
                             العودة والمحاولة مرة أخرى
                         </button>
 
-                        <Link href="/" className="btn btn-outline w-full">
+                        <Link href="/" className="btn btn-accent w-full">
                             العودة للصفحة الرئيسية
                         </Link>
                     </div>

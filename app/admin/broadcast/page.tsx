@@ -129,7 +129,7 @@ export default function AdminBroadcastPage() {
                     <p className="text-text-muted font-medium text-lg">أداة احترافية لإرسال رسائل الإيميل والإشعارات لآلاف المستخدمين بضغطة واحدة.</p>
                 </div>
                 <div className="flex gap-4">
-                    <button onClick={fetchJobs} className="btn btn-outline flex items-center gap-2">
+                    <button onClick={fetchJobs} className="btn btn-accent flex items-center gap-2">
                         <FiLoader className={loading ? 'animate-spin' : ''} /> تحديث السجل
                     </button>
                 </div>

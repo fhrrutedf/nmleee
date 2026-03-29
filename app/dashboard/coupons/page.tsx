@@ -384,7 +384,7 @@ export default function CouponsPage() {
                             </div>
 
                             <div className="pt-6 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-4 mt-6">
-                                <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline border-transparent bg-emerald-800 dark:bg-gray-800 px-6 font-bold shadow-lg shadow-[#10B981]/20">إلغاء</button>
+                                <button type="button" onClick={() => setShowModal(false)} className="btn btn-accent border-transparent bg-emerald-800 dark:bg-gray-800 px-6 font-bold shadow-lg shadow-[#10B981]/20">إلغاء</button>
                                 <button type="submit" className="btn btn-primary px-8 font-bold shadow-lg shadow-[#10B981]/20 shadow-accent/20 flex items-center gap-2 text-lg">
                                     <FiCheckCircle /> <span>اعتماد الكوبون وحفظه</span>
                                 </button>

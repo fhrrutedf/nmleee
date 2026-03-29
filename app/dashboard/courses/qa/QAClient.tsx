@@ -285,7 +285,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                                 {!selectedThread.isResolved && (
                                     <button
                                         onClick={handleMarkResolved}
-                                        className="btn btn-outline border-green-200 text-green-600 hover:bg-green-50 dark:border-green-800 dark:hover:bg-green-900/30 text-xs px-4 py-2"
+                                        className="btn btn-accent border-green-200 text-green-600 hover:bg-green-50 dark:border-green-800 dark:hover:bg-green-900/30 text-xs px-4 py-2"
                                     >
                                         <FiCheckCircle className="ml-1" />
                                         تحديد كمحلول

@@ -29,7 +29,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                 
                 <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-[#10B981] shadow-lg shadow-[#10B981]/20">
+                        <div className="inline-flex items-center gap-2 bg-emerald-900/40 border border-emerald-500/20 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-[#10B981] shadow-lg shadow-[#10B981]/20">
                             <FiTag size={14} /> Knowledge & Insights Hub
                         </div>
                         <h1 className="text-5xl md:text-8xl font-bold mb-8 tracking-tighter leading-[1.1]">

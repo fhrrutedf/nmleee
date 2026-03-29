@@ -326,10 +326,10 @@ export default function LearnPage() {
                                 {/* Lesson Actions */}
                                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                                     <div className="flex gap-2 w-full sm:w-auto">
-                                        <button onClick={goToPrevItem} className="flex-1 sm:w-14 sm:h-14 sm:flex-none flex items-center justify-center h-14 bg-white/5 border border-white/10 text-gray-400 hover:bg-[#0A0A0A]/10 hover:text-white rounded-xl transition-all">
+                                        <button onClick={goToPrevItem} className="flex-1 sm:w-14 sm:h-14 sm:flex-none flex items-center justify-center h-14 bg-emerald-900/40 border border-emerald-500/20 text-gray-400 hover:bg-[#0A0A0A]/10 hover:text-white rounded-xl transition-all">
                                             <FiChevronRight size={24} />
                                         </button>
-                                        <button onClick={goToNextItem} className="flex-1 sm:w-14 sm:h-14 sm:flex-none flex items-center justify-center h-14 bg-white/5 border border-white/10 text-gray-400 hover:bg-[#0A0A0A]/10 hover:text-white rounded-xl transition-all">
+                                        <button onClick={goToNextItem} className="flex-1 sm:w-14 sm:h-14 sm:flex-none flex items-center justify-center h-14 bg-emerald-900/40 border border-emerald-500/20 text-gray-400 hover:bg-[#0A0A0A]/10 hover:text-white rounded-xl transition-all">
                                             <FiChevronLeft size={24} />
                                         </button>
                                     </div>

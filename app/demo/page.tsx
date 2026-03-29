@@ -20,7 +20,7 @@ export default function DemoPage() {
                         <Link href="/register" className="btn bg-[#0A0A0A] text-[#10B981] hover:bg-emerald-800 px-8 py-4 text-lg">
                             ابدأ الآن مجاناً
                         </Link>
-                        <Link href="/courses" className="btn btn-outline border-white text-white hover:bg-[#0A0A0A] hover:text-[#10B981] px-8 py-4 text-lg">
+                        <Link href="/courses" className="btn btn-accent border-white text-white hover:bg-[#0A0A0A] hover:text-[#10B981] px-8 py-4 text-lg">
                             تصفح الدورات
                         </Link>
                     </div>
@@ -225,7 +225,7 @@ export default function DemoPage() {
                         </Link>
                         <Link
                             href="/about"
-                            className="btn btn-outline border-white text-white hover:bg-[#0A0A0A] hover:text-[#10B981] px-8 py-4 text-lg"
+                            className="btn btn-accent border-white text-white hover:bg-[#0A0A0A] hover:text-[#10B981] px-8 py-4 text-lg"
                         >
                             اعرف المزيد
                         </Link>

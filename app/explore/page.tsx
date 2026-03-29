@@ -102,7 +102,7 @@ export default async function ExplorePage({
 
                 <div className="max-w-5xl mx-auto relative z-10 text-center px-6">
                     <div className="animate-in fade-in slide-in-from-bottom-5 duration-1000">
-                        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-[#10B981] shadow-lg shadow-[#10B981]/20">
+                        <div className="inline-flex items-center gap-2 bg-emerald-900/40 border border-emerald-500/20 px-5 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-[#10B981] shadow-lg shadow-[#10B981]/20">
                             <FiSearch size={14} /> Explore Knowledge Market
                         </div>
                         <h1 className="text-4xl md:text-7xl font-bold mb-8 tracking-tighter leading-[1.1]">
@@ -130,7 +130,7 @@ export default async function ExplorePage({
                                 <select
                                     name="category"
                                     defaultValue={category}
-                                    className="w-40 bg-white/5 border border-white/10 rounded-xl px-6 py-5 font-bold text-sm text-white focus:bg-[#0A0A0A] focus:text-[#10B981] outline-none transition-all appearance-none cursor-pointer"
+                                    className="w-40 bg-emerald-900/40 border border-emerald-500/20 rounded-xl px-6 py-5 font-bold text-sm text-white focus:bg-[#0A0A0A] focus:text-[#10B981] outline-none transition-all appearance-none cursor-pointer"
                                 >
                                     <option value="">كل الفئات</option>
                                     <option value="courses">دورات تعليمية</option>
@@ -145,7 +145,7 @@ export default async function ExplorePage({
 
                         {/* Advanced Filters Row */}
                         <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-                            <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-2.5 rounded-xl">
+                            <div className="flex items-center gap-3 bg-emerald-900/40 border border-emerald-500/20 px-6 py-2.5 rounded-xl">
                                 <FiFilter className="text-[#10B981]" size={14} />
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Price Range:</span>
                                 <input type="number" name="minPrice" placeholder="Min" defaultValue={minPrice} className="w-16 bg-transparent border-none text-xs font-bold text-center p-0 focus:ring-0 text-white placeholder:text-gray-400" />
@@ -156,7 +156,7 @@ export default async function ExplorePage({
                             <select
                                 name="sort"
                                 defaultValue={sort}
-                                className="bg-white/5 border border-white/10 rounded-xl px-6 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white outline-none focus:bg-[#0A0A0A] focus:text-[#10B981] transition-all cursor-pointer"
+                                className="bg-emerald-900/40 border border-emerald-500/20 rounded-xl px-6 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white outline-none focus:bg-[#0A0A0A] focus:text-[#10B981] transition-all cursor-pointer"
                             >
                                 <option value="newest">Latest First</option>
                                 <option value="popular">Best Sellers</option>

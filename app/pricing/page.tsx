@@ -139,7 +139,7 @@ export default function PricingPage() {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-3 bg-white/5 border border-white/10 text-[#10B981] px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-12 shadow-2xl"
+                        className="inline-flex items-center gap-3 bg-emerald-900/40 border border-emerald-500/20 text-[#10B981] px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-12 shadow-2xl"
                     >
                         <FiZap size={14} className="animate-pulse" /> خطط مالية مصممة لزيادة المبيعات
                     </motion.div>
@@ -164,7 +164,7 @@ export default function PricingPage() {
 
                     {/* Pro Toggle */}
                     <div className="flex flex-col items-center gap-6">
-                        <div className="flex items-center gap-2 p-2 bg-white/5 border border-white/10 rounded-2xl w-fit backdrop-blur-md">
+                        <div className="flex items-center gap-2 p-2 bg-emerald-900/40 border border-emerald-500/20 rounded-2xl w-fit backdrop-blur-md">
                             <button
                                 onClick={() => setIsYearly(false)}
                                 className={`px-12 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all ${!isYearly ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-500/20 shadow-glow' : 'text-gray-500 hover:text-white'}`}

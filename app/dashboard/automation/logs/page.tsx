@@ -66,7 +66,7 @@ export default function EmailLogsPage() {
                     <h1 className="text-2xl font-bold text-[#10B981] dark:text-white">📬 سجل الإيميلات</h1>
                     <p className="text-text-muted text-sm mt-1">آخر 100 إيميل تم إرسالها</p>
                 </div>
-                <button onClick={load} className="btn btn-outline flex items-center gap-2">
+                <button onClick={load} className="btn btn-accent flex items-center gap-2">
                     <FiRefreshCw /> تحديث
                 </button>
             </div>

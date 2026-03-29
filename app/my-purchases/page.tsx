@@ -194,12 +194,12 @@ export default function MyPurchasesPage() {
                                 <div className="mt-4 pt-4 border-t flex justify-end gap-3">
                                     <Link
                                         href={`/order/${purchase.id}`}
-                                        className="btn btn-sm btn-outline"
+                                        className="btn btn-sm btn-accent"
                                     >
                                         عرض التفاصيل
                                     </Link>
                                     {purchase.status === 'completed' && (
-                                        <button className="btn btn-sm btn-outline">
+                                        <button className="btn btn-sm btn-accent">
                                             طلب دعم
                                         </button>
                                     )}

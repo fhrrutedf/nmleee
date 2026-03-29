@@ -71,7 +71,7 @@ export default function AdminAuditLogsPage() {
                     <p className="text-text-muted text-sm mt-1">تتبع جميع الحركات الحساسة التي تمت على المنصة</p>
                 </div>
                 <div className="flex items-center gap-2">
-                    <button onClick={loadLogs} className="btn btn-outline py-2 px-3">
+                    <button onClick={loadLogs} className="btn btn-accent py-2 px-3">
                         <FiRefreshCw className={loading ? 'animate-spin' : ''} />
                     </button>
                     <div className="relative">
@@ -164,7 +164,7 @@ export default function AdminAuditLogsPage() {
                     <button 
                         disabled={page === 0 || loading}
                         onClick={() => setPage(p => p - 1)}
-                        className="btn btn-outline py-1.5 px-3 flex items-center gap-1 text-xs disabled:opacity-50"
+                        className="btn btn-accent py-1.5 px-3 flex items-center gap-1 text-xs disabled:opacity-50"
                     >
                         <FiChevronRight /> السابق
                     </button>
@@ -172,7 +172,7 @@ export default function AdminAuditLogsPage() {
                     <button 
                         disabled={logs.length < limit || loading}
                         onClick={() => setPage(p => p + 1)}
-                        className="btn btn-outline py-1.5 px-3 flex items-center gap-1 text-xs disabled:opacity-50"
+                        className="btn btn-accent py-1.5 px-3 flex items-center gap-1 text-xs disabled:opacity-50"
                     >
                         التالي <FiChevronLeft />
                     </button>

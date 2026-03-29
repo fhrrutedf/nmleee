@@ -147,7 +147,7 @@ export default function AppointmentsPage() {
                     <p className="text-gray-400 mt-2">جدول جلساتك الاستشارية</p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <Link href="/dashboard/appointments/settings" className="btn btn-outline flex items-center gap-2">
+                    <Link href="/dashboard/appointments/settings" className="btn btn-accent flex items-center gap-2">
                         <FiSettings />
                         <span className="hidden sm:inline">أوقات العمل</span>
                     </Link>
@@ -355,7 +355,7 @@ export default function AppointmentsPage() {
 
                                             <button
                                                 onClick={() => deleteAppointment(appointment.id)}
-                                                className="btn btn-sm btn-outline text-red-500 hover:bg-red-50"
+                                                className="btn btn-sm btn-accent text-red-500 hover:bg-red-50"
                                                 title="حذف"
                                             >
                                                 <FiTrash2 />
@@ -487,7 +487,7 @@ export default function AppointmentsPage() {
                                 <button
                                     type="button"
                                     onClick={() => setShowModal(false)}
-                                    className="btn btn-outline"
+                                    className="btn btn-accent"
                                     disabled={submitting}
                                 >
                                     إلغاء

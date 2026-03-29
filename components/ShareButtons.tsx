@@ -36,7 +36,7 @@ export function ShareButtons({
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-outline flex items-center gap-2 bg-green-50 dark:bg-green-900/20 border-green-500 text-green-700 dark:text-green-400 hover:bg-green-500 hover:text-white dark:hover:bg-green-600"
+                className="btn btn-accent flex items-center gap-2 bg-green-50 dark:bg-green-900/20 border-green-500 text-green-700 dark:text-green-400 hover:bg-green-500 hover:text-white dark:hover:bg-green-600"
             >
                 <SiWhatsapp className="text-lg" />
                 <span className="hidden sm:inline">مشاركة عبر واتساب</span>
@@ -46,7 +46,7 @@ export function ShareButtons({
             {/* Copy Link */}
             <button
                 onClick={handleCopyLink}
-                className="btn btn-outline flex items-center gap-2"
+                className="btn btn-accent flex items-center gap-2"
             >
                 <FiShare2 />
                 <span className="hidden sm:inline">نسخ الرابط</span>

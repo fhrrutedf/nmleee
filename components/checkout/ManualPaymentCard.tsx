@@ -134,7 +134,7 @@ export default function ManualPaymentCard({
                         value={senderPhone}
                         onChange={(e) => { setSenderPhone(e.target.value); updateParent(e.target.value, transactionRef, proofFile, notes); }}
                         placeholder="09xx-xxx-xxx"
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 focus:border-emerald-600-500/50 outline-none transition-all font-bold text-white text-left"
+                        className="w-full bg-emerald-900/40 border border-emerald-500/20 rounded-xl px-5 py-4 focus:border-emerald-600-500/50 outline-none transition-all font-bold text-white text-left"
                         dir="ltr"
                     />
                 </div>
@@ -145,7 +145,7 @@ export default function ManualPaymentCard({
                         value={transactionRef}
                         onChange={(e) => { setTransactionRef(e.target.value); updateParent(senderPhone, e.target.value, proofFile, notes); }}
                         placeholder="Transaction ID"
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 focus:border-emerald-600-500/50 outline-none transition-all font-mono font-bold text-white text-left"
+                        className="w-full bg-emerald-900/40 border border-emerald-500/20 rounded-xl px-5 py-4 focus:border-emerald-600-500/50 outline-none transition-all font-mono font-bold text-white text-left"
                         dir="ltr"
                     />
                 </div>
@@ -204,7 +204,7 @@ export default function ManualPaymentCard({
                     value={notes}
                     onChange={(e) => { setNotes(e.target.value); updateParent(senderPhone, transactionRef, proofFile, e.target.value); }}
                     rows={2}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 focus:border-emerald-600-500/50 outline-none transition-all font-medium text-white resize-none"
+                    className="w-full bg-emerald-900/40 border border-emerald-500/20 rounded-xl px-5 py-4 focus:border-emerald-600-500/50 outline-none transition-all font-medium text-white resize-none"
                     placeholder="..."
                 />
             </div>

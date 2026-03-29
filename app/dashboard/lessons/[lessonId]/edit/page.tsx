@@ -299,7 +299,7 @@ export default function EditLessonPage() {
                         <button
                             type="button"
                             onClick={() => router.back()}
-                            className="btn btn-outline py-3 px-6"
+                            className="btn btn-accent py-3 px-6"
                         >
                             إلغاء
                         </button>

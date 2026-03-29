@@ -61,7 +61,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
                 </div>
                 <div className="flex items-center gap-2 w-full md:w-auto">
                     <button
-                        className="flex-1 md:flex-none btn btn-outline flex items-center justify-center gap-2 py-3 px-6 rounded-xl text-sm"
+                        className="flex-1 md:flex-none btn btn-accent flex items-center justify-center gap-2 py-3 px-6 rounded-xl text-sm"
                         onClick={exportToCSV}
                     >
                         <FiDownload />

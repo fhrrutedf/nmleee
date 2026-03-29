@@ -167,10 +167,10 @@ export default function AdminPayoutsPage() {
                     <p className="text-text-muted text-sm mt-0.5">عمولات · سحوبات · موافقات · سجل النشاط</p>
                 </div>
                 <div className="flex gap-2">
-                    <button onClick={loadAll} className="btn btn-outline py-2 px-3">
+                    <button onClick={loadAll} className="btn btn-accent py-2 px-3">
                         <FiRefreshCw className={loading ? 'animate-spin' : ''} />
                     </button>
-                    <Link href="/dashboard/admin" className="btn btn-outline py-2 px-3 text-sm">
+                    <Link href="/dashboard/admin" className="btn btn-accent py-2 px-3 text-sm">
                         ← لوحة الادمن
                     </Link>
                 </div>
@@ -313,7 +313,7 @@ export default function AdminPayoutsPage() {
                                     <FiX /> رفض مع ملاحظة
                                 </button>
                                 <Link href={`/dashboard/courses/${c.id}/edit`}
-                                    className="btn btn-outline py-2 px-3 flex items-center gap-1 text-sm">
+                                    className="btn btn-accent py-2 px-3 flex items-center gap-1 text-sm">
                                     <FiEye /> معاينة
                                 </Link>
                             </div>
@@ -454,7 +454,7 @@ export default function AdminPayoutsPage() {
                                 className="flex-1 btn bg-red-500 hover:bg-red-600 text-white font-bold py-2.5">
                                 {processing ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-xl animate-spin mx-auto" /> : 'تأكيد الرفض'}
                             </button>
-                            <button onClick={() => setRejectModal(null)} className="btn btn-outline px-6">إلغاء</button>
+                            <button onClick={() => setRejectModal(null)} className="btn btn-accent px-6">إلغاء</button>
                         </div>
                     </div>
                 </div>
@@ -488,7 +488,7 @@ export default function AdminPayoutsPage() {
                                 className="flex-1 btn bg-emerald-700 text-white hover:bg-emerald-700 text-white font-bold py-2.5">
                                 حفظ العمولة
                             </button>
-                            <button onClick={() => setCommModal(null)} className="btn btn-outline px-6">إلغاء</button>
+                            <button onClick={() => setCommModal(null)} className="btn btn-accent px-6">إلغاء</button>
                         </div>
                     </div>
                 </div>

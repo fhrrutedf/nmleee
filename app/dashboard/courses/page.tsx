@@ -269,14 +269,14 @@ export default function CoursesPage() {
                                 <div className="grid grid-cols-4 gap-2">
                                     <button
                                         onClick={() => router.push(`/course/${course.id}`)}
-                                        className="col-span-1 btn btn-secondary p-0 flex items-center justify-center bg-[#111111] dark:bg-gray-800 hover:bg-emerald-800 border-none"
+                                        className="col-span-1 btn btn-accent p-0 flex items-center justify-center bg-[#111111] dark:bg-gray-800 hover:bg-emerald-800 border-none"
                                         title="عرض"
                                     >
                                         <FiEye className="text-lg" />
                                     </button>
                                     <button
                                         onClick={() => router.push(`/dashboard/courses/${course.id}/edit`)}
-                                        className="col-span-2 btn btn-outline py-2 text-sm flex items-center justify-center gap-2"
+                                        className="col-span-2 btn btn-accent py-2 text-sm flex items-center justify-center gap-2"
                                     >
                                         <FiEdit /> تعديل
                                     </button>

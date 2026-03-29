@@ -36,7 +36,7 @@ export default function AboutPage() {
                         <motion.div 
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="inline-block px-4 py-1.5 bg-white/5 border border-white/10 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-8 text-[#10B981]"
+                            className="inline-block px-4 py-1.5 bg-emerald-900/40 border border-emerald-500/20 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-8 text-[#10B981]"
                         >
                             Our Mission & Vision
                         </motion.div>

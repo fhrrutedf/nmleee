@@ -166,7 +166,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                 </button>
                             )}
                             {ticket.status !== 'CLOSED' && (
-                                <button disabled={statusUpdating} onClick={() => changeStatus('CLOSED')} className="btn btn-outline w-full py-2 bg-[#0A0A0A] dark:bg-gray-800 text-gray-700 hover:bg-emerald-800 border-gray-300">
+                                <button disabled={statusUpdating} onClick={() => changeStatus('CLOSED')} className="btn btn-accent w-full py-2 bg-[#0A0A0A] dark:bg-gray-800 text-gray-700 hover:bg-emerald-800 border-gray-300">
                                     إغلاق نهائي
                                 </button>
                             )}

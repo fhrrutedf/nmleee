@@ -44,7 +44,7 @@ export default function Footer() {
                         {/* Newsletter Mini */}
                         <div className="flex flex-col gap-5">
                             <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#10B981]">Join our ecosystem</span>
-                            <div className="flex gap-2 p-2 bg-white/5 border border-white/10 rounded-2xl max-w-sm focus-within:border-emerald-500/50 transition-colors">
+                            <div className="flex gap-2 p-2 bg-emerald-900/40 border border-emerald-500/20 rounded-2xl max-w-sm focus-within:border-emerald-500/50 transition-colors">
                                 <input 
                                     type="email" 
                                     placeholder="Enter your email" 

@@ -116,17 +116,17 @@ export default function BundlesPage() {
                                 </div>
 
                                 <div className="flex gap-2 pt-4 border-t border-gray-100 dark:border-gray-800">
-                                    <Link href={`/bundle/${bundle.slug || bundle.id}`} target="_blank" className="flex-1 btn btn-outline flex items-center justify-center gap-2 text-sm py-2 px-3">
+                                    <Link href={`/bundle/${bundle.slug || bundle.id}`} target="_blank" className="flex-1 btn btn-accent flex items-center justify-center gap-2 text-sm py-2 px-3">
                                         <FiEye className="text-gray-500" />
                                         <span>معاينة</span>
                                     </Link>
-                                    <Link href={`/dashboard/bundles/edit/${bundle.id}`} className="flex-1 btn btn-outline flex items-center justify-center gap-2 text-sm py-2 px-3">
+                                    <Link href={`/dashboard/bundles/edit/${bundle.id}`} className="flex-1 btn btn-accent flex items-center justify-center gap-2 text-sm py-2 px-3">
                                         <FiEdit2 className="text-gray-500" />
                                         <span>تعديل</span>
                                     </Link>
                                     <button
                                         onClick={() => handleDelete(bundle.id)}
-                                        className="btn btn-outline text-red-500 hover:bg-red-50 hover:border-red-200 py-2 px-3"
+                                        className="btn btn-accent text-red-500 hover:bg-red-50 hover:border-red-200 py-2 px-3"
                                     >
                                         <FiTrash2 />
                                     </button>
