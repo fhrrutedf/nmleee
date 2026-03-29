@@ -146,8 +146,8 @@ function Hero() {
                 </motion.div>
                 
                 <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }} className="text-6xl lg:text-9xl font-bold text-white leading-[0.9] tracking-tighter mb-10 max-w-5xl mx-auto">
-                    Elevate Local Expertise <br />
-                    <span className="text-emerald-500">Globally.</span>
+                    ابنِ إمبراطوريتك <br />
+                    <span className="text-emerald-500">الرقمية اليوم.</span>
                 </motion.h1>
 
                 <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
