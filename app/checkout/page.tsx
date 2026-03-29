@@ -165,34 +165,15 @@ export default function CheckoutPage() {
                 }
 
             } else if (paymentMethod === 'nowpayments') {
-                const res = await fetch('/api/checkout/nowpayments', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        amount: total,
-                        currency: 'usd',
-                        orderId: 'temp_order_' + Date.now(),
-                        description: 'Payment for ' + cart.map(i => i.title).join(', ')
-                    })
-                });
-
-                if (res.ok) {
-                    const data = await res.json();
-                    window.location.href = data.invoice_url;
-                } else {
-                    const errData = await res.json().catch(() => ({}));
-                    showToast.error(errData.error || 'فشل بدء الدفع بالكريبتو');
-                }
-            } else if (paymentMethod === 'nowpayments' && total < 19) {
-                // Cryptomus for small amounts
-                const res = await fetch('/api/checkout/cryptomus', {
+                // Now using Oxapay for all crypto payments as requested by Nawaf
+                const res = await fetch('/api/checkout/oxapay', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         amount: total,
                         currency: 'USD',
-                        orderId: 'temp_order_' + Date.now(),
-                        description: 'Small payment for ' + cart.map(i => i.title).join(', ')
+                        orderId: 'ORD-' + Date.now(),
+                        description: 'Payment for ' + cart.map(i => i.title).join(', ')
                     })
                 });
 
@@ -201,7 +182,7 @@ export default function CheckoutPage() {
                     window.location.href = data.url;
                 } else {
                     const errData = await res.json().catch(() => ({}));
-                    showToast.error(errData.error || 'فشل بدء دفع Cryptomus');
+                    showToast.error(errData.error || 'فشل بدء دفع Oxapay');
                 }
             } else if (paymentMethod === 'manual' && isSyria) {
                 if (!selectedLocalMethod || !manualData.transactionRef || !manualData.proofFile) {
@@ -344,36 +325,21 @@ export default function CheckoutPage() {
 
                                 {paymentMethod === 'nowpayments' && (
                                     <motion.div key="nowpayments-box" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
-                                        {total >= 19 ? (
-                                            <div className="bg-[#111111] p-10 rounded-xl border border-white/10 text-center space-y-6">
-                                                <div className="text-6xl">🪙</div>
-                                                <h4 className="text-2xl font-bold text-[#10B981]">الدفع بالعملات الرقمية (USDT)</h4>
-                                                <p className="text-gray-400 text-sm max-w-md mx-auto">
-                                                    سيتم تفعيل طلبك **تلقائياً** بمجرد تأكيد الشبكة. نستخدم بوابة NOWPayments الآمنة لضمان أسرع تفعيل.
-                                                </p>
-                                                <div className="flex justify-center gap-4">
-                                                    <div className="px-4 py-2 bg-emerald-700/10 border border-emerald-600/20 rounded-lg text-[10px] font-bold text-[#10B981] uppercase tracking-widest">
-                                                        TRC20 Network
-                                                    </div>
+                                        <div className="bg-[#111111] p-10 rounded-xl border border-white/10 text-center space-y-6">
+                                            <div className="text-6xl">🪙</div>
+                                            <h4 className="text-2xl font-bold text-[#10B981]">دفع سريع (Oxapay)</h4>
+                                            <p className="text-gray-400 text-sm max-w-md mx-auto">
+                                                سيتم تفعيل طلبك **تلقائياً** بمجرد تأكيد الشبكة. ندعم جميع المبالغ (حتى 1$) عبر بوابة Oxapay العالمية.
+                                            </p>
+                                            <div className="flex justify-center gap-4">
+                                                <div className="px-4 py-2 bg-blue-700/10 border border-blue-600/20 rounded-lg text-[10px] font-bold text-blue-400 uppercase tracking-widest">
+                                                    Polygon / BSC / TRC20
+                                                </div>
+                                                <div className="px-4 py-2 bg-blue-700/10 border border-blue-600/20 rounded-lg text-[10px] font-bold text-blue-400 uppercase tracking-widest">
+                                                    Instant Activation
                                                 </div>
                                             </div>
-                                        ) : (
-                                            <div className="bg-[#111111] p-10 rounded-xl border border-white/10 text-center space-y-6">
-                                                <div className="text-6xl">💎</div>
-                                                <h4 className="text-2xl font-bold text-[#10B981]">دفع سريع (Cryptomus)</h4>
-                                                <p className="text-gray-400 text-sm max-w-md mx-auto">
-                                                    بما أن المبلغ أقل من 19$، سنستخدم بوابة Cryptomus التي تدعم المبالغ الصغيرة بـ **أتمتة كاملة**.
-                                                </p>
-                                                <div className="flex justify-center gap-4">
-                                                    <div className="px-4 py-2 bg-blue-700/10 border border-blue-600/20 rounded-lg text-[10px] font-bold text-blue-400 uppercase tracking-widest">
-                                                        Polygon / BSC
-                                                    </div>
-                                                    <div className="px-4 py-2 bg-blue-700/10 border border-blue-600/20 rounded-lg text-[10px] font-bold text-blue-400 uppercase tracking-widest">
-                                                        Instant
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
+                                        </div>
                                     </motion.div>
                                 )}
 
