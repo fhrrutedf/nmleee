@@ -59,7 +59,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
     return (
         <div className="mt-12 bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-8">
             <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 bg-emerald-600/10 text-emerald-600 rounded-xl">
+                <div className="p-3 bg-emerald-700/10 text-emerald-600 rounded-xl">
                     <FiMessageSquare size={24} />
                 </div>
                 <h3 className="text-xl font-bold text-emerald-600 dark:text-white">النقاشات والأسئلة ({comments.length})</h3>
@@ -80,7 +80,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                     <button
                         onClick={() => submitComment()}
                         disabled={loading || !newComment.trim()}
-                        className="px-6 py-3 bg-emerald-600 text-white rounded-xl font-bold hover:shadow-lg shadow-emerald-600/20 hover:shadow-accent/20 transition-all disabled:opacity-50"
+                        className="px-6 py-3 bg-emerald-700 text-white rounded-xl font-bold hover:shadow-lg shadow-emerald-600/20 hover:shadow-accent/20 transition-all disabled:opacity-50"
                     >
                         نشـر التعليق
                     </button>
@@ -97,7 +97,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                     comments.map((comment) => (
                         <div key={comment.id} className="group">
                             <div className="flex gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-emerald-600 dark:from-gray-800 dark:to-gray-700 font-bold text-emerald-600 dark:text-white flex items-center justify-center shrink-0">
+                                <div className="w-12 h-12 rounded-xl bg-emerald-700 dark:from-gray-800 dark:to-gray-700 font-bold text-emerald-600 dark:text-white flex items-center justify-center shrink-0">
                                     {comment.authorName?.[0]}
                                 </div>
                                 <div className="flex-1">

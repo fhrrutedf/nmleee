@@ -43,7 +43,7 @@ export default function OrderSummary({
         <div className="bg-white rounded-xl border border-gray-100 shadow-lg shadow-emerald-600/20 p-8 space-y-10 sticky top-24">
             <div className="flex items-baseline justify-between overflow-hidden">
                 <h2 className="text-xl font-bold text-emerald-600 tracking-tight">ملخص الطلب</h2>
-                <span className="text-[10px] font-bold text-emerald-600 bg-emerald-600-light px-3 py-1 rounded-xl uppercase tracking-widest">
+                <span className="text-[10px] font-bold text-emerald-600 bg-emerald-700-light px-3 py-1 rounded-xl uppercase tracking-widest">
                     {items.length} Elements
                 </span>
             </div>
@@ -90,7 +90,7 @@ export default function OrderSummary({
                     <div className="absolute top-1/2 left-1.5 -translate-y-1/2">
                         <button 
                             onClick={onApplyCoupon}
-                            className="bg-emerald-600 text-white hover:bg-emerald-600-hover px-4 py-2 rounded-lg text-xs font-bold transition-all active:scale-95"
+                            className="bg-emerald-700 text-white hover:bg-emerald-700-hover px-4 py-2 rounded-lg text-xs font-bold transition-all active:scale-95"
                         >
                             تطبيق
                         </button>
@@ -112,7 +112,7 @@ export default function OrderSummary({
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="flex justify-between text-sm font-bold text-emerald-600 bg-emerald-600-light p-4 rounded-xl border border-emerald-600/10"
+                            className="flex justify-between text-sm font-bold text-emerald-600 bg-emerald-700-light p-4 rounded-xl border border-emerald-600/10"
                         >
                             <span className="flex items-center gap-1.5"><FiCheckCircle /> الخصم المُطبق</span>
                             <span className="font-mono font-inter">-{discount.toFixed(2)} $</span>
@@ -141,7 +141,7 @@ export default function OrderSummary({
                 <button
                     onClick={onCheckout}
                     disabled={loading || disabled}
-                    className="group relative w-full h-16 bg-emerald-600 text-white rounded-xl overflow-hidden shadow-lg shadow-emerald-600/20 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="group relative w-full h-16 bg-emerald-700 text-white rounded-xl overflow-hidden shadow-lg shadow-emerald-600/20 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     <div className="relative flex items-center justify-center gap-3 font-bold text-lg tracking-tight">
                         {loading ? (

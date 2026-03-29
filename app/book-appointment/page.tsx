@@ -90,7 +90,7 @@ export default function BookAppointmentPage() {
                                         <label
                                             key={service.id}
                                             className={`relative flex items-center gap-4 p-4 border-2 rounded-lg cursor-pointer transition-all ${formData.service === service.id
-                                                    ? 'border-emerald-600 bg-emerald-600-light'
+                                                    ? 'border-emerald-600 bg-emerald-700-light'
                                                     : 'border-gray-200 hover:border-gray-400'
                                                 }`}
                                         >

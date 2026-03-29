@@ -52,7 +52,7 @@ function AffiliateBannerContent() {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                className="bg-emerald-600 text-white overflow-hidden relative z-50 transition-all border-b border-white/10"
+                className="bg-emerald-700 text-white overflow-hidden relative z-50 transition-all border-b border-white/10"
             >
                 <div className="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">

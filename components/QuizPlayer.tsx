@@ -107,7 +107,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                 <p className="text-gray-500 mb-8">عذراً، لم يتم إضافة أسئلة لهذا الاختبار بعد.</p>
                 <button 
                     onClick={() => window.location.reload()}
-                    className="px-8 py-3 bg-emerald-600 text-white rounded-xl font-bold"
+                    className="px-8 py-3 bg-emerald-700 text-white rounded-xl font-bold"
                 >
                     إغلاق
                 </button>
@@ -212,7 +212,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                 {currentQuestion < quiz.questions.length - 1 ? (
                     <button
                         onClick={() => setCurrentQuestion(prev => prev + 1)}
-                        className="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700"
+                        className="px-6 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700"
                     >
                         التالي
                     </button>

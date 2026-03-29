@@ -127,7 +127,7 @@ export default function VideoPlayer({
 
             {/* Controls Overlay */}
             <div
-                className={`absolute bottom-0 left-0 right-0 bg-emerald-600 p-4 transition-opacity ${showControls ? 'opacity-100' : 'opacity-0'
+                className={`absolute bottom-0 left-0 right-0 bg-emerald-700 p-4 transition-opacity ${showControls ? 'opacity-100' : 'opacity-0'
                     }`}
             >
                 {/* Progress Bar */}

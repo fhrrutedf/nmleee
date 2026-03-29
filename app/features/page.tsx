@@ -73,11 +73,11 @@ export default function FeaturesPage() {
     ];
 
     return (
-        <div ref={containerRef} className="min-h-screen bg-white overflow-hidden selection:bg-emerald-600/20">
+        <div ref={containerRef} className="min-h-screen bg-white overflow-hidden selection:bg-emerald-700/20">
             {/* High-Performance Corporate Hero */}
             <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-white py-20">
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-600/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+                    <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-700/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
                 </div>
                 
                 <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
@@ -113,9 +113,9 @@ export default function FeaturesPage() {
                             <motion.div
                                 key={idx}
                                 variants={fadeInUp}
-                                className="group p-10 bg-gray-50 border border-gray-100 rounded-[2.5rem] hover:bg-emerald-600 hover:text-white transition-all duration-500 cursor-default"
+                                className="group p-10 bg-gray-50 border border-gray-100 rounded-[2.5rem] hover:bg-emerald-700 hover:text-white transition-all duration-500 cursor-default"
                             >
-                                <div className="w-14 h-14 bg-white border border-gray-100 rounded-xl flex items-center justify-center text-emerald-600 mb-10 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-transparent transition-all shadow-lg shadow-emerald-600/20">
+                                <div className="w-14 h-14 bg-white border border-gray-100 rounded-xl flex items-center justify-center text-emerald-600 mb-10 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-transparent transition-all shadow-lg shadow-emerald-600/20">
                                     {feature.icon}
                                 </div>
 
@@ -157,7 +157,7 @@ export default function FeaturesPage() {
             </section>
 
             {/* Strategic Integration Section */}
-            <section className="py-32 bg-emerald-600 text-white overflow-hidden">
+            <section className="py-32 bg-emerald-700 text-white overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6 text-center mb-24">
                     <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">يتكامل مع نظامك الحالي</h2>
                     <p className="text-gray-400 text-lg font-bold max-w-2xl mx-auto">
@@ -187,13 +187,13 @@ export default function FeaturesPage() {
             {/* High-End Refined CTA */}
             <section className="py-40 bg-white">
                 <div className="max-w-5xl mx-auto px-6 text-center">
-                   <div className="bg-emerald-600 rounded-[3.5rem] p-16 md:p-32 border border-white/5 relative overflow-hidden group shadow-lg shadow-emerald-600/20 shadow-ink/20">
-                        <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-600/10 rounded-xl blur-[120px]"></div>
+                   <div className="bg-emerald-700 rounded-[3.5rem] p-16 md:p-32 border border-white/5 relative overflow-hidden group shadow-lg shadow-emerald-600/20 shadow-ink/20">
+                        <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-700/10 rounded-xl blur-[120px]"></div>
                         <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tighter mb-12 relative z-10 leading-[0.95]">
                             ابدأ ببناء <br/> <span className="text-emerald-600">إمبراطوريتك.</span>
                         </h2>
                         <div className="flex flex-col sm:flex-row gap-6 justify-center relative z-10">
-                            <Link href="/register" className="px-14 py-6 bg-emerald-600 text-white rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-emerald-600 transition-all shadow-lg shadow-emerald-600/20 shadow-accent/20">
+                            <Link href="/register" className="px-14 py-6 bg-emerald-700 text-white rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-emerald-600 transition-all shadow-lg shadow-emerald-600/20 shadow-accent/20">
                                 Start Your Mission Now
                             </Link>
                             <Link href="/pricing" className="px-14 py-6 bg-white/5 text-white border border-white/10 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-emerald-600 transition-all">

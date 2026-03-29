@@ -109,7 +109,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                 <button
                     type="button"
                     onClick={() => setShowModuleForm(true)}
-                    className="flex items-center justify-center w-full sm:w-auto gap-2 px-8 py-4 bg-emerald-600 text-white rounded-xl font-bold hover:bg-gray-800 transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10 active:scale-95"
+                    className="flex items-center justify-center w-full sm:w-auto gap-2 px-8 py-4 bg-emerald-700 text-white rounded-xl font-bold hover:bg-gray-800 transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10 active:scale-95"
                 >
                     <FiPlus />
                     إنشاء وحدة تعليمية جديدة
@@ -134,7 +134,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                             <button
                                 type="button"
                                 onClick={createModule}
-                                className="flex-1 sm:flex-none px-8 py-4 bg-emerald-600 font-bold text-white rounded-xl hover:bg-emerald-600-hover active:scale-95 transition-all shadow-lg shadow-emerald-600/20 shadow-accent/20"
+                                className="flex-1 sm:flex-none px-8 py-4 bg-emerald-700 font-bold text-white rounded-xl hover:bg-emerald-700-hover active:scale-95 transition-all shadow-lg shadow-emerald-600/20 shadow-accent/20"
                             >
                                 حفظ الوحدة
                             </button>
@@ -164,7 +164,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                     <button
                         type="button"
                         onClick={() => setShowModuleForm(true)}
-                        className="inline-flex items-center gap-3 px-10 py-5 bg-emerald-600 text-white rounded-xl font-bold hover:bg-gray-800 transition-all shadow-lg shadow-emerald-600/20 shadow-ink/20"
+                        className="inline-flex items-center gap-3 px-10 py-5 bg-emerald-700 text-white rounded-xl font-bold hover:bg-gray-800 transition-all shadow-lg shadow-emerald-600/20 shadow-ink/20"
                     >
                         <FiPlus size={20} />
                         إضافة أول وحدة دراسية
@@ -206,7 +206,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                     {module.lessons.map((lesson, lessonIndex) => (
                                         <div key={lesson.id} className="p-6 hover:bg-gray-50/50 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                                             <div className="flex items-center gap-5 w-full sm:w-auto">
-                                                <div className="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center text-gray-400 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                                                <div className="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center text-gray-400 group-hover:bg-emerald-700 group-hover:text-white transition-colors">
                                                     <FiVideo />
                                                 </div>
                                                 <div className="flex-1">
@@ -216,7 +216,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                                             {formatDuration(lesson.videoDuration)}
                                                         </span>
                                                         {lesson.isFree && (
-                                                            <span className="text-[10px] font-bold text-emerald-600 bg-emerald-600/5 px-2.5 py-1 rounded-lg uppercase tracking-widest flex items-center gap-2 border border-emerald-600/10">
+                                                            <span className="text-[10px] font-bold text-emerald-600 bg-emerald-700/5 px-2.5 py-1 rounded-lg uppercase tracking-widest flex items-center gap-2 border border-emerald-600/10">
                                                                 <FiEye size={12} /> PUBLIC PREVIEW
                                                             </span>
                                                         )}
@@ -239,7 +239,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                                 <button
                                                     type="button"
                                                     onClick={() => router.push(`/dashboard/lessons/${lesson.id}/edit`)}
-                                                    className="flex-1 sm:flex-none px-4 py-2.5 bg-emerald-600 text-white text-[11px] font-bold rounded-xl hover:bg-gray-800 transition-all shadow-lg shadow-emerald-600/20 shadow-ink/5"
+                                                    className="flex-1 sm:flex-none px-4 py-2.5 bg-emerald-700 text-white text-[11px] font-bold rounded-xl hover:bg-gray-800 transition-all shadow-lg shadow-emerald-600/20 shadow-ink/5"
                                                 >
                                                     تعديل المحتوى
                                                 </button>

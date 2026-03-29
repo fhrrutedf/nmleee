@@ -48,7 +48,7 @@ export default async function StudentsPage() {
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-emerald-600/10 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-xl bg-emerald-700/10 flex items-center justify-center">
                         <FiUsers className="text-xl text-emerald-600" />
                     </div>
                     <div>

@@ -274,7 +274,7 @@ export default function SettingsPage() {
                         }}
                         className="group relative flex items-center gap-2 px-6 py-3 bg-white dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-emerald-600 text-emerald-600 dark:text-white shadow-lg shadow-emerald-600/20 transition-all hover:-translate-y-0.5 rounded-xl"
                     >
-                        <div className="w-8 h-8 rounded-xl bg-emerald-600-50 dark:bg-blue-900/20 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                        <div className="w-8 h-8 rounded-xl bg-emerald-700-50 dark:bg-blue-900/20 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-700 group-hover:text-white transition-colors">
                             <FiCopy size={14} />
                         </div>
                         <div className="text-right">
@@ -297,7 +297,7 @@ export default function SettingsPage() {
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`flex-1 lg:w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors whitespace-nowrap ${activeTab === tab.id
-                                    ? 'bg-emerald-600 text-white font-medium shadow-md'
+                                    ? 'bg-emerald-700 text-white font-medium shadow-md'
                                     : 'text-text-muted hover:bg-gray-50 dark:hover:bg-gray-800'
                                     }`}
                             >
@@ -322,7 +322,7 @@ export default function SettingsPage() {
                                     <div className="space-y-3">
                                         <label className="label">الصورة الشخصية (Avatar)</label>
                                         <div className="flex flex-col items-center gap-4 p-4 border border-dashed border-gray-300 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800/50">
-                                            <div className="w-24 h-24 rounded-xl overflow-hidden bg-emerald-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-emerald-600/20 ring-4 ring-white dark:ring-gray-900 border border-gray-100 dark:border-gray-800 shrink-0 relative group">
+                                            <div className="w-24 h-24 rounded-xl overflow-hidden bg-emerald-700 flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-emerald-600/20 ring-4 ring-white dark:ring-gray-900 border border-gray-100 dark:border-gray-800 shrink-0 relative group">
                                                 {profileData.avatar ? (
                                                     <img src={profileData.avatar} alt="Avatar" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                                                 ) : (
@@ -343,7 +343,7 @@ export default function SettingsPage() {
                                     <div className="space-y-3">
                                         <label className="label">صورة الغلاف (Cover)</label>
                                         <div className="flex flex-col gap-4 p-4 border border-dashed border-gray-300 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800/50">
-                                            <div className="h-24 w-full rounded-xl overflow-hidden bg-emerald-600 flex items-center justify-center text-white font-bold shadow-inner relative group">
+                                            <div className="h-24 w-full rounded-xl overflow-hidden bg-emerald-700 flex items-center justify-center text-white font-bold shadow-inner relative group">
                                                 {profileData.coverImage ? (
                                                     <img src={profileData.coverImage} alt="Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                                                 ) : (
@@ -393,7 +393,7 @@ export default function SettingsPage() {
                                             />
                                         </div>
                                         {showUsernameWarning && (
-                                            <div className="mt-2 p-3 bg-emerald-600-50 border border-amber-200 rounded-xl text-xs text-blue-800 flex items-start gap-2 shadow-lg shadow-emerald-600/20 ">
+                                            <div className="mt-2 p-3 bg-emerald-700-50 border border-amber-200 rounded-xl text-xs text-blue-800 flex items-start gap-2 shadow-lg shadow-emerald-600/20 ">
                                                 <FiAlertCircle className="mt-0.5 shrink-0 text-emerald-600-500" />
                                                 <p>
                                                     <strong className="block mb-1">تحذير: تغيير اسم المستخدم</strong>
@@ -592,7 +592,7 @@ export default function SettingsPage() {
                                                     })}
                                                     className="sr-only peer"
                                                 />
-                                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-xl peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-xl peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-700"></div>
                                             </label>
                                         </div>
                                     ))}
@@ -687,7 +687,7 @@ export default function SettingsPage() {
                                 {/* Coming Soon - Zoom */}
                                 <div className="p-6 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl opacity-60">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-14 h-14 rounded-xl bg-emerald-600-50 flex items-center justify-center">
+                                        <div className="w-14 h-14 rounded-xl bg-emerald-700-50 flex items-center justify-center">
                                             <span className="text-2xl">🎥</span>
                                         </div>
                                         <div>
@@ -714,7 +714,7 @@ export default function SettingsPage() {
                                         <div className={`p-6 rounded-xl border-2 flex items-start gap-4 ${
                                             verificationRequest.status === 'APPROVED' ? 'bg-green-50 border-green-200 text-green-800' :
                                             verificationRequest.status === 'REJECTED' ? 'bg-red-50 border-red-200 text-red-800' :
-                                            'bg-emerald-600-50 border-blue-200 text-blue-800'
+                                            'bg-emerald-700-50 border-blue-200 text-blue-800'
                                         }`}>
                                             <div className="text-3xl mt-1">
                                                 {verificationRequest.status === 'APPROVED' ? '✅' : 
@@ -738,7 +738,7 @@ export default function SettingsPage() {
                                         </div>
                                     ) : (
                                         <>
-                                            <div className="bg-emerald-600/5 p-6 rounded-xl border border-emerald-600/10 space-y-4">
+                                            <div className="bg-emerald-700/5 p-6 rounded-xl border border-emerald-600/10 space-y-4">
                                                 <h3 className="font-bold text-lg text-emerald-600">لماذا توثيق الحساب؟</h3>
                                                 <ul className="space-y-3 text-sm text-text-muted">
                                                     <li className="flex items-center gap-2">🔹 الحصول على الشارة الزرقاء بجانب اسمك.</li>

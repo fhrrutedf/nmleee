@@ -171,7 +171,7 @@ export default function FileUploader({
                 {...getRootProps()}
                 className={`w-full border-2 border-dashed rounded-xl p-4 sm:p-8 transition-all cursor-pointer flex flex-col items-center justify-center min-h-[140px] sm:min-h-[180px] overflow-hidden
                 ${isDragActive
-                        ? "border-emerald-600 bg-emerald-600/5"
+                        ? "border-emerald-600 bg-emerald-700/5"
                         : "border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-card-white hover:bg-gray-100 dark:hover:bg-gray-800"
                     }`}
             >
@@ -281,7 +281,7 @@ export default function FileUploader({
                                 {upload.status === "uploading" && (
                                     <div className="w-full bg-gray-200 dark:bg-gray-700 h-1 rounded-xl mt-1.5 overflow-hidden">
                                         <div
-                                            className="h-full bg-emerald-600 rounded-xl"
+                                            className="h-full bg-emerald-700 rounded-xl"
                                             style={{ width: `${upload.progress}%`, transition: 'width 0.3s ease' }}
                                         />
                                     </div>

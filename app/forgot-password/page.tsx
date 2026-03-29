@@ -44,7 +44,7 @@ export default function ForgotPasswordPage() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-bg-light relative overflow-hidden py-12 px-4">
             {/* Background Decorations */}
-            <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-emerald-600/10 rounded-xl blur-[80px] -z-10 pointer-events-none"></div>
+            <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-emerald-700/10 rounded-xl blur-[80px] -z-10 pointer-events-none"></div>
             <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-purple-500/10 rounded-xl blur-[100px] -z-10 pointer-events-none"></div>
 
             <motion.div
@@ -58,7 +58,7 @@ export default function ForgotPasswordPage() {
                 {/* Logo/Title */}
                 <motion.div variants={fadeInUp} className="text-center mb-10">
                     <Link href="/" className="inline-block mb-6">
-                        <div className="w-16 h-16 mx-auto rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-lg shadow-emerald-600/20 shadow-accent/20">
+                        <div className="w-16 h-16 mx-auto rounded-xl bg-emerald-700 flex items-center justify-center text-white shadow-lg shadow-emerald-600/20 shadow-accent/20">
                             <span className="text-3xl font-bold">م</span>
                         </div>
                     </Link>

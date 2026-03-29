@@ -212,7 +212,7 @@ export default function DemoPage() {
             </section>
 
             {/* CTA Section */}
-            <section className="py-20 bg-emerald-600">
+            <section className="py-20 bg-emerald-700">
                 <div className="max-w-4xl mx-auto px-4 text-center text-white">
                     <h2 className="text-5xl font-bold mb-6">جاهز للبدء؟</h2>
                     <p className="text-2xl mb-8">انضم إلى آلاف المبدعين الذين يحققون دخلهم من مهاراتهم</p>

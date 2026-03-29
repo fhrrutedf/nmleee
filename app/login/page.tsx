@@ -69,10 +69,10 @@ function LoginContent() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden py-12 px-6 selection:bg-emerald-600/20">
+        <div className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden py-12 px-6 selection:bg-emerald-700/20">
             {/* Minimalist Professional Accents */}
-            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-600/5 rounded-xl blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-600/5 rounded-xl blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
+            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-700/5 rounded-xl blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-700/5 rounded-xl blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
 
             <motion.div
                 initial="hidden"
@@ -83,7 +83,7 @@ function LoginContent() {
                 {/* Brand Identity Header */}
                 <motion.div variants={fadeInUp} className="text-center mb-12">
                      <Link href="/" className="inline-block mb-10 group">
-                        <div className="w-16 h-16 mx-auto rounded-xl bg-emerald-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-emerald-600/20 shadow-ink/20 group-hover:scale-110 transition-transform">
+                        <div className="w-16 h-16 mx-auto rounded-xl bg-emerald-700 flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-emerald-600/20 shadow-ink/20 group-hover:scale-110 transition-transform">
                             ت
                         </div>
                     </Link>
@@ -93,7 +93,7 @@ function LoginContent() {
 
                 {/* Login Terminal / Form Card */}
                 <motion.div variants={fadeInUp} className="bg-white rounded-[2.5rem] border border-gray-100 p-10 shadow-lg shadow-emerald-600/20 shadow-gray-200/50 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-600/5 rounded-bl-[80px] pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-700/5 rounded-bl-[80px] pointer-events-none"></div>
 
                     {/* Social Authentication */}
                     <div className="space-y-4 mb-10">
@@ -173,7 +173,7 @@ function LoginContent() {
                             type="submit"
                             disabled={loading}
                             className={`w-full py-5 rounded-xl font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-lg shadow-emerald-600/20
-                                ${loading ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-ink/20 active:scale-95'}
+                                ${loading ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-emerald-700 text-white hover:bg-emerald-700 shadow-ink/20 active:scale-95'}
                             `}
                         >
                             {loading ? (

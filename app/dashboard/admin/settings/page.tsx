@@ -84,7 +84,7 @@ export default function AdminSettingsPage() {
                 <button 
                     onClick={handleUpdate}
                     disabled={saving}
-                    className="px-10 py-4 bg-emerald-600 text-white rounded-[1.5rem] font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95 transition-all disabled:opacity-50"
+                    className="px-10 py-4 bg-emerald-700 text-white rounded-[1.5rem] font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95 transition-all disabled:opacity-50"
                 >
                     {saving ? <div className="animate-spin h-5 w-5 border-t-2 border-white rounded-xl"></div> : <FiSave size={18} />}
                     حفظ كافة التغييرات
@@ -136,7 +136,7 @@ export default function AdminSettingsPage() {
                                 </div>
                             </div>
                             
-                            <div className="bg-emerald-600 text-white p-8 rounded-xl shadow-lg shadow-emerald-600/20 relative overflow-hidden flex flex-col justify-center">
+                            <div className="bg-emerald-700 text-white p-8 rounded-xl shadow-lg shadow-emerald-600/20 relative overflow-hidden flex flex-col justify-center">
                                 <div className="absolute right-0 top-0 w-32 h-32 bg-white/5 rounded-xl blur-3xl"></div>
                                 <h3 className="text-lg font-bold mb-4">نصيحة المنصة 💡</h3>
                                 <p className="text-white/60 text-sm leading-relaxed font-bold">كلما قمت بتقليل عمولة المنصة للباقات الأعلى، زاد تحفيز البائعين على شحن باقاتهم الشهرية بانتظام. فكر في جعل باقة PRO بعمولة رمزية (مثل 2%) لجذب "كبار التجار".</p>
@@ -212,7 +212,7 @@ export default function AdminSettingsPage() {
                 </AnimatePresence>
             </div>
 
-            <div className="bg-emerald-600-50 dark:bg-blue-900/10 p-6 rounded-xl border border-blue-100 flex items-center gap-4">
+            <div className="bg-emerald-700-50 dark:bg-blue-900/10 p-6 rounded-xl border border-blue-100 flex items-center gap-4">
                 <FiCheckCircle className="text-emerald-600-500 shrink-0" size={24} />
                 <p className="text-blue-900/60 text-xs font-bold leading-relaxed">أي تغييرات هنا ستؤثر فوراً على كافة مبيعات البائعين الجدد. تذكر أن العمولات تحسب عند لحظة إنشاء الطلب وليس عند السحب.</p>
             </div>

@@ -205,12 +205,12 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                         </button>
                                                         <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}&text=${encodeURIComponent(`اكتشف منتجات ${creator.name}`)}`}
                                                             target="_blank" rel="noopener noreferrer"
-                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-600-50 dark:hover:bg-blue-900/20 hover:text-emerald-600-500 text-right transition-colors">
+                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-700-50 dark:hover:bg-blue-900/20 hover:text-emerald-600-500 text-right transition-colors">
                                                             <FiTwitter className="text-gray-400" /> مشاركة على تويتر
                                                         </a>
                                                         <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
                                                             target="_blank" rel="noopener noreferrer"
-                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-600-50 dark:hover:bg-blue-900/20 hover:text-emerald-600-600 text-right transition-colors">
+                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-700-50 dark:hover:bg-blue-900/20 hover:text-emerald-600-600 text-right transition-colors">
                                                             <FiFacebook className="text-gray-400" /> مشاركة على فيسبوك
                                                         </a>
                                                     </motion.div>
@@ -444,7 +444,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                             : <span className="bg-black/70  text-white text-[10px] font-bold px-2 py-1 rounded-lg">{product.price} $</span>
                                                         }
                                                         {(product.category === 'courses' || product.category === 'course') && (
-                                                            <span className="bg-emerald-600 text-white text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1">
+                                                            <span className="bg-emerald-700 text-white text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1">
                                                                 <FiVideo size={9} /> دورة
                                                             </span>
                                                         )}

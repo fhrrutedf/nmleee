@@ -173,7 +173,7 @@ export default function UsersManagement() {
 
     const planBadge = (planType?: string) => {
         switch (planType) {
-            case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-emerald-600-50 text-emerald-600-600 dark:bg-blue-900/20 dark:text-blue-400">🚀 GROWTH</span>;
+            case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-emerald-700-50 text-emerald-600-600 dark:bg-blue-900/20 dark:text-blue-400">🚀 GROWTH</span>;
             case 'PRO': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-purple-50 text-emerald-600 dark:bg-purple-900/20 dark:text-purple-400">👑 PRO</span>;
             default: return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400">🆓 FREE</span>;
         }
@@ -186,7 +186,7 @@ export default function UsersManagement() {
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-bold text-emerald-600 dark:text-white mb-2 tracking-tight flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl bg-emerald-600/10 text-emerald-600 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-xl bg-emerald-700/10 text-emerald-600 flex items-center justify-center">
                             <FiUsers />
                         </div>
                         إدارة المستخدمين
@@ -390,7 +390,7 @@ export default function UsersManagement() {
                                                     >
                                                         {user.isActive ? <FiXCircle size={18} /> : <FiCheckCircle size={18} />}
                                                     </button>
-                                                    <button className="p-2 rounded-lg text-gray-400 hover:text-emerald-600 hover:bg-emerald-600-50 dark:hover:bg-blue-900/20 transition-colors">
+                                                    <button className="p-2 rounded-lg text-gray-400 hover:text-emerald-600 hover:bg-emerald-700-50 dark:hover:bg-blue-900/20 transition-colors">
                                                         <FiMoreVertical size={18} />
                                                     </button>
                                                     {user.verificationRequests && user.verificationRequests.length > 0 && (
@@ -483,7 +483,7 @@ export default function UsersManagement() {
                         <button
                             onClick={savePlan}
                             disabled={savingPlan || selectedPlan === planModal.currentPlan}
-                            className="flex-1 bg-emerald-600 text-white py-3 rounded-xl font-bold text-sm hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex-1 bg-emerald-700 text-white py-3 rounded-xl font-bold text-sm hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {savingPlan ? 'جاري الحفظ...' : 'تحديث الباقة'}
                         </button>

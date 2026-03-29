@@ -138,7 +138,7 @@ export default function BookAppointmentPage() {
             <style dangerouslySetInnerHTML={{
                 __html: `
                 .text-emerald-600, .text-primary-700 { color: ${brandColor} !important; }
-                .bg-emerald-600 { background-color: ${brandColor} !important; }
+                .bg-emerald-700 { background-color: ${brandColor} !important; }
                 .bg-primary-50, .bg-primary-100 { background-color: ${brandColor}18 !important; }
                 .bg-primary-100\/50 { background-color: ${brandColor}10 !important; }
                 .bg-primary-50.to-primary-100\/50, .from-primary-50 { --tw-gradient-from: ${brandColor}18 !important; }
@@ -165,7 +165,7 @@ export default function BookAppointmentPage() {
 
                 <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 overflow-hidden">
                     {/* Seller Profile Summary */}
-                    <div className="p-6 bg-emerald-600 border-b border-primary-100 flex gap-4 items-center">
+                    <div className="p-6 bg-emerald-700 border-b border-primary-100 flex gap-4 items-center">
                         <div className="w-16 h-16 rounded-xl overflow-hidden bg-white border-2 border-white shadow-lg shadow-emerald-600/20 flex-shrink-0">
                             {creator.avatar ? (
                                 <img src={creator.avatar} alt={creator.name} className="w-full h-full object-cover" />
@@ -233,7 +233,7 @@ export default function BookAppointmentPage() {
                                             key={time}
                                             onClick={() => setSelectedTime(time)}
                                             className={`py-3 rounded-lg border text-center transition-all ${selectedTime === time
-                                                ? 'bg-emerald-600 border-emerald-600 text-white shadow-md transform scale-105'
+                                                ? 'bg-emerald-700 border-emerald-600 text-white shadow-md transform scale-105'
                                                 : 'bg-white border-gray-200 text-gray-700 hover:border-primary-300 hover:bg-primary-50'
                                                 }`}
                                         >

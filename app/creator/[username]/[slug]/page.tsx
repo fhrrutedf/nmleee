@@ -214,8 +214,8 @@ export default function ProductPage() {
                             
                             {/* Urgency Countdown Placeholder (Simplified for now) */}
                             {product.offerExpiresAt && new Date(product.offerExpiresAt) > new Date() && (
-                                <div className="mt-6 p-4 bg-emerald-600-50 rounded-xl border border-blue-100 flex items-center gap-3 ">
-                                    <div className="w-10 h-10 bg-emerald-600 text-white rounded-lg flex items-center justify-center">
+                                <div className="mt-6 p-4 bg-emerald-700-50 rounded-xl border border-blue-100 flex items-center gap-3 ">
+                                    <div className="w-10 h-10 bg-emerald-700 text-white rounded-lg flex items-center justify-center">
                                         <FiClock className="text-xl" />
                                     </div>
                                     <div>

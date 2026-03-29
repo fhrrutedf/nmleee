@@ -59,7 +59,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                             {/* Accent bar */}
                             <div className={`absolute right-0 top-0 bottom-0 w-1 ${toast.type === 'success' ? 'bg-green-500' :
                                     toast.type === 'error' ? 'bg-red-500' :
-                                        'bg-emerald-600'
+                                        'bg-emerald-700'
                                 }`} />
 
                             <div className="flex items-center gap-3">

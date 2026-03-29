@@ -121,7 +121,7 @@ export default function PayoutsPage() {
 
             {/* Stats Cards */}
             <div className="grid md:grid-cols-3 gap-6">
-                <div className="card bg-emerald-600 text-white">
+                <div className="card bg-emerald-700 text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-primary-100">إجمالي الأرباح</span>
                         <FiDollarSign className="text-2xl" />
@@ -129,7 +129,7 @@ export default function PayoutsPage() {
                     <div className="text-3xl font-bold">{stats.totalEarnings.toFixed(2)} $</div>
                 </div>
 
-                <div className="card bg-emerald-600 text-white">
+                <div className="card bg-emerald-700 text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-green-100">الرصيد المتاح</span>
                         <FiDollarSign className="text-2xl" />
@@ -137,7 +137,7 @@ export default function PayoutsPage() {
                     <div className="text-3xl font-bold">{stats.availableBalance.toFixed(2)} $</div>
                 </div>
 
-                <div className="card bg-emerald-600 text-white">
+                <div className="card bg-emerald-700 text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-orange-100">طلبات قيد المراجعة</span>
                         <FiClock className="text-2xl" />
@@ -150,12 +150,12 @@ export default function PayoutsPage() {
             <div className="card bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden shadow-lg shadow-emerald-600/20">
                 <div className="p-6 sm:p-8">
                     <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                        <span className="w-1.5 h-6 bg-emerald-600 rounded-xl"></span>
+                        <span className="w-1.5 h-6 bg-emerald-700 rounded-xl"></span>
                         طلب سحب جديد
                     </h2>
 
                     {user && !isPayoutMethodConfigured(user) ? (
-                        <div className="bg-emerald-600-50 border border-amber-200 p-6 rounded-xl flex flex-col items-center text-center ">
+                        <div className="bg-emerald-700-50 border border-amber-200 p-6 rounded-xl flex flex-col items-center text-center ">
                             <FiAlertCircle className="text-4xl text-emerald-600-500 mb-3" />
                             <h3 className="font-bold text-blue-900 mb-2">طريقة السحب غير مكتملة</h3>
                             <p className="text-sm text-blue-800 mb-6 max-w-sm">

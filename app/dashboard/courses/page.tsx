@@ -86,7 +86,7 @@ export default function CoursesPage() {
                     <h1 className="text-3xl font-bold text-emerald-600 dark:text-white">الدورات التدريبية</h1>
                     <p className="text-text-muted mt-2">إدارة شاملة لجميع دوراتك التدريبية ومحتواها التعليمي</p>
                 </div>
-                <Link href="/dashboard/courses/new?new=true" className="px-8 py-4 bg-emerald-600 text-white rounded-xl font-bold text-xs uppercase tracking-[0.2em] shadow-lg shadow-emerald-600/20 shadow-ink/20 hover:bg-emerald-700 transition-all flex items-center">
+                <Link href="/dashboard/courses/new?new=true" className="px-8 py-4 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-[0.2em] shadow-lg shadow-emerald-600/20 shadow-ink/20 hover:bg-emerald-700 transition-all flex items-center">
                     <FiPlus className="ml-2 text-xl" />
                     <span>إضافة دورة جديدة</span>
                 </Link>
@@ -95,13 +95,13 @@ export default function CoursesPage() {
             {/* High-Contrast Corporate Stats */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-lg shadow-emerald-600/20 relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-600/5 rounded-bl-[60px] pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-700/5 rounded-bl-[60px] pointer-events-none"></div>
                     <div className="flex items-center justify-between relative z-10">
                         <div>
                             <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">Total Programs</p>
                             <p className="text-4xl font-bold text-emerald-600 tracking-tighter">{stats.total}</p>
                         </div>
-                        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-emerald-600 shadow-lg shadow-emerald-600/20 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-emerald-600 shadow-lg shadow-emerald-600/20 group-hover:bg-emerald-700 group-hover:text-white transition-all">
                             <FiVideo size={24} />
                         </div>
                     </div>
@@ -127,20 +127,20 @@ export default function CoursesPage() {
                             <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">Offline Drafts</p>
                             <p className="text-4xl font-bold text-emerald-600 tracking-tighter">{stats.inactive}</p>
                         </div>
-                        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-gray-400 shadow-lg shadow-emerald-600/20 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-gray-400 shadow-lg shadow-emerald-600/20 group-hover:bg-emerald-700 group-hover:text-white transition-all">
                             <FiXCircle size={24} />
                         </div>
                     </div>
                 </div>
 
                 <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-lg shadow-emerald-600/20 relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-600/5 rounded-bl-[60px] pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-700/5 rounded-bl-[60px] pointer-events-none"></div>
                     <div className="flex items-center justify-between relative z-10">
                         <div>
                             <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">Total Curriculum Value</p>
                             <p className="text-4xl font-bold text-emerald-600 tracking-tighter">{stats.totalRevenue.toFixed(0)} <span className="text-sm font-bold text-gray-400">$</span></p>
                         </div>
-                        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-emerald-600 shadow-lg shadow-emerald-600/20 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-emerald-600 shadow-lg shadow-emerald-600/20 group-hover:bg-emerald-700 group-hover:text-white transition-all">
                             <FiDollarSign size={24} />
                         </div>
                     </div>
@@ -217,7 +217,7 @@ export default function CoursesPage() {
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     />
                                 ) : (
-                                    <div className="w-full h-full bg-emerald-600 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
+                                    <div className="w-full h-full bg-emerald-700 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
                                         <FiVideo className="text-5xl text-blue-200 dark:text-gray-600" />
                                     </div>
                                 )}
@@ -260,7 +260,7 @@ export default function CoursesPage() {
                                         {course.price.toFixed(2)} <span className="text-xs font-normal text-text-muted">$</span>
                                     </span>
                                     {course.category && (
-                                        <span className="px-2 py-1 bg-emerald-600-50 dark:bg-blue-900/30 text-emerald-600 text-xs rounded-md">
+                                        <span className="px-2 py-1 bg-emerald-700-50 dark:bg-blue-900/30 text-emerald-600 text-xs rounded-md">
                                             {course.category}
                                         </span>
                                     )}

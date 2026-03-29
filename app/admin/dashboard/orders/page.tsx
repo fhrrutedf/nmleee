@@ -156,7 +156,7 @@ export default function AdminOrdersManagement() {
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-bold text-emerald-600 dark:text-white mb-2 tracking-tight flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl bg-emerald-600-500/10 text-emerald-600 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-xl bg-emerald-700-500/10 text-emerald-600 flex items-center justify-center">
                             <FiShoppingCart />
                         </div>
                         إدارة الطلبات
@@ -328,7 +328,7 @@ export default function AdminOrdersManagement() {
                                             </td>
                                             <td className="py-4 px-6 text-center">
                                                 <span className={`inline-flex items-center px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${order.paymentMethod === 'manual'
-                                                    ? 'bg-emerald-600-50 text-emerald-600-600 dark:bg-blue-900/20 dark:text-blue-400 border border-blue-200 dark:border-blue-800'
+                                                    ? 'bg-emerald-700-50 text-emerald-600-600 dark:bg-blue-900/20 dark:text-blue-400 border border-blue-200 dark:border-blue-800'
                                                     : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 border border-gray-200 dark:border-gray-700'
                                                     }`}>
                                                     {order.paymentMethod === 'manual' ? 'حوالة بنكية يدوية' : order.paymentMethod}
@@ -340,7 +340,7 @@ export default function AdminOrdersManagement() {
                                                         {getStatusText(order.status)}
                                                     </span>
                                                     {order.paymentMethod === 'manual' && order.status === 'PENDING' && (
-                                                        <button className="text-[10px] flex items-center gap-1 font-bold text-emerald-600 hover:text-emerald-600 transition-colors bg-emerald-600-50 hover:bg-blue-100 px-2 py-1 rounded w-full justify-center">
+                                                        <button className="text-[10px] flex items-center gap-1 font-bold text-emerald-600 hover:text-emerald-600 transition-colors bg-emerald-700-50 hover:bg-blue-100 px-2 py-1 rounded w-full justify-center">
                                                             <FiEye /> مرجعة الإيصال
                                                         </button>
                                                     )}

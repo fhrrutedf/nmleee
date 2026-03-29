@@ -154,7 +154,7 @@ export default function CouponsPage() {
                     {coupons.map((coupon) => (
                         <div key={coupon.id} className={`bg-white dark:bg-card-white rounded-xl border ${coupon.isActive ? 'border-gray-200 dark:border-gray-700' : 'border-gray-100 dark:border-gray-800 opacity-70'} shadow-lg shadow-emerald-600/20 overflow-hidden flex flex-col hover:shadow-md transition-shadow relative`}>
                             {/* Top Accent */}
-                            <div className={`h-1.5 w-full ${coupon.isActive ? 'bg-emerald-600 shadow-[0_0_15px_rgba(37,99,235,0.3)]' : 'bg-gray-200'}`}></div>
+                            <div className={`h-1.5 w-full ${coupon.isActive ? 'bg-emerald-700 shadow-[0_0_15px_rgba(37,99,235,0.3)]' : 'bg-gray-200'}`}></div>
 
                             <div className="p-6">
                                 <div className="flex justify-between items-start mb-4">
@@ -310,7 +310,7 @@ export default function CouponsPage() {
                                             value={formData.value}
                                             onChange={(e) => setFormData({ ...formData, value: e.target.value })}
                                         />
-                                        <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center font-bold text-emerald-600 text-xl border-l border-emerald-600/20 bg-emerald-600/5">
+                                        <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center font-bold text-emerald-600 text-xl border-l border-emerald-600/20 bg-emerald-700/5">
                                             {formData.type === 'percentage' ? '%' : '$'}
                                         </div>
                                     </div>

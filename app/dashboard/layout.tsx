@@ -100,11 +100,11 @@ export default function DashboardLayout({
     );
 
     return (
-        <div className="min-h-screen bg-white transition-colors duration-300 relative selection:bg-emerald-600/20">
+        <div className="min-h-screen bg-white transition-colors duration-300 relative selection:bg-emerald-700/20">
             {sidebarOpen && (
                 <motion.div
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    className="fixed inset-0 bg-emerald-600/60  z-40 lg:hidden"
+                    className="fixed inset-0 bg-emerald-700/60  z-40 lg:hidden"
                     onClick={() => setSidebarOpen(false)}
                 />
             )}
@@ -115,7 +115,7 @@ export default function DashboardLayout({
                     <>
                         <motion.div
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-emerald-600/60  z-[60] lg:hidden"
+                            className="fixed inset-0 bg-emerald-700/60  z-[60] lg:hidden"
                             onClick={() => setSidebarOpen(false)}
                         />
                         <motion.aside
@@ -125,7 +125,7 @@ export default function DashboardLayout({
                         >
                             <div className="p-8 border-b border-gray-100 flex items-center justify-between">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">ت</div>
+                                    <div className="w-8 h-8 rounded-lg bg-emerald-700 text-white flex items-center justify-center font-bold text-sm">ت</div>
                                     <span className="font-bold text-emerald-600">تمالين</span>
                                 </div>
                                 <button onClick={() => setSidebarOpen(false)} className="p-2 bg-gray-50 rounded-lg text-gray-400">
@@ -140,7 +140,7 @@ export default function DashboardLayout({
                                     const active = isActive || isHome;
                                     return (
                                         <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
-                                            className={`flex items-center gap-4 px-5 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20 shadow-ink/20' : 'text-gray-400 hover:bg-gray-50 hover:text-emerald-600'}`}>
+                                            className={`flex items-center gap-4 px-5 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-600/20 shadow-ink/20' : 'text-gray-400 hover:bg-gray-50 hover:text-emerald-600'}`}>
                                             <item.icon size={18} className={`${active ? 'text-emerald-600' : 'group-hover:text-emerald-600'}`} />
                                             <span className="text-xs font-bold tracking-tight flex-1 text-right">{item.label}</span>
                                         </Link>
@@ -165,7 +165,7 @@ export default function DashboardLayout({
             <aside className="hidden lg:flex fixed inset-y-0 right-0 bg-white border-l border-gray-100 z-50 w-72 flex-col">
                 <div className="p-10">
                     <div className="flex items-center gap-3 mb-10">
-                         <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-emerald-600/20 shadow-ink/20">ت</div>
+                         <div className="w-10 h-10 rounded-xl bg-emerald-700 text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-emerald-600/20 shadow-ink/20">ت</div>
                          <h1 className="text-xl font-bold text-emerald-600 tracking-tighter">تمالين</h1>
                     </div>
                     
@@ -189,7 +189,7 @@ export default function DashboardLayout({
                         const active = isActive || isHome;
                         return (
                             <Link key={item.href} href={item.href}
-                                className={`flex items-center gap-4 px-6 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20 shadow-ink/20 transform -translate-y-0.5' : 'text-gray-400 hover:bg-gray-50 hover:text-emerald-600'}`}>
+                                className={`flex items-center gap-4 px-6 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-600/20 shadow-ink/20 transform -translate-y-0.5' : 'text-gray-400 hover:bg-gray-50 hover:text-emerald-600'}`}>
                                 <item.icon size={18} className={`transition-transform duration-500 ${active ? 'text-emerald-600' : 'group-hover:scale-110 group-hover:text-emerald-600'}`} />
                                 <span className={`text-xs font-bold tracking-tight flex-1 text-right ${active ? 'text-white' : ''}`}>{item.label}</span>
                             </Link>

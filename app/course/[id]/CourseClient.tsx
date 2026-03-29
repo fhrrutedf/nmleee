@@ -51,7 +51,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                 <style dangerouslySetInnerHTML={{
                     __html: `
                     .text-emerald-600 { color: ${course.user.brandColor} !important; }
-                    .bg-emerald-600 { background-color: ${course.user.brandColor} !important; }
+                    .bg-emerald-700 { background-color: ${course.user.brandColor} !important; }
                     .border-emerald-600 { border-color: ${course.user.brandColor} !important; }
                     .ring-accent { --tw-ring-color: ${course.user.brandColor} !important; }
                     .hover\\:bg-primary-700:hover { background-color: ${course.user.brandColor} !important; filter: brightness(0.9); }
@@ -74,7 +74,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                             {course.image ? (
                                 <img src={course.image} alt={course.title} className="w-full h-[400px] object-cover" />
                             ) : (
-                                <div className="w-full h-[400px] bg-emerald-600 flex items-center justify-center">
+                                <div className="w-full h-[400px] bg-emerald-700 flex items-center justify-center">
                                     <FiVideo className="text-8xl text-blue-400" />
                                 </div>
                             )}

@@ -41,7 +41,7 @@ export default function CartDrawer() {
             >
                 <FiShoppingCart size={22} className="group-hover:scale-110 transition-transform" />
                 {itemCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-emerald-600 text-white text-[10px] font-bold rounded-xl w-5 h-5 flex items-center justify-center ring-2 ring-white">
+                    <span className="absolute -top-1 -right-1 bg-emerald-700 text-white text-[10px] font-bold rounded-xl w-5 h-5 flex items-center justify-center ring-2 ring-white">
                         {itemCount}
                     </span>
                 )}
@@ -69,7 +69,7 @@ export default function CartDrawer() {
                             {/* Header */}
                             <div className="flex items-center justify-between p-6 border-b border-gray-100">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-emerald-600/10 rounded-xl flex items-center justify-center text-emerald-600">
+                                    <div className="w-10 h-10 bg-emerald-700/10 rounded-xl flex items-center justify-center text-emerald-600">
                                         <FiShoppingBag size={20} />
                                     </div>
                                     <h2 className="text-xl font-bold text-emerald-600">
@@ -156,7 +156,7 @@ export default function CartDrawer() {
                                     <Link
                                         href="/checkout"
                                         onClick={() => setIsOpen(false)}
-                                        className="group w-full py-4 bg-emerald-600 text-white flex items-center justify-center gap-2 rounded-[1.25rem] font-bold text-lg shadow-lg shadow-emerald-600/20 shadow-accent/20 hover:shadow-accent/40 hover:-translate-y-1 transition-all"
+                                        className="group w-full py-4 bg-emerald-700 text-white flex items-center justify-center gap-2 rounded-[1.25rem] font-bold text-lg shadow-lg shadow-emerald-600/20 shadow-accent/20 hover:shadow-accent/40 hover:-translate-y-1 transition-all"
                                     >
                                         <span>إتمام الشراء</span>
                                         <FiArrowRight className="group-hover:translate-x-1 transition-transform rotate-180" />

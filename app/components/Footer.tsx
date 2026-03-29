@@ -32,7 +32,7 @@ export default function Footer() {
                     {/* Brand Identifier */}
                     <div className="md:col-span-4 max-w-sm">
                         <div className="flex items-center gap-4 mb-10 group cursor-default">
-                             <div className="w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-emerald-500/20 transition-all group-hover:scale-110 group-hover:shadow-glow">
+                             <div className="w-12 h-12 rounded-2xl bg-emerald-700 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-emerald-500/20 transition-all group-hover:scale-110 group-hover:shadow-glow">
                                 ت
                             </div>
                             <span className="text-3xl font-black tracking-tighter">تمالين</span>
@@ -43,14 +43,14 @@ export default function Footer() {
                         
                         {/* Newsletter Mini */}
                         <div className="flex flex-col gap-5">
-                            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-emerald-500">Join our ecosystem</span>
+                            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#10B981]">Join our ecosystem</span>
                             <div className="flex gap-2 p-2 bg-white/5 border border-white/10 rounded-2xl max-w-sm focus-within:border-emerald-500/50 transition-colors">
                                 <input 
                                     type="email" 
                                     placeholder="Enter your email" 
                                     className="bg-transparent border-none focus:ring-0 text-xs font-semibold px-4 flex-1 text-white placeholder:text-gray-600"
                                 />
-                                <button className="px-6 py-2.5 bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-emerald-500 shadow-lg shadow-emerald-500/10 transition-all hover:shadow-glow">
+                                <button className="px-6 py-2.5 bg-emerald-700 text-white text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-emerald-500 shadow-lg shadow-emerald-500/10 transition-all hover:shadow-glow">
                                     Join
                                 </button>
                             </div>
@@ -61,7 +61,7 @@ export default function Footer() {
                     <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-12">
                         {Object.entries(footerLinks).map(([category, links]) => (
                             <div key={category}>
-                                <h4 className="text-[11px] font-bold uppercase tracking-[0.3em] text-emerald-500 mb-10">{category}</h4>
+                                <h4 className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#10B981] mb-10">{category}</h4>
                                 <ul className="space-y-5">
                                     {links.map((link) => (
                                         <li key={link.href}>
@@ -94,9 +94,9 @@ export default function Footer() {
                     </div>
                     
                     <div className="flex gap-10 text-[10px] font-bold uppercase tracking-widest text-gray-600">
-                        <Link href="/terms" className="hover:text-emerald-500 transition-colors">Terms of service</Link>
-                        <Link href="/privacy" className="hover:text-emerald-500 transition-colors">Privacy Policy</Link>
-                        <Link href="/cookies" className="hover:text-emerald-500 transition-colors">Tracking</Link>
+                        <Link href="/terms" className="hover:text-[#10B981] transition-colors">Terms of service</Link>
+                        <Link href="/privacy" className="hover:text-[#10B981] transition-colors">Privacy Policy</Link>
+                        <Link href="/cookies" className="hover:text-[#10B981] transition-colors">Tracking</Link>
                     </div>
                 </div>
             </div>

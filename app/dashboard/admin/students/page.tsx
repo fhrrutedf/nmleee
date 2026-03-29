@@ -210,7 +210,7 @@ export default function AdminStudentsPage() {
                                                                 <div className="flex items-center gap-2">
                                                                     <div className="w-20 bg-gray-200 dark:bg-gray-700 rounded-xl h-1.5">
                                                                         <div
-                                                                            className={`h-1.5 rounded-xl ${student.isCompleted ? 'bg-green-500' : 'bg-emerald-600'}`}
+                                                                            className={`h-1.5 rounded-xl ${student.isCompleted ? 'bg-green-500' : 'bg-emerald-700'}`}
                                                                             style={{ width: `${student.progress}%` }}
                                                                         />
                                                                     </div>

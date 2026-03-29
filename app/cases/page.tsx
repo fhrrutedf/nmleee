@@ -11,7 +11,7 @@ export default function CasesPage() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-right" dir="rtl">
           <div className="card border-emerald-100 bg-emerald-50/30">
-            <div className="w-12 h-12 bg-emerald-600 rounded-full mb-4"></div>
+            <div className="w-12 h-12 bg-emerald-700 rounded-full mb-4"></div>
             <h3 className="text-xl font-bold mb-2">محمد أ. (مدرب برمجة)</h3>
             <p className="text-sm text-muted">"حققت أكثر من $5000 في أول شهر من بيع كورس رياكت على تمالين. الدفع كان سلساً جداً."</p>
           </div>

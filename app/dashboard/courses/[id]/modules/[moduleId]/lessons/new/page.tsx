@@ -188,10 +188,10 @@ export default function NewLessonPage() {
                     </div>
 
                     <div 
-                        className={`flex items-center justify-between p-6 rounded-xl border transition-all cursor-pointer group mt-4 relative overflow-hidden ${formData.isFree ? 'bg-emerald-600 border-ink shadow-lg shadow-emerald-600/20 shadow-indigo-100' : 'bg-white border-slate-100 shadow-lg shadow-emerald-600/20'}`} 
+                        className={`flex items-center justify-between p-6 rounded-xl border transition-all cursor-pointer group mt-4 relative overflow-hidden ${formData.isFree ? 'bg-emerald-700 border-ink shadow-lg shadow-emerald-600/20 shadow-indigo-100' : 'bg-white border-slate-100 shadow-lg shadow-emerald-600/20'}`} 
                         onClick={() => setFormData({ ...formData, isFree: !formData.isFree })}
                     >
-                        {formData.isFree && <div className="absolute inset-0 bg-emerald-600 opacity-50" />}
+                        {formData.isFree && <div className="absolute inset-0 bg-emerald-700 opacity-50" />}
                         <div className="text-right relative z-10">
                             <h3 className={`font-bold text-base leading-tight transition-colors ${formData.isFree ? 'text-white' : 'text-slate-800'}`}>إتاحة كدرس مجاني (Free Preview) 👀</h3>
                             <p className={`text-[10px] mt-1 max-w-lg leading-relaxed ${formData.isFree ? 'text-indigo-100' : 'text-slate-400 font-bold'}`}>اسمح للزوار بمشاهدة هذا الدرس مجاناً كإعلان تشويقي.</p>
@@ -210,7 +210,7 @@ export default function NewLessonPage() {
                         </button>
                         <button
                             type="submit" disabled={loading}
-                            className="w-full md:w-auto px-10 py-3.5 bg-emerald-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 shadow-slate-200 active:scale-95 text-base"
+                            className="w-full md:w-auto px-10 py-3.5 bg-emerald-700 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 shadow-slate-200 active:scale-95 text-base"
                         >
                             <FiSave size={20} />
                             {loading ? 'جاري رفع الإبداع...' : 'اعتماد الدرس بنجاح'}

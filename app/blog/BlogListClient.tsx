@@ -22,10 +22,10 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
     const visiblePosts = filteredPosts.slice(0, visibleCount);
 
     return (
-        <div className="min-h-screen bg-white selection:bg-emerald-600/20" dir="rtl">
+        <div className="min-h-screen bg-white selection:bg-emerald-700/20" dir="rtl">
             {/* Minimalist Corporate Blog Hero */}
-            <section className="bg-emerald-600 text-white py-24 md:py-32 relative overflow-hidden border-b border-white/5">
-                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-600/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+            <section className="bg-emerald-700 text-white py-24 md:py-32 relative overflow-hidden border-b border-white/5">
+                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-700/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
                 
                 <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
@@ -64,7 +64,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                 key={idx}
                                 onClick={() => setSelectedCategory(cat)}
                                 className={`px-8 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all duration-300 ${selectedCategory === cat
-                                    ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20 shadow-ink/10 -translate-y-1'
+                                    ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-600/20 shadow-ink/10 -translate-y-1'
                                     : 'bg-white text-gray-400 border border-gray-100 hover:border-ink hover:text-emerald-600'
                                     }`}
                             >
@@ -108,7 +108,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
 
                                             <div className="mt-auto flex items-center justify-between pt-6 border-t border-gray-50">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-8 h-8 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-400 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-transparent transition-all">
+                                                    <div className="w-8 h-8 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-400 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-transparent transition-all">
                                                         <FiUser size={14} />
                                                     </div>
                                                     <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">{post.authorName || 'Maher'}</span>
@@ -143,7 +143,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                             <p className="text-gray-400 font-bold mb-10 max-w-sm mx-auto">حاول استخدام كلمات مختلفة أو ابحث في تصنيف آخر.</p>
                             <button
                                 onClick={() => { setSelectedCategory('الكل'); setSearchQuery(''); }}
-                                className="px-10 py-4 bg-emerald-600 text-white rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10"
+                                className="px-10 py-4 bg-emerald-700 text-white rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10"
                             >
                                 Reset All Filters
                             </button>

@@ -212,17 +212,17 @@ export default function CheckoutPage() {
     const localPrice = customerCountry ? convertCurrency(total, customerCountry) : { amount: total, currency: 'USD' };
 
     return (
-        <div className="min-h-screen bg-bg-light text-emerald-600 py-16 md:py-24 font-sans selection:bg-emerald-600/30">
+        <div className="min-h-screen bg-bg-light text-emerald-600 py-16 md:py-24 font-sans selection:bg-emerald-700/30">
             {/* Minimalist Background Detail */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-0 right-0 w-[60%] h-[60%] bg-emerald-600/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+                <div className="absolute top-0 right-0 w-[60%] h-[60%] bg-emerald-700/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
                 <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-gray-100 rounded-xl blur-[120px] translate-y-1/2 -translate-x-1/4"></div>
             </div>
 
             <div className="max-w-6xl mx-auto px-6 relative z-10">
                 
                 <div className="mb-20 text-center max-w-2xl mx-auto">
-                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="inline-flex items-center gap-2 bg-emerald-600/10 border border-emerald-600/20 px-5 py-2 rounded-xl text-emerald-600 text-[10px] font-bold uppercase tracking-[0.2em] mb-6 shadow-lg shadow-emerald-600/20">
+                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="inline-flex items-center gap-2 bg-emerald-700/10 border border-emerald-600/20 px-5 py-2 rounded-xl text-emerald-600 text-[10px] font-bold uppercase tracking-[0.2em] mb-6 shadow-lg shadow-emerald-600/20">
                         <FiLock size={14} /> بوابة دفع مؤمنة 256-Bit
                     </motion.div>
                     <h1 className="text-4xl md:text-6xl font-bold text-emerald-600 tracking-tight mb-6">إتمام الطلب والدفع</h1>
@@ -235,7 +235,7 @@ export default function CheckoutPage() {
                         {/* 1. Personal Information */}
                         <div className="bg-white border border-gray-100 p-8 sm:p-10 rounded-xl shadow-lg shadow-emerald-600/20 shadow-gray-200/20 ring-1 ring-gray-50">
                             <h3 className="text-xl font-bold text-emerald-600 mb-10 flex items-center gap-4">
-                                <span className="w-1.5 h-6 bg-emerald-600 rounded-xl"></span> البيانات الشخصية والدولة
+                                <span className="w-1.5 h-6 bg-emerald-700 rounded-xl"></span> البيانات الشخصية والدولة
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-3 md:col-span-2">
@@ -258,7 +258,7 @@ export default function CheckoutPage() {
                         {/* 2. Payment Gateway Section */}
                         <div className="bg-white border border-gray-100 p-8 sm:p-10 rounded-xl shadow-lg shadow-emerald-600/20 shadow-gray-200/20 ring-1 ring-gray-50">
                             <h3 className="text-xl font-bold text-emerald-600 mb-10 flex items-center gap-4">
-                                <span className="w-1.5 h-6 bg-emerald-600 rounded-xl"></span> اختيار وسيلة الدفع
+                                <span className="w-1.5 h-6 bg-emerald-700 rounded-xl"></span> اختيار وسيلة الدفع
                             </h3>
 
                             <div className="flex gap-4 mb-10 overflow-x-auto pb-4 hide-scrollbar">
@@ -277,7 +277,7 @@ export default function CheckoutPage() {
                                                 <button 
                                                     key={m.id} 
                                                     onClick={() => setSelectedLocalMethod(m)} 
-                                                    className={`p-8 rounded-xl border-2 text-right transition-all group relative overflow-hidden ${selectedLocalMethod?.id === m.id ? 'border-emerald-600 bg-emerald-600/5 ring-4 ring-accent/5' : 'border-gray-50 bg-gray-50/50 hover:border-gray-200'}`}
+                                                    className={`p-8 rounded-xl border-2 text-right transition-all group relative overflow-hidden ${selectedLocalMethod?.id === m.id ? 'border-emerald-600 bg-emerald-700/5 ring-4 ring-accent/5' : 'border-gray-50 bg-gray-50/50 hover:border-gray-200'}`}
                                                 >
                                                     <span className="text-4xl mb-4 block group-hover:scale-110 transition-transform origin-right">{m.icon}</span>
                                                     <h5 className="font-bold text-emerald-600 text-lg">{m.nameAr}</h5>
@@ -339,12 +339,12 @@ export default function CheckoutPage() {
 
             {/* ═══ Professional Spaceremit V2 Payment Overlay ═══ */}
             <div 
-                className={`fixed inset-0 z-[9999] bg-emerald-600/60  flex items-center justify-center p-4 transition-all duration-500 ${spOrderData ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+                className={`fixed inset-0 z-[9999] bg-emerald-700/60  flex items-center justify-center p-4 transition-all duration-500 ${spOrderData ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
             >
                 <div className="bg-white rounded-[2.5rem] p-10 max-w-lg w-full shadow-lg shadow-emerald-600/20 border border-gray-100 max-h-[90vh] overflow-y-auto relative">
                     <div className="flex items-center justify-between mb-10">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-600/20 shadow-accent/20">
+                            <div className="w-10 h-10 bg-emerald-700 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-600/20 shadow-accent/20">
                                 <FiCreditCard />
                             </div>
                             <h3 className="text-xl font-bold text-emerald-600 tracking-tight">إتمام الدفع الآمن</h3>
@@ -379,7 +379,7 @@ export default function CheckoutPage() {
 
                         <div className="sp-one-type-select">
                             <input type="radio" name="sp-pay-type-radio" value="local-methods-pay" id="sp_local_methods_radio" defaultChecked className="hidden" />
-                            <label htmlFor="sp_local_methods_radio" className="block p-5 rounded-xl border-2 border-emerald-600 bg-emerald-600/5 cursor-pointer mb-4 transition-all">
+                            <label htmlFor="sp_local_methods_radio" className="block p-5 rounded-xl border-2 border-emerald-600 bg-emerald-700/5 cursor-pointer mb-4 transition-all">
                                 <div className="font-bold text-emerald-600 flex items-center gap-2 text-sm">🌍 الدفع المحلي (بينانس/زين/فودافون)</div>
                                 <p className="text-[10px] text-gray-500 font-bold mt-1">يُوصى به للمستخدمين في الشرق الأوسط</p>
                             </label>
@@ -395,7 +395,7 @@ export default function CheckoutPage() {
                             <div id="spaceremit-card-pay" className="px-2"></div>
                         </div>
 
-                        <button type="submit" className="w-full py-5 bg-emerald-600 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-emerald-600/20 shadow-ink/20 hover:bg-gray-800 hover:shadow-ink/30 transform hover:-translate-y-0.5 mt-6 mb-4">
+                        <button type="submit" className="w-full py-5 bg-emerald-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-emerald-600/20 shadow-ink/20 hover:bg-gray-800 hover:shadow-ink/30 transform hover:-translate-y-0.5 mt-6 mb-4">
                             ادفع الآن آمن
                         </button>
                     </form>

@@ -170,7 +170,7 @@ export default function ManualOrdersPage() {
                                 onClick={() => setStatusFilter(tab.value)}
                                 className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${
                                     statusFilter === tab.value
-                                        ? 'bg-emerald-600 text-white shadow-md'
+                                        ? 'bg-emerald-700 text-white shadow-md'
                                         : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                                 }`}
                             >
@@ -272,7 +272,7 @@ export default function ManualOrdersPage() {
                                             <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700 flex gap-3">
                                                 <button
                                                     onClick={() => handleApprove(order.id)}
-                                                    className="flex-1 px-4 py-2.5 bg-emerald-600-600 text-white rounded-xl hover:bg-emerald-600 transition-colors flex items-center justify-center gap-2 font-bold text-sm shadow-lg shadow-emerald-600/20"
+                                                    className="flex-1 px-4 py-2.5 bg-emerald-700-600 text-white rounded-xl hover:bg-emerald-700 transition-colors flex items-center justify-center gap-2 font-bold text-sm shadow-lg shadow-emerald-600/20"
                                                 >
                                                     <FiCheck /> موافقة
                                                 </button>

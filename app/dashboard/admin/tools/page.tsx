@@ -21,7 +21,7 @@ const methodLabel: Record<string, string> = {
 function Tab({ id, active, onClick, icon: Icon, label, badge }: any) {
     return (
         <button onClick={() => onClick(id)}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap relative ${active ? 'bg-emerald-600 text-white shadow-md' : 'text-text-muted hover:bg-gray-100 dark:hover:bg-gray-800'
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap relative ${active ? 'bg-emerald-700 text-white shadow-md' : 'text-text-muted hover:bg-gray-100 dark:hover:bg-gray-800'
                 }`}>
             <Icon className="text-base" />{label}
             {badge > 0 && <span className="absolute -top-1.5 -left-1.5 bg-red-500 text-white text-[10px] min-w-[18px] px-1 rounded-xl">{badge}</span>}
@@ -374,7 +374,7 @@ export default function AdminPayoutsPage() {
                                             <td className="py-3 px-3">
                                                 <button
                                                     onClick={() => loginAsUser(p.seller.id, p.seller.name)}
-                                                    className="btn bg-emerald-600-50 hover:bg-blue-100 text-emerald-600 text-xs py-1.5 px-3 flex items-center gap-1">
+                                                    className="btn bg-emerald-700-50 hover:bg-blue-100 text-emerald-600 text-xs py-1.5 px-3 flex items-center gap-1">
                                                     <FiLogIn /> دخول كـ
                                                 </button>
                                             </td>
@@ -485,7 +485,7 @@ export default function AdminPayoutsPage() {
                         </div>
                         <div className="flex gap-3">
                             <button onClick={saveCommission}
-                                className="flex-1 btn bg-emerald-600 hover:bg-emerald-600 text-white font-bold py-2.5">
+                                className="flex-1 btn bg-emerald-700 hover:bg-emerald-700 text-white font-bold py-2.5">
                                 حفظ العمولة
                             </button>
                             <button onClick={() => setCommModal(null)} className="btn btn-outline px-6">إلغاء</button>

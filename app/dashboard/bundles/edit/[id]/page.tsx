@@ -134,7 +134,7 @@ export default function EditBundlePage() {
                     <span>العودة للباقات</span>
                 </Link>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                    <div className="w-12 h-12 bg-emerald-600/10 rounded-xl flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 bg-emerald-700/10 rounded-xl flex items-center justify-center shrink-0">
                         <FiPackage className="text-xl text-emerald-600" />
                     </div>
                     <div>
@@ -227,7 +227,7 @@ export default function EditBundlePage() {
                                             <div
                                                 key={product.id}
                                                 onClick={() => toggleProduct(product.id)}
-                                                className={`p-4 rounded-xl cursor-pointer border-2 transition-all flex items-start gap-4 ${isSelected ? 'border-emerald-600 bg-emerald-600/5' : 'border-gray-100 hover:border-emerald-600/30 dark:border-gray-800'}`}
+                                                className={`p-4 rounded-xl cursor-pointer border-2 transition-all flex items-start gap-4 ${isSelected ? 'border-emerald-600 bg-emerald-700/5' : 'border-gray-100 hover:border-emerald-600/30 dark:border-gray-800'}`}
                                             >
                                                 <div className="mt-1 flex-shrink-0">
                                                     {isSelected ? (
@@ -276,7 +276,7 @@ export default function EditBundlePage() {
                                         <p className="text-xl font-bold text-gray-400 line-through decoration-red-500/50 decoration-2">{originalValue.toFixed(2)} $</p>
                                     </div>
 
-                                    <div className="bg-emerald-600/5 p-4 rounded-xl border border-emerald-600/10">
+                                    <div className="bg-emerald-700/5 p-4 rounded-xl border border-emerald-600/10">
                                         <label className="text-sm font-bold text-emerald-600 mb-2 block">سعر الباقة الإجمالي الجديد <span className="text-red-500">*</span></label>
                                         <div className="relative">
                                             <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">

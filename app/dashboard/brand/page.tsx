@@ -129,7 +129,7 @@ export default function BrandEditorPage() {
                     <button
                         onClick={saveBrand}
                         disabled={saving}
-                        className="flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-emerald-600/20 shadow-ink/10 hover:bg-gray-800 transition-all disabled:opacity-60"
+                        className="flex items-center gap-2 px-6 py-3 bg-emerald-700 text-white rounded-xl font-bold text-sm shadow-lg shadow-emerald-600/20 shadow-ink/10 hover:bg-gray-800 transition-all disabled:opacity-60"
                     >
                         <FiSave /> {saving ? 'جاري الحفظ...' : 'حفظ التغييرات'}
                     </button>
@@ -164,7 +164,7 @@ export default function BrandEditorPage() {
                                     </div>
                                     <span className="text-[11px] font-bold text-emerald-600">{p.name}</span>
                                     {brand.brandColor === p.primary && (
-                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-emerald-600 rounded-xl flex items-center justify-center text-white text-[12px] shadow-lg shadow-emerald-600/20">
+                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-emerald-700 rounded-xl flex items-center justify-center text-white text-[12px] shadow-lg shadow-emerald-600/20">
                                             <FiCheck />
                                         </div>
                                     )}
@@ -231,7 +231,7 @@ export default function BrandEditorPage() {
                                     <div className="text-sm font-bold text-emerald-600">{f.name}</div>
                                     <div className="text-[10px] text-gray-400 mt-1 font-bold">{f.desc}</div>
                                     {brand.brandFont === f.id && (
-                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-emerald-600 rounded-xl flex items-center justify-center text-white text-[12px] shadow-lg shadow-emerald-600/20"><FiCheck /></div>
+                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-emerald-700 rounded-xl flex items-center justify-center text-white text-[12px] shadow-lg shadow-emerald-600/20"><FiCheck /></div>
                                     )}
                                 </button>
                             ))}
@@ -264,7 +264,7 @@ export default function BrandEditorPage() {
                                     </div>
                                     <div className="text-sm font-bold text-emerald-600">{b.name}</div>
                                     {brand.brandButtonStyle === b.id && (
-                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-emerald-600 rounded-xl flex items-center justify-center text-white text-[12px] shadow-lg shadow-emerald-600/20"><FiCheck /></div>
+                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-emerald-700 rounded-xl flex items-center justify-center text-white text-[12px] shadow-lg shadow-emerald-600/20"><FiCheck /></div>
                                     )}
                                 </button>
                             ))}
@@ -334,7 +334,7 @@ export default function BrandEditorPage() {
                                         : `linear-gradient(135deg, ${brand.brandColor} 0%, ${brand.brandSecondaryColor} 100%)`
                                 }}
                             >
-                                <div className="absolute inset-0 bg-emerald-600" />
+                                <div className="absolute inset-0 bg-emerald-700" />
                             </div>
 
                             {/* Avatar */}

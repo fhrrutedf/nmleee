@@ -110,7 +110,7 @@ export default function ProductsPage() {
             {/* --- TOP PERFORMERS SUMMARY --- */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in slide-in-from-top-4 duration-500">
                 <div className="bg-white dark:bg-card-white p-6 rounded-xl border border-slate-50 dark:border-gray-800 shadow-lg shadow-emerald-600/20 relative overflow-hidden group hover:shadow-md transition-all">
-                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-emerald-600-50 dark:bg-blue-900/10 rounded-xl blur-2xl group-hover:scale-150 transition-transform"></div>
+                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-emerald-700-50 dark:bg-blue-900/10 rounded-xl blur-2xl group-hover:scale-150 transition-transform"></div>
                     <div className="relative">
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">تقدير صافي الأرباح 💰</p>
                         <h4 className="text-3xl font-bold text-slate-900 dark:text-white">{(totalInventoryValue * 0.85).toFixed(2)} <span className="text-sm font-bold text-slate-400">$</span></h4>
@@ -127,7 +127,7 @@ export default function ProductsPage() {
                     </div>
                 </div>
 
-                <div className="bg-emerald-600 text-white p-6 rounded-xl shadow-lg shadow-emerald-600/20 relative overflow-hidden group">
+                <div className="bg-emerald-700 text-white p-6 rounded-xl shadow-lg shadow-emerald-600/20 relative overflow-hidden group">
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/5 rounded-xl blur-2xl group-hover:scale-150 transition-transform"></div>
                     <div className="relative">
                         <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2">إجمالي قيمة المبيعات (GMV)</p>
@@ -152,7 +152,7 @@ export default function ProductsPage() {
                     </button>
                     <Link
                         href="/dashboard/products/new?new=true"
-                        className="px-8 py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 shadow-emerald-600/20 hover:bg-emerald-700 active:scale-95 transition-all"
+                        className="px-8 py-3.5 bg-emerald-700 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 shadow-emerald-600/20 hover:bg-emerald-700 active:scale-95 transition-all"
                     >
                         <FiPlus className="text-lg" /> إضافة منتج جديد
                     </Link>
@@ -181,7 +181,7 @@ export default function ProductsPage() {
                         {categories.map((cat: any) => <option key={cat} value={cat}>{cat}</option>)}
                     </select>
                 </div>
-                <div className="bg-emerald-600 text-white flex items-center justify-center rounded-[1.2rem] h-14 shadow-lg shadow-emerald-600/20">
+                <div className="bg-emerald-700 text-white flex items-center justify-center rounded-[1.2rem] h-14 shadow-lg shadow-emerald-600/20">
                     <p className="text-[10px] font-bold uppercase tracking-widest text-center px-4">إجمالي المنتجات: {products.length}</p>
                 </div>
             </div>
@@ -242,7 +242,7 @@ export default function ProductsPage() {
                                                         onChange={(e) => setTempPrice(e.target.value)}
                                                         onKeyPress={(e) => e.key === 'Enter' && updatePrice(product.id)}
                                                     />
-                                                    <button onClick={() => updatePrice(product.id)} className="w-8 h-8 bg-emerald-600-500 text-white rounded-lg flex items-center justify-center hover:bg-emerald-600-600 transition-colors"><FiCheck size={14} /></button>
+                                                    <button onClick={() => updatePrice(product.id)} className="w-8 h-8 bg-emerald-700-500 text-white rounded-lg flex items-center justify-center hover:bg-emerald-700-600 transition-colors"><FiCheck size={14} /></button>
                                                     <button onClick={() => setEditingPriceId(null)} className="w-8 h-8 bg-slate-100 text-slate-400 rounded-lg flex items-center justify-center"><FiX size={14} /></button>
                                                 </div>
                                             ) : (
@@ -272,7 +272,7 @@ export default function ProductsPage() {
                                         <td className="p-6 text-center">
                                             <button 
                                                 onClick={() => toggleStatus(product)}
-                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all ${product.isActive ? 'bg-emerald-600-50 text-emerald-600-600 border border-blue-100 dark:bg-blue-900/20 dark:border-blue-900' : 'bg-slate-50 text-slate-400 border border-slate-100 dark:bg-gray-800 dark:border-gray-700'}`}
+                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all ${product.isActive ? 'bg-emerald-700-50 text-emerald-600-600 border border-blue-100 dark:bg-blue-900/20 dark:border-blue-900' : 'bg-slate-50 text-slate-400 border border-slate-100 dark:bg-gray-800 dark:border-gray-700'}`}
                                             >
                                                 {product.isActive ? '● نشط' : '○ مسودة'}
                                             </button>
@@ -333,12 +333,12 @@ export default function ProductsPage() {
 
             {/* --- QUICK ACTION BAR --- */}
             <div className="fixed bottom-8 left-0 right-0 z-[100] px-4 pointer-events-none">
-                <div className="max-w-md mx-auto bg-emerald-600 text-white p-4 rounded-xl shadow-lg shadow-emerald-600/20 flex items-center justify-between border border-white/10 pointer-events-auto ">
+                <div className="max-w-md mx-auto bg-emerald-700 text-white p-4 rounded-xl shadow-lg shadow-emerald-600/20 flex items-center justify-between border border-white/10 pointer-events-auto ">
                     <div className="pr-6">
                         <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 leading-none mb-1">تعديل سريع</p>
                         <p className="text-xs font-bold italic">اضغط على "السعر" لتعديله فوراً</p>
                     </div>
-                    <div className="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center text-xl shadow-lg shadow-emerald-600/20 shadow-primary-ink/20">
+                    <div className="w-12 h-12 bg-emerald-700 rounded-xl flex items-center justify-center text-xl shadow-lg shadow-emerald-600/20 shadow-primary-ink/20">
                         <FiDollarSign />
                     </div>
                 </div>

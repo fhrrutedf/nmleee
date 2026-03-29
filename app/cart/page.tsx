@@ -79,7 +79,7 @@ export default function CartPage() {
                     __html: `
                     .text-emerald-600, .text-primary-700, .text-emerald-600 a { color: ${effectiveBrandColor} !important; }
                     .text-primary-700 { color: ${effectiveBrandColor} !important; filter: brightness(0.85); }
-                    .bg-emerald-600 { background-color: ${effectiveBrandColor} !important; }
+                    .bg-emerald-700 { background-color: ${effectiveBrandColor} !important; }
                     .btn-primary { background-color: ${effectiveBrandColor} !important; border-color: ${effectiveBrandColor} !important; }
                     .btn-primary:hover { background-color: ${effectiveBrandColor} !important; filter: brightness(0.85); }
                     .shadow-accent\\/30 { --tw-shadow-color: ${effectiveBrandColor}4d !important; }

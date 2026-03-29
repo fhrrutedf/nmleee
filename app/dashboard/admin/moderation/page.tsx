@@ -162,7 +162,7 @@ export default function CourseModerationPage() {
                                                 target="_blank"
                                                 rel="noreferrer"
                                                 title="معاينة كزائر"
-                                                className="w-8 h-8 flex items-center justify-center rounded-xl bg-emerald-600-50 text-emerald-600-600 hover:bg-blue-100 transition-colors"
+                                                className="w-8 h-8 flex items-center justify-center rounded-xl bg-emerald-700-50 text-emerald-600-600 hover:bg-blue-100 transition-colors"
                                             >
                                                 <FiEye className="w-4 h-4" />
                                             </a>

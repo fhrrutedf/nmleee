@@ -85,7 +85,7 @@ export default function DangerZone() {
                         </div>
                         
                         <div className="p-8 space-y-6">
-                            <div className="bg-emerald-600-50 border-r-4 border-blue-400 p-4 text-blue-800 text-sm">
+                            <div className="bg-emerald-700-50 border-r-4 border-blue-400 p-4 text-blue-800 text-sm">
                                 <FiInfo className="inline ml-1" /> ستقوم هذه العملية بحذف كافة بياناتك المالية وملفاتك المرفوعة، ولن يتمكن العملاء من تحميل ما اشتروه سابقاً.
                             </div>
 

@@ -163,7 +163,7 @@ export default function AppointmentsPage() {
 
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div className="bg-emerald-600 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
+                <div className="bg-emerald-700 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-blue-100 text-sm">إجمالي الاستشارات</p>
@@ -173,7 +173,7 @@ export default function AppointmentsPage() {
                     </div>
                 </div>
 
-                <div className="bg-emerald-600 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
+                <div className="bg-emerald-700 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-green-100 text-sm">قادمة</p>
@@ -183,7 +183,7 @@ export default function AppointmentsPage() {
                     </div>
                 </div>
 
-                <div className="bg-emerald-600 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
+                <div className="bg-emerald-700 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-purple-100 text-sm">مكتملة</p>
@@ -193,7 +193,7 @@ export default function AppointmentsPage() {
                     </div>
                 </div>
 
-                <div className="bg-emerald-600 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
+                <div className="bg-emerald-700 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-orange-100 text-sm">إجمالي الإيرادات</p>
@@ -260,7 +260,7 @@ export default function AppointmentsPage() {
                             >
                                 <div className="flex items-start justify-between">
                                     <div className="flex items-start gap-4 flex-1">
-                                        <div className="w-16 h-16 bg-emerald-600 rounded-xl flex items-center justify-center text-white flex-shrink-0">
+                                        <div className="w-16 h-16 bg-emerald-700 rounded-xl flex items-center justify-center text-white flex-shrink-0">
                                             <FiUser className="text-2xl" />
                                         </div>
                                         <div className="flex-1">
@@ -313,7 +313,7 @@ export default function AppointmentsPage() {
                                         </span>
 
                                         {appointment.isNotified && (
-                                            <span className="px-3 py-1 bg-emerald-600-50 text-emerald-600-600 rounded-lg text-[10px] font-bold border border-blue-100 flex items-center gap-1">
+                                            <span className="px-3 py-1 bg-emerald-700-50 text-emerald-600-600 rounded-lg text-[10px] font-bold border border-blue-100 flex items-center gap-1">
                                                 🔔 تم الإرسال
                                             </span>
                                         )}

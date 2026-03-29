@@ -105,7 +105,7 @@ export default function CryptoCheckoutPage() {
         <div className="min-h-screen bg-gray-50 py-12 px-4">
             <div className="max-w-2xl mx-auto">
                 <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden border border-gray-100">
-                    <div className="bg-emerald-600 p-6 text-center text-white">
+                    <div className="bg-emerald-700 p-6 text-center text-white">
                         <h1 className="text-2xl font-bold mb-1">دفع العملات الرقمية</h1>
                         <p className="text-gray-300 text-sm">أرسل المبلغ بدقة إلى العنوان أدناه باستخدام شبكة TRC20</p>
                     </div>
@@ -177,7 +177,7 @@ export default function CryptoCheckoutPage() {
                                     </div>
                                 </div>
 
-                                <div className="bg-emerald-600-50 border border-blue-100 p-5 rounded-xl text-blue-800 text-sm leading-relaxed mb-6">
+                                <div className="bg-emerald-700-50 border border-blue-100 p-5 rounded-xl text-blue-800 text-sm leading-relaxed mb-6">
                                     <h4 className="font-bold flex items-center gap-2 mb-2">
                                         <FiAlertTriangle /> ملاحظات هامة:
                                     </h4>

@@ -34,7 +34,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                         className="group relative block h-full outline-none"
                     >
                         {/* Hover Glow Behind Card */}
-                        <div className="absolute -inset-1 bg-emerald-600 rounded-xl blur-xl opacity-0 group-hover:opacity-60 group-focus-visible:opacity-60 transition duration-500 delay-75 -z-10 mt-4 mx-2"></div>
+                        <div className="absolute -inset-1 bg-emerald-700 rounded-xl blur-xl opacity-0 group-hover:opacity-60 group-focus-visible:opacity-60 transition duration-500 delay-75 -z-10 mt-4 mx-2"></div>
 
                         <div className="bg-white dark:bg-card-white rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-lg shadow-emerald-600/20 hover:shadow-lg shadow-emerald-600/20 transition-all duration-300 flex flex-col h-full ring-2 ring-transparent group-focus-visible:ring-accent">
                             {/* Media Thumbnails Area */}
@@ -46,7 +46,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                                     />
                                 ) : (
-                                    <div className="w-full h-full flex flex-col items-center justify-center bg-emerald-600 dark:from-gray-800 dark:to-gray-900 text-gray-400 dark:text-gray-500">
+                                    <div className="w-full h-full flex flex-col items-center justify-center bg-emerald-700 dark:from-gray-800 dark:to-gray-900 text-gray-400 dark:text-gray-500">
                                         {item.itemType === 'course' ? <FiVideo className="text-5xl mb-2 opacity-50" /> : <FiBook className="text-5xl mb-2 opacity-50" />}
                                         <span className="font-bold text-sm tracking-widest uppercase">No Preview</span>
                                     </div>
@@ -55,7 +55,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                 {/* Top Badges */}
                                 <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
                                     {item.itemType === 'course' ? (
-                                        <span className="bg-emerald-600-500/90 dark:bg-emerald-600-600/90  px-4 py-1.5 rounded-xl text-xs font-bold text-white shadow-lg shadow-emerald-600/20 border border-white/20">
+                                        <span className="bg-emerald-700-500/90 dark:bg-emerald-700-600/90  px-4 py-1.5 rounded-xl text-xs font-bold text-white shadow-lg shadow-emerald-600/20 border border-white/20">
                                             دورة تدريبية
                                         </span>
                                     ) : item.category ? (
@@ -125,7 +125,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                             {item.price === 0 ? (
                                                 <span className="text-green-500">مجاناً</span>
                                             ) : (
-                                                <span className="bg-emerald-600 bg-clip-text text-transparent flex items-baseline gap-1">
+                                                <span className="bg-emerald-700 bg-clip-text text-transparent flex items-baseline gap-1">
                                                     {item.price} <span className="text-sm font-bold text-gray-400 dark:text-gray-500 ml-1">$</span>
                                                 </span>
                                             )}
@@ -137,7 +137,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                         )}
                                     </div>
 
-                                    <div className="w-12 h-12 rounded-[1rem] bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:bg-emerald-600 group-hover:text-white group-hover:shadow-lg shadow-emerald-600/20 group-hover:shadow-accent/30 transition-all duration-300 transform group-hover:-rotate-6">
+                                    <div className="w-12 h-12 rounded-[1rem] bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:bg-emerald-700 group-hover:text-white group-hover:shadow-lg shadow-emerald-600/20 group-hover:shadow-accent/30 transition-all duration-300 transform group-hover:-rotate-6">
                                         <FiShoppingCart size={20} />
                                     </div>
                                 </div>

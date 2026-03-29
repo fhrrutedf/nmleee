@@ -73,7 +73,7 @@ export default function AutomationPage() {
                 {/* Automation Toggles */}
                 <div className="lg:col-span-2 space-y-6">
                     {/* Welcome Email */}
-                    <section className="bg-white dark:bg-emerald-600/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20">
+                    <section className="bg-white dark:bg-emerald-700/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20">
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
                                 <div className="p-2.5 bg-sky-100 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400 rounded-xl">
@@ -121,9 +121,9 @@ export default function AutomationPage() {
                     </section>
 
                     {/* Abandoned Cart Engine */}
-                    <section className="bg-white dark:bg-emerald-600/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20 overflow-hidden relative">
+                    <section className="bg-white dark:bg-emerald-700/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20 overflow-hidden relative">
                         <div className="absolute top-4 left-4">
-                             <div className="flex items-center gap-1.5 bg-blue-100 dark:bg-emerald-600/20 text-emerald-600 dark:text-amber-400 px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-wider">
+                             <div className="flex items-center gap-1.5 bg-blue-100 dark:bg-emerald-700/20 text-emerald-600 dark:text-amber-400 px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-wider">
                                 <FiZap />
                                 نظام ذكي
                              </div>
@@ -171,7 +171,7 @@ export default function AutomationPage() {
                             </div>
 
                             {/* Reminder 3 (The Ultimate) */}
-                            <div className={`p-4 rounded-xl border transition-all ${settings.cartReminder3Enabled ? 'border-emerald-600-500 bg-emerald-600-500/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
+                            <div className={`p-4 rounded-xl border transition-all ${settings.cartReminder3Enabled ? 'border-emerald-600-500 bg-emerald-700-500/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
                                 <div className="flex items-center justify-between mb-4">
                                     <span className="text-xs font-bold text-emerald-600-600 italic">#تذكير 3 (الأخير)</span>
                                     <input 
@@ -190,7 +190,7 @@ export default function AutomationPage() {
                         </div>
 
                         {settings.cartReminder3Enabled && (
-                            <div className="bg-emerald-600-50 dark:bg-emerald-600-500/10 p-4 rounded-xl border border-blue-100 dark:border-emerald-600-500/20 flex items-start gap-3">
+                            <div className="bg-emerald-700-50 dark:bg-emerald-700-500/10 p-4 rounded-xl border border-blue-100 dark:border-emerald-600-500/20 flex items-start gap-3">
                                 <FiAlertCircle className="text-emerald-600-500 mt-1 shrink-0" />
                                 <div>
                                     <h5 className="font-bold text-sm text-blue-700 dark:text-blue-400 mb-1">استراتيجية الخصم التلقائي مفعلة</h5>
@@ -203,10 +203,10 @@ export default function AutomationPage() {
                     </section>
 
                     {/* Inactive User Recovery (Phase 7) */}
-                    <section className="bg-white dark:bg-emerald-600/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20 overflow-hidden relative">
+                    <section className="bg-white dark:bg-emerald-700/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20 overflow-hidden relative">
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
-                                <div className="p-2.5 bg-blue-100 dark:bg-emerald-600-500/20 text-emerald-600-600 dark:text-blue-400 rounded-xl">
+                                <div className="p-2.5 bg-blue-100 dark:bg-emerald-700-500/20 text-emerald-600-600 dark:text-blue-400 rounded-xl">
                                     <FiZap className="text-xl" />
                                 </div>
                                 <div>
@@ -221,7 +221,7 @@ export default function AutomationPage() {
                                     checked={settings.marketingEnabled}
                                     onChange={(e) => setSettings({ ...settings, marketingEnabled: e.target.checked })}
                                 />
-                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-xl peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-600-600"></div>
+                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-xl peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-700-600"></div>
                             </label>
                         </div>
 
@@ -279,7 +279,7 @@ export default function AutomationPage() {
 
                 {/* Live Activity Feed (Abandoned Carts) */}
                 <div className="space-y-6">
-                    <section className="bg-emerald-600 border border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20 h-full flex flex-col">
+                    <section className="bg-emerald-700 border border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20 h-full flex flex-col">
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="font-bold text-white flex items-center gap-2">
                                 <FiClock className="text-orange-500" />
@@ -303,7 +303,7 @@ export default function AutomationPage() {
                                         </div>
                                         <p className="text-[10px] text-slate-400 mb-3 truncate leading-relaxed">🏷️ {cart.productNames.join(', ')}</p>
                                         <div className="flex items-center justify-between gap-2 border-t border-slate-700/50 pt-2.5 mt-2.5">
-                                            <div className="flex items-center gap-1.5 bg-emerald-600 px-2 py-0.5 rounded-lg border border-slate-700">
+                                            <div className="flex items-center gap-1.5 bg-emerald-700 px-2 py-0.5 rounded-lg border border-slate-700">
                                                 <span className="text-xs font-bold text-white">${cart.totalAmount.toFixed(2)}</span>
                                             </div>
                                             {cart.isConverted ? (

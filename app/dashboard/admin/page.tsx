@@ -27,8 +27,8 @@ const methodLabel: Record<string, string> = {
     free: 'مجاني', paypal: 'PayPal',
 };
 const statusBadge: Record<string, string> = {
-    PENDING: 'bg-gray-100 text-gray-500', PAID: 'bg-emerald-600/10 text-emerald-600',
-    COMPLETED: 'bg-emerald-600 text-white', CANCELLED: 'bg-red-50 text-red-500',
+    PENDING: 'bg-gray-100 text-gray-500', PAID: 'bg-emerald-700/10 text-emerald-600',
+    COMPLETED: 'bg-emerald-700 text-white', CANCELLED: 'bg-red-50 text-red-500',
     REFUNDED: 'bg-orange-50 text-orange-600',
 };
 
@@ -36,12 +36,12 @@ const statusBadge: Record<string, string> = {
 function StatCard({ icon: Icon, label, value, sub, trend }: any) {
     return (
         <div className="bg-white border border-gray-100 p-8 rounded-[2rem] shadow-lg shadow-emerald-600/20 shadow-gray-100/20 hover:border-emerald-600/20 transition-all group relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-600/5 rounded-bl-[80px] group-hover:bg-emerald-600/10 transition-colors"></div>
+            <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-700/5 rounded-bl-[80px] group-hover:bg-emerald-700/10 transition-colors"></div>
             <div className="flex items-center justify-between mb-6 relative z-10">
-                <div className="p-4 bg-gray-50 rounded-xl text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                <div className="p-4 bg-gray-50 rounded-xl text-emerald-600 group-hover:bg-emerald-700 group-hover:text-white transition-all">
                     <Icon size={24} />
                 </div>
-                {trend && <span className="text-[10px] font-bold font-inter text-emerald-600 uppercase tracking-widest bg-emerald-600/5 px-3 py-1 rounded-lg">{trend}</span>}
+                {trend && <span className="text-[10px] font-bold font-inter text-emerald-600 uppercase tracking-widest bg-emerald-700/5 px-3 py-1 rounded-lg">{trend}</span>}
             </div>
             <div className="relative z-10">
                 <div className="text-4xl font-bold text-emerald-600 mb-2 tracking-tighter">{value}</div>
@@ -57,14 +57,14 @@ function Tab({ id, active, onClick, icon: Icon, label, badge }: any) {
         <button
             onClick={() => onClick(id)}
             className={`flex items-center gap-3 px-8 py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all whitespace-nowrap relative ${active
-                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20 shadow-ink/20 transform -translate-y-1'
+                ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-600/20 shadow-ink/20 transform -translate-y-1'
                 : 'bg-white text-gray-400 border border-gray-100 hover:border-ink hover:text-emerald-600'
                 }`}
         >
             <Icon size={14} />
             {label}
             {badge > 0 && (
-                <span className="absolute -top-2 -left-2 bg-emerald-600 text-white text-[10px] font-bold w-6 h-6 rounded-xl flex items-center justify-center border-4 border-white shadow-lg shadow-emerald-600/20">
+                <span className="absolute -top-2 -left-2 bg-emerald-700 text-white text-[10px] font-bold w-6 h-6 rounded-xl flex items-center justify-center border-4 border-white shadow-lg shadow-emerald-600/20">
                     {badge}
                 </span>
             )}
@@ -204,11 +204,11 @@ export default function AdminDashboardPage() {
     );
 
     return (
-        <div className="space-y-12 pb-24 selection:bg-emerald-600/20" dir="rtl">
+        <div className="space-y-12 pb-24 selection:bg-emerald-700/20" dir="rtl">
             {/* Header Section - Modern Institutional Style */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pt-6">
                 <div>
-                    <div className="inline-flex items-center gap-2 bg-emerald-600 text-white px-4 py-1 rounded-lg text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
+                    <div className="inline-flex items-center gap-2 bg-emerald-700 text-white px-4 py-1 rounded-lg text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
                         <FiShield size={12} className="text-emerald-600" /> Control Center
                     </div>
                     <h1 className="text-4xl md:text-5xl font-bold text-emerald-600 tracking-tighter leading-tight">
@@ -223,7 +223,7 @@ export default function AdminDashboardPage() {
                         <option value="365">Last Year</option>
                     </select>
                     <div className="h-6 w-px bg-gray-200"></div>
-                    <button onClick={() => setAutoRefresh(!autoRefresh)} className={`flex items-center gap-2 font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl transition-all ${autoRefresh ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20 shadow-accent/20' : 'bg-white text-gray-400 border border-gray-100'}`}>
+                    <button onClick={() => setAutoRefresh(!autoRefresh)} className={`flex items-center gap-2 font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl transition-all ${autoRefresh ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-600/20 shadow-accent/20' : 'bg-white text-gray-400 border border-gray-100'}`}>
                         <FiZap className={autoRefresh ? '' : ''} /> Live {autoRefresh ? 'On' : 'Off'}
                     </button>
                     <button onClick={() => load(true)} className="p-2.5 bg-white border border-gray-100 rounded-xl hover:border-ink hover:text-emerald-600 transition-all active:rotate-180">
@@ -254,7 +254,7 @@ export default function AdminDashboardPage() {
                         {/* Charts Section */}
                         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
                             <div className="xl:col-span-2 bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-lg shadow-emerald-600/20 shadow-gray-100/20 relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-600/5 rounded-bl-[120px] pointer-events-none"></div>
+                                <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-700/5 rounded-bl-[120px] pointer-events-none"></div>
                                 <h3 className="text-xl font-bold text-emerald-600 mb-10 tracking-widest flex items-center gap-3">
                                     <FiTrendingUp className="text-emerald-600" /> REVENUE GROWTH
                                 </h3>
@@ -280,8 +280,8 @@ export default function AdminDashboardPage() {
                                 </div>
                             </div>
 
-                            <div className="bg-emerald-600 text-white rounded-[2.5rem] p-10 shadow-lg shadow-emerald-600/20 shadow-ink/20 relative overflow-hidden">
-                                <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-600/10 rounded-br-[100px] pointer-events-none"></div>
+                            <div className="bg-emerald-700 text-white rounded-[2.5rem] p-10 shadow-lg shadow-emerald-600/20 shadow-ink/20 relative overflow-hidden">
+                                <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-700/10 rounded-br-[100px] pointer-events-none"></div>
                                 <h3 className="text-xl font-bold mb-10 tracking-widest flex items-center gap-3">
                                     <FiPieChart className="text-emerald-600" /> VOLUME DISTRIBUTION
                                 </h3>
@@ -293,7 +293,7 @@ export default function AdminDashboardPage() {
                                                 <span className="text-sm font-bold text-emerald-600">${fmt(m.total)}</span>
                                             </div>
                                             <div className="w-full bg-surface/10 h-1.5 rounded-xl overflow-hidden">
-                                                <div className="bg-emerald-600 h-full rounded-xl" style={{ width: '60%' }}></div>
+                                                <div className="bg-emerald-700 h-full rounded-xl" style={{ width: '60%' }}></div>
                                             </div>
                                         </div>
                                     ))}
@@ -320,7 +320,7 @@ export default function AdminDashboardPage() {
                                         <tr key={s.id} className="group hover:bg-gray-50/50 transition-colors">
                                             <td className="py-6">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center font-bold text-emerald-600 border border-gray-100 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-transparent transition-all overflow-hidden shrink-0 uppercase">
+                                                    <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center font-bold text-emerald-600 border border-gray-100 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-transparent transition-all overflow-hidden shrink-0 uppercase">
                                                         {s.avatar ? <img src={s.avatar} className="w-full h-full object-cover" /> : s.name?.charAt(0)}
                                                     </div>
                                                     <div className="min-w-0">
@@ -373,14 +373,14 @@ export default function AdminDashboardPage() {
             {/* Global Modals Styled v2 */}
             <AnimatePresence>
                 {showBroadcast && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-emerald-600/60 ">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-emerald-700/60 ">
                         <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-[3rem] p-12 max-w-3xl w-full shadow-lg shadow-emerald-600/20 relative">
                             <button onClick={() => setShowBroadcast(false)} className="absolute top-8 left-8 p-3 hover:bg-gray-100 rounded-xl transition-all"><FiX size={24} /></button>
                             <h2 className="text-3xl font-bold text-emerald-600 mb-10 tracking-tighter">إطلاق حملة بث مركزي</h2>
                             <div className="space-y-6">
                                 <input type="text" className="w-full bg-gray-50 border border-gray-100 rounded-xl p-5 font-bold outline-none focus:bg-white focus:border-emerald-600 transition-all" placeholder="عنوان الحملة الاستراتيجي" />
                                 <textarea className="w-full bg-gray-50 border border-gray-100 rounded-[2rem] p-8 font-bold outline-none focus:bg-white focus:border-emerald-600 transition-all min-h-[200px]" placeholder="محتوى الرسالة (يدعم Markdown)..." />
-                                <button onClick={sendBroadcast} className="w-full py-6 bg-emerald-600 text-white rounded-xl font-bold text-xs uppercase tracking-[0.3em] hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 shadow-ink/20">Initite Global Broadcast</button>
+                                <button onClick={sendBroadcast} className="w-full py-6 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-[0.3em] hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 shadow-ink/20">Initite Global Broadcast</button>
                             </div>
                         </motion.div>
                     </div>

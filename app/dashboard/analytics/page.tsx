@@ -142,7 +142,7 @@ export default function AnalyticsPage() {
             {/* KPI Cards */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {/* Total Revenue */}
-                <div className="card bg-emerald-600 text-white">
+                <div className="card bg-emerald-700 text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-primary-100">إجمالي الإيرادات</span>
                         <FiDollarSign className="text-2xl" />
@@ -157,7 +157,7 @@ export default function AnalyticsPage() {
                 </div>
 
                 {/* Total Orders */}
-                <div className="card bg-emerald-600 text-white">
+                <div className="card bg-emerald-700 text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-green-100">إجمالي الطلبات</span>
                         <FiShoppingCart className="text-2xl" />
@@ -170,7 +170,7 @@ export default function AnalyticsPage() {
                 </div>
 
                 {/* Total Views */}
-                <div className="card bg-emerald-600 text-white">
+                <div className="card bg-emerald-700 text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-orange-100">مشاهدات المنتجات</span>
                         <FiEye className="text-2xl" />
@@ -183,7 +183,7 @@ export default function AnalyticsPage() {
                 </div>
 
                 {/* Conversion Rate */}
-                <div className="card bg-emerald-600 text-white">
+                <div className="card bg-emerald-700 text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-purple-100">معدل التحويل</span>
                         <FiBarChart2 className="text-2xl" />

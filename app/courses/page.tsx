@@ -83,7 +83,7 @@ export default function CoursesPage() {
                                         className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                                     />
                                 ) : (
-                                    <div className="w-full h-56 bg-emerald-600 flex items-center justify-center">
+                                    <div className="w-full h-56 bg-emerald-700 flex items-center justify-center">
                                         <FiVideo className="text-6xl text-blue-400" />
                                     </div>
                                 )}

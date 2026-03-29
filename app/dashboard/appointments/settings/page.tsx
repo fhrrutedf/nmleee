@@ -170,7 +170,7 @@ export default function AppointmentSettingsPage() {
                                             checked={availability.isActive}
                                             onChange={(e) => updateDay(day.id, 'isActive', e.target.checked)}
                                         />
-                                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-xl peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-xl peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-700"></div>
                                     </label>
                                 </div>
 
@@ -206,7 +206,7 @@ export default function AppointmentSettingsPage() {
                 </div>
             </div>
 
-            <div className="bg-emerald-600-50 border border-blue-200 rounded-lg p-4 flex gap-3 text-blue-800">
+            <div className="bg-emerald-700-50 border border-blue-200 rounded-lg p-4 flex gap-3 text-blue-800">
                 <FiClock className="text-xl flex-shrink-0 mt-0.5" />
                 <div>
                     <h3 className="font-semibold mb-1">ملاحظة هامة</h3>

@@ -77,7 +77,7 @@ export default function AdminVerificationPage() {
                     <h1 className="text-3xl font-bold text-emerald-600 dark:text-white">طلبات توثيق الحساب</h1>
                     <p className="text-text-muted mt-1">مراجعة هوية البائعين لمنح الشارة الزرقاء (Trust Badge)</p>
                 </div>
-                <div className="bg-emerald-600/10 text-emerald-600 px-4 py-2 rounded-xl font-bold border border-emerald-600/20">
+                <div className="bg-emerald-700/10 text-emerald-600 px-4 py-2 rounded-xl font-bold border border-emerald-600/20">
                     {requests.length} طلب معلق
                 </div>
             </div>
@@ -111,7 +111,7 @@ export default function AdminVerificationPage() {
 
                             <div className="p-6 space-y-4">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 rounded-xl bg-emerald-600 flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-emerald-600/20">
+                                    <div className="w-12 h-12 rounded-xl bg-emerald-700 flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-emerald-600/20">
                                         {request.user.avatar ? <img src={request.user.avatar} className="w-full h-full object-cover rounded-xl" /> : request.user.name.charAt(0)}
                                     </div>
                                     <div className="overflow-hidden">

@@ -141,8 +141,8 @@ export default function EditProductPage() {
                     <p className="text-slate-400 font-medium">تعديل التفاصيل المتقدمة وخيارات العرض</p>
                 </div>
                 <div className="flex gap-4">
-                     <div className={`px-5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 ${formData.isActive ? 'bg-emerald-600-50 text-emerald-600-600' : 'bg-slate-100 text-slate-400'}`}>
-                        <div className={`w-2 h-2 rounded-xl ${formData.isActive ? 'bg-emerald-600-500 ' : 'bg-slate-300'}`} />
+                     <div className={`px-5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 ${formData.isActive ? 'bg-emerald-700-50 text-emerald-600-600' : 'bg-slate-100 text-slate-400'}`}>
+                        <div className={`w-2 h-2 rounded-xl ${formData.isActive ? 'bg-emerald-700-500 ' : 'bg-slate-300'}`} />
                         {formData.isActive ? 'معروض للبيع' : 'مخفي من المتجر'}
                     </div>
                 </div>
@@ -184,7 +184,7 @@ export default function EditProductPage() {
                                     {formData.fileUrl ? (
                                         <div className="flex items-center justify-between bg-white p-4 rounded-xl shadow-lg shadow-emerald-600/20 border border-primary-indigo-100 ">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center">
+                                                <div className="w-10 h-10 bg-emerald-700 text-white rounded-xl flex items-center justify-center">
                                                     <FiCheck />
                                                 </div>
                                                 <div className="text-right overflow-hidden">
@@ -300,7 +300,7 @@ export default function EditProductPage() {
                                             <p className="text-sm font-bold text-slate-700">تفعيل المنتج</p>
                                             <p className="text-[10px] text-slate-400 font-medium">اجعله مرئياً في صفحة المتجر</p>
                                         </div>
-                                        <div className={`w-12 h-6 rounded-xl transition-all flex items-center px-1 ${formData.isActive ? 'bg-emerald-600' : 'bg-slate-300'}`}>
+                                        <div className={`w-12 h-6 rounded-xl transition-all flex items-center px-1 ${formData.isActive ? 'bg-emerald-700' : 'bg-slate-300'}`}>
                                             <div className={`w-4 h-4 bg-white rounded-xl transition-all ${formData.isActive ? 'translate-x-6' : 'translate-x-0'}`} />
                                         </div>
                                     </div>
@@ -311,7 +311,7 @@ export default function EditProductPage() {
                 </div>
 
                 {/* Sticky Action Footer */}
-                <div className="sticky bottom-8 z-30 p-4 bg-emerald-600/90  rounded-xl flex items-center justify-between shadow-lg shadow-emerald-600/20 border border-white/10  mx-4">
+                <div className="sticky bottom-8 z-30 p-4 bg-emerald-700/90  rounded-xl flex items-center justify-between shadow-lg shadow-emerald-600/20 border border-white/10  mx-4">
                     <div className="flex-1 text-white pr-4 hidden sm:block">
                         <p className="text-xs opacity-60 font-medium">تذكر مراجعة كافة التفاصيل قبل الحفظ</p>
                     </div>
@@ -320,7 +320,7 @@ export default function EditProductPage() {
                         <button
                             type="submit"
                             disabled={saving}
-                            className="px-10 py-3.5 bg-emerald-600 text-white rounded-xl font-bold shadow-lg shadow-emerald-600/20 shadow-ink/20 hover:scale-[1.02] transition-all disabled:opacity-50"
+                            className="px-10 py-3.5 bg-emerald-700 text-white rounded-xl font-bold shadow-lg shadow-emerald-600/20 shadow-ink/20 hover:scale-[1.02] transition-all disabled:opacity-50"
                         >
                             {saving ? 'جاري الحفظ...' : 'حفظ كافة التعديلات'}
                         </button>

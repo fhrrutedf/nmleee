@@ -29,7 +29,7 @@ export default function Navbar() {
                     {/* Logo & Nav */}
                     <div className="flex items-center gap-10">
                     <Link href="/" className="flex items-center gap-2 group transition-all">
-                        <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-600/20 shadow-black/5 group-hover:bg-emerald-600 group-hover:scale-105 transition-all duration-500">
+                        <div className="w-10 h-10 bg-emerald-700 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-600/20 shadow-black/5 group-hover:bg-emerald-700 group-hover:scale-105 transition-all duration-500">
                             <FiLayers size={22} className="group-hover:rotate-12 transition-transform" />
                         </div>
                         <span className="text-xl font-bold text-emerald-600 tracking-tighter">
@@ -60,7 +60,7 @@ export default function Navbar() {
                         </Link>
                         <Link
                             href="/register"
-                            className="bg-emerald-600 text-white px-8 py-3 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-emerald-600/20 shadow-black/5 hover:bg-emerald-600 hover:shadow-accent/20 active:scale-95 transition-all"
+                            className="bg-emerald-700 text-white px-8 py-3 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-emerald-600/20 shadow-black/5 hover:bg-emerald-700 hover:shadow-accent/20 active:scale-95 transition-all"
                         >
                             Establish Account
                         </Link>
@@ -96,7 +96,7 @@ export default function Navbar() {
                                 <Link
                                     key={idx}
                                     href={link.href}
-                                    className={`flex items-center justify-between p-3 rounded-lg text-sm font-medium transition-colors ${pathname === link.href ? 'bg-emerald-600-light text-emerald-600' : 'text-gray-600 hover:bg-gray-50'}`}
+                                    className={`flex items-center justify-between p-3 rounded-lg text-sm font-medium transition-colors ${pathname === link.href ? 'bg-emerald-700-light text-emerald-600' : 'text-gray-600 hover:bg-gray-50'}`}
                                 >
                                     {link.title}
                                     <FiChevronLeft className="opacity-30" />
@@ -107,7 +107,7 @@ export default function Navbar() {
                         <div className="p-4 border-t border-gray-100 space-y-2">
                             <Link
                                 href="/register"
-                                className="w-full py-3 bg-emerald-600 text-white rounded-lg flex items-center justify-center font-semibold text-sm"
+                                className="w-full py-3 bg-emerald-700 text-white rounded-lg flex items-center justify-center font-semibold text-sm"
                             >
                                 ابدأ مجاناً
                             </Link>

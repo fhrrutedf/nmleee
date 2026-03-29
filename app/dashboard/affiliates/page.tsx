@@ -134,7 +134,7 @@ export default function AffiliatesPage() {
                 </div>
                 <button
                     onClick={() => setShowModal(true)}
-                    className="btn bg-emerald-600 hover:bg-emerald-600-600 text-white flex items-center gap-2 shadow-lg shadow-emerald-600/20 shadow-accent/20 hover:-translate-y-1 transition-transform"
+                    className="btn bg-emerald-700 hover:bg-emerald-700-600 text-white flex items-center gap-2 shadow-lg shadow-emerald-600/20 shadow-accent/20 hover:-translate-y-1 transition-transform"
                 >
                     <FiPlus />
                     <span>إضافة مسوق جديد</span>
@@ -240,7 +240,7 @@ export default function AffiliatesPage() {
                                             <div className="flex justify-center items-center gap-2">
                                                 <button
                                                     onClick={() => copyToClipboard(link.code)}
-                                                    className="p-2 text-emerald-600 bg-emerald-600-50 dark:bg-blue-900/20 hover:bg-blue-100 rounded-xl transition-colors"
+                                                    className="p-2 text-emerald-600 bg-emerald-700-50 dark:bg-blue-900/20 hover:bg-blue-100 rounded-xl transition-colors"
                                                     title="نسخ الرابط لمشاركته مع المسوق"
                                                 >
                                                     <FiCopy size={18} />

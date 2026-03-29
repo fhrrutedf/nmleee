@@ -78,7 +78,7 @@ export default function MyCoursesPage() {
                     <button
                         onClick={() => setFilter('all')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${filter === 'all'
-                                ? 'bg-emerald-600 text-white'
+                                ? 'bg-emerald-700 text-white'
                                 : 'bg-white text-gray-700 hover:bg-gray-100'
                             }`}
                     >
@@ -87,7 +87,7 @@ export default function MyCoursesPage() {
                     <button
                         onClick={() => setFilter('courses')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${filter === 'courses'
-                                ? 'bg-emerald-600 text-white'
+                                ? 'bg-emerald-700 text-white'
                                 : 'bg-white text-gray-700 hover:bg-gray-100'
                             }`}
                     >
@@ -96,7 +96,7 @@ export default function MyCoursesPage() {
                     <button
                         onClick={() => setFilter('products')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${filter === 'products'
-                                ? 'bg-emerald-600 text-white'
+                                ? 'bg-emerald-700 text-white'
                                 : 'bg-white text-gray-700 hover:bg-gray-100'
                             }`}
                     >
@@ -111,7 +111,7 @@ export default function MyCoursesPage() {
                         <p className="text-gray-500 mb-4">لا توجد مشتريات بعد</p>
                         <Link
                             href="/"
-                            className="inline-block px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                            className="inline-block px-6 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition-colors"
                         >
                             تصفح المنتجات
                         </Link>
@@ -155,7 +155,7 @@ export default function MyCoursesPage() {
                                             </div>
                                             <div className="w-full bg-gray-200 rounded-xl h-2">
                                                 <div
-                                                    className="bg-emerald-600 h-2 rounded-xl transition-all"
+                                                    className="bg-emerald-700 h-2 rounded-xl transition-all"
                                                     style={{ width: `${purchase.progress}%` }}
                                                 />
                                             </div>
@@ -175,7 +175,7 @@ export default function MyCoursesPage() {
                                                 ? `/learn/${purchase.slug || purchase.id}`
                                                 : `/download/${purchase.id}`
                                         }
-                                        className="block w-full py-2 bg-emerald-600 text-white text-center rounded-lg font-medium hover:bg-emerald-700 transition-colors"
+                                        className="block w-full py-2 bg-emerald-700 text-white text-center rounded-lg font-medium hover:bg-emerald-700 transition-colors"
                                     >
                                         {purchase.type === 'course' ? 'متابعة التعلم' : 'تحميل'}
                                     </Link>

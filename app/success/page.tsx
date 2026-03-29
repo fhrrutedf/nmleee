@@ -76,7 +76,7 @@ function SuccessContent() {
         return (
             <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
                 <h1 className="text-2xl font-bold mb-4 text-emerald-600">طلب غير موجود</h1>
-                <Link href="/" className="px-8 py-3 bg-emerald-600 text-white rounded-xl font-bold">العودة للرئيسية</Link>
+                <Link href="/" className="px-8 py-3 bg-emerald-700 text-white rounded-xl font-bold">العودة للرئيسية</Link>
             </div>
         )
     }
@@ -94,13 +94,13 @@ function SuccessContent() {
     ].filter(Boolean) as any[];
 
     return (
-        <div className="min-h-screen bg-white py-12 md:py-24 selection:bg-emerald-600/20">
+        <div className="min-h-screen bg-white py-12 md:py-24 selection:bg-emerald-700/20">
             <div className="max-w-5xl mx-auto px-6">
                 <div className="bg-white rounded-[2.5rem] shadow-lg shadow-emerald-600/20 shadow-gray-200/50 overflow-hidden border border-gray-100 flex flex-col">
 
                     {/* ===== CLEAN STRATEGIC HEADER ===== */}
                     {isPending && !isPaid ? (
-                        <div className="bg-emerald-600 text-white p-16 text-center relative overflow-hidden">
+                        <div className="bg-emerald-700 text-white p-16 text-center relative overflow-hidden">
                             <div className="relative z-10">
                                 <div className="w-20 h-20 bg-surface/10 rounded-xl flex items-center justify-center mx-auto mb-8 ">
                                     <FiClock size={40} className="text-white" />
@@ -110,10 +110,10 @@ function SuccessContent() {
                                     تم استلام بيانات الدفع بنجاح. سيقوم فريقنا بالتحقق من العملية وتفعيل المحتوى لك خلال أقل من 12 ساعة.
                                 </p>
                             </div>
-                            <div className="absolute top-0 left-0 w-full h-full bg-emerald-600/5 blur-[120px] pointer-events-none"></div>
+                            <div className="absolute top-0 left-0 w-full h-full bg-emerald-700/5 blur-[120px] pointer-events-none"></div>
                         </div>
                     ) : (
-                        <div className="bg-emerald-600 text-white p-16 text-center relative overflow-hidden">
+                        <div className="bg-emerald-700 text-white p-16 text-center relative overflow-hidden">
                             <div className="relative z-10">
                                 <div className="w-20 h-20 bg-surface/10 rounded-xl flex items-center justify-center mx-auto mb-8 ">
                                     <FiCheckCircle size={40} className="text-white" />
@@ -123,7 +123,7 @@ function SuccessContent() {
                                     شكراً لثقتك بنا. جميع المواد والوصول متاح لك الآن. نتمنى لك رحلة تعليمية مثمرة.
                                 </p>
                             </div>
-                            <div className="absolute inset-0 bg-emerald-600/10 blur-[100px] pointer-events-none"></div>
+                            <div className="absolute inset-0 bg-emerald-700/10 blur-[100px] pointer-events-none"></div>
                         </div>
                     )}
 
@@ -131,7 +131,7 @@ function SuccessContent() {
                         {/* ===== ORDER SUMMARY RECEIPT ===== */}
                         <div className="p-10 md:p-16 border-l border-gray-50 flex flex-col">
                             <h2 className="text-2xl font-bold text-emerald-600 mb-10 flex items-center gap-3">
-                                <span className="w-1.5 h-6 bg-emerald-600 rounded-xl"></span> تفاصيل الفاتورة
+                                <span className="w-1.5 h-6 bg-emerald-700 rounded-xl"></span> تفاصيل الفاتورة
                             </h2>
                             
                             <div className="bg-gray-50 rounded-xl p-8 space-y-6 mb-10 border border-gray-100">
@@ -145,7 +145,7 @@ function SuccessContent() {
                                 </div>
                                 <div className="flex justify-between items-center border-b border-gray-200/50 pb-5">
                                     <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Status</span>
-                                    <span className={`text-[10px] font-bold px-4 py-1.5 rounded-xl uppercase tracking-widest ${isPending && !isPaid ? 'bg-emerald-600 text-white' : 'bg-emerald-600 text-white'}`}>
+                                    <span className={`text-[10px] font-bold px-4 py-1.5 rounded-xl uppercase tracking-widest ${isPending && !isPaid ? 'bg-emerald-700 text-white' : 'bg-emerald-700 text-white'}`}>
                                         {isPending && !isPaid ? 'Verification' : 'Completed ✓'}
                                     </span>
                                 </div>
@@ -167,7 +167,7 @@ function SuccessContent() {
                                         </p>
                                     </div>
                                 ) : (
-                                    <div className="flex gap-4 p-6 bg-emerald-600/5 rounded-xl border border-emerald-600/10 ring-4 ring-accent/5">
+                                    <div className="flex gap-4 p-6 bg-emerald-700/5 rounded-xl border border-emerald-600/10 ring-4 ring-accent/5">
                                         <div className="w-10 h-10 bg-white rounded-xl shadow-lg shadow-emerald-600/20 flex items-center justify-center text-emerald-600 shrink-0">
                                             <FiBook />
                                         </div>
@@ -185,14 +185,14 @@ function SuccessContent() {
                                         {hasCourse && courseItem.id ? (
                                             <Link
                                                 href={sessionStatus === 'authenticated' ? `/learn/${courseItem.id}` : `/login?callbackUrl=/learn/${courseItem.id}`}
-                                                className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-600 text-white rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
+                                                className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
                                             >
                                                 دخول الأكاديمية والبدء الآن <FiExternalLink />
                                             </Link>
                                         ) : (
                                             <Link
                                                 href="/my-purchases"
-                                                className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-600 text-white rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
+                                                className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
                                             >
                                                 تحميل المنتجات الرقمية <FiPackage />
                                             </Link>
@@ -201,7 +201,7 @@ function SuccessContent() {
                                 ) : (
                                     <Link
                                         href="/market"
-                                        className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-600 text-white rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10 hover:bg-gray-800"
+                                        className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10 hover:bg-gray-800"
                                     >
                                         العودة للمتجر
                                     </Link>
@@ -233,7 +233,7 @@ function SuccessContent() {
                                             className="bg-white border border-gray-100 p-5 rounded-xl flex items-center justify-between group hover:border-emerald-600 hover:shadow-lg shadow-emerald-600/20 hover:shadow-accent/5 transition-all"
                                         >
                                             <div className="flex items-center gap-4">
-                                                <div className="w-10 h-10 bg-gray-50 text-emerald-600 rounded-xl flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                                                <div className="w-10 h-10 bg-gray-50 text-emerald-600 rounded-xl flex items-center justify-center group-hover:bg-emerald-700 group-hover:text-white transition-all">
                                                     {link.icon}
                                                 </div>
                                                 <span className="font-bold text-emerald-600 text-sm">{link.label}</span>
@@ -266,7 +266,7 @@ function SuccessContent() {
                                                         <p className="text-emerald-600 font-bold font-inter tracking-tighter mt-1">${upsell.price}</p>
                                                     </div>
                                                 </div>
-                                                <div className="w-8 h-8 rounded-lg bg-gray-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                                                <div className="w-8 h-8 rounded-lg bg-gray-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-700 group-hover:text-white transition-all">
                                                     <FiShoppingCart size={14} />
                                                 </div>
                                             </Link>

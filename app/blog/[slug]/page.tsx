@@ -119,7 +119,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         {/* Article Header */}
                         <div className="mb-8">
                             {post.category && (
-                                <span className="inline-block py-1 px-3 rounded-xl bg-emerald-600-50 text-emerald-600 text-sm font-bold mb-4">
+                                <span className="inline-block py-1 px-3 rounded-xl bg-emerald-700-50 text-emerald-600 text-sm font-bold mb-4">
                                     {post.category}
                                 </span>
                             )}
@@ -161,7 +161,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         />
 
                         {/* Conversion CTA Block */}
-                        <div className="bg-emerald-600 rounded-xl p-8 md:p-12 text-white shadow-lg shadow-emerald-600/20 shadow-accent/20 relative overflow-hidden group">
+                        <div className="bg-emerald-700 rounded-xl p-8 md:p-12 text-white shadow-lg shadow-emerald-600/20 shadow-accent/20 relative overflow-hidden group">
                            {/* Decorative background elements */}
                            <div className="absolute top-0 right-0 w-64 h-64 bg-surface/10 rounded-xl -translate-y-1/2 translate-x-1/2 blur-3xl group-hover:bg-white/20 transition-all duration-700"></div>
                            <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/20 rounded-xl translate-y-1/2 -translate-x-1/2 blur-2xl"></div>
@@ -194,13 +194,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <aside className="lg:col-span-4 space-y-8">
                         {/* Newsletter Widget */}
                         <div className="bg-primary-900 text-white rounded-xl p-8 shadow-lg shadow-emerald-600/20 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-600 rounded-xl mix-blend-overlay filter blur-2xl opacity-20"></div>
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-700 rounded-xl mix-blend-overlay filter blur-2xl opacity-20"></div>
                             <h3 className="text-xl font-bold mb-4 relative z-10">تحديثات أسبوعية</h3>
                             <p className="text-gray-300 mb-6 text-sm relative z-10">
                                 اشترك في القائمة البريدية ليصلك كل جديد في عالم التجارة الرقمية.
                             </p>
                             <input type="email" placeholder="بريدك الإلكتروني" className="w-full py-3 px-4 rounded-lg bg-gray-800 border border-gray-700 text-white mb-3 focus:outline-none focus:border-emerald-600 relative z-10" />
-                            <button className="w-full py-3 bg-emerald-600 rounded-lg font-bold hover:bg-emerald-600-600 transition-colors relative z-10">
+                            <button className="w-full py-3 bg-emerald-700 rounded-lg font-bold hover:bg-emerald-700-600 transition-colors relative z-10">
                                 اشتراك
                             </button>
                         </div>

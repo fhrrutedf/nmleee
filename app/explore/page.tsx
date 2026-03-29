@@ -92,13 +92,13 @@ export default async function ExplorePage({
     });
 
     return (
-        <div className="min-h-screen bg-white pt-20 pb-24 selection:bg-emerald-600/20">
+        <div className="min-h-screen bg-white pt-20 pb-24 selection:bg-emerald-700/20">
 
             {/* Premium Corporate Search Header */}
-            <div className="relative bg-emerald-600 text-white py-24 md:py-32 overflow-hidden border-b border-white/5">
+            <div className="relative bg-emerald-700 text-white py-24 md:py-32 overflow-hidden border-b border-white/5">
                 {/* Refined Accents */}
-                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-600/10 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
-                <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-600/5 rounded-xl blur-[100px] translate-y-1/2 -translate-x-1/4"></div>
+                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-700/10 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+                <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-700/5 rounded-xl blur-[100px] translate-y-1/2 -translate-x-1/4"></div>
 
                 <div className="max-w-5xl mx-auto relative z-10 text-center px-6">
                     <div className="animate-in fade-in slide-in-from-bottom-5 duration-1000">
@@ -137,7 +137,7 @@ export default async function ExplorePage({
                                     <option value="ebooks">كتب رقمية</option>
                                     <option value="templates">قوالب وأدوات</option>
                                 </select>
-                                <button type="submit" className="bg-emerald-600 text-white px-12 py-5 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-emerald-600-hover transition-all shadow-lg shadow-emerald-600/20 shadow-accent/20 active:scale-95">
+                                <button type="submit" className="bg-emerald-700 text-white px-12 py-5 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-emerald-700-hover transition-all shadow-lg shadow-emerald-600/20 shadow-accent/20 active:scale-95">
                                     Search
                                 </button>
                             </div>
@@ -192,7 +192,7 @@ export default async function ExplorePage({
                         </div>
                         <h3 className="text-2xl font-bold text-emerald-600 mb-4">للأسف، لم نجد ما يحاكي بحثك</h3>
                         <p className="text-gray-500 font-bold max-w-sm mx-auto mb-12">حاول استخدام كلمات مفتاحية أكثر عمومية أو قم بإعادة ضبط الفلاتر.</p>
-                        <Link href="/explore" className="inline-flex py-4 px-10 bg-emerald-600 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-gray-800 transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10">
+                        <Link href="/explore" className="inline-flex py-4 px-10 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-gray-800 transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10">
                             Reset Search
                         </Link>
                     </div>
@@ -206,11 +206,11 @@ export default async function ExplorePage({
             {/* Professional Bottom CTA */}
             <div className="max-w-7xl mx-auto px-6 mt-32">
                 <div className="bg-gray-50 rounded-[3rem] p-12 md:p-20 border border-gray-100 text-center relative overflow-hidden group">
-                    <div className="absolute top-0 left-0 w-[40%] h-[40%] bg-emerald-600/5 rounded-xl blur-[100px]"></div>
+                    <div className="absolute top-0 left-0 w-[40%] h-[40%] bg-emerald-700/5 rounded-xl blur-[100px]"></div>
                     <div className="relative z-10">
                         <h3 className="text-3xl md:text-5xl font-bold text-emerald-600 tracking-tighter mb-8 leading-tight">جاهز لبيع منتجاتك الخاصة؟</h3>
                         <p className="text-gray-400 text-lg font-bold mb-12 max-w-xl mx-auto">انضم لآلاف البائعين في تمالين وافتح متجرك الاحترافي خلال أقل من 5 دقائق.</p>
-                        <Link href="/register" className="inline-flex items-center gap-3 py-5 px-12 bg-emerald-600 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10">
+                        <Link href="/register" className="inline-flex items-center gap-3 py-5 px-12 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10">
                             Start Selling Now <FiArrowRight className="rotate-180" />
                         </Link>
                     </div>

@@ -94,7 +94,7 @@ export default function SupportPage() {
                 </div>
 
                 {/* CTA */}
-                <div className="mt-12 bg-emerald-600 rounded-xl p-8 text-center text-white">
+                <div className="mt-12 bg-emerald-700 rounded-xl p-8 text-center text-white">
                     <h3 className="text-2xl font-bold mb-4">لم تجد ما تبحث عنه؟</h3>
                     <p className="text-lg mb-6">فريق الدعم جاهز لمساعدتك 24/7</p>
                     <Link
