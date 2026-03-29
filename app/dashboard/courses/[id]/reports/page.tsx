@@ -109,7 +109,7 @@ export default function CourseReportsPage() {
                                 <p className="text-3xl font-bold text-gray-900">{stats.averageProgress.toFixed(0)}%</p>
                             </div>
                             <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                <FiTrendingUp className="text-accent-600" size={24} />
+                                <FiTrendingUp className="text-emerald-600-600" size={24} />
                             </div>
                         </div>
                     </div>

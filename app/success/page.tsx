@@ -67,7 +67,7 @@ function SuccessContent() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-white">
-                <div className="w-12 h-12 border-4 border-accent/20 border-t-accent rounded-xl animate-spin"></div>
+                <div className="w-12 h-12 border-4 border-emerald-600/20 border-t-accent rounded-xl animate-spin"></div>
             </div>
         );
     }
@@ -94,7 +94,7 @@ function SuccessContent() {
     ].filter(Boolean) as any[];
 
     return (
-        <div className="min-h-screen bg-white py-12 md:py-24 selection:bg-accent/20">
+        <div className="min-h-screen bg-white py-12 md:py-24 selection:bg-emerald-600/20">
             <div className="max-w-5xl mx-auto px-6">
                 <div className="bg-white rounded-[2.5rem] shadow-sm shadow-gray-200/50 overflow-hidden border border-gray-100 flex flex-col">
 
@@ -110,10 +110,10 @@ function SuccessContent() {
                                     تم استلام بيانات الدفع بنجاح. سيقوم فريقنا بالتحقق من العملية وتفعيل المحتوى لك خلال أقل من 12 ساعة.
                                 </p>
                             </div>
-                            <div className="absolute top-0 left-0 w-full h-full bg-accent/5 blur-[120px] pointer-events-none"></div>
+                            <div className="absolute top-0 left-0 w-full h-full bg-emerald-600/5 blur-[120px] pointer-events-none"></div>
                         </div>
                     ) : (
-                        <div className="bg-accent text-white p-16 text-center relative overflow-hidden">
+                        <div className="bg-emerald-600 text-white p-16 text-center relative overflow-hidden">
                             <div className="relative z-10">
                                 <div className="w-20 h-20 bg-surface/10 rounded-xl flex items-center justify-center mx-auto mb-8 ">
                                     <FiCheckCircle size={40} className="text-white" />
@@ -145,13 +145,13 @@ function SuccessContent() {
                                 </div>
                                 <div className="flex justify-between items-center border-b border-gray-200/50 pb-5">
                                     <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Status</span>
-                                    <span className={`text-[10px] font-bold px-4 py-1.5 rounded-xl uppercase tracking-widest ${isPending && !isPaid ? 'bg-ink text-white' : 'bg-accent text-white'}`}>
+                                    <span className={`text-[10px] font-bold px-4 py-1.5 rounded-xl uppercase tracking-widest ${isPending && !isPaid ? 'bg-ink text-white' : 'bg-emerald-600 text-white'}`}>
                                         {isPending && !isPaid ? 'Verification' : 'Completed ✓'}
                                     </span>
                                 </div>
                                 <div className="flex justify-between items-center pt-3">
                                     <span className="text-ink font-bold text-lg">إجمالي المبلغ:</span>
-                                    <span className="font-bold text-accent text-3xl font-inter tracking-tighter">${order.totalAmount.toFixed(2)}</span>
+                                    <span className="font-bold text-emerald-600 text-3xl font-inter tracking-tighter">${order.totalAmount.toFixed(2)}</span>
                                 </div>
                             </div>
 
@@ -167,8 +167,8 @@ function SuccessContent() {
                                         </p>
                                     </div>
                                 ) : (
-                                    <div className="flex gap-4 p-6 bg-accent/5 rounded-xl border border-accent/10 ring-4 ring-accent/5">
-                                        <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent shrink-0">
+                                    <div className="flex gap-4 p-6 bg-emerald-600/5 rounded-xl border border-emerald-600/10 ring-4 ring-accent/5">
+                                        <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-emerald-600 shrink-0">
                                             <FiBook />
                                         </div>
                                         <p className="text-sm text-ink font-bold leading-relaxed">
@@ -219,7 +219,7 @@ function SuccessContent() {
                         <div className="p-10 md:p-16 bg-gray-50/30 flex flex-col">
                             <div className="mb-12">
                                 <h3 className="text-xl font-bold text-ink mb-6 flex items-center gap-3">
-                                    <FiMessageCircle className="text-accent" /> قنوات تواصل رسمية
+                                    <FiMessageCircle className="text-emerald-600" /> قنوات تواصل رسمية
                                 </h3>
                                 <p className="text-sm text-gray-500 font-bold mb-8 leading-relaxed">نحن معك في كل خطوة. إذا كان لديك أي استفسار حول طلبك، لا تتردد في مراسلتنا فوراً.</p>
                                 
@@ -230,15 +230,15 @@ function SuccessContent() {
                                             href={link.href}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="bg-white border border-gray-100 p-5 rounded-xl flex items-center justify-between group hover:border-accent hover:shadow-sm hover:shadow-accent/5 transition-all"
+                                            className="bg-white border border-gray-100 p-5 rounded-xl flex items-center justify-between group hover:border-emerald-600 hover:shadow-sm hover:shadow-accent/5 transition-all"
                                         >
                                             <div className="flex items-center gap-4">
-                                                <div className="w-10 h-10 bg-gray-50 text-ink rounded-xl flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all">
+                                                <div className="w-10 h-10 bg-gray-50 text-ink rounded-xl flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">
                                                     {link.icon}
                                                 </div>
                                                 <span className="font-bold text-ink text-sm">{link.label}</span>
                                             </div>
-                                            <FiArrowLeft className="text-gray-300 group-hover:text-accent group-hover:-translate-x-1 transition-all" />
+                                            <FiArrowLeft className="text-gray-300 group-hover:text-emerald-600 group-hover:-translate-x-1 transition-all" />
                                         </a>
                                     ))}
                                 </div>
@@ -250,7 +250,7 @@ function SuccessContent() {
                                     <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6 px-1">عروض حصرية لك</h3>
                                     <div className="space-y-4">
                                         {upsells.map((upsell) => (
-                                            <Link key={upsell.id} href={`/${upsell.id}`} className="bg-white border border-gray-100 p-4 rounded-xl flex items-center justify-between hover:border-accent group transition-all">
+                                            <Link key={upsell.id} href={`/${upsell.id}`} className="bg-white border border-gray-100 p-4 rounded-xl flex items-center justify-between hover:border-emerald-600 group transition-all">
                                                 <div className="flex items-center gap-4">
                                                     <div className="w-14 h-14 bg-gray-50 rounded-xl overflow-hidden shrink-0 border border-gray-50">
                                                         {upsell.image ? (
@@ -262,8 +262,8 @@ function SuccessContent() {
                                                         )}
                                                     </div>
                                                     <div>
-                                                        <h4 className="font-bold text-ink text-xs line-clamp-1 group-hover:text-accent transition-colors">{upsell.title}</h4>
-                                                        <p className="text-accent font-bold font-inter tracking-tighter mt-1">${upsell.price}</p>
+                                                        <h4 className="font-bold text-ink text-xs line-clamp-1 group-hover:text-emerald-600 transition-colors">{upsell.title}</h4>
+                                                        <p className="text-emerald-600 font-bold font-inter tracking-tighter mt-1">${upsell.price}</p>
                                                     </div>
                                                 </div>
                                                 <div className="w-8 h-8 rounded-lg bg-gray-50 text-ink flex items-center justify-center group-hover:bg-ink group-hover:text-white transition-all">
@@ -292,7 +292,7 @@ export default function SuccessPage() {
     return (
         <Suspense fallback={
             <div className="min-h-screen bg-white flex items-center justify-center">
-                <div className="w-10 h-10 border-4 border-accent/20 border-t-accent rounded-xl animate-spin"></div>
+                <div className="w-10 h-10 border-4 border-emerald-600/20 border-t-accent rounded-xl animate-spin"></div>
             </div>
         }>
             <SuccessContent />

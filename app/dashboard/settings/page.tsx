@@ -272,9 +272,9 @@ export default function SettingsPage() {
                             navigator.clipboard.writeText(url);
                             toast.success('تم نسخ رابط متجرك بنجاح!');
                         }}
-                        className="group relative flex items-center gap-2 px-6 py-3 bg-white dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-accent text-ink dark:text-white shadow-sm transition-all hover:-translate-y-0.5 rounded-xl"
+                        className="group relative flex items-center gap-2 px-6 py-3 bg-white dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-emerald-600 text-ink dark:text-white shadow-sm transition-all hover:-translate-y-0.5 rounded-xl"
                     >
-                        <div className="w-8 h-8 rounded-xl bg-accent-50 dark:bg-blue-900/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-colors">
+                        <div className="w-8 h-8 rounded-xl bg-emerald-600-50 dark:bg-blue-900/20 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
                             <FiCopy size={14} />
                         </div>
                         <div className="text-right">
@@ -283,7 +283,7 @@ export default function SettingsPage() {
                                 {profileData.customDomain || `${profileData.username}.tmleen.com`}
                             </span>
                         </div>
-                        <FiExternalLink className="text-gray-300 group-hover:text-accent" size={14} />
+                        <FiExternalLink className="text-gray-300 group-hover:text-emerald-600" size={14} />
                     </button>
                 )}
             </div>
@@ -297,7 +297,7 @@ export default function SettingsPage() {
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`flex-1 lg:w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors whitespace-nowrap ${activeTab === tab.id
-                                    ? 'bg-accent text-white font-medium shadow-md'
+                                    ? 'bg-emerald-600 text-white font-medium shadow-md'
                                     : 'text-text-muted hover:bg-gray-50 dark:hover:bg-gray-800'
                                     }`}
                             >
@@ -393,8 +393,8 @@ export default function SettingsPage() {
                                             />
                                         </div>
                                         {showUsernameWarning && (
-                                            <div className="mt-2 p-3 bg-accent-50 border border-amber-200 rounded-xl text-xs text-blue-800 flex items-start gap-2 shadow-sm ">
-                                                <FiAlertCircle className="mt-0.5 shrink-0 text-accent-500" />
+                                            <div className="mt-2 p-3 bg-emerald-600-50 border border-amber-200 rounded-xl text-xs text-blue-800 flex items-start gap-2 shadow-sm ">
+                                                <FiAlertCircle className="mt-0.5 shrink-0 text-emerald-600-500" />
                                                 <p>
                                                     <strong className="block mb-1">تحذير: تغيير اسم المستخدم</strong>
                                                     سيؤدي هذا إلى تغيير رابط متجرك ومنتجاتك. جميع الروابط الخارجية التي شاركتها سابقاً في تويتر أو انستقرام ستتوقف عن العمل.
@@ -592,7 +592,7 @@ export default function SettingsPage() {
                                                     })}
                                                     className="sr-only peer"
                                                 />
-                                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-xl peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
+                                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-xl peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
                                             </label>
                                         </div>
                                     ))}
@@ -612,7 +612,7 @@ export default function SettingsPage() {
                             <div className="space-y-8 ">
                                 <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-4">
                                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">إعدادات تحويل الأرباح</h2>
-                                    <FiTrendingUp className="text-2xl text-accent" />
+                                    <FiTrendingUp className="text-2xl text-emerald-600" />
                                 </div>
                                 <PayoutSettings />
                             </div>
@@ -634,7 +634,7 @@ export default function SettingsPage() {
                                 )}
 
                                 {/* Google Calendar */}
-                                <div className="p-6 border-2 border-gray-100 dark:border-gray-800 rounded-xl hover:border-accent/30 transition-all">
+                                <div className="p-6 border-2 border-gray-100 dark:border-gray-800 rounded-xl hover:border-emerald-600/30 transition-all">
                                     <div className="flex items-center justify-between flex-wrap gap-4">
                                         <div className="flex items-center gap-4">
                                             <div className="w-14 h-14 rounded-xl bg-white shadow-md border border-gray-100 flex items-center justify-center">
@@ -687,7 +687,7 @@ export default function SettingsPage() {
                                 {/* Coming Soon - Zoom */}
                                 <div className="p-6 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl opacity-60">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-14 h-14 rounded-xl bg-accent-50 flex items-center justify-center">
+                                        <div className="w-14 h-14 rounded-xl bg-emerald-600-50 flex items-center justify-center">
                                             <span className="text-2xl">🎥</span>
                                         </div>
                                         <div>
@@ -705,7 +705,7 @@ export default function SettingsPage() {
                             <div className="space-y-8 ">
                                 <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-4">
                                     <h2 className="text-2xl font-bold text-ink dark:text-white">توثيق الحساب (Trust Badge)</h2>
-                                    <FiCheckCircle className={`text-3xl ${verificationRequest?.status === 'APPROVED' ? 'text-green-500' : 'text-accent'}`} />
+                                    <FiCheckCircle className={`text-3xl ${verificationRequest?.status === 'APPROVED' ? 'text-green-500' : 'text-emerald-600'}`} />
                                 </div>
 
                                 <div className="max-w-2xl space-y-6">
@@ -714,7 +714,7 @@ export default function SettingsPage() {
                                         <div className={`p-6 rounded-xl border-2 flex items-start gap-4 ${
                                             verificationRequest.status === 'APPROVED' ? 'bg-green-50 border-green-200 text-green-800' :
                                             verificationRequest.status === 'REJECTED' ? 'bg-red-50 border-red-200 text-red-800' :
-                                            'bg-accent-50 border-blue-200 text-blue-800'
+                                            'bg-emerald-600-50 border-blue-200 text-blue-800'
                                         }`}>
                                             <div className="text-3xl mt-1">
                                                 {verificationRequest.status === 'APPROVED' ? '✅' : 
@@ -738,8 +738,8 @@ export default function SettingsPage() {
                                         </div>
                                     ) : (
                                         <>
-                                            <div className="bg-accent/5 p-6 rounded-xl border border-accent/10 space-y-4">
-                                                <h3 className="font-bold text-lg text-accent">لماذا توثيق الحساب؟</h3>
+                                            <div className="bg-emerald-600/5 p-6 rounded-xl border border-emerald-600/10 space-y-4">
+                                                <h3 className="font-bold text-lg text-emerald-600">لماذا توثيق الحساب؟</h3>
                                                 <ul className="space-y-3 text-sm text-text-muted">
                                                     <li className="flex items-center gap-2">🔹 الحصول على الشارة الزرقاء بجانب اسمك.</li>
                                                     <li className="flex items-center gap-2">🔹 زيادة مبيعاتك بنسبة تصل إلى 35% بسبب الثقة.</li>
@@ -780,7 +780,7 @@ export default function SettingsPage() {
                                 <div className="space-y-6">
                                     <div className="p-5 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
                                         <div className="flex items-center gap-2 mb-4 text-ink dark:text-white">
-                                            <FiEye className="text-accent" />
+                                            <FiEye className="text-emerald-600" />
                                             <h3 className="font-bold">رؤية رقم الهاتف</h3>
                                         </div>
                                         <select 
@@ -797,7 +797,7 @@ export default function SettingsPage() {
 
                                     <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
                                         <div className="flex items-center gap-2 mb-4">
-                                            <FiShield className="text-accent" />
+                                            <FiShield className="text-emerald-600" />
                                             <h3 className="font-bold text-gray-900 dark:text-white">التحقق بخطوتين (2FA)</h3>
                                         </div>
                                         <div className="bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-800 flex items-center justify-between">

@@ -55,7 +55,7 @@ export default function AdminSupportPage() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-bold text-ink dark:text-white flex items-center gap-3">
-                        <FiMessageSquare className="text-accent" />
+                        <FiMessageSquare className="text-emerald-600" />
                         نظام تذاكر الدعم الفني
                     </h1>
                     <p className="text-text-muted mt-2 font-medium">إدارة تذاكر البائعين والعملاء والإجابة على الاستفسارات</p>
@@ -70,7 +70,7 @@ export default function AdminSupportPage() {
 
             {loading ? (
                 <div className="flex items-center justify-center min-h-[400px]">
-                    <div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-xl animate-spin" />
+                    <div className="w-12 h-12 border-4 border-emerald-600/30 border-t-accent rounded-xl animate-spin" />
                 </div>
             ) : tickets.length === 0 ? (
                 <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-12 text-center text-gray-500 flex flex-col items-center justify-center min-h-[400px]">

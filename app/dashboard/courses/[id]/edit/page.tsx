@@ -164,7 +164,7 @@ export default function EditCoursePage() {
                         <div>
                             <h1 className="text-2xl font-bold text-slate-900 leading-tight line-clamp-1">{formData.title}</h1>
                             <div className="flex items-center gap-3 mt-2">
-                                <span className={`px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-widest ${formData.isActive ? 'bg-accent-50 text-accent-600' : 'bg-slate-100 text-slate-500'}`}>
+                                <span className={`px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-widest ${formData.isActive ? 'bg-emerald-600-50 text-emerald-600-600' : 'bg-slate-100 text-slate-500'}`}>
                                     {formData.isActive ? 'منشور للطلاب' : 'مسودة مخفية'}
                                 </span>
                                 <span className="text-[10px] text-slate-400 font-bold">• {modules.length} فصول</span>
@@ -258,7 +258,7 @@ export default function EditCoursePage() {
                                                 </button>
                                                 <button 
                                                     type="button" onClick={() => setFormData({ ...formData, currency: 'SYP' })}
-                                                    className={`flex-1 py-2 rounded-lg text-[10px] font-bold transition-all ${formData.currency === 'SYP' ? 'bg-accent-600 text-white shadow-md' : 'text-slate-400'}`}
+                                                    className={`flex-1 py-2 rounded-lg text-[10px] font-bold transition-all ${formData.currency === 'SYP' ? 'bg-emerald-600-600 text-white shadow-md' : 'text-slate-400'}`}
                                                 >
                                                     ليرة سورية (SYP)
                                                 </button>
@@ -341,7 +341,7 @@ export default function EditCoursePage() {
                                                  </div>
                                                  <button 
                                                     onClick={() => router.push(`/dashboard/courses/${courseId}/modules/${m.id}/lessons/new`)}
-                                                    className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-accent-500 hover:border-blue-100 hover:bg-accent-50 transition-all"
+                                                    className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-emerald-600-500 hover:border-blue-100 hover:bg-emerald-600-50 transition-all"
                                                  >
                                                     <FiPlus size={14} />
                                                  </button>
@@ -354,9 +354,9 @@ export default function EditCoursePage() {
                                                              <div className="truncate">
                                                                  <h4 className="text-xs font-bold text-slate-700 truncate">{l.title}</h4>
                                                                  <div className="flex items-center gap-2 mt-1 opacity-60">
-                                                                    {l.isFree && <span className="text-[8px] bg-accent-50 text-accent-600 px-1.5 py-0.5 rounded font-bold italic">معاينة</span>}
+                                                                    {l.isFree && <span className="text-[8px] bg-emerald-600-50 text-emerald-600-600 px-1.5 py-0.5 rounded font-bold italic">معاينة</span>}
                                                                     {l.bunnyVideoId ? <FiVideo size={10} className="text-primary-indigo-400" /> : <FiFileText size={10} />}
-                                                                    {l.isPublished ? <FiEye className="text-accent-500" size={10} /> : <FiEyeOff size={10} />}
+                                                                    {l.isPublished ? <FiEye className="text-emerald-600-500" size={10} /> : <FiEyeOff size={10} />}
                                                                  </div>
                                                              </div>
                                                          </div>

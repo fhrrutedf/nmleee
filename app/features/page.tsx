@@ -73,11 +73,11 @@ export default function FeaturesPage() {
     ];
 
     return (
-        <div ref={containerRef} className="min-h-screen bg-white overflow-hidden selection:bg-accent/20">
+        <div ref={containerRef} className="min-h-screen bg-white overflow-hidden selection:bg-emerald-600/20">
             {/* High-Performance Corporate Hero */}
             <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-white py-20">
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+                    <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-600/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
                 </div>
                 
                 <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
@@ -86,11 +86,11 @@ export default function FeaturesPage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-accent shadow-sm">
+                        <div className="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-emerald-600 shadow-sm">
                             Infrastructure for Creators
                         </div>
                         <h1 className="text-5xl md:text-8xl font-bold text-ink mb-10 tracking-tighter leading-[1.05]">
-                            بنية تحتية <br/> <span className="text-accent underline underline-offset-[12px] decoration-accent/10">بلا حدود</span>
+                            بنية تحتية <br/> <span className="text-emerald-600 underline underline-offset-[12px] decoration-accent/10">بلا حدود</span>
                         </h1>
                         <p className="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto font-bold leading-relaxed">
                             لقد قمنا ببناء كافة الأدوات المعقدة لكي تتمكن أنت من التركيز على صناعة المحتوى والبيع بكل سهولة.
@@ -115,7 +115,7 @@ export default function FeaturesPage() {
                                 variants={fadeInUp}
                                 className="group p-10 bg-gray-50 border border-gray-100 rounded-[2.5rem] hover:bg-ink hover:text-white transition-all duration-500 cursor-default"
                             >
-                                <div className="w-14 h-14 bg-white border border-gray-100 rounded-xl flex items-center justify-center text-ink mb-10 group-hover:bg-accent group-hover:text-white group-hover:border-transparent transition-all shadow-sm">
+                                <div className="w-14 h-14 bg-white border border-gray-100 rounded-xl flex items-center justify-center text-ink mb-10 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-transparent transition-all shadow-sm">
                                     {feature.icon}
                                 </div>
 
@@ -124,7 +124,7 @@ export default function FeaturesPage() {
                                     {feature.description}
                                 </p>
                                 
-                                <div className="mt-10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-accent group-hover:text-white opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                                <div className="mt-10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-emerald-600 group-hover:text-white opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500">
                                     <span>Learn more</span>
                                     <FiArrowLeft className="group-hover:-translate-x-1 transition-transform" />
                                 </div>
@@ -148,7 +148,7 @@ export default function FeaturesPage() {
                                 <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Uptime Guarantee</div>
                              </div>
                              <div className="p-8 border-l border-gray-100">
-                                <div className="text-6xl font-bold text-accent font-inter tracking-tighter mb-2">24/7</div>
+                                <div className="text-6xl font-bold text-emerald-600 font-inter tracking-tighter mb-2">24/7</div>
                                 <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Active Monitoring</div>
                              </div>
                         </div>
@@ -188,12 +188,12 @@ export default function FeaturesPage() {
             <section className="py-40 bg-white">
                 <div className="max-w-5xl mx-auto px-6 text-center">
                    <div className="bg-ink rounded-[3.5rem] p-16 md:p-32 border border-white/5 relative overflow-hidden group shadow-sm shadow-ink/20">
-                        <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-accent/10 rounded-xl blur-[120px]"></div>
+                        <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-600/10 rounded-xl blur-[120px]"></div>
                         <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tighter mb-12 relative z-10 leading-[0.95]">
-                            ابدأ ببناء <br/> <span className="text-accent">إمبراطوريتك.</span>
+                            ابدأ ببناء <br/> <span className="text-emerald-600">إمبراطوريتك.</span>
                         </h2>
                         <div className="flex flex-col sm:flex-row gap-6 justify-center relative z-10">
-                            <Link href="/register" className="px-14 py-6 bg-accent text-white rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-ink transition-all shadow-sm shadow-accent/20">
+                            <Link href="/register" className="px-14 py-6 bg-emerald-600 text-white rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-ink transition-all shadow-sm shadow-accent/20">
                                 Start Your Mission Now
                             </Link>
                             <Link href="/pricing" className="px-14 py-6 bg-white/5 text-white border border-white/10 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-ink transition-all">

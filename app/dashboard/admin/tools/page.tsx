@@ -21,7 +21,7 @@ const methodLabel: Record<string, string> = {
 function Tab({ id, active, onClick, icon: Icon, label, badge }: any) {
     return (
         <button onClick={() => onClick(id)}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap relative ${active ? 'bg-accent text-white shadow-md' : 'text-text-muted hover:bg-gray-100 dark:hover:bg-gray-800'
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap relative ${active ? 'bg-emerald-600 text-white shadow-md' : 'text-text-muted hover:bg-gray-100 dark:hover:bg-gray-800'
                 }`}>
             <Icon className="text-base" />{label}
             {badge > 0 && <span className="absolute -top-1.5 -left-1.5 bg-red-500 text-white text-[10px] min-w-[18px] px-1 rounded-xl">{badge}</span>}
@@ -162,7 +162,7 @@ export default function AdminPayoutsPage() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                     <h1 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
-                        <FiShield className="text-accent" /> أدوات الإدارة المتقدمة
+                        <FiShield className="text-emerald-600" /> أدوات الإدارة المتقدمة
                     </h1>
                     <p className="text-text-muted text-sm mt-0.5">عمولات · سحوبات · موافقات · سجل النشاط</p>
                 </div>
@@ -207,7 +207,7 @@ export default function AdminPayoutsPage() {
                             <div className="flex items-start justify-between gap-3">
                                 <div>
                                     <div className="flex items-center gap-2">
-                                        <span className="font-mono text-sm text-accent font-bold">{p.payoutNumber}</span>
+                                        <span className="font-mono text-sm text-emerald-600 font-bold">{p.payoutNumber}</span>
                                         <span className={`text-xs px-2 py-0.5 rounded-xl ${p.status === 'PENDING' ? 'bg-orange-100 text-orange-700' : p.status === 'COMPLETED' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                                             {p.status === 'PENDING' ? '⏳ معلق' : p.status === 'COMPLETED' ? '✅ مكتمل' : '❌ مرفوض'}
                                         </span>
@@ -248,7 +248,7 @@ export default function AdminPayoutsPage() {
                                         <input type="text" value={txId} onChange={e => setTxId(e.target.value)}
                                             placeholder="ادخل رقم الحوالة..." className="input text-xs py-1 w-full" />
                                     ) : (
-                                        <div className="text-xs font-mono text-accent">{p.transactionId || '—'}</div>
+                                        <div className="text-xs font-mono text-emerald-600">{p.transactionId || '—'}</div>
                                     )}
                                 </div>
                             </div>
@@ -350,7 +350,7 @@ export default function AdminPayoutsPage() {
                                                 <div className="text-xs text-text-muted">{p.seller.email}</div>
                                             </td>
                                             <td className="py-3 px-3">
-                                                <span className="font-bold text-accent text-lg">
+                                                <span className="font-bold text-emerald-600 text-lg">
                                                     {p.seller.custom_commission_rate !== null && p.seller.custom_commission_rate !== undefined
                                                         ? `${p.seller.custom_commission_rate}%`
                                                         : 'افتراضي'}
@@ -374,7 +374,7 @@ export default function AdminPayoutsPage() {
                                             <td className="py-3 px-3">
                                                 <button
                                                     onClick={() => loginAsUser(p.seller.id, p.seller.name)}
-                                                    className="btn bg-accent-50 hover:bg-blue-100 text-accent text-xs py-1.5 px-3 flex items-center gap-1">
+                                                    className="btn bg-emerald-600-50 hover:bg-blue-100 text-emerald-600 text-xs py-1.5 px-3 flex items-center gap-1">
                                                     <FiLogIn /> دخول كـ
                                                 </button>
                                             </td>
@@ -411,7 +411,7 @@ export default function AdminPayoutsPage() {
                                             <span className="font-semibold text-ink dark:text-white text-sm">
                                                 {log.actor_name ?? 'System'}
                                             </span>
-                                            <span className={`text-xs px-1.5 py-0.5 rounded ${log.actor_role === 'ADMIN' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-accent-600'}`}>
+                                            <span className={`text-xs px-1.5 py-0.5 rounded ${log.actor_role === 'ADMIN' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-emerald-600-600'}`}>
                                                 {log.actor_role}
                                             </span>
                                         </div>

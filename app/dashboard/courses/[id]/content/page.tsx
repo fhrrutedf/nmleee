@@ -159,7 +159,7 @@ export default function CourseContentPage() {
                             </button>
                             <button
                                 onClick={publishCourse}
-                                className="w-full sm:w-auto px-8 py-4 bg-accent-500 text-white rounded-[1.5rem] font-bold shadow-sm shadow-blue-200 hover:bg-accent-600 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-xs"
+                                className="w-full sm:w-auto px-8 py-4 bg-emerald-600-500 text-white rounded-[1.5rem] font-bold shadow-sm shadow-blue-200 hover:bg-emerald-600-600 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-xs"
                             >
                                 <FiCheckSquare /> نشر الدورة الآن
                             </button>
@@ -237,15 +237,15 @@ export default function CourseContentPage() {
                                                         <h4 className="font-bold text-slate-800 text-sm truncate">{lesson.title}</h4>
                                                         <div className="flex items-center gap-3 mt-1.5 font-bold">
                                                             <span className="text-[10px] text-slate-400 uppercase tracking-tighter" dir="ltr">{formatDuration(lesson.videoDuration)}</span>
-                                                            {lesson.isFree && <span className="text-[9px] bg-accent-50 text-accent-600 px-2 py-0.5 rounded border border-blue-100">معاينة مجانية</span>}
-                                                            {lesson.isPublished ? <FiEye className="text-accent-500" size={12}/> : <FiEyeOff className="text-slate-300" size={12}/>}
+                                                            {lesson.isFree && <span className="text-[9px] bg-emerald-600-50 text-emerald-600-600 px-2 py-0.5 rounded border border-blue-100">معاينة مجانية</span>}
+                                                            {lesson.isPublished ? <FiEye className="text-emerald-600-500" size={12}/> : <FiEyeOff className="text-slate-300" size={12}/>}
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
                                                     <button
                                                         onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes/new?lessonId=${lesson.id}&returnTo=${encodeURIComponent(`/dashboard/courses/${courseId}/content`)}`)}
-                                                        className="px-4 py-1.5 bg-accent-50 text-blue-700 rounded-lg font-bold text-[10px] flex items-center gap-1.5 border border-blue-100 hover:bg-blue-100 transition-colors"
+                                                        className="px-4 py-1.5 bg-emerald-600-50 text-blue-700 rounded-lg font-bold text-[10px] flex items-center gap-1.5 border border-blue-100 hover:bg-blue-100 transition-colors"
                                                     >
                                                         <FiCheckSquare size={12}/> اختبار
                                                     </button>

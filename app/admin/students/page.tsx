@@ -113,7 +113,7 @@ export default function AdminStudentsPage() {
                     </div>
                     <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
                         <p className="text-xs text-gray-400 font-bold uppercase">الكورسات النشطة</p>
-                        <p className="text-2xl font-bold text-accent-600 mt-1">{trainers.reduce((s, t) => s + t.courses.length, 0)}</p>
+                        <p className="text-2xl font-bold text-emerald-600-600 mt-1">{trainers.reduce((s, t) => s + t.courses.length, 0)}</p>
                     </div>
                 </div>
 
@@ -209,12 +209,12 @@ export default function AdminStudentsPage() {
                                                                     <div className="flex items-center gap-2">
                                                                         <div className="w-20 bg-gray-200 dark:bg-gray-700 rounded-xl h-1.5">
                                                                             <div
-                                                                                className={`h-1.5 rounded-xl ${student.isCompleted ? 'bg-accent-500' : 'bg-ink'}`}
+                                                                                className={`h-1.5 rounded-xl ${student.isCompleted ? 'bg-emerald-600-500' : 'bg-ink'}`}
                                                                                 style={{ width: `${student.progress}%` }}
                                                                             />
                                                                         </div>
                                                                         <span className="text-[11px]">{student.progress}%</span>
-                                                                        {student.isCompleted && <FiCheckCircle size={12} className="text-accent-500" />}
+                                                                        {student.isCompleted && <FiCheckCircle size={12} className="text-emerald-600-500" />}
                                                                     </div>
                                                                 </td>
                                                                 <td className="px-4 py-3 text-[11px] text-gray-400">

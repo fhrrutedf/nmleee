@@ -52,7 +52,7 @@ interface FinancialData {
 
 const planBadge: Record<string, { label: string; color: string; bg: string; icon: string }> = {
     FREE: { label: 'مجانية', color: 'text-gray-600', bg: 'bg-gray-100 dark:bg-gray-800', icon: '🆓' },
-    GROWTH: { label: 'Growth', color: 'text-accent-600', bg: 'bg-accent-50 dark:bg-blue-900/20', icon: '🚀' },
+    GROWTH: { label: 'Growth', color: 'text-emerald-600-600', bg: 'bg-emerald-600-50 dark:bg-blue-900/20', icon: '🚀' },
     PRO: { label: 'Pro', color: 'text-ink', bg: 'bg-purple-50 dark:bg-purple-900/20', icon: '👑' },
 };
 
@@ -103,7 +103,7 @@ export default function FinancialsPage() {
         return (
             <div className="flex items-center justify-center min-h-[50vh]">
                 <div className="text-center">
-                    <div className="animate-spin rounded-xl h-14 w-14 border-4 border-accent border-t-transparent mx-auto" />
+                    <div className="animate-spin rounded-xl h-14 w-14 border-4 border-emerald-600 border-t-transparent mx-auto" />
                     <p className="mt-4 text-text-muted font-medium">جاري تحميل البيانات المالية...</p>
                 </div>
             </div>
@@ -158,7 +158,7 @@ export default function FinancialsPage() {
         switch (type) {
             case 'course': return <FiVideo className="text-purple-500" />;
             case 'bundle': return <FiPackage className="text-orange-500" />;
-            default: return <FiShoppingBag className="text-accent-500" />;
+            default: return <FiShoppingBag className="text-emerald-600-500" />;
         }
     };
 
@@ -168,7 +168,7 @@ export default function FinancialsPage() {
             <motion.div variants={item} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-bold text-ink dark:text-white flex items-center gap-3">
-                        <FiPieChart className="text-accent" />
+                        <FiPieChart className="text-emerald-600" />
                         حالتي المالية
                     </h1>
                     <p className="text-text-muted mt-1 font-medium">نظرة شاملة على أداء أعمالك المالي</p>
@@ -187,7 +187,7 @@ export default function FinancialsPage() {
             <motion.div variants={item} className="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl max-w-md">
                 <button
                     onClick={() => setActiveTab('overview')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-xl transition-all ${activeTab === 'overview' ? 'bg-white dark:bg-card-white text-accent shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-xl transition-all ${activeTab === 'overview' ? 'bg-white dark:bg-card-white text-emerald-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
                 >
                     <FiBarChart2 /> النظرة المالية
                 </button>
@@ -248,11 +248,11 @@ export default function FinancialsPage() {
 
                         {/* This Month Revenue */}
                         <motion.div variants={item} className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 relative overflow-hidden group hover:shadow-sm transition-all hover:-translate-y-1">
-                            <div className="absolute top-0 right-0 w-28 h-28 bg-accent-50 dark:bg-blue-900/10 rounded-xl blur-3xl -mr-8 -mt-8 transition-transform group-hover:scale-125" />
+                            <div className="absolute top-0 right-0 w-28 h-28 bg-emerald-600-50 dark:bg-blue-900/10 rounded-xl blur-3xl -mr-8 -mt-8 transition-transform group-hover:scale-125" />
                             <div className="relative">
                                 <div className="flex items-center justify-between mb-3">
                                     <p className="font-bold text-sm text-gray-500">إيرادات هذا الشهر</p>
-                                    <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/20 text-accent-600 rounded-xl flex items-center justify-center">
+                                    <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/20 text-emerald-600-600 rounded-xl flex items-center justify-center">
                                         <FiTrendingUp size={20} />
                                     </div>
                                 </div>
@@ -294,7 +294,7 @@ export default function FinancialsPage() {
                         {/* Revenue Trend */}
                         <motion.div variants={item} className="lg:col-span-2 bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
                             <h2 className="text-lg font-bold text-ink dark:text-white mb-4 flex items-center gap-2">
-                                <FiTrendingUp className="text-accent" /> تطور الإيرادات
+                                <FiTrendingUp className="text-emerald-600" /> تطور الإيرادات
                             </h2>
                             {data.monthlyChart.data.some(d => d > 0) ? (
                                 <Line
@@ -359,7 +359,7 @@ export default function FinancialsPage() {
                     <motion.div variants={item} className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
                         <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                             <h2 className="text-lg font-bold text-ink dark:text-white flex items-center gap-2">
-                                <FiBarChart2 className="text-accent" /> التقرير الشهري
+                                <FiBarChart2 className="text-emerald-600" /> التقرير الشهري
                             </h2>
                         </div>
                         <div className="overflow-x-auto">
@@ -392,7 +392,7 @@ export default function FinancialsPage() {
                             <h2 className="text-lg font-bold text-ink dark:text-white flex items-center gap-2">
                                 <FiDollarSign className="text-green-500" /> آخر المعاملات
                             </h2>
-                            <Link href="/dashboard/earnings" className="text-sm font-bold text-accent hover:text-accent flex items-center gap-1">
+                            <Link href="/dashboard/earnings" className="text-sm font-bold text-emerald-600 hover:text-emerald-600 flex items-center gap-1">
                                 عرض الكل <FiExternalLink size={14} />
                             </Link>
                         </div>
@@ -437,7 +437,7 @@ export default function FinancialsPage() {
                             </div>
                         </Link>
                         <Link href="/dashboard/earnings" className="card flex items-center gap-4 hover:shadow-sm transition-all hover:-translate-y-1 group">
-                            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 text-accent-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 text-emerald-600-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                                 <FiTrendingUp size={24} />
                             </div>
                             <div>
@@ -521,7 +521,7 @@ export default function FinancialsPage() {
                                 className={`px-6 py-3 rounded-xl font-bold text-sm transition-all whitespace-nowrap ${
                                     copied
                                         ? 'bg-green-500 text-white'
-                                        : 'bg-accent text-white hover:bg-ink'
+                                        : 'bg-emerald-600 text-white hover:bg-ink'
                                 }`}
                             >
                                 {copied ? '✓ تم النسخ!' : '📋 نسخ الرابط'}
@@ -536,7 +536,7 @@ export default function FinancialsPage() {
                         </h2>
                         <div className="grid sm:grid-cols-3 gap-6">
                             <div className="text-center p-4">
-                                <div className="w-16 h-16 bg-accent-50 dark:bg-blue-900/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                                <div className="w-16 h-16 bg-emerald-600-50 dark:bg-blue-900/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                                     <span className="text-3xl">1️⃣</span>
                                 </div>
                                 <h3 className="font-bold text-ink dark:text-white mb-2">شارك رابط الإحالة</h3>

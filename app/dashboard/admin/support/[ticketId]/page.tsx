@@ -91,7 +91,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-[400px]">
-            <div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-xl animate-spin" />
+            <div className="w-12 h-12 border-4 border-emerald-600/30 border-t-accent rounded-xl animate-spin" />
         </div>
     );
 
@@ -113,7 +113,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
 
     return (
         <div className="space-y-6 max-w-5xl mx-auto pb-12">
-            <Link href="/dashboard/admin/support" className="flex items-center gap-2 text-accent hover:text-accent font-bold mb-4 w-fit transition-colors">
+            <Link href="/dashboard/admin/support" className="flex items-center gap-2 text-emerald-600 hover:text-emerald-600 font-bold mb-4 w-fit transition-colors">
                 <FiArrowRight /> العودة لقائمة التذاكر (المشرف)
             </Link>
 
@@ -156,7 +156,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                         <h3 className="font-bold text-gray-500 mb-4">إجراءات الإدارة</h3>
                         <div className="space-y-2">
                             {ticket.status !== 'IN_PROGRESS' && ticket.status !== 'RESOLVED' && (
-                                <button disabled={statusUpdating} onClick={() => changeStatus('IN_PROGRESS')} className="btn btn-primary w-full py-2 bg-accent-500 hover:bg-accent-600 border-none shadow-md">
+                                <button disabled={statusUpdating} onClick={() => changeStatus('IN_PROGRESS')} className="btn btn-primary w-full py-2 bg-emerald-600-500 hover:bg-emerald-600-600 border-none shadow-md">
                                     تغيير لـ "جاري العمل"
                                 </button>
                             )}
@@ -178,7 +178,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                 <div className="w-full md:w-2/3 p-8 flex flex-col justify-between">
                     <div>
                         <div className="flex items-center gap-3 mb-6">
-                            <span className="font-mono text-sm text-accent font-bold px-3 py-1 bg-accent/10 rounded-xl">
+                            <span className="font-mono text-sm text-emerald-600 font-bold px-3 py-1 bg-emerald-600/10 rounded-xl">
                                 {ticket.ticketNumber}
                             </span>
                             <h1 className="text-2xl font-bold text-ink dark:text-white line-clamp-1" title={ticket.subject}>
@@ -195,9 +195,9 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isAdmin ? 'bg-ink text-white' : 'bg-gray-200 dark:bg-gray-800 text-gray-500'}`}>
                                             {isAdmin ? <FiInfo /> : <FiUser />}
                                         </div>
-                                        <div className={`max-w-[85%] rounded-xl p-5 ${isAdmin ? 'bg-accent/10 dark:bg-accent/20 text-accent border border-accent/20 rounded-tl-none' : 'bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none'}`}>
+                                        <div className={`max-w-[85%] rounded-xl p-5 ${isAdmin ? 'bg-emerald-600/10 dark:bg-emerald-600/20 text-emerald-600 border border-emerald-600/20 rounded-tl-none' : 'bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none'}`}>
                                             <div className="flex items-center gap-2 mb-2">
-                                                <span className={`font-bold text-sm ${isAdmin ? 'text-accent' : 'text-ink dark:text-white'}`}>
+                                                <span className={`font-bold text-sm ${isAdmin ? 'text-emerald-600' : 'text-ink dark:text-white'}`}>
                                                     {isAdmin ? 'أنت (فريق الدعم)' : 'المستخدم'}
                                                 </span>
                                                 <span className="text-xs text-gray-400">
@@ -242,7 +242,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                 <button
                                     type="submit"
                                     disabled={submitting || !message.trim()}
-                                    className="h-10 px-4 bg-accent hover:bg-accent-600 disabled:bg-gray-300 text-white rounded-xl flex items-center gap-2 transition-colors font-bold shadow-md shadow-accent/20"
+                                    className="h-10 px-4 bg-emerald-600 hover:bg-emerald-600-600 disabled:bg-gray-300 text-white rounded-xl flex items-center gap-2 transition-colors font-bold shadow-md shadow-accent/20"
                                 >
                                     {submitting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-xl animate-spin" /> : <><FiSend /> إرسال فقط</>}
                                 </button>

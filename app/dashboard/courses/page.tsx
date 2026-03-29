@@ -95,13 +95,13 @@ export default function CoursesPage() {
             {/* High-Contrast Corporate Stats */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-[60px] pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-600/5 rounded-bl-[60px] pointer-events-none"></div>
                     <div className="flex items-center justify-between relative z-10">
                         <div>
                             <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">Total Programs</p>
                             <p className="text-4xl font-bold text-ink tracking-tighter">{stats.total}</p>
                         </div>
-                        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-accent shadow-sm group-hover:bg-accent group-hover:text-white transition-all">
+                        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-emerald-600 shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition-all">
                             <FiVideo size={24} />
                         </div>
                     </div>
@@ -134,13 +134,13 @@ export default function CoursesPage() {
                 </div>
 
                 <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-[60px] pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-600/5 rounded-bl-[60px] pointer-events-none"></div>
                     <div className="flex items-center justify-between relative z-10">
                         <div>
                             <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">Total Curriculum Value</p>
                             <p className="text-4xl font-bold text-ink tracking-tighter">{stats.totalRevenue.toFixed(0)} <span className="text-sm font-bold text-gray-400">$</span></p>
                         </div>
-                        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-accent shadow-sm group-hover:bg-accent group-hover:text-white transition-all">
+                        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-emerald-600 shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition-all">
                             <FiDollarSign size={24} />
                         </div>
                     </div>
@@ -178,7 +178,7 @@ export default function CoursesPage() {
             {/* Courses Grid */}
             {loading ? (
                 <div className="min-h-[300px] flex items-center justify-center">
-                    <div className="animate-spin rounded-xl h-12 w-12 border-4 border-accent border-t-transparent mx-auto"></div>
+                    <div className="animate-spin rounded-xl h-12 w-12 border-4 border-emerald-600 border-t-transparent mx-auto"></div>
                 </div>
             ) : filteredCourses.length === 0 ? (
                 <div className="card text-center py-16 px-6 border-2 border-dashed border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/20">
@@ -233,7 +233,7 @@ export default function CoursesPage() {
 
                             {/* معلومات الدورة */}
                             <div className="flex-1">
-                                <h3 className="text-lg font-bold text-ink dark:text-white mb-2 line-clamp-1 group-hover:text-accent transition-colors">{course.title}</h3>
+                                <h3 className="text-lg font-bold text-ink dark:text-white mb-2 line-clamp-1 group-hover:text-emerald-600 transition-colors">{course.title}</h3>
                                 <p className="text-text-muted text-sm mb-4 line-clamp-2 min-h-[40px]">
                                     {course.description ? course.description.replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ') : 'لا يوجد وصف مختصر'}
                                 </p>
@@ -260,7 +260,7 @@ export default function CoursesPage() {
                                         {course.price.toFixed(2)} <span className="text-xs font-normal text-text-muted">$</span>
                                     </span>
                                     {course.category && (
-                                        <span className="px-2 py-1 bg-accent-50 dark:bg-blue-900/30 text-accent text-xs rounded-md">
+                                        <span className="px-2 py-1 bg-emerald-600-50 dark:bg-blue-900/30 text-emerald-600 text-xs rounded-md">
                                             {course.category}
                                         </span>
                                     )}

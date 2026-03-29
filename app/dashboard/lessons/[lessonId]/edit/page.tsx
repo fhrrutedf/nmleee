@@ -125,7 +125,7 @@ export default function EditLessonPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-xl animate-spin" />
+                <div className="w-10 h-10 border-4 border-emerald-600/30 border-t-accent rounded-xl animate-spin" />
             </div>
         );
     }
@@ -136,7 +136,7 @@ export default function EditLessonPage() {
         <div className="max-w-4xl mx-auto pb-12">
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-sm text-text-muted mb-6">
-                <button onClick={() => router.push(`/dashboard/courses/${lesson.module.course.id}/content`)} className="hover:text-accent transition-colors">
+                <button onClick={() => router.push(`/dashboard/courses/${lesson.module.course.id}/content`)} className="hover:text-emerald-600 transition-colors">
                     محتوى الدورة
                 </button>
                 <FiArrowRight size={12} />
@@ -185,7 +185,7 @@ export default function EditLessonPage() {
 
                     {/* Video Section */}
                     <div className="space-y-4">
-                        <div className="p-6 bg-accent-50/30 dark:bg-accent/5 rounded-xl border border-accent/10">
+                        <div className="p-6 bg-emerald-600-50/30 dark:bg-emerald-600/5 rounded-xl border border-emerald-600/10">
                             <label className="label mb-4 opacity-70">إعدادات الفيديو (Bunny Stream)</label>
                             
                             {formData.bunnyVideoId ? (
@@ -235,7 +235,7 @@ export default function EditLessonPage() {
                                 type="checkbox"
                                 checked={formData.isFree}
                                 onChange={(e) => setFormData({ ...formData, isFree: e.target.checked })}
-                                className="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent"
+                                className="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-accent"
                             />
                             <span className="text-sm font-medium text-ink dark:text-white">درس مجاني للمعاينة</span>
                         </label>

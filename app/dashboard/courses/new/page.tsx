@@ -245,7 +245,7 @@ export default function NewCoursePage() {
                 {/* Header & Auto-Draft Indicator */}
                 <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between border-b border-slate-100 pb-6">
                     <div className="text-right">
-                        <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-gray-400 hover:text-accent font-bold text-[10px] uppercase tracking-widest mb-4 transition-all">
+                        <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-600 font-bold text-[10px] uppercase tracking-widest mb-4 transition-all">
                             <FiArrowRight /> BACK TO ACADEMY
                         </Link>
                         <h1 className="text-4xl font-bold text-ink tracking-tighter">Architect New Program</h1>
@@ -290,15 +290,15 @@ export default function NewCoursePage() {
                                     <div className="space-y-4 pt-10 border-t border-slate-50">
                                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6 block border-b border-gray-100 pb-3">Program Delivery Model <span className="text-red-500">*</span></label>
                                         <div className="grid md:grid-cols-2 gap-6">
-                                            <button type="button" onClick={() => update('format', 'recorded')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'recorded' ? 'border-accent bg-accent/[0.03] shadow-sm shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
-                                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-sm transition-all ${formData.format === 'recorded' ? 'bg-accent text-white' : 'bg-gray-50 text-gray-400'}`}><FiVideo size={24}/></div>
+                                            <button type="button" onClick={() => update('format', 'recorded')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'recorded' ? 'border-emerald-600 bg-emerald-600/[0.03] shadow-sm shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
+                                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-sm transition-all ${formData.format === 'recorded' ? 'bg-emerald-600 text-white' : 'bg-gray-50 text-gray-400'}`}><FiVideo size={24}/></div>
                                                 <div>
                                                     <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'recorded' ? 'text-ink' : 'text-gray-400'}`}>Recorded Assets</h4>
                                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider opacity-60">High-leverage asynchronous learning.</p>
                                                 </div>
                                             </button>
-                                            <button type="button" onClick={() => update('format', 'online')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'online' ? 'border-accent bg-accent/5 shadow-sm shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
-                                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-sm transition-all ${formData.format === 'online' ? 'bg-accent text-white' : 'bg-gray-50 text-gray-400'}`}><FiClock size={24}/></div>
+                                            <button type="button" onClick={() => update('format', 'online')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'online' ? 'border-emerald-600 bg-emerald-600/5 shadow-sm shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
+                                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-sm transition-all ${formData.format === 'online' ? 'bg-emerald-600 text-white' : 'bg-gray-50 text-gray-400'}`}><FiClock size={24}/></div>
                                                 <div>
                                                     <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'online' ? 'text-ink' : 'text-gray-400'}`}>Institutional Live</h4>
                                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider opacity-60">Synchronous coaching & live streaming.</p>
@@ -330,7 +330,7 @@ export default function NewCoursePage() {
                                                     <div className="absolute inset-0 bg-white/90  p-6 overflow-auto text-right z-20 flex flex-col justify-center"><FileUploader onUploadSuccess={urls => { update('image', urls[0]); setShowCoverUploader(false); }} /></div>
                                                 )}
                                             </div>
-                                            <p className="text-[10px] text-accent-600 font-bold mt-3 flex items-center gap-1"><FiCheckSquare/> يتم تشفير مسار ملفاتك بشكل آمن لحظياً</p>
+                                            <p className="text-[10px] text-emerald-600-600 font-bold mt-3 flex items-center gap-1"><FiCheckSquare/> يتم تشفير مسار ملفاتك بشكل آمن لحظياً</p>
                                         </div>
 
                                         <div>
@@ -395,8 +395,8 @@ export default function NewCoursePage() {
                                         </div>
                                         {formData.format === 'online' ? (
                                             <div className="space-y-2">
-                                                <label className="text-xs font-bold text-accent-600 italic">موعد البث (بتوقيتك المحلي)</label>
-                                                <input type="datetime-local" className="input-modern border-blue-100 bg-accent-50/30" value={formData.startTime} onChange={e => update('startTime', e.target.value)} />
+                                                <label className="text-xs font-bold text-emerald-600-600 italic">موعد البث (بتوقيتك المحلي)</label>
+                                                <input type="datetime-local" className="input-modern border-blue-100 bg-emerald-600-50/30" value={formData.startTime} onChange={e => update('startTime', e.target.value)} />
                                                 <p className="text-[9px] text-slate-400 font-bold">سيتم عرض الموعد للطالب حسب توقيته المحلي تلقائياً</p>
                                             </div>
                                         ) : (
@@ -438,7 +438,7 @@ export default function NewCoursePage() {
                                             <label className="label-modern text-xs">كلمات مفتاحية (Tags)</label>
                                             <div className="flex gap-2">
                                                 <input type="text" className="input-modern flex-1 text-xs" placeholder="أضف وسم..." value={tagInput} onChange={e => setTagInput(e.target.value)} onKeyPress={e => e.key === 'Enter' && (e.preventDefault(), addTag())} />
-                                                <button type="button" onClick={addTag} className="w-10 h-10 bg-accent text-white rounded-[1rem] flex items-center justify-center font-bold tracking-tighter hover:bg-accent/90 transition-colors"><FiPlus /></button>
+                                                <button type="button" onClick={addTag} className="w-10 h-10 bg-emerald-600 text-white rounded-[1rem] flex items-center justify-center font-bold tracking-tighter hover:bg-emerald-600/90 transition-colors"><FiPlus /></button>
                                             </div>
                                             <div className="flex flex-wrap gap-2">
                                                 {formData.tags.map(t => (
@@ -451,11 +451,11 @@ export default function NewCoursePage() {
                                             <label className="label-modern text-xs">مميزات حصرية ينالها الطالب</label>
                                             <div className="flex gap-2">
                                                 <input type="text" className="input-modern flex-1 text-xs" placeholder="مثال: شهادة معتمدة" value={featureInput} onChange={e => setFeatureInput(e.target.value)} onKeyPress={e => e.key === 'Enter' && (e.preventDefault(), addFeature())} />
-                                                <button type="button" onClick={addFeature} className="w-10 h-10 bg-accent-500 text-white rounded-[1rem] flex items-center justify-center font-bold tracking-tighter hover:bg-accent-600 transition-colors"><FiPlus /></button>
+                                                <button type="button" onClick={addFeature} className="w-10 h-10 bg-emerald-600-500 text-white rounded-[1rem] flex items-center justify-center font-bold tracking-tighter hover:bg-emerald-600-600 transition-colors"><FiPlus /></button>
                                             </div>
                                             <ul className="space-y-3">
                                                 {formData.features.map(f => (
-                                                    <li key={f} className="text-[11px] font-bold text-slate-600 bg-accent-50/50 p-2.5 rounded-xl flex items-center justify-between border-r-4 border-blue-400 group">
+                                                    <li key={f} className="text-[11px] font-bold text-slate-600 bg-emerald-600-50/50 p-2.5 rounded-xl flex items-center justify-between border-r-4 border-blue-400 group">
                                                         {f}
                                                         <FiX className="cursor-pointer text-slate-300 group-hover:text-red-500" onClick={() => update('features', formData.features.filter(i => i !== f))} />
                                                     </li>
@@ -499,7 +499,7 @@ export default function NewCoursePage() {
                                                 <span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-xl uppercase tracking-tighter shadow-sm ">السعر المعتمد</span>
                                             </div>
                                             <div className="relative group/price">
-                                                <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-accent-50 text-accent-600 rounded-r-2xl border-l border-blue-100 transition-colors group-focus-within/price:bg-accent-600 group-focus-within/price:text-white">
+                                                <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-emerald-600-50 text-emerald-600-600 rounded-r-2xl border-l border-blue-100 transition-colors group-focus-within/price:bg-emerald-600-600 group-focus-within/price:text-white">
                                                     <FiDollarSign size={24}/>
                                                 </div>
                                                 <input type="number" required className="input-modern pr-20 text-4xl font-bold text-slate-800 focus:bg-white transition-all text-center tracking-tighter" placeholder="0.00" value={formData.price} onChange={e => update('price', e.target.value)} />
@@ -529,8 +529,8 @@ export default function NewCoursePage() {
                                         <div className="grid md:grid-cols-2 gap-10">
                                             <div className="space-y-4">
                                                 <label className="label-modern text-xs">تاريخ انتهاء عرض الخصم (اختياري)</label>
-                                                <input type="datetime-local" className="input-modern bg-accent-50/30 border-blue-100" value={formData.offerExpiresAt} onChange={e => update('offerExpiresAt', e.target.value)} />
-                                                <p className="text-[10px] text-accent-600 font-bold">سيظهر عداد تنازلي (Urgency) في صفحة البيع لتحفيز الشراء الفوري.</p>
+                                                <input type="datetime-local" className="input-modern bg-emerald-600-50/30 border-blue-100" value={formData.offerExpiresAt} onChange={e => update('offerExpiresAt', e.target.value)} />
+                                                <p className="text-[10px] text-emerald-600-600 font-bold">سيظهر عداد تنازلي (Urgency) في صفحة البيع لتحفيز الشراء الفوري.</p>
                                             </div>
                                             <div className="space-y-4">
                                                 <label className="label-modern text-xs">كورس إضافي لعرضه في الدفع (Order Bump)</label>
@@ -549,11 +549,11 @@ export default function NewCoursePage() {
                                         <p className="text-[10px] text-slate-400 font-bold -mt-2 mb-6 text-right">أضف روابط الاجتماعات لتسهيل وصول طلابك فور الشراء للمحاضرات الحية المرافقة (اختياري)</p>
                                         <div className="grid md:grid-cols-2 gap-8">
                                             <div className="space-y-2">
-                                                <label className="text-xs font-bold text-slate-500 flex items-center gap-2"><FiVideo className="text-accent-500" /> Zoom Meeting Link</label>
+                                                <label className="text-xs font-bold text-slate-500 flex items-center gap-2"><FiVideo className="text-emerald-600-500" /> Zoom Meeting Link</label>
                                                 <input type="url" className="input-modern bg-slate-50/50" placeholder="https://zoom.us/j/..." value={formData.zoomLink} onChange={e => update('zoomLink', e.target.value)} />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-bold text-slate-500 flex items-center gap-2"><FiVideo className="text-accent-500" /> Google Meet Link</label>
+                                                <label className="text-xs font-bold text-slate-500 flex items-center gap-2"><FiVideo className="text-emerald-600-500" /> Google Meet Link</label>
                                                 <input type="url" className="input-modern bg-slate-50/50" placeholder="https://meet.google.com/..." value={formData.meetLink} onChange={e => update('meetLink', e.target.value)} />
                                             </div>
                                         </div>
@@ -576,7 +576,7 @@ export default function NewCoursePage() {
                                             <h3 className="font-bold text-white text-xl leading-tight transition-colors group-hover:text-blue-400">تفعيل التسعير العادل (PPP Pricing) 🌍</h3>
                                             <p className="text-xs text-blue-200 mt-1 max-w-lg leading-relaxed">تخفيض السعر تلقائياً للزوار من الدول النامية حسب القوة الشرائية، لضمان أعلى نسبة مبيعات للجميع دون حرمان أحد.</p>
                                         </div>
-                                        <div className={`w-16 h-9 rounded-xl flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-accent-500 outline-accent-500/30' : 'bg-blue-950 outline-blue-900'}`}>
+                                        <div className={`w-16 h-9 rounded-xl flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-emerald-600-500 outline-accent-500/30' : 'bg-blue-950 outline-blue-900'}`}>
                                             <div className={`w-6 h-6 bg-white rounded-xl transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
                                         </div>
                                     </div>
@@ -615,7 +615,7 @@ export default function NewCoursePage() {
                             ) : (
                                 <button
                                     type="submit" disabled={loading}
-                                    className="w-full md:w-auto px-12 py-5 bg-ink text-white rounded-xl font-bold text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:bg-accent transition-all shadow-sm shadow-black/10 active:scale-95 group"
+                                    className="w-full md:w-auto px-12 py-5 bg-ink text-white rounded-xl font-bold text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:bg-emerald-600 transition-all shadow-sm shadow-black/10 active:scale-95 group"
                                 >
                                     {loading ? 'Processing Protocol...' : 'Deploy Program Architecture'}
                                     {!loading && <FiCheck className="text-xl group-hover:scale-125 transition-transform text-white" />}
@@ -708,7 +708,7 @@ export default function NewCoursePage() {
                         >
                             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary-ink via-accent-500 to-primary-ink animate-gradient-x" />
                             
-                            <div className="w-24 h-24 bg-blue-100 text-accent-600 rounded-xl flex items-center justify-center mx-auto mb-10 text-4xl shadow-sm ring-8 ring-accent-50">🎓</div>
+                            <div className="w-24 h-24 bg-blue-100 text-emerald-600-600 rounded-xl flex items-center justify-center mx-auto mb-10 text-4xl shadow-sm ring-8 ring-accent-50">🎓</div>
                             
                             <div className="space-y-4 mb-12">
                                 <h2 className="text-4xl font-bold text-slate-900 tracking-tight leading-none">تهانينا! دورتك جاهزة ✨</h2>

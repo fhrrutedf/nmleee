@@ -35,7 +35,7 @@ const ACTION_LABELS: Record<string, { label: string; color: string }> = {
     'broadcast.sent': { label: 'إرسال بث', color: 'bg-pink-100 text-pink-700' },
     'admin.impersonation_started': { label: 'بدء انتحال', color: 'bg-orange-100 text-orange-700' },
     'platform.payment_failed': { label: 'فشل دفع', color: 'bg-red-50 text-red-500' },
-    'platform.settings_updated': { label: 'تحديث منصة', color: 'bg-accent-50 text-accent-600' },
+    'platform.settings_updated': { label: 'تحديث منصة', color: 'bg-emerald-600-50 text-emerald-600-600' },
 };
 
 export default function AdminAuditLogsPage() {
@@ -66,7 +66,7 @@ export default function AdminAuditLogsPage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
-                        <FiShield className="text-accent" /> سجل الرقابة والأنشطة
+                        <FiShield className="text-emerald-600" /> سجل الرقابة والأنشطة
                     </h1>
                     <p className="text-text-muted text-sm mt-1">تتبع جميع الحركات الحساسة التي تمت على المنصة</p>
                 </div>
@@ -118,7 +118,7 @@ export default function AdminAuditLogsPage() {
                                 <tr key={log.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
                                     <td className="px-5 py-4">
                                         <div className="flex items-center gap-2">
-                                            <div className="w-8 h-8 rounded-xl bg-accent/10 text-accent flex items-center justify-center font-bold text-xs">
+                                            <div className="w-8 h-8 rounded-xl bg-emerald-600/10 text-emerald-600 flex items-center justify-center font-bold text-xs">
                                                 {log.actor_name?.charAt(0) || 'S'}
                                             </div>
                                             <div>
@@ -136,7 +136,7 @@ export default function AdminAuditLogsPage() {
                                         {log.entity_type && (
                                             <div className="flex items-center gap-1.5 text-xs">
                                                 <span className="text-text-muted">{log.entity_type}:</span>
-                                                <span className="font-mono text-accent truncate max-w-[100px]">{log.entity_id}</span>
+                                                <span className="font-mono text-emerald-600 truncate max-w-[100px]">{log.entity_id}</span>
                                             </div>
                                         )}
                                     </td>

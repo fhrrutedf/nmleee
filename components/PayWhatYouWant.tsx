@@ -71,7 +71,7 @@ export function PayWhatYouWant({
                             key={value}
                             onClick={() => setCustomAmount(value.toString())}
                             className={`px-4 py-2 rounded-lg font-medium transition-all ${parseFloat(customAmount) === value
-                                    ? 'bg-accent text-white shadow-md'
+                                    ? 'bg-emerald-600 text-white shadow-md'
                                     : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                                 }`}
                         >

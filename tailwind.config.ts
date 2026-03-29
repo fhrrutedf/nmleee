@@ -19,18 +19,18 @@ const config: Config = {
 
                 // Accent — ONE blue, used sparingly
                 'accent': {
-                    DEFAULT: '#2563EB',
-                    hover: '#1D4ED8',
-                    light: '#EFF6FF',
+                    DEFAULT: '#059669',
+                    hover: '#047857',
+                    light: '#ECFDF5',
                     muted: '#93C5FD',
-                    50: '#EFF6FF',
+                    50: '#ECFDF5',
                     100: '#DBEAFE',
                     200: '#BFDBFE',
                     300: '#93C5FD',
                     400: '#60A5FA',
                     500: '#3B82F6',
-                    600: '#2563EB',
-                    700: '#1D4ED8',
+                    600: '#059669',
+                    700: '#047857',
                     800: '#1E40AF',
                     900: '#1E3A8A',
                 },
@@ -49,12 +49,12 @@ const config: Config = {
                 // ── Backward compatible aliases (NOW ALIASED TO V2 ELITE) ──
                 'primary-charcoal': '#1A1A1A',
                 'action-blue': {
-                    DEFAULT: '#2563EB',
-                    hover: '#1D4ED8',
-                    light: '#EFF6FF',
+                    DEFAULT: '#059669',
+                    hover: '#047857',
+                    light: '#ECFDF5',
                 },
                 'action-secondary': {
-                    DEFAULT: '#1D4ED8',
+                    DEFAULT: '#047857',
                     hover: '#1E40AF',
                     light: '#DBEAFE',
                 },
@@ -70,8 +70,8 @@ const config: Config = {
 
                 // Re-mapping EVERYTHING to follow the NEW ACCENT
                 'brand': {
-                    50: '#EFF6FF', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD',
-                    400: '#60A5FA', 500: '#3B82F6', 600: '#2563EB', 700: '#1D4ED8',
+                    50: '#ECFDF5', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD',
+                    400: '#60A5FA', 500: '#3B82F6', 600: '#059669', 700: '#047857',
                     800: '#1E40AF', 900: '#1E3A8A', 950: '#172554',
                 },
                 'navy': {
@@ -80,13 +80,13 @@ const config: Config = {
                     800: '#1F2937', 900: '#111827', 950: '#030712',
                 },
                 primary: {
-                    50: '#EFF6FF', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD',
-                    400: '#60A5FA', 500: '#3B82F6', 600: '#2563EB', 700: '#1D4ED8',
+                    50: '#ECFDF5', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD',
+                    400: '#60A5FA', 500: '#3B82F6', 600: '#059669', 700: '#047857',
                     800: '#1E40AF', 900: '#1E3A8A',
                 },
                 'primary-indigo': {
-                    50: '#EFF6FF', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD',
-                    400: '#60A5FA', 500: '#3B82F6', 600: '#2563EB', 700: '#1D4ED8',
+                    50: '#ECFDF5', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD',
+                    400: '#60A5FA', 500: '#3B82F6', 600: '#059669', 700: '#047857',
                     800: '#1E40AF', 900: '#1E3A8A', 950: '#172554',
                 },
             },

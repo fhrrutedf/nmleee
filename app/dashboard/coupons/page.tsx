@@ -116,7 +116,7 @@ export default function CouponsPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent border-t-transparent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-emerald-600 border-t-transparent"></div>
             </div>
         );
     }
@@ -154,7 +154,7 @@ export default function CouponsPage() {
                     {coupons.map((coupon) => (
                         <div key={coupon.id} className={`bg-white dark:bg-card-white rounded-xl border ${coupon.isActive ? 'border-gray-200 dark:border-gray-700' : 'border-gray-100 dark:border-gray-800 opacity-70'} shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow relative`}>
                             {/* Top Accent */}
-                            <div className={`h-1.5 w-full ${coupon.isActive ? 'bg-accent shadow-[0_0_15px_rgba(37,99,235,0.3)]' : 'bg-gray-200'}`}></div>
+                            <div className={`h-1.5 w-full ${coupon.isActive ? 'bg-emerald-600 shadow-[0_0_15px_rgba(37,99,235,0.3)]' : 'bg-gray-200'}`}></div>
 
                             <div className="p-6">
                                 <div className="flex justify-between items-start mb-4">
@@ -170,7 +170,7 @@ export default function CouponsPage() {
                                 </div>
 
                                 <div className="flex items-center justify-between mb-6">
-                                    <div className="text-3xl font-bold text-accent dark:text-blue-400 drop-shadow-sm">
+                                    <div className="text-3xl font-bold text-emerald-600 dark:text-blue-400 drop-shadow-sm">
                                         {coupon.type === 'percentage' ? `${coupon.value}% خصم` : `${coupon.value} $ خصم`}
                                     </div>
                                     <div className="text-right">
@@ -191,7 +191,7 @@ export default function CouponsPage() {
                                                 count: coupon.orders?.filter((o: any) => isSameDay(new Date(o.createdAt), d)).length || 0
                                             }));
                                         })()}>
-                                            <Line type="monotone" dataKey="count" stroke="#2563EB" strokeWidth={3} dot={false} />
+                                            <Line type="monotone" dataKey="count" stroke="#059669" strokeWidth={3} dot={false} />
                                         </LineChart>
                                     </ResponsiveContainer>
                                 </div>
@@ -263,7 +263,7 @@ export default function CouponsPage() {
                     <div className="bg-white dark:bg-card-white rounded-xl shadow-sm w-full max-w-2xl max-h-[90vh] overflow-y-auto transform transition-all">
                         <div className="sticky top-0 bg-white dark:bg-card-white p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center z-10">
                             <h2 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
-                                <FiTag className="text-accent" /> إضافة كوبون خصم جديد
+                                <FiTag className="text-emerald-600" /> إضافة كوبون خصم جديد
                             </h2>
                             <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-red-500 bg-gray-100 dark:bg-gray-800 p-2 rounded-xl transition-colors">
                                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -310,7 +310,7 @@ export default function CouponsPage() {
                                             value={formData.value}
                                             onChange={(e) => setFormData({ ...formData, value: e.target.value })}
                                         />
-                                        <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center font-bold text-accent text-xl border-l border-accent/20 bg-accent/5">
+                                        <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center font-bold text-emerald-600 text-xl border-l border-emerald-600/20 bg-emerald-600/5">
                                             {formData.type === 'percentage' ? '%' : '$'}
                                         </div>
                                     </div>
@@ -318,7 +318,7 @@ export default function CouponsPage() {
 
                                 {/* Advanced Options Toggle could be added here, currently displaying directly */}
                                 <div className="md:col-span-2 pt-4 border-t border-gray-100 dark:border-gray-800">
-                                    <h4 className="text-lg font-bold mb-4 flex items-center gap-2"><FiClock className="text-accent" /> الإعدادات والقيود المتطورة (اختياري)</h4>
+                                    <h4 className="text-lg font-bold mb-4 flex items-center gap-2"><FiClock className="text-emerald-600" /> الإعدادات والقيود المتطورة (اختياري)</h4>
                                 </div>
 
                                 <div>

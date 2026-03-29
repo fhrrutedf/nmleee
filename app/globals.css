@@ -6,8 +6,8 @@
   :root {
     /* ══ Tmleen Brand System v2.0 ══ */
     --ink: #1A1A1A;
-    --accent: #2563EB;
-    --accent-hover: #1D4ED8;
+    --accent: #059669;
+    --accent-hover: #047857;
     --surface: #FFFFFF;
     --subtle: #F9FAFB;
     --muted: #6B7280;
@@ -15,8 +15,8 @@
 
     /* Backward-compatible tokens */
     --ink: #1A1A1A;
-    --accent: #2563EB;
-    --action-secondary: #1D4ED8;
+    --accent: #059669;
+    --action-secondary: #047857;
     --bg-light: #F9FAFB;
     --card-white: #FFFFFF;
     --text-muted: #6B7280;

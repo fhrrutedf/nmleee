@@ -81,7 +81,7 @@ export default function ShowcasePage() {
                                     </div>
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold mb-2 group-hover:text-accent transition-colors">{item.title}</h3>
+                                    <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-600 transition-colors">{item.title}</h3>
                                     <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
                                         <FiUser /> <span>{item.owner}</span>
                                         <span className="mx-2">•</span>
@@ -90,7 +90,7 @@ export default function ShowcasePage() {
                                     <p className="text-gray-600 leading-relaxed mb-6">
                                         {item.desc}
                                     </p>
-                                    <Link href="#" className="flex items-center justify-center gap-2 w-full py-2 bg-gray-50 hover:bg-primary-50 text-accent rounded-lg font-bold transition-colors">
+                                    <Link href="#" className="flex items-center justify-center gap-2 w-full py-2 bg-gray-50 hover:bg-primary-50 text-emerald-600 rounded-lg font-bold transition-colors">
                                         زيارة المتجر <FiExternalLink />
                                     </Link>
                                 </div>

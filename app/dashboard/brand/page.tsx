@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 // ─── Preset Color Palettes ────────────────────────────────
 const COLOR_PALETTES = [
-    { name: 'احترافي (افتراضي)', primary: '#1A1A1A', secondary: '#2563EB' },
+    { name: 'احترافي (افتراضي)', primary: '#1A1A1A', secondary: '#059669' },
     { name: 'أزرق ملكي', primary: '#1E40AF', secondary: '#1E293B' },
     { name: 'بنفسجي فاخر', primary: '#6D28D9', secondary: '#1E1B4B' },
     { name: 'وردي عصري', primary: '#BE185D', secondary: '#1C1917' },
@@ -44,7 +44,7 @@ export default function BrandEditorPage() {
 
     const [brand, setBrand] = useState({
         brandColor: '#1A1A1A',
-        brandSecondaryColor: '#2563EB',
+        brandSecondaryColor: '#059669',
         brandFont: 'default',
         brandButtonStyle: 'rounded',
         brandLayout: 'grid',
@@ -62,7 +62,7 @@ export default function BrandEditorPage() {
                 const data = await apiGet('/api/user/profile');
                 setBrand({
                     brandColor: data.brandColor || '#1A1A1A',
-                    brandSecondaryColor: data.brandSecondaryColor || '#2563EB',
+                    brandSecondaryColor: data.brandSecondaryColor || '#059669',
                     brandFont: data.brandFont || 'default',
                     brandButtonStyle: data.brandButtonStyle || 'rounded',
                     brandLayout: data.brandLayout || 'grid',
@@ -103,7 +103,7 @@ export default function BrandEditorPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[60vh]">
-                <FiRefreshCw className="text-4xl text-accent animate-spin" />
+                <FiRefreshCw className="text-4xl text-emerald-600 animate-spin" />
             </div>
         );
     }

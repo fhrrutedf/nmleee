@@ -47,8 +47,8 @@ const plans = [
         maxProducts: '50 منتج',
         storage: '15 جيجابايت',
         students: '1000 طالب',
-        border: 'border-accent/40',
-        btnClass: 'bg-accent text-white hover:bg-black shadow-sm shadow-accent/20',
+        border: 'border-emerald-600/40',
+        btnClass: 'bg-emerald-600 text-white hover:bg-black shadow-sm shadow-accent/20',
         popular: true,
         features: [
             'أقل عمولة منصة (5% فقط)',
@@ -130,16 +130,16 @@ export default function PricingPage() {
     const [isYearly, setIsYearly] = useState(false);
 
     return (
-        <div className="min-h-screen bg-white selection:bg-accent/20" dir="rtl">
+        <div className="min-h-screen bg-white selection:bg-emerald-600/20" dir="rtl">
             {/* Minimalist Professional Header */}
             <section className="relative py-24 md:py-32 bg-ink text-white overflow-hidden border-b border-white/5">
-                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-accent/10 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-600/10 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
                 
                 <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-accent px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 shadow-sm"
+                        className="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-emerald-600 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 shadow-sm"
                     >
                         <FiZap size={14} /> خطط مالية مصممة لزيادة المبيعات
                     </motion.div>
@@ -150,7 +150,7 @@ export default function PricingPage() {
                         transition={{ delay: 0.1 }}
                         className="text-5xl md:text-8xl font-bold mb-8 tracking-tighter leading-tight"
                     >
-                        أرباحك <span className="text-accent underline underline-offset-[12px] decoration-accent/30 decoration-4">كاملة</span> لك
+                        أرباحك <span className="text-emerald-600 underline underline-offset-[12px] decoration-accent/30 decoration-4">كاملة</span> لك
                     </motion.h1>
                     
                     <motion.p
@@ -176,7 +176,7 @@ export default function PricingPage() {
                                 className={`px-12 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all relative ${isYearly ? 'bg-white text-ink shadow-sm' : 'text-gray-400 hover:text-white'}`}
                             >
                                 yearly
-                                <span className="absolute -top-4 -left-4 bg-accent text-white text-[9px] px-3 py-1 rounded-xl font-bold uppercase tracking-widest shadow-sm ">
+                                <span className="absolute -top-4 -left-4 bg-emerald-600 text-white text-[9px] px-3 py-1 rounded-xl font-bold uppercase tracking-widest shadow-sm ">
                                     -20%
                                 </span>
                             </button>
@@ -199,14 +199,14 @@ export default function PricingPage() {
                                 <div className="flex justify-between items-center text-sm font-bold text-gray-400 italic"><span>البيانات:</span> <span className="line-through">مخفية عنك</span></div>
                              </div>
                         </div>
-                        <div className="bg-ink p-8 rounded-[2rem] border border-accent/20 shadow-sm shadow-accent/10 transform md:scale-110">
-                             <div className="flex items-center gap-3 text-accent font-bold text-[10px] uppercase tracking-widest mb-6">
+                        <div className="bg-ink p-8 rounded-[2rem] border border-emerald-600/20 shadow-sm shadow-accent/10 transform md:scale-110">
+                             <div className="flex items-center gap-3 text-emerald-600 font-bold text-[10px] uppercase tracking-widest mb-6">
                                 <FiCheckCircle className="text-lg" /> بيئة تمالين الاستثمارية
                              </div>
                              <div className="space-y-4 text-white">
-                                <div className="flex justify-between items-center text-sm font-bold"><span>عمولة البيع:</span> <span className="text-accent text-lg tracking-widest font-bold">5% ONLY</span></div>
-                                <div className="flex justify-between items-center text-sm font-bold"><span>تحصيل الأموال:</span> <span className="text-accent tracking-tighter uppercase">Instant Payouts</span></div>
-                                <div className="flex justify-between items-center text-sm font-bold"><span>البيانات:</span> <span className="text-accent tracking-tighter uppercase">100% Owner Control</span></div>
+                                <div className="flex justify-between items-center text-sm font-bold"><span>عمولة البيع:</span> <span className="text-emerald-600 text-lg tracking-widest font-bold">5% ONLY</span></div>
+                                <div className="flex justify-between items-center text-sm font-bold"><span>تحصيل الأموال:</span> <span className="text-emerald-600 tracking-tighter uppercase">Instant Payouts</span></div>
+                                <div className="flex justify-between items-center text-sm font-bold"><span>البيانات:</span> <span className="text-emerald-600 tracking-tighter uppercase">100% Owner Control</span></div>
                              </div>
                         </div>
                     </div>
@@ -227,7 +227,7 @@ export default function PricingPage() {
                         >
                              <div className="mb-8 h-8">
                                 {plan.popular && (
-                                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] px-5 py-2 rounded-xl bg-accent text-white shadow-sm shadow-accent/20">
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] px-5 py-2 rounded-xl bg-emerald-600 text-white shadow-sm shadow-accent/20">
                                         {plan.badge}
                                     </span>
                                 )}
@@ -251,7 +251,7 @@ export default function PricingPage() {
                                             {!plan.custom && plan.monthlyPrice > 0 && <span className="text-gray-400 font-bold text-sm">/mo</span>}
                                         </div>
                                         {isYearly && plan.monthlyPrice > 0 && (
-                                            <p className="text-accent text-[10px] font-bold uppercase tracking-widest mt-2 bg-accent/5 py-1 px-3 rounded-lg inline-block">
+                                            <p className="text-emerald-600 text-[10px] font-bold uppercase tracking-widest mt-2 bg-emerald-600/5 py-1 px-3 rounded-lg inline-block">
                                                 Total ${plan.yearlyPrice} / Year
                                             </p>
                                         )}
@@ -266,7 +266,7 @@ export default function PricingPage() {
                                     ].map((s, idx) => (
                                         <div key={idx} className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest">
                                             <span className="text-gray-400">{s.l}</span>
-                                            <span className={s.h ? 'text-accent' : 'text-ink'}>{s.v}</span>
+                                            <span className={s.h ? 'text-emerald-600' : 'text-ink'}>{s.v}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -274,7 +274,7 @@ export default function PricingPage() {
                                 <ul className="space-y-4 mb-10 flex-1">
                                     {plan.features.map((f, idx) => (
                                         <li key={idx} className="flex items-start gap-4 text-xs font-bold text-gray-500 group-hover:text-ink transition-colors">
-                                            <FiCheckCircle className="text-accent mt-0.5 shrink-0" size={16} />
+                                            <FiCheckCircle className="text-emerald-600 mt-0.5 shrink-0" size={16} />
                                             <span className="leading-relaxed">{f}</span>
                                         </li>
                                     ))}
@@ -302,7 +302,7 @@ export default function PricingPage() {
             <section className="bg-ink py-32 text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
                 <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-                    <div className="w-24 h-24 bg-accent text-white rounded-xl flex items-center justify-center mx-auto mb-10 shadow-sm shadow-accent/20 rotate-3">
+                    <div className="w-24 h-24 bg-emerald-600 text-white rounded-xl flex items-center justify-center mx-auto mb-10 shadow-sm shadow-accent/20 rotate-3">
                         <FiShield size={48} />
                     </div>
                     <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tighter">لماذا يختار المحترفون تمالين؟</h2>

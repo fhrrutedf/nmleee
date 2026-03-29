@@ -171,7 +171,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
             <div className="space-y-6">
                 {loading || !hasMounted ? (
                     <div className="text-center py-12">
-                        <div className="animate-spin rounded-xl h-12 w-12 border-4 border-accent border-t-transparent mx-auto"></div>
+                        <div className="animate-spin rounded-xl h-12 w-12 border-4 border-emerald-600 border-t-transparent mx-auto"></div>
                     </div>
                 ) : reviews.length === 0 ? (
                     <div className="text-center py-12 px-4 bg-gray-50 dark:bg-gray-800/20 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">

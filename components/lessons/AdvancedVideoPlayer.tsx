@@ -105,7 +105,7 @@ export default function AdvancedVideoPlayer({ lessonId, courseId, studentEmail, 
             <p className="text-white/60 mb-6">{error || 'بيانات الفيديو غير متوفرة'}</p>
             <button 
                 onClick={fetchPlayback}
-                className="px-6 py-3 bg-accent rounded-xl font-bold flex items-center gap-2 hover:bg-accent-600 transition-colors"
+                className="px-6 py-3 bg-emerald-600 rounded-xl font-bold flex items-center gap-2 hover:bg-emerald-600-600 transition-colors"
             >
                 <FiRefreshCw /> إعادة المحاولة
             </button>
@@ -146,7 +146,7 @@ export default function AdvancedVideoPlayer({ lessonId, courseId, studentEmail, 
             <div className="absolute top-8 left-8 pointer-events-none opacity-20 select-none hidden md:block">
                  <div className="flex flex-col gap-1 items-start bg-black/40 p-3 rounded-xl ">
                      <p className="text-[10px] font-bold text-white uppercase tracking-widest leading-none">Protected by Tamleen</p>
-                     <p className="text-[8px] font-bold text-accent opacity-50">{studentEmail || 'Authenticating...'}</p>
+                     <p className="text-[8px] font-bold text-emerald-600 opacity-50">{studentEmail || 'Authenticating...'}</p>
                  </div>
             </div>
 

@@ -43,7 +43,7 @@ export default function OrderSummary({
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-8 space-y-10 sticky top-24">
             <div className="flex items-baseline justify-between overflow-hidden">
                 <h2 className="text-xl font-bold text-ink tracking-tight">ملخص الطلب</h2>
-                <span className="text-[10px] font-bold text-accent bg-accent-light px-3 py-1 rounded-xl uppercase tracking-widest">
+                <span className="text-[10px] font-bold text-emerald-600 bg-emerald-600-light px-3 py-1 rounded-xl uppercase tracking-widest">
                     {items.length} Elements
                 </span>
             </div>
@@ -59,7 +59,7 @@ export default function OrderSummary({
                             {item.image ? (
                                 <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                             ) : (
-                                <div className="w-full h-full flex items-center justify-center text-accent">
+                                <div className="w-full h-full flex items-center justify-center text-emerald-600">
                                     <FiShoppingCart size={20} />
                                 </div>
                             )}
@@ -83,19 +83,19 @@ export default function OrderSummary({
                     <input 
                         type="text" 
                         placeholder="هل لديك كود خصم؟"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 pr-12 text-sm font-bold text-ink outline-none focus:ring-4 focus:ring-accent/5 focus:border-accent transition-all font-inter placeholder:text-gray-400"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 pr-12 text-sm font-bold text-ink outline-none focus:ring-4 focus:ring-accent/5 focus:border-emerald-600 transition-all font-inter placeholder:text-gray-400"
                         value={couponCode}
                         onChange={(e) => onCouponChange(e.target.value.toUpperCase())}
                     />
                     <div className="absolute top-1/2 left-1.5 -translate-y-1/2">
                         <button 
                             onClick={onApplyCoupon}
-                            className="bg-accent text-white hover:bg-accent-hover px-4 py-2 rounded-lg text-xs font-bold transition-all active:scale-95"
+                            className="bg-emerald-600 text-white hover:bg-emerald-600-hover px-4 py-2 rounded-lg text-xs font-bold transition-all active:scale-95"
                         >
                             تطبيق
                         </button>
                     </div>
-                    <FiTag className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-400 group-focus-within/input:text-accent transition-colors" size={20} />
+                    <FiTag className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-400 group-focus-within/input:text-emerald-600 transition-colors" size={20} />
                 </div>
             </div>
 
@@ -112,7 +112,7 @@ export default function OrderSummary({
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="flex justify-between text-sm font-bold text-accent bg-accent-light p-4 rounded-xl border border-accent/10"
+                            className="flex justify-between text-sm font-bold text-emerald-600 bg-emerald-600-light p-4 rounded-xl border border-emerald-600/10"
                         >
                             <span className="flex items-center gap-1.5"><FiCheckCircle /> الخصم المُطبق</span>
                             <span className="font-mono font-inter">-{discount.toFixed(2)} $</span>
@@ -158,11 +158,11 @@ export default function OrderSummary({
                 {/* Security Badges */}
                 <div className="mt-8 grid grid-cols-2 gap-3">
                     <div className="flex items-center gap-2.5 p-3.5 bg-gray-50 rounded-xl border border-gray-100 group/badge transition-colors hover:bg-gray-100">
-                        <FiShield className="text-accent group-hover:scale-110 transition-transform" size={18} />
+                        <FiShield className="text-emerald-600 group-hover:scale-110 transition-transform" size={18} />
                         <span className="text-[9px] font-bold text-gray-500 leading-tight uppercase tracking-wider font-inter">Secure SSL<br/>Encryption</span>
                     </div>
                     <div className="flex items-center gap-2.5 p-3.5 bg-gray-50 rounded-xl border border-gray-100 group/badge transition-colors hover:bg-gray-100">
-                        <FiClock className="text-accent group-hover:scale-110 transition-transform" size={18} />
+                        <FiClock className="text-emerald-600 group-hover:scale-110 transition-transform" size={18} />
                         <span className="text-[9px] font-bold text-gray-500 leading-tight uppercase tracking-wider font-inter">Instant<br/>Access</span>
                     </div>
                 </div>

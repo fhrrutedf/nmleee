@@ -287,7 +287,7 @@ export default function PayoutSettingsPage() {
                 </div>
 
                 {/* Info */}
-                <div className="mt-6 bg-accent-50 border border-blue-200 rounded-lg p-4">
+                <div className="mt-6 bg-emerald-600-50 border border-blue-200 rounded-lg p-4">
                     <h3 className="font-bold text-blue-900 mb-2">💡 معلومات مهمة:</h3>
                     <ul className="text-sm text-blue-800 space-y-1">
                         <li>• يمكنك تغيير طريقة الدفع في أي وقت</li>

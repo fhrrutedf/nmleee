@@ -227,7 +227,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                                             {q.isResolved ? (
                                                 <span className="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-600 text-[10px] font-bold rounded-xl">محلول</span>
                                             ) : q._count.replies > 0 ? (
-                                                <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-accent text-[10px] font-bold rounded-xl">تم الرد</span>
+                                                <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-emerald-600 text-[10px] font-bold rounded-xl">تم الرد</span>
                                             ) : (
                                                 <span className="px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-orange-600 text-[10px] font-bold rounded-xl">جديد</span>
                                             )}

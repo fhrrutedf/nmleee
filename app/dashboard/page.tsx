@@ -69,13 +69,13 @@ export default function DashboardPage() {
                     </p>
                 </div>
                 {/* Minimalist Background Detail */}
-                <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-[120px]"></div>
+                <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-600/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-[120px]"></div>
             </motion.div>
 
             {/* High-Contrast Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                    { title: 'إجمالي الأرباح', value: `${(stats.totalRevenue || 0).toLocaleString('en-US')} $`, icon: FiDollarSign, badge: 'Revenue', color: 'text-accent', bg: 'bg-accent-light' },
+                    { title: 'إجمالي الأرباح', value: `${(stats.totalRevenue || 0).toLocaleString('en-US')} $`, icon: FiDollarSign, badge: 'Revenue', color: 'text-emerald-600', bg: 'bg-emerald-600-light' },
                     { title: 'إجمالي المبيعات', value: stats.totalOrders || 0, icon: FiShoppingCart, badge: 'Sales', color: 'text-ink', bg: 'bg-gray-50' },
                     { title: 'المنتجات النشطة', value: stats.totalProducts || 0, icon: FiPackage, badge: 'Inventory', color: 'text-ink', bg: 'bg-gray-50' },
                     { title: 'عدد الطلاب', value: stats.totalStudents || 0, icon: FiUsers, badge: 'Students', color: 'text-ink', bg: 'bg-gray-50' }
@@ -101,7 +101,7 @@ export default function DashboardPage() {
                 <motion.div variants={item} className="lg:col-span-2 bg-white border border-gray-100 rounded-xl p-8 shadow-sm flex flex-col">
                     <div className="flex justify-between items-center mb-10">
                         <div className="flex items-center gap-3">
-                            <FiBarChart2 className="text-accent text-2xl" />
+                            <FiBarChart2 className="text-emerald-600 text-2xl" />
                             <h2 className="text-xl font-bold text-ink">تحليلات الأداء</h2>
                         </div>
                         <select className="bg-gray-50 border-none rounded-xl text-[11px] font-bold px-4 py-2 text-gray-500 focus:ring-1 focus:ring-gray-200 cursor-pointer">
@@ -129,20 +129,20 @@ export default function DashboardPage() {
                         { title: 'إنشاء كورس جديد', desc: 'سجل محاضراتك وأنشئ أكاديميتك', icon: FiVideo, href: '/dashboard/courses/new' },
                         { title: 'تعديل هوية المتجر', desc: 'الألوان، الشعار، والوصف', icon: FiSettings, href: '/dashboard/brand' }
                     ].map((action, idx) => (
-                        <Link key={idx} href={action.href} className="flex items-center gap-5 p-5 rounded-xl bg-white border border-gray-100 hover:border-accent/20 hover:shadow-sm hover:shadow-accent/5 transition-all group">
-                            <div className="w-12 h-12 rounded-xl bg-gray-50 text-ink flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all shadow-sm">
+                        <Link key={idx} href={action.href} className="flex items-center gap-5 p-5 rounded-xl bg-white border border-gray-100 hover:border-emerald-600/20 hover:shadow-sm hover:shadow-accent/5 transition-all group">
+                            <div className="w-12 h-12 rounded-xl bg-gray-50 text-ink flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-sm">
                                 <action.icon className="text-xl" />
                             </div>
                             <div className="flex-1 text-right">
-                                <h3 className="font-bold text-ink group-hover:text-accent transition-colors text-sm">{action.title}</h3>
+                                <h3 className="font-bold text-ink group-hover:text-emerald-600 transition-colors text-sm">{action.title}</h3>
                                 <p className="text-[10px] text-gray-400 font-bold mt-0.5">{action.desc}</p>
                             </div>
-                            <FiArrowUpRight className="text-gray-300 group-hover:text-accent" />
+                            <FiArrowUpRight className="text-gray-300 group-hover:text-emerald-600" />
                         </Link>
                     ))}
                     
-                    <div className="mt-8 p-6 bg-accent-light rounded-xl border border-accent/10">
-                        <p className="text-[10px] font-bold text-accent uppercase tracking-widest mb-2">نصيحة اليوم</p>
+                    <div className="mt-8 p-6 bg-emerald-600-light rounded-xl border border-emerald-600/10">
+                        <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-2">نصيحة اليوم</p>
                         <p className="text-xs text-ink font-bold leading-relaxed">
                             تحديث صور المنتجات الرقمية يزيد من معدل التحويل بنسبة تصل إلى 25%.
                         </p>

@@ -116,7 +116,7 @@ export default function PayoutsManagement() {
     const getStatusStyle = (status: string) => {
         switch (status) {
             case 'PENDING': return 'bg-orange-50 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400 border-orange-200 dark:border-orange-800/50';
-            case 'PROCESSING': return 'bg-accent-50 text-accent dark:bg-blue-900/20 dark:text-blue-400 border-blue-200 dark:border-blue-800/50';
+            case 'PROCESSING': return 'bg-emerald-600-50 text-emerald-600 dark:bg-blue-900/20 dark:text-blue-400 border-blue-200 dark:border-blue-800/50';
             case 'COMPLETED': return 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400 border-green-200 dark:border-green-800/50';
             case 'REJECTED': return 'bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400 border-red-200 dark:border-red-800/50';
             default: return 'bg-gray-50 text-gray-700 dark:bg-gray-800 dark:text-gray-400';

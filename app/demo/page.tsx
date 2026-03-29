@@ -17,10 +17,10 @@ export default function DemoPage() {
                         منصة عربية متكاملة لبيع المنتجات الرقمية والدورات التدريبية
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
-                        <Link href="/register" className="btn bg-white text-accent hover:bg-gray-100 px-8 py-4 text-lg">
+                        <Link href="/register" className="btn bg-white text-emerald-600 hover:bg-gray-100 px-8 py-4 text-lg">
                             ابدأ الآن مجاناً
                         </Link>
-                        <Link href="/courses" className="btn btn-outline border-white text-white hover:bg-white hover:text-accent px-8 py-4 text-lg">
+                        <Link href="/courses" className="btn btn-outline border-white text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg">
                             تصفح الدورات
                         </Link>
                     </div>
@@ -33,7 +33,7 @@ export default function DemoPage() {
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         <div className="text-center">
                             <div className="w-20 h-20 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                                <FiUsers className="text-4xl text-accent-600" />
+                                <FiUsers className="text-4xl text-emerald-600-600" />
                             </div>
                             <h3 className="text-4xl font-bold text-gray-900 mb-2">10K+</h3>
                             <p className="text-gray-600">مستخدم نشط</p>
@@ -77,7 +77,7 @@ export default function DemoPage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div className="bg-white rounded-xl shadow-sm p-8 hover:shadow-sm transition-shadow">
                             <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
-                                <FiShoppingCart className="text-3xl text-accent-600" />
+                                <FiShoppingCart className="text-3xl text-emerald-600-600" />
                             </div>
                             <h3 className="text-2xl font-bold mb-3">بيع المنتجات</h3>
                             <p className="text-gray-600 leading-relaxed">
@@ -118,7 +118,7 @@ export default function DemoPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div className="text-center">
-                            <div className="w-20 h-20 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-accent">
+                            <div className="w-20 h-20 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-emerald-600">
                                 1
                             </div>
                             <h3 className="text-xl font-bold mb-3">أنشئ حسابك</h3>
@@ -128,7 +128,7 @@ export default function DemoPage() {
                         </div>
 
                         <div className="text-center">
-                            <div className="w-20 h-20 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-accent">
+                            <div className="w-20 h-20 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-emerald-600">
                                 2
                             </div>
                             <h3 className="text-xl font-bold mb-3">أضف منتجاتك</h3>
@@ -138,7 +138,7 @@ export default function DemoPage() {
                         </div>
 
                         <div className="text-center">
-                            <div className="w-20 h-20 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-accent">
+                            <div className="w-20 h-20 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-emerald-600">
                                 3
                             </div>
                             <h3 className="text-xl font-bold mb-3">ابدأ البيع</h3>
@@ -196,7 +196,7 @@ export default function DemoPage() {
                                                 <FiStar key={i} className="text-sm text-yellow-400 fill-yellow-400" />
                                             ))}
                                         </div>
-                                        <span className="text-2xl font-bold text-accent">{product.price} $</span>
+                                        <span className="text-2xl font-bold text-emerald-600">{product.price} $</span>
                                     </div>
                                 </div>
                             </div>
@@ -219,13 +219,13 @@ export default function DemoPage() {
                     <div className="flex flex-wrap justify-center gap-4">
                         <Link
                             href="/register"
-                            className="btn bg-white text-accent hover:bg-gray-100 px-8 py-4 text-lg"
+                            className="btn bg-white text-emerald-600 hover:bg-gray-100 px-8 py-4 text-lg"
                         >
                             ابدأ مجاناً الآن
                         </Link>
                         <Link
                             href="/about"
-                            className="btn btn-outline border-white text-white hover:bg-white hover:text-accent px-8 py-4 text-lg"
+                            className="btn btn-outline border-white text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg"
                         >
                             اعرف المزيد
                         </Link>

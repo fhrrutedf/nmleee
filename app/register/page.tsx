@@ -116,10 +116,10 @@ function RegisterContent() {
     const inputClass = "block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-100 rounded-xl outline-none focus:bg-white focus:border-ink focus:ring-4 focus:ring-ink/5 transition-all font-bold text-sm";
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden py-16 px-6 selection:bg-accent/20">
+        <div className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden py-16 px-6 selection:bg-emerald-600/20">
             {/* Background Decorations */}
-            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent/5 rounded-xl blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-accent/5 rounded-xl blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
+            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-600/5 rounded-xl blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-600/5 rounded-xl blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
 
             <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-xl w-full relative z-10">
                 <motion.div variants={fadeInUp} className="text-center mb-12">
@@ -133,7 +133,7 @@ function RegisterContent() {
                 </motion.div>
 
                 <motion.div variants={fadeInUp} className="bg-white rounded-[2.5rem] border border-gray-100 p-10 shadow-sm shadow-gray-200/50 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-[80px] pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-600/5 rounded-bl-[80px] pointer-events-none"></div>
 
                     <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                         <AnimatePresence>
@@ -173,7 +173,7 @@ function RegisterContent() {
                                     {countryDropdownOpen && (
                                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="absolute z-50 mt-2 w-full bg-white border border-gray-100 rounded-xl shadow-sm max-h-60 overflow-y-auto p-2 space-y-1">
                                             {countries.map(c => (
-                                                <button key={c.code} type="button" onClick={() => { setSelectedCountry(c.code as CountryCode); setCountryDropdownOpen(false); }} className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold transition-all ${selectedCountry === c.code ? 'bg-accent text-white' : 'text-gray-500 hover:bg-gray-50 hover:text-ink'}`}>
+                                                <button key={c.code} type="button" onClick={() => { setSelectedCountry(c.code as CountryCode); setCountryDropdownOpen(false); }} className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold transition-all ${selectedCountry === c.code ? 'bg-emerald-600 text-white' : 'text-gray-500 hover:bg-gray-50 hover:text-ink'}`}>
                                                     <span className="flex items-center gap-2"><span>{c.flag}</span> <span>{c.nameAr}</span></span>
                                                     <span className="opacity-50">{c.dialCode}</span>
                                                 </button>
@@ -216,7 +216,7 @@ function RegisterContent() {
                     <div className="mt-10 pt-10 border-t border-gray-50 text-center">
                         <p className="text-gray-400 text-xs font-bold">
                             هل تملك حساباً بالفعل؟ {' '}
-                            <Link href="/login" className="text-accent underline underline-offset-4 decoration-accent/30 hover:decoration-accent transition-all">
+                            <Link href="/login" className="text-emerald-600 underline underline-offset-4 decoration-accent/30 hover:decoration-accent transition-all">
                                 سجل دخولك الآن
                             </Link>
                         </p>
@@ -225,7 +225,7 @@ function RegisterContent() {
 
                 <motion.div variants={fadeInUp} className="text-center mt-12 space-y-6">
                     <p className="flex items-center justify-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                        <FiShield className="text-accent" /> Institutional Grade Security Protected
+                        <FiShield className="text-emerald-600" /> Institutional Grade Security Protected
                     </p>
                 </motion.div>
             </motion.div>

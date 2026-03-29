@@ -36,12 +36,12 @@ export const CustomCursor = () => {
     return (
         <>
             <motion.div
-                className="fixed top-0 left-0 w-8 h-8 rounded-xl border-2 border-accent pointer-events-none z-[100] mix-blend-difference hidden md:block"
+                className="fixed top-0 left-0 w-8 h-8 rounded-xl border-2 border-emerald-600 pointer-events-none z-[100] mix-blend-difference hidden md:block"
                 animate={{ x: mousePosition.x - 16, y: mousePosition.y - 16, scale: isHovering ? 2 : 1, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
             />
             <motion.div
-                className="fixed top-0 left-0 w-2 h-2 bg-accent rounded-xl pointer-events-none z-[100] hidden md:block"
+                className="fixed top-0 left-0 w-2 h-2 bg-emerald-600 rounded-xl pointer-events-none z-[100] hidden md:block"
                 animate={{ x: mousePosition.x - 4, y: mousePosition.y - 4 }}
                 transition={{ type: "spring", stiffness: 1000, damping: 40, mass: 0.1 }}
             />

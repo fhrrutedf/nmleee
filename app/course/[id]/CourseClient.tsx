@@ -50,9 +50,9 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
             {course.user?.brandColor && (
                 <style dangerouslySetInnerHTML={{
                     __html: `
-                    .text-accent { color: ${course.user.brandColor} !important; }
-                    .bg-accent { background-color: ${course.user.brandColor} !important; }
-                    .border-accent { border-color: ${course.user.brandColor} !important; }
+                    .text-emerald-600 { color: ${course.user.brandColor} !important; }
+                    .bg-emerald-600 { background-color: ${course.user.brandColor} !important; }
+                    .border-emerald-600 { border-color: ${course.user.brandColor} !important; }
                     .ring-accent { --tw-ring-color: ${course.user.brandColor} !important; }
                     .hover\\:bg-primary-700:hover { background-color: ${course.user.brandColor} !important; filter: brightness(0.9); }
                     .bg-primary-50 { background-color: ${course.user.brandColor}15 !important; }
@@ -61,9 +61,9 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
             )}
             <div className="max-w-7xl mx-auto px-4 py-8">
                 <div className="flex items-center gap-2 text-sm text-gray-600 mb-6 font-bold">
-                    <Link href="/" className="hover:text-accent">الرئيسية</Link>
+                    <Link href="/" className="hover:text-emerald-600">الرئيسية</Link>
                     <span>/</span>
-                    <Link href="/explore" className="hover:text-accent">الدورات</Link>
+                    <Link href="/explore" className="hover:text-emerald-600">الدورات</Link>
                     <span>/</span>
                     <span className="text-gray-900 truncate max-w-[200px]">{course.title}</span>
                 </div>
@@ -92,20 +92,20 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                             <div className="grid grid-cols-3 gap-4 mb-8">
                                 {course.duration && (
                                     <div className="text-center p-4 bg-gray-50 rounded-xl">
-                                        <FiClock className="text-2xl text-accent mx-auto mb-2" />
+                                        <FiClock className="text-2xl text-emerald-600 mx-auto mb-2" />
                                         <p className="text-xs text-gray-500 mb-1">المدة</p>
                                         <p className="font-bold text-sm">{course.duration}</p>
                                     </div>
                                 )}
                                 {course.sessions && (
                                     <div className="text-center p-4 bg-gray-50 rounded-xl">
-                                        <FiVideo className="text-2xl text-accent mx-auto mb-2" />
+                                        <FiVideo className="text-2xl text-emerald-600 mx-auto mb-2" />
                                         <p className="text-xs text-gray-500 mb-1">الجلسات</p>
                                         <p className="font-bold text-sm">{course.sessions} جلسة</p>
                                     </div>
                                 )}
                                 <div className="text-center p-4 bg-gray-50 rounded-xl">
-                                    <FiAward className="text-2xl text-accent mx-auto mb-2" />
+                                    <FiAward className="text-2xl text-emerald-600 mx-auto mb-2" />
                                     <p className="text-xs text-gray-500 mb-1">الشهادة</p>
                                     <p className="font-bold text-sm">متاحة</p>
                                 </div>
@@ -115,7 +115,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                                 {['description', 'features', 'reviews'].map((tab) => (
                                     <button
                                         key={tab} onClick={() => setActiveTab(tab)}
-                                        className={`pb-4 px-2 border-b-2 font-bold transition-colors whitespace-nowrap ${activeTab === tab ? 'border-accent text-accent' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+                                        className={`pb-4 px-2 border-b-2 font-bold transition-colors whitespace-nowrap ${activeTab === tab ? 'border-emerald-600 text-emerald-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
                                     >
                                         {tab === 'description' ? 'الوصف' : tab === 'features' ? 'محتوى الدورة' : `التقييمات (${reviews.length})`}
                                     </button>
@@ -160,7 +160,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                     <div className="lg:col-span-1">
                         <div className="bg-white rounded-xl shadow-sm p-8 sticky top-6 border border-gray-100">
                            <div className="text-center mb-8">
-                                <div className="text-5xl font-bold text-accent mb-2">{course.price.toFixed(2)} $</div>
+                                <div className="text-5xl font-bold text-emerald-600 mb-2">{course.price.toFixed(2)} $</div>
                                 {course.isFree && <span className="inline-block px-4 py-1.5 bg-green-100 text-green-700 rounded-lg text-sm font-bold">مجاني 🎉</span>}
                             </div>
                             <div className="space-y-4 mb-8">
@@ -176,7 +176,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                     </div>
                 </div>
             </div>
-            <footer className="mt-16 py-8 border-t border-gray-100 dark:border-gray-800 text-center"><p className="text-gray-500 dark:text-gray-400 font-medium">مدعوم من <a href="https://tmleen.com" className="text-accent font-bold hover:underline">منصة تمالين</a></p></footer>
+            <footer className="mt-16 py-8 border-t border-gray-100 dark:border-gray-800 text-center"><p className="text-gray-500 dark:text-gray-400 font-medium">مدعوم من <a href="https://tmleen.com" className="text-emerald-600 font-bold hover:underline">منصة تمالين</a></p></footer>
         </div>
     );
 }

@@ -66,10 +66,10 @@ function fmt(n: number, decimals = 2): string {
 // ─── Status Badge ───────────────────────────────────────────
 function StatusBadge({ status }: { status: WithdrawalRecord['status'] }) {
     const map: Record<string, { label: string; cls: string }> = {
-        PENDING:    { label: 'قيد المراجعة', cls: 'bg-accent-50 text-blue-700 border border-blue-100' },
-        PROCESSING: { label: 'قيد التحويل',  cls: 'bg-accent-50 text-blue-700 border border-blue-100' },
-        PAID:       { label: 'تم الدفع',      cls: 'bg-accent-light text-accent border border-accent/10' },
-        COMPLETED:  { label: 'مكتمل',         cls: 'bg-accent-light text-accent border border-accent/10' },
+        PENDING:    { label: 'قيد المراجعة', cls: 'bg-emerald-600-50 text-blue-700 border border-blue-100' },
+        PROCESSING: { label: 'قيد التحويل',  cls: 'bg-emerald-600-50 text-blue-700 border border-blue-100' },
+        PAID:       { label: 'تم الدفع',      cls: 'bg-emerald-600-light text-emerald-600 border border-emerald-600/10' },
+        COMPLETED:  { label: 'مكتمل',         cls: 'bg-emerald-600-light text-emerald-600 border border-emerald-600/10' },
         REJECTED:   { label: 'مرفوض',         cls: 'bg-red-50 text-red-700 border border-red-100' },
     };
     const { label, cls } = map[status] || { label: status, cls: 'bg-gray-50 text-gray-600 border border-gray-100' };
@@ -215,14 +215,14 @@ export default function EarningsDashboard() {
 
             {/* ── Alerts ─────────────────────────────────── */}
             {!payoutMethodConfigured && (
-                <div className="flex items-start gap-4 p-5 bg-accent-50 border border-blue-200 rounded-xl text-sm text-blue-900 shadow-sm shadow-blue-900/5">
-                    <FiAlertTriangle className="mt-0.5 shrink-0 text-accent-500" size={20} />
+                <div className="flex items-start gap-4 p-5 bg-emerald-600-50 border border-blue-200 rounded-xl text-sm text-blue-900 shadow-sm shadow-blue-900/5">
+                    <FiAlertTriangle className="mt-0.5 shrink-0 text-emerald-600-500" size={20} />
                     <p className="leading-relaxed">لم تقم بإعداد طريقة الاستلام بعد. يرجى الذهاب إلى <strong>الإعدادات → طريقة الاستلام</strong> لتفعيل السحب.</p>
                 </div>
             )}
             {hasPendingWithdraw && (
-                <div className="flex items-start gap-4 p-5 bg-accent-50 border border-blue-100 rounded-xl text-sm text-blue-900 shadow-sm shadow-blue-900/5">
-                    <FiShield className="mt-0.5 shrink-0 text-accent-500" size={20} />
+                <div className="flex items-start gap-4 p-5 bg-emerald-600-50 border border-blue-100 rounded-xl text-sm text-blue-900 shadow-sm shadow-blue-900/5">
+                    <FiShield className="mt-0.5 shrink-0 text-emerald-600-500" size={20} />
                     <p className="leading-relaxed">لديك طلب سحب قيد المراجعة حالياً. يمكنك تقديم طلب جديد بعد معالجة الطلب الحالي.</p>
                 </div>
             )}
@@ -274,7 +274,7 @@ export default function EarningsDashboard() {
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex items-center gap-2 px-6 py-4 text-sm font-bold border-b-2 transition-all ${
                                 activeTab === tab.id
-                                    ? 'border-accent text-accent'
+                                    ? 'border-emerald-600 text-emerald-600'
                                     : 'border-transparent text-gray-400 hover:text-ink'
                             }`}
                         >
@@ -327,9 +327,9 @@ function BalanceCard({
     sub?: string; highlight?: boolean;
 }) {
     const colors = {
-        accent: { bg: 'bg-accent-light', icon: 'bg-accent', text: 'text-accent', amt: 'text-ink' },
-        amber:  { bg: 'bg-accent-50',     icon: 'bg-accent-500',  text: 'text-blue-700', amt: 'text-ink' },
-        blue:   { bg: 'bg-accent-50',      icon: 'bg-accent-500',   text: 'text-blue-700',  amt: 'text-ink' },
+        accent: { bg: 'bg-emerald-600-light', icon: 'bg-emerald-600', text: 'text-emerald-600', amt: 'text-ink' },
+        amber:  { bg: 'bg-emerald-600-50',     icon: 'bg-emerald-600-500',  text: 'text-blue-700', amt: 'text-ink' },
+        blue:   { bg: 'bg-emerald-600-50',      icon: 'bg-emerald-600-500',   text: 'text-blue-700',  amt: 'text-ink' },
         purple: { bg: 'bg-purple-50',    icon: 'bg-purple-500', text: 'text-purple-700', amt: 'text-ink' },
     };
     const c = colors[color];
@@ -360,18 +360,18 @@ function OverviewTab({ balance, minPayoutAmount }: { balance: BalanceSummary; mi
             <div className="bg-white border border-gray-100 rounded-xl p-8 shadow-sm">
                 <div className="flex items-center justify-between mb-6">
                     <h3 className="font-bold text-ink">الحد الأدنى للسحب</h3>
-                    <span className={`text-sm font-bold font-inter ${reachedMin ? 'text-accent' : 'text-gray-400'}`}>
+                    <span className={`text-sm font-bold font-inter ${reachedMin ? 'text-emerald-600' : 'text-gray-400'}`}>
                         ${fmt(balance.spendable)} / ${fmt(minPayoutAmount)}
                     </span>
                 </div>
                 <div className="h-3 bg-gray-50 rounded-xl overflow-hidden mb-6">
                     <div
-                        className={`h-full rounded-xl transition-all duration-1000 ${reachedMin ? 'bg-accent' : 'bg-blue-400'}`}
+                        className={`h-full rounded-xl transition-all duration-1000 ${reachedMin ? 'bg-emerald-600' : 'bg-blue-400'}`}
                         style={{ width: `${progressPct}%` }}
                     />
                 </div>
                 {reachedMin ? (
-                    <div className="flex items-center gap-2 p-4 bg-accent-light rounded-xl text-accent text-sm font-bold">
+                    <div className="flex items-center gap-2 p-4 bg-emerald-600-light rounded-xl text-emerald-600 text-sm font-bold">
                         <FiCheckCircle size={18} />
                         وصبت للحد الأدنى — يمكنك السحب الآن!
                     </div>
@@ -388,9 +388,9 @@ function OverviewTab({ balance, minPayoutAmount }: { balance: BalanceSummary; mi
                 <div className="space-y-4">
                     {[
                         { label: 'إجمالي الأرباح', val: balance.totalEarnings, cls: 'text-ink font-bold' },
-                        { label: 'قيد الحجز (Escrow)', val: balance.pending, cls: 'text-accent-600' },
-                        { label: 'متاح للسحب', val: balance.available, cls: 'text-accent' },
-                        { label: 'طلبات سحب قيد المراجعة', val: balance.pendingWithdrawals, cls: 'text-accent-500' },
+                        { label: 'قيد الحجز (Escrow)', val: balance.pending, cls: 'text-emerald-600-600' },
+                        { label: 'متاح للسحب', val: balance.available, cls: 'text-emerald-600' },
+                        { label: 'طلبات سحب قيد المراجعة', val: balance.pendingWithdrawals, cls: 'text-emerald-600-500' },
                         { label: 'صافي قابل للسحب', val: balance.spendable, cls: 'text-ink font-bold text-lg' },
                         { label: 'أرباح الإحالات', val: balance.referralEarnings, cls: 'text-ink' },
                     ].map(row => (
@@ -428,7 +428,7 @@ function ScheduleTab({ releases }: { releases: UpcomingRelease[] }) {
                     return (
                         <div key={i} className="flex items-center justify-between p-6 hover:bg-gray-50 transition-all">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-accent-50 flex items-center justify-center text-accent-500">
+                                <div className="w-12 h-12 rounded-xl bg-emerald-600-50 flex items-center justify-center text-emerald-600-500">
                                     <FiClock size={20} />
                                 </div>
                                 <div>
@@ -569,7 +569,7 @@ function WithdrawModal({
                         })}
                         <button
                             onClick={() => onAmountChange(spendable.toString())}
-                            className="text-[10px] px-4 py-2 bg-accent-light hover:bg-accent/20 rounded-xl text-accent font-bold transition-all mr-auto"
+                            className="text-[10px] px-4 py-2 bg-emerald-600-light hover:bg-emerald-600/20 rounded-xl text-emerald-600 font-bold transition-all mr-auto"
                         >
                             سحب الكل
                         </button>

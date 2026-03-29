@@ -96,7 +96,7 @@ export default function EditQuizPage() {
         <div className="max-w-4xl mx-auto pb-12">
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-sm text-text-muted mb-6">
-                <button onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes`)} className="hover:text-accent transition-colors">
+                <button onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes`)} className="hover:text-emerald-600 transition-colors">
                     الاختبارات
                 </button>
                 <FiArrowRight size={12} />

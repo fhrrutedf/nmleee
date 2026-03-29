@@ -173,7 +173,7 @@ export default function UsersManagement() {
 
     const planBadge = (planType?: string) => {
         switch (planType) {
-            case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-accent-50 text-accent-600 dark:bg-blue-900/20 dark:text-blue-400">🚀 GROWTH</span>;
+            case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-emerald-600-50 text-emerald-600-600 dark:bg-blue-900/20 dark:text-blue-400">🚀 GROWTH</span>;
             case 'PRO': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-purple-50 text-ink dark:bg-purple-900/20 dark:text-purple-400">👑 PRO</span>;
             default: return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400">🆓 FREE</span>;
         }
@@ -186,7 +186,7 @@ export default function UsersManagement() {
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-bold text-ink dark:text-white mb-2 tracking-tight flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-xl bg-emerald-600/10 text-emerald-600 flex items-center justify-center">
                             <FiUsers />
                         </div>
                         إدارة المستخدمين
@@ -226,7 +226,7 @@ export default function UsersManagement() {
                         </span>}
                     </button>
                     <button onClick={() => fetchUsers(true)} className="btn bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 py-2 px-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800">
-                        <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-accent' : 'text-gray-500 w-4 h-4'} />
+                        <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-emerald-600' : 'text-gray-500 w-4 h-4'} />
                     </button>
                 </div>
             </div>
@@ -247,9 +247,9 @@ export default function UsersManagement() {
                             placeholder="ابحث بالاسم أو البريد الإلكتروني..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all text-ink dark:text-white"
+                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-emerald-600 transition-all text-ink dark:text-white"
                         />
-                        <button type="submit" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-accent transition-colors">
+                        <button type="submit" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-emerald-600 transition-colors">
                             <FiSearch size={18} />
                         </button>
                     </form>
@@ -257,7 +257,7 @@ export default function UsersManagement() {
                     {/* Filters */}
                     <div className="flex items-center gap-3 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
                         <div className="flex items-center gap-2 text-sm font-bold text-gray-500 bg-white dark:bg-gray-900 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700">
-                            <FiFilter className="text-accent" />
+                            <FiFilter className="text-emerald-600" />
                             الفئة:
                             <select
                                 value={roleFilter}
@@ -317,7 +317,7 @@ export default function UsersManagement() {
                                                         )}
                                                         {user.isVerified && (
                                                             <div className="absolute -bottom-1 -right-1 bg-white dark:bg-card-white rounded-xl p-0.5" title="حساب موثق">
-                                                                <FiCheckCircle className="text-accent-500 w-4 h-4" />
+                                                                <FiCheckCircle className="text-emerald-600-500 w-4 h-4" />
                                                             </div>
                                                         )}
                                                         {user.verificationRequests && user.verificationRequests.length > 0 && (
@@ -350,7 +350,7 @@ export default function UsersManagement() {
                                                 {user.role === 'SELLER' ? (
                                                     <div className="flex flex-col gap-1 items-center justify-center text-xs text-gray-500 font-bold">
                                                         <span title="مبيعات البائع">📦 {user._count.sellerOrders} طلب</span>
-                                                        <span className="text-accent" title="إجمالي الأرباح">${user.totalEarnings.toFixed(2)}</span>
+                                                        <span className="text-emerald-600" title="إجمالي الأرباح">${user.totalEarnings.toFixed(2)}</span>
                                                     </div>
                                                 ) : (
                                                     <div className="text-xs text-gray-500 font-bold">
@@ -390,7 +390,7 @@ export default function UsersManagement() {
                                                     >
                                                         {user.isActive ? <FiXCircle size={18} /> : <FiCheckCircle size={18} />}
                                                     </button>
-                                                    <button className="p-2 rounded-lg text-gray-400 hover:text-accent hover:bg-accent-50 dark:hover:bg-blue-900/20 transition-colors">
+                                                    <button className="p-2 rounded-lg text-gray-400 hover:text-emerald-600 hover:bg-emerald-600-50 dark:hover:bg-blue-900/20 transition-colors">
                                                         <FiMoreVertical size={18} />
                                                     </button>
                                                     {user.verificationRequests && user.verificationRequests.length > 0 && (

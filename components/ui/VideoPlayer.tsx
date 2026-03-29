@@ -146,7 +146,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                     className="absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer  transition-all"
                     onClick={togglePlay}
                 >
-                    <div className="w-20 h-20 bg-accent rounded-xl flex items-center justify-center text-white p-2 hover:scale-110 transition-transform">
+                    <div className="w-20 h-20 bg-emerald-600 rounded-xl flex items-center justify-center text-white p-2 hover:scale-110 transition-transform">
                         <FiPlay className="text-4xl ml-2" />
                     </div>
                 </div>
@@ -173,7 +173,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                     />
                     <div className="w-full h-full bg-surface rounded-xl relative z-10 overflow-hidden">
                         <div
-                            className="h-full bg-accent rounded-xl transition-all ease-linear"
+                            className="h-full bg-emerald-600 rounded-xl transition-all ease-linear"
                             style={{ width: `${(currentTime / (duration || 1)) * 100}%` }}
                         />
                     </div>
@@ -182,12 +182,12 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                 <div className="flex items-center justify-between" dir="ltr">
                     {/* Left Controls */}
                     <div className="flex items-center gap-4 text-white">
-                        <button onClick={togglePlay} className="hover:text-accent transition-colors">
+                        <button onClick={togglePlay} className="hover:text-emerald-600 transition-colors">
                             {isPlaying ? <FiPause size={24} /> : <FiPlay size={24} />}
                         </button>
 
                         <div className="flex items-center gap-2 group/vol relative">
-                            <button onClick={toggleMute} className="hover:text-accent transition-colors">
+                            <button onClick={toggleMute} className="hover:text-emerald-600 transition-colors">
                                 {isMuted || volume === 0 ? <FiVolumeX size={20} /> : <FiVolume2 size={20} />}
                             </button>
                             <input
@@ -210,7 +210,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                     <div className="flex items-center gap-4 text-white relative">
                         <button
                             onClick={() => setShowSettings(!showSettings)}
-                            className="hover:text-accent transition-colors"
+                            className="hover:text-emerald-600 transition-colors"
                         >
                             <FiSettings size={20} />
                         </button>
@@ -226,7 +226,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                                             <button
                                                 key={speed}
                                                 onClick={() => setSpeed(speed)}
-                                                className={`px-2 py-1 rounded-lg transition-colors ${playbackRate === speed ? 'bg-accent text-white' : 'hover:bg-gray-800'}`}
+                                                className={`px-2 py-1 rounded-lg transition-colors ${playbackRate === speed ? 'bg-emerald-600 text-white' : 'hover:bg-gray-800'}`}
                                             >
                                                 {speed}x
                                             </button>
@@ -241,7 +241,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                                             <button
                                                 key={q}
                                                 onClick={() => { setQuality(q); setShowSettings(false); }}
-                                                className={`block w-full text-left px-2 py-1 rounded-lg transition-colors ${quality === q ? 'text-accent font-bold' : 'hover:bg-gray-800'}`}
+                                                className={`block w-full text-left px-2 py-1 rounded-lg transition-colors ${quality === q ? 'text-emerald-600 font-bold' : 'hover:bg-gray-800'}`}
                                             >
                                                 {q === 'auto' ? 'تلقائي' : q}
                                             </button>
@@ -251,7 +251,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                             </div>
                         )}
 
-                        <button onClick={toggleFullscreen} className="hover:text-accent transition-colors">
+                        <button onClick={toggleFullscreen} className="hover:text-emerald-600 transition-colors">
                             <FiMaximize size={20} />
                         </button>
                     </div>

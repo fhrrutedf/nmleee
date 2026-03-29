@@ -57,7 +57,7 @@ export default function MyPurchasesPage() {
     if (status === 'loading' || loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-emerald-600"></div>
             </div>
         );
     }
@@ -210,12 +210,12 @@ export default function MyPurchasesPage() {
                 )}
 
                 {/* Help Section */}
-                <div className="mt-8 bg-accent-50 border border-blue-200 rounded-xl p-6">
+                <div className="mt-8 bg-emerald-600-50 border border-blue-200 rounded-xl p-6">
                     <h3 className="font-bold text-blue-900 mb-2">هل تحتاج مساعدة؟</h3>
                     <p className="text-blue-800 mb-4">
                         إذا واجهت أي مشكلة في التحميل أو الوصول لمشترياتك، فريق الدعم جاهز لمساعدتك
                     </p>
-                    <Link href="/support" className="btn btn-sm bg-accent-600 hover:bg-ink text-white">
+                    <Link href="/support" className="btn btn-sm bg-emerald-600-600 hover:bg-ink text-white">
                         تواصل مع الدعم
                     </Link>
                 </div>

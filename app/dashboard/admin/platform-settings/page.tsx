@@ -134,7 +134,7 @@ export default function AdminPlatformSettingsPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="w-12 h-12 border-4 border-accent-500/30 border-t-accent-500 rounded-xl animate-spin" />
+                <div className="w-12 h-12 border-4 border-emerald-600-500/30 border-t-accent-500 rounded-xl animate-spin" />
             </div>
         );
     }
@@ -144,7 +144,7 @@ export default function AdminPlatformSettingsPage() {
             {/* Header / Central Dashboard */}
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800">
                 <div className="flex items-center gap-5">
-                    <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-accent-600">
+                    <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-emerald-600-600">
                         <FiSettings className="text-3xl" />
                     </div>
                     <div>
@@ -164,7 +164,7 @@ export default function AdminPlatformSettingsPage() {
                     <button
                         onClick={handleSave}
                         disabled={saving}
-                        className="bg-accent-600 hover:bg-ink text-white font-bold px-8 py-4 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-sm shadow-accent-500/20 disabled:opacity-50"
+                        className="bg-emerald-600-600 hover:bg-ink text-white font-bold px-8 py-4 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-sm shadow-accent-500/20 disabled:opacity-50"
                     >
                         {saving ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-xl animate-spin" /> : <FiSave />}
                         تحديث الإمبراطورية
@@ -190,7 +190,7 @@ export default function AdminPlatformSettingsPage() {
                                         checked={settings.withdrawalsEnabled}
                                         onChange={e => update('withdrawalsEnabled', e.target.checked)}
                                     />
-                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-xl peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-accent-600"></div>
+                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-xl peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-600-600"></div>
                                 </label>
                             </div>
                             <p className="text-xs text-gray-500">عند التعطيل، يتم إيقاف جميع طلبات سحب الأرباح من البائعين فوراً.</p>
@@ -200,12 +200,12 @@ export default function AdminPlatformSettingsPage() {
                         <div className="bg-white dark:bg-gray-900 p-8 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm">
                             <h3 className="font-bold text-gray-900 dark:text-white mb-4">حد التنبيه للعمليات الكبيرة</h3>
                             <div className="relative">
-                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-accent-500 font-bold">$</span>
+                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-600-500 font-bold">$</span>
                                 <input
                                     type="number"
                                     value={settings.highValueAlertThreshold}
                                     onChange={e => update('highValueAlertThreshold', parseFloat(e.target.value))}
-                                    className="w-full bg-gray-50 dark:bg-gray-800 border-none rounded-xl px-10 py-4 font-bold text-lg text-accent-600 focus:ring-2 focus:ring-accent-500/20 outline-none"
+                                    className="w-full bg-gray-50 dark:bg-gray-800 border-none rounded-xl px-10 py-4 font-bold text-lg text-emerald-600-600 focus:ring-2 focus:ring-accent-500/20 outline-none"
                                 />
                             </div>
                         </div>
@@ -215,7 +215,7 @@ export default function AdminPlatformSettingsPage() {
                     <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-8">
                         <div className="flex items-center justify-between border-b border-gray-50 dark:border-gray-800 pb-6">
                             <div className="flex items-center gap-4">
-                                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-accent-600">
+                                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-emerald-600-600">
                                     <FiZap className="text-2xl" />
                                 </div>
                                 <h2 className="text-xl font-bold text-gray-900 dark:text-white">بوابة Spaceremit ورسوم الموقع</h2>
@@ -238,7 +238,7 @@ export default function AdminPlatformSettingsPage() {
                                         checked={settings.spaceremitEnabled}
                                         onChange={e => update('spaceremitEnabled', e.target.checked)}
                                     />
-                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-xl peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-accent-600"></div>
+                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-xl peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-600-600"></div>
                                 </label>
                             </div>
                         </div>
@@ -254,7 +254,7 @@ export default function AdminPlatformSettingsPage() {
                     {/* 3. Commissions - 4 Tiers */}
                     <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-8">
                         <div className="flex items-center gap-4 border-b border-gray-50 dark:border-gray-800 pb-6">
-                            <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-accent-600">
+                            <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-emerald-600-600">
                                 <FiDollarSign className="text-2xl" />
                             </div>
                             <h2 className="text-xl font-bold text-gray-900 dark:text-white">باقات البائعين والعمولات</h2>
@@ -263,8 +263,8 @@ export default function AdminPlatformSettingsPage() {
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                             <CommissionInput label="FREE Tier %" value={settings.commissionRate} days={settings.freeEscrowDays} onRateChange={(v: number) => update('commissionRate', v)} onDaysChange={(v: number) => update('freeEscrowDays', v)} color="text-gray-400" />
                             <CommissionInput label="GROWTH Tier %" value={settings.growthCommissionRate} days={settings.growthEscrowDays} onRateChange={(v: number) => update('growthCommissionRate', v)} onDaysChange={(v: number) => update('growthEscrowDays', v)} color="text-ink" />
-                            <CommissionInput label="PRO Tier %" value={settings.proCommissionRate} days={settings.proEscrowDays} onRateChange={(v: number) => update('proCommissionRate', v)} onDaysChange={(v: number) => update('proEscrowDays', v)} color="text-accent-500" />
-                            <CommissionInput label="AGENCY Tier %" value={settings.agencyCommissionRate} days={settings.agencyEscrowDays} onRateChange={(v: number) => update('agencyCommissionRate', v)} onDaysChange={(v: number) => update('agencyEscrowDays', v)} color="text-accent-500" />
+                            <CommissionInput label="PRO Tier %" value={settings.proCommissionRate} days={settings.proEscrowDays} onRateChange={(v: number) => update('proCommissionRate', v)} onDaysChange={(v: number) => update('proEscrowDays', v)} color="text-emerald-600-500" />
+                            <CommissionInput label="AGENCY Tier %" value={settings.agencyCommissionRate} days={settings.agencyEscrowDays} onRateChange={(v: number) => update('agencyCommissionRate', v)} onDaysChange={(v: number) => update('agencyEscrowDays', v)} color="text-emerald-600-500" />
                         </div>
                     </div>
 
@@ -308,7 +308,7 @@ export default function AdminPlatformSettingsPage() {
                     {/* Platform Wallets (Manual SY) */}
                     <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-6">
                         <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                            <FiPhone className="text-accent-500" /> محافظ الدفع اليدوي
+                            <FiPhone className="text-emerald-600-500" /> محافظ الدفع اليدوي
                         </h3>
                         <div className="space-y-4">
                             <WalletInput label="شام كاش" value={settings.shamCash} onChange={(v: string) => update('shamCash', v)} />
@@ -367,7 +367,7 @@ function RateInput({ label, value, onChange, flag }: { label: string; value: num
     return (
         <div className="space-y-2">
             <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{flag} {label}</label>
-            <input type="number" step="0.01" value={value} onChange={e => onChange(parseFloat(e.target.value))} className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl px-4 py-3 text-center font-bold text-gray-900 dark:text-white focus:border-accent-500 outline-none transition-all" />
+            <input type="number" step="0.01" value={value} onChange={e => onChange(parseFloat(e.target.value))} className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl px-4 py-3 text-center font-bold text-gray-900 dark:text-white focus:border-emerald-600-500 outline-none transition-all" />
         </div>
     );
 }

@@ -112,7 +112,7 @@ export default function CourseBuilder({
                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">مدة المنهج</p>
                     <p className="text-2xl font-bold text-ink font-inter">{stats.total}m</p>
                 </div>
-                <div className="flex items-center text-accent">
+                <div className="flex items-center text-emerald-600">
                     <FiEye className="text-xl" />
                 </div>
             </div>
@@ -144,7 +144,7 @@ export default function CourseBuilder({
                                                     <button 
                                                         type="button" 
                                                         onClick={() => addLesson(section.id)} 
-                                                        className="text-[10px] font-bold text-accent bg-gray-50 px-5 py-2.5 rounded-xl hover:bg-ink hover:text-white transition-all uppercase tracking-widest border border-gray-100"
+                                                        className="text-[10px] font-bold text-emerald-600 bg-gray-50 px-5 py-2.5 rounded-xl hover:bg-ink hover:text-white transition-all uppercase tracking-widest border border-gray-100"
                                                     >
                                                         + ADD LESSON
                                                     </button>
@@ -173,7 +173,7 @@ export default function CourseBuilder({
                                                                         ref={provided.innerRef} 
                                                                         {...provided.draggableProps} 
                                                                         {...provided.dragHandleProps}
-                                                                        className={`flex items-center justify-between p-4 bg-white border border-gray-100 rounded-xl group/lesson ${snapshot.isDragging ? 'shadow-sm ring-2 ring-accent/20 border-accent' : 'hover:border-gray-200 shadow-sm'}`}
+                                                                        className={`flex items-center justify-between p-4 bg-white border border-gray-100 rounded-xl group/lesson ${snapshot.isDragging ? 'shadow-sm ring-2 ring-accent/20 border-emerald-600' : 'hover:border-gray-200 shadow-sm'}`}
                                                                     >
                                                                         <div className="flex items-center gap-4">
                                                                             <div className="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center text-ink transition-all group-hover/lesson:bg-ink group-hover/lesson:text-white border border-gray-100">
@@ -224,7 +224,7 @@ export default function CourseBuilder({
             <button 
                 type="button"
                 onClick={addSection} 
-                className="w-full py-6 border border-dashed border-gray-200 rounded-[2rem] text-gray-400 font-bold text-[10px] uppercase tracking-[0.3em] hover:border-accent hover:text-accent transition-all flex items-center justify-center gap-3 bg-white shadow-sm"
+                className="w-full py-6 border border-dashed border-gray-200 rounded-[2rem] text-gray-400 font-bold text-[10px] uppercase tracking-[0.3em] hover:border-emerald-600 hover:text-emerald-600 transition-all flex items-center justify-center gap-3 bg-white shadow-sm"
             >
                 <FiPlus className="text-xl" /> ADD NEW CHAPTER
             </button>

@@ -140,7 +140,7 @@ export default function OrdersPage() {
             {/* Orders List */}
             {loading ? (
                 <div className="text-center py-12">
-                    <div className="animate-spin rounded-xl h-12 w-12 border-4 border-accent border-t-transparent mx-auto"></div>
+                    <div className="animate-spin rounded-xl h-12 w-12 border-4 border-emerald-600 border-t-transparent mx-auto"></div>
                 </div>
             ) : filteredOrders.length === 0 ? (
                 <div className="card text-center py-16 px-6 border-2 border-dashed border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/20">
@@ -206,7 +206,7 @@ export default function OrdersPage() {
                                         <td className="py-4 px-6 text-sm">
                                             {order.affiliateLink?.user?.name ? (
                                                 <div className="flex flex-col">
-                                                    <span className="font-bold text-accent">{order.affiliateLink.user.name}</span>
+                                                    <span className="font-bold text-emerald-600">{order.affiliateLink.user.name}</span>
                                                     <span className="text-[10px] text-gray-400 font-mono">{order.affiliateLink.code}</span>
                                                 </div>
                                             ) : (

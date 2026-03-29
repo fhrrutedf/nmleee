@@ -122,7 +122,7 @@ export default function AdminBroadcastPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div className="space-y-2">
-                    <span className="inline-flex items-center gap-2 bg-accent-50 text-accent px-3 py-1 rounded-xl text-sm font-bold border border-blue-100">
+                    <span className="inline-flex items-center gap-2 bg-emerald-600-50 text-emerald-600 px-3 py-1 rounded-xl text-sm font-bold border border-blue-100">
                         <FiTarget /> نظام التواصل الجماعي
                     </span>
                     <h1 className="text-4xl font-bold text-ink">البث الجماعي وخدمة الإشعارات</h1>
@@ -145,7 +145,7 @@ export default function AdminBroadcastPage() {
                     >
                         <div className="p-8 border-b border-gray-50 flex items-center justify-between">
                             <h2 className="text-xl font-bold flex items-center gap-2">
-                                <FiSend className="text-accent" /> إنشاء بث جديد
+                                <FiSend className="text-emerald-600" /> إنشاء بث جديد
                             </h2>
                             <span className="text-xs text-text-muted font-bold px-3 py-1 bg-gray-50 rounded-lg">Powered by Resend Queue</span>
                         </div>
@@ -219,7 +219,7 @@ export default function AdminBroadcastPage() {
                                         <button 
                                             type="submit"
                                             disabled={submitting}
-                                            className="flex-[2] bg-accent hover:bg-ink text-white font-bold py-4 rounded-xl shadow-sm shadow-accent/30 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                                            className="flex-[2] bg-emerald-600 hover:bg-ink text-white font-bold py-4 rounded-xl shadow-sm shadow-accent/30 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
                                         >
                                             {submitting ? <FiLoader className="animate-spin text-xl" /> : <FiSend className="text-lg" />}
                                             {submitting ? 'جاري الجدولة...' : 'إرسال البث الآن'}
@@ -246,7 +246,7 @@ export default function AdminBroadcastPage() {
                                                 </div>
                                                 {/* Email App Header */}
                                                 <div className="p-4 bg-slate-50 border-b flex items-center gap-3">
-                                                    <div className="w-8 h-8 rounded-xl bg-blue-100 flex items-center justify-center text-accent-600 font-bold text-xs">
+                                                    <div className="w-8 h-8 rounded-xl bg-blue-100 flex items-center justify-center text-emerald-600-600 font-bold text-xs">
                                                         T
                                                     </div>
                                                     <div>
@@ -257,7 +257,7 @@ export default function AdminBroadcastPage() {
                                                 {/* Email Body Template */}
                                                 <div className="flex-1 overflow-y-auto bg-gray-50 p-2">
                                                     <div className="bg-white rounded-lg shadow-sm overflow-hidden border">
-                                                        <div className="p-4 bg-accent-600 text-center">
+                                                        <div className="p-4 bg-emerald-600-600 text-center">
                                                             <div className="text-white font-bold text-xs tracking-widest">TAMLEEN</div>
                                                         </div>
                                                         <div className="p-4 space-y-4">

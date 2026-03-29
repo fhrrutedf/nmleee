@@ -54,7 +54,7 @@ export default function VerifyTransfersPage() {
         <div className="p-6 max-w-4xl mx-auto min-h-[80vh]">
             <div className="mb-8">
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3 mb-2">
-                    <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 text-accent-600 rounded-xl flex items-center justify-center shadow-inner">
+                    <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 text-emerald-600-600 rounded-xl flex items-center justify-center shadow-inner">
                         <FiCpu className="text-2xl" />
                     </div>
                     نظام مطابقة الحوالات الذكي
@@ -87,13 +87,13 @@ export default function VerifyTransfersPage() {
                 {/* Verification Section */}
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col">
                     <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                        <span className="w-8 h-8 rounded-xl bg-blue-100 text-accent-600 flex items-center justify-center text-sm">2</span>
+                        <span className="w-8 h-8 rounded-xl bg-blue-100 text-emerald-600-600 flex items-center justify-center text-sm">2</span>
                         التحقق والاعتماد
                     </h2>
 
                     {extractedRefs.length > 0 ? (
                         <div className="space-y-6 flex-1 flex flex-col">
-                            <div className="bg-accent-50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-100 dark:border-blue-800/30 flex-1 overflow-auto max-h-64 mb-auto">
+                            <div className="bg-emerald-600-50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-100 dark:border-blue-800/30 flex-1 overflow-auto max-h-64 mb-auto">
                                 <p className="font-bold text-blue-800 dark:text-blue-300 mb-3 flex items-center gap-2">
                                     <FiList /> تم استخراج {extractedRefs.length} رقم مرجعي:
                                 </p>

@@ -67,7 +67,7 @@ export default function AffiliatePage() {
                              </div>
                              <button 
                                 onClick={copyLink}
-                                className={`px-10 h-16 rounded-xl font-bold text-sm flex items-center justify-center gap-3 transition-all ${copied ? 'bg-accent-500 text-white shadow-blue-200' : 'bg-primary-ink text-white shadow-sm shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95'}`}
+                                className={`px-10 h-16 rounded-xl font-bold text-sm flex items-center justify-center gap-3 transition-all ${copied ? 'bg-emerald-600-500 text-white shadow-blue-200' : 'bg-primary-ink text-white shadow-sm shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95'}`}
                              >
                                 {copied ? <FiCheck size={20} /> : <FiCopy size={20} />}
                                 {copied ? 'تم النسخ' : 'نسخ الرابط'}
@@ -79,10 +79,10 @@ export default function AffiliatePage() {
                              <FiShare2 size={80} className="text-white -rotate-12" />
                         </div>
                         <div className="absolute -bottom-4 -right-4 bg-white dark:bg-gray-900 p-4 rounded-xl shadow-sm flex items-center gap-3 border border-slate-50 dark:border-gray-800 rotate-[-8deg] ">
-                            <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-accent-600"><FiTrendingUp size={20} /></div>
+                            <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-emerald-600-600"><FiTrendingUp size={20} /></div>
                             <div>
                                 <p className="text-[10px] font-bold text-slate-400 uppercase">اربح حصتك</p>
-                                <p className="text-sm font-bold text-accent-600">نسبة {stats?.commissionRate || 1}%</p>
+                                <p className="text-sm font-bold text-emerald-600-600">نسبة {stats?.commissionRate || 1}%</p>
                             </div>
                         </div>
                     </div>
@@ -92,7 +92,7 @@ export default function AffiliatePage() {
             {/* --- STATS GRID --- */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                  {[
-                    { label: 'إجمالي الأرباح', val: `${stats?.totalEarnings?.toFixed(2) || '0.00'} $`, icon: FiDollarSign, color: 'text-accent-500', bg: 'bg-accent-50 dark:bg-blue-900/10' },
+                    { label: 'إجمالي الأرباح', val: `${stats?.totalEarnings?.toFixed(2) || '0.00'} $`, icon: FiDollarSign, color: 'text-emerald-600-500', bg: 'bg-emerald-600-50 dark:bg-blue-900/10' },
                     { label: 'عدد الإحالات', val: stats?.totalReferrals || 0, icon: FiUsers, color: 'text-primary-ink', bg: 'bg-subtle dark:bg-primary-indigo-900/10' },
                     { label: 'معدل التحويل', val: `${stats?.conversionRate || 0}%`, icon: FiActivity, color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/10' }
                  ].map((card, i) => (
@@ -145,7 +145,7 @@ export default function AffiliatePage() {
                                         <td className="py-6 px-8 font-bold text-slate-900 dark:text-white text-sm">{aff.productTitle}</td>
                                         <td className="py-6 px-8 text-sm font-bold text-slate-500">{aff.amount.toFixed(2)} $</td>
                                         <td className="py-6 px-8 text-left">
-                                            <span className="inline-flex items-center h-10 px-6 rounded-xl bg-accent-50 dark:bg-blue-900/20 text-accent-600 font-bold text-sm">
+                                            <span className="inline-flex items-center h-10 px-6 rounded-xl bg-emerald-600-50 dark:bg-blue-900/20 text-emerald-600-600 font-bold text-sm">
                                                 +{aff.commission.toFixed(2)} $
                                             </span>
                                         </td>

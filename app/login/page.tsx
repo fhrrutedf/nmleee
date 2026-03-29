@@ -69,10 +69,10 @@ function LoginContent() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden py-12 px-6 selection:bg-accent/20">
+        <div className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden py-12 px-6 selection:bg-emerald-600/20">
             {/* Minimalist Professional Accents */}
-            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent/5 rounded-xl blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-accent/5 rounded-xl blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
+            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-600/5 rounded-xl blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-600/5 rounded-xl blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
 
             <motion.div
                 initial="hidden"
@@ -93,7 +93,7 @@ function LoginContent() {
 
                 {/* Login Terminal / Form Card */}
                 <motion.div variants={fadeInUp} className="bg-white rounded-[2.5rem] border border-gray-100 p-10 shadow-sm shadow-gray-200/50 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-[80px] pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-600/5 rounded-bl-[80px] pointer-events-none"></div>
 
                     {/* Social Authentication */}
                     <div className="space-y-4 mb-10">
@@ -145,7 +145,7 @@ function LoginContent() {
                                     required
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full pl-6 pr-14 py-4 bg-gray-50 border border-gray-100 rounded-xl text-ink font-bold placeholder:text-gray-300 focus:bg-white focus:border-accent focus:ring-4 focus:ring-accent/5 transition-all text-sm outline-none"
+                                    className="w-full pl-6 pr-14 py-4 bg-gray-50 border border-gray-100 rounded-xl text-ink font-bold placeholder:text-gray-300 focus:bg-white focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 transition-all text-sm outline-none"
                                     placeholder="البريد الإلكتروني"
                                 />
                             </div>
@@ -157,14 +157,14 @@ function LoginContent() {
                                     required
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                    className="w-full pl-6 pr-14 py-4 bg-gray-50 border border-gray-100 rounded-xl text-ink font-bold placeholder:text-gray-300 focus:bg-white focus:border-accent focus:ring-4 focus:ring-accent/5 transition-all text-sm outline-none"
+                                    className="w-full pl-6 pr-14 py-4 bg-gray-50 border border-gray-100 rounded-xl text-ink font-bold placeholder:text-gray-300 focus:bg-white focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 transition-all text-sm outline-none"
                                     placeholder="كلمة المرور"
                                 />
                             </div>
                         </div>
 
                         <div className="flex justify-start pt-2">
-                             <Link href="/forgot-password" className="text-[10px] font-bold uppercase tracking-widest text-accent hover:text-ink transition-colors">
+                             <Link href="/forgot-password" className="text-[10px] font-bold uppercase tracking-widest text-emerald-600 hover:text-ink transition-colors">
                                 Forgot password?
                             </Link>
                         </div>
@@ -190,7 +190,7 @@ function LoginContent() {
                     <div className="mt-10 pt-10 border-t border-gray-50 text-center">
                         <p className="text-gray-400 text-xs font-bold">
                             لا تملك حساباً؟ {' '}
-                            <Link href="/register" className="text-accent underline underline-offset-4 decoration-accent/30 hover:decoration-accent transition-all">
+                            <Link href="/register" className="text-emerald-600 underline underline-offset-4 decoration-accent/30 hover:decoration-accent transition-all">
                                 أنشئ حسابك مجاناً
                             </Link>
                         </p>
@@ -200,7 +200,7 @@ function LoginContent() {
                 {/* Secure Trust Footer */}
                 <motion.div variants={fadeInUp} className="text-center mt-12 space-y-6">
                     <p className="flex items-center justify-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                        <FiShield className="text-accent" /> 256-bit Encrypted Connection
+                        <FiShield className="text-emerald-600" /> 256-bit Encrypted Connection
                     </p>
                     <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-ink text-xs font-bold transition-all group">
                          Back to Platform <FiArrowRight className="group-hover:translate-x-1 transition-transform" />

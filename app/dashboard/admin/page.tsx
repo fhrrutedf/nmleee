@@ -18,7 +18,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 // V2 Brand Colors for Charts - Selective Palette
-const BRAND_COLORS = ['#1A1A1A', '#2563EB', '#64748B', '#94A3B8', '#CBD5E1'];
+const BRAND_COLORS = ['#1A1A1A', '#059669', '#64748B', '#94A3B8', '#CBD5E1'];
 
 // ─── Helpers ───────────────────────────────────────────────
 const fmt = (n: number) => new Intl.NumberFormat('ar-SA', { maximumFractionDigits: 2 }).format(n);
@@ -27,7 +27,7 @@ const methodLabel: Record<string, string> = {
     free: 'مجاني', paypal: 'PayPal',
 };
 const statusBadge: Record<string, string> = {
-    PENDING: 'bg-gray-100 text-gray-500', PAID: 'bg-accent/10 text-accent',
+    PENDING: 'bg-gray-100 text-gray-500', PAID: 'bg-emerald-600/10 text-emerald-600',
     COMPLETED: 'bg-ink text-white', CANCELLED: 'bg-red-50 text-red-500',
     REFUNDED: 'bg-orange-50 text-orange-600',
 };
@@ -35,13 +35,13 @@ const statusBadge: Record<string, string> = {
 // ─── Components ────────────────────────────────────────────
 function StatCard({ icon: Icon, label, value, sub, trend }: any) {
     return (
-        <div className="bg-white border border-gray-100 p-8 rounded-[2rem] shadow-sm shadow-gray-100/20 hover:border-accent/20 transition-all group relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-[80px] group-hover:bg-accent/10 transition-colors"></div>
+        <div className="bg-white border border-gray-100 p-8 rounded-[2rem] shadow-sm shadow-gray-100/20 hover:border-emerald-600/20 transition-all group relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-600/5 rounded-bl-[80px] group-hover:bg-emerald-600/10 transition-colors"></div>
             <div className="flex items-center justify-between mb-6 relative z-10">
-                <div className="p-4 bg-gray-50 rounded-xl text-ink group-hover:bg-accent group-hover:text-white transition-all">
+                <div className="p-4 bg-gray-50 rounded-xl text-ink group-hover:bg-emerald-600 group-hover:text-white transition-all">
                     <Icon size={24} />
                 </div>
-                {trend && <span className="text-[10px] font-bold font-inter text-accent uppercase tracking-widest bg-accent/5 px-3 py-1 rounded-lg">{trend}</span>}
+                {trend && <span className="text-[10px] font-bold font-inter text-emerald-600 uppercase tracking-widest bg-emerald-600/5 px-3 py-1 rounded-lg">{trend}</span>}
             </div>
             <div className="relative z-10">
                 <div className="text-4xl font-bold text-ink mb-2 tracking-tighter">{value}</div>
@@ -64,7 +64,7 @@ function Tab({ id, active, onClick, icon: Icon, label, badge }: any) {
             <Icon size={14} />
             {label}
             {badge > 0 && (
-                <span className="absolute -top-2 -left-2 bg-accent text-white text-[10px] font-bold w-6 h-6 rounded-xl flex items-center justify-center border-4 border-white shadow-sm">
+                <span className="absolute -top-2 -left-2 bg-emerald-600 text-white text-[10px] font-bold w-6 h-6 rounded-xl flex items-center justify-center border-4 border-white shadow-sm">
                     {badge}
                 </span>
             )}
@@ -204,15 +204,15 @@ export default function AdminDashboardPage() {
     );
 
     return (
-        <div className="space-y-12 pb-24 selection:bg-accent/20" dir="rtl">
+        <div className="space-y-12 pb-24 selection:bg-emerald-600/20" dir="rtl">
             {/* Header Section - Modern Institutional Style */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pt-6">
                 <div>
                     <div className="inline-flex items-center gap-2 bg-ink text-white px-4 py-1 rounded-lg text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
-                        <FiShield size={12} className="text-accent" /> Control Center
+                        <FiShield size={12} className="text-emerald-600" /> Control Center
                     </div>
                     <h1 className="text-4xl md:text-5xl font-bold text-ink tracking-tighter leading-tight">
-                        إدارة <span className="text-accent">المنصة</span>
+                        إدارة <span className="text-emerald-600">المنصة</span>
                     </h1>
                 </div>
                 
@@ -223,7 +223,7 @@ export default function AdminDashboardPage() {
                         <option value="365">Last Year</option>
                     </select>
                     <div className="h-6 w-px bg-gray-200"></div>
-                    <button onClick={() => setAutoRefresh(!autoRefresh)} className={`flex items-center gap-2 font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl transition-all ${autoRefresh ? 'bg-accent text-white shadow-sm shadow-accent/20' : 'bg-white text-gray-400 border border-gray-100'}`}>
+                    <button onClick={() => setAutoRefresh(!autoRefresh)} className={`flex items-center gap-2 font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl transition-all ${autoRefresh ? 'bg-emerald-600 text-white shadow-sm shadow-accent/20' : 'bg-white text-gray-400 border border-gray-100'}`}>
                         <FiZap className={autoRefresh ? '' : ''} /> Live {autoRefresh ? 'On' : 'Off'}
                     </button>
                     <button onClick={() => load(true)} className="p-2.5 bg-white border border-gray-100 rounded-xl hover:border-ink hover:text-ink transition-all active:rotate-180">
@@ -254,17 +254,17 @@ export default function AdminDashboardPage() {
                         {/* Charts Section */}
                         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
                             <div className="xl:col-span-2 bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-sm shadow-gray-100/20 relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-40 h-40 bg-accent/5 rounded-bl-[120px] pointer-events-none"></div>
+                                <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-600/5 rounded-bl-[120px] pointer-events-none"></div>
                                 <h3 className="text-xl font-bold text-ink mb-10 tracking-widest flex items-center gap-3">
-                                    <FiTrendingUp className="text-accent" /> REVENUE GROWTH
+                                    <FiTrendingUp className="text-emerald-600" /> REVENUE GROWTH
                                 </h3>
                                 <div className="h-[300px]">
                                     <ResponsiveContainer width="100%" height="100%">
                                         <AreaChart data={data?.dailyRevenue}>
                                             <defs>
                                                 <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                                                    <stop offset="5%" stopColor="#2563EB" stopOpacity={0.1}/>
-                                                    <stop offset="95%" stopColor="#2563EB" stopOpacity={0}/>
+                                                    <stop offset="5%" stopColor="#059669" stopOpacity={0.1}/>
+                                                    <stop offset="95%" stopColor="#059669" stopOpacity={0}/>
                                                 </linearGradient>
                                             </defs>
                                             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
@@ -274,26 +274,26 @@ export default function AdminDashboardPage() {
                                                 contentStyle={{ borderRadius: '24px', border: 'none', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', backgroundColor: '#1A1A1A', color: '#fff', fontWeight: 900, fontSize: '10px' }}
                                                 itemStyle={{ color: '#fff', textTransform: 'uppercase', letterSpacing: '0.1em' }}
                                             />
-                                            <Area type="monotone" dataKey="revenue" stroke="#2563EB" strokeWidth={4} fill="url(#chartGradient)" />
+                                            <Area type="monotone" dataKey="revenue" stroke="#059669" strokeWidth={4} fill="url(#chartGradient)" />
                                         </AreaChart>
                                     </ResponsiveContainer>
                                 </div>
                             </div>
 
                             <div className="bg-ink text-white rounded-[2.5rem] p-10 shadow-sm shadow-ink/20 relative overflow-hidden">
-                                <div className="absolute top-0 left-0 w-32 h-32 bg-accent/10 rounded-br-[100px] pointer-events-none"></div>
+                                <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-600/10 rounded-br-[100px] pointer-events-none"></div>
                                 <h3 className="text-xl font-bold mb-10 tracking-widest flex items-center gap-3">
-                                    <FiPieChart className="text-accent" /> VOLUME DISTRIBUTION
+                                    <FiPieChart className="text-emerald-600" /> VOLUME DISTRIBUTION
                                 </h3>
                                 <div className="space-y-6">
                                     {(data?.ordersByMethod || []).map((m: any, idx: number) => (
                                         <div key={m.method} className="flex flex-col gap-2 p-4 bg-white/5 rounded-xl border border-white/5">
                                             <div className="flex items-center justify-between">
                                                 <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{methodLabel[m.method] || m.method}</span>
-                                                <span className="text-sm font-bold text-accent">${fmt(m.total)}</span>
+                                                <span className="text-sm font-bold text-emerald-600">${fmt(m.total)}</span>
                                             </div>
                                             <div className="w-full bg-surface/10 h-1.5 rounded-xl overflow-hidden">
-                                                <div className="bg-accent h-full rounded-xl" style={{ width: '60%' }}></div>
+                                                <div className="bg-emerald-600 h-full rounded-xl" style={{ width: '60%' }}></div>
                                             </div>
                                         </div>
                                     ))}
@@ -304,7 +304,7 @@ export default function AdminDashboardPage() {
                         {/* Top Performers Table */}
                         <div className="bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-sm shadow-gray-100/20 overflow-x-auto">
                             <h3 className="text-xl font-bold text-ink mb-10 tracking-widest flex items-center gap-3 underline underline-offset-[12px] decoration-accent/20 decoration-4">
-                                <FiStar className="text-accent" /> ELITE CREATORS
+                                <FiStar className="text-emerald-600" /> ELITE CREATORS
                             </h3>
                             <table className="w-full">
                                 <thead className="border-b border-gray-50 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
@@ -320,11 +320,11 @@ export default function AdminDashboardPage() {
                                         <tr key={s.id} className="group hover:bg-gray-50/50 transition-colors">
                                             <td className="py-6">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center font-bold text-ink border border-gray-100 group-hover:bg-accent group-hover:text-white group-hover:border-transparent transition-all overflow-hidden shrink-0 uppercase">
+                                                    <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center font-bold text-ink border border-gray-100 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-transparent transition-all overflow-hidden shrink-0 uppercase">
                                                         {s.avatar ? <img src={s.avatar} className="w-full h-full object-cover" /> : s.name?.charAt(0)}
                                                     </div>
                                                     <div className="min-w-0">
-                                                        <div className="font-bold text-sm text-ink group-hover:text-accent transition-colors truncate">{s.name}</div>
+                                                        <div className="font-bold text-sm text-ink group-hover:text-emerald-600 transition-colors truncate">{s.name}</div>
                                                         <div className="text-[8px] font-bold text-gray-400 uppercase tracking-widest truncate">{s.email}</div>
                                                     </div>
                                                 </div>
@@ -344,14 +344,14 @@ export default function AdminDashboardPage() {
                 {activeTab !== 'overview' && (
                     <div className="bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-sm overflow-hidden">
                         <h2 className="text-2xl font-bold text-ink mb-10 tracking-tighter flex items-center gap-4">
-                            <FiActivity className="text-accent" /> {tabs.find(t => t.id === activeTab)?.label}
+                            <FiActivity className="text-emerald-600" /> {tabs.find(t => t.id === activeTab)?.label}
                         </h2>
                         {/* Table View Header Styling */}
                         <div className="bg-gray-50/50 p-6 rounded-xl border border-gray-100 mb-8 flex items-center justify-between">
                             <div className="flex items-center gap-4">
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Total Entries: {fmt(ov.totalOrders || 0)}</span>
                             </div>
-                            <button className="text-[10px] font-bold uppercase tracking-widest text-accent hover:text-ink transition-colors flex items-center gap-2">
+                            <button className="text-[10px] font-bold uppercase tracking-widest text-emerald-600 hover:text-ink transition-colors flex items-center gap-2">
                                 <FiDownload size={12} /> Export CSV
                             </button>
                         </div>
@@ -359,7 +359,7 @@ export default function AdminDashboardPage() {
                         <div className="overflow-x-auto min-h-[400px]">
                            {/* Administrative Data Surface */}
                            <div className="bg-white rounded-[2rem] border border-gray-50 p-10 text-center shadow-inner">
-                                <div className="w-16 h-16 bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-center mx-auto mb-8 text-accent shadow-sm">
+                                <div className="w-16 h-16 bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-center mx-auto mb-8 text-emerald-600 shadow-sm">
                                     <FiBox size={24} />
                                 </div>
                                 <h3 className="text-lg font-bold text-ink mb-2">OPERATIONAL DATA SYNC</h3>
@@ -378,8 +378,8 @@ export default function AdminDashboardPage() {
                             <button onClick={() => setShowBroadcast(false)} className="absolute top-8 left-8 p-3 hover:bg-gray-100 rounded-xl transition-all"><FiX size={24} /></button>
                             <h2 className="text-3xl font-bold text-ink mb-10 tracking-tighter">إطلاق حملة بث مركزي</h2>
                             <div className="space-y-6">
-                                <input type="text" className="w-full bg-gray-50 border border-gray-100 rounded-xl p-5 font-bold outline-none focus:bg-white focus:border-accent transition-all" placeholder="عنوان الحملة الاستراتيجي" />
-                                <textarea className="w-full bg-gray-50 border border-gray-100 rounded-[2rem] p-8 font-bold outline-none focus:bg-white focus:border-accent transition-all min-h-[200px]" placeholder="محتوى الرسالة (يدعم Markdown)..." />
+                                <input type="text" className="w-full bg-gray-50 border border-gray-100 rounded-xl p-5 font-bold outline-none focus:bg-white focus:border-emerald-600 transition-all" placeholder="عنوان الحملة الاستراتيجي" />
+                                <textarea className="w-full bg-gray-50 border border-gray-100 rounded-[2rem] p-8 font-bold outline-none focus:bg-white focus:border-emerald-600 transition-all min-h-[200px]" placeholder="محتوى الرسالة (يدعم Markdown)..." />
                                 <button onClick={sendBroadcast} className="w-full py-6 bg-ink text-white rounded-xl font-bold text-xs uppercase tracking-[0.3em] hover:bg-black shadow-sm shadow-ink/20">Initite Global Broadcast</button>
                             </div>
                         </motion.div>

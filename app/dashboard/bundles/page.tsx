@@ -50,7 +50,7 @@ export default function BundlesPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-emerald-600"></div>
             </div>
         );
     }
@@ -93,7 +93,7 @@ export default function BundlesPage() {
                                         <FiPackage className="text-4xl text-gray-300" />
                                     </div>
                                 )}
-                                <div className="absolute top-2 right-2 bg-white/90  text-accent text-xs font-bold px-3 py-1 rounded-xl flex items-center gap-1 shadow-sm">
+                                <div className="absolute top-2 right-2 bg-white/90  text-emerald-600 text-xs font-bold px-3 py-1 rounded-xl flex items-center gap-1 shadow-sm">
                                     <FiPackage />
                                     <span>{bundle.products?.length || 0} منتجات</span>
                                 </div>

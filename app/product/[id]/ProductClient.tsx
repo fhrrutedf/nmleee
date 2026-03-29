@@ -115,13 +115,13 @@ export default function ProductDetails({
             {product.user?.brandColor && (
                 <style dangerouslySetInnerHTML={{
                     __html: `
-                    .text-accent { color: ${product.user.brandColor} !important; }
-                    .bg-accent { background-color: ${product.user.brandColor} !important; }
-                    .border-accent { border-color: ${product.user.brandColor} !important; }
+                    .text-emerald-600 { color: ${product.user.brandColor} !important; }
+                    .bg-emerald-600 { background-color: ${product.user.brandColor} !important; }
+                    .border-emerald-600 { border-color: ${product.user.brandColor} !important; }
                     .ring-accent { --tw-ring-color: ${product.user.brandColor} !important; }
                     .from-accent { --tw-gradient-from: ${product.user.brandColor} !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
-                    .hover\\:text-accent:hover { color: ${product.user.brandColor} !important; filter: brightness(0.9); }
-                    .hover\\:bg-accent:hover { background-color: ${product.user.brandColor} !important; filter: brightness(0.9); }
+                    .hover\\:text-emerald-600:hover { color: ${product.user.brandColor} !important; filter: brightness(0.9); }
+                    .hover\\:bg-emerald-600:hover { background-color: ${product.user.brandColor} !important; filter: brightness(0.9); }
                     .shadow-accent\\/20 { --tw-shadow-color: ${product.user.brandColor}33 !important; }
                     `
                 }} />
@@ -130,9 +130,9 @@ export default function ProductDetails({
 
                 {/* Breadcrumb Navigation */}
                 <div className="flex items-center gap-3 text-sm font-bold text-gray-500 dark:text-gray-400 mb-8 overflow-x-auto whitespace-nowrap scrollbar-hide py-2">
-                    <Link href="/" className="hover:text-accent transition-colors flex items-center gap-1"><FiStar /> الرئيسية</Link>
+                    <Link href="/" className="hover:text-emerald-600 transition-colors flex items-center gap-1"><FiStar /> الرئيسية</Link>
                     <span className="text-gray-300 dark:text-gray-700">/</span>
-                    <Link href="/explore" className="hover:text-accent transition-colors">تصفح المنتجات</Link>
+                    <Link href="/explore" className="hover:text-emerald-600 transition-colors">تصفح المنتجات</Link>
                     <span className="text-gray-300 dark:text-gray-700">/</span>
                     <span className="text-ink dark:text-gray-200 truncate max-w-[200px] sm:max-w-md">{product.title}</span>
                 </div>
@@ -145,7 +145,7 @@ export default function ProductDetails({
                             <div className="p-8 sm:p-10">
                                 <div className="flex flex-wrap gap-2 mb-6">
                                     {product.category && (
-                                        <span className="px-4 py-1.5 bg-accent-50 dark:bg-blue-900/20 text-accent dark:text-blue-400 rounded-lg text-sm font-bold tracking-wide border border-blue-100 dark:border-blue-900/30">
+                                        <span className="px-4 py-1.5 bg-emerald-600-50 dark:bg-blue-900/20 text-emerald-600 dark:text-blue-400 rounded-lg text-sm font-bold tracking-wide border border-blue-100 dark:border-blue-900/30">
                                             {product.category === 'courses' ? '👨‍🏫 دورة متكاملة' : product.category === 'ebooks' ? '📚 كتاب إلكتروني' : product.category}
                                         </span>
                                     )}
@@ -166,10 +166,10 @@ export default function ProductDetails({
                                             <FiStar className="fill-yellow-500 mr-1" />
                                             <span className="font-bold">{product.averageRating?.toFixed(1) || '5.0'}</span>
                                         </div>
-                                        <span className="text-gray-500 dark:text-gray-400 font-medium text-sm group-hover:text-accent transition-colors">({reviews.length} تقييم)</span>
+                                        <span className="text-gray-500 dark:text-gray-400 font-medium text-sm group-hover:text-emerald-600 transition-colors">({reviews.length} تقييم)</span>
                                     </div>
                                     <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 font-medium text-sm">
-                                        <FiShoppingCart className="text-accent" />
+                                        <FiShoppingCart className="text-emerald-600" />
                                         <span className="font-bold text-ink dark:text-gray-200">{(product.soldCount || 0) + 12} مبيعة اليوم</span> {/** إضافة رقم وهمي صغير للزخم التسويقي إذا كانت المبيعات قليلة **/}
                                     </div>
                                 </div>
@@ -196,13 +196,13 @@ export default function ProductDetails({
 
                                     {/* Urgency Countdown Banner */}
                                     {product.offerExpiresAt && new Date(product.offerExpiresAt) > new Date() && (
-                                        <div className="mt-6 p-4 bg-accent-50 dark:bg-blue-900/10 rounded-xl border border-blue-100 dark:border-blue-900/20 flex items-center gap-3 ">
-                                            <div className="w-10 h-10 bg-accent-500 text-white rounded-xl flex items-center justify-center shadow-sm shadow-accent-500/20">
+                                        <div className="mt-6 p-4 bg-emerald-600-50 dark:bg-blue-900/10 rounded-xl border border-blue-100 dark:border-blue-900/20 flex items-center gap-3 ">
+                                            <div className="w-10 h-10 bg-emerald-600-500 text-white rounded-xl flex items-center justify-center shadow-sm shadow-accent-500/20">
                                                 <FiClock className="text-xl" />
                                             </div>
                                             <div className="text-right">
                                                 <p className="text-[10px] font-bold text-blue-800 dark:text-blue-400 uppercase tracking-widest leading-none mb-1">عرض لفترة محدودة</p>
-                                                <p className="text-xs font-bold text-accent-600 dark:text-accent-500">ينتهي العرض قريباً! سارع بالطلب</p>
+                                                <p className="text-xs font-bold text-emerald-600-600 dark:text-emerald-600-500">ينتهي العرض قريباً! سارع بالطلب</p>
                                             </div>
                                         </div>
                                     )}
@@ -232,7 +232,7 @@ export default function ProductDetails({
                                         <button
                                             onClick={addToCart}
                                             disabled={addingToCart}
-                                            className="w-full btn text-lg py-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-ink dark:text-gray-200 font-bold hover:border-accent hover:text-accent dark:hover:border-accent transition-colors disabled:opacity-60"
+                                            className="w-full btn text-lg py-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-ink dark:text-gray-200 font-bold hover:border-emerald-600 hover:text-emerald-600 dark:hover:border-emerald-600 transition-colors disabled:opacity-60"
                                         >
                                             {addingToCart ? (
                                                 <span className="w-5 h-5 rounded-xl border-2 border-current border-t-transparent animate-spin inline-block" />
@@ -311,9 +311,9 @@ export default function ProductDetails({
                                      )}
                                  </Link>
                                  <div>
-                                     <p className="text-xs font-bold tracking-widest uppercase text-accent mb-1">صانع المحتوى</p>
+                                     <p className="text-xs font-bold tracking-widest uppercase text-emerald-600 mb-1">صانع المحتوى</p>
                                      <Link href={`/${product.user?.username || 'seller'}`}>
-                                         <h3 className="font-bold text-2xl text-gray-900 dark:text-white mb-2 hover:text-accent transition-colors">{product.user?.name || 'البائع'}</h3>
+                                         <h3 className="font-bold text-2xl text-gray-900 dark:text-white mb-2 hover:text-emerald-600 transition-colors">{product.user?.name || 'البائع'}</h3>
                                      </Link>
                                      <div className="flex gap-2">
                                         <button 
@@ -342,20 +342,20 @@ export default function ProductDetails({
                             <div className="flex overflow-x-auto border-b border-gray-100 dark:border-gray-800 scrollbar-hide">
                                 <button
                                     onClick={() => setActiveTab('description')}
-                                    className={`flex-1 min-w-[150px] py-6 px-4 font-bold text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'description' ? 'text-accent' : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'}`}
+                                    className={`flex-1 min-w-[150px] py-6 px-4 font-bold text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'description' ? 'text-emerald-600' : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'}`}
                                 >
-                                    <FiBook className={activeTab === 'description' ? "text-accent" : "text-gray-400"} />
+                                    <FiBook className={activeTab === 'description' ? "text-emerald-600" : "text-gray-400"} />
                                     محتوى وتفاصيل
-                                    {activeTab === 'description' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-accent rounded-t-full"></div>)}
+                                    {activeTab === 'description' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-600 rounded-t-full"></div>)}
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('reviews')}
-                                    className={`flex-1 min-w-[150px] py-6 px-4 font-bold text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'reviews' ? 'text-accent' : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'}`}
+                                    className={`flex-1 min-w-[150px] py-6 px-4 font-bold text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'reviews' ? 'text-emerald-600' : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'}`}
                                 >
-                                    <FiMessageSquare className={activeTab === 'reviews' ? "text-accent" : "text-gray-400"} />
+                                    <FiMessageSquare className={activeTab === 'reviews' ? "text-emerald-600" : "text-gray-400"} />
                                     تجارب المشترين
                                     <span className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs px-2 py-1 rounded-xl">{reviews.length}</span>
-                                    {activeTab === 'reviews' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-accent rounded-t-full"></div>)}
+                                    {activeTab === 'reviews' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-600 rounded-t-full"></div>)}
                                 </button>
                             </div>
 
@@ -425,7 +425,7 @@ export default function ProductDetails({
                 </div>
             </div>
             <footer className="mt-16 py-8 border-t border-gray-100 dark:border-gray-800 text-center">
-                <p className="text-gray-500 dark:text-gray-400 font-medium">مدعوم من <a href="https://tmleen.com" className="text-accent font-bold hover:underline">منصة تمالين</a></p>
+                <p className="text-gray-500 dark:text-gray-400 font-medium">مدعوم من <a href="https://tmleen.com" className="text-emerald-600 font-bold hover:underline">منصة تمالين</a></p>
             </footer>
         </div>
     );

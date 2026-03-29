@@ -55,7 +55,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                 {/* Top Badges */}
                                 <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
                                     {item.itemType === 'course' ? (
-                                        <span className="bg-accent-500/90 dark:bg-accent-600/90  px-4 py-1.5 rounded-xl text-xs font-bold text-white shadow-sm border border-white/20">
+                                        <span className="bg-emerald-600-500/90 dark:bg-emerald-600-600/90  px-4 py-1.5 rounded-xl text-xs font-bold text-white shadow-sm border border-white/20">
                                             دورة تدريبية
                                         </span>
                                     ) : item.category ? (
@@ -102,7 +102,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                 </div>
                                 <span className="text-[11px] text-gray-400 dark:text-gray-500 font-bold mb-2 block">{item.user?.name || 'مبدع مستقل'}</span>
 
-                                <h3 className="font-extrabold text-gray-900 dark:text-white text-lg leading-snug mb-3 line-clamp-2 group-hover:text-accent transition-colors will-change-transform">
+                                <h3 className="font-extrabold text-gray-900 dark:text-white text-lg leading-snug mb-3 line-clamp-2 group-hover:text-emerald-600 transition-colors will-change-transform">
                                     {item.title}
                                 </h3>
 
@@ -137,7 +137,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                         )}
                                     </div>
 
-                                    <div className="w-12 h-12 rounded-[1rem] bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:bg-accent group-hover:text-white group-hover:shadow-sm group-hover:shadow-accent/30 transition-all duration-300 transform group-hover:-rotate-6">
+                                    <div className="w-12 h-12 rounded-[1rem] bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:bg-emerald-600 group-hover:text-white group-hover:shadow-sm group-hover:shadow-accent/30 transition-all duration-300 transform group-hover:-rotate-6">
                                         <FiShoppingCart size={20} />
                                     </div>
                                 </div>

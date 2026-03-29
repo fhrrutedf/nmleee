@@ -72,7 +72,7 @@ export default function SellerDashboardPage() {
                         title="إجمالي الطلبات"
                         value={overview.totalOrders.toString()}
                         change={overview.ordersChange}
-                        icon={<FiShoppingBag className="text-accent-600" size={24} />}
+                        icon={<FiShoppingBag className="text-emerald-600-600" size={24} />}
                         bgColor="bg-blue-100"
                     />
 

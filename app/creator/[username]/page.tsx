@@ -35,7 +35,7 @@ export default function CreatorStorePage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-emerald-600"></div>
             </div>
         );
     }
@@ -207,7 +207,7 @@ export default function CreatorStorePage() {
                                         </span>
                                     )}
 
-                                    <h3 className="font-bold text-lg mb-2 line-clamp-2 group-hover:text-accent transition-colors">
+                                    <h3 className="font-bold text-lg mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">
                                         {product.title}
                                     </h3>
 

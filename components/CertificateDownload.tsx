@@ -122,7 +122,7 @@ export function CertificateDownload({
                         <div className="flex items-center gap-4">
                             <div className="flex-1 bg-gray-50 rounded-xl h-2.5 overflow-hidden">
                                 <div
-                                    className="h-full bg-accent transition-all duration-1000 ease-out"
+                                    className="h-full bg-emerald-600 transition-all duration-1000 ease-out"
                                     style={{ width: `${progress}%` }}
                                 />
                             </div>
@@ -139,16 +139,16 @@ export function CertificateDownload({
     // Eligible and certificate already generated
     if (status.eligible && status.certificateGenerated) {
         return (
-            <div className="bg-accent-light border-2 border-accent/10 rounded-xl p-8">
+            <div className="bg-emerald-600-light border-2 border-emerald-600/10 rounded-xl p-8">
                 <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-right">
                     <div className="flex-shrink-0 p-5 bg-white rounded-xl shadow-sm">
-                        <FiCheckCircle className="text-4xl text-accent" />
+                        <FiCheckCircle className="text-4xl text-emerald-600" />
                     </div>
                     <div className="flex-1">
                         <h3 className="text-xl font-bold text-ink mb-1">
                             🎉 مبروك! لقد أتممت الدورة بنجاح
                         </h3>
-                        <p className="text-sm text-accent font-bold mb-4">
+                        <p className="text-sm text-emerald-600 font-bold mb-4">
                             شهادتك المعتمدة جاهزة للتحميل الآن
                         </p>
                         <button
@@ -169,8 +169,8 @@ export function CertificateDownload({
         return (
             <div className="bg-white border border-gray-100 rounded-xl p-8 shadow-sm">
                 <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-right">
-                    <div className="flex-shrink-0 p-5 bg-accent-light rounded-xl">
-                        <FiAward className="text-4xl text-accent" />
+                    <div className="flex-shrink-0 p-5 bg-emerald-600-light rounded-xl">
+                        <FiAward className="text-4xl text-emerald-600" />
                     </div>
                     <div className="flex-1">
                         <h3 className="text-xl font-bold text-ink mb-1">
@@ -180,7 +180,7 @@ export function CertificateDownload({
                         <button
                             onClick={generateCertificate}
                             disabled={generating}
-                            className="bg-accent text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-accent-hover transition-all shadow-sm shadow-accent/20 active:scale-95 w-full sm:w-auto"
+                            className="bg-emerald-600 text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-600-hover transition-all shadow-sm shadow-accent/20 active:scale-95 w-full sm:w-auto"
                         >
                             {generating ? (
                                 <>

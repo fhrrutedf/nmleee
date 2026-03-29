@@ -65,7 +65,7 @@ export default function AnalyticsPage() {
     if (loading && !stats) {
         return (
             <div className="flex items-center justify-center min-h-[50vh]">
-                <div className="animate-spin rounded-xl h-12 w-12 border-4 border-accent border-t-transparent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-4 border-emerald-600 border-t-transparent"></div>
             </div>
         );
     }
@@ -199,7 +199,7 @@ export default function AnalyticsPage() {
             {/* Revenue Chart */}
             <div className="card">
                 <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                    <FiTrendingUp className="text-accent" />
+                    <FiTrendingUp className="text-emerald-600" />
                     تطور الإيرادات
                 </h2>
                 <Line
@@ -228,7 +228,7 @@ export default function AnalyticsPage() {
                 {/* Top Products */}
                 <div className="card">
                     <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                        <FiPieChart className="text-accent" />
+                        <FiPieChart className="text-emerald-600" />
                         أكثر المنتجات مبيعاً
                     </h2>
                     <Bar
@@ -255,7 +255,7 @@ export default function AnalyticsPage() {
                 {/* Traffic Sources */}
                 <div className="card">
                     <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                        <FiUsers className="text-accent" />
+                        <FiUsers className="text-emerald-600" />
                         مصادر الزيارات
                     </h2>
                     <div className="max-w-sm mx-auto">
@@ -284,9 +284,9 @@ export default function AnalyticsPage() {
                             className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                         >
                             <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center">
-                                {activity.type === 'order' && <FiShoppingCart className="text-accent" />}
-                                {activity.type === 'view' && <FiEye className="text-accent" />}
-                                {activity.type === 'download' && <FiDownload className="text-accent" />}
+                                {activity.type === 'order' && <FiShoppingCart className="text-emerald-600" />}
+                                {activity.type === 'view' && <FiEye className="text-emerald-600" />}
+                                {activity.type === 'download' && <FiDownload className="text-emerald-600" />}
                             </div>
                             <div className="flex-1">
                                 <p className="font-bold">{activity.title}</p>
@@ -331,7 +331,7 @@ export default function AnalyticsPage() {
                                             {product.conversionRate}%
                                         </span>
                                     </td>
-                                    <td className="py-3 px-4 font-bold text-accent">
+                                    <td className="py-3 px-4 font-bold text-emerald-600">
                                         {product.revenue.toFixed(2)} $
                                     </td>
                                 </tr>

@@ -15,7 +15,7 @@ interface StepProgressProps {
 
 export default function StepProgress({ steps, currentStep }: StepProgressProps) {
   // Brand colors v2
-  const ACCENT_COLOR = '#2563EB'; // The primary blue accent
+  const ACCENT_COLOR = '#059669'; // The primary blue accent
   const INK_COLOR = '#1A1A1A';    // The deep ink black
 
   return (
@@ -24,7 +24,7 @@ export default function StepProgress({ steps, currentStep }: StepProgressProps) 
         {/* Simplified Connection Line */}
         <div className="absolute top-5 left-0 w-full h-[2px] bg-gray-100 z-0">
           <motion.div 
-            className="h-full bg-accent" 
+            className="h-full bg-emerald-600" 
             initial={{ width: '0%' }}
             animate={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
             transition={{ duration: 0.8, ease: "circOut" }}

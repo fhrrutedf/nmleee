@@ -110,11 +110,11 @@ export default function ProductsPage() {
             {/* --- TOP PERFORMERS SUMMARY --- */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in slide-in-from-top-4 duration-500">
                 <div className="bg-white dark:bg-card-white p-6 rounded-xl border border-slate-50 dark:border-gray-800 shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
-                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-accent-50 dark:bg-blue-900/10 rounded-xl blur-2xl group-hover:scale-150 transition-transform"></div>
+                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-emerald-600-50 dark:bg-blue-900/10 rounded-xl blur-2xl group-hover:scale-150 transition-transform"></div>
                     <div className="relative">
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">تقدير صافي الأرباح 💰</p>
                         <h4 className="text-3xl font-bold text-slate-900 dark:text-white">{(totalInventoryValue * 0.85).toFixed(2)} <span className="text-sm font-bold text-slate-400">$</span></h4>
-                        <p className="text-[10px] text-accent-500 font-bold mt-2 flex items-center gap-1">بعد خصم عمولة المنصة التقريبية</p>
+                        <p className="text-[10px] text-emerald-600-500 font-bold mt-2 flex items-center gap-1">بعد خصم عمولة المنصة التقريبية</p>
                     </div>
                 </div>
 
@@ -242,7 +242,7 @@ export default function ProductsPage() {
                                                         onChange={(e) => setTempPrice(e.target.value)}
                                                         onKeyPress={(e) => e.key === 'Enter' && updatePrice(product.id)}
                                                     />
-                                                    <button onClick={() => updatePrice(product.id)} className="w-8 h-8 bg-accent-500 text-white rounded-lg flex items-center justify-center hover:bg-accent-600 transition-colors"><FiCheck size={14} /></button>
+                                                    <button onClick={() => updatePrice(product.id)} className="w-8 h-8 bg-emerald-600-500 text-white rounded-lg flex items-center justify-center hover:bg-emerald-600-600 transition-colors"><FiCheck size={14} /></button>
                                                     <button onClick={() => setEditingPriceId(null)} className="w-8 h-8 bg-slate-100 text-slate-400 rounded-lg flex items-center justify-center"><FiX size={14} /></button>
                                                 </div>
                                             ) : (
@@ -258,7 +258,7 @@ export default function ProductsPage() {
                                         <td className="p-6 text-center">
                                             <div className="flex flex-col items-center">
                                                 <div className="flex items-center gap-1">
-                                                    <span className="text-sm font-bold text-accent-600 dark:text-accent-500">{(product.price * (product.soldCount || 0) * 0.85).toFixed(2)}</span>
+                                                    <span className="text-sm font-bold text-emerald-600-600 dark:text-emerald-600-500">{(product.price * (product.soldCount || 0) * 0.85).toFixed(2)}</span>
                                                     <span className="text-[10px] font-bold text-slate-400">$</span>
                                                 </div>
                                                 <p className="text-[9px] text-slate-300 dark:text-slate-600 font-bold uppercase tracking-tighter">باع {product.soldCount || 0} مرات</p>
@@ -272,7 +272,7 @@ export default function ProductsPage() {
                                         <td className="p-6 text-center">
                                             <button 
                                                 onClick={() => toggleStatus(product)}
-                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all ${product.isActive ? 'bg-accent-50 text-accent-600 border border-blue-100 dark:bg-blue-900/20 dark:border-blue-900' : 'bg-slate-50 text-slate-400 border border-slate-100 dark:bg-gray-800 dark:border-gray-700'}`}
+                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all ${product.isActive ? 'bg-emerald-600-50 text-emerald-600-600 border border-blue-100 dark:bg-blue-900/20 dark:border-blue-900' : 'bg-slate-50 text-slate-400 border border-slate-100 dark:bg-gray-800 dark:border-gray-700'}`}
                                             >
                                                 {product.isActive ? '● نشط' : '○ مسودة'}
                                             </button>

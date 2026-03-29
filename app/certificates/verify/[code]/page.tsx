@@ -46,7 +46,7 @@ export default async function VerifyCertificatePage(props: { params: Promise<{ c
                         <h2 className="text-3xl font-bold text-gray-900 mb-8">{certificate.studentName}</h2>
 
                         <p className="text-gray-500 mb-2">لإتمامه بنجاح دورة:</p>
-                        <h3 className="text-2xl font-bold text-accent mb-8">"{certificate.courseName}"</h3>
+                        <h3 className="text-2xl font-bold text-emerald-600 mb-8">"{certificate.courseName}"</h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 mb-8 text-right">
                             <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">

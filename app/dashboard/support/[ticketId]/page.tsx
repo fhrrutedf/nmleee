@@ -69,7 +69,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-[400px]">
-            <div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-xl animate-spin" />
+            <div className="w-12 h-12 border-4 border-emerald-600/30 border-t-accent rounded-xl animate-spin" />
         </div>
     );
 
@@ -91,7 +91,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
 
     return (
         <div className="space-y-6 max-w-4xl mx-auto pb-12">
-            <Link href="/dashboard/support" className="flex items-center gap-2 text-accent hover:text-accent font-bold mb-4 w-fit transition-colors">
+            <Link href="/dashboard/support" className="flex items-center gap-2 text-emerald-600 hover:text-emerald-600 font-bold mb-4 w-fit transition-colors">
                 <FiArrowRight /> العودة لمركز الدعم
             </Link>
 
@@ -99,7 +99,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-100 dark:border-gray-800 pb-6 mb-6">
                     <div>
                         <div className="flex items-center gap-3 mb-2">
-                            <span className="font-mono text-sm text-accent font-bold px-3 py-1 bg-accent/10 rounded-xl">
+                            <span className="font-mono text-sm text-emerald-600 font-bold px-3 py-1 bg-emerald-600/10 rounded-xl">
                                 {ticket.ticketNumber}
                             </span>
                             <span className={`px-3 py-1 text-xs font-bold rounded-xl ${statusInfo.css}`}>
@@ -124,9 +124,9 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isAdmin ? 'bg-ink' : 'bg-gray-200 dark:bg-gray-800'}`}>
                                     {isAdmin ? <FiMessageSquare className="text-white" /> : <FiUser className="text-gray-500" />}
                                 </div>
-                                <div className={`max-w-[80%] rounded-xl p-5 ${isAdmin ? 'bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none' : 'bg-accent/10 dark:bg-accent/20 text-accent rounded-tl-none'}`}>
+                                <div className={`max-w-[80%] rounded-xl p-5 ${isAdmin ? 'bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none' : 'bg-emerald-600/10 dark:bg-emerald-600/20 text-emerald-600 rounded-tl-none'}`}>
                                     <div className="flex items-center gap-2 mb-2">
-                                        <span className={`font-bold text-sm ${isAdmin ? 'text-ink dark:text-white' : 'text-accent'}`}>
+                                        <span className={`font-bold text-sm ${isAdmin ? 'text-ink dark:text-white' : 'text-emerald-600'}`}>
                                             {isAdmin ? 'فريق الدعم (المنصة)' : 'أنت'}
                                         </span>
                                         <span className="text-xs text-gray-400">
@@ -142,7 +142,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                                                 href={msg.attachmentUrl} 
                                                 target="_blank" 
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center gap-2 text-xs font-bold bg-white dark:bg-gray-800 px-3 py-2 rounded-lg border border-gray-100 hover:border-accent transition-colors"
+                                                className="inline-flex items-center gap-2 text-xs font-bold bg-white dark:bg-gray-800 px-3 py-2 rounded-lg border border-gray-100 hover:border-emerald-600 transition-colors"
                                             >
                                                 📂 عرض المرفقات
                                             </a>
@@ -173,7 +173,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                             <button
                                 type="submit"
                                 disabled={submitting || !message.trim()}
-                                className="absolute top-3 left-4 w-10 h-10 bg-accent hover:bg-accent-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors shadow-md"
+                                className="absolute top-3 left-4 w-10 h-10 bg-emerald-600 hover:bg-emerald-600-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors shadow-md"
                             >
                                 {submitting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-xl animate-spin" /> : <FiSend />}
                             </button>

@@ -150,13 +150,13 @@ export default function PayoutsPage() {
             <div className="card bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm">
                 <div className="p-6 sm:p-8">
                     <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                        <span className="w-1.5 h-6 bg-accent rounded-xl"></span>
+                        <span className="w-1.5 h-6 bg-emerald-600 rounded-xl"></span>
                         طلب سحب جديد
                     </h2>
 
                     {user && !isPayoutMethodConfigured(user) ? (
-                        <div className="bg-accent-50 border border-amber-200 p-6 rounded-xl flex flex-col items-center text-center ">
-                            <FiAlertCircle className="text-4xl text-accent-500 mb-3" />
+                        <div className="bg-emerald-600-50 border border-amber-200 p-6 rounded-xl flex flex-col items-center text-center ">
+                            <FiAlertCircle className="text-4xl text-emerald-600-500 mb-3" />
                             <h3 className="font-bold text-blue-900 mb-2">طريقة السحب غير مكتملة</h3>
                             <p className="text-sm text-blue-800 mb-6 max-w-sm">
                                 لم يتم إعداد أو تفعيل طريقة سحب حتى الآن. لتتمكن من استلام أرباحك، يرجى إضافة بياناتك البنكية أو وسيلة دفع أخرى.
@@ -201,7 +201,7 @@ export default function PayoutsPage() {
                                     <button 
                                         type="button" 
                                         onClick={() => setRequestAmount(stats.availableBalance.toString())}
-                                        className="text-xs text-accent hover:underline"
+                                        className="text-xs text-emerald-600 hover:underline"
                                     >
                                         سحب الكل
                                     </button>
@@ -222,7 +222,7 @@ export default function PayoutsPage() {
 
                 {loading ? (
                     <div className="text-center py-8">
-                        <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent mx-auto"></div>
+                        <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-emerald-600 mx-auto"></div>
                     </div>
                 ) : payouts.length === 0 ? (
                     <div className="text-center py-8 text-gray-500">

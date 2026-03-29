@@ -59,7 +59,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
     return (
         <div className="mt-12 bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-8">
             <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 bg-accent/10 text-accent rounded-xl">
+                <div className="p-3 bg-emerald-600/10 text-emerald-600 rounded-xl">
                     <FiMessageSquare size={24} />
                 </div>
                 <h3 className="text-xl font-bold text-ink dark:text-white">النقاشات والأسئلة ({comments.length})</h3>
@@ -80,7 +80,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                     <button
                         onClick={() => submitComment()}
                         disabled={loading || !newComment.trim()}
-                        className="px-6 py-3 bg-accent text-white rounded-xl font-bold hover:shadow-sm hover:shadow-accent/20 transition-all disabled:opacity-50"
+                        className="px-6 py-3 bg-emerald-600 text-white rounded-xl font-bold hover:shadow-sm hover:shadow-accent/20 transition-all disabled:opacity-50"
                     >
                         نشـر التعليق
                     </button>
@@ -113,7 +113,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                                     <div className="flex items-center gap-4">
                                         <button 
                                             onClick={() => setReplyingTo(comment.id)}
-                                            className="text-accent font-bold text-sm hover:underline flex items-center gap-1"
+                                            className="text-emerald-600 font-bold text-sm hover:underline flex items-center gap-1"
                                         >
                                             رد <FiCornerDownLeft />
                                         </button>

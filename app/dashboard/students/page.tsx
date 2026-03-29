@@ -48,8 +48,8 @@ export default async function StudentsPage() {
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
-                        <FiUsers className="text-xl text-accent" />
+                    <div className="w-12 h-12 rounded-xl bg-emerald-600/10 flex items-center justify-center">
+                        <FiUsers className="text-xl text-emerald-600" />
                     </div>
                     <div>
                         <h1 className="text-2xl font-bold text-ink dark:text-white">إدارة الطلاب والشهادات</h1>

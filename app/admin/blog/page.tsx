@@ -69,7 +69,7 @@ export default function BlogAdminPage() {
                 </div>
                 <Link
                     href="/dashboard/admin/blog/new"
-                    className="flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent-600 transition"
+                    className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-600-600 transition"
                 >
                     <FiPlus />
                     <span>مقال جديد</span>
@@ -83,7 +83,7 @@ export default function BlogAdminPage() {
                         placeholder="ابحث عن مقال..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="w-full pl-4 pr-10 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-bg-light focus:outline-none focus:border-accent"
+                        className="w-full pl-4 pr-10 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-bg-light focus:outline-none focus:border-emerald-600"
                     />
                     <FiSearch className="absolute right-3 top-3 text-gray-400" />
                 </div>
@@ -121,7 +121,7 @@ export default function BlogAdminPage() {
                                         </td>
                                         <td className="px-4 py-4">
                                             <div className="flex items-center gap-3">
-                                                <Link href={`/dashboard/admin/blog/${post.slug}`} className="text-gray-400 hover:text-accent transition">
+                                                <Link href={`/dashboard/admin/blog/${post.slug}`} className="text-gray-400 hover:text-emerald-600 transition">
                                                     <FiEdit2 size={16} />
                                                 </Link>
                                                 <button onClick={() => deletePost(post.slug)} className="text-gray-400 hover:text-red-500 transition">

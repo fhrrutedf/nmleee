@@ -66,7 +66,7 @@ export default function ProductPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-emerald-600"></div>
             </div>
         );
     }
@@ -93,9 +93,9 @@ export default function ProductPage() {
             <div className="bg-white border-b">
                 <div className="max-w-6xl mx-auto px-4 py-4">
                     <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <Link href="/" className="hover:text-accent">الرئيسية</Link>
+                        <Link href="/" className="hover:text-emerald-600">الرئيسية</Link>
                         <span>/</span>
-                        <Link href={`/@${creator.username}`} className="hover:text-accent">
+                        <Link href={`/@${creator.username}`} className="hover:text-emerald-600">
                             @{creator.username}
                         </Link>
                         <span>/</span>
@@ -148,7 +148,7 @@ export default function ProductPage() {
                                     </div>
                                 )}
                                 <div>
-                                    <p className="font-bold group-hover:text-accent transition-colors">
+                                    <p className="font-bold group-hover:text-emerald-600 transition-colors">
                                         {creator.name}
                                     </p>
                                     <p className="text-sm text-gray-500">@{creator.username}</p>
@@ -214,13 +214,13 @@ export default function ProductPage() {
                             
                             {/* Urgency Countdown Placeholder (Simplified for now) */}
                             {product.offerExpiresAt && new Date(product.offerExpiresAt) > new Date() && (
-                                <div className="mt-6 p-4 bg-accent-50 rounded-xl border border-blue-100 flex items-center gap-3 ">
-                                    <div className="w-10 h-10 bg-accent text-white rounded-lg flex items-center justify-center">
+                                <div className="mt-6 p-4 bg-emerald-600-50 rounded-xl border border-blue-100 flex items-center gap-3 ">
+                                    <div className="w-10 h-10 bg-emerald-600 text-white rounded-lg flex items-center justify-center">
                                         <FiClock className="text-xl" />
                                     </div>
                                     <div>
                                         <p className="text-xs font-bold text-blue-800 uppercase tracking-widest">عرض لفترة محدودة</p>
-                                        <p className="text-sm font-bold text-accent">ينتهي العرض قريباً! سارع بالطلب</p>
+                                        <p className="text-sm font-bold text-emerald-600">ينتهي العرض قريباً! سارع بالطلب</p>
                                     </div>
                                 </div>
                             )}

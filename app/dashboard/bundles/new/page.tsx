@@ -106,13 +106,13 @@ export default function NewBundlePage() {
     return (
         <div className="max-w-5xl mx-auto space-y-6 pb-12">
             <div className="mb-8">
-                <Link href="/dashboard/bundles" className="text-text-muted hover:text-accent inline-flex items-center gap-2 mb-4 transition-colors font-medium">
+                <Link href="/dashboard/bundles" className="text-text-muted hover:text-emerald-600 inline-flex items-center gap-2 mb-4 transition-colors font-medium">
                     <FiArrowRight />
                     <span>العودة للباقات</span>
                 </Link>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                    <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center shrink-0">
-                        <FiPackage className="text-xl text-accent" />
+                    <div className="w-12 h-12 bg-emerald-600/10 rounded-xl flex items-center justify-center shrink-0">
+                        <FiPackage className="text-xl text-emerald-600" />
                     </div>
                     <div>
                         <h1 className="text-2xl sm:text-3xl font-bold text-ink dark:text-white">إنشاء باقة جديدة</h1>
@@ -149,7 +149,7 @@ export default function NewBundlePage() {
 
                             <div>
                                 <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
-                                    <FiImage className="text-accent" />
+                                    <FiImage className="text-emerald-600" />
                                     غلاف الباقة التعريفي
                                 </h3>
                                 {formData.image ? (
@@ -173,7 +173,7 @@ export default function NewBundlePage() {
                                         }}
                                     />
                                 ) : (
-                                    <button type="button" onClick={() => setShowCoverUploader(true)} className="btn btn-outline border-dashed w-full h-32 text-gray-500 hover:text-accent hover:border-accent">
+                                    <button type="button" onClick={() => setShowCoverUploader(true)} className="btn btn-outline border-dashed w-full h-32 text-gray-500 hover:text-emerald-600 hover:border-emerald-600">
                                         <FiImage className="text-2xl mb-2" />
                                         رفع صورة غلاف للباقة
                                     </button>
@@ -191,7 +191,7 @@ export default function NewBundlePage() {
                             <div className="py-8 text-center text-gray-500">
                                 لا يوجد لديك منتجات لإضافتها!
                                 <br />
-                                <Link href="/dashboard/products/new" className="text-accent font-bold underline mt-2 block">أضف منتجاتك أولاً</Link>
+                                <Link href="/dashboard/products/new" className="text-emerald-600 font-bold underline mt-2 block">أضف منتجاتك أولاً</Link>
                             </div>
                         ) : (
                             <div className="grid sm:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-200">
@@ -201,11 +201,11 @@ export default function NewBundlePage() {
                                         <div
                                             key={product.id}
                                             onClick={() => toggleProduct(product.id)}
-                                            className={`p-4 rounded-xl cursor-pointer border-2 transition-all flex items-start gap-4 ${isSelected ? 'border-accent bg-accent/5' : 'border-gray-100 hover:border-accent/30 dark:border-gray-800'}`}
+                                            className={`p-4 rounded-xl cursor-pointer border-2 transition-all flex items-start gap-4 ${isSelected ? 'border-emerald-600 bg-emerald-600/5' : 'border-gray-100 hover:border-emerald-600/30 dark:border-gray-800'}`}
                                         >
                                             <div className="mt-1 flex-shrink-0">
                                                 {isSelected ? (
-                                                    <FiCheckSquare className="text-xl text-accent bg-white rounded" />
+                                                    <FiCheckSquare className="text-xl text-emerald-600 bg-white rounded" />
                                                 ) : (
                                                     <FiSquare className="text-xl text-gray-300" />
                                                 )}
@@ -216,7 +216,7 @@ export default function NewBundlePage() {
                                                         <img src={product.image} className="w-12 h-12 object-cover rounded-lg shrink-0" alt="product" />
                                                     )}
                                                     <div>
-                                                        <p className={`font-bold line-clamp-2 leading-tight text-sm ${isSelected ? 'text-accent' : 'text-gray-900 dark:text-white'}`}>{product.title}</p>
+                                                        <p className={`font-bold line-clamp-2 leading-tight text-sm ${isSelected ? 'text-emerald-600' : 'text-gray-900 dark:text-white'}`}>{product.title}</p>
                                                         <p className="text-gray-500 text-xs mt-1 font-bold">{product.price} $</p>
                                                     </div>
                                                 </div>
@@ -250,8 +250,8 @@ export default function NewBundlePage() {
                                     <p className="text-xl font-bold text-gray-400 line-through decoration-red-500/50 decoration-2">{originalValue.toFixed(2)} $</p>
                                 </div>
 
-                                <div className="bg-accent/5 p-4 rounded-xl border border-accent/10">
-                                    <label className="text-sm font-bold text-accent mb-2 block">سعر الباقة الإجمالي الجديد <span className="text-red-500">*</span></label>
+                                <div className="bg-emerald-600/5 p-4 rounded-xl border border-emerald-600/10">
+                                    <label className="text-sm font-bold text-emerald-600 mb-2 block">سعر الباقة الإجمالي الجديد <span className="text-red-500">*</span></label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                                             <span className="text-gray-500 font-bold">$</span>
@@ -261,7 +261,7 @@ export default function NewBundlePage() {
                                             required
                                             min="0"
                                             step="0.01"
-                                            className="w-full pl-4 pr-14 py-4 rounded-xl border border-accent/20 bg-white dark:bg-gray-800 text-2xl font-bold focus:ring-4 ring-accent/20 outline-none transition-all shadow-inner"
+                                            className="w-full pl-4 pr-14 py-4 rounded-xl border border-emerald-600/20 bg-white dark:bg-gray-800 text-2xl font-bold focus:ring-4 ring-accent/20 outline-none transition-all shadow-inner"
                                             placeholder="0.00"
                                             value={formData.price}
                                             onChange={(e) => setFormData({ ...formData, price: e.target.value })}

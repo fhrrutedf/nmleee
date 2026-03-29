@@ -8,9 +8,9 @@ import { motion } from 'framer-motion';
 
 const TARGET_SEGMENTS = [
     { id: 'all', name: 'الجميع', icon: FiUsers, color: 'text-slate-500' },
-    { id: 'sellers', name: 'البائعين فقط', icon: FiZap, color: 'text-accent-500' },
+    { id: 'sellers', name: 'البائعين فقط', icon: FiZap, color: 'text-emerald-600-500' },
     { id: 'inactive-sellers', name: 'بائعين غير نشطين (>30 يوم)', icon: FiActivity, color: 'text-orange-500' },
-    { id: 'high-earners', name: 'الأكثر ربحاً (> $1000)', icon: FiTarget, color: 'text-accent-500' },
+    { id: 'high-earners', name: 'الأكثر ربحاً (> $1000)', icon: FiTarget, color: 'text-emerald-600-500' },
     { id: 'new-users', name: 'المسجلين الجدد (الأسبوع الأخير)', icon: FiCheckCircle, color: 'text-sky-500' },
     { id: 'admins', name: 'فريق الإدارة', icon: FiMail, color: 'text-rose-500' },
 ];
@@ -83,7 +83,7 @@ export default function AdminBroadcastPage() {
                                     className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-5 py-4 focus:ring-4 focus:ring-primary/10 outline-none transition-all resize-none leading-relaxed"
                                 />
                                 <p className="text-[10px] text-slate-400 mt-2 italic flex items-center gap-1">
-                                    <FiAlertTriangle className="text-accent-500" />
+                                    <FiAlertTriangle className="text-emerald-600-500" />
                                     تذكير: سيتم وضع محتوى رسالتك داخل "قالب تمالين الرسمي" الموحد لضمان الاحترافية.
                                 </p>
                             </div>
@@ -103,19 +103,19 @@ export default function AdminBroadcastPage() {
                         <motion.div 
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="bg-accent-50 dark:bg-accent-500/10 border border-blue-100 dark:border-accent-500/20 p-6 rounded-xl flex items-center justify-between"
+                            className="bg-emerald-600-50 dark:bg-emerald-600-500/10 border border-blue-100 dark:border-emerald-600-500/20 p-6 rounded-xl flex items-center justify-between"
                         >
                             <div className="flex items-center gap-4">
-                                <div className="p-3 bg-blue-100 dark:bg-accent-500/20 text-accent-600 dark:text-blue-400 rounded-xl">
+                                <div className="p-3 bg-blue-100 dark:bg-emerald-600-500/20 text-emerald-600-600 dark:text-blue-400 rounded-xl">
                                     <FiCheckCircle className="text-2xl" />
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-blue-800 dark:text-blue-300">تم إكمال البث بنجاح!</h4>
-                                    <p className="text-sm text-accent-600 dark:text-accent-500/80">وصلت رسائلك لـ {result.sent} شخص ({result.total} مستهدف).</p>
+                                    <p className="text-sm text-emerald-600-600 dark:text-emerald-600-500/80">وصلت رسائلك لـ {result.sent} شخص ({result.total} مستهدف).</p>
                                 </div>
                             </div>
                             <div className="text-right">
-                                <span className="text-2xl font-bold text-accent-600 dark:text-blue-400">%{Math.round((result.sent / result.total) * 100) || 100}</span>
+                                <span className="text-2xl font-bold text-emerald-600-600 dark:text-blue-400">%{Math.round((result.sent / result.total) * 100) || 100}</span>
                                 <p className="text-[10px] uppercase font-bold tracking-widest opacity-50">دقة الوصول</p>
                             </div>
                         </motion.div>
@@ -152,9 +152,9 @@ export default function AdminBroadcastPage() {
                         </div>
 
                         <div className="mt-8 pt-6 border-t border-slate-800/50">
-                             <div className="flex items-start gap-4 p-4 bg-accent/10 border border-amber-500/20 rounded-xl">
-                                <FiAlertTriangle className="text-accent-500 mt-1 shrink-0" />
-                                <p className="text-[11px] text-accent-500/80 leading-relaxed font-medium">
+                             <div className="flex items-start gap-4 p-4 bg-emerald-600/10 border border-amber-500/20 rounded-xl">
+                                <FiAlertTriangle className="text-emerald-600-500 mt-1 shrink-0" />
+                                <p className="text-[11px] text-emerald-600-500/80 leading-relaxed font-medium">
                                     تحذير: البث العشوائي والمتكرر قد يؤدي إلى تصنيف خادم الإيميلات كـ Spam. استخدم "البث الذكي" فقط للرسائل الهامة.
                                 </p>
                              </div>

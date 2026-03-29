@@ -195,7 +195,7 @@ export default function ManualPaymentSettingsPage() {
                 </div>
 
                 {/* Info */}
-                <div className="mt-6 bg-accent-50 border border-blue-200 rounded-lg p-4">
+                <div className="mt-6 bg-emerald-600-50 border border-blue-200 rounded-lg p-4">
                     <h3 className="font-bold text-blue-900 mb-2">💡 ملاحظات:</h3>
                     <ul className="text-sm text-blue-800 space-y-1">
                         <li>• يمكنك إضافة رقم واحد أو أكثر حسب الدول التي تستقبل منها دفعات</li>

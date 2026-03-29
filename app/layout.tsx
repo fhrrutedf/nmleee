@@ -42,7 +42,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ar" dir="rtl" suppressHydrationWarning>
-            <body className={`${ibmPlex.variable} ${inter.variable} font-sans antialiased text-ink bg-white flex flex-col min-h-screen selection:bg-accent/20`}>
+            <body className={`${ibmPlex.variable} ${inter.variable} font-sans antialiased text-ink bg-white flex flex-col min-h-screen selection:bg-emerald-600/20`}>
                 <Providers>
                     <AffiliateBanner />
                     <ImpersonationBanner />
@@ -70,7 +70,7 @@ export default function RootLayout({
                             },
                             success: {
                                 iconTheme: {
-                                    primary: '#2563EB',
+                                    primary: '#059669',
                                     secondary: '#FFFFFF',
                                 },
                             },

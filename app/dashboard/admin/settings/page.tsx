@@ -172,7 +172,7 @@ export default function AdminSettingsPage() {
 
                     {activeTab === 'currencies' && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="bg-white dark:bg-card-white p-8 rounded-xl border border-slate-50 shadow-sm max-w-2xl">
-                             <h3 className="text-lg font-bold flex items-center gap-3 mb-8"><FiGlobe className="text-accent-500" /> أسعار الصرف (مقابل 1 دولار $)</h3>
+                             <h3 className="text-lg font-bold flex items-center gap-3 mb-8"><FiGlobe className="text-emerald-600-500" /> أسعار الصرف (مقابل 1 دولار $)</h3>
                              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <label className="block">
                                     <span className="text-xs font-bold text-slate-500 mb-2 block">سعر الليرة السورية (SYP)</span>
@@ -212,8 +212,8 @@ export default function AdminSettingsPage() {
                 </AnimatePresence>
             </div>
 
-            <div className="bg-accent-50 dark:bg-blue-900/10 p-6 rounded-xl border border-blue-100 flex items-center gap-4">
-                <FiCheckCircle className="text-accent-500 shrink-0" size={24} />
+            <div className="bg-emerald-600-50 dark:bg-blue-900/10 p-6 rounded-xl border border-blue-100 flex items-center gap-4">
+                <FiCheckCircle className="text-emerald-600-500 shrink-0" size={24} />
                 <p className="text-blue-900/60 text-xs font-bold leading-relaxed">أي تغييرات هنا ستؤثر فوراً على كافة مبيعات البائعين الجدد. تذكر أن العمولات تحسب عند لحظة إنشاء الطلب وليس عند السحب.</p>
             </div>
 

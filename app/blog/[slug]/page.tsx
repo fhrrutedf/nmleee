@@ -102,9 +102,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <div className="bg-gray-50 py-8 border-b border-gray-100">
                 <div className="container-custom px-4 mx-auto max-w-7xl">
                     <div className="flex items-center gap-2 text-sm text-gray-500">
-                        <Link href="/" className="hover:text-accent">الرئيسية</Link>
+                        <Link href="/" className="hover:text-emerald-600">الرئيسية</Link>
                         <span>/</span>
-                        <Link href="/blog" className="hover:text-accent">المدونة</Link>
+                        <Link href="/blog" className="hover:text-emerald-600">المدونة</Link>
                         <span>/</span>
                         <span className="text-gray-800 font-medium truncate max-w-xs">{post.title}</span>
                     </div>
@@ -119,7 +119,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         {/* Article Header */}
                         <div className="mb-8">
                             {post.category && (
-                                <span className="inline-block py-1 px-3 rounded-xl bg-accent-50 text-accent text-sm font-bold mb-4">
+                                <span className="inline-block py-1 px-3 rounded-xl bg-emerald-600-50 text-emerald-600 text-sm font-bold mb-4">
                                     {post.category}
                                 </span>
                             )}
@@ -156,7 +156,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                         {/* Content */}
                         <article
-                            className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-ink prose-p:text-gray-700 prose-a:text-accent prose-img:rounded-xl prose-p:leading-relaxed mb-20"
+                            className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-ink prose-p:text-gray-700 prose-a:text-emerald-600 prose-img:rounded-xl prose-p:leading-relaxed mb-20"
                             dangerouslySetInnerHTML={{ __html: post.content }}
                         />
 
@@ -171,7 +171,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                    <h3 className="text-2xl md:text-4xl font-bold mb-4 leading-tight">جاهز لتحويل خبرتك إلى أرباح؟ 🚀</h3>
                                    <p className="text-white/80 text-lg font-medium max-w-lg mb-8">انضم لآلاف المبدعين العرب الذين يبيعون منتجاتهم الرقمية ودوراتهم التدريبية عبر تمالين بكل سهولة.</p>
                                    <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                                       <Link href="/register" className="px-8 py-4 bg-white text-accent rounded-xl font-bold text-xl shadow-sm hover:scale-105 transition-transform text-center">
+                                       <Link href="/register" className="px-8 py-4 bg-white text-emerald-600 rounded-xl font-bold text-xl shadow-sm hover:scale-105 transition-transform text-center">
                                            أنشئ متجرك مجاناً
                                        </Link>
                                        <Link href="/explore" className="px-8 py-4 bg-surface/10 text-white border border-white/20 rounded-xl font-bold text-lg hover:bg-white/20 transition-all text-center">
@@ -181,7 +181,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                </div>
                                <div className="hidden lg:block shrink-0">
                                     <div className="w-48 h-48 bg-white/20 rounded-xl flex items-center justify-center p-4  border border-white/30 rotate-12">
-                                        <div className="w-full h-full bg-white rounded-xl flex items-center justify-center text-accent text-6xl shadow-inner">💰</div>
+                                        <div className="w-full h-full bg-white rounded-xl flex items-center justify-center text-emerald-600 text-6xl shadow-inner">💰</div>
                                     </div>
                                </div>
                            </div>
@@ -194,13 +194,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <aside className="lg:col-span-4 space-y-8">
                         {/* Newsletter Widget */}
                         <div className="bg-primary-900 text-white rounded-xl p-8 shadow-sm relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-accent rounded-xl mix-blend-overlay filter blur-2xl opacity-20"></div>
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-600 rounded-xl mix-blend-overlay filter blur-2xl opacity-20"></div>
                             <h3 className="text-xl font-bold mb-4 relative z-10">تحديثات أسبوعية</h3>
                             <p className="text-gray-300 mb-6 text-sm relative z-10">
                                 اشترك في القائمة البريدية ليصلك كل جديد في عالم التجارة الرقمية.
                             </p>
-                            <input type="email" placeholder="بريدك الإلكتروني" className="w-full py-3 px-4 rounded-lg bg-gray-800 border border-gray-700 text-white mb-3 focus:outline-none focus:border-accent relative z-10" />
-                            <button className="w-full py-3 bg-accent rounded-lg font-bold hover:bg-accent-600 transition-colors relative z-10">
+                            <input type="email" placeholder="بريدك الإلكتروني" className="w-full py-3 px-4 rounded-lg bg-gray-800 border border-gray-700 text-white mb-3 focus:outline-none focus:border-emerald-600 relative z-10" />
+                            <button className="w-full py-3 bg-emerald-600 rounded-lg font-bold hover:bg-emerald-600-600 transition-colors relative z-10">
                                 اشتراك
                             </button>
                         </div>

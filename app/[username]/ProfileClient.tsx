@@ -205,12 +205,12 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                         </button>
                                                         <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}&text=${encodeURIComponent(`اكتشف منتجات ${creator.name}`)}`}
                                                             target="_blank" rel="noopener noreferrer"
-                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-accent-50 dark:hover:bg-blue-900/20 hover:text-accent-500 text-right transition-colors">
+                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-600-50 dark:hover:bg-blue-900/20 hover:text-emerald-600-500 text-right transition-colors">
                                                             <FiTwitter className="text-gray-400" /> مشاركة على تويتر
                                                         </a>
                                                         <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
                                                             target="_blank" rel="noopener noreferrer"
-                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-accent-50 dark:hover:bg-blue-900/20 hover:text-accent-600 text-right transition-colors">
+                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-600-50 dark:hover:bg-blue-900/20 hover:text-emerald-600-600 text-right transition-colors">
                                                             <FiFacebook className="text-gray-400" /> مشاركة على فيسبوك
                                                         </a>
                                                     </motion.div>
@@ -304,10 +304,10 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                     <div className="flex items-center gap-2 mb-2">
                                         {featuredProduct.category === 'courses'
                                             ? <span className="text-xs font-bold text-ink bg-purple-100 dark:bg-purple-900/30 px-2 py-0.5 rounded-xl flex items-center gap-1"><FiVideo size={10} /> دورة تدريبية</span>
-                                            : <span className="text-xs font-bold text-accent-600 bg-blue-100 dark:bg-blue-900/30 px-2 py-0.5 rounded-xl flex items-center gap-1"><FiPackage size={10} /> منتج رقمي</span>
+                                            : <span className="text-xs font-bold text-emerald-600-600 bg-blue-100 dark:bg-blue-900/30 px-2 py-0.5 rounded-xl flex items-center gap-1"><FiPackage size={10} /> منتج رقمي</span>
                                         }
                                     </div>
-                                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-accent transition-colors line-clamp-2">
+                                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 transition-colors line-clamp-2">
                                         {featuredProduct.title}
                                     </h3>
                                     {featuredProduct.description && (() => {
@@ -456,10 +456,10 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                     <div className="flex items-center gap-2 mb-2">
                                                         {product.category === 'courses'
                                                             ? <span className="text-[9px] font-bold uppercase tracking-tighter text-ink bg-purple-100 px-2 py-0.5 rounded-md">دورة VIP</span>
-                                                            : <span className="text-[9px] font-bold uppercase tracking-tighter text-accent-600 bg-blue-100 px-2 py-0.5 rounded-md">ملف رقمي</span>
+                                                            : <span className="text-[9px] font-bold uppercase tracking-tighter text-emerald-600-600 bg-blue-100 px-2 py-0.5 rounded-md">ملف رقمي</span>
                                                         }
                                                     </div>
-                                                    <h3 className="font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-accent transition-colors text-sm leading-tight h-10">
+                                                    <h3 className="font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors text-sm leading-tight h-10">
                                                         {cleanTitle(product.title, product.category)}
                                                     </h3>
                                                     {product.description && stripHtml(product.description) && (

@@ -77,7 +77,7 @@ export default function AdminVerificationPage() {
                     <h1 className="text-3xl font-bold text-ink dark:text-white">طلبات توثيق الحساب</h1>
                     <p className="text-text-muted mt-1">مراجعة هوية البائعين لمنح الشارة الزرقاء (Trust Badge)</p>
                 </div>
-                <div className="bg-accent/10 text-accent px-4 py-2 rounded-xl font-bold border border-accent/20">
+                <div className="bg-emerald-600/10 text-emerald-600 px-4 py-2 rounded-xl font-bold border border-emerald-600/20">
                     {requests.length} طلب معلق
                 </div>
             </div>
@@ -100,7 +100,7 @@ export default function AdminVerificationPage() {
                                     alt="Document" 
                                 />
                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                    <a href={request.documentUrl} target="_blank" className="btn btn-primary bg-white text-accent hover:bg-white/90">
+                                    <a href={request.documentUrl} target="_blank" className="btn btn-primary bg-white text-emerald-600 hover:bg-white/90">
                                         <FiEye /> عرض كامل
                                     </a>
                                 </div>

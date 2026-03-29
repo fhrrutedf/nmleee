@@ -94,7 +94,7 @@ export default function CourseModerationPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-xl animate-spin" />
+                <div className="w-10 h-10 border-4 border-emerald-600/30 border-t-accent rounded-xl animate-spin" />
             </div>
         );
     }
@@ -104,7 +104,7 @@ export default function CourseModerationPage() {
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
-                        <FiShield className="text-accent" /> حارس المحتوى (المراجعة)
+                        <FiShield className="text-emerald-600" /> حارس المحتوى (المراجعة)
                     </h1>
                     <p className="text-text-muted text-sm mt-1">كافة الكورسات المدرجة حديثاً تنتظر الموافقة للظهور في السوق</p>
                 </div>
@@ -162,7 +162,7 @@ export default function CourseModerationPage() {
                                                 target="_blank"
                                                 rel="noreferrer"
                                                 title="معاينة كزائر"
-                                                className="w-8 h-8 flex items-center justify-center rounded-xl bg-accent-50 text-accent-600 hover:bg-blue-100 transition-colors"
+                                                className="w-8 h-8 flex items-center justify-center rounded-xl bg-emerald-600-50 text-emerald-600-600 hover:bg-blue-100 transition-colors"
                                             >
                                                 <FiEye className="w-4 h-4" />
                                             </a>

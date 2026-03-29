@@ -44,7 +44,7 @@ export default function ForgotPasswordPage() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-bg-light relative overflow-hidden py-12 px-4">
             {/* Background Decorations */}
-            <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-accent/10 rounded-xl blur-[80px] -z-10 pointer-events-none"></div>
+            <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-emerald-600/10 rounded-xl blur-[80px] -z-10 pointer-events-none"></div>
             <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-purple-500/10 rounded-xl blur-[100px] -z-10 pointer-events-none"></div>
 
             <motion.div
@@ -104,7 +104,7 @@ export default function ForgotPasswordPage() {
                                                 className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 pr-12 font-semibold focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all ltr"
                                                 placeholder="name@example.com"
                                             />
-                                            <FiMail className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl group-focus-within:text-accent transition-colors" />
+                                            <FiMail className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl group-focus-within:text-emerald-600 transition-colors" />
                                         </div>
                                     </div>
 
@@ -134,7 +134,7 @@ export default function ForgotPasswordPage() {
                                     </button>
 
                                     <div className="text-center pt-6 border-t border-gray-100">
-                                        <Link href="/login" className="text-sm font-bold text-text-muted hover:text-accent transition-colors flex items-center justify-center gap-2 group">
+                                        <Link href="/login" className="text-sm font-bold text-text-muted hover:text-emerald-600 transition-colors flex items-center justify-center gap-2 group">
                                             <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                                             العودة لتسجيل الدخول
                                         </Link>

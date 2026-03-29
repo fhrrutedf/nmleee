@@ -143,9 +143,9 @@ export default function AdminDashboard() {
 
                     {/* Revenue Card (Glassmorphism) */}
                     <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-8 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-sm transition-all duration-500">
-                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-accent/5 rounded-xl blur-2xl group-hover:bg-accent/10 transition-all"></div>
+                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-emerald-600/5 rounded-xl blur-2xl group-hover:bg-emerald-600/10 transition-all"></div>
                         <div className="flex justify-between items-start mb-6 relative z-10">
-                            <div className="w-14 h-14 rounded-xl bg-gray-50 dark:bg-gray-800 text-accent flex items-center justify-center text-2xl shadow-sm group-hover:bg-accent group-hover:text-white transition-all">
+                            <div className="w-14 h-14 rounded-xl bg-gray-50 dark:bg-gray-800 text-emerald-600 flex items-center justify-center text-2xl shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition-all">
                                 <FiDollarSign />
                             </div>
                             <span className="flex items-center gap-1 text-sm font-bold text-green-500 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-lg">
@@ -224,11 +224,11 @@ export default function AdminDashboard() {
                                 <div>
                                     <h3 className="text-gray-400 font-bold mb-1">سحوبات معلقة بانتظار المراجعة</h3>
                                     <div className="text-4xl font-bold mb-4">{stats?.pendingPayouts}</div>
-                                    <span className="text-sm font-bold flex items-center gap-1 text-accent hover:text-white transition-colors">
+                                    <span className="text-sm font-bold flex items-center gap-1 text-emerald-600 hover:text-white transition-colors">
                                         مراجعة الطلبات <FiArrowUpRight />
                                     </span>
                                 </div>
-                                <div className="w-14 h-14 rounded-xl bg-surface/10 flex items-center justify-center group-hover:bg-accent group-hover:scale-110 transition-all">
+                                <div className="w-14 h-14 rounded-xl bg-surface/10 flex items-center justify-center group-hover:bg-emerald-600 group-hover:scale-110 transition-all">
                                     <FiClock className="text-2xl" />
                                 </div>
                             </div>
@@ -258,19 +258,19 @@ export default function AdminDashboard() {
                     {/* Pending Seller Verifications (Phase 10) */}
                     <Link href="/admin/verification">
                         <motion.div variants={itemVariants} className={`bg-white dark:bg-card-white border rounded-xl p-6 shadow-sm relative overflow-hidden group cursor-pointer transition-all ${
-                            (stats?.pendingVerifications || 0) > 0 ? 'border-accent ring-2 ring-accent/20' : 'border-gray-100 dark:border-gray-800'
+                            (stats?.pendingVerifications || 0) > 0 ? 'border-emerald-600 ring-2 ring-accent/20' : 'border-gray-100 dark:border-gray-800'
                         }`}>
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-600/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
 
                             <div className="flex items-start justify-between">
                                 <div>
                                     <h3 className="text-gray-500 dark:text-gray-400 font-bold mb-1">توثيقات بانتظار المراجعة</h3>
                                     <div className="text-4xl font-bold mb-4 text-ink dark:text-white">{stats?.pendingVerifications || 0}</div>
-                                    <span className="text-sm font-bold flex items-center gap-1 text-accent transition-colors">
+                                    <span className="text-sm font-bold flex items-center gap-1 text-emerald-600 transition-colors">
                                         إدارة الشارات الزرقاء <FiArrowUpRight />
                                     </span>
                                 </div>
-                                <div className="w-14 h-14 rounded-xl bg-primary-50 dark:bg-primary-900/20 text-accent flex items-center justify-center group-hover:scale-110 transition-all">
+                                <div className="w-14 h-14 rounded-xl bg-primary-50 dark:bg-primary-900/20 text-emerald-600 flex items-center justify-center group-hover:scale-110 transition-all">
                                     <FiCheckCircle className="text-2xl" />
                                 </div>
                             </div>
@@ -279,7 +279,7 @@ export default function AdminDashboard() {
 
                     {/* Content Inventory Status */}
                     <motion.div variants={itemVariants} className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-6 shadow-sm relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-600/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
 
                         <div className="flex items-start justify-between">
                             <div>
@@ -288,7 +288,7 @@ export default function AdminDashboard() {
                                     {(stats?.totalProducts || 0) + (stats?.totalCourses || 0)}
                                 </div>
                                 <div className="text-sm font-bold text-gray-500 flex gap-4">
-                                    <span><strong className="text-accent">{stats?.totalProducts}</strong> منتج</span>
+                                    <span><strong className="text-emerald-600">{stats?.totalProducts}</strong> منتج</span>
                                     <span><strong className="text-purple-500">{stats?.totalCourses}</strong> دورة</span>
                                 </div>
                             </div>
@@ -306,9 +306,9 @@ export default function AdminDashboard() {
                     <motion.div variants={itemVariants} className="lg:col-span-2 bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col">
                         <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/30 dark:bg-gray-900/10">
                             <h2 className="text-sm font-bold text-ink dark:text-white flex items-center gap-3 uppercase tracking-widest">
-                                <FiActivity className="text-accent" /> Recent Activity
+                                <FiActivity className="text-emerald-600" /> Recent Activity
                             </h2>
-                            <Link href="/admin/dashboard/orders" className="text-[10px] font-bold text-accent hover:text-ink transition-colors uppercase tracking-widest">
+                            <Link href="/admin/dashboard/orders" className="text-[10px] font-bold text-emerald-600 hover:text-ink transition-colors uppercase tracking-widest">
                                 View Full Report
                             </Link>
                         </div>
@@ -369,7 +369,7 @@ export default function AdminDashboard() {
                     <motion.div variants={itemVariants} className="bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col">
                         <div className="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/20">
                             <h2 className="text-lg font-bold text-ink dark:text-white flex items-center gap-2">
-                                <FiTrendingUp className="text-accent" /> أفضل البائعين
+                                <FiTrendingUp className="text-emerald-600" /> أفضل البائعين
                             </h2>
                         </div>
                         <div className="p-6 flex-1 flex flex-col justify-center">
@@ -404,7 +404,7 @@ export default function AdminDashboard() {
                                                 </div>
                                             </div>
                                             <div className="text-left">
-                                                <div className="font-bold text-accent text-lg">
+                                                <div className="font-bold text-emerald-600 text-lg">
                                                     ${seller.totalEarnings.toFixed(2)}
                                                 </div>
                                                 <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Revenue</div>

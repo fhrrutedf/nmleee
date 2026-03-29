@@ -219,7 +219,7 @@ export default function PayoutSettings() {
                                     onChange={e => setData({...data, cryptoWallet: e.target.value})}
                                     placeholder="T..."
                                 />
-                                <p className="text-xs text-accent-600 mt-2">نرجوا التأكد من أن العنوان يدعم شبكة TRC20 لتجنب ضياع المبلغ.</p>
+                                <p className="text-xs text-emerald-600-600 mt-2">نرجوا التأكد من أن العنوان يدعم شبكة TRC20 لتجنب ضياع المبلغ.</p>
                             </div>
                         )}
 

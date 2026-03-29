@@ -95,7 +95,7 @@ function ResetPasswordForm() {
                 <div className="h-2 w-full bg-ink"></div>
                 <div className="p-8 sm:p-10">
                     <div className="text-center mb-8">
-                        <div className="w-16 h-16 bg-accent-50 dark:bg-blue-900/20 text-accent rounded-xl flex items-center justify-center mx-auto mb-4 border border-blue-100 dark:border-blue-800/30">
+                        <div className="w-16 h-16 bg-emerald-600-50 dark:bg-blue-900/20 text-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-4 border border-blue-100 dark:border-blue-800/30">
                             <FiLock size={28} />
                         </div>
                         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">إعادة تعيين كلمة المرور</h1>
@@ -118,7 +118,7 @@ function ResetPasswordForm() {
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-accent transition-colors"
+                                        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-emerald-600 transition-colors"
                                     >
                                         {showPassword ? <FiEyeOff /> : <FiEye />}
                                     </button>

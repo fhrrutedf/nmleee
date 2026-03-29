@@ -95,7 +95,7 @@ export default function AppointmentSettingsPage() {
     if (status === 'loading' || loading) {
         return (
             <div className="flex items-center justify-center min-h-[50vh]">
-                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-emerald-600"></div>
             </div>
         );
     }
@@ -145,7 +145,7 @@ export default function AppointmentSettingsPage() {
 
             <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                 <div className="p-4 md:p-6 border-b border-gray-100 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-100 text-accent-600 flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-blue-100 text-emerald-600-600 flex items-center justify-center flex-shrink-0">
                         <FiCalendar className="text-xl" />
                     </div>
                     <div>
@@ -170,7 +170,7 @@ export default function AppointmentSettingsPage() {
                                             checked={availability.isActive}
                                             onChange={(e) => updateDay(day.id, 'isActive', e.target.checked)}
                                         />
-                                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-xl peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
+                                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-xl peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
                                     </label>
                                 </div>
 
@@ -206,7 +206,7 @@ export default function AppointmentSettingsPage() {
                 </div>
             </div>
 
-            <div className="bg-accent-50 border border-blue-200 rounded-lg p-4 flex gap-3 text-blue-800">
+            <div className="bg-emerald-600-50 border border-blue-200 rounded-lg p-4 flex gap-3 text-blue-800">
                 <FiClock className="text-xl flex-shrink-0 mt-0.5" />
                 <div>
                     <h3 className="font-semibold mb-1">ملاحظة هامة</h3>

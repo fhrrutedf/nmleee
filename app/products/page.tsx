@@ -129,7 +129,7 @@ export default function ProductsPage() {
                                         </span>
                                     )}
 
-                                    <h3 className="font-bold text-lg mb-2 line-clamp-2 group-hover:text-accent transition-colors">
+                                    <h3 className="font-bold text-lg mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">
                                         {product.title}
                                     </h3>
 
@@ -149,7 +149,7 @@ export default function ProductsPage() {
                                                 />
                                             ))}
                                         </div>
-                                        <span className="text-2xl font-bold text-accent">
+                                        <span className="text-2xl font-bold text-emerald-600">
                                             {product.price.toFixed(0)} $
                                         </span>
                                     </div>

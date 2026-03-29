@@ -83,8 +83,8 @@ export default function IntegrationsPage() {
                     <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                 </svg>
             ),
-            color: 'text-accent-600',
-            bg: 'bg-accent-50 dark:bg-blue-900/20',
+            color: 'text-emerald-600-600',
+            bg: 'bg-emerald-600-50 dark:bg-blue-900/20',
         },
         {
             id: 'zoom',
@@ -97,7 +97,7 @@ export default function IntegrationsPage() {
             ],
             status: zoomConnected ? 'connected' : 'coming_soon',
             icon: <span className="text-3xl">📹</span>,
-            color: 'text-accent-500',
+            color: 'text-emerald-600-500',
             bg: 'bg-sky-50 dark:bg-sky-900/20',
         },
         {
@@ -134,7 +134,7 @@ export default function IntegrationsPage() {
             {/* Header */}
             <div>
                 <h1 className="text-3xl font-bold text-ink dark:text-white flex items-center gap-3">
-                    <FiLink2 className="text-accent" />
+                    <FiLink2 className="text-emerald-600" />
                     التكاملات
                 </h1>
                 <p className="text-text-muted mt-2">
@@ -161,10 +161,10 @@ export default function IntegrationsPage() {
             )}
 
             {/* Reminder info box */}
-            <div className="bg-accent/5 border border-accent/20 rounded-xl p-5 flex gap-4 items-start">
-                <FiClock className="text-accent text-2xl flex-shrink-0 mt-0.5" />
+            <div className="bg-emerald-600/5 border border-emerald-600/20 rounded-xl p-5 flex gap-4 items-start">
+                <FiClock className="text-emerald-600 text-2xl flex-shrink-0 mt-0.5" />
                 <div>
-                    <p className="font-bold text-accent">إرسال رابط الاجتماع تلقائياً</p>
+                    <p className="font-bold text-emerald-600">إرسال رابط الاجتماع تلقائياً</p>
                     <p className="text-text-muted text-sm mt-1">
                         عند ربط أي خدمة، يتم إرسال رابط الاجتماع للعميل <strong>قبل 30 دقيقة</strong> من الموعد تلقائياً عبر البريد الإلكتروني — لا تحتاج لأي إجراء يدوي.
                     </p>
@@ -184,7 +184,7 @@ export default function IntegrationsPage() {
                             ? 'border-green-200 dark:border-green-800'
                             : integration.status === 'coming_soon'
                                 ? 'border-dashed border-gray-200 dark:border-gray-700 opacity-70'
-                                : 'border-gray-100 dark:border-gray-800 hover:border-accent/40'
+                                : 'border-gray-100 dark:border-gray-800 hover:border-emerald-600/40'
                             }`}
                     >
                         {/* Header */}
@@ -209,7 +209,7 @@ export default function IntegrationsPage() {
                                         </span>
                                     )}
                                     {integration.status === 'coming_soon' && (
-                                        <span className="inline-flex items-center gap-1.5 text-accent text-xs font-medium bg-accent-50 dark:bg-amber-900/20 px-2.5 py-1 rounded-xl mt-1">
+                                        <span className="inline-flex items-center gap-1.5 text-emerald-600 text-xs font-medium bg-emerald-600-50 dark:bg-amber-900/20 px-2.5 py-1 rounded-xl mt-1">
                                             قريباً
                                         </span>
                                     )}

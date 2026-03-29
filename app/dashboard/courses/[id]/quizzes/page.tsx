@@ -107,7 +107,7 @@ export default function CourseQuizzesPage() {
                 </div>
                 <div className="card">
                     <p className="text-xs text-text-muted font-bold uppercase">إجمالي الأسئلة</p>
-                    <p className="text-2xl font-bold text-accent mt-1">
+                    <p className="text-2xl font-bold text-emerald-600 mt-1">
                         {quizzes.reduce((sum, q) => {
                             const questions = Array.isArray(q.questions) ? q.questions : [];
                             return sum + questions.length;

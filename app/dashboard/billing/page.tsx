@@ -51,8 +51,8 @@ const plans = [
         students: 'حتى 1,000 طالب',
         support: 'بريد + دردشة مباشرة',
         color: 'from-accent-500 to-ink',
-        border: 'border-accent',
-        btnClass: 'bg-accent hover:bg-accent/90 text-white',
+        border: 'border-emerald-600',
+        btnClass: 'bg-emerald-600 hover:bg-emerald-600/90 text-white',
         popular: true,
         features: [
             '50 منتج رقمي',
@@ -208,7 +208,7 @@ export default function BillingPage() {
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 bg-accent/20 border border-accent/40 text-accent px-4 py-2 rounded-xl text-sm font-bold mb-6 "
+                        className="inline-flex items-center gap-2 bg-emerald-600/20 border border-emerald-600/40 text-emerald-600 px-4 py-2 rounded-xl text-sm font-bold mb-6 "
                     >
                         🚀 عرض إطلاق حصري — خصم 50% لأول 3 أشهر لأول 500 بائع!
                     </motion.div>
@@ -397,7 +397,7 @@ export default function BillingPage() {
                             <span className="bg-white/20 px-3 py-1 rounded-xl mx-2 font-bold">۴۸۳ مقعد</span>
                         </p>
                         <button
-                            className="inline-block bg-white text-accent font-bold px-8 py-3.5 rounded-xl hover:shadow-sm transition-all hover:-translate-y-0.5 text-lg"
+                            className="inline-block bg-white text-emerald-600 font-bold px-8 py-3.5 rounded-xl hover:shadow-sm transition-all hover:-translate-y-0.5 text-lg"
                         >
                             قم بالترقية الآن ←
                         </button>
@@ -416,7 +416,7 @@ export default function BillingPage() {
                         برنامج الإحالة — اكسب معنا
                     </h3>
                     <p className="text-text-muted mb-4 max-w-lg mx-auto">
-                        شارك رابطك مع أصدقائك واكسب <strong className="text-accent">20% عمولة متكررة</strong> شهرياً عن كل بائع جديد يشترك في باقة مدفوعة.
+                        شارك رابطك مع أصدقائك واكسب <strong className="text-emerald-600">20% عمولة متكررة</strong> شهرياً عن كل بائع جديد يشترك في باقة مدفوعة.
                     </p>
                     <Link href="/dashboard/affiliate" className="btn btn-primary px-8 py-3">
                         اذهب إلى التسويق بالعمولة
@@ -427,7 +427,7 @@ export default function BillingPage() {
                 <div className="mt-12 text-center">
                     <button
                         onClick={() => setShowComparison(!showComparison)}
-                        className="text-accent font-bold underline underline-offset-4 text-sm hover:opacity-80 transition-opacity"
+                        className="text-emerald-600 font-bold underline underline-offset-4 text-sm hover:opacity-80 transition-opacity"
                     >
                         {showComparison ? '▲ إخفاء' : '▼ إظهار'} مقارنة تفصيلية بين الباقات
                     </button>

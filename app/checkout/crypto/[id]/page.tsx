@@ -177,7 +177,7 @@ export default function CryptoCheckoutPage() {
                                     </div>
                                 </div>
 
-                                <div className="bg-accent-50 border border-blue-100 p-5 rounded-xl text-blue-800 text-sm leading-relaxed mb-6">
+                                <div className="bg-emerald-600-50 border border-blue-100 p-5 rounded-xl text-blue-800 text-sm leading-relaxed mb-6">
                                     <h4 className="font-bold flex items-center gap-2 mb-2">
                                         <FiAlertTriangle /> ملاحظات هامة:
                                     </h4>

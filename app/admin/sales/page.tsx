@@ -162,7 +162,7 @@ export default function AdminSalesPage() {
                         <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                                    <FiDollarSign className="text-accent-600" size={20} />
+                                    <FiDollarSign className="text-emerald-600-600" size={20} />
                                 </div>
                                 <span className="text-xs text-gray-400 font-medium">إجمالي الإيرادات</span>
                             </div>
@@ -171,11 +171,11 @@ export default function AdminSalesPage() {
                         <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-amber-900/30 flex items-center justify-center">
-                                    <FiClock className="text-accent" size={20} />
+                                    <FiClock className="text-emerald-600" size={20} />
                                 </div>
                                 <span className="text-xs text-gray-400 font-medium">طلبات معلقة</span>
                             </div>
-                            <p className="text-2xl font-bold text-accent">{stats.pendingCount}</p>
+                            <p className="text-2xl font-bold text-emerald-600">{stats.pendingCount}</p>
                         </div>
                         <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
                             <div className="flex items-center gap-3 mb-2">

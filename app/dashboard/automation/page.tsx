@@ -54,7 +54,7 @@ export default function AutomationPage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                        <FiZap className="text-accent-500" />
+                        <FiZap className="text-emerald-600-500" />
                         مركز الأتمتة والنمو
                     </h1>
                     <p className="text-slate-500 dark:text-slate-400 mt-1">قم بزيادة مبيعاتك تلقائياً باستخدام "دروع تمالين" للنمو.</p>
@@ -123,7 +123,7 @@ export default function AutomationPage() {
                     {/* Abandoned Cart Engine */}
                     <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm overflow-hidden relative">
                         <div className="absolute top-4 left-4">
-                             <div className="flex items-center gap-1.5 bg-blue-100 dark:bg-accent/20 text-accent dark:text-amber-400 px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-wider">
+                             <div className="flex items-center gap-1.5 bg-blue-100 dark:bg-emerald-600/20 text-emerald-600 dark:text-amber-400 px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-wider">
                                 <FiZap />
                                 نظام ذكي
                              </div>
@@ -171,30 +171,30 @@ export default function AutomationPage() {
                             </div>
 
                             {/* Reminder 3 (The Ultimate) */}
-                            <div className={`p-4 rounded-xl border transition-all ${settings.cartReminder3Enabled ? 'border-accent-500 bg-accent-500/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
+                            <div className={`p-4 rounded-xl border transition-all ${settings.cartReminder3Enabled ? 'border-emerald-600-500 bg-emerald-600-500/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="text-xs font-bold text-accent-600 italic">#تذكير 3 (الأخير)</span>
+                                    <span className="text-xs font-bold text-emerald-600-600 italic">#تذكير 3 (الأخير)</span>
                                     <input 
                                         type="checkbox" 
                                         checked={settings.cartReminder3Enabled}
                                         onChange={(e) => setSettings({ ...settings, cartReminder3Enabled: e.target.checked })}
-                                        className="w-4 h-4 rounded border-slate-300 text-accent-500 focus:ring-accent-500"
+                                        className="w-4 h-4 rounded border-slate-300 text-emerald-600-500 focus:ring-accent-500"
                                     />
                                 </div>
                                 <h4 className="font-bold text-sm mb-1">بعد 3 أيام</h4>
                                 <div className="flex items-center gap-2 mt-2">
-                                     <FiPercent className="text-accent-500" />
-                                     <span className="text-[10px] font-bold text-accent-600">خصم 10% تلقائي</span>
+                                     <FiPercent className="text-emerald-600-500" />
+                                     <span className="text-[10px] font-bold text-emerald-600-600">خصم 10% تلقائي</span>
                                 </div>
                             </div>
                         </div>
 
                         {settings.cartReminder3Enabled && (
-                            <div className="bg-accent-50 dark:bg-accent-500/10 p-4 rounded-xl border border-blue-100 dark:border-accent-500/20 flex items-start gap-3">
-                                <FiAlertCircle className="text-accent-500 mt-1 shrink-0" />
+                            <div className="bg-emerald-600-50 dark:bg-emerald-600-500/10 p-4 rounded-xl border border-blue-100 dark:border-emerald-600-500/20 flex items-start gap-3">
+                                <FiAlertCircle className="text-emerald-600-500 mt-1 shrink-0" />
                                 <div>
                                     <h5 className="font-bold text-sm text-blue-700 dark:text-blue-400 mb-1">استراتيجية الخصم التلقائي مفعلة</h5>
-                                    <p className="text-xs text-accent-600 dark:text-accent-500/80 leading-relaxed">
+                                    <p className="text-xs text-emerald-600-600 dark:text-emerald-600-500/80 leading-relaxed">
                                         سيقوم النظام تلقائياً بتوليد كود خصم بنسبة 10% (لمرة واحدة) لهذا العميل وإرساله في الرسالة الأخيرة لتحفيزه على إتمام الدفعة فوراً.
                                     </p>
                                 </div>
@@ -206,7 +206,7 @@ export default function AutomationPage() {
                     <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm overflow-hidden relative">
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
-                                <div className="p-2.5 bg-blue-100 dark:bg-accent-500/20 text-accent-600 dark:text-blue-400 rounded-xl">
+                                <div className="p-2.5 bg-blue-100 dark:bg-emerald-600-500/20 text-emerald-600-600 dark:text-blue-400 rounded-xl">
                                     <FiZap className="text-xl" />
                                 </div>
                                 <div>
@@ -221,7 +221,7 @@ export default function AutomationPage() {
                                     checked={settings.marketingEnabled}
                                     onChange={(e) => setSettings({ ...settings, marketingEnabled: e.target.checked })}
                                 />
-                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-xl peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-accent-600"></div>
+                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-xl peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-600-600"></div>
                             </label>
                         </div>
 
@@ -267,7 +267,7 @@ export default function AutomationPage() {
                                         className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-accent-500/20 outline-none transition-all"
                                         placeholder="مثلاً: مرحباً! لقد مر وقت طويل منذ آخر جلسة تعليمية لنا، تفضل هذا الخصم للعودة..."
                                     />
-                                    <div className="mt-2 flex items-center gap-2 text-[10px] text-accent-600 font-medium">
+                                    <div className="mt-2 flex items-center gap-2 text-[10px] text-emerald-600-600 font-medium">
                                         <FiEdit3 />
                                         <span>نصيحة: اجعل الرسالة شخصية وجذابة لزيادة معدل التحويل.</span>
                                     </div>

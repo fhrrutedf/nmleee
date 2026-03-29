@@ -97,7 +97,7 @@ export default function AdminStudentsPage() {
             {/* Header */}
             <div>
                 <h1 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
-                    <FiUsers className="text-accent" /> الطلاب
+                    <FiUsers className="text-emerald-600" /> الطلاب
                 </h1>
                 <p className="text-text-muted text-sm mt-1">عرض الطلاب حسب المدرب (شجرة)</p>
             </div>
@@ -106,7 +106,7 @@ export default function AdminStudentsPage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 <div className="card">
                     <p className="text-xs text-text-muted font-bold uppercase">إجمالي الطلاب</p>
-                    <p className="text-2xl font-bold text-accent mt-1">{totalStudents}</p>
+                    <p className="text-2xl font-bold text-emerald-600 mt-1">{totalStudents}</p>
                 </div>
                 <div className="card">
                     <p className="text-xs text-text-muted font-bold uppercase">المدربين</p>
@@ -135,7 +135,7 @@ export default function AdminStudentsPage() {
             {/* Trainers Tree */}
             {loading ? (
                 <div className="flex items-center justify-center py-20">
-                    <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-xl animate-spin" />
+                    <div className="w-10 h-10 border-4 border-emerald-600/30 border-t-accent rounded-xl animate-spin" />
                 </div>
             ) : filteredTrainers.length === 0 ? (
                 <div className="card p-12 text-center">
@@ -156,7 +156,7 @@ export default function AdminStudentsPage() {
                                         {trainer.avatar ? (
                                             <img src={trainer.avatar} alt="" className="w-full h-full object-cover" />
                                         ) : (
-                                            <FiUser size={20} className="text-accent" />
+                                            <FiUser size={20} className="text-emerald-600" />
                                         )}
                                     </div>
                                     <div className="text-right">
@@ -166,7 +166,7 @@ export default function AdminStudentsPage() {
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <div className="text-right">
-                                        <p className="text-2xl font-bold text-accent">{trainer.totalStudents}</p>
+                                        <p className="text-2xl font-bold text-emerald-600">{trainer.totalStudents}</p>
                                         <p className="text-[10px] text-text-muted uppercase font-bold">طالب</p>
                                     </div>
                                     <div className="flex items-center gap-2 text-xs text-text-muted">
@@ -185,7 +185,7 @@ export default function AdminStudentsPage() {
                                 <div className="border-t border-gray-100 dark:border-gray-700">
                                     {loadingStudents === trainer.id ? (
                                         <div className="flex items-center justify-center py-8">
-                                            <div className="w-8 h-8 border-4 border-accent/30 border-t-accent rounded-xl animate-spin" />
+                                            <div className="w-8 h-8 border-4 border-emerald-600/30 border-t-accent rounded-xl animate-spin" />
                                         </div>
                                     ) : (
                                         <div className="overflow-x-auto">
@@ -210,7 +210,7 @@ export default function AdminStudentsPage() {
                                                                 <div className="flex items-center gap-2">
                                                                     <div className="w-20 bg-gray-200 dark:bg-gray-700 rounded-xl h-1.5">
                                                                         <div
-                                                                            className={`h-1.5 rounded-xl ${student.isCompleted ? 'bg-green-500' : 'bg-accent'}`}
+                                                                            className={`h-1.5 rounded-xl ${student.isCompleted ? 'bg-green-500' : 'bg-emerald-600'}`}
                                                                             style={{ width: `${student.progress}%` }}
                                                                         />
                                                                     </div>

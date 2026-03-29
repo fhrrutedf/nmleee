@@ -100,7 +100,7 @@ export default function DashboardLayout({
     );
 
     return (
-        <div className="min-h-screen bg-white transition-colors duration-300 relative selection:bg-accent/20">
+        <div className="min-h-screen bg-white transition-colors duration-300 relative selection:bg-emerald-600/20">
             {sidebarOpen && (
                 <motion.div
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -141,7 +141,7 @@ export default function DashboardLayout({
                                     return (
                                         <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
                                             className={`flex items-center gap-4 px-5 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-ink text-white shadow-sm shadow-ink/20' : 'text-gray-400 hover:bg-gray-50 hover:text-ink'}`}>
-                                            <item.icon size={18} className={`${active ? 'text-accent' : 'group-hover:text-ink'}`} />
+                                            <item.icon size={18} className={`${active ? 'text-emerald-600' : 'group-hover:text-ink'}`} />
                                             <span className="text-xs font-bold tracking-tight flex-1 text-right">{item.label}</span>
                                         </Link>
                                     );
@@ -190,7 +190,7 @@ export default function DashboardLayout({
                         return (
                             <Link key={item.href} href={item.href}
                                 className={`flex items-center gap-4 px-6 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-ink text-white shadow-sm shadow-ink/20 transform -translate-y-0.5' : 'text-gray-400 hover:bg-gray-50 hover:text-ink'}`}>
-                                <item.icon size={18} className={`transition-transform duration-500 ${active ? 'text-accent' : 'group-hover:scale-110 group-hover:text-ink'}`} />
+                                <item.icon size={18} className={`transition-transform duration-500 ${active ? 'text-emerald-600' : 'group-hover:scale-110 group-hover:text-ink'}`} />
                                 <span className={`text-xs font-bold tracking-tight flex-1 text-right ${active ? 'text-white' : ''}`}>{item.label}</span>
                             </Link>
                         );
@@ -198,7 +198,7 @@ export default function DashboardLayout({
                 </nav>
 
                 <div className="p-6 border-t border-gray-50 bg-gray-50/20 space-y-2">
-                    <Link href="/explore" target="_blank" className="flex items-center gap-4 px-6 py-4 rounded-xl text-gray-400 hover:bg-white hover:text-accent border border-transparent hover:border-gray-100 transition-all text-[10px] font-bold uppercase tracking-widest">
+                    <Link href="/explore" target="_blank" className="flex items-center gap-4 px-6 py-4 rounded-xl text-gray-400 hover:bg-white hover:text-emerald-600 border border-transparent hover:border-gray-100 transition-all text-[10px] font-bold uppercase tracking-widest">
                         <FiGlobe size={18} /><span>Marketplace</span>
                     </Link>
                     <button onClick={() => signOut({ callbackUrl: '/' })} className="flex items-center gap-4 px-6 py-4 rounded-xl text-red-400 hover:bg-red-50 hover:text-red-600 transition-all text-[10px] font-bold uppercase tracking-widest">
@@ -222,7 +222,7 @@ export default function DashboardLayout({
                                 target="_blank"
                                 className="hidden sm:flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-ink px-6 py-3 border border-gray-100 rounded-xl transition-all bg-white hover:shadow-sm hover:shadow-gray-100/50"
                             >
-                                <FiExternalLink size={14} className="text-accent" />
+                                <FiExternalLink size={14} className="text-emerald-600" />
                                 <span>Preview Store</span>
                             </Link>
                         </div>

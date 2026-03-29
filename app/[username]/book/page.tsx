@@ -106,7 +106,7 @@ export default function BookAppointmentPage() {
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-[60vh]">
-                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-emerald-600"></div>
             </div>
         );
     }
@@ -137,13 +137,13 @@ export default function BookAppointmentPage() {
         <div className="min-h-screen bg-gray-50 py-12">
             <style dangerouslySetInnerHTML={{
                 __html: `
-                .text-accent, .text-primary-700 { color: ${brandColor} !important; }
-                .bg-accent { background-color: ${brandColor} !important; }
+                .text-emerald-600, .text-primary-700 { color: ${brandColor} !important; }
+                .bg-emerald-600 { background-color: ${brandColor} !important; }
                 .bg-primary-50, .bg-primary-100 { background-color: ${brandColor}18 !important; }
                 .bg-primary-100\/50 { background-color: ${brandColor}10 !important; }
                 .bg-primary-50.to-primary-100\/50, .from-primary-50 { --tw-gradient-from: ${brandColor}18 !important; }
                 .border-primary-100 { border-color: ${brandColor}30 !important; }
-                .border-accent, .border-primary-300 { border-color: ${brandColor} !important; }
+                .border-emerald-600, .border-primary-300 { border-color: ${brandColor} !important; }
                 .btn-primary { background-color: ${brandColor} !important; border-color: ${brandColor} !important; }
                 .hover\\:text-primary-700:hover { color: ${brandColor}cc !important; }
                 .hover\\:border-primary-300:hover { border-color: ${brandColor}60 !important; }
@@ -155,7 +155,7 @@ export default function BookAppointmentPage() {
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="mb-8">
-                    <Link href={`/${creator.username}`} className="inline-flex items-center text-accent hover:text-primary-700 font-medium mb-4 gap-2 transition-colors">
+                    <Link href={`/${creator.username}`} className="inline-flex items-center text-emerald-600 hover:text-primary-700 font-medium mb-4 gap-2 transition-colors">
                         <FiArrowRight />
                         <span>العودة لملف {creator.name}</span>
                     </Link>
@@ -170,7 +170,7 @@ export default function BookAppointmentPage() {
                             {creator.avatar ? (
                                 <img src={creator.avatar} alt={creator.name} className="w-full h-full object-cover" />
                             ) : (
-                                <div className="w-full h-full flex items-center justify-center text-xl font-bold text-accent">
+                                <div className="w-full h-full flex items-center justify-center text-xl font-bold text-emerald-600">
                                     {creator.name?.charAt(0).toUpperCase()}
                                 </div>
                             )}
@@ -181,7 +181,7 @@ export default function BookAppointmentPage() {
                         </div>
                         <div className="mr-auto text-left">
                             <span className="block text-sm text-gray-500 mb-1">سعر الاستشارة</span>
-                            <span className="text-2xl font-bold text-accent">
+                            <span className="text-2xl font-bold text-emerald-600">
                                 {creator.consultationPrice > 0 ? `${creator.consultationPrice} $` : 'مجانية'}
                             </span>
                         </div>
@@ -233,7 +233,7 @@ export default function BookAppointmentPage() {
                                             key={time}
                                             onClick={() => setSelectedTime(time)}
                                             className={`py-3 rounded-lg border text-center transition-all ${selectedTime === time
-                                                ? 'bg-accent border-accent text-white shadow-md transform scale-105'
+                                                ? 'bg-emerald-600 border-emerald-600 text-white shadow-md transform scale-105'
                                                 : 'bg-white border-gray-200 text-gray-700 hover:border-primary-300 hover:bg-primary-50'
                                                 }`}
                                         >

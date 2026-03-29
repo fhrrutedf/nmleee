@@ -29,11 +29,11 @@ export default function Navbar() {
                     {/* Logo & Nav */}
                     <div className="flex items-center gap-10">
                     <Link href="/" className="flex items-center gap-2 group transition-all">
-                        <div className="w-10 h-10 bg-ink rounded-xl flex items-center justify-center text-white shadow-sm shadow-black/5 group-hover:bg-accent group-hover:scale-105 transition-all duration-500">
+                        <div className="w-10 h-10 bg-ink rounded-xl flex items-center justify-center text-white shadow-sm shadow-black/5 group-hover:bg-emerald-600 group-hover:scale-105 transition-all duration-500">
                             <FiLayers size={22} className="group-hover:rotate-12 transition-transform" />
                         </div>
                         <span className="text-xl font-bold text-ink tracking-tighter">
-                            TMLEEN<span className="text-accent font-light">.</span>
+                            TMLEEN<span className="text-emerald-600 font-light">.</span>
                         </span>
                     </Link>
 
@@ -55,12 +55,12 @@ export default function Navbar() {
                         <CartDrawer />
 
                     <div className="hidden md:flex items-center gap-2">
-                        <Link href="/login" className="px-6 py-2.5 text-[10px] font-bold text-gray-400 hover:text-accent transition-colors uppercase tracking-[0.2em]">
+                        <Link href="/login" className="px-6 py-2.5 text-[10px] font-bold text-gray-400 hover:text-emerald-600 transition-colors uppercase tracking-[0.2em]">
                             Portal
                         </Link>
                         <Link
                             href="/register"
-                            className="bg-ink text-white px-8 py-3 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] shadow-sm shadow-black/5 hover:bg-accent hover:shadow-accent/20 active:scale-95 transition-all"
+                            className="bg-ink text-white px-8 py-3 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] shadow-sm shadow-black/5 hover:bg-emerald-600 hover:shadow-accent/20 active:scale-95 transition-all"
                         >
                             Establish Account
                         </Link>
@@ -96,7 +96,7 @@ export default function Navbar() {
                                 <Link
                                     key={idx}
                                     href={link.href}
-                                    className={`flex items-center justify-between p-3 rounded-lg text-sm font-medium transition-colors ${pathname === link.href ? 'bg-accent-light text-accent' : 'text-gray-600 hover:bg-gray-50'}`}
+                                    className={`flex items-center justify-between p-3 rounded-lg text-sm font-medium transition-colors ${pathname === link.href ? 'bg-emerald-600-light text-emerald-600' : 'text-gray-600 hover:bg-gray-50'}`}
                                 >
                                     {link.title}
                                     <FiChevronLeft className="opacity-30" />
