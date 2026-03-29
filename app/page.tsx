@@ -114,19 +114,18 @@ export default function Home() {
                     <p className="text-gray-400 text-lg mb-8 max-w-xl mx-auto">
                         أنشئ حسابك مجاناً واحصل على متجرك الرقمي خلال دقائق. لا تحتاج خبرة تقنية.
                     </p>
-                    <div className="flex flex-wrap justify-center gap-4">
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-6">
                         <Link
                             href="/register"
-                            className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-ink rounded-lg font-semibold text-sm hover:bg-gray-100 transition-colors"
+                            className="w-full md:w-auto bg-ink text-white px-12 py-6 rounded-2xl font-black text-xs uppercase tracking-[0.3em] shadow-2xl shadow-black/10 hover:bg-accent transition-all active:scale-95 flex items-center justify-center gap-4 group"
                         >
-                            سجل حسابك مجاناً
-                            <FiArrowLeft />
+                            Establish Registry <FiArrowRight className="text-xl group-hover:translate-x-2 transition-transform text-accent" />
                         </Link>
                         <Link
-                            href="/explore"
-                            className="inline-flex items-center gap-2 px-8 py-3.5 border border-gray-600 text-gray-300 rounded-lg font-semibold text-sm hover:border-gray-400 hover:text-white transition-colors"
+                            href="/about"
+                            className="w-full md:w-auto bg-white text-ink border border-gray-100 px-12 py-6 rounded-2xl font-black text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:bg-gray-50 transition-all shadow-sm group"
                         >
-                            تصفح المنتجات
+                            Infrastructure Details <FiPlay className="text-accent group-hover:scale-110 transition-transform" />
                         </Link>
                     </div>
                 </div>
@@ -138,26 +137,22 @@ export default function Home() {
 function Hero() {
     return (
         <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-white">
-            <div className="max-w-4xl mx-auto px-6 text-center">
-                {/* Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-accent-light border border-blue-100 rounded-full text-sm font-semibold text-accent mb-8">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
-                    منصة بيع المنتجات الرقمية
-                </div>
+            <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-24 lg:py-40 text-center relative z-10 antialiased">
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="inline-flex items-center gap-3 bg-gray-50 text-gray-400 px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-10 border border-gray-100/50 shadow-sm">
+                    <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+                    Strategic Growth Infrastructure
+                </motion.div>
+                
+                <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }} className="text-6xl lg:text-9xl font-black text-ink leading-[0.9] tracking-tighter mb-10 max-w-5xl mx-auto">
+                    Elevate Local Expertise <br />
+                    <span className="bg-gradient-to-r from-accent to-black bg-clip-text text-transparent">Globally.</span>
+                </motion.h1>
 
-                {/* Headline */}
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-ink leading-[1.15] mb-6">
-                    بع منتجاتك الرقمية<br />
-                    من مكان واحد.
-                </h1>
-
-                {/* Subheadline */}
                 <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
                     أنشئ متجرك، ارفع دوراتك وكتبك ومنتجاتك الرقمية، واستقبل
                     الأرباح مباشرة — بدون رسوم اشتراك وبدون تعقيد.
                 </p>
 
-                {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
                     <Link
                         href="/register"

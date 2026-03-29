@@ -11,8 +11,7 @@ const config: Config = {
         extend: {
             colors: {
                 // ══════════════════════════════════════
-                // Tmleen Brand System v2.0
-                // Inspired by: Kajabi, Gumroad, Podia
+                // Tmleen Brand System v2.1 (Ink & Accent Elite)
                 // ══════════════════════════════════════
 
                 // Ink — near-black for text & primary buttons

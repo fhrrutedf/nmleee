@@ -297,7 +297,7 @@ export default function NewCoursePage() {
                                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider opacity-60">High-leverage asynchronous learning.</p>
                                                 </div>
                                             </button>
-                                            <button type="button" onClick={() => update('format', 'online')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'online' ? 'border-accent bg-accent/[0.03] shadow-xl shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
+                                            <button type="button" onClick={() => update('format', 'online')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'online' ? 'border-accent bg-accent/5 shadow-xl shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
                                                 <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm transition-all ${formData.format === 'online' ? 'bg-accent text-white' : 'bg-gray-50 text-gray-400'}`}><FiClock size={24}/></div>
                                                 <div>
                                                     <h4 className={`font-black mb-1 text-lg tracking-tight ${formData.format === 'online' ? 'text-ink' : 'text-gray-400'}`}>Institutional Live</h4>
@@ -438,7 +438,7 @@ export default function NewCoursePage() {
                                             <label className="label-modern text-xs">كلمات مفتاحية (Tags)</label>
                                             <div className="flex gap-2">
                                                 <input type="text" className="input-modern flex-1 text-xs" placeholder="أضف وسم..." value={tagInput} onChange={e => setTagInput(e.target.value)} onKeyPress={e => e.key === 'Enter' && (e.preventDefault(), addTag())} />
-                                                <button type="button" onClick={addTag} className="w-10 h-10 bg-primary-indigo-600 text-white rounded-[1rem] flex items-center justify-center font-bold tracking-tighter hover:bg-primary-indigo-700 transition-colors"><FiPlus /></button>
+                                                <button type="button" onClick={addTag} className="w-10 h-10 bg-accent text-white rounded-[1rem] flex items-center justify-center font-bold tracking-tighter hover:bg-accent/90 transition-colors"><FiPlus /></button>
                                             </div>
                                             <div className="flex flex-wrap gap-2">
                                                 {formData.tags.map(t => (
@@ -615,10 +615,10 @@ export default function NewCoursePage() {
                             ) : (
                                 <button
                                     type="submit" disabled={loading}
-                                    className="w-full md:w-auto px-12 py-5 bg-ink text-white rounded-2xl font-black text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:bg-black transition-all shadow-xl shadow-ink/20 active:scale-95 group"
+                                    className="w-full md:w-auto px-12 py-5 bg-ink text-white rounded-2xl font-black text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:bg-accent transition-all shadow-xl shadow-black/10 active:scale-95 group"
                                 >
                                     {loading ? 'Processing Protocol...' : 'Deploy Program Architecture'}
-                                    {!loading && <FiCheck className="text-xl group-hover:scale-125 transition-transform text-accent" />}
+                                    {!loading && <FiCheck className="text-xl group-hover:scale-125 transition-transform text-white" />}
                                 </button>
                             )}
                         </div>

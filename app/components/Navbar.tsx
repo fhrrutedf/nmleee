@@ -28,12 +28,14 @@ export default function Navbar() {
                 <div className="flex items-center justify-between">
                     {/* Logo & Nav */}
                     <div className="flex items-center gap-10">
-                        <Link href="/" className="flex items-center gap-2.5 group">
-                            <div className="w-8 h-8 rounded-lg bg-ink flex items-center justify-center text-white text-sm font-bold">
-                                ت
-                            </div>
-                            <span className="text-lg font-bold text-ink">تمالين</span>
-                        </Link>
+                    <Link href="/" className="flex items-center gap-2 group transition-all">
+                        <div className="w-10 h-10 bg-ink rounded-xl flex items-center justify-center text-white shadow-lg shadow-black/5 group-hover:bg-accent group-hover:scale-105 transition-all duration-500">
+                            <FiLayers size={22} className="group-hover:rotate-12 transition-transform" />
+                        </div>
+                        <span className="text-xl font-black text-ink tracking-tighter">
+                            TMLEEN<span className="text-accent font-light">.</span>
+                        </span>
+                    </Link>
 
                         <div className="hidden lg:flex items-center gap-6">
                             {navLinks.map((link, idx) => (
@@ -52,20 +54,17 @@ export default function Navbar() {
                     <div className="flex gap-2 items-center">
                         <CartDrawer />
 
-                        <div className="hidden sm:flex items-center gap-2">
-                            <Link
-                                href="/login"
-                                className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-ink transition-colors"
-                            >
-                                دخول
-                            </Link>
-                            <Link
-                                href="/register"
-                                className="px-5 py-2 rounded-lg bg-ink text-white text-sm font-semibold hover:bg-gray-800 transition-colors"
-                            >
-                                ابدأ مجاناً
-                            </Link>
-                        </div>
+                    <div className="hidden md:flex items-center gap-2">
+                        <Link href="/login" className="px-6 py-2.5 text-[10px] font-black text-gray-400 hover:text-accent transition-colors uppercase tracking-[0.2em]">
+                            Portal
+                        </Link>
+                        <Link
+                            href="/register"
+                            className="bg-ink text-white px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-xl shadow-black/5 hover:bg-accent hover:shadow-accent/20 active:scale-95 transition-all"
+                        >
+                            Establish Account
+                        </Link>
+                    </div>
 
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
