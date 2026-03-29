@@ -180,7 +180,7 @@ export default function AdminSalesPage() {
                         <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
-                                    <FiUsers className="text-purple-600" size={20} />
+                                    <FiUsers className="text-ink" size={20} />
                                 </div>
                                 <span className="text-xs text-gray-400 font-medium">عمولة المنصة</span>
                             </div>

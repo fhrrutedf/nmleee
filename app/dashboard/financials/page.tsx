@@ -53,7 +53,7 @@ interface FinancialData {
 const planBadge: Record<string, { label: string; color: string; bg: string; icon: string }> = {
     FREE: { label: 'مجانية', color: 'text-gray-600', bg: 'bg-gray-100 dark:bg-gray-800', icon: '🆓' },
     GROWTH: { label: 'Growth', color: 'text-accent-600', bg: 'bg-accent-50 dark:bg-blue-900/20', icon: '🚀' },
-    PRO: { label: 'Pro', color: 'text-purple-600', bg: 'bg-purple-50 dark:bg-purple-900/20', icon: '👑' },
+    PRO: { label: 'Pro', color: 'text-ink', bg: 'bg-purple-50 dark:bg-purple-900/20', icon: '👑' },
 };
 
 export default function FinancialsPage() {
@@ -193,7 +193,7 @@ export default function FinancialsPage() {
                 </button>
                 <button
                     onClick={() => setActiveTab('referrals')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-xl transition-all ${activeTab === 'referrals' ? 'bg-white dark:bg-card-white text-purple-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-xl transition-all ${activeTab === 'referrals' ? 'bg-white dark:bg-card-white text-ink shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
                 >
                     <FiUsers /> نظام الإحالات
                 </button>
@@ -446,7 +446,7 @@ export default function FinancialsPage() {
                             </div>
                         </Link>
                         <Link href="/dashboard/analytics" className="card flex items-center gap-4 hover:shadow-sm transition-all hover:-translate-y-1 group">
-                            <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 text-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 text-ink rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                                 <FiPieChart size={24} />
                             </div>
                             <div>
@@ -482,7 +482,7 @@ export default function FinancialsPage() {
                         <motion.div variants={item} className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
                             <div className="flex items-center justify-between mb-3">
                                 <p className="font-bold text-sm text-gray-500">عدد الإحالات</p>
-                                <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/20 text-purple-600 rounded-xl flex items-center justify-center">
+                                <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/20 text-ink rounded-xl flex items-center justify-center">
                                     <FiUsers size={20} />
                                 </div>
                             </div>

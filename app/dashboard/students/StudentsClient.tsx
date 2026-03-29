@@ -133,7 +133,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
                                                 <FiMail />
                                             </button>
                                             <button
-                                                className="p-2 text-purple-600 hover:bg-purple-600/10 rounded-lg transition-colors"
+                                                className="p-2 text-ink hover:bg-ink/10 rounded-lg transition-colors"
                                                 title="إصدار شهادة"
                                             >
                                                 <FiAward />

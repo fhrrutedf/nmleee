@@ -124,7 +124,7 @@ export default function IntegrationsPage() {
             ],
             status: 'coming_soon',
             icon: <span className="text-3xl">📆</span>,
-            color: 'text-purple-600',
+            color: 'text-ink',
             bg: 'bg-purple-50 dark:bg-purple-900/20',
         },
     ];

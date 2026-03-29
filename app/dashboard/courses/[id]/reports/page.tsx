@@ -121,7 +121,7 @@ export default function CourseReportsPage() {
                                 <p className="text-3xl font-bold text-gray-900">{formatTime(stats.totalWatchTime)}</p>
                             </div>
                             <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                                <FiClock className="text-purple-600" size={24} />
+                                <FiClock className="text-ink" size={24} />
                             </div>
                         </div>
                     </div>

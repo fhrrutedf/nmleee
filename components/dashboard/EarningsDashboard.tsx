@@ -392,7 +392,7 @@ function OverviewTab({ balance, minPayoutAmount }: { balance: BalanceSummary; mi
                         { label: 'متاح للسحب', val: balance.available, cls: 'text-accent' },
                         { label: 'طلبات سحب قيد المراجعة', val: balance.pendingWithdrawals, cls: 'text-accent-500' },
                         { label: 'صافي قابل للسحب', val: balance.spendable, cls: 'text-ink font-bold text-lg' },
-                        { label: 'أرباح الإحالات', val: balance.referralEarnings, cls: 'text-purple-600' },
+                        { label: 'أرباح الإحالات', val: balance.referralEarnings, cls: 'text-ink' },
                     ].map(row => (
                         <div key={row.label} className="flex justify-between items-center py-2 border-b border-gray-50 last:border-0 last:pt-4 last:mt-2">
                             <span className="text-sm text-gray-500 font-medium">{row.label}</span>

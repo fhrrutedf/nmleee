@@ -5,7 +5,7 @@ export default function DemoPage() {
     return (
         <div className="min-h-screen">
             {/* Hero Section */}
-            <section className="relative bg-gradient-to-br from-accent via-purple-600 to-pink-600 text-white py-20 overflow-hidden">
+            <section className="relative bg-gradient-to-br from-accent via-ink to-pink-600 text-white py-20 overflow-hidden">
                 <div className="absolute inset-0 opacity-20">
                     <div className="absolute top-0 left-0 w-64 h-64 bg-white rounded-xl filter blur-3xl"></div>
                     <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-xl filter blur-3xl"></div>
@@ -49,7 +49,7 @@ export default function DemoPage() {
 
                         <div className="text-center">
                             <div className="w-20 h-20 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                                <FiBook className="text-4xl text-purple-600" />
+                                <FiBook className="text-4xl text-ink" />
                             </div>
                             <h3 className="text-4xl font-bold text-gray-900 mb-2">5K+</h3>
                             <p className="text-gray-600">دورة ومنتج</p>
@@ -87,7 +87,7 @@ export default function DemoPage() {
 
                         <div className="bg-white rounded-xl shadow-sm p-8 hover:shadow-sm transition-shadow">
                             <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
-                                <FiVideo className="text-3xl text-purple-600" />
+                                <FiVideo className="text-3xl text-ink" />
                             </div>
                             <h3 className="text-2xl font-bold mb-3">الدورات التدريبية</h3>
                             <p className="text-gray-600 leading-relaxed">

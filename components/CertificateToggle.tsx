@@ -46,7 +46,7 @@ export function CertificateToggle({
         <div className="card p-6">
             <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 p-3 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
-                    <FiAward className="text-2xl text-purple-600 dark:text-purple-400" />
+                    <FiAward className="text-2xl text-ink dark:text-purple-400" />
                 </div>
 
                 <div className="flex-1">

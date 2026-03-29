@@ -162,7 +162,7 @@ export default function AdminDashboard() {
                     <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-sm hover:-translate-y-1 transition-all duration-300">
                         <div className="absolute -right-6 -top-6 w-24 h-24 bg-purple-500/10 rounded-xl blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
                         <div className="flex justify-between items-start mb-4 relative z-10">
-                            <div className="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 flex items-center justify-center text-xl">
+                            <div className="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-900/20 text-ink flex items-center justify-center text-xl">
                                 <FiTrendingUp />
                             </div>
                             <span className="flex items-center gap-1 text-sm font-bold text-green-500 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-lg">

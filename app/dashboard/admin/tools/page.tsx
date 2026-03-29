@@ -466,7 +466,7 @@ export default function AdminPayoutsPage() {
                     <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm w-full max-w-sm p-6 space-y-4">
                         <div className="flex items-center justify-between">
                             <h2 className="font-bold text-lg text-ink dark:text-white">
-                                <FiPercent className="inline ml-2 text-purple-600" />
+                                <FiPercent className="inline ml-2 text-ink" />
                                 عمولة مخصصة لـ {commModal.name}
                             </h2>
                             <button onClick={() => setCommModal(null)} className="text-text-muted hover:text-red-500"><FiX /></button>
@@ -485,7 +485,7 @@ export default function AdminPayoutsPage() {
                         </div>
                         <div className="flex gap-3">
                             <button onClick={saveCommission}
-                                className="flex-1 btn bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5">
+                                className="flex-1 btn bg-ink hover:bg-purple-700 text-white font-bold py-2.5">
                                 حفظ العمولة
                             </button>
                             <button onClick={() => setCommModal(null)} className="btn btn-outline px-6">إلغاء</button>

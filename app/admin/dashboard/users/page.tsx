@@ -174,7 +174,7 @@ export default function UsersManagement() {
     const planBadge = (planType?: string) => {
         switch (planType) {
             case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-accent-50 text-accent-600 dark:bg-blue-900/20 dark:text-blue-400">🚀 GROWTH</span>;
-            case 'PRO': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400">👑 PRO</span>;
+            case 'PRO': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-purple-50 text-ink dark:bg-purple-900/20 dark:text-purple-400">👑 PRO</span>;
             default: return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400">🆓 FREE</span>;
         }
     };
@@ -204,7 +204,7 @@ export default function UsersManagement() {
                     </div>
                     <div className="px-5 py-3 flex flex-col items-center">
                         <span className="text-purple-500 text-xs">بائع نشط</span>
-                        <span className="text-purple-600 dark:text-purple-400 text-lg">{stats.activeSellers}</span>
+                        <span className="text-ink dark:text-purple-400 text-lg">{stats.activeSellers}</span>
                     </div>
                     <div className="px-5 py-3 flex flex-col items-center">
                         <span className="text-green-500 text-xs">عميل</span>
@@ -339,7 +339,7 @@ export default function UsersManagement() {
                                             </td>
                                             <td className="py-4 px-6">
                                                 <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-[11px] font-bold tracking-widest uppercase ${user.role === 'ADMIN' ? 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400' :
-                                                    user.role === 'SELLER' ? 'bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400' :
+                                                    user.role === 'SELLER' ? 'bg-purple-50 text-ink dark:bg-purple-900/20 dark:text-purple-400' :
                                                         'bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400'
                                                     }`}>
                                                     {user.role === 'ADMIN' && <FiShield size={10} />}

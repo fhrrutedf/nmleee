@@ -138,7 +138,7 @@ export default function ProductsManagement() {
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-bold text-ink dark:text-white mb-2 tracking-tight flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-600 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-ink flex items-center justify-center">
                             <FiPackage />
                         </div>
                         إدارة المحتوى والمنتجات
@@ -161,7 +161,7 @@ export default function ProductsManagement() {
                         </div>
                         <div className="px-5 py-3 flex flex-col items-center">
                             <span className="text-purple-500 text-xs">دورة تدريبية</span>
-                            <span className="text-purple-600 dark:text-purple-400 text-lg">{stats.totalCourses}</span>
+                            <span className="text-ink dark:text-purple-400 text-lg">{stats.totalCourses}</span>
                         </div>
                     </div>
 
@@ -178,7 +178,7 @@ export default function ProductsManagement() {
                             </span>}
                         </button>
                         <button onClick={() => fetchItems(true)} className="btn bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 py-2 px-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800">
-                            <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-purple-600' : 'text-gray-500 w-4 h-4'} />
+                            <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-ink' : 'text-gray-500 w-4 h-4'} />
                         </button>
                     </div>
                 </div>

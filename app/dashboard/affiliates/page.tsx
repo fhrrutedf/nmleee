@@ -144,7 +144,7 @@ export default function AffiliatesPage() {
             {/* Global Stats Overview (optional based on existing data) */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-6 shadow-sm flex items-center gap-4">
-                    <div className="w-14 h-14 bg-purple-100 dark:bg-purple-900/20 text-purple-600 rounded-xl flex items-center justify-center">
+                    <div className="w-14 h-14 bg-purple-100 dark:bg-purple-900/20 text-ink rounded-xl flex items-center justify-center">
                         <FiUsers size={24} />
                     </div>
                     <div>

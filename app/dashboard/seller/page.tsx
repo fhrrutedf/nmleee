@@ -79,7 +79,7 @@ export default function SellerDashboardPage() {
                     <StatsCard
                         title="إجمالي العملاء"
                         value={overview.totalCustomers.toString()}
-                        icon={<FiUsers className="text-purple-600" size={24} />}
+                        icon={<FiUsers className="text-ink" size={24} />}
                         bgColor="bg-purple-100"
                     />
 

@@ -87,7 +87,7 @@ export default function EditQuizPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="w-10 h-10 border-4 border-purple-400/30 border-t-purple-600 rounded-xl animate-spin" />
+                <div className="w-10 h-10 border-4 border-purple-400/30 border-t-ink rounded-xl animate-spin" />
             </div>
         );
     }

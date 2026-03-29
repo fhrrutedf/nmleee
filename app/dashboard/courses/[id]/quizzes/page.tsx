@@ -83,7 +83,7 @@ export default function CourseQuizzesPage() {
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
-                        <FiCheckSquare className="text-purple-600" /> اختبارات الدورة
+                        <FiCheckSquare className="text-ink" /> اختبارات الدورة
                     </h1>
                     <p className="text-text-muted text-sm mt-1">إدارة اختبارات وتقييمات الكورس</p>
                 </div>
@@ -99,7 +99,7 @@ export default function CourseQuizzesPage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 <div className="card">
                     <p className="text-xs text-text-muted font-bold uppercase">إجمالي الاختبارات</p>
-                    <p className="text-2xl font-bold text-purple-600 mt-1">{quizzes.length}</p>
+                    <p className="text-2xl font-bold text-ink mt-1">{quizzes.length}</p>
                 </div>
                 <div className="card">
                     <p className="text-xs text-text-muted font-bold uppercase">منشور</p>
@@ -119,7 +119,7 @@ export default function CourseQuizzesPage() {
             {/* Quizzes List */}
             {loading ? (
                 <div className="flex items-center justify-center py-20">
-                    <div className="w-10 h-10 border-4 border-purple-400/30 border-t-purple-600 rounded-xl animate-spin" />
+                    <div className="w-10 h-10 border-4 border-purple-400/30 border-t-ink rounded-xl animate-spin" />
                 </div>
             ) : quizzes.length === 0 ? (
                 <div className="card p-12 text-center">

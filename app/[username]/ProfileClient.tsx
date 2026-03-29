@@ -303,7 +303,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                 <div className="flex flex-col justify-center p-6 sm:p-8 flex-1">
                                     <div className="flex items-center gap-2 mb-2">
                                         {featuredProduct.category === 'courses'
-                                            ? <span className="text-xs font-bold text-purple-600 bg-purple-100 dark:bg-purple-900/30 px-2 py-0.5 rounded-xl flex items-center gap-1"><FiVideo size={10} /> دورة تدريبية</span>
+                                            ? <span className="text-xs font-bold text-ink bg-purple-100 dark:bg-purple-900/30 px-2 py-0.5 rounded-xl flex items-center gap-1"><FiVideo size={10} /> دورة تدريبية</span>
                                             : <span className="text-xs font-bold text-accent-600 bg-blue-100 dark:bg-blue-900/30 px-2 py-0.5 rounded-xl flex items-center gap-1"><FiPackage size={10} /> منتج رقمي</span>
                                         }
                                     </div>
@@ -444,7 +444,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                             : <span className="bg-black/70  text-white text-[10px] font-bold px-2 py-1 rounded-lg">{product.price} $</span>
                                                         }
                                                         {(product.category === 'courses' || product.category === 'course') && (
-                                                            <span className="bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1">
+                                                            <span className="bg-ink text-white text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1">
                                                                 <FiVideo size={9} /> دورة
                                                             </span>
                                                         )}
@@ -455,7 +455,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                 <div className="p-5  bg-white/40 dark:bg-gray-900/40 border-t border-white/20">
                                                     <div className="flex items-center gap-2 mb-2">
                                                         {product.category === 'courses'
-                                                            ? <span className="text-[9px] font-bold uppercase tracking-tighter text-purple-600 bg-purple-100 px-2 py-0.5 rounded-md">دورة VIP</span>
+                                                            ? <span className="text-[9px] font-bold uppercase tracking-tighter text-ink bg-purple-100 px-2 py-0.5 rounded-md">دورة VIP</span>
                                                             : <span className="text-[9px] font-bold uppercase tracking-tighter text-accent-600 bg-blue-100 px-2 py-0.5 rounded-md">ملف رقمي</span>
                                                         }
                                                     </div>

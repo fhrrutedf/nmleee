@@ -272,7 +272,7 @@ export default function AdminPlatformSettingsPage() {
                     <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-8">
                         <div className="flex items-center justify-between gap-4 border-b border-gray-50 dark:border-gray-800 pb-6">
                             <div className="flex items-center gap-4">
-                                <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl text-purple-600">
+                                <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl text-ink">
                                     <FiGlobe className="text-2xl" />
                                 </div>
                                 <h2 className="text-xl font-bold text-gray-900 dark:text-white">أسعار الصرف المحلية ($1 =)</h2>

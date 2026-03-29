@@ -47,7 +47,7 @@ export function PayWhatYouWant({
         <div className="card p-6 space-y-6">
             <div className="text-center">
                 <div className="inline-flex items-center gap-2 mb-3 px-4 py-2 bg-ink dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                    <FiHeart className="text-purple-600 dark:text-purple-400" />
+                    <FiHeart className="text-ink dark:text-purple-400" />
                     <span className="font-semibold text-purple-900 dark:text-purple-200 text-sm">
                         ادفع ما تريد
                     </span>
