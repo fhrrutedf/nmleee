@@ -109,6 +109,58 @@ export default function DashboardLayout({
                 />
             )}
 
+            {/* Mobile Sidebar - Institutional Grade */}
+            <AnimatePresence>
+                {sidebarOpen && (
+                    <>
+                        <motion.div
+                            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                            className="fixed inset-0 bg-ink/60 backdrop-blur-sm z-[60] lg:hidden"
+                            onClick={() => setSidebarOpen(false)}
+                        />
+                        <motion.aside
+                            initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
+                            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                            className="fixed inset-y-0 right-0 w-72 bg-white z-[70] lg:hidden flex flex-col shadow-2xl"
+                        >
+                            <div className="p-8 border-b border-gray-100 flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-8 h-8 rounded-lg bg-ink text-white flex items-center justify-center font-black text-sm">ت</div>
+                                    <span className="font-black text-ink">تمالين</span>
+                                </div>
+                                <button onClick={() => setSidebarOpen(false)} className="p-2 bg-gray-50 rounded-lg text-gray-400">
+                                    <FiX size={20} />
+                                </button>
+                            </div>
+                            
+                            <nav className="flex-1 overflow-y-auto p-4 space-y-1 no-scrollbar">
+                                {menuItems.map((item) => {
+                                    const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href) && item.href !== '/dashboard';
+                                    const isHome = item.href === '/dashboard' && pathname === '/dashboard';
+                                    const active = isActive || isHome;
+                                    return (
+                                        <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
+                                            className={`flex items-center gap-4 px-5 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-ink text-white shadow-lg shadow-ink/20' : 'text-gray-400 hover:bg-gray-50 hover:text-ink'}`}>
+                                            <item.icon size={18} className={`${active ? 'text-accent' : 'group-hover:text-ink'}`} />
+                                            <span className="text-xs font-black tracking-tight flex-1 text-right">{item.label}</span>
+                                        </Link>
+                                    );
+                                })}
+                            </nav>
+
+                            <div className="p-6 border-t border-gray-100 bg-gray-50/50 space-y-2">
+                                <Link href="/explore" className="flex items-center gap-3 px-5 py-3 text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                                    <FiGlobe size={16}/> <span>Marketplace</span>
+                                </Link>
+                                <button onClick={() => signOut({ callbackUrl: '/' })} className="flex items-center gap-3 px-5 py-3 text-[10px] font-black text-red-400 uppercase tracking-widest">
+                                    <FiLogOut size={16}/> <span>End Session</span>
+                                </button>
+                            </div>
+                        </motion.aside>
+                    </>
+                )}
+            </AnimatePresence>
+
             {/* Desktop Sidebar - Institutional Grade */}
             <aside className="hidden lg:flex fixed inset-y-0 right-0 bg-white border-l border-gray-100 z-50 w-72 flex-col">
                 <div className="p-10">
