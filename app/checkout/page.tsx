@@ -31,7 +31,7 @@ export default function CheckoutPage() {
     const [customerCountry, setCustomerCountry] = useState('');
     const [isSyria, setIsSyria] = useState(false);
     
-    const [paymentMethod, setPaymentMethod] = useState<'spaceremit' | 'manual'>('spaceremit');
+    const [paymentMethod, setPaymentMethod] = useState<'spaceremit' | 'manual' | 'nowpayments'>('spaceremit');
     const [selectedLocalMethod, setSelectedLocalMethod] = useState<PaymentMethod | null>(null);
     const [agreeToTerms, setAgreeToTerms] = useState(false);
     
@@ -164,6 +164,25 @@ export default function CheckoutPage() {
                     showToast.error(errData.error || 'فشل بدء عملية الدفع');
                 }
 
+            } else if (paymentMethod === 'nowpayments') {
+                const res = await fetch('/api/checkout/nowpayments', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        amount: total,
+                        currency: 'usd',
+                        orderId: 'temp_order_' + Date.now(),
+                        description: 'Payment for ' + cart.map(i => i.title).join(', ')
+                    })
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    window.location.href = data.invoice_url;
+                } else {
+                    const errData = await res.json().catch(() => ({}));
+                    showToast.error(errData.error || 'فشل بدء الدفع بالكريبتو');
+                }
             } else if (paymentMethod === 'manual' && isSyria) {
                 if (!selectedLocalMethod || !manualData.transactionRef || !manualData.proofFile) {
                     return showToast.error('يرجى اختيار وسيلة وإدخال رقم المرجع وصورة الإيصال');
@@ -263,7 +282,10 @@ export default function CheckoutPage() {
 
                             <div className="flex gap-4 mb-10 overflow-x-auto pb-4 hide-scrollbar">
                                 {!isSyria ? (
-                                    <PaymentMethodTab id="spaceremit" current={paymentMethod} onClick={() => setPaymentMethod('spaceremit')} icon="🌍" label="دفع إلكتروني آمن" desc="بطاقات، محافظ دولية، USSD" />
+                                    <>
+                                        <PaymentMethodTab id="spaceremit" current={paymentMethod} onClick={() => setPaymentMethod('spaceremit')} icon="🌍" label="دفع إلكتروني آمن" desc="بطاقات، محافظ دولية، USSD" />
+                                        <PaymentMethodTab id="nowpayments" current={paymentMethod} onClick={() => setPaymentMethod('nowpayments')} icon="🪙" label="عملات رقمية (USDT)" desc="تفعيل تلقائي عبر الكريبتو" />
+                                    </>
                                 ) : (
                                     <PaymentMethodTab id="manual" current={paymentMethod} onClick={() => setPaymentMethod('manual')} icon="🇸🇾" label="دفع محلي يدوي" desc="خاص بسوريا فقط" />
                                 )}
@@ -296,6 +318,26 @@ export default function CheckoutPage() {
                                             <p className="text-xs text-gray-500 leading-relaxed font-bold">
                                                 يتم الدفع عبر بوابة **Spaceremit V2** المشفرة. سيتم توجيهك الآن لإكمال الدفع وتفعيل طلبك بمجرد الانتهاء مباشرة.
                                             </p>
+                                        </div>
+                                    </motion.div>
+                                )}
+
+                                {paymentMethod === 'nowpayments' && (
+                                    <motion.div key="nowpayments-box" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
+                                        <div className="bg-[#111111] p-10 rounded-xl border border-white/10 text-center space-y-6">
+                                            <div className="text-6xl">🪙</div>
+                                            <h4 className="text-2xl font-bold text-[#10B981]">الدفع بالعملات الرقمية (USDT)</h4>
+                                            <p className="text-gray-400 text-sm max-w-md mx-auto">
+                                                سيتم تفعيل طلبك **تلقائياً** بمجرد تأكيد الشبكة (3 تأكيدات عادةً). نستخدم بوابة NOWPayments الآمنة لضمان أسرع تفعيل لكورساتك.
+                                            </p>
+                                            <div className="flex justify-center gap-4">
+                                                <div className="px-4 py-2 bg-emerald-700/10 border border-emerald-600/20 rounded-lg text-[10px] font-bold text-[#10B981] uppercase tracking-widest">
+                                                    TRC20 Network
+                                                </div>
+                                                <div className="px-4 py-2 bg-emerald-700/10 border border-emerald-600/20 rounded-lg text-[10px] font-bold text-[#10B981] uppercase tracking-widest">
+                                                    Low Fees
+                                                </div>
+                                            </div>
                                         </div>
                                     </motion.div>
                                 )}
