@@ -17,8 +17,8 @@ export async function createOxapayInvoice(data: {
         },
         body: JSON.stringify({
             merchant: apiKey,
-            amount: data.amount,
-            currency: 'USD', // Base currency
+            amount: Number(data.amount), // Ensure number type
+            currency: 'USD',
             orderId: data.orderId,
             description: data.description,
             callbackUrl: data.callbackUrl,
