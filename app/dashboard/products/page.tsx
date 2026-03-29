@@ -152,9 +152,9 @@ export default function ProductsPage() {
                     </button>
                     <Link
                         href="/dashboard/products/new?new=true"
-                        className="px-8 py-3.5 bg-primary-ink text-white rounded-[1.5rem] font-bold text-sm flex items-center justify-center gap-2 shadow-sm shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95 transition-all"
+                        className="px-8 py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-sm shadow-emerald-600/20 hover:bg-emerald-700 active:scale-95 transition-all"
                     >
-                        <FiPlus /> إضافة منتج جديد
+                        <FiPlus className="text-lg" /> إضافة منتج جديد
                     </Link>
                 </div>
             </div>
