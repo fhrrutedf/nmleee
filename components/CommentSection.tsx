@@ -107,7 +107,7 @@ export default function CommentSection({ lessonId, comments: initialComments, on
         <div key={comment.id} className={`${isReply ? 'mr-12 mt-4' : ''}`}>
             <div className="flex gap-3">
                 <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-gradient-to-br from-ink to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                    <div className="w-10 h-10 bg-ink rounded-xl flex items-center justify-center text-white font-semibold">
                         {comment.authorName.charAt(0)}
                     </div>
                 </div>
@@ -183,7 +183,7 @@ export default function CommentSection({ lessonId, comments: initialComments, on
             <div className="mb-6">
                 <div className="flex gap-3">
                     <div className="flex-shrink-0">
-                        <div className="w-10 h-10 bg-gradient-to-br from-ink to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                        <div className="w-10 h-10 bg-ink rounded-xl flex items-center justify-center text-white font-semibold">
                             ط
                         </div>
                     </div>

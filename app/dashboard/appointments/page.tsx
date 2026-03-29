@@ -122,7 +122,7 @@ export default function AppointmentsPage() {
     if (status === 'loading' || loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent"></div>
             </div>
         );
     }
@@ -163,7 +163,7 @@ export default function AppointmentsPage() {
 
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div className="bg-gradient-to-br from-accent-500 to-accent-600 text-white rounded-xl p-6 shadow-lg">
+                <div className="bg-ink text-white rounded-xl p-6 shadow-sm">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-blue-100 text-sm">إجمالي الاستشارات</p>
@@ -173,7 +173,7 @@ export default function AppointmentsPage() {
                     </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-6 shadow-lg">
+                <div className="bg-ink text-white rounded-xl p-6 shadow-sm">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-green-100 text-sm">قادمة</p>
@@ -183,7 +183,7 @@ export default function AppointmentsPage() {
                     </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl p-6 shadow-lg">
+                <div className="bg-ink text-white rounded-xl p-6 shadow-sm">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-purple-100 text-sm">مكتملة</p>
@@ -193,7 +193,7 @@ export default function AppointmentsPage() {
                     </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-orange-500 to-blue-800 text-white rounded-xl p-6 shadow-lg">
+                <div className="bg-ink text-white rounded-xl p-6 shadow-sm">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-orange-100 text-sm">إجمالي الإيرادات</p>
@@ -260,7 +260,7 @@ export default function AppointmentsPage() {
                             >
                                 <div className="flex items-start justify-between">
                                     <div className="flex items-start gap-4 flex-1">
-                                        <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent rounded-full flex items-center justify-center text-white flex-shrink-0">
+                                        <div className="w-16 h-16 bg-ink rounded-xl flex items-center justify-center text-white flex-shrink-0">
                                             <FiUser className="text-2xl" />
                                         </div>
                                         <div className="flex-1">
@@ -300,7 +300,7 @@ export default function AppointmentsPage() {
                                     </div>
 
                                     <div className="flex flex-col items-end gap-3">
-                                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                                        <span className={`px-3 py-1 rounded-xl text-xs font-bold ${
                                             appointment.status === 'confirmed' ? 'bg-green-100 text-green-700' :
                                             appointment.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
                                             appointment.status === 'completed' ? 'bg-blue-100 text-blue-700' :
@@ -498,7 +498,7 @@ export default function AppointmentsPage() {
                                     disabled={submitting}
                                 >
                                     {submitting ? (
-                                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                                        <div className="animate-spin rounded-xl h-5 w-5 border-b-2 border-white"></div>
                                     ) : (
                                         <FiCheck />
                                     )}

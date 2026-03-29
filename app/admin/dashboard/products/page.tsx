@@ -138,7 +138,7 @@ export default function ProductsManagement() {
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-bold text-ink dark:text-white mb-2 tracking-tight flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-600 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-600 flex items-center justify-center">
                             <FiPackage />
                         </div>
                         إدارة المحتوى والمنتجات
@@ -150,7 +150,7 @@ export default function ProductsManagement() {
 
                 {/* Quick Stats and Toggle */}
                 <div className="flex flex-col gap-3">
-                    <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
+                    <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
                         <div className="px-5 py-3 flex flex-col items-center">
                             <span className="text-gray-400 text-xs">إجمالي</span>
                             <span className="text-ink dark:text-white text-lg">{stats.totalItems}</span>
@@ -173,8 +173,8 @@ export default function ProductsManagement() {
                         >
                             تحديث لحظي
                             {autoRefresh && <span className="relative flex h-2 w-2 mr-1">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-xl bg-green-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-xl h-2 w-2 bg-green-500"></span>
                             </span>}
                         </button>
                         <button onClick={() => fetchItems(true)} className="btn bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 py-2 px-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800">
@@ -244,7 +244,7 @@ export default function ProductsManagement() {
                 <div className="overflow-x-auto">
                     {loading && items.length === 0 ? (
                         <div className="p-12 flex flex-col items-center justify-center text-gray-400">
-                            <div className="w-8 h-8 border-2 border-gray-200 border-t-purple-500 rounded-full animate-spin mb-4"></div>
+                            <div className="w-8 h-8 border-2 border-gray-200 border-t-purple-500 rounded-xl animate-spin mb-4"></div>
                             جاري تحميل المحتوى...
                         </div>
                     ) : (

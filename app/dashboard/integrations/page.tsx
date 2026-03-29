@@ -161,7 +161,7 @@ export default function IntegrationsPage() {
             )}
 
             {/* Reminder info box */}
-            <div className="bg-accent/5 border border-accent/20 rounded-2xl p-5 flex gap-4 items-start">
+            <div className="bg-accent/5 border border-accent/20 rounded-xl p-5 flex gap-4 items-start">
                 <FiClock className="text-accent text-2xl flex-shrink-0 mt-0.5" />
                 <div>
                     <p className="font-bold text-accent">إرسال رابط الاجتماع تلقائياً</p>
@@ -190,7 +190,7 @@ export default function IntegrationsPage() {
                         {/* Header */}
                         <div className="flex items-start justify-between gap-4 mb-4">
                             <div className="flex items-center gap-4">
-                                <div className={`w-14 h-14 rounded-2xl ${integration.bg} flex items-center justify-center shadow-sm`}>
+                                <div className={`w-14 h-14 rounded-xl ${integration.bg} flex items-center justify-center shadow-sm`}>
                                     {integration.icon}
                                 </div>
                                 <div>
@@ -198,18 +198,18 @@ export default function IntegrationsPage() {
                                         {integration.name}
                                     </h3>
                                     {integration.status === 'connected' && (
-                                        <span className="inline-flex items-center gap-1.5 text-green-600 text-xs font-semibold bg-green-50 dark:bg-green-900/30 px-2.5 py-1 rounded-full mt-1">
+                                        <span className="inline-flex items-center gap-1.5 text-green-600 text-xs font-semibold bg-green-50 dark:bg-green-900/30 px-2.5 py-1 rounded-xl mt-1">
                                             <FiCheckCircle />
                                             متصل وفعّال
                                         </span>
                                     )}
                                     {integration.status === 'disconnected' && (
-                                        <span className="inline-flex items-center gap-1.5 text-gray-400 text-xs font-medium bg-gray-100 dark:bg-gray-800 px-2.5 py-1 rounded-full mt-1">
+                                        <span className="inline-flex items-center gap-1.5 text-gray-400 text-xs font-medium bg-gray-100 dark:bg-gray-800 px-2.5 py-1 rounded-xl mt-1">
                                             غير مربوط
                                         </span>
                                     )}
                                     {integration.status === 'coming_soon' && (
-                                        <span className="inline-flex items-center gap-1.5 text-accent text-xs font-medium bg-accent-50 dark:bg-amber-900/20 px-2.5 py-1 rounded-full mt-1">
+                                        <span className="inline-flex items-center gap-1.5 text-accent text-xs font-medium bg-accent-50 dark:bg-amber-900/20 px-2.5 py-1 rounded-xl mt-1">
                                             قريباً
                                         </span>
                                     )}

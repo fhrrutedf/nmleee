@@ -59,7 +59,7 @@ export default function AdminSettingsPage() {
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-[60vh]">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-primary-ink"></div>
+            <div className="animate-spin rounded-xl h-12 w-12 border-t-2 border-primary-ink"></div>
         </div>
     );
 
@@ -86,7 +86,7 @@ export default function AdminSettingsPage() {
                     disabled={saving}
                     className="px-10 py-4 bg-primary-ink text-white rounded-[1.5rem] font-bold text-sm flex items-center justify-center gap-2 shadow-sm shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95 transition-all disabled:opacity-50"
                 >
-                    {saving ? <div className="animate-spin h-5 w-5 border-t-2 border-white rounded-full"></div> : <FiSave size={18} />}
+                    {saving ? <div className="animate-spin h-5 w-5 border-t-2 border-white rounded-xl"></div> : <FiSave size={18} />}
                     حفظ كافة التغييرات
                 </button>
             </div>
@@ -114,22 +114,22 @@ export default function AdminSettingsPage() {
                                 <div className="space-y-4">
                                     <label className="block">
                                         <span className="text-xs font-bold text-slate-500 uppercase mb-2 block">باقة البداية (FREE)</span>
-                                        <input type="number" value={settings.commissionRate} onChange={(e) => handleChange('commissionRate', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-bold focus:ring-4 focus:ring-primary-indigo-50" />
+                                        <input type="number" value={settings.commissionRate} onChange={(e) => handleChange('commissionRate', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-xl text-lg font-bold focus:ring-4 focus:ring-subtle" />
                                     </label>
                                     <label className="block">
                                         <span className="text-xs font-bold text-slate-500 uppercase mb-2 block">باقة النمو (GROWTH)</span>
-                                        <input type="number" value={settings.growthCommissionRate} onChange={(e) => handleChange('growthCommissionRate', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-bold focus:ring-4 focus:ring-primary-indigo-50" />
+                                        <input type="number" value={settings.growthCommissionRate} onChange={(e) => handleChange('growthCommissionRate', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-xl text-lg font-bold focus:ring-4 focus:ring-subtle" />
                                     </label>
                                     <label className="block">
                                         <span className="text-xs font-bold text-slate-500 uppercase mb-2 block">باقة المحترفين (PRO)</span>
-                                        <input type="number" value={settings.proCommissionRate} onChange={(e) => handleChange('proCommissionRate', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-bold focus:ring-4 focus:ring-primary-indigo-50" />
+                                        <input type="number" value={settings.proCommissionRate} onChange={(e) => handleChange('proCommissionRate', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-xl text-lg font-bold focus:ring-4 focus:ring-subtle" />
                                     </label>
                                     <div className="pt-6 border-t border-slate-100 dark:border-gray-800">
                                         <label className="block">
                                             <span className="text-xs font-bold text-primary-ink uppercase mb-2 block flex items-center gap-2">
                                                 <FiTrendingUp size={14} /> نسبة عمولة المسوقين (من عمولة المنصة)
                                             </span>
-                                            <input type="number" value={settings.referralCommissionRate || 1} onChange={(e) => handleChange('referralCommissionRate', e.target.value)} className="w-full h-14 px-5 bg-primary-indigo-50/30 dark:bg-primary-indigo-900/10 border-dashed border-2 border-primary-indigo-100 dark:border-primary-indigo-900/30 rounded-2xl text-lg font-bold text-primary-indigo-700" />
+                                            <input type="number" value={settings.referralCommissionRate || 1} onChange={(e) => handleChange('referralCommissionRate', e.target.value)} className="w-full h-14 px-5 bg-subtle/30 dark:bg-primary-indigo-900/10 border-dashed border-2 border-primary-indigo-100 dark:border-primary-indigo-900/30 rounded-xl text-lg font-bold text-primary-indigo-700" />
                                             <p className="text-[10px] text-slate-400 font-bold mt-2 italic px-2">ملاحظة: هذه النسبة تدفع للمسوق الذي جلب البائع من صافي عمولة المنصة.</p>
                                         </label>
                                     </div>
@@ -137,7 +137,7 @@ export default function AdminSettingsPage() {
                             </div>
                             
                             <div className="bg-slate-900 text-white p-8 rounded-xl shadow-sm relative overflow-hidden flex flex-col justify-center">
-                                <div className="absolute right-0 top-0 w-32 h-32 bg-white/5 rounded-full blur-3xl"></div>
+                                <div className="absolute right-0 top-0 w-32 h-32 bg-white/5 rounded-xl blur-3xl"></div>
                                 <h3 className="text-lg font-bold mb-4">نصيحة المنصة 💡</h3>
                                 <p className="text-white/60 text-sm leading-relaxed font-bold">كلما قمت بتقليل عمولة المنصة للباقات الأعلى، زاد تحفيز البائعين على شحن باقاتهم الشهرية بانتظام. فكر في جعل باقة PRO بعمولة رمزية (مثل 2%) لجذب "كبار التجار".</p>
                             </div>
@@ -151,15 +151,15 @@ export default function AdminSettingsPage() {
                                 <div className="space-y-4">
                                     <label className="block">
                                         <span className="text-xs font-bold text-slate-500 uppercase mb-2 block">باقة FREE</span>
-                                        <input type="number" value={settings.freeEscrowDays} onChange={(e) => handleChange('freeEscrowDays', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-bold" />
+                                        <input type="number" value={settings.freeEscrowDays} onChange={(e) => handleChange('freeEscrowDays', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-xl text-lg font-bold" />
                                     </label>
                                     <label className="block">
                                         <span className="text-xs font-bold text-slate-500 uppercase mb-2 block">باقة GROWTH</span>
-                                        <input type="number" value={settings.growthEscrowDays} onChange={(e) => handleChange('growthEscrowDays', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-bold" />
+                                        <input type="number" value={settings.growthEscrowDays} onChange={(e) => handleChange('growthEscrowDays', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-xl text-lg font-bold" />
                                     </label>
                                     <label className="block">
                                         <span className="text-xs font-bold text-slate-500 uppercase mb-2 block">باقة PRO</span>
-                                        <input type="number" value={settings.proEscrowDays} onChange={(e) => handleChange('proEscrowDays', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-bold" />
+                                        <input type="number" value={settings.proEscrowDays} onChange={(e) => handleChange('proEscrowDays', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-xl text-lg font-bold" />
                                     </label>
                                 </div>
                             </div>
@@ -176,15 +176,15 @@ export default function AdminSettingsPage() {
                              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <label className="block">
                                     <span className="text-xs font-bold text-slate-500 mb-2 block">سعر الليرة السورية (SYP)</span>
-                                    <input type="number" value={settings.usdToSyp || 15000} onChange={(e) => handleChange('usdToSyp', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-bold" />
+                                    <input type="number" value={settings.usdToSyp || 15000} onChange={(e) => handleChange('usdToSyp', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-xl text-lg font-bold" />
                                 </label>
                                 <label className="block">
                                     <span className="text-xs font-bold text-slate-500 mb-2 block">سعر الدينار العراقي (IQD)</span>
-                                    <input type="number" value={settings.usdToIqd || 1310} onChange={(e) => handleChange('usdToIqd', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-bold" />
+                                    <input type="number" value={settings.usdToIqd || 1310} onChange={(e) => handleChange('usdToIqd', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-xl text-lg font-bold" />
                                 </label>
                                 <label className="block">
                                     <span className="text-xs font-bold text-slate-500 mb-2 block">سعر الجنيه المصري (EGP)</span>
-                                    <input type="number" value={settings.usdToEgp || 48} onChange={(e) => handleChange('usdToEgp', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl text-lg font-bold" />
+                                    <input type="number" value={settings.usdToEgp || 48} onChange={(e) => handleChange('usdToEgp', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-xl text-lg font-bold" />
                                 </label>
                              </div>
                         </motion.div>
@@ -196,15 +196,15 @@ export default function AdminSettingsPage() {
                              <div className="space-y-6 max-w-md">
                                 <label className="block">
                                     <span className="text-xs font-bold text-slate-500 mb-2 block">شام كاش (ID الحساب)</span>
-                                    <input type="text" placeholder="123456" className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl font-bold" />
+                                    <input type="text" placeholder="123456" className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-xl font-bold" />
                                 </label>
                                 <label className="block">
                                     <span className="text-xs font-bold text-slate-500 mb-2 block">سيريتيل كاش (رقم مباشر)</span>
-                                    <input type="text" placeholder="09xxxxxx" className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl font-bold" />
+                                    <input type="text" placeholder="09xxxxxx" className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-xl font-bold" />
                                 </label>
                                 <label className="block">
                                     <span className="text-xs font-bold text-slate-500 mb-2 block">رقم واتساب الدعم الفني</span>
-                                    <input type="text" value={settings.supportWhatsapp || '963934360340'} onChange={(e) => handleChange('supportWhatsapp', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-2xl font-bold" />
+                                    <input type="text" value={settings.supportWhatsapp || '963934360340'} onChange={(e) => handleChange('supportWhatsapp', e.target.value)} className="w-full h-14 px-5 bg-slate-50 dark:bg-gray-900 border-none rounded-xl font-bold" />
                                 </label>
                              </div>
                         </motion.div>

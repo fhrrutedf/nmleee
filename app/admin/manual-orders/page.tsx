@@ -138,26 +138,26 @@ export default function ManualOrdersPage() {
 
                 {/* Stats Cards */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
                         <p className="text-xs text-gray-400 font-bold uppercase">الإجمالي</p>
                         <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{orders.length}</p>
                     </div>
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-blue-100 dark:border-amber-900/30 shadow-sm">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-blue-100 dark:border-amber-900/30 shadow-sm">
                         <p className="text-xs text-accent-500 font-bold uppercase">قيد الانتظار</p>
                         <p className="text-2xl font-bold text-accent mt-1">{pendingCount}</p>
                     </div>
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-blue-100 dark:border-blue-900/30 shadow-sm">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-blue-100 dark:border-blue-900/30 shadow-sm">
                         <p className="text-xs text-accent-500 font-bold uppercase">مقبول</p>
                         <p className="text-2xl font-bold text-accent-600 mt-1">{approvedCount}</p>
                     </div>
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-red-100 dark:border-red-900/30 shadow-sm">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-red-100 dark:border-red-900/30 shadow-sm">
                         <p className="text-xs text-red-500 font-bold uppercase">مرفوض</p>
                         <p className="text-2xl font-bold text-red-600 mt-1">{rejectedCount}</p>
                     </div>
                 </div>
 
                 {/* Filter Tabs */}
-                <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-3 mb-6 shadow-sm">
+                <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-3 mb-6 shadow-sm">
                     <div className="flex gap-2 flex-wrap">
                         {[
                             { value: 'all', label: 'الكل' },
@@ -183,10 +183,10 @@ export default function ManualOrdersPage() {
                 {/* Orders List */}
                 {loading ? (
                     <div className="flex items-center justify-center py-20">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
+                        <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-ink"></div>
                     </div>
                 ) : orders.length === 0 ? (
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 text-center border border-gray-100 dark:border-gray-700">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-12 text-center border border-gray-100 dark:border-gray-700">
                         <p className="text-gray-400 text-lg">لا توجد طلبات</p>
                     </div>
                 ) : (
@@ -197,7 +197,7 @@ export default function ManualOrdersPage() {
                             return (
                                 <div
                                     key={order.id}
-                                    className={`bg-white dark:bg-gray-800 rounded-2xl border shadow-sm overflow-hidden transition-all ${
+                                    className={`bg-white dark:bg-gray-800 rounded-xl border shadow-sm overflow-hidden transition-all ${
                                         isPending
                                             ? 'border-amber-200 dark:border-amber-900/40'
                                             : 'border-gray-100 dark:border-gray-700'
@@ -207,7 +207,7 @@ export default function ManualOrdersPage() {
                                     <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-700">
                                         <div className="flex items-center gap-3">
                                             <span className="font-mono text-sm font-bold text-ink">{order.orderNumber}</span>
-                                            <span className={`text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 ${st.bg}`}>
+                                            <span className={`text-xs font-bold px-3 py-1 rounded-xl flex items-center gap-1 ${st.bg}`}>
                                                 {st.icon} {st.label}
                                             </span>
                                         </div>
@@ -295,7 +295,7 @@ export default function ManualOrdersPage() {
             {/* Rejection Modal */}
             {selectedOrder && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50" onClick={() => setSelectedOrder(null)}>
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-md w-full shadow-sm" onClick={e => e.stopPropagation()}>
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md w-full shadow-sm" onClick={e => e.stopPropagation()}>
                         <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
                             رفض الطلب {selectedOrder.orderNumber}
                         </h3>
@@ -327,10 +327,10 @@ export default function ManualOrdersPage() {
             {/* Proof Image Modal */}
             {proofImage && (
                 <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4" onClick={() => setProofImage(null)}>
-                    <div className="relative max-w-2xl bg-white dark:bg-gray-800 rounded-2xl overflow-hidden" onClick={e => e.stopPropagation()}>
+                    <div className="relative max-w-2xl bg-white dark:bg-gray-800 rounded-xl overflow-hidden" onClick={e => e.stopPropagation()}>
                         <button
                             onClick={() => setProofImage(null)}
-                            className="absolute top-3 left-3 w-8 h-8 bg-black/50 text-white rounded-full flex items-center justify-center z-10"
+                            className="absolute top-3 left-3 w-8 h-8 bg-black/50 text-white rounded-xl flex items-center justify-center z-10"
                         >
                             <FiX size={16} />
                         </button>

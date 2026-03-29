@@ -39,9 +39,9 @@ export default function DangerZone() {
 
     return (
         <div className="space-y-6">
-            <div className="p-6 bg-red-50/50 border border-red-100 rounded-3xl">
+            <div className="p-6 bg-red-50/50 border border-red-100 rounded-xl">
                 <div className="flex items-start gap-4 mb-6">
-                    <div className="w-12 h-12 bg-red-500/10 text-red-600 rounded-2xl flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 bg-red-500/10 text-red-600 rounded-xl flex items-center justify-center shrink-0">
                         <FiAlertTriangle className="text-2xl" />
                     </div>
                     <div>
@@ -55,7 +55,7 @@ export default function DangerZone() {
                 <div className="space-y-3">
                     <button 
                         onClick={() => toast.success('تم إرسال طلب تجميد الحساب لمراجعة الإدارة')}
-                        className="w-full flex items-center justify-between p-4 bg-white hover:bg-gray-50 border border-red-200 rounded-2xl transition-all group"
+                        className="w-full flex items-center justify-between p-4 bg-white hover:bg-gray-50 border border-red-200 rounded-xl transition-all group"
                     >
                         <span className="font-bold text-gray-700 group-hover:text-red-900">تعطيل الحساب مؤقتاً</span>
                         <FiAlertTriangle className="text-red-300 group-hover:text-red-500" />
@@ -63,7 +63,7 @@ export default function DangerZone() {
 
                     <button 
                         onClick={() => setShowModal(true)}
-                        className="w-full flex items-center justify-between p-4 bg-red-600 hover:bg-red-700 text-white rounded-2xl transition-all shadow-md active:scale-[0.98]"
+                        className="w-full flex items-center justify-between p-4 bg-red-600 hover:bg-red-700 text-white rounded-xl transition-all shadow-md active:scale-[0.98]"
                     >
                         <span className="font-bold">حذف الحساب نهائياً</span>
                         <FiTrash2 className="text-red-200" />
@@ -73,8 +73,8 @@ export default function DangerZone() {
 
             {/* Delete Modal */}
             {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  animate-fade-in">
-                    <div className="bg-white rounded-3xl shadow-sm w-full max-w-lg overflow-hidden animate-scale-in">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  ">
+                    <div className="bg-white rounded-xl shadow-sm w-full max-w-lg overflow-hidden animate-scale-in">
                         <div className="p-6 bg-red-600 text-white flex justify-between items-center">
                             <h3 className="text-xl font-bold flex items-center gap-2">
                                 <FiTrash2 /> تأكيد حذف الحساب
@@ -121,14 +121,14 @@ export default function DangerZone() {
                             <div className="flex gap-4">
                                 <button 
                                     onClick={() => setShowModal(false)}
-                                    className="flex-1 btn bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-2xl font-bold transition-all"
+                                    className="flex-1 btn bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-bold transition-all"
                                 >
                                     إلغاء التراجع
                                 </button>
                                 <button 
                                     onClick={handleDelete}
                                     disabled={isDeleting || confirmText !== CONFIRM_PHRASE}
-                                    className={`flex-1 btn bg-red-600 hover:bg-red-700 text-white py-3 rounded-2xl font-bold transition-all shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed`}
+                                    className={`flex-1 btn bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-bold transition-all shadow-sm active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed`}
                                 >
                                     {isDeleting ? 'جاري الحذف...' : 'تأكيد الحذف'}
                                 </button>

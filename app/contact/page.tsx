@@ -58,7 +58,7 @@ export default function ContactPage() {
     return (
         <div className="min-h-screen bg-white relative overflow-hidden selection:bg-accent/20">
             {/* Minimalist Professional Accents */}
-            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[150px] -z-10 pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent/5 rounded-xl blur-[150px] -z-10 pointer-events-none"></div>
 
             <div className="max-w-7xl mx-auto px-4 py-20 lg:py-32 relative z-10">
                 <motion.div
@@ -67,10 +67,10 @@ export default function ContactPage() {
                     variants={fadeInUp}
                     className="text-center mb-24 max-w-4xl mx-auto"
                 >
-                    <div className="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-[0.3em] mb-10 text-accent shadow-sm">
+                    <div className="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-accent shadow-sm">
                         Strategic Support Unit
                     </div>
-                    <h1 className="text-5xl md:text-8xl font-black text-ink mb-10 tracking-tighter leading-[1.05]">
+                    <h1 className="text-5xl md:text-8xl font-bold text-ink mb-10 tracking-tighter leading-[1.05]">
                         تحدث معنا <br/> <span className="text-accent underline underline-offset-[12px] decoration-accent/10">مباشرة</span>
                     </h1>
                     <p className="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto font-bold leading-relaxed">
@@ -114,9 +114,9 @@ export default function ContactPage() {
                                 key={idx}
                                 variants={slideInRight}
                                 whileHover={{ x: -10, scale: 1.02 }}
-                                className="bg-white rounded-3xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] p-8 border border-gray-50 flex items-start gap-6 group transition-all"
+                                className="bg-white rounded-xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] p-8 border border-gray-50 flex items-start gap-6 group transition-all"
                             >
-                                <div className={`w-14 h-14 ${info.bg} rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                                <div className={`w-14 h-14 ${info.bg} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
                                     {info.icon}
                                 </div>
                                 <div>
@@ -141,7 +141,7 @@ export default function ContactPage() {
                             {/* Decorative element inside form */}
                             <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-[100px] pointer-events-none"></div>
 
-                            <h2 className="text-2xl font-black mb-10 text-ink tracking-tight uppercase">SEND ENQUIRY</h2>
+                            <h2 className="text-2xl font-bold mb-10 text-ink tracking-tight uppercase">SEND ENQUIRY</h2>
 
                             <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -151,7 +151,7 @@ export default function ContactPage() {
                                             id="name"
                                             value={formData.name}
                                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                            className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
+                                            className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
                                             placeholder=" "
                                             required
                                         />
@@ -166,7 +166,7 @@ export default function ContactPage() {
                                             id="email"
                                             value={formData.email}
                                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                            className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
+                                            className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
                                             placeholder=" "
                                             required
                                         />
@@ -182,7 +182,7 @@ export default function ContactPage() {
                                         id="subject"
                                         value={formData.subject}
                                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                                        className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
+                                        className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
                                         placeholder=" "
                                         required
                                     />
@@ -196,7 +196,7 @@ export default function ContactPage() {
                                         id="message"
                                         value={formData.message}
                                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                        className="block w-full px-6 py-5 text-ink bg-gray-50 border border-gray-100 rounded-2xl appearance-none focus:outline-none focus:ring-4 focus:ring-accent/10 focus:border-accent transition-all peer"
+                                        className="block w-full px-6 py-5 text-ink bg-gray-50 border border-gray-100 rounded-xl appearance-none focus:outline-none focus:ring-4 focus:ring-accent/10 focus:border-accent transition-all peer"
                                         placeholder=" "
                                         rows={6}
                                         required
@@ -211,13 +211,13 @@ export default function ContactPage() {
                                     whileTap={{ scale: 0.98 }}
                                     type="submit"
                                     disabled={loading || success}
-                                    className={`w-full text-[10px] font-black uppercase tracking-[0.3em] py-6 rounded-2xl flex items-center justify-center gap-3 transition-all duration-300 shadow-sm
+                                    className={`w-full text-[10px] font-bold uppercase tracking-[0.3em] py-6 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 shadow-sm
                                         ${success ? 'bg-accent text-white shadow-accent/20' : 'bg-ink text-white hover:bg-black shadow-ink/20'}
                                         ${loading ? 'opacity-80 cursor-not-allowed' : ''}
                                     `}
                                 >
                                     {loading ? (
-                                        <div className="w-5 h-5 border-[3px] border-white/30 border-t-white rounded-full animate-spin"></div>
+                                        <div className="w-5 h-5 border-[3px] border-white/30 border-t-white rounded-xl animate-spin"></div>
                                     ) : success ? (
                                         <>
                                             <FiCheckCircle className="text-xl" />

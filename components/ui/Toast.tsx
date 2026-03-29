@@ -53,7 +53,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                             initial={{ opacity: 0, x: -20, scale: 0.95 }}
                             animate={{ opacity: 1, x: 0, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-                            className="flex items-center justify-between p-4 rounded-lg bg-white shadow-lg border border-gray-100 min-w-[320px] relative overflow-hidden"
+                            className="flex items-center justify-between p-4 rounded-lg bg-white shadow-sm border border-gray-100 min-w-[320px] relative overflow-hidden"
                             layout
                         >
                             {/* Accent bar */}
@@ -63,7 +63,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                                 }`} />
 
                             <div className="flex items-center gap-3">
-                                <div className={`p-1 rounded-full ${toast.type === 'success' ? 'bg-green-100 text-green-600' :
+                                <div className={`p-1 rounded-xl ${toast.type === 'success' ? 'bg-green-100 text-green-600' :
                                         toast.type === 'error' ? 'bg-red-100 text-red-600' :
                                             'bg-blue-100 text-accent'
                                     }`}>

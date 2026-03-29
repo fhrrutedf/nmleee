@@ -7,7 +7,7 @@ import "react-quill-new/dist/quill.snow.css";
 // Dynamic import with no SSR to avoid 'document is not defined' error
 const ReactQuill = dynamic(() => import("react-quill-new"), {
     ssr: false,
-    loading: () => <div className="h-64 bg-gray-50 flex  rounded-2xl border border-gray-200"></div>,
+    loading: () => <div className="h-64 bg-gray-50 flex  rounded-xl border border-gray-200"></div>,
 });
 
 interface RichTextEditorProps {
@@ -40,7 +40,7 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
     ];
 
     return (
-        <div className="rich-text-editor-wrapper bg-white rounded-2xl border border-gray-200 overflow-hidden dark:bg-card-white dark:border-gray-800">
+        <div className="rich-text-editor-wrapper bg-white rounded-xl border border-gray-200 overflow-hidden dark:bg-card-white dark:border-gray-800">
             <ReactQuill
                 theme="snow"
                 value={value}

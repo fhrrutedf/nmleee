@@ -22,11 +22,11 @@ export function ThemeToggle() {
     return (
         <button
             onClick={() => setTheme(isDark ? 'light' : 'dark')}
-            className="relative w-12 h-7 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
+            className="relative w-12 h-7 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
             aria-label="Toggle Dark Mode"
         >
             <motion.div
-                className="absolute left-1 w-5 h-5 bg-white rounded-full shadow-md flex items-center justify-center transform"
+                className="absolute left-1 w-5 h-5 bg-white rounded-xl shadow-md flex items-center justify-center transform"
                 animate={{
                     x: isDark ? 20 : 0,
                     backgroundColor: isDark ? '#1F2937' : '#FFFFFF'

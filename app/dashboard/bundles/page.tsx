@@ -50,7 +50,7 @@ export default function BundlesPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent"></div>
             </div>
         );
     }
@@ -71,8 +71,8 @@ export default function BundlesPage() {
 
             {/* List */}
             {bundles && bundles.length === 0 ? (
-                <div className="bg-white dark:bg-card-white rounded-2xl border border-dashed border-gray-300 dark:border-gray-700 p-12 text-center">
-                    <div className="w-16 h-16 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-white dark:bg-card-white rounded-xl border border-dashed border-gray-300 dark:border-gray-700 p-12 text-center">
+                    <div className="w-16 h-16 bg-gray-50 dark:bg-gray-800 rounded-xl flex items-center justify-center mx-auto mb-4">
                         <FiPackage className="text-2xl text-gray-400" />
                     </div>
                     <h3 className="text-xl font-bold text-ink dark:text-white mb-2">لا توجد باقات بعد</h3>
@@ -84,7 +84,7 @@ export default function BundlesPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {bundles?.map((bundle) => (
-                        <div key={bundle.id} className="bg-white dark:bg-card-white rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+                        <div key={bundle.id} className="bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow">
                             <div className="aspect-video bg-gray-100 relative">
                                 {bundle.image ? (
                                     <img src={bundle.image} alt={bundle.title} className="w-full h-full object-cover" />
@@ -93,7 +93,7 @@ export default function BundlesPage() {
                                         <FiPackage className="text-4xl text-gray-300" />
                                     </div>
                                 )}
-                                <div className="absolute top-2 right-2 bg-white/90  text-accent text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                                <div className="absolute top-2 right-2 bg-white/90  text-accent text-xs font-bold px-3 py-1 rounded-xl flex items-center gap-1 shadow-sm">
                                     <FiPackage />
                                     <span>{bundle.products?.length || 0} منتجات</span>
                                 </div>

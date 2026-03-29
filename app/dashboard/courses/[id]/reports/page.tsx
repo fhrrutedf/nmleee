@@ -66,7 +66,7 @@ export default function CourseReportsPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-ink"></div>
             </div>
         );
     }
@@ -193,9 +193,9 @@ export default function CourseReportsPage() {
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-3">
-                                                <div className="flex-1 bg-gray-200 rounded-full h-2">
+                                                <div className="flex-1 bg-gray-200 rounded-xl h-2">
                                                     <div
-                                                        className="bg-ink h-2 rounded-full"
+                                                        className="bg-ink h-2 rounded-xl"
                                                         style={{ width: `${student.progress}%` }}
                                                     />
                                                 </div>
@@ -212,11 +212,11 @@ export default function CourseReportsPage() {
                                         </td>
                                         <td className="px-6 py-4">
                                             {student.isCompleted ? (
-                                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-xl text-xs font-medium bg-green-100 text-green-800">
                                                     مكتمل
                                                 </span>
                                             ) : (
-                                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-xl text-xs font-medium bg-blue-100 text-blue-800">
                                                     قيد التقدم
                                                 </span>
                                             )}

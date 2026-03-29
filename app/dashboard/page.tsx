@@ -60,16 +60,16 @@ export default function DashboardPage() {
             className="space-y-8 pb-12"
         >
             {/* Professional Welcome Section */}
-            <motion.div variants={item} className="bg-ink rounded-3xl p-8 sm:p-12 text-white shadow-sm relative overflow-hidden ring-1 ring-white/10">
+            <motion.div variants={item} className="bg-ink rounded-xl p-8 sm:p-12 text-white shadow-sm relative overflow-hidden ring-1 ring-white/10">
                 <div className="relative z-10 max-w-2xl">
-                    <span className="inline-block px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Merchant Dashboard</span>
+                    <span className="inline-block px-3 py-1 bg-white/10 rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Merchant Dashboard</span>
                     <h1 className="text-3xl sm:text-5xl font-bold mb-4 tracking-tight leading-tight">مرحباً، {session?.user?.name}</h1>
                     <p className="text-gray-400 text-sm sm:text-lg leading-relaxed font-bold">
                         إليك ملخص أداء متجرك وأهم التحديثات. استمر في النمو وتحقيق النجاح.
                     </p>
                 </div>
                 {/* Minimalist Background Detail */}
-                <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-[120px]"></div>
+                <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-[120px]"></div>
             </motion.div>
 
             {/* High-Contrast Stats Grid */}
@@ -80,7 +80,7 @@ export default function DashboardPage() {
                     { title: 'المنتجات النشطة', value: stats.totalProducts || 0, icon: FiPackage, badge: 'Inventory', color: 'text-ink', bg: 'bg-gray-50' },
                     { title: 'عدد الطلاب', value: stats.totalStudents || 0, icon: FiUsers, badge: 'Students', color: 'text-ink', bg: 'bg-gray-50' }
                 ].map((stat, idx) => (
-                    <motion.div variants={item} key={idx} className="bg-white border border-gray-100 p-6 rounded-2xl hover:border-gray-200 transition-all shadow-sm group">
+                    <motion.div variants={item} key={idx} className="bg-white border border-gray-100 p-6 rounded-xl hover:border-gray-200 transition-all shadow-sm group">
                         <div className="flex justify-between items-center mb-6">
                             <div className={`${stat.bg} p-3 rounded-xl border border-transparent group-hover:border-gray-200 transition-all`}>
                                 <stat.icon className={`text-xl ${stat.color}`} />
@@ -98,7 +98,7 @@ export default function DashboardPage() {
             {/* Analytics & Quick Actions */}
             <div className="grid lg:grid-cols-3 gap-8">
                 {/* Analytics Snapshot */}
-                <motion.div variants={item} className="lg:col-span-2 bg-white border border-gray-100 rounded-3xl p-8 shadow-sm flex flex-col">
+                <motion.div variants={item} className="lg:col-span-2 bg-white border border-gray-100 rounded-xl p-8 shadow-sm flex flex-col">
                     <div className="flex justify-between items-center mb-10">
                         <div className="flex items-center gap-3">
                             <FiBarChart2 className="text-accent text-2xl" />
@@ -110,8 +110,8 @@ export default function DashboardPage() {
                         </select>
                     </div>
 
-                    <div className="flex-1 flex flex-col items-center justify-center text-center py-16 px-8 border-2 border-dashed border-gray-50 rounded-2xl">
-                        <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-6">
+                    <div className="flex-1 flex flex-col items-center justify-center text-center py-16 px-8 border-2 border-dashed border-gray-50 rounded-xl">
+                        <div className="w-16 h-16 bg-gray-50 rounded-xl flex items-center justify-center mb-6">
                             <FiActivity className="text-2xl text-gray-300" />
                         </div>
                         <h3 className="text-lg font-bold text-ink mb-2">في انتظار المزيد من البيانات</h3>
@@ -129,7 +129,7 @@ export default function DashboardPage() {
                         { title: 'إنشاء كورس جديد', desc: 'سجل محاضراتك وأنشئ أكاديميتك', icon: FiVideo, href: '/dashboard/courses/new' },
                         { title: 'تعديل هوية المتجر', desc: 'الألوان، الشعار، والوصف', icon: FiSettings, href: '/dashboard/brand' }
                     ].map((action, idx) => (
-                        <Link key={idx} href={action.href} className="flex items-center gap-5 p-5 rounded-2xl bg-white border border-gray-100 hover:border-accent/20 hover:shadow-sm hover:shadow-accent/5 transition-all group">
+                        <Link key={idx} href={action.href} className="flex items-center gap-5 p-5 rounded-xl bg-white border border-gray-100 hover:border-accent/20 hover:shadow-sm hover:shadow-accent/5 transition-all group">
                             <div className="w-12 h-12 rounded-xl bg-gray-50 text-ink flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all shadow-sm">
                                 <action.icon className="text-xl" />
                             </div>
@@ -141,7 +141,7 @@ export default function DashboardPage() {
                         </Link>
                     ))}
                     
-                    <div className="mt-8 p-6 bg-accent-light rounded-2xl border border-accent/10">
+                    <div className="mt-8 p-6 bg-accent-light rounded-xl border border-accent/10">
                         <p className="text-[10px] font-bold text-accent uppercase tracking-widest mb-2">نصيحة اليوم</p>
                         <p className="text-xs text-ink font-bold leading-relaxed">
                             تحديث صور المنتجات الرقمية يزيد من معدل التحويل بنسبة تصل إلى 25%.

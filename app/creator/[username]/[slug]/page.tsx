@@ -66,7 +66,7 @@ export default function ProductPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent"></div>
             </div>
         );
     }
@@ -113,11 +113,11 @@ export default function ProductPage() {
                             <img
                                 src={product.image}
                                 alt={product.title}
-                                className="w-full rounded-2xl shadow-sm"
+                                className="w-full rounded-xl shadow-sm"
                             />
                         ) : (
                             <div
-                                className="w-full aspect-video rounded-2xl shadow-sm flex items-center justify-center"
+                                className="w-full aspect-video rounded-xl shadow-sm flex items-center justify-center"
                                 style={{
                                     background: `linear-gradient(135deg, ${brandColor}20 0%, ${brandColor}40 100%)`
                                 }}
@@ -137,11 +137,11 @@ export default function ProductPage() {
                                     <img
                                         src={creator.avatar}
                                         alt={creator.name}
-                                        className="w-12 h-12 rounded-full object-cover"
+                                        className="w-12 h-12 rounded-xl object-cover"
                                     />
                                 ) : (
                                     <div
-                                        className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold"
+                                        className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold"
                                         style={{ backgroundColor: brandColor }}
                                     >
                                         {creator.name.charAt(0)}
@@ -161,7 +161,7 @@ export default function ProductPage() {
                     <div className="space-y-6">
                         {product.category && (
                             <span
-                                className="inline-block px-3 py-1 rounded-full text-sm font-medium"
+                                className="inline-block px-3 py-1 rounded-xl text-sm font-medium"
                                 style={{
                                     backgroundColor: `${brandColor}20`,
                                     color: brandColor
@@ -192,7 +192,7 @@ export default function ProductPage() {
                         </div>
 
                         {/* Price */}
-                        <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+                        <div className="bg-white rounded-xl p-8 shadow-sm border border-slate-100">
                             <div className="flex flex-col gap-2">
                                 {product.originalPrice && product.originalPrice > product.price && (
                                     <div className="flex items-center gap-2">
@@ -226,7 +226,7 @@ export default function ProductPage() {
                             )}
                             
                             <p className="text-sm text-slate-400 mt-4 font-medium flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-green-500 " />
+                                <span className="w-1.5 h-1.5 rounded-xl bg-green-500 " />
                                 وصول فوري وكامل للمحتوى مدى الحياة
                             </p>
                         </div>
@@ -258,7 +258,7 @@ export default function ProductPage() {
                         {/* CTA Button */}
                         <button
                             onClick={handlePurchase}
-                            className="w-full py-4 rounded-xl font-bold text-white text-lg shadow-lg hover:shadow-sm transition-all transform hover:scale-105"
+                            className="w-full py-4 rounded-xl font-bold text-white text-lg shadow-sm hover:shadow-sm transition-all transform hover:scale-105"
                             style={{ backgroundColor: brandColor }}
                         >
                             <FiShoppingCart className="inline ml-2" />

@@ -117,7 +117,7 @@ export default function ProductsPage() {
                                         className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                                     />
                                 ) : (
-                                    <div className="w-full h-48 bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
+                                    <div className="w-full h-48 bg-ink flex items-center justify-center">
                                         <FiShoppingCart className="text-5xl text-primary-400" />
                                     </div>
                                 )}

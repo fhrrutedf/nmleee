@@ -134,7 +134,7 @@ export default function AdminPlatformSettingsPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="w-12 h-12 border-4 border-accent-500/30 border-t-accent-500 rounded-full animate-spin" />
+                <div className="w-12 h-12 border-4 border-accent-500/30 border-t-accent-500 rounded-xl animate-spin" />
             </div>
         );
     }
@@ -144,7 +144,7 @@ export default function AdminPlatformSettingsPage() {
             {/* Header / Central Dashboard */}
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800">
                 <div className="flex items-center gap-5">
-                    <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-3xl text-accent-600">
+                    <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-accent-600">
                         <FiSettings className="text-3xl" />
                     </div>
                     <div>
@@ -156,17 +156,17 @@ export default function AdminPlatformSettingsPage() {
                     <button
                         onClick={handleAuditorCheck}
                         disabled={auditing}
-                        className="bg-indigo-50 dark:bg-indigo-900/20 text-ink px-6 py-4 rounded-2xl font-bold text-sm flex items-center gap-3 transition-all active:scale-95 disabled:opacity-50"
+                        className="bg-indigo-50 dark:bg-indigo-900/20 text-ink px-6 py-4 rounded-xl font-bold text-sm flex items-center gap-3 transition-all active:scale-95 disabled:opacity-50"
                     >
-                        {auditing ? <div className="w-4 h-4 border-2 border-ink border-t-transparent rounded-full animate-spin" /> : <FiZap />}
+                        {auditing ? <div className="w-4 h-4 border-2 border-ink border-t-transparent rounded-xl animate-spin" /> : <FiZap />}
                         جرد المدفوعات (الموظف الرقمي)
                     </button>
                     <button
                         onClick={handleSave}
                         disabled={saving}
-                        className="bg-accent-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-sm shadow-accent-500/20 disabled:opacity-50"
+                        className="bg-accent-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-sm shadow-accent-500/20 disabled:opacity-50"
                     >
-                        {saving ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FiSave />}
+                        {saving ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-xl animate-spin" /> : <FiSave />}
                         تحديث الإمبراطورية
                     </button>
                 </div>
@@ -190,7 +190,7 @@ export default function AdminPlatformSettingsPage() {
                                         checked={settings.withdrawalsEnabled}
                                         onChange={e => update('withdrawalsEnabled', e.target.checked)}
                                     />
-                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-accent-600"></div>
+                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-xl peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-accent-600"></div>
                                 </label>
                             </div>
                             <p className="text-xs text-gray-500">عند التعطيل، يتم إيقاف جميع طلبات سحب الأرباح من البائعين فوراً.</p>
@@ -205,7 +205,7 @@ export default function AdminPlatformSettingsPage() {
                                     type="number"
                                     value={settings.highValueAlertThreshold}
                                     onChange={e => update('highValueAlertThreshold', parseFloat(e.target.value))}
-                                    className="w-full bg-gray-50 dark:bg-gray-800 border-none rounded-2xl px-10 py-4 font-bold text-lg text-accent-600 focus:ring-2 focus:ring-accent-500/20 outline-none"
+                                    className="w-full bg-gray-50 dark:bg-gray-800 border-none rounded-xl px-10 py-4 font-bold text-lg text-accent-600 focus:ring-2 focus:ring-accent-500/20 outline-none"
                                 />
                             </div>
                         </div>
@@ -215,7 +215,7 @@ export default function AdminPlatformSettingsPage() {
                     <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-8">
                         <div className="flex items-center justify-between border-b border-gray-50 dark:border-gray-800 pb-6">
                             <div className="flex items-center gap-4">
-                                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-2xl text-accent-600">
+                                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-accent-600">
                                     <FiZap className="text-2xl" />
                                 </div>
                                 <h2 className="text-xl font-bold text-gray-900 dark:text-white">بوابة Spaceremit ورسوم الموقع</h2>
@@ -238,12 +238,12 @@ export default function AdminPlatformSettingsPage() {
                                         checked={settings.spaceremitEnabled}
                                         onChange={e => update('spaceremitEnabled', e.target.checked)}
                                     />
-                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-accent-600"></div>
+                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-xl peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-accent-600"></div>
                                 </label>
                             </div>
                         </div>
 
-                        <div className="bg-indigo-50 dark:bg-indigo-900/10 p-6 rounded-2xl border border-indigo-100 dark:border-indigo-900/30">
+                        <div className="bg-indigo-50 dark:bg-indigo-900/10 p-6 rounded-xl border border-indigo-100 dark:border-indigo-900/30">
                             <p className="text-xs text-ink dark:text-indigo-400 font-medium leading-relaxed">
                                 💡 يتم إدارة مفاتيح الربط (API Keys) و (Merchant ID) بشكل آمن عبر متغيرات البيئة في الاستضافة (Vercel Envs). 
                                 يمكنك فقط تفعيل/تعطيل البوابة وتعديل الرسوم من هنا.
@@ -254,7 +254,7 @@ export default function AdminPlatformSettingsPage() {
                     {/* 3. Commissions - 4 Tiers */}
                     <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-8">
                         <div className="flex items-center gap-4 border-b border-gray-50 dark:border-gray-800 pb-6">
-                            <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-2xl text-accent-600">
+                            <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-accent-600">
                                 <FiDollarSign className="text-2xl" />
                             </div>
                             <h2 className="text-xl font-bold text-gray-900 dark:text-white">باقات البائعين والعمولات</h2>
@@ -272,7 +272,7 @@ export default function AdminPlatformSettingsPage() {
                     <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-8">
                         <div className="flex items-center justify-between gap-4 border-b border-gray-50 dark:border-gray-800 pb-6">
                             <div className="flex items-center gap-4">
-                                <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-2xl text-purple-600">
+                                <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl text-purple-600">
                                     <FiGlobe className="text-2xl" />
                                 </div>
                                 <h2 className="text-xl font-bold text-gray-900 dark:text-white">أسعار الصرف المحلية ($1 =)</h2>

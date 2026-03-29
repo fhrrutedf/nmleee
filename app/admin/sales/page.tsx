@@ -150,7 +150,7 @@ export default function AdminSalesPage() {
                 {/* Stats Cards */}
                 {stats && (
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
                                     <FiShoppingBag className="text-ink" size={20} />
@@ -159,7 +159,7 @@ export default function AdminSalesPage() {
                             </div>
                             <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalOrders}</p>
                         </div>
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
                                     <FiDollarSign className="text-accent-600" size={20} />
@@ -168,7 +168,7 @@ export default function AdminSalesPage() {
                             </div>
                             <p className="text-2xl font-bold text-gray-900 dark:text-white">${stats.totalRevenue.toFixed(2)}</p>
                         </div>
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-amber-900/30 flex items-center justify-center">
                                     <FiClock className="text-accent" size={20} />
@@ -177,7 +177,7 @@ export default function AdminSalesPage() {
                             </div>
                             <p className="text-2xl font-bold text-accent">{stats.pendingCount}</p>
                         </div>
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
                                     <FiUsers className="text-purple-600" size={20} />
@@ -190,7 +190,7 @@ export default function AdminSalesPage() {
                 )}
 
                 {/* Filters */}
-                <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-sm">
+                <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-sm">
                     <div className="flex flex-wrap gap-3 items-center">
                         {/* Search */}
                         <div className="flex-1 min-w-[200px]">
@@ -260,15 +260,15 @@ export default function AdminSalesPage() {
                 {/* Sales Table */}
                 {loading ? (
                     <div className="flex items-center justify-center py-20">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
+                        <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-ink"></div>
                     </div>
                 ) : orders.length === 0 ? (
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 text-center border border-gray-100 dark:border-gray-700">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-12 text-center border border-gray-100 dark:border-gray-700">
                         <FiShoppingBag className="mx-auto text-gray-300 mb-4" size={48} />
                         <p className="text-gray-500 text-lg">لا توجد مبيعات</p>
                     </div>
                 ) : (
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm">
                                 <thead>
@@ -321,9 +321,9 @@ export default function AdminSalesPage() {
                                                 {order.seller ? (
                                                     <div className="flex items-center gap-2">
                                                         {order.seller.avatar ? (
-                                                            <img src={order.seller.avatar} alt="" className="w-7 h-7 rounded-full object-cover" />
+                                                            <img src={order.seller.avatar} alt="" className="w-7 h-7 rounded-xl object-cover" />
                                                         ) : (
-                                                            <div className="w-7 h-7 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                                                            <div className="w-7 h-7 rounded-xl bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
                                                                 <FiUser size={12} className="text-gray-400" />
                                                             </div>
                                                         )}
@@ -405,7 +405,7 @@ export default function AdminSalesPage() {
 
                                             {/* Status */}
                                             <td className="px-4 py-3">
-                                                <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${STATUS_COLORS[order.status] || 'bg-gray-100 text-gray-600'}`}>
+                                                <span className={`text-[11px] font-bold px-2.5 py-1 rounded-xl ${STATUS_COLORS[order.status] || 'bg-gray-100 text-gray-600'}`}>
                                                     {STATUS_LABELS[order.status] || order.status}
                                                 </span>
                                             </td>
@@ -454,10 +454,10 @@ export default function AdminSalesPage() {
             {/* Proof Image Modal */}
             {proofImage && (
                 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" onClick={() => setProofImage(null)}>
-                    <div className="relative max-w-2xl max-h-[80vh] bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm" onClick={e => e.stopPropagation()}>
+                    <div className="relative max-w-2xl max-h-[80vh] bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm" onClick={e => e.stopPropagation()}>
                         <button
                             onClick={() => setProofImage(null)}
-                            className="absolute top-3 left-3 w-8 h-8 bg-black/50 text-white rounded-full flex items-center justify-center hover:bg-black/70 z-10"
+                            className="absolute top-3 left-3 w-8 h-8 bg-black/50 text-white rounded-xl flex items-center justify-center hover:bg-black/70 z-10"
                         >
                             <FiX size={16} />
                         </button>

@@ -68,7 +68,7 @@ export default function ShowcasePage() {
                 <div className="container-custom">
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {showcases.map((item, idx) => (
-                            <div key={idx} className="group rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-sm transition-all hover:-translate-y-2 bg-white">
+                            <div key={idx} className="group rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-sm transition-all hover:-translate-y-2 bg-white">
                                 <div className="h-48 overflow-hidden relative">
                                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors z-10"></div>
                                     <img
@@ -76,7 +76,7 @@ export default function ShowcasePage() {
                                         alt={item.title}
                                         className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                                     />
-                                    <div className="absolute top-4 right-4 z-20 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-primary-700">
+                                    <div className="absolute top-4 right-4 z-20 bg-white/90 backdrop-blur px-3 py-1 rounded-xl text-xs font-bold text-primary-700">
                                         {item.type}
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@ export default function ShowcasePage() {
                         ))}
                     </div>
 
-                    <div className="mt-20 bg-gray-50 rounded-3xl p-12 text-center">
+                    <div className="mt-20 bg-gray-50 rounded-xl p-12 text-center">
                         <h2 className="text-3xl font-bold mb-6">هل لديك فكرة مشروع؟</h2>
                         <p className="text-xl text-gray-600 mb-8">
                             لا تدع أفكارك تبقى حبيسة الأدراج. ابدأ اليوم وحول شغفك إلى مشروع حقيقي.

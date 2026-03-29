@@ -25,14 +25,14 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
         <div className="min-h-screen bg-white selection:bg-accent/20" dir="rtl">
             {/* Minimalist Corporate Blog Hero */}
             <section className="bg-ink text-white py-24 md:py-32 relative overflow-hidden border-b border-white/5">
-                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-accent/5 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-accent/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
                 
                 <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-10 text-accent shadow-sm">
+                        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-accent shadow-sm">
                             <FiTag size={14} /> Knowledge & Insights Hub
                         </div>
-                        <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter leading-[1.1]">
+                        <h1 className="text-5xl md:text-8xl font-bold mb-8 tracking-tighter leading-[1.1]">
                             مدونة <span className="text-accent underline underline-offset-[12px] decoration-accent/20 decoration-4 text-white">تمالين</span>
                         </h1>
                         <p className="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto font-bold leading-relaxed mb-12">
@@ -47,7 +47,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                 placeholder="عن ماذا تبحث اليوم؟"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full py-5 pl-8 pr-16 rounded-3xl bg-white text-ink font-bold placeholder:font-bold placeholder:text-gray-300 outline-none focus:ring-4 focus:ring-accent/20 transition-all border-none shadow-sm"
+                                className="w-full py-5 pl-8 pr-16 rounded-xl bg-white text-ink font-bold placeholder:font-bold placeholder:text-gray-300 outline-none focus:ring-4 focus:ring-accent/20 transition-all border-none shadow-sm"
                             />
                         </div>
                     </motion.div>
@@ -63,7 +63,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                             <button
                                 key={idx}
                                 onClick={() => setSelectedCategory(cat)}
-                                className={`px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${selectedCategory === cat
+                                className={`px-8 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all duration-300 ${selectedCategory === cat
                                     ? 'bg-ink text-white shadow-sm shadow-ink/10 -translate-y-1'
                                     : 'bg-white text-gray-400 border border-gray-100 hover:border-ink hover:text-ink'
                                     }`}
@@ -81,7 +81,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                     <article key={post.id} className="group flex flex-col bg-white border border-gray-100 rounded-[2.5rem] p-4 transition-all duration-500 hover:border-accent/20 hover:shadow-sm hover:shadow-gray-200/50">
                                         <div className="h-64 overflow-hidden rounded-[2rem] relative bg-gray-50 mb-8 border border-gray-50">
                                             <div className="absolute top-4 right-4 z-10">
-                                                <span className="bg-white px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest text-ink shadow-lg shadow-black/5 flex items-center gap-2 outline outline-1 outline-gray-50">
+                                                <span className="bg-white px-4 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-widest text-ink shadow-sm shadow-black/5 flex items-center gap-2 outline outline-1 outline-gray-50">
                                                     <FiTag className="text-accent" /> {post.category || 'Insights'}
                                                 </span>
                                             </div>
@@ -98,7 +98,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                                 <span className="flex items-center gap-1.5"><FiClock className="text-accent" /> 5 MIN READ</span>
                                             </div>
                                             
-                                            <h2 className="text-2xl font-black mb-4 text-ink leading-[1.2] tracking-tighter group-hover:text-accent transition-colors">
+                                            <h2 className="text-2xl font-bold mb-4 text-ink leading-[1.2] tracking-tighter group-hover:text-accent transition-colors">
                                                 {post.title}
                                             </h2>
                                             
@@ -111,9 +111,9 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                                     <div className="w-8 h-8 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-400 group-hover:bg-accent group-hover:text-white group-hover:border-transparent transition-all">
                                                         <FiUser size={14} />
                                                     </div>
-                                                    <span className="text-xs font-black text-ink uppercase tracking-wider">{post.authorName || 'Maher'}</span>
+                                                    <span className="text-xs font-bold text-ink uppercase tracking-wider">{post.authorName || 'Maher'}</span>
                                                 </div>
-                                                <Link href={`/blog/${post.slug}`} className="text-accent font-black text-[10px] uppercase tracking-[0.2em] flex items-center gap-3 group-hover:gap-5 transition-all outline-none">
+                                                <Link href={`/blog/${post.slug}`} className="text-accent font-bold text-[10px] uppercase tracking-[0.2em] flex items-center gap-3 group-hover:gap-5 transition-all outline-none">
                                                     Read Article <FiArrowLeft className="rotate-180" size={16} />
                                                 </Link>
                                             </div>
@@ -127,7 +127,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                 <div className="mt-20 text-center">
                                     <button
                                         onClick={() => setVisibleCount(prev => prev + 6)}
-                                        className="px-12 py-5 bg-white border border-gray-200 text-ink font-black text-xs uppercase tracking-[0.25em] rounded-2xl hover:border-ink hover:text-ink transition-all shadow-sm hover:shadow-sm active:scale-95"
+                                        className="px-12 py-5 bg-white border border-gray-200 text-ink font-bold text-xs uppercase tracking-[0.25em] rounded-xl hover:border-ink hover:text-ink transition-all shadow-sm hover:shadow-sm active:scale-95"
                                     >
                                         Load More Insights
                                     </button>
@@ -136,14 +136,14 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                         </>
                     ) : (
                         <div className="text-center py-40 bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-100 p-8">
-                             <div className="w-20 h-20 bg-white rounded-3xl shadow-sm shadow-gray-200/50 flex items-center justify-center mx-auto mb-8 text-gray-200">
+                             <div className="w-20 h-20 bg-white rounded-xl shadow-sm shadow-gray-200/50 flex items-center justify-center mx-auto mb-8 text-gray-200">
                                 <FiSearch size={32} />
                             </div>
-                            <h3 className="text-2xl font-black text-ink mb-2 tracking-tight">لا توجد نتائج مطابقة لفلترك</h3>
+                            <h3 className="text-2xl font-bold text-ink mb-2 tracking-tight">لا توجد نتائج مطابقة لفلترك</h3>
                             <p className="text-gray-400 font-bold mb-10 max-w-sm mx-auto">حاول استخدام كلمات مختلفة أو ابحث في تصنيف آخر.</p>
                             <button
                                 onClick={() => { setSelectedCategory('الكل'); setSearchQuery(''); }}
-                                className="px-10 py-4 bg-ink text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-black transition-all shadow-sm shadow-ink/10"
+                                className="px-10 py-4 bg-ink text-white rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-black transition-all shadow-sm shadow-ink/10"
                             >
                                 Reset All Filters
                             </button>

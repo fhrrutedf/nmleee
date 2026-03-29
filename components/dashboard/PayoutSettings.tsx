@@ -97,7 +97,7 @@ export default function PayoutSettings() {
     if (loading) {
         return <div className=" space-y-4">
             <div className="h-10 bg-gray-100 rounded-lg w-1/4"></div>
-            <div className="h-64 bg-gray-50 rounded-2xl"></div>
+            <div className="h-64 bg-gray-50 rounded-xl"></div>
         </div>;
     }
 
@@ -113,7 +113,7 @@ export default function PayoutSettings() {
 
     return (
         <div className="space-y-8">
-            <div className="bg-primary-50 border border-primary-100 p-4 rounded-2xl flex items-start gap-3">
+            <div className="bg-primary-50 border border-primary-100 p-4 rounded-xl flex items-start gap-3">
                 <FiInfo className="text-primary-600 mt-1 shrink-0" />
                 <p className="text-sm text-primary-800 leading-relaxed">
                     يُرجى اختيار وتفعيل طريقة سحب واحدة على الأقل لتتمكن من طلب سحب أرباحك. سيتم مراجعة البيانات بدقة قبل إرسال الأموال.
@@ -127,7 +127,7 @@ export default function PayoutSettings() {
                         <button
                             key={method.id}
                             onClick={() => setActiveMethod(method.id)}
-                            className={`p-4 rounded-2xl border-2 transition-all flex items-center gap-4 text-right ${
+                            className={`p-4 rounded-xl border-2 transition-all flex items-center gap-4 text-right ${
                                 isActive 
                                 ? 'border-primary-500 bg-primary-50/50 shadow-md ring-2 ring-primary-500/20' 
                                 : 'border-gray-100 hover:border-gray-200 bg-white'
@@ -150,9 +150,9 @@ export default function PayoutSettings() {
 
             {/* Method Details Form */}
             {activeMethod && (
-                <div className="bg-white border border-gray-100 p-6 rounded-3xl shadow-sm animate-fade-in">
+                <div className="bg-white border border-gray-100 p-6 rounded-xl shadow-sm ">
                     <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
-                        <span className="w-1.5 h-6 bg-primary-500 rounded-full"></span>
+                        <span className="w-1.5 h-6 bg-primary-500 rounded-xl"></span>
                         بيانات {getPayoutMethodLabel(activeMethod)}
                     </h3>
 

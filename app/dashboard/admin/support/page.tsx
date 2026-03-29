@@ -70,10 +70,10 @@ export default function AdminSupportPage() {
 
             {loading ? (
                 <div className="flex items-center justify-center min-h-[400px]">
-                    <div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
+                    <div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-xl animate-spin" />
                 </div>
             ) : tickets.length === 0 ? (
-                <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-12 text-center text-gray-500 flex flex-col items-center justify-center min-h-[400px]">
+                <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-12 text-center text-gray-500 flex flex-col items-center justify-center min-h-[400px]">
                     <FiMessageSquare className="text-gray-300 dark:text-gray-700 mb-4" size={64} />
                     <h3 className="text-xl font-bold mb-2 text-ink dark:text-white">لا توجد تذاكر حالياً</h3>
                     <p>لا يوجد تذاكر دعم فني تتطابق مع التصفية الحالية ({getStatusLabel(statusFilter)})</p>
@@ -81,10 +81,10 @@ export default function AdminSupportPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {tickets.map(ticket => (
-                        <div key={ticket.id} className="bg-white dark:bg-card-white rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 flex flex-col justify-between hover:shadow-lg transition-shadow">
+                        <div key={ticket.id} className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 flex flex-col justify-between hover:shadow-sm transition-shadow">
                             <div>
                                 <div className="flex justify-between items-start mb-4">
-                                    <span className={`px-3 py-1 text-xs font-bold rounded-full ${getStatusStyle(ticket.status)}`}>
+                                    <span className={`px-3 py-1 text-xs font-bold rounded-xl ${getStatusStyle(ticket.status)}`}>
                                         {getStatusLabel(ticket.status)}
                                     </span>
                                     <span className="font-mono text-xs text-gray-400 bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded-md flex items-center gap-1">
@@ -95,7 +95,7 @@ export default function AdminSupportPage() {
                                     {ticket.subject}
                                 </h3>
                                 <div className="flex items-center gap-2 mb-4 text-sm text-gray-500 font-medium">
-                                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-ink to-purple-600 flex items-center justify-center text-white shrink-0">
+                                    <div className="w-8 h-8 rounded-xl bg-ink flex items-center justify-center text-white shrink-0">
                                         <FiUser />
                                     </div>
                                     <span className="truncate">{ticket.user.name}</span>

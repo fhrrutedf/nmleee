@@ -70,7 +70,7 @@ export default function SubscriptionsPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-ink"></div>
             </div>
         );
     }
@@ -118,7 +118,7 @@ export default function SubscriptionsPage() {
                         {plans.map((plan) => (
                             <div
                                 key={plan.id}
-                                className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
+                                className="bg-white rounded-lg shadow-md p-6 hover:shadow-sm transition-shadow"
                             >
                                 {/* Plan Header */}
                                 <div className="flex justify-between items-start mb-4">
@@ -127,7 +127,7 @@ export default function SubscriptionsPage() {
                                         <p className="text-sm text-gray-600 mt-1">{plan.description}</p>
                                     </div>
                                     <span
-                                        className={`px-2 py-1 text-xs rounded-full ${plan.isActive
+                                        className={`px-2 py-1 text-xs rounded-xl ${plan.isActive
                                             ? 'bg-green-100 text-green-800'
                                             : 'bg-gray-100 text-gray-800'
                                             }`}

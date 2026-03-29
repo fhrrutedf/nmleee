@@ -36,7 +36,7 @@ export default function Testimonials() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary-ink font-bold text-sm tracking-widest uppercase bg-indigo-50 px-4 py-2 rounded-full"
+            className="text-primary-ink font-bold text-sm tracking-widest uppercase bg-indigo-50 px-4 py-2 rounded-xl"
           >
             ماذا يقول عملاؤنا
           </motion.span>
@@ -70,7 +70,7 @@ export default function Testimonials() {
                 "{t.content}"
               </p>
               <div className="flex items-center gap-4 border-t border-slate-50 pt-6">
-                <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-2xl object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-xl object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
                 <div>
                   <h4 className="font-bold text-slate-900">{t.name}</h4>
                   <p className="text-xs text-slate-400 font-bold">{t.role}</p>

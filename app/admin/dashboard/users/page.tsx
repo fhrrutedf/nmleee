@@ -173,9 +173,9 @@ export default function UsersManagement() {
 
     const planBadge = (planType?: string) => {
         switch (planType) {
-            case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-accent-50 text-accent-600 dark:bg-blue-900/20 dark:text-blue-400">🚀 GROWTH</span>;
-            case 'PRO': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400">👑 PRO</span>;
-            default: return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400">🆓 FREE</span>;
+            case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-accent-50 text-accent-600 dark:bg-blue-900/20 dark:text-blue-400">🚀 GROWTH</span>;
+            case 'PRO': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400">👑 PRO</span>;
+            default: return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400">🆓 FREE</span>;
         }
     };
 
@@ -186,7 +186,7 @@ export default function UsersManagement() {
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-bold text-ink dark:text-white mb-2 tracking-tight flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-2xl bg-accent/10 text-accent flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center">
                             <FiUsers />
                         </div>
                         إدارة المستخدمين
@@ -197,7 +197,7 @@ export default function UsersManagement() {
                 </div>
 
                 {/* Quick Stats */}
-                <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
+                <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
                     <div className="px-5 py-3 flex flex-col items-center">
                         <span className="text-gray-400 text-xs">إجمالي</span>
                         <span className="text-ink dark:text-white text-lg">{stats.totalUsers}</span>
@@ -221,8 +221,8 @@ export default function UsersManagement() {
                     >
                         تحديث لحظي
                         {autoRefresh && <span className="relative flex h-2 w-2 mr-1">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-xl bg-green-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-xl h-2 w-2 bg-green-500"></span>
                         </span>}
                     </button>
                     <button onClick={() => fetchUsers(true)} className="btn bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 py-2 px-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800">
@@ -276,7 +276,7 @@ export default function UsersManagement() {
                 <div className="overflow-x-auto">
                     {loading && users.length === 0 ? (
                         <div className="p-12 flex flex-col items-center justify-center text-gray-400">
-                            <div className="w-8 h-8 border-2 border-gray-200 border-t-accent rounded-full animate-spin mb-4"></div>
+                            <div className="w-8 h-8 border-2 border-gray-200 border-t-accent rounded-xl animate-spin mb-4"></div>
                             جاري تحميل حسابات المستخدمين...
                         </div>
                     ) : (
@@ -309,19 +309,19 @@ export default function UsersManagement() {
                                                 <div className="flex items-center gap-3">
                                                     <div className="relative">
                                                         {user.avatar ? (
-                                                            <img src={user.avatar} className="w-10 h-10 rounded-full object-cover border border-gray-100 dark:border-gray-700" alt={user.name} />
+                                                            <img src={user.avatar} className="w-10 h-10 rounded-xl object-cover border border-gray-100 dark:border-gray-700" alt={user.name} />
                                                         ) : (
-                                                            <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 font-bold">
+                                                            <div className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 font-bold">
                                                                 {user.name.charAt(0).toUpperCase()}
                                                             </div>
                                                         )}
                                                         {user.isVerified && (
-                                                            <div className="absolute -bottom-1 -right-1 bg-white dark:bg-card-white rounded-full p-0.5" title="حساب موثق">
+                                                            <div className="absolute -bottom-1 -right-1 bg-white dark:bg-card-white rounded-xl p-0.5" title="حساب موثق">
                                                                 <FiCheckCircle className="text-accent-500 w-4 h-4" />
                                                             </div>
                                                         )}
                                                         {user.verificationRequests && user.verificationRequests.length > 0 && (
-                                                            <div className="absolute -top-1 -right-1 bg-orange-500 text-white rounded-full p-0.5 " title="هناك طلب توثيق بانتظار المراجعة">
+                                                            <div className="absolute -top-1 -right-1 bg-orange-500 text-white rounded-xl p-0.5 " title="هناك طلب توثيق بانتظار المراجعة">
                                                                 <FiActivity className="w-2.5 h-2.5" />
                                                             </div>
                                                         )}
@@ -338,7 +338,7 @@ export default function UsersManagement() {
                                                 </div>
                                             </td>
                                             <td className="py-4 px-6">
-                                                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase ${user.role === 'ADMIN' ? 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400' :
+                                                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-[11px] font-bold tracking-widest uppercase ${user.role === 'ADMIN' ? 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400' :
                                                     user.role === 'SELLER' ? 'bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400' :
                                                         'bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400'
                                                     }`}>
@@ -442,7 +442,7 @@ export default function UsersManagement() {
         {/* Plan Management Modal */}
         {planModal && (
             <div className="fixed inset-0 bg-black/50  z-50 flex items-center justify-center p-4" onClick={() => setPlanModal(null)}>
-                <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm max-w-md w-full p-8" onClick={e => e.stopPropagation()}>
+                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm max-w-md w-full p-8" onClick={e => e.stopPropagation()}>
                     <h3 className="text-xl font-bold text-ink dark:text-white mb-2 flex items-center gap-2">
                         <FiAward className="text-purple-500" /> إدارة باقة المستخدم
                     </h3>
@@ -483,7 +483,7 @@ export default function UsersManagement() {
                         <button
                             onClick={savePlan}
                             disabled={savingPlan || selectedPlan === planModal.currentPlan}
-                            className="flex-1 bg-gradient-to-r from-purple-600 to-accent text-white py-3 rounded-xl font-bold text-sm hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex-1 bg-ink text-white py-3 rounded-xl font-bold text-sm hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {savingPlan ? 'جاري الحفظ...' : 'تحديث الباقة'}
                         </button>

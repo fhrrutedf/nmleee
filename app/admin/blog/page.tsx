@@ -76,7 +76,7 @@ export default function BlogAdminPage() {
                 </Link>
             </div>
 
-            <div className="bg-white dark:bg-card-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 dark:border-gray-800">
+            <div className="bg-white dark:bg-card-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100 dark:border-gray-800">
                 <div className="relative mb-6">
                     <input
                         type="text"
@@ -112,7 +112,7 @@ export default function BlogAdminPage() {
                                         </td>
                                         <td className="px-4 py-4 text-gray-500">{post.category || "---"}</td>
                                         <td className="px-4 py-4">
-                                            <span className={`px-2 py-1 text-xs rounded-full font-medium ${post.status === "PUBLISHED" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
+                                            <span className={`px-2 py-1 text-xs rounded-xl font-medium ${post.status === "PUBLISHED" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
                                                 {post.status === "PUBLISHED" ? "منشور" : "مسودة"}
                                             </span>
                                         </td>

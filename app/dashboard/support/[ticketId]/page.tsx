@@ -69,7 +69,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-[400px]">
-            <div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
+            <div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-xl animate-spin" />
         </div>
     );
 
@@ -95,14 +95,14 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                 <FiArrowRight /> العودة لمركز الدعم
             </Link>
 
-            <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-8">
+            <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-8">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-100 dark:border-gray-800 pb-6 mb-6">
                     <div>
                         <div className="flex items-center gap-3 mb-2">
-                            <span className="font-mono text-sm text-accent font-bold px-3 py-1 bg-accent/10 rounded-full">
+                            <span className="font-mono text-sm text-accent font-bold px-3 py-1 bg-accent/10 rounded-xl">
                                 {ticket.ticketNumber}
                             </span>
-                            <span className={`px-3 py-1 text-xs font-bold rounded-full ${statusInfo.css}`}>
+                            <span className={`px-3 py-1 text-xs font-bold rounded-xl ${statusInfo.css}`}>
                                 {statusInfo.label}
                             </span>
                         </div>
@@ -121,10 +121,10 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                         const isAdmin = msg.senderRole === 'ADMIN';
                         return (
                             <div key={msg.id} className={`flex gap-4 ${isAdmin ? '' : 'flex-row-reverse'}`}>
-                                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${isAdmin ? 'bg-gradient-to-br from-accent to-purple-600' : 'bg-gray-200 dark:bg-gray-800'}`}>
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isAdmin ? 'bg-ink' : 'bg-gray-200 dark:bg-gray-800'}`}>
                                     {isAdmin ? <FiMessageSquare className="text-white" /> : <FiUser className="text-gray-500" />}
                                 </div>
-                                <div className={`max-w-[80%] rounded-2xl p-5 ${isAdmin ? 'bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none' : 'bg-accent/10 dark:bg-accent/20 text-accent rounded-tl-none'}`}>
+                                <div className={`max-w-[80%] rounded-xl p-5 ${isAdmin ? 'bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none' : 'bg-accent/10 dark:bg-accent/20 text-accent rounded-tl-none'}`}>
                                     <div className="flex items-center gap-2 mb-2">
                                         <span className={`font-bold text-sm ${isAdmin ? 'text-ink dark:text-white' : 'text-accent'}`}>
                                             {isAdmin ? 'فريق الدعم (المنصة)' : 'أنت'}
@@ -156,7 +156,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
 
                 {/* Reply Form */}
                 {isClosed ? (
-                    <div className="bg-gray-50 dark:bg-gray-900/50 p-6 rounded-2xl border border-gray-100 dark:border-gray-800 flex items-center gap-3 text-gray-500 justify-center">
+                    <div className="bg-gray-50 dark:bg-gray-900/50 p-6 rounded-xl border border-gray-100 dark:border-gray-800 flex items-center gap-3 text-gray-500 justify-center">
                         <FiInfo className="text-xl" />
                         <p className="font-bold">هذه التذكرة مغلقة ولا يمكن إضافة المزيد من الردود عليها.</p>
                     </div>
@@ -165,7 +165,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                         <div className="relative">
                             <textarea
                                 rows={3}
-                                className="input w-full pr-14 resize-none rounded-2xl focus:ring-2 focus:ring-accent"
+                                className="input w-full pr-14 resize-none rounded-xl focus:ring-2 focus:ring-accent"
                                 placeholder="اكتب ردك هنا..."
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
@@ -175,7 +175,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                                 disabled={submitting || !message.trim()}
                                 className="absolute top-3 left-4 w-10 h-10 bg-accent hover:bg-accent-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors shadow-md"
                             >
-                                {submitting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FiSend />}
+                                {submitting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-xl animate-spin" /> : <FiSend />}
                             </button>
                         </div>
                         <div className="flex items-center gap-2">

@@ -106,7 +106,7 @@ export default function BookAppointmentPage() {
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-[60vh]">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent"></div>
             </div>
         );
     }
@@ -163,10 +163,10 @@ export default function BookAppointmentPage() {
                     <p className="text-gray-600 mt-2">اختر الوقت المناسب لك للحصول على استشارتك مع {creator.name}</p>
                 </div>
 
-                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     {/* Seller Profile Summary */}
-                    <div className="p-6 bg-gradient-to-r from-primary-50 to-primary-100/50 border-b border-primary-100 flex gap-4 items-center">
-                        <div className="w-16 h-16 rounded-full overflow-hidden bg-white border-2 border-white shadow-sm flex-shrink-0">
+                    <div className="p-6 bg-ink border-b border-primary-100 flex gap-4 items-center">
+                        <div className="w-16 h-16 rounded-xl overflow-hidden bg-white border-2 border-white shadow-sm flex-shrink-0">
                             {creator.avatar ? (
                                 <img src={creator.avatar} alt={creator.name} className="w-full h-full object-cover" />
                             ) : (
@@ -189,7 +189,7 @@ export default function BookAppointmentPage() {
 
                     {!hasAvailability ? (
                         <div className="p-12 text-center">
-                            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
+                            <div className="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-gray-400">
                                 <FiCalendar className="text-2xl" />
                             </div>
                             <h3 className="text-xl font-bold text-gray-800 mb-2">لا توجد مواعيد متاحة حالياً</h3>
@@ -200,7 +200,7 @@ export default function BookAppointmentPage() {
                             {/* Step 1: Date Selection */}
                             <div className="mb-8">
                                 <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 text-primary-700 text-sm">1</span>
+                                    <span className="flex items-center justify-center w-6 h-6 rounded-xl bg-primary-100 text-primary-700 text-sm">1</span>
                                     اختر يوم الحجز
                                 </h3>
 
@@ -223,7 +223,7 @@ export default function BookAppointmentPage() {
                             {/* Step 2: Time Selection */}
                             <div className={`transition-opacity duration-300 ${(!selectedDate || availableTimes.length === 0) ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
                                 <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 text-primary-700 text-sm">2</span>
+                                    <span className="flex items-center justify-center w-6 h-6 rounded-xl bg-primary-100 text-primary-700 text-sm">2</span>
                                     اختر وقت الجلسة
                                 </h3>
 
@@ -248,7 +248,7 @@ export default function BookAppointmentPage() {
                                 <button
                                     onClick={handleContinue}
                                     disabled={!selectedDate || !selectedTime}
-                                    className={`btn btn-primary px-8 py-3 text-lg flex items-center gap-2 transition-transform ${(!selectedDate || !selectedTime) ? 'opacity-50 cursor-not-allowed' : 'hover:-translate-y-1 hover:shadow-lg'}`}
+                                    className={`btn btn-primary px-8 py-3 text-lg flex items-center gap-2 transition-transform ${(!selectedDate || !selectedTime) ? 'opacity-50 cursor-not-allowed' : 'hover:-translate-y-1 hover:shadow-sm'}`}
                                 >
                                     <span>المتابعة للدفع</span>
                                     <FiCheckCircle />

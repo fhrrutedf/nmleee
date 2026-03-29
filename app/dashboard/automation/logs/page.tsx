@@ -78,7 +78,7 @@ export default function EmailLogsPage() {
                     { label: 'مُرسَل', value: stats.sent, color: 'text-green-600' },
                     { label: 'فشل', value: stats.failed, color: 'text-red-600' },
                 ].map(stat => (
-                    <div key={stat.label} className="bg-white dark:bg-card-white rounded-2xl border border-gray-100 dark:border-gray-800 p-4 text-center">
+                    <div key={stat.label} className="bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 p-4 text-center">
                         <p className={`text-3xl font-bold ${stat.color}`}>{stat.value}</p>
                         <p className="text-text-muted text-sm">{stat.label}</p>
                     </div>
@@ -96,10 +96,10 @@ export default function EmailLogsPage() {
             </div>
 
             {/* Logs Table */}
-            <div className="bg-white dark:bg-card-white rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
+            <div className="bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden">
                 {loading ? (
                     <div className="flex items-center justify-center h-32">
-                        <div className="w-6 h-6 border-4 border-accent border-t-transparent rounded-full animate-spin" />
+                        <div className="w-6 h-6 border-4 border-accent border-t-transparent rounded-xl animate-spin" />
                     </div>
                 ) : filtered.length === 0 ? (
                     <div className="text-center py-16 text-text-muted">

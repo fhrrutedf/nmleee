@@ -272,9 +272,9 @@ export default function SettingsPage() {
                             navigator.clipboard.writeText(url);
                             toast.success('تم نسخ رابط متجرك بنجاح!');
                         }}
-                        className="group relative flex items-center gap-2 px-6 py-3 bg-white dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-accent text-ink dark:text-white shadow-sm transition-all hover:-translate-y-0.5 rounded-2xl"
+                        className="group relative flex items-center gap-2 px-6 py-3 bg-white dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-accent text-ink dark:text-white shadow-sm transition-all hover:-translate-y-0.5 rounded-xl"
                     >
-                        <div className="w-8 h-8 rounded-full bg-accent-50 dark:bg-blue-900/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-colors">
+                        <div className="w-8 h-8 rounded-xl bg-accent-50 dark:bg-blue-900/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-colors">
                             <FiCopy size={14} />
                         </div>
                         <div className="text-right">
@@ -291,7 +291,7 @@ export default function SettingsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 {/* Sidebar Tabs */}
                 <div className="lg:col-span-1 overflow-x-auto pb-2 sm:pb-0 scrollbar-hide">
-                    <div className="card flex lg:flex-col gap-2 p-2 sm:p-4 min-w-max lg:min-w-0 bg-white dark:bg-card-white rounded-2xl sm:rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800">
+                    <div className="card flex lg:flex-col gap-2 p-2 sm:p-4 min-w-max lg:min-w-0 bg-white dark:bg-card-white rounded-xl sm:rounded-xl shadow-sm border border-gray-100 dark:border-gray-800">
                         {tabs.map((tab) => (
                             <button
                                 key={tab.id}
@@ -310,10 +310,10 @@ export default function SettingsPage() {
 
                 {/* Content */}
                 <div className="lg:col-span-3">
-                    <div className="card min-h-[500px] bg-white dark:bg-card-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100 dark:border-gray-800">
+                    <div className="card min-h-[500px] bg-white dark:bg-card-white rounded-xl sm:rounded-xl p-6 sm:p-8 shadow-sm border border-gray-100 dark:border-gray-800">
                         {/* Profile Tab */}
                         {activeTab === 'profile' && (
-                            <div className="space-y-8 animate-fade-in">
+                            <div className="space-y-8 ">
                                 <h2 className="text-xl sm:text-2xl font-bold text-ink dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الملف الشخصي</h2>
 
                                 {/* Avatar & Cover Upload */}
@@ -321,8 +321,8 @@ export default function SettingsPage() {
                                     {/* Avatar */}
                                     <div className="space-y-3">
                                         <label className="label">الصورة الشخصية (Avatar)</label>
-                                        <div className="flex flex-col items-center gap-4 p-4 border border-dashed border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800/50">
-                                            <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-accent to-purple-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg ring-4 ring-white dark:ring-gray-900 border border-gray-100 dark:border-gray-800 shrink-0 relative group">
+                                        <div className="flex flex-col items-center gap-4 p-4 border border-dashed border-gray-300 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800/50">
+                                            <div className="w-24 h-24 rounded-xl overflow-hidden bg-ink flex items-center justify-center text-white text-3xl font-bold shadow-sm ring-4 ring-white dark:ring-gray-900 border border-gray-100 dark:border-gray-800 shrink-0 relative group">
                                                 {profileData.avatar ? (
                                                     <img src={profileData.avatar} alt="Avatar" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                                                 ) : (
@@ -342,8 +342,8 @@ export default function SettingsPage() {
                                     {/* Cover Image */}
                                     <div className="space-y-3">
                                         <label className="label">صورة الغلاف (Cover)</label>
-                                        <div className="flex flex-col gap-4 p-4 border border-dashed border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800/50">
-                                            <div className="h-24 w-full rounded-xl overflow-hidden bg-gradient-to-br from-accent to-purple-600 flex items-center justify-center text-white font-bold shadow-inner relative group">
+                                        <div className="flex flex-col gap-4 p-4 border border-dashed border-gray-300 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800/50">
+                                            <div className="h-24 w-full rounded-xl overflow-hidden bg-ink flex items-center justify-center text-white font-bold shadow-inner relative group">
                                                 {profileData.coverImage ? (
                                                     <img src={profileData.coverImage} alt="Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                                                 ) : (
@@ -393,7 +393,7 @@ export default function SettingsPage() {
                                             />
                                         </div>
                                         {showUsernameWarning && (
-                                            <div className="mt-2 p-3 bg-accent-50 border border-amber-200 rounded-xl text-xs text-blue-800 flex items-start gap-2 shadow-sm animate-fade-in">
+                                            <div className="mt-2 p-3 bg-accent-50 border border-amber-200 rounded-xl text-xs text-blue-800 flex items-start gap-2 shadow-sm ">
                                                 <FiAlertCircle className="mt-0.5 shrink-0 text-accent-500" />
                                                 <p>
                                                     <strong className="block mb-1">تحذير: تغيير اسم المستخدم</strong>
@@ -508,7 +508,7 @@ export default function SettingsPage() {
 
                         {/* Security Tab */}
                         {activeTab === 'security' && (
-                            <div className="space-y-8 animate-fade-in">
+                            <div className="space-y-8 ">
                                 <h2 className="text-2xl font-bold text-ink dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الأمان وكلمة المرور</h2>
 
                                 <div className="space-y-6 max-w-lg">
@@ -567,7 +567,7 @@ export default function SettingsPage() {
 
                         {/* Notifications Tab */}
                         {activeTab === 'notifications' && (
-                            <div className="space-y-8 animate-fade-in">
+                            <div className="space-y-8 ">
                                 <h2 className="text-2xl font-bold text-ink dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">إعدادات الإشعارات</h2>
 
                                 <div className="space-y-4">
@@ -592,7 +592,7 @@ export default function SettingsPage() {
                                                     })}
                                                     className="sr-only peer"
                                                 />
-                                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
+                                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-xl peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
                                             </label>
                                         </div>
                                     ))}
@@ -609,7 +609,7 @@ export default function SettingsPage() {
 
                         {/* Payment Tab */}
                         {activeTab === 'payment' && (
-                            <div className="space-y-8 animate-fade-in">
+                            <div className="space-y-8 ">
                                 <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-4">
                                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">إعدادات تحويل الأرباح</h2>
                                     <FiTrendingUp className="text-2xl text-accent" />
@@ -620,7 +620,7 @@ export default function SettingsPage() {
 
                         {/* Integrations Tab */}
                         {activeTab === 'integrations' && (
-                            <div className="space-y-8 animate-fade-in">
+                            <div className="space-y-8 ">
                                 <h2 className="text-2xl font-bold text-ink dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">التكاملات والخدمات المرتبطة</h2>
 
                                 {integrationMsg && (
@@ -634,7 +634,7 @@ export default function SettingsPage() {
                                 )}
 
                                 {/* Google Calendar */}
-                                <div className="p-6 border-2 border-gray-100 dark:border-gray-800 rounded-2xl hover:border-accent/30 transition-all">
+                                <div className="p-6 border-2 border-gray-100 dark:border-gray-800 rounded-xl hover:border-accent/30 transition-all">
                                     <div className="flex items-center justify-between flex-wrap gap-4">
                                         <div className="flex items-center gap-4">
                                             <div className="w-14 h-14 rounded-xl bg-white shadow-md border border-gray-100 flex items-center justify-center">
@@ -652,7 +652,7 @@ export default function SettingsPage() {
                                         <div className="flex items-center gap-3">
                                             {calendarConnected ? (
                                                 <>
-                                                    <span className="flex items-center gap-2 text-green-600 font-medium bg-green-50 px-3 py-1.5 rounded-full text-sm">
+                                                    <span className="flex items-center gap-2 text-green-600 font-medium bg-green-50 px-3 py-1.5 rounded-xl text-sm">
                                                         <FiCheckCircle />
                                                         متصل
                                                     </span>
@@ -685,7 +685,7 @@ export default function SettingsPage() {
                                 </div>
 
                                 {/* Coming Soon - Zoom */}
-                                <div className="p-6 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-2xl opacity-60">
+                                <div className="p-6 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl opacity-60">
                                     <div className="flex items-center gap-4">
                                         <div className="w-14 h-14 rounded-xl bg-accent-50 flex items-center justify-center">
                                             <span className="text-2xl">🎥</span>
@@ -694,7 +694,7 @@ export default function SettingsPage() {
                                             <h3 className="text-lg font-bold text-ink dark:text-white">Zoom</h3>
                                             <p className="text-sm text-text-muted">قريباً - ربط حسابك على Zoom</p>
                                         </div>
-                                        <span className="mr-auto bg-gray-100 dark:bg-gray-800 text-gray-500 text-xs px-3 py-1 rounded-full">قريباً</span>
+                                        <span className="mr-auto bg-gray-100 dark:bg-gray-800 text-gray-500 text-xs px-3 py-1 rounded-xl">قريباً</span>
                                     </div>
                                 </div>
                             </div>
@@ -702,7 +702,7 @@ export default function SettingsPage() {
 
                         {/* Verification Tab (Phase 10) */}
                         {activeTab === 'verification' && (
-                            <div className="space-y-8 animate-fade-in">
+                            <div className="space-y-8 ">
                                 <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-4">
                                     <h2 className="text-2xl font-bold text-ink dark:text-white">توثيق الحساب (Trust Badge)</h2>
                                     <FiCheckCircle className={`text-3xl ${verificationRequest?.status === 'APPROVED' ? 'text-green-500' : 'text-accent'}`} />
@@ -711,7 +711,7 @@ export default function SettingsPage() {
                                 <div className="max-w-2xl space-y-6">
                                     {/* Current Status Banner */}
                                     {verificationRequest ? (
-                                        <div className={`p-6 rounded-2xl border-2 flex items-start gap-4 ${
+                                        <div className={`p-6 rounded-xl border-2 flex items-start gap-4 ${
                                             verificationRequest.status === 'APPROVED' ? 'bg-green-50 border-green-200 text-green-800' :
                                             verificationRequest.status === 'REJECTED' ? 'bg-red-50 border-red-200 text-red-800' :
                                             'bg-accent-50 border-blue-200 text-blue-800'
@@ -738,7 +738,7 @@ export default function SettingsPage() {
                                         </div>
                                     ) : (
                                         <>
-                                            <div className="bg-accent/5 p-6 rounded-2xl border border-accent/10 space-y-4">
+                                            <div className="bg-accent/5 p-6 rounded-xl border border-accent/10 space-y-4">
                                                 <h3 className="font-bold text-lg text-accent">لماذا توثيق الحساب؟</h3>
                                                 <ul className="space-y-3 text-sm text-text-muted">
                                                     <li className="flex items-center gap-2">🔹 الحصول على الشارة الزرقاء بجانب اسمك.</li>
@@ -774,11 +774,11 @@ export default function SettingsPage() {
 
                         {/* Privacy Tab */}
                         {activeTab === 'privacy' && (
-                            <div className="space-y-8 animate-fade-in">
+                            <div className="space-y-8 ">
                                 <h2 className="text-2xl font-bold text-ink dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الخصوصية والأمان المتقدم</h2>
 
                                 <div className="space-y-6">
-                                    <div className="p-5 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800">
+                                    <div className="p-5 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
                                         <div className="flex items-center gap-2 mb-4 text-ink dark:text-white">
                                             <FiEye className="text-accent" />
                                             <h3 className="font-bold">رؤية رقم الهاتف</h3>
@@ -795,7 +795,7 @@ export default function SettingsPage() {
                                         <p className="mt-2 text-xs text-text-muted">نوصي باختيار "مخفي" أو "واتساب فقط" لخصوصية أفضل.</p>
                                     </div>
 
-                                    <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800">
+                                    <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
                                         <div className="flex items-center gap-2 mb-4">
                                             <FiShield className="text-accent" />
                                             <h3 className="font-bold text-gray-900 dark:text-white">التحقق بخطوتين (2FA)</h3>
@@ -817,12 +817,12 @@ export default function SettingsPage() {
 
                                     {/* 2FA Setup Modal Partial */}
                                     {show2FASetup && (
-                                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  animate-fade-in">
+                                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  ">
                                             <div className="bg-white dark:bg-card-white rounded-xl p-8 max-w-md w-full shadow-sm space-y-6 text-center">
                                                 <h3 className="text-2xl font-bold text-ink dark:text-white">إعداد التحقق بخطوتين</h3>
                                                 <p className="text-sm text-text-muted">امسح رمز الـ QR التالي باستخدام تطبيق Authenticator (مثل Google أو Microsoft)</p>
                                                 
-                                                <div className="bg-white p-4 rounded-3xl inline-block border-4 border-primary-50">
+                                                <div className="bg-white p-4 rounded-xl inline-block border-4 border-primary-50">
                                                     <img src={qrCode} alt="QR Code" className="w-48 h-48 mx-auto" />
                                                 </div>
 

@@ -44,25 +44,25 @@ export default function OrdersPage() {
         switch (status) {
             case 'COMPLETED':
                 return (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
                         <FiCheck /> مكتمل
                     </span>
                 );
             case 'PENDING':
                 return (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-medium bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400">
                         <FiClock /> قيد الانتظار
                     </span>
                 );
             case 'CANCELLED':
                 return (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-medium bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">
                         <FiX /> ملغي
                     </span>
                 );
             default:
                 return (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-medium bg-gray-100 text-gray-700">
                         {status}
                     </span>
                 );
@@ -72,7 +72,7 @@ export default function OrdersPage() {
     if (error) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[400px] text-center gap-4">
-                <div className="w-16 h-16 bg-red-50 dark:bg-red-900/20 rounded-full flex items-center justify-center">
+                <div className="w-16 h-16 bg-red-50 dark:bg-red-900/20 rounded-xl flex items-center justify-center">
                     <FiX className="text-3xl text-red-500" />
                 </div>
                 <h3 className="text-xl font-bold text-ink dark:text-white">فشل تحميل الطلبات</h3>
@@ -140,11 +140,11 @@ export default function OrdersPage() {
             {/* Orders List */}
             {loading ? (
                 <div className="text-center py-12">
-                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent border-t-transparent mx-auto"></div>
+                    <div className="animate-spin rounded-xl h-12 w-12 border-4 border-accent border-t-transparent mx-auto"></div>
                 </div>
             ) : filteredOrders.length === 0 ? (
                 <div className="card text-center py-16 px-6 border-2 border-dashed border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/20">
-                    <div className="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div className="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center mx-auto mb-6">
                         <FiShoppingBag className="text-4xl text-gray-400" />
                     </div>
                     <h3 className="text-xl font-bold text-ink dark:text-white mb-2">

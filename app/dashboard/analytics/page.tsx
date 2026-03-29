@@ -65,7 +65,7 @@ export default function AnalyticsPage() {
     if (loading && !stats) {
         return (
             <div className="flex items-center justify-center min-h-[50vh]">
-                <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent border-t-transparent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-4 border-accent border-t-transparent"></div>
             </div>
         );
     }
@@ -142,7 +142,7 @@ export default function AnalyticsPage() {
             {/* KPI Cards */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {/* Total Revenue */}
-                <div className="card bg-gradient-to-br from-accent to-accent text-white">
+                <div className="card bg-ink text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-primary-100">إجمالي الإيرادات</span>
                         <FiDollarSign className="text-2xl" />
@@ -157,7 +157,7 @@ export default function AnalyticsPage() {
                 </div>
 
                 {/* Total Orders */}
-                <div className="card bg-gradient-to-br from-green-500 to-green-600 text-white">
+                <div className="card bg-ink text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-green-100">إجمالي الطلبات</span>
                         <FiShoppingCart className="text-2xl" />
@@ -170,7 +170,7 @@ export default function AnalyticsPage() {
                 </div>
 
                 {/* Total Views */}
-                <div className="card bg-gradient-to-br from-orange-500 to-blue-800 text-white">
+                <div className="card bg-ink text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-orange-100">مشاهدات المنتجات</span>
                         <FiEye className="text-2xl" />
@@ -183,7 +183,7 @@ export default function AnalyticsPage() {
                 </div>
 
                 {/* Conversion Rate */}
-                <div className="card bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+                <div className="card bg-ink text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-purple-100">معدل التحويل</span>
                         <FiBarChart2 className="text-2xl" />
@@ -283,7 +283,7 @@ export default function AnalyticsPage() {
                             key={index}
                             className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                         >
-                            <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center">
+                            <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center">
                                 {activity.type === 'order' && <FiShoppingCart className="text-accent" />}
                                 {activity.type === 'view' && <FiEye className="text-accent" />}
                                 {activity.type === 'download' && <FiDownload className="text-accent" />}
@@ -324,7 +324,7 @@ export default function AnalyticsPage() {
                                     <td className="py-3 px-4 text-ink dark:text-gray-300">{product.sales}</td>
                                     <td className="py-3 px-4 text-ink dark:text-gray-300">{product.views}</td>
                                     <td className="py-3 px-4">
-                                        <span className={`px-2 py-1 rounded-full text-xs ${product.conversionRate > 5
+                                        <span className={`px-2 py-1 rounded-xl text-xs ${product.conversionRate > 5
                                             ? 'bg-green-100 text-green-700'
                                             : 'bg-yellow-100 text-yellow-700'
                                             }`}>

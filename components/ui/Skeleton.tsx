@@ -19,7 +19,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
 
     const variantClasses = {
         text: 'rounded h-4',
-        circular: 'rounded-full',
+        circular: 'rounded-xl',
         rectangular: 'rounded-lg',
     };
 
@@ -87,7 +87,7 @@ export const StatCardSkeleton: React.FC = () => (
     <div className="card">
         <div className="flex justify-between items-start mb-4">
             <Skeleton variant="rectangular" width={48} height={48} className="rounded-xl" />
-            <Skeleton variant="rectangular" width={60} height={24} className="rounded-full" />
+            <Skeleton variant="rectangular" width={60} height={24} className="rounded-xl" />
         </div>
         <Skeleton variant="text" width="60%" className="mb-2" />
         <Skeleton variant="text" width="40%" height={32} />

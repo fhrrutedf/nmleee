@@ -109,7 +109,7 @@ export default function AdminInvoicesPage() {
                 </div>
 
                 {/* Filters */}
-                <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-sm">
+                <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-sm">
                     <div className="flex flex-wrap gap-3 items-center">
                         <div className="flex-1 min-w-[200px]">
                             <div className="relative">
@@ -146,15 +146,15 @@ export default function AdminInvoicesPage() {
                 {/* Invoices Table */}
                 {loading ? (
                     <div className="flex items-center justify-center py-20">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
+                        <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-ink"></div>
                     </div>
                 ) : invoices.length === 0 ? (
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 text-center border border-gray-100 dark:border-gray-700">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-12 text-center border border-gray-100 dark:border-gray-700">
                         <FiFileText className="mx-auto text-gray-300 mb-4" size={48} />
                         <p className="text-gray-500 text-lg">لا توجد فواتير</p>
                     </div>
                 ) : (
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm">
                                 <thead>
@@ -218,7 +218,7 @@ export default function AdminInvoicesPage() {
                                                     )}
                                                 </td>
                                                 <td className="px-4 py-3">
-                                                    <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1 w-fit ${st.bg}`}>
+                                                    <span className={`text-[11px] font-bold px-2.5 py-1 rounded-xl flex items-center gap-1 w-fit ${st.bg}`}>
                                                         {st.icon} {st.label}
                                                     </span>
                                                 </td>
@@ -263,7 +263,7 @@ export default function AdminInvoicesPage() {
             {/* Detail Modal */}
             {selectedInvoice && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelectedInvoice(null)}>
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-sm" onClick={e => e.stopPropagation()}>
+                    <div className="bg-white dark:bg-gray-800 rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-sm" onClick={e => e.stopPropagation()}>
                         <div className="p-6 space-y-5">
                             {/* Header */}
                             <div className="flex items-center justify-between">
@@ -271,7 +271,7 @@ export default function AdminInvoicesPage() {
                                     <h3 className="text-lg font-bold text-gray-900 dark:text-white">🧾 {selectedInvoice.invoiceNumber}</h3>
                                     <p className="text-xs text-gray-400">طلب: {selectedInvoice.order.orderNumber}</p>
                                 </div>
-                                <button onClick={() => setSelectedInvoice(null)} className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                                <button onClick={() => setSelectedInvoice(null)} className="w-8 h-8 rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
                                     <FiX size={16} />
                                 </button>
                             </div>
@@ -360,8 +360,8 @@ export default function AdminInvoicesPage() {
             {/* Proof Image Modal */}
             {proofImage && (
                 <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4" onClick={() => setProofImage(null)}>
-                    <div className="relative max-w-2xl bg-white dark:bg-gray-800 rounded-2xl overflow-hidden" onClick={e => e.stopPropagation()}>
-                        <button onClick={() => setProofImage(null)} className="absolute top-3 left-3 w-8 h-8 bg-black/50 text-white rounded-full flex items-center justify-center z-10">
+                    <div className="relative max-w-2xl bg-white dark:bg-gray-800 rounded-xl overflow-hidden" onClick={e => e.stopPropagation()}>
+                        <button onClick={() => setProofImage(null)} className="absolute top-3 left-3 w-8 h-8 bg-black/50 text-white rounded-xl flex items-center justify-center z-10">
                             <FiX size={16} />
                         </button>
                         <img src={proofImage} alt="إيصال" className="max-w-full max-h-[80vh] object-contain" />

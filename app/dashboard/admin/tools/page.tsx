@@ -24,7 +24,7 @@ function Tab({ id, active, onClick, icon: Icon, label, badge }: any) {
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap relative ${active ? 'bg-accent text-white shadow-md' : 'text-text-muted hover:bg-gray-100 dark:hover:bg-gray-800'
                 }`}>
             <Icon className="text-base" />{label}
-            {badge > 0 && <span className="absolute -top-1.5 -left-1.5 bg-red-500 text-white text-[10px] min-w-[18px] px-1 rounded-full">{badge}</span>}
+            {badge > 0 && <span className="absolute -top-1.5 -left-1.5 bg-red-500 text-white text-[10px] min-w-[18px] px-1 rounded-xl">{badge}</span>}
         </button>
     );
 }
@@ -208,7 +208,7 @@ export default function AdminPayoutsPage() {
                                 <div>
                                     <div className="flex items-center gap-2">
                                         <span className="font-mono text-sm text-accent font-bold">{p.payoutNumber}</span>
-                                        <span className={`text-xs px-2 py-0.5 rounded-full ${p.status === 'PENDING' ? 'bg-orange-100 text-orange-700' : p.status === 'COMPLETED' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                                        <span className={`text-xs px-2 py-0.5 rounded-xl ${p.status === 'PENDING' ? 'bg-orange-100 text-orange-700' : p.status === 'COMPLETED' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                                             {p.status === 'PENDING' ? '⏳ معلق' : p.status === 'COMPLETED' ? '✅ مكتمل' : '❌ مرفوض'}
                                         </span>
                                     </div>
@@ -257,7 +257,7 @@ export default function AdminPayoutsPage() {
                                 <div className="flex gap-2">
                                     <button onClick={() => approvePayout(p.id)} disabled={processing === p.id}
                                         className="flex-1 btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 flex items-center justify-center gap-2">
-                                        {processing === p.id ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FiCheck />}
+                                        {processing === p.id ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-xl animate-spin" /> : <FiCheck />}
                                         تم التحويل ✓
                                     </button>
                                     <button onClick={() => setRejectModal({ id: p.id, type: 'payout', title: `سحب $${fmt(p.amount)}` })}
@@ -305,7 +305,7 @@ export default function AdminPayoutsPage() {
                             <div className="flex gap-2">
                                 <button onClick={() => approveCourse(c.id)} disabled={processing === c.id}
                                     className="flex-1 btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 flex items-center justify-center gap-2">
-                                    {processing === c.id ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FiCheck />}
+                                    {processing === c.id ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-xl animate-spin" /> : <FiCheck />}
                                     نشر الكورس ✓
                                 </button>
                                 <button onClick={() => setRejectModal({ id: c.id, type: 'course', title: c.title })}
@@ -357,7 +357,7 @@ export default function AdminPayoutsPage() {
                                                 </span>
                                             </td>
                                             <td className="py-3 px-3">
-                                                <span className={`text-xs px-2 py-0.5 rounded-full ${p.seller.custom_commission_rate !== null ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-500'}`}>
+                                                <span className={`text-xs px-2 py-0.5 rounded-xl ${p.seller.custom_commission_rate !== null ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-500'}`}>
                                                     {p.seller.custom_commission_rate !== null ? '🎯 مخصص' : '🌐 عالمي'}
                                                 </span>
                                             </td>
@@ -436,7 +436,7 @@ export default function AdminPayoutsPage() {
             {/* ══════════════ REJECT MODAL ══════════════ */}
             {rejectModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50  p-4">
-                    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm w-full max-w-md p-6 space-y-4">
+                    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm w-full max-w-md p-6 space-y-4">
                         <div className="flex items-center justify-between">
                             <h2 className="font-bold text-lg text-ink dark:text-white flex items-center gap-2">
                                 <FiAlertTriangle className="text-red-500" />
@@ -452,7 +452,7 @@ export default function AdminPayoutsPage() {
                         <div className="flex gap-3">
                             <button onClick={rejectItem} disabled={processing !== null}
                                 className="flex-1 btn bg-red-500 hover:bg-red-600 text-white font-bold py-2.5">
-                                {processing ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto" /> : 'تأكيد الرفض'}
+                                {processing ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-xl animate-spin mx-auto" /> : 'تأكيد الرفض'}
                             </button>
                             <button onClick={() => setRejectModal(null)} className="btn btn-outline px-6">إلغاء</button>
                         </div>
@@ -463,7 +463,7 @@ export default function AdminPayoutsPage() {
             {/* ══════════════ COMMISSION MODAL ══════════════ */}
             {commModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50  p-4">
-                    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm w-full max-w-sm p-6 space-y-4">
+                    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm w-full max-w-sm p-6 space-y-4">
                         <div className="flex items-center justify-between">
                             <h2 className="font-bold text-lg text-ink dark:text-white">
                                 <FiPercent className="inline ml-2 text-purple-600" />

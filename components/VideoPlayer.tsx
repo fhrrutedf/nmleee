@@ -127,7 +127,7 @@ export default function VideoPlayer({
 
             {/* Controls Overlay */}
             <div
-                className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 transition-opacity ${showControls ? 'opacity-100' : 'opacity-0'
+                className={`absolute bottom-0 left-0 right-0 bg-ink p-4 transition-opacity ${showControls ? 'opacity-100' : 'opacity-0'
                     }`}
             >
                 {/* Progress Bar */}
@@ -150,7 +150,7 @@ export default function VideoPlayer({
                         {/* Play/Pause */}
                         <button
                             onClick={togglePlay}
-                            className="p-2 hover:bg-white/20 rounded-full transition-colors"
+                            className="p-2 hover:bg-white/20 rounded-xl transition-colors"
                         >
                             {isPlaying ? <FiPause size={20} /> : <FiPlay size={20} />}
                         </button>
@@ -177,14 +177,14 @@ export default function VideoPlayer({
 
                     <div className="flex items-center gap-2">
                         {/* Settings (placeholder) */}
-                        <button className="p-2 hover:bg-white/20 rounded-full transition-colors">
+                        <button className="p-2 hover:bg-white/20 rounded-xl transition-colors">
                             <FiSettings size={18} />
                         </button>
 
                         {/* Fullscreen */}
                         <button
                             onClick={toggleFullscreen}
-                            className="p-2 hover:bg-white/20 rounded-full transition-colors"
+                            className="p-2 hover:bg-white/20 rounded-xl transition-colors"
                         >
                             <FiMaximize size={18} />
                         </button>

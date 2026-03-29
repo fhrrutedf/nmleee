@@ -103,7 +103,7 @@ export default function CourseBuilder({
         <div className="space-y-6">
             
             {/* Professional Stats Display */}
-            <div className="flex gap-4 p-6 bg-gray-50 border border-gray-100 rounded-2xl">
+            <div className="flex gap-4 p-6 bg-gray-50 border border-gray-100 rounded-xl">
                 <div className="flex-1">
                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">إجمالي الدروس</p>
                     <p className="text-2xl font-bold text-ink font-inter">{stats.count}</p>
@@ -124,7 +124,7 @@ export default function CourseBuilder({
                             {sections.map((section, index) => (
                                 <Draggable key={section.id} draggableId={section.id} index={index}>
                                     {(provided) => (
-                                        <div ref={provided.innerRef} {...provided.draggableProps} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden group">
+                                        <div ref={provided.innerRef} {...provided.draggableProps} className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden group">
                                             {/* Section Header */}
                                             <div className="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
                                                 <div className="flex items-center gap-4 flex-1">
@@ -144,7 +144,7 @@ export default function CourseBuilder({
                                                     <button 
                                                         type="button" 
                                                         onClick={() => addLesson(section.id)} 
-                                                        className="text-[10px] font-black text-accent bg-gray-50 px-5 py-2.5 rounded-xl hover:bg-ink hover:text-white transition-all uppercase tracking-widest border border-gray-100"
+                                                        className="text-[10px] font-bold text-accent bg-gray-50 px-5 py-2.5 rounded-xl hover:bg-ink hover:text-white transition-all uppercase tracking-widest border border-gray-100"
                                                     >
                                                         + ADD LESSON
                                                     </button>
@@ -224,7 +224,7 @@ export default function CourseBuilder({
             <button 
                 type="button"
                 onClick={addSection} 
-                className="w-full py-6 border border-dashed border-gray-200 rounded-[2rem] text-gray-400 font-black text-[10px] uppercase tracking-[0.3em] hover:border-accent hover:text-accent transition-all flex items-center justify-center gap-3 bg-white shadow-sm"
+                className="w-full py-6 border border-dashed border-gray-200 rounded-[2rem] text-gray-400 font-bold text-[10px] uppercase tracking-[0.3em] hover:border-accent hover:text-accent transition-all flex items-center justify-center gap-3 bg-white shadow-sm"
             >
                 <FiPlus className="text-xl" /> ADD NEW CHAPTER
             </button>

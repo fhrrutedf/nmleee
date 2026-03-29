@@ -103,7 +103,7 @@ export default function EditBlogPost() {
 
                 {/* Main Content Area */}
                 <div className="lg:col-span-2 space-y-6">
-                    <div className="bg-white dark:bg-card-white p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
+                    <div className="bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800">
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 عنوان المقال <span className="text-red-500">*</span>
@@ -147,7 +147,7 @@ export default function EditBlogPost() {
 
                 {/* Sidebar (Settings) */}
                 <div className="space-y-6">
-                    <div className="bg-white dark:bg-card-white p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
+                    <div className="bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800">
                         <h2 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">تفضيلات النشر</h2>
 
                         <div className="mb-4">

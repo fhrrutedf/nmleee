@@ -35,7 +35,7 @@ export default function MyAppointmentsPage() {
     if (status === 'loading' || loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent"></div>
             </div>
         );
     }
@@ -87,7 +87,7 @@ export default function MyAppointmentsPage() {
 
                 {/* Appointments List */}
                 {appointments.length === 0 ? (
-                    <div className="bg-white rounded-2xl shadow-sm p-12 text-center">
+                    <div className="bg-white rounded-xl shadow-sm p-12 text-center">
                         <FiCalendar className="text-6xl text-gray-300 mx-auto mb-4" />
                         <h3 className="text-2xl font-bold mb-2">لا توجد مواعيد</h3>
                         <p className="text-gray-600 mb-6">لم تحجز أي مواعيد بعد</p>
@@ -117,7 +117,7 @@ export default function MyAppointmentsPage() {
                                             </div>
                                         </div>
                                     </div>
-                                    <span className={`px-4 py-2 rounded-full text-sm font-medium ${appointment.status === 'confirmed' ? 'bg-blue-100 text-blue-700' :
+                                    <span className={`px-4 py-2 rounded-xl text-sm font-medium ${appointment.status === 'confirmed' ? 'bg-blue-100 text-blue-700' :
                                         appointment.status === 'completed' ? 'bg-green-100 text-green-700' :
                                             appointment.status === 'cancelled' ? 'bg-red-100 text-red-700' :
                                                 'bg-yellow-100 text-yellow-700'

@@ -148,7 +148,7 @@ export default function PayoutsManagement() {
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-bold text-ink dark:text-white mb-2 tracking-tight flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-2xl bg-green-500/10 text-green-600 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-xl bg-green-500/10 text-green-600 flex items-center justify-center">
                             <FiDollarSign />
                         </div>
                         إدارة السحوبات المالية
@@ -159,7 +159,7 @@ export default function PayoutsManagement() {
                 </div>
 
                 {/* Quick Stats */}
-                <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
+                <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
                     <div className="px-5 py-3 flex flex-col items-center">
                         <span className="text-gray-400 text-xs">إجمالي الطلبات</span>
                         <span className="text-ink dark:text-white text-lg">{stats.totalPayouts}</span>
@@ -223,7 +223,7 @@ export default function PayoutsManagement() {
                 <div className="overflow-x-auto">
                     {loading && payouts.length === 0 ? (
                         <div className="p-12 flex flex-col items-center justify-center text-gray-400">
-                            <div className="w-8 h-8 border-2 border-gray-200 border-t-green-500 rounded-full animate-spin mb-4"></div>
+                            <div className="w-8 h-8 border-2 border-gray-200 border-t-green-500 rounded-xl animate-spin mb-4"></div>
                             جاري تحميل طلبات السحب...
                         </div>
                     ) : (
@@ -262,9 +262,9 @@ export default function PayoutsManagement() {
                                             <td className="py-4 px-6">
                                                 <div className="flex items-center gap-3">
                                                     {payout.user.avatar ? (
-                                                        <img src={payout.user.avatar} className="w-8 h-8 rounded-full object-cover border border-gray-100 dark:border-gray-800" alt={payout.user.name} />
+                                                        <img src={payout.user.avatar} className="w-8 h-8 rounded-xl object-cover border border-gray-100 dark:border-gray-800" alt={payout.user.name} />
                                                     ) : (
-                                                        <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 font-bold text-xs">
+                                                        <div className="w-8 h-8 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 font-bold text-xs">
                                                             {payout.user.name.charAt(0).toUpperCase()}
                                                         </div>
                                                     )}

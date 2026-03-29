@@ -169,14 +169,14 @@ export default function FileUploader({
             {/* Dropzone Area */}
             <div
                 {...getRootProps()}
-                className={`w-full border-2 border-dashed rounded-2xl p-4 sm:p-8 transition-all cursor-pointer flex flex-col items-center justify-center min-h-[140px] sm:min-h-[180px] overflow-hidden
+                className={`w-full border-2 border-dashed rounded-xl p-4 sm:p-8 transition-all cursor-pointer flex flex-col items-center justify-center min-h-[140px] sm:min-h-[180px] overflow-hidden
                 ${isDragActive
                         ? "border-accent bg-accent/5"
                         : "border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-card-white hover:bg-gray-100 dark:hover:bg-gray-800"
                     }`}
             >
                 <input {...getInputProps()} />
-                <div className="w-10 h-10 sm:w-14 sm:h-14 bg-white dark:bg-bg-light shadow-sm rounded-full flex items-center justify-center mb-2 sm:mb-3 shrink-0">
+                <div className="w-10 h-10 sm:w-14 sm:h-14 bg-white dark:bg-bg-light shadow-sm rounded-xl flex items-center justify-center mb-2 sm:mb-3 shrink-0">
                     <FiUploadCloud className="text-xl sm:text-2xl text-accent" />
                 </div>
                 <h4 className="text-sm sm:text-base font-bold text-ink dark:text-white mb-1 text-center w-full">
@@ -188,7 +188,7 @@ export default function FileUploader({
                 </p>
 
                 {maxFiles > 1 && (
-                    <div className="mt-3 text-xs font-semibold bg-gray-200 dark:bg-gray-800 px-3 py-1 rounded-full text-gray-600 dark:text-gray-300">
+                    <div className="mt-3 text-xs font-semibold bg-gray-200 dark:bg-gray-800 px-3 py-1 rounded-xl text-gray-600 dark:text-gray-300">
                         الحد الأقصى {maxFiles} ملفات
                     </div>
                 )}
@@ -279,9 +279,9 @@ export default function FileUploader({
 
                                 {/* Progress Bar */}
                                 {upload.status === "uploading" && (
-                                    <div className="w-full bg-gray-200 dark:bg-gray-700 h-1 rounded-full mt-1.5 overflow-hidden">
+                                    <div className="w-full bg-gray-200 dark:bg-gray-700 h-1 rounded-xl mt-1.5 overflow-hidden">
                                         <div
-                                            className="h-full bg-accent rounded-full"
+                                            className="h-full bg-accent rounded-xl"
                                             style={{ width: `${upload.progress}%`, transition: 'width 0.3s ease' }}
                                         />
                                     </div>

@@ -7,8 +7,8 @@ export default function DemoPage() {
             {/* Hero Section */}
             <section className="relative bg-gradient-to-br from-accent via-purple-600 to-pink-600 text-white py-20 overflow-hidden">
                 <div className="absolute inset-0 opacity-20">
-                    <div className="absolute top-0 left-0 w-64 h-64 bg-white rounded-full filter blur-3xl"></div>
-                    <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full filter blur-3xl"></div>
+                    <div className="absolute top-0 left-0 w-64 h-64 bg-white rounded-xl filter blur-3xl"></div>
+                    <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-xl filter blur-3xl"></div>
                 </div>
 
                 <div className="relative max-w-7xl mx-auto px-4 text-center">
@@ -32,7 +32,7 @@ export default function DemoPage() {
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         <div className="text-center">
-                            <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div className="w-20 h-20 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
                                 <FiUsers className="text-4xl text-accent-600" />
                             </div>
                             <h3 className="text-4xl font-bold text-gray-900 mb-2">10K+</h3>
@@ -40,7 +40,7 @@ export default function DemoPage() {
                         </div>
 
                         <div className="text-center">
-                            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div className="w-20 h-20 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
                                 <FiShoppingCart className="text-4xl text-green-600" />
                             </div>
                             <h3 className="text-4xl font-bold text-gray-900 mb-2">50K+</h3>
@@ -48,7 +48,7 @@ export default function DemoPage() {
                         </div>
 
                         <div className="text-center">
-                            <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div className="w-20 h-20 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
                                 <FiBook className="text-4xl text-purple-600" />
                             </div>
                             <h3 className="text-4xl font-bold text-gray-900 mb-2">5K+</h3>
@@ -56,7 +56,7 @@ export default function DemoPage() {
                         </div>
 
                         <div className="text-center">
-                            <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div className="w-20 h-20 bg-orange-100 rounded-xl flex items-center justify-center mx-auto mb-4">
                                 <FiStar className="text-4xl text-orange-600" />
                             </div>
                             <h3 className="text-4xl font-bold text-gray-900 mb-2">4.9</h3>
@@ -75,8 +75,8 @@ export default function DemoPage() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-sm transition-shadow">
-                            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                        <div className="bg-white rounded-xl shadow-sm p-8 hover:shadow-sm transition-shadow">
+                            <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
                                 <FiShoppingCart className="text-3xl text-accent-600" />
                             </div>
                             <h3 className="text-2xl font-bold mb-3">بيع المنتجات</h3>
@@ -85,8 +85,8 @@ export default function DemoPage() {
                             </p>
                         </div>
 
-                        <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-sm transition-shadow">
-                            <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4">
+                        <div className="bg-white rounded-xl shadow-sm p-8 hover:shadow-sm transition-shadow">
+                            <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
                                 <FiVideo className="text-3xl text-purple-600" />
                             </div>
                             <h3 className="text-2xl font-bold mb-3">الدورات التدريبية</h3>
@@ -95,8 +95,8 @@ export default function DemoPage() {
                             </p>
                         </div>
 
-                        <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-sm transition-shadow">
-                            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                        <div className="bg-white rounded-xl shadow-sm p-8 hover:shadow-sm transition-shadow">
+                            <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-4">
                                 <FiTrendingUp className="text-3xl text-green-600" />
                             </div>
                             <h3 className="text-2xl font-bold mb-3">تحليلات شاملة</h3>
@@ -118,7 +118,7 @@ export default function DemoPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div className="text-center">
-                            <div className="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-accent">
+                            <div className="w-20 h-20 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-accent">
                                 1
                             </div>
                             <h3 className="text-xl font-bold mb-3">أنشئ حسابك</h3>
@@ -128,7 +128,7 @@ export default function DemoPage() {
                         </div>
 
                         <div className="text-center">
-                            <div className="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-accent">
+                            <div className="w-20 h-20 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-accent">
                                 2
                             </div>
                             <h3 className="text-xl font-bold mb-3">أضف منتجاتك</h3>
@@ -138,7 +138,7 @@ export default function DemoPage() {
                         </div>
 
                         <div className="text-center">
-                            <div className="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-accent">
+                            <div className="w-20 h-20 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-accent">
                                 3
                             </div>
                             <h3 className="text-xl font-bold mb-3">ابدأ البيع</h3>
@@ -179,14 +179,14 @@ export default function DemoPage() {
                                 image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400'
                             }
                         ].map((product, index) => (
-                            <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-sm transition-shadow group">
+                            <div key={index} className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-sm transition-shadow group">
                                 <img
                                     src={product.image}
                                     alt={product.title}
                                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                                 />
                                 <div className="p-6">
-                                    <span className="inline-block px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-xs font-medium mb-2">
+                                    <span className="inline-block px-3 py-1 bg-primary-100 text-primary-700 rounded-xl text-xs font-medium mb-2">
                                         {product.category}
                                     </span>
                                     <h3 className="font-bold text-xl mb-2">{product.title}</h3>
@@ -212,7 +212,7 @@ export default function DemoPage() {
             </section>
 
             {/* CTA Section */}
-            <section className="py-20 bg-gradient-to-r from-accent to-purple-700">
+            <section className="py-20 bg-ink">
                 <div className="max-w-4xl mx-auto px-4 text-center text-white">
                     <h2 className="text-5xl font-bold mb-6">جاهز للبدء؟</h2>
                     <p className="text-2xl mb-8">انضم إلى آلاف المبدعين الذين يحققون دخلهم من مهاراتهم</p>

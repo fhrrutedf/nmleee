@@ -93,7 +93,7 @@ export default function PayoutsClient({ initialPayouts }: { initialPayouts: any[
                             <div className="flex-1 space-y-4">
                                 <div className="flex items-center justify-between lg:justify-start gap-4">
                                     <div className="font-bold text-lg text-gray-900 flex items-center gap-2">
-                                        <div className="w-8 h-8 bg-blue-100 text-accent rounded-full flex items-center justify-center text-sm">
+                                        <div className="w-8 h-8 bg-blue-100 text-accent rounded-xl flex items-center justify-center text-sm">
                                             {payout.seller?.name?.charAt(0) || '?'}
                                         </div>
                                         {payout.seller?.name || 'بائع محذوف'}

@@ -82,7 +82,7 @@ export default function SellerSupportPage() {
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-[400px]">
-            <div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
+            <div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-xl animate-spin" />
         </div>
     );
 
@@ -106,13 +106,13 @@ export default function SellerSupportPage() {
 
             {/* Ticket List */}
             {tickets.length === 0 ? (
-                <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-12 text-center text-gray-500">
+                <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-12 text-center text-gray-500">
                     <FiCheckCircle className="text-green-500 mb-4 mx-auto" size={48} />
                     <h3 className="text-xl font-bold mb-2">ليس لديك أي تذاكر سابقة</h3>
                     <p>إذا واجهتك أي مشكلة في المنصة، لا تتردد في مراسلتنا!</p>
                 </div>
             ) : (
-                <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
+                <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full text-right text-sm">
                             <thead className="bg-gray-50 dark:bg-gray-900/50">
@@ -139,7 +139,7 @@ export default function SellerSupportPage() {
                                                 ticket.category === 'TECHNICAL' ? 'مشكلة تقنية' : 'استفسار عام'}
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className={`px-3 py-1 text-xs font-bold rounded-full ${getStatusStyle(ticket.status)}`}>
+                                            <span className={`px-3 py-1 text-xs font-bold rounded-xl ${getStatusStyle(ticket.status)}`}>
                                                 {getStatusLabel(ticket.status)}
                                             </span>
                                         </td>
@@ -162,7 +162,7 @@ export default function SellerSupportPage() {
             {/* Create Modal */}
             {showNewModal && (
                 <div className="fixed inset-0 bg-black/60  z-50 flex justify-center items-center p-4">
-                    <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm w-full max-w-lg overflow-hidden transform transition-all">
+                    <div className="bg-white dark:bg-card-white rounded-xl shadow-sm w-full max-w-lg overflow-hidden transform transition-all">
                         <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-900/50">
                             <h2 className="text-xl font-bold text-ink dark:text-white flex items-center gap-2">
                                 <FiPlus className="text-accent" /> فتح تذكرة درعم جديدة

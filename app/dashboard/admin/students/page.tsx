@@ -135,7 +135,7 @@ export default function AdminStudentsPage() {
             {/* Trainers Tree */}
             {loading ? (
                 <div className="flex items-center justify-center py-20">
-                    <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
+                    <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-xl animate-spin" />
                 </div>
             ) : filteredTrainers.length === 0 ? (
                 <div className="card p-12 text-center">
@@ -152,7 +152,7 @@ export default function AdminStudentsPage() {
                                 className="w-full flex items-center justify-between px-6 py-5 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
                             >
                                 <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center overflow-hidden">
+                                    <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center overflow-hidden">
                                         {trainer.avatar ? (
                                             <img src={trainer.avatar} alt="" className="w-full h-full object-cover" />
                                         ) : (
@@ -185,7 +185,7 @@ export default function AdminStudentsPage() {
                                 <div className="border-t border-gray-100 dark:border-gray-700">
                                     {loadingStudents === trainer.id ? (
                                         <div className="flex items-center justify-center py-8">
-                                            <div className="w-8 h-8 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
+                                            <div className="w-8 h-8 border-4 border-accent/30 border-t-accent rounded-xl animate-spin" />
                                         </div>
                                     ) : (
                                         <div className="overflow-x-auto">
@@ -208,9 +208,9 @@ export default function AdminStudentsPage() {
                                                             <td className="px-4 py-3 text-xs text-gray-600 dark:text-gray-300">{student.courseTitle}</td>
                                                             <td className="px-4 py-3">
                                                                 <div className="flex items-center gap-2">
-                                                                    <div className="w-20 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                                                                    <div className="w-20 bg-gray-200 dark:bg-gray-700 rounded-xl h-1.5">
                                                                         <div
-                                                                            className={`h-1.5 rounded-full ${student.isCompleted ? 'bg-green-500' : 'bg-accent'}`}
+                                                                            className={`h-1.5 rounded-xl ${student.isCompleted ? 'bg-green-500' : 'bg-accent'}`}
                                                                             style={{ width: `${student.progress}%` }}
                                                                         />
                                                                     </div>

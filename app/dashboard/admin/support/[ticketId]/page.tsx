@@ -91,7 +91,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-[400px]">
-            <div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
+            <div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-xl animate-spin" />
         </div>
     );
 
@@ -117,14 +117,14 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                 <FiArrowRight /> العودة لقائمة التذاكر (المشرف)
             </Link>
 
-            <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row overflow-hidden">
+            <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row overflow-hidden">
 
                 {/* User Info Sidebar */}
                 <div className="w-full md:w-1/3 border-b md:border-b-0 md:border-l border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 p-6 flex flex-col justify-between">
                     <div>
                         <h3 className="font-bold text-gray-500 mb-4 whitespace-nowrap overflow-hidden text-ellipsis">معلومات صاحب التذكرة</h3>
                         <div className="flex items-center gap-3 mb-6">
-                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-ink to-purple-600 flex items-center justify-center text-white shrink-0 text-lg">
+                            <div className="w-12 h-12 rounded-xl bg-ink flex items-center justify-center text-white shrink-0 text-lg">
                                 <FiUser />
                             </div>
                             <div>
@@ -147,7 +147,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                             </div>
                             <div className="flex justify-between items-center">
                                 <span className="text-gray-500">الحالة:</span>
-                                <span className={`px-2 py-1 rounded-full text-xs font-bold ${statusInfo.css}`}>{statusInfo.label}</span>
+                                <span className={`px-2 py-1 rounded-xl text-xs font-bold ${statusInfo.css}`}>{statusInfo.label}</span>
                             </div>
                         </div>
                     </div>
@@ -178,7 +178,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                 <div className="w-full md:w-2/3 p-8 flex flex-col justify-between">
                     <div>
                         <div className="flex items-center gap-3 mb-6">
-                            <span className="font-mono text-sm text-accent font-bold px-3 py-1 bg-accent/10 rounded-full">
+                            <span className="font-mono text-sm text-accent font-bold px-3 py-1 bg-accent/10 rounded-xl">
                                 {ticket.ticketNumber}
                             </span>
                             <h1 className="text-2xl font-bold text-ink dark:text-white line-clamp-1" title={ticket.subject}>
@@ -192,10 +192,10 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                 const isAdmin = msg.senderRole === 'ADMIN';
                                 return (
                                     <div key={msg.id} className={`flex gap-4 ${isAdmin ? 'flex-row-reverse' : ''}`}>
-                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${isAdmin ? 'bg-gradient-to-br from-accent to-purple-600 text-white' : 'bg-gray-200 dark:bg-gray-800 text-gray-500'}`}>
+                                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isAdmin ? 'bg-ink text-white' : 'bg-gray-200 dark:bg-gray-800 text-gray-500'}`}>
                                             {isAdmin ? <FiInfo /> : <FiUser />}
                                         </div>
-                                        <div className={`max-w-[85%] rounded-2xl p-5 ${isAdmin ? 'bg-accent/10 dark:bg-accent/20 text-accent border border-accent/20 rounded-tl-none' : 'bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none'}`}>
+                                        <div className={`max-w-[85%] rounded-xl p-5 ${isAdmin ? 'bg-accent/10 dark:bg-accent/20 text-accent border border-accent/20 rounded-tl-none' : 'bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none'}`}>
                                             <div className="flex items-center gap-2 mb-2">
                                                 <span className={`font-bold text-sm ${isAdmin ? 'text-accent' : 'text-ink dark:text-white'}`}>
                                                     {isAdmin ? 'أنت (فريق الدعم)' : 'المستخدم'}
@@ -216,7 +216,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
 
                     {/* Reply Form */}
                     {isClosed ? (
-                        <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-2xl border border-green-100 dark:border-green-800 flex flex-col items-center gap-2 text-green-700 justify-center text-center mt-auto">
+                        <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-xl border border-green-100 dark:border-green-800 flex flex-col items-center gap-2 text-green-700 justify-center text-center mt-auto">
                             <FiCheckCircle className="text-3xl" />
                             <h3 className="font-bold text-lg">التذكرة محلولة ومغلقة</h3>
                             <p className="text-sm font-medium">قدمت الرد النهائي والحل للمستخدم. لا حاجة للرد مجدداً.</p>
@@ -227,7 +227,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                             <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">رد الدعم الفني</label>
                             <textarea
                                 rows={4}
-                                className="input w-full pr-14 resize-none rounded-2xl focus:ring-2 focus:ring-accent bg-gray-50 dark:bg-gray-900"
+                                className="input w-full pr-14 resize-none rounded-xl focus:ring-2 focus:ring-accent bg-gray-50 dark:bg-gray-900"
                                 placeholder="اكتب ردك ومساعدتك للمستخدم هنا للرد باسم الإدارة..."
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
@@ -244,7 +244,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                     disabled={submitting || !message.trim()}
                                     className="h-10 px-4 bg-accent hover:bg-accent-600 disabled:bg-gray-300 text-white rounded-xl flex items-center gap-2 transition-colors font-bold shadow-md shadow-accent/20"
                                 >
-                                    {submitting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <><FiSend /> إرسال فقط</>}
+                                    {submitting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-xl animate-spin" /> : <><FiSend /> إرسال فقط</>}
                                 </button>
                                 <button
                                     type="button"

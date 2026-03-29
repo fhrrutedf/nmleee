@@ -104,14 +104,14 @@ export default function AdminVerificationPage() {
                                         <FiEye /> عرض كامل
                                     </a>
                                 </div>
-                                <div className="absolute top-4 right-4 bg-black/60  text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
+                                <div className="absolute top-4 right-4 bg-black/60  text-white text-[10px] font-bold px-3 py-1 rounded-xl uppercase tracking-tighter">
                                     {request.documentType.replace('_', ' ')}
                                 </div>
                             </div>
 
                             <div className="p-6 space-y-4">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-purple-600 flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                                    <div className="w-12 h-12 rounded-xl bg-ink flex items-center justify-center text-white text-xl font-bold shadow-sm">
                                         {request.user.avatar ? <img src={request.user.avatar} className="w-full h-full object-cover rounded-xl" /> : request.user.name.charAt(0)}
                                     </div>
                                     <div className="overflow-hidden">
@@ -133,14 +133,14 @@ export default function AdminVerificationPage() {
                                     <button 
                                         onClick={() => handleAction(request.id, 'APPROVED')}
                                         disabled={!!processing}
-                                        className="btn bg-green-500 hover:bg-green-600 text-white py-3 rounded-2xl shadow-lg shadow-green-200 dark:shadow-none"
+                                        className="btn bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl shadow-sm shadow-green-200 dark:shadow-none"
                                     >
                                         {processing === request.id ? 'جاري...' : 'قبول'}
                                     </button>
                                     <button 
                                         onClick={() => setShowRejectionModal(request.id)}
                                         disabled={!!processing}
-                                        className="btn bg-red-50 text-red-600 border-red-100 hover:bg-red-100 py-3 rounded-2xl"
+                                        className="btn bg-red-50 text-red-600 border-red-100 hover:bg-red-100 py-3 rounded-xl"
                                     >
                                         رفض
                                     </button>
@@ -153,7 +153,7 @@ export default function AdminVerificationPage() {
 
             {/* Rejection Modal */}
             {showRejectionModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  animate-fade-in">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  ">
                     <div className="bg-white dark:bg-card-white rounded-xl p-8 max-w-md w-full shadow-sm space-y-6">
                         <div className="flex items-center gap-3 text-red-500">
                             <FiAlertCircle className="text-2xl" />

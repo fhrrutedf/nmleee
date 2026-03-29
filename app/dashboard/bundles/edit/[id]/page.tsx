@@ -146,13 +146,13 @@ export default function EditBundlePage() {
 
             {fetchingData ? (
                 <div className="flex items-center justify-center min-h-[400px]">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+                    <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent"></div>
                 </div>
             ) : (
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Right col - Form details */}
                     <div className="col-span-1 lg:col-span-2 space-y-6">
-                        <div className="card space-y-6 bg-white dark:bg-card-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-gray-800">
+                        <div className="card space-y-6 bg-white dark:bg-card-white rounded-xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-gray-800">
                             <div className="space-y-6">
                                 <div>
                                     <label className="label text-lg font-bold">اسم الباقة الفريد <span className="text-red-500">*</span></label>
@@ -182,11 +182,11 @@ export default function EditBundlePage() {
                                     </h3>
                                     {formData.image ? (
                                         <div className="relative inline-block">
-                                            <img src={formData.image} alt="Preview" className="w-full max-w-sm h-64 object-cover rounded-2xl border-2 border-gray-100 shadow-sm" />
+                                            <img src={formData.image} alt="Preview" className="w-full max-w-sm h-64 object-cover rounded-xl border-2 border-gray-100 shadow-sm" />
                                             <button
                                                 type="button"
                                                 onClick={() => setFormData({ ...formData, image: '' })}
-                                                className="absolute -top-3 -right-3 bg-red-500 text-white p-2.5 rounded-full hover:bg-red-600 transition-colors shadow-lg"
+                                                className="absolute -top-3 -right-3 bg-red-500 text-white p-2.5 rounded-xl hover:bg-red-600 transition-colors shadow-sm"
                                             >
                                                 <FiX />
                                             </button>
@@ -210,7 +210,7 @@ export default function EditBundlePage() {
                             </div>
                         </div>
 
-                        <div className="card space-y-6 bg-white dark:bg-card-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-gray-800">
+                        <div className="card space-y-6 bg-white dark:bg-card-white rounded-xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-gray-800">
                             <h2 className="text-xl font-bold border-b border-gray-100 dark:border-gray-800 pb-4 mb-4">المنتجات المشمولة في الباقة</h2>
 
                             {!products || products.length === 0 ? (
@@ -227,7 +227,7 @@ export default function EditBundlePage() {
                                             <div
                                                 key={product.id}
                                                 onClick={() => toggleProduct(product.id)}
-                                                className={`p-4 rounded-2xl cursor-pointer border-2 transition-all flex items-start gap-4 ${isSelected ? 'border-accent bg-accent/5' : 'border-gray-100 hover:border-accent/30 dark:border-gray-800'}`}
+                                                className={`p-4 rounded-xl cursor-pointer border-2 transition-all flex items-start gap-4 ${isSelected ? 'border-accent bg-accent/5' : 'border-gray-100 hover:border-accent/30 dark:border-gray-800'}`}
                                             >
                                                 <div className="mt-1 flex-shrink-0">
                                                     {isSelected ? (
@@ -262,7 +262,7 @@ export default function EditBundlePage() {
                     {/* Left col - Pricing and saving summary */}
                     <div className="col-span-1 border-gray-100">
                         <div className="sticky top-24 space-y-6">
-                            <div className="bg-white dark:bg-card-white rounded-3xl p-6 shadow-sm shadow-gray-100 dark:shadow-gray-900 border border-gray-100 dark:border-gray-800 relative overflow-hidden">
+                            <div className="bg-white dark:bg-card-white rounded-xl p-6 shadow-sm shadow-gray-100 dark:shadow-gray-900 border border-gray-100 dark:border-gray-800 relative overflow-hidden">
                                 {discountPercentage > 0 && (
                                     <div className="absolute top-0 right-0 bg-green-500 text-white px-4 py-1 rounded-bl-2xl font-bold text-sm shadow-md">
                                         خصم {discountPercentage}%
@@ -310,7 +310,7 @@ export default function EditBundlePage() {
                             >
                                 {loading ? (
                                     <span className="flex items-center justify-center gap-2">
-                                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-xl animate-spin" />
                                         جاري المعالجة...
                                     </span>
                                 ) : (

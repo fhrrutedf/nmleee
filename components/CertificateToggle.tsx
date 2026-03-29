@@ -59,7 +59,7 @@ export function CertificateToggle({
                         <button
                             onClick={handleToggle}
                             disabled={loading}
-                            className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${enabled
+                            className={`relative inline-flex h-8 w-14 items-center rounded-xl transition-colors ${enabled
                                     ? 'bg-green-500'
                                     : 'bg-gray-300 dark:bg-gray-600'
                                 } ${loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
@@ -67,7 +67,7 @@ export function CertificateToggle({
                             aria-checked={enabled}
                         >
                             <span
-                                className={`inline-block h-6 w-6 transform rounded-full bg-white shadow-md transition-transform ${enabled ? 'translate-x-7' : 'translate-x-1'
+                                className={`inline-block h-6 w-6 transform rounded-xl bg-white shadow-md transition-transform ${enabled ? 'translate-x-7' : 'translate-x-1'
                                     }`}
                             />
                         </button>

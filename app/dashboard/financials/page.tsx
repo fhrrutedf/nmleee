@@ -103,7 +103,7 @@ export default function FinancialsPage() {
         return (
             <div className="flex items-center justify-center min-h-[50vh]">
                 <div className="text-center">
-                    <div className="animate-spin rounded-full h-14 w-14 border-4 border-accent border-t-transparent mx-auto" />
+                    <div className="animate-spin rounded-xl h-14 w-14 border-4 border-accent border-t-transparent mx-auto" />
                     <p className="mt-4 text-text-muted font-medium">جاري تحميل البيانات المالية...</p>
                 </div>
             </div>
@@ -175,7 +175,7 @@ export default function FinancialsPage() {
                 </div>
                 <div className="flex items-center gap-3">
                     {/* Plan Badge */}
-                    <div className={`${plan.bg} ${plan.color} px-4 py-2 rounded-2xl font-bold text-sm flex items-center gap-2 border border-current/10`}>
+                    <div className={`${plan.bg} ${plan.color} px-4 py-2 rounded-xl font-bold text-sm flex items-center gap-2 border border-current/10`}>
                         <span>{plan.icon}</span>
                         باقة {plan.label}
                         <span className="text-xs opacity-75">({data.plan.commissionRate}% عمولة)</span>
@@ -184,7 +184,7 @@ export default function FinancialsPage() {
             </motion.div>
 
             {/* Tab Switcher */}
-            <motion.div variants={item} className="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-2xl max-w-md">
+            <motion.div variants={item} className="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl max-w-md">
                 <button
                     onClick={() => setActiveTab('overview')}
                     className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-xl transition-all ${activeTab === 'overview' ? 'bg-white dark:bg-card-white text-accent shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
@@ -204,8 +204,8 @@ export default function FinancialsPage() {
                     {/* ─── Financial Summary Cards ──────────────────── */}
                     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                         {/* Available Balance */}
-                        <motion.div variants={item} className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 relative overflow-hidden group hover:shadow-lg transition-all hover:-translate-y-1">
-                            <div className="absolute top-0 right-0 w-28 h-28 bg-green-50 dark:bg-green-900/10 rounded-full blur-3xl -mr-8 -mt-8 transition-transform group-hover:scale-125" />
+                        <motion.div variants={item} className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 relative overflow-hidden group hover:shadow-sm transition-all hover:-translate-y-1">
+                            <div className="absolute top-0 right-0 w-28 h-28 bg-green-50 dark:bg-green-900/10 rounded-xl blur-3xl -mr-8 -mt-8 transition-transform group-hover:scale-125" />
                             <div className="relative">
                                 <div className="flex items-center justify-between mb-3">
                                     <p className="font-bold text-sm text-gray-500">الرصيد المتاح</p>
@@ -226,8 +226,8 @@ export default function FinancialsPage() {
                         </motion.div>
 
                         {/* Pending Balance */}
-                        <motion.div variants={item} className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 relative overflow-hidden group hover:shadow-lg transition-all hover:-translate-y-1">
-                            <div className="absolute top-0 right-0 w-28 h-28 bg-yellow-50 dark:bg-yellow-900/10 rounded-full blur-3xl -mr-8 -mt-8 transition-transform group-hover:scale-125" />
+                        <motion.div variants={item} className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 relative overflow-hidden group hover:shadow-sm transition-all hover:-translate-y-1">
+                            <div className="absolute top-0 right-0 w-28 h-28 bg-yellow-50 dark:bg-yellow-900/10 rounded-xl blur-3xl -mr-8 -mt-8 transition-transform group-hover:scale-125" />
                             <div className="relative">
                                 <div className="flex items-center justify-between mb-3">
                                     <p className="font-bold text-sm text-gray-500">أرباح معلقة</p>
@@ -247,8 +247,8 @@ export default function FinancialsPage() {
                         </motion.div>
 
                         {/* This Month Revenue */}
-                        <motion.div variants={item} className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 relative overflow-hidden group hover:shadow-lg transition-all hover:-translate-y-1">
-                            <div className="absolute top-0 right-0 w-28 h-28 bg-accent-50 dark:bg-blue-900/10 rounded-full blur-3xl -mr-8 -mt-8 transition-transform group-hover:scale-125" />
+                        <motion.div variants={item} className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 relative overflow-hidden group hover:shadow-sm transition-all hover:-translate-y-1">
+                            <div className="absolute top-0 right-0 w-28 h-28 bg-accent-50 dark:bg-blue-900/10 rounded-xl blur-3xl -mr-8 -mt-8 transition-transform group-hover:scale-125" />
                             <div className="relative">
                                 <div className="flex items-center justify-between mb-3">
                                     <p className="font-bold text-sm text-gray-500">إيرادات هذا الشهر</p>
@@ -268,8 +268,8 @@ export default function FinancialsPage() {
                         </motion.div>
 
                         {/* Total Earnings - Gradient */}
-                        <motion.div variants={item} className="bg-gradient-to-br from-accent to-purple-600 text-white rounded-3xl shadow-lg p-6 relative overflow-hidden group hover:shadow-sm transition-all hover:-translate-y-1">
-                            <div className="absolute top-0 right-0 w-28 h-28 bg-white/10 rounded-full blur-2xl -mr-8 -mt-8" />
+                        <motion.div variants={item} className="bg-ink text-white rounded-xl shadow-sm p-6 relative overflow-hidden group hover:shadow-sm transition-all hover:-translate-y-1">
+                            <div className="absolute top-0 right-0 w-28 h-28 bg-white/10 rounded-xl blur-2xl -mr-8 -mt-8" />
                             <div className="relative">
                                 <div className="flex items-center justify-between mb-3">
                                     <p className="font-bold text-sm text-white/80">إجمالي الأرباح</p>
@@ -292,7 +292,7 @@ export default function FinancialsPage() {
                     {/* ─── Charts Row ──────────────────────────── */}
                     <div className="grid lg:grid-cols-3 gap-6">
                         {/* Revenue Trend */}
-                        <motion.div variants={item} className="lg:col-span-2 bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+                        <motion.div variants={item} className="lg:col-span-2 bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
                             <h2 className="text-lg font-bold text-ink dark:text-white mb-4 flex items-center gap-2">
                                 <FiTrendingUp className="text-accent" /> تطور الإيرادات
                             </h2>
@@ -314,7 +314,7 @@ export default function FinancialsPage() {
                                 />
                             ) : (
                                 <div className="flex flex-col items-center justify-center py-16 text-center">
-                                    <div className="w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-3">
+                                    <div className="w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center mb-3">
                                         <FiTrendingUp className="text-2xl text-gray-400" />
                                     </div>
                                     <p className="text-text-muted font-medium">لا توجد بيانات كافية بعد</p>
@@ -324,7 +324,7 @@ export default function FinancialsPage() {
                         </motion.div>
 
                         {/* Revenue by Type */}
-                        <motion.div variants={item} className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+                        <motion.div variants={item} className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
                             <h2 className="text-lg font-bold text-ink dark:text-white mb-4 flex items-center gap-2">
                                 <FiPieChart className="text-purple-500" /> توزيع الإيرادات
                             </h2>
@@ -346,7 +346,7 @@ export default function FinancialsPage() {
                                 </div>
                             ) : (
                                 <div className="flex flex-col items-center justify-center py-16 text-center">
-                                    <div className="w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-3">
+                                    <div className="w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center mb-3">
                                         <FiPieChart className="text-2xl text-gray-400" />
                                     </div>
                                     <p className="text-text-muted font-medium">لا توجد بيانات</p>
@@ -356,7 +356,7 @@ export default function FinancialsPage() {
                     </div>
 
                     {/* ─── Monthly Breakdown Table ──────────────────── */}
-                    <motion.div variants={item} className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
+                    <motion.div variants={item} className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
                         <div className="p-6 border-b border-gray-100 dark:border-gray-800">
                             <h2 className="text-lg font-bold text-ink dark:text-white flex items-center gap-2">
                                 <FiBarChart2 className="text-accent" /> التقرير الشهري
@@ -387,7 +387,7 @@ export default function FinancialsPage() {
                     </motion.div>
 
                     {/* ─── Recent Transactions ──────────────────── */}
-                    <motion.div variants={item} className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
+                    <motion.div variants={item} className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
                         <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center">
                             <h2 className="text-lg font-bold text-ink dark:text-white flex items-center gap-2">
                                 <FiDollarSign className="text-green-500" /> آخر المعاملات
@@ -399,7 +399,7 @@ export default function FinancialsPage() {
 
                         {data.recentTransactions.length === 0 ? (
                             <div className="p-12 text-center">
-                                <div className="w-16 h-16 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div className="w-16 h-16 bg-gray-50 dark:bg-gray-800 rounded-xl flex items-center justify-center mx-auto mb-4">
                                     <FiDollarSign className="text-2xl text-gray-400" />
                                 </div>
                                 <p className="text-text-muted font-medium">لا توجد معاملات بعد</p>
@@ -427,7 +427,7 @@ export default function FinancialsPage() {
 
                     {/* ─── Quick Actions ──────────────────── */}
                     <motion.div variants={item} className="grid sm:grid-cols-3 gap-4">
-                        <Link href="/dashboard/payouts" className="card flex items-center gap-4 hover:shadow-lg transition-all hover:-translate-y-1 group">
+                        <Link href="/dashboard/payouts" className="card flex items-center gap-4 hover:shadow-sm transition-all hover:-translate-y-1 group">
                             <div className="w-12 h-12 bg-green-100 dark:bg-green-900/20 text-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                                 <FiDollarSign size={24} />
                             </div>
@@ -436,7 +436,7 @@ export default function FinancialsPage() {
                                 <p className="text-xs text-text-muted">اسحب رصيدك المتاح</p>
                             </div>
                         </Link>
-                        <Link href="/dashboard/earnings" className="card flex items-center gap-4 hover:shadow-lg transition-all hover:-translate-y-1 group">
+                        <Link href="/dashboard/earnings" className="card flex items-center gap-4 hover:shadow-sm transition-all hover:-translate-y-1 group">
                             <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 text-accent-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                                 <FiTrendingUp size={24} />
                             </div>
@@ -445,7 +445,7 @@ export default function FinancialsPage() {
                                 <p className="text-xs text-text-muted">سجل المعاملات الكامل</p>
                             </div>
                         </Link>
-                        <Link href="/dashboard/analytics" className="card flex items-center gap-4 hover:shadow-lg transition-all hover:-translate-y-1 group">
+                        <Link href="/dashboard/analytics" className="card flex items-center gap-4 hover:shadow-sm transition-all hover:-translate-y-1 group">
                             <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 text-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                                 <FiPieChart size={24} />
                             </div>
@@ -463,8 +463,8 @@ export default function FinancialsPage() {
                 <>
                     {/* Referral Stats */}
                     <div className="grid sm:grid-cols-3 gap-6">
-                        <motion.div variants={item} className="bg-gradient-to-br from-purple-500 to-ink text-white rounded-3xl shadow-lg p-6 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-2xl -mr-8 -mt-8" />
+                        <motion.div variants={item} className="bg-ink text-white rounded-xl shadow-sm p-6 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-xl blur-2xl -mr-8 -mt-8" />
                             <div className="relative">
                                 <div className="flex items-center justify-between mb-3">
                                     <p className="font-bold text-sm text-white/80">أرباح الإحالات</p>
@@ -479,7 +479,7 @@ export default function FinancialsPage() {
                             </div>
                         </motion.div>
 
-                        <motion.div variants={item} className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+                        <motion.div variants={item} className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
                             <div className="flex items-center justify-between mb-3">
                                 <p className="font-bold text-sm text-gray-500">عدد الإحالات</p>
                                 <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/20 text-purple-600 rounded-xl flex items-center justify-center">
@@ -492,7 +492,7 @@ export default function FinancialsPage() {
                             </p>
                         </motion.div>
 
-                        <motion.div variants={item} className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+                        <motion.div variants={item} className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
                             <div className="flex items-center justify-between mb-3">
                                 <p className="font-bold text-sm text-gray-500">نسبة العمولة</p>
                                 <div className="w-10 h-10 bg-green-100 dark:bg-green-900/20 text-green-600 rounded-xl flex items-center justify-center">
@@ -507,7 +507,7 @@ export default function FinancialsPage() {
                     </div>
 
                     {/* ─── Referral Link ────────────────────── */}
-                    <motion.div variants={item} className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+                    <motion.div variants={item} className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
                         <h2 className="text-lg font-bold text-ink dark:text-white mb-4 flex items-center gap-2">
                             🔗 رابط الإحالة الخاص بك
                         </h2>
@@ -530,27 +530,27 @@ export default function FinancialsPage() {
                     </motion.div>
 
                     {/* How it works */}
-                    <motion.div variants={item} className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-8">
+                    <motion.div variants={item} className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-8">
                         <h2 className="text-xl font-bold text-ink dark:text-white mb-6 flex items-center gap-2">
                             🌳 كيف تعمل شجرة الإحالات؟
                         </h2>
                         <div className="grid sm:grid-cols-3 gap-6">
                             <div className="text-center p-4">
-                                <div className="w-16 h-16 bg-accent-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <div className="w-16 h-16 bg-accent-50 dark:bg-blue-900/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                                     <span className="text-3xl">1️⃣</span>
                                 </div>
                                 <h3 className="font-bold text-ink dark:text-white mb-2">شارك رابط الإحالة</h3>
                                 <p className="text-sm text-gray-500">أرسل رابط التسجيل الخاص بك لأصدقائك ومعارفك</p>
                             </div>
                             <div className="text-center p-4">
-                                <div className="w-16 h-16 bg-purple-50 dark:bg-purple-900/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <div className="w-16 h-16 bg-purple-50 dark:bg-purple-900/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                                     <span className="text-3xl">2️⃣</span>
                                 </div>
                                 <h3 className="font-bold text-ink dark:text-white mb-2">يسجّلون ويبيعون</h3>
                                 <p className="text-sm text-gray-500">عندما يسجل شخص عبر رابطك ويبدأ بالبيع على المنصة</p>
                             </div>
                             <div className="text-center p-4">
-                                <div className="w-16 h-16 bg-green-50 dark:bg-green-900/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <div className="w-16 h-16 bg-green-50 dark:bg-green-900/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                                     <span className="text-3xl">3️⃣</span>
                                 </div>
                                 <h3 className="font-bold text-ink dark:text-white mb-2">تكسب تلقائياً</h3>
@@ -558,7 +558,7 @@ export default function FinancialsPage() {
                             </div>
                         </div>
 
-                        <div className="mt-6 bg-gradient-to-r from-purple-50 to-accent-50 dark:from-purple-900/10 dark:to-blue-900/10 rounded-2xl p-5 border border-purple-200/50 dark:border-purple-800/50">
+                        <div className="mt-6 bg-ink dark:from-purple-900/10 dark:to-blue-900/10 rounded-xl p-5 border border-purple-200/50 dark:border-purple-800/50">
                             <h4 className="font-bold text-ink dark:text-white mb-2">💡 مثال توضيحي</h4>
                             <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                                 لو أحد المستخدمين اللي سجلوا عبر رابطك باع منتج بقيمة <strong>100 $</strong> وعمولة المنصة <strong>10 $</strong>، فأنت تحصل على <strong>0.10 $</strong> تلقائياً في رصيدك. مع مرور الوقت وكثرة المبيعات، الأرباح تتراكم!

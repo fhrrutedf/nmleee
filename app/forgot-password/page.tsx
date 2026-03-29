@@ -44,8 +44,8 @@ export default function ForgotPasswordPage() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-bg-light relative overflow-hidden py-12 px-4">
             {/* Background Decorations */}
-            <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-accent/10 rounded-full blur-[80px] -z-10 pointer-events-none"></div>
-            <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
+            <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-accent/10 rounded-xl blur-[80px] -z-10 pointer-events-none"></div>
+            <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-purple-500/10 rounded-xl blur-[100px] -z-10 pointer-events-none"></div>
 
             <motion.div
                 initial="hidden"
@@ -58,7 +58,7 @@ export default function ForgotPasswordPage() {
                 {/* Logo/Title */}
                 <motion.div variants={fadeInUp} className="text-center mb-10">
                     <Link href="/" className="inline-block mb-6">
-                        <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-accent to-purple-600 flex items-center justify-center text-white shadow-sm shadow-accent/20">
+                        <div className="w-16 h-16 mx-auto rounded-xl bg-ink flex items-center justify-center text-white shadow-sm shadow-accent/20">
                             <span className="text-3xl font-bold">م</span>
                         </div>
                     </Link>
@@ -75,7 +75,7 @@ export default function ForgotPasswordPage() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 className="text-center py-4"
                             >
-                                <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-100 shadow-inner">
+                                <div className="w-20 h-20 bg-green-50 text-green-500 rounded-xl flex items-center justify-center mx-auto mb-6 border border-green-100 shadow-inner">
                                     <FiCheckCircle size={40} />
                                 </div>
                                 <h2 className="text-2xl font-bold text-gray-900 mb-4">تم الإرسال بنجاح!</h2>
@@ -101,7 +101,7 @@ export default function ForgotPasswordPage() {
                                                 required
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
-                                                className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 pr-12 font-semibold focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all ltr"
+                                                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 pr-12 font-semibold focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all ltr"
                                                 placeholder="name@example.com"
                                             />
                                             <FiMail className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl group-focus-within:text-accent transition-colors" />
@@ -118,11 +118,11 @@ export default function ForgotPasswordPage() {
                                     <button
                                         type="submit"
                                         disabled={status === 'loading'}
-                                        className="w-full btn btn-primary py-4 rounded-2xl text-lg font-bold shadow-lg shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:transform-none shadow-accent/30"
+                                        className="w-full btn btn-primary py-4 rounded-xl text-lg font-bold shadow-sm shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:transform-none shadow-accent/30"
                                     >
                                         {status === 'loading' ? (
                                             <>
-                                                <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                                <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-xl animate-spin"></div>
                                                 جاري الإرسال...
                                             </>
                                         ) : (

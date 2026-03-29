@@ -245,21 +245,21 @@ export default function NewCoursePage() {
                 {/* Header & Auto-Draft Indicator */}
                 <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between border-b border-slate-100 pb-6">
                     <div className="text-right">
-                        <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-gray-400 hover:text-accent font-black text-[10px] uppercase tracking-widest mb-4 transition-all">
+                        <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-gray-400 hover:text-accent font-bold text-[10px] uppercase tracking-widest mb-4 transition-all">
                             <FiArrowRight /> BACK TO ACADEMY
                         </Link>
-                        <h1 className="text-4xl font-black text-ink tracking-tighter">Architect New Program</h1>
+                        <h1 className="text-4xl font-bold text-ink tracking-tighter">Architect New Program</h1>
                         <p className="text-gray-400 font-bold mt-2">Design a premium learning experience for your audience.</p>
                     </div>
                     {isSavingDraft && (
-                        <div className="mt-4 md:mt-0 flex items-center gap-2 text-xs font-bold text-slate-400 bg-slate-50 px-4 py-2 rounded-full border border-slate-100 ">
+                        <div className="mt-4 md:mt-0 flex items-center gap-2 text-xs font-bold text-slate-400 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100 ">
                             <FiSave /> جاري الحفظ تلقائياً...
                         </div>
                     )}
                 </div>
 
                 {/* Progress Bar */}
-                <div className="bg-white rounded-2xl p-6 lg:p-8 shadow-lg border border-slate-50 mb-10 overflow-hidden">
+                <div className="bg-white rounded-xl p-6 lg:p-8 shadow-sm border border-slate-50 mb-10 overflow-hidden">
                     <StepProgress steps={dynamicSteps} currentStep={currentStep} />
                 </div>
 
@@ -288,19 +288,19 @@ export default function NewCoursePage() {
                                         </div>
                                     </div>
                                     <div className="space-y-4 pt-10 border-t border-slate-50">
-                                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-6 block border-b border-gray-100 pb-3">Program Delivery Model <span className="text-red-500">*</span></label>
+                                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6 block border-b border-gray-100 pb-3">Program Delivery Model <span className="text-red-500">*</span></label>
                                         <div className="grid md:grid-cols-2 gap-6">
                                             <button type="button" onClick={() => update('format', 'recorded')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'recorded' ? 'border-accent bg-accent/[0.03] shadow-sm shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
-                                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm transition-all ${formData.format === 'recorded' ? 'bg-accent text-white' : 'bg-gray-50 text-gray-400'}`}><FiVideo size={24}/></div>
+                                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-sm transition-all ${formData.format === 'recorded' ? 'bg-accent text-white' : 'bg-gray-50 text-gray-400'}`}><FiVideo size={24}/></div>
                                                 <div>
-                                                    <h4 className={`font-black mb-1 text-lg tracking-tight ${formData.format === 'recorded' ? 'text-ink' : 'text-gray-400'}`}>Recorded Assets</h4>
+                                                    <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'recorded' ? 'text-ink' : 'text-gray-400'}`}>Recorded Assets</h4>
                                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider opacity-60">High-leverage asynchronous learning.</p>
                                                 </div>
                                             </button>
                                             <button type="button" onClick={() => update('format', 'online')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'online' ? 'border-accent bg-accent/5 shadow-sm shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
-                                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm transition-all ${formData.format === 'online' ? 'bg-accent text-white' : 'bg-gray-50 text-gray-400'}`}><FiClock size={24}/></div>
+                                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-sm transition-all ${formData.format === 'online' ? 'bg-accent text-white' : 'bg-gray-50 text-gray-400'}`}><FiClock size={24}/></div>
                                                 <div>
-                                                    <h4 className={`font-black mb-1 text-lg tracking-tight ${formData.format === 'online' ? 'text-ink' : 'text-gray-400'}`}>Institutional Live</h4>
+                                                    <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'online' ? 'text-ink' : 'text-gray-400'}`}>Institutional Live</h4>
                                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider opacity-60">Synchronous coaching & live streaming.</p>
                                                 </div>
                                             </button>
@@ -317,7 +317,7 @@ export default function NewCoursePage() {
                                                     <>
                                                         <img src={formData.image} alt="Cover" className="w-full h-full object-cover" />
                                                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                           <button type="button" onClick={() => update('image', '')} className="bg-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold shadow-sm hover:scale-110 transition-transform"><FiX size={20}/></button>
+                                                           <button type="button" onClick={() => update('image', '')} className="bg-red-500 text-white w-12 h-12 rounded-xl flex items-center justify-center font-bold shadow-sm hover:scale-110 transition-transform"><FiX size={20}/></button>
                                                         </div>
                                                     </>
                                                 ) : (
@@ -338,7 +338,7 @@ export default function NewCoursePage() {
                                             <div className="relative aspect-video rounded-xl bg-slate-50 border-4 border-white shadow-sm overflow-hidden group">
                                                 {formData.trailerUrl ? (
                                                     <div className="flex flex-col items-center justify-center w-full h-full p-6 text-center">
-                                                        <div className="w-16 h-16 bg-indigo-50 text-ink rounded-2xl flex items-center justify-center mb-4">
+                                                        <div className="w-16 h-16 bg-indigo-50 text-ink rounded-xl flex items-center justify-center mb-4">
                                                             <FiFilm size={40} />
                                                         </div>
                                                         <p className="font-bold text-slate-800 text-sm">تم رفع فيديو ترويجي بنجاح</p>
@@ -411,7 +411,7 @@ export default function NewCoursePage() {
                                         <label className="label-modern mb-4 block underline decoration-primary-indigo-100 underline-offset-4">ملحقات الدورة (اختياري)</label>
                                         <div className="space-y-3">
                                             {formData.attachments.map((file, i) => (
-                                                <div key={i} className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                                <div key={i} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
                                                     <div className="flex items-center gap-2 overflow-hidden">
                                                         <FiCheckSquare className="text-primary-ink shrink-0" />
                                                         <span className="text-xs font-bold truncate max-w-[200px]" dir="ltr">{file.split('/').pop()}</span>
@@ -423,7 +423,7 @@ export default function NewCoursePage() {
                                                 <FiUpload /> رفع ملفات اضافية مساعدة (PDF, ZIP...)
                                             </button>
                                             {showAttachmentsUploader && (
-                                                <div className="mt-4 bg-white/90  p-6 rounded-3xl border shadow-sm relative"><FileUploader onUploadSuccess={urls => { update('attachments', [...formData.attachments, ...urls]); setShowAttachmentsUploader(false); }} /></div>
+                                                <div className="mt-4 bg-white/90  p-6 rounded-xl border shadow-sm relative"><FileUploader onUploadSuccess={urls => { update('attachments', [...formData.attachments, ...urls]); setShowAttachmentsUploader(false); }} /></div>
                                             )}
                                         </div>
                                     </div>
@@ -442,7 +442,7 @@ export default function NewCoursePage() {
                                             </div>
                                             <div className="flex flex-wrap gap-2">
                                                 {formData.tags.map(t => (
-                                                    <span key={t} className="text-[10px] font-bold bg-slate-50 text-slate-500 px-3 py-1.5 rounded-full flex items-center gap-2 border border-slate-100 hover:bg-red-50 transition-colors group">{t} <FiX className="cursor-pointer text-slate-300 group-hover:text-red-500" onClick={() => update('tags', formData.tags.filter(i => i !== t))} /></span>
+                                                    <span key={t} className="text-[10px] font-bold bg-slate-50 text-slate-500 px-3 py-1.5 rounded-xl flex items-center gap-2 border border-slate-100 hover:bg-red-50 transition-colors group">{t} <FiX className="cursor-pointer text-slate-300 group-hover:text-red-500" onClick={() => update('tags', formData.tags.filter(i => i !== t))} /></span>
                                                 ))}
                                             </div>
                                         </div>
@@ -482,7 +482,7 @@ export default function NewCoursePage() {
                                             <CourseContentBuilder courseId={draftId} onLessonsChange={setLessonCount} />
                                         </div>
                                     ) : (
-                                        <div className="text-center p-10 text-red-500 font-bold bg-red-50 rounded-2xl border-2 border-red-100 italic">حدث خطأ. لم يتم التعرف على الدورة المؤقتة. الرجاء العودة والتأكد من البيانات.</div>
+                                        <div className="text-center p-10 text-red-500 font-bold bg-red-50 rounded-xl border-2 border-red-100 italic">حدث خطأ. لم يتم التعرف على الدورة المؤقتة. الرجاء العودة والتأكد من البيانات.</div>
                                     )}
                                 </Section>
                             </motion.div>
@@ -496,7 +496,7 @@ export default function NewCoursePage() {
                                         <div className="space-y-4">
                                             <div className="flex items-center justify-between mb-4">
                                                 <label className="label-modern underline decoration-blue-200 underline-offset-8">سعر البيع النهائي ($)</label>
-                                                <span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-full uppercase tracking-tighter shadow-sm ">السعر المعتمد</span>
+                                                <span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-xl uppercase tracking-tighter shadow-sm ">السعر المعتمد</span>
                                             </div>
                                             <div className="relative group/price">
                                                 <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-accent-50 text-accent-600 rounded-r-2xl border-l border-blue-100 transition-colors group-focus-within/price:bg-accent-600 group-focus-within/price:text-white">
@@ -504,7 +504,7 @@ export default function NewCoursePage() {
                                                 </div>
                                                 <input type="number" required className="input-modern pr-20 text-4xl font-bold text-slate-800 focus:bg-white transition-all text-center tracking-tighter" placeholder="0.00" value={formData.price} onChange={e => update('price', e.target.value)} />
                                             </div>
-                                            <div className="flex items-center justify-between p-4 bg-slate-50/50 rounded-2xl border border-slate-100 mt-4">
+                                            <div className="flex items-center justify-between p-4 bg-slate-50/50 rounded-xl border border-slate-100 mt-4">
                                                 <span className="text-[11px] font-bold text-slate-400 italic">صافي أرباحك التقريبي (بعد عمولة المنصة 10%):</span>
                                                 <span className="text-lg font-bold text-blue-700">{netEarnings} $</span>
                                             </div>
@@ -513,7 +513,7 @@ export default function NewCoursePage() {
                                         <div className="space-y-4">
                                             <div className="flex items-center justify-between mb-4">
                                                 <label className="label-modern underline decoration-red-200 underline-offset-8">السعر الوهمي / السابق ($)</label>
-                                                <span className="text-[10px] font-bold bg-red-50 text-red-500 px-3 py-1 rounded-full uppercase tracking-tighter">للخصم فقط</span>
+                                                <span className="text-[10px] font-bold bg-red-50 text-red-500 px-3 py-1 rounded-xl uppercase tracking-tighter">للخصم فقط</span>
                                             </div>
                                             <div className="relative group/price-old">
                                                 <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-slate-50 text-slate-400 rounded-r-2xl border-l border-slate-100 transition-colors group-focus-within/price-old:bg-red-500 group-focus-within/price-old:text-white">
@@ -561,23 +561,23 @@ export default function NewCoursePage() {
                                 )}
 
                                 <Section title="خيارات العرض فور الإنشاء" icon={<FiEye />}>
-                                    <div className={`flex items-center justify-between p-8 rounded-2xl border transition-all cursor-pointer group hover:opacity-95 ${formData.isActive ? 'bg-slate-900 border-slate-800 shadow-sm' : 'bg-white border-slate-100'}`} onClick={() => update('isActive', !formData.isActive)}>
+                                    <div className={`flex items-center justify-between p-8 rounded-xl border transition-all cursor-pointer group hover:opacity-95 ${formData.isActive ? 'bg-slate-900 border-slate-800 shadow-sm' : 'bg-white border-slate-100'}`} onClick={() => update('isActive', !formData.isActive)}>
                                         <div className="text-right">
                                             <h3 className={`font-bold text-xl leading-tight transition-colors ${formData.isActive ? 'text-white' : 'text-slate-800'}`}>إطلاق وعرض الدورة للبيع</h3>
                                             <p className={`text-xs mt-1 font-bold ${formData.isActive ? 'text-white/40' : 'text-slate-400'}`}>{formData.isActive ? 'الدورة ستظهر في واجهة المتجر الرئيسية للجميع' : 'الدورة ستبقى مخفية (وسيكون الوصول بالرابط السري فقط)'}</p>
                                         </div>
-                                        <div className={`w-14 h-8 rounded-full flex items-center px-1 transition-all ${formData.isActive ? 'bg-primary-ink' : 'bg-slate-100'}`}>
-                                            <div className={`w-6 h-6 bg-white rounded-full transition-all shadow-md ${formData.isActive ? 'translate-x-[24px]' : 'translate-x-0'}`} />
+                                        <div className={`w-14 h-8 rounded-xl flex items-center px-1 transition-all ${formData.isActive ? 'bg-primary-ink' : 'bg-slate-100'}`}>
+                                            <div className={`w-6 h-6 bg-white rounded-xl transition-all shadow-md ${formData.isActive ? 'translate-x-[24px]' : 'translate-x-0'}`} />
                                         </div>
                                     </div>
                                     
-                                    <div className="flex items-center justify-between p-8 bg-blue-900 rounded-2xl border border-blue-800 shadow-lg transition-all cursor-pointer hover:bg-blue-800 group" onClick={() => update('enablePPP', !formData.enablePPP)}>
+                                    <div className="flex items-center justify-between p-8 bg-blue-900 rounded-xl border border-blue-800 shadow-sm transition-all cursor-pointer hover:bg-blue-800 group" onClick={() => update('enablePPP', !formData.enablePPP)}>
                                         <div className="text-right">
                                             <h3 className="font-bold text-white text-xl leading-tight transition-colors group-hover:text-blue-400">تفعيل التسعير العادل (PPP Pricing) 🌍</h3>
                                             <p className="text-xs text-blue-200 mt-1 max-w-lg leading-relaxed">تخفيض السعر تلقائياً للزوار من الدول النامية حسب القوة الشرائية، لضمان أعلى نسبة مبيعات للجميع دون حرمان أحد.</p>
                                         </div>
-                                        <div className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-accent-500 outline-accent-500/30' : 'bg-blue-950 outline-blue-900'}`}>
-                                            <div className={`w-6 h-6 bg-white rounded-full transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
+                                        <div className={`w-16 h-9 rounded-xl flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-accent-500 outline-accent-500/30' : 'bg-blue-950 outline-blue-900'}`}>
+                                            <div className={`w-6 h-6 bg-white rounded-xl transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
                                         </div>
                                     </div>
                                 </Section>
@@ -592,13 +592,13 @@ export default function NewCoursePage() {
                             {currentStep > 1 ? (
                                 <button
                                     type="button" onClick={prevStep}
-                                    className="w-full md:w-auto flex items-center justify-center gap-2 text-slate-400 font-bold hover:text-slate-600 border border-slate-200 rounded-2xl transition-all px-8 py-4 group hover:bg-slate-50"
+                                    className="w-full md:w-auto flex items-center justify-center gap-2 text-slate-400 font-bold hover:text-slate-600 border border-slate-200 rounded-xl transition-all px-8 py-4 group hover:bg-slate-50"
                                 >
                                     <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                                     خطوة للخلف
                                 </button>
                             ) : (
-                                <Link href="/dashboard/courses" className="w-full md:w-auto block text-center text-slate-400 hover:text-red-500 font-bold border border-transparent hover:bg-red-50 rounded-2xl px-8 py-4 transition-all">
+                                <Link href="/dashboard/courses" className="w-full md:w-auto block text-center text-slate-400 hover:text-red-500 font-bold border border-transparent hover:bg-red-50 rounded-xl px-8 py-4 transition-all">
                                     تراجع وألغي كل شيء
                                 </Link>
                             )}
@@ -607,7 +607,7 @@ export default function NewCoursePage() {
                             {currentStep < 4 ? (
                                 <button
                                     type="button" onClick={nextStep}
-                                    className="w-full md:w-auto px-12 py-4 bg-slate-900 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-black transition-all shadow-sm active:scale-95 text-lg"
+                                    className="w-full md:w-auto px-12 py-4 bg-slate-900 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-black transition-all shadow-sm active:scale-95 text-lg"
                                 >
                                     {currentStep === 3 || (currentStep === 2 && formData.format === 'online') ? 'التالي لتسعير الدورة' : 'المتابعة واختيار الإعدادات'}
                                     <FiArrowLeft />
@@ -615,7 +615,7 @@ export default function NewCoursePage() {
                             ) : (
                                 <button
                                     type="submit" disabled={loading}
-                                    className="w-full md:w-auto px-12 py-5 bg-ink text-white rounded-2xl font-black text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:bg-accent transition-all shadow-sm shadow-black/10 active:scale-95 group"
+                                    className="w-full md:w-auto px-12 py-5 bg-ink text-white rounded-xl font-bold text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:bg-accent transition-all shadow-sm shadow-black/10 active:scale-95 group"
                                 >
                                     {loading ? 'Processing Protocol...' : 'Deploy Program Architecture'}
                                     {!loading && <FiCheck className="text-xl group-hover:scale-125 transition-transform text-white" />}
@@ -635,7 +635,7 @@ export default function NewCoursePage() {
                     </div>
 
                     {/* Miniature Course Card */}
-                    <div className="bg-white rounded-xl border border-slate-100 shadow-lg overflow-hidden transition-all hover:shadow-sm hover:-translate-y-1">
+                    <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden transition-all hover:shadow-sm hover:-translate-y-1">
                         <div className="aspect-video bg-slate-100 relative overflow-hidden flex items-center justify-center text-slate-300">
                             {formData.image ? 
                                 <img src={formData.image} alt="Preview" className="w-full h-full object-cover" /> 
@@ -653,7 +653,7 @@ export default function NewCoursePage() {
                             
                             <div className="flex flex-wrap gap-2 mt-4 mb-2">
                                 {formData.tags.slice(0, 3).map(tag => (
-                                    <span key={tag} className="text-[9px] bg-primary-indigo-50 text-primary-ink px-2 py-1 rounded-md font-bold">{tag}</span>
+                                    <span key={tag} className="text-[9px] bg-subtle text-primary-ink px-2 py-1 rounded-md font-bold">{tag}</span>
                                 ))}
                             </div>
 
@@ -668,7 +668,7 @@ export default function NewCoursePage() {
                                 </div>
                             </div>
                             
-                            <button className="w-full mt-4 py-3 bg-slate-50 text-slate-400 font-bold rounded-2xl text-xs" disabled>
+                            <button className="w-full mt-4 py-3 bg-slate-50 text-slate-400 font-bold rounded-xl text-xs" disabled>
                                 اشتراك وإضافة للسلة
                             </button>
                         </div>
@@ -678,15 +678,15 @@ export default function NewCoursePage() {
 
             <AnimatePresence>
                 {showConfirmModal && (
-                    <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/60  animate-fade-in">
-                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-3xl p-12 max-w-sm w-full text-center space-y-10 shadow-sm border border-slate-50">
-                             <div className="w-24 h-24 bg-primary-indigo-50 text-primary-ink rounded-xl flex items-center justify-center mx-auto text-5xl shadow-sm"><FiCheckSquare /></div>
+                    <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/60  ">
+                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-xl p-12 max-w-sm w-full text-center space-y-10 shadow-sm border border-slate-50">
+                             <div className="w-24 h-24 bg-subtle text-primary-ink rounded-xl flex items-center justify-center mx-auto text-5xl shadow-sm"><FiCheckSquare /></div>
                              <div className="space-y-2">
                                  <h3 className="text-3xl font-bold text-slate-900 leading-tight">جاهز للانطلاق!</h3>
                                  <p className="text-sm text-slate-400 font-bold uppercase tracking-widest">سيتم نشر الأكاديمية وتفعيل القبول التلقائي</p>
                              </div>
                              <div className="flex flex-col gap-4">
-                                <button onClick={handleSubmit} className="w-full py-5 bg-gradient-to-l from-primary-ink to-accent-500 text-white rounded-3xl font-bold shadow-lg hover:opacity-90 transition-all text-lg">تأكيد ونشر الأكاديمية الآن</button>
+                                <button onClick={handleSubmit} className="w-full py-5 bg-ink text-white rounded-xl font-bold shadow-sm hover:opacity-90 transition-all text-lg">تأكيد ونشر الأكاديمية الآن</button>
                                 <button onClick={() => setShowConfirmModal(false)} className="w-full py-2 text-slate-400 font-bold text-xs uppercase hover:text-slate-600 transition-all">مراجعة المحتوى التفصيلي</button>
                              </div>
                         </motion.div>
@@ -708,7 +708,7 @@ export default function NewCoursePage() {
                         >
                             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary-ink via-accent-500 to-primary-ink animate-gradient-x" />
                             
-                            <div className="w-24 h-24 bg-blue-100 text-accent-600 rounded-full flex items-center justify-center mx-auto mb-10 text-4xl shadow-lg ring-8 ring-accent-50">🎓</div>
+                            <div className="w-24 h-24 bg-blue-100 text-accent-600 rounded-xl flex items-center justify-center mx-auto mb-10 text-4xl shadow-sm ring-8 ring-accent-50">🎓</div>
                             
                             <div className="space-y-4 mb-12">
                                 <h2 className="text-4xl font-bold text-slate-900 tracking-tight leading-none">تهانينا! دورتك جاهزة ✨</h2>
@@ -718,26 +718,26 @@ export default function NewCoursePage() {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <button
                                     onClick={() => router.push(`/dashboard/courses/${finalCourseId}/content`)}
-                                    className="w-full py-5 bg-primary-ink text-white rounded-3xl font-bold flex items-center justify-center gap-3 hover:bg-primary-indigo-700 transition-all shadow-sm active:scale-95"
+                                    className="w-full py-5 bg-primary-ink text-white rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-primary-indigo-700 transition-all shadow-sm active:scale-95"
                                 >
                                     إدارة الدروس <FiLayers />
                                 </button>
                                 <button
                                     onClick={() => router.push(`/dashboard/courses/${finalCourseId}/edit`)}
-                                    className="w-full py-5 bg-slate-900 text-white rounded-3xl font-bold flex items-center justify-center gap-3 hover:bg-black transition-all shadow-sm active:scale-95"
+                                    className="w-full py-5 bg-slate-900 text-white rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-black transition-all shadow-sm active:scale-95"
                                 >
                                     تعديل التفاصيل <FiEdit2 />
                                 </button>
                                 <button
                                     onClick={() => router.push('/dashboard/courses')}
-                                    className="w-full py-5 bg-slate-100 text-slate-600 rounded-3xl font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-3 active:scale-95"
+                                    className="w-full py-5 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-3 active:scale-95"
                                 >
                                     لوحة التحكم <FiArrowLeft />
                                 </button>
                                 <Link
                                     href={creatorUsername && finalSlug ? `/${creatorUsername}/products/${finalSlug}` : `/dashboard/courses/${finalCourseId}/content`}
                                     target="_blank"
-                                    className="w-full py-5 bg-blue-100 text-blue-700 rounded-3xl font-bold hover:bg-blue-200 transition-all flex items-center justify-center gap-3 active:scale-95 shadow-sm"
+                                    className="w-full py-5 bg-blue-100 text-blue-700 rounded-xl font-bold hover:bg-blue-200 transition-all flex items-center justify-center gap-3 active:scale-95 shadow-sm"
                                 >
                                     لمحة عن المتجر <FiEye />
                                 </Link>
@@ -752,14 +752,14 @@ export default function NewCoursePage() {
 
 function Section({ title, icon, children }: any) {
     return (
-        <div className="bg-white rounded-3xl p-8 lg:p-14 shadow-lg border border-slate-50 space-y-10 overflow-hidden relative">
+        <div className="bg-white rounded-xl p-8 lg:p-14 shadow-sm border border-slate-50 space-y-10 overflow-hidden relative">
             <div className="flex items-center gap-5">
-                <div className="w-16 h-16 bg-slate-50 text-slate-900 rounded-3xl flex items-center justify-center text-3xl shadow-sm group-hover:scale-110 transition-transform shrink-0">
+                <div className="w-16 h-16 bg-slate-50 text-slate-900 rounded-xl flex items-center justify-center text-3xl shadow-sm group-hover:scale-110 transition-transform shrink-0">
                     {icon}
                 </div>
                 <div className="text-right">
                     <h2 className="text-2xl font-bold text-slate-900 tracking-tight">{title}</h2>
-                    <div className="h-1.5 w-12 bg-primary-indigo-100 rounded-full mt-2" />
+                    <div className="h-1.5 w-12 bg-primary-indigo-100 rounded-xl mt-2" />
                 </div>
             </div>
             <div className="relative z-10 space-y-8">

@@ -140,7 +140,7 @@ export default function ProductDetails({
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
                     {/* Left Column: Product Info Card */}
                     <div className="lg:col-span-5 order-2 lg:order-1 relative">
-                        <div className="sticky top-24 bg-white dark:bg-card-white rounded-3xl shadow-sm shadow-gray-200/50 dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-800 animate-fade-in-up">
+                        <div className="sticky top-24 bg-white dark:bg-card-white rounded-xl shadow-sm shadow-gray-200/50 dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-800 -up">
                             <div className="h-6 w-full bg-gradient-to-r from-accent via-purple-500 to-pink-500"></div>
                             <div className="p-8 sm:p-10">
                                 <div className="flex flex-wrap gap-2 mb-6">
@@ -186,7 +186,7 @@ export default function ProductDetails({
                                         </div>
                                     )}
                                     <div className="flex items-end gap-3 leading-none">
-                                        <span className="text-5xl sm:text-6xl font-bold bg-gradient-to-br from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent transform transition-transform hover:scale-105 origin-right">
+                                        <span className="text-5xl sm:text-6xl font-bold bg-ink dark:from-white dark:to-gray-400 bg-clip-text text-transparent transform transition-transform hover:scale-105 origin-right">
                                             {formatPrice(product.price || 0).value}
                                         </span>
                                         <span className="text-2xl font-bold text-gray-400 dark:text-gray-500 mb-2 font-serif">
@@ -196,8 +196,8 @@ export default function ProductDetails({
 
                                     {/* Urgency Countdown Banner */}
                                     {product.offerExpiresAt && new Date(product.offerExpiresAt) > new Date() && (
-                                        <div className="mt-6 p-4 bg-accent-50 dark:bg-blue-900/10 rounded-2xl border border-blue-100 dark:border-blue-900/20 flex items-center gap-3 ">
-                                            <div className="w-10 h-10 bg-accent-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-accent-500/20">
+                                        <div className="mt-6 p-4 bg-accent-50 dark:bg-blue-900/10 rounded-xl border border-blue-100 dark:border-blue-900/20 flex items-center gap-3 ">
+                                            <div className="w-10 h-10 bg-accent-500 text-white rounded-xl flex items-center justify-center shadow-sm shadow-accent-500/20">
                                                 <FiClock className="text-xl" />
                                             </div>
                                             <div className="text-right">
@@ -212,12 +212,12 @@ export default function ProductDetails({
                                     <button
                                         onClick={buyNow}
                                         disabled={buyingNow}
-                                        className="w-full btn btn-primary text-xl py-5 rounded-2xl shadow-sm shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-bold disabled:opacity-80 disabled:cursor-not-allowed"
+                                        className="w-full btn btn-primary text-xl py-5 rounded-xl shadow-sm shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-bold disabled:opacity-80 disabled:cursor-not-allowed"
                                         style={product.user?.brandColor ? { backgroundColor: product.user.brandColor, borderColor: product.user.brandColor } : {}}
                                     >
                                         {buyingNow ? (
                                             <>
-                                                <span className="w-6 h-6 rounded-full border-3 border-white border-t-transparent animate-spin inline-block" style={{ borderWidth: '3px' }} />
+                                                <span className="w-6 h-6 rounded-xl border-3 border-white border-t-transparent animate-spin inline-block" style={{ borderWidth: '3px' }} />
                                                 <span>جاري التحويل...</span>
                                             </>
                                         ) : (
@@ -232,14 +232,14 @@ export default function ProductDetails({
                                         <button
                                             onClick={addToCart}
                                             disabled={addingToCart}
-                                            className="w-full btn text-lg py-4 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-ink dark:text-gray-200 font-bold hover:border-accent hover:text-accent dark:hover:border-accent transition-colors disabled:opacity-60"
+                                            className="w-full btn text-lg py-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-ink dark:text-gray-200 font-bold hover:border-accent hover:text-accent dark:hover:border-accent transition-colors disabled:opacity-60"
                                         >
                                             {addingToCart ? (
-                                                <span className="w-5 h-5 rounded-full border-2 border-current border-t-transparent animate-spin inline-block" />
+                                                <span className="w-5 h-5 rounded-xl border-2 border-current border-t-transparent animate-spin inline-block" />
                                             ) : 'أضف للسلة'}
                                         </button>
                                         {product.previewFileUrl && (
-                                            <a href={product.previewFileUrl} target="_blank" rel="noopener noreferrer" className="w-full btn bg-purple-50 hover:bg-purple-100 dark:bg-purple-900/20 dark:hover:bg-purple-900/40 text-purple-600 dark:text-purple-400 text-lg py-4 rounded-2xl flex items-center justify-center gap-2 transition-colors font-bold border border-purple-100 dark:border-purple-800/30">
+                                            <a href={product.previewFileUrl} target="_blank" rel="noopener noreferrer" className="w-full btn bg-purple-50 hover:bg-purple-100 dark:bg-purple-900/20 dark:hover:bg-purple-900/40 text-purple-600 dark:text-purple-400 text-lg py-4 rounded-xl flex items-center justify-center gap-2 transition-colors font-bold border border-purple-100 dark:border-purple-800/30">
                                                 <FiEye className="text-xl" />
                                                 <span>معاينة للدرس</span>
                                             </a>
@@ -261,8 +261,8 @@ export default function ProductDetails({
                     {/* Right Column: Media & Details */}
                     <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col gap-10">
                         <div className="group relative">
-                            <div className="absolute -inset-1 bg-gradient-to-r from-accent to-purple-600 rounded-xl blur-xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-                            <div className="relative bg-black rounded-xl overflow-hidden shadow-sm ring-1 ring-gray-900/10 dark:ring-white/10 aspect-[16/10] sm:aspect-video flex items-center justify-center animate-fade-in-up">
+                            <div className="absolute -inset-1 bg-ink rounded-xl blur-xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                            <div className="relative bg-black rounded-xl overflow-hidden shadow-sm ring-1 ring-gray-900/10 dark:ring-white/10 aspect-[16/10] sm:aspect-video flex items-center justify-center -up">
                                 {activeMedia?.type === 'video' ? (
                                     <div className="w-full h-full">
                                         <VideoPlayer src={activeMedia.url} videoId={product.id} title={product.title} poster={product.image} />
@@ -270,7 +270,7 @@ export default function ProductDetails({
                                 ) : activeMedia?.type === 'image' ? (
                                     <img src={activeMedia.url} alt={product.title} className="w-full h-full object-cover transform transition-transform duration-700 hover:scale-105" />
                                 ) : (
-                                    <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center text-gray-500">
+                                    <div className="w-full h-full bg-ink flex flex-col items-center justify-center text-gray-500">
                                         <FiBook className="text-8xl mb-4 opacity-50" />
                                         <span className="font-medium tracking-widest uppercase text-sm">No Preview Available</span>
                                     </div>
@@ -284,13 +284,13 @@ export default function ProductDetails({
                                     <button
                                         key={idx}
                                         onClick={() => setActiveMedia(item as any)}
-                                        className={`relative shrink-0 w-32 h-20 sm:w-40 sm:h-24 rounded-2xl overflow-hidden transition-all duration-300 snap-start shadow-sm ${activeMedia?.url === item.url ? 'ring-4 ring-accent scale-105 z-10' : 'ring-1 ring-gray-200 dark:ring-gray-700 opacity-60 hover:opacity-100 filter grayscale hover:grayscale-0'}`}
+                                        className={`relative shrink-0 w-32 h-20 sm:w-40 sm:h-24 rounded-xl overflow-hidden transition-all duration-300 snap-start shadow-sm ${activeMedia?.url === item.url ? 'ring-4 ring-accent scale-105 z-10' : 'ring-1 ring-gray-200 dark:ring-gray-700 opacity-60 hover:opacity-100 filter grayscale hover:grayscale-0'}`}
                                     >
                                         {item.type === 'video' ? (
                                             <div className="w-full h-full bg-gray-900 flex items-center justify-center relative">
                                                 <img src={product.image || ''} className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay" alt="thumb video" />
                                                 <div className="absolute inset-0 bg-black/20" />
-                                                <FiPlayCircle className="text-3xl text-white relative z-10 drop-shadow-lg" />
+                                                <FiPlayCircle className="text-3xl text-white relative z-10 drop-shadow-sm" />
                                                 <div className="absolute bottom-1 right-2 text-[10px] font-bold text-white uppercase tracking-wider">Video</div>
                                             </div>
                                         ) : (
@@ -301,9 +301,9 @@ export default function ProductDetails({
                             </div>
                         )}
 
-                        <div className="mt-8 bg-gradient-to-r from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 rounded-3xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden group">
+                        <div className="mt-8 bg-ink dark:from-gray-900 dark:to-gray-800 rounded-xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden group">
                             <div className="flex items-center gap-6 relative z-10 w-full sm:w-auto">
-                                 <Link href={`/${product.user?.username || 'seller'}`} className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-accent to-purple-600 rounded-2xl flex items-center justify-center font-bold text-3xl text-white shadow-sm overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                                 <Link href={`/${product.user?.username || 'seller'}`} className="w-20 h-20 sm:w-24 sm:h-24 bg-ink rounded-xl flex items-center justify-center font-bold text-3xl text-white shadow-sm overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
                                      {product.user?.avatar ? (
                                          <img src={product.user.avatar} className="w-full h-full object-cover" alt={product.user.name} />
                                      ) : (
@@ -331,9 +331,9 @@ export default function ProductDetails({
                                      </div>
                                  </div>
                              </div>
-                             <div className="hidden sm:flex flex-col items-center justify-center p-4 bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-dashed border-gray-200 dark:border-gray-700">
+                             <div className="hidden sm:flex flex-col items-center justify-center p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
                                 <p className="text-[10px] font-bold uppercase text-gray-400 mb-1">متصل الآن</p>
-                                <div className="w-3 h-3 bg-green-500 rounded-full  shadow-sm shadow-green-500/50" />
+                                <div className="w-3 h-3 bg-green-500 rounded-xl  shadow-sm shadow-green-500/50" />
                              </div>
                         </div>
 
@@ -354,7 +354,7 @@ export default function ProductDetails({
                                 >
                                     <FiMessageSquare className={activeTab === 'reviews' ? "text-accent" : "text-gray-400"} />
                                     تجارب المشترين
-                                    <span className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs px-2 py-1 rounded-full">{reviews.length}</span>
+                                    <span className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs px-2 py-1 rounded-xl">{reviews.length}</span>
                                     {activeTab === 'reviews' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-accent rounded-t-full"></div>)}
                                 </button>
                             </div>
@@ -365,9 +365,9 @@ export default function ProductDetails({
                                         <div dangerouslySetInnerHTML={{ __html: stripHtml(product.description) }} />
                                     </div>
                                 ) : (
-                                    <div className="space-y-10 animate-fade-in-up">
+                                    <div className="space-y-10 -up">
                                         {/* Review Input Box */}
-                                        <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 p-8 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-inner">
+                                        <div className="bg-ink dark:from-gray-900 dark:to-gray-800 p-8 rounded-xl border border-gray-100 dark:border-gray-700 shadow-inner">
                                             <h3 className="font-bold text-xl mb-6 text-gray-900 dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
                                             <form onSubmit={submitReview} className="space-y-5">
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -388,7 +388,7 @@ export default function ProductDetails({
                                                     <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">تعليقك وتقييمك (بصدق)</label>
                                                     <textarea value={newReview.comment} onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })} className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none placeholder:font-normal" rows={3} placeholder="كيف كانت تجربتك؟ وهل استفدت من المادة؟" required />
                                                 </div>
-                                                <button type="submit" className="btn btn-primary px-8 py-3 rounded-xl font-bold shadow-lg shadow-accent/20">إرسال التقييم</button>
+                                                <button type="submit" className="btn btn-primary px-8 py-3 rounded-xl font-bold shadow-sm shadow-accent/20">إرسال التقييم</button>
                                             </form>
                                         </div>
 
@@ -402,9 +402,9 @@ export default function ProductDetails({
                                             ) : (
                                                 reviews.map((review: any) => (
                                                     <div key={review.id} className="relative group pl-6 pb-2">
-                                                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-100 dark:bg-gray-800 rounded-full group-hover:bg-yellow-400 transition-colors"></div>
+                                                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-100 dark:bg-gray-800 rounded-xl group-hover:bg-yellow-400 transition-colors"></div>
                                                         <div className="flex items-center gap-3 mb-3">
-                                                            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center font-bold text-gray-500">{review.name.charAt(0)}</div>
+                                                            <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center font-bold text-gray-500">{review.name.charAt(0)}</div>
                                                             <div>
                                                                 <h4 className="font-bold text-lg text-ink dark:text-white">{review.name}</h4>
                                                                 <div className="flex items-center gap-0.5">

@@ -32,10 +32,10 @@ export default function Footer() {
                     {/* Brand Identifier */}
                     <div className="md:col-span-4 max-w-sm">
                         <div className="flex items-center gap-3 mb-8 group cursor-default">
-                             <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-white text-lg font-black shadow-lg shadow-accent/20 transition-transform group-hover:scale-110">
+                             <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-white text-lg font-bold shadow-sm shadow-accent/20 transition-transform group-hover:scale-110">
                                 ت
                             </div>
-                            <span className="text-2xl font-black tracking-tighter">تمالين</span>
+                            <span className="text-2xl font-bold tracking-tighter">تمالين</span>
                         </div>
                         <p className="text-gray-400 text-sm font-bold leading-relaxed mb-10">
                             البنية التحتية المتكاملة لبيع المنتجات الرقمية والدورات التدريبية في الوطن العربي. نحن نمكّن المبدعين من بناء إمبراطورياتهم الخاصة بسهولة وأمان.
@@ -43,14 +43,14 @@ export default function Footer() {
                         
                         {/* Newsletter Mini */}
                         <div className="flex flex-col gap-4">
-                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Join our ecosystem</span>
+                            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent">Join our ecosystem</span>
                             <div className="flex gap-2 p-1.5 bg-white/5 border border-white/10 rounded-xl max-w-sm">
                                 <input 
                                     type="email" 
                                     placeholder="Enter your email" 
                                     className="bg-transparent border-none focus:ring-0 text-xs font-bold px-3 flex-1 text-white"
                                 />
-                                <button className="px-4 py-2 bg-white text-ink text-[10px] font-black uppercase tracking-widest rounded-lg hover:bg-accent hover:text-white transition-all">
+                                <button className="px-4 py-2 bg-white text-ink text-[10px] font-bold uppercase tracking-widest rounded-lg hover:bg-accent hover:text-white transition-all">
                                     Join
                                 </button>
                             </div>
@@ -61,7 +61,7 @@ export default function Footer() {
                     <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8">
                         {Object.entries(footerLinks).map(([category, links]) => (
                             <div key={category}>
-                                <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-accent mb-8">{category}</h4>
+                                <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent mb-8">{category}</h4>
                                 <ul className="space-y-4">
                                     {links.map((link) => (
                                         <li key={link.href}>
@@ -86,14 +86,14 @@ export default function Footer() {
                             © {new Date().getFullYear()} TMLEEN INFRASTRUCTURE. All Rights Reserved.
                         </p>
                         <div className="hidden md:flex gap-4 items-center">
-                            <span className="w-1 h-1 bg-white/10 rounded-full"></span>
+                            <span className="w-1 h-1 bg-white/10 rounded-xl"></span>
                             <p className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-accent "></span> Service Operational
+                                <span className="w-2 h-2 rounded-xl bg-accent "></span> Service Operational
                             </p>
                         </div>
                     </div>
                     
-                    <div className="flex gap-8 text-[10px] font-black uppercase tracking-widest text-gray-500">
+                    <div className="flex gap-8 text-[10px] font-bold uppercase tracking-widest text-gray-500">
                         <Link href="/terms" className="hover:text-accent transition-colors">Terms of service</Link>
                         <Link href="/privacy" className="hover:text-accent transition-colors">Privacy Policy</Link>
                         <Link href="/cookies" className="hover:text-accent transition-colors">Tracking</Link>

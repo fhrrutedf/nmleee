@@ -88,7 +88,7 @@ export function CertificateDownload({
     // Don't show anything while loading
     if (loading) {
         return (
-            <div className="bg-white border border-gray-100 rounded-2xl p-6 ">
+            <div className="bg-white border border-gray-100 rounded-xl p-6 ">
                 <div className="h-20 bg-gray-50 rounded-xl"></div>
             </div>
         );
@@ -107,9 +107,9 @@ export function CertificateDownload({
     // Incomplete course
     if (!status.eligible && status.reason === 'incomplete') {
         return (
-            <div className="bg-white border-2 border-dashed border-gray-100 rounded-3xl p-8">
+            <div className="bg-white border-2 border-dashed border-gray-100 rounded-xl p-8">
                 <div className="flex items-center gap-6">
-                    <div className="flex-shrink-0 p-4 bg-gray-50 rounded-2xl">
+                    <div className="flex-shrink-0 p-4 bg-gray-50 rounded-xl">
                         <FiLock className="text-2xl text-gray-400" />
                     </div>
                     <div className="flex-1">
@@ -120,7 +120,7 @@ export function CertificateDownload({
                             أكمل الدورة للحصول على شهادتك الرسمية
                         </p>
                         <div className="flex items-center gap-4">
-                            <div className="flex-1 bg-gray-50 rounded-full h-2.5 overflow-hidden">
+                            <div className="flex-1 bg-gray-50 rounded-xl h-2.5 overflow-hidden">
                                 <div
                                     className="h-full bg-accent transition-all duration-1000 ease-out"
                                     style={{ width: `${progress}%` }}
@@ -139,9 +139,9 @@ export function CertificateDownload({
     // Eligible and certificate already generated
     if (status.eligible && status.certificateGenerated) {
         return (
-            <div className="bg-accent-light border-2 border-accent/10 rounded-3xl p-8">
+            <div className="bg-accent-light border-2 border-accent/10 rounded-xl p-8">
                 <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-right">
-                    <div className="flex-shrink-0 p-5 bg-white rounded-2xl shadow-sm">
+                    <div className="flex-shrink-0 p-5 bg-white rounded-xl shadow-sm">
                         <FiCheckCircle className="text-4xl text-accent" />
                     </div>
                     <div className="flex-1">
@@ -153,7 +153,7 @@ export function CertificateDownload({
                         </p>
                         <button
                             onClick={downloadCertificate}
-                            className="bg-ink text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-all shadow-lg active:scale-95 w-full sm:w-auto"
+                            className="bg-ink text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-all shadow-sm active:scale-95 w-full sm:w-auto"
                         >
                             <FiDownload />
                             <span>تحميل الشهادة (PDF)</span>
@@ -167,9 +167,9 @@ export function CertificateDownload({
     // Eligible but not generated yet
     if (status.eligible && !status.certificateGenerated) {
         return (
-            <div className="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
+            <div className="bg-white border border-gray-100 rounded-xl p-8 shadow-sm">
                 <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-right">
-                    <div className="flex-shrink-0 p-5 bg-accent-light rounded-2xl">
+                    <div className="flex-shrink-0 p-5 bg-accent-light rounded-xl">
                         <FiAward className="text-4xl text-accent" />
                     </div>
                     <div className="flex-1">
@@ -180,11 +180,11 @@ export function CertificateDownload({
                         <button
                             onClick={generateCertificate}
                             disabled={generating}
-                            className="bg-accent text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-accent-hover transition-all shadow-lg shadow-accent/20 active:scale-95 w-full sm:w-auto"
+                            className="bg-accent text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-accent-hover transition-all shadow-sm shadow-accent/20 active:scale-95 w-full sm:w-auto"
                         >
                             {generating ? (
                                 <>
-                                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                                    <div className="animate-spin rounded-xl h-4 w-4 border-2 border-white border-t-transparent" />
                                     <span>جاري إنشاء الشهادة...</span>
                                 </>
                             ) : (

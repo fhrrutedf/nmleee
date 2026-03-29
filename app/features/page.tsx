@@ -77,7 +77,7 @@ export default function FeaturesPage() {
             {/* High-Performance Corporate Hero */}
             <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-white py-20">
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+                    <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
                 </div>
                 
                 <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
@@ -86,10 +86,10 @@ export default function FeaturesPage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-[0.3em] mb-10 text-accent shadow-sm">
+                        <div className="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-accent shadow-sm">
                             Infrastructure for Creators
                         </div>
-                        <h1 className="text-5xl md:text-8xl font-black text-ink mb-10 tracking-tighter leading-[1.05]">
+                        <h1 className="text-5xl md:text-8xl font-bold text-ink mb-10 tracking-tighter leading-[1.05]">
                             بنية تحتية <br/> <span className="text-accent underline underline-offset-[12px] decoration-accent/10">بلا حدود</span>
                         </h1>
                         <p className="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto font-bold leading-relaxed">
@@ -115,7 +115,7 @@ export default function FeaturesPage() {
                                 variants={fadeInUp}
                                 className="group p-10 bg-gray-50 border border-gray-100 rounded-[2.5rem] hover:bg-ink hover:text-white transition-all duration-500 cursor-default"
                             >
-                                <div className="w-14 h-14 bg-white border border-gray-100 rounded-2xl flex items-center justify-center text-ink mb-10 group-hover:bg-accent group-hover:text-white group-hover:border-transparent transition-all shadow-sm">
+                                <div className="w-14 h-14 bg-white border border-gray-100 rounded-xl flex items-center justify-center text-ink mb-10 group-hover:bg-accent group-hover:text-white group-hover:border-transparent transition-all shadow-sm">
                                     {feature.icon}
                                 </div>
 
@@ -139,16 +139,16 @@ export default function FeaturesPage() {
                 <div className="max-w-7xl mx-auto px-6 w-full">
                    <div className="grid grid-cols-1 md:grid-cols-3 gap-16 items-center">
                         <div>
-                            <h2 className="text-4xl font-black text-ink tracking-tighter mb-4">أداء لا يتوقف.</h2>
+                            <h2 className="text-4xl font-bold text-ink tracking-tighter mb-4">أداء لا يتوقف.</h2>
                             <p className="text-gray-400 font-bold">بنية تحتية موزعة عالمياً تضمن استجابة متجرك في أقل من 200ms.</p>
                         </div>
                         <div className="md:col-span-2 grid grid-cols-2 gap-8">
                              <div className="p-8 border-l border-gray-100">
-                                <div className="text-6xl font-black text-ink font-inter tracking-tighter mb-2">99.9%</div>
+                                <div className="text-6xl font-bold text-ink font-inter tracking-tighter mb-2">99.9%</div>
                                 <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Uptime Guarantee</div>
                              </div>
                              <div className="p-8 border-l border-gray-100">
-                                <div className="text-6xl font-black text-accent font-inter tracking-tighter mb-2">24/7</div>
+                                <div className="text-6xl font-bold text-accent font-inter tracking-tighter mb-2">24/7</div>
                                 <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Active Monitoring</div>
                              </div>
                         </div>
@@ -174,7 +174,7 @@ export default function FeaturesPage() {
                         {[1, 2].map((set) => (
                             <div key={set} className="flex gap-12 items-center">
                                 {['Stripe', 'PayPal', 'Mailchimp', 'Zapier', 'Slack', 'Analytics', 'Binance', 'Zoom', 'Discord'].map((item, idx) => (
-                                    <div key={idx} className="text-4xl font-black font-inter tracking-tighter text-white border-2 border-white/5 px-12 py-6 rounded-3xl hover:bg-white hover:text-ink transition-all cursor-default">
+                                    <div key={idx} className="text-4xl font-bold font-inter tracking-tighter text-white border-2 border-white/5 px-12 py-6 rounded-xl hover:bg-white hover:text-ink transition-all cursor-default">
                                         {item}
                                     </div>
                                 ))}
@@ -188,15 +188,15 @@ export default function FeaturesPage() {
             <section className="py-40 bg-white">
                 <div className="max-w-5xl mx-auto px-6 text-center">
                    <div className="bg-ink rounded-[3.5rem] p-16 md:p-32 border border-white/5 relative overflow-hidden group shadow-sm shadow-ink/20">
-                        <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-accent/10 rounded-full blur-[120px]"></div>
-                        <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter mb-12 relative z-10 leading-[0.95]">
+                        <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-accent/10 rounded-xl blur-[120px]"></div>
+                        <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tighter mb-12 relative z-10 leading-[0.95]">
                             ابدأ ببناء <br/> <span className="text-accent">إمبراطوريتك.</span>
                         </h2>
                         <div className="flex flex-col sm:flex-row gap-6 justify-center relative z-10">
-                            <Link href="/register" className="px-14 py-6 bg-accent text-white rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-ink transition-all shadow-sm shadow-accent/20">
+                            <Link href="/register" className="px-14 py-6 bg-accent text-white rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-ink transition-all shadow-sm shadow-accent/20">
                                 Start Your Mission Now
                             </Link>
-                            <Link href="/pricing" className="px-14 py-6 bg-white/5 text-white border border-white/10 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-ink transition-all">
+                            <Link href="/pricing" className="px-14 py-6 bg-white/5 text-white border border-white/10 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-ink transition-all">
                                 View Pricing Plans
                             </Link>
                         </div>

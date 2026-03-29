@@ -127,7 +127,7 @@ export default function CourseContentPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-slate-50">
-                <div className="w-12 h-12 border-4 border-ink/20 border-t-ink rounded-full animate-spin"></div>
+                <div className="w-12 h-12 border-4 border-ink/20 border-t-ink rounded-xl animate-spin"></div>
             </div>
         );
     }
@@ -159,7 +159,7 @@ export default function CourseContentPage() {
                             </button>
                             <button
                                 onClick={publishCourse}
-                                className="w-full sm:w-auto px-8 py-4 bg-accent-500 text-white rounded-[1.5rem] font-bold shadow-lg shadow-blue-200 hover:bg-accent-600 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-xs"
+                                className="w-full sm:w-auto px-8 py-4 bg-accent-500 text-white rounded-[1.5rem] font-bold shadow-sm shadow-blue-200 hover:bg-accent-600 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-xs"
                             >
                                 <FiCheckSquare /> نشر الدورة الآن
                             </button>
@@ -177,12 +177,12 @@ export default function CourseContentPage() {
                                 value={newModuleTitle}
                                 onChange={(e) => setNewModuleTitle(e.target.value)}
                                 placeholder="مثال: الأساسيات - الفصل الأول..."
-                                className="flex-1 px-6 py-4 bg-slate-50 border-0 rounded-2xl focus:ring-4 focus:ring-ink/10 font-bold transition-all"
+                                className="flex-1 px-6 py-4 bg-slate-50 border-0 rounded-xl focus:ring-4 focus:ring-ink/10 font-bold transition-all"
                                 autoFocus
                             />
                             <div className="flex gap-2">
-                                <button onClick={createModule} className="flex-1 sm:flex-none px-8 py-4 bg-ink text-white rounded-2xl font-bold text-sm">حفظ</button>
-                                <button onClick={() => { setShowModuleForm(false); setNewModuleTitle(''); }} className="flex-1 sm:flex-none px-6 py-4 bg-slate-100 text-slate-500 rounded-2xl font-bold text-sm">إلغاء</button>
+                                <button onClick={createModule} className="flex-1 sm:flex-none px-8 py-4 bg-ink text-white rounded-xl font-bold text-sm">حفظ</button>
+                                <button onClick={() => { setShowModuleForm(false); setNewModuleTitle(''); }} className="flex-1 sm:flex-none px-6 py-4 bg-slate-100 text-slate-500 rounded-xl font-bold text-sm">إلغاء</button>
                             </div>
                         </div>
                     </div>
@@ -190,27 +190,27 @@ export default function CourseContentPage() {
 
                 {/* Modules List */}
                 {modules.length === 0 ? (
-                    <div className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200 shadow-sm">
+                    <div className="text-center py-20 bg-white rounded-xl border-2 border-dashed border-slate-200 shadow-sm">
                         <div className="text-slate-200 text-7xl mb-6 flex justify-center"><FiLayers /></div>
                         <h3 className="text-xl font-bold text-slate-900 mb-2">المنهج فارغ تماماً</h3>
                         <p className="text-slate-400 font-bold text-sm mb-8">ابدأ بإنشاء أول وحدة دراسية لتبدأ بإضافة الدروس</p>
-                        <button onClick={() => setShowModuleForm(true)} className="px-10 py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-black transition-all shadow-sm">تحضير أول وحدة</button>
+                        <button onClick={() => setShowModuleForm(true)} className="px-10 py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-black transition-all shadow-sm">تحضير أول وحدة</button>
                     </div>
                 ) : (
                     <div className="space-y-8">
                         {modules.map((module, i) => (
-                            <div key={module.id} className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-sm transition-all duration-300 group">
+                            <div key={module.id} className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-sm transition-all duration-300 group">
                                 {/* Module Header */}
                                 <div className="p-6 sm:p-8 bg-slate-50/50 border-b border-slate-100">
                                     <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
                                         <div className="flex items-center gap-4 w-full lg:w-auto">
-                                            <div className="w-12 h-12 bg-white rounded-2xl border border-slate-200 flex items-center justify-center font-bold text-slate-400 shadow-sm group-hover:text-ink group-hover:border-indigo-100 transition-colors">
+                                            <div className="w-12 h-12 bg-white rounded-xl border border-slate-200 flex items-center justify-center font-bold text-slate-400 shadow-sm group-hover:text-ink group-hover:border-indigo-100 transition-colors">
                                                 {i + 1}
                                             </div>
                                             <div className="flex-1">
                                                 <h3 className="text-lg font-bold text-slate-800 break-words">{module.title}</h3>
                                                 <div className="flex items-center gap-2 mt-1">
-                                                    <span className={`px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest rounded-full ${module.isPublished ? 'bg-green-100 text-green-700' : 'bg-slate-200 text-slate-500'}`}>
+                                                    <span className={`px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest rounded-xl ${module.isPublished ? 'bg-green-100 text-green-700' : 'bg-slate-200 text-slate-500'}`}>
                                                         {module.isPublished ? 'منشور للطلاب' : 'مسودة'}
                                                     </span>
                                                     <span className="text-[10px] text-slate-400 font-bold">• {module._count.lessons} درس</span>
@@ -261,7 +261,7 @@ export default function CourseContentPage() {
                                             {lesson.quizzes && lesson.quizzes.length > 0 && (
                                                 <div className="mt-4 flex flex-wrap gap-2 pr-10">
                                                     {lesson.quizzes.map(q => (
-                                                        <span key={q.id} className="text-[9px] font-bold bg-white text-ink border border-indigo-100 px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1.5">
+                                                        <span key={q.id} className="text-[9px] font-bold bg-white text-ink border border-indigo-100 px-2.5 py-1 rounded-xl shadow-sm flex items-center gap-1.5">
                                                             <FiCheckSquare size={10} /> {q.title}
                                                         </span>
                                                     ))}

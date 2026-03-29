@@ -41,7 +41,7 @@ export default function CartDrawer() {
             >
                 <FiShoppingCart size={22} className="group-hover:scale-110 transition-transform" />
                 {itemCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-accent text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center ring-2 ring-white">
+                    <span className="absolute -top-1 -right-1 bg-accent text-white text-[10px] font-bold rounded-xl w-5 h-5 flex items-center justify-center ring-2 ring-white">
                         {itemCount}
                     </span>
                 )}
@@ -89,7 +89,7 @@ export default function CartDrawer() {
                             <div className="flex-1 overflow-y-auto p-6 scrollbar-hide">
                                 {items.length === 0 ? (
                                     <div className="h-full flex flex-col items-center justify-center text-center">
-                                        <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mb-6 text-gray-300">
+                                        <div className="w-24 h-24 bg-gray-50 rounded-xl flex items-center justify-center mb-6 text-gray-300">
                                             <FiShoppingCart size={48} />
                                         </div>
                                         <h3 className="text-lg font-bold text-gray-900 mb-2">سلتك فارغة حالياً</h3>
@@ -109,10 +109,10 @@ export default function CartDrawer() {
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 key={item.id}
-                                                className="flex gap-4 p-4 bg-white border border-gray-100 rounded-[1.5rem] hover:shadow-lg hover:shadow-gray-200/50 transition-all group"
+                                                className="flex gap-4 p-4 bg-white border border-gray-100 rounded-[1.5rem] hover:shadow-sm hover:shadow-gray-200/50 transition-all group"
                                             >
                                                 {item.image && (
-                                                    <div className="relative w-20 h-20 flex-shrink-0 rounded-2xl overflow-hidden shadow-sm">
+                                                    <div className="relative w-20 h-20 flex-shrink-0 rounded-xl overflow-hidden shadow-sm">
                                                         <Image
                                                             src={item.image}
                                                             alt={item.title}

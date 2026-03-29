@@ -119,7 +119,7 @@ export default function CourseQuizzesPage() {
             {/* Quizzes List */}
             {loading ? (
                 <div className="flex items-center justify-center py-20">
-                    <div className="w-10 h-10 border-4 border-purple-400/30 border-t-purple-600 rounded-full animate-spin" />
+                    <div className="w-10 h-10 border-4 border-purple-400/30 border-t-purple-600 rounded-xl animate-spin" />
                 </div>
             ) : quizzes.length === 0 ? (
                 <div className="card p-12 text-center">
@@ -141,11 +141,11 @@ export default function CourseQuizzesPage() {
                                     <div className="flex items-center gap-3">
                                         <h3 className="font-bold text-ink dark:text-white">{quiz.title}</h3>
                                         {quiz.isPublished ? (
-                                            <span className="px-2 py-0.5 text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full flex items-center gap-1">
+                                            <span className="px-2 py-0.5 text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-xl flex items-center gap-1">
                                                 <FiEye size={10} /> منشور
                                             </span>
                                         ) : (
-                                            <span className="px-2 py-0.5 text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-full flex items-center gap-1">
+                                            <span className="px-2 py-0.5 text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-xl flex items-center gap-1">
                                                 <FiEyeOff size={10} /> مسودة
                                             </span>
                                         )}

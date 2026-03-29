@@ -52,7 +52,7 @@ export default function MyCoursesPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-ink"></div>
             </div>
         );
     }
@@ -119,7 +119,7 @@ export default function MyCoursesPage() {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {filteredPurchases.map((purchase) => (
-                            <div key={purchase.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                            <div key={purchase.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-sm transition-shadow">
                                 {purchase.image && (
                                     <div className="relative w-full h-48">
                                         <Image
@@ -153,9 +153,9 @@ export default function MyCoursesPage() {
                                                 <span className="text-gray-600">التقدم</span>
                                                 <span className="font-medium text-ink">{purchase.progress}%</span>
                                             </div>
-                                            <div className="w-full bg-gray-200 rounded-full h-2">
+                                            <div className="w-full bg-gray-200 rounded-xl h-2">
                                                 <div
-                                                    className="bg-ink h-2 rounded-full transition-all"
+                                                    className="bg-ink h-2 rounded-xl transition-all"
                                                     style={{ width: `${purchase.progress}%` }}
                                                 />
                                             </div>

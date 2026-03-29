@@ -125,7 +125,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
     return (
         <div
             ref={containerRef}
-            className="relative group bg-black rounded-2xl overflow-hidden aspect-video shadow-sm"
+            className="relative group bg-black rounded-xl overflow-hidden aspect-video shadow-sm"
             onMouseLeave={() => setShowSettings(false)}
         >
             <video
@@ -146,7 +146,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                     className="absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer  transition-all"
                     onClick={togglePlay}
                 >
-                    <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center text-white p-2 hover:scale-110 transition-transform">
+                    <div className="w-20 h-20 bg-accent rounded-xl flex items-center justify-center text-white p-2 hover:scale-110 transition-transform">
                         <FiPlay className="text-4xl ml-2" />
                     </div>
                 </div>
@@ -154,13 +154,13 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
 
             {/* Top Title Bar */}
             {title && (
-                <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute top-0 left-0 right-0 p-4 bg-ink opacity-0 group-hover:opacity-100 transition-opacity">
                     <h3 className="text-white font-medium text-lg truncate">{title}</h3>
                 </div>
             )}
 
             {/* Bottom Controls Bar */}
-            <div className={`absolute bottom-0 left-0 right-0 px-4 py-3 bg-gradient-to-t from-black/90 to-transparent transition-opacity duration-300 ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
+            <div className={`absolute bottom-0 left-0 right-0 px-4 py-3 bg-ink transition-opacity duration-300 ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
                 {/* Progress Bar */}
                 <div className="relative group w-full mb-3 flex items-center h-1 hover:h-2 transition-all cursor-pointer">
                     <input
@@ -171,9 +171,9 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                         onChange={handleProgressScrub}
                         className="absolute w-full h-full opacity-0 z-20 cursor-pointer"
                     />
-                    <div className="w-full h-full bg-white/30 rounded-full relative z-10 overflow-hidden">
+                    <div className="w-full h-full bg-white/30 rounded-xl relative z-10 overflow-hidden">
                         <div
-                            className="h-full bg-accent rounded-full transition-all ease-linear"
+                            className="h-full bg-accent rounded-xl transition-all ease-linear"
                             style={{ width: `${(currentTime / (duration || 1)) * 100}%` }}
                         />
                     </div>

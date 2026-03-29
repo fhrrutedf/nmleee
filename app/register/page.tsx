@@ -113,22 +113,22 @@ function RegisterContent() {
         }
     };
 
-    const inputClass = "block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-100 rounded-2xl outline-none focus:bg-white focus:border-ink focus:ring-4 focus:ring-ink/5 transition-all font-bold text-sm";
+    const inputClass = "block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-100 rounded-xl outline-none focus:bg-white focus:border-ink focus:ring-4 focus:ring-ink/5 transition-all font-bold text-sm";
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden py-16 px-6 selection:bg-accent/20">
             {/* Background Decorations */}
-            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-accent/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
+            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent/5 rounded-xl blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-accent/5 rounded-xl blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
 
             <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-xl w-full relative z-10">
                 <motion.div variants={fadeInUp} className="text-center mb-12">
                      <Link href="/" className="inline-block mb-8 group">
-                        <div className="w-16 h-16 mx-auto rounded-3xl bg-ink flex items-center justify-center text-white text-3xl font-black shadow-sm shadow-ink/20 group-hover:scale-110 transition-transform">
+                        <div className="w-16 h-16 mx-auto rounded-xl bg-ink flex items-center justify-center text-white text-3xl font-bold shadow-sm shadow-ink/20 group-hover:scale-110 transition-transform">
                             ت
                         </div>
                     </Link>
-                    <h1 className="text-4xl font-black text-ink mb-3 tracking-tighter">أنشئ حسابك المجاني</h1>
+                    <h1 className="text-4xl font-bold text-ink mb-3 tracking-tighter">أنشئ حسابك المجاني</h1>
                     <p className="text-gray-400 font-bold">انضم لمئات المبدعين العرب وابدأ رحلتك التجارية اليوم.</p>
                 </motion.div>
 
@@ -171,7 +171,7 @@ function RegisterContent() {
                                 </button>
                                 <AnimatePresence>
                                     {countryDropdownOpen && (
-                                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="absolute z-50 mt-2 w-full bg-white border border-gray-100 rounded-2xl shadow-sm max-h-60 overflow-y-auto p-2 space-y-1">
+                                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="absolute z-50 mt-2 w-full bg-white border border-gray-100 rounded-xl shadow-sm max-h-60 overflow-y-auto p-2 space-y-1">
                                             {countries.map(c => (
                                                 <button key={c.code} type="button" onClick={() => { setSelectedCountry(c.code as CountryCode); setCountryDropdownOpen(false); }} className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold transition-all ${selectedCountry === c.code ? 'bg-accent text-white' : 'text-gray-500 hover:bg-gray-50 hover:text-ink'}`}>
                                                     <span className="flex items-center gap-2"><span>{c.flag}</span> <span>{c.nameAr}</span></span>
@@ -184,7 +184,7 @@ function RegisterContent() {
                             </div>
 
                             <div className="relative">
-                                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black font-inter text-gray-400">{currentCountry?.dialCode}</div>
+                                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-bold font-inter text-gray-400">{currentCountry?.dialCode}</div>
                                 <input type="tel" placeholder="رقم الهاتف" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value.replace(/[^\d]/g, ''))} className={`${inputClass} pl-16`} dir="ltr" />
                             </div>
                         </div>
@@ -205,11 +205,11 @@ function RegisterContent() {
                             whileTap={{ scale: 0.99 }} 
                             type="submit" 
                             disabled={loading} 
-                            className={`w-full py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-sm
+                            className={`w-full py-5 rounded-xl font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-sm
                                 ${loading ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-ink text-white hover:bg-black shadow-ink/20'}
                             `}
                         >
-                            {loading ? <div className="w-5 h-5 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin" /> : <>Create My Account <FiArrowLeft className="rotate-180" size={16} /></>}
+                            {loading ? <div className="w-5 h-5 border-2 border-gray-300 border-t-gray-600 rounded-xl animate-spin" /> : <>Create My Account <FiArrowLeft className="rotate-180" size={16} /></>}
                         </motion.button>
                     </form>
 
@@ -224,7 +224,7 @@ function RegisterContent() {
                 </motion.div>
 
                 <motion.div variants={fadeInUp} className="text-center mt-12 space-y-6">
-                    <p className="flex items-center justify-center gap-2 text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                    <p className="flex items-center justify-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
                         <FiShield className="text-accent" /> Institutional Grade Security Protected
                     </p>
                 </motion.div>
@@ -235,7 +235,7 @@ function RegisterContent() {
 
 export default function RegisterPage() {
     return (
-        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-white"><div className="w-8 h-8 border-2 border-gray-100 border-t-accent rounded-full animate-spin"></div></div>}>
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-white"><div className="w-8 h-8 border-2 border-gray-100 border-t-accent rounded-xl animate-spin"></div></div>}>
             <RegisterContent />
         </Suspense>
     );

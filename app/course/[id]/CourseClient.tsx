@@ -70,17 +70,17 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2">
-                        <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-6">
+                        <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
                             {course.image ? (
                                 <img src={course.image} alt={course.title} className="w-full h-[400px] object-cover" />
                             ) : (
-                                <div className="w-full h-[400px] bg-gradient-to-br from-blue-100 to-purple-200 flex items-center justify-center">
+                                <div className="w-full h-[400px] bg-ink flex items-center justify-center">
                                     <FiVideo className="text-8xl text-blue-400" />
                                 </div>
                             )}
                         </div>
 
-                        <div className="bg-white rounded-2xl shadow-lg p-8">
+                        <div className="bg-white rounded-xl shadow-sm p-8">
                             <h1 className="text-3xl font-bold text-gray-900 mb-4">{course.title}</h1>
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="flex items-center gap-1">
@@ -140,7 +140,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                                             <div className="text-center py-12"><FiMessageCircle size={36} className="mx-auto text-gray-300 mb-3" /><p className="text-gray-500 font-bold">لا توجد تقييمات لهذه الدورة حتى الآن</p></div>
                                         ) : (
                                             reviews.map((review: any) => (
-                                                <div key={review.id} className="p-6 bg-gray-50 rounded-2xl">
+                                                <div key={review.id} className="p-6 bg-gray-50 rounded-xl">
                                                     <div className="flex items-center justify-between mb-3">
                                                         <span className="font-bold">{review.name}</span>
                                                         <div className="flex items-center gap-1">
@@ -158,14 +158,14 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                     </div>
 
                     <div className="lg:col-span-1">
-                        <div className="bg-white rounded-2xl shadow-lg p-8 sticky top-6 border border-gray-100">
+                        <div className="bg-white rounded-xl shadow-sm p-8 sticky top-6 border border-gray-100">
                            <div className="text-center mb-8">
                                 <div className="text-5xl font-bold text-accent mb-2">{course.price.toFixed(2)} $</div>
                                 {course.isFree && <span className="inline-block px-4 py-1.5 bg-green-100 text-green-700 rounded-lg text-sm font-bold">مجاني 🎉</span>}
                             </div>
                             <div className="space-y-4 mb-8">
-                                <button onClick={enrollNow} className="w-full btn btn-primary text-xl py-5 rounded-2xl font-bold shadow-sm shadow-accent/20">سجّل الآن</button>
-                                <button onClick={addToCart} className="w-full btn btn-outline text-xl py-4 rounded-2xl border-2 font-bold">أضف للسلة</button>
+                                <button onClick={enrollNow} className="w-full btn btn-primary text-xl py-5 rounded-xl font-bold shadow-sm shadow-accent/20">سجّل الآن</button>
+                                <button onClick={addToCart} className="w-full btn btn-outline text-xl py-4 rounded-xl border-2 font-bold">أضف للسلة</button>
                             </div>
                             <div className="space-y-3 text-sm font-bold">
                                 <div className="flex items-center gap-3 text-gray-700"><FiCheckCircle className="text-green-500 text-lg" /><span>الوصول مدى الحياة</span></div>

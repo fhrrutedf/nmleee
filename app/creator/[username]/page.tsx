@@ -35,7 +35,7 @@ export default function CreatorStorePage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent"></div>
             </div>
         );
     }
@@ -80,7 +80,7 @@ export default function CreatorStorePage() {
 
                 {/* Creator Info */}
                 <div className="max-w-5xl mx-auto px-4 -mt-20 relative">
-                    <div className="bg-white rounded-2xl shadow-sm p-8">
+                    <div className="bg-white rounded-xl shadow-sm p-8">
                         <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
                             {/* Avatar */}
                             <div className="flex-shrink-0">
@@ -88,11 +88,11 @@ export default function CreatorStorePage() {
                                     <img
                                         src={creator.avatar}
                                         alt={creator.name}
-                                        className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"
+                                        className="w-32 h-32 rounded-xl border-4 border-white shadow-sm object-cover"
                                     />
                                 ) : (
                                     <div
-                                        className="w-32 h-32 rounded-full border-4 border-white shadow-lg flex items-center justify-center text-white text-4xl font-bold"
+                                        className="w-32 h-32 rounded-xl border-4 border-white shadow-sm flex items-center justify-center text-white text-4xl font-bold"
                                         style={{ backgroundColor: brandColor }}
                                     >
                                         {creator.name.charAt(0)}

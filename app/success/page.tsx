@@ -67,7 +67,7 @@ function SuccessContent() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-white">
-                <div className="w-12 h-12 border-4 border-accent/20 border-t-accent rounded-full animate-spin"></div>
+                <div className="w-12 h-12 border-4 border-accent/20 border-t-accent rounded-xl animate-spin"></div>
             </div>
         );
     }
@@ -102,7 +102,7 @@ function SuccessContent() {
                     {isPending && !isPaid ? (
                         <div className="bg-ink text-white p-16 text-center relative overflow-hidden">
                             <div className="relative z-10">
-                                <div className="w-20 h-20 bg-white/10 rounded-3xl flex items-center justify-center mx-auto mb-8 ">
+                                <div className="w-20 h-20 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-8 ">
                                     <FiClock size={40} className="text-white" />
                                 </div>
                                 <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">طلبك قيد المراجعة ⏳</h1>
@@ -115,7 +115,7 @@ function SuccessContent() {
                     ) : (
                         <div className="bg-accent text-white p-16 text-center relative overflow-hidden">
                             <div className="relative z-10">
-                                <div className="w-20 h-20 bg-white/10 rounded-3xl flex items-center justify-center mx-auto mb-8 ">
+                                <div className="w-20 h-20 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-8 ">
                                     <FiCheckCircle size={40} className="text-white" />
                                 </div>
                                 <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">تم تفعيل طلبك بنجاح! 🎉</h1>
@@ -131,10 +131,10 @@ function SuccessContent() {
                         {/* ===== ORDER SUMMARY RECEIPT ===== */}
                         <div className="p-10 md:p-16 border-l border-gray-50 flex flex-col">
                             <h2 className="text-2xl font-bold text-ink mb-10 flex items-center gap-3">
-                                <span className="w-1.5 h-6 bg-ink rounded-full"></span> تفاصيل الفاتورة
+                                <span className="w-1.5 h-6 bg-ink rounded-xl"></span> تفاصيل الفاتورة
                             </h2>
                             
-                            <div className="bg-gray-50 rounded-3xl p-8 space-y-6 mb-10 border border-gray-100">
+                            <div className="bg-gray-50 rounded-xl p-8 space-y-6 mb-10 border border-gray-100">
                                 <div className="flex justify-between items-center border-b border-gray-200/50 pb-5">
                                     <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Order ID</span>
                                     <span className="font-bold text-ink font-mono text-sm">#{order.orderNumber}</span>
@@ -145,20 +145,20 @@ function SuccessContent() {
                                 </div>
                                 <div className="flex justify-between items-center border-b border-gray-200/50 pb-5">
                                     <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Status</span>
-                                    <span className={`text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest ${isPending && !isPaid ? 'bg-ink text-white' : 'bg-accent text-white'}`}>
+                                    <span className={`text-[10px] font-bold px-4 py-1.5 rounded-xl uppercase tracking-widest ${isPending && !isPaid ? 'bg-ink text-white' : 'bg-accent text-white'}`}>
                                         {isPending && !isPaid ? 'Verification' : 'Completed ✓'}
                                     </span>
                                 </div>
                                 <div className="flex justify-between items-center pt-3">
                                     <span className="text-ink font-bold text-lg">إجمالي المبلغ:</span>
-                                    <span className="font-black text-accent text-3xl font-inter tracking-tighter">${order.totalAmount.toFixed(2)}</span>
+                                    <span className="font-bold text-accent text-3xl font-inter tracking-tighter">${order.totalAmount.toFixed(2)}</span>
                                 </div>
                             </div>
 
                             {/* Verification/Welcome Message */}
                             <div className="mb-12">
                                 {isPending && !isPaid ? (
-                                    <div className="flex gap-4 p-6 bg-gray-50 rounded-2xl border border-gray-100 ring-4 ring-gray-50/50">
+                                    <div className="flex gap-4 p-6 bg-gray-50 rounded-xl border border-gray-100 ring-4 ring-gray-50/50">
                                         <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-ink shrink-0">
                                             <FiLock />
                                         </div>
@@ -167,7 +167,7 @@ function SuccessContent() {
                                         </p>
                                     </div>
                                 ) : (
-                                    <div className="flex gap-4 p-6 bg-accent/5 rounded-2xl border border-accent/10 ring-4 ring-accent/5">
+                                    <div className="flex gap-4 p-6 bg-accent/5 rounded-xl border border-accent/10 ring-4 ring-accent/5">
                                         <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent shrink-0">
                                             <FiBook />
                                         </div>
@@ -185,14 +185,14 @@ function SuccessContent() {
                                         {hasCourse && courseItem.id ? (
                                             <Link
                                                 href={sessionStatus === 'authenticated' ? `/learn/${courseItem.id}` : `/login?callbackUrl=/learn/${courseItem.id}`}
-                                                className="flex items-center justify-center gap-3 w-full py-5 bg-ink text-white rounded-2xl font-bold transition-all shadow-sm shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
+                                                className="flex items-center justify-center gap-3 w-full py-5 bg-ink text-white rounded-xl font-bold transition-all shadow-sm shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
                                             >
                                                 دخول الأكاديمية والبدء الآن <FiExternalLink />
                                             </Link>
                                         ) : (
                                             <Link
                                                 href="/my-purchases"
-                                                className="flex items-center justify-center gap-3 w-full py-5 bg-ink text-white rounded-2xl font-bold transition-all shadow-sm shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
+                                                className="flex items-center justify-center gap-3 w-full py-5 bg-ink text-white rounded-xl font-bold transition-all shadow-sm shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
                                             >
                                                 تحميل المنتجات الرقمية <FiPackage />
                                             </Link>
@@ -201,14 +201,14 @@ function SuccessContent() {
                                 ) : (
                                     <Link
                                         href="/market"
-                                        className="flex items-center justify-center gap-3 w-full py-5 bg-ink text-white rounded-2xl font-bold transition-all shadow-sm shadow-ink/10 hover:bg-gray-800"
+                                        className="flex items-center justify-center gap-3 w-full py-5 bg-ink text-white rounded-xl font-bold transition-all shadow-sm shadow-ink/10 hover:bg-gray-800"
                                     >
                                         العودة للمتجر
                                     </Link>
                                 )}
                                 <Link
                                     href="/"
-                                    className="block w-full py-5 text-center bg-gray-50 text-gray-500 rounded-2xl font-bold hover:bg-gray-100 transition-all text-sm"
+                                    className="block w-full py-5 text-center bg-gray-50 text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-all text-sm"
                                 >
                                     العودة للرئيسية
                                 </Link>
@@ -230,7 +230,7 @@ function SuccessContent() {
                                             href={link.href}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="bg-white border border-gray-100 p-5 rounded-2xl flex items-center justify-between group hover:border-accent hover:shadow-lg hover:shadow-accent/5 transition-all"
+                                            className="bg-white border border-gray-100 p-5 rounded-xl flex items-center justify-between group hover:border-accent hover:shadow-sm hover:shadow-accent/5 transition-all"
                                         >
                                             <div className="flex items-center gap-4">
                                                 <div className="w-10 h-10 bg-gray-50 text-ink rounded-xl flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all">
@@ -250,7 +250,7 @@ function SuccessContent() {
                                     <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6 px-1">عروض حصرية لك</h3>
                                     <div className="space-y-4">
                                         {upsells.map((upsell) => (
-                                            <Link key={upsell.id} href={`/${upsell.id}`} className="bg-white border border-gray-100 p-4 rounded-2xl flex items-center justify-between hover:border-accent group transition-all">
+                                            <Link key={upsell.id} href={`/${upsell.id}`} className="bg-white border border-gray-100 p-4 rounded-xl flex items-center justify-between hover:border-accent group transition-all">
                                                 <div className="flex items-center gap-4">
                                                     <div className="w-14 h-14 bg-gray-50 rounded-xl overflow-hidden shrink-0 border border-gray-50">
                                                         {upsell.image ? (
@@ -263,7 +263,7 @@ function SuccessContent() {
                                                     </div>
                                                     <div>
                                                         <h4 className="font-bold text-ink text-xs line-clamp-1 group-hover:text-accent transition-colors">{upsell.title}</h4>
-                                                        <p className="text-accent font-black font-inter tracking-tighter mt-1">${upsell.price}</p>
+                                                        <p className="text-accent font-bold font-inter tracking-tighter mt-1">${upsell.price}</p>
                                                     </div>
                                                 </div>
                                                 <div className="w-8 h-8 rounded-lg bg-gray-50 text-ink flex items-center justify-center group-hover:bg-ink group-hover:text-white transition-all">
@@ -292,7 +292,7 @@ export default function SuccessPage() {
     return (
         <Suspense fallback={
             <div className="min-h-screen bg-white flex items-center justify-center">
-                <div className="w-10 h-10 border-4 border-accent/20 border-t-accent rounded-full animate-spin"></div>
+                <div className="w-10 h-10 border-4 border-accent/20 border-t-accent rounded-xl animate-spin"></div>
             </div>
         }>
             <SuccessContent />

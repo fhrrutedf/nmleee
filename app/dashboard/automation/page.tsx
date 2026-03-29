@@ -44,7 +44,7 @@ export default function AutomationPage() {
 
     if (loading) return (
         <div className="flex justify-center items-center min-h-[400px]">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            <div className="animate-spin rounded-xl h-8 w-8 border-b-2 border-primary"></div>
         </div>
     );
 
@@ -73,7 +73,7 @@ export default function AutomationPage() {
                 {/* Automation Toggles */}
                 <div className="lg:col-span-2 space-y-6">
                     {/* Welcome Email */}
-                    <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+                    <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm">
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
                                 <div className="p-2.5 bg-sky-100 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400 rounded-xl">
@@ -91,7 +91,7 @@ export default function AutomationPage() {
                                     checked={settings.welcomeEmailEnabled}
                                     onChange={(e) => setSettings({ ...settings, welcomeEmailEnabled: e.target.checked })}
                                 />
-                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-xl peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
                             </label>
                         </div>
                         {settings.welcomeEmailEnabled && (
@@ -121,9 +121,9 @@ export default function AutomationPage() {
                     </section>
 
                     {/* Abandoned Cart Engine */}
-                    <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm overflow-hidden relative">
+                    <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm overflow-hidden relative">
                         <div className="absolute top-4 left-4">
-                             <div className="flex items-center gap-1.5 bg-blue-100 dark:bg-accent/20 text-accent dark:text-amber-400 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                             <div className="flex items-center gap-1.5 bg-blue-100 dark:bg-accent/20 text-accent dark:text-amber-400 px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-wider">
                                 <FiZap />
                                 نظام ذكي
                              </div>
@@ -141,7 +141,7 @@ export default function AutomationPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                             {/* Reminder 1 */}
-                            <div className={`p-4 rounded-2xl border transition-all ${settings.cartReminder1Enabled ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
+                            <div className={`p-4 rounded-xl border transition-all ${settings.cartReminder1Enabled ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
                                 <div className="flex items-center justify-between mb-4">
                                     <span className="text-xs font-bold text-primary italic">#تذكير 1</span>
                                     <input 
@@ -156,7 +156,7 @@ export default function AutomationPage() {
                             </div>
 
                             {/* Reminder 2 */}
-                            <div className={`p-4 rounded-2xl border transition-all ${settings.cartReminder2Enabled ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
+                            <div className={`p-4 rounded-xl border transition-all ${settings.cartReminder2Enabled ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
                                 <div className="flex items-center justify-between mb-4">
                                     <span className="text-xs font-bold text-primary italic">#تذكير 2</span>
                                     <input 
@@ -171,7 +171,7 @@ export default function AutomationPage() {
                             </div>
 
                             {/* Reminder 3 (The Ultimate) */}
-                            <div className={`p-4 rounded-2xl border transition-all ${settings.cartReminder3Enabled ? 'border-accent-500 bg-accent-500/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
+                            <div className={`p-4 rounded-xl border transition-all ${settings.cartReminder3Enabled ? 'border-accent-500 bg-accent-500/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
                                 <div className="flex items-center justify-between mb-4">
                                     <span className="text-xs font-bold text-accent-600 italic">#تذكير 3 (الأخير)</span>
                                     <input 
@@ -203,7 +203,7 @@ export default function AutomationPage() {
                     </section>
 
                     {/* Inactive User Recovery (Phase 7) */}
-                    <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm overflow-hidden relative">
+                    <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm overflow-hidden relative">
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
                                 <div className="p-2.5 bg-blue-100 dark:bg-accent-500/20 text-accent-600 dark:text-blue-400 rounded-xl">
@@ -221,7 +221,7 @@ export default function AutomationPage() {
                                     checked={settings.marketingEnabled}
                                     onChange={(e) => setSettings({ ...settings, marketingEnabled: e.target.checked })}
                                 />
-                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-accent-600"></div>
+                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-xl peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-accent-600"></div>
                             </label>
                         </div>
 
@@ -279,13 +279,13 @@ export default function AutomationPage() {
 
                 {/* Live Activity Feed (Abandoned Carts) */}
                 <div className="space-y-6">
-                    <section className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-sm h-full flex flex-col">
+                    <section className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-sm h-full flex flex-col">
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="font-bold text-white flex items-center gap-2">
                                 <FiClock className="text-orange-500" />
                                 سلال مفقودة حالياً
                             </h3>
-                            <span className="bg-slate-800 text-slate-400 text-[10px] px-2.5 py-1 rounded-full">{carts.length}</span>
+                            <span className="bg-slate-800 text-slate-400 text-[10px] px-2.5 py-1 rounded-xl">{carts.length}</span>
                         </div>
 
                         <div className="space-y-4 flex-1 overflow-y-auto max-h-[600px] scrollbar-thin scrollbar-thumb-slate-700">
@@ -316,7 +316,7 @@ export default function AutomationPage() {
                                                     {[1,2,3].map(n => (
                                                         <div 
                                                             key={n} 
-                                                            className={`w-2 h-2 rounded-full ${(cart[`reminder${n}SentAt`]) ? 'bg-primary shadow-[0_0_8px_rgba(14,165,233,0.5)]' : 'bg-slate-700'}`}
+                                                            className={`w-2 h-2 rounded-xl ${(cart[`reminder${n}SentAt`]) ? 'bg-primary shadow-[0_0_8px_rgba(14,165,233,0.5)]' : 'bg-slate-700'}`}
                                                             title={cart[`reminder${n}SentAt`] ? `تم إرسال التذكير ${n}` : `لم يُرسل التذكير ${n} بعد`}
                                                         />
                                                     ))}

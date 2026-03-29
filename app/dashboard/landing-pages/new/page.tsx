@@ -67,7 +67,7 @@ export default function CreateLandingPage() {
     return (
         <div className="min-h-screen bg-gray-50 py-8">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-                <div className="bg-white dark:bg-card-white rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 sm:p-8">
+                <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 sm:p-8">
                     <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">إنشاء صفحة هبوط</h1>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
@@ -93,7 +93,7 @@ export default function CreateLandingPage() {
                                 {formData.heroImage ? (
                                     <div className="relative group">
                                         <img src={formData.heroImage} alt="صورة" className="w-full h-32 object-cover rounded-lg border border-gray-200" />
-                                        <button type="button" onClick={() => setFormData({ ...formData, heroImage: '' })} className="absolute top-2 left-2 bg-red-500 text-white rounded-full w-7 h-7 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
+                                        <button type="button" onClick={() => setFormData({ ...formData, heroImage: '' })} className="absolute top-2 left-2 bg-red-500 text-white rounded-xl w-7 h-7 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
                                     </div>
                                 ) : (
                                     <FileUploader

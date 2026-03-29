@@ -34,7 +34,7 @@ export default function CoursesPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent"></div>
             </div>
         );
     }
@@ -83,7 +83,7 @@ export default function CoursesPage() {
                                         className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                                     />
                                 ) : (
-                                    <div className="w-full h-56 bg-gradient-to-br from-blue-100 to-purple-200 flex items-center justify-center">
+                                    <div className="w-full h-56 bg-ink flex items-center justify-center">
                                         <FiVideo className="text-6xl text-blue-400" />
                                     </div>
                                 )}

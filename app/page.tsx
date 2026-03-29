@@ -118,13 +118,13 @@ export default function Home() {
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6">
                         <Link
                             href="/register"
-                            className="w-full md:w-auto bg-ink text-white px-12 py-6 rounded-2xl font-black text-xs uppercase tracking-[0.3em] shadow-sm shadow-black/10 hover:bg-accent transition-all active:scale-95 flex items-center justify-center gap-4 group"
+                            className="w-full md:w-auto bg-ink text-white px-12 py-6 rounded-xl font-bold text-xs uppercase tracking-[0.3em] shadow-sm shadow-black/10 hover:bg-accent transition-all active:scale-95 flex items-center justify-center gap-4 group"
                         >
                             Establish Registry <FiArrowRight className="text-xl group-hover:translate-x-2 transition-transform text-accent" />
                         </Link>
                         <Link
                             href="/about"
-                            className="w-full md:w-auto bg-white text-ink border border-gray-100 px-12 py-6 rounded-2xl font-black text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:bg-gray-50 transition-all shadow-sm group"
+                            className="w-full md:w-auto bg-white text-ink border border-gray-100 px-12 py-6 rounded-xl font-bold text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:bg-gray-50 transition-all shadow-sm group"
                         >
                             Infrastructure Details <FiPlay className="text-accent group-hover:scale-110 transition-transform" />
                         </Link>
@@ -139,14 +139,14 @@ function Hero() {
     return (
         <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-white">
             <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-24 lg:py-40 text-center relative z-10 antialiased">
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="inline-flex items-center gap-3 bg-gray-50 text-gray-400 px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-10 border border-gray-100/50 shadow-sm">
-                    <span className="w-2 h-2 bg-accent rounded-full "></span>
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="inline-flex items-center gap-3 bg-gray-50 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] mb-10 border border-gray-100/50 shadow-sm">
+                    <span className="w-2 h-2 bg-accent rounded-xl "></span>
                     Strategic Growth Infrastructure
                 </motion.div>
                 
-                <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }} className="text-6xl lg:text-9xl font-black text-ink leading-[0.9] tracking-tighter mb-10 max-w-5xl mx-auto">
+                <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }} className="text-6xl lg:text-9xl font-bold text-ink leading-[0.9] tracking-tighter mb-10 max-w-5xl mx-auto">
                     Elevate Local Expertise <br />
-                    <span className="bg-gradient-to-r from-accent to-black bg-clip-text text-transparent">Globally.</span>
+                    <span className="bg-ink bg-clip-text text-transparent">Globally.</span>
                 </motion.h1>
 
                 <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
@@ -173,9 +173,9 @@ function Hero() {
                 {/* Trust Bar */}
                 <div className="flex items-center justify-center gap-6 text-gray-400 text-xs">
                     <span className="flex items-center gap-1.5"><FiCheckCircle /> مجاني للبدء</span>
-                    <span className="w-1 h-1 rounded-full bg-gray-300"></span>
+                    <span className="w-1 h-1 rounded-xl bg-gray-300"></span>
                     <span className="flex items-center gap-1.5"><FiShield /> دفع آمن ومشفر</span>
-                    <span className="w-1 h-1 rounded-full bg-gray-300"></span>
+                    <span className="w-1 h-1 rounded-xl bg-gray-300"></span>
                     <span className="flex items-center gap-1.5"><FiGlobe /> دعم عربي وعالمي</span>
                 </div>
             </div>

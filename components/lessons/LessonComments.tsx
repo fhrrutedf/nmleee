@@ -57,9 +57,9 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
     };
 
     return (
-        <div className="mt-12 bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-3xl p-8">
+        <div className="mt-12 bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-8">
             <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 bg-accent/10 text-accent rounded-2xl">
+                <div className="p-3 bg-accent/10 text-accent rounded-xl">
                     <FiMessageSquare size={24} />
                 </div>
                 <h3 className="text-xl font-bold text-ink dark:text-white">النقاشات والأسئلة ({comments.length})</h3>
@@ -71,7 +71,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="لديك استفسار أو إضافة؟ اكتبها هنا..."
-                    className="w-full p-5 bg-gray-50/50 dark:bg-bg-dark/50 border border-gray-100 dark:border-gray-800 rounded-2xl focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all min-h-[120px] text-lg font-medium pr-14"
+                    className="w-full p-5 bg-gray-50/50 dark:bg-bg-dark/50 border border-gray-100 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all min-h-[120px] text-lg font-medium pr-14"
                 />
                 <div className="absolute top-5 right-5 text-gray-400">
                     <FiSend size={24} />
@@ -80,7 +80,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                     <button
                         onClick={() => submitComment()}
                         disabled={loading || !newComment.trim()}
-                        className="px-6 py-3 bg-accent text-white rounded-xl font-bold hover:shadow-lg hover:shadow-accent/20 transition-all disabled:opacity-50"
+                        className="px-6 py-3 bg-accent text-white rounded-xl font-bold hover:shadow-sm hover:shadow-accent/20 transition-all disabled:opacity-50"
                     >
                         نشـر التعليق
                     </button>
@@ -97,7 +97,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                     comments.map((comment) => (
                         <div key={comment.id} className="group">
                             <div className="flex gap-4">
-                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 font-bold text-ink dark:text-white flex items-center justify-center shrink-0">
+                                <div className="w-12 h-12 rounded-xl bg-ink dark:from-gray-800 dark:to-gray-700 font-bold text-ink dark:text-white flex items-center justify-center shrink-0">
                                     {comment.authorName?.[0]}
                                 </div>
                                 <div className="flex-1">

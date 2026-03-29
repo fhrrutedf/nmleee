@@ -79,7 +79,7 @@ export default function BookAppointmentPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Form */}
                     <div className="lg:col-span-2">
-                        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg p-8 space-y-6">
+                        <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm p-8 space-y-6">
                             {/* Service Selection */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -270,7 +270,7 @@ export default function BookAppointmentPage() {
 
                     {/* Summary Sidebar */}
                     <div className="lg:col-span-1">
-                        <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-6">
+                        <div className="bg-white rounded-xl shadow-sm p-6 sticky top-6">
                             <h3 className="text-xl font-bold mb-4">ملخص الحجز</h3>
 
                             {selectedService ? (

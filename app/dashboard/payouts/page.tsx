@@ -121,7 +121,7 @@ export default function PayoutsPage() {
 
             {/* Stats Cards */}
             <div className="grid md:grid-cols-3 gap-6">
-                <div className="card bg-gradient-to-br from-accent to-accent text-white">
+                <div className="card bg-ink text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-primary-100">إجمالي الأرباح</span>
                         <FiDollarSign className="text-2xl" />
@@ -129,7 +129,7 @@ export default function PayoutsPage() {
                     <div className="text-3xl font-bold">{stats.totalEarnings.toFixed(2)} $</div>
                 </div>
 
-                <div className="card bg-gradient-to-br from-green-500 to-green-600 text-white">
+                <div className="card bg-ink text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-green-100">الرصيد المتاح</span>
                         <FiDollarSign className="text-2xl" />
@@ -137,7 +137,7 @@ export default function PayoutsPage() {
                     <div className="text-3xl font-bold">{stats.availableBalance.toFixed(2)} $</div>
                 </div>
 
-                <div className="card bg-gradient-to-br from-orange-500 to-blue-800 text-white">
+                <div className="card bg-ink text-white">
                     <div className="flex items-center justify-between mb-2">
                         <span className="text-orange-100">طلبات قيد المراجعة</span>
                         <FiClock className="text-2xl" />
@@ -147,15 +147,15 @@ export default function PayoutsPage() {
             </div>
 
             {/* Request Payout Form */}
-            <div className="card bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-3xl overflow-hidden shadow-sm">
+            <div className="card bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm">
                 <div className="p-6 sm:p-8">
                     <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                        <span className="w-1.5 h-6 bg-accent rounded-full"></span>
+                        <span className="w-1.5 h-6 bg-accent rounded-xl"></span>
                         طلب سحب جديد
                     </h2>
 
                     {user && !isPayoutMethodConfigured(user) ? (
-                        <div className="bg-accent-50 border border-amber-200 p-6 rounded-2xl flex flex-col items-center text-center animate-fade-in">
+                        <div className="bg-accent-50 border border-amber-200 p-6 rounded-xl flex flex-col items-center text-center ">
                             <FiAlertCircle className="text-4xl text-accent-500 mb-3" />
                             <h3 className="font-bold text-blue-900 mb-2">طريقة السحب غير مكتملة</h3>
                             <p className="text-sm text-blue-800 mb-6 max-w-sm">
@@ -208,7 +208,7 @@ export default function PayoutsPage() {
                                 </div>
                             </div>
 
-                            <button type="submit" className="btn btn-primary w-full py-4 text-lg shadow-lg shadow-accent/20 active:scale-[0.98]">
+                            <button type="submit" className="btn btn-primary w-full py-4 text-lg shadow-sm shadow-accent/20 active:scale-[0.98]">
                                 إرسال طلب السحب
                             </button>
                         </form>
@@ -222,7 +222,7 @@ export default function PayoutsPage() {
 
                 {loading ? (
                     <div className="text-center py-8">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto"></div>
+                        <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent mx-auto"></div>
                     </div>
                 ) : payouts.length === 0 ? (
                     <div className="text-center py-8 text-gray-500">
@@ -250,7 +250,7 @@ export default function PayoutsPage() {
                                             {payout.amount.toFixed(2)} $
                                         </td>
                                         <td className="py-3 px-4">
-                                            <span className={`px-3 py-1 rounded-full text-sm ${getStatusColor(payout.status)}`}>
+                                            <span className={`px-3 py-1 rounded-xl text-sm ${getStatusColor(payout.status)}`}>
                                                 {payout.status === 'COMPLETED' && <FiCheck className="inline ml-1" />}
                                                 {payout.status === 'CANCELLED' && <FiX className="inline ml-1" />}
                                                 {payout.status === 'PENDING' && <FiClock className="inline ml-1" />}

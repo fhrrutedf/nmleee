@@ -141,7 +141,7 @@ export default function BrandEditorPage() {
                 <div className="lg:col-span-2 space-y-8">
 
                     {/* ══ Section 1: Colors ══ */}
-                    <div className="bg-white rounded-3xl border border-gray-100 p-6 sm:p-8 shadow-sm">
+                    <div className="bg-white rounded-xl border border-gray-100 p-6 sm:p-8 shadow-sm">
                         <div className="flex items-center gap-3 mb-8">
                             <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-ink border border-gray-100"><FiDroplet /></div>
                             <div>
@@ -156,7 +156,7 @@ export default function BrandEditorPage() {
                                 <button
                                     key={i}
                                     onClick={() => applyPalette(p)}
-                                    className={`relative p-4 rounded-2xl border-2 transition-all text-center hover:scale-[1.02] ${brand.brandColor === p.primary ? 'border-ink bg-gray-50' : 'border-gray-50 hover:border-gray-200'}`}
+                                    className={`relative p-4 rounded-xl border-2 transition-all text-center hover:scale-[1.02] ${brand.brandColor === p.primary ? 'border-ink bg-gray-50' : 'border-gray-50 hover:border-gray-200'}`}
                                 >
                                     <div className="flex gap-1.5 justify-center mb-3">
                                         <div className="w-8 h-8 rounded-lg shadow-sm" style={{ background: p.primary }} />
@@ -164,7 +164,7 @@ export default function BrandEditorPage() {
                                     </div>
                                     <span className="text-[11px] font-bold text-ink">{p.name}</span>
                                     {brand.brandColor === p.primary && (
-                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-ink rounded-full flex items-center justify-center text-white text-[12px] shadow-lg">
+                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-ink rounded-xl flex items-center justify-center text-white text-[12px] shadow-sm">
                                             <FiCheck />
                                         </div>
                                     )}
@@ -212,7 +212,7 @@ export default function BrandEditorPage() {
                     </div>
 
                     {/* ══ Section 2: Typography ══ */}
-                    <div className="bg-white rounded-3xl border border-gray-100 p-6 sm:p-8 shadow-sm">
+                    <div className="bg-white rounded-xl border border-gray-100 p-6 sm:p-8 shadow-sm">
                         <div className="flex items-center gap-3 mb-8">
                             <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-ink border border-gray-100"><FiType /></div>
                             <div>
@@ -225,13 +225,13 @@ export default function BrandEditorPage() {
                                 <button
                                     key={f.id}
                                     onClick={() => setBrand({ ...brand, brandFont: f.id })}
-                                    className={`relative p-6 rounded-2xl border-2 text-center transition-all hover:scale-[1.02] ${brand.brandFont === f.id ? 'border-ink bg-gray-50' : 'border-gray-50 hover:border-gray-200'}`}
+                                    className={`relative p-6 rounded-xl border-2 text-center transition-all hover:scale-[1.02] ${brand.brandFont === f.id ? 'border-ink bg-gray-50' : 'border-gray-50 hover:border-gray-200'}`}
                                 >
                                     <div className="text-2xl font-bold text-ink mb-2">{f.preview.slice(0, 2)}</div>
                                     <div className="text-sm font-bold text-ink">{f.name}</div>
                                     <div className="text-[10px] text-gray-400 mt-1 font-bold">{f.desc}</div>
                                     {brand.brandFont === f.id && (
-                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-ink rounded-full flex items-center justify-center text-white text-[12px] shadow-lg"><FiCheck /></div>
+                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-ink rounded-xl flex items-center justify-center text-white text-[12px] shadow-sm"><FiCheck /></div>
                                     )}
                                 </button>
                             ))}
@@ -239,7 +239,7 @@ export default function BrandEditorPage() {
                     </div>
 
                     {/* ══ Section 3: Button Style ══ */}
-                    <div className="bg-white rounded-3xl border border-gray-100 p-6 sm:p-8 shadow-sm">
+                    <div className="bg-white rounded-xl border border-gray-100 p-6 sm:p-8 shadow-sm">
                         <div className="flex items-center gap-3 mb-8">
                             <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-ink border border-gray-100"><FiSquare /></div>
                             <div>
@@ -252,7 +252,7 @@ export default function BrandEditorPage() {
                                 <button
                                     key={b.id}
                                     onClick={() => setBrand({ ...brand, brandButtonStyle: b.id })}
-                                    className={`relative p-6 rounded-2xl border-2 text-center transition-all ${brand.brandButtonStyle === b.id ? 'border-ink bg-gray-50' : 'border-gray-50 hover:border-gray-200'}`}
+                                    className={`relative p-6 rounded-xl border-2 text-center transition-all ${brand.brandButtonStyle === b.id ? 'border-ink bg-gray-50' : 'border-gray-50 hover:border-gray-200'}`}
                                 >
                                     <div className="flex justify-center mb-4">
                                         <div
@@ -264,7 +264,7 @@ export default function BrandEditorPage() {
                                     </div>
                                     <div className="text-sm font-bold text-ink">{b.name}</div>
                                     {brand.brandButtonStyle === b.id && (
-                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-ink rounded-full flex items-center justify-center text-white text-[12px] shadow-lg"><FiCheck /></div>
+                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-ink rounded-xl flex items-center justify-center text-white text-[12px] shadow-sm"><FiCheck /></div>
                                     )}
                                 </button>
                             ))}
@@ -272,7 +272,7 @@ export default function BrandEditorPage() {
                     </div>
 
                     {/* ══ Section 5: Store Banner & Tagline ══ */}
-                    <div className="bg-white rounded-3xl border border-gray-100 p-6 sm:p-8 shadow-sm">
+                    <div className="bg-white rounded-xl border border-gray-100 p-6 sm:p-8 shadow-sm">
                         <div className="flex items-center gap-3 mb-8">
                             <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-ink border border-gray-100"><FiEdit3 /></div>
                             <div>
@@ -298,7 +298,7 @@ export default function BrandEditorPage() {
                             <div>
                                 <label className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 block">بانر المتجر (اختياري)</label>
                                 {brand.storeBanner && (
-                                    <div className="mb-4 rounded-2xl overflow-hidden h-40 relative group">
+                                    <div className="mb-4 rounded-xl overflow-hidden h-40 relative group">
                                         <img src={brand.storeBanner} alt="banner" className="w-full h-full object-cover" />
                                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                             <button
@@ -324,7 +324,7 @@ export default function BrandEditorPage() {
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] border-r-4 border-ink pr-3">المعاينة الحية</h3>
 
                         {/* Mini Storefront Preview */}
-                        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden transition-all duration-500">
+                        <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden transition-all duration-500">
                             {/* Cover */}
                             <div
                                 className="h-32 relative"
@@ -334,13 +334,13 @@ export default function BrandEditorPage() {
                                         : `linear-gradient(135deg, ${brand.brandColor} 0%, ${brand.brandSecondaryColor} 100%)`
                                 }}
                             >
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                                <div className="absolute inset-0 bg-ink" />
                             </div>
 
                             {/* Avatar */}
                             <div className="px-6 -mt-10 relative z-10">
                                 <div
-                                    className="w-20 h-20 rounded-2xl border-4 border-white shadow-sm overflow-hidden flex items-center justify-center text-white text-2xl font-bold"
+                                    className="w-20 h-20 rounded-xl border-4 border-white shadow-sm overflow-hidden flex items-center justify-center text-white text-2xl font-bold"
                                     style={{ background: brand.brandColor }}
                                 >
                                     {brand.avatar ? (
@@ -364,7 +364,7 @@ export default function BrandEditorPage() {
                                     {['دورة احترافية الرقمية', 'كتاب استراتيجيات البيع'].map((t, i) => (
                                         <div key={i} className="flex items-center gap-4 p-3 rounded-xl bg-gray-50 border border-gray-100">
                                             <div className="w-12 h-12 rounded-lg flex-shrink-0 bg-white border border-gray-100 flex items-center justify-center">
-                                                <div className="w-6 h-6 rounded-full" style={{ background: `${brand.brandSecondaryColor}20` }} />
+                                                <div className="w-6 h-6 rounded-xl" style={{ background: `${brand.brandSecondaryColor}20` }} />
                                             </div>
                                             <div className="flex-1 min-w-0">
                                                 <div className="text-[11px] font-bold text-ink truncate">{t}</div>
@@ -388,13 +388,13 @@ export default function BrandEditorPage() {
                         </div>
 
                         {/* Color Code Card */}
-                        <div className="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+                        <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
                              <div className="flex items-center gap-3">
-                                <div className="w-3 h-3 rounded-full" style={{ background: brand.brandColor }} />
+                                <div className="w-3 h-3 rounded-xl" style={{ background: brand.brandColor }} />
                                 <span className="text-[10px] font-bold font-inter text-ink uppercase tracking-widest">{brand.brandColor}</span>
                              </div>
                              <div className="flex items-center gap-3 mt-2">
-                                <div className="w-3 h-3 rounded-full" style={{ background: brand.brandSecondaryColor }} />
+                                <div className="w-3 h-3 rounded-xl" style={{ background: brand.brandSecondaryColor }} />
                                 <span className="text-[10px] font-bold font-inter text-ink uppercase tracking-widest">{brand.brandSecondaryColor}</span>
                              </div>
                         </div>

@@ -86,7 +86,7 @@ const plans = [
         support: 'مدير حساب مخصص',
         color: 'from-purple-600 to-pink-600',
         border: 'border-purple-400',
-        btnClass: 'bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 text-white',
+        btnClass: 'bg-ink hover:opacity-90 text-white',
         popular: false,
         features: [
             'منتجات غير محدودة',
@@ -118,7 +118,7 @@ const plans = [
         support: 'VIP دعم 24/7',
         color: 'from-yellow-500 to-orange-500',
         border: 'border-yellow-400',
-        btnClass: 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:opacity-90 text-white',
+        btnClass: 'bg-ink hover:opacity-90 text-white',
         popular: false,
         features: [
             'صفر عمولة على المبيعات',
@@ -200,7 +200,7 @@ export default function BillingPage() {
     return (
         <div className="space-y-8 max-w-7xl mx-auto">
             {/* Hero Section */}
-            <section className="relative py-12 overflow-hidden rounded-3xl mb-8">
+            <section className="relative py-12 overflow-hidden rounded-xl mb-8">
                 <div className="absolute inset-0 bg-gradient-to-br from-ink via-purple-900/50 to-ink" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,18,149,0.15)_0%,transparent_70%)]" />
                 <div className="relative max-w-5xl mx-auto px-4 text-center">
@@ -208,7 +208,7 @@ export default function BillingPage() {
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 bg-accent/20 border border-accent/40 text-accent px-4 py-2 rounded-full text-sm font-bold mb-6 "
+                        className="inline-flex items-center gap-2 bg-accent/20 border border-accent/40 text-accent px-4 py-2 rounded-xl text-sm font-bold mb-6 "
                     >
                         🚀 عرض إطلاق حصري — خصم 50% لأول 3 أشهر لأول 500 بائع!
                     </motion.div>
@@ -220,7 +220,7 @@ export default function BillingPage() {
                         className="text-4xl md:text-5xl font-bold text-white mb-6"
                     >
                         إدارة اشتراكك — رقِ باقتك{' '}
-                        <span className="bg-gradient-to-r from-accent to-purple-400 bg-clip-text text-transparent">
+                        <span className="bg-ink bg-clip-text text-transparent">
                             الآن
                         </span>
                     </motion.h1>
@@ -238,20 +238,20 @@ export default function BillingPage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
-                        className="inline-flex items-center gap-4 bg-white/10  rounded-2xl p-2"
+                        className="inline-flex items-center gap-4 bg-white/10  rounded-xl p-2"
                     >
                         <button
                             onClick={() => setIsYearly(false)}
-                            className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${!isYearly ? 'bg-white text-gray-900 shadow-lg' : 'text-gray-300 hover:text-white'}`}
+                            className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${!isYearly ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-300 hover:text-white'}`}
                         >
                             شهري
                         </button>
                         <button
                             onClick={() => setIsYearly(true)}
-                            className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all relative ${isYearly ? 'bg-white text-gray-900 shadow-lg' : 'text-gray-300 hover:text-white'}`}
+                            className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all relative ${isYearly ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-300 hover:text-white'}`}
                         >
                             سنوي
-                            <span className="absolute -top-3 -left-2 bg-green-500 text-white text-xs px-2 py-0.5 rounded-full font-bold">
+                            <span className="absolute -top-3 -left-2 bg-green-500 text-white text-xs px-2 py-0.5 rounded-xl font-bold">
                                 وفّر 20%
                             </span>
                         </button>
@@ -268,7 +268,7 @@ export default function BillingPage() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.1 }}
-                            className={`relative bg-white dark:bg-gray-900 rounded-3xl border-2 ${plan.border} shadow-sm flex flex-col overflow-hidden
+                            className={`relative bg-white dark:bg-gray-900 rounded-xl border-2 ${plan.border} shadow-sm flex flex-col overflow-hidden
                                 ${plan.popular ? 'ring-2 ring-accent ring-offset-4 ring-offset-bg-light dark:ring-offset-gray-950 scale-105 lg:scale-105 my-2 lg:my-0 z-10' : ''}`}
                         >
                             {/* Popular Badge */}
@@ -279,7 +279,7 @@ export default function BillingPage() {
                             )}
 
                             {plan.slug === currentPlanSlug && (
-                                <div className="absolute top-4 left-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full z-20">
+                                <div className="absolute top-4 left-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-xl z-20">
                                     باقتك الحالية
                                 </div>
                             )}
@@ -319,7 +319,7 @@ export default function BillingPage() {
                                 </div>
 
                                 {/* Key Stats */}
-                                <div className="space-y-2 mb-6 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl">
+                                <div className="space-y-2 mb-6 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">عمولة المنصة</span>
                                         <span className={`font-bold ${plan.commission === '0%' ? 'text-green-600' : 'text-ink dark:text-white'}`}>
@@ -359,12 +359,12 @@ export default function BillingPage() {
                                 {/* CTA */}
                                 <button
                                     onClick={() => plan.slug !== 'enterprise' ? handleUpgrade(plan.slug) : window.open('/contact', '_blank')}
-                                    className={`w-full py-3.5 rounded-2xl text-center font-bold text-sm transition-all duration-200 shadow-lg hover:shadow-sm hover:-translate-y-0.5 ${plan.slug === currentPlanSlug ? 'bg-gray-100 text-gray-500 cursor-not-allowed border-none' : plan.btnClass}`}
+                                    className={`w-full py-3.5 rounded-xl text-center font-bold text-sm transition-all duration-200 shadow-sm hover:shadow-sm hover:-translate-y-0.5 ${plan.slug === currentPlanSlug ? 'bg-gray-100 text-gray-500 cursor-not-allowed border-none' : plan.btnClass}`}
                                     disabled={plan.slug === currentPlanSlug || upgrading === plan.slug}
                                 >
                                     {upgrading === plan.slug ? (
                                         <span className="flex items-center justify-center gap-2">
-                                            <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                            <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-xl animate-spin" />
                                             جاري المعالجة...
                                         </span>
                                     ) : plan.slug === currentPlanSlug ? 'باقتك الحالية ✓' : plan.cta}
@@ -385,7 +385,7 @@ export default function BillingPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="mt-12 relative overflow-hidden bg-gradient-to-r from-accent to-purple-600 rounded-3xl p-8 text-white text-center"
+                    className="mt-12 relative overflow-hidden bg-ink rounded-xl p-8 text-white text-center"
                 >
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15)_0%,transparent_60%)]" />
                     <div className="relative">
@@ -394,10 +394,10 @@ export default function BillingPage() {
                         <p className="text-white/80 mb-4 max-w-xl mx-auto">
                             خصم <strong>50%</strong> لأول 3 أشهر لأول <strong>500 بائع</strong> يسجلون في الباقات المدفوعة.
                             المتبقي:
-                            <span className="bg-white/20 px-3 py-1 rounded-full mx-2 font-bold">۴۸۳ مقعد</span>
+                            <span className="bg-white/20 px-3 py-1 rounded-xl mx-2 font-bold">۴۸۳ مقعد</span>
                         </p>
                         <button
-                            className="inline-block bg-white text-accent font-bold px-8 py-3.5 rounded-2xl hover:shadow-sm transition-all hover:-translate-y-0.5 text-lg"
+                            className="inline-block bg-white text-accent font-bold px-8 py-3.5 rounded-xl hover:shadow-sm transition-all hover:-translate-y-0.5 text-lg"
                         >
                             قم بالترقية الآن ←
                         </button>
@@ -409,7 +409,7 @@ export default function BillingPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
-                    className="mt-8 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 p-8 text-center"
+                    className="mt-8 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 p-8 text-center"
                 >
                     <div className="text-4xl mb-3">🤝</div>
                     <h3 className="text-2xl font-bold text-ink dark:text-white mb-2">
@@ -438,7 +438,7 @@ export default function BillingPage() {
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="mt-8 overflow-x-auto rounded-3xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm"
+                        className="mt-8 overflow-x-auto rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm"
                     >
                         <table className="w-full text-sm">
                             <thead>

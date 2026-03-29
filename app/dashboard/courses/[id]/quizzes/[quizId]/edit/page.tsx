@@ -87,7 +87,7 @@ export default function EditQuizPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="w-10 h-10 border-4 border-purple-400/30 border-t-purple-600 rounded-full animate-spin" />
+                <div className="w-10 h-10 border-4 border-purple-400/30 border-t-purple-600 rounded-xl animate-spin" />
             </div>
         );
     }
@@ -190,7 +190,7 @@ export default function EditQuizPage() {
                             className="btn btn-primary flex-1 flex items-center justify-center gap-2 py-3"
                         >
                             {saving ? (
-                                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-xl animate-spin" />
                             ) : (
                                 <FiSave />
                             )}

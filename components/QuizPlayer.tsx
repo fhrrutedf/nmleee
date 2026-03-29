@@ -70,7 +70,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
 
     if (submitted && result) {
         return (
-            <div className="bg-white rounded-xl shadow-lg p-8 text-center">
+            <div className="bg-white rounded-xl shadow-sm p-8 text-center">
                 {result.isPassed ? (
                     <FiCheckCircle className="mx-auto text-6xl text-green-500 mb-4" />
                 ) : (
@@ -101,7 +101,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
 
     if (!quiz.questions || quiz.questions.length === 0) {
         return (
-            <div className="bg-white rounded-xl shadow-lg p-12 text-center">
+            <div className="bg-white rounded-xl shadow-sm p-12 text-center">
                 <FiAlertCircle className="mx-auto text-6xl text-orange-500 mb-4" />
                 <h2 className="text-2xl font-bold mb-4">اختبار بدون أسئلة</h2>
                 <p className="text-gray-500 mb-8">عذراً، لم يتم إضافة أسئلة لهذا الاختبار بعد.</p>
@@ -119,7 +119,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
 
     if (!question) return null;
     return (
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             {/* Header */}
             <div className="bg-gray-50 p-4 border-b flex justify-between items-center">
                 <div>
@@ -129,7 +129,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                     </p>
                 </div>
                 {quiz.timeLimit && (
-                    <div className="flex items-center gap-2 text-orange-600 bg-orange-50 px-3 py-1 rounded-full">
+                    <div className="flex items-center gap-2 text-orange-600 bg-orange-50 px-3 py-1 rounded-xl">
                         <FiClock />
                         <span>{quiz.timeLimit} دقيقة</span>
                     </div>

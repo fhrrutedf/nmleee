@@ -83,7 +83,7 @@ export default function NewLessonPage() {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="bg-white rounded-xl p-8 md:p-10 shadow-sm shadow-slate-200/50 border border-slate-100 relative overflow-hidden group hover:border-primary-indigo-100 transition-all duration-500">
-                        <div className="absolute top-0 right-0 w-24 h-24 bg-primary-indigo-50 rounded-bl-[80px] -z-10 transition-all group-hover:scale-110" />
+                        <div className="absolute top-0 right-0 w-24 h-24 bg-subtle rounded-bl-[80px] -z-10 transition-all group-hover:scale-110" />
                         
                         <div className="space-y-6">
                             <h2 className="text-xl font-bold flex items-center gap-3 text-slate-800">تفاصيل الدرس</h2>
@@ -93,7 +93,7 @@ export default function NewLessonPage() {
                                 <input
                                     type="text" required value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                                     placeholder="مثال: مقدمة في بناء أفكار خارج الصندوق..."
-                                    className="w-full bg-slate-50 border-0 rounded-2xl px-6 py-4 text-base font-bold text-slate-800 focus:ring-4 focus:ring-primary-ink/10 focus:bg-white transition-all placeholder:text-slate-300"
+                                    className="w-full bg-slate-50 border-0 rounded-xl px-6 py-4 text-base font-bold text-slate-800 focus:ring-4 focus:ring-primary-ink/10 focus:bg-white transition-all placeholder:text-slate-300"
                                 />
                             </div>
 
@@ -102,7 +102,7 @@ export default function NewLessonPage() {
                                 <textarea
                                     value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                     placeholder="ماذا سيتعلم الطالب من هذا الدرس؟" rows={2}
-                                    className="w-full bg-slate-50 border-0 rounded-2xl px-6 py-4 text-base font-bold text-slate-800 focus:ring-4 focus:ring-primary-ink/10 focus:bg-white transition-all placeholder:text-slate-300"
+                                    className="w-full bg-slate-50 border-0 rounded-xl px-6 py-4 text-base font-bold text-slate-800 focus:ring-4 focus:ring-primary-ink/10 focus:bg-white transition-all placeholder:text-slate-300"
                                 />
                             </div>
 
@@ -111,7 +111,7 @@ export default function NewLessonPage() {
                                 <textarea
                                     value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                                     placeholder="اكتب الشرح، أو أضف روابط خارجية هنا..." rows={5}
-                                    className="w-full bg-slate-50 border-0 rounded-2xl px-6 py-4 font-medium text-slate-700 focus:ring-4 focus:ring-primary-ink/10 focus:bg-white transition-all placeholder:text-slate-300 h-32"
+                                    className="w-full bg-slate-50 border-0 rounded-xl px-6 py-4 font-medium text-slate-700 focus:ring-4 focus:ring-primary-ink/10 focus:bg-white transition-all placeholder:text-slate-300 h-32"
                                 />
                             </div>
                         </div>
@@ -122,8 +122,8 @@ export default function NewLessonPage() {
                             <h3 className="font-bold text-lg">فيديو الدرس 🔥</h3>
                             <div className="w-full flex-1 flex flex-col justify-center">
                                 {formData.bunnyVideoId ? (
-                                    <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 flex flex-col items-center text-center gap-3 transition-all animate-in fade-in zoom-in duration-300">
-                                        <div className="w-12 h-12 bg-green-500/10 text-green-500 rounded-2xl flex items-center justify-center">
+                                    <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 flex flex-col items-center text-center gap-3 transition-all animate-in fade-in zoom-in duration-300">
+                                        <div className="w-12 h-12 bg-green-500/10 text-green-500 rounded-xl flex items-center justify-center">
                                             <FiCheckCircle size={24} />
                                         </div>
                                         <div>
@@ -162,7 +162,7 @@ export default function NewLessonPage() {
                             <h3 className="font-bold text-lg mb-4 flex items-center gap-2">ملحقات وموارد الدرس 📚</h3>
                             <div className="flex-1 space-y-4 flex flex-col justify-end">
                                 {formData.attachments.filter(a => a.trim() !== '').length > 0 && (
-                                    <div className="space-y-2 mb-4 bg-slate-50 p-3 rounded-2xl border border-dashed border-slate-200">
+                                    <div className="space-y-2 mb-4 bg-slate-50 p-3 rounded-xl border border-dashed border-slate-200">
                                         {formData.attachments.filter(a => a.trim() !== '').map((attachment, index) => (
                                             <div key={index} className="flex items-center gap-2 bg-white p-2 rounded-xl shadow-sm border border-slate-100 animate-in slide-in-from-bottom-1 duration-200">
                                                 <FiUploadCloud className="text-primary-ink flex-shrink-0" size={16} />
@@ -188,16 +188,16 @@ export default function NewLessonPage() {
                     </div>
 
                     <div 
-                        className={`flex items-center justify-between p-6 rounded-xl border transition-all cursor-pointer group mt-4 relative overflow-hidden ${formData.isFree ? 'bg-ink border-ink shadow-lg shadow-indigo-100' : 'bg-white border-slate-100 shadow-sm'}`} 
+                        className={`flex items-center justify-between p-6 rounded-xl border transition-all cursor-pointer group mt-4 relative overflow-hidden ${formData.isFree ? 'bg-ink border-ink shadow-sm shadow-indigo-100' : 'bg-white border-slate-100 shadow-sm'}`} 
                         onClick={() => setFormData({ ...formData, isFree: !formData.isFree })}
                     >
-                        {formData.isFree && <div className="absolute inset-0 bg-gradient-to-r from-ink to-indigo-700 opacity-50" />}
+                        {formData.isFree && <div className="absolute inset-0 bg-ink opacity-50" />}
                         <div className="text-right relative z-10">
                             <h3 className={`font-bold text-base leading-tight transition-colors ${formData.isFree ? 'text-white' : 'text-slate-800'}`}>إتاحة كدرس مجاني (Free Preview) 👀</h3>
                             <p className={`text-[10px] mt-1 max-w-lg leading-relaxed ${formData.isFree ? 'text-indigo-100' : 'text-slate-400 font-bold'}`}>اسمح للزوار بمشاهدة هذا الدرس مجاناً كإعلان تشويقي.</p>
                         </div>
-                        <div className={`w-12 h-7 rounded-full flex items-center px-1 transition-all relative z-10 ${formData.isFree ? 'bg-white/20 ' : 'bg-slate-100'}`}>
-                            <div className={`w-5 h-5 rounded-full transition-all shadow-md ${formData.isFree ? 'translate-x-[20px] bg-blue-400' : 'translate-x-0 bg-white'}`} />
+                        <div className={`w-12 h-7 rounded-xl flex items-center px-1 transition-all relative z-10 ${formData.isFree ? 'bg-white/20 ' : 'bg-slate-100'}`}>
+                            <div className={`w-5 h-5 rounded-xl transition-all shadow-md ${formData.isFree ? 'translate-x-[20px] bg-blue-400' : 'translate-x-0 bg-white'}`} />
                         </div>
                     </div>
 

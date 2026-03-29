@@ -113,7 +113,7 @@ export default function AdvancedVideoPlayer({ lessonId, courseId, studentEmail, 
     );
 
     return (
-        <div className="relative group bg-black aspect-video rounded-3xl overflow-hidden shadow-sm">
+        <div className="relative group bg-black aspect-video rounded-xl overflow-hidden shadow-sm">
             {/* Dynamic Provider Render */}
             {playbackData.provider === 'bunny' && playbackData.playbackUrl ? (
                 <iframe

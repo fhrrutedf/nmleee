@@ -118,7 +118,7 @@ export default function AffiliatesPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink border-t-transparent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-ink border-t-transparent"></div>
             </div>
         );
     }
@@ -134,7 +134,7 @@ export default function AffiliatesPage() {
                 </div>
                 <button
                     onClick={() => setShowModal(true)}
-                    className="btn bg-accent hover:bg-accent-600 text-white flex items-center gap-2 shadow-lg shadow-accent/20 hover:-translate-y-1 transition-transform"
+                    className="btn bg-accent hover:bg-accent-600 text-white flex items-center gap-2 shadow-sm shadow-accent/20 hover:-translate-y-1 transition-transform"
                 >
                     <FiPlus />
                     <span>إضافة مسوق جديد</span>
@@ -143,8 +143,8 @@ export default function AffiliatesPage() {
 
             {/* Global Stats Overview (optional based on existing data) */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-3xl p-6 shadow-sm flex items-center gap-4">
-                    <div className="w-14 h-14 bg-purple-100 dark:bg-purple-900/20 text-purple-600 rounded-2xl flex items-center justify-center">
+                <div className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-6 shadow-sm flex items-center gap-4">
+                    <div className="w-14 h-14 bg-purple-100 dark:bg-purple-900/20 text-purple-600 rounded-xl flex items-center justify-center">
                         <FiUsers size={24} />
                     </div>
                     <div>
@@ -152,8 +152,8 @@ export default function AffiliatesPage() {
                         <h4 className="text-3xl font-bold text-ink dark:text-white">{affiliates.filter(a => a.isActive).length}</h4>
                     </div>
                 </div>
-                <div className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-3xl p-6 shadow-sm flex items-center gap-4">
-                    <div className="w-14 h-14 bg-green-100 dark:bg-green-900/20 text-green-600 rounded-2xl flex items-center justify-center">
+                <div className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-6 shadow-sm flex items-center gap-4">
+                    <div className="w-14 h-14 bg-green-100 dark:bg-green-900/20 text-green-600 rounded-xl flex items-center justify-center">
                         <FiActivity size={24} />
                     </div>
                     <div>
@@ -161,8 +161,8 @@ export default function AffiliatesPage() {
                         <h4 className="text-3xl font-bold text-ink dark:text-white">{affiliates.reduce((acc, curr) => acc + curr.salesCount, 0)}</h4>
                     </div>
                 </div>
-                <div className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-3xl p-6 shadow-sm flex items-center gap-4">
-                    <div className="w-14 h-14 bg-blue-100 dark:bg-blue-900/20 text-accent-600 rounded-2xl flex items-center justify-center">
+                <div className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-6 shadow-sm flex items-center gap-4">
+                    <div className="w-14 h-14 bg-blue-100 dark:bg-blue-900/20 text-accent-600 rounded-xl flex items-center justify-center">
                         <FiDollarSign size={24} />
                     </div>
                     <div>
@@ -174,15 +174,15 @@ export default function AffiliatesPage() {
 
             {/* Affiliates List */}
             {affiliates.length === 0 ? (
-                <div className="bg-white dark:bg-card-white rounded-3xl border border-dashed border-gray-300 dark:border-gray-700 p-12 text-center">
-                    <div className="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="bg-white dark:bg-card-white rounded-xl border border-dashed border-gray-300 dark:border-gray-700 p-12 text-center">
+                    <div className="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-xl flex items-center justify-center mx-auto mb-6">
                         <FiLink className="text-3xl text-gray-400" />
                     </div>
                     <h3 className="text-xl font-bold text-ink dark:text-white mb-2">لا يوجد مسوقين مضافين حالياً</h3>
                     <p className="text-text-muted mb-6 max-w-md mx-auto">شارك أرباحك مع أشخاص آخرين وضع نظام تسويق بالعمولة لجلب المزيد من الزوار لمنتجاتك.</p>
                 </div>
             ) : (
-                <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
+                <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full text-right border-collapse">
                             <thead className="bg-gray-50 dark:bg-gray-900/50">
@@ -200,7 +200,7 @@ export default function AffiliatesPage() {
                                     <tr key={link.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                                         <td className="px-6 py-5 whitespace-nowrap">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 text-accent rounded-full flex items-center justify-center font-bold">
+                                                <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 text-accent rounded-xl flex items-center justify-center font-bold">
                                                     {link.user?.name?.charAt(0) || <FiUsers />}
                                                 </div>
                                                 <div>
@@ -229,10 +229,10 @@ export default function AffiliatesPage() {
                                         <td className="px-6 py-5 whitespace-nowrap">
                                             <button
                                                 onClick={() => toggleStatus(link.id, link.isActive)}
-                                                className={`text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1 ${link.isActive ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400' : 'bg-red-100 text-red-500 dark:bg-red-900/20'}`}
+                                                className={`text-xs font-bold px-3 py-1.5 rounded-xl flex items-center gap-1 ${link.isActive ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400' : 'bg-red-100 text-red-500 dark:bg-red-900/20'}`}
                                                 title="اضغط للتفعيل أو التعطيل"
                                             >
-                                                <span className={`w-2 h-2 rounded-full ${link.isActive ? 'bg-green-500' : 'bg-red-500'}`}></span>
+                                                <span className={`w-2 h-2 rounded-xl ${link.isActive ? 'bg-green-500' : 'bg-red-500'}`}></span>
                                                 {link.isActive ? 'نشط ويعمل' : 'مُعطل مؤقتاً'}
                                             </button>
                                         </td>
@@ -265,12 +265,12 @@ export default function AffiliatesPage() {
             {/* Create Modal */}
             {showModal && (
                 <div className="fixed inset-0 bg-black/50  z-50 flex justify-center items-center p-4">
-                    <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm w-full max-w-xl max-h-[90vh] overflow-y-auto transform transition-all">
+                    <div className="bg-white dark:bg-card-white rounded-xl shadow-sm w-full max-w-xl max-h-[90vh] overflow-y-auto transform transition-all">
                         <div className="sticky top-0 bg-white dark:bg-card-white p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center z-10">
                             <h2 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
                                 <FiLink className="text-accent" /> تكليف مسوق جديد
                             </h2>
-                            <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-red-500 bg-gray-100 dark:bg-gray-800 p-2 rounded-full transition-colors">
+                            <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-red-500 bg-gray-100 dark:bg-gray-800 p-2 rounded-xl transition-colors">
                                 <FiTrash2 className="w-5 h-5" />
                             </button>
                         </div>

@@ -61,8 +61,8 @@ function ResetPasswordForm() {
 
     if (!token || !email) {
         return (
-            <div className="text-center p-8 bg-white dark:bg-card-white rounded-3xl shadow-sm max-w-md w-full border border-gray-100 dark:border-gray-800">
-                <div className="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="text-center p-8 bg-white dark:bg-card-white rounded-xl shadow-sm max-w-md w-full border border-gray-100 dark:border-gray-800">
+                <div className="w-16 h-16 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-6">
                     <FiAlertCircle size={32} />
                 </div>
                 <h1 className="text-2xl font-bold mb-4 dark:text-white">رابط غير صالح</h1>
@@ -76,8 +76,8 @@ function ResetPasswordForm() {
 
     if (success) {
         return (
-            <div className="text-center p-8 bg-white dark:bg-card-white rounded-3xl shadow-sm max-w-md w-full border border-gray-100 dark:border-gray-800 animate-fade-in-up">
-                <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="text-center p-8 bg-white dark:bg-card-white rounded-xl shadow-sm max-w-md w-full border border-gray-100 dark:border-gray-800 -up">
+                <div className="w-16 h-16 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mx-auto mb-6">
                     <FiCheckCircle size={32} />
                 </div>
                 <h1 className="text-2xl font-bold mb-4 dark:text-white">تم بنجاح!</h1>
@@ -90,12 +90,12 @@ function ResetPasswordForm() {
     }
 
     return (
-        <div className="max-w-md w-full animate-fade-in-up">
-            <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-800">
-                <div className="h-2 w-full bg-gradient-to-r from-accent to-purple-600"></div>
+        <div className="max-w-md w-full -up">
+            <div className="bg-white dark:bg-card-white rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-800">
+                <div className="h-2 w-full bg-ink"></div>
                 <div className="p-8 sm:p-10">
                     <div className="text-center mb-8">
-                        <div className="w-16 h-16 bg-accent-50 dark:bg-blue-900/20 text-accent rounded-2xl flex items-center justify-center mx-auto mb-4 border border-blue-100 dark:border-blue-800/30">
+                        <div className="w-16 h-16 bg-accent-50 dark:bg-blue-900/20 text-accent rounded-xl flex items-center justify-center mx-auto mb-4 border border-blue-100 dark:border-blue-800/30">
                             <FiLock size={28} />
                         </div>
                         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">إعادة تعيين كلمة المرور</h1>
@@ -141,11 +141,11 @@ function ResetPasswordForm() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full btn btn-primary py-4 rounded-xl text-lg font-bold shadow-lg shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all disabled:opacity-70 disabled:transform-none disabled:cursor-not-allowed"
+                            className="w-full btn btn-primary py-4 rounded-xl text-lg font-bold shadow-sm shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all disabled:opacity-70 disabled:transform-none disabled:cursor-not-allowed"
                         >
                             {loading ? (
                                 <div className="flex items-center justify-center gap-3">
-                                    <div className="w-5 h-5 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                    <div className="w-5 h-5 border-3 border-white/30 border-t-white rounded-xl animate-spin"></div>
                                     <span>جاري التحديث...</span>
                                 </div>
                             ) : 'تحديث كلمة المرور'}
@@ -162,7 +162,7 @@ export default function ResetPasswordPage() {
         <div className="min-h-screen bg-bg-light dark:bg-bg-dark flex items-center justify-center p-4">
             <Suspense fallback={
                 <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-gray-200 border-t-accent rounded-full animate-spin"></div>
+                    <div className="w-12 h-12 border-4 border-gray-200 border-t-accent rounded-xl animate-spin"></div>
                     <p className="text-gray-500 font-bold ">جاري التحميل...</p>
                 </div>
             }>

@@ -29,7 +29,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
         return (
             <div className="flex items-center justify-center min-h-[70vh]">
                 <div
-                    className="animate-spin rounded-full h-14 w-14 border-4 border-transparent"
+                    className="animate-spin rounded-xl h-14 w-14 border-4 border-transparent"
                     style={{
                         borderTopColor: spinColor,
                         borderRightColor: `${spinColor}40`,
@@ -98,11 +98,11 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                             <div className="h-2.5 w-full" style={{ background: `linear-gradient(90deg, ${brandColor}, ${brandColor}80)` }} />
                             <div className="p-8 sm:p-10">
                                 <div className="flex flex-wrap items-center gap-3 mb-6">
-                                    <span className="text-sm font-bold px-4 py-1.5 rounded-full text-white shadow-sm flex items-center gap-1.5" style={{ background: brandColor }}>
+                                    <span className="text-sm font-bold px-4 py-1.5 rounded-xl text-white shadow-sm flex items-center gap-1.5" style={{ background: brandColor }}>
                                         <FiPackage className="text-base" /> باقة مميزة
                                     </span>
                                     {discountPct > 0 && (
-                                        <span className="text-sm font-bold px-4 py-1.5 rounded-full text-green-700 bg-green-100 border border-green-200 shadow-sm flex items-center gap-1.5">
+                                        <span className="text-sm font-bold px-4 py-1.5 rounded-xl text-green-700 bg-green-100 border border-green-200 shadow-sm flex items-center gap-1.5">
                                             <FiCheck /> توفير {discountPct}%
                                         </span>
                                     )}
@@ -120,14 +120,14 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                         {/* Products Included */}
                         <div className="bg-white dark:bg-gray-900 rounded-xl p-8 sm:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-gray-100 dark:border-gray-800">
                             <h2 className="font-bold text-2xl text-gray-900 dark:text-white mb-8 flex items-center gap-3">
-                                <span className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `${brandColor}15` }}>
+                                <span className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${brandColor}15` }}>
                                     <FiPackage className="text-xl" style={{ color: brandColor }} />
                                 </span>
                                 ما تشمله هذه الباقة
                             </h2>
                             <div className="space-y-4">
                                 {bundle.products.map((bp: any) => (
-                                    <div key={bp.product.id} className="group flex flex-row items-center gap-4 p-5 rounded-2xl bg-[#FCFCFC] dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 transition-all shadow-sm hover:shadow-md">
+                                    <div key={bp.product.id} className="group flex flex-row items-center gap-4 p-5 rounded-xl bg-[#FCFCFC] dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 transition-all shadow-sm hover:shadow-md">
 
                                         {/* Title & Status (First / Right in RTL) */}
                                         <div className="flex-1 min-w-0 flex flex-col justify-center">
@@ -180,7 +180,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                         {originalPrice > bundle.price && (
                                             <div className="flex items-center justify-center gap-3 mt-4">
                                                 <span className="text-gray-400 line-through text-lg font-mono">{originalPrice} $</span>
-                                                <span className="bg-green-50 border border-green-200 text-green-700 dark:bg-green-900/30 dark:border-green-800 dark:text-green-400 text-sm font-bold px-4 py-1.5 rounded-full shadow-sm">
+                                                <span className="bg-green-50 border border-green-200 text-green-700 dark:bg-green-900/30 dark:border-green-800 dark:text-green-400 text-sm font-bold px-4 py-1.5 rounded-xl shadow-sm">
                                                     وفر {discountPct}%
                                                 </span>
                                             </div>
@@ -189,7 +189,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
 
                                     {/* Value Proposition */}
                                     {discountPct > 0 && (
-                                        <div className="rounded-2xl p-5 text-center transition-transform hover:scale-[1.02]" style={{ background: `${brandColor}08`, border: `1px dashed ${brandColor}40` }}>
+                                        <div className="rounded-xl p-5 text-center transition-transform hover:scale-[1.02]" style={{ background: `${brandColor}08`, border: `1px dashed ${brandColor}40` }}>
                                             <p className="font-extrabold text-base leading-relaxed" style={{ color: brandColor }}>
                                                 🎉 صفقة رابحة! ستحتفظ بمبلغ {originalPrice - bundle.price} $ في جيبك.
                                             </p>
@@ -202,12 +202,12 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                             {bundle.products.slice(0, 5).map((bp: any, i: number) => (
                                                 bp.product.image && (
                                                     <img key={i} src={bp.product.image} alt=""
-                                                        className="w-14 h-14 rounded-full border-4 border-white dark:border-gray-900 object-cover shadow-md transition-transform hover:-translate-y-2 hover:z-50 relative"
+                                                        className="w-14 h-14 rounded-xl border-4 border-white dark:border-gray-900 object-cover shadow-md transition-transform hover:-translate-y-2 hover:z-50 relative"
                                                         style={{ zIndex: 10 - i }} />
                                                 )
                                             ))}
                                             {bundle.products.length > 5 && (
-                                                <div className="w-14 h-14 rounded-full border-4 border-white dark:border-gray-900 bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 shadow-md relative z-0">
+                                                <div className="w-14 h-14 rounded-xl border-4 border-white dark:border-gray-900 bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 shadow-md relative z-0">
                                                     +{bundle.products.length - 5}
                                                 </div>
                                             )}
@@ -219,11 +219,11 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                         <button
                                             onClick={handleBuyNow}
                                             disabled={buying}
-                                            className="w-full py-5 rounded-2xl text-white font-bold text-xl flex items-center justify-center gap-3 shadow-[0_8px_20px_rgb(0,0,0,0.12)] transition-all hover:-translate-y-1 hover:shadow-[0_12px_25px_rgb(0,0,0,0.18)] disabled:opacity-80 disabled:hover:translate-y-0"
+                                            className="w-full py-5 rounded-xl text-white font-bold text-xl flex items-center justify-center gap-3 shadow-[0_8px_20px_rgb(0,0,0,0.12)] transition-all hover:-translate-y-1 hover:shadow-[0_12px_25px_rgb(0,0,0,0.18)] disabled:opacity-80 disabled:hover:translate-y-0"
                                             style={{ background: `linear-gradient(135deg, ${brandColor}, ${brandColor}cc)` }}
                                         >
                                             {buying ? (
-                                                <><span className="w-6 h-6 rounded-full border-4 border-white/30 border-t-white animate-spin" /> جاري التجهيز...</>
+                                                <><span className="w-6 h-6 rounded-xl border-4 border-white/30 border-t-white animate-spin" /> جاري التجهيز...</>
                                             ) : (
                                                 <><FiShoppingCart className="text-2xl" /> اشتري الباقة الآن</>
                                             )}

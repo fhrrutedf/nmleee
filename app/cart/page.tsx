@@ -43,7 +43,7 @@ export default function CartPage() {
         return (
             <div className="flex justify-center items-center min-h-screen">
                 <div
-                    className="animate-spin rounded-full h-12 w-12 border-4 border-transparent"
+                    className="animate-spin rounded-xl h-12 w-12 border-4 border-transparent"
                     style={{ borderBottomColor: spinColor, borderLeftColor: `${spinColor}60` }}
                 />
             </div>
@@ -53,8 +53,8 @@ export default function CartPage() {
     if (cart.length === 0) {
         return (
             <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-                <div className="bg-white p-8 rounded-2xl shadow-sm text-center max-w-md w-full">
-                    <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="bg-white p-8 rounded-xl shadow-sm text-center max-w-md w-full">
+                    <div className="w-20 h-20 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-6">
                         <FiShoppingCart className="text-4xl text-gray-400" />
                     </div>
                     <h1 className="text-2xl font-bold mb-2 text-gray-900">سلة المشتريات فارغة</h1>
@@ -161,7 +161,7 @@ export default function CartPage() {
 
                             <button
                                 onClick={() => router.push('/checkout')}
-                                className="w-full btn btn-primary py-4 text-lg font-bold shadow-lg shadow-accent/30 flex items-center justify-center gap-2"
+                                className="w-full btn btn-primary py-4 text-lg font-bold shadow-sm shadow-accent/30 flex items-center justify-center gap-2"
                             >
                                 <span>إتمام عملية الدفع</span>
                                 <FiArrowRight className="rtl:rotate-180" />

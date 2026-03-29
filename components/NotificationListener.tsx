@@ -46,7 +46,7 @@ export const NotificationListener = () => {
                     <div className="flex-1 w-0 p-5">
                         <div className="flex items-start">
                             <div className="flex-shrink-0 pt-0.5">
-                                <div className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-2xl shadow-inner">
+                                <div className="w-12 h-12 rounded-xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-2xl shadow-inner">
                                     {icon}
                                 </div>
                             </div>

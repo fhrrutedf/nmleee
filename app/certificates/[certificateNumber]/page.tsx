@@ -60,7 +60,7 @@ export default function CertificatePage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-gray-50">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-ink"></div>
             </div>
         );
     }
@@ -69,7 +69,7 @@ export default function CertificatePage() {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="bg-white rounded-lg shadow-md p-8 text-center max-w-md">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-xl mb-4">
                         <FiX className="text-red-600" size={32} />
                     </div>
                     <h1 className="text-2xl font-bold text-gray-900 mb-2">غير موجود</h1>
@@ -86,7 +86,7 @@ export default function CertificatePage() {
                 <div className="bg-white rounded-lg shadow-md p-6 mb-6">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <div className="flex items-center justify-center w-12 h-12 bg-green-100 rounded-full">
+                            <div className="flex items-center justify-center w-12 h-12 bg-green-100 rounded-xl">
                                 <FiCheck className="text-green-600" size={24} />
                             </div>
                             <div>

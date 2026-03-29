@@ -42,7 +42,7 @@ export default function AffiliatePage() {
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-[60vh]">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-primary-ink"></div>
+            <div className="animate-spin rounded-xl h-12 w-12 border-t-2 border-primary-ink"></div>
         </div>
     );
 
@@ -51,23 +51,23 @@ export default function AffiliatePage() {
             
             {/* --- HERO / LINK SECTION --- */}
             <div className="relative overflow-hidden bg-white dark:bg-card-white rounded-xl p-1 shadow-sm border border-slate-50 dark:border-gray-800">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-primary-indigo-400/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary-indigo-400/10 blur-[100px] rounded-xl -translate-y-1/2 translate-x-1/2"></div>
                 <div className="relative p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-12">
                     <div className="max-w-xl text-center md:text-right">
-                        <span className="px-4 py-1.5 bg-primary-indigo-50 dark:bg-primary-indigo-900/40 text-primary-ink dark:text-primary-indigo-300 rounded-full text-xs font-bold uppercase tracking-widest mb-6 inline-block">
+                        <span className="px-4 py-1.5 bg-subtle dark:bg-primary-indigo-900/40 text-primary-ink dark:text-primary-indigo-300 rounded-xl text-xs font-bold uppercase tracking-widest mb-6 inline-block">
                             برنامج شركاء النجاح 💎
                         </span>
                         <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white leading-[1.2] mb-4">اكسب عمولتك فوراً <br/> مع كل إحالة ناجحة!</h1>
                         <p className="text-slate-400 font-bold leading-relaxed mb-8">شارك رابطك الخاص واربح <span className="text-primary-ink">{stats?.commissionRate || 1}%</span> من إجمالي عمولة المنصة على أي منتج يتم شراؤه عبرك. الأرباح تصلك فورياً دون انتظار.</p>
                         
                         <div className="flex flex-col sm:flex-row items-stretch gap-4">
-                             <div className="flex-1 h-16 bg-slate-50 dark:bg-gray-900 rounded-2xl flex items-center px-6 border border-slate-100 dark:border-gray-800 relative group overflow-hidden">
+                             <div className="flex-1 h-16 bg-slate-50 dark:bg-gray-900 rounded-xl flex items-center px-6 border border-slate-100 dark:border-gray-800 relative group overflow-hidden">
                                 <FiLink className="text-slate-400 shrink-0" size={20} />
                                 <code className="text-sm font-bold text-slate-600 dark:text-slate-300 mr-4 truncate select-all">{affiliateLink}</code>
                              </div>
                              <button 
                                 onClick={copyLink}
-                                className={`px-10 h-16 rounded-2xl font-bold text-sm flex items-center justify-center gap-3 transition-all ${copied ? 'bg-accent-500 text-white shadow-blue-200' : 'bg-primary-ink text-white shadow-sm shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95'}`}
+                                className={`px-10 h-16 rounded-xl font-bold text-sm flex items-center justify-center gap-3 transition-all ${copied ? 'bg-accent-500 text-white shadow-blue-200' : 'bg-primary-ink text-white shadow-sm shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95'}`}
                              >
                                 {copied ? <FiCheck size={20} /> : <FiCopy size={20} />}
                                 {copied ? 'تم النسخ' : 'نسخ الرابط'}
@@ -75,10 +75,10 @@ export default function AffiliatePage() {
                         </div>
                     </div>
                     <div className="relative shrink-0 md:ml-12">
-                        <div className="w-48 h-48 bg-primary-ink rounded-2xl rotate-12 flex items-center justify-center shadow-sm shadow-primary-indigo-400 -slow">
+                        <div className="w-48 h-48 bg-primary-ink rounded-xl rotate-12 flex items-center justify-center shadow-sm shadow-primary-indigo-400 -slow">
                              <FiShare2 size={80} className="text-white -rotate-12" />
                         </div>
-                        <div className="absolute -bottom-4 -right-4 bg-white dark:bg-gray-900 p-4 rounded-2xl shadow-sm flex items-center gap-3 border border-slate-50 dark:border-gray-800 rotate-[-8deg] ">
+                        <div className="absolute -bottom-4 -right-4 bg-white dark:bg-gray-900 p-4 rounded-xl shadow-sm flex items-center gap-3 border border-slate-50 dark:border-gray-800 rotate-[-8deg] ">
                             <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-accent-600"><FiTrendingUp size={20} /></div>
                             <div>
                                 <p className="text-[10px] font-bold text-slate-400 uppercase">اربح حصتك</p>
@@ -93,14 +93,14 @@ export default function AffiliatePage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                  {[
                     { label: 'إجمالي الأرباح', val: `${stats?.totalEarnings?.toFixed(2) || '0.00'} $`, icon: FiDollarSign, color: 'text-accent-500', bg: 'bg-accent-50 dark:bg-blue-900/10' },
-                    { label: 'عدد الإحالات', val: stats?.totalReferrals || 0, icon: FiUsers, color: 'text-primary-ink', bg: 'bg-primary-indigo-50 dark:bg-primary-indigo-900/10' },
+                    { label: 'عدد الإحالات', val: stats?.totalReferrals || 0, icon: FiUsers, color: 'text-primary-ink', bg: 'bg-subtle dark:bg-primary-indigo-900/10' },
                     { label: 'معدل التحويل', val: `${stats?.conversionRate || 0}%`, icon: FiActivity, color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/10' }
                  ].map((card, i) => (
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
                         key={i} className="bg-white dark:bg-card-white p-8 rounded-xl border border-slate-50 dark:border-gray-800 shadow-sm flex flex-col items-center text-center group hover:border-primary-indigo-200 transition-colors"
                     >
-                        <div className={`w-16 h-16 ${card.bg} rounded-2xl flex items-center justify-center ${card.color} mb-6 transition-transform group-hover:scale-110`}>
+                        <div className={`w-16 h-16 ${card.bg} rounded-xl flex items-center justify-center ${card.color} mb-6 transition-transform group-hover:scale-110`}>
                             <card.icon size={28} />
                         </div>
                         <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">{card.label}</h4>
@@ -120,7 +120,7 @@ export default function AffiliatePage() {
                 
                 {affiliates.length === 0 ? (
                     <div className="py-24 flex flex-col items-center text-center">
-                        <div className="w-24 h-24 bg-slate-50 dark:bg-gray-900 rounded-full flex items-center justify-center text-slate-300 mb-6"><FiUsers size={40} /></div>
+                        <div className="w-24 h-24 bg-slate-50 dark:bg-gray-900 rounded-xl flex items-center justify-center text-slate-300 mb-6"><FiUsers size={40} /></div>
                         <h4 className="text-xl font-bold text-slate-400">لا توجد مبيعات بعد</h4>
                         <p className="text-sm font-bold text-slate-300 max-w-xs mt-2 italic">ابدأ بمشاركة رابطك في المجموعات المهتمة واكسب أول عمولة لك اليوم!</p>
                     </div>
@@ -159,9 +159,9 @@ export default function AffiliatePage() {
 
             {/* --- TIP SECTION --- */}
             <div className="bg-primary-indigo-900 text-white rounded-xl p-12 relative overflow-hidden group">
-                <div className="absolute right-0 top-0 w-96 h-96 bg-primary-indigo-800 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 opacity-40"></div>
+                <div className="absolute right-0 top-0 w-96 h-96 bg-primary-indigo-800 rounded-xl blur-[120px] -translate-y-1/2 translate-x-1/2 opacity-40"></div>
                 <div className="relative flex flex-col md:flex-row items-center gap-12">
-                    <div className="w-20 h-20 bg-white/10 rounded-2xl flex items-center justify-center text-primary-indigo-300 shrink-0"><FiInfo size={40} /></div>
+                    <div className="w-20 h-20 bg-white/10 rounded-xl flex items-center justify-center text-primary-indigo-300 shrink-0"><FiInfo size={40} /></div>
                     <div className="flex-1 text-center md:text-right">
                         <h4 className="text-xl font-bold mb-2 leading-tight">كيف تضاعف أرباحك؟ 💰</h4>
                         <p className="text-primary-indigo-200/60 font-bold text-sm leading-relaxed">السر في المحتوى التعليمي. قم بعمل فيديو شرح للمنتج أو الكورس الذي تروّج له على تيك توك أو يوتيوب وضع رابطك في البايو. الزوار الذين يثقون في شرحك هم الأكثر شراءً!</p>

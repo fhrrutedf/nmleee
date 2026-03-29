@@ -86,7 +86,7 @@ export default function CoursesPage() {
                     <h1 className="text-3xl font-bold text-ink dark:text-white">الدورات التدريبية</h1>
                     <p className="text-text-muted mt-2">إدارة شاملة لجميع دوراتك التدريبية ومحتواها التعليمي</p>
                 </div>
-                <Link href="/dashboard/courses/new?new=true" className="px-8 py-4 bg-ink text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-sm shadow-ink/20 hover:bg-black transition-all flex items-center">
+                <Link href="/dashboard/courses/new?new=true" className="px-8 py-4 bg-ink text-white rounded-xl font-bold text-xs uppercase tracking-[0.2em] shadow-sm shadow-ink/20 hover:bg-black transition-all flex items-center">
                     <FiPlus className="ml-2 text-xl" />
                     <span>إضافة دورة جديدة</span>
                 </Link>
@@ -98,8 +98,8 @@ export default function CoursesPage() {
                     <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-[60px] pointer-events-none"></div>
                     <div className="flex items-center justify-between relative z-10">
                         <div>
-                            <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-2">Total Programs</p>
-                            <p className="text-4xl font-black text-ink tracking-tighter">{stats.total}</p>
+                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">Total Programs</p>
+                            <p className="text-4xl font-bold text-ink tracking-tighter">{stats.total}</p>
                         </div>
                         <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-accent shadow-sm group-hover:bg-accent group-hover:text-white transition-all">
                             <FiVideo size={24} />
@@ -111,8 +111,8 @@ export default function CoursesPage() {
                     <div className="absolute top-0 right-0 w-24 h-24 bg-green-500/5 rounded-bl-[60px] pointer-events-none"></div>
                     <div className="flex items-center justify-between relative z-10">
                         <div>
-                            <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-2">Active Assets</p>
-                            <p className="text-4xl font-black text-ink tracking-tighter">{stats.active}</p>
+                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">Active Assets</p>
+                            <p className="text-4xl font-bold text-ink tracking-tighter">{stats.active}</p>
                         </div>
                         <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-green-600 shadow-sm group-hover:bg-green-600 group-hover:text-white transition-all">
                             <FiCheckCircle size={24} />
@@ -124,8 +124,8 @@ export default function CoursesPage() {
                     <div className="absolute top-0 right-0 w-24 h-24 bg-gray-50 rounded-bl-[60px] pointer-events-none"></div>
                     <div className="flex items-center justify-between relative z-10">
                         <div>
-                            <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-2">Offline Drafts</p>
-                            <p className="text-4xl font-black text-ink tracking-tighter">{stats.inactive}</p>
+                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">Offline Drafts</p>
+                            <p className="text-4xl font-bold text-ink tracking-tighter">{stats.inactive}</p>
                         </div>
                         <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-gray-400 shadow-sm group-hover:bg-ink group-hover:text-white transition-all">
                             <FiXCircle size={24} />
@@ -137,8 +137,8 @@ export default function CoursesPage() {
                     <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-[60px] pointer-events-none"></div>
                     <div className="flex items-center justify-between relative z-10">
                         <div>
-                            <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-2">Total Curriculum Value</p>
-                            <p className="text-4xl font-black text-ink tracking-tighter">{stats.totalRevenue.toFixed(0)} <span className="text-sm font-bold text-gray-400">$</span></p>
+                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">Total Curriculum Value</p>
+                            <p className="text-4xl font-bold text-ink tracking-tighter">{stats.totalRevenue.toFixed(0)} <span className="text-sm font-bold text-gray-400">$</span></p>
                         </div>
                         <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-accent shadow-sm group-hover:bg-accent group-hover:text-white transition-all">
                             <FiDollarSign size={24} />
@@ -178,11 +178,11 @@ export default function CoursesPage() {
             {/* Courses Grid */}
             {loading ? (
                 <div className="min-h-[300px] flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent border-t-transparent mx-auto"></div>
+                    <div className="animate-spin rounded-xl h-12 w-12 border-4 border-accent border-t-transparent mx-auto"></div>
                 </div>
             ) : filteredCourses.length === 0 ? (
                 <div className="card text-center py-16 px-6 border-2 border-dashed border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/20">
-                    <div className="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div className="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center mx-auto mb-6">
                         <FiVideo className="text-4xl text-gray-400" />
                     </div>
                     <h3 className="text-xl font-bold text-ink dark:text-white mb-2">لا توجد دورات مطابقة</h3>
@@ -217,12 +217,12 @@ export default function CoursesPage() {
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     />
                                 ) : (
-                                    <div className="w-full h-full bg-gradient-to-br from-accent-50 to-blue-100 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
+                                    <div className="w-full h-full bg-ink dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
                                         <FiVideo className="text-5xl text-blue-200 dark:text-gray-600" />
                                     </div>
                                 )}
                                 <div className="absolute top-3 right-3">
-                                    <span className={`px-3 py-1 rounded-full text-xs font-bold shadow-sm  ${course.isActive
+                                    <span className={`px-3 py-1 rounded-xl text-xs font-bold shadow-sm  ${course.isActive
                                         ? 'bg-green-500/90 text-white'
                                         : 'bg-gray-500/90 text-white'
                                         }`}>

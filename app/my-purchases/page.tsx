@@ -57,7 +57,7 @@ export default function MyPurchasesPage() {
     if (status === 'loading' || loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent"></div>
             </div>
         );
     }
@@ -108,7 +108,7 @@ export default function MyPurchasesPage() {
 
                 {/* Purchases List */}
                 {purchases.length === 0 ? (
-                    <div className="bg-white rounded-2xl shadow-sm p-12 text-center">
+                    <div className="bg-white rounded-xl shadow-sm p-12 text-center">
                         <FiPackage className="text-6xl text-gray-300 mx-auto mb-4" />
                         <h3 className="text-2xl font-bold mb-2">لا توجد مشتريات بعد</h3>
                         <p className="text-gray-600 mb-6">ابدأ بتصفح منتجاتنا الرائعة!</p>
@@ -132,7 +132,7 @@ export default function MyPurchasesPage() {
                                         </p>
                                     </div>
                                     <div className="text-left">
-                                        <span className={`inline-block px-4 py-2 rounded-full text-sm font-medium ${purchase.status === 'completed'
+                                        <span className={`inline-block px-4 py-2 rounded-xl text-sm font-medium ${purchase.status === 'completed'
                                             ? 'bg-green-100 text-green-700'
                                             : purchase.status === 'pending'
                                                 ? 'bg-yellow-100 text-yellow-700'

@@ -89,7 +89,7 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
             <div className={`bg-white dark:bg-card-white border-2 border-dashed rounded-[32px] p-6 sm:p-8 text-center transition-all ${uploading ? 'border-accent bg-accent/5 shadow-inner' : 'border-gray-200 dark:border-gray-800 hover:border-accent/50 hover:bg-slate-50'}`}>
                 {status === 'complete' ? (
                     <div className="space-y-4 py-4 animate-in fade-in zoom-in duration-300">
-                        <div className="w-16 h-16 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <div className="w-16 h-16 bg-green-500/10 text-green-500 rounded-xl flex items-center justify-center mx-auto mb-4">
                             <FiCheckCircle size={32} />
                         </div>
                         <h3 className="text-xl font-bold text-ink dark:text-white">تم الرفع!</h3>
@@ -97,7 +97,7 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                     </div>
                 ) : status === 'error' ? (
                     <div className="space-y-4 py-4 animate-in fade-in duration-300">
-                        <div className="w-16 h-16 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <div className="w-16 h-16 bg-red-500/10 text-red-500 rounded-xl flex items-center justify-center mx-auto mb-4">
                             <FiAlertCircle size={32} />
                         </div>
                         <h3 className="text-xl font-bold text-ink dark:text-white">خطأ في الرفع</h3>
@@ -111,7 +111,7 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                     </div>
                 ) : (
                     <div className="space-y-4">
-                        <div className={`w-16 h-16 bg-accent/10 text-accent rounded-2xl flex items-center justify-center mx-auto mb-2 transition-transform ${uploading ? ' scale-90' : 'group-hover:scale-110'}`}>
+                        <div className={`w-16 h-16 bg-accent/10 text-accent rounded-xl flex items-center justify-center mx-auto mb-2 transition-transform ${uploading ? ' scale-90' : 'group-hover:scale-110'}`}>
                             {uploading ? <FiLoader size={32} className="animate-spin" /> : <FiUploadCloud size={32} />}
                         </div>
 
@@ -128,7 +128,7 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                                     id={`bunny-upload-${instanceId}`}
                                 />
-                                <div className="relative inline-block px-8 py-3 bg-accent text-white rounded-xl font-bold text-[10px] shadow-lg shadow-accent/20 uppercase tracking-widest">
+                                <div className="relative inline-block px-8 py-3 bg-accent text-white rounded-xl font-bold text-[10px] shadow-sm shadow-accent/20 uppercase tracking-widest">
                                     {file ? file.name : 'اختيار فيديو المعاملة'}
                                 </div>
                                 
@@ -145,7 +145,7 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                             </div>
                         ) : (
                             <div className="max-w-xs mx-auto space-y-3">
-                                <div className="h-2.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden border border-white/5 shadow-inner">
+                                <div className="h-2.5 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-white/5 shadow-inner">
                                     <div 
                                         className="h-full bg-accent transition-all duration-300" 
                                         style={{ width: `${progress}%` }}

@@ -107,8 +107,8 @@ export default function AdminDashboard() {
     if (loading) {
         return (
             <div className="flex-1 flex flex-col p-6 items-center justify-center min-h-[60vh]">
-                <div className="w-16 h-16 border-4 border-gray-100 dark:border-gray-800 border-t-accent rounded-full animate-spin"></div>
-                <p className="mt-4 text-ink dark:text-white font-black text-xs uppercase tracking-widest ">Initializing Platform Intelligence...</p>
+                <div className="w-16 h-16 border-4 border-gray-100 dark:border-gray-800 border-t-accent rounded-xl animate-spin"></div>
+                <p className="mt-4 text-ink dark:text-white font-bold text-xs uppercase tracking-widest ">Initializing Platform Intelligence...</p>
             </div>
         );
     }
@@ -127,7 +127,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="flex items-center gap-3">
                     <span className="px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-600 font-bold rounded-xl text-sm flex items-center gap-2 border border-green-100 dark:border-green-800/30">
-                        <span className="w-2 h-2 rounded-full bg-green-500 "></span> المنصة تعمل بشكل ممتاز
+                        <span className="w-2 h-2 rounded-xl bg-green-500 "></span> المنصة تعمل بشكل ممتاز
                     </span>
                 </div>
             </div>
@@ -143,9 +143,9 @@ export default function AdminDashboard() {
 
                     {/* Revenue Card (Glassmorphism) */}
                     <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-8 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-sm transition-all duration-500">
-                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-accent/5 rounded-full blur-2xl group-hover:bg-accent/10 transition-all"></div>
+                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-accent/5 rounded-xl blur-2xl group-hover:bg-accent/10 transition-all"></div>
                         <div className="flex justify-between items-start mb-6 relative z-10">
-                            <div className="w-14 h-14 rounded-2xl bg-gray-50 dark:bg-gray-800 text-accent flex items-center justify-center text-2xl shadow-sm group-hover:bg-accent group-hover:text-white transition-all">
+                            <div className="w-14 h-14 rounded-xl bg-gray-50 dark:bg-gray-800 text-accent flex items-center justify-center text-2xl shadow-sm group-hover:bg-accent group-hover:text-white transition-all">
                                 <FiDollarSign />
                             </div>
                             <span className="flex items-center gap-1 text-sm font-bold text-green-500 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-lg">
@@ -160,9 +160,9 @@ export default function AdminDashboard() {
 
                     {/* Platform Fees Card */}
                     <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-sm hover:-translate-y-1 transition-all duration-300">
-                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
+                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-purple-500/10 rounded-xl blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
                         <div className="flex justify-between items-start mb-4 relative z-10">
-                            <div className="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 flex items-center justify-center text-xl">
+                            <div className="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 flex items-center justify-center text-xl">
                                 <FiTrendingUp />
                             </div>
                             <span className="flex items-center gap-1 text-sm font-bold text-green-500 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-lg">
@@ -177,9 +177,9 @@ export default function AdminDashboard() {
 
                     {/* Orders Card */}
                     <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-sm hover:-translate-y-1 transition-all duration-300">
-                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-orange-500/10 rounded-full blur-2xl group-hover:bg-orange-500/20 transition-all"></div>
+                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-orange-500/10 rounded-xl blur-2xl group-hover:bg-orange-500/20 transition-all"></div>
                         <div className="flex justify-between items-start mb-4 relative z-10">
-                            <div className="w-12 h-12 rounded-2xl bg-orange-50 dark:bg-orange-900/20 text-orange-500 flex items-center justify-center text-xl">
+                            <div className="w-12 h-12 rounded-xl bg-orange-50 dark:bg-orange-900/20 text-orange-500 flex items-center justify-center text-xl">
                                 <FiShoppingCart />
                             </div>
                             <span className="flex items-center gap-1 text-sm font-bold text-red-500 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded-lg">
@@ -197,9 +197,9 @@ export default function AdminDashboard() {
 
                     {/* Users Card */}
                     <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-sm hover:-translate-y-1 transition-all duration-300">
-                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-green-500/10 rounded-full blur-2xl group-hover:bg-green-500/20 transition-all"></div>
+                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-green-500/10 rounded-xl blur-2xl group-hover:bg-green-500/20 transition-all"></div>
                         <div className="flex justify-between items-start mb-4 relative z-10">
-                            <div className="w-12 h-12 rounded-2xl bg-green-50 dark:bg-green-900/20 text-green-600 flex items-center justify-center text-xl">
+                            <div className="w-12 h-12 rounded-xl bg-green-50 dark:bg-green-900/20 text-green-600 flex items-center justify-center text-xl">
                                 <FiUsers />
                             </div>
                             <span className="flex items-center gap-1 text-sm font-bold text-gray-500 bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded-lg">
@@ -217,8 +217,8 @@ export default function AdminDashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Alerts/Pending Payouts */}
                     <Link href="/admin/dashboard/payouts">
-                        <motion.div variants={itemVariants} className="bg-gradient-to-br from-gray-900 to-black rounded-xl p-6 text-white shadow-sm relative overflow-hidden group cursor-pointer hover:shadow-sm transition-all">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-xl"></div>
+                        <motion.div variants={itemVariants} className="bg-ink rounded-xl p-6 text-white shadow-sm relative overflow-hidden group cursor-pointer hover:shadow-sm transition-all">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-xl"></div>
 
                             <div className="flex items-start justify-between">
                                 <div>
@@ -228,7 +228,7 @@ export default function AdminDashboard() {
                                         مراجعة الطلبات <FiArrowUpRight />
                                     </span>
                                 </div>
-                                <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center group-hover:bg-accent group-hover:scale-110 transition-all">
+                                <div className="w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center group-hover:bg-accent group-hover:scale-110 transition-all">
                                     <FiClock className="text-2xl" />
                                 </div>
                             </div>
@@ -238,7 +238,7 @@ export default function AdminDashboard() {
                     {/* Pending Manual Orders */}
                     <Link href="/admin/dashboard/orders?type=manual">
                         <motion.div variants={itemVariants} className="bg-white dark:bg-card-white border border-yellow-200 dark:border-yellow-900/30 rounded-xl p-6 shadow-sm relative overflow-hidden group cursor-pointer hover:border-yellow-400 transition-all">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
 
                             <div className="flex items-start justify-between">
                                 <div>
@@ -248,7 +248,7 @@ export default function AdminDashboard() {
                                         التحقق من الدفعات <FiArrowUpRight />
                                     </span>
                                 </div>
-                                <div className="w-14 h-14 rounded-2xl bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 flex items-center justify-center group-hover:scale-110 transition-all">
+                                <div className="w-14 h-14 rounded-xl bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 flex items-center justify-center group-hover:scale-110 transition-all">
                                     <FiAlertCircle className="text-2xl" />
                                 </div>
                             </div>
@@ -260,7 +260,7 @@ export default function AdminDashboard() {
                         <motion.div variants={itemVariants} className={`bg-white dark:bg-card-white border rounded-xl p-6 shadow-sm relative overflow-hidden group cursor-pointer transition-all ${
                             (stats?.pendingVerifications || 0) > 0 ? 'border-accent ring-2 ring-accent/20' : 'border-gray-100 dark:border-gray-800'
                         }`}>
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
 
                             <div className="flex items-start justify-between">
                                 <div>
@@ -270,7 +270,7 @@ export default function AdminDashboard() {
                                         إدارة الشارات الزرقاء <FiArrowUpRight />
                                     </span>
                                 </div>
-                                <div className="w-14 h-14 rounded-2xl bg-primary-50 dark:bg-primary-900/20 text-accent flex items-center justify-center group-hover:scale-110 transition-all">
+                                <div className="w-14 h-14 rounded-xl bg-primary-50 dark:bg-primary-900/20 text-accent flex items-center justify-center group-hover:scale-110 transition-all">
                                     <FiCheckCircle className="text-2xl" />
                                 </div>
                             </div>
@@ -279,7 +279,7 @@ export default function AdminDashboard() {
 
                     {/* Content Inventory Status */}
                     <motion.div variants={itemVariants} className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-6 shadow-sm relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
 
                         <div className="flex items-start justify-between">
                             <div>
@@ -292,7 +292,7 @@ export default function AdminDashboard() {
                                     <span><strong className="text-purple-500">{stats?.totalCourses}</strong> دورة</span>
                                 </div>
                             </div>
-                            <div className="w-14 h-14 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-400 flex items-center justify-center">
+                            <div className="w-14 h-14 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-400 flex items-center justify-center">
                                 <FiPackage className="text-2xl" />
                             </div>
                         </div>
@@ -305,10 +305,10 @@ export default function AdminDashboard() {
                     {/* Recent Orders Table */}
                     <motion.div variants={itemVariants} className="lg:col-span-2 bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col">
                         <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/30 dark:bg-gray-900/10">
-                            <h2 className="text-sm font-black text-ink dark:text-white flex items-center gap-3 uppercase tracking-widest">
+                            <h2 className="text-sm font-bold text-ink dark:text-white flex items-center gap-3 uppercase tracking-widest">
                                 <FiActivity className="text-accent" /> Recent Activity
                             </h2>
-                            <Link href="/admin/dashboard/orders" className="text-[10px] font-black text-accent hover:text-ink transition-colors uppercase tracking-widest">
+                            <Link href="/admin/dashboard/orders" className="text-[10px] font-bold text-accent hover:text-ink transition-colors uppercase tracking-widest">
                                 View Full Report
                             </Link>
                         </div>
@@ -350,7 +350,7 @@ export default function AdminDashboard() {
                                                     </div>
                                                 </td>
                                                 <td className="py-4 px-6">
-                                                    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold ring-1 ring-inset ${order.status === 'PAID'
+                                                    <span className={`inline-flex items-center px-2.5 py-1 rounded-xl text-xs font-bold ring-1 ring-inset ${order.status === 'PAID'
                                                             ? 'bg-green-50 text-green-700 ring-green-600/20 dark:bg-green-900/20 dark:text-green-400 dark:ring-green-500/20'
                                                             : 'bg-yellow-50 text-yellow-800 ring-yellow-600/20 dark:bg-yellow-900/20 dark:text-yellow-400 dark:ring-yellow-500/20'
                                                         }`}>
@@ -390,7 +390,7 @@ export default function AdminDashboard() {
                                                         </div>
                                                     )}
                                                     {/* Rank badge */}
-                                                    <div className={`absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold outline outline-2 outline-white dark:outline-card-white ${index === 0 ? 'bg-yellow-400 text-yellow-900' :
+                                                    <div className={`absolute -top-2 -right-2 w-6 h-6 rounded-xl flex items-center justify-center text-[10px] font-bold outline outline-2 outline-white dark:outline-card-white ${index === 0 ? 'bg-yellow-400 text-yellow-900' :
                                                             index === 1 ? 'bg-gray-300 text-gray-800' :
                                                                 index === 2 ? 'bg-orange-300 text-orange-900' :
                                                                     'bg-gray-100 dark:bg-gray-800 text-gray-500'

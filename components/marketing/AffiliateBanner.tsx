@@ -52,11 +52,11 @@ function AffiliateBannerContent() {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                className="bg-gradient-to-r from-accent-600 to-indigo-700 text-white overflow-hidden relative z-50 transition-all border-b border-white/10"
+                className="bg-ink text-white overflow-hidden relative z-50 transition-all border-b border-white/10"
             >
                 <div className="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center  shadow-lg shadow-white/10">
+                        <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center  shadow-sm shadow-white/10">
                             <FiGift className="text-white text-lg" />
                         </div>
                         <div className="text-xs sm:text-sm font-bold flex flex-wrap items-center gap-x-1.5 leading-relaxed">

@@ -149,7 +149,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
                                                 question.type === 'true-false' ? oIndex === 0 : oIndex
                                             )
                                         }
-                                        className={`flex-shrink-0 w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors ${(question.type === 'true-false'
+                                        className={`flex-shrink-0 w-8 h-8 rounded-xl border-2 flex items-center justify-center transition-colors ${(question.type === 'true-false'
                                             ? question.correctAnswer === (oIndex === 0)
                                             : question.correctAnswer === oIndex)
                                             ? 'bg-green-500 border-green-500 shadow-md scale-105'

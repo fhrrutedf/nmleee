@@ -94,7 +94,7 @@ export default function CourseModerationPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
+                <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-xl animate-spin" />
             </div>
         );
     }
@@ -112,7 +112,7 @@ export default function CourseModerationPage() {
 
             {courses.length === 0 ? (
                 <div className="card text-center py-20 flex flex-col items-center">
-                    <div className="w-20 h-20 bg-green-50 dark:bg-green-900/20 rounded-full flex items-center justify-center mb-6">
+                    <div className="w-20 h-20 bg-green-50 dark:bg-green-900/20 rounded-xl flex items-center justify-center mb-6">
                         <FiCheck className="text-4xl text-green-500" />
                     </div>
                     <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-2">النظام نظيف تماماً!</h2>
@@ -162,7 +162,7 @@ export default function CourseModerationPage() {
                                                 target="_blank"
                                                 rel="noreferrer"
                                                 title="معاينة كزائر"
-                                                className="w-8 h-8 flex items-center justify-center rounded-full bg-accent-50 text-accent-600 hover:bg-blue-100 transition-colors"
+                                                className="w-8 h-8 flex items-center justify-center rounded-xl bg-accent-50 text-accent-600 hover:bg-blue-100 transition-colors"
                                             >
                                                 <FiEye className="w-4 h-4" />
                                             </a>
@@ -170,7 +170,7 @@ export default function CourseModerationPage() {
                                                 onClick={() => handleApprove(course.id)}
                                                 disabled={processingId === course.id}
                                                 title="موافقة"
-                                                className="w-8 h-8 flex items-center justify-center rounded-full bg-green-50 text-green-600 hover:bg-green-100 transition-colors disabled:opacity-50"
+                                                className="w-8 h-8 flex items-center justify-center rounded-xl bg-green-50 text-green-600 hover:bg-green-100 transition-colors disabled:opacity-50"
                                             >
                                                 <FiCheck className="w-4 h-4" />
                                             </button>
@@ -181,7 +181,7 @@ export default function CourseModerationPage() {
                                                 }}
                                                 disabled={processingId === course.id}
                                                 title="رفض"
-                                                className="w-8 h-8 flex items-center justify-center rounded-full bg-red-50 text-red-600 hover:bg-red-100 transition-colors disabled:opacity-50"
+                                                className="w-8 h-8 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition-colors disabled:opacity-50"
                                             >
                                                 <FiX className="w-4 h-4" />
                                             </button>
@@ -197,10 +197,10 @@ export default function CourseModerationPage() {
             {/* Reject Modal */}
             {isRejectModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 ">
-                    <div className="bg-white dark:bg-[#1a1c23] rounded-2xl p-6 w-full max-w-md shadow-sm relative">
+                    <div className="bg-white dark:bg-[#1a1c23] rounded-xl p-6 w-full max-w-md shadow-sm relative">
                         <button
                             onClick={() => setIsRejectModalOpen(false)}
-                            className="absolute top-4 left-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 hover:text-red-500"
+                            className="absolute top-4 left-4 w-8 h-8 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-500 hover:text-red-500"
                         >
                             <FiX />
                         </button>

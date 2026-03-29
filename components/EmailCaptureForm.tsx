@@ -75,7 +75,7 @@ export default function EmailCaptureForm({
                 className="rounded-lg p-8 text-center"
                 style={{ backgroundColor, color: textColor }}
             >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-white  rounded-full mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-white  rounded-xl mb-4">
                     <FiCheck size={32} />
                 </div>
                 <h3 className="text-xl font-bold mb-2">{successMessage}</h3>
@@ -90,7 +90,7 @@ export default function EmailCaptureForm({
             style={{ backgroundColor, color: textColor }}
         >
             <div className="text-center mb-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-white  rounded-full mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-white  rounded-xl mb-4">
                     <FiMail size={32} />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">{title}</h3>

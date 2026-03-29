@@ -40,7 +40,7 @@ export default function CertificateCustomizationPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Settings Panel */}
                     <div className="lg:col-span-1">
-                        <div className="bg-white dark:bg-card-white rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 sticky top-24">
+                        <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 sticky top-24">
                             <h2 className="text-lg font-bold text-ink dark:text-white mb-4">الإعدادات</h2>
 
                             <div className="space-y-4">
@@ -73,7 +73,7 @@ export default function CertificateCustomizationPage() {
                                     {formData.logoUrl ? (
                                         <div className="relative group inline-block">
                                             <img src={formData.logoUrl} alt="شعار" className="h-20 object-contain rounded-lg border border-gray-200" />
-                                            <button type="button" onClick={() => setFormData({ ...formData, logoUrl: '' })} className="absolute -top-2 -left-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
+                                            <button type="button" onClick={() => setFormData({ ...formData, logoUrl: '' })} className="absolute -top-2 -left-2 bg-red-500 text-white rounded-xl w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
                                         </div>
                                     ) : (
                                         <FileUploader
@@ -93,7 +93,7 @@ export default function CertificateCustomizationPage() {
                                     {formData.signatureUrl ? (
                                         <div className="relative group inline-block">
                                             <img src={formData.signatureUrl} alt="توقيع" className="h-16 object-contain rounded-lg border border-gray-200" />
-                                            <button type="button" onClick={() => setFormData({ ...formData, signatureUrl: '' })} className="absolute -top-2 -left-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
+                                            <button type="button" onClick={() => setFormData({ ...formData, signatureUrl: '' })} className="absolute -top-2 -left-2 bg-red-500 text-white rounded-xl w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
                                         </div>
                                     ) : (
                                         <FileUploader
@@ -148,7 +148,7 @@ export default function CertificateCustomizationPage() {
 
                     {/* Preview Panel */}
                     <div className="lg:col-span-2">
-                        <div className="bg-white dark:bg-card-white rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 sm:p-8">
+                        <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 sm:p-8">
                             <h2 className="text-lg font-bold text-ink dark:text-white mb-6">معاينة الشهادة</h2>
                             <div className="overflow-x-auto pb-4">
                                 <div className="min-w-[600px] lg:min-w-0">

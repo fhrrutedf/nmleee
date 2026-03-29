@@ -64,9 +64,9 @@ export default function VerifyTransfersPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Input Section */}
-                <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
                     <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                        <span className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-sm">1</span>
+                        <span className="w-8 h-8 rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-sm">1</span>
                         لصق الإشعارات (SMS)
                     </h2>
                     <textarea
@@ -85,9 +85,9 @@ export default function VerifyTransfersPage() {
                 </div>
 
                 {/* Verification Section */}
-                <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col">
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col">
                     <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                        <span className="w-8 h-8 rounded-full bg-blue-100 text-accent-600 flex items-center justify-center text-sm">2</span>
+                        <span className="w-8 h-8 rounded-xl bg-blue-100 text-accent-600 flex items-center justify-center text-sm">2</span>
                         التحقق والاعتماد
                     </h2>
 
@@ -112,7 +112,7 @@ export default function VerifyTransfersPage() {
                                 className="w-full py-4 mt-auto bg-green-600 hover:bg-green-700 text-white font-bold text-lg rounded-xl shadow-[0_8px_20px_rgba(22,163,74,0.3)] transition-all hover:-translate-y-1 disabled:opacity-50 disabled:hover:translate-y-0 flex items-center justify-center gap-2"
                             >
                                 {loading ? (
-                                    <span className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin flex-shrink-0" />
+                                    <span className="w-6 h-6 border-3 border-white/30 border-t-white rounded-xl animate-spin flex-shrink-0" />
                                 ) : (
                                     <FiCheck className="text-2xl" />
                                 )}
@@ -121,7 +121,7 @@ export default function VerifyTransfersPage() {
                         </div>
                     ) : (
                         <div className="flex-1 flex flex-col items-center justify-center text-gray-400 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900/50 min-h-[16rem]">
-                            <div className="w-16 h-16 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center mb-4 shadow-sm border border-gray-100 dark:border-gray-700">
+                            <div className="w-16 h-16 rounded-xl bg-white dark:bg-gray-800 flex items-center justify-center mb-4 shadow-sm border border-gray-100 dark:border-gray-700">
                                 <FiList className="text-3xl opacity-50 text-gray-400" />
                             </div>
                             <p className="font-medium text-gray-500">لا توجد أرقام مرجعية مستخرجة</p>

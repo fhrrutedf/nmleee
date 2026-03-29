@@ -46,7 +46,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
     );
 
     return (
-        <div className="bg-white dark:bg-card-white rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
+        <div className="bg-white dark:bg-card-white rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
             {/* Toolbar */}
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <div className="relative w-full md:w-96">
@@ -111,9 +111,9 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
                                     </td>
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-2">
-                                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 min-w-[100px] max-w-[150px]">
+                                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-xl h-2 min-w-[100px] max-w-[150px]">
                                                 <div
-                                                    className={`h-2 rounded-full ${student.isCompleted ? 'bg-green-500' : 'bg-accent'}`}
+                                                    className={`h-2 rounded-xl ${student.isCompleted ? 'bg-green-500' : 'bg-accent'}`}
                                                     style={{ width: `${student.progress}%` }}
                                                 />
                                             </div>

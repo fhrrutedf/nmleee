@@ -116,7 +116,7 @@ export default function CouponsPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent border-t-transparent"></div>
+                <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-accent border-t-transparent"></div>
             </div>
         );
     }
@@ -130,7 +130,7 @@ export default function CouponsPage() {
                 </div>
                 <button
                     onClick={() => setShowModal(true)}
-                    className="btn btn-primary flex items-center gap-2 shadow-lg shadow-accent/20 hover:-translate-y-1 transition-transform"
+                    className="btn btn-primary flex items-center gap-2 shadow-sm shadow-accent/20 hover:-translate-y-1 transition-transform"
                 >
                     <FiPlus />
                     <span>إنشاء كوبون جديد</span>
@@ -139,8 +139,8 @@ export default function CouponsPage() {
 
             {/* Coupons List */}
             {coupons.length === 0 ? (
-                <div className="bg-white dark:bg-card-white rounded-3xl border border-dashed border-gray-300 dark:border-gray-700 p-12 text-center">
-                    <div className="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="bg-white dark:bg-card-white rounded-xl border border-dashed border-gray-300 dark:border-gray-700 p-12 text-center">
+                    <div className="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-xl flex items-center justify-center mx-auto mb-6">
                         <FiTag className="text-3xl text-gray-400" />
                     </div>
                     <h3 className="text-xl font-bold text-ink dark:text-white mb-2">لا توجد كوبونات فعالة!</h3>
@@ -152,7 +152,7 @@ export default function CouponsPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {coupons.map((coupon) => (
-                        <div key={coupon.id} className={`bg-white dark:bg-card-white rounded-2xl border ${coupon.isActive ? 'border-gray-200 dark:border-gray-700' : 'border-gray-100 dark:border-gray-800 opacity-70'} shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow relative`}>
+                        <div key={coupon.id} className={`bg-white dark:bg-card-white rounded-xl border ${coupon.isActive ? 'border-gray-200 dark:border-gray-700' : 'border-gray-100 dark:border-gray-800 opacity-70'} shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow relative`}>
                             {/* Top Accent */}
                             <div className={`h-1.5 w-full ${coupon.isActive ? 'bg-accent shadow-[0_0_15px_rgba(37,99,235,0.3)]' : 'bg-gray-200'}`}></div>
 
@@ -163,7 +163,7 @@ export default function CouponsPage() {
                                     </div>
                                     <button
                                         onClick={() => toggleStatus(coupon.id, coupon.isActive, coupon.code)}
-                                        className={`text-xs font-bold px-3 py-1 rounded-full ${coupon.isActive ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400' : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'}`}
+                                        className={`text-xs font-bold px-3 py-1 rounded-xl ${coupon.isActive ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400' : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'}`}
                                     >
                                         {coupon.isActive ? 'فعال' : 'معطل'}
                                     </button>
@@ -260,12 +260,12 @@ export default function CouponsPage() {
             {/* Create Modal */}
             {showModal && (
                 <div className="fixed inset-0 bg-black/50  z-50 flex justify-center items-center p-4">
-                    <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm w-full max-w-2xl max-h-[90vh] overflow-y-auto transform transition-all">
+                    <div className="bg-white dark:bg-card-white rounded-xl shadow-sm w-full max-w-2xl max-h-[90vh] overflow-y-auto transform transition-all">
                         <div className="sticky top-0 bg-white dark:bg-card-white p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center z-10">
                             <h2 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
                                 <FiTag className="text-accent" /> إضافة كوبون خصم جديد
                             </h2>
-                            <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-red-500 bg-gray-100 dark:bg-gray-800 p-2 rounded-full transition-colors">
+                            <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-red-500 bg-gray-100 dark:bg-gray-800 p-2 rounded-xl transition-colors">
                                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                             </button>
                         </div>
@@ -298,7 +298,7 @@ export default function CouponsPage() {
 
                                 <div className="md:col-span-2">
                                     <label className="label font-bold text-gray-700 dark:text-gray-300">قيمة الخصم <span className="text-red-500">*</span></label>
-                                    <div className="relative border border-gray-100 rounded-2xl overflow-hidden focus-within:ring-4 focus-within:ring-accent/10 transition-all bg-gray-50">
+                                    <div className="relative border border-gray-100 rounded-xl overflow-hidden focus-within:ring-4 focus-within:ring-accent/10 transition-all bg-gray-50">
                                         <input
                                             type="number"
                                             required

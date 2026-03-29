@@ -190,14 +190,14 @@ export default function NewProductPage() {
                         <p className="text-slate-500 font-medium mt-2">ابدأ بملء كافة التفاصيل لضمان أفضل تجربة تسويقية لمنتجك الرقمي</p>
                     </div>
                     {isSavingDraft && (
-                        <div className="mt-4 md:mt-0 flex items-center gap-2 text-xs font-bold text-slate-400 bg-slate-50 px-4 py-2 rounded-full border border-slate-100 ">
+                        <div className="mt-4 md:mt-0 flex items-center gap-2 text-xs font-bold text-slate-400 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100 ">
                             <FiSave /> جاري الحفظ كمسودة...
                         </div>
                     )}
                 </div>
 
                 {/* Progress Bar */}
-                <div className="bg-white rounded-2xl p-6 lg:p-8 shadow-lg border border-slate-50 mb-10 overflow-hidden">
+                <div className="bg-white rounded-xl p-6 lg:p-8 shadow-sm border border-slate-50 mb-10 overflow-hidden">
                     <StepProgress steps={steps} currentStep={currentStep} />
                 </div>
 
@@ -211,14 +211,14 @@ export default function NewProductPage() {
                                     <div className="grid md:grid-cols-2 gap-8">
                                         {/* Main File */}
                                         <div className="space-y-4 p-8 bg-accent-50/50 border-2 border-dashed border-blue-100 rounded-xl text-center relative group">
-                                            <div className="absolute top-4 right-4 text-accent-500 bg-blue-100/50 p-2 rounded-full" title="ملفك محمي بتشفير قوي">
+                                            <div className="absolute top-4 right-4 text-accent-500 bg-blue-100/50 p-2 rounded-xl" title="ملفك محمي بتشفير قوي">
                                                 <FiLock size={16} />
                                             </div>
                                             <label className="text-sm font-bold text-accent-600 mb-2 block">المنتج الرقمي الأساسي <span className="text-red-500">*</span></label>
                                             <p className="text-[10px] font-bold text-accent-600/60 mb-4 px-4 line-clamp-2">هذا الملف سيتم تخزينه بأمان وتشفيره عبر الروابط الموقوتة بعد الشراء</p>
                                             
                                             {formData.fileUrl ? (
-                                                <div className="bg-white p-4 rounded-2xl shadow-sm border border-blue-200 flex items-center justify-between">
+                                                <div className="bg-white p-4 rounded-xl shadow-sm border border-blue-200 flex items-center justify-between">
                                                     <div className="flex items-center gap-2 overflow-hidden text-right">
                                                         <FiCheck className="text-accent-500 shrink-0" />
                                                         <span className="text-xs font-bold truncate max-w-[150px]" dir="ltr">{formData.fileUrl.split('/').pop()}</span>
@@ -226,7 +226,7 @@ export default function NewProductPage() {
                                                     <button type="button" onClick={() => update('fileUrl', '')} className="text-red-400 hover:text-red-600 p-2"><FiX /></button>
                                                 </div>
                                             ) : (
-                                                <div className="bg-white rounded-3xl p-4 shadow-sm">
+                                                <div className="bg-white rounded-xl p-4 shadow-sm">
                                                     <FileUploader isPrivate={true} onUploadSuccess={(urls, names) => { 
                                                         update('fileUrl', urls[0]); 
                                                         if (names?.[0]) { 
@@ -242,7 +242,7 @@ export default function NewProductPage() {
                                         <div className="space-y-4 p-8 bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl text-center group">
                                             <label className="text-sm font-bold text-slate-500 mb-2 block">فيديو تعريفي تشويقي للمنتج</label>
                                             {formData.trailerUrl ? (
-                                                 <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                                                 <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex items-center justify-between">
                                                     <div className="flex items-center gap-2">
                                                         <FiFilm className="text-slate-500" />
                                                         <span className="text-[10px] font-bold text-slate-400">فيديو مسجل</span>
@@ -250,13 +250,13 @@ export default function NewProductPage() {
                                                     <button type="button" onClick={() => update('trailerUrl', '')} className="text-red-400"><FiX /></button>
                                                 </div>
                                             ) : (
-                                                <button type="button" onClick={() => setShowTrailerUploader(true)} className="w-full py-6 text-slate-400 font-bold hover:text-accent-600 transition-all bg-white rounded-3xl shadow-sm group-hover:shadow-md">
+                                                <button type="button" onClick={() => setShowTrailerUploader(true)} className="w-full py-6 text-slate-400 font-bold hover:text-accent-600 transition-all bg-white rounded-xl shadow-sm group-hover:shadow-md">
                                                     <FiFilm className="mx-auto mb-2 opacity-50 block" size={32} />
                                                     <span className="text-xs">رفع فيديو تعريفي إعلاني (اختياري)</span>
                                                 </button>
                                             )}
                                             {showTrailerUploader && (
-                                                <div className="mt-4 bg-white/90  p-4 rounded-3xl shadow-sm z-20 relative text-right"><FileUploader onUploadSuccess={urls => { update('trailerUrl', urls[0]); setShowTrailerUploader(false); }} /></div>
+                                                <div className="mt-4 bg-white/90  p-4 rounded-xl shadow-sm z-20 relative text-right"><FileUploader onUploadSuccess={urls => { update('trailerUrl', urls[0]); setShowTrailerUploader(false); }} /></div>
                                             )}
                                         </div>
                                     </div>
@@ -315,7 +315,7 @@ export default function NewProductPage() {
                                             <div className="relative aspect-video rounded-xl bg-slate-50 border-4 border-white shadow-sm overflow-hidden group">
                                                 <img src={formData.image} alt="Cover" className="w-full h-full object-cover" />
                                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                    <button type="button" onClick={() => update('image', '')} className="bg-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold shadow-sm hover:scale-110 transition-transform"><FiX size={20}/></button>
+                                                    <button type="button" onClick={() => update('image', '')} className="bg-red-500 text-white w-12 h-12 rounded-xl flex items-center justify-center font-bold shadow-sm hover:scale-110 transition-transform"><FiX size={20}/></button>
                                                 </div>
                                             </div>
                                         ) : (
@@ -442,7 +442,7 @@ export default function NewProductPage() {
                                             {formData.previewFileUrl ? (
                                                 <div className="flex items-center justify-between p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm transition-all">
                                                     <span className="text-xs font-bold text-slate-600 italic flex items-center gap-2"><FiCheck className="text-accent-500"/> تم إرفاق ملف العينة بنجاح، وستكون قابلة للتحميل مجاناً في صفحة المنتج</span>
-                                                    <button type="button" onClick={() => update('previewFileUrl', '')} className="text-red-500 hover:bg-red-50 p-3 rounded-full transition-colors font-bold flex gap-2 items-center text-xs"><FiX /> حذف العينة</button>
+                                                    <button type="button" onClick={() => update('previewFileUrl', '')} className="text-red-500 hover:bg-red-50 p-3 rounded-xl transition-colors font-bold flex gap-2 items-center text-xs"><FiX /> حذف العينة</button>
                                                 </div>
                                             ) : (
                                                 <button type="button" onClick={() => setShowPreviewUploader(true)} className="flex items-center justify-center gap-3 text-sm font-bold text-slate-500 hover:text-accent-600 transition-all border-2 border-dashed border-slate-200 py-8 rounded-xl w-full hover:bg-slate-50 hover:border-blue-200">
@@ -457,27 +457,27 @@ export default function NewProductPage() {
                                 </Section>
 
                                 <Section title="خيارات الطرح والنشر في المتجر" icon={<FiEye />}>
-                                    <div className="flex items-center justify-between p-8 bg-slate-900 rounded-2xl border border-white/10 shadow-sm transition-all cursor-pointer hover:bg-slate-800 group" onClick={() => update('isActive', !formData.isActive)}>
+                                    <div className="flex items-center justify-between p-8 bg-slate-900 rounded-xl border border-white/10 shadow-sm transition-all cursor-pointer hover:bg-slate-800 group" onClick={() => update('isActive', !formData.isActive)}>
                                         <div className="text-right">
                                             <h3 className="font-bold text-white text-xl leading-tight transition-colors group-hover:text-blue-400">حالة ظهور المنتج في المتجر</h3>
                                         </div>
-                                        <div className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.isActive ? 'bg-accent-500 outline-accent-500/30' : 'bg-slate-700 outline-slate-800'}`}>
-                                            <div className={`w-6 h-6 bg-white rounded-full transition-all ${formData.isActive ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
+                                        <div className={`w-16 h-9 rounded-xl flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.isActive ? 'bg-accent-500 outline-accent-500/30' : 'bg-slate-700 outline-slate-800'}`}>
+                                            <div className={`w-6 h-6 bg-white rounded-xl transition-all ${formData.isActive ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
                                         </div>
                                     </div>
                                     
-                                    <div className="flex items-center justify-between p-8 bg-blue-900 rounded-2xl border border-blue-800 shadow-lg transition-all cursor-pointer hover:bg-blue-800 group" onClick={() => update('enablePPP', !formData.enablePPP)}>
+                                    <div className="flex items-center justify-between p-8 bg-blue-900 rounded-xl border border-blue-800 shadow-sm transition-all cursor-pointer hover:bg-blue-800 group" onClick={() => update('enablePPP', !formData.enablePPP)}>
                                         <div className="text-right">
                                             <h3 className="font-bold text-white text-xl leading-tight transition-colors group-hover:text-amber-400">تفعيل التسعير العادل (PPP Pricing) 🌍</h3>
                                             <p className="text-xs text-blue-200 mt-1 max-w-lg leading-relaxed">تخفيض السعر تلقائياً للزوار من الدول النامية حسب القوة الشرائية، لضمان أعلى نسبة مبيعات للجميع دون حرمان أحد.</p>
                                         </div>
-                                        <div className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-accent outline-amber-500/30' : 'bg-blue-950 outline-blue-900'}`}>
-                                            <div className={`w-6 h-6 bg-white rounded-full transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
+                                        <div className={`w-16 h-9 rounded-xl flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-accent outline-amber-500/30' : 'bg-blue-950 outline-blue-900'}`}>
+                                            <div className={`w-6 h-6 bg-white rounded-xl transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
                                         </div>
                                     </div>
 
                                     {/* Stock Limit Section */}
-                                    <div className="p-8 bg-slate-50 border border-slate-200 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 hover:shadow-md transition-shadow">
+                                    <div className="p-8 bg-slate-50 border border-slate-200 rounded-xl flex flex-col md:flex-row items-center justify-between gap-6 hover:shadow-md transition-shadow">
                                         <div className="text-right flex-1">
                                             <h3 className="font-bold text-slate-800 text-xl leading-tight">حد المخزون (Inventory Control)</h3>
                                             <p className="text-xs text-slate-400 mt-1 font-medium">اترك الحقل فارغاً إذا كان المنتج غير محدود الكمية.</p>
@@ -504,13 +504,13 @@ export default function NewProductPage() {
                             {currentStep > 1 ? (
                                 <button
                                     type="button" onClick={prevStep}
-                                    className="w-full md:w-auto flex items-center justify-center gap-2 text-slate-400 font-bold hover:text-slate-600 border border-slate-200 rounded-2xl transition-all px-8 py-4 group hover:bg-slate-50"
+                                    className="w-full md:w-auto flex items-center justify-center gap-2 text-slate-400 font-bold hover:text-slate-600 border border-slate-200 rounded-xl transition-all px-8 py-4 group hover:bg-slate-50"
                                 >
                                     <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                                     خطوة تراجع
                                 </button>
                             ) : (
-                                <Link href="/dashboard/products" className="w-full md:w-auto block text-center text-slate-400 hover:text-red-500 font-bold border border-transparent hover:bg-red-50 rounded-2xl px-8 py-4 transition-all">إلغاء تماماً والعودة</Link>
+                                <Link href="/dashboard/products" className="w-full md:w-auto block text-center text-slate-400 hover:text-red-500 font-bold border border-transparent hover:bg-red-50 rounded-xl px-8 py-4 transition-all">إلغاء تماماً والعودة</Link>
                             )}
                         </div>
 
@@ -526,7 +526,7 @@ export default function NewProductPage() {
                             ) : (
                                 <button
                                     key="btn-submit" type="submit" disabled={loading}
-                                    className="w-full md:w-auto px-12 py-4 bg-gradient-to-l from-accent-500 to-teal-600 text-white rounded-[1.5rem] font-bold flex items-center justify-center gap-3 hover:opacity-90 transition-all shadow-sm shadow-teal-200 disabled:opacity-50 active:scale-95 text-lg"
+                                    className="w-full md:w-auto px-12 py-4 bg-ink text-white rounded-[1.5rem] font-bold flex items-center justify-center gap-3 hover:opacity-90 transition-all shadow-sm shadow-teal-200 disabled:opacity-50 active:scale-95 text-lg"
                                 >
                                     {loading ? 'جاري التحضير النهائي...' : 'إطلاق ونشر المنتج للبيع'}
                                     {!loading && <FiCheckSquare />}
@@ -546,7 +546,7 @@ export default function NewProductPage() {
                     </div>
 
                     {/* Miniature Product Card */}
-                    <div className="bg-white rounded-xl border border-slate-100 shadow-lg overflow-hidden transition-all hover:shadow-sm hover:-translate-y-1 block">
+                    <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden transition-all hover:shadow-sm hover:-translate-y-1 block">
                         <div className="aspect-[4/3] bg-slate-100 relative overflow-hidden flex items-center justify-center text-slate-300">
                             {formData.image ? 
                                 <img src={formData.image} alt="Preview" className="w-full h-full object-cover" /> 
@@ -576,7 +576,7 @@ export default function NewProductPage() {
                                 </div>
                             </div>
                             
-                            <button className="w-full mt-6 py-4 bg-accent-500 text-white font-bold rounded-2xl text-sm transition-colors shadow-lg shadow-accent-500/30 flex items-center justify-center gap-2" disabled>
+                            <button className="w-full mt-6 py-4 bg-accent-500 text-white font-bold rounded-xl text-sm transition-colors shadow-sm shadow-accent-500/30 flex items-center justify-center gap-2" disabled>
                                 إتمام الشراء والتنزيل المباشر
                             </button>
                         </div>
@@ -587,16 +587,16 @@ export default function NewProductPage() {
             {/* Confirm Modal */}
             <AnimatePresence>
                 {showConfirmModal && (
-                    <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/50  animate-fade-in">
-                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-3xl p-12 max-w-sm w-full text-center space-y-10 shadow-sm">
+                    <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/50  ">
+                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-xl p-12 max-w-sm w-full text-center space-y-10 shadow-sm">
                              <div className="w-24 h-24 bg-accent-50 text-accent-500 rounded-xl flex items-center justify-center mx-auto text-5xl"><FiCheckSquare /></div>
                              <div className="space-y-2">
                                  <h3 className="text-3xl font-bold text-slate-900 leading-tight">جاهز للانطلاق!</h3>
                                  <p className="text-sm text-slate-400 font-medium tracking-wide">سيتم عرض المنتج في متجرك الخاص وتفعيل كافة خيارات الشراء فور النشر.</p>
                              </div>
                              <div className="flex flex-col gap-4">
-                                <button onClick={handleSubmit} className="w-full py-5 bg-accent-600 text-white rounded-3xl font-bold shadow-lg hover:bg-blue-700 transition-all text-lg">نعم، أطلق المنتج فوراً للعلن</button>
-                                <button onClick={() => setShowConfirmModal(false)} className="w-full py-2 text-slate-400 font-bold hover:bg-slate-50 rounded-2xl transition-all uppercase tracking-widest text-xs">مراجعة أخيرة للبيانات المدخلة</button>
+                                <button onClick={handleSubmit} className="w-full py-5 bg-accent-600 text-white rounded-xl font-bold shadow-sm hover:bg-blue-700 transition-all text-lg">نعم، أطلق المنتج فوراً للعلن</button>
+                                <button onClick={() => setShowConfirmModal(false)} className="w-full py-2 text-slate-400 font-bold hover:bg-slate-50 rounded-xl transition-all uppercase tracking-widest text-xs">مراجعة أخيرة للبيانات المدخلة</button>
                              </div>
                         </motion.div>
                     </div>
@@ -608,15 +608,15 @@ export default function NewProductPage() {
 
 function Section({ title, icon, description, children }: any) {
     return (
-        <div className="bg-white rounded-3xl p-8 lg:p-14 shadow-lg border border-slate-50 space-y-10 overflow-hidden relative">
+        <div className="bg-white rounded-xl p-8 lg:p-14 shadow-sm border border-slate-50 space-y-10 overflow-hidden relative">
             <div className="flex items-center gap-5">
-                <div className="w-16 h-16 bg-accent-50 text-accent-600 rounded-3xl flex items-center justify-center text-3xl shadow-sm shrink-0">
+                <div className="w-16 h-16 bg-accent-50 text-accent-600 rounded-xl flex items-center justify-center text-3xl shadow-sm shrink-0">
                     {icon}
                 </div>
                 <div className="text-right">
                     <h2 className="text-2xl font-bold text-slate-900 tracking-tight">{title}</h2>
                     {description && <p className="text-xs text-slate-400 font-medium mt-2 uppercase tracking-wider">{description}</p>}
-                    <div className="h-1 w-12 bg-blue-100 rounded-full mt-3" />
+                    <div className="h-1 w-12 bg-blue-100 rounded-xl mt-3" />
                 </div>
             </div>
             <div className="space-y-8 relative z-10">

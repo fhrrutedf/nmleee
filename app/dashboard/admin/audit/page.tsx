@@ -118,7 +118,7 @@ export default function AdminAuditLogsPage() {
                                 <tr key={log.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
                                     <td className="px-5 py-4">
                                         <div className="flex items-center gap-2">
-                                            <div className="w-8 h-8 rounded-full bg-accent/10 text-accent flex items-center justify-center font-bold text-xs">
+                                            <div className="w-8 h-8 rounded-xl bg-accent/10 text-accent flex items-center justify-center font-bold text-xs">
                                                 {log.actor_name?.charAt(0) || 'S'}
                                             </div>
                                             <div>
@@ -128,7 +128,7 @@ export default function AdminAuditLogsPage() {
                                         </div>
                                     </td>
                                     <td className="px-5 py-4">
-                                        <span className={`px-2 py-1 rounded-full text-[10px] font-bold ${ACTION_LABELS[log.action]?.color || 'bg-gray-100 text-gray-600'}`}>
+                                        <span className={`px-2 py-1 rounded-xl text-[10px] font-bold ${ACTION_LABELS[log.action]?.color || 'bg-gray-100 text-gray-600'}`}>
                                             {ACTION_LABELS[log.action]?.label || log.action}
                                         </span>
                                     </td>

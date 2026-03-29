@@ -38,7 +38,7 @@ export const TiltCard = ({ children, className }: TiltCardProps) => {
             </div>
             {/* Soft Shadow behind the 3D card */}
             <motion.div
-                className="absolute inset-0 bg-black/5 rounded-2xl -z-10 blur-xl"
+                className="absolute inset-0 bg-black/5 rounded-xl -z-10 blur-xl"
                 style={{ transform: "translateZ(-20px)" }}
             />
         </motion.div>

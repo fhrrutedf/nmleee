@@ -125,7 +125,7 @@ export default function EditLessonPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
+                <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-xl animate-spin" />
             </div>
         );
     }
@@ -185,11 +185,11 @@ export default function EditLessonPage() {
 
                     {/* Video Section */}
                     <div className="space-y-4">
-                        <div className="p-6 bg-accent-50/30 dark:bg-accent/5 rounded-3xl border border-accent/10">
+                        <div className="p-6 bg-accent-50/30 dark:bg-accent/5 rounded-xl border border-accent/10">
                             <label className="label mb-4 opacity-70">إعدادات الفيديو (Bunny Stream)</label>
                             
                             {formData.bunnyVideoId ? (
-                                <div className="bg-white dark:bg-card-white p-6 rounded-2xl border border-gray-100 dark:border-gray-800 flex items-center justify-between shadow-sm">
+                                <div className="bg-white dark:bg-card-white p-6 rounded-xl border border-gray-100 dark:border-gray-800 flex items-center justify-between shadow-sm">
                                     <div className="flex items-center gap-4">
                                         <div className="w-12 h-12 bg-green-500/10 text-green-500 rounded-xl flex items-center justify-center">
                                             <FiCheckCircle size={24} />
@@ -290,7 +290,7 @@ export default function EditLessonPage() {
                             className="btn btn-primary flex-1 flex items-center justify-center gap-2 py-3"
                         >
                             {saving ? (
-                                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-xl animate-spin" />
                             ) : (
                                 <FiSave />
                             )}
