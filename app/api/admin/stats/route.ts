@@ -68,11 +68,12 @@ export async function GET() {
             orderBy: { createdAt: 'desc' },
             include: {
                 user: { select: { name: true, email: true } },
-                seller: { select: { name: true } },
+                seller: { select: { name: true, email: true } },
                 items: {
                     include: {
                         product: { select: { title: true } },
                         course: { select: { title: true } },
+                        bundle: { select: { title: true } },
                     },
                 },
             },

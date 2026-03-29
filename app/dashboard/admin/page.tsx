@@ -337,6 +337,60 @@ export default function AdminDashboardPage() {
                                 </tbody>
                             </table>
                         </div>
+
+                        {/* Recent Transactions Table */}
+                        <div className="bg-[#0A0A0A] border border-white/10 rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20 shadow-gray-100/20 overflow-x-auto">
+                            <h3 className="text-xl font-bold text-[#10B981] mb-10 tracking-widest flex items-center gap-3 underline underline-offset-[12px] decoration-accent/20 decoration-4">
+                                <FiActivity className="text-[#10B981]" /> RECENT TRANSACTIONS
+                            </h3>
+                            <table className="w-full">
+                                <thead className="border-b border-white/10 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                                    <tr>
+                                        <th className="pb-6 text-right">Order & Product</th>
+                                        <th className="pb-6 text-right">Creator (Seller)</th>
+                                        <th className="pb-6 text-center">Customer</th>
+                                        <th className="pb-6 text-center">Amount</th>
+                                        <th className="pb-6 text-left">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {(data?.recentOrders || []).length === 0 ? (
+                                        <tr><td colSpan={5} className="py-12 text-center text-gray-500 font-bold">Waiting for new operational data...</td></tr>
+                                    ) : (
+                                        (data?.recentOrders || []).map((o: any) => (
+                                            <tr key={o.id} className="group hover:bg-[#111111]/50 transition-colors border-b border-white/5 last:border-0">
+                                                <td className="py-6">
+                                                    <div className="font-bold text-sm text-[#10B981]">{o.productTitle}</div>
+                                                    <div className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-2 mt-1">#{o.orderNumber} <span className="bg-white/5 px-2 py-0.5 rounded text-[8px]">{methodLabel[o.paymentMethod] || o.paymentMethod}</span></div>
+                                                </td>
+                                                <td className="py-6 min-w-[200px]">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="w-8 h-8 rounded-lg bg-emerald-800 flex items-center justify-center font-bold text-[#10B981] border border-white/10 text-xs uppercase">
+                                                            {o.seller?.name ? o.seller.name.charAt(0) : 'A'}
+                                                        </div>
+                                                        <div>
+                                                            <div className="font-bold text-sm text-gray-200">{o.seller?.name || 'المنصة (المدير)'}</div>
+                                                            <div className="text-[10px] font-bold text-gray-500">{o.seller?.email || 'admin@تمالين'}</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className="py-6 text-center min-w-[150px]">
+                                                    <div className="font-bold text-sm text-gray-300">{o.customerName}</div>
+                                                    <div className="text-[10px] font-bold text-gray-500">{o.customerEmail}</div>
+                                                </td>
+                                                <td className="py-6 text-center">
+                                                    <div className="font-bold text-[#10B981] tracking-tighter text-lg">${fmt(o.amount || 0)}</div>
+                                                    <div className="text-[8px] font-bold text-gray-500 uppercase tracking-widest">NET: ${fmt(o.sellerAmount || 0)}</div>
+                                                </td>
+                                                <td className="py-6 text-left">
+                                                    <span className={`px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-widest ${statusBadge[o.status] || 'bg-gray-800 text-gray-400'}`}>{o.status}</span>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 )}
 

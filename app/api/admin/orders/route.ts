@@ -59,11 +59,12 @@ export async function GET(request: Request) {
                 where: whereClause,
                 include: {
                     user: { select: { name: true, email: true } },
-                    seller: { select: { name: true, email: true } },
+                    seller: { select: { name: true, email: true, username: true } },
                     items: {
                         include: {
                             product: { select: { title: true } },
-                            course: { select: { title: true } }
+                            course: { select: { title: true } },
+                            bundle: { select: { title: true } }
                         }
                     }
                 },

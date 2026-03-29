@@ -61,7 +61,7 @@ export async function GET(req: NextRequest) {
             take: 15,
             include: {
                 seller: { select: { name: true, email: true } },
-                items: { take: 1, include: { product: { select: { title: true } }, course: { select: { title: true } } } },
+                items: { take: 1, include: { product: { select: { title: true } }, course: { select: { title: true } }, bundle: { select: { title: true } } } },
             },
         }),
 
@@ -211,7 +211,7 @@ export async function GET(req: NextRequest) {
             isPaid: o.isPaid,
             createdAt: o.createdAt,
             seller: o.seller,
-            productTitle: o.items[0]?.product?.title ?? o.items[0]?.course?.title ?? 'غير محدد',
+            productTitle: o.items[0]?.product?.title ?? o.items[0]?.course?.title ?? o.items[0]?.bundle?.title ?? 'غير محدد',
         })),
         usersByCountry: usersByCountry.filter(u => u.country).map(u => ({
             country: u.country,

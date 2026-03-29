@@ -41,10 +41,11 @@ interface RecentOrder {
     status: string;
     createdAt: string;
     user: { name: string; email: string };
-    seller: { name: string } | null;
+    seller: { name: string; email: string; } | null;
     items: Array<{
         product?: { title: string };
         course?: { title: string };
+        bundle?: { title: string };
     }>;
 }
 
@@ -335,14 +336,15 @@ export default function AdminDashboard() {
                                                 <td className="py-4 px-6">
                                                     <div className="font-mono text-xs text-gray-400 mb-1">#{order.orderNumber}</div>
                                                     <div className="font-bold text-white dark:text-white mb-0.5">{order.user.name}</div>
-                                                    <div className="text-xs text-gray-500 overflow-hidden text-ellipsis max-w-[150px] font-medium" title={order.items.map(i => i.product?.title || i.course?.title).join(', ')}>
-                                                        {order.items.map(i => i.product?.title || i.course?.title).join(', ')}
+                                                    <div className="text-xs text-gray-500 overflow-hidden text-ellipsis max-w-[150px] font-medium" title={order.items.map(i => i.product?.title || i.course?.title || i.bundle?.title).filter(Boolean).join('، ')}>
+                                                        {order.items.map(i => i.product?.title || i.course?.title || i.bundle?.title).filter(Boolean).join('، ')}
                                                     </div>
                                                 </td>
-                                                <td className="py-4 px-6">
+                                                <td className="py-4 px-6 flex flex-col gap-1">
                                                     <div className="font-bold text-gray-300 dark:text-gray-300">
-                                                        {order.seller?.name || 'المنصة'}
+                                                        {order.seller?.name || 'المنصة (المدير)'}
                                                     </div>
+                                                    <div className="text-[10px] text-gray-500 font-bold">{order.seller?.email || 'admin@تمالين'}</div>
                                                 </td>
                                                 <td className="py-4 px-6">
                                                     <div className="font-bold text-[#10B981] dark:text-white text-lg">

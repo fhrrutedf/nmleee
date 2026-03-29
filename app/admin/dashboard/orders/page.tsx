@@ -17,8 +17,9 @@ import {
 
 interface OrderItem {
     id: string;
-    product?: { title: string; itemType: string };
+    product?: { title: string; itemType?: string };
     course?: { title: string };
+    bundle?: { title: string };
     price: number;
 }
 
@@ -33,7 +34,7 @@ interface OrderData {
     paymentMethod: string;
     createdAt: string;
     user: { name: string; email: string };
-    seller: { name: string; email: string };
+    seller: { name: string; email: string; username?: string } | null;
     items: OrderItem[];
 }
 
@@ -306,13 +307,13 @@ export default function AdminOrdersManagement() {
                                             </td>
                                             <td className="py-4 px-6">
                                                 <div className="font-bold text-white dark:text-white flex items-center gap-2">
-                                                    {order.seller.name}
+                                                    {order.seller ? order.seller.name : 'المنصة (المدير)'}
                                                 </div>
-                                                <div className="text-[10px] text-gray-500">{order.seller.email}</div>
+                                                <div className="text-[10px] text-gray-500">{order.seller ? order.seller.email : 'admin'}</div>
                                             </td>
                                             <td className="py-4 px-6 max-w-[200px]">
                                                 <div className="text-sm text-gray-300 dark:text-gray-300 truncate">
-                                                    {order.items.map(i => i.product ? i.product.title : i.course?.title).join(', ')}
+                                                    {order.items.map(i => i.product?.title || i.course?.title || i.bundle?.title).filter(Boolean).join('، ')}
                                                 </div>
                                                 <div className="text-[10px] font-bold text-gray-400 mt-0.5">
                                                     {order.items.length} عناصر
