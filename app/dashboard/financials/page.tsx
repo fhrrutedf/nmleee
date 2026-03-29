@@ -269,7 +269,7 @@ export default function FinancialsPage() {
 
                         {/* Total Earnings - Gradient */}
                         <motion.div variants={item} className="bg-ink text-white rounded-xl shadow-sm p-6 relative overflow-hidden group hover:shadow-sm transition-all hover:-translate-y-1">
-                            <div className="absolute top-0 right-0 w-28 h-28 bg-white/10 rounded-xl blur-2xl -mr-8 -mt-8" />
+                            <div className="absolute top-0 right-0 w-28 h-28 bg-surface/10 rounded-xl blur-2xl -mr-8 -mt-8" />
                             <div className="relative">
                                 <div className="flex items-center justify-between mb-3">
                                     <p className="font-bold text-sm text-white/80">إجمالي الأرباح</p>
@@ -464,7 +464,7 @@ export default function FinancialsPage() {
                     {/* Referral Stats */}
                     <div className="grid sm:grid-cols-3 gap-6">
                         <motion.div variants={item} className="bg-ink text-white rounded-xl shadow-sm p-6 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-xl blur-2xl -mr-8 -mt-8" />
+                            <div className="absolute top-0 right-0 w-24 h-24 bg-surface/10 rounded-xl blur-2xl -mr-8 -mt-8" />
                             <div className="relative">
                                 <div className="flex items-center justify-between mb-3">
                                     <p className="font-bold text-sm text-white/80">أرباح الإحالات</p>

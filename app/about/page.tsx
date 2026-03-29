@@ -182,7 +182,7 @@ export default function AboutPage() {
                         <Link href="/register" className="px-12 py-5 bg-accent text-white rounded-xl font-bold hover:bg-accent-hover transition-all shadow-sm shadow-accent/20">
                             أنشئ متجرك مجاناً
                         </Link>
-                        <Link href="/market" className="px-12 py-5 bg-white/10 text-white border border-white/10 rounded-xl font-bold hover:bg-white/20 transition-all">
+                        <Link href="/market" className="px-12 py-5 bg-surface/10 text-white border border-white/10 rounded-xl font-bold hover:bg-white/20 transition-all">
                             استكشف المنصة
                         </Link>
                     </div>

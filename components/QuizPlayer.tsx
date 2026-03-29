@@ -212,7 +212,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                 {currentQuestion < quiz.questions.length - 1 ? (
                     <button
                         onClick={() => setCurrentQuestion(prev => prev + 1)}
-                        className="px-6 py-2 bg-ink text-white rounded-lg hover:bg-indigo-700"
+                        className="px-6 py-2 bg-ink text-white rounded-lg hover:bg-black"
                     >
                         التالي
                     </button>

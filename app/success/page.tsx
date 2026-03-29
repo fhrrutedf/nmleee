@@ -102,7 +102,7 @@ function SuccessContent() {
                     {isPending && !isPaid ? (
                         <div className="bg-ink text-white p-16 text-center relative overflow-hidden">
                             <div className="relative z-10">
-                                <div className="w-20 h-20 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-8 ">
+                                <div className="w-20 h-20 bg-surface/10 rounded-xl flex items-center justify-center mx-auto mb-8 ">
                                     <FiClock size={40} className="text-white" />
                                 </div>
                                 <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">طلبك قيد المراجعة ⏳</h1>
@@ -115,7 +115,7 @@ function SuccessContent() {
                     ) : (
                         <div className="bg-accent text-white p-16 text-center relative overflow-hidden">
                             <div className="relative z-10">
-                                <div className="w-20 h-20 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-8 ">
+                                <div className="w-20 h-20 bg-surface/10 rounded-xl flex items-center justify-center mx-auto mb-8 ">
                                     <FiCheckCircle size={40} className="text-white" />
                                 </div>
                                 <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">تم تفعيل طلبك بنجاح! 🎉</h1>

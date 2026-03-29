@@ -62,7 +62,7 @@ export default function DashboardPage() {
             {/* Professional Welcome Section */}
             <motion.div variants={item} className="bg-ink rounded-xl p-8 sm:p-12 text-white shadow-sm relative overflow-hidden ring-1 ring-white/10">
                 <div className="relative z-10 max-w-2xl">
-                    <span className="inline-block px-3 py-1 bg-white/10 rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Merchant Dashboard</span>
+                    <span className="inline-block px-3 py-1 bg-surface/10 rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Merchant Dashboard</span>
                     <h1 className="text-3xl sm:text-5xl font-bold mb-4 tracking-tight leading-tight">مرحباً، {session?.user?.name}</h1>
                     <p className="text-gray-400 text-sm sm:text-lg leading-relaxed font-bold">
                         إليك ملخص أداء متجرك وأهم التحديثات. استمر في النمو وتحقيق النجاح.

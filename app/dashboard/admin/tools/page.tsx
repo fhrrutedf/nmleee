@@ -485,7 +485,7 @@ export default function AdminPayoutsPage() {
                         </div>
                         <div className="flex gap-3">
                             <button onClick={saveCommission}
-                                className="flex-1 btn bg-ink hover:bg-purple-700 text-white font-bold py-2.5">
+                                className="flex-1 btn bg-ink hover:bg-ink text-white font-bold py-2.5">
                                 حفظ العمولة
                             </button>
                             <button onClick={() => setCommModal(null)} className="btn btn-outline px-6">إلغاء</button>

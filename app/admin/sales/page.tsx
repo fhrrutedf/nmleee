@@ -250,7 +250,7 @@ export default function AdminSalesPage() {
 
                         <button
                             onClick={handleSearch}
-                            className="px-4 py-2.5 bg-ink text-white rounded-xl text-sm font-bold hover:bg-indigo-700 transition-colors flex items-center gap-1"
+                            className="px-4 py-2.5 bg-ink text-white rounded-xl text-sm font-bold hover:bg-black transition-colors flex items-center gap-1"
                         >
                             <FiFilter size={14} /> بحث
                         </button>

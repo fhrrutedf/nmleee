@@ -111,7 +111,7 @@ export default function MyCoursesPage() {
                         <p className="text-gray-500 mb-4">لا توجد مشتريات بعد</p>
                         <Link
                             href="/"
-                            className="inline-block px-6 py-2 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                            className="inline-block px-6 py-2 bg-ink text-white rounded-lg hover:bg-black transition-colors"
                         >
                             تصفح المنتجات
                         </Link>
@@ -175,7 +175,7 @@ export default function MyCoursesPage() {
                                                 ? `/learn/${purchase.slug || purchase.id}`
                                                 : `/download/${purchase.id}`
                                         }
-                                        className="block w-full py-2 bg-ink text-white text-center rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+                                        className="block w-full py-2 bg-ink text-white text-center rounded-lg font-medium hover:bg-black transition-colors"
                                     >
                                         {purchase.type === 'course' ? 'متابعة التعلم' : 'تحميل'}
                                     </Link>

@@ -277,7 +277,7 @@ export default function PayoutSettingsPage() {
                             <button
                                 type="submit"
                                 disabled={saving}
-                                className="w-full px-6 py-3 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
+                                className="w-full px-6 py-3 bg-ink text-white rounded-lg hover:bg-black transition-colors flex items-center justify-center gap-2"
                             >
                                 <FiSave />
                                 {saving ? 'جاري الحفظ...' : 'حفظ الإعدادات'}

@@ -118,7 +118,7 @@ export default function ManualPaymentCard({
                     </div>
                     <button
                         onClick={handleCopy}
-                        className={`shrink-0 w-16 h-16 rounded-xl flex items-center justify-center transition-all ${copied ? 'bg-accent-500 text-white scale-95' : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 active:scale-95 border border-white/5'}`}
+                        className={`shrink-0 w-16 h-16 rounded-xl flex items-center justify-center transition-all ${copied ? 'bg-accent-500 text-white scale-95' : 'bg-white/5 text-slate-400 hover:text-white hover:bg-surface/10 active:scale-95 border border-white/5'}`}
                     >
                         {copied ? <FiCheck size={28} /> : <FiCopy size={24} />}
                     </button>
@@ -173,7 +173,7 @@ export default function ManualPaymentCard({
                                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
                                     <button 
                                         onClick={(e) => { e.stopPropagation(); setProofFile(null); setProofPreview(null); updateParent(senderPhone, transactionRef, null, notes); }}
-                                        className="bg-white/10  p-3 rounded-xl text-white hover:bg-white/20 transition-colors"
+                                        className="bg-surface/10  p-3 rounded-xl text-white hover:bg-white/20 transition-colors"
                                     >
                                         <FiX size={28} />
                                     </button>
@@ -184,7 +184,7 @@ export default function ManualPaymentCard({
                                 key="upload"
                                 className="flex flex-col items-center gap-2"
                             >
-                                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-slate-500 group-hover:text-accent-500 group-hover:bg-white/10 transition-all">
+                                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-slate-500 group-hover:text-accent-500 group-hover:bg-surface/10 transition-all">
                                     <FiUpload size={24} />
                                 </div>
                                 <div className="text-center">

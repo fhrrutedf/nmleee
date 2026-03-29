@@ -191,7 +191,7 @@ export default function ProductPage() {
                                 <div className="space-y-3">
                                     <button
                                         onClick={handleBuyNow}
-                                        className="w-full py-3 bg-ink text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+                                        className="w-full py-3 bg-ink text-white rounded-lg font-medium hover:bg-black transition-colors"
                                     >
                                         اشترِ الآن
                                     </button>

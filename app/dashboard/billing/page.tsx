@@ -238,7 +238,7 @@ export default function BillingPage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
-                        className="inline-flex items-center gap-4 bg-white/10  rounded-xl p-2"
+                        className="inline-flex items-center gap-4 bg-surface/10  rounded-xl p-2"
                     >
                         <button
                             onClick={() => setIsYearly(false)}

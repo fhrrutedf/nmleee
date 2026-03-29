@@ -161,7 +161,7 @@ export default function TakeQuizPage() {
                         <div className="flex gap-4 justify-center">
                             <button
                                 onClick={() => window.location.reload()}
-                                className="px-6 py-2 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                                className="px-6 py-2 bg-ink text-white rounded-lg hover:bg-black transition-colors"
                             >
                                 إعادة المحاولة
                             </button>
@@ -239,7 +239,7 @@ export default function TakeQuizPage() {
                     <button
                         onClick={handleSubmit}
                         disabled={loading || answers.some(a => a === null)}
-                        className="w-full px-6 py-3 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
+                        className="w-full px-6 py-3 bg-ink text-white rounded-lg hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
                     >
                         {loading ? 'جاري التقديم...' : 'تقديم الاختبار'}
                     </button>

@@ -337,7 +337,7 @@ function BalanceCard({
     return (
         <div className={`p-6 rounded-xl transition-all hover:shadow-sm ${highlight ? 'bg-ink text-white ring-1 ring-white/5' : `${c.bg} border border-transparent hover:border-gray-200`}`}>
             <div className="flex items-center justify-between mb-4">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-white ${highlight ? 'bg-white/10' : c.icon}`}>
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-white ${highlight ? 'bg-surface/10' : c.icon}`}>
                     {icon}
                 </div>
             </div>
@@ -527,7 +527,7 @@ function WithdrawModal({
                 <div className="bg-ink rounded-xl p-6 mb-6 text-white text-center shadow-sm shadow-ink/20">
                     <p className="text-xs text-white/40 font-bold uppercase tracking-[0.2em] mb-1">Available for Withdrawal</p>
                     <p className="text-4xl font-bold font-inter tracking-tighter">${fmt(spendable)}</p>
-                    <div className="mt-4 inline-flex px-3 py-1 bg-white/10 rounded-xl text-[10px] font-bold text-white/60">
+                    <div className="mt-4 inline-flex px-3 py-1 bg-surface/10 rounded-xl text-[10px] font-bold text-white/60">
                         Minimum Withdrawal: ${fmt(minPayoutAmount)}
                     </div>
                 </div>

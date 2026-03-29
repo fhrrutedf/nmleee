@@ -527,8 +527,8 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                         style={{ background: `linear-gradient(135deg, ${brandColor} 0%, #7c3aed 100%)` }}
                     >
                         {/* Decorative circles */}
-                        <div className="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-xl blur-2xl" />
-                        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-xl blur-2xl" />
+                        <div className="absolute -top-10 -left-10 w-40 h-40 bg-surface/10 rounded-xl blur-2xl" />
+                        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-surface/10 rounded-xl blur-2xl" />
 
                         <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-5 text-center sm:text-right">
                             <div>

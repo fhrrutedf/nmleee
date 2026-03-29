@@ -171,7 +171,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                         onChange={handleProgressScrub}
                         className="absolute w-full h-full opacity-0 z-20 cursor-pointer"
                     />
-                    <div className="w-full h-full bg-white/30 rounded-xl relative z-10 overflow-hidden">
+                    <div className="w-full h-full bg-surface rounded-xl relative z-10 overflow-hidden">
                         <div
                             className="h-full bg-accent rounded-xl transition-all ease-linear"
                             style={{ width: `${(currentTime / (duration || 1)) * 100}%` }}

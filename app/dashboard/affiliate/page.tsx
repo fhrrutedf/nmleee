@@ -161,7 +161,7 @@ export default function AffiliatePage() {
             <div className="bg-primary-indigo-900 text-white rounded-xl p-12 relative overflow-hidden group">
                 <div className="absolute right-0 top-0 w-96 h-96 bg-primary-indigo-800 rounded-xl blur-[120px] -translate-y-1/2 translate-x-1/2 opacity-40"></div>
                 <div className="relative flex flex-col md:flex-row items-center gap-12">
-                    <div className="w-20 h-20 bg-white/10 rounded-xl flex items-center justify-center text-primary-indigo-300 shrink-0"><FiInfo size={40} /></div>
+                    <div className="w-20 h-20 bg-surface/10 rounded-xl flex items-center justify-center text-primary-indigo-300 shrink-0"><FiInfo size={40} /></div>
                     <div className="flex-1 text-center md:text-right">
                         <h4 className="text-xl font-bold mb-2 leading-tight">كيف تضاعف أرباحك؟ 💰</h4>
                         <p className="text-primary-indigo-200/60 font-bold text-sm leading-relaxed">السر في المحتوى التعليمي. قم بعمل فيديو شرح للمنتج أو الكورس الذي تروّج له على تيك توك أو يوتيوب وضع رابطك في البايو. الزوار الذين يثقون في شرحك هم الأكثر شراءً!</p>

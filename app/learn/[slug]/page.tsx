@@ -196,7 +196,7 @@ export default function LearnPage() {
                     </div>
                     <button 
                         onClick={() => router.push('/dashboard')}
-                        className="w-10 h-10 md:w-auto md:px-5 md:h-11 flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 text-gray-300 rounded-xl transition-all"
+                        className="w-10 h-10 md:w-auto md:px-5 md:h-11 flex items-center justify-center gap-2 bg-white/5 hover:bg-surface/10 text-gray-300 rounded-xl transition-all"
                     >
                         <FiHome className="md:hidden" />
                         <span className="hidden md:block text-xs font-bold">الرئيسية</span>
@@ -292,7 +292,7 @@ export default function LearnPage() {
                                     </div>
                                     <button 
                                         onClick={() => setShowComments(!showComments)}
-                                        className={`flex items-center justify-center gap-2 h-12 px-6 rounded-xl font-bold text-xs transition-all ${showComments ? 'bg-accent-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'}`}
+                                        className={`flex items-center justify-center gap-2 h-12 px-6 rounded-xl font-bold text-xs transition-all ${showComments ? 'bg-accent-600 text-white' : 'bg-white/5 text-gray-400 hover:bg-surface/10'}`}
                                     >
                                         <FiMessageCircle size={18} />
                                         <span>قسم النقاشات</span>
@@ -326,10 +326,10 @@ export default function LearnPage() {
                                 {/* Lesson Actions */}
                                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                                     <div className="flex gap-2 w-full sm:w-auto">
-                                        <button onClick={goToPrevItem} className="flex-1 sm:w-14 sm:h-14 sm:flex-none flex items-center justify-center h-14 bg-white/5 border border-white/10 text-gray-400 hover:bg-white/10 hover:text-white rounded-xl transition-all">
+                                        <button onClick={goToPrevItem} className="flex-1 sm:w-14 sm:h-14 sm:flex-none flex items-center justify-center h-14 bg-white/5 border border-white/10 text-gray-400 hover:bg-surface/10 hover:text-white rounded-xl transition-all">
                                             <FiChevronRight size={24} />
                                         </button>
-                                        <button onClick={goToNextItem} className="flex-1 sm:w-14 sm:h-14 sm:flex-none flex items-center justify-center h-14 bg-white/5 border border-white/10 text-gray-400 hover:bg-white/10 hover:text-white rounded-xl transition-all">
+                                        <button onClick={goToNextItem} className="flex-1 sm:w-14 sm:h-14 sm:flex-none flex items-center justify-center h-14 bg-white/5 border border-white/10 text-gray-400 hover:bg-surface/10 hover:text-white rounded-xl transition-all">
                                             <FiChevronLeft size={24} />
                                         </button>
                                     </div>
@@ -386,7 +386,7 @@ export default function LearnPage() {
                     <button onClick={goToPrevItem} className="w-10 h-10 flex items-center justify-center text-gray-400">
                         <FiChevronRight size={20} />
                     </button>
-                    <div className="w-px h-6 bg-white/10"></div>
+                    <div className="w-px h-6 bg-surface/10"></div>
                     <button 
                          onClick={() => setIsSidebarOpen(true)}
                          className="flex items-center gap-2 px-3 text-[10px] font-bold text-white uppercase tracking-widest"
@@ -394,7 +394,7 @@ export default function LearnPage() {
                         <span>محتوى الدورة</span>
                         <div className="w-5 h-5 bg-accent-600 rounded-xl flex items-center justify-center text-[8px]">{completedCount}/{totalLessons}</div>
                     </button>
-                    <div className="w-px h-6 bg-white/10"></div>
+                    <div className="w-px h-6 bg-surface/10"></div>
                     <button onClick={goToNextItem} className="w-10 h-10 flex items-center justify-center text-gray-400">
                         <FiChevronLeft size={20} />
                     </button>

@@ -300,7 +300,7 @@ export default function AdminBroadcastPage() {
                                     {jobs.reduce((acc, job) => acc + (job.sentCount || 0), 0).toLocaleString()}
                                 </span>
                             </div>
-                            <div className="bg-white/10 p-4 rounded-xl flex items-start gap-3">
+                            <div className="bg-surface/10 p-4 rounded-xl flex items-start gap-3">
                                 <FiInfo className="text-blue-300 shrink-0 mt-1" />
                                 <p className="text-xs text-gray-300 leading-relaxed font-medium">
                                     يتم الإرسال على دفعات لتجنب تصنيف الرسائل كـ (Spam) ولضمان وصولها لصندوق الوارد الرئيسي.

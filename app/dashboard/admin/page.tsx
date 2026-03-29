@@ -292,7 +292,7 @@ export default function AdminDashboardPage() {
                                                 <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{methodLabel[m.method] || m.method}</span>
                                                 <span className="text-sm font-bold text-accent">${fmt(m.total)}</span>
                                             </div>
-                                            <div className="w-full bg-white/10 h-1.5 rounded-xl overflow-hidden">
+                                            <div className="w-full bg-surface/10 h-1.5 rounded-xl overflow-hidden">
                                                 <div className="bg-accent h-full rounded-xl" style={{ width: '60%' }}></div>
                                             </div>
                                         </div>

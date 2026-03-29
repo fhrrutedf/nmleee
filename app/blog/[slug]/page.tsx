@@ -163,7 +163,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         {/* Conversion CTA Block */}
                         <div className="bg-ink rounded-xl p-8 md:p-12 text-white shadow-sm shadow-accent/20 relative overflow-hidden group">
                            {/* Decorative background elements */}
-                           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-xl -translate-y-1/2 translate-x-1/2 blur-3xl group-hover:bg-white/20 transition-all duration-700"></div>
+                           <div className="absolute top-0 right-0 w-64 h-64 bg-surface/10 rounded-xl -translate-y-1/2 translate-x-1/2 blur-3xl group-hover:bg-white/20 transition-all duration-700"></div>
                            <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/20 rounded-xl translate-y-1/2 -translate-x-1/2 blur-2xl"></div>
                            
                            <div className="relative z-10 flex flex-col md:flex-row items-center gap-10">
@@ -174,7 +174,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                        <Link href="/register" className="px-8 py-4 bg-white text-accent rounded-xl font-bold text-xl shadow-sm hover:scale-105 transition-transform text-center">
                                            أنشئ متجرك مجاناً
                                        </Link>
-                                       <Link href="/explore" className="px-8 py-4 bg-white/10 text-white border border-white/20 rounded-xl font-bold text-lg hover:bg-white/20 transition-all text-center">
+                                       <Link href="/explore" className="px-8 py-4 bg-surface/10 text-white border border-white/20 rounded-xl font-bold text-lg hover:bg-white/20 transition-all text-center">
                                            استكشف المنتجات
                                        </Link>
                                    </div>

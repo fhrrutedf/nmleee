@@ -228,7 +228,7 @@ export default function AdminDashboard() {
                                         مراجعة الطلبات <FiArrowUpRight />
                                     </span>
                                 </div>
-                                <div className="w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center group-hover:bg-accent group-hover:scale-110 transition-all">
+                                <div className="w-14 h-14 rounded-xl bg-surface/10 flex items-center justify-center group-hover:bg-accent group-hover:scale-110 transition-all">
                                     <FiClock className="text-2xl" />
                                 </div>
                             </div>

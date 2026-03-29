@@ -61,7 +61,7 @@ function AffiliateBannerContent() {
                         </div>
                         <div className="text-xs sm:text-sm font-bold flex flex-wrap items-center gap-x-1.5 leading-relaxed">
                             <span className="opacity-90">🎉 أنت تستفيد الآن من عرض خاص مقدم من</span>
-                            <span className="bg-white/10 px-2 py-0.5 rounded-md border border-white/20 text-white shadow-inner">
+                            <span className="bg-surface/10 px-2 py-0.5 rounded-md border border-white/20 text-white shadow-inner">
                                 {affiliateName}
                             </span>
                         </div>
@@ -69,7 +69,7 @@ function AffiliateBannerContent() {
                     
                     <button 
                         onClick={() => setIsVisible(false)}
-                        className="p-1 px-2 hover:bg-white/10 rounded-md transition-colors text-white/60 hover:text-white"
+                        className="p-1 px-2 hover:bg-surface/10 rounded-md transition-colors text-white/60 hover:text-white"
                         title="إغلاق التنبيه"
                     >
                         <FiX size={18} />

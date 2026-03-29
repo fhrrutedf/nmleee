@@ -88,7 +88,7 @@ export default function SubscriptionsPage() {
                     </div>
                     <button
                         onClick={() => router.push('/dashboard/subscriptions/new')}
-                        className="flex items-center gap-2 px-4 py-2 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 bg-ink text-white rounded-lg hover:bg-black transition-colors"
                     >
                         <FiPlus />
                         خطة جديدة
@@ -107,7 +107,7 @@ export default function SubscriptionsPage() {
                         </p>
                         <button
                             onClick={() => router.push('/dashboard/subscriptions/new')}
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-ink text-white rounded-lg hover:bg-black transition-colors"
                         >
                             <FiPlus />
                             إنشاء خطة جديدة

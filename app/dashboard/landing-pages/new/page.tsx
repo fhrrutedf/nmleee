@@ -283,7 +283,7 @@ export default function CreateLandingPage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
+                                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-ink text-white rounded-lg hover:bg-black transition-colors disabled:opacity-50"
                             >
                                 <FiSave />
                                 {loading ? 'جاري الحفظ...' : 'حفظ ونشر'}
