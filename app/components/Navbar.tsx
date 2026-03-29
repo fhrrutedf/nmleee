@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FiMenu, FiX, FiChevronLeft } from 'react-icons/fi';
+import { FiMenu, FiX, FiChevronLeft, FiLayers } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 import CartDrawer from '@/components/CartDrawer';
 import { usePathname } from 'next/navigation';
