@@ -340,7 +340,7 @@ export default function AdminOrdersManagement() {
                                                         {getStatusText(order.status)}
                                                     </span>
                                                     {order.paymentMethod === 'manual' && order.status === 'PENDING' && (
-                                                        <button className="text-[10px] flex items-center gap-1 font-bold text-accent hover:text-blue-700 transition-colors bg-accent-50 hover:bg-blue-100 px-2 py-1 rounded w-full justify-center">
+                                                        <button className="text-[10px] flex items-center gap-1 font-bold text-accent hover:text-accent transition-colors bg-accent-50 hover:bg-blue-100 px-2 py-1 rounded w-full justify-center">
                                                             <FiEye /> مرجعة الإيصال
                                                         </button>
                                                     )}

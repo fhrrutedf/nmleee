@@ -164,7 +164,7 @@ export default function AdminPlatformSettingsPage() {
                     <button
                         onClick={handleSave}
                         disabled={saving}
-                        className="bg-accent-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-sm shadow-accent-500/20 disabled:opacity-50"
+                        className="bg-accent-600 hover:bg-ink text-white font-bold px-8 py-4 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-sm shadow-accent-500/20 disabled:opacity-50"
                     >
                         {saving ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-xl animate-spin" /> : <FiSave />}
                         تحديث الإمبراطورية

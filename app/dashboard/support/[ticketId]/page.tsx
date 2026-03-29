@@ -91,7 +91,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
 
     return (
         <div className="space-y-6 max-w-4xl mx-auto pb-12">
-            <Link href="/dashboard/support" className="flex items-center gap-2 text-accent hover:text-blue-700 font-bold mb-4 w-fit transition-colors">
+            <Link href="/dashboard/support" className="flex items-center gap-2 text-accent hover:text-accent font-bold mb-4 w-fit transition-colors">
                 <FiArrowRight /> العودة لمركز الدعم
             </Link>
 

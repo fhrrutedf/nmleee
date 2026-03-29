@@ -66,7 +66,7 @@ export const NotificationListener = () => {
                                 toast.dismiss(t.id);
                                 markAsRead(notif.id);
                             }}
-                            className="w-full border border-transparent rounded-none rounded-l-2xl p-4 flex items-center justify-center text-sm font-bold text-accent hover:text-blue-700 focus:outline-none"
+                            className="w-full border border-transparent rounded-none rounded-l-2xl p-4 flex items-center justify-center text-sm font-bold text-accent hover:text-accent focus:outline-none"
                         >
                             تجاهل
                         </button>

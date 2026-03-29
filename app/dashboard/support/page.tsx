@@ -147,7 +147,7 @@ export default function SellerSupportPage() {
                                             <FiClock /> {new Date(ticket.updatedAt).toLocaleDateString('ar-SA')}
                                         </td>
                                         <td className="px-6 py-4 text-center">
-                                            <Link href={`/dashboard/support/${ticket.id}`} className="text-accent hover:text-blue-700 font-bold underline text-sm">
+                                            <Link href={`/dashboard/support/${ticket.id}`} className="text-accent hover:text-accent font-bold underline text-sm">
                                                 عرض الردود ({ticket._count?.messages || 0})
                                             </Link>
                                         </td>

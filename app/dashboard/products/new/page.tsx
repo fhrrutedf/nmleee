@@ -518,7 +518,7 @@ export default function NewProductPage() {
                             {currentStep < 3 ? (
                                 <button
                                     key="btn-next" type="button" onClick={nextStep}
-                                    className="w-full md:w-auto px-12 py-4 bg-accent-600 text-white rounded-[1.5rem] font-bold flex items-center justify-center gap-2 hover:bg-blue-700 transition-all shadow-sm shadow-blue-100 active:scale-95 text-lg"
+                                    className="w-full md:w-auto px-12 py-4 bg-accent-600 text-white rounded-[1.5rem] font-bold flex items-center justify-center gap-2 hover:bg-ink transition-all shadow-sm shadow-blue-100 active:scale-95 text-lg"
                                 >
                                     حفظ والانتقال للخطوة التالية
                                     <FiArrowLeft />
@@ -595,7 +595,7 @@ export default function NewProductPage() {
                                  <p className="text-sm text-slate-400 font-medium tracking-wide">سيتم عرض المنتج في متجرك الخاص وتفعيل كافة خيارات الشراء فور النشر.</p>
                              </div>
                              <div className="flex flex-col gap-4">
-                                <button onClick={handleSubmit} className="w-full py-5 bg-accent-600 text-white rounded-xl font-bold shadow-sm hover:bg-blue-700 transition-all text-lg">نعم، أطلق المنتج فوراً للعلن</button>
+                                <button onClick={handleSubmit} className="w-full py-5 bg-accent-600 text-white rounded-xl font-bold shadow-sm hover:bg-ink transition-all text-lg">نعم، أطلق المنتج فوراً للعلن</button>
                                 <button onClick={() => setShowConfirmModal(false)} className="w-full py-2 text-slate-400 font-bold hover:bg-slate-50 rounded-xl transition-all uppercase tracking-widest text-xs">مراجعة أخيرة للبيانات المدخلة</button>
                              </div>
                         </motion.div>

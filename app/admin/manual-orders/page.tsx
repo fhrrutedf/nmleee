@@ -272,7 +272,7 @@ export default function ManualOrdersPage() {
                                             <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700 flex gap-3">
                                                 <button
                                                     onClick={() => handleApprove(order.id)}
-                                                    className="flex-1 px-4 py-2.5 bg-accent-600 text-white rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-bold text-sm shadow-sm"
+                                                    className="flex-1 px-4 py-2.5 bg-accent-600 text-white rounded-xl hover:bg-ink transition-colors flex items-center justify-center gap-2 font-bold text-sm shadow-sm"
                                                 >
                                                     <FiCheck /> موافقة
                                                 </button>

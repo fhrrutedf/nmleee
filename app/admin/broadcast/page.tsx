@@ -219,7 +219,7 @@ export default function AdminBroadcastPage() {
                                         <button 
                                             type="submit"
                                             disabled={submitting}
-                                            className="flex-[2] bg-accent hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-sm shadow-accent/30 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                                            className="flex-[2] bg-accent hover:bg-ink text-white font-bold py-4 rounded-xl shadow-sm shadow-accent/30 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
                                         >
                                             {submitting ? <FiLoader className="animate-spin text-xl" /> : <FiSend className="text-lg" />}
                                             {submitting ? 'جاري الجدولة...' : 'إرسال البث الآن'}

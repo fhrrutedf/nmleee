@@ -392,7 +392,7 @@ export default function FinancialsPage() {
                             <h2 className="text-lg font-bold text-ink dark:text-white flex items-center gap-2">
                                 <FiDollarSign className="text-green-500" /> آخر المعاملات
                             </h2>
-                            <Link href="/dashboard/earnings" className="text-sm font-bold text-accent hover:text-blue-700 flex items-center gap-1">
+                            <Link href="/dashboard/earnings" className="text-sm font-bold text-accent hover:text-accent flex items-center gap-1">
                                 عرض الكل <FiExternalLink size={14} />
                             </Link>
                         </div>
@@ -521,7 +521,7 @@ export default function FinancialsPage() {
                                 className={`px-6 py-3 rounded-xl font-bold text-sm transition-all whitespace-nowrap ${
                                     copied
                                         ? 'bg-green-500 text-white'
-                                        : 'bg-accent text-white hover:bg-blue-700'
+                                        : 'bg-accent text-white hover:bg-ink'
                                 }`}
                             >
                                 {copied ? '✓ تم النسخ!' : '📋 نسخ الرابط'}

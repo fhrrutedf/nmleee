@@ -215,7 +215,7 @@ export default function MyPurchasesPage() {
                     <p className="text-blue-800 mb-4">
                         إذا واجهت أي مشكلة في التحميل أو الوصول لمشترياتك، فريق الدعم جاهز لمساعدتك
                     </p>
-                    <Link href="/support" className="btn btn-sm bg-accent-600 hover:bg-blue-700 text-white">
+                    <Link href="/support" className="btn btn-sm bg-accent-600 hover:bg-ink text-white">
                         تواصل مع الدعم
                     </Link>
                 </div>
