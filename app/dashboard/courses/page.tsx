@@ -86,58 +86,62 @@ export default function CoursesPage() {
                     <h1 className="text-3xl font-bold text-ink dark:text-white">الدورات التدريبية</h1>
                     <p className="text-text-muted mt-2">إدارة شاملة لجميع دوراتك التدريبية ومحتواها التعليمي</p>
                 </div>
-                <Link href="/dashboard/courses/new?new=true" className="btn btn-primary shadow-lg hover:shadow-blue-500/25">
+                <Link href="/dashboard/courses/new?new=true" className="px-8 py-4 bg-ink text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-ink/20 hover:bg-black transition-all flex items-center">
                     <FiPlus className="ml-2 text-xl" />
                     <span>إضافة دورة جديدة</span>
                 </Link>
             </div>
 
-            {/* Stats */}
+            {/* High-Contrast Corporate Stats */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="card bg-gradient-to-br from-blue-500 to-blue-600 text-white border-none shadow-lg shadow-blue-500/20">
-                    <div className="flex items-center justify-between">
+                <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-[60px] pointer-events-none"></div>
+                    <div className="flex items-center justify-between relative z-10">
                         <div>
-                            <p className="text-blue-100 text-sm font-medium">إجمالي الدورات</p>
-                            <p className="text-3xl font-bold mt-2">{stats.total}</p>
+                            <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-2">Total Programs</p>
+                            <p className="text-4xl font-black text-ink tracking-tighter">{stats.total}</p>
                         </div>
-                        <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <FiVideo className="text-2xl text-white" />
+                        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-accent shadow-sm group-hover:bg-accent group-hover:text-white transition-all">
+                            <FiVideo size={24} />
                         </div>
                     </div>
                 </div>
 
-                <div className="card bg-gradient-to-br from-green-500 to-green-600 text-white border-none shadow-lg shadow-green-500/20">
-                    <div className="flex items-center justify-between">
+                <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-green-500/5 rounded-bl-[60px] pointer-events-none"></div>
+                    <div className="flex items-center justify-between relative z-10">
                         <div>
-                            <p className="text-green-100 text-sm font-medium">دورات نشطة</p>
-                            <p className="text-3xl font-bold mt-2">{stats.active}</p>
+                            <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-2">Active Assets</p>
+                            <p className="text-4xl font-black text-ink tracking-tighter">{stats.active}</p>
                         </div>
-                        <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <FiCheckCircle className="text-2xl text-white" />
+                        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-green-600 shadow-sm group-hover:bg-green-600 group-hover:text-white transition-all">
+                            <FiCheckCircle size={24} />
                         </div>
                     </div>
                 </div>
 
-                <div className="card bg-gradient-to-br from-gray-500 to-gray-600 text-white border-none shadow-lg shadow-gray-500/20">
-                    <div className="flex items-center justify-between">
+                <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-gray-50 rounded-bl-[60px] pointer-events-none"></div>
+                    <div className="flex items-center justify-between relative z-10">
                         <div>
-                            <p className="text-gray-100 text-sm font-medium">غير نشطة (مسودة)</p>
-                            <p className="text-3xl font-bold mt-2">{stats.inactive}</p>
+                            <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-2">Offline Drafts</p>
+                            <p className="text-4xl font-black text-ink tracking-tighter">{stats.inactive}</p>
                         </div>
-                        <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <FiXCircle className="text-2xl text-white" />
+                        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-gray-400 shadow-sm group-hover:bg-ink group-hover:text-white transition-all">
+                            <FiXCircle size={24} />
                         </div>
                     </div>
                 </div>
 
-                <div className="card bg-gradient-to-br from-purple-500 to-purple-600 text-white border-none shadow-lg shadow-purple-500/20">
-                    <div className="flex items-center justify-between">
+                <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-[60px] pointer-events-none"></div>
+                    <div className="flex items-center justify-between relative z-10">
                         <div>
-                            <p className="text-purple-100 text-sm font-medium">إجمالي القيمة</p>
-                            <p className="text-3xl font-bold mt-2">{stats.totalRevenue.toFixed(0)} <span className="text-sm font-normal opacity-80">$</span></p>
+                            <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-2">Total Curriculum Value</p>
+                            <p className="text-4xl font-black text-ink tracking-tighter">{stats.totalRevenue.toFixed(0)} <span className="text-sm font-bold text-gray-400">$</span></p>
                         </div>
-                        <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <FiDollarSign className="text-2xl text-white" />
+                        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-accent shadow-sm group-hover:bg-accent group-hover:text-white transition-all">
+                            <FiDollarSign size={24} />
                         </div>
                     </div>
                 </div>

@@ -145,7 +145,7 @@ function LoginContent() {
                                     required
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full pl-6 pr-14 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-ink font-bold placeholder:text-gray-300 focus:bg-white focus:border-ink focus:ring-4 focus:ring-ink/5 transition-all text-sm outline-none"
+                                    className="w-full pl-6 pr-14 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-ink font-bold placeholder:text-gray-300 focus:bg-white focus:border-accent focus:ring-4 focus:ring-accent/5 transition-all text-sm outline-none"
                                     placeholder="البريد الإلكتروني"
                                 />
                             </div>
@@ -157,7 +157,7 @@ function LoginContent() {
                                     required
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                    className="w-full pl-6 pr-14 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-ink font-bold placeholder:text-gray-300 focus:bg-white focus:border-ink focus:ring-4 focus:ring-ink/5 transition-all text-sm outline-none"
+                                    className="w-full pl-6 pr-14 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-ink font-bold placeholder:text-gray-300 focus:bg-white focus:border-accent focus:ring-4 focus:ring-accent/5 transition-all text-sm outline-none"
                                     placeholder="كلمة المرور"
                                 />
                             </div>

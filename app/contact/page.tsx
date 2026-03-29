@@ -56,27 +56,25 @@ export default function ContactPage() {
     };
 
     return (
-        <div className="min-h-screen bg-bg-light relative overflow-hidden">
-            {/* Background Elements */}
-            <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-accent/10 rounded-full blur-[80px] -z-10 pointer-events-none"></div>
-            <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
+        <div className="min-h-screen bg-white relative overflow-hidden selection:bg-accent/20">
+            {/* Minimalist Professional Accents */}
+            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[150px] -z-10 pointer-events-none"></div>
 
             <div className="max-w-7xl mx-auto px-4 py-20 lg:py-32 relative z-10">
-                {/* Header */}
                 <motion.div
                     initial="hidden"
                     animate="visible"
                     variants={fadeInUp}
-                    className="text-center mb-20 max-w-3xl mx-auto"
+                    className="text-center mb-24 max-w-4xl mx-auto"
                 >
-                    <span className="inline-block py-1.5 px-4 rounded-full bg-blue-100/50 text-accent font-bold tracking-wider text-sm mb-6 border border-blue-200">
-                        نحن دائماً في الخدمة
-                    </span>
-                    <h1 className="text-5xl md:text-6xl font-bold text-ink mb-6 font-heading">
-                        لنبقَ على <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-600">تواصل</span>
+                    <div className="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-[0.3em] mb-10 text-accent shadow-sm">
+                        Strategic Support Unit
+                    </div>
+                    <h1 className="text-5xl md:text-8xl font-black text-ink mb-10 tracking-tighter leading-[1.05]">
+                        تحدث معنا <br/> <span className="text-accent underline underline-offset-[12px] decoration-accent/10">مباشرة</span>
                     </h1>
-                    <p className="text-xl text-text-muted font-light leading-relaxed">
-                        سواء كان لديك استفسار، تعليق، أو تحتاج إلى مساعدة... فريقنا جاهز للرد عليك في أسرع وقت ممكن.
+                    <p className="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto font-bold leading-relaxed">
+                        سواء كان لديك استفسار تقني أو استراتيجي... فريقنا المتخصص في نمو المبدعين جاهز للرد عليك.
                     </p>
                 </motion.div>
 
@@ -93,22 +91,22 @@ export default function ContactPage() {
                                 icon: <FiMail className="text-2xl text-accent" />,
                                 title: 'البريد الإلكتروني',
                                 lines: ['support@tmleen.com', 'info@tmleen.com'],
-                                bg: 'bg-blue-50',
+                                bg: 'bg-gray-50',
                                 delay: 0.1
                             },
                             {
-                                icon: <FiPhone className="text-2xl text-green-600" />,
-                                title: 'الهاتف الساخن',
-                                lines: ['+20 123 456 7890 (مصر)', '+966 50 123 4567 (السعودية)'],
+                                icon: <FiPhone className="text-2xl text-accent" />,
+                                title: 'الدعم التقني',
+                                lines: ['+966 50 123 4567'],
                                 sub: 'السبت - الخميس: 9 صباحاً - 6 مساءً',
-                                bg: 'bg-green-50',
+                                bg: 'bg-gray-50',
                                 delay: 0.2
                             },
                             {
-                                icon: <FiMapPin className="text-2xl text-purple-600" />,
-                                title: 'المقر الرئيسي',
-                                lines: ['المعادي - شارع 9', 'القاهرة، جمهورية مصر العربية'],
-                                bg: 'bg-purple-50',
+                                icon: <FiMapPin className="text-2xl text-accent" />,
+                                title: 'المقر الرقمي',
+                                lines: ['عن بُعد، حول العالم العربي'],
+                                bg: 'bg-gray-50',
                                 delay: 0.3
                             }
                         ].map((info, idx) => (
@@ -139,11 +137,11 @@ export default function ContactPage() {
                         variants={slideInLeft}
                         className="lg:col-span-2 lg:order-1 relative"
                     >
-                        <div className="bg-white rounded-xl shadow-2xl shadow-gray-200/50 p-8 md:p-12 border border-gray-100 overflow-hidden relative">
+                        <div className="bg-white rounded-[2.5rem] shadow-premium p-10 md:p-16 border border-gray-100 overflow-hidden relative">
                             {/* Decorative element inside form */}
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent/10 to-transparent rounded-bl-[100px] pointer-events-none"></div>
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-[100px] pointer-events-none"></div>
 
-                            <h2 className="text-3xl font-bold mb-8 text-ink">أرسل لنا رسالة المباشرة</h2>
+                            <h2 className="text-2xl font-black mb-10 text-ink tracking-tight uppercase">SEND ENQUIRY</h2>
 
                             <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -198,7 +196,7 @@ export default function ContactPage() {
                                         id="message"
                                         value={formData.message}
                                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                        className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer resize-none"
+                                        className="block w-full px-6 py-5 text-ink bg-gray-50 border border-gray-100 rounded-2xl appearance-none focus:outline-none focus:ring-4 focus:ring-accent/10 focus:border-accent transition-all peer"
                                         placeholder=" "
                                         rows={6}
                                         required
@@ -213,22 +211,22 @@ export default function ContactPage() {
                                     whileTap={{ scale: 0.98 }}
                                     type="submit"
                                     disabled={loading || success}
-                                    className={`w-full text-lg py-5 rounded-2xl flex items-center justify-center gap-3 font-bold transition-all duration-300 shadow-xl
-                                        ${success ? 'bg-green-500 text-white shadow-green-500/30' : 'bg-accent text-white hover:bg-blue-700 shadow-accent/30'}
+                                    className={`w-full text-[10px] font-black uppercase tracking-[0.3em] py-6 rounded-2xl flex items-center justify-center gap-3 transition-all duration-300 shadow-2xl
+                                        ${success ? 'bg-accent text-white shadow-accent/20' : 'bg-ink text-white hover:bg-black shadow-ink/20'}
                                         ${loading ? 'opacity-80 cursor-not-allowed' : ''}
                                     `}
                                 >
                                     {loading ? (
-                                        <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                        <div className="w-5 h-5 border-[3px] border-white/30 border-t-white rounded-full animate-spin"></div>
                                     ) : success ? (
                                         <>
-                                            <FiCheckCircle className="text-2xl" />
-                                            <span>تم الإرسال بنجاح!</span>
+                                            <FiCheckCircle className="text-xl" />
+                                            <span>SUCCESSFULLY SENT</span>
                                         </>
                                     ) : (
                                         <>
-                                            <FiSend className="text-xl" />
-                                            <span>إرسال الرسالة الآن</span>
+                                            <FiSend className="text-lg" />
+                                            <span>INITIATE CONTACT</span>
                                         </>
                                     )}
                                 </motion.button>

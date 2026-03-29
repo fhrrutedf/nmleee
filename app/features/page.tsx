@@ -74,24 +74,23 @@ export default function FeaturesPage() {
 
     return (
         <div ref={containerRef} className="min-h-screen bg-white overflow-hidden selection:bg-accent/20">
-            {/* Minimalist Professional Hero */}
-            <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-ink">
-                <motion.div style={{ y: yParallax, opacity: opacityFade }} className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:80px_80px]"></div>
-                    <div className="absolute top-0 right-0 w-[60%] h-[60%] bg-accent/5 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
-                </motion.div>
-
-                <div className="max-w-7xl mx-auto px-6 relative z-10 text-center text-white">
+            {/* High-Performance Corporate Hero */}
+            <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-white py-20">
+                <div className="absolute inset-0 z-0">
+                    <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+                </div>
+                
+                <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
                     <motion.div
-                        initial={{ opacity: 0, y: 40 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-accent">
+                        <div className="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-[0.3em] mb-10 text-accent shadow-sm">
                             Infrastructure for Creators
                         </div>
-                        <h1 className="text-5xl md:text-8xl font-bold mb-8 tracking-tighter leading-[1.1]">
-                            بنية تحتية <span className="text-accent">بلا حدود</span>
+                        <h1 className="text-5xl md:text-8xl font-black text-ink mb-10 tracking-tighter leading-[1.05]">
+                            بنية تحتية <br/> <span className="text-accent underline underline-offset-[12px] decoration-accent/10">بلا حدود</span>
                         </h1>
                         <p className="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto font-bold leading-relaxed">
                             لقد قمنا ببناء كافة الأدوات المعقدة لكي تتمكن أنت من التركيز على صناعة المحتوى والبيع بكل سهولة.
@@ -186,19 +185,19 @@ export default function FeaturesPage() {
             </section>
 
             {/* High-End Refined CTA */}
-            <section className="py-32 bg-white">
-                <div className="max-w-4xl mx-auto px-6 text-center">
-                   <div className="bg-gray-50 rounded-[3rem] p-12 md:p-24 border border-gray-100 relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[100px]"></div>
-                        <h2 className="text-4xl md:text-7xl font-black text-ink tracking-tighter mb-10 relative z-10 leading-[0.9]">
-                            ابدأ ببناء <br/> إمبراطوريتك.
+            <section className="py-40 bg-white">
+                <div className="max-w-5xl mx-auto px-6 text-center">
+                   <div className="bg-ink rounded-[3.5rem] p-16 md:p-32 border border-white/5 relative overflow-hidden group shadow-2xl shadow-ink/20">
+                        <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-accent/10 rounded-full blur-[120px]"></div>
+                        <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter mb-12 relative z-10 leading-[0.95]">
+                            ابدأ ببناء <br/> <span className="text-accent">إمبراطوريتك.</span>
                         </h2>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-                            <Link href="/register" className="px-12 py-5 bg-ink text-white rounded-2xl font-bold hover:bg-gray-800 transition-all shadow-xl shadow-ink/20">
-                                أنشئ حسابك الآن
+                        <div className="flex flex-col sm:flex-row gap-6 justify-center relative z-10">
+                            <Link href="/register" className="px-14 py-6 bg-accent text-white rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-ink transition-all shadow-xl shadow-accent/20">
+                                Start Your Mission Now
                             </Link>
-                            <Link href="/pricing" className="px-12 py-5 bg-white text-ink border border-gray-200 rounded-2xl font-bold hover:border-ink transition-all">
-                                عرض خطط الأسعار
+                            <Link href="/pricing" className="px-14 py-6 bg-white/5 text-white border border-white/10 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-ink transition-all">
+                                View Pricing Plans
                             </Link>
                         </div>
                    </div>
