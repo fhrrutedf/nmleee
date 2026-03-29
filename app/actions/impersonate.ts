@@ -26,16 +26,16 @@ export async function impersonateUser(targetUserId: string) {
 
     const token = await encode({
         token: {
-            name: targetUser.name,
+            name: targetUser.name ?? undefined,
             email: targetUser.email,
-            picture: targetUser.avatar,
+            picture: targetUser.avatar ?? undefined,
             sub: targetUser.id,
             id: targetUser.id,
             username: targetUser.username,
             role: targetUser.role,
             isImpersonating: true,
             originalAdminId: adminId,
-            originalAdminName: adminName,
+            originalAdminName: adminName ?? undefined,
             iat: Math.floor(Date.now() / 1000),
             exp: Math.floor(Date.now() / 1000) + maxAge,
         },
@@ -72,9 +72,9 @@ export async function revertImpersonation() {
 
     const token = await encode({
         token: {
-            name: admin.name,
+            name: admin.name ?? undefined,
             email: admin.email,
-            picture: admin.avatar,
+            picture: admin.avatar ?? undefined,
             sub: admin.id,
             id: admin.id,
             username: admin.username,
