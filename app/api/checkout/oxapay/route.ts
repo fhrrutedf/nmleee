@@ -5,7 +5,7 @@ import { authOptions } from '@/lib/auth';
 import { ensurePlanCurrent, getPlatformSettings } from '@/lib/commission';
 import { round2, calculateTieredCommission } from '@/lib/spaceremit';
 
-const OXAPAY_API_URL = 'https://api.oxapay.com/api/v2';
+const OXAPAY_API_URL = 'https://api.oxapay.com';
 const OXAPAY_MERCHANT_KEY = process.env.OXAPAY_MERCHANT_KEY;
 
 export async function POST(req: NextRequest) {
