@@ -140,7 +140,6 @@
   .label {
     @apply block text-sm font-bold mb-3 text-gray-400 uppercase tracking-widest;
   }
-}
 
   .container-custom {
     @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
