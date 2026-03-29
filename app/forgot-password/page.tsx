@@ -58,15 +58,15 @@ export default function ForgotPasswordPage() {
                 {/* Logo/Title */}
                 <motion.div variants={fadeInUp} className="text-center mb-10">
                     <Link href="/" className="inline-block mb-6">
-                        <div className="w-16 h-16 mx-auto rounded-xl bg-emerald-700 flex items-center justify-center text-white shadow-lg shadow-emerald-600/20 shadow-accent/20">
+                        <div className="w-16 h-16 mx-auto rounded-xl bg-emerald-700 flex items-center justify-center text-white shadow-lg shadow-[#10B981]/20 shadow-accent/20">
                             <span className="text-3xl font-bold">م</span>
                         </div>
                     </Link>
-                    <h1 className="text-4xl font-bold text-emerald-600 mb-3">نسيت كلمة المرور؟</h1>
+                    <h1 className="text-4xl font-bold text-[#10B981] mb-3">نسيت كلمة المرور؟</h1>
                     <p className="text-text-muted text-lg">أدخل بريدك الإلكتروني لاستعادة الوصول لحسابك</p>
                 </motion.div>
 
-                <motion.div variants={fadeInUp} className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 p-8 sm:p-10 relative overflow-hidden">
+                <motion.div variants={fadeInUp} className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 p-8 sm:p-10 relative overflow-hidden">
                     <AnimatePresence mode="wait">
                         {status === 'success' ? (
                             <motion.div
@@ -78,7 +78,7 @@ export default function ForgotPasswordPage() {
                                 <div className="w-20 h-20 bg-green-50 text-green-500 rounded-xl flex items-center justify-center mx-auto mb-6 border border-green-100 shadow-inner">
                                     <FiCheckCircle size={40} />
                                 </div>
-                                <h2 className="text-2xl font-bold text-gray-900 mb-4">تم الإرسال بنجاح!</h2>
+                                <h2 className="text-2xl font-bold text-white mb-4">تم الإرسال بنجاح!</h2>
                                 <p className="text-gray-500 mb-8 leading-relaxed">
                                     إذا كان البريد الإلكتروني مسجلاً لدينا، ستتلقى رابطاً لاستعادة كلمة المرور خلال دقائق.
                                     <span className="block mt-2 text-sm text-gray-400">(تحقق من مجلد الرسائل المزعجة Spam)</span>
@@ -101,15 +101,15 @@ export default function ForgotPasswordPage() {
                                                 required
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
-                                                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 pr-12 font-semibold focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all ltr"
+                                                className="w-full bg-[#111111] border border-gray-200 rounded-xl px-5 py-4 pr-12 font-semibold focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all ltr"
                                                 placeholder="name@example.com"
                                             />
-                                            <FiMail className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl group-focus-within:text-emerald-600 transition-colors" />
+                                            <FiMail className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl group-focus-within:text-[#10B981] transition-colors" />
                                         </div>
                                     </div>
 
                                     {status === 'error' && (
-                                        <div className="p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm flex items-start gap-3 shadow-lg shadow-emerald-600/20">
+                                        <div className="p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm flex items-start gap-3 shadow-lg shadow-[#10B981]/20">
                                             <FiAlertCircle className="mt-0.5 shrink-0" />
                                             {error}
                                         </div>
@@ -118,7 +118,7 @@ export default function ForgotPasswordPage() {
                                     <button
                                         type="submit"
                                         disabled={status === 'loading'}
-                                        className="w-full btn btn-primary py-4 rounded-xl text-lg font-bold shadow-lg shadow-emerald-600/20 shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:transform-none shadow-accent/30"
+                                        className="w-full btn btn-primary py-4 rounded-xl text-lg font-bold shadow-lg shadow-[#10B981]/20 shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:transform-none shadow-accent/30"
                                     >
                                         {status === 'loading' ? (
                                             <>
@@ -134,7 +134,7 @@ export default function ForgotPasswordPage() {
                                     </button>
 
                                     <div className="text-center pt-6 border-t border-gray-100">
-                                        <Link href="/login" className="text-sm font-bold text-text-muted hover:text-emerald-600 transition-colors flex items-center justify-center gap-2 group">
+                                        <Link href="/login" className="text-sm font-bold text-text-muted hover:text-[#10B981] transition-colors flex items-center justify-center gap-2 group">
                                             <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                                             العودة لتسجيل الدخول
                                         </Link>
@@ -147,7 +147,7 @@ export default function ForgotPasswordPage() {
 
                 {/* Back Link */}
                 <motion.div variants={fadeInUp} className="text-center mt-8">
-                    <Link href="/" className="text-text-muted hover:text-emerald-600 transition-colors text-sm font-medium flex items-center justify-center gap-2 group">
+                    <Link href="/" className="text-text-muted hover:text-[#10B981] transition-colors text-sm font-medium flex items-center justify-center gap-2 group">
                         <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                         العودة للمنصة الرئيسية
                     </Link>

@@ -65,10 +65,10 @@ export default function CreateLandingPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-[#111111] py-8">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-                <div className="bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 p-6 sm:p-8">
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">إنشاء صفحة هبوط</h1>
+                <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-6 sm:p-8">
+                    <h1 className="text-2xl font-bold text-white dark:text-white mb-6">إنشاء صفحة هبوط</h1>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Basic Info */}
@@ -154,7 +154,7 @@ export default function CreateLandingPage() {
                             <button
                                 type="button"
                                 onClick={addFeature}
-                                className="mt-2 text-sm text-emerald-600 hover:text-indigo-700 font-medium"
+                                className="mt-2 text-sm text-[#10B981] hover:text-indigo-700 font-medium"
                             >
                                 + إضافة ميزة
                             </button>
@@ -197,7 +197,7 @@ export default function CreateLandingPage() {
                                     id="showCountdown"
                                     checked={formData.showCountdown}
                                     onChange={(e) => setFormData({ ...formData, showCountdown: e.target.checked })}
-                                    className="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-ink"
+                                    className="w-4 h-4 text-[#10B981] border-gray-300 rounded focus:ring-ink"
                                 />
                                 <label htmlFor="showCountdown" className="text-sm font-medium text-gray-700">
                                     إضافة عداد تنازلي للعرض المحدود

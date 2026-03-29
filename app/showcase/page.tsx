@@ -54,7 +54,7 @@ export default function ShowcasePage() {
     ];
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-[#0A0A0A]">
             <section className="bg-primary-900 text-white py-20">
                 <div className="container-custom text-center">
                     <h1 className="text-5xl font-bold mb-6 font-heading">قصص نجاح ملهمة</h1>
@@ -68,7 +68,7 @@ export default function ShowcasePage() {
                 <div className="container-custom">
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {showcases.map((item, idx) => (
-                            <div key={idx} className="group rounded-xl overflow-hidden shadow-lg shadow-emerald-600/20 border border-gray-100 hover:shadow-lg shadow-emerald-600/20 transition-all hover:-translate-y-2 bg-white">
+                            <div key={idx} className="group rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20 border border-gray-100 hover:shadow-lg shadow-[#10B981]/20 transition-all hover:-translate-y-2 bg-[#0A0A0A]">
                                 <div className="h-48 overflow-hidden relative">
                                     <div className="absolute inset-0 bg-black/20 group-hover:bg-emerald-700/10 transition-colors z-10"></div>
                                     <img
@@ -81,7 +81,7 @@ export default function ShowcasePage() {
                                     </div>
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-600 transition-colors">{item.title}</h3>
+                                    <h3 className="text-xl font-bold mb-2 group-hover:text-[#10B981] transition-colors">{item.title}</h3>
                                     <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
                                         <FiUser /> <span>{item.owner}</span>
                                         <span className="mx-2">•</span>
@@ -90,7 +90,7 @@ export default function ShowcasePage() {
                                     <p className="text-gray-600 leading-relaxed mb-6">
                                         {item.desc}
                                     </p>
-                                    <Link href="#" className="flex items-center justify-center gap-2 w-full py-2 bg-gray-50 hover:bg-primary-50 text-emerald-600 rounded-lg font-bold transition-colors">
+                                    <Link href="#" className="flex items-center justify-center gap-2 w-full py-2 bg-[#111111] hover:bg-primary-50 text-[#10B981] rounded-lg font-bold transition-colors">
                                         زيارة المتجر <FiExternalLink />
                                     </Link>
                                 </div>
@@ -98,12 +98,12 @@ export default function ShowcasePage() {
                         ))}
                     </div>
 
-                    <div className="mt-20 bg-gray-50 rounded-xl p-12 text-center">
+                    <div className="mt-20 bg-[#111111] rounded-xl p-12 text-center">
                         <h2 className="text-3xl font-bold mb-6">هل لديك فكرة مشروع؟</h2>
                         <p className="text-xl text-gray-600 mb-8">
                             لا تدع أفكارك تبقى حبيسة الأدراج. ابدأ اليوم وحول شغفك إلى مشروع حقيقي.
                         </p>
-                        <Link href="/register" className="btn btn-primary text-lg px-10 py-4 shadow-lg shadow-emerald-600/20">
+                        <Link href="/register" className="btn btn-primary text-lg px-10 py-4 shadow-lg shadow-[#10B981]/20">
                             ابدأ قصتك الآن
                         </Link>
                     </div>

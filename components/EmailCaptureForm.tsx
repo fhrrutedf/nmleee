@@ -75,7 +75,7 @@ export default function EmailCaptureForm({
                 className="rounded-lg p-8 text-center"
                 style={{ backgroundColor, color: textColor }}
             >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-white  rounded-xl mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-[#0A0A0A]  rounded-xl mb-4">
                     <FiCheck size={32} />
                 </div>
                 <h3 className="text-xl font-bold mb-2">{successMessage}</h3>
@@ -90,7 +90,7 @@ export default function EmailCaptureForm({
             style={{ backgroundColor, color: textColor }}
         >
             <div className="text-center mb-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-white  rounded-xl mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-[#0A0A0A]  rounded-xl mb-4">
                     <FiMail size={32} />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">{title}</h3>
@@ -104,7 +104,7 @@ export default function EmailCaptureForm({
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder={placeholder}
-                        className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-white focus:outline-none"
+                        className="w-full px-4 py-3 rounded-lg bg-[#0A0A0A] text-white placeholder-gray-500 focus:ring-2 focus:ring-white focus:outline-none"
                         required
                     />
                     {error && (

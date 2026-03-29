@@ -29,7 +29,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-24 bg-slate-50 overflow-hidden">
+    <section className="py-24 bg-[#111111] overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <motion.span 
@@ -45,7 +45,7 @@ export default function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold text-slate-900 mt-6"
+            className="text-4xl md:text-5xl font-bold text-white mt-6"
           >
             نحن نبني المستقبل <br/> <span className="text-primary-ink">بثقتكم</span>
           </motion.h2>
@@ -59,20 +59,20 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-white p-8 rounded-[2.5rem] shadow-lg shadow-emerald-600/20 border border-slate-100 hover:shadow-lg shadow-emerald-600/20 transition-all group"
+              className="bg-[#0A0A0A] p-8 rounded-[2.5rem] shadow-lg shadow-[#10B981]/20 border border-slate-100 hover:shadow-lg shadow-[#10B981]/20 transition-all group"
             >
               <div className="flex gap-1 mb-6">
                 {[...Array(t.rating)].map((_, idx) => (
                   <FiStar key={idx} className="text-blue-400 fill-blue-400" />
                 ))}
               </div>
-              <p className="text-slate-600 leading-relaxed font-medium mb-8 text-lg">
+              <p className="text-gray-400 leading-relaxed font-medium mb-8 text-lg">
                 "{t.content}"
               </p>
               <div className="flex items-center gap-4 border-t border-slate-50 pt-6">
                 <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-xl object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
                 <div>
-                  <h4 className="font-bold text-slate-900">{t.name}</h4>
+                  <h4 className="font-bold text-white">{t.name}</h4>
                   <p className="text-xs text-slate-400 font-bold">{t.role}</p>
                 </div>
               </div>

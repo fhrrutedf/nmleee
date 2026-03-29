@@ -63,10 +63,10 @@ export default function NewSubscriptionPlanPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-[#111111] py-8">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="bg-white rounded-lg shadow-md p-6">
-                    <h1 className="text-2xl font-bold text-gray-900 mb-6">إنشاء خطة اشتراك جديدة</h1>
+                <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
+                    <h1 className="text-2xl font-bold text-white mb-6">إنشاء خطة اشتراك جديدة</h1>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Name */}
@@ -162,7 +162,7 @@ export default function NewSubscriptionPlanPage() {
                             <button
                                 type="button"
                                 onClick={addFeature}
-                                className="mt-2 flex items-center gap-2 text-emerald-600 hover:text-indigo-700 text-sm font-medium"
+                                className="mt-2 flex items-center gap-2 text-[#10B981] hover:text-indigo-700 text-sm font-medium"
                             >
                                 <FiPlus size={16} />
                                 إضافة ميزة

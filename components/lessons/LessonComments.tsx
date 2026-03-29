@@ -57,12 +57,12 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
     };
 
     return (
-        <div className="mt-12 bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-8">
+        <div className="mt-12 bg-[#0A0A0A] dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-8">
             <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 bg-emerald-700/10 text-emerald-600 rounded-xl">
+                <div className="p-3 bg-emerald-700/10 text-[#10B981] rounded-xl">
                     <FiMessageSquare size={24} />
                 </div>
-                <h3 className="text-xl font-bold text-emerald-600 dark:text-white">النقاشات والأسئلة ({comments.length})</h3>
+                <h3 className="text-xl font-bold text-[#10B981] dark:text-white">النقاشات والأسئلة ({comments.length})</h3>
             </div>
 
             {/* Post Input */}
@@ -71,7 +71,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="لديك استفسار أو إضافة؟ اكتبها هنا..."
-                    className="w-full p-5 bg-gray-50/50 dark:bg-bg-dark/50 border border-gray-100 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all min-h-[120px] text-lg font-medium pr-14"
+                    className="w-full p-5 bg-[#111111]/50 dark:bg-bg-dark/50 border border-gray-100 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all min-h-[120px] text-lg font-medium pr-14"
                 />
                 <div className="absolute top-5 right-5 text-gray-400">
                     <FiSend size={24} />
@@ -80,7 +80,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                     <button
                         onClick={() => submitComment()}
                         disabled={loading || !newComment.trim()}
-                        className="px-6 py-3 bg-emerald-700 text-white rounded-xl font-bold hover:shadow-lg shadow-emerald-600/20 hover:shadow-accent/20 transition-all disabled:opacity-50"
+                        className="px-6 py-3 bg-emerald-700 text-white rounded-xl font-bold hover:shadow-lg shadow-[#10B981]/20 hover:shadow-accent/20 transition-all disabled:opacity-50"
                     >
                         نشـر التعليق
                     </button>
@@ -97,12 +97,12 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                     comments.map((comment) => (
                         <div key={comment.id} className="group">
                             <div className="flex gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-emerald-700 dark:from-gray-800 dark:to-gray-700 font-bold text-emerald-600 dark:text-white flex items-center justify-center shrink-0">
+                                <div className="w-12 h-12 rounded-xl bg-emerald-700 dark:from-gray-800 dark:to-gray-700 font-bold text-[#10B981] dark:text-white flex items-center justify-center shrink-0">
                                     {comment.authorName?.[0]}
                                 </div>
                                 <div className="flex-1">
                                     <div className="flex items-center justify-between mb-2">
-                                        <h4 className="font-bold text-emerald-600 dark:text-white">{comment.authorName}</h4>
+                                        <h4 className="font-bold text-[#10B981] dark:text-white">{comment.authorName}</h4>
                                         <span className="text-xs text-gray-400 font-bold">
                                             {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true, locale: ar })}
                                         </span>
@@ -113,7 +113,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                                     <div className="flex items-center gap-4">
                                         <button 
                                             onClick={() => setReplyingTo(comment.id)}
-                                            className="text-emerald-600 font-bold text-sm hover:underline flex items-center gap-1"
+                                            className="text-[#10B981] font-bold text-sm hover:underline flex items-center gap-1"
                                         >
                                             رد <FiCornerDownLeft />
                                         </button>
@@ -125,7 +125,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                                             {comment.replies.map(reply => (
                                                 <div key={reply.id}>
                                                      <div className="flex items-center gap-2 mb-1">
-                                                        <span className="font-bold text-sm text-emerald-600 dark:text-white">{reply.authorName}</span>
+                                                        <span className="font-bold text-sm text-[#10B981] dark:text-white">{reply.authorName}</span>
                                                         <span className="text-[10px] text-gray-400">{formatDistanceToNow(new Date(reply.createdAt), { addSuffix: true, locale: ar })}</span>
                                                      </div>
                                                      <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{reply.content}</p>

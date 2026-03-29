@@ -73,7 +73,7 @@ export default function ProductPage() {
 
     if (!product || !creator) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50">
+            <div className="min-h-screen flex items-center justify-center bg-[#111111]">
                 <div className="text-center">
                     <h1 className="text-4xl font-bold mb-4">404</h1>
                     <p className="text-gray-600 mb-6">المنتج غير موجود</p>
@@ -88,18 +88,18 @@ export default function ProductPage() {
     const brandColor = creator.brandColor || '#0ea5e9';
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-[#111111]">
             {/* Breadcrumb */}
-            <div className="bg-white border-b">
+            <div className="bg-[#0A0A0A] border-b">
                 <div className="max-w-6xl mx-auto px-4 py-4">
                     <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <Link href="/" className="hover:text-emerald-600">الرئيسية</Link>
+                        <Link href="/" className="hover:text-[#10B981]">الرئيسية</Link>
                         <span>/</span>
-                        <Link href={`/@${creator.username}`} className="hover:text-emerald-600">
+                        <Link href={`/@${creator.username}`} className="hover:text-[#10B981]">
                             @{creator.username}
                         </Link>
                         <span>/</span>
-                        <span className="text-gray-900">{product.title}</span>
+                        <span className="text-white">{product.title}</span>
                     </div>
                 </div>
             </div>
@@ -113,11 +113,11 @@ export default function ProductPage() {
                             <img
                                 src={product.image}
                                 alt={product.title}
-                                className="w-full rounded-xl shadow-lg shadow-emerald-600/20"
+                                className="w-full rounded-xl shadow-lg shadow-[#10B981]/20"
                             />
                         ) : (
                             <div
-                                className="w-full aspect-video rounded-xl shadow-lg shadow-emerald-600/20 flex items-center justify-center"
+                                className="w-full aspect-video rounded-xl shadow-lg shadow-[#10B981]/20 flex items-center justify-center"
                                 style={{
                                     background: `linear-gradient(135deg, ${brandColor}20 0%, ${brandColor}40 100%)`
                                 }}
@@ -127,7 +127,7 @@ export default function ProductPage() {
                         )}
 
                         {/* Creator Info Card */}
-                        <div className="bg-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
+                        <div className="bg-[#0A0A0A] rounded-xl p-6 shadow-lg shadow-[#10B981]/20">
                             <h3 className="text-sm font-medium text-gray-500 mb-3">البائع</h3>
                             <Link
                                 href={`/@${creator.username}`}
@@ -148,7 +148,7 @@ export default function ProductPage() {
                                     </div>
                                 )}
                                 <div>
-                                    <p className="font-bold group-hover:text-emerald-600 transition-colors">
+                                    <p className="font-bold group-hover:text-[#10B981] transition-colors">
                                         {creator.name}
                                     </p>
                                     <p className="text-sm text-gray-500">@{creator.username}</p>
@@ -192,7 +192,7 @@ export default function ProductPage() {
                         </div>
 
                         {/* Price */}
-                        <div className="bg-white rounded-xl p-8 shadow-lg shadow-emerald-600/20 border border-slate-100">
+                        <div className="bg-[#0A0A0A] rounded-xl p-8 shadow-lg shadow-[#10B981]/20 border border-slate-100">
                             <div className="flex flex-col gap-2">
                                 {product.originalPrice && product.originalPrice > product.price && (
                                     <div className="flex items-center gap-2">
@@ -208,7 +208,7 @@ export default function ProductPage() {
                                     <span className="text-6xl font-bold tracking-tight" style={{ color: brandColor }}>
                                         {typeof product.price === 'number' ? product.price.toFixed(0) : '0'}
                                     </span>
-                                    <span className="text-2xl text-slate-500 font-bold">$</span>
+                                    <span className="text-2xl text-gray-500 font-bold">$</span>
                                 </div>
                             </div>
                             
@@ -220,7 +220,7 @@ export default function ProductPage() {
                                     </div>
                                     <div>
                                         <p className="text-xs font-bold text-blue-800 uppercase tracking-widest">عرض لفترة محدودة</p>
-                                        <p className="text-sm font-bold text-emerald-600">ينتهي العرض قريباً! سارع بالطلب</p>
+                                        <p className="text-sm font-bold text-[#10B981]">ينتهي العرض قريباً! سارع بالطلب</p>
                                     </div>
                                 </div>
                             )}
@@ -258,7 +258,7 @@ export default function ProductPage() {
                         {/* CTA Button */}
                         <button
                             onClick={handlePurchase}
-                            className="w-full py-4 rounded-xl font-bold text-white text-lg shadow-lg shadow-emerald-600/20 hover:shadow-lg shadow-emerald-600/20 transition-all transform hover:scale-105"
+                            className="w-full py-4 rounded-xl font-bold text-white text-lg shadow-lg shadow-[#10B981]/20 hover:shadow-lg shadow-[#10B981]/20 transition-all transform hover:scale-105"
                             style={{ backgroundColor: brandColor }}
                         >
                             <FiShoppingCart className="inline ml-2" />
@@ -268,8 +268,8 @@ export default function ProductPage() {
                         {/* Additional Info */}
                         <div className="grid grid-cols-2 gap-6 pt-8 border-t border-slate-100">
                             {(product.duration || product.sessions) && (
-                                <div className="flex items-center gap-3 text-slate-600 group">
-                                    <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center group-hover:bg-slate-100 transition-colors">
+                                <div className="flex items-center gap-3 text-gray-400 group">
+                                    <div className="w-10 h-10 rounded-xl bg-[#111111] flex items-center justify-center group-hover:bg-slate-100 transition-colors">
                                         <FiClock className="text-lg" />
                                     </div>
                                     <div>
@@ -281,8 +281,8 @@ export default function ProductPage() {
                                     </div>
                                 </div>
                             )}
-                            <div className="flex items-center gap-3 text-slate-600 group">
-                                <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center group-hover:bg-slate-100 transition-colors">
+                            <div className="flex items-center gap-3 text-gray-400 group">
+                                <div className="w-10 h-10 rounded-xl bg-[#111111] flex items-center justify-center group-hover:bg-slate-100 transition-colors">
                                     <FiUsers className="text-lg" />
                                 </div>
                                 <div>

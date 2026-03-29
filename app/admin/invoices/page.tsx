@@ -100,16 +100,16 @@ export default function AdminInvoicesPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="min-h-screen bg-[#111111] dark:bg-gray-900">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Header */}
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">🧾 الفواتير</h1>
+                    <h1 className="text-3xl font-bold text-white dark:text-white">🧾 الفواتير</h1>
                     <p className="text-gray-500 mt-1">إدارة وعرض فواتير المنصة</p>
                 </div>
 
                 {/* Filters */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-lg shadow-emerald-600/20">
+                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-lg shadow-[#10B981]/20">
                     <div className="flex flex-wrap gap-3 items-center">
                         <div className="flex-1 min-w-[200px]">
                             <div className="relative">
@@ -120,14 +120,14 @@ export default function AdminInvoicesPage() {
                                     value={search}
                                     onChange={e => setSearch(e.target.value)}
                                     onKeyDown={e => e.key === 'Enter' && handleSearch()}
-                                    className="w-full pr-10 pl-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-sm outline-none focus:ring-2 focus:ring-ink/20"
+                                    className="w-full pr-10 pl-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none focus:ring-2 focus:ring-ink/20"
                                 />
                             </div>
                         </div>
                         <select
                             value={statusFilter}
                             onChange={e => { setStatusFilter(e.target.value); setPage(1); }}
-                            className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-sm outline-none"
+                            className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none"
                         >
                             <option value="all">كل الحالات</option>
                             <option value="pending">قيد الانتظار</option>
@@ -149,16 +149,16 @@ export default function AdminInvoicesPage() {
                         <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-ink"></div>
                     </div>
                 ) : invoices.length === 0 ? (
-                    <div className="bg-white dark:bg-gray-800 rounded-xl p-12 text-center border border-gray-100 dark:border-gray-700">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-12 text-center border border-gray-100 dark:border-gray-700">
                         <FiFileText className="mx-auto text-gray-300 mb-4" size={48} />
                         <p className="text-gray-500 text-lg">لا توجد فواتير</p>
                     </div>
                 ) : (
-                    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20 overflow-hidden">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20 overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm">
                                 <thead>
-                                    <tr className="bg-gray-50 dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-700">
+                                    <tr className="bg-[#111111] dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-700">
                                         <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase">رقم الفاتورة</th>
                                         <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase">رقم الطلب</th>
                                         <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase">المشتري</th>
@@ -177,25 +177,25 @@ export default function AdminInvoicesPage() {
                                         return (
                                             <tr
                                                 key={inv.id}
-                                                className={`hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer ${highlightId === inv.id ? 'bg-indigo-50 dark:bg-indigo-900/20' : ''}`}
+                                                className={`hover:bg-[#111111] dark:hover:bg-gray-800/50 transition-colors cursor-pointer ${highlightId === inv.id ? 'bg-indigo-50 dark:bg-indigo-900/20' : ''}`}
                                                 onClick={() => setSelectedInvoice(inv)}
                                             >
                                                 <td className="px-4 py-3">
-                                                    <span className="font-mono text-xs font-bold text-emerald-600">{inv.invoiceNumber}</span>
+                                                    <span className="font-mono text-xs font-bold text-[#10B981]">{inv.invoiceNumber}</span>
                                                 </td>
                                                 <td className="px-4 py-3">
                                                     <span className="font-mono text-xs text-gray-500">{inv.order.orderNumber}</span>
                                                 </td>
                                                 <td className="px-4 py-3">
-                                                    <p className="text-xs font-bold text-gray-900 dark:text-white">{inv.customerName}</p>
+                                                    <p className="text-xs font-bold text-white dark:text-white">{inv.customerName}</p>
                                                     <p className="text-[11px] text-gray-400">{inv.customerEmail}</p>
                                                 </td>
                                                 <td className="px-4 py-3">
-                                                    <p className="text-xs font-bold text-gray-900 dark:text-white">{inv.sellerName || '—'}</p>
+                                                    <p className="text-xs font-bold text-white dark:text-white">{inv.sellerName || '—'}</p>
                                                     {inv.sellerUsername && <p className="text-[11px] text-gray-400">@{inv.sellerUsername}</p>}
                                                 </td>
                                                 <td className="px-4 py-3">
-                                                    <span className="font-bold text-sm text-gray-900 dark:text-white">
+                                                    <span className="font-bold text-sm text-white dark:text-white">
                                                         ${inv.totalAmount.toFixed(2)}
                                                     </span>
                                                 </td>
@@ -263,12 +263,12 @@ export default function AdminInvoicesPage() {
             {/* Detail Modal */}
             {selectedInvoice && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelectedInvoice(null)}>
-                    <div className="bg-white dark:bg-gray-800 rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-lg shadow-emerald-600/20" onClick={e => e.stopPropagation()}>
+                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-lg shadow-[#10B981]/20" onClick={e => e.stopPropagation()}>
                         <div className="p-6 space-y-5">
                             {/* Header */}
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">🧾 {selectedInvoice.invoiceNumber}</h3>
+                                    <h3 className="text-lg font-bold text-white dark:text-white">🧾 {selectedInvoice.invoiceNumber}</h3>
                                     <p className="text-xs text-gray-400">طلب: {selectedInvoice.order.orderNumber}</p>
                                 </div>
                                 <button onClick={() => setSelectedInvoice(null)} className="w-8 h-8 rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
@@ -277,23 +277,23 @@ export default function AdminInvoicesPage() {
                             </div>
 
                             {/* Buyer */}
-                            <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4">
+                            <div className="bg-[#111111] dark:bg-gray-900 rounded-xl p-4">
                                 <h4 className="text-xs font-bold text-gray-400 uppercase mb-2">المشتري</h4>
-                                <p className="font-bold text-gray-900 dark:text-white">{selectedInvoice.customerName}</p>
+                                <p className="font-bold text-white dark:text-white">{selectedInvoice.customerName}</p>
                                 <p className="text-xs text-gray-500">{selectedInvoice.customerEmail}</p>
                                 {selectedInvoice.customerPhone && <p className="text-xs text-gray-500" dir="ltr">{selectedInvoice.customerPhone}</p>}
                                 {selectedInvoice.customerCountry && <p className="text-xs text-gray-400 mt-1">الدولة: {selectedInvoice.customerCountry}</p>}
                             </div>
 
                             {/* Seller */}
-                            <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4">
+                            <div className="bg-[#111111] dark:bg-gray-900 rounded-xl p-4">
                                 <h4 className="text-xs font-bold text-gray-400 uppercase mb-2">البائع / المدرب</h4>
-                                <p className="font-bold text-gray-900 dark:text-white">{selectedInvoice.sellerName || '—'}</p>
+                                <p className="font-bold text-white dark:text-white">{selectedInvoice.sellerName || '—'}</p>
                                 {selectedInvoice.sellerUsername && <p className="text-xs text-gray-500">@{selectedInvoice.sellerUsername}</p>}
                             </div>
 
                             {/* Financial */}
-                            <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 space-y-2">
+                            <div className="bg-[#111111] dark:bg-gray-900 rounded-xl p-4 space-y-2">
                                 <h4 className="text-xs font-bold text-gray-400 uppercase mb-2">التفاصيل المالية</h4>
                                 <div className="flex justify-between text-sm">
                                     <span className="text-gray-500">المجموع الفرعي</span>
@@ -312,12 +312,12 @@ export default function AdminInvoicesPage() {
                                 <div className="h-px bg-gray-200 dark:bg-gray-700"></div>
                                 <div className="flex justify-between text-base font-bold">
                                     <span>الإجمالي</span>
-                                    <span className="text-emerald-600">${selectedInvoice.totalAmount.toFixed(2)}</span>
+                                    <span className="text-[#10B981]">${selectedInvoice.totalAmount.toFixed(2)}</span>
                                 </div>
                             </div>
 
                             {/* Payment Info */}
-                            <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 space-y-2">
+                            <div className="bg-[#111111] dark:bg-gray-900 rounded-xl p-4 space-y-2">
                                 <h4 className="text-xs font-bold text-gray-400 uppercase mb-2">تفاصيل الدفع</h4>
                                 <div className="flex justify-between text-sm">
                                     <span className="text-gray-500">وسيلة الدفع</span>
@@ -336,7 +336,7 @@ export default function AdminInvoicesPage() {
                                 <div>
                                     <h4 className="text-xs font-bold text-gray-400 uppercase mb-2">إيصال الدفع</h4>
                                     <a href={selectedInvoice.paymentProof} target="_blank" rel="noopener noreferrer">
-                                        <img src={selectedInvoice.paymentProof} alt="إيصال" className="w-full rounded-xl border border-gray-200 dark:border-gray-700 max-h-60 object-contain bg-gray-50" />
+                                        <img src={selectedInvoice.paymentProof} alt="إيصال" className="w-full rounded-xl border border-gray-200 dark:border-gray-700 max-h-60 object-contain bg-[#111111]" />
                                     </a>
                                 </div>
                             )}
@@ -360,7 +360,7 @@ export default function AdminInvoicesPage() {
             {/* Proof Image Modal */}
             {proofImage && (
                 <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4" onClick={() => setProofImage(null)}>
-                    <div className="relative max-w-2xl bg-white dark:bg-gray-800 rounded-xl overflow-hidden" onClick={e => e.stopPropagation()}>
+                    <div className="relative max-w-2xl bg-[#0A0A0A] dark:bg-gray-800 rounded-xl overflow-hidden" onClick={e => e.stopPropagation()}>
                         <button onClick={() => setProofImage(null)} className="absolute top-3 left-3 w-8 h-8 bg-black/50 text-white rounded-xl flex items-center justify-center z-10">
                             <FiX size={16} />
                         </button>

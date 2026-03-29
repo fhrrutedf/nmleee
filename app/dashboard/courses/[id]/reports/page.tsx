@@ -72,29 +72,29 @@ export default function CourseReportsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-[#111111] py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-8">تقارير الدورة</h1>
+                <h1 className="text-3xl font-bold text-white mb-8">تقارير الدورة</h1>
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                    <div className="bg-white rounded-lg shadow-md p-6">
+                    <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm text-gray-600 mb-1">إجمالي الطلاب</p>
-                                <p className="text-3xl font-bold text-gray-900">{stats.totalStudents}</p>
+                                <p className="text-3xl font-bold text-white">{stats.totalStudents}</p>
                             </div>
                             <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
-                                <FiUsers className="text-emerald-600" size={24} />
+                                <FiUsers className="text-[#10B981]" size={24} />
                             </div>
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-lg shadow-md p-6">
+                    <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm text-gray-600 mb-1">معدل الإكمال</p>
-                                <p className="text-3xl font-bold text-gray-900">{stats.completionRate.toFixed(0)}%</p>
+                                <p className="text-3xl font-bold text-white">{stats.completionRate.toFixed(0)}%</p>
                             </div>
                             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                                 <FiAward className="text-green-600" size={24} />
@@ -102,34 +102,34 @@ export default function CourseReportsPage() {
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-lg shadow-md p-6">
+                    <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm text-gray-600 mb-1">متوسط التقدم</p>
-                                <p className="text-3xl font-bold text-gray-900">{stats.averageProgress.toFixed(0)}%</p>
+                                <p className="text-3xl font-bold text-white">{stats.averageProgress.toFixed(0)}%</p>
                             </div>
                             <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                <FiTrendingUp className="text-emerald-600-600" size={24} />
+                                <FiTrendingUp className="text-[#10B981]-600" size={24} />
                             </div>
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-lg shadow-md p-6">
+                    <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm text-gray-600 mb-1">إجمالي وقت المشاهدة</p>
-                                <p className="text-3xl font-bold text-gray-900">{formatTime(stats.totalWatchTime)}</p>
+                                <p className="text-3xl font-bold text-white">{formatTime(stats.totalWatchTime)}</p>
                             </div>
                             <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                                <FiClock className="text-emerald-600" size={24} />
+                                <FiClock className="text-[#10B981]" size={24} />
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Progress Chart */}
-                <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-                    <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6 mb-8">
+                    <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                         <FiBarChart2 />
                         توزيع التقدم
                     </h2>
@@ -148,7 +148,7 @@ export default function CourseReportsPage() {
                                         title={`${count} طلاب`}
                                     />
                                     <p className="text-xs text-gray-600 mt-2">{range}%-{range + 24}%</p>
-                                    <p className="text-sm font-semibold text-gray-900">{count}</p>
+                                    <p className="text-sm font-semibold text-white">{count}</p>
                                 </div>
                             );
                         })}
@@ -156,14 +156,14 @@ export default function CourseReportsPage() {
                 </div>
 
                 {/* Students Table */}
-                <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                <div className="bg-[#0A0A0A] rounded-lg shadow-md overflow-hidden">
                     <div className="p-6 border-b">
-                        <h2 className="text-lg font-bold text-gray-900">تفاصيل الطلاب</h2>
+                        <h2 className="text-lg font-bold text-white">تفاصيل الطلاب</h2>
                     </div>
 
                     <div className="overflow-x-auto">
                         <table className="w-full">
-                            <thead className="bg-gray-50">
+                            <thead className="bg-[#111111]">
                                 <tr>
                                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
                                         الطالب
@@ -184,10 +184,10 @@ export default function CourseReportsPage() {
                             </thead>
                             <tbody className="divide-y divide-gray-200">
                                 {students.map((student) => (
-                                    <tr key={student.id} className="hover:bg-gray-50">
+                                    <tr key={student.id} className="hover:bg-[#111111]">
                                         <td className="px-6 py-4">
                                             <div>
-                                                <p className="font-medium text-gray-900">{student.student.name}</p>
+                                                <p className="font-medium text-white">{student.student.name}</p>
                                                 <p className="text-sm text-gray-500">{student.student.email}</p>
                                             </div>
                                         </td>
@@ -199,15 +199,15 @@ export default function CourseReportsPage() {
                                                         style={{ width: `${student.progress}%` }}
                                                     />
                                                 </div>
-                                                <span className="text-sm font-semibold text-gray-900 w-12">
+                                                <span className="text-sm font-semibold text-white w-12">
                                                     {student.progress}%
                                                 </span>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-gray-900">
+                                        <td className="px-6 py-4 text-sm text-white">
                                             {formatTime(student.totalWatchTime)}
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-gray-900">
+                                        <td className="px-6 py-4 text-sm text-white">
                                             {student.lastAccessedAt ? formatDate(student.lastAccessedAt) : '-'}
                                         </td>
                                         <td className="px-6 py-4">

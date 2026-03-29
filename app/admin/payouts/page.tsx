@@ -58,10 +58,10 @@ export default async function AdminPayoutsPage() {
     }));
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-[#111111] py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900">طلبات سحب الأرباح</h1>
+                    <h1 className="text-3xl font-bold text-white">طلبات سحب الأرباح</h1>
                     <p className="text-gray-600 mt-2">إدارة ومراجعة طلبات سحب الأرباح المقدمة من البائعين</p>
                 </div>
 

@@ -113,14 +113,14 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
 
     return (
         <div className="space-y-6 max-w-5xl mx-auto pb-12">
-            <Link href="/dashboard/admin/support" className="flex items-center gap-2 text-emerald-600 hover:text-emerald-600 font-bold mb-4 w-fit transition-colors">
+            <Link href="/dashboard/admin/support" className="flex items-center gap-2 text-[#10B981] hover:text-[#10B981] font-bold mb-4 w-fit transition-colors">
                 <FiArrowRight /> العودة لقائمة التذاكر (المشرف)
             </Link>
 
-            <div className="bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row overflow-hidden">
+            <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row overflow-hidden">
 
                 {/* User Info Sidebar */}
-                <div className="w-full md:w-1/3 border-b md:border-b-0 md:border-l border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 p-6 flex flex-col justify-between">
+                <div className="w-full md:w-1/3 border-b md:border-b-0 md:border-l border-gray-100 dark:border-gray-800 bg-[#111111] dark:bg-gray-900/50 p-6 flex flex-col justify-between">
                     <div>
                         <h3 className="font-bold text-gray-500 mb-4 whitespace-nowrap overflow-hidden text-ellipsis">معلومات صاحب التذكرة</h3>
                         <div className="flex items-center gap-3 mb-6">
@@ -128,14 +128,14 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                 <FiUser />
                             </div>
                             <div>
-                                <h4 className="font-bold text-emerald-600 dark:text-white line-clamp-1">{ticket.user.name}</h4>
+                                <h4 className="font-bold text-[#10B981] dark:text-white line-clamp-1">{ticket.user.name}</h4>
                                 <p className="text-sm text-gray-500 line-clamp-1">{ticket.user.email}</p>
                             </div>
                         </div>
                         <div className="space-y-4 text-sm font-medium border-t border-gray-200 dark:border-gray-700 pt-4">
                             <div className="flex justify-between items-center">
                                 <span className="text-gray-500">نوع المستخدم:</span>
-                                <span className="font-bold bg-white dark:bg-gray-800 px-2 py-1 rounded shadow-lg shadow-emerald-600/20">{ticket.user.role === 'SELLER' ? 'بائع / مدرب' : 'عميل'}</span>
+                                <span className="font-bold bg-[#0A0A0A] dark:bg-gray-800 px-2 py-1 rounded shadow-lg shadow-[#10B981]/20">{ticket.user.role === 'SELLER' ? 'بائع / مدرب' : 'عميل'}</span>
                             </div>
                             <div className="flex justify-between items-center">
                                 <span className="text-gray-500">تصنيف التذكرة:</span>
@@ -166,7 +166,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                 </button>
                             )}
                             {ticket.status !== 'CLOSED' && (
-                                <button disabled={statusUpdating} onClick={() => changeStatus('CLOSED')} className="btn btn-outline w-full py-2 bg-white dark:bg-gray-800 text-gray-700 hover:bg-gray-100 border-gray-300">
+                                <button disabled={statusUpdating} onClick={() => changeStatus('CLOSED')} className="btn btn-outline w-full py-2 bg-[#0A0A0A] dark:bg-gray-800 text-gray-700 hover:bg-gray-100 border-gray-300">
                                     إغلاق نهائي
                                 </button>
                             )}
@@ -178,10 +178,10 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                 <div className="w-full md:w-2/3 p-8 flex flex-col justify-between">
                     <div>
                         <div className="flex items-center gap-3 mb-6">
-                            <span className="font-mono text-sm text-emerald-600 font-bold px-3 py-1 bg-emerald-700/10 rounded-xl">
+                            <span className="font-mono text-sm text-[#10B981] font-bold px-3 py-1 bg-emerald-700/10 rounded-xl">
                                 {ticket.ticketNumber}
                             </span>
-                            <h1 className="text-2xl font-bold text-emerald-600 dark:text-white line-clamp-1" title={ticket.subject}>
+                            <h1 className="text-2xl font-bold text-[#10B981] dark:text-white line-clamp-1" title={ticket.subject}>
                                 {ticket.subject}
                             </h1>
                         </div>
@@ -195,9 +195,9 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isAdmin ? 'bg-emerald-700 text-white' : 'bg-gray-200 dark:bg-gray-800 text-gray-500'}`}>
                                             {isAdmin ? <FiInfo /> : <FiUser />}
                                         </div>
-                                        <div className={`max-w-[85%] rounded-xl p-5 ${isAdmin ? 'bg-emerald-700/10 dark:bg-emerald-700/20 text-emerald-600 border border-emerald-600/20 rounded-tl-none' : 'bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none'}`}>
+                                        <div className={`max-w-[85%] rounded-xl p-5 ${isAdmin ? 'bg-emerald-700/10 dark:bg-emerald-700/20 text-[#10B981] border border-emerald-600/20 rounded-tl-none' : 'bg-[#111111] dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none'}`}>
                                             <div className="flex items-center gap-2 mb-2">
-                                                <span className={`font-bold text-sm ${isAdmin ? 'text-emerald-600' : 'text-emerald-600 dark:text-white'}`}>
+                                                <span className={`font-bold text-sm ${isAdmin ? 'text-[#10B981]' : 'text-[#10B981] dark:text-white'}`}>
                                                     {isAdmin ? 'أنت (فريق الدعم)' : 'المستخدم'}
                                                 </span>
                                                 <span className="text-xs text-gray-400">
@@ -227,7 +227,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                             <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">رد الدعم الفني</label>
                             <textarea
                                 rows={4}
-                                className="input w-full pr-14 resize-none rounded-xl focus:ring-2 focus:ring-accent bg-gray-50 dark:bg-gray-900"
+                                className="input w-full pr-14 resize-none rounded-xl focus:ring-2 focus:ring-accent bg-[#111111] dark:bg-gray-900"
                                 placeholder="اكتب ردك ومساعدتك للمستخدم هنا للرد باسم الإدارة..."
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}

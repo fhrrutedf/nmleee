@@ -143,7 +143,7 @@ export default function AppointmentsPage() {
             {/* Header */}
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-3xl font-bold text-emerald-600">إدارة الجلسات والاستشارات</h1>
+                    <h1 className="text-3xl font-bold text-[#10B981]">إدارة الجلسات والاستشارات</h1>
                     <p className="text-gray-600 mt-2">جدول جلساتك الاستشارية</p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -163,7 +163,7 @@ export default function AppointmentsPage() {
 
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div className="bg-emerald-700 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
+                <div className="bg-emerald-700 text-white rounded-xl p-6 shadow-lg shadow-[#10B981]/20">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-blue-100 text-sm">إجمالي الاستشارات</p>
@@ -173,7 +173,7 @@ export default function AppointmentsPage() {
                     </div>
                 </div>
 
-                <div className="bg-emerald-700 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
+                <div className="bg-emerald-700 text-white rounded-xl p-6 shadow-lg shadow-[#10B981]/20">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-green-100 text-sm">قادمة</p>
@@ -183,7 +183,7 @@ export default function AppointmentsPage() {
                     </div>
                 </div>
 
-                <div className="bg-emerald-700 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
+                <div className="bg-emerald-700 text-white rounded-xl p-6 shadow-lg shadow-[#10B981]/20">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-purple-100 text-sm">مكتملة</p>
@@ -193,7 +193,7 @@ export default function AppointmentsPage() {
                     </div>
                 </div>
 
-                <div className="bg-emerald-700 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
+                <div className="bg-emerald-700 text-white rounded-xl p-6 shadow-lg shadow-[#10B981]/20">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-orange-100 text-sm">إجمالي الإيرادات</p>
@@ -205,13 +205,13 @@ export default function AppointmentsPage() {
             </div>
 
             {/* Tabs */}
-            <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6">
+            <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-6">
                 <div className="border-b border-gray-200 mb-6">
                     <nav className="flex gap-6">
                         <button
                             onClick={() => setActiveTab('upcoming')}
                             className={`pb-4 px-2 border-b-2 font-medium transition-colors ${activeTab === 'upcoming'
-                                ? 'border-emerald-600 text-emerald-600'
+                                ? 'border-emerald-600 text-[#10B981]'
                                 : 'border-transparent text-gray-500 hover:text-gray-700'
                                 }`}
                         >
@@ -220,7 +220,7 @@ export default function AppointmentsPage() {
                         <button
                             onClick={() => setActiveTab('completed')}
                             className={`pb-4 px-2 border-b-2 font-medium transition-colors ${activeTab === 'completed'
-                                ? 'border-emerald-600 text-emerald-600'
+                                ? 'border-emerald-600 text-[#10B981]'
                                 : 'border-transparent text-gray-500 hover:text-gray-700'
                                 }`}
                         >
@@ -229,7 +229,7 @@ export default function AppointmentsPage() {
                         <button
                             onClick={() => setActiveTab('cancelled')}
                             className={`pb-4 px-2 border-b-2 font-medium transition-colors ${activeTab === 'cancelled'
-                                ? 'border-emerald-600 text-emerald-600'
+                                ? 'border-emerald-600 text-[#10B981]'
                                 : 'border-transparent text-gray-500 hover:text-gray-700'
                                 }`}
                         >
@@ -264,28 +264,28 @@ export default function AppointmentsPage() {
                                             <FiUser className="text-2xl" />
                                         </div>
                                         <div className="flex-1">
-                                            <h3 className="font-semibold text-gray-900 text-lg mb-2">
+                                            <h3 className="font-semibold text-white text-lg mb-2">
                                                 {appointment.title || 'جلسة استشارية'}
                                             </h3>
 
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-gray-600 mb-4">
                                                 <div className="flex items-center gap-2">
-                                                    <FiCalendar className="text-emerald-600" />
+                                                    <FiCalendar className="text-[#10B981]" />
                                                     <span>{new Date(appointment.date).toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
-                                                    <FiClock className="text-emerald-600" />
+                                                    <FiClock className="text-[#10B981]" />
                                                     <span>{appointment.time}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
-                                                    <FiVideo className="text-emerald-600" />
+                                                    <FiVideo className="text-[#10B981]" />
                                                     <span>{appointment.type === 'online' ? 'عبر الإنترنت' : 'شخصياً'}</span>
                                                 </div>
                                             </div>
 
                                             {appointment.notes && (
                                                 <div className="flex items-start gap-2 text-sm text-gray-600 mb-3">
-                                                    <FiMessageSquare className="text-emerald-600 mt-1" />
+                                                    <FiMessageSquare className="text-[#10B981] mt-1" />
                                                     <p className="flex-1">{appointment.notes}</p>
                                                 </div>
                                             )}
@@ -313,13 +313,13 @@ export default function AppointmentsPage() {
                                         </span>
 
                                         {appointment.isNotified && (
-                                            <span className="px-3 py-1 bg-emerald-700-50 text-emerald-600-600 rounded-lg text-[10px] font-bold border border-blue-100 flex items-center gap-1">
+                                            <span className="px-3 py-1 bg-emerald-700-50 text-[#10B981]-600 rounded-lg text-[10px] font-bold border border-blue-100 flex items-center gap-1">
                                                 🔔 تم الإرسال
                                             </span>
                                         )}
 
                                         {appointment.price && (
-                                            <span className="text-xl font-bold text-emerald-600">
+                                            <span className="text-xl font-bold text-[#10B981]">
                                                 {appointment.price} $
                                             </span>
                                         )}
@@ -372,7 +372,7 @@ export default function AppointmentsPage() {
             {/* Modal لإضافة موعد جديد */}
             {showModal && (
                 <div className="fixed inset-0 bg-black  flex items-center justify-center z-50 p-4 overflow-y-auto">
-                    <div className="bg-white rounded-xl p-6 max-w-2xl w-full my-8">
+                    <div className="bg-[#0A0A0A] rounded-xl p-6 max-w-2xl w-full my-8">
                         <div className="flex justify-between items-center mb-6">
                             <h3 className="text-xl font-bold">إضافة استشارة جديدة</h3>
                             <button onClick={() => setShowModal(false)} className="text-gray-500 hover:text-gray-700">

@@ -83,7 +83,7 @@ export default function IntegrationsPage() {
                     <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                 </svg>
             ),
-            color: 'text-emerald-600-600',
+            color: 'text-[#10B981]-600',
             bg: 'bg-emerald-700-50 dark:bg-blue-900/20',
         },
         {
@@ -97,7 +97,7 @@ export default function IntegrationsPage() {
             ],
             status: zoomConnected ? 'connected' : 'coming_soon',
             icon: <span className="text-3xl">📹</span>,
-            color: 'text-emerald-600-500',
+            color: 'text-[#10B981]-500',
             bg: 'bg-sky-50 dark:bg-sky-900/20',
         },
         {
@@ -124,7 +124,7 @@ export default function IntegrationsPage() {
             ],
             status: 'coming_soon',
             icon: <span className="text-3xl">📆</span>,
-            color: 'text-emerald-600',
+            color: 'text-[#10B981]',
             bg: 'bg-purple-50 dark:bg-purple-900/20',
         },
     ];
@@ -133,8 +133,8 @@ export default function IntegrationsPage() {
         <div className="space-y-8">
             {/* Header */}
             <div>
-                <h1 className="text-3xl font-bold text-emerald-600 dark:text-white flex items-center gap-3">
-                    <FiLink2 className="text-emerald-600" />
+                <h1 className="text-3xl font-bold text-[#10B981] dark:text-white flex items-center gap-3">
+                    <FiLink2 className="text-[#10B981]" />
                     التكاملات
                 </h1>
                 <p className="text-text-muted mt-2">
@@ -162,9 +162,9 @@ export default function IntegrationsPage() {
 
             {/* Reminder info box */}
             <div className="bg-emerald-700/5 border border-emerald-600/20 rounded-xl p-5 flex gap-4 items-start">
-                <FiClock className="text-emerald-600 text-2xl flex-shrink-0 mt-0.5" />
+                <FiClock className="text-[#10B981] text-2xl flex-shrink-0 mt-0.5" />
                 <div>
-                    <p className="font-bold text-emerald-600">إرسال رابط الاجتماع تلقائياً</p>
+                    <p className="font-bold text-[#10B981]">إرسال رابط الاجتماع تلقائياً</p>
                     <p className="text-text-muted text-sm mt-1">
                         عند ربط أي خدمة، يتم إرسال رابط الاجتماع للعميل <strong>قبل 30 دقيقة</strong> من الموعد تلقائياً عبر البريد الإلكتروني — لا تحتاج لأي إجراء يدوي.
                     </p>
@@ -190,11 +190,11 @@ export default function IntegrationsPage() {
                         {/* Header */}
                         <div className="flex items-start justify-between gap-4 mb-4">
                             <div className="flex items-center gap-4">
-                                <div className={`w-14 h-14 rounded-xl ${integration.bg} flex items-center justify-center shadow-lg shadow-emerald-600/20`}>
+                                <div className={`w-14 h-14 rounded-xl ${integration.bg} flex items-center justify-center shadow-lg shadow-[#10B981]/20`}>
                                     {integration.icon}
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-bold text-emerald-600 dark:text-white">
+                                    <h3 className="text-lg font-bold text-[#10B981] dark:text-white">
                                         {integration.name}
                                     </h3>
                                     {integration.status === 'connected' && (
@@ -209,7 +209,7 @@ export default function IntegrationsPage() {
                                         </span>
                                     )}
                                     {integration.status === 'coming_soon' && (
-                                        <span className="inline-flex items-center gap-1.5 text-emerald-600 text-xs font-medium bg-emerald-700-50 dark:bg-amber-900/20 px-2.5 py-1 rounded-xl mt-1">
+                                        <span className="inline-flex items-center gap-1.5 text-[#10B981] text-xs font-medium bg-emerald-700-50 dark:bg-amber-900/20 px-2.5 py-1 rounded-xl mt-1">
                                             قريباً
                                         </span>
                                     )}
@@ -223,7 +223,7 @@ export default function IntegrationsPage() {
                         {/* Features */}
                         <ul className="space-y-2 mb-5">
                             {integration.features.map((f, idx) => (
-                                <li key={idx} className="flex items-center gap-2 text-sm text-emerald-600 dark:text-gray-300">
+                                <li key={idx} className="flex items-center gap-2 text-sm text-[#10B981] dark:text-gray-300">
                                     <FiCheckCircle className="text-green-500 flex-shrink-0" />
                                     {f}
                                 </li>

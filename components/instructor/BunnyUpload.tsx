@@ -86,13 +86,13 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
 
     return (
         <div className="relative group transition-all w-full">
-            <div className={`bg-white dark:bg-card-white border-2 border-dashed rounded-[32px] p-6 sm:p-8 text-center transition-all ${uploading ? 'border-emerald-600 bg-emerald-700/5 shadow-inner' : 'border-gray-200 dark:border-gray-800 hover:border-emerald-600/50 hover:bg-slate-50'}`}>
+            <div className={`bg-[#0A0A0A] dark:bg-card-white border-2 border-dashed rounded-[32px] p-6 sm:p-8 text-center transition-all ${uploading ? 'border-emerald-600 bg-emerald-700/5 shadow-inner' : 'border-gray-200 dark:border-gray-800 hover:border-emerald-600/50 hover:bg-[#111111]'}`}>
                 {status === 'complete' ? (
                     <div className="space-y-4 py-4 animate-in fade-in zoom-in duration-300">
                         <div className="w-16 h-16 bg-green-500/10 text-green-500 rounded-xl flex items-center justify-center mx-auto mb-4">
                             <FiCheckCircle size={32} />
                         </div>
-                        <h3 className="text-xl font-bold text-emerald-600 dark:text-white">تم الرفع!</h3>
+                        <h3 className="text-xl font-bold text-[#10B981] dark:text-white">تم الرفع!</h3>
                         <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest italic">جاري المعالجة الرقمية الآن</p>
                     </div>
                 ) : status === 'error' ? (
@@ -100,7 +100,7 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                         <div className="w-16 h-16 bg-red-500/10 text-red-500 rounded-xl flex items-center justify-center mx-auto mb-4">
                             <FiAlertCircle size={32} />
                         </div>
-                        <h3 className="text-xl font-bold text-emerald-600 dark:text-white">خطأ في الرفع</h3>
+                        <h3 className="text-xl font-bold text-[#10B981] dark:text-white">خطأ في الرفع</h3>
                         <button 
                             type="button"
                             onClick={handleUpload} 
@@ -111,14 +111,14 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                     </div>
                 ) : (
                     <div className="space-y-4">
-                        <div className={`w-16 h-16 bg-emerald-700/10 text-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-2 transition-transform ${uploading ? ' scale-90' : 'group-hover:scale-110'}`}>
+                        <div className={`w-16 h-16 bg-emerald-700/10 text-[#10B981] rounded-xl flex items-center justify-center mx-auto mb-2 transition-transform ${uploading ? ' scale-90' : 'group-hover:scale-110'}`}>
                             {uploading ? <FiLoader size={32} className="animate-spin" /> : <FiUploadCloud size={32} />}
                         </div>
 
                         {!uploading ? (
                             <div className="space-y-3">
                                 <div className="space-y-1">
-                                    <h3 className="text-sm font-bold text-emerald-600 dark:text-white">اسحب ملف الفيديو هنا</h3>
+                                    <h3 className="text-sm font-bold text-[#10B981] dark:text-white">اسحب ملف الفيديو هنا</h3>
                                     <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-relaxed">أو انقر لاختيار المحتوى</p>
                                 </div>
                                 <input 
@@ -128,7 +128,7 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                                     id={`bunny-upload-${instanceId}`}
                                 />
-                                <div className="relative inline-block px-8 py-3 bg-emerald-700 text-white rounded-xl font-bold text-[10px] shadow-lg shadow-emerald-600/20 shadow-accent/20 uppercase tracking-widest">
+                                <div className="relative inline-block px-8 py-3 bg-emerald-700 text-white rounded-xl font-bold text-[10px] shadow-lg shadow-[#10B981]/20 shadow-accent/20 uppercase tracking-widest">
                                     {file ? file.name : 'اختيار فيديو المعاملة'}
                                 </div>
                                 
@@ -152,7 +152,7 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                                     />
                                 </div>
                                 <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-tighter">
-                                    <span className="text-emerald-600">{progress}%</span>
+                                    <span className="text-[#10B981]">{progress}%</span>
                                     <span className="text-gray-400">
                                         {status === 'init' ? 'تجهيز المنفذ...' : 'نقل البيانات...'}
                                     </span>

@@ -34,7 +34,7 @@ export default async function QADashboardPage() {
         <div className="p-4 sm:p-6 lg:p-8 h-[calc(100vh-80px)] overflow-hidden bg-bg-light dark:bg-bg-dark font-sans" dir="rtl">
             <div className="mb-6 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
                 <div>
-                    <h1 className="text-2xl font-bold text-emerald-600 dark:text-white flex items-center gap-2">
+                    <h1 className="text-2xl font-bold text-[#10B981] dark:text-white flex items-center gap-2">
                         أسئلة وأجوبة الطلاب
                     </h1>
                     <p className="text-gray-500 text-sm mt-1">

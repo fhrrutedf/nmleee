@@ -72,10 +72,10 @@ export default function CustomersPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-[#111111] py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900">إدارة العملاء</h1>
+                    <h1 className="text-3xl font-bold text-white">إدارة العملاء</h1>
                     <button
                         onClick={exportToCSV}
                         className="flex items-center gap-2 px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition-colors"
@@ -101,21 +101,21 @@ export default function CustomersPage() {
 
                 {/* Stats Summary */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-white rounded-lg shadow-md p-6">
+                    <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
                         <p className="text-sm text-gray-600 mb-1">إجمالي العملاء</p>
-                        <p className="text-3xl font-bold text-gray-900">{customers.length}</p>
+                        <p className="text-3xl font-bold text-white">{customers.length}</p>
                     </div>
-                    <div className="bg-white rounded-lg shadow-md p-6">
+                    <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
                         <p className="text-sm text-gray-600 mb-1">متوسط الطلبات لكل عميل</p>
-                        <p className="text-3xl font-bold text-gray-900">
+                        <p className="text-3xl font-bold text-white">
                             {customers.length > 0
                                 ? (customers.reduce((sum, c) => sum + c.ordersCount, 0) / customers.length).toFixed(1)
                                 : 0}
                         </p>
                     </div>
-                    <div className="bg-white rounded-lg shadow-md p-6">
+                    <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
                         <p className="text-sm text-gray-600 mb-1">متوسط الإنفاق لكل عميل</p>
-                        <p className="text-3xl font-bold text-gray-900">
+                        <p className="text-3xl font-bold text-white">
                             {customers.length > 0
                                 ? (customers.reduce((sum, c) => sum + c.totalSpent, 0) / customers.length).toFixed(0)
                                 : 0} $
@@ -124,10 +124,10 @@ export default function CustomersPage() {
                 </div>
 
                 {/* Customers Table */}
-                <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                <div className="bg-[#0A0A0A] rounded-lg shadow-md overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full">
-                            <thead className="bg-gray-50">
+                            <thead className="bg-[#111111]">
                                 <tr>
                                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
                                         العميل
@@ -148,23 +148,23 @@ export default function CustomersPage() {
                             </thead>
                             <tbody className="divide-y divide-gray-200">
                                 {filteredCustomers.map((customer) => (
-                                    <tr key={customer.email} className="hover:bg-gray-50">
+                                    <tr key={customer.email} className="hover:bg-[#111111]">
                                         <td className="px-6 py-4">
                                             <div>
-                                                <p className="font-medium text-gray-900">{customer.name}</p>
+                                                <p className="font-medium text-white">{customer.name}</p>
                                                 <p className="text-sm text-gray-500">{customer.email}</p>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-gray-900">
+                                        <td className="px-6 py-4 text-sm text-white">
                                             {customer.ordersCount} طلب
                                         </td>
-                                        <td className="px-6 py-4 text-sm font-semibold text-gray-900">
+                                        <td className="px-6 py-4 text-sm font-semibold text-white">
                                             {customer.totalSpent.toFixed(2)} $
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-gray-900">
+                                        <td className="px-6 py-4 text-sm text-white">
                                             {new Date(customer.firstPurchase).toLocaleDateString('ar-EG')}
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-gray-900">
+                                        <td className="px-6 py-4 text-sm text-white">
                                             {new Date(customer.lastPurchase).toLocaleDateString('ar-EG')}
                                         </td>
                                     </tr>

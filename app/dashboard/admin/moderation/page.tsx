@@ -103,8 +103,8 @@ export default function CourseModerationPage() {
         <div className="max-w-6xl mx-auto space-y-6 pb-12">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-emerald-600 dark:text-white flex items-center gap-2">
-                        <FiShield className="text-emerald-600" /> حارس المحتوى (المراجعة)
+                    <h1 className="text-2xl font-bold text-[#10B981] dark:text-white flex items-center gap-2">
+                        <FiShield className="text-[#10B981]" /> حارس المحتوى (المراجعة)
                     </h1>
                     <p className="text-text-muted text-sm mt-1">كافة الكورسات المدرجة حديثاً تنتظر الموافقة للظهور في السوق</p>
                 </div>
@@ -133,9 +133,9 @@ export default function CourseModerationPage() {
                         </thead>
                         <tbody className="divide-y divide-gray-50 dark:divide-gray-800 text-sm">
                             {courses.map((course) => (
-                                <tr key={course.id} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                                <tr key={course.id} className="hover:bg-[#111111] dark:hover:bg-gray-800 transition-colors">
                                     <td className="px-5 py-4">
-                                        <p className="font-bold text-emerald-600 dark:text-white">
+                                        <p className="font-bold text-[#10B981] dark:text-white">
                                             {course.title.length > 30 ? course.title.substring(0, 30) + '...' : course.title}
                                         </p>
                                     </td>
@@ -162,7 +162,7 @@ export default function CourseModerationPage() {
                                                 target="_blank"
                                                 rel="noreferrer"
                                                 title="معاينة كزائر"
-                                                className="w-8 h-8 flex items-center justify-center rounded-xl bg-emerald-700-50 text-emerald-600-600 hover:bg-blue-100 transition-colors"
+                                                className="w-8 h-8 flex items-center justify-center rounded-xl bg-emerald-700-50 text-[#10B981]-600 hover:bg-blue-100 transition-colors"
                                             >
                                                 <FiEye className="w-4 h-4" />
                                             </a>
@@ -197,7 +197,7 @@ export default function CourseModerationPage() {
             {/* Reject Modal */}
             {isRejectModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 ">
-                    <div className="bg-white dark:bg-[#1a1c23] rounded-xl p-6 w-full max-w-md shadow-lg shadow-emerald-600/20 relative">
+                    <div className="bg-[#0A0A0A] dark:bg-[#1a1c23] rounded-xl p-6 w-full max-w-md shadow-lg shadow-[#10B981]/20 relative">
                         <button
                             onClick={() => setIsRejectModalOpen(false)}
                             className="absolute top-4 left-4 w-8 h-8 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-500 hover:text-red-500"

@@ -122,10 +122,10 @@ export default function AdminBroadcastPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div className="space-y-2">
-                    <span className="inline-flex items-center gap-2 bg-emerald-700-50 text-emerald-600 px-3 py-1 rounded-xl text-sm font-bold border border-blue-100">
+                    <span className="inline-flex items-center gap-2 bg-emerald-700-50 text-[#10B981] px-3 py-1 rounded-xl text-sm font-bold border border-blue-100">
                         <FiTarget /> نظام التواصل الجماعي
                     </span>
-                    <h1 className="text-4xl font-bold text-emerald-600">البث الجماعي وخدمة الإشعارات</h1>
+                    <h1 className="text-4xl font-bold text-[#10B981]">البث الجماعي وخدمة الإشعارات</h1>
                     <p className="text-text-muted font-medium text-lg">أداة احترافية لإرسال رسائل الإيميل والإشعارات لآلاف المستخدمين بضغطة واحدة.</p>
                 </div>
                 <div className="flex gap-4">
@@ -141,13 +141,13 @@ export default function AdminBroadcastPage() {
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 overflow-hidden"
+                        className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 overflow-hidden"
                     >
                         <div className="p-8 border-b border-gray-50 flex items-center justify-between">
                             <h2 className="text-xl font-bold flex items-center gap-2">
-                                <FiSend className="text-emerald-600" /> إنشاء بث جديد
+                                <FiSend className="text-[#10B981]" /> إنشاء بث جديد
                             </h2>
-                            <span className="text-xs text-text-muted font-bold px-3 py-1 bg-gray-50 rounded-lg">Powered by Resend Queue</span>
+                            <span className="text-xs text-text-muted font-bold px-3 py-1 bg-[#111111] rounded-lg">Powered by Resend Queue</span>
                         </div>
                         
                         <form onSubmit={handleCreateBroadcast} className="p-8 space-y-6">
@@ -156,7 +156,7 @@ export default function AdminBroadcastPage() {
                                     <label className="text-sm font-bold text-gray-700">المستهدفين (Audience)</label>
                                     <div className="relative">
                                         <select 
-                                            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all appearance-none"
+                                            className="w-full bg-[#111111] border border-gray-200 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all appearance-none"
                                             value={newBroadcast.target}
                                             onChange={e => setNewBroadcast({...newBroadcast, target: e.target.value})}
                                         >
@@ -174,7 +174,7 @@ export default function AdminBroadcastPage() {
                                     <div className="relative">
                                         <input 
                                             type="datetime-local" 
-                                            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
+                                            className="w-full bg-[#111111] border border-gray-200 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
                                             value={newBroadcast.scheduledAt}
                                             onChange={e => setNewBroadcast({...newBroadcast, scheduledAt: e.target.value})}
                                         />
@@ -190,7 +190,7 @@ export default function AdminBroadcastPage() {
                                         <input 
                                             type="text" 
                                             placeholder="مثال: تحديث شروط الاستخدام الجديدة..."
-                                            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
+                                            className="w-full bg-[#111111] border border-gray-200 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
                                             value={newBroadcast.subject}
                                             onChange={e => setNewBroadcast({...newBroadcast, subject: e.target.value})}
                                         />
@@ -201,7 +201,7 @@ export default function AdminBroadcastPage() {
                                         <textarea 
                                             rows={12}
                                             placeholder="اكتب رسالتك لجميع المستخدمين هنا..."
-                                            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none"
+                                            className="w-full bg-[#111111] border border-gray-200 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none"
                                             value={newBroadcast.message}
                                             onChange={e => setNewBroadcast({...newBroadcast, message: e.target.value})}
                                         />
@@ -212,14 +212,14 @@ export default function AdminBroadcastPage() {
                                         <button 
                                             type="button" 
                                             onClick={handleSendTest}
-                                            className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2"
+                                            className="flex-1 bg-gray-100 hover:bg-gray-200 text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2"
                                         >
                                             <FiEye /> إرسال تجربة لي
                                         </button>
                                         <button 
                                             type="submit"
                                             disabled={submitting}
-                                            className="flex-[2] bg-emerald-700 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-emerald-600/20 shadow-accent/30 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                                            className="flex-[2] bg-emerald-700 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-[#10B981]/20 shadow-accent/30 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
                                         >
                                             {submitting ? <FiLoader className="animate-spin text-xl" /> : <FiSend className="text-lg" />}
                                             {submitting ? 'جاري الجدولة...' : 'إرسال البث الآن'}
@@ -233,35 +233,35 @@ export default function AdminBroadcastPage() {
                                         <label className="text-sm font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
                                             <FiSmartphone /> معاينة الجوال (Live)
                                         </label>
-                                        <div className="relative mx-auto w-[300px] h-[580px] bg-slate-100 rounded-xl border-[10px] border-slate-900 shadow-lg shadow-emerald-600/20 overflow-hidden">
+                                        <div className="relative mx-auto w-[300px] h-[580px] bg-slate-100 rounded-xl border-[10px] border-slate-900 shadow-lg shadow-[#10B981]/20 overflow-hidden">
                                             {/* Screen Content */}
-                                            <div className="h-full flex flex-col bg-white">
+                                            <div className="h-full flex flex-col bg-[#0A0A0A]">
                                                 {/* Phone Status Bar */}
                                                 <div className="h-6 bg-emerald-700 flex justify-between px-6 pt-1">
                                                     <span className="text-[10px] text-white">9:41</span>
                                                     <div className="flex gap-1 items-center">
-                                                        <div className="w-2 h-2 bg-white rounded-xl opacity-50" />
+                                                        <div className="w-2 h-2 bg-[#0A0A0A] rounded-xl opacity-50" />
                                                         <div className="w-4 h-2 bg-green-400 rounded-sm" />
                                                     </div>
                                                 </div>
                                                 {/* Email App Header */}
-                                                <div className="p-4 bg-slate-50 border-b flex items-center gap-3">
-                                                    <div className="w-8 h-8 rounded-xl bg-blue-100 flex items-center justify-center text-emerald-600-600 font-bold text-xs">
+                                                <div className="p-4 bg-[#111111] border-b flex items-center gap-3">
+                                                    <div className="w-8 h-8 rounded-xl bg-blue-100 flex items-center justify-center text-[#10B981]-600 font-bold text-xs">
                                                         T
                                                     </div>
                                                     <div>
-                                                        <div className="text-[10px] font-bold text-gray-900">تمالين - Tamleen</div>
+                                                        <div className="text-[10px] font-bold text-white">تمالين - Tamleen</div>
                                                         <div className="text-[8px] text-gray-400">{newBroadcast.subject || 'بدون عنوان...'}</div>
                                                     </div>
                                                 </div>
                                                 {/* Email Body Template */}
-                                                <div className="flex-1 overflow-y-auto bg-gray-50 p-2">
-                                                    <div className="bg-white rounded-lg shadow-lg shadow-emerald-600/20 overflow-hidden border">
+                                                <div className="flex-1 overflow-y-auto bg-[#111111] p-2">
+                                                    <div className="bg-[#0A0A0A] rounded-lg shadow-lg shadow-[#10B981]/20 overflow-hidden border">
                                                         <div className="p-4 bg-emerald-700-600 text-center">
                                                             <div className="text-white font-bold text-xs tracking-widest">TAMLEEN</div>
                                                         </div>
                                                         <div className="p-4 space-y-4">
-                                                            <div className="text-xs font-bold text-gray-900">مرحباً أدمن،</div>
+                                                            <div className="text-xs font-bold text-white">مرحباً أدمن،</div>
                                                             <div className="text-[10px] text-gray-600 whitespace-pre-wrap leading-relaxed min-h-[100px]">
                                                                 {newBroadcast.message || 'اكتبي شيئاً لترى المعاينة...'}
                                                             </div>
@@ -284,7 +284,7 @@ export default function AdminBroadcastPage() {
                 {/* Tracking & Quick Stats */}
                 <div className="space-y-8">
                     {/* Stats Card */}
-                    <div className="bg-emerald-700 rounded-xl p-8 text-white shadow-lg shadow-emerald-600/20 relative overflow-hidden">
+                    <div className="bg-emerald-700 rounded-xl p-8 text-white shadow-lg shadow-[#10B981]/20 relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-[100px]" />
                         <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
                             <FiSearch className="text-blue-400" /> لمحة سريعة
@@ -300,7 +300,7 @@ export default function AdminBroadcastPage() {
                                     {jobs.reduce((acc, job) => acc + (job.sentCount || 0), 0).toLocaleString()}
                                 </span>
                             </div>
-                            <div className="bg-surface/10 p-4 rounded-xl flex items-start gap-3">
+                            <div className="bg-[#0A0A0A]/10 p-4 rounded-xl flex items-start gap-3">
                                 <FiInfo className="text-blue-300 shrink-0 mt-1" />
                                 <p className="text-xs text-gray-300 leading-relaxed font-medium">
                                     يتم الإرسال على دفعات لتجنب تصنيف الرسائل كـ (Spam) ولضمان وصولها لصندوق الوارد الرئيسي.
@@ -310,8 +310,8 @@ export default function AdminBroadcastPage() {
                     </div>
 
                     {/* Job Log */}
-                    <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 overflow-hidden">
-                        <div className="p-6 border-b border-gray-50 bg-gray-50/50">
+                    <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 overflow-hidden">
+                        <div className="p-6 border-b border-gray-50 bg-[#111111]/50">
                             <h3 className="font-bold flex items-center gap-2">
                                 <FiClock className="text-red-500" /> سجل العمليات الأخيرة
                             </h3>
@@ -323,7 +323,7 @@ export default function AdminBroadcastPage() {
                                 </div>
                             ) : (
                                 jobs.map(job => (
-                                    <div key={job.id} className="p-5 hover:bg-gray-50 transition-colors group">
+                                    <div key={job.id} className="p-5 hover:bg-[#111111] transition-colors group">
                                         <div className="flex justify-between items-start mb-2">
                                             <div className="flex-1 min-w-0">
                                                 <h4 className="font-bold text-sm truncate">{job.subject}</h4>

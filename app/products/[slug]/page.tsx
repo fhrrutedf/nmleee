@@ -96,11 +96,11 @@ export default function ProductPage() {
     const effectiveBrandColor = product.user.brandColor;
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-12">
+        <div className="min-h-screen bg-[#111111] pb-12">
             {effectiveBrandColor && (
                 <style dangerouslySetInnerHTML={{
                     __html: `
-                    .text-emerald-600 { color: ${effectiveBrandColor} !important; }
+                    .text-[#10B981] { color: ${effectiveBrandColor} !important; }
                     .bg-emerald-700 { background-color: ${effectiveBrandColor} !important; }
                     .bg-indigo-100 { background-color: ${effectiveBrandColor}20 !important; }
                     .border-ink { border-color: ${effectiveBrandColor} !important; }
@@ -110,7 +110,7 @@ export default function ProductPage() {
                 }} />
             )}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="bg-white rounded-lg shadow-lg shadow-emerald-600/20 overflow-hidden">
+                <div className="bg-[#0A0A0A] rounded-lg shadow-lg shadow-[#10B981]/20 overflow-hidden">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
                         {/* Image Section */}
                         <div>
@@ -133,12 +133,12 @@ export default function ProductPage() {
                         {/* Info Section */}
                         <div className="space-y-6">
                             {product.category && (
-                                <span className="inline-block px-3 py-1 bg-indigo-100 text-emerald-600 rounded-xl text-sm font-medium">
+                                <span className="inline-block px-3 py-1 bg-indigo-100 text-[#10B981] rounded-xl text-sm font-medium">
                                     {product.category}
                                 </span>
                             )}
 
-                            <h1 className="text-3xl font-bold text-gray-900">
+                            <h1 className="text-3xl font-bold text-white">
                                 {product.title}
                             </h1>
 
@@ -178,13 +178,13 @@ export default function ProductPage() {
                                 )}
                                 <div>
                                     <p className="text-sm text-gray-500">المدرب</p>
-                                    <p className="font-medium text-gray-900">{product.user.name}</p>
+                                    <p className="font-medium text-white">{product.user.name}</p>
                                 </div>
                             </div>
 
                             {/* Price */}
-                            <div className="bg-gray-50 rounded-lg p-6">
-                                <div className="text-4xl font-bold text-emerald-600 mb-4">
+                            <div className="bg-[#111111] rounded-lg p-6">
+                                <div className="text-4xl font-bold text-[#10B981] mb-4">
                                     {product.price.toFixed(2)} $
                                 </div>
 
@@ -199,7 +199,7 @@ export default function ProductPage() {
                                     {!isInCart ? (
                                         <button
                                             onClick={handleAddToCart}
-                                            className="w-full py-3 border-2 border-ink text-emerald-600 rounded-lg font-medium hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2"
+                                            className="w-full py-3 border-2 border-ink text-[#10B981] rounded-lg font-medium hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2"
                                         >
                                             <FiShoppingCart />
                                             أضف للسلة
@@ -219,7 +219,7 @@ export default function ProductPage() {
                             {/* Features */}
                             {product.features && product.features.length > 0 && (
                                 <div className="space-y-2">
-                                    <h3 className="font-bold text-gray-900">المميزات:</h3>
+                                    <h3 className="font-bold text-white">المميزات:</h3>
                                     <ul className="space-y-2">
                                         {product.features.map((feature, index) => (
                                             <li key={index} className="flex items-start gap-2">
@@ -235,7 +235,7 @@ export default function ProductPage() {
 
                     {/* Description */}
                     <div className="border-t p-8">
-                        <h2 className="text-2xl font-bold text-gray-900 mb-4">عن المنتج</h2>
+                        <h2 className="text-2xl font-bold text-white mb-4">عن المنتج</h2>
                         <div className="prose max-w-none text-gray-700" dangerouslySetInnerHTML={{ __html: product.description?.replace(/&nbsp;/g, ' ') || '' }} />
                     </div>
                 </div>
@@ -243,7 +243,7 @@ export default function ProductPage() {
             {/* Simple Footer */}
             <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-emerald-600 font-bold hover:underline">منصة تمالين</a>
+                    مدعوم من <a href="https://tmleen.com" className="text-[#10B981] font-bold hover:underline">منصة تمالين</a>
                 </p>
             </footer>
         </div>

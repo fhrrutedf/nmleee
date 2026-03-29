@@ -20,7 +20,7 @@ export default function CertificatePreview({
     brandColor = '#4f46e5',
 }: CertificatePreviewProps) {
     return (
-        <div className="relative w-full aspect-[1.414/1] bg-white border-8 border-double" style={{ borderColor: brandColor }}>
+        <div className="relative w-full aspect-[1.414/1] bg-[#0A0A0A] border-8 border-double" style={{ borderColor: brandColor }}>
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0" style={{
@@ -37,7 +37,7 @@ export default function CertificatePreview({
                 </div>
 
                 {/* Title */}
-                <h1 className="text-4xl font-bold text-gray-900 mb-2">شهادة إتمام</h1>
+                <h1 className="text-4xl font-bold text-white mb-2">شهادة إتمام</h1>
                 <p className="text-lg text-gray-600 mb-8">Certificate of Completion</p>
 
                 {/* Divider */}
@@ -45,7 +45,7 @@ export default function CertificatePreview({
 
                 {/* Student Name */}
                 <p className="text-gray-700 mb-2">تُمنح هذه الشهادة إلى</p>
-                <h2 className="text-3xl font-bold text-gray-900 mb-8">{studentName}</h2>
+                <h2 className="text-3xl font-bold text-white mb-8">{studentName}</h2>
 
                 {/* Course Name */}
                 <p className="text-gray-700 mb-2">لإتمامه بنجاح دورة</p>
@@ -58,11 +58,11 @@ export default function CertificatePreview({
                     <div className="flex items-center justify-between">
                         <div className="text-left">
                             <p className="text-sm text-gray-600 mb-1">المدرب</p>
-                            <p className="font-semibold text-gray-900">{instructorName}</p>
+                            <p className="font-semibold text-white">{instructorName}</p>
                         </div>
                         <div className="text-right">
                             <p className="text-sm text-gray-600 mb-1">تاريخ الإصدار</p>
-                            <p className="font-semibold text-gray-900">{issueDate}</p>
+                            <p className="font-semibold text-white">{issueDate}</p>
                         </div>
                     </div>
                 </div>

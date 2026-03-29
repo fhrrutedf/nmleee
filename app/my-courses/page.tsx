@@ -61,7 +61,7 @@ export default function MyCoursesPage() {
         return (
             <div className="text-center py-12">
                 <p className="text-gray-500">يجب تسجيل الدخول أولاً</p>
-                <Link href="/login" className="text-emerald-600 hover:underline mt-2 inline-block">
+                <Link href="/login" className="text-[#10B981] hover:underline mt-2 inline-block">
                     تسجيل الدخول
                 </Link>
             </div>
@@ -69,9 +69,9 @@ export default function MyCoursesPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-[#111111] py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-8">مشترياتي</h1>
+                <h1 className="text-3xl font-bold text-white mb-8">مشترياتي</h1>
 
                 {/* Filters */}
                 <div className="flex gap-3 mb-6">
@@ -79,7 +79,7 @@ export default function MyCoursesPage() {
                         onClick={() => setFilter('all')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${filter === 'all'
                                 ? 'bg-emerald-700 text-white'
-                                : 'bg-white text-gray-700 hover:bg-gray-100'
+                                : 'bg-[#0A0A0A] text-gray-700 hover:bg-gray-100'
                             }`}
                     >
                         الكل ({purchases.length})
@@ -88,7 +88,7 @@ export default function MyCoursesPage() {
                         onClick={() => setFilter('courses')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${filter === 'courses'
                                 ? 'bg-emerald-700 text-white'
-                                : 'bg-white text-gray-700 hover:bg-gray-100'
+                                : 'bg-[#0A0A0A] text-gray-700 hover:bg-gray-100'
                             }`}
                     >
                         الكورسات ({purchases.filter((p) => p.type === 'course').length})
@@ -97,7 +97,7 @@ export default function MyCoursesPage() {
                         onClick={() => setFilter('products')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${filter === 'products'
                                 ? 'bg-emerald-700 text-white'
-                                : 'bg-white text-gray-700 hover:bg-gray-100'
+                                : 'bg-[#0A0A0A] text-gray-700 hover:bg-gray-100'
                             }`}
                     >
                         المنتجات ({purchases.filter((p) => p.type === 'product').length})
@@ -106,7 +106,7 @@ export default function MyCoursesPage() {
 
                 {/* Grid */}
                 {filteredPurchases.length === 0 ? (
-                    <div className="text-center py-12 bg-white rounded-lg shadow">
+                    <div className="text-center py-12 bg-[#0A0A0A] rounded-lg shadow">
                         <FiBook size={64} className="mx-auto text-gray-300 mb-4" />
                         <p className="text-gray-500 mb-4">لا توجد مشتريات بعد</p>
                         <Link
@@ -119,7 +119,7 @@ export default function MyCoursesPage() {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {filteredPurchases.map((purchase) => (
-                            <div key={purchase.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg shadow-emerald-600/20 transition-shadow">
+                            <div key={purchase.id} className="bg-[#0A0A0A] rounded-lg shadow-md overflow-hidden hover:shadow-lg shadow-[#10B981]/20 transition-shadow">
                                 {purchase.image && (
                                     <div className="relative w-full h-48">
                                         <Image
@@ -134,7 +134,7 @@ export default function MyCoursesPage() {
                                 <div className="p-4">
                                     <div className="flex items-center gap-2 mb-2">
                                         {purchase.type === 'course' ? (
-                                            <FiBook className="text-emerald-600" />
+                                            <FiBook className="text-[#10B981]" />
                                         ) : (
                                             <FiDownload className="text-green-600" />
                                         )}
@@ -143,7 +143,7 @@ export default function MyCoursesPage() {
                                         </span>
                                     </div>
 
-                                    <h3 className="font-bold text-gray-900 mb-2 line-clamp-2">
+                                    <h3 className="font-bold text-white mb-2 line-clamp-2">
                                         {purchase.title}
                                     </h3>
 
@@ -151,7 +151,7 @@ export default function MyCoursesPage() {
                                         <div className="mb-3">
                                             <div className="flex justify-between text-sm mb-1">
                                                 <span className="text-gray-600">التقدم</span>
-                                                <span className="font-medium text-emerald-600">{purchase.progress}%</span>
+                                                <span className="font-medium text-[#10B981]">{purchase.progress}%</span>
                                             </div>
                                             <div className="w-full bg-gray-200 rounded-xl h-2">
                                                 <div

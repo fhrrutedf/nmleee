@@ -81,7 +81,7 @@ export default function ManualPaymentCard({
             <div className="flex items-center justify-between px-2">
                 <button 
                     onClick={onBack}
-                    className="flex items-center gap-1.5 text-slate-500 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest"
+                    className="flex items-center gap-1.5 text-gray-500 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest"
                 >
                     <FiArrowRight /> تراجع
                 </button>
@@ -92,18 +92,18 @@ export default function ManualPaymentCard({
             </div>
 
             {/* Premium Price Conversion Card */}
-            <div className="relative group overflow-hidden bg-emerald-700 p-10 rounded-[2.5rem] border border-emerald-600-500/20 shadow-lg shadow-emerald-600/20">
+            <div className="relative group overflow-hidden bg-emerald-700 p-10 rounded-[2.5rem] border border-emerald-600-500/20 shadow-lg shadow-[#10B981]/20">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-700-500/10 rounded-xl blur-[80px] -mr-10 -mt-10"></div>
                 <div className="relative">
-                    <p className="text-emerald-600-500/70 text-xs font-bold uppercase tracking-[0.2em] mb-4">المبلغ المطلوب بالعملة المحلية</p>
+                    <p className="text-[#10B981]-500/70 text-xs font-bold uppercase tracking-[0.2em] mb-4">المبلغ المطلوب بالعملة المحلية</p>
                     <div className="flex items-baseline gap-3">
                         <span className="text-5xl font-bold text-white tracking-tighter">
                             {new Intl.NumberFormat('ar-EG').format(localPrice.amount)}
                         </span>
-                        <span className="text-2xl font-bold text-emerald-600-500">{localPrice.currency}</span>
+                        <span className="text-2xl font-bold text-[#10B981]-500">{localPrice.currency}</span>
                     </div>
                     <div className="mt-8 flex items-center gap-3 text-xs font-bold bg-black/40  w-fit px-4 py-2 rounded-xl border border-white/5">
-                        <FiInfo size={14} className="text-emerald-600-500" />
+                        <FiInfo size={14} className="text-[#10B981]-500" />
                         <span className="text-slate-400">يعادل تقريباً {usdTotal.toFixed(2)} $ بسعر السوق اليوم</span>
                     </div>
                 </div>
@@ -111,14 +111,14 @@ export default function ManualPaymentCard({
 
             {/* Wallet Address with Copy */}
             <div className="bg-white/5 p-6 rounded-[2rem] border border-white/5 shadow-inner">
-                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-4 block px-2">رقم المحفظة للدفع {method.nameAr}</label>
+                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-4 block px-2">رقم المحفظة للدفع {method.nameAr}</label>
                 <div className="flex items-center gap-3">
                     <div className="flex-1 bg-black/40 border border-white/5 rounded-xl px-5 py-4 font-mono text-xl font-bold text-white tracking-widest text-left" dir="ltr">
                         {walletAddress}
                     </div>
                     <button
                         onClick={handleCopy}
-                        className={`shrink-0 w-16 h-16 rounded-xl flex items-center justify-center transition-all ${copied ? 'bg-emerald-700-500 text-white scale-95' : 'bg-white/5 text-slate-400 hover:text-white hover:bg-surface/10 active:scale-95 border border-white/5'}`}
+                        className={`shrink-0 w-16 h-16 rounded-xl flex items-center justify-center transition-all ${copied ? 'bg-emerald-700-500 text-white scale-95' : 'bg-white/5 text-slate-400 hover:text-white hover:bg-[#0A0A0A]/10 active:scale-95 border border-white/5'}`}
                     >
                         {copied ? <FiCheck size={28} /> : <FiCopy size={24} />}
                     </button>
@@ -128,7 +128,7 @@ export default function ManualPaymentCard({
             {/* Inputs Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-2">رقم الهاتف المرسل منه *</label>
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest px-2">رقم الهاتف المرسل منه *</label>
                     <input 
                         type="tel"
                         value={senderPhone}
@@ -139,7 +139,7 @@ export default function ManualPaymentCard({
                     />
                 </div>
                 <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-2">رقم المرجع / العملية *</label>
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest px-2">رقم المرجع / العملية *</label>
                     <input 
                         type="text"
                         value={transactionRef}
@@ -153,7 +153,7 @@ export default function ManualPaymentCard({
 
             {/* Proof Upload Area */}
             <div className="space-y-2">
-                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-2">صورة إيصال التحويل (Proof) *</label>
+                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest px-2">صورة إيصال التحويل (Proof) *</label>
                 <div 
                     onClick={() => fileInputRef.current?.click()}
                     className={`relative w-full aspect-[16/6] rounded-[2rem] border-2 border-dashed transition-all flex flex-col items-center justify-center cursor-pointer overflow-hidden ${proofPreview ? 'border-emerald-600-500/50 bg-emerald-700-500/5' : 'border-white/10 hover:border-emerald-600-500/30 hover:bg-white/5 group'}`}
@@ -173,7 +173,7 @@ export default function ManualPaymentCard({
                                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
                                     <button 
                                         onClick={(e) => { e.stopPropagation(); setProofFile(null); setProofPreview(null); updateParent(senderPhone, transactionRef, null, notes); }}
-                                        className="bg-surface/10  p-3 rounded-xl text-white hover:bg-white/20 transition-colors"
+                                        className="bg-[#0A0A0A]/10  p-3 rounded-xl text-white hover:bg-white/20 transition-colors"
                                     >
                                         <FiX size={28} />
                                     </button>
@@ -184,12 +184,12 @@ export default function ManualPaymentCard({
                                 key="upload"
                                 className="flex flex-col items-center gap-2"
                             >
-                                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-slate-500 group-hover:text-emerald-600-500 group-hover:bg-surface/10 transition-all">
+                                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-gray-500 group-hover:text-[#10B981]-500 group-hover:bg-[#0A0A0A]/10 transition-all">
                                     <FiUpload size={24} />
                                 </div>
                                 <div className="text-center">
                                     <p className="text-sm font-bold text-white">اضغط لإرسال لقطة الشاشة</p>
-                                    <p className="text-[10px] text-slate-600 font-bold mt-1 uppercase tracking-widest">PNG, JPG b 5MB Max</p>
+                                    <p className="text-[10px] text-gray-400 font-bold mt-1 uppercase tracking-widest">PNG, JPG b 5MB Max</p>
                                 </div>
                             </motion.div>
                         )}
@@ -199,7 +199,7 @@ export default function ManualPaymentCard({
 
             {/* Notes */}
             <div className="space-y-2">
-                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-2">ملاحظات (اختياري)</label>
+                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest px-2">ملاحظات (اختياري)</label>
                 <textarea 
                     value={notes}
                     onChange={(e) => { setNotes(e.target.value); updateParent(senderPhone, transactionRef, proofFile, e.target.value); }}

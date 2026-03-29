@@ -52,12 +52,12 @@ export default function CartPage() {
 
     if (cart.length === 0) {
         return (
-            <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-                <div className="bg-white p-8 rounded-xl shadow-lg shadow-emerald-600/20 text-center max-w-md w-full">
+            <div className="min-h-screen bg-[#111111] flex flex-col items-center justify-center p-4">
+                <div className="bg-[#0A0A0A] p-8 rounded-xl shadow-lg shadow-[#10B981]/20 text-center max-w-md w-full">
                     <div className="w-20 h-20 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-6">
                         <FiShoppingCart className="text-4xl text-gray-400" />
                     </div>
-                    <h1 className="text-2xl font-bold mb-2 text-gray-900">سلة المشتريات فارغة</h1>
+                    <h1 className="text-2xl font-bold mb-2 text-white">سلة المشتريات فارغة</h1>
                     <p className="text-gray-500 mb-8">لم تضف أي منتجات للسلة بعد. تصفح منتجاتنا وابدأ التسوق!</p>
                     <Link href="/products" className="btn btn-primary w-full flex items-center justify-center gap-2">
                         تصفح المنتجات
@@ -71,19 +71,19 @@ export default function CartPage() {
 
     return (
         <div
-            className="min-h-screen bg-gray-50 py-12"
+            className="min-h-screen bg-[#111111] py-12"
             style={effectiveBrandColor ? { '--brand': effectiveBrandColor } as React.CSSProperties : {}}
         >
             {effectiveBrandColor && (
                 <style dangerouslySetInnerHTML={{
                     __html: `
-                    .text-emerald-600, .text-primary-700, .text-emerald-600 a { color: ${effectiveBrandColor} !important; }
+                    .text-[#10B981], .text-primary-700, .text-[#10B981] a { color: ${effectiveBrandColor} !important; }
                     .text-primary-700 { color: ${effectiveBrandColor} !important; filter: brightness(0.85); }
                     .bg-emerald-700 { background-color: ${effectiveBrandColor} !important; }
                     .btn-primary { background-color: ${effectiveBrandColor} !important; border-color: ${effectiveBrandColor} !important; }
                     .btn-primary:hover { background-color: ${effectiveBrandColor} !important; filter: brightness(0.85); }
                     .shadow-accent\\/30 { --tw-shadow-color: ${effectiveBrandColor}4d !important; }
-                    .hover\\:text-emerald-600:hover { color: ${effectiveBrandColor} !important; }
+                    .hover\\:text-[#10B981]:hover { color: ${effectiveBrandColor} !important; }
                     .focus\\:ring-accent:focus { --tw-ring-color: ${effectiveBrandColor} !important; }
                     a[class*="text-primary"] { color: ${effectiveBrandColor} !important; }
                     `
@@ -91,7 +91,7 @@ export default function CartPage() {
             )}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900">سلة المشتريات ({cart.length})</h1>
+                    <h1 className="text-3xl font-bold text-white">سلة المشتريات ({cart.length})</h1>
                     <button
                         onClick={clearCart}
                         className="text-red-600 hover:text-red-700 text-sm font-medium flex items-center gap-1"
@@ -104,7 +104,7 @@ export default function CartPage() {
                     {/* Cart Items */}
                     <div className="lg:col-span-2 space-y-4">
                         {cart.map((item, index) => (
-                            <div key={index} className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-4 flex gap-4 items-center group hover:shadow-md transition-shadow">
+                            <div key={index} className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-4 flex gap-4 items-center group hover:shadow-md transition-shadow">
                                 <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 relative">
                                     {item.image ? (
                                         <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
@@ -117,7 +117,7 @@ export default function CartPage() {
                                 <div className="flex-1 min-w-0">
                                     <div className="flex justify-between items-start">
                                         <div>
-                                            <h3 className="font-bold text-gray-900 line-clamp-1">{item.title}</h3>
+                                            <h3 className="font-bold text-white line-clamp-1">{item.title}</h3>
                                             <p className="text-sm text-gray-500 mt-1">{item.category || 'منتج عام'}</p>
                                         </div>
                                         <button
@@ -129,7 +129,7 @@ export default function CartPage() {
                                         </button>
                                     </div>
                                     <div className="mt-4 flex items-center justify-between">
-                                        <span className="font-bold text-lg text-emerald-600">
+                                        <span className="font-bold text-lg text-[#10B981]">
                                             {item.price > 0 ? `${item.price.toFixed(2)} $` : 'مجاني'}
                                         </span>
                                     </div>
@@ -140,8 +140,8 @@ export default function CartPage() {
 
                     {/* Order Summary */}
                     <div className="lg:col-span-1">
-                        <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6 sticky top-6">
-                            <h2 className="text-xl font-bold mb-6 text-gray-900">ملخص الطلب</h2>
+                        <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-6 sticky top-6">
+                            <h2 className="text-xl font-bold mb-6 text-white">ملخص الطلب</h2>
 
                             <div className="space-y-4 mb-6 pb-6 border-b border-gray-100">
                                 <div className="flex justify-between text-gray-600">
@@ -155,20 +155,20 @@ export default function CartPage() {
                             </div>
 
                             <div className="flex justify-between items-center mb-8">
-                                <span className="text-lg font-bold text-gray-900">الإجمالي</span>
+                                <span className="text-lg font-bold text-white">الإجمالي</span>
                                 <span className="text-2xl font-bold text-primary-700">{subtotal.toFixed(2)} $</span>
                             </div>
 
                             <button
                                 onClick={() => router.push('/checkout')}
-                                className="w-full btn btn-primary py-4 text-lg font-bold shadow-lg shadow-emerald-600/20 shadow-accent/30 flex items-center justify-center gap-2"
+                                className="w-full btn btn-primary py-4 text-lg font-bold shadow-lg shadow-[#10B981]/20 shadow-accent/30 flex items-center justify-center gap-2"
                             >
                                 <span>إتمام عملية الدفع</span>
                                 <FiArrowRight className="rtl:rotate-180" />
                             </button>
 
                             <div className="mt-4 text-center">
-                                <Link href="/products" className="text-sm text-gray-500 hover:text-emerald-600 underline">
+                                <Link href="/products" className="text-sm text-gray-500 hover:text-[#10B981] underline">
                                     الاستمرار في التسوق
                                 </Link>
                             </div>
@@ -180,7 +180,7 @@ export default function CartPage() {
             {/* Simple Footer */}
             <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-emerald-600 font-bold hover:underline">منصة تمالين</a>
+                    مدعوم من <a href="https://tmleen.com" className="text-[#10B981] font-bold hover:underline">منصة تمالين</a>
                 </p>
             </footer>
         </div>

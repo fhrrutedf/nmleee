@@ -53,11 +53,11 @@ export default function AutomationPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                        <FiZap className="text-emerald-600-500" />
+                    <h1 className="text-2xl font-bold text-white dark:text-white flex items-center gap-2">
+                        <FiZap className="text-[#10B981]-500" />
                         مركز الأتمتة والنمو
                     </h1>
-                    <p className="text-slate-500 dark:text-slate-400 mt-1">قم بزيادة مبيعاتك تلقائياً باستخدام "دروع تمالين" للنمو.</p>
+                    <p className="text-gray-500 dark:text-slate-400 mt-1">قم بزيادة مبيعاتك تلقائياً باستخدام "دروع تمالين" للنمو.</p>
                 </div>
                 <button 
                     onClick={handleSave}
@@ -73,7 +73,7 @@ export default function AutomationPage() {
                 {/* Automation Toggles */}
                 <div className="lg:col-span-2 space-y-6">
                     {/* Welcome Email */}
-                    <section className="bg-white dark:bg-emerald-700/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20">
+                    <section className="bg-[#0A0A0A] dark:bg-emerald-700/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20">
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
                                 <div className="p-2.5 bg-sky-100 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400 rounded-xl">
@@ -81,7 +81,7 @@ export default function AutomationPage() {
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg">رسالة الترحيب الآلية</h3>
-                                    <p className="text-xs text-slate-500">تُرسل فوراً عند تسجيل أي طالب جديد في نظامك.</p>
+                                    <p className="text-xs text-gray-500">تُرسل فوراً عند تسجيل أي طالب جديد في نظامك.</p>
                                 </div>
                             </div>
                             <label className="relative inline-flex items-center cursor-pointer">
@@ -91,7 +91,7 @@ export default function AutomationPage() {
                                     checked={settings.welcomeEmailEnabled}
                                     onChange={(e) => setSettings({ ...settings, welcomeEmailEnabled: e.target.checked })}
                                 />
-                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-xl peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-xl peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[#0A0A0A] after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
                             </label>
                         </div>
                         {settings.welcomeEmailEnabled && (
@@ -102,7 +102,7 @@ export default function AutomationPage() {
                                         type="text" 
                                         value={settings.welcomeEmailSubject}
                                         onChange={(e) => setSettings({ ...settings, welcomeEmailSubject: e.target.value })}
-                                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                        className="w-full bg-[#111111] dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                         placeholder="مرحباً بك في أكاديميتي!"
                                     />
                                 </div>
@@ -112,7 +112,7 @@ export default function AutomationPage() {
                                         value={settings.welcomeEmailBody}
                                         onChange={(e) => setSettings({ ...settings, welcomeEmailBody: e.target.value })}
                                         rows={3}
-                                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                        className="w-full bg-[#111111] dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                         placeholder="شكراً لانضمامك إلينا..."
                                     />
                                 </div>
@@ -121,9 +121,9 @@ export default function AutomationPage() {
                     </section>
 
                     {/* Abandoned Cart Engine */}
-                    <section className="bg-white dark:bg-emerald-700/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20 overflow-hidden relative">
+                    <section className="bg-[#0A0A0A] dark:bg-emerald-700/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 overflow-hidden relative">
                         <div className="absolute top-4 left-4">
-                             <div className="flex items-center gap-1.5 bg-blue-100 dark:bg-emerald-700/20 text-emerald-600 dark:text-amber-400 px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-wider">
+                             <div className="flex items-center gap-1.5 bg-blue-100 dark:bg-emerald-700/20 text-[#10B981] dark:text-amber-400 px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-wider">
                                 <FiZap />
                                 نظام ذكي
                              </div>
@@ -135,7 +135,7 @@ export default function AutomationPage() {
                             </div>
                             <div>
                                 <h3 className="font-bold text-lg">نظام استعادة السلال المفقودة</h3>
-                                <p className="text-xs text-slate-500">تحويل الأشخاص الذين لم يكملوا الشراء إلى عملاء حقيقيين.</p>
+                                <p className="text-xs text-gray-500">تحويل الأشخاص الذين لم يكملوا الشراء إلى عملاء حقيقيين.</p>
                             </div>
                         </div>
 
@@ -173,28 +173,28 @@ export default function AutomationPage() {
                             {/* Reminder 3 (The Ultimate) */}
                             <div className={`p-4 rounded-xl border transition-all ${settings.cartReminder3Enabled ? 'border-emerald-600-500 bg-emerald-700-500/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="text-xs font-bold text-emerald-600-600 italic">#تذكير 3 (الأخير)</span>
+                                    <span className="text-xs font-bold text-[#10B981]-600 italic">#تذكير 3 (الأخير)</span>
                                     <input 
                                         type="checkbox" 
                                         checked={settings.cartReminder3Enabled}
                                         onChange={(e) => setSettings({ ...settings, cartReminder3Enabled: e.target.checked })}
-                                        className="w-4 h-4 rounded border-slate-300 text-emerald-600-500 focus:ring-accent-500"
+                                        className="w-4 h-4 rounded border-slate-300 text-[#10B981]-500 focus:ring-accent-500"
                                     />
                                 </div>
                                 <h4 className="font-bold text-sm mb-1">بعد 3 أيام</h4>
                                 <div className="flex items-center gap-2 mt-2">
-                                     <FiPercent className="text-emerald-600-500" />
-                                     <span className="text-[10px] font-bold text-emerald-600-600">خصم 10% تلقائي</span>
+                                     <FiPercent className="text-[#10B981]-500" />
+                                     <span className="text-[10px] font-bold text-[#10B981]-600">خصم 10% تلقائي</span>
                                 </div>
                             </div>
                         </div>
 
                         {settings.cartReminder3Enabled && (
                             <div className="bg-emerald-700-50 dark:bg-emerald-700-500/10 p-4 rounded-xl border border-blue-100 dark:border-emerald-600-500/20 flex items-start gap-3">
-                                <FiAlertCircle className="text-emerald-600-500 mt-1 shrink-0" />
+                                <FiAlertCircle className="text-[#10B981]-500 mt-1 shrink-0" />
                                 <div>
                                     <h5 className="font-bold text-sm text-blue-700 dark:text-blue-400 mb-1">استراتيجية الخصم التلقائي مفعلة</h5>
-                                    <p className="text-xs text-emerald-600-600 dark:text-emerald-600-500/80 leading-relaxed">
+                                    <p className="text-xs text-[#10B981]-600 dark:text-[#10B981]-500/80 leading-relaxed">
                                         سيقوم النظام تلقائياً بتوليد كود خصم بنسبة 10% (لمرة واحدة) لهذا العميل وإرساله في الرسالة الأخيرة لتحفيزه على إتمام الدفعة فوراً.
                                     </p>
                                 </div>
@@ -203,15 +203,15 @@ export default function AutomationPage() {
                     </section>
 
                     {/* Inactive User Recovery (Phase 7) */}
-                    <section className="bg-white dark:bg-emerald-700/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20 overflow-hidden relative">
+                    <section className="bg-[#0A0A0A] dark:bg-emerald-700/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 overflow-hidden relative">
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
-                                <div className="p-2.5 bg-blue-100 dark:bg-emerald-700-500/20 text-emerald-600-600 dark:text-blue-400 rounded-xl">
+                                <div className="p-2.5 bg-blue-100 dark:bg-emerald-700-500/20 text-[#10B981]-600 dark:text-blue-400 rounded-xl">
                                     <FiZap className="text-xl" />
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg">نظام استعادة العملاء الخاملين</h3>
-                                    <p className="text-xs text-slate-500">ميزة ذكية لملاحقة العملاء الذين انقطعوا عن الشراء وإعادتهم لمتجرك.</p>
+                                    <p className="text-xs text-gray-500">ميزة ذكية لملاحقة العملاء الذين انقطعوا عن الشراء وإعادتهم لمتجرك.</p>
                                 </div>
                             </div>
                             <label className="relative inline-flex items-center cursor-pointer">
@@ -221,7 +221,7 @@ export default function AutomationPage() {
                                     checked={settings.marketingEnabled}
                                     onChange={(e) => setSettings({ ...settings, marketingEnabled: e.target.checked })}
                                 />
-                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-xl peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-700-600"></div>
+                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-xl peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[#0A0A0A] after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-700-600"></div>
                             </label>
                         </div>
 
@@ -236,11 +236,11 @@ export default function AutomationPage() {
                                                 type="number" 
                                                 value={settings.inactiveUserDays}
                                                 onChange={(e) => setSettings({ ...settings, inactiveUserDays: parseInt(e.target.value) })}
-                                                className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-10 py-2.5 text-sm focus:ring-2 focus:ring-accent-500/20 outline-none transition-all"
+                                                className="w-full bg-[#111111] dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-10 py-2.5 text-sm focus:ring-2 focus:ring-accent-500/20 outline-none transition-all"
                                                 placeholder="30"
                                             />
                                         </div>
-                                        <p className="text-[10px] text-slate-500 mt-1.5">سيتم إرسال الإيميل بعد مرور هذه المدة من آخر طلب ناجح.</p>
+                                        <p className="text-[10px] text-gray-500 mt-1.5">سيتم إرسال الإيميل بعد مرور هذه المدة من آخر طلب ناجح.</p>
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium mb-1.5 opacity-70">نسبة الخصم المحفزة (%)</label>
@@ -250,11 +250,11 @@ export default function AutomationPage() {
                                                 type="number" 
                                                 value={settings.inactiveUserDiscount || ''}
                                                 onChange={(e) => setSettings({ ...settings, inactiveUserDiscount: parseFloat(e.target.value) })}
-                                                className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-10 py-2.5 text-sm focus:ring-2 focus:ring-accent-500/20 outline-none transition-all"
+                                                className="w-full bg-[#111111] dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-10 py-2.5 text-sm focus:ring-2 focus:ring-accent-500/20 outline-none transition-all"
                                                 placeholder="10"
                                             />
                                         </div>
-                                        <p className="text-[10px] text-slate-500 mt-1.5">سيقوم النظام بتوليد كود خصم تلقائي بهذه النسبة صالح لمدة 7 أيام.</p>
+                                        <p className="text-[10px] text-gray-500 mt-1.5">سيقوم النظام بتوليد كود خصم تلقائي بهذه النسبة صالح لمدة 7 أيام.</p>
                                     </div>
                                 </div>
 
@@ -264,10 +264,10 @@ export default function AutomationPage() {
                                         value={settings.inactiveUserMessage || ''}
                                         onChange={(e) => setSettings({ ...settings, inactiveUserMessage: e.target.value })}
                                         rows={3}
-                                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-accent-500/20 outline-none transition-all"
+                                        className="w-full bg-[#111111] dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-accent-500/20 outline-none transition-all"
                                         placeholder="مثلاً: مرحباً! لقد مر وقت طويل منذ آخر جلسة تعليمية لنا، تفضل هذا الخصم للعودة..."
                                     />
-                                    <div className="mt-2 flex items-center gap-2 text-[10px] text-emerald-600-600 font-medium">
+                                    <div className="mt-2 flex items-center gap-2 text-[10px] text-[#10B981]-600 font-medium">
                                         <FiEdit3 />
                                         <span>نصيحة: اجعل الرسالة شخصية وجذابة لزيادة معدل التحويل.</span>
                                     </div>
@@ -279,7 +279,7 @@ export default function AutomationPage() {
 
                 {/* Live Activity Feed (Abandoned Carts) */}
                 <div className="space-y-6">
-                    <section className="bg-emerald-700 border border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20 h-full flex flex-col">
+                    <section className="bg-emerald-700 border border-slate-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 h-full flex flex-col">
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="font-bold text-white flex items-center gap-2">
                                 <FiClock className="text-orange-500" />
@@ -299,7 +299,7 @@ export default function AutomationPage() {
                                     <div key={cart.id} className="bg-slate-800/50 border border-slate-700 p-3.5 rounded-xl hover:bg-emerald-700 transition-colors group">
                                         <div className="flex justify-between items-start mb-2">
                                             <span className="font-bold text-xs text-white truncate max-w-[140px]">{cart.customerEmail}</span>
-                                            <span className="text-[10px] text-slate-500">{new Date(cart.createdAt).toLocaleDateString('ar-EG', { day: '2-digit', month: 'short' })}</span>
+                                            <span className="text-[10px] text-gray-500">{new Date(cart.createdAt).toLocaleDateString('ar-EG', { day: '2-digit', month: 'short' })}</span>
                                         </div>
                                         <p className="text-[10px] text-slate-400 mb-3 truncate leading-relaxed">🏷️ {cart.productNames.join(', ')}</p>
                                         <div className="flex items-center justify-between gap-2 border-t border-slate-700/50 pt-2.5 mt-2.5">
@@ -329,7 +329,7 @@ export default function AutomationPage() {
                         </div>
 
                         <div className="mt-6 pt-6 border-t border-slate-800">
-                             <div className="flex items-center gap-2 text-xs text-slate-500">
+                             <div className="flex items-center gap-2 text-xs text-gray-500">
                                 <FiAlertCircle />
                                 <span>يتم تحديث هذه القائمة تلقائياً كل 15 دقيقة.</span>
                              </div>

@@ -45,7 +45,7 @@ export default function StepProgress({ steps, currentStep }: StepProgressProps) 
                   borderColor: isCompleted || isActive ? 'transparent' : '#f3f4f6',
                   scale: isActive ? 1.15 : 1,
                 }}
-                className="w-10 h-10 rounded-xl border-2 flex items-center justify-center transition-all shadow-lg shadow-emerald-600/20 ring-4 ring-white"
+                className="w-10 h-10 rounded-xl border-2 flex items-center justify-center transition-all shadow-lg shadow-[#10B981]/20 ring-4 ring-white"
               >
                 {isCompleted ? (
                   <FiCheck className="text-white text-lg stroke-[3px]" />

@@ -54,17 +54,17 @@ export default function AdminSupportPage() {
         <div className="space-y-6 max-w-7xl mx-auto pb-12">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-emerald-600 dark:text-white flex items-center gap-3">
-                        <FiMessageSquare className="text-emerald-600" />
+                    <h1 className="text-3xl font-bold text-[#10B981] dark:text-white flex items-center gap-3">
+                        <FiMessageSquare className="text-[#10B981]" />
                         نظام تذاكر الدعم الفني
                     </h1>
                     <p className="text-text-muted mt-2 font-medium">إدارة تذاكر البائعين والعملاء والإجابة على الاستفسارات</p>
                 </div>
 
-                <div className="flex items-center gap-2 bg-white dark:bg-card-white shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 rounded-xl p-1">
-                    <button onClick={() => setStatusFilter('OPEN')} className={`px-4 py-2 font-bold text-sm rounded-lg transition-colors ${statusFilter === 'OPEN' ? 'bg-yellow-100 text-yellow-700' : 'text-gray-500 hover:bg-gray-50'}`}>جديدة</button>
-                    <button onClick={() => setStatusFilter('IN_PROGRESS')} className={`px-4 py-2 font-bold text-sm rounded-lg transition-colors ${statusFilter === 'IN_PROGRESS' ? 'bg-blue-100 text-blue-700' : 'text-gray-500 hover:bg-gray-50'}`}>جاري العمل</button>
-                    <button onClick={() => setStatusFilter('ALL')} className={`px-4 py-2 font-bold text-sm rounded-lg transition-colors ${statusFilter === 'ALL' ? 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-white' : 'text-gray-500 hover:bg-gray-50'}`}>الكل</button>
+                <div className="flex items-center gap-2 bg-[#0A0A0A] dark:bg-card-white shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 rounded-xl p-1">
+                    <button onClick={() => setStatusFilter('OPEN')} className={`px-4 py-2 font-bold text-sm rounded-lg transition-colors ${statusFilter === 'OPEN' ? 'bg-yellow-100 text-yellow-700' : 'text-gray-500 hover:bg-[#111111]'}`}>جديدة</button>
+                    <button onClick={() => setStatusFilter('IN_PROGRESS')} className={`px-4 py-2 font-bold text-sm rounded-lg transition-colors ${statusFilter === 'IN_PROGRESS' ? 'bg-blue-100 text-blue-700' : 'text-gray-500 hover:bg-[#111111]'}`}>جاري العمل</button>
+                    <button onClick={() => setStatusFilter('ALL')} className={`px-4 py-2 font-bold text-sm rounded-lg transition-colors ${statusFilter === 'ALL' ? 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-white' : 'text-gray-500 hover:bg-[#111111]'}`}>الكل</button>
                 </div>
             </div>
 
@@ -73,25 +73,25 @@ export default function AdminSupportPage() {
                     <div className="w-12 h-12 border-4 border-emerald-600/30 border-t-accent rounded-xl animate-spin" />
                 </div>
             ) : tickets.length === 0 ? (
-                <div className="bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 p-12 text-center text-gray-500 flex flex-col items-center justify-center min-h-[400px]">
+                <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-12 text-center text-gray-500 flex flex-col items-center justify-center min-h-[400px]">
                     <FiMessageSquare className="text-gray-300 dark:text-gray-700 mb-4" size={64} />
-                    <h3 className="text-xl font-bold mb-2 text-emerald-600 dark:text-white">لا توجد تذاكر حالياً</h3>
+                    <h3 className="text-xl font-bold mb-2 text-[#10B981] dark:text-white">لا توجد تذاكر حالياً</h3>
                     <p>لا يوجد تذاكر دعم فني تتطابق مع التصفية الحالية ({getStatusLabel(statusFilter)})</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {tickets.map(ticket => (
-                        <div key={ticket.id} className="bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 p-6 flex flex-col justify-between hover:shadow-lg shadow-emerald-600/20 transition-shadow">
+                        <div key={ticket.id} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-6 flex flex-col justify-between hover:shadow-lg shadow-[#10B981]/20 transition-shadow">
                             <div>
                                 <div className="flex justify-between items-start mb-4">
                                     <span className={`px-3 py-1 text-xs font-bold rounded-xl ${getStatusStyle(ticket.status)}`}>
                                         {getStatusLabel(ticket.status)}
                                     </span>
-                                    <span className="font-mono text-xs text-gray-400 bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded-md flex items-center gap-1">
+                                    <span className="font-mono text-xs text-gray-400 bg-[#111111] dark:bg-gray-800 px-2 py-1 rounded-md flex items-center gap-1">
                                         <FiHash /> {ticket.ticketNumber.replace('TKT-', '')}
                                     </span>
                                 </div>
-                                <h3 className="font-bold text-lg text-emerald-600 dark:text-white mb-2 line-clamp-2" title={ticket.subject}>
+                                <h3 className="font-bold text-lg text-[#10B981] dark:text-white mb-2 line-clamp-2" title={ticket.subject}>
                                     {ticket.subject}
                                 </h3>
                                 <div className="flex items-center gap-2 mb-4 text-sm text-gray-500 font-medium">

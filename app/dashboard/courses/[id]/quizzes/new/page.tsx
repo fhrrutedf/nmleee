@@ -70,10 +70,10 @@ export default function NewQuizPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-[#111111] py-8">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="bg-white rounded-lg shadow-md p-6">
-                    <h1 className="text-2xl font-bold text-gray-900 mb-6">إنشاء اختبار جديد</h1>
+                <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
+                    <h1 className="text-2xl font-bold text-white mb-6">إنشاء اختبار جديد</h1>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Title */}
@@ -138,7 +138,7 @@ export default function NewQuizPage() {
 
                         {/* Quiz Builder */}
                         <div>
-                            <h3 className="text-lg font-semibold text-gray-900 mb-4">الأسئلة</h3>
+                            <h3 className="text-lg font-semibold text-white mb-4">الأسئلة</h3>
                             <QuizBuilder
                                 onChange={(questions) => setFormData({ ...formData, questions: questions as any })}
                             />

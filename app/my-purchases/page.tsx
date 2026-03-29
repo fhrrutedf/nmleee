@@ -63,41 +63,41 @@ export default function MyPurchasesPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12">
+        <div className="min-h-screen bg-[#111111] py-12">
             <div className="max-w-7xl mx-auto px-4">
                 {/* Header */}
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-emerald-600 mb-2">مشترياتي</h1>
+                    <h1 className="text-3xl font-bold text-[#10B981] mb-2">مشترياتي</h1>
                     <p className="text-gray-600">جميع المنتجات والدورات التي اشتريتها</p>
                 </div>
 
                 {/* Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-white border border-gray-200 rounded-xl p-6">
+                    <div className="bg-[#0A0A0A] border border-gray-200 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">إجمالي المشتريات</p>
-                                <p className="text-3xl font-bold mt-1 text-emerald-600">{purchases.length}</p>
+                                <p className="text-3xl font-bold mt-1 text-[#10B981]">{purchases.length}</p>
                             </div>
                             <FiPackage className="text-4xl text-gray-300" />
                         </div>
                     </div>
 
-                    <div className="bg-white border border-gray-200 rounded-xl p-6">
+                    <div className="bg-[#0A0A0A] border border-gray-200 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">متاحة للتحميل</p>
-                                <p className="text-3xl font-bold mt-1 text-emerald-600">{purchases.filter((p: any) => p.status === 'completed').length}</p>
+                                <p className="text-3xl font-bold mt-1 text-[#10B981]">{purchases.filter((p: any) => p.status === 'completed').length}</p>
                             </div>
                             <FiCheckCircle className="text-4xl text-gray-300" />
                         </div>
                     </div>
 
-                    <div className="bg-white border border-gray-200 rounded-xl p-6">
+                    <div className="bg-[#0A0A0A] border border-gray-200 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">إجمالي الإنفاق</p>
-                                <p className="text-3xl font-bold mt-1 text-emerald-600">
+                                <p className="text-3xl font-bold mt-1 text-[#10B981]">
                                     {purchases.reduce((sum: number, p: any) => sum + p.total, 0).toFixed(0)} $
                                 </p>
                             </div>
@@ -108,7 +108,7 @@ export default function MyPurchasesPage() {
 
                 {/* Purchases List */}
                 {purchases.length === 0 ? (
-                    <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-12 text-center">
+                    <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-12 text-center">
                         <FiPackage className="text-6xl text-gray-300 mx-auto mb-4" />
                         <h3 className="text-2xl font-bold mb-2">لا توجد مشتريات بعد</h3>
                         <p className="text-gray-600 mb-6">ابدأ بتصفح منتجاتنا الرائعة!</p>
@@ -119,7 +119,7 @@ export default function MyPurchasesPage() {
                 ) : (
                     <div className="space-y-6">
                         {purchases.map((purchase: any) => (
-                            <div key={purchase.id} className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6 hover:shadow-md transition-shadow">
+                            <div key={purchase.id} className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-6 hover:shadow-md transition-shadow">
                                 <div className="flex items-start justify-between mb-4">
                                     <div>
                                         <h3 className="text-xl font-bold mb-1">طلب #{purchase.id.slice(0, 8)}</h3>
@@ -141,7 +141,7 @@ export default function MyPurchasesPage() {
                                             {purchase.status === 'completed' ? 'مكتمل' :
                                                 purchase.status === 'pending' ? 'قيد المعالجة' : 'ملغي'}
                                         </span>
-                                        <p className="text-2xl font-bold text-emerald-600 mt-2">
+                                        <p className="text-2xl font-bold text-[#10B981] mt-2">
                                             {purchase.total.toFixed(2)} $
                                         </p>
                                     </div>
@@ -150,7 +150,7 @@ export default function MyPurchasesPage() {
                                 {/* Products in Order */}
                                 <div className="space-y-3">
                                     {purchase.orderItems?.map((item: any) => (
-                                        <div key={item.id} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+                                        <div key={item.id} className="flex items-center gap-4 p-4 bg-[#111111] rounded-lg">
                                             {item.product?.image ? (
                                                 <img
                                                     src={item.product.image}
@@ -163,7 +163,7 @@ export default function MyPurchasesPage() {
                                                 </div>
                                             )}
                                             <div className="flex-1">
-                                                <h4 className="font-medium text-gray-900 mb-1">
+                                                <h4 className="font-medium text-white mb-1">
                                                     {item.product?.title || 'منتج'}
                                                 </h4>
                                                 <p className="text-sm text-gray-500">

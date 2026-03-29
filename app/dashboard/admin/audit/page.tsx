@@ -35,7 +35,7 @@ const ACTION_LABELS: Record<string, { label: string; color: string }> = {
     'broadcast.sent': { label: 'إرسال بث', color: 'bg-pink-100 text-pink-700' },
     'admin.impersonation_started': { label: 'بدء انتحال', color: 'bg-orange-100 text-orange-700' },
     'platform.payment_failed': { label: 'فشل دفع', color: 'bg-red-50 text-red-500' },
-    'platform.settings_updated': { label: 'تحديث منصة', color: 'bg-emerald-700-50 text-emerald-600-600' },
+    'platform.settings_updated': { label: 'تحديث منصة', color: 'bg-emerald-700-50 text-[#10B981]-600' },
 };
 
 export default function AdminAuditLogsPage() {
@@ -65,8 +65,8 @@ export default function AdminAuditLogsPage() {
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-emerald-600 dark:text-white flex items-center gap-2">
-                        <FiShield className="text-emerald-600" /> سجل الرقابة والأنشطة
+                    <h1 className="text-2xl font-bold text-[#10B981] dark:text-white flex items-center gap-2">
+                        <FiShield className="text-[#10B981]" /> سجل الرقابة والأنشطة
                     </h1>
                     <p className="text-text-muted text-sm mt-1">تتبع جميع الحركات الحساسة التي تمت على المنصة</p>
                 </div>
@@ -90,7 +90,7 @@ export default function AdminAuditLogsPage() {
             <div className="card overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-right">
-                        <thead className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800">
+                        <thead className="bg-[#111111] dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800">
                             <tr className="text-text-muted text-xs font-bold">
                                 <th className="px-5 py-4">المنفذ</th>
                                 <th className="px-5 py-4">النشاط</th>
@@ -104,7 +104,7 @@ export default function AdminAuditLogsPage() {
                             {loading ? (
                                 [1, 2, 3].map(i => (
                                     <tr key={i} className="">
-                                        <td colSpan={6} className="px-5 py-6 h-12 bg-gray-50/50 dark:bg-gray-800/20"></td>
+                                        <td colSpan={6} className="px-5 py-6 h-12 bg-[#111111]/50 dark:bg-gray-800/20"></td>
                                     </tr>
                                 ))
                             ) : logs.length === 0 ? (
@@ -115,10 +115,10 @@ export default function AdminAuditLogsPage() {
                                     </td>
                                 </tr>
                             ) : logs.filter(l => !actorFilter || l.actor_name.includes(actorFilter)).map((log) => (
-                                <tr key={log.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors">
+                                <tr key={log.id} className="hover:bg-[#111111]/50 dark:hover:bg-gray-800/30 transition-colors">
                                     <td className="px-5 py-4">
                                         <div className="flex items-center gap-2">
-                                            <div className="w-8 h-8 rounded-xl bg-emerald-700/10 text-emerald-600 flex items-center justify-center font-bold text-xs">
+                                            <div className="w-8 h-8 rounded-xl bg-emerald-700/10 text-[#10B981] flex items-center justify-center font-bold text-xs">
                                                 {log.actor_name?.charAt(0) || 'S'}
                                             </div>
                                             <div>
@@ -136,12 +136,12 @@ export default function AdminAuditLogsPage() {
                                         {log.entity_type && (
                                             <div className="flex items-center gap-1.5 text-xs">
                                                 <span className="text-text-muted">{log.entity_type}:</span>
-                                                <span className="font-mono text-emerald-600 truncate max-w-[100px]">{log.entity_id}</span>
+                                                <span className="font-mono text-[#10B981] truncate max-w-[100px]">{log.entity_id}</span>
                                             </div>
                                         )}
                                     </td>
                                     <td className="px-5 py-4">
-                                        <div className="text-[11px] text-emerald-600 dark:text-gray-300 max-w-xs truncate">
+                                        <div className="text-[11px] text-[#10B981] dark:text-gray-300 max-w-xs truncate">
                                             {log.details ? JSON.stringify(log.details) : '—'}
                                         </div>
                                     </td>
@@ -160,7 +160,7 @@ export default function AdminAuditLogsPage() {
                     </table>
                 </div>
 
-                <div className="p-4 bg-gray-50 dark:bg-gray-800/30 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
+                <div className="p-4 bg-[#111111] dark:bg-gray-800/30 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
                     <button 
                         disabled={page === 0 || loading}
                         onClick={() => setPage(p => p - 1)}

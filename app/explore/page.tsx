@@ -92,7 +92,7 @@ export default async function ExplorePage({
     });
 
     return (
-        <div className="min-h-screen bg-white pt-20 pb-24 selection:bg-emerald-700/20">
+        <div className="min-h-screen bg-[#0A0A0A] pt-20 pb-24 selection:bg-emerald-700/20">
 
             {/* Premium Corporate Search Header */}
             <div className="relative bg-emerald-700 text-white py-24 md:py-32 overflow-hidden border-b border-white/5">
@@ -102,11 +102,11 @@ export default async function ExplorePage({
 
                 <div className="max-w-5xl mx-auto relative z-10 text-center px-6">
                     <div className="animate-in fade-in slide-in-from-bottom-5 duration-1000">
-                        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-emerald-600 shadow-lg shadow-emerald-600/20">
+                        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-[#10B981] shadow-lg shadow-[#10B981]/20">
                             <FiSearch size={14} /> Explore Knowledge Market
                         </div>
                         <h1 className="text-4xl md:text-7xl font-bold mb-8 tracking-tighter leading-[1.1]">
-                            اكتشف الإبداع <span className="text-emerald-600">العربي</span>
+                            اكتشف الإبداع <span className="text-[#10B981]">العربي</span>
                         </h1>
                         <p className="text-lg md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto font-bold leading-relaxed">
                             تصفح آلاف المنتجات الرقمية والدورات التدريبية الموثوقة من نخبة الخبراء والمبدعين.
@@ -115,7 +115,7 @@ export default async function ExplorePage({
 
                     {/* Master Search Form - High Performance UI */}
                     <form className="max-w-4xl mx-auto space-y-4">
-                        <div className="flex flex-col md:flex-row gap-2 bg-white/5 p-2 rounded-[2rem] border border-white/10  shadow-lg shadow-emerald-600/20">
+                        <div className="flex flex-col md:flex-row gap-2 bg-white/5 p-2 rounded-[2rem] border border-white/10  shadow-lg shadow-[#10B981]/20">
                             <div className="relative flex-1">
                                 <FiSearch className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
                                 <input
@@ -123,21 +123,21 @@ export default async function ExplorePage({
                                     name="q"
                                     defaultValue={query}
                                     placeholder="ماذا تود أن تتعلم أو تشاهد اليوم؟"
-                                    className="w-full pl-6 pr-16 py-5 rounded-xl bg-white text-emerald-600 font-bold placeholder:font-bold placeholder:text-gray-300 outline-none focus:ring-4 focus:ring-accent/20 transition-all border-none"
+                                    className="w-full pl-6 pr-16 py-5 rounded-xl bg-[#0A0A0A] text-[#10B981] font-bold placeholder:font-bold placeholder:text-gray-300 outline-none focus:ring-4 focus:ring-accent/20 transition-all border-none"
                                 />
                             </div>
                             <div className="flex gap-2">
                                 <select
                                     name="category"
                                     defaultValue={category}
-                                    className="w-40 bg-white/5 border border-white/10 rounded-xl px-6 py-5 font-bold text-sm text-white focus:bg-white focus:text-emerald-600 outline-none transition-all appearance-none cursor-pointer"
+                                    className="w-40 bg-white/5 border border-white/10 rounded-xl px-6 py-5 font-bold text-sm text-white focus:bg-[#0A0A0A] focus:text-[#10B981] outline-none transition-all appearance-none cursor-pointer"
                                 >
                                     <option value="">كل الفئات</option>
                                     <option value="courses">دورات تعليمية</option>
                                     <option value="ebooks">كتب رقمية</option>
                                     <option value="templates">قوالب وأدوات</option>
                                 </select>
-                                <button type="submit" className="bg-emerald-700 text-white px-12 py-5 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-emerald-700-hover transition-all shadow-lg shadow-emerald-600/20 shadow-accent/20 active:scale-95">
+                                <button type="submit" className="bg-emerald-700 text-white px-12 py-5 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-emerald-700-hover transition-all shadow-lg shadow-[#10B981]/20 shadow-accent/20 active:scale-95">
                                     Search
                                 </button>
                             </div>
@@ -146,7 +146,7 @@ export default async function ExplorePage({
                         {/* Advanced Filters Row */}
                         <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
                             <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-2.5 rounded-xl">
-                                <FiFilter className="text-emerald-600" size={14} />
+                                <FiFilter className="text-[#10B981]" size={14} />
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Price Range:</span>
                                 <input type="number" name="minPrice" placeholder="Min" defaultValue={minPrice} className="w-16 bg-transparent border-none text-xs font-bold text-center p-0 focus:ring-0 text-white placeholder:text-gray-600" />
                                 <span className="text-gray-700">|</span>
@@ -156,7 +156,7 @@ export default async function ExplorePage({
                             <select
                                 name="sort"
                                 defaultValue={sort}
-                                className="bg-white/5 border border-white/10 rounded-xl px-6 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white outline-none focus:bg-white focus:text-emerald-600 transition-all cursor-pointer"
+                                className="bg-white/5 border border-white/10 rounded-xl px-6 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white outline-none focus:bg-[#0A0A0A] focus:text-[#10B981] transition-all cursor-pointer"
                             >
                                 <option value="newest">Latest First</option>
                                 <option value="popular">Best Sellers</option>
@@ -172,13 +172,13 @@ export default async function ExplorePage({
             <div className="max-w-7xl mx-auto px-6 mt-20">
                 <div className="flex flex-col sm:flex-row justify-between items-center gap-6 mb-16 border-r-4 border-ink pr-8">
                     <div>
-                        <h2 className="text-3xl font-bold text-emerald-600 tracking-tight mb-2">
+                        <h2 className="text-3xl font-bold text-[#10B981] tracking-tight mb-2">
                             {query ? (
-                                <>نتائج البحث عن: <span className="text-emerald-600 underline underline-offset-8">"{query}"</span></>
+                                <>نتائج البحث عن: <span className="text-[#10B981] underline underline-offset-8">"{query}"</span></>
                             ) : category ? (
-                                <>تصفح: <span className="text-emerald-600">{category === 'courses' ? 'الأكاديمية' : category === 'ebooks' ? 'المكتبة الرقمية' : category}</span></>
+                                <>تصفح: <span className="text-[#10B981]">{category === 'courses' ? 'الأكاديمية' : category === 'ebooks' ? 'المكتبة الرقمية' : category}</span></>
                             ) : (
-                                <>أحدث الإضافات <span className="text-emerald-600">للسوق</span></>
+                                <>أحدث الإضافات <span className="text-[#10B981]">للسوق</span></>
                             )}
                         </h2>
                         <p className="text-gray-400 font-bold text-sm">تم العثور على {allItems.length} منتج متاح حالياً.</p>
@@ -186,13 +186,13 @@ export default async function ExplorePage({
                 </div>
 
                 {allItems.length === 0 ? (
-                    <div className="text-center py-40 bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-100 p-8">
-                        <div className="w-24 h-24 bg-white rounded-xl shadow-lg shadow-emerald-600/20 shadow-gray-200/50 flex items-center justify-center mx-auto mb-10 text-gray-200">
+                    <div className="text-center py-40 bg-[#111111] rounded-[3rem] border-2 border-dashed border-gray-100 p-8">
+                        <div className="w-24 h-24 bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 shadow-gray-200/50 flex items-center justify-center mx-auto mb-10 text-gray-200">
                             <FiSearch size={48} />
                         </div>
-                        <h3 className="text-2xl font-bold text-emerald-600 mb-4">للأسف، لم نجد ما يحاكي بحثك</h3>
+                        <h3 className="text-2xl font-bold text-[#10B981] mb-4">للأسف، لم نجد ما يحاكي بحثك</h3>
                         <p className="text-gray-500 font-bold max-w-sm mx-auto mb-12">حاول استخدام كلمات مفتاحية أكثر عمومية أو قم بإعادة ضبط الفلاتر.</p>
-                        <Link href="/explore" className="inline-flex py-4 px-10 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-gray-800 transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10">
+                        <Link href="/explore" className="inline-flex py-4 px-10 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-gray-800 transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/10">
                             Reset Search
                         </Link>
                     </div>
@@ -205,12 +205,12 @@ export default async function ExplorePage({
             
             {/* Professional Bottom CTA */}
             <div className="max-w-7xl mx-auto px-6 mt-32">
-                <div className="bg-gray-50 rounded-[3rem] p-12 md:p-20 border border-gray-100 text-center relative overflow-hidden group">
+                <div className="bg-[#111111] rounded-[3rem] p-12 md:p-20 border border-gray-100 text-center relative overflow-hidden group">
                     <div className="absolute top-0 left-0 w-[40%] h-[40%] bg-emerald-700/5 rounded-xl blur-[100px]"></div>
                     <div className="relative z-10">
-                        <h3 className="text-3xl md:text-5xl font-bold text-emerald-600 tracking-tighter mb-8 leading-tight">جاهز لبيع منتجاتك الخاصة؟</h3>
+                        <h3 className="text-3xl md:text-5xl font-bold text-[#10B981] tracking-tighter mb-8 leading-tight">جاهز لبيع منتجاتك الخاصة؟</h3>
                         <p className="text-gray-400 text-lg font-bold mb-12 max-w-xl mx-auto">انضم لآلاف البائعين في تمالين وافتح متجرك الاحترافي خلال أقل من 5 دقائق.</p>
-                        <Link href="/register" className="inline-flex items-center gap-3 py-5 px-12 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10">
+                        <Link href="/register" className="inline-flex items-center gap-3 py-5 px-12 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/10">
                             Start Selling Now <FiArrowRight className="rotate-180" />
                         </Link>
                     </div>

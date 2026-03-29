@@ -4,17 +4,17 @@ import Link from 'next/link';
 
 export default function HelpPage() {
   return (
-    <div className="min-h-screen bg-subtle py-20 px-6">
+    <div className="min-h-screen bg-[#0A0A0A] py-20 px-6">
       <div className="max-w-3xl mx-auto text-center">
-        <h1 className="text-4xl font-bold text-emerald-600 mb-6">مركز المساعدة</h1>
+        <h1 className="text-4xl font-bold text-[#10B981] mb-6">مركز المساعدة</h1>
         <p className="text-muted text-lg mb-12">نحن هنا للإجابة على استفساراتك ومساعدتك في بناء متجرك الرقمي.</p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-right" dir="rtl">
-          <div className="card">
+          <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
             <h3 className="text-xl font-bold mb-3">كيف أبدأ؟</h3>
             <p className="text-sm text-muted">يمكنك البدء بإنشاء حساب بائع ورفع أول منتج رقمي لك في أقل من 5 دقائق.</p>
           </div>
-          <div className="card">
+          <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
             <h3 className="text-xl font-bold mb-3">طرق الدفع</h3>
             <p className="text-sm text-muted">ندعم الدفع عبر البطاقات البنكية، والمحافظ الإلكترونية، والعملات الرقمية.</p>
           </div>

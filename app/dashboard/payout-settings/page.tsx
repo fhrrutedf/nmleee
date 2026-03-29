@@ -114,14 +114,14 @@ export default function PayoutSettingsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-[#111111] py-8">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900">إعدادات السحب</h1>
+                    <h1 className="text-3xl font-bold text-white">إعدادات السحب</h1>
                     <p className="text-gray-600 mt-2">اختر طريقة استلام أرباحك</p>
                 </div>
 
-                <div className="bg-white rounded-lg shadow p-6">
+                <div className="bg-[#0A0A0A] rounded-lg shadow p-6">
                     <form onSubmit={handleSubmit}>
                         {/* Method Selection */}
                         <div className="mb-6">

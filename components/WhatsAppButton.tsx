@@ -25,7 +25,7 @@ export const WhatsAppButton = () => {
             animate={{ scale: 1, opacity: 1 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="fixed bottom-6 left-6 z-[60] w-12 h-12 bg-[#25D366] text-white rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/20 shadow-green-500/20 cursor-pointer border border-white/20"
+            className="fixed bottom-6 left-6 z-[60] w-12 h-12 bg-[#25D366] text-white rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20 shadow-green-500/20 cursor-pointer border border-white/20"
             title="تحدث مع الدعم الفني"
         >
             <FaWhatsapp size={24} />

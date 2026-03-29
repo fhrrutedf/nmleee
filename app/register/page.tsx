@@ -113,10 +113,10 @@ function RegisterContent() {
         }
     };
 
-    const inputClass = "block w-full px-5 py-4 text-emerald-600 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:bg-white focus:border-ink focus:ring-4 focus:ring-ink/5 transition-all font-bold text-sm";
+    const inputClass = "block w-full px-5 py-4 text-[#10B981] bg-[#111111] border border-gray-100 rounded-xl outline-none focus:bg-[#0A0A0A] focus:border-ink focus:ring-4 focus:ring-ink/5 transition-all font-bold text-sm";
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden py-16 px-6 selection:bg-emerald-700/20">
+        <div className="min-h-screen flex items-center justify-center bg-[#0A0A0A] relative overflow-hidden py-16 px-6 selection:bg-emerald-700/20">
             {/* Background Decorations */}
             <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-700/5 rounded-xl blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
             <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-700/5 rounded-xl blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
@@ -124,15 +124,15 @@ function RegisterContent() {
             <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-xl w-full relative z-10">
                 <motion.div variants={fadeInUp} className="text-center mb-12">
                      <Link href="/" className="inline-block mb-8 group">
-                        <div className="w-16 h-16 mx-auto rounded-xl bg-emerald-700 flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-emerald-600/20 shadow-ink/20 group-hover:scale-110 transition-transform">
+                        <div className="w-16 h-16 mx-auto rounded-xl bg-emerald-700 flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-[#10B981]/20 shadow-ink/20 group-hover:scale-110 transition-transform">
                             ت
                         </div>
                     </Link>
-                    <h1 className="text-4xl font-bold text-emerald-600 mb-3 tracking-tighter">أنشئ حسابك المجاني</h1>
+                    <h1 className="text-4xl font-bold text-[#10B981] mb-3 tracking-tighter">أنشئ حسابك المجاني</h1>
                     <p className="text-gray-400 font-bold">انضم لمئات المبدعين العرب وابدأ رحلتك التجارية اليوم.</p>
                 </motion.div>
 
-                <motion.div variants={fadeInUp} className="bg-white rounded-[2.5rem] border border-gray-100 p-10 shadow-lg shadow-emerald-600/20 shadow-gray-200/50 relative overflow-hidden">
+                <motion.div variants={fadeInUp} className="bg-[#0A0A0A] rounded-[2.5rem] border border-gray-100 p-10 shadow-lg shadow-[#10B981]/20 shadow-gray-200/50 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-700/5 rounded-bl-[80px] pointer-events-none"></div>
 
                     <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
@@ -171,9 +171,9 @@ function RegisterContent() {
                                 </button>
                                 <AnimatePresence>
                                     {countryDropdownOpen && (
-                                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="absolute z-50 mt-2 w-full bg-white border border-gray-100 rounded-xl shadow-lg shadow-emerald-600/20 max-h-60 overflow-y-auto p-2 space-y-1">
+                                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="absolute z-50 mt-2 w-full bg-[#0A0A0A] border border-gray-100 rounded-xl shadow-lg shadow-[#10B981]/20 max-h-60 overflow-y-auto p-2 space-y-1">
                                             {countries.map(c => (
-                                                <button key={c.code} type="button" onClick={() => { setSelectedCountry(c.code as CountryCode); setCountryDropdownOpen(false); }} className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold transition-all ${selectedCountry === c.code ? 'bg-emerald-700 text-white' : 'text-gray-500 hover:bg-gray-50 hover:text-emerald-600'}`}>
+                                                <button key={c.code} type="button" onClick={() => { setSelectedCountry(c.code as CountryCode); setCountryDropdownOpen(false); }} className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold transition-all ${selectedCountry === c.code ? 'bg-emerald-700 text-white' : 'text-gray-500 hover:bg-[#111111] hover:text-[#10B981]'}`}>
                                                     <span className="flex items-center gap-2"><span>{c.flag}</span> <span>{c.nameAr}</span></span>
                                                     <span className="opacity-50">{c.dialCode}</span>
                                                 </button>
@@ -205,7 +205,7 @@ function RegisterContent() {
                             whileTap={{ scale: 0.99 }} 
                             type="submit" 
                             disabled={loading} 
-                            className={`w-full py-5 rounded-xl font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-lg shadow-emerald-600/20
+                            className={`w-full py-5 rounded-xl font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-lg shadow-[#10B981]/20
                                 ${loading ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-emerald-700 text-white hover:bg-emerald-700 shadow-ink/20'}
                             `}
                         >
@@ -216,7 +216,7 @@ function RegisterContent() {
                     <div className="mt-10 pt-10 border-t border-gray-50 text-center">
                         <p className="text-gray-400 text-xs font-bold">
                             هل تملك حساباً بالفعل؟ {' '}
-                            <Link href="/login" className="text-emerald-600 underline underline-offset-4 decoration-accent/30 hover:decoration-accent transition-all">
+                            <Link href="/login" className="text-[#10B981] underline underline-offset-4 decoration-accent/30 hover:decoration-accent transition-all">
                                 سجل دخولك الآن
                             </Link>
                         </p>
@@ -225,7 +225,7 @@ function RegisterContent() {
 
                 <motion.div variants={fadeInUp} className="text-center mt-12 space-y-6">
                     <p className="flex items-center justify-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                        <FiShield className="text-emerald-600" /> Institutional Grade Security Protected
+                        <FiShield className="text-[#10B981]" /> Institutional Grade Security Protected
                     </p>
                 </motion.div>
             </motion.div>
@@ -235,7 +235,7 @@ function RegisterContent() {
 
 export default function RegisterPage() {
     return (
-        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-white"><div className="w-8 h-8 border-2 border-gray-100 border-t-accent rounded-xl animate-spin"></div></div>}>
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#0A0A0A]"><div className="w-8 h-8 border-2 border-gray-100 border-t-accent rounded-xl animate-spin"></div></div>}>
             <RegisterContent />
         </Suspense>
     );

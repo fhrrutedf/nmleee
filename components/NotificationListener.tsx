@@ -33,25 +33,25 @@ export const NotificationListener = () => {
         const showToast = (notif: any) => {
             const icon = 
                 notif.type === 'SALE' ? <FiDollarSign className="text-green-500" /> :
-                notif.type === 'CUSTOMER' ? <FiUserPlus className="text-emerald-600-500" /> :
+                notif.type === 'CUSTOMER' ? <FiUserPlus className="text-[#10B981]-500" /> :
                 notif.type === 'ORDER' ? <FiShoppingBag className="text-purple-500" /> :
-                <FiBell className="text-emerald-600" />;
+                <FiBell className="text-[#10B981]" />;
 
             toast.custom((t) => (
                 <div
                     className={`${
                         t.visible ? 'animate-enter' : 'animate-leave'
-                    } max-w-md w-full bg-white dark:bg-card-white shadow-lg shadow-emerald-600/20 rounded-[2rem] pointer-events-auto flex ring-1 ring-black ring-opacity-5 border border-gray-100 dark:border-gray-800`}
+                    } max-w-md w-full bg-[#0A0A0A] dark:bg-card-white shadow-lg shadow-[#10B981]/20 rounded-[2rem] pointer-events-auto flex ring-1 ring-black ring-opacity-5 border border-gray-100 dark:border-gray-800`}
                 >
                     <div className="flex-1 w-0 p-5">
                         <div className="flex items-start">
                             <div className="flex-shrink-0 pt-0.5">
-                                <div className="w-12 h-12 rounded-xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-2xl shadow-inner">
+                                <div className="w-12 h-12 rounded-xl bg-[#111111] dark:bg-gray-800 flex items-center justify-center text-2xl shadow-inner">
                                     {icon}
                                 </div>
                             </div>
                             <div className="mr-4 flex-1">
-                                <p className="text-sm font-bold text-emerald-600 dark:text-white">
+                                <p className="text-sm font-bold text-[#10B981] dark:text-white">
                                     {notif.title}
                                 </p>
                                 <p className="mt-1 text-sm text-text-muted">
@@ -66,7 +66,7 @@ export const NotificationListener = () => {
                                 toast.dismiss(t.id);
                                 markAsRead(notif.id);
                             }}
-                            className="w-full border border-transparent rounded-none rounded-l-2xl p-4 flex items-center justify-center text-sm font-bold text-emerald-600 hover:text-emerald-600 focus:outline-none"
+                            className="w-full border border-transparent rounded-none rounded-l-2xl p-4 flex items-center justify-center text-sm font-bold text-[#10B981] hover:text-[#10B981] focus:outline-none"
                         >
                             تجاهل
                         </button>

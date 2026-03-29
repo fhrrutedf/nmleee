@@ -20,7 +20,7 @@ export default async function VerifyCertificatePage(props: { params: Promise<{ c
         return (
             <div className="min-h-screen bg-bg-light flex flex-col items-center justify-center p-6 text-center">
                 <FiXCircle className="text-6xl text-red-500 mb-4" />
-                <h1 className="text-3xl font-bold text-emerald-600 mb-2">شهادة غير صالحة</h1>
+                <h1 className="text-3xl font-bold text-[#10B981] mb-2">شهادة غير صالحة</h1>
                 <p className="text-text-muted">عذراً، لم نتمكن من العثور على شهادة برمز التحقق هذا. يرجى التأكد من الرابط والمحاولة مرة أخرى.</p>
             </div>
         );
@@ -29,7 +29,7 @@ export default async function VerifyCertificatePage(props: { params: Promise<{ c
     return (
         <div className="min-h-screen bg-bg-light py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
-                <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden">
+                <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden">
                     {/* Header */}
                     <div className="bg-emerald-700 px-8 py-12 text-center text-white relative">
                         <div className="absolute top-4 right-4 flex items-center gap-2 bg-white/20 px-3 py-1 rounded-xl text-sm ">
@@ -43,19 +43,19 @@ export default async function VerifyCertificatePage(props: { params: Promise<{ c
                     {/* Content */}
                     <div className="p-8 md:p-12 text-center">
                         <p className="text-gray-500 mb-2">تُمنح هذه الشهادة إلى:</p>
-                        <h2 className="text-3xl font-bold text-gray-900 mb-8">{certificate.studentName}</h2>
+                        <h2 className="text-3xl font-bold text-white mb-8">{certificate.studentName}</h2>
 
                         <p className="text-gray-500 mb-2">لإتمامه بنجاح دورة:</p>
-                        <h3 className="text-2xl font-bold text-emerald-600 mb-8">"{certificate.courseName}"</h3>
+                        <h3 className="text-2xl font-bold text-[#10B981] mb-8">"{certificate.courseName}"</h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 mb-8 text-right">
-                            <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
+                            <div className="bg-[#111111] p-6 rounded-xl border border-gray-100">
                                 <p className="text-sm text-gray-400 mb-1">تاريخ الإصدار</p>
-                                <p className="font-semibold text-gray-900">{format(new Date(certificate.issueDate), "dd MMMM yyyy", { locale: ar })}</p>
+                                <p className="font-semibold text-white">{format(new Date(certificate.issueDate), "dd MMMM yyyy", { locale: ar })}</p>
                             </div>
-                            <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
+                            <div className="bg-[#111111] p-6 rounded-xl border border-gray-100">
                                 <p className="text-sm text-gray-400 mb-1">مُقدم الدورة (المدرب)</p>
-                                <p className="font-semibold text-gray-900">{certificate.course.user.name}</p>
+                                <p className="font-semibold text-white">{certificate.course.user.name}</p>
                             </div>
                         </div>
 

@@ -115,12 +115,12 @@ export default function ProductDetails({
             {product.user?.brandColor && (
                 <style dangerouslySetInnerHTML={{
                     __html: `
-                    .text-emerald-600 { color: ${product.user.brandColor} !important; }
+                    .text-[#10B981] { color: ${product.user.brandColor} !important; }
                     .bg-emerald-700 { background-color: ${product.user.brandColor} !important; }
                     .border-emerald-600 { border-color: ${product.user.brandColor} !important; }
                     .ring-accent { --tw-ring-color: ${product.user.brandColor} !important; }
                     .from-accent { --tw-gradient-from: ${product.user.brandColor} !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
-                    .hover\\:text-emerald-600:hover { color: ${product.user.brandColor} !important; filter: brightness(0.9); }
+                    .hover\\:text-[#10B981]:hover { color: ${product.user.brandColor} !important; filter: brightness(0.9); }
                     .hover\\:bg-emerald-700:hover { background-color: ${product.user.brandColor} !important; filter: brightness(0.9); }
                     .shadow-accent\\/20 { --tw-shadow-color: ${product.user.brandColor}33 !important; }
                     `
@@ -130,22 +130,22 @@ export default function ProductDetails({
 
                 {/* Breadcrumb Navigation */}
                 <div className="flex items-center gap-3 text-sm font-bold text-gray-500 dark:text-gray-400 mb-8 overflow-x-auto whitespace-nowrap scrollbar-hide py-2">
-                    <Link href="/" className="hover:text-emerald-600 transition-colors flex items-center gap-1"><FiStar /> الرئيسية</Link>
+                    <Link href="/" className="hover:text-[#10B981] transition-colors flex items-center gap-1"><FiStar /> الرئيسية</Link>
                     <span className="text-gray-300 dark:text-gray-700">/</span>
-                    <Link href="/explore" className="hover:text-emerald-600 transition-colors">تصفح المنتجات</Link>
+                    <Link href="/explore" className="hover:text-[#10B981] transition-colors">تصفح المنتجات</Link>
                     <span className="text-gray-300 dark:text-gray-700">/</span>
-                    <span className="text-emerald-600 dark:text-gray-200 truncate max-w-[200px] sm:max-w-md">{product.title}</span>
+                    <span className="text-[#10B981] dark:text-gray-200 truncate max-w-[200px] sm:max-w-md">{product.title}</span>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
                     {/* Left Column: Product Info Card */}
                     <div className="lg:col-span-5 order-2 lg:order-1 relative">
-                        <div className="sticky top-24 bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 shadow-gray-200/50 dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-800 -up">
+                        <div className="sticky top-24 bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 shadow-gray-200/50 dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-800 -up">
                             <div className="h-6 w-full bg-gradient-to-r from-accent via-purple-500 to-pink-500"></div>
                             <div className="p-8 sm:p-10">
                                 <div className="flex flex-wrap gap-2 mb-6">
                                     {product.category && (
-                                        <span className="px-4 py-1.5 bg-emerald-700-50 dark:bg-blue-900/20 text-emerald-600 dark:text-blue-400 rounded-lg text-sm font-bold tracking-wide border border-blue-100 dark:border-blue-900/30">
+                                        <span className="px-4 py-1.5 bg-emerald-700-50 dark:bg-blue-900/20 text-[#10B981] dark:text-blue-400 rounded-lg text-sm font-bold tracking-wide border border-blue-100 dark:border-blue-900/30">
                                             {product.category === 'courses' ? '👨‍🏫 دورة متكاملة' : product.category === 'ebooks' ? '📚 كتاب إلكتروني' : product.category}
                                         </span>
                                     )}
@@ -156,7 +156,7 @@ export default function ProductDetails({
                                     )}
                                 </div>
 
-                                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-emerald-600 dark:text-white mb-6 leading-tight tracking-tight">
+                                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#10B981] dark:text-white mb-6 leading-tight tracking-tight">
                                     {product.title}
                                 </h1>
 
@@ -166,11 +166,11 @@ export default function ProductDetails({
                                             <FiStar className="fill-yellow-500 mr-1" />
                                             <span className="font-bold">{product.averageRating?.toFixed(1) || '5.0'}</span>
                                         </div>
-                                        <span className="text-gray-500 dark:text-gray-400 font-medium text-sm group-hover:text-emerald-600 transition-colors">({reviews.length} تقييم)</span>
+                                        <span className="text-gray-500 dark:text-gray-400 font-medium text-sm group-hover:text-[#10B981] transition-colors">({reviews.length} تقييم)</span>
                                     </div>
                                     <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 font-medium text-sm">
-                                        <FiShoppingCart className="text-emerald-600" />
-                                        <span className="font-bold text-emerald-600 dark:text-gray-200">{(product.soldCount || 0) + 12} مبيعة اليوم</span> {/** إضافة رقم وهمي صغير للزخم التسويقي إذا كانت المبيعات قليلة **/}
+                                        <FiShoppingCart className="text-[#10B981]" />
+                                        <span className="font-bold text-[#10B981] dark:text-gray-200">{(product.soldCount || 0) + 12} مبيعة اليوم</span> {/** إضافة رقم وهمي صغير للزخم التسويقي إذا كانت المبيعات قليلة **/}
                                     </div>
                                 </div>
 
@@ -197,12 +197,12 @@ export default function ProductDetails({
                                     {/* Urgency Countdown Banner */}
                                     {product.offerExpiresAt && new Date(product.offerExpiresAt) > new Date() && (
                                         <div className="mt-6 p-4 bg-emerald-700-50 dark:bg-blue-900/10 rounded-xl border border-blue-100 dark:border-blue-900/20 flex items-center gap-3 ">
-                                            <div className="w-10 h-10 bg-emerald-700-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/20 shadow-accent-500/20">
+                                            <div className="w-10 h-10 bg-emerald-700-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20 shadow-accent-500/20">
                                                 <FiClock className="text-xl" />
                                             </div>
                                             <div className="text-right">
                                                 <p className="text-[10px] font-bold text-blue-800 dark:text-blue-400 uppercase tracking-widest leading-none mb-1">عرض لفترة محدودة</p>
-                                                <p className="text-xs font-bold text-emerald-600-600 dark:text-emerald-600-500">ينتهي العرض قريباً! سارع بالطلب</p>
+                                                <p className="text-xs font-bold text-[#10B981]-600 dark:text-[#10B981]-500">ينتهي العرض قريباً! سارع بالطلب</p>
                                             </div>
                                         </div>
                                     )}
@@ -212,7 +212,7 @@ export default function ProductDetails({
                                     <button
                                         onClick={buyNow}
                                         disabled={buyingNow}
-                                        className="w-full btn btn-primary text-xl py-5 rounded-xl shadow-lg shadow-emerald-600/20 shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-bold disabled:opacity-80 disabled:cursor-not-allowed"
+                                        className="w-full btn btn-primary text-xl py-5 rounded-xl shadow-lg shadow-[#10B981]/20 shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-bold disabled:opacity-80 disabled:cursor-not-allowed"
                                         style={product.user?.brandColor ? { backgroundColor: product.user.brandColor, borderColor: product.user.brandColor } : {}}
                                     >
                                         {buyingNow ? (
@@ -232,14 +232,14 @@ export default function ProductDetails({
                                         <button
                                             onClick={addToCart}
                                             disabled={addingToCart}
-                                            className="w-full btn text-lg py-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-emerald-600 dark:text-gray-200 font-bold hover:border-emerald-600 hover:text-emerald-600 dark:hover:border-emerald-600 transition-colors disabled:opacity-60"
+                                            className="w-full btn text-lg py-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-[#10B981] dark:text-gray-200 font-bold hover:border-emerald-600 hover:text-[#10B981] dark:hover:border-emerald-600 transition-colors disabled:opacity-60"
                                         >
                                             {addingToCart ? (
                                                 <span className="w-5 h-5 rounded-xl border-2 border-current border-t-transparent animate-spin inline-block" />
                                             ) : 'أضف للسلة'}
                                         </button>
                                         {product.previewFileUrl && (
-                                            <a href={product.previewFileUrl} target="_blank" rel="noopener noreferrer" className="w-full btn bg-purple-50 hover:bg-purple-100 dark:bg-purple-900/20 dark:hover:bg-purple-900/40 text-emerald-600 dark:text-purple-400 text-lg py-4 rounded-xl flex items-center justify-center gap-2 transition-colors font-bold border border-purple-100 dark:border-purple-800/30">
+                                            <a href={product.previewFileUrl} target="_blank" rel="noopener noreferrer" className="w-full btn bg-purple-50 hover:bg-purple-100 dark:bg-purple-900/20 dark:hover:bg-purple-900/40 text-[#10B981] dark:text-purple-400 text-lg py-4 rounded-xl flex items-center justify-center gap-2 transition-colors font-bold border border-purple-100 dark:border-purple-800/30">
                                                 <FiEye className="text-xl" />
                                                 <span>معاينة للدرس</span>
                                             </a>
@@ -247,10 +247,10 @@ export default function ProductDetails({
                                     </div>
                                 </div>
                                 <div className="mt-8 grid grid-cols-2 gap-3">
-                                    <div className="flex items-center gap-2 text-[10px] text-gray-500 font-bold bg-gray-50 dark:bg-gray-900/10 py-2.5 rounded-xl border border-gray-100 dark:border-gray-800 justify-center">
+                                    <div className="flex items-center gap-2 text-[10px] text-gray-500 font-bold bg-[#111111] dark:bg-gray-900/10 py-2.5 rounded-xl border border-gray-100 dark:border-gray-800 justify-center">
                                         <FiCheckCircle className="text-green-500" /> وصول فوري 100%
                                     </div>
-                                    <div className="flex items-center gap-2 text-[10px] text-gray-500 font-bold bg-gray-50 dark:bg-gray-900/10 py-2.5 rounded-xl border border-gray-100 dark:border-gray-800 justify-center">
+                                    <div className="flex items-center gap-2 text-[10px] text-gray-500 font-bold bg-[#111111] dark:bg-gray-900/10 py-2.5 rounded-xl border border-gray-100 dark:border-gray-800 justify-center">
                                         <FiCheckCircle className="text-green-500" /> ضمان تحديثات مدى الحياة
                                     </div>
                                 </div>
@@ -262,7 +262,7 @@ export default function ProductDetails({
                     <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col gap-10">
                         <div className="group relative">
                             <div className="absolute -inset-1 bg-emerald-700 rounded-xl blur-xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-                            <div className="relative bg-black rounded-xl overflow-hidden shadow-lg shadow-emerald-600/20 ring-1 ring-gray-900/10 dark:ring-white/10 aspect-[16/10] sm:aspect-video flex items-center justify-center -up">
+                            <div className="relative bg-black rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20 ring-1 ring-gray-900/10 dark:ring-white/10 aspect-[16/10] sm:aspect-video flex items-center justify-center -up">
                                 {activeMedia?.type === 'video' ? (
                                     <div className="w-full h-full">
                                         <VideoPlayer src={activeMedia.url} videoId={product.id} title={product.title} poster={product.image} />
@@ -284,13 +284,13 @@ export default function ProductDetails({
                                     <button
                                         key={idx}
                                         onClick={() => setActiveMedia(item as any)}
-                                        className={`relative shrink-0 w-32 h-20 sm:w-40 sm:h-24 rounded-xl overflow-hidden transition-all duration-300 snap-start shadow-lg shadow-emerald-600/20 ${activeMedia?.url === item.url ? 'ring-4 ring-accent scale-105 z-10' : 'ring-1 ring-gray-200 dark:ring-gray-700 opacity-60 hover:opacity-100 filter grayscale hover:grayscale-0'}`}
+                                        className={`relative shrink-0 w-32 h-20 sm:w-40 sm:h-24 rounded-xl overflow-hidden transition-all duration-300 snap-start shadow-lg shadow-[#10B981]/20 ${activeMedia?.url === item.url ? 'ring-4 ring-accent scale-105 z-10' : 'ring-1 ring-gray-200 dark:ring-gray-700 opacity-60 hover:opacity-100 filter grayscale hover:grayscale-0'}`}
                                     >
                                         {item.type === 'video' ? (
                                             <div className="w-full h-full bg-gray-900 flex items-center justify-center relative">
                                                 <img src={product.image || ''} className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay" alt="thumb video" />
                                                 <div className="absolute inset-0 bg-black/20" />
-                                                <FiPlayCircle className="text-3xl text-white relative z-10 drop-shadow-lg shadow-emerald-600/20" />
+                                                <FiPlayCircle className="text-3xl text-white relative z-10 drop-shadow-lg shadow-[#10B981]/20" />
                                                 <div className="absolute bottom-1 right-2 text-[10px] font-bold text-white uppercase tracking-wider">Video</div>
                                             </div>
                                         ) : (
@@ -301,9 +301,9 @@ export default function ProductDetails({
                             </div>
                         )}
 
-                        <div className="mt-8 bg-emerald-700 dark:from-gray-900 dark:to-gray-800 rounded-xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-gray-100 dark:border-gray-800 shadow-lg shadow-emerald-600/20 relative overflow-hidden group">
+                        <div className="mt-8 bg-emerald-700 dark:from-gray-900 dark:to-gray-800 rounded-xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-gray-100 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group">
                             <div className="flex items-center gap-6 relative z-10 w-full sm:w-auto">
-                                 <Link href={`/${product.user?.username || 'seller'}`} className="w-20 h-20 sm:w-24 sm:h-24 bg-emerald-700 rounded-xl flex items-center justify-center font-bold text-3xl text-white shadow-lg shadow-emerald-600/20 overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                                 <Link href={`/${product.user?.username || 'seller'}`} className="w-20 h-20 sm:w-24 sm:h-24 bg-emerald-700 rounded-xl flex items-center justify-center font-bold text-3xl text-white shadow-lg shadow-[#10B981]/20 overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
                                      {product.user?.avatar ? (
                                          <img src={product.user.avatar} className="w-full h-full object-cover" alt={product.user.name} />
                                      ) : (
@@ -311,9 +311,9 @@ export default function ProductDetails({
                                      )}
                                  </Link>
                                  <div>
-                                     <p className="text-xs font-bold tracking-widest uppercase text-emerald-600 mb-1">صانع المحتوى</p>
+                                     <p className="text-xs font-bold tracking-widest uppercase text-[#10B981] mb-1">صانع المحتوى</p>
                                      <Link href={`/${product.user?.username || 'seller'}`}>
-                                         <h3 className="font-bold text-2xl text-gray-900 dark:text-white mb-2 hover:text-emerald-600 transition-colors">{product.user?.name || 'البائع'}</h3>
+                                         <h3 className="font-bold text-2xl text-white dark:text-white mb-2 hover:text-[#10B981] transition-colors">{product.user?.name || 'البائع'}</h3>
                                      </Link>
                                      <div className="flex gap-2">
                                         <button 
@@ -321,7 +321,7 @@ export default function ProductDetails({
                                                 const cleanPhone = supportWhatsapp.replace(/\D/g, '');
                                                 window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(`مرحباً دعم تمالين، لدي استفسار حول المنتج: ${product.title}`)}`, '_blank');
                                             }} 
-                                            className="px-3 py-1.5 bg-green-500 text-white rounded-lg font-bold text-[10px] flex items-center gap-1 hover:bg-green-600 transition-colors shadow-lg shadow-emerald-600/20 shadow-green-500/20"
+                                            className="px-3 py-1.5 bg-green-500 text-white rounded-lg font-bold text-[10px] flex items-center gap-1 hover:bg-green-600 transition-colors shadow-lg shadow-[#10B981]/20 shadow-green-500/20"
                                         >
                                             <FiMessageSquare size={12} /> تواصل مع الدعم
                                         </button>
@@ -333,26 +333,26 @@ export default function ProductDetails({
                              </div>
                              <div className="hidden sm:flex flex-col items-center justify-center p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
                                 <p className="text-[10px] font-bold uppercase text-gray-400 mb-1">متصل الآن</p>
-                                <div className="w-3 h-3 bg-green-500 rounded-xl  shadow-lg shadow-emerald-600/20 shadow-green-500/50" />
+                                <div className="w-3 h-3 bg-green-500 rounded-xl  shadow-lg shadow-[#10B981]/20 shadow-green-500/50" />
                              </div>
                         </div>
 
                         {/* Interactive Content Tabs */}
-                        <div className="bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 overflow-hidden mt-4">
+                        <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 overflow-hidden mt-4">
                             <div className="flex overflow-x-auto border-b border-gray-100 dark:border-gray-800 scrollbar-hide">
                                 <button
                                     onClick={() => setActiveTab('description')}
-                                    className={`flex-1 min-w-[150px] py-6 px-4 font-bold text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'description' ? 'text-emerald-600' : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'}`}
+                                    className={`flex-1 min-w-[150px] py-6 px-4 font-bold text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'description' ? 'text-[#10B981]' : 'text-gray-500 hover:text-white dark:hover:text-gray-300 bg-[#111111]/50 dark:bg-gray-800/20'}`}
                                 >
-                                    <FiBook className={activeTab === 'description' ? "text-emerald-600" : "text-gray-400"} />
+                                    <FiBook className={activeTab === 'description' ? "text-[#10B981]" : "text-gray-400"} />
                                     محتوى وتفاصيل
                                     {activeTab === 'description' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-700 rounded-t-full"></div>)}
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('reviews')}
-                                    className={`flex-1 min-w-[150px] py-6 px-4 font-bold text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'reviews' ? 'text-emerald-600' : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 bg-gray-50/50 dark:bg-gray-800/20'}`}
+                                    className={`flex-1 min-w-[150px] py-6 px-4 font-bold text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'reviews' ? 'text-[#10B981]' : 'text-gray-500 hover:text-white dark:hover:text-gray-300 bg-[#111111]/50 dark:bg-gray-800/20'}`}
                                 >
-                                    <FiMessageSquare className={activeTab === 'reviews' ? "text-emerald-600" : "text-gray-400"} />
+                                    <FiMessageSquare className={activeTab === 'reviews' ? "text-[#10B981]" : "text-gray-400"} />
                                     تجارب المشترين
                                     <span className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs px-2 py-1 rounded-xl">{reviews.length}</span>
                                     {activeTab === 'reviews' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-700 rounded-t-full"></div>)}
@@ -368,27 +368,27 @@ export default function ProductDetails({
                                     <div className="space-y-10 -up">
                                         {/* Review Input Box */}
                                         <div className="bg-emerald-700 dark:from-gray-900 dark:to-gray-800 p-8 rounded-xl border border-gray-100 dark:border-gray-700 shadow-inner">
-                                            <h3 className="font-bold text-xl mb-6 text-gray-900 dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
+                                            <h3 className="font-bold text-xl mb-6 text-white dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
                                             <form onSubmit={submitReview} className="space-y-5">
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                                     <div>
                                                         <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">اسمك الأول</label>
-                                                        <input type="text" value={newReview.name} onChange={(e) => setNewReview({ ...newReview, name: e.target.value })} className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all placeholder:font-normal" placeholder="يكفي الاسم الأول فقط" required />
+                                                        <input type="text" value={newReview.name} onChange={(e) => setNewReview({ ...newReview, name: e.target.value })} className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all placeholder:font-normal" placeholder="يكفي الاسم الأول فقط" required />
                                                     </div>
                                                     <div>
                                                         <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">التقييم من 5</label>
                                                         <div className="flex gap-2">
                                                             {[1, 2, 3, 4, 5].map((star) => (
-                                                                <button key={star} type="button" onClick={() => setNewReview({ ...newReview, rating: star })} className={`flex-1 bg-white dark:bg-gray-900 border ${star <= newReview.rating ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : 'border-gray-200 dark:border-gray-700'} rounded-xl py-3 flex items-center justify-center transition-all transform active:scale-95`}><FiStar className={`text-xl ${star <= newReview.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300 dark:text-gray-600'}`} /></button>
+                                                                <button key={star} type="button" onClick={() => setNewReview({ ...newReview, rating: star })} className={`flex-1 bg-[#0A0A0A] dark:bg-gray-900 border ${star <= newReview.rating ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : 'border-gray-200 dark:border-gray-700'} rounded-xl py-3 flex items-center justify-center transition-all transform active:scale-95`}><FiStar className={`text-xl ${star <= newReview.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300 dark:text-gray-600'}`} /></button>
                                                             ))}
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">تعليقك وتقييمك (بصدق)</label>
-                                                    <textarea value={newReview.comment} onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })} className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none placeholder:font-normal" rows={3} placeholder="كيف كانت تجربتك؟ وهل استفدت من المادة؟" required />
+                                                    <textarea value={newReview.comment} onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })} className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none placeholder:font-normal" rows={3} placeholder="كيف كانت تجربتك؟ وهل استفدت من المادة؟" required />
                                                 </div>
-                                                <button type="submit" className="btn btn-primary px-8 py-3 rounded-xl font-bold shadow-lg shadow-emerald-600/20 shadow-accent/20">إرسال التقييم</button>
+                                                <button type="submit" className="btn btn-primary px-8 py-3 rounded-xl font-bold shadow-lg shadow-[#10B981]/20 shadow-accent/20">إرسال التقييم</button>
                                             </form>
                                         </div>
 
@@ -406,13 +406,13 @@ export default function ProductDetails({
                                                         <div className="flex items-center gap-3 mb-3">
                                                             <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center font-bold text-gray-500">{review.name.charAt(0)}</div>
                                                             <div>
-                                                                <h4 className="font-bold text-lg text-emerald-600 dark:text-white">{review.name}</h4>
+                                                                <h4 className="font-bold text-lg text-[#10B981] dark:text-white">{review.name}</h4>
                                                                 <div className="flex items-center gap-0.5">
                                                                     {[...Array(5)].map((_, i) => (<FiStar key={i} className={`text-sm ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200 dark:text-gray-700'}`} />))}
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed font-medium bg-gray-50 dark:bg-gray-900/50 p-5 rounded-tr-3xl rounded-br-3xl rounded-bl-3xl">{review.comment}</p>
+                                                        <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed font-medium bg-[#111111] dark:bg-gray-900/50 p-5 rounded-tr-3xl rounded-br-3xl rounded-bl-3xl">{review.comment}</p>
                                                     </div>
                                                 ))
                                             )}
@@ -425,7 +425,7 @@ export default function ProductDetails({
                 </div>
             </div>
             <footer className="mt-16 py-8 border-t border-gray-100 dark:border-gray-800 text-center">
-                <p className="text-gray-500 dark:text-gray-400 font-medium">مدعوم من <a href="https://tmleen.com" className="text-emerald-600 font-bold hover:underline">منصة تمالين</a></p>
+                <p className="text-gray-500 dark:text-gray-400 font-medium">مدعوم من <a href="https://tmleen.com" className="text-[#10B981] font-bold hover:underline">منصة تمالين</a></p>
             </footer>
         </div>
     );

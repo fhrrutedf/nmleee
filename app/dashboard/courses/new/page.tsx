@@ -245,21 +245,21 @@ export default function NewCoursePage() {
                 {/* Header & Auto-Draft Indicator */}
                 <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between border-b border-slate-100 pb-6">
                     <div className="text-right">
-                        <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-600 font-bold text-[10px] uppercase tracking-widest mb-4 transition-all">
+                        <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-gray-400 hover:text-[#10B981] font-bold text-[10px] uppercase tracking-widest mb-4 transition-all">
                             <FiArrowRight /> BACK TO ACADEMY
                         </Link>
-                        <h1 className="text-4xl font-bold text-emerald-600 tracking-tighter">Architect New Program</h1>
+                        <h1 className="text-4xl font-bold text-[#10B981] tracking-tighter">Architect New Program</h1>
                         <p className="text-gray-400 font-bold mt-2">Design a premium learning experience for your audience.</p>
                     </div>
                     {isSavingDraft && (
-                        <div className="mt-4 md:mt-0 flex items-center gap-2 text-xs font-bold text-slate-400 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100 ">
+                        <div className="mt-4 md:mt-0 flex items-center gap-2 text-xs font-bold text-slate-400 bg-[#111111] px-4 py-2 rounded-xl border border-slate-100 ">
                             <FiSave /> جاري الحفظ تلقائياً...
                         </div>
                     )}
                 </div>
 
                 {/* Progress Bar */}
-                <div className="bg-white rounded-xl p-6 lg:p-8 shadow-lg shadow-emerald-600/20 border border-slate-50 mb-10 overflow-hidden">
+                <div className="bg-[#0A0A0A] rounded-xl p-6 lg:p-8 shadow-lg shadow-[#10B981]/20 border border-slate-50 mb-10 overflow-hidden">
                     <StepProgress steps={dynamicSteps} currentStep={currentStep} />
                 </div>
 
@@ -277,7 +277,7 @@ export default function NewCoursePage() {
                                         </div>
                                         <div className="space-y-2">
                                             <label className="label-modern italic">التصنيف الأكاديمي <span className="text-red-500">*</span></label>
-                                            <select className="input-modern bg-white font-bold" value={formData.category} onChange={e => update('category', e.target.value)}>
+                                            <select className="input-modern bg-[#0A0A0A] font-bold" value={formData.category} onChange={e => update('category', e.target.value)}>
                                                 <option value="">اختر التصنيف</option>
                                                 <option value="برمجة">برمجة وتطوير</option>
                                                 <option value="تصميم">تصميم وجرافيك</option>
@@ -290,17 +290,17 @@ export default function NewCoursePage() {
                                     <div className="space-y-4 pt-10 border-t border-slate-50">
                                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6 block border-b border-gray-100 pb-3">Program Delivery Model <span className="text-red-500">*</span></label>
                                         <div className="grid md:grid-cols-2 gap-6">
-                                            <button type="button" onClick={() => update('format', 'recorded')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'recorded' ? 'border-emerald-600 bg-emerald-700/[0.03] shadow-lg shadow-emerald-600/20 shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
-                                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/20 transition-all ${formData.format === 'recorded' ? 'bg-emerald-700 text-white' : 'bg-gray-50 text-gray-400'}`}><FiVideo size={24}/></div>
+                                            <button type="button" onClick={() => update('format', 'recorded')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'recorded' ? 'border-emerald-600 bg-emerald-700/[0.03] shadow-lg shadow-[#10B981]/20 shadow-accent/5' : 'border-gray-100 bg-[#0A0A0A] hover:border-gray-200'}`}>
+                                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20 transition-all ${formData.format === 'recorded' ? 'bg-emerald-700 text-white' : 'bg-[#111111] text-gray-400'}`}><FiVideo size={24}/></div>
                                                 <div>
-                                                    <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'recorded' ? 'text-emerald-600' : 'text-gray-400'}`}>Recorded Assets</h4>
+                                                    <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'recorded' ? 'text-[#10B981]' : 'text-gray-400'}`}>Recorded Assets</h4>
                                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider opacity-60">High-leverage asynchronous learning.</p>
                                                 </div>
                                             </button>
-                                            <button type="button" onClick={() => update('format', 'online')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'online' ? 'border-emerald-600 bg-emerald-700/5 shadow-lg shadow-emerald-600/20 shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
-                                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/20 transition-all ${formData.format === 'online' ? 'bg-emerald-700 text-white' : 'bg-gray-50 text-gray-400'}`}><FiClock size={24}/></div>
+                                            <button type="button" onClick={() => update('format', 'online')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'online' ? 'border-emerald-600 bg-emerald-700/5 shadow-lg shadow-[#10B981]/20 shadow-accent/5' : 'border-gray-100 bg-[#0A0A0A] hover:border-gray-200'}`}>
+                                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20 transition-all ${formData.format === 'online' ? 'bg-emerald-700 text-white' : 'bg-[#111111] text-gray-400'}`}><FiClock size={24}/></div>
                                                 <div>
-                                                    <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'online' ? 'text-emerald-600' : 'text-gray-400'}`}>Institutional Live</h4>
+                                                    <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'online' ? 'text-[#10B981]' : 'text-gray-400'}`}>Institutional Live</h4>
                                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider opacity-60">Synchronous coaching & live streaming.</p>
                                                 </div>
                                             </button>
@@ -312,16 +312,16 @@ export default function NewCoursePage() {
                                     <div className="grid md:grid-cols-2 gap-10">
                                         <div>
                                             <label className="label-modern underline decoration-primary-indigo-100 underline-offset-4 mb-4 block">غلاف الدورة الأساسي (16:9) <span className="text-red-500">*</span></label>
-                                            <div className="relative aspect-video rounded-xl bg-slate-50 border-4 border-white shadow-lg shadow-emerald-600/20 overflow-hidden group">
+                                            <div className="relative aspect-video rounded-xl bg-[#111111] border-4 border-white shadow-lg shadow-[#10B981]/20 overflow-hidden group">
                                                 {formData.image ? (
                                                     <>
                                                         <img src={formData.image} alt="Cover" className="w-full h-full object-cover" />
                                                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                           <button type="button" onClick={() => update('image', '')} className="bg-red-500 text-white w-12 h-12 rounded-xl flex items-center justify-center font-bold shadow-lg shadow-emerald-600/20 hover:scale-110 transition-transform"><FiX size={20}/></button>
+                                                           <button type="button" onClick={() => update('image', '')} className="bg-red-500 text-white w-12 h-12 rounded-xl flex items-center justify-center font-bold shadow-lg shadow-[#10B981]/20 hover:scale-110 transition-transform"><FiX size={20}/></button>
                                                         </div>
                                                     </>
                                                 ) : (
-                                                    <button type="button" onClick={() => setShowCoverUploader(true)} className="w-full h-full flex flex-col items-center justify-center text-slate-300 gap-3 hover:bg-white hover:text-primary-ink transition-all">
+                                                    <button type="button" onClick={() => setShowCoverUploader(true)} className="w-full h-full flex flex-col items-center justify-center text-slate-300 gap-3 hover:bg-[#0A0A0A] hover:text-primary-ink transition-all">
                                                         <FiImage size={40} />
                                                         <span className="text-xs font-bold italic">أفلت صورة الغلاف هنا للرفع</span>
                                                     </button>
@@ -330,22 +330,22 @@ export default function NewCoursePage() {
                                                     <div className="absolute inset-0 bg-white/90  p-6 overflow-auto text-right z-20 flex flex-col justify-center"><FileUploader onUploadSuccess={urls => { update('image', urls[0]); setShowCoverUploader(false); }} /></div>
                                                 )}
                                             </div>
-                                            <p className="text-[10px] text-emerald-600-600 font-bold mt-3 flex items-center gap-1"><FiCheckSquare/> يتم تشفير مسار ملفاتك بشكل آمن لحظياً</p>
+                                            <p className="text-[10px] text-[#10B981]-600 font-bold mt-3 flex items-center gap-1"><FiCheckSquare/> يتم تشفير مسار ملفاتك بشكل آمن لحظياً</p>
                                         </div>
 
                                         <div>
                                             <label className="label-modern underline decoration-primary-indigo-100 underline-offset-4 mb-4 block text-slate-700">الفيديو التشويقي (Trailer) 🔥</label>
-                                            <div className="relative aspect-video rounded-xl bg-slate-50 border-4 border-white shadow-lg shadow-emerald-600/20 overflow-hidden group">
+                                            <div className="relative aspect-video rounded-xl bg-[#111111] border-4 border-white shadow-lg shadow-[#10B981]/20 overflow-hidden group">
                                                 {formData.trailerUrl ? (
                                                     <div className="flex flex-col items-center justify-center w-full h-full p-6 text-center">
-                                                        <div className="w-16 h-16 bg-indigo-50 text-emerald-600 rounded-xl flex items-center justify-center mb-4">
+                                                        <div className="w-16 h-16 bg-indigo-50 text-[#10B981] rounded-xl flex items-center justify-center mb-4">
                                                             <FiFilm size={40} />
                                                         </div>
                                                         <p className="font-bold text-slate-800 text-sm">تم رفع فيديو ترويجي بنجاح</p>
                                                         <button 
                                                             type="button" 
                                                             onClick={() => update('trailerUrl', '')} 
-                                                            className="mt-4 px-6 py-2 bg-red-50 text-red-500 text-xs font-bold rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-lg shadow-emerald-600/20"
+                                                            className="mt-4 px-6 py-2 bg-red-50 text-red-500 text-xs font-bold rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-lg shadow-[#10B981]/20"
                                                         >
                                                             حذف واستبدال الفيديو
                                                         </button>
@@ -395,7 +395,7 @@ export default function NewCoursePage() {
                                         </div>
                                         {formData.format === 'online' ? (
                                             <div className="space-y-2">
-                                                <label className="text-xs font-bold text-emerald-600-600 italic">موعد البث (بتوقيتك المحلي)</label>
+                                                <label className="text-xs font-bold text-[#10B981]-600 italic">موعد البث (بتوقيتك المحلي)</label>
                                                 <input type="datetime-local" className="input-modern border-blue-100 bg-emerald-700-50/30" value={formData.startTime} onChange={e => update('startTime', e.target.value)} />
                                                 <p className="text-[9px] text-slate-400 font-bold">سيتم عرض الموعد للطالب حسب توقيته المحلي تلقائياً</p>
                                             </div>
@@ -411,7 +411,7 @@ export default function NewCoursePage() {
                                         <label className="label-modern mb-4 block underline decoration-primary-indigo-100 underline-offset-4">ملحقات الدورة (اختياري)</label>
                                         <div className="space-y-3">
                                             {formData.attachments.map((file, i) => (
-                                                <div key={i} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
+                                                <div key={i} className="flex items-center justify-between p-4 bg-[#111111] rounded-xl border border-slate-100">
                                                     <div className="flex items-center gap-2 overflow-hidden">
                                                         <FiCheckSquare className="text-primary-ink shrink-0" />
                                                         <span className="text-xs font-bold truncate max-w-[200px]" dir="ltr">{file.split('/').pop()}</span>
@@ -419,11 +419,11 @@ export default function NewCoursePage() {
                                                     <button type="button" onClick={() => update('attachments', formData.attachments.filter((_, idx) => idx !== i))} className="text-red-400 hover:text-red-600"><FiX /></button>
                                                 </div>
                                             ))}
-                                            <button type="button" onClick={() => setShowAttachmentsUploader(true)} className="flex items-center justify-center gap-2 text-xs font-bold text-slate-400 hover:text-primary-ink transition-all border-2 border-dashed border-slate-200 py-6 rounded-[1.5rem] w-full hover:bg-slate-50">
+                                            <button type="button" onClick={() => setShowAttachmentsUploader(true)} className="flex items-center justify-center gap-2 text-xs font-bold text-slate-400 hover:text-primary-ink transition-all border-2 border-dashed border-slate-200 py-6 rounded-[1.5rem] w-full hover:bg-[#111111]">
                                                 <FiUpload /> رفع ملفات اضافية مساعدة (PDF, ZIP...)
                                             </button>
                                             {showAttachmentsUploader && (
-                                                <div className="mt-4 bg-white/90  p-6 rounded-xl border shadow-lg shadow-emerald-600/20 relative"><FileUploader onUploadSuccess={urls => { update('attachments', [...formData.attachments, ...urls]); setShowAttachmentsUploader(false); }} /></div>
+                                                <div className="mt-4 bg-white/90  p-6 rounded-xl border shadow-lg shadow-[#10B981]/20 relative"><FileUploader onUploadSuccess={urls => { update('attachments', [...formData.attachments, ...urls]); setShowAttachmentsUploader(false); }} /></div>
                                             )}
                                         </div>
                                     </div>
@@ -442,7 +442,7 @@ export default function NewCoursePage() {
                                             </div>
                                             <div className="flex flex-wrap gap-2">
                                                 {formData.tags.map(t => (
-                                                    <span key={t} className="text-[10px] font-bold bg-slate-50 text-slate-500 px-3 py-1.5 rounded-xl flex items-center gap-2 border border-slate-100 hover:bg-red-50 transition-colors group">{t} <FiX className="cursor-pointer text-slate-300 group-hover:text-red-500" onClick={() => update('tags', formData.tags.filter(i => i !== t))} /></span>
+                                                    <span key={t} className="text-[10px] font-bold bg-[#111111] text-gray-500 px-3 py-1.5 rounded-xl flex items-center gap-2 border border-slate-100 hover:bg-red-50 transition-colors group">{t} <FiX className="cursor-pointer text-slate-300 group-hover:text-red-500" onClick={() => update('tags', formData.tags.filter(i => i !== t))} /></span>
                                                 ))}
                                             </div>
                                         </div>
@@ -455,7 +455,7 @@ export default function NewCoursePage() {
                                             </div>
                                             <ul className="space-y-3">
                                                 {formData.features.map(f => (
-                                                    <li key={f} className="text-[11px] font-bold text-slate-600 bg-emerald-700-50/50 p-2.5 rounded-xl flex items-center justify-between border-r-4 border-blue-400 group">
+                                                    <li key={f} className="text-[11px] font-bold text-gray-400 bg-emerald-700-50/50 p-2.5 rounded-xl flex items-center justify-between border-r-4 border-blue-400 group">
                                                         {f}
                                                         <FiX className="cursor-pointer text-slate-300 group-hover:text-red-500" onClick={() => update('features', formData.features.filter(i => i !== f))} />
                                                     </li>
@@ -471,10 +471,10 @@ export default function NewCoursePage() {
                         {currentStep === 3 && (
                             <motion.div key="st3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-10">
                                 <Section title="ورشة بناء المحتوى المتقدم" icon={<FiLayers />}>
-                                    <div className="bg-slate-50/50 -mx-6 -mt-6 sm:-mx-10 sm:-mt-10 p-6 sm:p-10 rounded-t-[3rem] border-b border-slate-100">
+                                    <div className="bg-[#111111]/50 -mx-6 -mt-6 sm:-mx-10 sm:-mt-10 p-6 sm:p-10 rounded-t-[3rem] border-b border-slate-100">
                                         <div className="max-w-xl">
                                             <h3 className="text-xl font-bold text-slate-800 mb-2">منهج الدورة الاحترافي</h3>
-                                            <p className="text-sm font-bold text-slate-500">تم حفظ بياناتك المبدئية بنجاح! الآن قم بترتيب الوحدات وإضافة مقاطع الفيديو، الاختباء، والمواد (جميع التعديلات هنا تحفظ تلقائياً دون الحاجة لضغط حفظ).</p>
+                                            <p className="text-sm font-bold text-gray-500">تم حفظ بياناتك المبدئية بنجاح! الآن قم بترتيب الوحدات وإضافة مقاطع الفيديو، الاختباء، والمواد (جميع التعديلات هنا تحفظ تلقائياً دون الحاجة لضغط حفظ).</p>
                                         </div>
                                     </div>
                                     {draftId ? (
@@ -496,15 +496,15 @@ export default function NewCoursePage() {
                                         <div className="space-y-4">
                                             <div className="flex items-center justify-between mb-4">
                                                 <label className="label-modern underline decoration-blue-200 underline-offset-8">سعر البيع النهائي ($)</label>
-                                                <span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-xl uppercase tracking-tighter shadow-lg shadow-emerald-600/20 ">السعر المعتمد</span>
+                                                <span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-xl uppercase tracking-tighter shadow-lg shadow-[#10B981]/20 ">السعر المعتمد</span>
                                             </div>
                                             <div className="relative group/price">
-                                                <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-emerald-700-50 text-emerald-600-600 rounded-r-2xl border-l border-blue-100 transition-colors group-focus-within/price:bg-emerald-700-600 group-focus-within/price:text-white">
+                                                <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-emerald-700-50 text-[#10B981]-600 rounded-r-2xl border-l border-blue-100 transition-colors group-focus-within/price:bg-emerald-700-600 group-focus-within/price:text-white">
                                                     <FiDollarSign size={24}/>
                                                 </div>
-                                                <input type="number" required className="input-modern pr-20 text-4xl font-bold text-slate-800 focus:bg-white transition-all text-center tracking-tighter" placeholder="0.00" value={formData.price} onChange={e => update('price', e.target.value)} />
+                                                <input type="number" required className="input-modern pr-20 text-4xl font-bold text-slate-800 focus:bg-[#0A0A0A] transition-all text-center tracking-tighter" placeholder="0.00" value={formData.price} onChange={e => update('price', e.target.value)} />
                                             </div>
-                                            <div className="flex items-center justify-between p-4 bg-slate-50/50 rounded-xl border border-slate-100 mt-4">
+                                            <div className="flex items-center justify-between p-4 bg-[#111111]/50 rounded-xl border border-slate-100 mt-4">
                                                 <span className="text-[11px] font-bold text-slate-400 italic">صافي أرباحك التقريبي (بعد عمولة المنصة 10%):</span>
                                                 <span className="text-lg font-bold text-blue-700">{netEarnings} $</span>
                                             </div>
@@ -516,10 +516,10 @@ export default function NewCoursePage() {
                                                 <span className="text-[10px] font-bold bg-red-50 text-red-500 px-3 py-1 rounded-xl uppercase tracking-tighter">للخصم فقط</span>
                                             </div>
                                             <div className="relative group/price-old">
-                                                <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-slate-50 text-slate-400 rounded-r-2xl border-l border-slate-100 transition-colors group-focus-within/price-old:bg-red-500 group-focus-within/price-old:text-white">
+                                                <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-[#111111] text-slate-400 rounded-r-2xl border-l border-slate-100 transition-colors group-focus-within/price-old:bg-red-500 group-focus-within/price-old:text-white">
                                                     <FiX size={24}/>
                                                 </div>
-                                                <input type="number" className="input-modern pr-20 text-3xl font-bold text-slate-400 line-through focus:bg-white transition-all text-center" placeholder="99.00" value={formData.originalPrice} onChange={e => update('originalPrice', e.target.value)} />
+                                                <input type="number" className="input-modern pr-20 text-3xl font-bold text-slate-400 line-through focus:bg-[#0A0A0A] transition-all text-center" placeholder="99.00" value={formData.originalPrice} onChange={e => update('originalPrice', e.target.value)} />
                                             </div>
                                             <p className="text-[10px] text-slate-400 font-bold leading-relaxed pr-2 italic">سيظهر هذا السعر مشطوباً لإغراء الطالب بعرض "لفترة محدودة" وفرصة لا تعوض.</p>
                                         </div>
@@ -530,11 +530,11 @@ export default function NewCoursePage() {
                                             <div className="space-y-4">
                                                 <label className="label-modern text-xs">تاريخ انتهاء عرض الخصم (اختياري)</label>
                                                 <input type="datetime-local" className="input-modern bg-emerald-700-50/30 border-blue-100" value={formData.offerExpiresAt} onChange={e => update('offerExpiresAt', e.target.value)} />
-                                                <p className="text-[10px] text-emerald-600-600 font-bold">سيظهر عداد تنازلي (Urgency) في صفحة البيع لتحفيز الشراء الفوري.</p>
+                                                <p className="text-[10px] text-[#10B981]-600 font-bold">سيظهر عداد تنازلي (Urgency) في صفحة البيع لتحفيز الشراء الفوري.</p>
                                             </div>
                                             <div className="space-y-4">
                                                 <label className="label-modern text-xs">كورس إضافي لعرضه في الدفع (Order Bump)</label>
-                                                <select className="input-modern bg-slate-50 text-xs font-bold" value={formData.upsellCourseId} onChange={e => update('upsellCourseId', e.target.value)}>
+                                                <select className="input-modern bg-[#111111] text-xs font-bold" value={formData.upsellCourseId} onChange={e => update('upsellCourseId', e.target.value)}>
                                                     <option value="">لا يوجد عرض إضافي</option>
                                                     {/* We could fetch other courses here, for now it's static or empty */}
                                                 </select>
@@ -549,35 +549,35 @@ export default function NewCoursePage() {
                                         <p className="text-[10px] text-slate-400 font-bold -mt-2 mb-6 text-right">أضف روابط الاجتماعات لتسهيل وصول طلابك فور الشراء للمحاضرات الحية المرافقة (اختياري)</p>
                                         <div className="grid md:grid-cols-2 gap-8">
                                             <div className="space-y-2">
-                                                <label className="text-xs font-bold text-slate-500 flex items-center gap-2"><FiVideo className="text-emerald-600-500" /> Zoom Meeting Link</label>
-                                                <input type="url" className="input-modern bg-slate-50/50" placeholder="https://zoom.us/j/..." value={formData.zoomLink} onChange={e => update('zoomLink', e.target.value)} />
+                                                <label className="text-xs font-bold text-gray-500 flex items-center gap-2"><FiVideo className="text-[#10B981]-500" /> Zoom Meeting Link</label>
+                                                <input type="url" className="input-modern bg-[#111111]/50" placeholder="https://zoom.us/j/..." value={formData.zoomLink} onChange={e => update('zoomLink', e.target.value)} />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-bold text-slate-500 flex items-center gap-2"><FiVideo className="text-emerald-600-500" /> Google Meet Link</label>
-                                                <input type="url" className="input-modern bg-slate-50/50" placeholder="https://meet.google.com/..." value={formData.meetLink} onChange={e => update('meetLink', e.target.value)} />
+                                                <label className="text-xs font-bold text-gray-500 flex items-center gap-2"><FiVideo className="text-[#10B981]-500" /> Google Meet Link</label>
+                                                <input type="url" className="input-modern bg-[#111111]/50" placeholder="https://meet.google.com/..." value={formData.meetLink} onChange={e => update('meetLink', e.target.value)} />
                                             </div>
                                         </div>
                                     </Section>
                                 )}
 
                                 <Section title="خيارات العرض فور الإنشاء" icon={<FiEye />}>
-                                    <div className={`flex items-center justify-between p-8 rounded-xl border transition-all cursor-pointer group hover:opacity-95 ${formData.isActive ? 'bg-emerald-700 border-slate-800 shadow-lg shadow-emerald-600/20' : 'bg-white border-slate-100'}`} onClick={() => update('isActive', !formData.isActive)}>
+                                    <div className={`flex items-center justify-between p-8 rounded-xl border transition-all cursor-pointer group hover:opacity-95 ${formData.isActive ? 'bg-emerald-700 border-slate-800 shadow-lg shadow-[#10B981]/20' : 'bg-[#0A0A0A] border-slate-100'}`} onClick={() => update('isActive', !formData.isActive)}>
                                         <div className="text-right">
                                             <h3 className={`font-bold text-xl leading-tight transition-colors ${formData.isActive ? 'text-white' : 'text-slate-800'}`}>إطلاق وعرض الدورة للبيع</h3>
                                             <p className={`text-xs mt-1 font-bold ${formData.isActive ? 'text-white/40' : 'text-slate-400'}`}>{formData.isActive ? 'الدورة ستظهر في واجهة المتجر الرئيسية للجميع' : 'الدورة ستبقى مخفية (وسيكون الوصول بالرابط السري فقط)'}</p>
                                         </div>
                                         <div className={`w-14 h-8 rounded-xl flex items-center px-1 transition-all ${formData.isActive ? 'bg-emerald-700' : 'bg-slate-100'}`}>
-                                            <div className={`w-6 h-6 bg-white rounded-xl transition-all shadow-md ${formData.isActive ? 'translate-x-[24px]' : 'translate-x-0'}`} />
+                                            <div className={`w-6 h-6 bg-[#0A0A0A] rounded-xl transition-all shadow-md ${formData.isActive ? 'translate-x-[24px]' : 'translate-x-0'}`} />
                                         </div>
                                     </div>
                                     
-                                    <div className="flex items-center justify-between p-8 bg-blue-900 rounded-xl border border-blue-800 shadow-lg shadow-emerald-600/20 transition-all cursor-pointer hover:bg-blue-800 group" onClick={() => update('enablePPP', !formData.enablePPP)}>
+                                    <div className="flex items-center justify-between p-8 bg-blue-900 rounded-xl border border-blue-800 shadow-lg shadow-[#10B981]/20 transition-all cursor-pointer hover:bg-blue-800 group" onClick={() => update('enablePPP', !formData.enablePPP)}>
                                         <div className="text-right">
                                             <h3 className="font-bold text-white text-xl leading-tight transition-colors group-hover:text-blue-400">تفعيل التسعير العادل (PPP Pricing) 🌍</h3>
                                             <p className="text-xs text-blue-200 mt-1 max-w-lg leading-relaxed">تخفيض السعر تلقائياً للزوار من الدول النامية حسب القوة الشرائية، لضمان أعلى نسبة مبيعات للجميع دون حرمان أحد.</p>
                                         </div>
                                         <div className={`w-16 h-9 rounded-xl flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-emerald-700-500 outline-accent-500/30' : 'bg-blue-950 outline-blue-900'}`}>
-                                            <div className={`w-6 h-6 bg-white rounded-xl transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-lg shadow-emerald-600/20 shadow-black/40`} />
+                                            <div className={`w-6 h-6 bg-[#0A0A0A] rounded-xl transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-lg shadow-[#10B981]/20 shadow-black/40`} />
                                         </div>
                                     </div>
                                 </Section>
@@ -592,7 +592,7 @@ export default function NewCoursePage() {
                             {currentStep > 1 ? (
                                 <button
                                     type="button" onClick={prevStep}
-                                    className="w-full md:w-auto flex items-center justify-center gap-2 text-slate-400 font-bold hover:text-slate-600 border border-slate-200 rounded-xl transition-all px-8 py-4 group hover:bg-slate-50"
+                                    className="w-full md:w-auto flex items-center justify-center gap-2 text-slate-400 font-bold hover:text-gray-400 border border-slate-200 rounded-xl transition-all px-8 py-4 group hover:bg-[#111111]"
                                 >
                                     <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                                     خطوة للخلف
@@ -607,7 +607,7 @@ export default function NewCoursePage() {
                             {currentStep < 4 ? (
                                 <button
                                     type="button" onClick={nextStep}
-                                    className="w-full md:w-auto px-12 py-4 bg-emerald-700 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 active:scale-95 text-lg"
+                                    className="w-full md:w-auto px-12 py-4 bg-emerald-700 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-700 transition-all shadow-lg shadow-[#10B981]/20 active:scale-95 text-lg"
                                 >
                                     {currentStep === 3 || (currentStep === 2 && formData.format === 'online') ? 'التالي لتسعير الدورة' : 'المتابعة واختيار الإعدادات'}
                                     <FiArrowLeft />
@@ -615,7 +615,7 @@ export default function NewCoursePage() {
                             ) : (
                                 <button
                                     type="submit" disabled={loading}
-                                    className="w-full md:w-auto px-12 py-5 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 shadow-black/10 active:scale-95 group"
+                                    className="w-full md:w-auto px-12 py-5 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:bg-emerald-700 transition-all shadow-lg shadow-[#10B981]/20 shadow-black/10 active:scale-95 group"
                                 >
                                     {loading ? 'Processing Protocol...' : 'Deploy Program Architecture'}
                                     {!loading && <FiCheck className="text-xl group-hover:scale-125 transition-transform text-white" />}
@@ -635,7 +635,7 @@ export default function NewCoursePage() {
                     </div>
 
                     {/* Miniature Course Card */}
-                    <div className="bg-white rounded-xl border border-slate-100 shadow-lg shadow-emerald-600/20 overflow-hidden transition-all hover:shadow-lg shadow-emerald-600/20 hover:-translate-y-1">
+                    <div className="bg-[#0A0A0A] rounded-xl border border-slate-100 shadow-lg shadow-[#10B981]/20 overflow-hidden transition-all hover:shadow-lg shadow-[#10B981]/20 hover:-translate-y-1">
                         <div className="aspect-video bg-slate-100 relative overflow-hidden flex items-center justify-center text-slate-300">
                             {formData.image ? 
                                 <img src={formData.image} alt="Preview" className="w-full h-full object-cover" /> 
@@ -647,18 +647,18 @@ export default function NewCoursePage() {
                         </div>
                         
                         <div className="p-6">
-                            <h4 className="font-bold text-lg text-slate-900 line-clamp-2 leading-tight min-h-[50px]">
+                            <h4 className="font-bold text-lg text-white line-clamp-2 leading-tight min-h-[50px]">
                                 {formData.title || 'اسم الدورة التدريبية سيظهر هنا، اكتب عنواناً قوياً لجذب الانتباه...'}
                             </h4>
                             
                             <div className="flex flex-wrap gap-2 mt-4 mb-2">
                                 {formData.tags.slice(0, 3).map(tag => (
-                                    <span key={tag} className="text-[9px] bg-subtle text-primary-ink px-2 py-1 rounded-md font-bold">{tag}</span>
+                                    <span key={tag} className="text-[9px] bg-[#0A0A0A] text-primary-ink px-2 py-1 rounded-md font-bold">{tag}</span>
                                 ))}
                             </div>
 
                             <div className="flex justify-between items-center mt-6 pt-4 border-t border-slate-50">
-                                <div className="text-xl font-bold text-slate-900" dir="ltr">
+                                <div className="text-xl font-bold text-white" dir="ltr">
                                     <span className="text-sm text-slate-400 mr-1">$</span>
                                     {formData.price || '0.00'}
                                 </div>
@@ -668,7 +668,7 @@ export default function NewCoursePage() {
                                 </div>
                             </div>
                             
-                            <button className="w-full mt-4 py-3 bg-slate-50 text-slate-400 font-bold rounded-xl text-xs" disabled>
+                            <button className="w-full mt-4 py-3 bg-[#111111] text-slate-400 font-bold rounded-xl text-xs" disabled>
                                 اشتراك وإضافة للسلة
                             </button>
                         </div>
@@ -679,15 +679,15 @@ export default function NewCoursePage() {
             <AnimatePresence>
                 {showConfirmModal && (
                     <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/60  ">
-                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-xl p-12 max-w-sm w-full text-center space-y-10 shadow-lg shadow-emerald-600/20 border border-slate-50">
-                             <div className="w-24 h-24 bg-subtle text-primary-ink rounded-xl flex items-center justify-center mx-auto text-5xl shadow-lg shadow-emerald-600/20"><FiCheckSquare /></div>
+                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-[#0A0A0A] rounded-xl p-12 max-w-sm w-full text-center space-y-10 shadow-lg shadow-[#10B981]/20 border border-slate-50">
+                             <div className="w-24 h-24 bg-[#0A0A0A] text-primary-ink rounded-xl flex items-center justify-center mx-auto text-5xl shadow-lg shadow-[#10B981]/20"><FiCheckSquare /></div>
                              <div className="space-y-2">
-                                 <h3 className="text-3xl font-bold text-slate-900 leading-tight">جاهز للانطلاق!</h3>
+                                 <h3 className="text-3xl font-bold text-white leading-tight">جاهز للانطلاق!</h3>
                                  <p className="text-sm text-slate-400 font-bold uppercase tracking-widest">سيتم نشر الأكاديمية وتفعيل القبول التلقائي</p>
                              </div>
                              <div className="flex flex-col gap-4">
-                                <button onClick={handleSubmit} className="w-full py-5 bg-emerald-700 text-white rounded-xl font-bold shadow-lg shadow-emerald-600/20 hover:opacity-90 transition-all text-lg">تأكيد ونشر الأكاديمية الآن</button>
-                                <button onClick={() => setShowConfirmModal(false)} className="w-full py-2 text-slate-400 font-bold text-xs uppercase hover:text-slate-600 transition-all">مراجعة المحتوى التفصيلي</button>
+                                <button onClick={handleSubmit} className="w-full py-5 bg-emerald-700 text-white rounded-xl font-bold shadow-lg shadow-[#10B981]/20 hover:opacity-90 transition-all text-lg">تأكيد ونشر الأكاديمية الآن</button>
+                                <button onClick={() => setShowConfirmModal(false)} className="w-full py-2 text-slate-400 font-bold text-xs uppercase hover:text-gray-400 transition-all">مراجعة المحتوى التفصيلي</button>
                              </div>
                         </motion.div>
                     </div>
@@ -704,40 +704,40 @@ export default function NewCoursePage() {
                             initial={{ scale: 0.8, opacity: 0, y: 50 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                            className="bg-white rounded-[4rem] p-12 max-w-xl w-full shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border border-white/20 text-center relative overflow-hidden"
+                            className="bg-[#0A0A0A] rounded-[4rem] p-12 max-w-xl w-full shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border border-white/20 text-center relative overflow-hidden"
                         >
                             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary-ink via-accent-500 to-primary-ink animate-gradient-x" />
                             
-                            <div className="w-24 h-24 bg-blue-100 text-emerald-600-600 rounded-xl flex items-center justify-center mx-auto mb-10 text-4xl shadow-lg shadow-emerald-600/20 ring-8 ring-accent-50">🎓</div>
+                            <div className="w-24 h-24 bg-blue-100 text-[#10B981]-600 rounded-xl flex items-center justify-center mx-auto mb-10 text-4xl shadow-lg shadow-[#10B981]/20 ring-8 ring-accent-50">🎓</div>
                             
                             <div className="space-y-4 mb-12">
-                                <h2 className="text-4xl font-bold text-slate-900 tracking-tight leading-none">تهانينا! دورتك جاهزة ✨</h2>
-                                <p className="text-slate-500 font-bold text-lg leading-relaxed">تم إطلاق الأكاديمية بنجاح الآن. يمكنك البدء باستقبال الطلاب أو الاستمرار في تحسين المنهج.</p>
+                                <h2 className="text-4xl font-bold text-white tracking-tight leading-none">تهانينا! دورتك جاهزة ✨</h2>
+                                <p className="text-gray-500 font-bold text-lg leading-relaxed">تم إطلاق الأكاديمية بنجاح الآن. يمكنك البدء باستقبال الطلاب أو الاستمرار في تحسين المنهج.</p>
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <button
                                     onClick={() => router.push(`/dashboard/courses/${finalCourseId}/content`)}
-                                    className="w-full py-5 bg-emerald-700 text-white rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-primary-indigo-700 transition-all shadow-lg shadow-emerald-600/20 active:scale-95"
+                                    className="w-full py-5 bg-emerald-700 text-white rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-primary-indigo-700 transition-all shadow-lg shadow-[#10B981]/20 active:scale-95"
                                 >
                                     إدارة الدروس <FiLayers />
                                 </button>
                                 <button
                                     onClick={() => router.push(`/dashboard/courses/${finalCourseId}/edit`)}
-                                    className="w-full py-5 bg-emerald-700 text-white rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 active:scale-95"
+                                    className="w-full py-5 bg-emerald-700 text-white rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-emerald-700 transition-all shadow-lg shadow-[#10B981]/20 active:scale-95"
                                 >
                                     تعديل التفاصيل <FiEdit2 />
                                 </button>
                                 <button
                                     onClick={() => router.push('/dashboard/courses')}
-                                    className="w-full py-5 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-3 active:scale-95"
+                                    className="w-full py-5 bg-slate-100 text-gray-400 rounded-xl font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-3 active:scale-95"
                                 >
                                     لوحة التحكم <FiArrowLeft />
                                 </button>
                                 <Link
                                     href={creatorUsername && finalSlug ? `/${creatorUsername}/products/${finalSlug}` : `/dashboard/courses/${finalCourseId}/content`}
                                     target="_blank"
-                                    className="w-full py-5 bg-blue-100 text-blue-700 rounded-xl font-bold hover:bg-blue-200 transition-all flex items-center justify-center gap-3 active:scale-95 shadow-lg shadow-emerald-600/20"
+                                    className="w-full py-5 bg-blue-100 text-blue-700 rounded-xl font-bold hover:bg-blue-200 transition-all flex items-center justify-center gap-3 active:scale-95 shadow-lg shadow-[#10B981]/20"
                                 >
                                     لمحة عن المتجر <FiEye />
                                 </Link>
@@ -752,13 +752,13 @@ export default function NewCoursePage() {
 
 function Section({ title, icon, children }: any) {
     return (
-        <div className="bg-white rounded-xl p-8 lg:p-14 shadow-lg shadow-emerald-600/20 border border-slate-50 space-y-10 overflow-hidden relative">
+        <div className="bg-[#0A0A0A] rounded-xl p-8 lg:p-14 shadow-lg shadow-[#10B981]/20 border border-slate-50 space-y-10 overflow-hidden relative">
             <div className="flex items-center gap-5">
-                <div className="w-16 h-16 bg-slate-50 text-slate-900 rounded-xl flex items-center justify-center text-3xl shadow-lg shadow-emerald-600/20 group-hover:scale-110 transition-transform shrink-0">
+                <div className="w-16 h-16 bg-[#111111] text-white rounded-xl flex items-center justify-center text-3xl shadow-lg shadow-[#10B981]/20 group-hover:scale-110 transition-transform shrink-0">
                     {icon}
                 </div>
                 <div className="text-right">
-                    <h2 className="text-2xl font-bold text-slate-900 tracking-tight">{title}</h2>
+                    <h2 className="text-2xl font-bold text-white tracking-tight">{title}</h2>
                     <div className="h-1.5 w-12 bg-primary-indigo-100 rounded-xl mt-2" />
                 </div>
             </div>

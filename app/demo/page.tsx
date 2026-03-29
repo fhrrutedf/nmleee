@@ -7,8 +7,8 @@ export default function DemoPage() {
             {/* Hero Section */}
             <section className="relative bg-gradient-to-br from-accent via-ink to-pink-600 text-white py-20 overflow-hidden">
                 <div className="absolute inset-0 opacity-20">
-                    <div className="absolute top-0 left-0 w-64 h-64 bg-white rounded-xl filter blur-3xl"></div>
-                    <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-xl filter blur-3xl"></div>
+                    <div className="absolute top-0 left-0 w-64 h-64 bg-[#0A0A0A] rounded-xl filter blur-3xl"></div>
+                    <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#0A0A0A] rounded-xl filter blur-3xl"></div>
                 </div>
 
                 <div className="relative max-w-7xl mx-auto px-4 text-center">
@@ -17,10 +17,10 @@ export default function DemoPage() {
                         منصة عربية متكاملة لبيع المنتجات الرقمية والدورات التدريبية
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
-                        <Link href="/register" className="btn bg-white text-emerald-600 hover:bg-gray-100 px-8 py-4 text-lg">
+                        <Link href="/register" className="btn bg-[#0A0A0A] text-[#10B981] hover:bg-gray-100 px-8 py-4 text-lg">
                             ابدأ الآن مجاناً
                         </Link>
-                        <Link href="/courses" className="btn btn-outline border-white text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg">
+                        <Link href="/courses" className="btn btn-outline border-white text-white hover:bg-[#0A0A0A] hover:text-[#10B981] px-8 py-4 text-lg">
                             تصفح الدورات
                         </Link>
                     </div>
@@ -28,14 +28,14 @@ export default function DemoPage() {
             </section>
 
             {/* Stats Section */}
-            <section className="py-16 bg-white">
+            <section className="py-16 bg-[#0A0A0A]">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         <div className="text-center">
                             <div className="w-20 h-20 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                                <FiUsers className="text-4xl text-emerald-600-600" />
+                                <FiUsers className="text-4xl text-[#10B981]-600" />
                             </div>
-                            <h3 className="text-4xl font-bold text-gray-900 mb-2">10K+</h3>
+                            <h3 className="text-4xl font-bold text-white mb-2">10K+</h3>
                             <p className="text-gray-600">مستخدم نشط</p>
                         </div>
 
@@ -43,15 +43,15 @@ export default function DemoPage() {
                             <div className="w-20 h-20 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
                                 <FiShoppingCart className="text-4xl text-green-600" />
                             </div>
-                            <h3 className="text-4xl font-bold text-gray-900 mb-2">50K+</h3>
+                            <h3 className="text-4xl font-bold text-white mb-2">50K+</h3>
                             <p className="text-gray-600">عملية بيع</p>
                         </div>
 
                         <div className="text-center">
                             <div className="w-20 h-20 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                                <FiBook className="text-4xl text-emerald-600" />
+                                <FiBook className="text-4xl text-[#10B981]" />
                             </div>
-                            <h3 className="text-4xl font-bold text-gray-900 mb-2">5K+</h3>
+                            <h3 className="text-4xl font-bold text-white mb-2">5K+</h3>
                             <p className="text-gray-600">دورة ومنتج</p>
                         </div>
 
@@ -59,7 +59,7 @@ export default function DemoPage() {
                             <div className="w-20 h-20 bg-orange-100 rounded-xl flex items-center justify-center mx-auto mb-4">
                                 <FiStar className="text-4xl text-orange-600" />
                             </div>
-                            <h3 className="text-4xl font-bold text-gray-900 mb-2">4.9</h3>
+                            <h3 className="text-4xl font-bold text-white mb-2">4.9</h3>
                             <p className="text-gray-600">تقييم المستخدمين</p>
                         </div>
                     </div>
@@ -67,7 +67,7 @@ export default function DemoPage() {
             </section>
 
             {/* Features Section */}
-            <section className="py-16 bg-gray-50">
+            <section className="py-16 bg-[#111111]">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="text-center mb-12">
                         <h2 className="text-4xl font-bold mb-4">ميزات المنصة</h2>
@@ -75,9 +75,9 @@ export default function DemoPage() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-8 hover:shadow-lg shadow-emerald-600/20 transition-shadow">
+                        <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-8 hover:shadow-lg shadow-[#10B981]/20 transition-shadow">
                             <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
-                                <FiShoppingCart className="text-3xl text-emerald-600-600" />
+                                <FiShoppingCart className="text-3xl text-[#10B981]-600" />
                             </div>
                             <h3 className="text-2xl font-bold mb-3">بيع المنتجات</h3>
                             <p className="text-gray-600 leading-relaxed">
@@ -85,9 +85,9 @@ export default function DemoPage() {
                             </p>
                         </div>
 
-                        <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-8 hover:shadow-lg shadow-emerald-600/20 transition-shadow">
+                        <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-8 hover:shadow-lg shadow-[#10B981]/20 transition-shadow">
                             <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
-                                <FiVideo className="text-3xl text-emerald-600" />
+                                <FiVideo className="text-3xl text-[#10B981]" />
                             </div>
                             <h3 className="text-2xl font-bold mb-3">الدورات التدريبية</h3>
                             <p className="text-gray-600 leading-relaxed">
@@ -95,7 +95,7 @@ export default function DemoPage() {
                             </p>
                         </div>
 
-                        <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-8 hover:shadow-lg shadow-emerald-600/20 transition-shadow">
+                        <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-8 hover:shadow-lg shadow-[#10B981]/20 transition-shadow">
                             <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-4">
                                 <FiTrendingUp className="text-3xl text-green-600" />
                             </div>
@@ -109,7 +109,7 @@ export default function DemoPage() {
             </section>
 
             {/* How It Works */}
-            <section className="py-16 bg-white">
+            <section className="py-16 bg-[#0A0A0A]">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="text-center mb-12">
                         <h2 className="text-4xl font-bold mb-4">كيف تبدأ؟</h2>
@@ -118,7 +118,7 @@ export default function DemoPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div className="text-center">
-                            <div className="w-20 h-20 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-emerald-600">
+                            <div className="w-20 h-20 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-[#10B981]">
                                 1
                             </div>
                             <h3 className="text-xl font-bold mb-3">أنشئ حسابك</h3>
@@ -128,7 +128,7 @@ export default function DemoPage() {
                         </div>
 
                         <div className="text-center">
-                            <div className="w-20 h-20 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-emerald-600">
+                            <div className="w-20 h-20 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-[#10B981]">
                                 2
                             </div>
                             <h3 className="text-xl font-bold mb-3">أضف منتجاتك</h3>
@@ -138,7 +138,7 @@ export default function DemoPage() {
                         </div>
 
                         <div className="text-center">
-                            <div className="w-20 h-20 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-emerald-600">
+                            <div className="w-20 h-20 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-[#10B981]">
                                 3
                             </div>
                             <h3 className="text-xl font-bold mb-3">ابدأ البيع</h3>
@@ -151,7 +151,7 @@ export default function DemoPage() {
             </section>
 
             {/* Demo Products */}
-            <section className="py-16 bg-gray-50">
+            <section className="py-16 bg-[#111111]">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="text-center mb-12">
                         <h2 className="text-4xl font-bold mb-4">أمثلة من المنتجات</h2>
@@ -179,7 +179,7 @@ export default function DemoPage() {
                                 image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400'
                             }
                         ].map((product, index) => (
-                            <div key={index} className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden hover:shadow-lg shadow-emerald-600/20 transition-shadow group">
+                            <div key={index} className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden hover:shadow-lg shadow-[#10B981]/20 transition-shadow group">
                                 <img
                                     src={product.image}
                                     alt={product.title}
@@ -196,7 +196,7 @@ export default function DemoPage() {
                                                 <FiStar key={i} className="text-sm text-yellow-400 fill-yellow-400" />
                                             ))}
                                         </div>
-                                        <span className="text-2xl font-bold text-emerald-600">{product.price} $</span>
+                                        <span className="text-2xl font-bold text-[#10B981]">{product.price} $</span>
                                     </div>
                                 </div>
                             </div>
@@ -219,13 +219,13 @@ export default function DemoPage() {
                     <div className="flex flex-wrap justify-center gap-4">
                         <Link
                             href="/register"
-                            className="btn bg-white text-emerald-600 hover:bg-gray-100 px-8 py-4 text-lg"
+                            className="btn bg-[#0A0A0A] text-[#10B981] hover:bg-gray-100 px-8 py-4 text-lg"
                         >
                             ابدأ مجاناً الآن
                         </Link>
                         <Link
                             href="/about"
-                            className="btn btn-outline border-white text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg"
+                            className="btn btn-outline border-white text-white hover:bg-[#0A0A0A] hover:text-[#10B981] px-8 py-4 text-lg"
                         >
                             اعرف المزيد
                         </Link>

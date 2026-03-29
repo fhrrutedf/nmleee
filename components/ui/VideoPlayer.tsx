@@ -125,7 +125,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
     return (
         <div
             ref={containerRef}
-            className="relative group bg-black rounded-xl overflow-hidden aspect-video shadow-lg shadow-emerald-600/20"
+            className="relative group bg-black rounded-xl overflow-hidden aspect-video shadow-lg shadow-[#10B981]/20"
             onMouseLeave={() => setShowSettings(false)}
         >
             <video
@@ -171,7 +171,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                         onChange={handleProgressScrub}
                         className="absolute w-full h-full opacity-0 z-20 cursor-pointer"
                     />
-                    <div className="w-full h-full bg-surface rounded-xl relative z-10 overflow-hidden">
+                    <div className="w-full h-full bg-[#0A0A0A] rounded-xl relative z-10 overflow-hidden">
                         <div
                             className="h-full bg-emerald-700 rounded-xl transition-all ease-linear"
                             style={{ width: `${(currentTime / (duration || 1)) * 100}%` }}
@@ -182,12 +182,12 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                 <div className="flex items-center justify-between" dir="ltr">
                     {/* Left Controls */}
                     <div className="flex items-center gap-4 text-white">
-                        <button onClick={togglePlay} className="hover:text-emerald-600 transition-colors">
+                        <button onClick={togglePlay} className="hover:text-[#10B981] transition-colors">
                             {isPlaying ? <FiPause size={24} /> : <FiPlay size={24} />}
                         </button>
 
                         <div className="flex items-center gap-2 group/vol relative">
-                            <button onClick={toggleMute} className="hover:text-emerald-600 transition-colors">
+                            <button onClick={toggleMute} className="hover:text-[#10B981] transition-colors">
                                 {isMuted || volume === 0 ? <FiVolumeX size={20} /> : <FiVolume2 size={20} />}
                             </button>
                             <input
@@ -210,7 +210,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                     <div className="flex items-center gap-4 text-white relative">
                         <button
                             onClick={() => setShowSettings(!showSettings)}
-                            className="hover:text-emerald-600 transition-colors"
+                            className="hover:text-[#10B981] transition-colors"
                         >
                             <FiSettings size={20} />
                         </button>
@@ -241,7 +241,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                                             <button
                                                 key={q}
                                                 onClick={() => { setQuality(q); setShowSettings(false); }}
-                                                className={`block w-full text-left px-2 py-1 rounded-lg transition-colors ${quality === q ? 'text-emerald-600 font-bold' : 'hover:bg-gray-800'}`}
+                                                className={`block w-full text-left px-2 py-1 rounded-lg transition-colors ${quality === q ? 'text-[#10B981] font-bold' : 'hover:bg-gray-800'}`}
                                             >
                                                 {q === 'auto' ? 'تلقائي' : q}
                                             </button>
@@ -251,7 +251,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                             </div>
                         )}
 
-                        <button onClick={toggleFullscreen} className="hover:text-emerald-600 transition-colors">
+                        <button onClick={toggleFullscreen} className="hover:text-[#10B981] transition-colors">
                             <FiMaximize size={20} />
                         </button>
                     </div>

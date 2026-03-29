@@ -97,7 +97,7 @@ export default function PayoutSettings() {
     if (loading) {
         return <div className=" space-y-4">
             <div className="h-10 bg-gray-100 rounded-lg w-1/4"></div>
-            <div className="h-64 bg-gray-50 rounded-xl"></div>
+            <div className="h-64 bg-[#111111] rounded-xl"></div>
         </div>;
     }
 
@@ -130,7 +130,7 @@ export default function PayoutSettings() {
                             className={`p-4 rounded-xl border-2 transition-all flex items-center gap-4 text-right ${
                                 isActive 
                                 ? 'border-primary-500 bg-primary-50/50 shadow-md ring-2 ring-primary-500/20' 
-                                : 'border-gray-100 hover:border-gray-200 bg-white'
+                                : 'border-gray-100 hover:border-gray-200 bg-[#0A0A0A]'
                             }`}
                         >
                             <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl ${
@@ -139,7 +139,7 @@ export default function PayoutSettings() {
                                 <method.icon />
                             </div>
                             <div className="flex-1">
-                                <h3 className="font-bold text-gray-900">{method.name}</h3>
+                                <h3 className="font-bold text-white">{method.name}</h3>
                                 {isActive && <span className="text-xs text-primary-600 font-medium">نشط الآن</span>}
                             </div>
                             {isActive && <FiCheckCircle className="text-primary-500 text-xl" />}
@@ -150,7 +150,7 @@ export default function PayoutSettings() {
 
             {/* Method Details Form */}
             {activeMethod && (
-                <div className="bg-white border border-gray-100 p-6 rounded-xl shadow-lg shadow-emerald-600/20 ">
+                <div className="bg-[#0A0A0A] border border-gray-100 p-6 rounded-xl shadow-lg shadow-[#10B981]/20 ">
                     <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
                         <span className="w-1.5 h-6 bg-primary-500 rounded-xl"></span>
                         بيانات {getPayoutMethodLabel(activeMethod)}
@@ -219,7 +219,7 @@ export default function PayoutSettings() {
                                     onChange={e => setData({...data, cryptoWallet: e.target.value})}
                                     placeholder="T..."
                                 />
-                                <p className="text-xs text-emerald-600-600 mt-2">نرجوا التأكد من أن العنوان يدعم شبكة TRC20 لتجنب ضياع المبلغ.</p>
+                                <p className="text-xs text-[#10B981]-600 mt-2">نرجوا التأكد من أن العنوان يدعم شبكة TRC20 لتجنب ضياع المبلغ.</p>
                             </div>
                         )}
 

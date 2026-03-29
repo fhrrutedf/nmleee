@@ -42,7 +42,7 @@ export default function CreatorStorePage() {
 
     if (!creator) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50">
+            <div className="min-h-screen flex items-center justify-center bg-[#111111]">
                 <div className="text-center">
                     <h1 className="text-4xl font-bold mb-4">404</h1>
                     <p className="text-gray-600 mb-6">المتجر غير موجود</p>
@@ -57,7 +57,7 @@ export default function CreatorStorePage() {
     const brandColor = creator.brandColor || '#0ea5e9';
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-[#111111]">
             {/* Creator Header */}
             <div className="relative">
                 {/* Cover Image */}
@@ -80,7 +80,7 @@ export default function CreatorStorePage() {
 
                 {/* Creator Info */}
                 <div className="max-w-5xl mx-auto px-4 -mt-20 relative">
-                    <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-8">
+                    <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-8">
                         <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
                             {/* Avatar */}
                             <div className="flex-shrink-0">
@@ -88,11 +88,11 @@ export default function CreatorStorePage() {
                                     <img
                                         src={creator.avatar}
                                         alt={creator.name}
-                                        className="w-32 h-32 rounded-xl border-4 border-white shadow-lg shadow-emerald-600/20 object-cover"
+                                        className="w-32 h-32 rounded-xl border-4 border-white shadow-lg shadow-[#10B981]/20 object-cover"
                                     />
                                 ) : (
                                     <div
-                                        className="w-32 h-32 rounded-xl border-4 border-white shadow-lg shadow-emerald-600/20 flex items-center justify-center text-white text-4xl font-bold"
+                                        className="w-32 h-32 rounded-xl border-4 border-white shadow-lg shadow-[#10B981]/20 flex items-center justify-center text-white text-4xl font-bold"
                                         style={{ backgroundColor: brandColor }}
                                     >
                                         {creator.name.charAt(0)}
@@ -165,7 +165,7 @@ export default function CreatorStorePage() {
                 <h2 className="text-2xl font-bold mb-8">المنتجات والدورات</h2>
 
                 {products.length === 0 ? (
-                    <div className="text-center py-12 bg-white rounded-xl">
+                    <div className="text-center py-12 bg-[#0A0A0A] rounded-xl">
                         <FiShoppingCart className="text-6xl text-gray-300 mx-auto mb-4" />
                         <p className="text-gray-500">لا توجد منتجات حالياً</p>
                     </div>
@@ -175,7 +175,7 @@ export default function CreatorStorePage() {
                             <Link
                                 key={product.id}
                                 href={`/@${creator.username}/${product.slug}`}
-                                className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden hover:shadow-lg shadow-emerald-600/20 transition-all group"
+                                className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden hover:shadow-lg shadow-[#10B981]/20 transition-all group"
                             >
                                 {product.image ? (
                                     <img
@@ -207,7 +207,7 @@ export default function CreatorStorePage() {
                                         </span>
                                     )}
 
-                                    <h3 className="font-bold text-lg mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">
+                                    <h3 className="font-bold text-lg mb-2 line-clamp-2 group-hover:text-[#10B981] transition-colors">
                                         {product.title}
                                     </h3>
 

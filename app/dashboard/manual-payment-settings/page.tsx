@@ -83,18 +83,18 @@ export default function ManualPaymentSettingsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-[#111111] py-8">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900">إعدادات الدفع اليدوي</h1>
+                    <h1 className="text-3xl font-bold text-white">إعدادات الدفع اليدوي</h1>
                     <p className="text-gray-600 mt-2">أضف أرقامك لاستقبال الدفعات من المشترين</p>
                 </div>
 
-                <div className="bg-white rounded-lg shadow p-6">
+                <div className="bg-[#0A0A0A] rounded-lg shadow p-6">
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Syria */}
                         <div className="border-b pb-6">
-                            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                                 🇸🇾 سوريا
                             </h3>
 
@@ -142,7 +142,7 @@ export default function ManualPaymentSettingsPage() {
 
                         {/* Iraq */}
                         <div className="border-b pb-6">
-                            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                                 🇮🇶 العراق
                             </h3>
 
@@ -162,7 +162,7 @@ export default function ManualPaymentSettingsPage() {
 
                         {/* Egypt */}
                         <div className="pb-6">
-                            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                                 🇪🇬 مصر
                             </h3>
 

@@ -53,8 +53,8 @@ export default function VerifyTransfersPage() {
     return (
         <div className="p-6 max-w-4xl mx-auto min-h-[80vh]">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3 mb-2">
-                    <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 text-emerald-600-600 rounded-xl flex items-center justify-center shadow-inner">
+                <h1 className="text-3xl font-bold text-white dark:text-white flex items-center gap-3 mb-2">
+                    <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 text-[#10B981]-600 rounded-xl flex items-center justify-center shadow-inner">
                         <FiCpu className="text-2xl" />
                     </div>
                     نظام مطابقة الحوالات الذكي
@@ -64,7 +64,7 @@ export default function VerifyTransfersPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Input Section */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-700">
+                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-700">
                     <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
                         <span className="w-8 h-8 rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-sm">1</span>
                         لصق الإشعارات (SMS)
@@ -73,7 +73,7 @@ export default function VerifyTransfersPage() {
                         value={rawText}
                         onChange={(e) => setRawText(e.target.value)}
                         placeholder="الصق تفاصيل ورسائل التحويل هنا..."
-                        className="w-full h-64 p-4 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-accent-500 font-mono text-sm resize-none mb-4 outline-none transition-shadow"
+                        className="w-full h-64 p-4 rounded-xl border border-gray-200 dark:border-gray-600 bg-[#111111] dark:bg-gray-900 focus:ring-2 focus:ring-accent-500 font-mono text-sm resize-none mb-4 outline-none transition-shadow"
                     />
                     <button
                         onClick={handleExtract}
@@ -85,9 +85,9 @@ export default function VerifyTransfersPage() {
                 </div>
 
                 {/* Verification Section */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-700 flex flex-col">
+                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-700 flex flex-col">
                     <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                        <span className="w-8 h-8 rounded-xl bg-blue-100 text-emerald-600-600 flex items-center justify-center text-sm">2</span>
+                        <span className="w-8 h-8 rounded-xl bg-blue-100 text-[#10B981]-600 flex items-center justify-center text-sm">2</span>
                         التحقق والاعتماد
                     </h2>
 
@@ -99,7 +99,7 @@ export default function VerifyTransfersPage() {
                                 </p>
                                 <div className="flex flex-wrap gap-2">
                                     {extractedRefs.map((ref, idx) => (
-                                        <span key={idx} className="bg-white dark:bg-gray-900 px-3 py-1.5 rounded-lg border border-blue-200 dark:border-blue-700/50 font-mono text-sm text-gray-700 dark:text-gray-300 shadow-lg shadow-emerald-600/20">
+                                        <span key={idx} className="bg-[#0A0A0A] dark:bg-gray-900 px-3 py-1.5 rounded-lg border border-blue-200 dark:border-blue-700/50 font-mono text-sm text-gray-700 dark:text-gray-300 shadow-lg shadow-[#10B981]/20">
                                             {ref}
                                         </span>
                                     ))}
@@ -120,8 +120,8 @@ export default function VerifyTransfersPage() {
                             </button>
                         </div>
                     ) : (
-                        <div className="flex-1 flex flex-col items-center justify-center text-gray-400 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900/50 min-h-[16rem]">
-                            <div className="w-16 h-16 rounded-xl bg-white dark:bg-gray-800 flex items-center justify-center mb-4 shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-700">
+                        <div className="flex-1 flex flex-col items-center justify-center text-gray-400 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl bg-[#111111] dark:bg-gray-900/50 min-h-[16rem]">
+                            <div className="w-16 h-16 rounded-xl bg-[#0A0A0A] dark:bg-gray-800 flex items-center justify-center mb-4 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-700">
                                 <FiList className="text-3xl opacity-50 text-gray-400" />
                             </div>
                             <p className="font-medium text-gray-500">لا توجد أرقام مرجعية مستخرجة</p>

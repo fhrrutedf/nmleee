@@ -136,15 +136,15 @@ export default function EditLessonPage() {
         <div className="max-w-4xl mx-auto pb-12">
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-sm text-text-muted mb-6">
-                <button onClick={() => router.push(`/dashboard/courses/${lesson.module.course.id}/content`)} className="hover:text-emerald-600 transition-colors">
+                <button onClick={() => router.push(`/dashboard/courses/${lesson.module.course.id}/content`)} className="hover:text-[#10B981] transition-colors">
                     محتوى الدورة
                 </button>
                 <FiArrowRight size={12} />
-                <span className="text-emerald-600 dark:text-white font-medium">تعديل: {lesson.title}</span>
+                <span className="text-[#10B981] dark:text-white font-medium">تعديل: {lesson.title}</span>
             </div>
 
-            <div className="card">
-                <h1 className="text-2xl font-bold text-emerald-600 dark:text-white mb-6">تعديل الدرس</h1>
+            <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
+                <h1 className="text-2xl font-bold text-[#10B981] dark:text-white mb-6">تعديل الدرس</h1>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Title */}
@@ -189,13 +189,13 @@ export default function EditLessonPage() {
                             <label className="label mb-4 opacity-70">إعدادات الفيديو (Bunny Stream)</label>
                             
                             {formData.bunnyVideoId ? (
-                                <div className="bg-white dark:bg-card-white p-6 rounded-xl border border-gray-100 dark:border-gray-800 flex items-center justify-between shadow-lg shadow-emerald-600/20">
+                                <div className="bg-[#0A0A0A] dark:bg-card-white p-6 rounded-xl border border-gray-100 dark:border-gray-800 flex items-center justify-between shadow-lg shadow-[#10B981]/20">
                                     <div className="flex items-center gap-4">
                                         <div className="w-12 h-12 bg-green-500/10 text-green-500 rounded-xl flex items-center justify-center">
                                             <FiCheckCircle size={24} />
                                         </div>
                                         <div>
-                                            <p className="font-bold text-emerald-600 dark:text-white">الفيديو مرتبط بـ Bunny</p>
+                                            <p className="font-bold text-[#10B981] dark:text-white">الفيديو مرتبط بـ Bunny</p>
                                             <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">ID: {formData.bunnyVideoId}</p>
                                         </div>
                                     </div>
@@ -235,9 +235,9 @@ export default function EditLessonPage() {
                                 type="checkbox"
                                 checked={formData.isFree}
                                 onChange={(e) => setFormData({ ...formData, isFree: e.target.checked })}
-                                className="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-accent"
+                                className="w-4 h-4 text-[#10B981] border-gray-300 rounded focus:ring-accent"
                             />
-                            <span className="text-sm font-medium text-emerald-600 dark:text-white">درس مجاني للمعاينة</span>
+                            <span className="text-sm font-medium text-[#10B981] dark:text-white">درس مجاني للمعاينة</span>
                         </label>
 
                         <label className="flex items-center gap-3 cursor-pointer">
@@ -247,7 +247,7 @@ export default function EditLessonPage() {
                                 onChange={(e) => setFormData({ ...formData, isPublished: e.target.checked })}
                                 className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                             />
-                            <span className="text-sm font-medium text-emerald-600 dark:text-white">منشور</span>
+                            <span className="text-sm font-medium text-[#10B981] dark:text-white">منشور</span>
                         </label>
                     </div>
 
@@ -257,7 +257,7 @@ export default function EditLessonPage() {
                         {formData.attachments.length > 0 && (
                             <div className="space-y-2 mb-3">
                                 {formData.attachments.map((attachment, index) => (
-                                    <div key={index} className="flex items-center gap-2 bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700">
+                                    <div key={index} className="flex items-center gap-2 bg-[#111111] dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700">
                                         <span className="flex-1 text-sm text-gray-700 dark:text-gray-300 truncate" dir="ltr">{attachment.split('/').pop()}</span>
                                         <button
                                             type="button"

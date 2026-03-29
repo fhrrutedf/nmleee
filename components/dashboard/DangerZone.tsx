@@ -55,7 +55,7 @@ export default function DangerZone() {
                 <div className="space-y-3">
                     <button 
                         onClick={() => toast.success('تم إرسال طلب تجميد الحساب لمراجعة الإدارة')}
-                        className="w-full flex items-center justify-between p-4 bg-white hover:bg-gray-50 border border-red-200 rounded-xl transition-all group"
+                        className="w-full flex items-center justify-between p-4 bg-[#0A0A0A] hover:bg-[#111111] border border-red-200 rounded-xl transition-all group"
                     >
                         <span className="font-bold text-gray-700 group-hover:text-red-900">تعطيل الحساب مؤقتاً</span>
                         <FiAlertTriangle className="text-red-300 group-hover:text-red-500" />
@@ -74,7 +74,7 @@ export default function DangerZone() {
             {/* Delete Modal */}
             {showModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  ">
-                    <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 w-full max-w-lg overflow-hidden animate-scale-in">
+                    <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 w-full max-w-lg overflow-hidden animate-scale-in">
                         <div className="p-6 bg-red-600 text-white flex justify-between items-center">
                             <h3 className="text-xl font-bold flex items-center gap-2">
                                 <FiTrash2 /> تأكيد حذف الحساب
@@ -91,7 +91,7 @@ export default function DangerZone() {
 
                             <div className="space-y-4">
                                 <div>
-                                    <label className="label text-gray-900 font-bold mb-2">كلمة المرور للتأكيد</label>
+                                    <label className="label text-white font-bold mb-2">كلمة المرور للتأكيد</label>
                                     <div className="relative">
                                         <FiLock className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                         <input 
@@ -104,7 +104,7 @@ export default function DangerZone() {
                                         />
                                     </div>
                                 </div>
-                                <h4 className="font-bold text-gray-900 mb-2">أمنيتي الأخيرة قبل الحذف</h4>
+                                <h4 className="font-bold text-white mb-2">أمنيتي الأخيرة قبل الحذف</h4>
                                 <p className="text-sm text-gray-500 mb-4">
                                     هذا الإجراء سيقوم بحذف متجرك ومنتجاتك وسجل مبيعاتك وأرباحك **نهائياً**. لتأكيد العملية، يرجى كتابة <span className="font-mono font-bold text-red-600 bg-red-50 px-1 rounded">DELETE</span> بالأسفل:
                                 </p>
@@ -128,7 +128,7 @@ export default function DangerZone() {
                                 <button 
                                     onClick={handleDelete}
                                     disabled={isDeleting || confirmText !== CONFIRM_PHRASE}
-                                    className={`flex-1 btn bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed`}
+                                    className={`flex-1 btn bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-bold transition-all shadow-lg shadow-[#10B981]/20 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed`}
                                 >
                                     {isDeleting ? 'جاري الحذف...' : 'تأكيد الحذف'}
                                 </button>

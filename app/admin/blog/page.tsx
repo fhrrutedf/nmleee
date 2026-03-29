@@ -64,7 +64,7 @@ export default function BlogAdminPage() {
         <div className="p-6 max-w-7xl mx-auto w-full" dir="rtl">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">إدارة المدونة</h1>
+                    <h1 className="text-2xl font-bold text-white dark:text-white mb-2">إدارة المدونة</h1>
                     <p className="text-gray-500">قم بإدارة منشورات مدونتك وتتبع حالاتها.</p>
                 </div>
                 <Link
@@ -76,14 +76,14 @@ export default function BlogAdminPage() {
                 </Link>
             </div>
 
-            <div className="bg-white dark:bg-card-white rounded-xl p-4 sm:p-6 shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800">
+            <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl p-4 sm:p-6 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800">
                 <div className="relative mb-6">
                     <input
                         type="text"
                         placeholder="ابحث عن مقال..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="w-full pl-4 pr-10 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-bg-light focus:outline-none focus:border-emerald-600"
+                        className="w-full pl-4 pr-10 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-bg-light focus:outline-none focus:border-emerald-600"
                     />
                     <FiSearch className="absolute right-3 top-3 text-gray-400" />
                 </div>
@@ -95,7 +95,7 @@ export default function BlogAdminPage() {
                 ) : (
                     <div className="overflow-x-auto">
                         <table className="w-full text-right text-sm">
-                            <thead className="text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50">
+                            <thead className="text-gray-500 dark:text-gray-400 bg-[#111111] dark:bg-gray-800/50">
                                 <tr>
                                     <th className="px-4 py-3 rounded-r-lg font-medium">العنوان</th>
                                     <th className="px-4 py-3 font-medium">التصنيف</th>
@@ -106,8 +106,8 @@ export default function BlogAdminPage() {
                             </thead>
                             <tbody>
                                 {filteredPosts.map((post) => (
-                                    <tr key={post.id} className="border-b border-gray-50 dark:border-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-800/20 transition">
-                                        <td className="px-4 py-4 truncate max-w-xs font-medium text-gray-900 dark:text-gray-100">
+                                    <tr key={post.id} className="border-b border-gray-50 dark:border-gray-800/50 hover:bg-[#111111] dark:hover:bg-gray-800/20 transition">
+                                        <td className="px-4 py-4 truncate max-w-xs font-medium text-white dark:text-gray-100">
                                             {post.title}
                                         </td>
                                         <td className="px-4 py-4 text-gray-500">{post.category || "---"}</td>
@@ -121,7 +121,7 @@ export default function BlogAdminPage() {
                                         </td>
                                         <td className="px-4 py-4">
                                             <div className="flex items-center gap-3">
-                                                <Link href={`/dashboard/admin/blog/${post.slug}`} className="text-gray-400 hover:text-emerald-600 transition">
+                                                <Link href={`/dashboard/admin/blog/${post.slug}`} className="text-gray-400 hover:text-[#10B981] transition">
                                                     <FiEdit2 size={16} />
                                                 </Link>
                                                 <button onClick={() => deletePost(post.slug)} className="text-gray-400 hover:text-red-500 transition">

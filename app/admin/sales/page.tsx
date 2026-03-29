@@ -139,58 +139,58 @@ export default function AdminSalesPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="min-h-screen bg-[#111111] dark:bg-gray-900">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Header */}
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">📊 المبيعات</h1>
+                    <h1 className="text-3xl font-bold text-white dark:text-white">📊 المبيعات</h1>
                     <p className="text-gray-500 mt-1">تفاصيل كاملة لجميع عمليات البيع في المنصة</p>
                 </div>
 
                 {/* Stats Cards */}
                 {stats && (
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20">
+                        <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
-                                    <FiShoppingBag className="text-emerald-600" size={20} />
+                                    <FiShoppingBag className="text-[#10B981]" size={20} />
                                 </div>
                                 <span className="text-xs text-gray-400 font-medium">إجمالي الطلبات</span>
                             </div>
-                            <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalOrders}</p>
+                            <p className="text-2xl font-bold text-white dark:text-white">{stats.totalOrders}</p>
                         </div>
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20">
+                        <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                                    <FiDollarSign className="text-emerald-600-600" size={20} />
+                                    <FiDollarSign className="text-[#10B981]-600" size={20} />
                                 </div>
                                 <span className="text-xs text-gray-400 font-medium">إجمالي الإيرادات</span>
                             </div>
-                            <p className="text-2xl font-bold text-gray-900 dark:text-white">${stats.totalRevenue.toFixed(2)}</p>
+                            <p className="text-2xl font-bold text-white dark:text-white">${stats.totalRevenue.toFixed(2)}</p>
                         </div>
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20">
+                        <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-amber-900/30 flex items-center justify-center">
-                                    <FiClock className="text-emerald-600" size={20} />
+                                    <FiClock className="text-[#10B981]" size={20} />
                                 </div>
                                 <span className="text-xs text-gray-400 font-medium">طلبات معلقة</span>
                             </div>
-                            <p className="text-2xl font-bold text-emerald-600">{stats.pendingCount}</p>
+                            <p className="text-2xl font-bold text-[#10B981]">{stats.pendingCount}</p>
                         </div>
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20">
+                        <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
-                                    <FiUsers className="text-emerald-600" size={20} />
+                                    <FiUsers className="text-[#10B981]" size={20} />
                                 </div>
                                 <span className="text-xs text-gray-400 font-medium">عمولة المنصة</span>
                             </div>
-                            <p className="text-2xl font-bold text-gray-900 dark:text-white">${stats.totalPlatformFee.toFixed(2)}</p>
+                            <p className="text-2xl font-bold text-white dark:text-white">${stats.totalPlatformFee.toFixed(2)}</p>
                         </div>
                     </div>
                 )}
 
                 {/* Filters */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-lg shadow-emerald-600/20">
+                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-lg shadow-[#10B981]/20">
                     <div className="flex flex-wrap gap-3 items-center">
                         {/* Search */}
                         <div className="flex-1 min-w-[200px]">
@@ -202,7 +202,7 @@ export default function AdminSalesPage() {
                                     value={search}
                                     onChange={e => setSearch(e.target.value)}
                                     onKeyDown={e => e.key === 'Enter' && handleSearch()}
-                                    className="w-full pr-10 pl-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-sm outline-none focus:ring-2 focus:ring-ink/20 focus:border-ink"
+                                    className="w-full pr-10 pl-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none focus:ring-2 focus:ring-ink/20 focus:border-ink"
                                 />
                             </div>
                         </div>
@@ -211,7 +211,7 @@ export default function AdminSalesPage() {
                         <select
                             value={statusFilter}
                             onChange={e => { setStatusFilter(e.target.value); setPage(1); }}
-                            className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-sm outline-none"
+                            className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none"
                         >
                             <option value="all">كل الحالات</option>
                             <option value="PENDING">معلق</option>
@@ -224,7 +224,7 @@ export default function AdminSalesPage() {
                         <select
                             value={paymentFilter}
                             onChange={e => { setPaymentFilter(e.target.value); setPage(1); }}
-                            className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-sm outline-none"
+                            className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none"
                         >
                             <option value="all">كل طرق الدفع</option>
                             <option value="manual">دفع يدوي</option>
@@ -237,7 +237,7 @@ export default function AdminSalesPage() {
                             type="date"
                             value={dateFrom}
                             onChange={e => { setDateFrom(e.target.value); setPage(1); }}
-                            className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-sm outline-none"
+                            className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none"
                         />
 
                         {/* Date To */}
@@ -245,7 +245,7 @@ export default function AdminSalesPage() {
                             type="date"
                             value={dateTo}
                             onChange={e => { setDateTo(e.target.value); setPage(1); }}
-                            className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-sm outline-none"
+                            className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none"
                         />
 
                         <button
@@ -263,16 +263,16 @@ export default function AdminSalesPage() {
                         <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-ink"></div>
                     </div>
                 ) : orders.length === 0 ? (
-                    <div className="bg-white dark:bg-gray-800 rounded-xl p-12 text-center border border-gray-100 dark:border-gray-700">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-12 text-center border border-gray-100 dark:border-gray-700">
                         <FiShoppingBag className="mx-auto text-gray-300 mb-4" size={48} />
                         <p className="text-gray-500 text-lg">لا توجد مبيعات</p>
                     </div>
                 ) : (
-                    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20 overflow-hidden">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20 overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm">
                                 <thead>
-                                    <tr className="bg-gray-50 dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-700">
+                                    <tr className="bg-[#111111] dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-700">
                                         <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase">الطلب</th>
                                         <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase">المشتري</th>
                                         <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase">المنتجات</th>
@@ -288,16 +288,16 @@ export default function AdminSalesPage() {
                                 </thead>
                                 <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                                     {orders.map((order) => (
-                                        <tr key={order.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                        <tr key={order.id} className="hover:bg-[#111111] dark:hover:bg-gray-800/50 transition-colors">
                                             {/* Order Number */}
                                             <td className="px-4 py-3">
-                                                <span className="font-mono text-xs font-bold text-emerald-600">{order.orderNumber}</span>
+                                                <span className="font-mono text-xs font-bold text-[#10B981]">{order.orderNumber}</span>
                                             </td>
 
                                             {/* Buyer */}
                                             <td className="px-4 py-3">
                                                 <div>
-                                                    <p className="font-bold text-gray-900 dark:text-white text-xs">{order.customerName}</p>
+                                                    <p className="font-bold text-white dark:text-white text-xs">{order.customerName}</p>
                                                     <p className="text-[11px] text-gray-400">{order.customerEmail}</p>
                                                     {order.customerPhone && (
                                                         <p className="text-[11px] text-gray-400 font-mono" dir="ltr">{order.customerPhone}</p>
@@ -328,7 +328,7 @@ export default function AdminSalesPage() {
                                                             </div>
                                                         )}
                                                         <div>
-                                                            <p className="text-xs font-bold text-gray-900 dark:text-white">{order.seller.name}</p>
+                                                            <p className="text-xs font-bold text-white dark:text-white">{order.seller.name}</p>
                                                             <p className="text-[11px] text-gray-400">@{order.seller.username}</p>
                                                         </div>
                                                     </div>
@@ -339,7 +339,7 @@ export default function AdminSalesPage() {
 
                                             {/* Amount */}
                                             <td className="px-4 py-3">
-                                                <p className="font-bold text-gray-900 dark:text-white text-sm">${order.totalAmount.toFixed(2)}</p>
+                                                <p className="font-bold text-white dark:text-white text-sm">${order.totalAmount.toFixed(2)}</p>
                                                 {order.discount > 0 && (
                                                     <p className="text-[10px] text-green-600">خصم: ${order.discount.toFixed(2)}</p>
                                                 )}
@@ -375,7 +375,7 @@ export default function AdminSalesPage() {
                                             {/* Transaction Ref */}
                                             <td className="px-4 py-3">
                                                 {order.transactionRef ? (
-                                                    <span className="font-mono text-xs text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 px-2 py-1 rounded">
+                                                    <span className="font-mono text-xs text-gray-700 dark:text-gray-300 bg-[#111111] dark:bg-gray-900 px-2 py-1 rounded">
                                                         {order.transactionRef}
                                                     </span>
                                                 ) : (
@@ -390,7 +390,7 @@ export default function AdminSalesPage() {
                                                         {order.invoices.map(inv => (
                                                             <span
                                                                 key={inv.id}
-                                                                className="text-[11px] font-mono text-emerald-600 hover:underline cursor-pointer block"
+                                                                className="text-[11px] font-mono text-[#10B981] hover:underline cursor-pointer block"
                                                                 onClick={() => router.push(`/admin/invoices?id=${inv.id}`)}
                                                             >
                                                                 <FiFileText className="inline ml-1" size={12} />
@@ -433,14 +433,14 @@ export default function AdminSalesPage() {
                                     <button
                                         onClick={() => setPage(p => Math.max(1, p - 1))}
                                         disabled={page === 1}
-                                        className="px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-sm disabled:opacity-30 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                                        className="px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-sm disabled:opacity-30 hover:bg-[#111111] dark:hover:bg-gray-800 transition-colors"
                                     >
                                         <FiChevronRight size={16} />
                                     </button>
                                     <button
                                         onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                                         disabled={page === totalPages}
-                                        className="px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-sm disabled:opacity-30 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                                        className="px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-sm disabled:opacity-30 hover:bg-[#111111] dark:hover:bg-gray-800 transition-colors"
                                     >
                                         <FiChevronLeft size={16} />
                                     </button>
@@ -454,7 +454,7 @@ export default function AdminSalesPage() {
             {/* Proof Image Modal */}
             {proofImage && (
                 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" onClick={() => setProofImage(null)}>
-                    <div className="relative max-w-2xl max-h-[80vh] bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg shadow-emerald-600/20" onClick={e => e.stopPropagation()}>
+                    <div className="relative max-w-2xl max-h-[80vh] bg-[#0A0A0A] dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20" onClick={e => e.stopPropagation()}>
                         <button
                             onClick={() => setProofImage(null)}
                             className="absolute top-3 left-3 w-8 h-8 bg-black/50 text-white rounded-xl flex items-center justify-center hover:bg-emerald-700/70 z-10"
@@ -467,7 +467,7 @@ export default function AdminSalesPage() {
                                 href={proofImage}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-xs text-emerald-600 hover:underline flex items-center gap-1"
+                                className="text-xs text-[#10B981] hover:underline flex items-center gap-1"
                             >
                                 <FiExternalLink size={12} /> فتح في نافذة جديدة
                             </a>

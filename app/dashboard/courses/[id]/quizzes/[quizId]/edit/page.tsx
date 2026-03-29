@@ -96,16 +96,16 @@ export default function EditQuizPage() {
         <div className="max-w-4xl mx-auto pb-12">
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-sm text-text-muted mb-6">
-                <button onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes`)} className="hover:text-emerald-600 transition-colors">
+                <button onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes`)} className="hover:text-[#10B981] transition-colors">
                     الاختبارات
                 </button>
                 <FiArrowRight size={12} />
-                <span className="text-emerald-600 dark:text-white font-medium">تعديل: {formData.title}</span>
+                <span className="text-[#10B981] dark:text-white font-medium">تعديل: {formData.title}</span>
             </div>
 
-            <div className="card">
+            <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
                 <div className="flex items-center justify-between mb-6">
-                    <h1 className="text-2xl font-bold text-emerald-600 dark:text-white">تعديل الاختبار</h1>
+                    <h1 className="text-2xl font-bold text-[#10B981] dark:text-white">تعديل الاختبار</h1>
                     <label className="flex items-center gap-2 cursor-pointer">
                         {formData.isPublished ? (
                             <FiEye className="text-green-500" />
@@ -175,7 +175,7 @@ export default function EditQuizPage() {
 
                     {/* Quiz Builder */}
                     <div>
-                        <h3 className="text-lg font-semibold text-emerald-600 dark:text-white mb-4">الأسئلة</h3>
+                        <h3 className="text-lg font-semibold text-[#10B981] dark:text-white mb-4">الأسئلة</h3>
                         <QuizBuilder
                             initialQuestions={formData.questions}
                             onChange={(questions) => setFormData({ ...formData, questions: questions as any })}

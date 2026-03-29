@@ -62,15 +62,15 @@ export default function PayoutsClient({ initialPayouts }: { initialPayouts: any[
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-200 overflow-hidden">
+        <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-200 overflow-hidden">
             {/* Tabs */}
-            <div className="flex border-b border-gray-100 p-2 gap-2 bg-gray-50 overflow-x-auto">
+            <div className="flex border-b border-gray-100 p-2 gap-2 bg-[#111111] overflow-x-auto">
                 {['ALL', 'PENDING', 'PAID', 'REJECTED'].map((status) => (
                     <button
                         key={status}
                         onClick={() => setFilter(status)}
                         className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors ${filter === status
-                                ? 'bg-white text-emerald-600 shadow-lg shadow-emerald-600/20'
+                                ? 'bg-[#0A0A0A] text-[#10B981] shadow-lg shadow-[#10B981]/20'
                                 : 'text-gray-500 hover:text-gray-800 hover:bg-gray-100'
                             }`}
                     >
@@ -87,13 +87,13 @@ export default function PayoutsClient({ initialPayouts }: { initialPayouts: any[
                     <div className="p-8 text-center text-gray-500">لا توجد طلبات تطابق الفلتر الحالي</div>
                 ) : (
                     filteredPayouts.map(payout => (
-                        <div key={payout.id} className="p-6 flex flex-col lg:flex-row gap-6 hover:bg-gray-50/50 transition-colors">
+                        <div key={payout.id} className="p-6 flex flex-col lg:flex-row gap-6 hover:bg-[#111111]/50 transition-colors">
 
                             {/* Seller & Payout Info */}
                             <div className="flex-1 space-y-4">
                                 <div className="flex items-center justify-between lg:justify-start gap-4">
-                                    <div className="font-bold text-lg text-gray-900 flex items-center gap-2">
-                                        <div className="w-8 h-8 bg-blue-100 text-emerald-600 rounded-xl flex items-center justify-center text-sm">
+                                    <div className="font-bold text-lg text-white flex items-center gap-2">
+                                        <div className="w-8 h-8 bg-blue-100 text-[#10B981] rounded-xl flex items-center justify-center text-sm">
                                             {payout.seller?.name?.charAt(0) || '?'}
                                         </div>
                                         {payout.seller?.name || 'بائع محذوف'}
@@ -102,11 +102,11 @@ export default function PayoutsClient({ initialPayouts }: { initialPayouts: any[
                                 </div>
 
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mt-2">
-                                    <div className="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                    <div className="bg-[#111111] p-3 rounded-lg border border-gray-100">
                                         <span className="block text-gray-500 mb-1 text-xs">طريقة الدفع</span>
                                         <span className="font-bold text-gray-800">{payout.method || 'غير محدد'}</span>
                                     </div>
-                                    <div className="bg-gray-50 p-3 rounded-lg border border-gray-100 md:col-span-3">
+                                    <div className="bg-[#111111] p-3 rounded-lg border border-gray-100 md:col-span-3">
                                         <span className="block text-gray-500 mb-1 text-xs">تفاصيل الحساب</span>
                                         <span className="font-medium text-gray-800 break-words">
                                             {payout.method === 'bank' && `حساب: ${payout.seller?.accountNumber || '?'}, بنك: ${payout.seller?.bankName || '?'}`}

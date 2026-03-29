@@ -61,7 +61,7 @@ function ResetPasswordForm() {
 
     if (!token || !email) {
         return (
-            <div className="text-center p-8 bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 max-w-md w-full border border-gray-100 dark:border-gray-800">
+            <div className="text-center p-8 bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 max-w-md w-full border border-gray-100 dark:border-gray-800">
                 <div className="w-16 h-16 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-6">
                     <FiAlertCircle size={32} />
                 </div>
@@ -76,7 +76,7 @@ function ResetPasswordForm() {
 
     if (success) {
         return (
-            <div className="text-center p-8 bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 max-w-md w-full border border-gray-100 dark:border-gray-800 -up">
+            <div className="text-center p-8 bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 max-w-md w-full border border-gray-100 dark:border-gray-800 -up">
                 <div className="w-16 h-16 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mx-auto mb-6">
                     <FiCheckCircle size={32} />
                 </div>
@@ -91,14 +91,14 @@ function ResetPasswordForm() {
 
     return (
         <div className="max-w-md w-full -up">
-            <div className="bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden border border-gray-100 dark:border-gray-800">
+            <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden border border-gray-100 dark:border-gray-800">
                 <div className="h-2 w-full bg-emerald-700"></div>
                 <div className="p-8 sm:p-10">
                     <div className="text-center mb-8">
-                        <div className="w-16 h-16 bg-emerald-700-50 dark:bg-blue-900/20 text-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-4 border border-blue-100 dark:border-blue-800/30">
+                        <div className="w-16 h-16 bg-emerald-700-50 dark:bg-blue-900/20 text-[#10B981] rounded-xl flex items-center justify-center mx-auto mb-4 border border-blue-100 dark:border-blue-800/30">
                             <FiLock size={28} />
                         </div>
-                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">إعادة تعيين كلمة المرور</h1>
+                        <h1 className="text-2xl font-bold text-white dark:text-white">إعادة تعيين كلمة المرور</h1>
                         <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm">أدخل كلمة المرور الجديدة لحسابك</p>
                     </div>
 
@@ -111,14 +111,14 @@ function ResetPasswordForm() {
                                         type={showPassword ? 'text' : 'password'}
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3.5 pr-11 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
+                                        className="w-full bg-[#111111] dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3.5 pr-11 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
                                         placeholder="••••••••"
                                         required
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-emerald-600 transition-colors"
+                                        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#10B981] transition-colors"
                                     >
                                         {showPassword ? <FiEyeOff /> : <FiEye />}
                                     </button>
@@ -131,7 +131,7 @@ function ResetPasswordForm() {
                                     type={showPassword ? 'text' : 'password'}
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
-                                    className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3.5 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
+                                    className="w-full bg-[#111111] dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3.5 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
                                     placeholder="••••••••"
                                     required
                                 />
@@ -141,7 +141,7 @@ function ResetPasswordForm() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full btn btn-primary py-4 rounded-xl text-lg font-bold shadow-lg shadow-emerald-600/20 shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all disabled:opacity-70 disabled:transform-none disabled:cursor-not-allowed"
+                            className="w-full btn btn-primary py-4 rounded-xl text-lg font-bold shadow-lg shadow-[#10B981]/20 shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all disabled:opacity-70 disabled:transform-none disabled:cursor-not-allowed"
                         >
                             {loading ? (
                                 <div className="flex items-center justify-center gap-3">

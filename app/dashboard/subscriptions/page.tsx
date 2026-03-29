@@ -76,12 +76,12 @@ export default function SubscriptionsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-[#111111] py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="flex justify-between items-center mb-8">
                     <div>
-                        <h1 className="text-3xl font-bold text-gray-900">خطط الاشتراك</h1>
+                        <h1 className="text-3xl font-bold text-white">خطط الاشتراك</h1>
                         <p className="mt-2 text-gray-600">
                             أنشئ خطط اشتراك شهرية أو سنوية للوصول إلى محتواك
                         </p>
@@ -97,9 +97,9 @@ export default function SubscriptionsPage() {
 
                 {/* Plans Grid */}
                 {plans.length === 0 ? (
-                    <div className="text-center py-12 bg-white rounded-lg shadow">
+                    <div className="text-center py-12 bg-[#0A0A0A] rounded-lg shadow">
                         <div className="text-gray-400 text-6xl mb-4">💳</div>
-                        <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                        <h3 className="text-xl font-semibold text-white mb-2">
                             لا توجد خطط اشتراك
                         </h3>
                         <p className="text-gray-600 mb-6">
@@ -118,12 +118,12 @@ export default function SubscriptionsPage() {
                         {plans.map((plan) => (
                             <div
                                 key={plan.id}
-                                className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg shadow-emerald-600/20 transition-shadow"
+                                className="bg-[#0A0A0A] rounded-lg shadow-md p-6 hover:shadow-lg shadow-[#10B981]/20 transition-shadow"
                             >
                                 {/* Plan Header */}
                                 <div className="flex justify-between items-start mb-4">
                                     <div>
-                                        <h3 className="text-xl font-bold text-gray-900">{plan.name}</h3>
+                                        <h3 className="text-xl font-bold text-white">{plan.name}</h3>
                                         <p className="text-sm text-gray-600 mt-1">{plan.description}</p>
                                     </div>
                                     <span
@@ -139,7 +139,7 @@ export default function SubscriptionsPage() {
                                 {/* Price */}
                                 <div className="mb-4">
                                     <div className="flex items-baseline gap-2">
-                                        <span className="text-3xl font-bold text-emerald-600">
+                                        <span className="text-3xl font-bold text-[#10B981]">
                                             {plan.price} $
                                         </span>
                                         <span className="text-gray-600">
@@ -169,7 +169,7 @@ export default function SubscriptionsPage() {
                                 {/* Stats */}
                                 <div className="flex items-center gap-4 mb-4 pb-4 border-b">
                                     <div className="flex items-center gap-2 text-sm text-gray-600">
-                                        <FiUsers className="text-emerald-600" />
+                                        <FiUsers className="text-[#10B981]" />
                                         <span>{plan._count.subscriptions} مشترك</span>
                                     </div>
                                 </div>

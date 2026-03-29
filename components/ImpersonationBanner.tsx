@@ -10,7 +10,7 @@ export default function ImpersonationBanner() {
     if (!user?.isImpersonating) return null;
 
     return (
-        <div className="bg-red-600 text-white py-2 px-4 sticky top-0 z-[100] shadow-lg shadow-emerald-600/20 -slow">
+        <div className="bg-red-600 text-white py-2 px-4 sticky top-0 z-[100] shadow-lg shadow-[#10B981]/20 -slow">
             <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
                 <div className="flex items-center gap-2 text-sm md:text-base font-bold">
                     <FiAlertTriangle className="" />
@@ -24,7 +24,7 @@ export default function ImpersonationBanner() {
                 
                 <button
                     onClick={() => signOut({ callbackUrl: '/dashboard/admin/users' })}
-                    className="flex items-center gap-1.5 bg-white text-red-600 px-3 py-1 rounded-lg text-xs font-bold hover:bg-red-50 transition-colors uppercase tracking-tight"
+                    className="flex items-center gap-1.5 bg-[#0A0A0A] text-red-600 px-3 py-1 rounded-lg text-xs font-bold hover:bg-red-50 transition-colors uppercase tracking-tight"
                 >
                     <FiLogOut size={14} />
                     إنهاء الجلسة

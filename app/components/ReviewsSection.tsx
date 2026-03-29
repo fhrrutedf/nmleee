@@ -85,7 +85,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                    <h2 className="text-2xl font-bold text-emerald-600 dark:text-white">التقييمات والمراجعات</h2>
+                    <h2 className="text-2xl font-bold text-[#10B981] dark:text-white">التقييمات والمراجعات</h2>
                     <div className="flex items-center gap-3 mt-2">
                         <div className="flex items-center gap-1">
                             {renderStars(parseFloat(averageRating))}
@@ -98,7 +98,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                 {!showForm && (
                     <button
                         onClick={() => setShowForm(true)}
-                        className="btn btn-primary px-6 py-3 font-bold rounded-xl shadow-md hover:shadow-lg shadow-emerald-600/20 transition-all"
+                        className="btn btn-primary px-6 py-3 font-bold rounded-xl shadow-md hover:shadow-lg shadow-[#10B981]/20 transition-all"
                     >
                         أضف تقييمك
                     </button>
@@ -108,7 +108,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
             {/* Add Review Form */}
             {showForm && (
                 <div className="bg-emerald-700 dark:from-gray-900 dark:to-gray-800 p-8 rounded-xl border border-gray-100 dark:border-gray-700 shadow-inner">
-                    <h3 className="font-bold text-xl mb-6 text-gray-900 dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
+                    <h3 className="font-bold text-xl mb-6 text-white dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
                     <form onSubmit={handleSubmit} className="space-y-0">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                             <div>
@@ -116,7 +116,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                                 <input
                                     type="text"
                                     required
-                                    className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all placeholder:font-normal text-gray-800 dark:text-gray-200"
+                                    className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all placeholder:font-normal text-gray-800 dark:text-gray-200"
                                     placeholder="أدخل اسمك"
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -131,7 +131,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                                             key={star}
                                             type="button"
                                             onClick={() => setFormData({ ...formData, rating: star })}
-                                            className={`flex-1 bg-white dark:bg-gray-900 border ${star <= formData.rating ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : 'border-gray-200 dark:border-gray-700'} rounded-xl py-3 flex items-center justify-center transition-all transform active:scale-95`}
+                                            className={`flex-1 bg-[#0A0A0A] dark:bg-gray-900 border ${star <= formData.rating ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : 'border-gray-200 dark:border-gray-700'} rounded-xl py-3 flex items-center justify-center transition-all transform active:scale-95`}
                                         >
                                             <FiStar className={`text-xl ${star <= formData.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300 dark:text-gray-600'}`} />
                                         </button>
@@ -145,7 +145,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                             <textarea
                                 required
                                 rows={4}
-                                className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none placeholder:font-normal text-gray-800 dark:text-gray-200"
+                                className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none placeholder:font-normal text-gray-800 dark:text-gray-200"
                                 placeholder="شارك رأيك عن المنتج..."
                                 value={formData.comment}
                                 onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
@@ -153,7 +153,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                         </div>
 
                         <div className="flex gap-2 pt-2">
-                            <button type="submit" className="btn btn-primary flex-1 py-3 text-lg font-bold shadow-lg shadow-emerald-600/20 shadow-accent/20">
+                            <button type="submit" className="btn btn-primary flex-1 py-3 text-lg font-bold shadow-lg shadow-[#10B981]/20 shadow-accent/20">
                                 إرسال التقييم
                             </button>
                             <button
@@ -174,8 +174,8 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                         <div className="animate-spin rounded-xl h-12 w-12 border-4 border-emerald-600 border-t-transparent mx-auto"></div>
                     </div>
                 ) : reviews.length === 0 ? (
-                    <div className="text-center py-12 px-4 bg-gray-50 dark:bg-gray-800/20 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
-                        <div className="w-20 h-20 bg-white dark:bg-gray-800 rounded-xl flex items-center justify-center mx-auto mb-4 text-gray-300 dark:text-gray-600 shadow-lg shadow-emerald-600/20">
+                    <div className="text-center py-12 px-4 bg-[#111111] dark:bg-gray-800/20 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
+                        <div className="w-20 h-20 bg-[#0A0A0A] dark:bg-gray-800 rounded-xl flex items-center justify-center mx-auto mb-4 text-gray-300 dark:text-gray-600 shadow-lg shadow-[#10B981]/20">
                             <FiStar size={36} />
                         </div>
                         <h4 className="font-bold text-xl text-gray-500 dark:text-gray-400">لا توجد تعليقات بعد</h4>
@@ -187,12 +187,12 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-100 dark:bg-gray-800 rounded-xl group-hover:bg-yellow-400 transition-colors"></div>
                             <div className="pl-6 pb-2">
                                 <div className="flex items-center gap-3 mb-3">
-                                    <div className="w-12 h-12 bg-emerald-700 dark:from-gray-800 dark:to-gray-900 rounded-xl flex items-center justify-center font-bold text-gray-500 dark:text-gray-400 border border-white dark:border-gray-800 shadow-lg shadow-emerald-600/20">
+                                    <div className="w-12 h-12 bg-emerald-700 dark:from-gray-800 dark:to-gray-900 rounded-xl flex items-center justify-center font-bold text-gray-500 dark:text-gray-400 border border-white dark:border-gray-800 shadow-lg shadow-[#10B981]/20">
                                         {review.name.charAt(0)}
                                     </div>
                                     <div>
                                         <div className="flex items-center gap-3 mb-1">
-                                            <h4 className="font-bold text-lg text-emerald-600 dark:text-white">{review.name}</h4>
+                                            <h4 className="font-bold text-lg text-[#10B981] dark:text-white">{review.name}</h4>
                                             <div className="flex items-center gap-0.5">
                                                 {[...Array(5)].map((_, i) => (
                                                     <FiStar
@@ -205,7 +205,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                                         <p className="text-[11px] text-gray-400 font-bold tracking-wider">{new Date(review.createdAt).toLocaleDateString('ar-EG')}</p>
                                     </div>
                                 </div>
-                                <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed font-medium bg-gray-50 dark:bg-gray-900/50 p-5 rounded-tr-3xl rounded-br-3xl rounded-bl-3xl">
+                                <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed font-medium bg-[#111111] dark:bg-gray-900/50 p-5 rounded-tr-3xl rounded-br-3xl rounded-bl-3xl">
                                     {review.comment}
                                 </p>
                             </div>

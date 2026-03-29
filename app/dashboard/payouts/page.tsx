@@ -147,7 +147,7 @@ export default function PayoutsPage() {
             </div>
 
             {/* Request Payout Form */}
-            <div className="card bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden shadow-lg shadow-emerald-600/20">
+            <div className="card bg-[#0A0A0A] dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20">
                 <div className="p-6 sm:p-8">
                     <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
                         <span className="w-1.5 h-6 bg-emerald-700 rounded-xl"></span>
@@ -156,7 +156,7 @@ export default function PayoutsPage() {
 
                     {user && !isPayoutMethodConfigured(user) ? (
                         <div className="bg-emerald-700-50 border border-amber-200 p-6 rounded-xl flex flex-col items-center text-center ">
-                            <FiAlertCircle className="text-4xl text-emerald-600-500 mb-3" />
+                            <FiAlertCircle className="text-4xl text-[#10B981]-500 mb-3" />
                             <h3 className="font-bold text-blue-900 mb-2">طريقة السحب غير مكتملة</h3>
                             <p className="text-sm text-blue-800 mb-6 max-w-sm">
                                 لم يتم إعداد أو تفعيل طريقة سحب حتى الآن. لتتمكن من استلام أرباحك، يرجى إضافة بياناتك البنكية أو وسيلة دفع أخرى.
@@ -196,19 +196,19 @@ export default function PayoutsPage() {
                                 </div>
                                 <div className="flex justify-between items-center px-1">
                                     <p className="text-sm text-gray-500">
-                                        الرصيد المتاح: <span className="font-bold text-gray-900">{stats.availableBalance.toFixed(2)} $</span>
+                                        الرصيد المتاح: <span className="font-bold text-white">{stats.availableBalance.toFixed(2)} $</span>
                                     </p>
                                     <button 
                                         type="button" 
                                         onClick={() => setRequestAmount(stats.availableBalance.toString())}
-                                        className="text-xs text-emerald-600 hover:underline"
+                                        className="text-xs text-[#10B981] hover:underline"
                                     >
                                         سحب الكل
                                     </button>
                                 </div>
                             </div>
 
-                            <button type="submit" className="btn btn-primary w-full py-4 text-lg shadow-lg shadow-emerald-600/20 shadow-accent/20 active:scale-[0.98]">
+                            <button type="submit" className="btn btn-primary w-full py-4 text-lg shadow-lg shadow-[#10B981]/20 shadow-accent/20 active:scale-[0.98]">
                                 إرسال طلب السحب
                             </button>
                         </form>
@@ -217,7 +217,7 @@ export default function PayoutsPage() {
             </div>
 
             {/* Payouts History */}
-            <div className="card">
+            <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
                 <h2 className="text-xl font-bold mb-4">سجل السحوبات</h2>
 
                 {loading ? (
@@ -242,7 +242,7 @@ export default function PayoutsPage() {
                             </thead>
                             <tbody>
                                 {payouts.map((payout: any) => (
-                                    <tr key={payout.id} className="border-b hover:bg-gray-50">
+                                    <tr key={payout.id} className="border-b hover:bg-[#111111]">
                                         <td className="py-3 px-4">
                                             {new Date(payout.createdAt).toLocaleDateString('ar-EG')}
                                         </td>

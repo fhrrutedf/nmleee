@@ -49,10 +49,10 @@ export default async function StudentsPage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-xl bg-emerald-700/10 flex items-center justify-center">
-                        <FiUsers className="text-xl text-emerald-600" />
+                        <FiUsers className="text-xl text-[#10B981]" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-bold text-emerald-600 dark:text-white">إدارة الطلاب والشهادات</h1>
+                        <h1 className="text-2xl font-bold text-[#10B981] dark:text-white">إدارة الطلاب والشهادات</h1>
                         <p className="text-text-muted mt-1 text-sm">عرض وتحليل بيانات طلابك وإصدار الشهادات والتواصل معهم</p>
                     </div>
                 </div>

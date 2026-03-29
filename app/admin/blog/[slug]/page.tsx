@@ -97,13 +97,13 @@ export default function EditBlogPost() {
 
     return (
         <div className="p-6 max-w-5xl mx-auto w-full" dir="rtl">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">تعديل المقال</h1>
+            <h1 className="text-2xl font-bold text-white dark:text-white mb-6">تعديل المقال</h1>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
                 {/* Main Content Area */}
                 <div className="lg:col-span-2 space-y-6">
-                    <div className="bg-white dark:bg-card-white p-6 rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800">
+                    <div className="bg-[#0A0A0A] dark:bg-card-white p-6 rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800">
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 عنوان المقال <span className="text-red-500">*</span>
@@ -138,7 +138,7 @@ export default function EditBlogPost() {
                                     theme="snow"
                                     value={content}
                                     onChange={setContent}
-                                    className="h-full mt-2 bg-white dark:bg-card-white"
+                                    className="h-full mt-2 bg-[#0A0A0A] dark:bg-card-white"
                                 />
                             </div>
                         </div>
@@ -147,8 +147,8 @@ export default function EditBlogPost() {
 
                 {/* Sidebar (Settings) */}
                 <div className="space-y-6">
-                    <div className="bg-white dark:bg-card-white p-6 rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800">
-                        <h2 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">تفضيلات النشر</h2>
+                    <div className="bg-[#0A0A0A] dark:bg-card-white p-6 rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800">
+                        <h2 className="font-bold text-lg mb-4 text-white dark:text-white">تفضيلات النشر</h2>
 
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">حالة المقال</label>

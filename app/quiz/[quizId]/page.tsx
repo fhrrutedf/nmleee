@@ -114,7 +114,7 @@ export default function TakeQuizPage() {
 
     if (!quiz) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+            <div className="min-h-screen bg-[#111111] flex items-center justify-center">
                 <p className="text-gray-600">الاختبار غير موجود</p>
             </div>
         );
@@ -123,9 +123,9 @@ export default function TakeQuizPage() {
     // Show results
     if (submitted && result) {
         return (
-            <div className="min-h-screen bg-gray-50 py-8">
+            <div className="min-h-screen bg-[#111111] py-8">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="bg-white rounded-lg shadow-md p-8 text-center">
+                    <div className="bg-[#0A0A0A] rounded-lg shadow-md p-8 text-center">
                         <div className={`inline-flex items-center justify-center w-20 h-20 rounded-xl mb-6 ${result.isPassed ? 'bg-green-100' : 'bg-red-100'
                             }`}>
                             {result.isPassed ? (
@@ -135,7 +135,7 @@ export default function TakeQuizPage() {
                             )}
                         </div>
 
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                        <h1 className="text-3xl font-bold text-white mb-2">
                             {result.isPassed ? 'نجحت!' : 'للأسف، لم تنجح'}
                         </h1>
 
@@ -144,15 +144,15 @@ export default function TakeQuizPage() {
                         </p>
 
                         <div className="grid grid-cols-2 gap-4 max-w-md mx-auto mb-8">
-                            <div className="bg-gray-50 rounded-lg p-4">
+                            <div className="bg-[#111111] rounded-lg p-4">
                                 <p className="text-sm text-gray-600 mb-1">الإجابات الصحيحة</p>
                                 <p className="text-2xl font-bold text-green-600">
                                     {result.correctAnswers} / {result.totalQuestions}
                                 </p>
                             </div>
-                            <div className="bg-gray-50 rounded-lg p-4">
+                            <div className="bg-[#111111] rounded-lg p-4">
                                 <p className="text-sm text-gray-600 mb-1">الدرجة</p>
-                                <p className="text-2xl font-bold text-emerald-600">
+                                <p className="text-2xl font-bold text-[#10B981]">
                                     {result.score.toFixed(0)}%
                                 </p>
                             </div>
@@ -179,13 +179,13 @@ export default function TakeQuizPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-[#111111] py-8">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
-                <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+                <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6 mb-6">
                     <div className="flex items-center justify-between">
                         <div>
-                            <h1 className="text-2xl font-bold text-gray-900">{quiz.title}</h1>
+                            <h1 className="text-2xl font-bold text-white">{quiz.title}</h1>
                             {quiz.description && (
                                 <p className="text-gray-600 mt-1">{quiz.description}</p>
                             )}
@@ -193,7 +193,7 @@ export default function TakeQuizPage() {
                         {timeLeft !== null && (
                             <div className="flex items-center gap-2 text-lg font-semibold">
                                 <FiClock className={timeLeft < 300 ? 'text-red-600' : 'text-gray-600'} />
-                                <span className={timeLeft < 300 ? 'text-red-600' : 'text-gray-900'}>
+                                <span className={timeLeft < 300 ? 'text-red-600' : 'text-white'}>
                                     {formatTime(timeLeft)}
                                 </span>
                             </div>
@@ -204,8 +204,8 @@ export default function TakeQuizPage() {
                 {/* Questions */}
                 <div className="space-y-6">
                     {quiz.questions.map((question, qIndex) => (
-                        <div key={qIndex} className="bg-white rounded-lg shadow-md p-6">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                        <div key={qIndex} className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
+                            <h3 className="text-lg font-semibold text-white mb-4">
                                 {qIndex + 1}. {question.question}
                             </h3>
 
@@ -213,7 +213,7 @@ export default function TakeQuizPage() {
                                 {question.options.map((option, oIndex) => (
                                     <label
                                         key={oIndex}
-                                        className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
+                                        className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-[#111111] cursor-pointer transition-colors"
                                     >
                                         <input
                                             type="radio"
@@ -224,9 +224,9 @@ export default function TakeQuizPage() {
                                                 newAnswers[qIndex] = question.type === 'true-false' ? (oIndex === 0) : oIndex;
                                                 setAnswers(newAnswers);
                                             }}
-                                            className="w-4 h-4 text-emerald-600 border-gray-300 focus:ring-ink"
+                                            className="w-4 h-4 text-[#10B981] border-gray-300 focus:ring-ink"
                                         />
-                                        <span className="text-gray-900">{option}</span>
+                                        <span className="text-white">{option}</span>
                                     </label>
                                 ))}
                             </div>
@@ -235,7 +235,7 @@ export default function TakeQuizPage() {
                 </div>
 
                 {/* Submit Button */}
-                <div className="mt-6 bg-white rounded-lg shadow-md p-6">
+                <div className="mt-6 bg-[#0A0A0A] rounded-lg shadow-md p-6">
                     <button
                         onClick={handleSubmit}
                         disabled={loading || answers.some(a => a === null)}
@@ -244,7 +244,7 @@ export default function TakeQuizPage() {
                         {loading ? 'جاري التقديم...' : 'تقديم الاختبار'}
                     </button>
                     {answers.some(a => a === null) && (
-                        <p className="text-sm text-emerald-600 mt-2 text-center">
+                        <p className="text-sm text-[#10B981] mt-2 text-center">
                             يرجى الإجابة على جميع الأسئلة قبل التقديم
                         </p>
                     )}

@@ -112,9 +112,9 @@ export default function CommentSection({ lessonId, comments: initialComments, on
                     </div>
                 </div>
                 <div className="flex-1">
-                    <div className="bg-gray-50 rounded-lg p-4">
+                    <div className="bg-[#111111] rounded-lg p-4">
                         <div className="flex items-center justify-between mb-2">
-                            <h4 className="font-semibold text-gray-900">{comment.authorName}</h4>
+                            <h4 className="font-semibold text-white">{comment.authorName}</h4>
                             <span className="text-xs text-gray-500">{formatDate(comment.createdAt)}</span>
                         </div>
                         <p className="text-gray-700">{comment.content}</p>
@@ -132,7 +132,7 @@ export default function CommentSection({ lessonId, comments: initialComments, on
                         {!isReply && (
                             <button
                                 onClick={() => setReplyTo(replyTo === comment.id ? null : comment.id)}
-                                className="flex items-center gap-1 text-sm text-gray-600 hover:text-emerald-600 transition-colors"
+                                className="flex items-center gap-1 text-sm text-gray-600 hover:text-[#10B981] transition-colors"
                             >
                                 <FiCornerDownRight size={16} />
                                 <span>رد</span>
@@ -173,8 +173,8 @@ export default function CommentSection({ lessonId, comments: initialComments, on
     );
 
     return (
-        <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+        <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
+            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                 <FiMessageCircle />
                 التعليقات ({comments.length})
             </h3>

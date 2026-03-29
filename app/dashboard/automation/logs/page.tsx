@@ -60,10 +60,10 @@ export default function EmailLogsPage() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <Link href="/dashboard/automation" className="flex items-center gap-2 text-text-muted hover:text-emerald-600 text-sm mb-2 transition-colors">
+                    <Link href="/dashboard/automation" className="flex items-center gap-2 text-text-muted hover:text-[#10B981] text-sm mb-2 transition-colors">
                         <FiArrowLeft /> العودة للأتمتة
                     </Link>
-                    <h1 className="text-2xl font-bold text-emerald-600 dark:text-white">📬 سجل الإيميلات</h1>
+                    <h1 className="text-2xl font-bold text-[#10B981] dark:text-white">📬 سجل الإيميلات</h1>
                     <p className="text-text-muted text-sm mt-1">آخر 100 إيميل تم إرسالها</p>
                 </div>
                 <button onClick={load} className="btn btn-outline flex items-center gap-2">
@@ -78,7 +78,7 @@ export default function EmailLogsPage() {
                     { label: 'مُرسَل', value: stats.sent, color: 'text-green-600' },
                     { label: 'فشل', value: stats.failed, color: 'text-red-600' },
                 ].map(stat => (
-                    <div key={stat.label} className="bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 p-4 text-center">
+                    <div key={stat.label} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 p-4 text-center">
                         <p className={`text-3xl font-bold ${stat.color}`}>{stat.value}</p>
                         <p className="text-text-muted text-sm">{stat.label}</p>
                     </div>
@@ -96,7 +96,7 @@ export default function EmailLogsPage() {
             </div>
 
             {/* Logs Table */}
-            <div className="bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden">
+            <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden">
                 {loading ? (
                     <div className="flex items-center justify-center h-32">
                         <div className="w-6 h-6 border-4 border-emerald-600 border-t-transparent rounded-xl animate-spin" />
@@ -111,7 +111,7 @@ export default function EmailLogsPage() {
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead>
-                                <tr className="bg-gray-50 dark:bg-gray-800/50 text-right">
+                                <tr className="bg-[#111111] dark:bg-gray-800/50 text-right">
                                     <th className="px-4 py-3 text-text-muted font-semibold">النوع</th>
                                     <th className="px-4 py-3 text-text-muted font-semibold">المستلم</th>
                                     <th className="px-4 py-3 text-text-muted font-semibold">الموضوع</th>
@@ -123,14 +123,14 @@ export default function EmailLogsPage() {
                                 {filtered.map(log => {
                                     const typeInfo = TYPE_LABELS[log.type] || { label: log.type, color: 'bg-gray-100 text-gray-700' };
                                     return (
-                                        <tr key={log.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
+                                        <tr key={log.id} className="hover:bg-[#111111] dark:hover:bg-gray-800/30 transition-colors">
                                             <td className="px-4 py-3">
                                                 <span className={`px-2 py-1 rounded-lg text-xs font-semibold ${typeInfo.color}`}>
                                                     {typeInfo.label}
                                                 </span>
                                             </td>
                                             <td className="px-4 py-3">
-                                                <p className="font-medium text-emerald-600 dark:text-white">{log.toName || log.toEmail}</p>
+                                                <p className="font-medium text-[#10B981] dark:text-white">{log.toName || log.toEmail}</p>
                                                 <p className="text-xs text-text-muted">{log.toEmail}</p>
                                             </td>
                                             <td className="px-4 py-3 text-gray-600 dark:text-gray-400 max-w-[200px] truncate">{log.subject}</td>

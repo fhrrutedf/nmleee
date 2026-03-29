@@ -40,16 +40,16 @@ export default function CoursesPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-[#111111]">
             <div className="max-w-7xl mx-auto px-4 py-12">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h1 className="text-3xl font-bold text-emerald-600 mb-4">الدورات التدريبية</h1>
+                    <h1 className="text-3xl font-bold text-[#10B981] mb-4">الدورات التدريبية</h1>
                     <p className="text-xl text-gray-600">تعلم مهارات جديدة مع خبراء المجال</p>
                 </div>
 
                 {/* Search */}
-                <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6 mb-8">
+                <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-6 mb-8">
                     <div className="relative max-w-xl mx-auto">
                         <FiSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
                         <input
@@ -74,7 +74,7 @@ export default function CoursesPage() {
                             <Link
                                 key={course.id}
                                 href={`/product/${course.id}`}
-                                className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden hover:shadow-lg shadow-emerald-600/20 transition-all group"
+                                className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden hover:shadow-lg shadow-[#10B981]/20 transition-all group"
                             >
                                 {course.image ? (
                                     <img
@@ -89,7 +89,7 @@ export default function CoursesPage() {
                                 )}
 
                                 <div className="p-6">
-                                    <h3 className="font-bold text-xl mb-3 line-clamp-2 group-hover:text-emerald-600 transition-colors">
+                                    <h3 className="font-bold text-xl mb-3 line-clamp-2 group-hover:text-[#10B981] transition-colors">
                                         {course.title}
                                     </h3>
 
@@ -124,7 +124,7 @@ export default function CoursesPage() {
                                                 />
                                             ))}
                                         </div>
-                                        <span className="text-2xl font-bold text-emerald-600">
+                                        <span className="text-2xl font-bold text-[#10B981]">
                                             {course.price.toFixed(0)} $
                                         </span>
                                     </div>

@@ -46,7 +46,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
     );
 
     return (
-        <div className="bg-white dark:bg-card-white rounded-xl p-6 shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800">
+        <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl p-6 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800">
             {/* Toolbar */}
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <div className="relative w-full md:w-96">
@@ -54,7 +54,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
                     <input
                         type="text"
                         placeholder="ابحث بالاسم، الإيميل، أو اسم الدورة..."
-                        className="w-full pl-4 pr-10 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-bg-light focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all text-sm"
+                        className="w-full pl-4 pr-10 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-bg-light focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all text-sm"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
@@ -79,7 +79,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
             {/* Table */}
             <div className="overflow-x-auto">
                 <table className="w-full text-sm text-right">
-                    <thead className="text-gray-500 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                    <thead className="text-gray-500 bg-[#111111] dark:bg-gray-800/50 rounded-xl">
                         <tr>
                             <th className="px-6 py-4 font-medium rounded-r-xl">الطالب</th>
                             <th className="px-6 py-4 font-medium">الدورة التدريبية</th>
@@ -97,9 +97,9 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
                             </tr>
                         ) : (
                             filteredStudents.map((student) => (
-                                <tr key={student.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
+                                <tr key={student.id} className="hover:bg-[#111111] dark:hover:bg-gray-800/30 transition-colors">
                                     <td className="px-6 py-4">
-                                        <div className="font-semibold text-gray-900 dark:text-white">
+                                        <div className="font-semibold text-white dark:text-white">
                                             {student.name}
                                         </div>
                                         <div className="text-gray-500 text-xs mt-1">
@@ -127,13 +127,13 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-2">
                                             <button
-                                                className="p-2 text-emerald-600 hover:bg-emerald-700/10 rounded-lg transition-colors"
+                                                className="p-2 text-[#10B981] hover:bg-emerald-700/10 rounded-lg transition-colors"
                                                 title="إرسال رسالة"
                                             >
                                                 <FiMail />
                                             </button>
                                             <button
-                                                className="p-2 text-emerald-600 hover:bg-emerald-700/10 rounded-lg transition-colors"
+                                                className="p-2 text-[#10B981] hover:bg-emerald-700/10 rounded-lg transition-colors"
                                                 title="إصدار شهادة"
                                             >
                                                 <FiAward />

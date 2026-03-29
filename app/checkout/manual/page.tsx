@@ -173,13 +173,13 @@ export default function ManualCheckoutPage() {
     return (
         <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#0F172A]">
             {/* ── Sticky Header ────────────────────────────────────── */}
-            <header className="bg-white dark:bg-[#1e293b] shadow-lg shadow-emerald-600/20 sticky top-0 z-20 border-b border-gray-100 dark:border-gray-800">
+            <header className="bg-[#0A0A0A] dark:bg-[#1e293b] shadow-lg shadow-[#10B981]/20 sticky top-0 z-20 border-b border-gray-100 dark:border-gray-800">
                 <div className="max-w-xl mx-auto px-4 py-3.5 flex items-center gap-3">
                     <Link href="/" className="text-gray-400 hover:text-[#0052FF] transition-colors">
                         <FiChevronLeft size={22} />
                     </Link>
-                    <h1 className="text-base font-bold text-gray-900 dark:text-white">الدفع اليدوي — Escrow</h1>
-                    <div className="mr-auto flex items-center gap-1.5 text-[11px] text-emerald-600-600 bg-emerald-700-50 dark:bg-blue-900/20 px-2.5 py-1 rounded-xl font-semibold">
+                    <h1 className="text-base font-bold text-white dark:text-white">الدفع اليدوي — Escrow</h1>
+                    <div className="mr-auto flex items-center gap-1.5 text-[11px] text-[#10B981]-600 bg-emerald-700-50 dark:bg-blue-900/20 px-2.5 py-1 rounded-xl font-semibold">
                         <FiShield size={12} />
                         <span>آمن</span>
                     </div>
@@ -212,11 +212,11 @@ export default function ManualCheckoutPage() {
                 </div>
 
                 {/* ── Order Summary ────────────────────────────────── */}
-                <div className="bg-white dark:bg-[#1e293b] rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 p-4 mb-5">
+                <div className="bg-[#0A0A0A] dark:bg-[#1e293b] rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-4 mb-5">
                     <div className="flex items-center justify-between">
                         <span className="text-xs text-gray-400 font-medium">المبلغ المطلوب</span>
                         <div className="text-left">
-                            <p className="text-xl font-bold text-gray-900 dark:text-white">
+                            <p className="text-xl font-bold text-white dark:text-white">
                                 {formatCurrency(localPrice.amount, localPrice.currency)}
                             </p>
                             {localPrice.currency !== 'USD' && (
@@ -242,7 +242,7 @@ export default function ManualCheckoutPage() {
                 {step === 1 && countryConfig && (
                     <div className="space-y-4 animate-in fade-in">
                         <div className="flex items-center justify-between">
-                            <h2 className="text-sm font-bold text-gray-900 dark:text-white">اختر طريقة الدفع</h2>
+                            <h2 className="text-sm font-bold text-white dark:text-white">اختر طريقة الدفع</h2>
                             <span className="text-[11px] bg-gray-100 dark:bg-gray-800 text-gray-500 px-2.5 py-1 rounded-xl font-medium">
                                 {COUNTRY_FLAGS[country] || '🌍'} {countryConfig.nameAr}
                             </span>
@@ -253,11 +253,11 @@ export default function ManualCheckoutPage() {
                                 <button
                                     key={method.id}
                                     onClick={() => { setSelectedMethod(method); setStep(2); }}
-                                    className="w-full bg-white dark:bg-[#1e293b] rounded-xl border-2 border-gray-100 dark:border-gray-800 p-4 flex items-center gap-3.5 transition-all duration-200 hover:border-[#0052FF]/40 hover:shadow-md active:scale-[0.99] group"
+                                    className="w-full bg-[#0A0A0A] dark:bg-[#1e293b] rounded-xl border-2 border-gray-100 dark:border-gray-800 p-4 flex items-center gap-3.5 transition-all duration-200 hover:border-[#0052FF]/40 hover:shadow-md active:scale-[0.99] group"
                                 >
                                     <span className="text-2xl">{method.icon}</span>
                                     <div className="text-right flex-1">
-                                        <p className="font-bold text-gray-900 dark:text-white text-sm group-hover:text-[#0052FF] transition-colors">{method.nameAr}</p>
+                                        <p className="font-bold text-white dark:text-white text-sm group-hover:text-[#0052FF] transition-colors">{method.nameAr}</p>
                                         <p className="text-[11px] text-gray-400">{method.name}</p>
                                     </div>
                                     <FiArrowRight className="text-gray-300 group-hover:text-[#0052FF] transition-colors rotate-180" size={16} />
@@ -271,7 +271,7 @@ export default function ManualCheckoutPage() {
                             <select
                                 value={country}
                                 onChange={e => setCountry(e.target.value)}
-                                className="w-full bg-white dark:bg-[#1e293b] border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2.5 text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none"
+                                className="w-full bg-[#0A0A0A] dark:bg-[#1e293b] border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2.5 text-sm text-white dark:text-white focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none"
                             >
                                 {Object.entries(paymentMethodsByCountry).map(([code, cfg]) => (
                                     <option key={code} value={code}>{COUNTRY_FLAGS[code] || '🌍'} {cfg.nameAr}</option>
@@ -296,13 +296,13 @@ export default function ManualCheckoutPage() {
 
                         {/* Instructions */}
                         <div className="bg-gradient-to-br from-[#0052FF]/5 to-purple-500/5 rounded-xl border border-[#0052FF]/10 p-4">
-                            <h3 className="font-bold text-gray-900 dark:text-white text-sm mb-3 flex items-center gap-2">
+                            <h3 className="font-bold text-white dark:text-white text-sm mb-3 flex items-center gap-2">
                                 <FiClock className="text-[#0052FF]" size={16} />
                                 خطوات الدفع — {selectedMethod.nameAr}
                             </h3>
                             <div className="space-y-2.5">
                                 {[
-                                    <>حوّل <strong className="text-gray-900 dark:text-white">{formatCurrency(localPrice.amount, localPrice.currency)}</strong> إلى الرقم أدناه</>,
+                                    <>حوّل <strong className="text-white dark:text-white">{formatCurrency(localPrice.amount, localPrice.currency)}</strong> إلى الرقم أدناه</>,
                                     'خذ لقطة شاشة لرسالة التأكيد',
                                     'أدخل رقم العملية وارفع الإيصال',
                                 ].map((text, i) => (
@@ -315,10 +315,10 @@ export default function ManualCheckoutPage() {
                         </div>
 
                         {/* Wallet Copy Box */}
-                        <div className="bg-white dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-800 p-4">
+                        <div className="bg-[#0A0A0A] dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-800 p-4">
                             <label className="text-[11px] text-gray-400 font-medium block mb-1.5">رقم محفظة المنصة ({selectedMethod.nameAr})</label>
                             <div className="flex items-center gap-2">
-                                <div className="flex-1 bg-gray-50 dark:bg-gray-800/60 rounded-xl px-3.5 py-3 font-mono text-base font-bold text-gray-900 dark:text-white tracking-wider text-left" dir="ltr">
+                                <div className="flex-1 bg-[#111111] dark:bg-gray-800/60 rounded-xl px-3.5 py-3 font-mono text-base font-bold text-white dark:text-white tracking-wider text-left" dir="ltr">
                                     {PLATFORM_WALLETS[selectedMethod.id] || '—'}
                                 </div>
                                 <button
@@ -328,26 +328,26 @@ export default function ManualCheckoutPage() {
                                     {copied ? <FiCheck size={18} /> : <FiCopy size={16} />}
                                 </button>
                             </div>
-                            {copied && <p className="text-[11px] text-emerald-600-500 mt-1.5 font-medium">✓ تم النسخ</p>}
+                            {copied && <p className="text-[11px] text-[#10B981]-500 mt-1.5 font-medium">✓ تم النسخ</p>}
                         </div>
 
                         {/* Form */}
-                        <div className="bg-white dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-800 p-4 space-y-3.5">
+                        <div className="bg-[#0A0A0A] dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-800 p-4 space-y-3.5">
                             {/* Sender Phone */}
                             <div>
-                                <label className="text-xs font-semibold text-gray-900 dark:text-white block mb-1">رقم هاتف المُرسل</label>
+                                <label className="text-xs font-semibold text-white dark:text-white block mb-1">رقم هاتف المُرسل</label>
                                 <input
                                     type="tel"
                                     value={senderPhone}
                                     onChange={e => setSenderPhone(e.target.value)}
                                     placeholder="الرقم الذي حوّلت منه"
-                                    className="w-full bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none" dir="ltr"
+                                    className="w-full bg-[#111111] dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none" dir="ltr"
                                 />
                             </div>
 
                             {/* Transaction ID */}
                             <div>
-                                <label className="text-xs font-semibold text-gray-900 dark:text-white block mb-1">
+                                <label className="text-xs font-semibold text-white dark:text-white block mb-1">
                                     رقم العملية <span className="text-red-500">*</span>
                                 </label>
                                 <input
@@ -355,21 +355,21 @@ export default function ManualCheckoutPage() {
                                     value={transactionRef}
                                     onChange={e => setTransactionRef(e.target.value)}
                                     placeholder="Transaction ID / رقم المرجع"
-                                    className="w-full bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none" dir="ltr"
+                                    className="w-full bg-[#111111] dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none" dir="ltr"
                                     required
                                 />
                             </div>
 
                             {/* Image Upload */}
                             <div>
-                                <label className="text-xs font-semibold text-gray-900 dark:text-white block mb-1">إثبات الدفع</label>
+                                <label className="text-xs font-semibold text-white dark:text-white block mb-1">إثبات الدفع</label>
                                 <input type="file" ref={fileInputRef} accept="image/*" onChange={handleFileChange} className="hidden" />
                                 {proofPreview ? (
                                     <div className="relative">
                                         <img src={proofPreview} alt="إثبات" className="w-full rounded-xl border border-gray-200 dark:border-gray-700 max-h-44 object-cover" />
                                         <button
                                             onClick={() => { setProofFile(null); setProofPreview(null); }}
-                                            className="absolute top-2 left-2 w-7 h-7 bg-red-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/20"
+                                            className="absolute top-2 left-2 w-7 h-7 bg-red-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20"
                                         >
                                             <FiX size={14} />
                                         </button>
@@ -390,13 +390,13 @@ export default function ManualCheckoutPage() {
 
                             {/* Notes */}
                             <div>
-                                <label className="text-xs font-semibold text-gray-900 dark:text-white block mb-1">ملاحظات (اختياري)</label>
+                                <label className="text-xs font-semibold text-white dark:text-white block mb-1">ملاحظات (اختياري)</label>
                                 <textarea
                                     value={paymentNotes}
                                     onChange={e => setPaymentNotes(e.target.value)}
                                     placeholder="أي معلومات إضافية..."
                                     rows={2}
-                                    className="w-full bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none resize-none"
+                                    className="w-full bg-[#111111] dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none resize-none"
                                 />
                             </div>
                         </div>
@@ -413,7 +413,7 @@ export default function ManualCheckoutPage() {
                         <button
                             onClick={handleSubmit}
                             disabled={isSubmitting || !transactionRef}
-                            className="w-full bg-[#0052FF] text-white py-3.5 rounded-xl font-bold text-sm hover:bg-[#0052FF]/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-emerald-600/20 shadow-[#0052FF]/20 flex items-center justify-center gap-2 active:scale-[0.98]"
+                            className="w-full bg-[#0052FF] text-white py-3.5 rounded-xl font-bold text-sm hover:bg-[#0052FF]/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-[#10B981]/20 shadow-[#0052FF]/20 flex items-center justify-center gap-2 active:scale-[0.98]"
                         >
                             {isSubmitting ? (
                                 <>
@@ -436,20 +436,20 @@ export default function ManualCheckoutPage() {
                 {step === 3 && orderResult && (
                     <div className="text-center py-6 animate-in fade-in">
                         <div className="w-16 h-16 mx-auto bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-4">
-                            <FiCheckCircle className="text-emerald-600-500" size={34} />
+                            <FiCheckCircle className="text-[#10B981]-500" size={34} />
                         </div>
-                        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1.5">تم إرسال طلبك!</h2>
+                        <h2 className="text-xl font-bold text-white dark:text-white mb-1.5">تم إرسال طلبك!</h2>
                         <p className="text-gray-400 text-xs mb-5 leading-relaxed max-w-xs mx-auto">
                             سيتم مراجعة الدفعة من قبل فريقنا وتفعيل طلبك خلال ساعات قليلة.
                         </p>
 
-                        <div className="bg-white dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-800 p-4 inline-block mb-5">
+                        <div className="bg-[#0A0A0A] dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-800 p-4 inline-block mb-5">
                             <p className="text-[10px] text-gray-400 font-medium mb-0.5">رقم الطلب</p>
                             <p className="text-lg font-mono font-bold text-[#0052FF]">{orderResult.orderNumber}</p>
                         </div>
 
                         <div className="bg-emerald-700-50 dark:bg-amber-900/20 text-blue-700 dark:text-amber-400 rounded-xl p-3.5 text-xs font-medium flex items-start gap-2.5 text-right max-w-sm mx-auto mb-6">
-                            <FiClock className="text-emerald-600-500 mt-0.5 shrink-0" size={16} />
+                            <FiClock className="text-[#10B981]-500 mt-0.5 shrink-0" size={16} />
                             <span>احتفظ برقم الطلب. ستصلك رسالة تأكيد على بريدك الإلكتروني فور الموافقة.</span>
                         </div>
 

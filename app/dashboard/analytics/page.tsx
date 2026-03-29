@@ -122,7 +122,7 @@ export default function AnalyticsPage() {
             {/* Header */}
             <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-emerald-600 dark:text-white">التحليلات والإحصاءات</h1>
+                    <h1 className="text-3xl font-bold text-[#10B981] dark:text-white">التحليلات والإحصاءات</h1>
                     <p className="text-text-muted mt-1">تحليلات شاملة لأداء متجرك</p>
                 </div>
 
@@ -197,9 +197,9 @@ export default function AnalyticsPage() {
             </div>
 
             {/* Revenue Chart */}
-            <div className="card">
+            <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
                 <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                    <FiTrendingUp className="text-emerald-600" />
+                    <FiTrendingUp className="text-[#10B981]" />
                     تطور الإيرادات
                 </h2>
                 <Line
@@ -226,9 +226,9 @@ export default function AnalyticsPage() {
             {/* Charts Grid */}
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Top Products */}
-                <div className="card">
+                <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
                     <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                        <FiPieChart className="text-emerald-600" />
+                        <FiPieChart className="text-[#10B981]" />
                         أكثر المنتجات مبيعاً
                     </h2>
                     <Bar
@@ -253,9 +253,9 @@ export default function AnalyticsPage() {
                 </div>
 
                 {/* Traffic Sources */}
-                <div className="card">
+                <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
                     <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                        <FiUsers className="text-emerald-600" />
+                        <FiUsers className="text-[#10B981]" />
                         مصادر الزيارات
                     </h2>
                     <div className="max-w-sm mx-auto">
@@ -275,18 +275,18 @@ export default function AnalyticsPage() {
             </div>
 
             {/* Recent Activity */}
-            <div className="card">
+            <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
                 <h2 className="text-xl font-bold mb-6">النشاط الأخير</h2>
                 <div className="space-y-4">
                     {stats?.recentActivity?.map((activity: any, index: number) => (
                         <div
                             key={index}
-                            className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                            className="flex items-center gap-4 p-4 bg-[#111111] rounded-lg hover:bg-gray-100 transition-colors"
                         >
                             <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center">
-                                {activity.type === 'order' && <FiShoppingCart className="text-emerald-600" />}
-                                {activity.type === 'view' && <FiEye className="text-emerald-600" />}
-                                {activity.type === 'download' && <FiDownload className="text-emerald-600" />}
+                                {activity.type === 'order' && <FiShoppingCart className="text-[#10B981]" />}
+                                {activity.type === 'view' && <FiEye className="text-[#10B981]" />}
+                                {activity.type === 'download' && <FiDownload className="text-[#10B981]" />}
                             </div>
                             <div className="flex-1">
                                 <p className="font-bold">{activity.title}</p>
@@ -304,7 +304,7 @@ export default function AnalyticsPage() {
             </div>
 
             {/* Top Performing Products Table */}
-            <div className="card">
+            <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
                 <h2 className="text-xl font-bold mb-6">أداء المنتجات</h2>
                 <div className="overflow-x-auto">
                     <table className="w-full">
@@ -319,10 +319,10 @@ export default function AnalyticsPage() {
                         </thead>
                         <tbody>
                             {stats?.productPerformance?.map((product: any, index: number) => (
-                                <tr key={index} className="border-b dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                                    <td className="py-3 px-4 font-bold text-emerald-600 dark:text-white">{product.title}</td>
-                                    <td className="py-3 px-4 text-emerald-600 dark:text-gray-300">{product.sales}</td>
-                                    <td className="py-3 px-4 text-emerald-600 dark:text-gray-300">{product.views}</td>
+                                <tr key={index} className="border-b dark:border-gray-800 hover:bg-[#111111] dark:hover:bg-gray-800/50 transition-colors">
+                                    <td className="py-3 px-4 font-bold text-[#10B981] dark:text-white">{product.title}</td>
+                                    <td className="py-3 px-4 text-[#10B981] dark:text-gray-300">{product.sales}</td>
+                                    <td className="py-3 px-4 text-[#10B981] dark:text-gray-300">{product.views}</td>
                                     <td className="py-3 px-4">
                                         <span className={`px-2 py-1 rounded-xl text-xs ${product.conversionRate > 5
                                             ? 'bg-green-100 text-green-700'
@@ -331,7 +331,7 @@ export default function AnalyticsPage() {
                                             {product.conversionRate}%
                                         </span>
                                     </td>
-                                    <td className="py-3 px-4 font-bold text-emerald-600">
+                                    <td className="py-3 px-4 font-bold text-[#10B981]">
                                         {product.revenue.toFixed(2)} $
                                     </td>
                                 </tr>

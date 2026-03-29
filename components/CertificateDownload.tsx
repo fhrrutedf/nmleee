@@ -88,8 +88,8 @@ export function CertificateDownload({
     // Don't show anything while loading
     if (loading) {
         return (
-            <div className="bg-white border border-gray-100 rounded-xl p-6 ">
-                <div className="h-20 bg-gray-50 rounded-xl"></div>
+            <div className="bg-[#0A0A0A] border border-gray-100 rounded-xl p-6 ">
+                <div className="h-20 bg-[#111111] rounded-xl"></div>
             </div>
         );
     }
@@ -107,26 +107,26 @@ export function CertificateDownload({
     // Incomplete course
     if (!status.eligible && status.reason === 'incomplete') {
         return (
-            <div className="bg-white border-2 border-dashed border-gray-100 rounded-xl p-8">
+            <div className="bg-[#0A0A0A] border-2 border-dashed border-gray-100 rounded-xl p-8">
                 <div className="flex items-center gap-6">
-                    <div className="flex-shrink-0 p-4 bg-gray-50 rounded-xl">
+                    <div className="flex-shrink-0 p-4 bg-[#111111] rounded-xl">
                         <FiLock className="text-2xl text-gray-400" />
                     </div>
                     <div className="flex-1">
-                        <h3 className="text-lg font-bold text-emerald-600 mb-1">
+                        <h3 className="text-lg font-bold text-[#10B981] mb-1">
                             شهادة الإتمام 🔒
                         </h3>
                         <p className="text-sm text-gray-500 mb-4 font-bold">
                             أكمل الدورة للحصول على شهادتك الرسمية
                         </p>
                         <div className="flex items-center gap-4">
-                            <div className="flex-1 bg-gray-50 rounded-xl h-2.5 overflow-hidden">
+                            <div className="flex-1 bg-[#111111] rounded-xl h-2.5 overflow-hidden">
                                 <div
                                     className="h-full bg-emerald-700 transition-all duration-1000 ease-out"
                                     style={{ width: `${progress}%` }}
                                 />
                             </div>
-                            <span className="text-sm font-bold text-emerald-600 font-inter">
+                            <span className="text-sm font-bold text-[#10B981] font-inter">
                                 {progress}%
                             </span>
                         </div>
@@ -141,19 +141,19 @@ export function CertificateDownload({
         return (
             <div className="bg-emerald-700-light border-2 border-emerald-600/10 rounded-xl p-8">
                 <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-right">
-                    <div className="flex-shrink-0 p-5 bg-white rounded-xl shadow-lg shadow-emerald-600/20">
-                        <FiCheckCircle className="text-4xl text-emerald-600" />
+                    <div className="flex-shrink-0 p-5 bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20">
+                        <FiCheckCircle className="text-4xl text-[#10B981]" />
                     </div>
                     <div className="flex-1">
-                        <h3 className="text-xl font-bold text-emerald-600 mb-1">
+                        <h3 className="text-xl font-bold text-[#10B981] mb-1">
                             🎉 مبروك! لقد أتممت الدورة بنجاح
                         </h3>
-                        <p className="text-sm text-emerald-600 font-bold mb-4">
+                        <p className="text-sm text-[#10B981] font-bold mb-4">
                             شهادتك المعتمدة جاهزة للتحميل الآن
                         </p>
                         <button
                             onClick={downloadCertificate}
-                            className="bg-emerald-700 text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-all shadow-lg shadow-emerald-600/20 active:scale-95 w-full sm:w-auto"
+                            className="bg-emerald-700 text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-all shadow-lg shadow-[#10B981]/20 active:scale-95 w-full sm:w-auto"
                         >
                             <FiDownload />
                             <span>تحميل الشهادة (PDF)</span>
@@ -167,20 +167,20 @@ export function CertificateDownload({
     // Eligible but not generated yet
     if (status.eligible && !status.certificateGenerated) {
         return (
-            <div className="bg-white border border-gray-100 rounded-xl p-8 shadow-lg shadow-emerald-600/20">
+            <div className="bg-[#0A0A0A] border border-gray-100 rounded-xl p-8 shadow-lg shadow-[#10B981]/20">
                 <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-right">
                     <div className="flex-shrink-0 p-5 bg-emerald-700-light rounded-xl">
-                        <FiAward className="text-4xl text-emerald-600" />
+                        <FiAward className="text-4xl text-[#10B981]" />
                     </div>
                     <div className="flex-1">
-                        <h3 className="text-xl font-bold text-emerald-600 mb-1">
+                        <h3 className="text-xl font-bold text-[#10B981] mb-1">
                             🎊 أحسنت! تستحق شهادة الإتمام
                         </h3>
                         <p className="text-sm text-gray-500 font-bold mb-4 uppercase tracking-wider">Official Certificate Unlocked</p>
                         <button
                             onClick={generateCertificate}
                             disabled={generating}
-                            className="bg-emerald-700 text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-700-hover transition-all shadow-lg shadow-emerald-600/20 shadow-accent/20 active:scale-95 w-full sm:w-auto"
+                            className="bg-emerald-700 text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-700-hover transition-all shadow-lg shadow-[#10B981]/20 shadow-accent/20 active:scale-95 w-full sm:w-auto"
                         >
                             {generating ? (
                                 <>

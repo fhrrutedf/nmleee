@@ -129,16 +129,16 @@ export default function EditBundlePage() {
     return (
         <div className="max-w-5xl mx-auto space-y-6 pb-12">
             <div className="mb-8">
-                <Link href="/dashboard/bundles" className="text-text-muted hover:text-emerald-600 inline-flex items-center gap-2 mb-4 transition-colors font-medium">
+                <Link href="/dashboard/bundles" className="text-text-muted hover:text-[#10B981] inline-flex items-center gap-2 mb-4 transition-colors font-medium">
                     <FiArrowRight />
                     <span>العودة للباقات</span>
                 </Link>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                     <div className="w-12 h-12 bg-emerald-700/10 rounded-xl flex items-center justify-center shrink-0">
-                        <FiPackage className="text-xl text-emerald-600" />
+                        <FiPackage className="text-xl text-[#10B981]" />
                     </div>
                     <div>
-                        <h1 className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-white">تعديل الباقة</h1>
+                        <h1 className="text-2xl sm:text-3xl font-bold text-[#10B981] dark:text-white">تعديل الباقة</h1>
                         <p className="text-sm sm:text-base text-text-muted mt-1 font-medium">قم بتعديل بيانات باقتك لتوفير أسعار أفضل لعملائك</p>
                     </div>
                 </div>
@@ -152,7 +152,7 @@ export default function EditBundlePage() {
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Right col - Form details */}
                     <div className="col-span-1 lg:col-span-2 space-y-6">
-                        <div className="card space-y-6 bg-white dark:bg-card-white rounded-xl p-6 md:p-8 shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800">
+                        <div className="card space-y-6 bg-[#0A0A0A] dark:bg-card-white rounded-xl p-6 md:p-8 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800">
                             <div className="space-y-6">
                                 <div>
                                     <label className="label text-lg font-bold">اسم الباقة الفريد <span className="text-red-500">*</span></label>
@@ -177,16 +177,16 @@ export default function EditBundlePage() {
 
                                 <div>
                                     <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
-                                        <FiImage className="text-emerald-600" />
+                                        <FiImage className="text-[#10B981]" />
                                         غلاف الباقة التعريفي
                                     </h3>
                                     {formData.image ? (
                                         <div className="relative inline-block">
-                                            <img src={formData.image} alt="Preview" className="w-full max-w-sm h-64 object-cover rounded-xl border-2 border-gray-100 shadow-lg shadow-emerald-600/20" />
+                                            <img src={formData.image} alt="Preview" className="w-full max-w-sm h-64 object-cover rounded-xl border-2 border-gray-100 shadow-lg shadow-[#10B981]/20" />
                                             <button
                                                 type="button"
                                                 onClick={() => setFormData({ ...formData, image: '' })}
-                                                className="absolute -top-3 -right-3 bg-red-500 text-white p-2.5 rounded-xl hover:bg-red-600 transition-colors shadow-lg shadow-emerald-600/20"
+                                                className="absolute -top-3 -right-3 bg-red-500 text-white p-2.5 rounded-xl hover:bg-red-600 transition-colors shadow-lg shadow-[#10B981]/20"
                                             >
                                                 <FiX />
                                             </button>
@@ -201,7 +201,7 @@ export default function EditBundlePage() {
                                             }}
                                         />
                                     ) : (
-                                        <button type="button" onClick={() => setShowCoverUploader(true)} className="btn btn-outline border-dashed w-full h-32 text-gray-500 hover:text-emerald-600 hover:border-emerald-600">
+                                        <button type="button" onClick={() => setShowCoverUploader(true)} className="btn btn-outline border-dashed w-full h-32 text-gray-500 hover:text-[#10B981] hover:border-emerald-600">
                                             <FiImage className="text-2xl mb-2" />
                                             رفع صورة غلاف للباقة
                                         </button>
@@ -210,14 +210,14 @@ export default function EditBundlePage() {
                             </div>
                         </div>
 
-                        <div className="card space-y-6 bg-white dark:bg-card-white rounded-xl p-6 md:p-8 shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800">
+                        <div className="card space-y-6 bg-[#0A0A0A] dark:bg-card-white rounded-xl p-6 md:p-8 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800">
                             <h2 className="text-xl font-bold border-b border-gray-100 dark:border-gray-800 pb-4 mb-4">المنتجات المشمولة في الباقة</h2>
 
                             {!products || products.length === 0 ? (
                                 <div className="py-8 text-center text-gray-500">
                                     لا يوجد لديك منتجات لإضافتها!
                                     <br />
-                                    <Link href="/dashboard/products/new" className="text-emerald-600 font-bold underline mt-2 block">أضف منتجاتك أولاً</Link>
+                                    <Link href="/dashboard/products/new" className="text-[#10B981] font-bold underline mt-2 block">أضف منتجاتك أولاً</Link>
                                 </div>
                             ) : (
                                 <div className="grid sm:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-200">
@@ -231,7 +231,7 @@ export default function EditBundlePage() {
                                             >
                                                 <div className="mt-1 flex-shrink-0">
                                                     {isSelected ? (
-                                                        <FiCheckSquare className="text-xl text-emerald-600 bg-white rounded" />
+                                                        <FiCheckSquare className="text-xl text-[#10B981] bg-[#0A0A0A] rounded" />
                                                     ) : (
                                                         <FiSquare className="text-xl text-gray-300" />
                                                     )}
@@ -242,7 +242,7 @@ export default function EditBundlePage() {
                                                             <img src={product.image} className="w-12 h-12 object-cover rounded-lg shrink-0" alt="product" />
                                                         )}
                                                         <div>
-                                                            <p className={`font-bold line-clamp-2 leading-tight text-sm ${isSelected ? 'text-emerald-600' : 'text-gray-900 dark:text-white'}`}>{product.title}</p>
+                                                            <p className={`font-bold line-clamp-2 leading-tight text-sm ${isSelected ? 'text-[#10B981]' : 'text-white dark:text-white'}`}>{product.title}</p>
                                                             <p className="text-gray-500 text-xs mt-1 font-bold">{product.price} $</p>
                                                         </div>
                                                     </div>
@@ -262,14 +262,14 @@ export default function EditBundlePage() {
                     {/* Left col - Pricing and saving summary */}
                     <div className="col-span-1 border-gray-100">
                         <div className="sticky top-24 space-y-6">
-                            <div className="bg-white dark:bg-card-white rounded-xl p-6 shadow-lg shadow-emerald-600/20 shadow-gray-100 dark:shadow-gray-900 border border-gray-100 dark:border-gray-800 relative overflow-hidden">
+                            <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl p-6 shadow-lg shadow-[#10B981]/20 shadow-gray-100 dark:shadow-gray-900 border border-gray-100 dark:border-gray-800 relative overflow-hidden">
                                 {discountPercentage > 0 && (
                                     <div className="absolute top-0 right-0 bg-green-500 text-white px-4 py-1 rounded-bl-2xl font-bold text-sm shadow-md">
                                         خصم {discountPercentage}%
                                     </div>
                                 )}
 
-                                <h3 className="font-bold text-xl mb-4 text-emerald-600 dark:text-white">تسعير الباقة</h3>
+                                <h3 className="font-bold text-xl mb-4 text-[#10B981] dark:text-white">تسعير الباقة</h3>
                                 <div className="space-y-4">
                                     <div>
                                         <label className="text-sm text-gray-500 mb-1 block">سعر المنتجات الفردية (إجمالي)</label>
@@ -277,7 +277,7 @@ export default function EditBundlePage() {
                                     </div>
 
                                     <div className="bg-emerald-700/5 p-4 rounded-xl border border-emerald-600/10">
-                                        <label className="text-sm font-bold text-emerald-600 mb-2 block">سعر الباقة الإجمالي الجديد <span className="text-red-500">*</span></label>
+                                        <label className="text-sm font-bold text-[#10B981] mb-2 block">سعر الباقة الإجمالي الجديد <span className="text-red-500">*</span></label>
                                         <div className="relative">
                                             <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                                                 <span className="text-gray-500 font-bold">$</span>
@@ -287,7 +287,7 @@ export default function EditBundlePage() {
                                                 required
                                                 min="0"
                                                 step="0.01"
-                                                className="w-full pl-4 pr-14 py-4 rounded-xl border border-emerald-600/20 bg-white dark:bg-gray-800 text-2xl font-bold focus:ring-4 ring-accent/20 outline-none transition-all shadow-inner"
+                                                className="w-full pl-4 pr-14 py-4 rounded-xl border border-emerald-600/20 bg-[#0A0A0A] dark:bg-gray-800 text-2xl font-bold focus:ring-4 ring-accent/20 outline-none transition-all shadow-inner"
                                                 placeholder="0.00"
                                                 value={formData.price}
                                                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
@@ -306,7 +306,7 @@ export default function EditBundlePage() {
                             <button
                                 type="submit"
                                 disabled={loading || formData.productIds.length < 2 || !formData.price || !formData.title}
-                                className="w-full btn btn-primary text-lg py-4 shadow-lg shadow-emerald-600/20 shadow-accent/20 hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full btn btn-primary text-lg py-4 shadow-lg shadow-[#10B981]/20 shadow-accent/20 hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {loading ? (
                                     <span className="flex items-center justify-center gap-2">

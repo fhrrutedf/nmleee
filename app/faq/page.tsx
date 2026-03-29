@@ -10,13 +10,13 @@ export default function FAQPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-surface py-20 px-6">
+    <div className="min-h-screen bg-[#0A0A0A] py-20 px-6">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold text-emerald-600 mb-12 text-center">الأسئلة الشائعة</h1>
+        <h1 className="text-3xl font-bold text-[#10B981] mb-12 text-center">الأسئلة الشائعة</h1>
         <div className="space-y-6" dir="rtl">
           {faqs.map((faq, i) => (
             <div key={i} className="border-b border-gray-100 pb-6">
-              <h3 className="text-lg font-bold text-emerald-600 mb-2">{faq.q}</h3>
+              <h3 className="text-lg font-bold text-[#10B981] mb-2">{faq.q}</h3>
               <p className="text-muted leading-relaxed">{faq.a}</p>
             </div>
           ))}

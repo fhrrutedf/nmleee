@@ -54,9 +54,9 @@ export default function SellerDashboardPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-[#111111] py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-8">لوحة تحكم البائع</h1>
+                <h1 className="text-3xl font-bold text-white mb-8">لوحة تحكم البائع</h1>
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -72,14 +72,14 @@ export default function SellerDashboardPage() {
                         title="إجمالي الطلبات"
                         value={overview.totalOrders.toString()}
                         change={overview.ordersChange}
-                        icon={<FiShoppingBag className="text-emerald-600-600" size={24} />}
+                        icon={<FiShoppingBag className="text-[#10B981]-600" size={24} />}
                         bgColor="bg-blue-100"
                     />
 
                     <StatsCard
                         title="إجمالي العملاء"
                         value={overview.totalCustomers.toString()}
-                        icon={<FiUsers className="text-emerald-600" size={24} />}
+                        icon={<FiUsers className="text-[#10B981]" size={24} />}
                         bgColor="bg-purple-100"
                     />
 
@@ -92,8 +92,8 @@ export default function SellerDashboardPage() {
                 </div>
 
                 {/* Sales Chart */}
-                <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-                    <h2 className="text-lg font-bold text-gray-900 mb-4">المبيعات (آخر 30 يوم)</h2>
+                <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6 mb-8">
+                    <h2 className="text-lg font-bold text-white mb-4">المبيعات (آخر 30 يوم)</h2>
 
                     {salesChart.length > 0 ? (
                         <div className="h-64 flex items-end gap-1">
@@ -124,14 +124,14 @@ export default function SellerDashboardPage() {
                 </div>
 
                 {/* Top Products */}
-                <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                <div className="bg-[#0A0A0A] rounded-lg shadow-md overflow-hidden">
                     <div className="p-6 border-b">
-                        <h2 className="text-lg font-bold text-gray-900">أكثر المنتجات مبيعاً</h2>
+                        <h2 className="text-lg font-bold text-white">أكثر المنتجات مبيعاً</h2>
                     </div>
 
                     <div className="overflow-x-auto">
                         <table className="w-full">
-                            <thead className="bg-gray-50">
+                            <thead className="bg-[#111111]">
                                 <tr>
                                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
                                         المنتج
@@ -146,7 +146,7 @@ export default function SellerDashboardPage() {
                             </thead>
                             <tbody className="divide-y divide-gray-200">
                                 {overview.topProducts.map((product) => (
-                                    <tr key={product?.id} className="hover:bg-gray-50">
+                                    <tr key={product?.id} className="hover:bg-[#111111]">
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-3">
                                                 {product?.image && (
@@ -156,13 +156,13 @@ export default function SellerDashboardPage() {
                                                         className="w-12 h-12 rounded object-cover"
                                                     />
                                                 )}
-                                                <span className="font-medium text-gray-900">{product?.title}</span>
+                                                <span className="font-medium text-white">{product?.title}</span>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-gray-900">
+                                        <td className="px-6 py-4 text-sm text-white">
                                             {product?.salesCount} مبيعة
                                         </td>
-                                        <td className="px-6 py-4 text-sm font-semibold text-gray-900">
+                                        <td className="px-6 py-4 text-sm font-semibold text-white">
                                             {product?.revenue?.toFixed(2)} $
                                         </td>
                                     </tr>
@@ -194,7 +194,7 @@ function StatsCard({ title, value, change, icon, bgColor }: StatsCardProps) {
     const isPositive = change !== undefined && change >= 0;
 
     return (
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between mb-4">
                 <div className={`w-12 h-12 ${bgColor} rounded-lg flex items-center justify-center`}>
                     {icon}
@@ -207,7 +207,7 @@ function StatsCard({ title, value, change, icon, bgColor }: StatsCardProps) {
                 )}
             </div>
             <p className="text-sm text-gray-600 mb-1">{title}</p>
-            <p className="text-2xl font-bold text-gray-900">{value}</p>
+            <p className="text-2xl font-bold text-white">{value}</p>
         </div>
     );
 }

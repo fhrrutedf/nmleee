@@ -84,7 +84,7 @@ export const ProductCardSkeleton: React.FC = () => (
 
 // Dashboard Stats Skeleton
 export const StatCardSkeleton: React.FC = () => (
-    <div className="card">
+    <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
         <div className="flex justify-between items-start mb-4">
             <Skeleton variant="rectangular" width={48} height={48} className="rounded-xl" />
             <Skeleton variant="rectangular" width={60} height={24} className="rounded-xl" />

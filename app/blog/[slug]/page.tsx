@@ -97,14 +97,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     const postDate = new Date(post.createdAt).toLocaleDateString("ar");
 
     return (
-        <div className="min-h-screen bg-white" dir="rtl">
+        <div className="min-h-screen bg-[#0A0A0A]" dir="rtl">
             {/* Header / Breadcrumb */}
-            <div className="bg-gray-50 py-8 border-b border-gray-100">
+            <div className="bg-[#111111] py-8 border-b border-gray-100">
                 <div className="container-custom px-4 mx-auto max-w-7xl">
                     <div className="flex items-center gap-2 text-sm text-gray-500">
-                        <Link href="/" className="hover:text-emerald-600">الرئيسية</Link>
+                        <Link href="/" className="hover:text-[#10B981]">الرئيسية</Link>
                         <span>/</span>
-                        <Link href="/blog" className="hover:text-emerald-600">المدونة</Link>
+                        <Link href="/blog" className="hover:text-[#10B981]">المدونة</Link>
                         <span>/</span>
                         <span className="text-gray-800 font-medium truncate max-w-xs">{post.title}</span>
                     </div>
@@ -119,11 +119,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         {/* Article Header */}
                         <div className="mb-8">
                             {post.category && (
-                                <span className="inline-block py-1 px-3 rounded-xl bg-emerald-700-50 text-emerald-600 text-sm font-bold mb-4">
+                                <span className="inline-block py-1 px-3 rounded-xl bg-emerald-700-50 text-[#10B981] text-sm font-bold mb-4">
                                     {post.category}
                                 </span>
                             )}
-                            <h1 className="text-3xl md:text-5xl font-bold text-emerald-600 mb-6 leading-tight">
+                            <h1 className="text-3xl md:text-5xl font-bold text-[#10B981] mb-6 leading-tight">
                                 {post.title}
                             </h1>
 
@@ -137,7 +137,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                         )}
                                     </div>
                                     <div>
-                                        <p className="font-bold text-gray-900">{authorName}</p>
+                                        <p className="font-bold text-white">{authorName}</p>
                                     </div>
                                 </div>
                                 <span className="h-4 w-px bg-gray-300"></span>
@@ -149,21 +149,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                         {/* Featured Image */}
                         {post.coverImage && (
-                            <div className="rounded-xl overflow-hidden mb-10 shadow-lg shadow-emerald-600/20 border border-gray-100">
+                            <div className="rounded-xl overflow-hidden mb-10 shadow-lg shadow-[#10B981]/20 border border-gray-100">
                                 <img src={post.coverImage} alt={post.title} className="w-full h-auto object-cover max-h-[500px]" />
                             </div>
                         )}
 
                         {/* Content */}
                         <article
-                            className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-emerald-600 prose-p:text-gray-700 prose-a:text-emerald-600 prose-img:rounded-xl prose-p:leading-relaxed mb-20"
+                            className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-[#10B981] prose-p:text-gray-700 prose-a:text-[#10B981] prose-img:rounded-xl prose-p:leading-relaxed mb-20"
                             dangerouslySetInnerHTML={{ __html: post.content }}
                         />
 
                         {/* Conversion CTA Block */}
-                        <div className="bg-emerald-700 rounded-xl p-8 md:p-12 text-white shadow-lg shadow-emerald-600/20 shadow-accent/20 relative overflow-hidden group">
+                        <div className="bg-emerald-700 rounded-xl p-8 md:p-12 text-white shadow-lg shadow-[#10B981]/20 shadow-accent/20 relative overflow-hidden group">
                            {/* Decorative background elements */}
-                           <div className="absolute top-0 right-0 w-64 h-64 bg-surface/10 rounded-xl -translate-y-1/2 translate-x-1/2 blur-3xl group-hover:bg-white/20 transition-all duration-700"></div>
+                           <div className="absolute top-0 right-0 w-64 h-64 bg-[#0A0A0A]/10 rounded-xl -translate-y-1/2 translate-x-1/2 blur-3xl group-hover:bg-white/20 transition-all duration-700"></div>
                            <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/20 rounded-xl translate-y-1/2 -translate-x-1/2 blur-2xl"></div>
                            
                            <div className="relative z-10 flex flex-col md:flex-row items-center gap-10">
@@ -171,17 +171,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                    <h3 className="text-2xl md:text-4xl font-bold mb-4 leading-tight">جاهز لتحويل خبرتك إلى أرباح؟ 🚀</h3>
                                    <p className="text-white/80 text-lg font-medium max-w-lg mb-8">انضم لآلاف المبدعين العرب الذين يبيعون منتجاتهم الرقمية ودوراتهم التدريبية عبر تمالين بكل سهولة.</p>
                                    <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                                       <Link href="/register" className="px-8 py-4 bg-white text-emerald-600 rounded-xl font-bold text-xl shadow-lg shadow-emerald-600/20 hover:scale-105 transition-transform text-center">
+                                       <Link href="/register" className="px-8 py-4 bg-[#0A0A0A] text-[#10B981] rounded-xl font-bold text-xl shadow-lg shadow-[#10B981]/20 hover:scale-105 transition-transform text-center">
                                            أنشئ متجرك مجاناً
                                        </Link>
-                                       <Link href="/explore" className="px-8 py-4 bg-surface/10 text-white border border-white/20 rounded-xl font-bold text-lg hover:bg-white/20 transition-all text-center">
+                                       <Link href="/explore" className="px-8 py-4 bg-[#0A0A0A]/10 text-white border border-white/20 rounded-xl font-bold text-lg hover:bg-white/20 transition-all text-center">
                                            استكشف المنتجات
                                        </Link>
                                    </div>
                                </div>
                                <div className="hidden lg:block shrink-0">
                                     <div className="w-48 h-48 bg-white/20 rounded-xl flex items-center justify-center p-4  border border-white/30 rotate-12">
-                                        <div className="w-full h-full bg-white rounded-xl flex items-center justify-center text-emerald-600 text-6xl shadow-inner">💰</div>
+                                        <div className="w-full h-full bg-[#0A0A0A] rounded-xl flex items-center justify-center text-[#10B981] text-6xl shadow-inner">💰</div>
                                     </div>
                                </div>
                            </div>
@@ -193,7 +193,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     {/* Sidebar */}
                     <aside className="lg:col-span-4 space-y-8">
                         {/* Newsletter Widget */}
-                        <div className="bg-primary-900 text-white rounded-xl p-8 shadow-lg shadow-emerald-600/20 relative overflow-hidden">
+                        <div className="bg-primary-900 text-white rounded-xl p-8 shadow-lg shadow-[#10B981]/20 relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-700 rounded-xl mix-blend-overlay filter blur-2xl opacity-20"></div>
                             <h3 className="text-xl font-bold mb-4 relative z-10">تحديثات أسبوعية</h3>
                             <p className="text-gray-300 mb-6 text-sm relative z-10">

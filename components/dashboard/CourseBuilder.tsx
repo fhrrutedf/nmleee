@@ -103,16 +103,16 @@ export default function CourseBuilder({
         <div className="space-y-6">
             
             {/* Professional Stats Display */}
-            <div className="flex gap-4 p-6 bg-gray-50 border border-gray-100 rounded-xl">
+            <div className="flex gap-4 p-6 bg-[#111111] border border-gray-100 rounded-xl">
                 <div className="flex-1">
                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">إجمالي الدروس</p>
-                    <p className="text-2xl font-bold text-emerald-600 font-inter">{stats.count}</p>
+                    <p className="text-2xl font-bold text-[#10B981] font-inter">{stats.count}</p>
                 </div>
                 <div className="flex-1 border-r border-gray-200 pr-5">
                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">مدة المنهج</p>
-                    <p className="text-2xl font-bold text-emerald-600 font-inter">{stats.total}m</p>
+                    <p className="text-2xl font-bold text-[#10B981] font-inter">{stats.total}m</p>
                 </div>
-                <div className="flex items-center text-emerald-600">
+                <div className="flex items-center text-[#10B981]">
                     <FiEye className="text-xl" />
                 </div>
             </div>
@@ -124,15 +124,15 @@ export default function CourseBuilder({
                             {sections.map((section, index) => (
                                 <Draggable key={section.id} draggableId={section.id} index={index}>
                                     {(provided) => (
-                                        <div ref={provided.innerRef} {...provided.draggableProps} className="bg-white rounded-xl border border-gray-100 shadow-lg shadow-emerald-600/20 overflow-hidden group">
+                                        <div ref={provided.innerRef} {...provided.draggableProps} className="bg-[#0A0A0A] rounded-xl border border-gray-100 shadow-lg shadow-[#10B981]/20 overflow-hidden group">
                                             {/* Section Header */}
-                                            <div className="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                                            <div className="p-4 flex items-center justify-between hover:bg-[#111111] transition-colors">
                                                 <div className="flex items-center gap-4 flex-1">
-                                                    <div {...provided.dragHandleProps} className="text-gray-300 hover:text-emerald-600 transition-colors cursor-grab active:cursor-grabbing">
+                                                    <div {...provided.dragHandleProps} className="text-gray-300 hover:text-[#10B981] transition-colors cursor-grab active:cursor-grabbing">
                                                         <FiMove size={18} />
                                                     </div>
                                                     <input 
-                                                        className="font-bold text-emerald-600 bg-transparent border-none focus:ring-0 p-0 w-full text-lg"
+                                                        className="font-bold text-[#10B981] bg-transparent border-none focus:ring-0 p-0 w-full text-lg"
                                                         value={section.title}
                                                         onChange={(e) => {
                                                             const upd = sections.map(s => s.id === section.id ? { ...s, title: e.target.value } : s);
@@ -144,7 +144,7 @@ export default function CourseBuilder({
                                                     <button 
                                                         type="button" 
                                                         onClick={() => addLesson(section.id)} 
-                                                        className="text-[10px] font-bold text-emerald-600 bg-gray-50 px-5 py-2.5 rounded-xl hover:bg-emerald-700 hover:text-white transition-all uppercase tracking-widest border border-gray-100"
+                                                        className="text-[10px] font-bold text-[#10B981] bg-[#111111] px-5 py-2.5 rounded-xl hover:bg-emerald-700 hover:text-white transition-all uppercase tracking-widest border border-gray-100"
                                                     >
                                                         + ADD LESSON
                                                     </button>
@@ -164,7 +164,7 @@ export default function CourseBuilder({
                                                     <div 
                                                         ref={provided.innerRef} 
                                                         {...provided.droppableProps} 
-                                                        className={`p-4 pt-0 space-y-2 min-h-[40px] transition-all ${snapshot.isDraggingOver ? 'bg-gray-50' : ''}`}
+                                                        className={`p-4 pt-0 space-y-2 min-h-[40px] transition-all ${snapshot.isDraggingOver ? 'bg-[#111111]' : ''}`}
                                                     >
                                                         {section.lessons.map((lesson, lIndex) => (
                                                             <Draggable key={lesson.id} draggableId={lesson.id} index={lIndex}>
@@ -173,14 +173,14 @@ export default function CourseBuilder({
                                                                         ref={provided.innerRef} 
                                                                         {...provided.draggableProps} 
                                                                         {...provided.dragHandleProps}
-                                                                        className={`flex items-center justify-between p-4 bg-white border border-gray-100 rounded-xl group/lesson ${snapshot.isDragging ? 'shadow-lg shadow-emerald-600/20 ring-2 ring-accent/20 border-emerald-600' : 'hover:border-gray-200 shadow-lg shadow-emerald-600/20'}`}
+                                                                        className={`flex items-center justify-between p-4 bg-[#0A0A0A] border border-gray-100 rounded-xl group/lesson ${snapshot.isDragging ? 'shadow-lg shadow-[#10B981]/20 ring-2 ring-accent/20 border-emerald-600' : 'hover:border-gray-200 shadow-lg shadow-[#10B981]/20'}`}
                                                                     >
                                                                         <div className="flex items-center gap-4">
-                                                                            <div className="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center text-emerald-600 transition-all group-hover/lesson:bg-emerald-700 group-hover/lesson:text-white border border-gray-100">
+                                                                            <div className="w-10 h-10 bg-[#111111] rounded-xl flex items-center justify-center text-[#10B981] transition-all group-hover/lesson:bg-emerald-700 group-hover/lesson:text-white border border-gray-100">
                                                                                 <FiVideo size={16} />
                                                                             </div>
                                                                             <input 
-                                                                                className="text-sm font-bold text-emerald-600 bg-transparent border-none focus:ring-0 p-0"
+                                                                                className="text-sm font-bold text-[#10B981] bg-transparent border-none focus:ring-0 p-0"
                                                                                 value={lesson.title}
                                                                                 onChange={(e) => {
                                                                                     const upd = sections.map(s => s.id === section.id ? { 
@@ -224,7 +224,7 @@ export default function CourseBuilder({
             <button 
                 type="button"
                 onClick={addSection} 
-                className="w-full py-6 border border-dashed border-gray-200 rounded-[2rem] text-gray-400 font-bold text-[10px] uppercase tracking-[0.3em] hover:border-emerald-600 hover:text-emerald-600 transition-all flex items-center justify-center gap-3 bg-white shadow-lg shadow-emerald-600/20"
+                className="w-full py-6 border border-dashed border-gray-200 rounded-[2rem] text-gray-400 font-bold text-[10px] uppercase tracking-[0.3em] hover:border-emerald-600 hover:text-[#10B981] transition-all flex items-center justify-center gap-3 bg-[#0A0A0A] shadow-lg shadow-[#10B981]/20"
             >
                 <FiPlus className="text-xl" /> ADD NEW CHAPTER
             </button>

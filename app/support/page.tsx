@@ -26,11 +26,11 @@ export default function SupportPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-[#111111]">
             <div className="max-w-7xl mx-auto px-4 py-12">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h1 className="text-3xl font-bold text-emerald-600 mb-4">مركز الدعم</h1>
+                    <h1 className="text-3xl font-bold text-[#10B981] mb-4">مركز الدعم</h1>
                     <p className="text-xl text-gray-600">كيف يمكننا مساعدتك اليوم؟</p>
                 </div>
 
@@ -48,23 +48,23 @@ export default function SupportPage() {
 
                 {/* Quick Links */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                    <Link href="/contact" className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6 hover:shadow-lg shadow-emerald-600/20 transition-shadow text-center group">
+                    <Link href="/contact" className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-6 hover:shadow-lg shadow-[#10B981]/20 transition-shadow text-center group">
                         <div className="w-16 h-16 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                            <FiMessageCircle className="text-3xl text-emerald-600" />
+                            <FiMessageCircle className="text-3xl text-[#10B981]" />
                         </div>
                         <h3 className="font-bold text-lg mb-2">تواصل معنا</h3>
                         <p className="text-gray-600 text-sm">أرسل رسالة للدعم الفني</p>
                     </Link>
 
-                    <Link href="/about" className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6 hover:shadow-lg shadow-emerald-600/20 transition-shadow text-center group">
+                    <Link href="/about" className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-6 hover:shadow-lg shadow-[#10B981]/20 transition-shadow text-center group">
                         <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                            <FiBook className="text-3xl text-emerald-600-600" />
+                            <FiBook className="text-3xl text-[#10B981]-600" />
                         </div>
                         <h3 className="font-bold text-lg mb-2">دليل الاستخدام</h3>
                         <p className="text-gray-600 text-sm">تعلم كيفية استخدام المنصة</p>
                     </Link>
 
-                    <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6 hover:shadow-lg shadow-emerald-600/20 transition-shadow text-center group">
+                    <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-6 hover:shadow-lg shadow-[#10B981]/20 transition-shadow text-center group">
                         <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                             <FiMail className="text-3xl text-green-600" />
                         </div>
@@ -74,15 +74,15 @@ export default function SupportPage() {
                 </div>
 
                 {/* FAQs */}
-                <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-8">
+                <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-8">
                     <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-                        <FiHelpCircle className="text-emerald-600" />
+                        <FiHelpCircle className="text-[#10B981]" />
                         الأسئلة الشائعة
                     </h2>
                     <div className="space-y-6">
                         {faqs.map((faq, index) => (
                             <div key={index} className="border-b pb-6 last:border-b-0">
-                                <h3 className="font-bold text-lg mb-3 text-gray-900">
+                                <h3 className="font-bold text-lg mb-3 text-white">
                                     {faq.question}
                                 </h3>
                                 <p className="text-gray-600 leading-relaxed">
@@ -99,7 +99,7 @@ export default function SupportPage() {
                     <p className="text-lg mb-6">فريق الدعم جاهز لمساعدتك 24/7</p>
                     <Link
                         href="/contact"
-                        className="inline-block bg-white text-emerald-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
+                        className="inline-block bg-[#0A0A0A] text-[#10B981] px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
                     >
                         تواصل معنا الآن
                     </Link>

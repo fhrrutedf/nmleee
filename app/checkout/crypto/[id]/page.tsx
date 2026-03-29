@@ -87,10 +87,10 @@ export default function CryptoCheckoutPage() {
 
     if (order.status === 'COMPLETED' || order.isPaid) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
-                <div className="max-w-md w-full bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-8 text-center border-t-8 border-green-500">
+            <div className="min-h-screen bg-[#111111] flex items-center justify-center py-12 px-4">
+                <div className="max-w-md w-full bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-8 text-center border-t-8 border-green-500">
                     <FiCheckCircle className="text-6xl text-green-500 mx-auto mb-4" />
-                    <h2 className="text-2xl font-bold mb-2 text-emerald-600">تم الدفع بنجاح!</h2>
+                    <h2 className="text-2xl font-bold mb-2 text-[#10B981]">تم الدفع بنجاح!</h2>
                     <p className="text-gray-600 mb-6">شكراً لك، تمت العملية بنجاح. سيتم توجيهك للمنتج...</p>
                     <button onClick={() => router.push('/dashboard/purchases')} className="btn btn-primary w-full">الانتقال للمشتريات</button>
                 </div>
@@ -102,9 +102,9 @@ export default function CryptoCheckoutPage() {
     const seconds = timeLeft % 60;
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12 px-4">
+        <div className="min-h-screen bg-[#111111] py-12 px-4">
             <div className="max-w-2xl mx-auto">
-                <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden border border-gray-100">
+                <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden border border-gray-100">
                     <div className="bg-emerald-700 p-6 text-center text-white">
                         <h1 className="text-2xl font-bold mb-1">دفع العملات الرقمية</h1>
                         <p className="text-gray-300 text-sm">أرسل المبلغ بدقة إلى العنوان أدناه باستخدام شبكة TRC20</p>
@@ -121,7 +121,7 @@ export default function CryptoCheckoutPage() {
                         ) : (
                             <>
                                 <div className="flex flex-col md:flex-row gap-8 items-center justify-center mb-8">
-                                    <div className="bg-white p-4 rounded-xl shadow border border-gray-100 pb-2">
+                                    <div className="bg-[#0A0A0A] p-4 rounded-xl shadow border border-gray-100 pb-2">
                                         <img
                                             src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${order.walletAddress}`}
                                             alt="QR Code"
@@ -147,12 +147,12 @@ export default function CryptoCheckoutPage() {
                                             <div>
                                                 <p className="text-sm text-gray-500 mb-1 font-medium">المبلغ المطلوب بدقة ({order.cryptoCoin}):</p>
                                                 <div className="flex items-center gap-2">
-                                                    <div className="flex-1 bg-gray-50 border border-gray-200 p-3 rounded-xl font-mono text-lg font-bold text-emerald-600">
+                                                    <div className="flex-1 bg-[#111111] border border-gray-200 p-3 rounded-xl font-mono text-lg font-bold text-[#10B981]">
                                                         {order.cryptoAmount}
                                                     </div>
                                                     <button
                                                         onClick={() => handleCopy(order.cryptoAmount.toString(), 'amount')}
-                                                        className={`p-3 rounded-xl border transition-all ${copiedContent === 'amount' ? 'bg-green-500 text-white border-green-500' : 'bg-white border-gray-200 hover:bg-gray-50 text-gray-600'}`}
+                                                        className={`p-3 rounded-xl border transition-all ${copiedContent === 'amount' ? 'bg-green-500 text-white border-green-500' : 'bg-[#0A0A0A] border-gray-200 hover:bg-[#111111] text-gray-600'}`}
                                                     >
                                                         {copiedContent === 'amount' ? <FiCheckCircle /> : <FiCopy />}
                                                     </button>
@@ -162,12 +162,12 @@ export default function CryptoCheckoutPage() {
                                             <div>
                                                 <p className="text-sm text-gray-500 mb-1 font-medium">عنوان المحفظة (TRC20):</p>
                                                 <div className="flex items-center gap-2">
-                                                    <div className="flex-1 bg-gray-50 border border-gray-200 p-3 rounded-xl font-mono text-sm sm:text-base break-words text-emerald-600">
+                                                    <div className="flex-1 bg-[#111111] border border-gray-200 p-3 rounded-xl font-mono text-sm sm:text-base break-words text-[#10B981]">
                                                         {order.walletAddress}
                                                     </div>
                                                     <button
                                                         onClick={() => handleCopy(order.walletAddress, 'address')}
-                                                        className={`p-3 rounded-xl border transition-all flex-shrink-0 ${copiedContent === 'address' ? 'bg-green-500 text-white border-green-500' : 'bg-white border-gray-200 hover:bg-gray-50 text-gray-600'}`}
+                                                        className={`p-3 rounded-xl border transition-all flex-shrink-0 ${copiedContent === 'address' ? 'bg-green-500 text-white border-green-500' : 'bg-[#0A0A0A] border-gray-200 hover:bg-[#111111] text-gray-600'}`}
                                                     >
                                                         {copiedContent === 'address' ? <FiCheckCircle /> : <FiCopy />}
                                                     </button>

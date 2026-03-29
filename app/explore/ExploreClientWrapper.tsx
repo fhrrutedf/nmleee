@@ -36,7 +36,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                         {/* Hover Glow Behind Card */}
                         <div className="absolute -inset-1 bg-emerald-700 rounded-xl blur-xl opacity-0 group-hover:opacity-60 group-focus-visible:opacity-60 transition duration-500 delay-75 -z-10 mt-4 mx-2"></div>
 
-                        <div className="bg-white dark:bg-card-white rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-lg shadow-emerald-600/20 hover:shadow-lg shadow-emerald-600/20 transition-all duration-300 flex flex-col h-full ring-2 ring-transparent group-focus-visible:ring-accent">
+                        <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 flex flex-col h-full ring-2 ring-transparent group-focus-visible:ring-accent">
                             {/* Media Thumbnails Area */}
                             <div className="aspect-[4/3] bg-gray-100 dark:bg-gray-800 relative overflow-hidden group-hover:after:absolute group-hover:after:inset-0 group-hover:after:bg-black/10 transition-all after:transition-colors">
                                 {(item.thumbnail || item.image || (item.images && item.images[0])) ? (
@@ -55,17 +55,17 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                 {/* Top Badges */}
                                 <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
                                     {item.itemType === 'course' ? (
-                                        <span className="bg-emerald-700-500/90 dark:bg-emerald-700-600/90  px-4 py-1.5 rounded-xl text-xs font-bold text-white shadow-lg shadow-emerald-600/20 border border-white/20">
+                                        <span className="bg-emerald-700-500/90 dark:bg-emerald-700-600/90  px-4 py-1.5 rounded-xl text-xs font-bold text-white shadow-lg shadow-[#10B981]/20 border border-white/20">
                                             دورة تدريبية
                                         </span>
                                     ) : item.category ? (
-                                        <span className="bg-black/60  px-4 py-1.5 rounded-xl text-xs font-bold text-white shadow-lg shadow-emerald-600/20 border border-white/20">
+                                        <span className="bg-black/60  px-4 py-1.5 rounded-xl text-xs font-bold text-white shadow-lg shadow-[#10B981]/20 border border-white/20">
                                             {item.category === 'ebooks' ? 'كتاب إلكتروني' : item.category}
                                         </span>
                                     ) : null}
 
                                     {(item.isFree || item.price === 0) && (
-                                        <span className="bg-green-500/95  px-4 py-1.5 rounded-xl text-[11px] font-bold tracking-widest text-white shadow-lg shadow-emerald-600/20 border border-white/20 -slow">
+                                        <span className="bg-green-500/95  px-4 py-1.5 rounded-xl text-[11px] font-bold tracking-widest text-white shadow-lg shadow-[#10B981]/20 border border-white/20 -slow">
                                             مجاني
                                         </span>
                                     )}
@@ -73,12 +73,12 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                             </div>
 
                             {/* Details Content Layout */}
-                            <div className="p-6 sm:p-7 flex flex-col flex-1 relative bg-white dark:bg-card-white">
+                            <div className="p-6 sm:p-7 flex flex-col flex-1 relative bg-[#0A0A0A] dark:bg-card-white">
                                 {/* Creator Mini-Profile Header */}
                                 <div className="flex justify-between items-end mb-4 -mt-12">
                                     {/* Avatar pushing up from card content into image */}
                                     {item.user ? (
-                                        <div className="flex flex-col items-start gap-1 p-1 bg-white dark:bg-card-white rounded-xl">
+                                        <div className="flex flex-col items-start gap-1 p-1 bg-[#0A0A0A] dark:bg-card-white rounded-xl">
                                             {item.user.avatar ? (
                                                 <img src={item.user.avatar} className="w-14 h-14 rounded-xl shadow-md border-2 border-white dark:border-gray-800 object-cover" alt="creator" />
                                             ) : (
@@ -94,7 +94,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
 
                                     {/* Small floating rating above price area */}
                                     {(item.averageRating > 0 || item.rating > 0) && (
-                                        <div className="flex items-center gap-1 bg-white dark:bg-gray-800 px-3 py-1.5 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20 text-xs font-bold text-gray-700 dark:text-gray-300">
+                                        <div className="flex items-center gap-1 bg-[#0A0A0A] dark:bg-gray-800 px-3 py-1.5 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20 text-xs font-bold text-gray-700 dark:text-gray-300">
                                             <FiStar className="text-yellow-400 fill-yellow-400" />
                                             <span>{(item.averageRating || item.rating || 0).toFixed(1)}</span>
                                         </div>
@@ -102,12 +102,12 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                 </div>
                                 <span className="text-[11px] text-gray-400 dark:text-gray-500 font-bold mb-2 block">{item.user?.name || 'مبدع مستقل'}</span>
 
-                                <h3 className="font-extrabold text-gray-900 dark:text-white text-lg leading-snug mb-3 line-clamp-2 group-hover:text-emerald-600 transition-colors will-change-transform">
+                                <h3 className="font-extrabold text-white dark:text-white text-lg leading-snug mb-3 line-clamp-2 group-hover:text-[#10B981] transition-colors will-change-transform">
                                     {item.title}
                                 </h3>
 
                                 {item.itemType === 'course' && (
-                                    <div className="flex items-center gap-4 text-xs font-bold text-gray-400 dark:text-gray-500 mb-4 bg-gray-50 dark:bg-gray-800/50 p-2 rounded-lg justify-center w-max">
+                                    <div className="flex items-center gap-4 text-xs font-bold text-gray-400 dark:text-gray-500 mb-4 bg-[#111111] dark:bg-gray-800/50 p-2 rounded-lg justify-center w-max">
                                         <div className="flex items-center gap-1.5"><FiClock className="text-gray-400" /> {item.totalDuration || item.duration || 0} دقيقة</div>
                                     </div>
                                 )}
@@ -121,7 +121,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                 {/* Card Footer: Price & Action */}
                                 <div className="mt-auto pt-5 flex items-center justify-between border-t border-gray-50 dark:border-gray-800/60">
                                     <div>
-                                        <span className="font-bold text-2xl text-emerald-600 dark:text-white">
+                                        <span className="font-bold text-2xl text-[#10B981] dark:text-white">
                                             {item.price === 0 ? (
                                                 <span className="text-green-500">مجاناً</span>
                                             ) : (
@@ -137,7 +137,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                         )}
                                     </div>
 
-                                    <div className="w-12 h-12 rounded-[1rem] bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:bg-emerald-700 group-hover:text-white group-hover:shadow-lg shadow-emerald-600/20 group-hover:shadow-accent/30 transition-all duration-300 transform group-hover:-rotate-6">
+                                    <div className="w-12 h-12 rounded-[1rem] bg-[#111111] dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:bg-emerald-700 group-hover:text-white group-hover:shadow-lg shadow-[#10B981]/20 group-hover:shadow-accent/30 transition-all duration-300 transform group-hover:-rotate-6">
                                         <FiShoppingCart size={20} />
                                     </div>
                                 </div>

@@ -18,7 +18,7 @@ const plans = [
         storage: '1 جيجابايت',
         students: '100 طالب',
         border: 'border-gray-100',
-        btnClass: 'bg-gray-100 text-emerald-600 hover:bg-gray-200',
+        btnClass: 'bg-gray-100 text-[#10B981] hover:bg-gray-200',
         popular: false,
         features: [
             '5 منتجات رقمية نشطة',
@@ -48,7 +48,7 @@ const plans = [
         storage: '15 جيجابايت',
         students: '1000 طالب',
         border: 'border-emerald-600/40',
-        btnClass: 'bg-emerald-700 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 shadow-accent/20',
+        btnClass: 'bg-emerald-700 text-white hover:bg-emerald-700 shadow-lg shadow-[#10B981]/20 shadow-accent/20',
         popular: true,
         features: [
             'أقل عمولة منصة (5% فقط)',
@@ -79,7 +79,7 @@ const plans = [
         storage: '100 جيجابايت',
         students: 'غير محدود',
         border: 'border-ink/20',
-        btnClass: 'bg-emerald-700 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 shadow-ink/10',
+        btnClass: 'bg-emerald-700 text-white hover:bg-emerald-700 shadow-lg shadow-[#10B981]/20 shadow-ink/10',
         popular: false,
         features: [
             'عمولة بيع رمزية (2.5%)',
@@ -107,7 +107,7 @@ const plans = [
         storage: '+1 تيرابايت',
         students: 'غير محدود',
         border: 'border-gray-100',
-        btnClass: 'bg-white text-emerald-600 border border-gray-200 hover:border-ink',
+        btnClass: 'bg-[#0A0A0A] text-[#10B981] border border-gray-200 hover:border-ink',
         popular: false,
         features: [
             'بدون أي عمولة بيع (0% Commission)',

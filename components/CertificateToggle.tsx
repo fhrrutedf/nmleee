@@ -46,12 +46,12 @@ export function CertificateToggle({
         <div className="card p-6">
             <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 p-3 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
-                    <FiAward className="text-2xl text-emerald-600 dark:text-purple-400" />
+                    <FiAward className="text-2xl text-[#10B981] dark:text-purple-400" />
                 </div>
 
                 <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-lg font-semibold text-emerald-600 dark:text-white">
+                        <h3 className="text-lg font-semibold text-[#10B981] dark:text-white">
                             شهادة إتمام الدورة
                         </h3>
 
@@ -67,7 +67,7 @@ export function CertificateToggle({
                             aria-checked={enabled}
                         >
                             <span
-                                className={`inline-block h-6 w-6 transform rounded-xl bg-white shadow-md transition-transform ${enabled ? 'translate-x-7' : 'translate-x-1'
+                                className={`inline-block h-6 w-6 transform rounded-xl bg-[#0A0A0A] shadow-md transition-transform ${enabled ? 'translate-x-7' : 'translate-x-1'
                                     }`}
                             />
                         </button>
@@ -82,7 +82,7 @@ export function CertificateToggle({
 
                     {/* Info Box */}
                     <div className="flex items-start gap-2 p-3 bg-emerald-700-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-                        <FiInfo className="text-emerald-600-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                        <FiInfo className="text-[#10B981]-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
                         <div className="text-xs text-blue-900 dark:text-blue-200">
                             <p className="font-medium mb-1">ملاحظات هامة:</p>
                             <ul className="list-disc list-inside space-y-1 mr-2">

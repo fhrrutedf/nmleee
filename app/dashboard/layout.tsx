@@ -54,7 +54,7 @@ export default function DashboardLayout({
 
     if (status === 'loading') {
         return (
-            <div className="min-h-[100dvh] flex items-center justify-center bg-white">
+            <div className="min-h-[100dvh] flex items-center justify-center bg-[#0A0A0A]">
                 <div className="text-center">
                     <div className="animate-spin rounded-xl h-10 w-10 border-2 border-gray-100 border-t-accent mx-auto"></div>
                 </div>
@@ -100,7 +100,7 @@ export default function DashboardLayout({
     );
 
     return (
-        <div className="min-h-screen bg-white transition-colors duration-300 relative selection:bg-emerald-700/20">
+        <div className="min-h-screen bg-[#0A0A0A] transition-colors duration-300 relative selection:bg-emerald-700/20">
             {sidebarOpen && (
                 <motion.div
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -121,14 +121,14 @@ export default function DashboardLayout({
                         <motion.aside
                             initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
                             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                            className="fixed inset-y-0 right-0 w-72 bg-white z-[70] lg:hidden flex flex-col shadow-lg shadow-emerald-600/20"
+                            className="fixed inset-y-0 right-0 w-72 bg-[#0A0A0A] z-[70] lg:hidden flex flex-col shadow-lg shadow-[#10B981]/20"
                         >
                             <div className="p-8 border-b border-gray-100 flex items-center justify-between">
                                 <div className="flex items-center gap-3">
                                     <div className="w-8 h-8 rounded-lg bg-emerald-700 text-white flex items-center justify-center font-bold text-sm">ت</div>
-                                    <span className="font-bold text-emerald-600">تمالين</span>
+                                    <span className="font-bold text-[#10B981]">تمالين</span>
                                 </div>
-                                <button onClick={() => setSidebarOpen(false)} className="p-2 bg-gray-50 rounded-lg text-gray-400">
+                                <button onClick={() => setSidebarOpen(false)} className="p-2 bg-[#111111] rounded-lg text-gray-400">
                                     <FiX size={20} />
                                 </button>
                             </div>
@@ -140,15 +140,15 @@ export default function DashboardLayout({
                                     const active = isActive || isHome;
                                     return (
                                         <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
-                                            className={`flex items-center gap-4 px-5 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-600/20 shadow-ink/20' : 'text-gray-400 hover:bg-gray-50 hover:text-emerald-600'}`}>
-                                            <item.icon size={18} className={`${active ? 'text-emerald-600' : 'group-hover:text-emerald-600'}`} />
+                                            className={`flex items-center gap-4 px-5 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 shadow-ink/20' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                            <item.icon size={18} className={`${active ? 'text-[#10B981]' : 'group-hover:text-[#10B981]'}`} />
                                             <span className="text-xs font-bold tracking-tight flex-1 text-right">{item.label}</span>
                                         </Link>
                                     );
                                 })}
                             </nav>
 
-                            <div className="p-6 border-t border-gray-100 bg-gray-50/50 space-y-2">
+                            <div className="p-6 border-t border-gray-100 bg-[#111111]/50 space-y-2">
                                 <Link href="/explore" className="flex items-center gap-3 px-5 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
                                     <FiGlobe size={16}/> <span>Marketplace</span>
                                 </Link>
@@ -162,21 +162,21 @@ export default function DashboardLayout({
             </AnimatePresence>
 
             {/* Desktop Sidebar - Institutional Grade */}
-            <aside className="hidden lg:flex fixed inset-y-0 right-0 bg-white border-l border-gray-100 z-50 w-72 flex-col">
+            <aside className="hidden lg:flex fixed inset-y-0 right-0 bg-[#0A0A0A] border-l border-gray-100 z-50 w-72 flex-col">
                 <div className="p-10">
                     <div className="flex items-center gap-3 mb-10">
-                         <div className="w-10 h-10 rounded-xl bg-emerald-700 text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-emerald-600/20 shadow-ink/20">ت</div>
-                         <h1 className="text-xl font-bold text-emerald-600 tracking-tighter">تمالين</h1>
+                         <div className="w-10 h-10 rounded-xl bg-emerald-700 text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-[#10B981]/20 shadow-ink/20">ت</div>
+                         <h1 className="text-xl font-bold text-[#10B981] tracking-tighter">تمالين</h1>
                     </div>
                     
-                    <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em] mb-4 bg-gray-50 px-3 py-1.5 rounded-lg inline-block">{session.user?.name}</p>
+                    <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em] mb-4 bg-[#111111] px-3 py-1.5 rounded-lg inline-block">{session.user?.name}</p>
                     
                     {/* Professional Workspace Switcher */}
-                    <div className="bg-gray-50 p-1 rounded-[1.25rem] border border-gray-100 flex">
-                        <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all ${workspace === 'store' ? 'bg-white text-emerald-600 shadow-lg shadow-emerald-600/20 shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-emerald-600'}`}>
+                    <div className="bg-[#111111] p-1 rounded-[1.25rem] border border-gray-100 flex">
+                        <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all ${workspace === 'store' ? 'bg-[#0A0A0A] text-[#10B981] shadow-lg shadow-[#10B981]/20 shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-[#10B981]'}`}>
                              المتجر
                         </button>
-                        <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all ${workspace === 'academy' ? 'bg-white text-emerald-600 shadow-lg shadow-emerald-600/20 shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-emerald-600'}`}>
+                        <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all ${workspace === 'academy' ? 'bg-[#0A0A0A] text-[#10B981] shadow-lg shadow-[#10B981]/20 shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-[#10B981]'}`}>
                              الأكاديمية
                         </button>
                     </div>
@@ -189,16 +189,16 @@ export default function DashboardLayout({
                         const active = isActive || isHome;
                         return (
                             <Link key={item.href} href={item.href}
-                                className={`flex items-center gap-4 px-6 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-600/20 shadow-ink/20 transform -translate-y-0.5' : 'text-gray-400 hover:bg-gray-50 hover:text-emerald-600'}`}>
-                                <item.icon size={18} className={`transition-transform duration-500 ${active ? 'text-emerald-600' : 'group-hover:scale-110 group-hover:text-emerald-600'}`} />
+                                className={`flex items-center gap-4 px-6 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 shadow-ink/20 transform -translate-y-0.5' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                <item.icon size={18} className={`transition-transform duration-500 ${active ? 'text-[#10B981]' : 'group-hover:scale-110 group-hover:text-[#10B981]'}`} />
                                 <span className={`text-xs font-bold tracking-tight flex-1 text-right ${active ? 'text-white' : ''}`}>{item.label}</span>
                             </Link>
                         );
                     })}
                 </nav>
 
-                <div className="p-6 border-t border-gray-50 bg-gray-50/20 space-y-2">
-                    <Link href="/explore" target="_blank" className="flex items-center gap-4 px-6 py-4 rounded-xl text-gray-400 hover:bg-white hover:text-emerald-600 border border-transparent hover:border-gray-100 transition-all text-[10px] font-bold uppercase tracking-widest">
+                <div className="p-6 border-t border-gray-50 bg-[#111111]/20 space-y-2">
+                    <Link href="/explore" target="_blank" className="flex items-center gap-4 px-6 py-4 rounded-xl text-gray-400 hover:bg-[#0A0A0A] hover:text-[#10B981] border border-transparent hover:border-gray-100 transition-all text-[10px] font-bold uppercase tracking-widest">
                         <FiGlobe size={18} /><span>Marketplace</span>
                     </Link>
                     <button onClick={() => signOut({ callbackUrl: '/' })} className="flex items-center gap-4 px-6 py-4 rounded-xl text-red-400 hover:bg-red-50 hover:text-red-600 transition-all text-[10px] font-bold uppercase tracking-widest">
@@ -211,7 +211,7 @@ export default function DashboardLayout({
             <div className="lg:mr-72 min-h-screen relative flex flex-col min-w-0">
                 <header className="bg-white/90  border-b border-gray-50 sticky top-0 z-30 w-full transition-all">
                     <div className="px-8 h-20 flex items-center justify-between">
-                        <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-emerald-600 p-3 bg-gray-50 rounded-xl hover:bg-gray-100">
+                        <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-[#10B981] p-3 bg-[#111111] rounded-xl hover:bg-gray-100">
                             <FiMenu size={22} />
                         </button>
 
@@ -220,9 +220,9 @@ export default function DashboardLayout({
                             <Link
                                 href={`/${(session.user as any)?.username}`}
                                 target="_blank"
-                                className="hidden sm:flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-emerald-600 px-6 py-3 border border-gray-100 rounded-xl transition-all bg-white hover:shadow-lg shadow-emerald-600/20 hover:shadow-gray-100/50"
+                                className="hidden sm:flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-[#10B981] px-6 py-3 border border-gray-100 rounded-xl transition-all bg-[#0A0A0A] hover:shadow-lg shadow-[#10B981]/20 hover:shadow-gray-100/50"
                             >
-                                <FiExternalLink size={14} className="text-emerald-600" />
+                                <FiExternalLink size={14} className="text-[#10B981]" />
                                 <span>Preview Store</span>
                             </Link>
                         </div>

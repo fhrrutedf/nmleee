@@ -59,7 +59,7 @@ export default function CertificatePage() {
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center min-h-screen bg-gray-50">
+            <div className="flex items-center justify-center min-h-screen bg-[#111111]">
                 <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-ink"></div>
             </div>
         );
@@ -67,12 +67,12 @@ export default function CertificatePage() {
 
     if (error || !certificate) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div className="bg-white rounded-lg shadow-md p-8 text-center max-w-md">
+            <div className="min-h-screen bg-[#111111] flex items-center justify-center">
+                <div className="bg-[#0A0A0A] rounded-lg shadow-md p-8 text-center max-w-md">
                     <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-xl mb-4">
                         <FiX className="text-red-600" size={32} />
                     </div>
-                    <h1 className="text-2xl font-bold text-gray-900 mb-2">غير موجود</h1>
+                    <h1 className="text-2xl font-bold text-white mb-2">غير موجود</h1>
                     <p className="text-gray-600">{error || 'الشهادة غير موجودة'}</p>
                 </div>
             </div>
@@ -80,17 +80,17 @@ export default function CertificatePage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12">
+        <div className="min-h-screen bg-[#111111] py-12">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Verification Badge */}
-                <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+                <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6 mb-6">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div className="flex items-center justify-center w-12 h-12 bg-green-100 rounded-xl">
                                 <FiCheck className="text-green-600" size={24} />
                             </div>
                             <div>
-                                <h2 className="text-lg font-bold text-gray-900">شهادة معتمدة</h2>
+                                <h2 className="text-lg font-bold text-white">شهادة معتمدة</h2>
                                 <p className="text-sm text-gray-600">
                                     رقم الشهادة: {certificate.certificateNumber}
                                 </p>
@@ -107,7 +107,7 @@ export default function CertificatePage() {
                 </div>
 
                 {/* Certificate Preview */}
-                <div className="bg-white rounded-lg shadow-md p-8">
+                <div className="bg-[#0A0A0A] rounded-lg shadow-md p-8">
                     <CertificatePreview
                         studentName={certificate.studentName}
                         courseName={certificate.courseName}
@@ -122,24 +122,24 @@ export default function CertificatePage() {
                 </div>
 
                 {/* Certificate Details */}
-                <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-                    <h3 className="text-lg font-bold text-gray-900 mb-4">تفاصيل الشهادة</h3>
+                <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6 mt-6">
+                    <h3 className="text-lg font-bold text-white mb-4">تفاصيل الشهادة</h3>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <p className="text-sm text-gray-600">اسم الطالب</p>
-                            <p className="font-semibold text-gray-900">{certificate.studentName}</p>
+                            <p className="font-semibold text-white">{certificate.studentName}</p>
                         </div>
                         <div>
                             <p className="text-sm text-gray-600">اسم الدورة</p>
-                            <p className="font-semibold text-gray-900">{certificate.courseName}</p>
+                            <p className="font-semibold text-white">{certificate.courseName}</p>
                         </div>
                         <div>
                             <p className="text-sm text-gray-600">المدرب</p>
-                            <p className="font-semibold text-gray-900">{certificate.course.user.name}</p>
+                            <p className="font-semibold text-white">{certificate.course.user.name}</p>
                         </div>
                         <div>
                             <p className="text-sm text-gray-600">تاريخ الإصدار</p>
-                            <p className="font-semibold text-gray-900">
+                            <p className="font-semibold text-white">
                                 {new Date(certificate.issueDate).toLocaleDateString('ar-EG')}
                             </p>
                         </div>

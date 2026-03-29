@@ -26,7 +26,7 @@ export function ThemeToggle() {
             aria-label="Toggle Dark Mode"
         >
             <motion.div
-                className="absolute left-1 w-5 h-5 bg-white rounded-xl shadow-md flex items-center justify-center transform"
+                className="absolute left-1 w-5 h-5 bg-[#0A0A0A] rounded-xl shadow-md flex items-center justify-center transform"
                 animate={{
                     x: isDark ? 20 : 0,
                     backgroundColor: isDark ? '#1F2937' : '#FFFFFF'

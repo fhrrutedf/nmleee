@@ -172,19 +172,19 @@ export default function FileUploader({
                 className={`w-full border-2 border-dashed rounded-xl p-4 sm:p-8 transition-all cursor-pointer flex flex-col items-center justify-center min-h-[140px] sm:min-h-[180px] overflow-hidden
                 ${isDragActive
                         ? "border-emerald-600 bg-emerald-700/5"
-                        : "border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-card-white hover:bg-gray-100 dark:hover:bg-gray-800"
+                        : "border-gray-300 dark:border-gray-700 bg-[#111111] dark:bg-card-white hover:bg-gray-100 dark:hover:bg-gray-800"
                     }`}
             >
                 <input {...getInputProps()} />
-                <div className="w-10 h-10 sm:w-14 sm:h-14 bg-white dark:bg-bg-light shadow-lg shadow-emerald-600/20 rounded-xl flex items-center justify-center mb-2 sm:mb-3 shrink-0">
-                    <FiUploadCloud className="text-xl sm:text-2xl text-emerald-600" />
+                <div className="w-10 h-10 sm:w-14 sm:h-14 bg-[#0A0A0A] dark:bg-bg-light shadow-lg shadow-[#10B981]/20 rounded-xl flex items-center justify-center mb-2 sm:mb-3 shrink-0">
+                    <FiUploadCloud className="text-xl sm:text-2xl text-[#10B981]" />
                 </div>
-                <h4 className="text-sm sm:text-base font-bold text-emerald-600 dark:text-white mb-1 text-center w-full">
+                <h4 className="text-sm sm:text-base font-bold text-[#10B981] dark:text-white mb-1 text-center w-full">
                     {isDragActive ? "أفلت الملفات هنا..." : "اسحب وأفلت أو اضغط للاختيار"}
                 </h4>
                 <p className="text-xs sm:text-sm text-text-muted text-center w-full px-2">
                     PDF، صور، فيديو، ZIP
-                    {isPrivate && <span className="block mt-1 text-emerald-600 flex items-center justify-center gap-1"><FiLock size={12} /> حماية الروابط مفعلة</span>}
+                    {isPrivate && <span className="block mt-1 text-[#10B981] flex items-center justify-center gap-1"><FiLock size={12} /> حماية الروابط مفعلة</span>}
                 </p>
 
                 {maxFiles > 1 && (
@@ -216,7 +216,7 @@ export default function FileUploader({
                             key={index}
                             dir="rtl"
                             style={{ position: 'relative', overflow: 'hidden', width: '100%', display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', background: 'var(--card-white)', borderRadius: '12px', border: '1px solid #f3f4f6' }}
-                            className="shadow-lg shadow-emerald-600/20 dark:border-gray-800"
+                            className="shadow-lg shadow-[#10B981]/20 dark:border-gray-800"
                         >
                             {/* Progress Background */}
                             {upload.status === "uploading" && (
@@ -252,7 +252,7 @@ export default function FileUploader({
                                         fontSize: '0.8125rem',
                                         fontWeight: 600,
                                     }}
-                                    className="text-gray-900 dark:text-white"
+                                    className="text-white dark:text-white"
                                 >
                                     {truncateFilename(upload.file.name)}
                                 </div>
@@ -263,7 +263,7 @@ export default function FileUploader({
                                         {(upload.file.size / (1024 * 1024)).toFixed(1)} MB
                                     </span>
                                     {upload.status === "uploading" && (
-                                        <span className="text-emerald-600 font-bold flex-shrink-0">{upload.progress}%</span>
+                                        <span className="text-[#10B981] font-bold flex-shrink-0">{upload.progress}%</span>
                                     )}
                                     {upload.status === "success" && (
                                         <span className="text-green-500 flex items-center gap-1 font-medium flex-shrink-0">

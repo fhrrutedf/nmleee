@@ -45,40 +45,40 @@ export default function MyAppointmentsPage() {
     const cancelled = appointments.filter((a: any) => a.status === 'cancelled');
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12">
+        <div className="min-h-screen bg-[#111111] py-12">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-emerald-600 mb-2">مواعيدي</h1>
+                    <h1 className="text-3xl font-bold text-[#10B981] mb-2">مواعيدي</h1>
                     <p className="text-gray-600">جميع المواعيد التي حجزتها</p>
                 </div>
 
                 {/* Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-white border border-gray-200 rounded-xl p-6">
+                    <div className="bg-[#0A0A0A] border border-gray-200 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">القادمة</p>
-                                <p className="text-3xl font-bold mt-1 text-emerald-600">{upcoming.length}</p>
+                                <p className="text-3xl font-bold mt-1 text-[#10B981]">{upcoming.length}</p>
                             </div>
                             <FiCalendar className="text-4xl text-gray-300" />
                         </div>
                     </div>
 
-                    <div className="bg-white border border-gray-200 rounded-xl p-6">
+                    <div className="bg-[#0A0A0A] border border-gray-200 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">المكتملة</p>
-                                <p className="text-3xl font-bold mt-1 text-emerald-600">{completed.length}</p>
+                                <p className="text-3xl font-bold mt-1 text-[#10B981]">{completed.length}</p>
                             </div>
                             <FiCheckCircle className="text-4xl text-gray-300" />
                         </div>
                     </div>
 
-                    <div className="bg-white border border-gray-200 rounded-xl p-6">
+                    <div className="bg-[#0A0A0A] border border-gray-200 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">الملغاة</p>
-                                <p className="text-3xl font-bold mt-1 text-emerald-600">{cancelled.length}</p>
+                                <p className="text-3xl font-bold mt-1 text-[#10B981]">{cancelled.length}</p>
                             </div>
                             <FiX className="text-4xl text-gray-300" />
                         </div>
@@ -87,7 +87,7 @@ export default function MyAppointmentsPage() {
 
                 {/* Appointments List */}
                 {appointments.length === 0 ? (
-                    <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-12 text-center">
+                    <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-12 text-center">
                         <FiCalendar className="text-6xl text-gray-300 mx-auto mb-4" />
                         <h3 className="text-2xl font-bold mb-2">لا توجد مواعيد</h3>
                         <p className="text-gray-600 mb-6">لم تحجز أي مواعيد بعد</p>
@@ -98,7 +98,7 @@ export default function MyAppointmentsPage() {
                 ) : (
                     <div className="space-y-6">
                         {appointments.map((appointment: any) => (
-                            <div key={appointment.id} className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6 hover:shadow-md transition-shadow">
+                            <div key={appointment.id} className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-6 hover:shadow-md transition-shadow">
                                 <div className="flex items-start justify-between mb-4">
                                     <div>
                                         <h3 className="text-xl font-bold mb-2">{appointment.title || 'موعد'}</h3>
@@ -129,7 +129,7 @@ export default function MyAppointmentsPage() {
                                 </div>
 
                                 {appointment.notes && (
-                                    <p className="text-gray-600 text-sm mb-4 p-3 bg-gray-50 rounded-lg">
+                                    <p className="text-gray-600 text-sm mb-4 p-3 bg-[#111111] rounded-lg">
                                         {appointment.notes}
                                     </p>
                                 )}

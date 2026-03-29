@@ -96,30 +96,30 @@ export default function AdminStudentsPage() {
         <div className="max-w-4xl mx-auto space-y-6 pb-12">
             {/* Header */}
             <div>
-                <h1 className="text-2xl font-bold text-emerald-600 dark:text-white flex items-center gap-2">
-                    <FiUsers className="text-emerald-600" /> الطلاب
+                <h1 className="text-2xl font-bold text-[#10B981] dark:text-white flex items-center gap-2">
+                    <FiUsers className="text-[#10B981]" /> الطلاب
                 </h1>
                 <p className="text-text-muted text-sm mt-1">عرض الطلاب حسب المدرب (شجرة)</p>
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                <div className="card">
+                <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
                     <p className="text-xs text-text-muted font-bold uppercase">إجمالي الطلاب</p>
-                    <p className="text-2xl font-bold text-emerald-600 mt-1">{totalStudents}</p>
+                    <p className="text-2xl font-bold text-[#10B981] mt-1">{totalStudents}</p>
                 </div>
-                <div className="card">
+                <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
                     <p className="text-xs text-text-muted font-bold uppercase">المدربين</p>
-                    <p className="text-2xl font-bold text-emerald-600 dark:text-white mt-1">{trainers.length}</p>
+                    <p className="text-2xl font-bold text-[#10B981] dark:text-white mt-1">{trainers.length}</p>
                 </div>
-                <div className="card">
+                <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
                     <p className="text-xs text-text-muted font-bold uppercase">الكورسات النشطة</p>
                     <p className="text-2xl font-bold text-green-600 mt-1">{trainers.reduce((s, t) => s + t.courses.length, 0)}</p>
                 </div>
             </div>
 
             {/* Search */}
-            <div className="card">
+            <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
                 <div className="relative">
                     <FiSearch className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400" size={16} />
                     <input
@@ -149,24 +149,24 @@ export default function AdminStudentsPage() {
                             {/* Trainer Card (clickable) */}
                             <button
                                 onClick={() => toggleTrainer(trainer.id)}
-                                className="w-full flex items-center justify-between px-6 py-5 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                                className="w-full flex items-center justify-between px-6 py-5 hover:bg-[#111111] dark:hover:bg-gray-800/50 transition-colors"
                             >
                                 <div className="flex items-center gap-4">
                                     <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center overflow-hidden">
                                         {trainer.avatar ? (
                                             <img src={trainer.avatar} alt="" className="w-full h-full object-cover" />
                                         ) : (
-                                            <FiUser size={20} className="text-emerald-600" />
+                                            <FiUser size={20} className="text-[#10B981]" />
                                         )}
                                     </div>
                                     <div className="text-right">
-                                        <p className="font-bold text-emerald-600 dark:text-white">{trainer.name || 'مدرب'}</p>
+                                        <p className="font-bold text-[#10B981] dark:text-white">{trainer.name || 'مدرب'}</p>
                                         <p className="text-xs text-text-muted">@{trainer.username} · {trainer.email}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <div className="text-right">
-                                        <p className="text-2xl font-bold text-emerald-600">{trainer.totalStudents}</p>
+                                        <p className="text-2xl font-bold text-[#10B981]">{trainer.totalStudents}</p>
                                         <p className="text-[10px] text-text-muted uppercase font-bold">طالب</p>
                                     </div>
                                     <div className="flex items-center gap-2 text-xs text-text-muted">
@@ -191,7 +191,7 @@ export default function AdminStudentsPage() {
                                         <div className="overflow-x-auto">
                                             <table className="w-full text-sm">
                                                 <thead>
-                                                    <tr className="bg-gray-50 dark:bg-gray-900/50">
+                                                    <tr className="bg-[#111111] dark:bg-gray-900/50">
                                                         <th className="text-right px-4 py-3 text-xs font-bold text-text-muted">الطالب</th>
                                                         <th className="text-right px-4 py-3 text-xs font-bold text-text-muted">الكورس</th>
                                                         <th className="text-right px-4 py-3 text-xs font-bold text-text-muted">التقدم</th>
@@ -200,9 +200,9 @@ export default function AdminStudentsPage() {
                                                 </thead>
                                                 <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                                                     {(trainerStudents[trainer.id] || []).map(student => (
-                                                        <tr key={student.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                                                        <tr key={student.id} className="hover:bg-[#111111] dark:hover:bg-gray-800/50">
                                                             <td className="px-4 py-3">
-                                                                <p className="font-bold text-emerald-600 dark:text-white text-xs">{student.name}</p>
+                                                                <p className="font-bold text-[#10B981] dark:text-white text-xs">{student.name}</p>
                                                                 <p className="text-[11px] text-text-muted">{student.email}</p>
                                                             </td>
                                                             <td className="px-4 py-3 text-xs text-gray-600 dark:text-gray-300">{student.courseTitle}</td>

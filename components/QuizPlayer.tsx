@@ -70,7 +70,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
 
     if (submitted && result) {
         return (
-            <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-8 text-center">
+            <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-8 text-center">
                 {result.isPassed ? (
                     <FiCheckCircle className="mx-auto text-6xl text-green-500 mb-4" />
                 ) : (
@@ -81,7 +81,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                     {result.isPassed ? 'تهانينا! لقد اجتزت الاختبار' : 'للأسف، لم تجتز الاختبار'}
                 </h2>
 
-                <div className="text-4xl font-bold text-emerald-600 mb-4">
+                <div className="text-4xl font-bold text-[#10B981] mb-4">
                     {result.score.toFixed(1)}%
                 </div>
 
@@ -101,7 +101,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
 
     if (!quiz.questions || quiz.questions.length === 0) {
         return (
-            <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-12 text-center">
+            <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-12 text-center">
                 <FiAlertCircle className="mx-auto text-6xl text-orange-500 mb-4" />
                 <h2 className="text-2xl font-bold mb-4">اختبار بدون أسئلة</h2>
                 <p className="text-gray-500 mb-8">عذراً، لم يتم إضافة أسئلة لهذا الاختبار بعد.</p>
@@ -119,11 +119,11 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
 
     if (!question) return null;
     return (
-        <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden">
+        <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden">
             {/* Header */}
-            <div className="bg-gray-50 p-4 border-b flex justify-between items-center">
+            <div className="bg-[#111111] p-4 border-b flex justify-between items-center">
                 <div>
-                    <h2 className="font-bold text-gray-900">{quiz.title}</h2>
+                    <h2 className="font-bold text-white">{quiz.title}</h2>
                     <p className="text-sm text-gray-500">
                         سؤال {currentQuestion + 1} من {quiz.questions.length}
                     </p>
@@ -148,7 +148,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                             key={idx}
                             className={`flex items-center gap-3 p-4 border rounded-lg cursor-pointer transition-colors ${answers[currentQuestion] === idx
                                     ? 'bg-indigo-50 border-ink ring-1 ring-ink'
-                                    : 'hover:bg-gray-50 border-gray-200'
+                                    : 'hover:bg-[#111111] border-gray-200'
                                 }`}
                         >
                             <input
@@ -156,7 +156,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                                 name={`q-${currentQuestion}`}
                                 checked={answers[currentQuestion] === idx}
                                 onChange={() => handleAnswer(idx)}
-                                className="w-4 h-4 text-emerald-600"
+                                className="w-4 h-4 text-[#10B981]"
                             />
                             <span>{option}</span>
                         </label>
@@ -167,7 +167,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                             <label
                                 className={`flex-1 flex items-center justify-center gap-2 p-4 border rounded-lg cursor-pointer transition-colors ${answers[currentQuestion] === true
                                         ? 'bg-indigo-50 border-ink ring-1 ring-ink'
-                                        : 'hover:bg-gray-50 border-gray-200'
+                                        : 'hover:bg-[#111111] border-gray-200'
                                     }`}
                             >
                                 <input
@@ -182,7 +182,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                             <label
                                 className={`flex-1 flex items-center justify-center gap-2 p-4 border rounded-lg cursor-pointer transition-colors ${answers[currentQuestion] === false
                                         ? 'bg-indigo-50 border-ink ring-1 ring-ink'
-                                        : 'hover:bg-gray-50 border-gray-200'
+                                        : 'hover:bg-[#111111] border-gray-200'
                                     }`}
                             >
                                 <input
@@ -200,7 +200,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
             </div>
 
             {/* Footer Navigation */}
-            <div className="p-4 bg-gray-50 border-t flex justify-between">
+            <div className="p-4 bg-[#111111] border-t flex justify-between">
                 <button
                     onClick={() => setCurrentQuestion(prev => Math.max(0, prev - 1))}
                     disabled={currentQuestion === 0}

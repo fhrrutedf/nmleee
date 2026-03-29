@@ -41,7 +41,7 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
             className="block group"
         >
             <div
-                className="relative rounded-xl overflow-hidden border-2 transition-all duration-300 hover:shadow-lg shadow-emerald-600/20 hover:-translate-y-1"
+                className="relative rounded-xl overflow-hidden border-2 transition-all duration-300 hover:shadow-lg shadow-[#10B981]/20 hover:-translate-y-1"
                 style={{
                     borderColor: `${brandColor}60`,
                     background: `linear-gradient(135deg, ${brandColor}08, ${brandColor}03)`,
@@ -57,7 +57,7 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
                 {/* Savings Badge */}
                 {discountPct > 0 && (
                     <div
-                        className="absolute top-4 start-4 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-lg shadow-emerald-600/20 flex items-center gap-1 z-10"
+                        className="absolute top-4 start-4 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-lg shadow-[#10B981]/20 flex items-center gap-1 z-10"
                         style={{ background: `linear-gradient(135deg, #10b981, #059669)` }}
                     >
                         <FiZap size={11} />
@@ -67,7 +67,7 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
 
                 {/* Bundle Badge */}
                 <div
-                    className="absolute top-4 end-4 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-lg shadow-emerald-600/20 flex items-center gap-1 z-10"
+                    className="absolute top-4 end-4 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-lg shadow-[#10B981]/20 flex items-center gap-1 z-10"
                     style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}
                 >
                     <FiPackage size={11} />
@@ -82,7 +82,7 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
                                 productImages.map((img, i) => (
                                     <div
                                         key={i}
-                                        className="absolute w-20 h-20 rounded-xl overflow-hidden border-2 border-white shadow-lg shadow-emerald-600/20"
+                                        className="absolute w-20 h-20 rounded-xl overflow-hidden border-2 border-white shadow-lg shadow-[#10B981]/20"
                                         style={{
                                             insetInlineEnd: `${i * 40}px`,
                                             zIndex: productImages.length - i,
@@ -109,7 +109,7 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
                     </p>
 
                     {/* Title */}
-                    <h3 className="text-center font-bold text-gray-900 dark:text-white text-base leading-snug mb-2 line-clamp-2">
+                    <h3 className="text-center font-bold text-white dark:text-white text-base leading-snug mb-2 line-clamp-2">
                         {bundle.title}
                     </h3>
 

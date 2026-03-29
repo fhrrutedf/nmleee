@@ -82,8 +82,8 @@ export default function CourseQuizzesPage() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-emerald-600 dark:text-white flex items-center gap-2">
-                        <FiCheckSquare className="text-emerald-600" /> اختبارات الدورة
+                    <h1 className="text-2xl font-bold text-[#10B981] dark:text-white flex items-center gap-2">
+                        <FiCheckSquare className="text-[#10B981]" /> اختبارات الدورة
                     </h1>
                     <p className="text-text-muted text-sm mt-1">إدارة اختبارات وتقييمات الكورس</p>
                 </div>
@@ -97,17 +97,17 @@ export default function CourseQuizzesPage() {
 
             {/* Stats */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                <div className="card">
+                <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
                     <p className="text-xs text-text-muted font-bold uppercase">إجمالي الاختبارات</p>
-                    <p className="text-2xl font-bold text-emerald-600 mt-1">{quizzes.length}</p>
+                    <p className="text-2xl font-bold text-[#10B981] mt-1">{quizzes.length}</p>
                 </div>
-                <div className="card">
+                <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
                     <p className="text-xs text-text-muted font-bold uppercase">منشور</p>
                     <p className="text-2xl font-bold text-green-600 mt-1">{quizzes.filter(q => q.isPublished).length}</p>
                 </div>
-                <div className="card">
+                <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
                     <p className="text-xs text-text-muted font-bold uppercase">إجمالي الأسئلة</p>
-                    <p className="text-2xl font-bold text-emerald-600 mt-1">
+                    <p className="text-2xl font-bold text-[#10B981] mt-1">
                         {quizzes.reduce((sum, q) => {
                             const questions = Array.isArray(q.questions) ? q.questions : [];
                             return sum + questions.length;
@@ -139,7 +139,7 @@ export default function CourseQuizzesPage() {
                             <div className="flex items-center justify-between p-5">
                                 <div className="flex-1">
                                     <div className="flex items-center gap-3">
-                                        <h3 className="font-bold text-emerald-600 dark:text-white">{quiz.title}</h3>
+                                        <h3 className="font-bold text-[#10B981] dark:text-white">{quiz.title}</h3>
                                         {quiz.isPublished ? (
                                             <span className="px-2 py-0.5 text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-xl flex items-center gap-1">
                                                 <FiEye size={10} /> منشور

@@ -13,7 +13,7 @@ export default function CancelPage() {
                         <div className="inline-flex items-center justify-center w-24 h-24 bg-red-100 rounded-xl mb-4">
                             <FiX className="text-5xl text-red-600" />
                         </div>
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                        <h1 className="text-3xl font-bold text-white mb-2">
                             تم إلغاء العملية
                         </h1>
                         <p className="text-gray-600">

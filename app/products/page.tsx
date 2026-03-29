@@ -37,10 +37,10 @@ export default function ProductsPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-50">
+            <div className="min-h-screen bg-[#111111]">
                 <div className="max-w-7xl mx-auto px-4 py-12">
                     <div className="text-center mb-12">
-                        <h1 className="text-3xl font-bold text-emerald-600 mb-4">جميع المنتجات</h1>
+                        <h1 className="text-3xl font-bold text-[#10B981] mb-4">جميع المنتجات</h1>
                         <p className="text-xl text-gray-600">اكتشف منتجاتنا الرقمية المميزة</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -54,16 +54,16 @@ export default function ProductsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-[#111111]">
             <div className="max-w-7xl mx-auto px-4 py-12">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h1 className="text-3xl font-bold text-emerald-600 mb-4">جميع المنتجات</h1>
+                    <h1 className="text-3xl font-bold text-[#10B981] mb-4">جميع المنتجات</h1>
                     <p className="text-xl text-gray-600">اكتشف منتجاتنا الرقمية المميزة</p>
                 </div>
 
                 {/* Search & Filter */}
-                <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6 mb-8">
+                <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-6 mb-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="relative">
                             <FiSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -108,7 +108,7 @@ export default function ProductsPage() {
                             <Link
                                 key={product.id}
                                 href={`/product/${product.id}`}
-                                className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden hover:shadow-lg shadow-emerald-600/20 transition-shadow group"
+                                className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden hover:shadow-lg shadow-[#10B981]/20 transition-shadow group"
                             >
                                 {product.image ? (
                                     <img
@@ -129,7 +129,7 @@ export default function ProductsPage() {
                                         </span>
                                     )}
 
-                                    <h3 className="font-bold text-lg mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">
+                                    <h3 className="font-bold text-lg mb-2 line-clamp-2 group-hover:text-[#10B981] transition-colors">
                                         {product.title}
                                     </h3>
 
@@ -149,7 +149,7 @@ export default function ProductsPage() {
                                                 />
                                             ))}
                                         </div>
-                                        <span className="text-2xl font-bold text-emerald-600">
+                                        <span className="text-2xl font-bold text-[#10B981]">
                                             {product.price.toFixed(0)} $
                                         </span>
                                     </div>

@@ -73,9 +73,9 @@ export default function FeaturesPage() {
     ];
 
     return (
-        <div ref={containerRef} className="min-h-screen bg-white overflow-hidden selection:bg-emerald-700/20">
+        <div ref={containerRef} className="min-h-screen bg-[#0A0A0A] overflow-hidden selection:bg-emerald-700/20">
             {/* High-Performance Corporate Hero */}
-            <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-white py-20">
+            <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-[#0A0A0A] py-20">
                 <div className="absolute inset-0 z-0">
                     <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-700/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
                 </div>
@@ -86,11 +86,11 @@ export default function FeaturesPage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-emerald-600 shadow-lg shadow-emerald-600/20">
+                        <div className="inline-flex items-center gap-2 bg-[#111111] border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-[#10B981] shadow-lg shadow-[#10B981]/20">
                             Infrastructure for Creators
                         </div>
-                        <h1 className="text-5xl md:text-8xl font-bold text-emerald-600 mb-10 tracking-tighter leading-[1.05]">
-                            بنية تحتية <br/> <span className="text-emerald-600 underline underline-offset-[12px] decoration-accent/10">بلا حدود</span>
+                        <h1 className="text-5xl md:text-8xl font-bold text-[#10B981] mb-10 tracking-tighter leading-[1.05]">
+                            بنية تحتية <br/> <span className="text-[#10B981] underline underline-offset-[12px] decoration-accent/10">بلا حدود</span>
                         </h1>
                         <p className="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto font-bold leading-relaxed">
                             لقد قمنا ببناء كافة الأدوات المعقدة لكي تتمكن أنت من التركيز على صناعة المحتوى والبيع بكل سهولة.
@@ -100,7 +100,7 @@ export default function FeaturesPage() {
             </section>
 
             {/* Features Clean Grid */}
-            <section className="py-24 md:py-40 relative z-20 bg-white -mt-16 rounded-t-[3rem] border-t border-gray-100">
+            <section className="py-24 md:py-40 relative z-20 bg-[#0A0A0A] -mt-16 rounded-t-[3rem] border-t border-gray-100">
                 <div className="max-w-7xl mx-auto px-6">
                     <motion.div
                         variants={staggerContainer}
@@ -113,9 +113,9 @@ export default function FeaturesPage() {
                             <motion.div
                                 key={idx}
                                 variants={fadeInUp}
-                                className="group p-10 bg-gray-50 border border-gray-100 rounded-[2.5rem] hover:bg-emerald-700 hover:text-white transition-all duration-500 cursor-default"
+                                className="group p-10 bg-[#111111] border border-gray-100 rounded-[2.5rem] hover:bg-emerald-700 hover:text-white transition-all duration-500 cursor-default"
                             >
-                                <div className="w-14 h-14 bg-white border border-gray-100 rounded-xl flex items-center justify-center text-emerald-600 mb-10 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-transparent transition-all shadow-lg shadow-emerald-600/20">
+                                <div className="w-14 h-14 bg-[#0A0A0A] border border-gray-100 rounded-xl flex items-center justify-center text-[#10B981] mb-10 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-transparent transition-all shadow-lg shadow-[#10B981]/20">
                                     {feature.icon}
                                 </div>
 
@@ -124,7 +124,7 @@ export default function FeaturesPage() {
                                     {feature.description}
                                 </p>
                                 
-                                <div className="mt-10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-emerald-600 group-hover:text-white opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                                <div className="mt-10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-[#10B981] group-hover:text-white opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500">
                                     <span>Learn more</span>
                                     <FiArrowLeft className="group-hover:-translate-x-1 transition-transform" />
                                 </div>
@@ -135,20 +135,20 @@ export default function FeaturesPage() {
             </section>
 
             {/* Core Statistics / Trust Section */}
-            <section className="py-24 bg-white border-y border-gray-50 flex overflow-hidden">
+            <section className="py-24 bg-[#0A0A0A] border-y border-gray-50 flex overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6 w-full">
                    <div className="grid grid-cols-1 md:grid-cols-3 gap-16 items-center">
                         <div>
-                            <h2 className="text-4xl font-bold text-emerald-600 tracking-tighter mb-4">أداء لا يتوقف.</h2>
+                            <h2 className="text-4xl font-bold text-[#10B981] tracking-tighter mb-4">أداء لا يتوقف.</h2>
                             <p className="text-gray-400 font-bold">بنية تحتية موزعة عالمياً تضمن استجابة متجرك في أقل من 200ms.</p>
                         </div>
                         <div className="md:col-span-2 grid grid-cols-2 gap-8">
                              <div className="p-8 border-l border-gray-100">
-                                <div className="text-6xl font-bold text-emerald-600 font-inter tracking-tighter mb-2">99.9%</div>
+                                <div className="text-6xl font-bold text-[#10B981] font-inter tracking-tighter mb-2">99.9%</div>
                                 <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Uptime Guarantee</div>
                              </div>
                              <div className="p-8 border-l border-gray-100">
-                                <div className="text-6xl font-bold text-emerald-600 font-inter tracking-tighter mb-2">24/7</div>
+                                <div className="text-6xl font-bold text-[#10B981] font-inter tracking-tighter mb-2">24/7</div>
                                 <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Active Monitoring</div>
                              </div>
                         </div>
@@ -174,7 +174,7 @@ export default function FeaturesPage() {
                         {[1, 2].map((set) => (
                             <div key={set} className="flex gap-12 items-center">
                                 {['Stripe', 'PayPal', 'Mailchimp', 'Zapier', 'Slack', 'Analytics', 'Binance', 'Zoom', 'Discord'].map((item, idx) => (
-                                    <div key={idx} className="text-4xl font-bold font-inter tracking-tighter text-white border-2 border-white/5 px-12 py-6 rounded-xl hover:bg-white hover:text-emerald-600 transition-all cursor-default">
+                                    <div key={idx} className="text-4xl font-bold font-inter tracking-tighter text-white border-2 border-white/5 px-12 py-6 rounded-xl hover:bg-[#0A0A0A] hover:text-[#10B981] transition-all cursor-default">
                                         {item}
                                     </div>
                                 ))}
@@ -185,18 +185,18 @@ export default function FeaturesPage() {
             </section>
 
             {/* High-End Refined CTA */}
-            <section className="py-40 bg-white">
+            <section className="py-40 bg-[#0A0A0A]">
                 <div className="max-w-5xl mx-auto px-6 text-center">
-                   <div className="bg-emerald-700 rounded-[3.5rem] p-16 md:p-32 border border-white/5 relative overflow-hidden group shadow-lg shadow-emerald-600/20 shadow-ink/20">
+                   <div className="bg-emerald-700 rounded-[3.5rem] p-16 md:p-32 border border-white/5 relative overflow-hidden group shadow-lg shadow-[#10B981]/20 shadow-ink/20">
                         <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-700/10 rounded-xl blur-[120px]"></div>
                         <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tighter mb-12 relative z-10 leading-[0.95]">
-                            ابدأ ببناء <br/> <span className="text-emerald-600">إمبراطوريتك.</span>
+                            ابدأ ببناء <br/> <span className="text-[#10B981]">إمبراطوريتك.</span>
                         </h2>
                         <div className="flex flex-col sm:flex-row gap-6 justify-center relative z-10">
-                            <Link href="/register" className="px-14 py-6 bg-emerald-700 text-white rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-emerald-600 transition-all shadow-lg shadow-emerald-600/20 shadow-accent/20">
+                            <Link href="/register" className="px-14 py-6 bg-emerald-700 text-white rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-[#0A0A0A] hover:text-[#10B981] transition-all shadow-lg shadow-[#10B981]/20 shadow-accent/20">
                                 Start Your Mission Now
                             </Link>
-                            <Link href="/pricing" className="px-14 py-6 bg-white/5 text-white border border-white/10 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-emerald-600 transition-all">
+                            <Link href="/pricing" className="px-14 py-6 bg-white/5 text-white border border-white/10 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-[#0A0A0A] hover:text-[#10B981] transition-all">
                                 View Pricing Plans
                             </Link>
                         </div>

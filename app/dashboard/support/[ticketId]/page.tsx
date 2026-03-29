@@ -91,22 +91,22 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
 
     return (
         <div className="space-y-6 max-w-4xl mx-auto pb-12">
-            <Link href="/dashboard/support" className="flex items-center gap-2 text-emerald-600 hover:text-emerald-600 font-bold mb-4 w-fit transition-colors">
+            <Link href="/dashboard/support" className="flex items-center gap-2 text-[#10B981] hover:text-[#10B981] font-bold mb-4 w-fit transition-colors">
                 <FiArrowRight /> العودة لمركز الدعم
             </Link>
 
-            <div className="bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 p-8">
+            <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-8">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-100 dark:border-gray-800 pb-6 mb-6">
                     <div>
                         <div className="flex items-center gap-3 mb-2">
-                            <span className="font-mono text-sm text-emerald-600 font-bold px-3 py-1 bg-emerald-700/10 rounded-xl">
+                            <span className="font-mono text-sm text-[#10B981] font-bold px-3 py-1 bg-emerald-700/10 rounded-xl">
                                 {ticket.ticketNumber}
                             </span>
                             <span className={`px-3 py-1 text-xs font-bold rounded-xl ${statusInfo.css}`}>
                                 {statusInfo.label}
                             </span>
                         </div>
-                        <h1 className="text-2xl font-bold text-emerald-600 dark:text-white">
+                        <h1 className="text-2xl font-bold text-[#10B981] dark:text-white">
                             {ticket.subject}
                         </h1>
                     </div>
@@ -124,9 +124,9 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isAdmin ? 'bg-emerald-700' : 'bg-gray-200 dark:bg-gray-800'}`}>
                                     {isAdmin ? <FiMessageSquare className="text-white" /> : <FiUser className="text-gray-500" />}
                                 </div>
-                                <div className={`max-w-[80%] rounded-xl p-5 ${isAdmin ? 'bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none' : 'bg-emerald-700/10 dark:bg-emerald-700/20 text-emerald-600 rounded-tl-none'}`}>
+                                <div className={`max-w-[80%] rounded-xl p-5 ${isAdmin ? 'bg-[#111111] dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none' : 'bg-emerald-700/10 dark:bg-emerald-700/20 text-[#10B981] rounded-tl-none'}`}>
                                     <div className="flex items-center gap-2 mb-2">
-                                        <span className={`font-bold text-sm ${isAdmin ? 'text-emerald-600 dark:text-white' : 'text-emerald-600'}`}>
+                                        <span className={`font-bold text-sm ${isAdmin ? 'text-[#10B981] dark:text-white' : 'text-[#10B981]'}`}>
                                             {isAdmin ? 'فريق الدعم (المنصة)' : 'أنت'}
                                         </span>
                                         <span className="text-xs text-gray-400">
@@ -142,7 +142,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                                                 href={msg.attachmentUrl} 
                                                 target="_blank" 
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center gap-2 text-xs font-bold bg-white dark:bg-gray-800 px-3 py-2 rounded-lg border border-gray-100 hover:border-emerald-600 transition-colors"
+                                                className="inline-flex items-center gap-2 text-xs font-bold bg-[#0A0A0A] dark:bg-gray-800 px-3 py-2 rounded-lg border border-gray-100 hover:border-emerald-600 transition-colors"
                                             >
                                                 📂 عرض المرفقات
                                             </a>
@@ -156,7 +156,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
 
                 {/* Reply Form */}
                 {isClosed ? (
-                    <div className="bg-gray-50 dark:bg-gray-900/50 p-6 rounded-xl border border-gray-100 dark:border-gray-800 flex items-center gap-3 text-gray-500 justify-center">
+                    <div className="bg-[#111111] dark:bg-gray-900/50 p-6 rounded-xl border border-gray-100 dark:border-gray-800 flex items-center gap-3 text-gray-500 justify-center">
                         <FiInfo className="text-xl" />
                         <p className="font-bold">هذه التذكرة مغلقة ولا يمكن إضافة المزيد من الردود عليها.</p>
                     </div>

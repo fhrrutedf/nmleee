@@ -113,7 +113,7 @@ export default function AdvancedVideoPlayer({ lessonId, courseId, studentEmail, 
     );
 
     return (
-        <div className="relative group bg-black aspect-video rounded-xl overflow-hidden shadow-lg shadow-emerald-600/20">
+        <div className="relative group bg-black aspect-video rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20">
             {/* Dynamic Provider Render */}
             {playbackData.provider === 'bunny' && playbackData.playbackUrl ? (
                 <iframe
@@ -146,7 +146,7 @@ export default function AdvancedVideoPlayer({ lessonId, courseId, studentEmail, 
             <div className="absolute top-8 left-8 pointer-events-none opacity-20 select-none hidden md:block">
                  <div className="flex flex-col gap-1 items-start bg-black/40 p-3 rounded-xl ">
                      <p className="text-[10px] font-bold text-white uppercase tracking-widest leading-none">Protected by Tamleen</p>
-                     <p className="text-[8px] font-bold text-emerald-600 opacity-50">{studentEmail || 'Authenticating...'}</p>
+                     <p className="text-[8px] font-bold text-[#10B981] opacity-50">{studentEmail || 'Authenticating...'}</p>
                  </div>
             </div>
 

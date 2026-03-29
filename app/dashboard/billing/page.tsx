@@ -208,7 +208,7 @@ export default function BillingPage() {
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 bg-emerald-700/20 border border-emerald-600/40 text-emerald-600 px-4 py-2 rounded-xl text-sm font-bold mb-6 "
+                        className="inline-flex items-center gap-2 bg-emerald-700/20 border border-emerald-600/40 text-[#10B981] px-4 py-2 rounded-xl text-sm font-bold mb-6 "
                     >
                         🚀 عرض إطلاق حصري — خصم 50% لأول 3 أشهر لأول 500 بائع!
                     </motion.div>
@@ -238,17 +238,17 @@ export default function BillingPage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
-                        className="inline-flex items-center gap-4 bg-surface/10  rounded-xl p-2"
+                        className="inline-flex items-center gap-4 bg-[#0A0A0A]/10  rounded-xl p-2"
                     >
                         <button
                             onClick={() => setIsYearly(false)}
-                            className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${!isYearly ? 'bg-white text-gray-900 shadow-lg shadow-emerald-600/20' : 'text-gray-300 hover:text-white'}`}
+                            className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${!isYearly ? 'bg-[#0A0A0A] text-white shadow-lg shadow-[#10B981]/20' : 'text-gray-300 hover:text-white'}`}
                         >
                             شهري
                         </button>
                         <button
                             onClick={() => setIsYearly(true)}
-                            className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all relative ${isYearly ? 'bg-white text-gray-900 shadow-lg shadow-emerald-600/20' : 'text-gray-300 hover:text-white'}`}
+                            className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all relative ${isYearly ? 'bg-[#0A0A0A] text-white shadow-lg shadow-[#10B981]/20' : 'text-gray-300 hover:text-white'}`}
                         >
                             سنوي
                             <span className="absolute -top-3 -left-2 bg-green-500 text-white text-xs px-2 py-0.5 rounded-xl font-bold">
@@ -268,7 +268,7 @@ export default function BillingPage() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.1 }}
-                            className={`relative bg-white dark:bg-gray-900 rounded-xl border-2 ${plan.border} shadow-lg shadow-emerald-600/20 flex flex-col overflow-hidden
+                            className={`relative bg-[#0A0A0A] dark:bg-gray-900 rounded-xl border-2 ${plan.border} shadow-lg shadow-[#10B981]/20 flex flex-col overflow-hidden
                                 ${plan.popular ? 'ring-2 ring-accent ring-offset-4 ring-offset-bg-light dark:ring-offset-gray-950 scale-105 lg:scale-105 my-2 lg:my-0 z-10' : ''}`}
                         >
                             {/* Popular Badge */}
@@ -286,25 +286,25 @@ export default function BillingPage() {
 
                             <div className="p-6 flex flex-col flex-1">
                                 {/* Plan name */}
-                                <h3 className="text-2xl font-bold text-emerald-600 dark:text-white mb-1">{plan.name}</h3>
+                                <h3 className="text-2xl font-bold text-[#10B981] dark:text-white mb-1">{plan.name}</h3>
                                 <p className="text-text-muted text-sm mb-6">{plan.description}</p>
 
                                 {/* Price */}
                                 <div className="mb-6">
                                     {plan.custom ? (
                                         <div>
-                                            <span className="text-4xl font-bold text-emerald-600 dark:text-white">مخصص</span>
+                                            <span className="text-4xl font-bold text-[#10B981] dark:text-white">مخصص</span>
                                             <p className="text-text-muted text-sm mt-1">يبدأ من $199/شهر</p>
                                         </div>
                                     ) : plan.monthlyPrice === 0 ? (
                                         <div>
-                                            <span className="text-5xl font-bold text-emerald-600 dark:text-white">مجاناً</span>
+                                            <span className="text-5xl font-bold text-[#10B981] dark:text-white">مجاناً</span>
                                             <p className="text-text-muted text-sm mt-1">للأبد</p>
                                         </div>
                                     ) : (
                                         <div>
                                             <div className="flex items-end gap-1">
-                                                <span className="text-5xl font-bold text-emerald-600 dark:text-white">
+                                                <span className="text-5xl font-bold text-[#10B981] dark:text-white">
                                                     ${isYearly ? Math.round(plan.yearlyPrice / 12) : plan.monthlyPrice}
                                                 </span>
                                                 <span className="text-text-muted mb-2">/شهر</span>
@@ -319,31 +319,31 @@ export default function BillingPage() {
                                 </div>
 
                                 {/* Key Stats */}
-                                <div className="space-y-2 mb-6 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                <div className="space-y-2 mb-6 p-4 bg-[#111111] dark:bg-gray-800/50 rounded-xl">
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">عمولة المنصة</span>
-                                        <span className={`font-bold ${plan.commission === '0%' ? 'text-green-600' : 'text-emerald-600 dark:text-white'}`}>
+                                        <span className={`font-bold ${plan.commission === '0%' ? 'text-green-600' : 'text-[#10B981] dark:text-white'}`}>
                                             {plan.commission}
                                         </span>
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">المنتجات</span>
-                                        <span className="font-bold text-emerald-600 dark:text-white">{plan.maxProducts}</span>
+                                        <span className="font-bold text-[#10B981] dark:text-white">{plan.maxProducts}</span>
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">التخزين</span>
-                                        <span className="font-bold text-emerald-600 dark:text-white">{plan.storage}</span>
+                                        <span className="font-bold text-[#10B981] dark:text-white">{plan.storage}</span>
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-text-muted">الطلاب</span>
-                                        <span className="font-bold text-emerald-600 dark:text-white">{plan.students}</span>
+                                        <span className="font-bold text-[#10B981] dark:text-white">{plan.students}</span>
                                     </div>
                                 </div>
 
                                 {/* Features */}
                                 <ul className="space-y-2 mb-8 flex-1">
                                     {plan.features.map((f, idx) => (
-                                        <li key={idx} className="flex items-start gap-2 text-sm text-emerald-600 dark:text-gray-300">
+                                        <li key={idx} className="flex items-start gap-2 text-sm text-[#10B981] dark:text-gray-300">
                                             <span className="text-green-500 mt-0.5 flex-shrink-0">✓</span>
                                             {f}
                                         </li>
@@ -359,7 +359,7 @@ export default function BillingPage() {
                                 {/* CTA */}
                                 <button
                                     onClick={() => plan.slug !== 'enterprise' ? handleUpgrade(plan.slug) : window.open('/contact', '_blank')}
-                                    className={`w-full py-3.5 rounded-xl text-center font-bold text-sm transition-all duration-200 shadow-lg shadow-emerald-600/20 hover:shadow-lg shadow-emerald-600/20 hover:-translate-y-0.5 ${plan.slug === currentPlanSlug ? 'bg-gray-100 text-gray-500 cursor-not-allowed border-none' : plan.btnClass}`}
+                                    className={`w-full py-3.5 rounded-xl text-center font-bold text-sm transition-all duration-200 shadow-lg shadow-[#10B981]/20 hover:shadow-lg shadow-[#10B981]/20 hover:-translate-y-0.5 ${plan.slug === currentPlanSlug ? 'bg-gray-100 text-gray-500 cursor-not-allowed border-none' : plan.btnClass}`}
                                     disabled={plan.slug === currentPlanSlug || upgrading === plan.slug}
                                 >
                                     {upgrading === plan.slug ? (
@@ -397,7 +397,7 @@ export default function BillingPage() {
                             <span className="bg-white/20 px-3 py-1 rounded-xl mx-2 font-bold">۴۸۳ مقعد</span>
                         </p>
                         <button
-                            className="inline-block bg-white text-emerald-600 font-bold px-8 py-3.5 rounded-xl hover:shadow-lg shadow-emerald-600/20 transition-all hover:-translate-y-0.5 text-lg"
+                            className="inline-block bg-[#0A0A0A] text-[#10B981] font-bold px-8 py-3.5 rounded-xl hover:shadow-lg shadow-[#10B981]/20 transition-all hover:-translate-y-0.5 text-lg"
                         >
                             قم بالترقية الآن ←
                         </button>
@@ -409,14 +409,14 @@ export default function BillingPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
-                    className="mt-8 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 p-8 text-center"
+                    className="mt-8 bg-[#0A0A0A] dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 p-8 text-center"
                 >
                     <div className="text-4xl mb-3">🤝</div>
-                    <h3 className="text-2xl font-bold text-emerald-600 dark:text-white mb-2">
+                    <h3 className="text-2xl font-bold text-[#10B981] dark:text-white mb-2">
                         برنامج الإحالة — اكسب معنا
                     </h3>
                     <p className="text-text-muted mb-4 max-w-lg mx-auto">
-                        شارك رابطك مع أصدقائك واكسب <strong className="text-emerald-600">20% عمولة متكررة</strong> شهرياً عن كل بائع جديد يشترك في باقة مدفوعة.
+                        شارك رابطك مع أصدقائك واكسب <strong className="text-[#10B981]">20% عمولة متكررة</strong> شهرياً عن كل بائع جديد يشترك في باقة مدفوعة.
                     </p>
                     <Link href="/dashboard/affiliate" className="btn btn-primary px-8 py-3">
                         اذهب إلى التسويق بالعمولة
@@ -427,7 +427,7 @@ export default function BillingPage() {
                 <div className="mt-12 text-center">
                     <button
                         onClick={() => setShowComparison(!showComparison)}
-                        className="text-emerald-600 font-bold underline underline-offset-4 text-sm hover:opacity-80 transition-opacity"
+                        className="text-[#10B981] font-bold underline underline-offset-4 text-sm hover:opacity-80 transition-opacity"
                     >
                         {showComparison ? '▲ إخفاء' : '▼ إظهار'} مقارنة تفصيلية بين الباقات
                     </button>
@@ -438,24 +438,24 @@ export default function BillingPage() {
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="mt-8 overflow-x-auto rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-lg shadow-emerald-600/20"
+                        className="mt-8 overflow-x-auto rounded-xl border border-gray-100 dark:border-gray-800 bg-[#0A0A0A] dark:bg-gray-900 shadow-lg shadow-[#10B981]/20"
                     >
                         <table className="w-full text-sm">
                             <thead>
                                 <tr className="border-b border-gray-100 dark:border-gray-800">
-                                    <th className="text-right p-4 font-bold text-emerald-600 dark:text-white w-40">الميزة</th>
+                                    <th className="text-right p-4 font-bold text-[#10B981] dark:text-white w-40">الميزة</th>
                                     {['انطلاقة', 'رواد', 'تميز', 'مؤسسات'].map(name => (
-                                        <th key={name} className="p-4 font-bold text-emerald-600 dark:text-white text-center">{name}</th>
+                                        <th key={name} className="p-4 font-bold text-[#10B981] dark:text-white text-center">{name}</th>
                                     ))}
                                 </tr>
                             </thead>
                             <tbody>
                                 {comparisonFeatures.map((row, i) => (
-                                    <tr key={i} className={`border-b border-gray-50 dark:border-gray-800/50 ${i % 2 === 0 ? 'bg-gray-50/50 dark:bg-gray-800/20' : ''}`}>
-                                        <td className="p-4 font-medium text-emerald-600 dark:text-gray-300">{row.feature}</td>
+                                    <tr key={i} className={`border-b border-gray-50 dark:border-gray-800/50 ${i % 2 === 0 ? 'bg-[#111111]/50 dark:bg-gray-800/20' : ''}`}>
+                                        <td className="p-4 font-medium text-[#10B981] dark:text-gray-300">{row.feature}</td>
                                         {[row.free, row.starter, row.pro, row.enterprise].map((val, j) => (
                                             <td key={j} className="p-4 text-center">
-                                                <span className={val === '❌' ? 'text-gray-300' : val === '✅' ? 'text-green-500 text-lg' : 'font-bold text-emerald-600 dark:text-white'}>
+                                                <span className={val === '❌' ? 'text-gray-300' : val === '✅' ? 'text-green-500 text-lg' : 'font-bold text-[#10B981] dark:text-white'}>
                                                     {val}
                                                 </span>
                                             </td>
@@ -469,7 +469,7 @@ export default function BillingPage() {
 
                 {/* FAQ */}
                 <div className="mt-16 max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-bold text-center text-emerald-600 dark:text-white mb-10">
+                    <h2 className="text-3xl font-bold text-center text-[#10B981] dark:text-white mb-10">
                         أسئلة شائعة
                     </h2>
                     {[
@@ -486,7 +486,7 @@ export default function BillingPage() {
                             transition={{ delay: i * 0.05 }}
                             className="border-b border-gray-100 dark:border-gray-800 py-6"
                         >
-                            <h4 className="font-bold text-emerald-600 dark:text-white mb-2">{faq.q}</h4>
+                            <h4 className="font-bold text-[#10B981] dark:text-white mb-2">{faq.q}</h4>
                             <p className="text-text-muted text-sm leading-relaxed">{faq.a}</p>
                         </motion.div>
                     ))}

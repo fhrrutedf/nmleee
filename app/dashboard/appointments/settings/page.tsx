@@ -104,7 +104,7 @@ export default function AppointmentSettingsPage() {
         <div className="space-y-6 max-w-4xl mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h1 className="text-2xl md:text-3xl font-bold text-emerald-600">إعدادات توفر الاستشارات</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold text-[#10B981]">إعدادات توفر الاستشارات</h1>
                     <p className="text-gray-600 mt-2 text-sm md:text-base">حدد أوقات عملك والأيام المتاحة لاستقبال الجلسات والاستشارات</p>
                 </div>
                 <button
@@ -117,7 +117,7 @@ export default function AppointmentSettingsPage() {
                 </button>
             </div>
 
-            <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden mb-6">
+            <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden mb-6">
                 <div className="p-4 md:p-6 border-b border-gray-100 flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-green-100 text-green-600 flex items-center justify-center flex-shrink-0">
@@ -143,9 +143,9 @@ export default function AppointmentSettingsPage() {
                 </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden">
+            <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden">
                 <div className="p-4 md:p-6 border-b border-gray-100 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-100 text-emerald-600-600 flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-blue-100 text-[#10B981]-600 flex items-center justify-center flex-shrink-0">
                         <FiCalendar className="text-xl" />
                     </div>
                     <div>
@@ -158,9 +158,9 @@ export default function AppointmentSettingsPage() {
                     {DAYS_OF_WEEK.map((day) => {
                         const availability = availabilities.find(a => a.dayOfWeek === day.id)!;
                         return (
-                            <div key={day.id} className={`flex flex-col xl:flex-row xl:items-center justify-between p-4 rounded-lg border gap-4 ${availability.isActive ? 'border-primary-200 bg-primary-50/30' : 'border-gray-200 bg-gray-50'}`}>
+                            <div key={day.id} className={`flex flex-col xl:flex-row xl:items-center justify-between p-4 rounded-lg border gap-4 ${availability.isActive ? 'border-primary-200 bg-primary-50/30' : 'border-gray-200 bg-[#111111]'}`}>
                                 <div className="flex items-center gap-4 w-full xl:w-48 justify-between xl:justify-start">
-                                    <span className={`font-semibold text-base md:text-lg order-2 xl:order-1 ${availability.isActive ? 'text-gray-900' : 'text-gray-500'}`}>
+                                    <span className={`font-semibold text-base md:text-lg order-2 xl:order-1 ${availability.isActive ? 'text-white' : 'text-gray-500'}`}>
                                         {day.name}
                                     </span>
                                     <label className="relative inline-flex items-center cursor-pointer order-1 xl:order-2">
@@ -170,7 +170,7 @@ export default function AppointmentSettingsPage() {
                                             checked={availability.isActive}
                                             onChange={(e) => updateDay(day.id, 'isActive', e.target.checked)}
                                         />
-                                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-xl peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-700"></div>
+                                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-xl peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-[#0A0A0A] after:border-gray-300 after:border after:rounded-xl after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-700"></div>
                                     </label>
                                 </div>
 

@@ -22,7 +22,7 @@ export function VerifiedBadge({
     return (
         <div className={`inline-flex items-center ${className}`} title={showTooltip ? 'منشئ موثق' : undefined}>
             <FiCheckCircle
-                className={`${sizeClasses[size]} text-emerald-600-500 dark:text-blue-400 fill-accent-500 dark:fill-blue-400`}
+                className={`${sizeClasses[size]} text-[#10B981]-500 dark:text-blue-400 fill-accent-500 dark:fill-blue-400`}
                 style={{ fill: 'currentColor' }}
             />
         </div>

@@ -134,10 +134,10 @@ export default function BookAppointmentPage() {
     const brandColor = creator.brandColor || '#D41295';
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12">
+        <div className="min-h-screen bg-[#111111] py-12">
             <style dangerouslySetInnerHTML={{
                 __html: `
-                .text-emerald-600, .text-primary-700 { color: ${brandColor} !important; }
+                .text-[#10B981], .text-primary-700 { color: ${brandColor} !important; }
                 .bg-emerald-700 { background-color: ${brandColor} !important; }
                 .bg-primary-50, .bg-primary-100 { background-color: ${brandColor}18 !important; }
                 .bg-primary-100\/50 { background-color: ${brandColor}10 !important; }
@@ -155,33 +155,33 @@ export default function BookAppointmentPage() {
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="mb-8">
-                    <Link href={`/${creator.username}`} className="inline-flex items-center text-emerald-600 hover:text-primary-700 font-medium mb-4 gap-2 transition-colors">
+                    <Link href={`/${creator.username}`} className="inline-flex items-center text-[#10B981] hover:text-primary-700 font-medium mb-4 gap-2 transition-colors">
                         <FiArrowRight />
                         <span>العودة لملف {creator.name}</span>
                     </Link>
-                    <h1 className="text-3xl font-bold text-gray-900">حجز استشارة / جلسة</h1>
+                    <h1 className="text-3xl font-bold text-white">حجز استشارة / جلسة</h1>
                     <p className="text-gray-600 mt-2">اختر الوقت المناسب لك للحصول على استشارتك مع {creator.name}</p>
                 </div>
 
-                <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 overflow-hidden">
+                <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 overflow-hidden">
                     {/* Seller Profile Summary */}
                     <div className="p-6 bg-emerald-700 border-b border-primary-100 flex gap-4 items-center">
-                        <div className="w-16 h-16 rounded-xl overflow-hidden bg-white border-2 border-white shadow-lg shadow-emerald-600/20 flex-shrink-0">
+                        <div className="w-16 h-16 rounded-xl overflow-hidden bg-[#0A0A0A] border-2 border-white shadow-lg shadow-[#10B981]/20 flex-shrink-0">
                             {creator.avatar ? (
                                 <img src={creator.avatar} alt={creator.name} className="w-full h-full object-cover" />
                             ) : (
-                                <div className="w-full h-full flex items-center justify-center text-xl font-bold text-emerald-600">
+                                <div className="w-full h-full flex items-center justify-center text-xl font-bold text-[#10B981]">
                                     {creator.name?.charAt(0).toUpperCase()}
                                 </div>
                             )}
                         </div>
                         <div>
-                            <h2 className="text-xl font-bold text-gray-900">{creator.name}</h2>
+                            <h2 className="text-xl font-bold text-white">{creator.name}</h2>
                             <p className="text-primary-700 text-sm">مدة الجلسة: 60 دقيقة</p>
                         </div>
                         <div className="mr-auto text-left">
                             <span className="block text-sm text-gray-500 mb-1">سعر الاستشارة</span>
-                            <span className="text-2xl font-bold text-emerald-600">
+                            <span className="text-2xl font-bold text-[#10B981]">
                                 {creator.consultationPrice > 0 ? `${creator.consultationPrice} $` : 'مجانية'}
                             </span>
                         </div>
@@ -199,7 +199,7 @@ export default function BookAppointmentPage() {
                         <div className="p-6 md:p-8">
                             {/* Step 1: Date Selection */}
                             <div className="mb-8">
-                                <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                                     <span className="flex items-center justify-center w-6 h-6 rounded-xl bg-primary-100 text-primary-700 text-sm">1</span>
                                     اختر يوم الحجز
                                 </h3>
@@ -222,7 +222,7 @@ export default function BookAppointmentPage() {
 
                             {/* Step 2: Time Selection */}
                             <div className={`transition-opacity duration-300 ${(!selectedDate || availableTimes.length === 0) ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
-                                <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                                     <span className="flex items-center justify-center w-6 h-6 rounded-xl bg-primary-100 text-primary-700 text-sm">2</span>
                                     اختر وقت الجلسة
                                 </h3>
@@ -234,7 +234,7 @@ export default function BookAppointmentPage() {
                                             onClick={() => setSelectedTime(time)}
                                             className={`py-3 rounded-lg border text-center transition-all ${selectedTime === time
                                                 ? 'bg-emerald-700 border-emerald-600 text-white shadow-md transform scale-105'
-                                                : 'bg-white border-gray-200 text-gray-700 hover:border-primary-300 hover:bg-primary-50'
+                                                : 'bg-[#0A0A0A] border-gray-200 text-gray-700 hover:border-primary-300 hover:bg-primary-50'
                                                 }`}
                                         >
                                             <span className="block font-medium">{time}</span>
@@ -248,7 +248,7 @@ export default function BookAppointmentPage() {
                                 <button
                                     onClick={handleContinue}
                                     disabled={!selectedDate || !selectedTime}
-                                    className={`btn btn-primary px-8 py-3 text-lg flex items-center gap-2 transition-transform ${(!selectedDate || !selectedTime) ? 'opacity-50 cursor-not-allowed' : 'hover:-translate-y-1 hover:shadow-lg shadow-emerald-600/20'}`}
+                                    className={`btn btn-primary px-8 py-3 text-lg flex items-center gap-2 transition-transform ${(!selectedDate || !selectedTime) ? 'opacity-50 cursor-not-allowed' : 'hover:-translate-y-1 hover:shadow-lg shadow-[#10B981]/20'}`}
                                 >
                                     <span>المتابعة للدفع</span>
                                     <FiCheckCircle />
