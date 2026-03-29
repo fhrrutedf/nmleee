@@ -17,8 +17,8 @@ import {
 } from 'recharts';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// V2 Brand Colors for Charts
-const BRAND_COLORS = ['#2563EB', '#1A1A1A', '#64748B', '#94A3B8', '#CBD5E1'];
+// V2 Brand Colors for Charts - Selective Palette
+const BRAND_COLORS = ['#1A1A1A', '#2563EB', '#64748B', '#94A3B8', '#CBD5E1'];
 
 // ─── Helpers ───────────────────────────────────────────────
 const fmt = (n: number) => new Intl.NumberFormat('ar-SA', { maximumFractionDigits: 2 }).format(n);
@@ -342,19 +342,28 @@ export default function AdminDashboardPage() {
 
                 {/* Other Tabs Simplified Styles */}
                 {activeTab !== 'overview' && (
-                    <div className="bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-2xl shadow-gray-100/20 overflow-hidden">
-                        <h2 className="text-2xl font-black text-ink mb-10 tracking-tighter flex items-center gap-3">
+                    <div className="bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-premium overflow-hidden">
+                        <h2 className="text-2xl font-black text-ink mb-10 tracking-tighter flex items-center gap-4">
                             <FiActivity className="text-accent" /> {tabs.find(t => t.id === activeTab)?.label}
                         </h2>
-                        {/* Tab specific tables simplified for design brevity */}
+                        {/* Table View Header Styling */}
+                        <div className="bg-gray-50/50 p-6 rounded-3xl border border-gray-100 mb-8 flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Total Entries: {fmt(ov.totalOrders || 0)}</span>
+                            </div>
+                            <button className="text-[10px] font-black uppercase tracking-widest text-accent hover:text-ink transition-colors flex items-center gap-2">
+                                <FiDownload size={12} /> Export CSV
+                            </button>
+                        </div>
+                        
                         <div className="overflow-x-auto min-h-[400px]">
-                           {/* ... Dynamic Table Content Based on Active Tab ... */}
-                           <div className="bg-gray-50 rounded-3xl p-20 text-center border border-dashed border-gray-200">
-                                <div className="w-20 h-20 bg-white rounded-[2rem] shadow-xl shadow-gray-200/50 flex items-center justify-center mx-auto mb-8 text-accent">
-                                    <FiBox size={32} />
+                           {/* Administrative Data Surface */}
+                           <div className="bg-white rounded-[2rem] border border-gray-50 p-10 text-center shadow-inner">
+                                <div className="w-16 h-16 bg-gray-50 border border-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-8 text-accent shadow-sm">
+                                    <FiBox size={24} />
                                 </div>
-                                <h3 className="text-xl font-black text-ink mb-2">معالجة البيانات قيد التشغيل</h3>
-                                <p className="text-gray-400 font-bold mb-0">يرجى الانتظار بينما نقوم بمزامنة السجلات الحية للمنصة.</p>
+                                <h3 className="text-lg font-black text-ink mb-2">OPERATIONAL DATA SYNC</h3>
+                                <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest">Awaiting central server confirmation for the selected period.</p>
                            </div>
                         </div>
                     </div>

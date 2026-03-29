@@ -101,8 +101,8 @@ export default async function ExplorePage({
                 <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-accent/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4"></div>
 
                 <div className="max-w-5xl mx-auto relative z-10 text-center px-6">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-                        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-10 text-accent shadow-sm">
+                    <div className="animate-in fade-in slide-in-from-bottom-5 duration-1000">
+                        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-[0.3em] mb-10 text-accent shadow-sm">
                             <FiSearch size={14} /> Explore Knowledge Market
                         </div>
                         <h1 className="text-4xl md:text-7xl font-black mb-8 tracking-tighter leading-[1.1]">
@@ -111,7 +111,7 @@ export default async function ExplorePage({
                         <p className="text-lg md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto font-bold leading-relaxed">
                             تصفح آلاف المنتجات الرقمية والدورات التدريبية الموثوقة من نخبة الخبراء والمبدعين.
                         </p>
-                    </motion.div>
+                    </div>
 
                     {/* Master Search Form - High Performance UI */}
                     <form className="max-w-4xl mx-auto space-y-4">

@@ -144,9 +144,9 @@ export default function CourseBuilder({
                                                     <button 
                                                         type="button" 
                                                         onClick={() => addLesson(section.id)} 
-                                                        className="text-[11px] font-bold text-accent bg-accent-light px-4 py-2 rounded-xl hover:bg-accent/10 transition-colors"
+                                                        className="text-[10px] font-black text-accent bg-gray-50 px-5 py-2.5 rounded-xl hover:bg-ink hover:text-white transition-all uppercase tracking-widest border border-gray-100"
                                                     >
-                                                        + إضافة درس
+                                                        + ADD LESSON
                                                     </button>
                                                     <button 
                                                         type="button" 
@@ -176,7 +176,7 @@ export default function CourseBuilder({
                                                                         className={`flex items-center justify-between p-4 bg-white border border-gray-100 rounded-xl group/lesson ${snapshot.isDragging ? 'shadow-xl ring-2 ring-accent/20 border-accent' : 'hover:border-gray-200 shadow-sm'}`}
                                                                     >
                                                                         <div className="flex items-center gap-4">
-                                                                            <div className="w-9 h-9 bg-gray-50 rounded-lg flex items-center justify-center text-ink transition-colors group-hover/lesson:bg-accent group-hover/lesson:text-white">
+                                                                            <div className="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center text-ink transition-all group-hover/lesson:bg-ink group-hover/lesson:text-white border border-gray-100">
                                                                                 <FiVideo size={16} />
                                                                             </div>
                                                                             <input 
@@ -224,9 +224,9 @@ export default function CourseBuilder({
             <button 
                 type="button"
                 onClick={addSection} 
-                className="w-full py-5 border-2 border-dashed border-gray-200 rounded-2xl text-gray-400 font-bold hover:border-accent/40 hover:text-accent transition-all flex items-center justify-center gap-3 bg-white"
+                className="w-full py-6 border border-dashed border-gray-200 rounded-[2rem] text-gray-400 font-black text-[10px] uppercase tracking-[0.3em] hover:border-accent hover:text-accent transition-all flex items-center justify-center gap-3 bg-white shadow-sm"
             >
-                <FiPlus className="text-xl" /> إضافة قسم جديد للمنهج الدراسي
+                <FiPlus className="text-xl" /> ADD NEW CHAPTER
             </button>
         </div>
     );
