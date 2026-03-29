@@ -142,9 +142,36 @@ export default function CheckoutPage() {
             if (paymentMethod === 'spaceremit') {
                 if (!selectedLocalMethod) return showToast.error('يرجى اختيار وسيلة الدفع');
                 let methodId = selectedLocalMethod.id;
-                if (methodId === 'crypto_usdt') methodId = 'usdt_trc20';
+                
+                // If it's a crypto local method, securely redirect to OxaPay directly
+                if (methodId === 'crypto_usdt' || methodId === 'usdt_trc20') {
+                    const res = await fetch('/api/checkout/oxapay', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            items: cart,
+                            customerInfo: formData,
+                            paymentMethod: 'crypto',
+                            couponCode: discount > 0 ? couponCode : null,
+                            affiliateRef: affRef
+                        })
+                    });
+                    
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.paymentUrl) {
+                            window.location.href = data.paymentUrl;
+                        } else {
+                            showToast.error('عذراً، لم نتمكن من توليد رابط الدفع');
+                        }
+                    } else {
+                        const errData = await res.json().catch(() => ({}));
+                        showToast.error(errData.error || 'فشل الاتصال ببوابة الدفع الرقمية');
+                    }
+                    return;
+                }
 
-                const res = await fetch(selectedLocalMethod.id === 'crypto_usdt' ? '/api/checkout/oxapay' : '/api/checkout/spaceremit', {
+                const res = await fetch('/api/checkout/spaceremit', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -165,24 +192,29 @@ export default function CheckoutPage() {
                 }
 
             } else if (paymentMethod === 'nowpayments') {
-                // Now using Oxapay for all crypto payments as requested by Nawaf
+                // Fast-Track Crypto uses OxaPay directly with proper payload
                 const res = await fetch('/api/checkout/oxapay', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        amount: total,
-                        currency: 'USD',
-                        orderId: 'ORD-' + Date.now(),
-                        description: 'Payment for ' + cart.map(i => i.title).join(', ')
+                        items: cart,
+                        customerInfo: formData,
+                        paymentMethod: 'crypto',
+                        couponCode: discount > 0 ? couponCode : null,
+                        affiliateRef: affRef
                     })
                 });
 
                 if (res.ok) {
                     const data = await res.json();
-                    window.location.href = data.url;
+                    if (data.paymentUrl) {
+                        window.location.href = data.paymentUrl;
+                    } else {
+                        showToast.error('لم نتمكن من جلب رابط الدفع');
+                    }
                 } else {
                     const errData = await res.json().catch(() => ({}));
-                    showToast.error(errData.error || 'فشل بدء دفع Oxapay');
+                    showToast.error(errData.error || 'البيانات غير مكتملة، يرجى ملء السلة والمحاولة');
                 }
             } else if (paymentMethod === 'manual' && isSyria) {
                 if (!selectedLocalMethod || !manualData.transactionRef || !manualData.proofFile) {
