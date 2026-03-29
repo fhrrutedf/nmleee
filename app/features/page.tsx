@@ -1,30 +1,22 @@
 'use client';
 
-import { FiShoppingBag, FiCreditCard, FiBarChart2, FiGlobe, FiSmartphone, FiShield, FiUsers, FiCpu, FiArrowLeft } from 'react-icons/fi';
+import { FiShoppingBag, FiCreditCard, FiBarChart2, FiGlobe, FiSmartphone, FiShield, FiUsers, FiCpu, FiArrowLeft, FiLayers, FiActivity, FiSearch } from 'react-icons/fi';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 
-// Premium Animation Variants
+// Refined Professional Variants
 const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
 };
 
 const staggerContainer = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: {
-            staggerChildren: 0.1,
-            delayChildren: 0.1
-        }
+        transition: { staggerChildren: 0.08 }
     }
-};
-
-const iconReveal = {
-    hidden: { opacity: 0, scale: 0.5, rotate: -45 },
-    visible: { opacity: 1, scale: 1, rotate: 0, transition: { type: "spring", stiffness: 200, damping: 15 } }
 };
 
 export default function FeaturesPage() {
@@ -34,154 +26,108 @@ export default function FeaturesPage() {
         offset: ["start start", "end end"]
     });
 
-    const yParallax = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-    const opacityFade = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+    const yParallax = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+    const opacityFade = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
     const features = [
         {
-            icon: <FiShoppingBag className="text-4xl text-blue-600 group-hover:text-white transition-colors duration-300" />,
+            icon: <FiShoppingBag size={28} />,
             title: 'متجر إلكتروني متكامل',
             description: 'احصل على متجر خاص بك بهوية علامتك التجارية، مع صفحات منتجات احترافية وسلة تسوق سلسة وتجربة شراء استثنائية.',
-            color: 'bg-blue-50',
-            hoverColor: 'hover:bg-blue-600',
-            iconBg: 'bg-white'
         },
         {
-            icon: <FiCreditCard className="text-4xl text-green-600 group-hover:text-white transition-colors duration-300" />,
+            icon: <FiCreditCard size={28} />,
             title: 'بوابات دفع عالمية ومحلية',
             description: 'اقبل المدفوعات عبر Visa, MasterCard, PayPal, وعملات رقمية، بالإضافة إلى المحافظ المحلية بكل أمان وموثوقية.',
-            color: 'bg-green-50',
-            hoverColor: 'hover:bg-green-600',
-            iconBg: 'bg-white'
         },
         {
-            icon: <FiBarChart2 className="text-4xl text-purple-600 group-hover:text-white transition-colors duration-300" />,
+            icon: <FiBarChart2 size={28} />,
             title: 'لوحة تحكم وتحليلات ذكية',
             description: 'تابع مبيعاتك، زوارك، وأداء منتجاتك من خلال لوحة تحكم سهلة الاستخدام وتقارير مفصلة مبنية على تقنيات ذكية.',
-            color: 'bg-purple-50',
-            hoverColor: 'hover:bg-purple-600',
-            iconBg: 'bg-white'
         },
         {
-            icon: <FiGlobe className="text-4xl text-orange-600 group-hover:text-white transition-colors duration-300" />,
+            icon: <FiGlobe size={28} />,
             title: 'دعم متعدد اللغات والعملات',
             description: 'بع منتجاتك للعالم أجمع مع دعم كامل للغات المتعددة والعملات المختلفة، وتوطين كامل لتجربة المستخدم.',
-            color: 'bg-orange-50',
-            hoverColor: 'hover:bg-orange-600',
-            iconBg: 'bg-white'
         },
         {
-            icon: <FiSmartphone className="text-4xl text-indigo-600 group-hover:text-white transition-colors duration-300" />,
-            title: 'متوافق مع الجوال 100%',
+            icon: <FiSmartphone size={28} />,
+            title: 'توافق كامل مع الجوال',
             description: 'تجربة مستخدم ممتازة على جميع الأجهزة، مما يضمن سهولة تصفح متجرك والشراء من قِبل عملائك عبر هواتفهم.',
-            color: 'bg-indigo-50',
-            hoverColor: 'hover:bg-indigo-600',
-            iconBg: 'bg-white'
         },
         {
-            icon: <FiShield className="text-4xl text-rose-600 group-hover:text-white transition-colors duration-300" />,
-            title: 'حماية وتشفير عالي المستوى',
-            description: 'نظام حماية متقدم لمنتجاتك الرقمية يمنع التحميل غير المصرح به ويحمي حقوقك الفكرية بشكل كامل.',
-            color: 'bg-rose-50',
-            hoverColor: 'hover:bg-rose-600',
-            iconBg: 'bg-white'
+            icon: <FiShield size={28} />,
+            title: 'حماية وتشفير متقدم',
+            description: 'نظام حماية متطور لمنتجاتك الرقمية يمنع التحميل غير المصرح به ويحمي حقوقك الفكرية بشكل كامل.',
         },
         {
-            icon: <FiUsers className="text-4xl text-teal-600 group-hover:text-white transition-colors duration-300" />,
-            title: 'نظام المسوقين (Affiliate)',
+            icon: <FiUsers size={28} />,
+            title: 'نظام المسوقين بالعمولة',
             description: 'دع الآخرين يسوقون لمنتجاتك مقابل عمولة تحددها أنت، وضاعف مبيعاتك ووسع قاعدة عملائك بسهولة.',
-            color: 'bg-teal-50',
-            hoverColor: 'hover:bg-teal-600',
-            iconBg: 'bg-white'
         },
         {
-            icon: <FiCpu className="text-4xl text-pink-600 group-hover:text-white transition-colors duration-300" />,
-            title: 'أتمتة المهام المعقدة',
-            description: 'أرسل المنتجات تلقائياً بعد الدفع، واربط متجرك مع تطبيقات خارجية عبر Zapier لتوفر وقتك وجهدك.',
-            color: 'bg-pink-50',
-            hoverColor: 'hover:bg-pink-600',
-            iconBg: 'bg-white'
+            icon: <FiLayers size={28} />,
+            title: 'بناء أكاديميات تعليمية',
+            description: 'أدوات متطورة لبناء دوراتك التدريبية، توزيع الدروس، إدارة الطلاب، وإعطاء الشهادات التلقائية.',
         }
     ];
 
     return (
-        <div ref={containerRef} className="min-h-screen bg-bg-light overflow-hidden">
-            {/* Hero Parallax Section */}
-            <section className="relative h-[80vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-ink">
+        <div ref={containerRef} className="min-h-screen bg-white overflow-hidden selection:bg-accent/20">
+            {/* Minimalist Professional Hero */}
+            <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-ink">
                 <motion.div style={{ y: yParallax, opacity: opacityFade }} className="absolute inset-0 z-0">
-                    {/* Abstract Grid Background */}
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_0%,#000_70%,transparent_100%)]"></div>
-                    {/* Glowing Orbs */}
-                    <div className="absolute top-1/4 start-1/4 w-96 h-96 bg-accent/30 rounded-full blur-[120px]"></div>
-                    <div className="absolute bottom-1/4 end-1/4 w-96 h-96 bg-purple-500/30 rounded-full blur-[120px]"></div>
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:80px_80px]"></div>
+                    <div className="absolute top-0 right-0 w-[60%] h-[60%] bg-accent/5 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
                 </motion.div>
 
-                <div className="container-custom relative z-10 text-center text-white">
+                <div className="max-w-7xl mx-auto px-6 relative z-10 text-center text-white">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
                     >
-                        <span className="inline-block py-2 px-6 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-medium tracking-widest text-sm mb-8">
-                            قوة لا محدودة
-                        </span>
-                        <h1 className="text-5xl md:text-7xl font-bold mb-6 font-heading leading-tight">
-                            مميزات تفوق <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">التوقعات</span>
-                        </h1>
-                        <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto font-light">
-                            كل ما تحتاجه لنجاح مشروعك الرقمي في منصة واحدة قوية، مرنة، وسهلة الاستخدام.
-                        </p>
-                    </motion.div>
-
-                    {/* Scroll Indicator */}
-                    <motion.div
-                        animate={{ y: [0, 10, 0] }}
-                        transition={{ repeat: Infinity, duration: 2 }}
-                        className="absolute bottom-10 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 mt-20"
-                    >
-                        <div className="w-[30px] h-[50px] rounded-full border-2 border-white/30 flex justify-center p-2">
-                            <motion.div
-                                animate={{ y: [0, 15, 0], opacity: [1, 0, 1] }}
-                                transition={{ repeat: Infinity, duration: 1.5 }}
-                                className="w-1.5 h-1.5 bg-white rounded-full"
-                            />
+                        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-accent">
+                            Infrastructure for Creators
                         </div>
+                        <h1 className="text-5xl md:text-8xl font-bold mb-8 tracking-tighter leading-[1.1]">
+                            بنية تحتية <span className="text-accent">بلا حدود</span>
+                        </h1>
+                        <p className="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto font-bold leading-relaxed">
+                            لقد قمنا ببناء كافة الأدوات المعقدة لكي تتمكن أنت من التركيز على صناعة المحتوى والبيع بكل سهولة.
+                        </p>
                     </motion.div>
                 </div>
             </section>
 
-            {/* Features Interacting Grid */}
-            <section className="py-32 relative z-20 bg-white -mt-10 rounded-t-[3rem] shadow-[0_-20px_40px_rgba(0,0,0,0.1)]">
-                <div className="container-custom">
+            {/* Features Clean Grid */}
+            <section className="py-24 md:py-40 relative z-20 bg-white -mt-16 rounded-t-[3rem] border-t border-gray-100">
+                <div className="max-w-7xl mx-auto px-6">
                     <motion.div
                         variants={staggerContainer}
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.1 }}
-                        className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8"
+                        className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
                     >
                         {features.map((feature, idx) => (
                             <motion.div
                                 key={idx}
                                 variants={fadeInUp}
-                                className={`group relative p-8 rounded-3xl transition-all duration-500 overflow-hidden isolate ${feature.color} ${feature.hoverColor} hover:-translate-y-2 hover:shadow-2xl cursor-default border border-transparent hover:border-black/5`}
+                                className="group p-10 bg-gray-50 border border-gray-100 rounded-[2.5rem] hover:bg-ink hover:text-white transition-all duration-500 cursor-default"
                             >
-                                {/* Expanding Circle Background on Hover */}
-                                <div className="absolute inset-x-0 -bottom-full group-hover:bottom-0 top-full group-hover:top-0 bg-black/5 transition-all duration-500 ease-out -z-10 rounded-full scale-150 group-hover:scale-100 opacity-0 group-hover:opacity-100"></div>
-
-                                <motion.div variants={iconReveal} className={`mb-8 p-5 ${feature.iconBg} rounded-2xl shadow-sm inline-block group-hover:scale-110 transition-transform duration-300 group-hover:bg-white/20 backdrop-blur-sm group-hover:shadow-none`}>
+                                <div className="w-14 h-14 bg-white border border-gray-100 rounded-2xl flex items-center justify-center text-ink mb-10 group-hover:bg-accent group-hover:text-white group-hover:border-transparent transition-all shadow-sm">
                                     {feature.icon}
-                                </motion.div>
+                                </div>
 
-                                <h3 className="text-2xl font-bold mb-4 text-ink group-hover:text-white transition-colors duration-300">{feature.title}</h3>
-
-                                <p className="text-text-muted leading-relaxed font-medium group-hover:text-white/80 transition-colors duration-300">
+                                <h3 className="text-2xl font-bold mb-4 tracking-tight">{feature.title}</h3>
+                                <p className="text-sm font-bold text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">
                                     {feature.description}
                                 </p>
-
-                                <div className="mt-8 flex items-center gap-2 text-accent font-bold opacity-0 group-hover:opacity-100 group-hover:text-white transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                                    <span>اكتشف المزيد</span>
-                                    <FiArrowLeft className="group-hover:-translate-x-2 rtl:group-hover:translate-x-2 transition-transform duration-300" />
+                                
+                                <div className="mt-10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-accent group-hover:text-white opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                                    <span>Learn more</span>
+                                    <FiArrowLeft className="group-hover:-translate-x-1 transition-transform" />
                                 </div>
                             </motion.div>
                         ))}
@@ -189,37 +135,48 @@ export default function FeaturesPage() {
                 </div>
             </section>
 
-            {/* Scrolling Integration Section */}
-            <section className="py-32 bg-ink text-white overflow-hidden relative">
-                <div className="container-custom text-center relative z-10 mb-20">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                    >
-                        <h2 className="text-4xl md:text-5xl font-bold mb-6 font-heading">يتكامل بسلاسة مع أدواتك</h2>
-                        <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-                            لا داعي لتغيير طريقة عملك. منصتنا تتكامل بانسيابية مع عشرات التطبيقات التي تعتمد عليها يومياً لتحقيق أقصى إنتاجية.
-                        </p>
-                    </motion.div>
+            {/* Core Statistics / Trust Section */}
+            <section className="py-24 bg-white border-y border-gray-50 flex overflow-hidden">
+                <div className="max-w-7xl mx-auto px-6 w-full">
+                   <div className="grid grid-cols-1 md:grid-cols-3 gap-16 items-center">
+                        <div>
+                            <h2 className="text-4xl font-black text-ink tracking-tighter mb-4">أداء لا يتوقف.</h2>
+                            <p className="text-gray-400 font-bold">بنية تحتية موزعة عالمياً تضمن استجابة متجرك في أقل من 200ms.</p>
+                        </div>
+                        <div className="md:col-span-2 grid grid-cols-2 gap-8">
+                             <div className="p-8 border-l border-gray-100">
+                                <div className="text-6xl font-black text-ink font-inter tracking-tighter mb-2">99.9%</div>
+                                <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Uptime Guarantee</div>
+                             </div>
+                             <div className="p-8 border-l border-gray-100">
+                                <div className="text-6xl font-black text-accent font-inter tracking-tighter mb-2">24/7</div>
+                                <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Active Monitoring</div>
+                             </div>
+                        </div>
+                   </div>
+                </div>
+            </section>
+
+            {/* Strategic Integration Section */}
+            <section className="py-32 bg-ink text-white overflow-hidden">
+                <div className="max-w-7xl mx-auto px-6 text-center mb-24">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">يتكامل مع نظامك الحالي</h2>
+                    <p className="text-gray-400 text-lg font-bold max-w-2xl mx-auto">
+                        اربط تمالين مع عشرات الأدوات التي تحبها، من أنظمة الأتمتة إلى تحليلات قوقل المتقدمة.
+                    </p>
                 </div>
 
-                {/* Infinite Marquee of Logos */}
-                <div className="relative flex overflow-x-hidden">
-                    <div className="absolute inset-y-0 start-0 w-32 bg-gradient-to-r rtl:bg-gradient-to-l from-ink to-transparent z-10"></div>
-                    <div className="absolute inset-y-0 end-0 w-32 bg-gradient-to-l rtl:bg-gradient-to-r from-ink to-transparent z-10"></div>
-
+                <div className="relative flex overflow-x-hidden opacity-30">
                     <motion.div
-                        animate={{ x: [0, -2000] }}
-                        transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
-                        className="flex gap-8 px-4 whitespace-nowrap"
+                        animate={{ x: [0, -1000] }}
+                        transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
+                        className="flex gap-12 whitespace-nowrap"
                     >
-                        {/* Duplicate lists for seamless loop */}
-                        {[1, 2, 3].map((set) => (
-                            <div key={set} className="flex gap-8 items-center">
-                                {['Google Analytics', 'Zoom', 'Stripe', 'PayPal', 'Mailchimp', 'Zapier', 'Slack', 'Meta Pixel', 'TikTok Ads'].map((logo, idx) => (
-                                    <div key={idx} className="text-2xl md:text-3xl font-bold border border-white/10 bg-white/5 backdrop-blur-sm px-10 py-5 rounded-2xl hover:bg-accent hover:text-white hover:border-accent hover:scale-105 transition-all duration-300 cursor-pointer">
-                                        {logo}
+                        {[1, 2].map((set) => (
+                            <div key={set} className="flex gap-12 items-center">
+                                {['Stripe', 'PayPal', 'Mailchimp', 'Zapier', 'Slack', 'Analytics', 'Binance', 'Zoom', 'Discord'].map((item, idx) => (
+                                    <div key={idx} className="text-4xl font-black font-inter tracking-tighter text-white border-2 border-white/5 px-12 py-6 rounded-3xl hover:bg-white hover:text-ink transition-all cursor-default">
+                                        {item}
                                     </div>
                                 ))}
                             </div>
@@ -228,29 +185,23 @@ export default function FeaturesPage() {
                 </div>
             </section>
 
-            {/* Premium CTA */}
-            <section className="py-32 bg-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-
-                <div className="container-custom relative z-10 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
-                        className="bg-gradient-to-br from-accent to-purple-600 rounded-2xl p-12 md:p-20 shadow-[0_30px_60px_-15px_rgba(0,82,255,0.4)]"
-                    >
-                        <h2 className="text-4xl md:text-6xl font-bold mb-8 text-white font-heading">مستعد للبدء بقوة؟</h2>
-                        <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-2xl mx-auto font-light">
-                            انضم إلينا اليوم مجاناً، وابدأ في بناء إمبراطوريتك الرقمية مع أفضل الأدوات المتاحة في السوق.
-                        </p>
-
-                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block">
-                            <Link href="/register" className="bg-white text-accent font-bold text-xl px-12 py-5 rounded-full shadow-xl hover:shadow-2xl hover:bg-gray-50 flex items-center gap-3 transition-all">
-                                أنشئ حسابك المجاني الآن
+            {/* High-End Refined CTA */}
+            <section className="py-32 bg-white">
+                <div className="max-w-4xl mx-auto px-6 text-center">
+                   <div className="bg-gray-50 rounded-[3rem] p-12 md:p-24 border border-gray-100 relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[100px]"></div>
+                        <h2 className="text-4xl md:text-7xl font-black text-ink tracking-tighter mb-10 relative z-10 leading-[0.9]">
+                            ابدأ ببناء <br/> إمبراطوريتك.
+                        </h2>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+                            <Link href="/register" className="px-12 py-5 bg-ink text-white rounded-2xl font-bold hover:bg-gray-800 transition-all shadow-xl shadow-ink/20">
+                                أنشئ حسابك الآن
                             </Link>
-                        </motion.div>
-                    </motion.div>
+                            <Link href="/pricing" className="px-12 py-5 bg-white text-ink border border-gray-200 rounded-2xl font-bold hover:border-ink transition-all">
+                                عرض خطط الأسعار
+                            </Link>
+                        </div>
+                   </div>
                 </div>
             </section>
         </div>

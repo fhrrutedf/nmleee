@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useRef, useEffect, useMemo } from 'react';
-import { signIn } from 'next-auth/react';
+import { useState, useRef, useEffect, useMemo, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { FiUser, FiMail, FiLock, FiAlertCircle, FiAtSign, FiArrowRight, FiCheckCircle, FiPhone, FiGlobe, FiSearch, FiChevronDown } from 'react-icons/fi';
+import { FiUser, FiMail, FiLock, FiAlertCircle, FiAtSign, FiArrowLeft, FiCheckCircle, FiChevronDown, FiGlobe, FiShield, FiArrowRight } from 'react-icons/fi';
 import { apiPost, apiGet, handleApiError } from '@/lib/safe-fetch';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -14,24 +13,11 @@ import {
     type CountryCode,
 } from 'libphonenumber-js';
 
-// ─── All countries with Arabic names ───────────────────────────────
 const COUNTRY_NAMES_AR: Record<string, string> = {
     SY: 'سوريا', IQ: 'العراق', YE: 'اليمن', PS: 'فلسطين', SA: 'السعودية',
     EG: 'مصر', AE: 'الإمارات', JO: 'الأردن', LB: 'لبنان', LY: 'ليبيا',
     SD: 'السودان', TN: 'تونس', DZ: 'الجزائر', MA: 'المغرب', OM: 'عُمان',
     KW: 'الكويت', BH: 'البحرين', QA: 'قطر', MR: 'موريتانيا', SO: 'الصومال',
-    DJ: 'جيبوتي', KM: 'جزر القمر',
-    TR: 'تركيا', IR: 'إيران', PK: 'باكستان', AF: 'أفغانستان',
-    US: 'الولايات المتحدة', GB: 'المملكة المتحدة', DE: 'ألمانيا', FR: 'فرنسا',
-    CA: 'كندا', AU: 'أستراليا', IN: 'الهند', CN: 'الصين', JP: 'اليابان',
-    KR: 'كوريا الجنوبية', BR: 'البرازيل', MX: 'المكسيك', RU: 'روسيا',
-    IT: 'إيطاليا', ES: 'إسبانيا', NL: 'هولندا', SE: 'السويد', NO: 'النرويج',
-    DK: 'الدنمارك', FI: 'فنلندا', BE: 'بلجيكا', AT: 'النمسا', CH: 'سويسرا',
-};
-
-const COUNTRY_NAMES_EN: Record<string, string> = {
-    SY: 'Syria', IQ: 'Iraq', YE: 'Yemen', PS: 'Palestine', SA: 'Saudi Arabia',
-    EG: 'Egypt', AE: 'UAE', JO: 'Jordan', LB: 'Lebanon', LY: 'Libya',
 };
 
 function getFlag(cc: string): string {
@@ -45,7 +31,6 @@ function getSortedCountries() {
         code,
         flag: getFlag(code),
         nameAr: COUNTRY_NAMES_AR[code] || code,
-        nameEn: COUNTRY_NAMES_EN[code] || code,
         dialCode: `+${getCountryCallingCode(code)}`,
     })).sort((a, b) => {
         const aPriority = PRIORITY_COUNTRIES.indexOf(a.code);
@@ -60,7 +45,7 @@ function getSortedCountries() {
 const fadeInUp = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } };
 const staggerContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1 } } };
 
-export default function RegisterPage() {
+function RegisterContent() {
     const router = useRouter();
     const countries = useMemo(() => getSortedCountries(), []);
 
@@ -68,16 +53,13 @@ export default function RegisterPage() {
     const [selectedCountry, setSelectedCountry] = useState<CountryCode>('SY');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
-    const [countrySearch, setCountrySearch] = useState('');
     const [error, setError] = useState('');
     const [successMsg, setSuccessMsg] = useState('');
     const [loading, setLoading] = useState(false);
     const [phoneError, setPhoneError] = useState('');
 
     const dropdownRef = useRef<HTMLDivElement>(null);
-    const searchInputRef = useRef<HTMLInputElement>(null);
 
-    // ─── 🌍 GEO-IP & COOKIE SYNC ──────────────────────────────
     useEffect(() => {
         const detectGeo = async () => {
             try {
@@ -90,38 +72,17 @@ export default function RegisterPage() {
         detectGeo();
     }, []);
 
-    const updateCountry = (code: CountryCode) => {
-        setSelectedCountry(code);
-        document.cookie = `user_country=${code}; path=/; max-age=${60*60*24*30}`;
-    };
-
     useEffect(() => {
         const handleClick = (e: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
                 setCountryDropdownOpen(false);
-                setCountrySearch('');
             }
         };
         document.addEventListener('mousedown', handleClick);
         return () => document.removeEventListener('mousedown', handleClick);
     }, []);
 
-    const filteredCountries = useMemo(() => {
-        if (!countrySearch) return countries;
-        const q = countrySearch.toLowerCase();
-        return countries.filter(c => c.nameAr.includes(q) || c.nameEn.toLowerCase().includes(q) || c.code.toLowerCase().includes(q) || c.dialCode.includes(q));
-    }, [countries, countrySearch]);
-
     const currentCountry = countries.find(c => c.code === selectedCountry);
-
-    const validatePhone = (num: string, cc: CountryCode): string => {
-        if (!num) return '';
-        const full = `+${getCountryCallingCode(cc)}${num.replace(/^0+/, '')}`;
-        try {
-            if (!isValidPhoneNumber(full)) return 'رقم الهاتف غير صالح لهذه الدولة';
-        } catch { return 'رقم الهاتف غير صالح'; }
-        return '';
-    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -131,11 +92,6 @@ export default function RegisterPage() {
         if (formData.password !== formData.confirmPassword) return setError('كلمات المرور غير متطابقة');
         if (formData.password.length < 6) return setError('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
         
-        if (phoneNumber) {
-            const pErr = validatePhone(phoneNumber, selectedCountry);
-            if (pErr) { setPhoneError(pErr); return; }
-        }
-
         setLoading(true);
 
         try {
@@ -157,57 +113,69 @@ export default function RegisterPage() {
         }
     };
 
-    const inputClass = "block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-2xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer";
-    const labelClass = "absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-accent peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 right-4 flex items-center gap-2";
+    const inputClass = "block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-100 rounded-2xl outline-none focus:bg-white focus:border-ink focus:ring-4 focus:ring-ink/5 transition-all font-bold text-sm";
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-bg-light relative overflow-hidden py-12 px-4 shadow-inner transtion-all duration-500">
-            <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-md w-full relative z-10">
-                <div className="text-center mb-8">
-                    <h1 className="text-4xl font-bold text-ink mb-2 font-heading">أنشئ حسابك المجاني</h1>
-                    <p className="text-text-muted text-base">ابدأ رحلتك في بيع المنتجات الرقمية بسهولة</p>
-                </div>
+        <div className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden py-16 px-6 selection:bg-accent/20">
+            {/* Background Decorations */}
+            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-accent/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
 
-                <motion.div variants={fadeInUp} className="bg-white rounded-xl shadow-2xl border border-gray-100 p-8 sm:p-10 relative">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-transparent rounded-bl-[100px] pointer-events-none" />
-                    <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
+            <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-xl w-full relative z-10">
+                <motion.div variants={fadeInUp} className="text-center mb-12">
+                     <Link href="/" className="inline-block mb-8 group">
+                        <div className="w-16 h-16 mx-auto rounded-3xl bg-ink flex items-center justify-center text-white text-3xl font-black shadow-2xl shadow-ink/20 group-hover:scale-110 transition-transform">
+                            ت
+                        </div>
+                    </Link>
+                    <h1 className="text-4xl font-black text-ink mb-3 tracking-tighter">أنشئ حسابك المجاني</h1>
+                    <p className="text-gray-400 font-bold">انضم لمئات المبدعين العرب وابدأ رحلتك التجارية اليوم.</p>
+                </motion.div>
+
+                <motion.div variants={fadeInUp} className="bg-white rounded-[2.5rem] border border-gray-100 p-10 shadow-2xl shadow-gray-200/50 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-[80px] pointer-events-none"></div>
+
+                    <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                         <AnimatePresence>
-                            {error && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-red-50 text-red-700 px-5 py-3 rounded-xl flex items-center gap-3 text-sm font-medium"><FiAlertCircle /> {error}</motion.div>}
-                            {successMsg && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-green-50 text-green-700 px-5 py-3 rounded-xl flex items-center gap-3 text-sm font-medium"><FiCheckCircle /> {successMsg}</motion.div>}
+                            {error && <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-red-50 text-red-700 p-4 rounded-xl text-xs font-bold border border-red-100 flex items-center gap-3"><FiAlertCircle size={16} /> {error}</motion.div>}
+                            {successMsg && <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-green-50 text-green-700 p-4 rounded-xl text-xs font-bold border border-green-100 flex items-center gap-3"><FiCheckCircle size={16} /> {successMsg}</motion.div>}
                         </AnimatePresence>
 
-                        <div className="relative group">
-                            <input type="text" id="name" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={inputClass} placeholder=" " />
-                            <label htmlFor="name" className={labelClass}><FiUser /> الاسم الكامل</label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="relative">
+                                <FiUser className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none" />
+                                <input type="text" required placeholder="الاسم الكامل" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={`${inputClass} pr-12`} />
+                            </div>
+                            <div className="relative focus-within:z-10">
+                                <FiAtSign className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none" />
+                                <input type="text" required placeholder="اسم المستخدم" value={formData.username} onChange={(e) => setFormData({ ...formData, username: e.target.value.toLowerCase() })} className={`${inputClass} pr-12`} dir="ltr" />
+                            </div>
                         </div>
 
-                        <div className="relative group">
-                            <input type="text" id="username" required value={formData.username} onChange={(e) => setFormData({ ...formData, username: e.target.value.toLowerCase() })} className={inputClass} placeholder=" " dir="ltr" />
-                            <label htmlFor="username" className={labelClass}><FiAtSign /> اسم المستخدم</label>
+                        <div className="relative">
+                            <FiMail className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none" />
+                            <input type="email" required placeholder="البريد الإلكتروني" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className={`${inputClass} pr-12`} />
                         </div>
 
-                        <div className="relative group">
-                            <input type="email" id="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className={inputClass} placeholder=" " />
-                            <label htmlFor="email" className={labelClass}><FiMail /> البريد الإلكتروني</label>
-                        </div>
-
-                        <div className="space-y-3">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="relative" ref={dropdownRef}>
-                                <label className="text-xs font-semibold text-gray-500 mb-1 block">الدولة</label>
-                                <button type="button" onClick={() => setCountryDropdownOpen(!countryDropdownOpen)} className="w-full flex items-center gap-3 px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl transition-all">
-                                    <span className="text-xl">{currentCountry?.flag}</span>
-                                    <span className="flex-1 text-right text-sm">{currentCountry?.nameAr}</span>
-                                    <FiChevronDown className={`transition-transform ${countryDropdownOpen ? 'rotate-180' : ''}`} />
+                                <button type="button" onClick={() => setCountryDropdownOpen(!countryDropdownOpen)} className={`${inputClass} text-right flex items-center justify-between`}>
+                                    <span className="flex items-center gap-2">
+                                        <FiGlobe className="text-gray-300" />
+                                        <span>{currentCountry?.nameAr}</span>
+                                    </span>
+                                    <span className="flex items-center gap-2">
+                                        <span className="text-xl">{currentCountry?.flag}</span>
+                                        <FiChevronDown className={`text-gray-300 transition-transform ${countryDropdownOpen ? 'rotate-180' : ''}`} />
+                                    </span>
                                 </button>
                                 <AnimatePresence>
                                     {countryDropdownOpen && (
-                                        <motion.div className="absolute z-50 mt-2 w-full bg-white border border-gray-200 rounded-2xl shadow-2xl max-h-72 overflow-y-auto">
-                                            <div className="sticky top-0 bg-white p-2.5 border-b">
-                                                <input type="text" value={countrySearch} onChange={(e) => setCountrySearch(e.target.value)} placeholder="ابحث عن دولة..." className="w-full bg-gray-50 border rounded-xl p-2.5 text-sm outline-none" />
-                                            </div>
-                                            {filteredCountries.map(c => (
-                                                <button key={c.code} type="button" onClick={() => { updateCountry(c.code as CountryCode); setCountryDropdownOpen(false); }} className={`w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-blue-50 ${selectedCountry === c.code ? 'bg-blue-50 text-blue-600 font-bold' : ''}`}>
-                                                    <span>{c.flag}</span> <span className="flex-1 text-right">{c.nameAr}</span> <span className="text-xs text-gray-400">{c.dialCode}</span>
+                                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="absolute z-50 mt-2 w-full bg-white border border-gray-100 rounded-2xl shadow-2xl max-h-60 overflow-y-auto p-2 space-y-1">
+                                            {countries.map(c => (
+                                                <button key={c.code} type="button" onClick={() => { setSelectedCountry(c.code as CountryCode); setCountryDropdownOpen(false); }} className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold transition-all ${selectedCountry === c.code ? 'bg-accent text-white' : 'text-gray-500 hover:bg-gray-50 hover:text-ink'}`}>
+                                                    <span className="flex items-center gap-2"><span>{c.flag}</span> <span>{c.nameAr}</span></span>
+                                                    <span className="opacity-50">{c.dialCode}</span>
                                                 </button>
                                             ))}
                                         </motion.div>
@@ -215,30 +183,60 @@ export default function RegisterPage() {
                                 </AnimatePresence>
                             </div>
 
-                            <div>
-                                <label className="text-xs font-semibold text-gray-500 mb-1 block">رقم الهاتف (اختياري)</label>
-                                <div className="flex gap-2">
-                                    <div className="bg-gray-100 border rounded-2xl px-4 py-3.5 text-sm font-bold text-gray-600">{currentCountry?.dialCode}</div>
-                                    <input type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value.replace(/[^\d]/g, ''))} className={`flex-1 bg-gray-50 border rounded-2xl px-4 py-3.5 text-sm outline-none font-mono ${phoneError ? 'border-red-300' : 'border-gray-200'}`} placeholder="رقم الهاتف" dir="ltr" />
-                                </div>
-                                {phoneError && <p className="text-xs text-red-500 mt-1">{phoneError}</p>}
+                            <div className="relative">
+                                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black font-inter text-gray-400">{currentCountry?.dialCode}</div>
+                                <input type="tel" placeholder="رقم الهاتف" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value.replace(/[^\d]/g, ''))} className={`${inputClass} pl-16`} dir="ltr" />
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
-                            <input type="password" required value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} className={inputClass} placeholder="الباسورد" />
-                            <input type="password" required value={formData.confirmPassword} onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })} className={inputClass} placeholder="تأكيد الباسورد" />
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="relative">
+                                <FiLock className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none" />
+                                <input type="password" required placeholder="كلمة المرور" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} className={`${inputClass} pr-12`} />
+                            </div>
+                            <div className="relative">
+                                <FiLock className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none" />
+                                <input type="password" required placeholder="تأكيد المرور" value={formData.confirmPassword} onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })} className={`${inputClass} pr-12`} />
+                            </div>
                         </div>
 
-                        <motion.button whileHover={{ scale: 1.02 }} type="submit" disabled={loading} className="w-full py-5 rounded-2xl bg-accent text-white font-bold shadow-lg hover:shadow-accent/30 transition-all flex items-center justify-center gap-3">
-                            {loading ? <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <>إنشاء حساب مجاني <FiArrowRight className="rotate-180" /></>}
+                        <motion.button 
+                            whileHover={{ scale: 1.01 }} 
+                            whileTap={{ scale: 0.99 }} 
+                            type="submit" 
+                            disabled={loading} 
+                            className={`w-full py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-2xl
+                                ${loading ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-ink text-white hover:bg-black shadow-ink/20'}
+                            `}
+                        >
+                            {loading ? <div className="w-5 h-5 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin" /> : <>Create My Account <FiArrowLeft className="rotate-180" size={16} /></>}
                         </motion.button>
                     </form>
-                    <div className="mt-8 text-center pt-6 border-t border-gray-100">
-                        <Link href="/login" className="text-accent font-bold">لديك حساب؟ سجل دخولك</Link>
+
+                    <div className="mt-10 pt-10 border-t border-gray-50 text-center">
+                        <p className="text-gray-400 text-xs font-bold">
+                            هل تملك حساباً بالفعل؟ {' '}
+                            <Link href="/login" className="text-accent underline underline-offset-4 decoration-accent/30 hover:decoration-accent transition-all">
+                                سجل دخولك الآن
+                            </Link>
+                        </p>
                     </div>
+                </motion.div>
+
+                <motion.div variants={fadeInUp} className="text-center mt-12 space-y-6">
+                    <p className="flex items-center justify-center gap-2 text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                        <FiShield className="text-accent" /> Institutional Grade Security Protected
+                    </p>
                 </motion.div>
             </motion.div>
         </div>
+    );
+}
+
+export default function RegisterPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-white"><div className="w-8 h-8 border-2 border-gray-100 border-t-accent rounded-full animate-spin"></div></div>}>
+            <RegisterContent />
+        </Suspense>
     );
 }

@@ -14,20 +14,24 @@ interface StepProgressProps {
 }
 
 export default function StepProgress({ steps, currentStep }: StepProgressProps) {
+  // Brand colors v2
+  const ACCENT_COLOR = '#2563EB'; // The primary blue accent
+  const INK_COLOR = '#1A1A1A';    // The deep ink black
+
   return (
-    <div className="w-full py-6 px-2">
-      <div className="relative flex items-center justify-between">
-        {/* Connection Lines */}
-        <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-100 -translate-y-1/2 z-0">
+    <div className="w-full py-8 px-4">
+      <div className="relative flex items-center justify-between max-w-2xl mx-auto">
+        {/* Simplified Connection Line */}
+        <div className="absolute top-5 left-0 w-full h-[2px] bg-gray-100 z-0">
           <motion.div 
-            className="h-full bg-primary-indigo-500" 
+            className="h-full bg-accent" 
             initial={{ width: '0%' }}
             animate={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
+            transition={{ duration: 0.8, ease: "circOut" }}
           />
         </div>
 
-        {/* Steps */}
+        {/* Steps - High Contrast Design */}
         {steps.map((step) => {
           const isCompleted = currentStep > step.id;
           const isActive = currentStep === step.id;
@@ -37,23 +41,30 @@ export default function StepProgress({ steps, currentStep }: StepProgressProps) 
               <motion.div
                 initial={false}
                 animate={{
-                  backgroundColor: isCompleted || isActive ? '#6366f1' : '#ffffff',
-                  borderColor: isCompleted || isActive ? '#6366f1' : '#e2e8f0',
-                  scale: isActive ? 1.2 : 1,
+                  backgroundColor: isCompleted ? ACCENT_COLOR : isActive ? INK_COLOR : '#ffffff',
+                  borderColor: isCompleted || isActive ? 'transparent' : '#f3f4f6',
+                  scale: isActive ? 1.15 : 1,
                 }}
-                className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-colors duration-300 shadow-sm`}
+                className="w-10 h-10 rounded-2xl border-2 flex items-center justify-center transition-all shadow-sm ring-4 ring-white"
               >
                 {isCompleted ? (
-                  <FiCheck className="text-white text-lg" />
+                  <FiCheck className="text-white text-lg stroke-[3px]" />
                 ) : (
-                  <span className={`text-sm font-bold ${isActive ? 'text-white' : 'text-gray-400'}`}>
+                  <span className={`text-sm font-bold font-inter ${isActive ? 'text-white' : 'text-gray-300'}`}>
                     {step.id}
                   </span>
                 )}
               </motion.div>
-              <span className={`absolute top-full mt-2 text-[10px] sm:text-xs font-bold whitespace-nowrap transition-colors duration-300 ${isActive ? 'text-primary-indigo-600' : 'text-gray-400'}`}>
+              
+              <motion.span 
+                animate={{ 
+                  color: isActive ? INK_COLOR : '#9ca3af',
+                  fontWeight: isActive ? 800 : 600
+                }}
+                className="absolute top-full mt-4 text-[10px] uppercase tracking-[0.1em] whitespace-nowrap"
+              >
                 {step.label}
-              </span>
+              </motion.span>
             </div>
           );
         })}

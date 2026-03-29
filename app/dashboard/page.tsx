@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { FiTrendingUp, FiShoppingCart, FiDollarSign, FiPackage, FiCalendar, FiArrowUpRight, FiActivity, FiVideo, FiSettings, FiUsers } from 'react-icons/fi';
+import { FiTrendingUp, FiShoppingCart, FiDollarSign, FiPackage, FiCalendar, FiArrowUpRight, FiActivity, FiVideo, FiSettings, FiUsers, FiBarChart2 } from 'react-icons/fi';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { apiGet, handleApiError } from '@/lib/safe-fetch';
@@ -23,9 +23,6 @@ export default function DashboardPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Removed automatic redirect for ADMIN to allow them to see personal stats
-        // Admin can still access the admin center from the sidebar manual links
-        
         const fetchStats = async () => {
             try {
                 const data = await apiGet('/api/dashboard/stats');
@@ -45,13 +42,13 @@ export default function DashboardPage() {
         show: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.1
+                staggerChildren: 0.05
             }
         }
     };
 
     const item = {
-        hidden: { y: 20, opacity: 0 },
+        hidden: { y: 10, opacity: 0 },
         show: { y: 0, opacity: 1 }
     };
 
@@ -62,104 +59,94 @@ export default function DashboardPage() {
             animate="show"
             className="space-y-8 pb-12"
         >
-            {/* Welcome Section */}
-            <motion.div variants={item} className="bg-gradient-to-r from-ink to-gray-800 rounded-2xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
-                <div className="relative z-10">
-                    <h1 className="text-2xl sm:text-4xl font-bold mb-3 leading-tight">مرحباً، {session?.user?.name}! 👋</h1>
-                    <p className="text-gray-300 max-w-xl">
-                        إليك نظرة عامة على أداء متجرك اليوم. لديك فرص جديدة لتحقيق المبيعات، دعنا نستثمرها!
+            {/* Professional Welcome Section */}
+            <motion.div variants={item} className="bg-ink rounded-3xl p-8 sm:p-12 text-white shadow-2xl relative overflow-hidden ring-1 ring-white/10">
+                <div className="relative z-10 max-w-2xl">
+                    <span className="inline-block px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Merchant Dashboard</span>
+                    <h1 className="text-3xl sm:text-5xl font-bold mb-4 tracking-tight leading-tight">مرحباً، {session?.user?.name}</h1>
+                    <p className="text-gray-400 text-sm sm:text-lg leading-relaxed font-bold">
+                        إليك ملخص أداء متجرك وأهم التحديثات. استمر في النمو وتحقيق النجاح.
                     </p>
                 </div>
-                {/* Abstract Background Shapes */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"></div>
-                <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/20 rounded-full translate-y-1/3 -translate-x-1/4 blur-2xl"></div>
+                {/* Minimalist Background Detail */}
+                <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-[120px]"></div>
             </motion.div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {/* High-Contrast Stats Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                    { title: 'إجمالي الأرباح', value: `${(stats.totalRevenue || 0).toLocaleString('ar-EG')} $`, icon: FiDollarSign, badge: 'إرباح', color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/20' },
-                    { title: 'إجمالي الطلبات', value: stats.totalOrders || 0, icon: FiShoppingCart, badge: 'طلب', color: 'text-accent', bg: 'bg-blue-50 dark:bg-blue-900/20' },
-                    { title: 'المنتجات النشطة', value: stats.totalProducts || 0, icon: FiPackage, badge: 'نشط', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20' },
-                    { title: 'الاستشارات القادمة', value: stats.totalAppointments || 0, icon: FiCalendar, badge: 'قريباً', color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/20' },
-                    { title: 'عدد الطلاب', value: stats.totalStudents || 0, icon: FiUsers, badge: 'طالب', color: 'text-teal-500', bg: 'bg-teal-50 dark:bg-teal-900/20' }
+                    { title: 'إجمالي الأرباح', value: `${(stats.totalRevenue || 0).toLocaleString('en-US')} $`, icon: FiDollarSign, badge: 'Revenue', color: 'text-accent', bg: 'bg-accent-light' },
+                    { title: 'إجمالي المبيعات', value: stats.totalOrders || 0, icon: FiShoppingCart, badge: 'Sales', color: 'text-ink', bg: 'bg-gray-50' },
+                    { title: 'المنتجات النشطة', value: stats.totalProducts || 0, icon: FiPackage, badge: 'Inventory', color: 'text-ink', bg: 'bg-gray-50' },
+                    { title: 'عدد الطلاب', value: stats.totalStudents || 0, icon: FiUsers, badge: 'Students', color: 'text-ink', bg: 'bg-gray-50' }
                 ].map((stat, idx) => (
-                    <motion.div variants={item} key={idx} className="card group hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className={`${stat.bg} p-3 rounded-xl`}>
+                    <motion.div variants={item} key={idx} className="bg-white border border-gray-100 p-6 rounded-2xl hover:border-gray-200 transition-all shadow-sm group">
+                        <div className="flex justify-between items-center mb-6">
+                            <div className={`${stat.bg} p-3 rounded-xl border border-transparent group-hover:border-gray-200 transition-all`}>
                                 <stat.icon className={`text-xl ${stat.color}`} />
                             </div>
-                            <span className={`text-xs font-medium px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400`}>
-                                {stat.badge}
-                            </span>
+                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{stat.badge}</span>
                         </div>
-                        <h3 className="text-text-muted text-sm font-medium mb-1">{stat.title}</h3>
-                        <div className="flex items-end justify-between">
-                            <p className="text-2xl font-bold text-ink dark:text-white">
-                                {loading ? '...' : stat.value}
-                            </p>
-                            {stat.title === 'إجمالي الأرباح' && (
-                                <div className={`text-xs font-bold flex items-center gap-1 ${stats.revenueGrowth >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                    {stats.revenueGrowth >= 0 ? '+' : ''}{stats.revenueGrowth}%
-                                </div>
-                            )}
-                            {stat.title === 'إجمالي الطلبات' && (
-                                <div className={`text-xs font-bold flex items-center gap-1 ${stats.ordersGrowth >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                    {stats.ordersGrowth >= 0 ? '+' : ''}{stats.ordersGrowth}%
-                                </div>
-                            )}
-                        </div>
+                        <h3 className="text-gray-500 text-xs font-bold mb-1 uppercase tracking-wider">{stat.title}</h3>
+                        <p className="text-2xl font-bold text-ink font-inter tracking-tight">
+                            {loading ? '—' : stat.value}
+                        </p>
                     </motion.div>
                 ))}
             </div>
 
-            {/* Main Action Area */}
+            {/* Analytics & Quick Actions */}
             <div className="grid lg:grid-cols-3 gap-8">
-                {/* Recent Activity / Chart Placeholder */}
-                <motion.div variants={item} className="lg:col-span-2 card min-h-[400px] flex flex-col">
-                    <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-xl font-bold flex items-center gap-2">
-                            <FiActivity className="text-accent" /> النظرة العامة
-                        </h2>
-                        <select className="bg-bg-light dark:bg-gray-800 border-none rounded-lg text-sm px-3 py-1 text-text-muted focus:ring-0">
+                {/* Analytics Snapshot */}
+                <motion.div variants={item} className="lg:col-span-2 bg-white border border-gray-100 rounded-3xl p-8 shadow-sm flex flex-col">
+                    <div className="flex justify-between items-center mb-10">
+                        <div className="flex items-center gap-3">
+                            <FiBarChart2 className="text-accent text-2xl" />
+                            <h2 className="text-xl font-bold text-ink">تحليلات الأداء</h2>
+                        </div>
+                        <select className="bg-gray-50 border-none rounded-xl text-[11px] font-bold px-4 py-2 text-gray-500 focus:ring-1 focus:ring-gray-200 cursor-pointer">
                             <option>آخر 7 أيام</option>
                             <option>هذا الشهر</option>
                         </select>
                     </div>
 
-                    {/* Empty State Illustration for Chart */}
-                    <div className="flex-1 flex flex-col items-center justify-center text-center p-8 border-2 border-dashed border-gray-100 dark:border-gray-800 rounded-xl bg-gray-50/50 dark:bg-gray-800/20">
-                        <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
-                            <FiActivity className="text-3xl text-gray-400" />
+                    <div className="flex-1 flex flex-col items-center justify-center text-center py-16 px-8 border-2 border-dashed border-gray-50 rounded-2xl">
+                        <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-6">
+                            <FiActivity className="text-2xl text-gray-300" />
                         </div>
-                        <h3 className="text-lg font-medium text-ink mb-2">لا توجد بيانات كافية للرسم البياني</h3>
-                        <p className="text-text-muted max-w-sm mx-auto">
-                            ستظهر هنا إحصائياتك التفصيلية بمجرد البدء في استقبال الطلبات وحجز الاستشارات.
+                        <h3 className="text-lg font-bold text-ink mb-2">في انتظار المزيد من البيانات</h3>
+                        <p className="text-gray-400 text-sm max-w-sm mx-auto font-bold">
+                            سنقوم بتحليل مبيعاتك وتفاعلات طلابك فور بدء النشاط على متجرك.
                         </p>
                     </div>
                 </motion.div>
 
-                {/* Quick Actions */}
+                {/* Corporate Quick Actions */}
                 <motion.div variants={item} className="space-y-4">
-                    <h2 className="text-xl font-bold text-ink mb-4">إجراءات سريعة</h2>
+                    <h2 className="text-sm font-bold text-gray-400 uppercase tracking-[0.2em] mb-6 border-r-4 border-ink pr-3 ml-auto text-right">إجراءات سريعة</h2>
                     {[
-                        { title: 'إضافة منتج جديد', desc: 'بيع كتاب، ملف، أو قالب', icon: FiPackage, href: '/dashboard/products/new', color: 'bg-blue-500' },
-                        { title: 'إنشاء دورة تدريبية', desc: 'شارك خبرتك مع العالم', icon: FiVideo, href: '/dashboard/courses/new', color: 'bg-purple-500' },
-                        { title: 'تخصيص المتجر', desc: 'تعديل الألوان والشعار', icon: FiSettings, href: '/dashboard/settings', color: 'bg-orange-500' }
+                        { title: 'إضافة منتج رقمي', desc: 'كتب، ملفات، قوالب جاهزة', icon: FiPackage, href: '/dashboard/products/new' },
+                        { title: 'إنشاء كورس جديد', desc: 'سجل محاضراتك وأنشئ أكاديميتك', icon: FiVideo, href: '/dashboard/courses/new' },
+                        { title: 'تعديل هوية المتجر', desc: 'الألوان، الشعار، والوصف', icon: FiSettings, href: '/dashboard/brand' }
                     ].map((action, idx) => (
-                        <Link key={idx} href={action.href} className="flex items-center gap-4 p-4 rounded-xl bg-card-white border border-gray-100 dark:border-gray-800 hover:shadow-md transition-all group">
-                            <div className={`w-12 h-12 rounded-lg ${action.color} text-white flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform`}>
+                        <Link key={idx} href={action.href} className="flex items-center gap-5 p-5 rounded-2xl bg-white border border-gray-100 hover:border-accent/20 hover:shadow-xl hover:shadow-accent/5 transition-all group">
+                            <div className="w-12 h-12 rounded-xl bg-gray-50 text-ink flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all shadow-sm">
                                 <action.icon className="text-xl" />
                             </div>
-                            <div>
-                                <h3 className="font-bold text-ink dark:text-white group-hover:text-accent transition-colors">{action.title}</h3>
-                                <p className="text-xs text-text-muted">{action.desc}</p>
+                            <div className="flex-1 text-right">
+                                <h3 className="font-bold text-ink group-hover:text-accent transition-colors text-sm">{action.title}</h3>
+                                <p className="text-[10px] text-gray-400 font-bold mt-0.5">{action.desc}</p>
                             </div>
-                            <div className="mr-auto opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0">
-                                <FiArrowUpRight className="text-text-muted" />
-                            </div>
+                            <FiArrowUpRight className="text-gray-300 group-hover:text-accent" />
                         </Link>
                     ))}
+                    
+                    <div className="mt-8 p-6 bg-accent-light rounded-2xl border border-accent/10">
+                        <p className="text-[10px] font-bold text-accent uppercase tracking-widest mb-2">نصيحة اليوم</p>
+                        <p className="text-xs text-ink font-bold leading-relaxed">
+                            تحديث صور المنتجات الرقمية يزيد من معدل التحويل بنسبة تصل إلى 25%.
+                        </p>
+                    </div>
                 </motion.div>
             </div>
         </motion.div>

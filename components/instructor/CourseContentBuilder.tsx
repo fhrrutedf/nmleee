@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { FiPlus, FiMove, FiCheckSquare, FiEye, FiEyeOff } from 'react-icons/fi';
+import { FiPlus, FiCheckSquare, FiEye, FiActivity, FiVideo, FiTrash2, FiEdit, FiLayers } from 'react-icons/fi';
 
 interface Module {
     id: string;
@@ -91,42 +91,42 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="w-10 h-10 border-4 border-indigo-600/30 border-t-indigo-600 rounded-full animate-spin" />
+                <div className="w-10 h-10 border-4 border-accent/20 border-t-accent rounded-full animate-spin" />
             </div>
         );
     }
 
     return (
         <div className="w-full">
-            {/* Header */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+            {/* Professional Header */}
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-10 border-r-4 border-ink pr-6">
                 <div>
-                    <h2 className="text-2xl font-bold text-slate-800">محتوى وتسلسل الدورة</h2>
-                    <p className="mt-2 text-slate-500 font-medium text-sm">
-                        قم ببناء المنهج وتقسيمه لدروس ومقاطع فيديو. (تُحفظ البيانات تلقائياً هنا)
+                    <h2 className="text-2xl font-bold text-ink">هيكلة الدورة التدريبية</h2>
+                    <p className="mt-1.5 text-gray-500 font-bold text-sm">
+                        قم بتنظيم المنهج الدراسي وتوزيع الدروس والمهام.
                     </p>
                 </div>
                 <button
                     type="button"
                     onClick={() => setShowModuleForm(true)}
-                    className="flex items-center justify-center w-full sm:w-auto gap-2 px-6 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-600/20 active:scale-95"
+                    className="flex items-center justify-center w-full sm:w-auto gap-2 px-8 py-4 bg-ink text-white rounded-2xl font-bold hover:bg-gray-800 transition-all shadow-xl shadow-ink/10 active:scale-95"
                 >
                     <FiPlus />
-                    إنشاء وحدة رئيسية جديدة
+                    إنشاء وحدة تعليمية جديدة
                 </button>
             </div>
 
-            {/* New Module Form */}
+            {/* Corporate Module Form */}
             {showModuleForm && (
-                <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 p-6 mb-8 ring-4 ring-indigo-50 transition-all">
-                    <h3 className="text-lg font-bold text-slate-800 mb-4">اسم الوحدة الجديدة</h3>
+                <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8 mb-10 ring-1 ring-gray-100 transition-all">
+                    <h3 className="text-lg font-bold text-ink mb-6">إضافة وحدة دراسية جديدة</h3>
                     <div className="flex flex-col sm:flex-row gap-4">
                         <input
                             type="text"
                             value={newModuleTitle}
                             onChange={(e) => setNewModuleTitle(e.target.value)}
-                            placeholder="مثال: الفصل الأول - مقدمة وتأسيس..."
-                            className="flex-1 bg-slate-50 border-0 rounded-xl px-6 py-4 font-bold text-slate-800 focus:ring-4 focus:ring-indigo-500/10 transition-all w-full"
+                            placeholder="مثال: مقدمة في علوم البيانات..."
+                            className="flex-1 bg-gray-50 border-gray-100 rounded-2xl px-6 py-4 font-bold text-ink focus:ring-4 focus:ring-accent/5 focus:border-accent transition-all w-full"
                             onKeyPress={(e) => e.key === 'Enter' && createModule()}
                             autoFocus
                         />
@@ -134,7 +134,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                             <button
                                 type="button"
                                 onClick={createModule}
-                                className="flex-1 sm:flex-none px-8 py-4 bg-indigo-600 font-bold text-white rounded-xl hover:bg-indigo-700 active:scale-95 transition-all"
+                                className="flex-1 sm:flex-none px-8 py-4 bg-accent font-bold text-white rounded-2xl hover:bg-accent-hover active:scale-95 transition-all shadow-lg shadow-accent/20"
                             >
                                 حفظ الوحدة
                             </button>
@@ -144,7 +144,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                     setShowModuleForm(false);
                                     setNewModuleTitle('');
                                 }}
-                                className="flex-1 sm:flex-none px-6 py-4 bg-slate-100 font-bold text-slate-600 rounded-xl hover:bg-slate-200 transition-colors"
+                                className="flex-1 sm:flex-none px-8 py-4 bg-gray-100 font-bold text-gray-500 rounded-2xl hover:bg-gray-200 transition-colors"
                             >
                                 إلغاء
                             </button>
@@ -153,40 +153,46 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                 </div>
             )}
 
-            {/* Modules List */}
+            {/* Modules / Sections List */}
             {modules.length === 0 ? (
-                <div className="text-center py-16 bg-white rounded-3xl border border-dashed border-slate-200 hover:border-indigo-300 transition-colors">
-                    <div className="text-slate-300 text-6xl mb-6">📚</div>
-                    <h3 className="text-xl font-bold text-slate-800 mb-2">الدورة فارغة حالياً</h3>
-                    <p className="text-slate-500 mb-8 max-w-sm mx-auto font-medium">ابدأ بإنشاء أول وحدة دراسية (فصل)، ثم ابدأ بإضافة الفيديوهات والدروس داخلها بكل سهولة.</p>
+                <div className="text-center py-24 bg-white rounded-[2rem] border-2 border-dashed border-gray-100 hover:border-accent/30 transition-all duration-300">
+                    <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-8">
+                         <FiLayers className="text-4xl text-gray-200" />
+                    </div>
+                    <h3 className="text-xl font-bold text-ink mb-2">منهج الدورة لا يزال فارغاً</h3>
+                    <p className="text-gray-400 mb-10 max-w-sm mx-auto font-bold">ابدأ بإنشاء أول وحدة دراسية، ثم ابدأ بإضافة المحتوى التعليمي داخلها.</p>
                     <button
                         type="button"
                         onClick={() => setShowModuleForm(true)}
-                        className="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-black transition-all shadow-xl shadow-slate-200"
+                        className="inline-flex items-center gap-3 px-10 py-5 bg-ink text-white rounded-2xl font-bold hover:bg-gray-800 transition-all shadow-2xl shadow-ink/20"
                     >
                         <FiPlus size={20} />
-                        إنشاء أول وحدة تعليمية
+                        إضافة أول وحدة دراسية
                     </button>
                 </div>
             ) : (
-                <div className="space-y-6">
+                <div className="space-y-8">
                     {modules.map((module, moduleIndex) => (
-                        <div key={module.id} className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                            <div className="p-5 sm:p-6 bg-slate-50/50 border-b border-slate-100 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
-                                <div className="flex items-center gap-4 cursor-default">
-                                    <div className="w-10 h-10 bg-white rounded-xl border border-slate-200 flex items-center justify-center text-slate-400 font-bold shadow-sm">
+                        <div key={module.id} className="bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all">
+                            <div className="p-6 sm:p-8 bg-gray-50/50 border-b border-gray-100 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                                <div className="flex items-center gap-5">
+                                    <div className="w-12 h-12 bg-white rounded-2xl border border-gray-100 flex items-center justify-center text-ink font-inter font-bold shadow-sm">
                                         {moduleIndex + 1}
                                     </div>
                                     <div>
-                                        <h3 className="text-lg font-bold text-slate-800">{module.title}</h3>
-                                        <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">{module._count.lessons} درس متاح</p>
+                                        <h3 className="text-xl font-bold text-ink">{module.title}</h3>
+                                        <div className="flex items-center gap-3 mt-1.5">
+                                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{module._count.lessons} Lessons</span>
+                                            <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+                                            <span className="text-[10px] font-bold text-accent uppercase tracking-widest cursor-pointer hover:underline">Edit Section</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="flex items-center w-full lg:w-auto gap-3">
                                     <button
                                         type="button"
                                         onClick={() => router.push(`/dashboard/courses/${courseId}/modules/${module.id}/lessons/new`)}
-                                        className="flex-1 lg:flex-none flex items-center justify-center gap-2 px-5 py-2.5 bg-indigo-50 text-indigo-700 font-bold rounded-xl hover:bg-indigo-100 transition-colors shadow-sm"
+                                        className="flex-1 lg:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-white border border-gray-200 text-ink font-bold rounded-xl hover:border-accent hover:text-accent transition-all shadow-sm"
                                     >
                                         <FiPlus size={18} />
                                         إضافة درس أو فيديو
@@ -194,74 +200,48 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                 </div>
                             </div>
 
-                            {/* Lessons List */}
+                            {/* Lessons List - Minimalist UI */}
                             {module.lessons.length > 0 && (
-                                <div className="divide-y divide-slate-100">
+                                <div className="divide-y divide-gray-50">
                                     {module.lessons.map((lesson, lessonIndex) => (
-                                        <div key={lesson.id} className="p-5 hover:bg-slate-50/50 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                                            <div className="flex items-center gap-4 w-full sm:w-auto">
-                                                <span className="text-sm font-bold text-slate-400 bg-slate-100 w-8 h-8 rounded-lg flex items-center justify-center">
-                                                    {lessonIndex + 1}
-                                                </span>
+                                        <div key={lesson.id} className="p-6 hover:bg-gray-50/50 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                                            <div className="flex items-center gap-5 w-full sm:w-auto">
+                                                <div className="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center text-gray-400 group-hover:bg-accent group-hover:text-white transition-colors">
+                                                    <FiVideo />
+                                                </div>
                                                 <div className="flex-1">
-                                                    <h4 className="font-bold text-slate-800 text-base">{lesson.title}</h4>
-                                                    <div className="flex flex-wrap items-center gap-2 mt-1.5">
-                                                        <span className="text-[10px] font-bold tracking-tighter text-slate-400 bg-slate-100 px-2 py-0.5 rounded uppercase">
-                                                            درس رقم {lessonIndex + 1}
-                                                        </span>
-                                                        <span className="text-xs font-bold text-slate-500 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-md">
+                                                    <h4 className="font-bold text-ink text-base tracking-tight">{lesson.title}</h4>
+                                                    <div className="flex flex-wrap items-center gap-3 mt-2">
+                                                        <span className="text-xs font-bold text-gray-500 bg-white border border-gray-100 px-3 py-1 rounded-lg font-inter">
                                                             {formatDuration(lesson.videoDuration)}
                                                         </span>
                                                         {lesson.isFree && (
-                                                            <span className="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-md flex items-center gap-1">
-                                                                <FiEye className="inline" /> معاينة مجانية
+                                                            <span className="text-[10px] font-bold text-accent bg-accent-light px-2.5 py-1 rounded-lg uppercase tracking-wider flex items-center gap-1.5 border border-accent/5">
+                                                                <FiEye size={12} /> Preview enabled
                                                             </span>
                                                         )}
                                                         {lesson.quizzes && lesson.quizzes.length > 0 && (
-                                                            <span className="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-md flex items-center gap-1">
-                                                                <FiCheckSquare className="inline" /> {lesson.quizzes.length} اختبار متاح
+                                                            <span className="text-[10px] font-bold text-ink bg-gray-100 px-2.5 py-1 rounded-lg uppercase tracking-wider flex items-center gap-1.5">
+                                                                <FiCheckSquare size={12} /> {lesson.quizzes.length} Assignments
                                                             </span>
                                                         )}
                                                     </div>
-
-                                                    {/* Nested Quizzes UI */}
-                                                    {lesson.quizzes && lesson.quizzes.length > 0 && (
-                                                        <div className="mt-3 space-y-2 pr-4 border-r-2 border-blue-100">
-                                                            {lesson.quizzes.map((quiz) => (
-                                                                <div key={quiz.id} className="flex items-center justify-between text-xs font-bold text-slate-600 bg-slate-50/50 p-2 rounded-lg border border-slate-100">
-                                                                    <div className="flex items-center gap-2">
-                                                                        <div className="w-5 h-5 bg-blue-100 text-blue-600 rounded flex items-center justify-center text-[10px]">Q</div>
-                                                                        {quiz.title}
-                                                                    </div>
-                                                                    <button
-                                                                        type="button"
-                                                                        onClick={() => router.push(`/dashboard/quizzes/${quiz.id}/edit`)}
-                                                                        className="text-indigo-600 hover:text-indigo-800 px-2"
-                                                                    >
-                                                                        تعديل الاختبار
-                                                                    </button>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    )}
                                                 </div>
                                             </div>
-                                            <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+                                            <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
                                                 <button
                                                     type="button"
                                                     onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes/new?lessonId=${lesson.id}&returnTo=${encodeURIComponent('/dashboard/courses/new')}`)}
-                                                    className="flex-1 sm:flex-none px-3 py-2 text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100 rounded-lg hover:bg-blue-100 transition-colors flex items-center justify-center gap-1.5"
-                                                    title="إضافة اختبار تفاعلي لهذا الدرس لتقييم تقدم الطلاب ومستوى استيعابهم للمادة"
+                                                    className="flex-1 sm:flex-none px-4 py-2.5 text-[11px] font-bold text-gray-500 bg-white border border-gray-100 rounded-xl hover:border-accent hover:text-accent transition-all flex items-center justify-center gap-2"
                                                 >
-                                                    <FiCheckSquare size={14} />
-                                                    إضافة اختبار
+                                                    <FiPlus size={14} /> إضافة اختبار
                                                 </button>
                                                 <button
                                                     type="button"
                                                     onClick={() => router.push(`/dashboard/lessons/${lesson.id}/edit`)}
-                                                    className="flex-1 sm:flex-none px-4 py-2 text-xs font-bold bg-white border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm"
+                                                    className="flex-1 sm:flex-none px-4 py-2.5 bg-ink text-white text-[11px] font-bold rounded-xl hover:bg-gray-800 transition-all shadow-lg shadow-ink/5"
                                                 >
-                                                    تعديل الدرس
+                                                    تعديل المحتوى
                                                 </button>
                                             </div>
                                         </div>
@@ -269,16 +249,16 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                 </div>
                             )}
                             
-                            {/* Empty module state for lessons */}
+                            {/* Empty module state */}
                             {module.lessons.length === 0 && (
-                                <div className="p-10 text-center bg-slate-50/30">
-                                    <p className="text-slate-400 font-bold text-sm">هذه الوحدة لا تحتوي على دروس حالياً.</p>
+                                <div className="p-12 text-center bg-gray-50/30">
+                                    <p className="text-gray-400 font-bold text-sm mb-4">لا توجد دروس في هذه الوحدة حالياً.</p>
                                     <button
                                         type="button"
                                         onClick={() => router.push(`/dashboard/courses/${courseId}/modules/${module.id}/lessons/new`)}
-                                        className="mt-3 text-indigo-600 font-bold text-xs hover:underline"
+                                        className="text-accent font-bold text-xs hover:underline uppercase tracking-widest border border-accent/10 px-6 py-2 rounded-full"
                                     >
-                                        + انقر هنا لإضافة أول فيديو أو درس
+                                        + إضافة أول درس الآن
                                     </button>
                                 </div>
                             )}

@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { NotificationListener } from '@/components/NotificationListener';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function DashboardLayout({
     children,
@@ -53,18 +54,15 @@ export default function DashboardLayout({
 
     if (status === 'loading') {
         return (
-            <div className="min-h-[100dvh] flex items-center justify-center bg-bg-light dark:bg-bg-light">
+            <div className="min-h-[100dvh] flex items-center justify-center bg-white">
                 <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-accent border-t-transparent mx-auto"></div>
-                    <p className="mt-4 text-ink font-medium">جاري التحميل...</p>
+                    <div className="animate-spin rounded-full h-10 w-10 border-2 border-gray-100 border-t-accent mx-auto"></div>
                 </div>
             </div>
         );
     }
 
-    if (!session) {
-        return null;
-    }
+    if (!session) return null;
 
     const isAdmin = (session.user as any)?.role === 'ADMIN';
 
@@ -72,33 +70,28 @@ export default function DashboardLayout({
         { href: '/dashboard', icon: FiHome, label: 'الرئيسية', exact: true, type: 'store' },
         { href: '/dashboard/products', icon: FiShoppingBag, label: 'المنتجات الرقمية', type: 'store' },
         { href: '/dashboard/bundles', icon: FiPackage, label: 'الباقات والحزم', type: 'store' },
-        { href: '/dashboard/orders', icon: FiTrendingUp, label: 'الطلبات', type: 'store' },
-        { href: '/dashboard/coupons', icon: FiTag, label: 'الكوبونات', type: 'store' },
+        { href: '/dashboard/orders', icon: FiTrendingUp, label: 'الطلبات والمبيعات', type: 'store' },
+        { href: '/dashboard/coupons', icon: FiTag, label: 'أكواد الخصم', type: 'store' },
         { href: '/dashboard/affiliates', icon: FiLink2, label: 'التسويق بالعمولة', type: 'store' },
-        { href: '/dashboard/automation', icon: FiZap, label: 'الأتمتة', type: 'store' },
-        { href: '/dashboard/brand', icon: FiDroplet, label: '🎨 الهوية البصرية', type: 'store' },
+        { href: '/dashboard/automation', icon: FiZap, label: 'الأتمتة الذكية', type: 'store' },
+        { href: '/dashboard/brand', icon: FiDroplet, label: 'الهوية البصرية', type: 'store' },
 
         { href: '/dashboard/courses', icon: FiVideo, label: 'الدورات التدريبية', type: 'academy' },
         { href: '/dashboard/students', icon: FiUsers, label: 'الطلاب والشهادات', type: 'academy' },
-        { href: '/dashboard/courses/qa', icon: FiMessageSquare, label: 'أسئلة وأجوبة', type: 'academy' },
+        { href: '/dashboard/courses/qa', icon: FiMessageSquare, label: 'نقاشات الطلاب', type: 'academy' },
 
-        { href: '/dashboard/appointments', icon: FiCalendar, label: 'الاستشارات (مواعيد)', type: 'shared' },
-        { href: '/dashboard/financials', icon: FiPieChart, label: 'حالتي المالية', type: 'shared' },
-        { href: '/dashboard/earnings', icon: FiDollarSign, label: 'الأرباح والسحوبات', type: 'shared' },
-        { href: '/dashboard/integrations', icon: FiActivity, label: 'التكاملات', type: 'shared' },
-        { href: '/dashboard/billing', icon: FiCreditCard, label: 'الاشتراك والباقة', type: 'shared' },
-        { href: '/dashboard/support', icon: FiMessageSquare, label: 'مركز المساعدة والتذاكر', type: 'shared' },
+        { href: '/dashboard/appointments', icon: FiCalendar, label: 'المواعيد والحجز', type: 'shared' },
+        { href: '/dashboard/financials', icon: FiPieChart, label: 'تحليل مالي', type: 'shared' },
+        { href: '/dashboard/earnings', icon: FiDollarSign, label: 'السحب والتحصيل', type: 'shared' },
+        { href: '/dashboard/integrations', icon: FiActivity, label: 'تطبيقات الربط', type: 'shared' },
+        { href: '/dashboard/billing', icon: FiCreditCard, label: 'الباقة الحالية', type: 'shared' },
         { href: '/dashboard/settings', icon: FiSettings, label: 'الإعدادات', type: 'shared' },
 
-        // Admin only - Unified Admin Center
-        { href: '/dashboard/admin', icon: FiShield, label: 'مركز الإدارة', type: 'admin' },
+        { href: '/dashboard/admin', icon: FiShield, label: 'مركز التحكم الآمن', type: 'admin' },
         { href: '/dashboard/admin/users', icon: FiUsers, label: 'إدارة الأعضاء', type: 'admin' },
-        { href: '/dashboard/admin/products', icon: FiPackage, label: 'المحتوى العام', type: 'admin' },
-        { href: '/dashboard/admin/orders', icon: FiShoppingCart, label: 'إدارة الطلبات', type: 'admin' },
-        { href: '/dashboard/admin/manual-orders', icon: FiActivity, label: 'المدفوعات اليدوية', type: 'admin' },
-        { href: '/dashboard/admin/payouts', icon: FiDollarSign, label: 'السحوبات والمالية', type: 'admin' },
-        { href: '/dashboard/admin/broadcast', icon: FiZap, label: '🚀 البث الذكي للمنصة', type: 'admin' },
-        { href: '/dashboard/admin/blog', icon: FiBookOpen, label: 'المقالات والمدونة', type: 'admin' },
+        { href: '/dashboard/admin/orders', icon: FiShoppingCart, label: 'إدارة العمليات', type: 'admin' },
+        { href: '/dashboard/admin/payouts', icon: FiDollarSign, label: 'المالية المركزية', type: 'admin' },
+        { href: '/dashboard/admin/broadcast', icon: FiZap, label: '🚀 البث الجماعي', type: 'admin' },
         { href: '/dashboard/admin/platform-settings', icon: FiSettings, label: 'إعدادات المنصة', type: 'admin' },
     ];
 
@@ -107,140 +100,84 @@ export default function DashboardLayout({
     );
 
     return (
-        <div className="min-h-screen bg-bg-light dark:bg-bg-light transition-colors duration-300 relative">
-            {/* Mobile Menu Overlay */}
+        <div className="min-h-screen bg-white transition-colors duration-300 relative selection:bg-accent/20">
             {sidebarOpen && (
-                <div
-                    className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
+                <motion.div
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    className="fixed inset-0 bg-ink/60 backdrop-blur-md z-40 lg:hidden"
                     onClick={() => setSidebarOpen(false)}
                 />
             )}
 
-            {/* Sidebar - Mobile: only in DOM when open, Desktop: always visible */}
-            {/* Desktop Sidebar (always rendered) */}
-            <aside className="hidden lg:flex fixed inset-y-0 right-0 bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex-col">
-                <div className="p-6 border-b border-gray-100 dark:border-gray-800">
-                    <div className="flex items-center justify-between">
-                        <h1 className="text-2xl font-bold bg-gradient-to-r from-accent to-purple-600 bg-clip-text text-transparent transform transition-transform hover:scale-105">تمالين</h1>
+            {/* Desktop Sidebar - Institutional Grade */}
+            <aside className="hidden lg:flex fixed inset-y-0 right-0 bg-white border-l border-gray-100 z-50 w-72 flex-col">
+                <div className="p-10">
+                    <div className="flex items-center gap-3 mb-10">
+                         <div className="w-10 h-10 rounded-xl bg-ink text-white flex items-center justify-center font-black text-xl shadow-xl shadow-ink/20">ت</div>
+                         <h1 className="text-xl font-black text-ink tracking-tighter">تمالين</h1>
                     </div>
-                    <p className="text-sm text-text-muted mt-2">مرحباً، {session.user?.name}</p>
-                    <div className="mt-6 flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
-                        <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'store' ? 'bg-white dark:bg-card-white text-accent shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}>
-                            <FiBriefcase className="text-sm" /> المتجر
+                    
+                    <p className="text-[9px] text-gray-400 font-black uppercase tracking-[0.3em] mb-4 bg-gray-50 px-3 py-1.5 rounded-lg inline-block">{session.user?.name}</p>
+                    
+                    {/* Professional Workspace Switcher */}
+                    <div className="bg-gray-50 p-1 rounded-[1.25rem] border border-gray-100 flex">
+                        <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${workspace === 'store' ? 'bg-white text-ink shadow-2xl shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-ink'}`}>
+                             المتجر
                         </button>
-                        <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'academy' ? 'bg-white dark:bg-card-white text-purple-600 shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}>
-                            <FiBookOpen className="text-sm" /> الأكاديمية
+                        <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${workspace === 'academy' ? 'bg-white text-ink shadow-2xl shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-ink'}`}>
+                             الأكاديمية
                         </button>
                     </div>
                 </div>
-                <nav className="p-4 space-y-1 overflow-y-auto flex-1">
+
+                <nav className="px-6 space-y-1.5 overflow-y-auto flex-1 no-scrollbar pt-2 pb-10">
                     {menuItems.map((item) => {
                         const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href) && item.href !== '/dashboard';
                         const isHome = item.href === '/dashboard' && pathname === '/dashboard';
                         const active = isActive || isHome;
                         return (
                             <Link key={item.href} href={item.href}
-                                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group w-full ${active ? 'bg-accent text-white shadow-md shadow-accent/25' : 'text-ink hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-accent'}`}>
-                                <item.icon className={`text-lg flex-shrink-0 transition-transform duration-200 ${active ? '' : 'group-hover:scale-110'}`} />
-                                <span className="font-semibold text-sm truncate flex-1 text-right">{item.label}</span>
-                                {active && <span className="mr-auto w-1.5 h-1.5 rounded-full bg-white/70" />}
+                                className={`flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-300 group w-full ${active ? 'bg-ink text-white shadow-2xl shadow-ink/20 transform -translate-y-0.5' : 'text-gray-400 hover:bg-gray-50 hover:text-ink'}`}>
+                                <item.icon size={18} className={`transition-transform duration-500 ${active ? 'text-accent' : 'group-hover:scale-110 group-hover:text-ink'}`} />
+                                <span className={`text-xs font-black tracking-tight flex-1 text-right ${active ? 'text-white' : ''}`}>{item.label}</span>
                             </Link>
                         );
                     })}
                 </nav>
-                <div className="p-4 border-t border-gray-100 dark:border-gray-800 space-y-2">
-                    <Link href="/explore" className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-accent w-full transition-colors text-sm font-medium">
-                        <FiGlobe className="text-lg" /><span>استكشف المتجر</span>
+
+                <div className="p-6 border-t border-gray-50 bg-gray-50/20 space-y-2">
+                    <Link href="/explore" target="_blank" className="flex items-center gap-4 px-6 py-4 rounded-2xl text-gray-400 hover:bg-white hover:text-accent border border-transparent hover:border-gray-100 transition-all text-[10px] font-black uppercase tracking-widest">
+                        <FiGlobe size={18} /><span>Marketplace</span>
                     </Link>
-                    <button onClick={() => signOut({ callbackUrl: '/' })} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 w-full transition-colors text-sm font-medium">
-                        <FiLogOut className="text-lg" /><span>تسجيل الخروج</span>
+                    <button onClick={() => signOut({ callbackUrl: '/' })} className="flex items-center gap-4 px-6 py-4 rounded-2xl text-red-400 hover:bg-red-50 hover:text-red-600 transition-all text-[10px] font-black uppercase tracking-widest">
+                        <FiLogOut size={18} /><span>End Session</span>
                     </button>
                 </div>
             </aside>
 
-            {/* Mobile Sidebar (only in DOM when open) */}
-            {sidebarOpen && (
-                <aside
-                    className="lg:hidden fixed top-0 bottom-0 right-0 bg-card-white dark:bg-card-white shadow-xl z-50 w-64 flex flex-col overflow-y-auto overflow-x-hidden">
-                    <div className="p-6 border-b border-gray-100 dark:border-gray-800">
-                        <div className="flex items-center justify-between">
-                            <h1 className="text-2xl font-bold bg-gradient-to-r from-accent to-purple-600 bg-clip-text text-transparent">تمالين</h1>
-                            <button onClick={() => setSidebarOpen(false)} className="text-ink hover:text-accent transition-colors">
-                                <FiX className="text-2xl" />
-                            </button>
-                        </div>
-                        <p className="text-sm text-text-muted mt-2">مرحباً، {session.user?.name}</p>
-                        <div className="mt-6 flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
-                            <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'store' ? 'bg-white dark:bg-card-white text-accent shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}>
-                                <FiBriefcase className="text-sm" /> المتجر
-                            </button>
-                            <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg transition-all ${workspace === 'academy' ? 'bg-white dark:bg-card-white text-purple-600 shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}>
-                                <FiBookOpen className="text-sm" /> الأكاديمية
-                            </button>
-                        </div>
-                    </div>
-                    <nav className="p-4 space-y-1 overflow-y-auto flex-1">
-                        {menuItems.map((item) => {
-                            const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href) && item.href !== '/dashboard';
-                            const isHome = item.href === '/dashboard' && pathname === '/dashboard';
-                            const active = isActive || isHome;
-                            return (
-                                <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
-                                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group w-full ${active ? 'bg-accent text-white shadow-md shadow-accent/25' : 'text-ink hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-accent'}`}>
-                                    <item.icon className={`text-lg flex-shrink-0 transition-transform duration-200 ${active ? '' : 'group-hover:scale-110'}`} />
-                                    <span className="font-semibold text-sm truncate flex-1 text-right">{item.label}</span>
-                                    {active && <span className="mr-auto w-1.5 h-1.5 rounded-full bg-white/70" />}
-                                </Link>
-                            );
-                        })}
-                    </nav>
-                    <div className="p-4 border-t border-gray-100 dark:border-gray-800 space-y-2">
-                        <Link href="/explore" onClick={() => setSidebarOpen(false)} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-accent w-full transition-colors text-sm font-medium">
-                            <FiGlobe className="text-lg" /><span>استكشف المتجر</span>
-                        </Link>
-                        <button onClick={() => signOut({ callbackUrl: '/' })} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 w-full transition-colors text-sm font-medium">
-                            <FiLogOut className="text-lg" /><span>تسجيل الخروج</span>
-                        </button>
-                    </div>
-                </aside>
-            )}
-
-
-            {/* Main Content */}
-            <div className="lg:mr-64 min-h-screen relative flex flex-col min-w-0">
-                {/* Top Bar */}
-                <header className="bg-card-white dark:bg-card-white shadow-sm sticky top-0 z-30 transition-colors duration-300 w-full">
-                    <div className="px-4 sm:px-6 py-4 flex items-center justify-between">
-                        <button
-                            onClick={() => setSidebarOpen(true)}
-                            className="lg:hidden text-ink hover:text-accent"
-                        >
-                            <FiMenu className="text-2xl" />
+            {/* Main Operational Surface */}
+            <div className="lg:mr-72 min-h-screen relative flex flex-col min-w-0">
+                <header className="bg-white/90 backdrop-blur-md border-b border-gray-50 sticky top-0 z-30 w-full transition-all">
+                    <div className="px-8 h-20 flex items-center justify-between">
+                        <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-ink p-3 bg-gray-50 rounded-xl hover:bg-gray-100">
+                            <FiMenu size={22} />
                         </button>
 
-                        <div className="flex items-center gap-3 mr-auto">
+                        <div className="flex items-center gap-6 mr-auto">
                             <ThemeToggle />
-                            <Link
-                                href="/explore"
-                                className="hidden md:flex items-center gap-2 text-sm text-gray-500 hover:text-accent transition-colors font-medium"
-                            >
-                                <FiGlobe />
-                                <span>المتجر</span>
-                            </Link>
                             <Link
                                 href={`/${(session.user as any)?.username}`}
                                 target="_blank"
-                                className="btn btn-outline text-sm flex items-center gap-2 py-2 px-4 rounded-full"
+                                className="hidden sm:flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 hover:text-ink px-6 py-3 border border-gray-100 rounded-2xl transition-all bg-white hover:shadow-xl hover:shadow-gray-100/50"
                             >
-                                <FiExternalLink />
-                                <span>متجري</span>
+                                <FiExternalLink size={14} className="text-accent" />
+                                <span>Preview Store</span>
                             </Link>
                         </div>
                     </div>
                 </header>
 
-                {/* Page Content */}
-                <main className="flex-1 p-3 sm:p-5 md:p-8 w-full max-w-full overflow-x-hidden">
+                <main className="flex-1 p-6 sm:p-12 w-full max-w-7xl mx-auto overflow-x-hidden animate-in fade-in slide-in-from-bottom-2 duration-500">
                     {children}
                 </main>
             </div>

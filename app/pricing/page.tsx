@@ -3,441 +3,321 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { FiCheck, FiX, FiZap, FiArrowLeft, FiShield, FiStar, FiTrendingUp, FiCheckCircle } from 'react-icons/fi';
 
 const plans = [
     {
         slug: 'free',
-        name: 'انطلاقة',
-        badge: null,
-        description: 'ابدأ رحلتك مجاناً وقم ببيع منتجاتك الرقمية',
+        name: 'البداية الحرة',
+        badge: 'بداية آمنة',
+        description: 'جرب المنصة، ارفع منتجاتك، وابدأ البيع فوراً بدون دفع مليم واحد شهرياً.',
         monthlyPrice: 0,
         yearlyPrice: 0,
         commission: '10%',
         maxProducts: '5 منتجات',
         storage: '1 جيجابايت',
-        students: 'حتى 100 طالب',
-        support: 'بريد إلكتروني',
-        color: 'from-gray-500 to-gray-600',
-        border: 'border-gray-200 dark:border-gray-700',
-        btnClass: 'bg-gray-800 hover:bg-gray-700 text-white',
+        students: '100 طالب',
+        border: 'border-gray-100',
+        btnClass: 'bg-gray-100 text-ink hover:bg-gray-200',
         popular: false,
         features: [
-            '5 منتجات رقمية',
-            'متجر إلكتروني احترافي',
-            'قبول الدفع أونلاين',
-            'لوحة تحكم كاملة',
-            'تحليلات أساسية',
-            'دعم بالبريد الإلكتروني',
+            '5 منتجات رقمية نشطة',
+            'متجر إلكتروني بهويتك',
+            'قبول الدفع أونلاين (Stripe/Card)',
+            'لوحة تحكم لإدارة المبيعات',
+            'إشعارات البريد الإلكتروني',
+            'دعم فني عبر التذاكر',
         ],
         notIncluded: [
-            'تجريبي مجاني 14 يوم',
-            'دعم الدردشة المباشرة',
-            'مدير حساب مخصص',
+            'إزالة شعار تمالين',
+            'نظام المسوقين (Affiliates)',
+            'إدارة الكوبونات والخصومات',
         ],
-        cta: 'ابدأ مجاناً',
+        cta: 'ابدأ مجاناً الآن',
         href: '/register',
     },
     {
         slug: 'starter',
-        name: 'رواد',
-        badge: 'الأكثر شعبية',
-        description: 'للمبدعين الجادين الذين يريدون نمو حقيقي',
+        name: 'رواد الأعمال',
+        badge: 'الأكثر ربحية للمدربين',
+        description: 'الخيار الاستراتيجي لنمو أعمالك البرمجية والتدريبية بعمولة بيع هي الأقل.',
         monthlyPrice: 19,
-        yearlyPrice: 182,
+        yearlyPrice: 180,
         commission: '5%',
         maxProducts: '50 منتج',
         storage: '15 جيجابايت',
-        students: 'حتى 1,000 طالب',
-        support: 'بريد + دردشة مباشرة',
-        color: 'from-accent to-action-secondary',
-        border: 'border-accent/50',
-        btnClass: 'bg-gradient-to-r from-accent to-action-secondary hover:brightness-110 shadow-lg text-white font-inter tracking-wide',
+        students: '1000 طالب',
+        border: 'border-accent/40',
+        btnClass: 'bg-accent text-white hover:bg-black shadow-2xl shadow-accent/20',
         popular: true,
         features: [
-            '50 منتج رقمي',
-            'عمولة 5% فقط (توفير 50%)',
-            '15 جيجابايت تخزين',
-            'حتى 1,000 طالب',
-            'كوبونات خصم',
-            'برنامج الإحالة',
-            'تحليلات متقدمة',
-            'دردشة مباشرة مع الدعم',
-            'تجريبي مجاني 14 يوم',
+            'أقل عمولة منصة (5% فقط)',
+            '50 منتج رقمي/كورس متاح',
+            'إزالة شعار المنصة بالكامل',
+            'نظام متطور للمسوقين بالعمولة',
+            'إدارة الكوبونات والخصومات',
+            'تصدير بيانات العملاء والمبيعات',
+            'دعم فني سريع عبر WhatsApp',
+            'تجربة مجانية لمدة 14 يوم',
         ],
         notIncluded: [
-            'مدير حساب مخصص',
-            'دعم VIP 24/7',
+            'مدير حساب تقني مخصص',
+            'أولوية قصوى للدعم الفني',
         ],
-        cta: 'ابدأ التجربة المجانية',
+        cta: 'اختر باقة النجاح',
         href: '/register?plan=starter',
     },
     {
         slug: 'pro',
-        name: 'تميز',
-        badge: 'الأفضل للمحترفين',
-        description: 'قدرات لا محدودة لصانعي المحتوى المحترفين',
+        name: 'التميز الاحترافي',
+        badge: 'بدون حدود',
+        description: 'للمؤثرين والمدربين الكبار الذين يمتلكون آلاف الطلاب ويحتاجون قوة قصوى.',
         monthlyPrice: 49,
         yearlyPrice: 470,
-        commission: '2%',
+        commission: '2.5%',
         maxProducts: 'غير محدود',
         storage: '100 جيجابايت',
         students: 'غير محدود',
-        support: 'مدير حساب مخصص',
-        color: 'from-purple-600 to-pink-600',
-        border: 'border-purple-400',
-        btnClass: 'bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 text-white',
+        border: 'border-ink/20',
+        btnClass: 'bg-ink text-white hover:bg-black shadow-2xl shadow-ink/10',
         popular: false,
         features: [
-            'منتجات غير محدودة',
-            'عمولة 2% فقط (الأدنى)',
-            '100 جيجابايت تخزين',
-            'طلاب غير محدودين',
-            'جميع ميزات رواد',
-            'Google Calendar & Meet',
-            'مدير حساب مخصص',
-            'API للمطورين',
-            'لوحة تحليلات Pro',
-            'تجريبي مجاني 14 يوم',
+            'عمولة بيع رمزية (2.5%)',
+            'رفع منتجات/دورات بلا حدود',
+            '100 جيجابايت مساحة سحابية',
+            'عدد طلاب ومتابعين غير محدود',
+            'ربط دومين مخصص (Custom Domain)',
+            'تكامل مع أدوات التسويق (Webhooks)',
+            'مدير حساب تقني مخصص',
+            'أولوية استجابة (أقل من ساعتين)',
         ],
         notIncluded: [],
-        cta: 'ابدأ التجربة المجانية',
+        cta: 'انطلق للاحتراف',
         href: '/register?plan=pro',
     },
     {
         slug: 'enterprise',
-        name: 'مؤسسات',
-        badge: null,
-        description: 'حلول مخصصة للشركات والمؤسسات الكبرى',
+        name: 'المؤسسات الكبرى',
+        badge: 'حلول سيادية',
+        description: 'للكليات والشركات التي تطلب بنية تحتية خاصة وعمولة صفرية تماماً.',
         monthlyPrice: 199,
-        yearlyPrice: 0,
+        yearlyPrice: 1900,
         commission: '0%',
         maxProducts: 'غير محدود',
         storage: '+1 تيرابايت',
         students: 'غير محدود',
-        support: 'VIP دعم 24/7',
-        color: 'from-yellow-500 to-orange-500',
-        border: 'border-yellow-400',
-        btnClass: 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:opacity-90 text-white',
+        border: 'border-gray-100',
+        btnClass: 'bg-white text-ink border border-gray-200 hover:border-ink',
         popular: false,
         features: [
-            'صفر عمولة على المبيعات',
-            'تخزين +1 تيرابايت',
-            'جميع ميزات تميز',
-            'White-label (شعارك الخاص)',
-            'SLA ضمان الأداء',
-            'تكامل API مخصص',
-            'تدريب الفريق',
-            'دعم VIP 24/7',
-            'مدير حساب مخصص',
+            'بدون أي عمولة بيع (0% Commission)',
+            'مساحة تخزين ضخمة ومخصصة',
+            'تطبيقات موبايل بهوية خاصة (اختياري)',
+            'تكامل API كامل مع أنظمتكم',
+            'ضمان استقرار الخدمة (SLA 99.9%)',
+            'دعم قانوني وتقني VIP',
+            'تدريب شامل للفريق',
+            'خطة استراتيجية للنمو',
         ],
         notIncluded: [],
-        cta: 'تواصل معنا',
+        cta: 'تحدث مع المبيعات',
         href: '/contact',
         custom: true,
     },
 ];
 
-const comparisonFeatures = [
-    { feature: 'عمولة المنصة', free: '10%', starter: '5%', pro: '2%', enterprise: '0%' },
-    { feature: 'عدد المنتجات', free: '5', starter: '50', pro: 'غير محدود', enterprise: 'غير محدود' },
-    { feature: 'مساحة التخزين', free: '1 GB', starter: '15 GB', pro: '100 GB', enterprise: '+1 TB' },
-    { feature: 'عدد الطلاب', free: '100', starter: '1,000', pro: 'غير محدود', enterprise: 'غير محدود' },
-    { feature: 'كوبونات الخصم', free: '❌', starter: '✅', pro: '✅', enterprise: '✅' },
-    { feature: 'برنامج الإحالة', free: '❌', starter: '✅', pro: '✅', enterprise: '✅' },
-    { feature: 'Google Meet', free: '❌', starter: '❌', pro: '✅', enterprise: '✅' },
-    { feature: 'تحليلات متقدمة', free: '❌', starter: '✅', pro: '✅', enterprise: '✅' },
-    { feature: 'دردشة مباشرة', free: '❌', starter: '✅', pro: '✅', enterprise: '✅' },
-    { feature: 'مدير حساب', free: '❌', starter: '❌', pro: '✅', enterprise: '✅' },
-    { feature: 'White-label', free: '❌', starter: '❌', pro: '❌', enterprise: '✅' },
-    { feature: 'دعم VIP 24/7', free: '❌', starter: '❌', pro: '❌', enterprise: '✅' },
-    { feature: 'تجريبي مجاني', free: '❌', starter: '14 يوم', pro: '14 يوم', enterprise: 'تخصيص' },
-];
-
 export default function PricingPage() {
     const [isYearly, setIsYearly] = useState(false);
-    const [showComparison, setShowComparison] = useState(false);
 
     return (
-        <div className="min-h-screen bg-bg-light dark:bg-gray-950">
-            {/* Hero Section */}
-            <section className="relative py-20 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-ink via-purple-900/50 to-ink" />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,18,149,0.15)_0%,transparent_70%)]" />
-                <div className="relative max-w-5xl mx-auto px-4 text-center">
+        <div className="min-h-screen bg-white selection:bg-accent/20" dir="rtl">
+            {/* Minimalist Professional Header */}
+            <section className="relative py-24 md:py-32 bg-ink text-white overflow-hidden border-b border-white/5">
+                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-accent/10 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+                
+                <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
                     <motion.div
-                        initial={{ opacity: 0, y: -20 }}
+                        initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 text-accent px-5 py-2.5 rounded-full text-sm font-bold mb-8 backdrop-blur-xl shadow-[0_0_30px_rgba(0,82,255,0.15)]"
+                        className="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-accent px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-10 shadow-sm"
                     >
-                        🚀 عرض إطلاق حصري — خصم 50% لأول 3 أشهر لأول 500 بائع!
+                        <FiZap size={14} /> خطط مالية مصممة لزيادة المبيعات
                     </motion.div>
 
                     <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-4xl md:text-6xl font-bold text-white mb-6"
+                        className="text-5xl md:text-8xl font-black mb-8 tracking-tighter leading-tight"
                     >
-                        اختر باقتك وابدأ{' '}
-                        <span className="bg-gradient-to-r from-accent to-purple-400 bg-clip-text text-transparent">
-                            البيع اليوم
-                        </span>
+                        أرباحك <span className="text-accent underline underline-offset-[12px] decoration-accent/30 decoration-4">كاملة</span> لك
                     </motion.h1>
+                    
                     <motion.p
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 0.2 }}
-                        className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto"
+                        transition={{ delay: 0.3 }}
+                        className="text-lg md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto font-bold leading-relaxed"
                     >
-                        لا رسوم خفية. لا عقود طويلة. ألغِ في أي وقت.
+                        لماذا تدفع عمولة 20% للمنصات الأخرى؟ مع تمالين ابدأ بـ <span className="text-white underline decoration-accent/50 decoration-2 underline-offset-4">5% فقط</span> واحتفظ بجهدك وعرقك لنفسك.
                     </motion.p>
 
-                    {/* Billing Toggle */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.3 }}
-                        className="inline-flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-2xl p-2"
-                    >
-                        <button
-                            onClick={() => setIsYearly(false)}
-                            className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${!isYearly ? 'bg-white text-gray-900 shadow-lg' : 'text-gray-300 hover:text-white'}`}
-                        >
-                            شهري
-                        </button>
-                        <button
-                            onClick={() => setIsYearly(true)}
-                            className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all relative ${isYearly ? 'bg-white text-gray-900 shadow-lg' : 'text-gray-300 hover:text-white'}`}
-                        >
-                            سنوي
-                            <span className="absolute -top-3 -left-2 bg-green-500 text-white text-xs px-2 py-0.5 rounded-full font-bold">
-                                وفّر 20%
-                            </span>
-                        </button>
-                    </motion.div>
+                    {/* Pro Toggle */}
+                    <div className="flex flex-col items-center gap-6">
+                        <div className="flex items-center gap-2 p-1.5 bg-white/5 border border-white/10 rounded-[1.5rem] w-fit">
+                            <button
+                                onClick={() => setIsYearly(false)}
+                                className={`px-12 py-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${!isYearly ? 'bg-white text-ink shadow-2xl' : 'text-gray-400 hover:text-white'}`}
+                            >
+                                monthly
+                            </button>
+                            <button
+                                onClick={() => setIsYearly(true)}
+                                className={`px-12 py-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all relative ${isYearly ? 'bg-white text-ink shadow-2xl' : 'text-gray-400 hover:text-white'}`}
+                            >
+                                yearly
+                                <span className="absolute -top-4 -left-4 bg-accent text-white text-[9px] px-3 py-1 rounded-full font-black uppercase tracking-widest shadow-xl animate-bounce">
+                                    -20%
+                                </span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            {/* Plans Grid */}
-            <section className="max-w-7xl mx-auto px-4 -mt-10 pb-20">
+            {/* Strategy Comparison Section */}
+            <section className="py-20 bg-gray-50/50 border-b border-gray-100">
+                <div className="max-w-4xl mx-auto px-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-xl shadow-gray-200/50">
+                             <div className="flex items-center gap-3 text-red-500 font-black text-[10px] uppercase tracking-widest mb-6">
+                                <FiX className="text-lg" /> المنصات التقليدية
+                             </div>
+                             <div className="space-y-4">
+                                <div className="flex justify-between items-center text-sm font-bold text-gray-400 italic"><span>عمولة البيع:</span> <span className="line-through tracking-wider">25% - 15%</span></div>
+                                <div className="flex justify-between items-center text-sm font-bold text-gray-400 italic"><span>تحصيل الأموال:</span> <span className="line-through">بعد 30 يوم</span></div>
+                                <div className="flex justify-between items-center text-sm font-bold text-gray-400 italic"><span>البيانات:</span> <span className="line-through">مخفية عنك</span></div>
+                             </div>
+                        </div>
+                        <div className="bg-ink p-8 rounded-[2rem] border border-accent/20 shadow-2xl shadow-accent/10 transform md:scale-110">
+                             <div className="flex items-center gap-3 text-accent font-black text-[10px] uppercase tracking-widest mb-6">
+                                <FiCheckCircle className="text-lg" /> بيئة تمالين الاستثمارية
+                             </div>
+                             <div className="space-y-4 text-white">
+                                <div className="flex justify-between items-center text-sm font-bold"><span>عمولة البيع:</span> <span className="text-accent text-lg tracking-widest font-black">5% ONLY</span></div>
+                                <div className="flex justify-between items-center text-sm font-bold"><span>تحصيل الأموال:</span> <span className="text-accent tracking-tighter uppercase">Instant Payouts</span></div>
+                                <div className="flex justify-between items-center text-sm font-bold"><span>البيانات:</span> <span className="text-accent tracking-tighter uppercase">100% Owner Control</span></div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Plans Surface */}
+            <section className="max-w-7xl mx-auto px-6 -mt-16 pb-32">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {plans.map((plan, i) => (
                         <motion.div
                             key={plan.slug}
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 40 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.1 }}
-                            className={`relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-3xl border ${plan.border} shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden
-                                ${plan.popular ? 'ring-1 ring-accent/50 ring-offset-4 ring-offset-bg-light dark:ring-offset-gray-950 scale-105 lg:scale-105 z-10' : ''}`}
+                            className={`group relative bg-white rounded-[2.5rem] border ${plan.border} p-10 flex flex-col transition-all duration-500 hover:shadow-2xl hover:shadow-gray-200/50 
+                                ${plan.popular ? 'lg:scale-[1.08] lg:-translate-y-2 z-20 shadow-2xl shadow-accent/5 ring-4 ring-accent/5' : 'shadow-sm'}`}
                         >
-                            {/* Popular Badge */}
-                            {plan.badge && (
-                                <div className={`bg-gradient-to-r ${plan.color} text-white text-center py-2.5 text-sm font-bold tracking-wide shadow-md`}>
-                                    ⭐ {plan.badge}
-                                </div>
-                            )}
+                             <div className="mb-8 h-8">
+                                {plan.popular && (
+                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] px-5 py-2 rounded-full bg-accent text-white shadow-lg shadow-accent/20">
+                                        {plan.badge}
+                                    </span>
+                                )}
+                                {!plan.popular && (
+                                     <span className="text-[10px] font-black uppercase tracking-[0.2em] px-5 py-2 rounded-full bg-gray-50 text-gray-400 border border-gray-100">
+                                        {plan.badge}
+                                    </span>
+                                )}
+                             </div>
 
-                            <div className="p-6 flex flex-col flex-1">
-                                {/* Plan name */}
-                                <h3 className="text-2xl font-bold text-ink dark:text-white mb-1">{plan.name}</h3>
-                                <p className="text-text-muted text-sm mb-6">{plan.description}</p>
+                            <div className="flex flex-col flex-1">
+                                <h3 className="text-3xl font-black text-ink mb-2 tracking-tighter">{plan.name}</h3>
+                                <p className="text-gray-400 text-[11px] font-black leading-relaxed mb-10 h-12 uppercase tracking-tight">{plan.description}</p>
 
-                                {/* Price */}
-                                <div className="mb-6">
-                                    {plan.custom ? (
-                                        <div>
-                                            <span className="text-4xl font-bold text-ink dark:text-white">مخصص</span>
-                                            <p className="text-text-muted text-sm mt-1">يبدأ من $199/شهر</p>
+                                <div className="mb-10 min-h-[100px] flex flex-col justify-end">
+                                    <div className="font-inter">
+                                        <div className="flex items-baseline gap-1">
+                                            <span className="text-6xl font-black text-ink tracking-tighter">
+                                                ${plan.custom ? 'Custom' : (isYearly ? Math.round(plan.yearlyPrice / 12) : plan.monthlyPrice)}
+                                            </span>
+                                            {!plan.custom && plan.monthlyPrice > 0 && <span className="text-gray-400 font-bold text-sm">/mo</span>}
                                         </div>
-                                    ) : plan.monthlyPrice === 0 ? (
-                                        <div>
-                                            <span className="text-5xl font-bold text-ink dark:text-white">مجاناً</span>
-                                            <p className="text-text-muted text-sm mt-1">للأبد</p>
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            <div className="flex items-end gap-1 font-inter">
-                                                <span className="text-5xl font-bold text-ink dark:text-white tracking-tight">
-                                                    ${isYearly ? Math.round(plan.yearlyPrice / 12) : plan.monthlyPrice}
-                                                </span>
-                                                <span className="text-text-muted mb-2 font-sans">/شهر</span>
-                                            </div>
-                                            {isYearly && (
-                                                <p className="text-green-600 text-sm font-semibold">
-                                                    ${plan.yearlyPrice} سنوياً — وفّر ${plan.monthlyPrice * 12 - plan.yearlyPrice}
-                                                </p>
-                                            )}
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Key Stats */}
-                                <div className="space-y-2 mb-6 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl">
-                                    <div className="flex justify-between text-sm">
-                                        <span className="text-text-muted">عمولة المنصة</span>
-                                        <span className={`font-bold ${plan.commission === '0%' ? 'text-green-600' : 'text-ink dark:text-white'}`}>
-                                            {plan.commission}
-                                        </span>
-                                    </div>
-                                    <div className="flex justify-between text-sm">
-                                        <span className="text-text-muted">المنتجات</span>
-                                        <span className="font-bold text-ink dark:text-white">{plan.maxProducts}</span>
-                                    </div>
-                                    <div className="flex justify-between text-sm">
-                                        <span className="text-text-muted">التخزين</span>
-                                        <span className="font-bold text-ink dark:text-white">{plan.storage}</span>
-                                    </div>
-                                    <div className="flex justify-between text-sm">
-                                        <span className="text-text-muted">الطلاب</span>
-                                        <span className="font-bold text-ink dark:text-white">{plan.students}</span>
+                                        {isYearly && plan.monthlyPrice > 0 && (
+                                            <p className="text-accent text-[10px] font-black uppercase tracking-widest mt-2 bg-accent/5 py-1 px-3 rounded-lg inline-block">
+                                                Total ${plan.yearlyPrice} / Year
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
 
-                                {/* Features */}
-                                <ul className="space-y-2 mb-8 flex-1">
-                                    {plan.features.map((f, idx) => (
-                                        <li key={idx} className="flex items-start gap-3 text-sm text-ink dark:text-gray-300">
-                                            <span className="text-success-green mt-0.5 flex-shrink-0 bg-success-green/10 rounded-full p-0.5 text-[10px]">✔</span>
-                                            {f}
-                                        </li>
+                                <div className="space-y-4 mb-10 p-6 bg-gray-50 rounded-3xl border border-gray-100 group-hover:bg-white transition-colors duration-500">
+                                    {[
+                                        { l: 'عمولة المبيعات', v: plan.commission, h: true },
+                                        { l: 'المنتجات الرقمية', v: plan.maxProducts },
+                                        { l: 'تحصيل الأموال', v: 'فوري (Stripe)' }
+                                    ].map((s, idx) => (
+                                        <div key={idx} className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
+                                            <span className="text-gray-400">{s.l}</span>
+                                            <span className={s.h ? 'text-accent' : 'text-ink'}>{s.v}</span>
+                                        </div>
                                     ))}
-                                    {plan.notIncluded.map((f, idx) => (
-                                        <li key={idx} className="flex items-start gap-2 text-sm text-gray-400 line-through">
-                                            <span className="flex-shrink-0">✗</span>
-                                            {f}
+                                </div>
+
+                                <ul className="space-y-4 mb-10 flex-1">
+                                    {plan.features.map((f, idx) => (
+                                        <li key={idx} className="flex items-start gap-4 text-xs font-bold text-gray-500 group-hover:text-ink transition-colors">
+                                            <FiCheckCircle className="text-accent mt-0.5 shrink-0" size={16} />
+                                            <span className="leading-relaxed">{f}</span>
                                         </li>
                                     ))}
                                 </ul>
 
-                                {/* CTA */}
                                 <Link
                                     href={plan.href}
-                                    className={`w-full py-3.5 rounded-2xl text-center font-bold text-sm transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5 ${plan.btnClass}`}
+                                    className={`w-full py-6 rounded-2xl text-center font-black text-[10px] uppercase tracking-[0.25em] transition-all duration-300 transform group-hover:-translate-y-1 ${plan.btnClass}`}
                                 >
                                     {plan.cta}
                                 </Link>
-
-                                {plan.slug !== 'free' && plan.slug !== 'enterprise' && (
-                                    <p className="text-center text-xs text-text-muted mt-3">
-                                        تجريبي مجاني 14 يوم • لا حاجة لبطاقة
+                                
+                                {plan.monthlyPrice > 0 && !plan.custom && (
+                                    <p className="text-center text-[9px] text-gray-400 font-black mt-6 uppercase tracking-[0.2em]">
+                                        Risk Free • 14 Day Trial
                                     </p>
                                 )}
                             </div>
                         </motion.div>
                     ))}
                 </div>
+            </section>
 
-                {/* Launch Offer Banner */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="mt-12 relative overflow-hidden bg-gradient-to-r from-accent to-purple-600 rounded-3xl p-8 text-white text-center"
-                >
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15)_0%,transparent_60%)]" />
-                    <div className="relative">
-                        <div className="text-4xl mb-3">🎉</div>
-                        <h3 className="text-2xl font-bold mb-2">عرض الإطلاق الحصري</h3>
-                        <p className="text-white/80 mb-4 max-w-xl mx-auto">
-                            خصم <strong>50%</strong> لأول 3 أشهر لأول <strong>500 بائع</strong> يسجلون في الباقات المدفوعة.
-                        </p>
-                        <Link
-                            href="/register?plan=starter"
-                            className="inline-block bg-white text-accent font-bold px-8 py-3.5 rounded-2xl hover:shadow-2xl transition-all hover:-translate-y-0.5 text-lg"
-                        >
-                            احجز مقعدك الآن ←
-                        </Link>
+            {/* Institutional Trust Banner */}
+            <section className="bg-ink py-32 text-white relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
+                <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+                    <div className="w-24 h-24 bg-accent text-white rounded-3xl flex items-center justify-center mx-auto mb-10 shadow-2xl shadow-accent/20 rotate-3">
+                        <FiShield size={48} />
                     </div>
-                </motion.div>
-
-                {/* Referral Program */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                    className="mt-8 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 p-8 text-center"
-                >
-                    <div className="text-4xl mb-3">🤝</div>
-                    <h3 className="text-2xl font-bold text-ink dark:text-white mb-2">
-                        برنامج الإحالة — اكسب معنا
-                    </h3>
-                    <p className="text-text-muted mb-4 max-w-lg mx-auto">
-                        شارك رابطك مع أصدقائك واكسب <strong className="text-accent">20% عمولة متكررة</strong> شهرياً عن كل بائع جديد يشترك في باقة مدفوعة.
+                    <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tighter">لماذا يختار المحترفون تمالين؟</h2>
+                    <p className="text-gray-400 text-xl font-bold mb-12 leading-relaxed">
+                        نحن لسنا مجرد منصة بيع، نحن شريكك الاستراتيجي في النمو. نقوم بمعالجة مدفوعاتك بأمان، وتوصيل منتجاتك لعملائك فوراً، وحماية حقوقك القانونية والمالية.
                     </p>
-                    <Link href="/register" className="btn btn-primary px-8 py-3">
-                        ابدأ وشارك رابطك
-                    </Link>
-                </motion.div>
-
-                {/* Comparison Table Toggle */}
-                <div className="mt-12 text-center">
-                    <button
-                        onClick={() => setShowComparison(!showComparison)}
-                        className="text-accent font-bold underline underline-offset-4 text-sm hover:opacity-80 transition-opacity"
-                    >
-                        {showComparison ? '▲ إخفاء' : '▼ إظهار'} مقارنة تفصيلية بين الباقات
-                    </button>
-                </div>
-
-                {/* Comparison Table */}
-                {showComparison && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="mt-8 overflow-x-auto rounded-3xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-xl"
-                    >
-                        <table className="w-full text-sm">
-                            <thead>
-                                <tr className="border-b border-gray-100 dark:border-gray-800">
-                                    <th className="text-right p-4 font-bold text-ink dark:text-white w-40">الميزة</th>
-                                    {['انطلاقة', 'رواد', 'تميز', 'مؤسسات'].map(name => (
-                                        <th key={name} className="p-4 font-bold text-ink dark:text-white text-center">{name}</th>
-                                    ))}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {comparisonFeatures.map((row, i) => (
-                                    <tr key={i} className={`border-b border-gray-50 dark:border-gray-800/50 ${i % 2 === 0 ? 'bg-gray-50/50 dark:bg-gray-800/20' : ''}`}>
-                                        <td className="p-4 font-medium text-ink dark:text-gray-300">{row.feature}</td>
-                                        {[row.free, row.starter, row.pro, row.enterprise].map((val, j) => (
-                                            <td key={j} className="p-4 text-center">
-                                                <span className={val === '❌' ? 'text-gray-300' : val === '✅' ? 'text-green-500 text-lg' : 'font-bold text-ink dark:text-white'}>
-                                                    {val}
-                                                </span>
-                                            </td>
-                                        ))}
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </motion.div>
-                )}
-
-                {/* FAQ */}
-                <div className="mt-16 max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-bold text-center text-ink dark:text-white mb-10">
-                        أسئلة شائعة
-                    </h2>
-                    {[
-                        { q: 'هل أحتاج بطاقة ائتمان للبدء؟', a: 'لا! يمكنك البدء مجاناً بدون بطاقة. للباقات المدفوعة، لديك 14 يوماً تجريبياً قبل أي رسوم.' },
-                        { q: 'ما الفرق بين العمولة في الباقات؟', a: 'العمولة هي النسبة التي تأخذها المنصة من كل عملية بيع. مثلاً: إذا بعت منتجاً بـ 100$، في الباقة المجانية يصلك 90$، وفي تميز يصلك 98$.' },
-                        { q: 'هل يمكنني الترقية أو التخفيض في أي وقت؟', a: 'نعم، يمكنك تغيير باقتك في أي وقت. عند الترقية تدفع الفرق، وعند التخفيض يستمر اشتراكك حتى نهاية الدورة.' },
-                        { q: 'ما العملات المدعومة للدفع؟', a: 'ندعم USD, SAR, EGP, SYP وغيرها من العملات المحلية العربية.' },
-                        { q: 'كيف يعمل برنامج الإحالة؟', a: 'احصل على رابط فريد وشاركه. ستحصل على 20% عمولة متكررة شهرياً من كل شخص يشترك في باقة مدفوعة عبر رابطك.' },
-                    ].map((faq, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.05 }}
-                            className="border-b border-gray-100 dark:border-gray-800 py-6"
-                        >
-                            <h4 className="font-bold text-ink dark:text-white mb-2">{faq.q}</h4>
-                            <p className="text-text-muted text-sm leading-relaxed">{faq.a}</p>
-                        </motion.div>
-                    ))}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 grayscale opacity-50">
+                        <div className="text-[10px] font-black uppercase tracking-widest">Encryption Grade: 256-bit</div>
+                        <div className="text-[10px] font-black uppercase tracking-widest">Network Speed: 10Gbps</div>
+                        <div className="text-[10px] font-black uppercase tracking-widest">Support Response: 24/7/365</div>
+                        <div className="text-[10px] font-black uppercase tracking-widest">Platform Uptime: 99.99%</div>
+                    </div>
                 </div>
             </section>
         </div>
     );
 }
+

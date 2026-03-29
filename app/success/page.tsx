@@ -4,8 +4,8 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { FiCheckCircle, FiPackage, FiBook, FiArrowLeft, FiGift, FiShoppingCart, FiClock, FiMail, FiLock, FiMessageCircle, FiPhone } from 'react-icons/fi';
-import { FaWhatsapp, FaTelegram, FaInstagram, FaFacebook, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FiCheckCircle, FiPackage, FiBook, FiArrowLeft, FiGift, FiShoppingCart, FiClock, FiMail, FiLock, FiMessageCircle, FiExternalLink } from 'react-icons/fi';
+import { FaWhatsapp, FaTelegram, FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
 
 function SuccessContent() {
     const searchParams = useSearchParams();
@@ -25,7 +25,6 @@ function SuccessContent() {
         } else {
             setLoading(false);
         }
-        // Fetch social links for contact info
         fetchSocial();
     }, [sessionId]);
 
@@ -67,278 +66,224 @@ function SuccessContent() {
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent border-t-transparent"></div>
+            <div className="flex items-center justify-center min-h-screen bg-white">
+                <div className="w-12 h-12 border-4 border-accent/20 border-t-accent rounded-full animate-spin"></div>
             </div>
         );
     }
 
     if (!order) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 dark:bg-bg-dark">
-                <h1 className="text-2xl font-bold mb-4 text-ink dark:text-white">طلب غير موجود</h1>
-                <Link href="/" className="btn btn-primary">العودة للرئيسية</Link>
+            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+                <h1 className="text-2xl font-bold mb-4 text-ink">طلب غير موجود</h1>
+                <Link href="/" className="px-8 py-3 bg-ink text-white rounded-xl font-bold">العودة للرئيسية</Link>
             </div>
         )
     }
 
-    const effectiveBrandColor = order.brandColor;
     const isPending = isManual || order.status === 'PENDING' || order.paymentMethod === 'manual';
     const isPaid = order.status === 'PAID' || order.status === 'COMPLETED';
     const courseItem = order.items?.find((i: any) => i.type === 'course');
     const hasCourse = !!courseItem;
 
-    // Social links array for display
     const socialLinks = [
-        social?.supportWhatsapp && { icon: <FaWhatsapp size={18} />, label: 'واتساب', href: `https://wa.me/${social.supportWhatsapp}`, color: 'bg-green-500' },
-        social?.socialTelegram && { icon: <FaTelegram size={18} />, label: 'تيليجرام', href: social.socialTelegram.startsWith('http') ? social.socialTelegram : `https://t.me/${social.socialTelegram}`, color: 'bg-blue-500' },
-        social?.socialInstagram && { icon: <FaInstagram size={18} />, label: 'انستجرام', href: social.socialInstagram.startsWith('http') ? social.socialInstagram : `https://instagram.com/${social.socialInstagram}`, color: 'bg-pink-500' },
-        social?.socialFacebook && { icon: <FaFacebook size={18} />, label: 'فيسبوك', href: social.socialFacebook.startsWith('http') ? social.socialFacebook : `https://facebook.com/${social.socialFacebook}`, color: 'bg-blue-700' },
-        social?.socialTwitter && { icon: <FaTwitter size={18} />, label: 'تويتر', href: social.socialTwitter.startsWith('http') ? social.socialTwitter : `https://twitter.com/${social.socialTwitter}`, color: 'bg-sky-500' },
-        social?.supportEmail && { icon: <FiMail size={18} />, label: 'البريد', href: `mailto:${social.supportEmail}`, color: 'bg-gray-600' },
+        social?.supportWhatsapp && { icon: <FaWhatsapp size={18} />, label: 'واتساب الدعم', href: `https://wa.me/${social.supportWhatsapp}` },
+        social?.socialTelegram && { icon: <FaTelegram size={18} />, label: 'قناة التليجرام', href: social.socialTelegram.startsWith('http') ? social.socialTelegram : `https://t.me/${social.socialTelegram}` },
+        social?.socialInstagram && { icon: <FaInstagram size={18} />, label: 'انستقرام', href: social.socialInstagram.startsWith('http') ? social.socialInstagram : `https://instagram.com/${social.socialInstagram}` },
+        social?.supportEmail && { icon: <FiMail size={18} />, label: 'البريد الرسمي', href: `mailto:${social.supportEmail}` },
     ].filter(Boolean) as any[];
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-bg-dark py-12 pb-24">
-            {effectiveBrandColor && (
-                <style dangerouslySetInnerHTML={{
-                    __html: `
-                    .text-accent, .text-indigo-600 { color: ${effectiveBrandColor} !important; }
-                    .bg-indigo-600 { background-color: ${effectiveBrandColor} !important; }
-                    .btn-primary { background-color: ${effectiveBrandColor} !important; border-color: ${effectiveBrandColor} !important; }
-                    .hover\\:bg-indigo-700:hover, .hover\\:bg-blue-600:hover { background-color: ${effectiveBrandColor}cc !important; }
-                    `
-                }} />
-            )}
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="bg-white dark:bg-card-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-800">
+        <div className="min-h-screen bg-white py-12 md:py-24 selection:bg-accent/20">
+            <div className="max-w-5xl mx-auto px-6">
+                <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-gray-200/50 overflow-hidden border border-gray-100 flex flex-col">
 
-                    {/* ===== HEADER ===== */}
+                    {/* ===== CLEAN STRATEGIC HEADER ===== */}
                     {isPending && !isPaid ? (
-                        /* Manual Payment — Pending */
-                        <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white p-12 text-center relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                        <div className="bg-ink text-white p-16 text-center relative overflow-hidden">
                             <div className="relative z-10">
-                                {hasCourse ? (
-                                    <>
-                                        <FiLock size={80} className="mx-auto mb-6 drop-shadow-md" />
-                                        <h1 className="text-4xl font-bold mb-3 drop-shadow-sm">الكورس مقفل حالياً 🔒</h1>
-                                        <p className="text-blue-50 font-medium text-lg max-w-lg mx-auto">
-                                            تم استلام طلبك! سيتم فتح الكورس بعد التأكد من الدفع من قبل الإدارة. سنرسل لك رابط التسجيل عبر البريد الإلكتروني.
-                                        </p>
-                                    </>
-                                ) : (
-                                    <>
-                                        <FiClock size={80} className="mx-auto mb-6 drop-shadow-md" />
-                                        <h1 className="text-4xl font-bold mb-3 drop-shadow-sm">تم استلام طلبك! ⏳</h1>
-                                        <p className="text-blue-50 font-medium text-lg max-w-lg mx-auto">
-                                            شكراً لك! سنتحقق من الدفعة وسنرسل لك التأكيد عبر البريد الإلكتروني.
-                                        </p>
-                                    </>
-                                )}
-                            </div>
-                        </div>
-                    ) : (
-                        /* Auto Payment — Confirmed */
-                        <div className="bg-gradient-to-br from-green-500 to-blue-600 text-white p-12 text-center relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
-                            <div className="relative z-10">
-                                <FiCheckCircle size={80} className="mx-auto mb-6 drop-shadow-md" />
-                                <h1 className="text-4xl font-bold mb-3 drop-shadow-sm">تم الدفع بنجاح! 🎉</h1>
-                                <p className="text-green-50 font-medium text-lg max-w-lg mx-auto">
-                                    {hasCourse
-                                        ? 'تم تفعيل الدورة بنجاح! يمكنك البدء بالتعلم فوراً.'
-                                        : 'شكراً لثقتك بنا! تم تأكيد طلبك وإرسال كافة التفاصيل إلى بريدك الإلكتروني.'
-                                    }
+                                <div className="w-20 h-20 bg-white/10 rounded-3xl flex items-center justify-center mx-auto mb-8 backdrop-blur-md">
+                                    <FiClock size={40} className="text-white" />
+                                </div>
+                                <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">طلبك قيد المراجعة ⏳</h1>
+                                <p className="text-gray-400 text-lg max-w-xl mx-auto font-bold leading-relaxed">
+                                    تم استلام بيانات الدفع بنجاح. سيقوم فريقنا بالتحقق من العملية وتفعيل المحتوى لك خلال أقل من 12 ساعة.
                                 </p>
                             </div>
+                            <div className="absolute top-0 left-0 w-full h-full bg-accent/5 blur-[120px] pointer-events-none"></div>
+                        </div>
+                    ) : (
+                        <div className="bg-accent text-white p-16 text-center relative overflow-hidden">
+                            <div className="relative z-10">
+                                <div className="w-20 h-20 bg-white/10 rounded-3xl flex items-center justify-center mx-auto mb-8 backdrop-blur-md">
+                                    <FiCheckCircle size={40} className="text-white" />
+                                </div>
+                                <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">تم تفعيل طلبك بنجاح! 🎉</h1>
+                                <p className="text-white/80 text-lg max-w-xl mx-auto font-bold leading-relaxed">
+                                    شكراً لثقتك بنا. جميع المواد والوصول متاح لك الآن. نتمنى لك رحلة تعليمية مثمرة.
+                                </p>
+                            </div>
+                            <div className="absolute inset-0 bg-ink/10 blur-[100px] pointer-events-none"></div>
                         </div>
                     )}
 
-                    <div className="flex flex-col md:flex-row">
-                        {/* ===== ORDER DETAILS ===== */}
-                        <div className="p-8 md:p-12 md:w-1/2 border-b md:border-b-0 md:border-l border-gray-100 dark:border-gray-800">
-                            <h2 className="text-2xl font-bold text-ink dark:text-white mb-6">تفاصيل طلبك</h2>
-                            <div className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 space-y-4 mb-8">
-                                <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-3">
-                                    <span className="text-gray-500 font-medium">رقم العملية:</span>
-                                    <span className="font-bold text-ink dark:text-gray-200 font-mono text-sm">{order.orderNumber}</span>
+                    <div className="grid grid-cols-1 lg:grid-cols-2">
+                        {/* ===== ORDER SUMMARY RECEIPT ===== */}
+                        <div className="p-10 md:p-16 border-l border-gray-50 flex flex-col">
+                            <h2 className="text-2xl font-bold text-ink mb-10 flex items-center gap-3">
+                                <span className="w-1.5 h-6 bg-ink rounded-full"></span> تفاصيل الفاتورة
+                            </h2>
+                            
+                            <div className="bg-gray-50 rounded-3xl p-8 space-y-6 mb-10 border border-gray-100">
+                                <div className="flex justify-between items-center border-b border-gray-200/50 pb-5">
+                                    <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Order ID</span>
+                                    <span className="font-bold text-ink font-mono text-sm">#{order.orderNumber}</span>
                                 </div>
-                                <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-3">
-                                    <span className="text-gray-500 font-medium">الإيميل:</span>
-                                    <span className="font-bold text-ink dark:text-gray-200 text-sm">{order.customerEmail}</span>
+                                <div className="flex justify-between items-center border-b border-gray-200/50 pb-5">
+                                    <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Customer</span>
+                                    <span className="font-bold text-ink text-sm">{order.customerEmail}</span>
                                 </div>
-                                <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-3">
-                                    <span className="text-gray-500 font-medium">الحالة:</span>
-                                    {isPending && !isPaid ? (
-                                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-700">قيد التحقق</span>
-                                    ) : (
-                                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-green-100 text-green-700">تم الدفع ✓</span>
-                                    )}
+                                <div className="flex justify-between items-center border-b border-gray-200/50 pb-5">
+                                    <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Status</span>
+                                    <span className={`text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest ${isPending && !isPaid ? 'bg-ink text-white' : 'bg-accent text-white'}`}>
+                                        {isPending && !isPaid ? 'Verification' : 'Completed ✓'}
+                                    </span>
                                 </div>
-                                <div className="flex justify-between items-center pt-2">
-                                    <span className="text-gray-500 font-bold">المبلغ:</span>
-                                    <span className="font-bold text-accent text-2xl">{order.totalAmount.toFixed(2)} $</span>
+                                <div className="flex justify-between items-center pt-3">
+                                    <span className="text-ink font-bold text-lg">إجمالي المبلغ:</span>
+                                    <span className="font-black text-accent text-3xl font-inter tracking-tighter">${order.totalAmount.toFixed(2)}</span>
                                 </div>
                             </div>
 
-                            {/* ===== POST-PURCHASE MESSAGE ===== */}
-                            {isPending && !isPaid ? (
-                                <div className="space-y-4 mb-8">
-                                    {hasCourse ? (
-                                        <div className="bg-blue-50 dark:bg-amber-900/20 border border-blue-100 dark:border-amber-900/30 rounded-2xl p-5">
-                                            <p className="text-sm text-blue-900 dark:text-amber-300 font-medium leading-relaxed">
-                                                🔒 <strong>الكورس مقفل حالياً</strong> حتى يتم التأكد من الدفع من قبل الإدارة. بعد التحقق، سنرسل لك رابط التسجيل والوصول عبر البريد الإلكتروني.
-                                            </p>
-                                        </div>
-                                    ) : (
-                                        <div className="bg-blue-50 dark:bg-amber-900/20 border border-blue-100 dark:border-amber-900/30 rounded-2xl p-5">
-                                            <p className="text-sm text-blue-900 dark:text-amber-300 font-medium leading-relaxed">
-                                                ⏳ <strong>سنتحقق من إيصال الدفع</strong> وسنرسل لك رسالة تأكيد + المنتج عبر البريد الإلكتروني خلال وقت قصير.
-                                            </p>
-                                        </div>
-                                    )}
-
-                                    {/* Social Media Contact Section */}
-                                    {socialLinks.length > 0 && (
-                                        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 rounded-2xl p-5">
-                                            <p className="text-sm text-blue-900 dark:text-blue-300 font-bold mb-3 flex items-center gap-2">
-                                                <FiMessageCircle /> إذا واجهتك مشكلة أو انتظرت كثيراً، تواصل معنا:
-                                            </p>
-                                            <div className="flex flex-wrap gap-2">
-                                                {socialLinks.map((link, i) => (
-                                                    <a
-                                                        key={i}
-                                                        href={link.href}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className={`${link.color} text-white px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-2 hover:opacity-80 transition-opacity`}
-                                                    >
-                                                        {link.icon} {link.label}
-                                                    </a>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            ) : (
-                                <>
-                                    {hasCourse ? (
-                                        <div className="bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-900/30 rounded-2xl p-5 mb-8">
-                                            <p className="text-sm text-green-900 dark:text-green-300 font-medium leading-relaxed">
-                                                🎓 <strong>تم تفعيل الدورة بنجاح:</strong> يمكنك البدء في التعلم فوراً.
-                                            </p>
-                                        </div>
-                                    ) : (
-                                        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 rounded-2xl p-5 mb-8">
-                                            <p className="text-sm text-blue-900 dark:text-blue-300 font-medium leading-relaxed">
-                                                📧 <strong>ملاحظة هامة:</strong> لقد أرسلنا إيصال الشراء وروابط التحميل إلى بريدك الإلكتروني.
-                                            </p>
-                                        </div>
-                                    )}
-                                </>
-                            )}
-
-                            {/* ===== ACTION BUTTONS ===== */}
-                            <div className="space-y-4">
+                            {/* Verification/Welcome Message */}
+                            <div className="mb-12">
                                 {isPending && !isPaid ? (
-                                    <Link
-                                        href="/"
-                                        className="block w-full py-4 bg-ink hover:bg-black dark:bg-accent dark:hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg"
-                                    >
-                                        تصفح المزيد من المنتجات
-                                    </Link>
+                                    <div className="flex gap-4 p-6 bg-gray-50 rounded-2xl border border-gray-100 ring-4 ring-gray-50/50">
+                                        <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-ink shrink-0">
+                                            <FiLock />
+                                        </div>
+                                        <p className="text-sm text-gray-500 font-bold leading-relaxed">
+                                            سيتم فتح المحتوى تلقائياً في حسابك بعد مراجعة الإيصال. ستستلم رسالة تفعيل على بريدك الإلكتروني قريباً جداً.
+                                        </p>
+                                    </div>
                                 ) : (
+                                    <div className="flex gap-4 p-6 bg-accent/5 rounded-2xl border border-accent/10 ring-4 ring-accent/5">
+                                        <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-accent shrink-0">
+                                            <FiBook />
+                                        </div>
+                                        <p className="text-sm text-ink font-bold leading-relaxed">
+                                            جميع المواد الرقمية متاحة الآن. يمكنك الوصول إليها من حسابك الشخصي أو عبر الروابط المرسلة لبريدك.
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Main CTA Buttons */}
+                            <div className="mt-auto space-y-4">
+                                {isPaid || (!isPending) ? (
                                     <>
                                         {hasCourse && courseItem.id ? (
-                                            sessionStatus === 'authenticated' ? (
-                                                <Link
-                                                    href={`/learn/${courseItem.id}`}
-                                                    className="block w-full py-4 bg-green-600 hover:bg-green-700 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg flex justify-center items-center gap-2"
-                                                >
-                                                    <FiBook className="text-xl" /> البدء بالدورة الآن 🎓
-                                                </Link>
-                                            ) : (
-                                                <Link
-                                                    href={`/login?callbackUrl=/learn/${courseItem.id}`}
-                                                    className="block w-full py-4 bg-accent hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg flex justify-center items-center gap-2"
-                                                >
-                                                    <FiLock className="text-xl" /> تسجيل الدخول لبدء الدورة 🎓
-                                                </Link>
-                                            )
+                                            <Link
+                                                href={sessionStatus === 'authenticated' ? `/learn/${courseItem.id}` : `/login?callbackUrl=/learn/${courseItem.id}`}
+                                                className="flex items-center justify-center gap-3 w-full py-5 bg-ink text-white rounded-2xl font-bold transition-all shadow-xl shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
+                                            >
+                                                دخول الأكاديمية والبدء الآن <FiExternalLink />
+                                            </Link>
                                         ) : (
                                             <Link
                                                 href="/my-purchases"
-                                                className="block w-full py-4 bg-ink hover:bg-black dark:bg-accent dark:hover:bg-blue-600 text-white text-center rounded-xl font-bold transition-all shadow-md hover:shadow-lg"
+                                                className="flex items-center justify-center gap-3 w-full py-5 bg-ink text-white rounded-2xl font-bold transition-all shadow-xl shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
                                             >
-                                                تحميل المنتجات
+                                                تحميل المنتجات الرقمية <FiPackage />
                                             </Link>
                                         )}
-                                        <Link
-                                            href="/"
-                                            className="block w-full py-4 border-2 border-gray-200 dark:border-gray-700 text-ink dark:text-gray-300 text-center rounded-xl font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                                        >
-                                            تصفح المزيد من المنتجات
-                                        </Link>
                                     </>
+                                ) : (
+                                    <Link
+                                        href="/market"
+                                        className="flex items-center justify-center gap-3 w-full py-5 bg-ink text-white rounded-2xl font-bold transition-all shadow-xl shadow-ink/10 hover:bg-gray-800"
+                                    >
+                                        العودة للمتجر
+                                    </Link>
                                 )}
+                                <Link
+                                    href="/"
+                                    className="block w-full py-5 text-center bg-gray-50 text-gray-500 rounded-2xl font-bold hover:bg-gray-100 transition-all text-sm"
+                                >
+                                    العودة للرئيسية
+                                </Link>
                             </div>
                         </div>
 
-                        {/* ===== UPSELL COLUMN ===== */}
-                        <div className="p-8 md:p-12 md:w-1/2 bg-gray-50/50 dark:bg-bg-dark/50">
-                            {upsells.length > 0 ? (
-                                <div>
-                                    <div className="flex items-center gap-2 mb-6">
-                                        <div className="p-2 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-600 rounded-xl">
-                                            <FiGift size={20} />
-                                        </div>
-                                        <h3 className="text-xl font-bold text-ink dark:text-white">قد يعجبك أيضاً!</h3>
-                                    </div>
+                        {/* ===== SOCIAL & SUPPORT COLUMN ===== */}
+                        <div className="p-10 md:p-16 bg-gray-50/30 flex flex-col">
+                            <div className="mb-12">
+                                <h3 className="text-xl font-bold text-ink mb-6 flex items-center gap-3">
+                                    <FiMessageCircle className="text-accent" /> قنوات تواصل رسمية
+                                </h3>
+                                <p className="text-sm text-gray-500 font-bold mb-8 leading-relaxed">نحن معك في كل خطوة. إذا كان لديك أي استفسار حول طلبك، لا تتردد في مراسلتنا فوراً.</p>
+                                
+                                <div className="grid grid-cols-1 gap-3">
+                                    {socialLinks.map((link, i) => (
+                                        <a
+                                            key={i}
+                                            href={link.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="bg-white border border-gray-100 p-5 rounded-2xl flex items-center justify-between group hover:border-accent hover:shadow-lg hover:shadow-accent/5 transition-all"
+                                        >
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-10 h-10 bg-gray-50 text-ink rounded-xl flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all">
+                                                    {link.icon}
+                                                </div>
+                                                <span className="font-bold text-ink text-sm">{link.label}</span>
+                                            </div>
+                                            <FiArrowLeft className="text-gray-300 group-hover:text-accent group-hover:-translate-x-1 transition-all" />
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* High-End Upsell Section */}
+                            {upsells.length > 0 && (
+                                <div className="mt-8 pt-10 border-t border-gray-100">
+                                    <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6 px-1">عروض حصرية لك</h3>
                                     <div className="space-y-4">
                                         {upsells.map((upsell) => (
-                                            <div key={upsell.id} className="bg-white dark:bg-card-white border border-gray-200 dark:border-gray-800 rounded-2xl p-4 flex gap-4 hover:border-accent transition-colors group">
-                                                <div className="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden shrink-0">
-                                                    {upsell.image ? (
-                                                        <img src={upsell.image} alt={upsell.title} className="w-full h-full object-cover" />
-                                                    ) : (
-                                                        <div className="w-full h-full flex items-center justify-center text-gray-400">
-                                                            <FiPackage size={24} />
-                                                        </div>
-                                                    )}
+                                            <Link key={upsell.id} href={`/${upsell.id}`} className="bg-white border border-gray-100 p-4 rounded-2xl flex items-center justify-between hover:border-accent group transition-all">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="w-14 h-14 bg-gray-50 rounded-xl overflow-hidden shrink-0 border border-gray-50">
+                                                        {upsell.image ? (
+                                                            <img src={upsell.image} alt={upsell.title} className="w-full h-full object-cover" />
+                                                        ) : (
+                                                            <div className="w-full h-full flex items-center justify-center text-gray-300">
+                                                                <FiPackage />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="font-bold text-ink text-xs line-clamp-1 group-hover:text-accent transition-colors">{upsell.title}</h4>
+                                                        <p className="text-accent font-black font-inter tracking-tighter mt-1">${upsell.price}</p>
+                                                    </div>
                                                 </div>
-                                                <div className="flex-1 flex flex-col justify-center">
-                                                    <h4 className="font-bold text-ink dark:text-white text-sm line-clamp-1 group-hover:text-accent transition-colors">{upsell.title}</h4>
-                                                    <div className="font-bold text-gray-900 dark:text-gray-200 mt-1">{upsell.price} $</div>
-                                                    <Link href={`/${upsell.id}`} className="text-accent font-bold text-sm mt-2 flex items-center gap-1">
-                                                        عرض التفاصيل <FiArrowLeft />
-                                                    </Link>
+                                                <div className="w-8 h-8 rounded-lg bg-gray-50 text-ink flex items-center justify-center group-hover:bg-ink group-hover:text-white transition-all">
+                                                    <FiShoppingCart size={14} />
                                                 </div>
-                                                <button className="self-center p-3 bg-accent text-white rounded-xl shadow-lg shadow-accent/20 hover:bg-blue-600 transition-colors" title="إضافة للسلة">
-                                                    <FiShoppingCart />
-                                                </button>
-                                            </div>
+                                            </Link>
                                         ))}
                                     </div>
-                                </div>
-                            ) : (
-                                <div className="h-full flex flex-col items-center justify-center text-center py-12">
-                                    <div className="w-24 h-24 bg-blue-50 dark:bg-blue-900/20 text-accent rounded-full flex items-center justify-center mb-6">
-                                        <FiPackage size={40} />
-                                    </div>
-                                    <h3 className="text-xl font-bold text-ink dark:text-white mb-2">رحلة سعيدة وموفقة!</h3>
-                                    <p className="text-text-muted">نتمنى أن يكون المنتج قد لبى توقعاتك.</p>
                                 </div>
                             )}
                         </div>
                     </div>
                 </div>
+
+                <div className="mt-16 text-center">
+                    <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">
+                        POWERED BY <span className="text-ink">TMLEEN INFRASTRUCTURE</span>
+                    </p>
+                </div>
             </div>
-            <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
-                <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-accent font-bold hover:underline">منصة تمالين</a>
-                </p>
-            </footer>
         </div>
     );
 }
@@ -346,8 +291,8 @@ function SuccessContent() {
 export default function SuccessPage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div className="w-12 h-12 border-4 border-accent/20 border-t-accent rounded-full animate-spin"></div>
+            <div className="min-h-screen bg-white flex items-center justify-center">
+                <div className="w-10 h-10 border-4 border-accent/20 border-t-accent rounded-full animate-spin"></div>
             </div>
         }>
             <SuccessContent />

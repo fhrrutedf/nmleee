@@ -1,15 +1,16 @@
 'use client';
 
 import Link from 'next/link';
-import { FiSearch, FiCalendar, FiUser, FiArrowLeft, FiTag } from 'react-icons/fi';
+import { FiSearch, FiCalendar, FiUser, FiArrowLeft, FiTag, FiClock } from 'react-icons/fi';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const CATEGORIES = ['الكل', 'دليل المبتدئين', 'تسويق', 'مبيعات', 'أدوات', 'قصص نجاح', 'تحليلات', 'تقنية', 'عام'];
 
 export default function BlogListClient({ initialPosts }: { initialPosts: any[] }) {
     const [selectedCategory, setSelectedCategory] = useState('الكل');
     const [searchQuery, setSearchQuery] = useState('');
-    const [visibleCount, setVisibleCount] = useState(6); // Pagination / Load More
+    const [visibleCount, setVisibleCount] = useState(6);
 
     const filteredPosts = initialPosts.filter(post => {
         const matchesCategory = selectedCategory === 'الكل' || post.category === selectedCategory || (!post.category && selectedCategory === 'عام');
@@ -21,47 +22,50 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
     const visiblePosts = filteredPosts.slice(0, visibleCount);
 
     return (
-        <div className="min-h-screen bg-gray-50" dir="rtl">
-            {/* Hero Section */}
-            <section className="bg-primary-900 text-white py-20 relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
-                <div className="container-custom relative z-10 text-center">
-                    <span className="inline-block py-1 px-3 rounded-full bg-primary-800 text-primary-200 text-sm font-bold mb-4 border border-primary-700">
-                        للمبدعين وصناع المحتوى
-                    </span>
-                    <h1 className="text-4xl md:text-6xl font-bold mb-6 font-heading">
-                        مدونة <span className="text-accent">المعرفة</span>
-                    </h1>
-                    <p className="text-xl opacity-80 max-w-2xl mx-auto mb-10 text-gray-300">
-                        اكتشف أحدث المقالات، النصائح، والاستراتيجيات لتنمية أعمالك الرقمية وتحقيق النجاح.
-                    </p>
+        <div className="min-h-screen bg-white selection:bg-accent/20" dir="rtl">
+            {/* Minimalist Corporate Blog Hero */}
+            <section className="bg-ink text-white py-24 md:py-32 relative overflow-hidden border-b border-white/5">
+                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-accent/5 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+                
+                <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-10 text-accent shadow-sm">
+                            <FiTag size={14} /> Knowledge & Insights Hub
+                        </div>
+                        <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter leading-[1.1]">
+                            مدونة <span className="text-accent underline underline-offset-[12px] decoration-accent/20 decoration-4 text-white">تمالين</span>
+                        </h1>
+                        <p className="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto font-bold leading-relaxed mb-12">
+                            مقالات استراتيجية مكتوبة بعناية لتساعدك في بناء وتنمية إمبراطوريتك الرقمية في الوطن العربي.
+                        </p>
 
-                    {/* Search Bar */}
-                    <div className="max-w-xl mx-auto relative">
-                        <input
-                            type="text"
-                            placeholder="ابحث في المقالات..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full py-4 pl-12 pr-6 rounded-full text-gray-800 shadow-xl focus:outline-none focus:ring-2 focus:ring-accent"
-                        />
-                        <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
-                    </div>
+                        {/* High-Contrast Search Bar */}
+                        <div className="max-w-2xl mx-auto relative group">
+                            <FiSearch className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 text-xl group-focus-within:text-accent transition-colors" />
+                            <input
+                                type="text"
+                                placeholder="عن ماذا تبحث اليوم؟"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full py-5 pl-8 pr-16 rounded-3xl bg-white text-ink font-bold placeholder:font-bold placeholder:text-gray-300 outline-none focus:ring-4 focus:ring-accent/20 transition-all border-none shadow-2xl"
+                            />
+                        </div>
+                    </motion.div>
                 </div>
             </section>
 
             {/* Content Section */}
-            <section className="py-16">
-                <div className="container-custom px-4 mx-auto max-w-7xl">
-                    {/* Categories */}
-                    <div className="flex flex-wrap justify-center gap-3 mb-12">
+            <section className="py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-6">
+                    {/* Category Filter - Structural Styling */}
+                    <div className="flex flex-wrap items-center justify-center gap-2 mb-20 border-b border-gray-50 pb-10">
                         {CATEGORIES.map((cat, idx) => (
                             <button
                                 key={idx}
                                 onClick={() => setSelectedCategory(cat)}
-                                className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${selectedCategory === cat
-                                    ? 'bg-accent text-white shadow-md transform scale-105'
-                                    : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                                className={`px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${selectedCategory === cat
+                                    ? 'bg-ink text-white shadow-xl shadow-ink/10 -translate-y-1'
+                                    : 'bg-white text-gray-400 border border-gray-100 hover:border-ink hover:text-ink'
                                     }`}
                             >
                                 {cat}
@@ -69,44 +73,48 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                         ))}
                     </div>
 
-                    {/* Posts Grid */}
+                    {/* Posts Grid - Architectural Layout */}
                     {filteredPosts.length > 0 ? (
                         <>
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 {visiblePosts.map((post) => (
-                                    <article key={post.id} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col group relative">
-                                        <div className="h-48 overflow-hidden relative bg-gray-100">
+                                    <article key={post.id} className="group flex flex-col bg-white border border-gray-100 rounded-[2.5rem] p-4 transition-all duration-500 hover:border-accent/20 hover:shadow-2xl hover:shadow-gray-200/50">
+                                        <div className="h-64 overflow-hidden rounded-[2rem] relative bg-gray-50 mb-8 border border-gray-50">
                                             <div className="absolute top-4 right-4 z-10">
-                                                <span className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-primary-700 shadow-sm flex items-center gap-1">
-                                                    <FiTag /> {post.category || 'عام'}
+                                                <span className="bg-white px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest text-ink shadow-lg shadow-black/5 flex items-center gap-2 outline outline-1 outline-gray-50">
+                                                    <FiTag className="text-accent" /> {post.category || 'Insights'}
                                                 </span>
                                             </div>
                                             <img
                                                 src={post.coverImage || 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop&q=60'}
                                                 alt={post.title}
-                                                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
                                             />
                                         </div>
-                                        <div className="p-6 flex-1 flex flex-col">
-                                            <div className="flex items-center gap-4 text-xs text-gray-500 mb-3">
-                                                <span className="flex items-center gap-1"><FiCalendar /> {new Date(post.createdAt).toLocaleDateString("ar")}</span>
+                                        
+                                        <div className="px-4 pb-4 flex-1 flex flex-col">
+                                            <div className="flex items-center gap-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">
+                                                <span className="flex items-center gap-1.5"><FiCalendar className="text-accent" /> {new Date(post.createdAt).toLocaleDateString("ar")}</span>
+                                                <span className="flex items-center gap-1.5"><FiClock className="text-accent" /> 5 MIN READ</span>
                                             </div>
-                                            <h2 className="text-xl font-bold mb-3 text-ink group-hover:text-accent transition-colors leading-tight">
+                                            
+                                            <h2 className="text-2xl font-black mb-4 text-ink leading-[1.2] tracking-tighter group-hover:text-accent transition-colors">
                                                 {post.title}
                                             </h2>
-                                            <p className="text-gray-500 mb-6 text-sm line-clamp-3">
-                                                {post.excerpt || 'اقرأ المزيد عن هذا الموضوع المثير من خلال النقر على متابعة القراءة.'}
+                                            
+                                            <p className="text-gray-400 font-bold text-sm mb-8 line-clamp-2 leading-relaxed h-10">
+                                                {post.excerpt || 'تعلم استراتيجيات النمو المتقدمة لبناء علامتك التجارية الشخصية والمالية.'}
                                             </p>
 
-                                            <div className="mt-auto flex items-center justify-between border-t border-gray-50 pt-4">
-                                                <div className="flex items-center gap-2">
-                                                    <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
-                                                        <FiUser />
+                                            <div className="mt-auto flex items-center justify-between pt-6 border-t border-gray-50">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-400 group-hover:bg-accent group-hover:text-white group-hover:border-transparent transition-all">
+                                                        <FiUser size={14} />
                                                     </div>
-                                                    <span className="text-sm font-medium text-gray-700">{post.authorName || post.user?.name || 'الكاتب'}</span>
+                                                    <span className="text-xs font-black text-ink uppercase tracking-wider">{post.authorName || 'Maher'}</span>
                                                 </div>
-                                                <Link href={`/blog/${post.slug}`} className="text-accent font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all">
-                                                    اقرأ المزيد <FiArrowLeft />
+                                                <Link href={`/blog/${post.slug}`} className="text-accent font-black text-[10px] uppercase tracking-[0.2em] flex items-center gap-3 group-hover:gap-5 transition-all outline-none">
+                                                    Read Article <FiArrowLeft className="rotate-180" size={16} />
                                                 </Link>
                                             </div>
                                         </div>
@@ -114,27 +122,30 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                 ))}
                             </div>
 
-                            {/* Load More Button */}
+                            {/* Load More Button - Clean Institutional Style */}
                             {visibleCount < filteredPosts.length && (
-                                <div className="mt-12 text-center">
+                                <div className="mt-20 text-center">
                                     <button
                                         onClick={() => setVisibleCount(prev => prev + 6)}
-                                        className="px-8 py-3 bg-white border border-gray-200 text-ink font-bold rounded-xl hover:bg-gray-50 hover:text-accent transition-colors shadow-sm"
+                                        className="px-12 py-5 bg-white border border-gray-200 text-ink font-black text-xs uppercase tracking-[0.25em] rounded-2xl hover:border-ink hover:text-ink transition-all shadow-sm hover:shadow-xl active:scale-95"
                                     >
-                                        تحميل المزيد
+                                        Load More Insights
                                     </button>
                                 </div>
                             )}
                         </>
                     ) : (
-                        <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-gray-300">
-                            <h3 className="text-2xl font-bold text-gray-400 mb-2">لا توجد نتائج</h3>
-                            <p className="text-gray-500">جرب البحث بكلمات مختلفة أو تغيير التصنيف.</p>
+                        <div className="text-center py-40 bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-100 p-8">
+                             <div className="w-20 h-20 bg-white rounded-3xl shadow-xl shadow-gray-200/50 flex items-center justify-center mx-auto mb-8 text-gray-200">
+                                <FiSearch size={32} />
+                            </div>
+                            <h3 className="text-2xl font-black text-ink mb-2 tracking-tight">لا توجد نتائج مطابقة لفلترك</h3>
+                            <p className="text-gray-400 font-bold mb-10 max-w-sm mx-auto">حاول استخدام كلمات مختلفة أو ابحث في تصنيف آخر.</p>
                             <button
                                 onClick={() => { setSelectedCategory('الكل'); setSearchQuery(''); }}
-                                className="mt-4 text-accent font-bold px-6 py-2 bg-blue-50 rounded-lg hover:bg-blue-100"
+                                className="px-10 py-4 bg-ink text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-black transition-all shadow-xl shadow-ink/10"
                             >
-                                إزالة الفلاتر
+                                Reset All Filters
                             </button>
                         </div>
                     )}

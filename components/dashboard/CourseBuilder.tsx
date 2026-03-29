@@ -2,12 +2,9 @@
 
 import { useState, useMemo } from 'react';
 import { 
-    FiPlus, FiMoreVertical, FiVideo, FiFileText, 
-    FiCheckCircle, FiChevronRight, FiChevronDown, 
-    FiTrash2, FiEdit3, FiMove, FiEye 
+    FiPlus, FiVideo, FiCheckCircle, FiTrash2, FiEdit3, FiMove, FiEye 
 } from 'react-icons/fi';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface Lesson {
     id: string;
@@ -46,20 +43,36 @@ export default function CourseBuilder({
 
     const addSection = () => {
         const newSec = { id: `sec-${Date.now()}`, title: 'قسم جديد', lessons: [] };
-        setSections([...sections, newSec]);
-        onUpdate({ sessions: stats.count, totalDuration: stats.total, structure: [...sections, newSec] });
+        const updated = [...sections, newSec];
+        setSections(updated);
+        onUpdate({ sessions: stats.count, totalDuration: stats.total, structure: updated });
     };
 
     const addLesson = (sectionId: string) => {
         const newLesson: Lesson = { 
             id: `les-${Date.now()}`, 
-            title: 'عنوان الدرس...', 
+            title: 'عنوان الدرس الجديد...', 
             type: 'video', 
             duration: 10 
         };
         const updated = sections.map(s => s.id === sectionId ? { ...s, lessons: [...s.lessons, newLesson] } : s);
         setSections(updated);
         onUpdate({ sessions: stats.count + 1, totalDuration: stats.total + 10, structure: updated });
+    };
+
+    const deleteSection = (sectionId: string) => {
+        const updated = sections.filter(s => s.id !== sectionId);
+        setSections(updated);
+        onUpdate({ sessions: stats.count, totalDuration: stats.total, structure: updated });
+    };
+
+    const deleteLesson = (sectionId: string, lessonId: string) => {
+        const updated = sections.map(s => s.id === sectionId ? {
+            ...s,
+            lessons: s.lessons.filter(l => l.id !== lessonId)
+        } : s);
+        setSections(updated);
+        onUpdate({ sessions: stats.count, totalDuration: stats.total, structure: updated });
     };
 
     const onDragEnd = (result: any) => {
@@ -75,7 +88,6 @@ export default function CourseBuilder({
             return;
         }
 
-        // Reordering lessons within same section or across
         const sIdx = sections.findIndex(s => s.id === source.droppableId);
         const dIdx = sections.findIndex(s => s.id === destination.droppableId);
         
@@ -90,18 +102,18 @@ export default function CourseBuilder({
     return (
         <div className="space-y-6">
             
-            {/* Real-time Stats Display */}
-            <div className="flex gap-4 p-5 bg-primary-indigo-50 border border-primary-indigo-100 rounded-3xl">
+            {/* Professional Stats Display */}
+            <div className="flex gap-4 p-6 bg-gray-50 border border-gray-100 rounded-2xl">
                 <div className="flex-1">
-                    <p className="text-xs font-bold text-primary-indigo-600 uppercase mb-1">الدروس</p>
-                    <p className="text-2xl font-bold text-slate-900">{stats.count} درس</p>
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">إجمالي الدروس</p>
+                    <p className="text-2xl font-bold text-ink font-inter">{stats.count}</p>
                 </div>
-                <div className="flex-1 border-r border-primary-indigo-100 pr-5">
-                    <p className="text-xs font-bold text-primary-indigo-600 uppercase mb-1">إجمالي الوقت</p>
-                    <p className="text-2xl font-bold text-slate-900">{stats.total} دقيقـة</p>
+                <div className="flex-1 border-r border-gray-200 pr-5">
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">مدة المنهج</p>
+                    <p className="text-2xl font-bold text-ink font-inter">{stats.total}m</p>
                 </div>
-                <div className="flex items-center text-primary-indigo-600">
-                    <FiEye className="text-2xl" />
+                <div className="flex items-center text-accent">
+                    <FiEye className="text-xl" />
                 </div>
             </div>
 
@@ -112,15 +124,15 @@ export default function CourseBuilder({
                             {sections.map((section, index) => (
                                 <Draggable key={section.id} draggableId={section.id} index={index}>
                                     {(provided) => (
-                                        <div ref={provided.innerRef} {...provided.draggableProps} className="bg-white rounded-3xl border border-slate-100 shadow-premium overflow-hidden group">
+                                        <div ref={provided.innerRef} {...provided.draggableProps} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden group">
                                             {/* Section Header */}
-                                            <div className="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
-                                                <div className="flex items-center gap-4">
-                                                    <div {...provided.dragHandleProps} className="text-slate-300 hover:text-slate-600 transition-colors cursor-grab active:cursor-grabbing">
+                                            <div className="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                                                <div className="flex items-center gap-4 flex-1">
+                                                    <div {...provided.dragHandleProps} className="text-gray-300 hover:text-ink transition-colors cursor-grab active:cursor-grabbing">
                                                         <FiMove size={18} />
                                                     </div>
                                                     <input 
-                                                        className="font-bold text-slate-900 bg-transparent border-none focus:ring-0 p-0 w-full"
+                                                        className="font-bold text-ink bg-transparent border-none focus:ring-0 p-0 w-full text-lg"
                                                         value={section.title}
                                                         onChange={(e) => {
                                                             const upd = sections.map(s => s.id === section.id ? { ...s, title: e.target.value } : s);
@@ -128,9 +140,21 @@ export default function CourseBuilder({
                                                         }}
                                                     />
                                                 </div>
-                                                <div className="flex items-center gap-2">
-                                                    <button type="button" onClick={() => addLesson(section.id)} className="text-xs font-bold text-primary-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-xl hover:bg-indigo-100 transition-colors">+ درس</button>
-                                                    <button type="button" className="text-slate-400 hover:text-red-500 transition-colors p-2"><FiTrash2 /></button>
+                                                <div className="flex items-center gap-3">
+                                                    <button 
+                                                        type="button" 
+                                                        onClick={() => addLesson(section.id)} 
+                                                        className="text-[11px] font-bold text-accent bg-accent-light px-4 py-2 rounded-xl hover:bg-accent/10 transition-colors"
+                                                    >
+                                                        + إضافة درس
+                                                    </button>
+                                                    <button 
+                                                        type="button" 
+                                                        onClick={() => deleteSection(section.id)}
+                                                        className="text-gray-300 hover:text-red-500 transition-colors p-2"
+                                                    >
+                                                        <FiTrash2 />
+                                                    </button>
                                                 </div>
                                             </div>
 
@@ -140,7 +164,7 @@ export default function CourseBuilder({
                                                     <div 
                                                         ref={provided.innerRef} 
                                                         {...provided.droppableProps} 
-                                                        className={`p-4 pt-0 space-y-2 min-h-[50px] transition-all ${snapshot.isDraggingOver ? 'bg-indigo-50/50' : ''}`}
+                                                        className={`p-4 pt-0 space-y-2 min-h-[40px] transition-all ${snapshot.isDraggingOver ? 'bg-gray-50' : ''}`}
                                                     >
                                                         {section.lessons.map((lesson, lIndex) => (
                                                             <Draggable key={lesson.id} draggableId={lesson.id} index={lIndex}>
@@ -149,14 +173,14 @@ export default function CourseBuilder({
                                                                         ref={provided.innerRef} 
                                                                         {...provided.draggableProps} 
                                                                         {...provided.dragHandleProps}
-                                                                        className={`flex items-center justify-between p-3 bg-slate-50 border border-slate-100 rounded-2xl group/lesson ${snapshot.isDragging ? 'shadow-glow border-primary-indigo-400 scale-105 bg-white z-50' : 'hover:border-slate-300'}`}
+                                                                        className={`flex items-center justify-between p-4 bg-white border border-gray-100 rounded-xl group/lesson ${snapshot.isDragging ? 'shadow-xl ring-2 ring-accent/20 border-accent' : 'hover:border-gray-200 shadow-sm'}`}
                                                                     >
-                                                                        <div className="flex items-center gap-3">
-                                                                            <div className="w-8 h-8 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary-indigo-600">
-                                                                                <FiVideo size={14} />
+                                                                        <div className="flex items-center gap-4">
+                                                                            <div className="w-9 h-9 bg-gray-50 rounded-lg flex items-center justify-center text-ink transition-colors group-hover/lesson:bg-accent group-hover/lesson:text-white">
+                                                                                <FiVideo size={16} />
                                                                             </div>
                                                                             <input 
-                                                                                className="text-sm font-bold text-slate-700 bg-transparent border-none focus:ring-0 p-0"
+                                                                                className="text-sm font-bold text-ink bg-transparent border-none focus:ring-0 p-0"
                                                                                 value={lesson.title}
                                                                                 onChange={(e) => {
                                                                                     const upd = sections.map(s => s.id === section.id ? { 
@@ -167,11 +191,17 @@ export default function CourseBuilder({
                                                                                 }}
                                                                             />
                                                                         </div>
-                                                                        <div className="flex items-center gap-4">
-                                                                            <span className="text-[10px] font-bold text-slate-400 flex items-center gap-1">
-                                                                                <FiEdit3 /> {lesson.duration}m
+                                                                        <div className="flex items-center gap-5">
+                                                                            <span className="text-[10px] font-bold text-gray-400 font-inter tracking-widest flex items-center gap-2">
+                                                                                <FiEdit3 /> {lesson.duration}M
                                                                             </span>
-                                                                            <button type="button" className="opacity-0 group-hover/lesson:opacity-100 text-slate-400 hover:text-red-500 transition-all"><FiTrash2 size={14} /></button>
+                                                                            <button 
+                                                                                type="button" 
+                                                                                onClick={() => deleteLesson(section.id, lesson.id)}
+                                                                                className="hidden group-hover/lesson:block text-gray-300 hover:text-red-500 transition-all"
+                                                                            >
+                                                                                <FiTrash2 size={14} />
+                                                                            </button>
                                                                         </div>
                                                                     </div>
                                                                 )}
@@ -194,9 +224,9 @@ export default function CourseBuilder({
             <button 
                 type="button"
                 onClick={addSection} 
-                className="w-full py-4 border-2 border-dashed border-slate-200 rounded-3xl text-slate-400 font-bold hover:border-primary-indigo-400 hover:text-primary-indigo-600 transition-all flex items-center justify-center gap-2"
+                className="w-full py-5 border-2 border-dashed border-gray-200 rounded-2xl text-gray-400 font-bold hover:border-accent/40 hover:text-accent transition-all flex items-center justify-center gap-3 bg-white"
             >
-                <FiPlus /> إضافة قسم جديد للمنهج
+                <FiPlus className="text-xl" /> إضافة قسم جديد للمنهج الدراسي
             </button>
         </div>
     );

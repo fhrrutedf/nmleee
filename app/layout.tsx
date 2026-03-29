@@ -13,7 +13,7 @@ const inter = Inter({
     subsets: ["latin"],
     variable: '--font-inter',
     display: 'swap',
-    weight: ['400', '500', '600', '700'],
+    weight: ['400', '500', '600', '700', '900'],
 });
 
 const ibmPlex = IBM_Plex_Sans_Arabic({
@@ -24,8 +24,15 @@ const ibmPlex = IBM_Plex_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
-    title: "تمالين — بيع وشراء المنتجات الرقمية بالعربي",
+    title: {
+        default: "تمالين — بيع وشراء المنتجات الرقمية بالعربي",
+        template: "%s | تمالين"
+    },
     description: "المنصة الرائدة في العالم العربي لبيع الدورات، الكتب، والقوالب الرقمية. ابدأ مشروعك الرقمي اليوم بكل سهولة وأمان.",
+    icons: {
+        icon: '/favicon.ico',
+        apple: '/apple-touch-icon.png',
+    },
 };
 
 export default function RootLayout({
@@ -35,7 +42,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ar" dir="rtl" suppressHydrationWarning>
-            <body className={`${ibmPlex.variable} ${inter.variable} font-sans antialiased text-slate-900 bg-white flex flex-col min-h-screen`}>
+            <body className={`${ibmPlex.variable} ${inter.variable} font-sans antialiased text-ink bg-white flex flex-col min-h-screen selection:bg-accent/20`}>
                 <Providers>
                     <AffiliateBanner />
                     <ImpersonationBanner />
@@ -52,17 +59,19 @@ export default function RootLayout({
                             style: {
                                 direction: 'rtl',
                                 fontFamily: 'var(--font-ibm)',
-                                borderRadius: '8px',
-                                padding: '12px 20px',
-                                fontSize: '14px',
-                                fontWeight: '600',
-                                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-                                border: '1px solid #E5E7EB',
+                                borderRadius: '24px',
+                                padding: '16px 28px',
+                                fontSize: '13px',
+                                fontWeight: '700',
+                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                                border: '1px solid #F1F5F9',
+                                background: '#FFFFFF',
+                                color: '#1A1A1A',
                             },
                             success: {
-                                style: {
-                                    background: '#FFFFFF',
-                                    color: '#1A1A1A',
+                                iconTheme: {
+                                    primary: '#2563EB',
+                                    secondary: '#FFFFFF',
                                 },
                             },
                         }}

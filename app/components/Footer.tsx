@@ -3,68 +3,100 @@
 import Link from 'next/link';
 
 const footerLinks = {
-    'المنتج': [
-        { title: 'المميزات', href: '/features' },
-        { title: 'الأسعار', href: '/pricing' },
-        { title: 'المتجر', href: '/explore' },
+    'المنتجات': [
+        { title: 'استكشف المتجر', href: '/explore' },
+        { title: 'مميزات المنصة', href: '/features' },
+        { title: 'خطط الأسعار', href: '/pricing' },
+        { title: 'نسخة تجريبية', href: '/demo' },
     ],
-    'الشركة': [
-        { title: 'حول المنصة', href: '/about' },
-        { title: 'المدونة', href: '/blog' },
-        { title: 'تواصل معنا', href: '/contact' },
+    'الموارد': [
+        { title: 'مركز المساعدة', href: '/help' },
+        { title: 'المدونة الرقمية', href: '/blog' },
+        { title: 'قصص النجاح', href: '/cases' },
+        { title: 'الأسئلة الشائعة', href: '/faq' },
     ],
     'قانوني': [
-        { title: 'شروط الاستخدام', href: '/terms' },
+        { title: 'تواصل معنا', href: '/contact' },
+        { title: 'شروط الخدمة', href: '/terms' },
         { title: 'سياسة الخصوصية', href: '/privacy' },
+        { title: 'سياسة الكوكيز', href: '/cookies' },
     ],
 };
 
 export default function Footer() {
     return (
-        <footer className="bg-white border-t border-gray-100">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                    {/* Brand */}
-                    <div>
-                        <div className="flex items-center gap-2 mb-4">
-                            <div className="w-7 h-7 rounded-md bg-ink flex items-center justify-center text-white text-xs font-bold">
+        <footer className="bg-ink text-white py-20 border-t border-white/5 selection:bg-accent/30">
+            <div className="max-w-7xl mx-auto px-6">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
+                    
+                    {/* Brand Identifier */}
+                    <div className="md:col-span-4 max-w-sm">
+                        <div className="flex items-center gap-3 mb-8 group cursor-default">
+                             <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-white text-lg font-black shadow-lg shadow-accent/20 transition-transform group-hover:scale-110">
                                 ت
                             </div>
-                            <span className="text-base font-bold text-ink">تمالين</span>
+                            <span className="text-2xl font-black tracking-tighter">تمالين</span>
                         </div>
-                        <p className="text-sm text-gray-500 leading-relaxed">
-                            بع منتجاتك الرقمية من مكان واحد.
+                        <p className="text-gray-400 text-sm font-bold leading-relaxed mb-10">
+                            البنية التحتية المتكاملة لبيع المنتجات الرقمية والدورات التدريبية في الوطن العربي. نحن نمكّن المبدعين من بناء إمبراطورياتهم الخاصة بسهولة وأمان.
                         </p>
+                        
+                        {/* Newsletter Mini */}
+                        <div className="flex flex-col gap-4">
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Join our ecosystem</span>
+                            <div className="flex gap-2 p-1.5 bg-white/5 border border-white/10 rounded-xl max-w-sm">
+                                <input 
+                                    type="email" 
+                                    placeholder="Enter your email" 
+                                    className="bg-transparent border-none focus:ring-0 text-xs font-bold px-3 flex-1 text-white"
+                                />
+                                <button className="px-4 py-2 bg-white text-ink text-[10px] font-black uppercase tracking-widest rounded-lg hover:bg-accent hover:text-white transition-all">
+                                    Join
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Link Columns */}
-                    {Object.entries(footerLinks).map(([category, links]) => (
-                        <div key={category}>
-                            <h4 className="text-sm font-semibold text-ink mb-4">{category}</h4>
-                            <ul className="space-y-2.5">
-                                {links.map((link) => (
-                                    <li key={link.href}>
-                                        <Link
-                                            href={link.href}
-                                            className="text-sm text-gray-500 hover:text-ink transition-colors"
-                                        >
-                                            {link.title}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
+                    {/* Navigation Columns */}
+                    <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8">
+                        {Object.entries(footerLinks).map(([category, links]) => (
+                            <div key={category}>
+                                <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-accent mb-8">{category}</h4>
+                                <ul className="space-y-4">
+                                    {links.map((link) => (
+                                        <li key={link.href}>
+                                            <Link
+                                                href={link.href}
+                                                className="text-sm font-bold text-gray-400 hover:text-white transition-all inline-block hover:translate-x-[-4px]"
+                                            >
+                                                {link.title}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
-                {/* Bottom */}
-                <div className="mt-10 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <p className="text-xs text-gray-400">
-                        © {new Date().getFullYear()} تمالين. جميع الحقوق محفوظة.
-                    </p>
-                    <div className="flex gap-4 text-xs text-gray-400">
-                        <Link href="/terms" className="hover:text-ink transition-colors">الشروط</Link>
-                        <Link href="/privacy" className="hover:text-ink transition-colors">الخصوصية</Link>
+                {/* Fine Print / Bottom Bar */}
+                <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="flex items-center gap-6">
+                         <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                            © {new Date().getFullYear()} TMLEEN INFRASTRUCTURE. All Rights Reserved.
+                        </p>
+                        <div className="hidden md:flex gap-4 items-center">
+                            <span className="w-1 h-1 bg-white/10 rounded-full"></span>
+                            <p className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span> Service Operational
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div className="flex gap-8 text-[10px] font-black uppercase tracking-widest text-gray-500">
+                        <Link href="/terms" className="hover:text-accent transition-colors">Terms of service</Link>
+                        <Link href="/privacy" className="hover:text-accent transition-colors">Privacy Policy</Link>
+                        <Link href="/cookies" className="hover:text-accent transition-colors">Tracking</Link>
                     </div>
                 </div>
             </div>

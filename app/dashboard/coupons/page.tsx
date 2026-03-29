@@ -154,7 +154,7 @@ export default function CouponsPage() {
                     {coupons.map((coupon) => (
                         <div key={coupon.id} className={`bg-white dark:bg-card-white rounded-2xl border ${coupon.isActive ? 'border-gray-200 dark:border-gray-700' : 'border-gray-100 dark:border-gray-800 opacity-70'} shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-shadow relative`}>
                             {/* Top Accent */}
-                            <div className={`h-2 w-full ${coupon.isActive ? 'bg-gradient-to-r from-accent to-purple-500' : 'bg-gray-300 dark:bg-gray-700'}`}></div>
+                            <div className={`h-1.5 w-full ${coupon.isActive ? 'bg-accent shadow-[0_0_15px_rgba(37,99,235,0.3)]' : 'bg-gray-200'}`}></div>
 
                             <div className="p-6">
                                 <div className="flex justify-between items-start mb-4">
@@ -191,7 +191,7 @@ export default function CouponsPage() {
                                                 count: coupon.orders?.filter((o: any) => isSameDay(new Date(o.createdAt), d)).length || 0
                                             }));
                                         })()}>
-                                            <Line type="monotone" dataKey="count" stroke="#6366f1" strokeWidth={2} dot={false} />
+                                            <Line type="monotone" dataKey="count" stroke="#2563EB" strokeWidth={3} dot={false} />
                                         </LineChart>
                                     </ResponsiveContainer>
                                 </div>
@@ -298,7 +298,7 @@ export default function CouponsPage() {
 
                                 <div className="md:col-span-2">
                                     <label className="label font-bold text-gray-700 dark:text-gray-300">قيمة الخصم <span className="text-red-500">*</span></label>
-                                    <div className="relative border border-accent/20 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-accent/30 transition-shadow bg-blue-50/30 dark:bg-blue-900/10">
+                                    <div className="relative border border-gray-100 rounded-2xl overflow-hidden focus-within:ring-4 focus-within:ring-accent/10 transition-all bg-gray-50">
                                         <input
                                             type="number"
                                             required
