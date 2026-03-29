@@ -183,6 +183,40 @@ export default function CheckoutPage() {
                     const errData = await res.json().catch(() => ({}));
                     showToast.error(errData.error || 'فشل بدء الدفع بالكريبتو');
                 }
+            } else if (paymentMethod === 'nowpayments' && total < 19) {
+                // Manual Crypto for small amounts
+                if (!manualData.transactionRef || !manualData.proofFile) {
+                    return showToast.error('يرجى إدخال رقم المعاملة وصورة الإيصال');
+                }
+                
+                const fd = new FormData();
+                fd.append('file', manualData.proofFile);
+                fd.append('type', 'image');
+                const upRes = await fetch('/api/upload', { method: 'POST', body: fd });
+                if (!upRes.ok) throw new Error('فشل رفع الإيصال');
+                const upD = await upRes.json();
+
+                const res = await fetch('/api/orders/manual', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        items: cart,
+                        customerName: formData.name,
+                        customerEmail: formData.email,
+                        customerPhone: formData.phone,
+                        country: customerCountry,
+                        paymentProvider: 'manual_crypto',
+                        transactionRef: manualData.transactionRef,
+                        paymentProof: upD.url,
+                        paymentNotes: manualData.notes,
+                        affiliateRef: affRef,
+                    })
+                });
+                if (res.ok) {
+                    const d = await res.json();
+                    if (!isDirect) localStorage.removeItem('cart');
+                    router.push(`/success?order_id=${d.orderId}&manual=true`);
+                } else showToast.error('فشل إرسال الطلب اليدوي');
             } else if (paymentMethod === 'manual' && isSyria) {
                 if (!selectedLocalMethod || !manualData.transactionRef || !manualData.proofFile) {
                     return showToast.error('يرجى اختيار وسيلة وإدخال رقم المرجع وصورة الإيصال');
@@ -324,21 +358,37 @@ export default function CheckoutPage() {
 
                                 {paymentMethod === 'nowpayments' && (
                                     <motion.div key="nowpayments-box" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
-                                        <div className="bg-[#111111] p-10 rounded-xl border border-white/10 text-center space-y-6">
-                                            <div className="text-6xl">🪙</div>
-                                            <h4 className="text-2xl font-bold text-[#10B981]">الدفع بالعملات الرقمية (USDT)</h4>
-                                            <p className="text-gray-400 text-sm max-w-md mx-auto">
-                                                سيتم تفعيل طلبك **تلقائياً** بمجرد تأكيد الشبكة (3 تأكيدات عادةً). نستخدم بوابة NOWPayments الآمنة لضمان أسرع تفعيل لكورساتك.
-                                            </p>
-                                            <div className="flex justify-center gap-4">
-                                                <div className="px-4 py-2 bg-emerald-700/10 border border-emerald-600/20 rounded-lg text-[10px] font-bold text-[#10B981] uppercase tracking-widest">
-                                                    TRC20 Network
-                                                </div>
-                                                <div className="px-4 py-2 bg-emerald-700/10 border border-emerald-600/20 rounded-lg text-[10px] font-bold text-[#10B981] uppercase tracking-widest">
-                                                    Low Fees
+                                        {total >= 19 ? (
+                                            <div className="bg-[#111111] p-10 rounded-xl border border-white/10 text-center space-y-6">
+                                                <div className="text-6xl">🪙</div>
+                                                <h4 className="text-2xl font-bold text-[#10B981]">الدفع بالعملات الرقمية (USDT)</h4>
+                                                <p className="text-gray-400 text-sm max-w-md mx-auto">
+                                                    سيتم تفعيل طلبك **تلقائياً** بمجرد تأكيد الشبكة. نستخدم بوابة NOWPayments الآمنة لضمان أسرع تفعيل.
+                                                </p>
+                                                <div className="flex justify-center gap-4">
+                                                    <div className="px-4 py-2 bg-emerald-700/10 border border-emerald-600/20 rounded-lg text-[10px] font-bold text-[#10B981] uppercase tracking-widest">
+                                                        TRC20 Network
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        ) : (
+                                            <ManualPaymentCard 
+                                                method={{
+                                                    id: 'manual_crypto',
+                                                    name: 'Manual Crypto',
+                                                    nameAr: 'تحويل كريبتو يدوي',
+                                                    icon: '🪙',
+                                                    fields: ['transactionId'],
+                                                    currency: 'USDT',
+                                                    enabled: true
+                                                }} 
+                                                walletAddress="TUtw75oABmwh7YtcqdGjEi6gFLAZsNE2MK" 
+                                                localPrice={{ amount: total, currency: 'USDT' }} 
+                                                usdTotal={total} 
+                                                onDataChange={setManualData} 
+                                                onBack={() => setPaymentMethod('spaceremit')} 
+                                            />
+                                        )}
                                     </motion.div>
                                 )}
 
