@@ -144,7 +144,7 @@ export default function CheckoutPage() {
                 let methodId = selectedLocalMethod.id;
                 if (methodId === 'crypto_usdt') methodId = 'usdt_trc20';
 
-                const res = await fetch('/api/checkout/spaceremit', {
+                const res = await fetch(selectedLocalMethod.id === 'crypto_usdt' ? '/api/checkout/oxapay' : '/api/checkout/spaceremit', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -191,7 +191,7 @@ export default function CheckoutPage() {
                 
                 const fd = new FormData();
                 fd.append('file', manualData.proofFile);
-                fd.append('type', 'image');
+                fd.append('type', 'receipt');
                 const upRes = await fetch('/api/upload', { method: 'POST', body: fd });
                 if (!upRes.ok) throw new Error('فشل رفع الإيصال');
                 const upD = await upRes.json();

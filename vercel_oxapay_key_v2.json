@@ -1,0 +1,6 @@
+{
+  "key": "OXAPAY_MERCHANT_KEY",
+  "value": "9IHNPQ-YZNJY8-FVMPBQ-6NFRKZ",
+  "type": "plain",
+  "target": ["production", "preview", "development"]
+}

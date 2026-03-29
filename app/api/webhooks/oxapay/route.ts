@@ -1,48 +1,52 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { fulfillPurchase } from '@/lib/checkout';
-import { processPaymentCommission } from '@/lib/commission';
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
-        const { status, orderId, trackId } = body;
+        const { status, trackId, orderId, amount, currency } = body;
 
-        // Oxapay status 1 means Paid
-        if (status === 'Paid') {
-            const order = await prisma.order.findFirst({
-                where: {
-                    OR: [
-                        { id: orderId },
-                        { orderNumber: orderId }
-                    ]
+        console.log(`[OXAPAY_WEBHOOK] Received: status=${status}, trackId=${trackId}, orderId=${orderId}`);
+
+        // status: 0 (pending), 1 (success), 2 (expired)
+        if (status === 1) {
+            // Check if order exists and is not already paid
+            const order = await prisma.order.findUnique({
+                where: { id: orderId }
+            });
+
+            if (!order) {
+                console.error(`[OXAPAY_WEBHOOK] Order ${orderId} not found`);
+                return NextResponse.json({ error: 'Order not found' }, { status: 404 });
+            }
+
+            if (order.isPaid) {
+                return NextResponse.json({ message: 'Order already processed' });
+            }
+
+            // Update order status
+            await prisma.order.update({
+                where: { id: orderId },
+                data: {
+                    status: 'PAID',
+                    isPaid: true,
+                    paidAt: new Date(),
+                    cryptoStatus: 'CONFIRMED',
+                    cryptoPaidAmount: parseFloat(amount)
                 }
             });
 
-            if (order && !order.isPaid) {
-                await prisma.$transaction(async (tx) => {
-                    await tx.order.update({
-                        where: { id: order.id },
-                        data: {
-                            status: 'PAID',
-                            isPaid: true,
-                            paidAt: new Date(),
-                            paymentMethod: 'OXAPAY',
-                            paymentId: trackId.toString()
-                        } as any
-                    });
+            // Fulfill the purchase (Enroll in courses, send emails, update balance)
+            await fulfillPurchase(orderId);
 
-                    // Process commissions and fulfillment
-                    await processPaymentCommission(order.id);
-                });
-
-                await fulfillPurchase(order.id);
-            }
+            console.log(`[OXAPAY_WEBHOOK] Fulfillment completed for ${orderId}`);
+            return NextResponse.json({ message: 'Success' });
         }
 
-        return NextResponse.json({ ok: true });
-    } catch (error: any) {
-        console.error('Oxapay Webhook Error:', error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        return NextResponse.json({ message: 'Processed status: ' + status });
+    } catch (err: any) {
+        console.error('[OXAPAY_WEBHOOK_ERROR]', err);
+        return NextResponse.json({ error: 'Webhook Error' }, { status: 500 });
     }
 }

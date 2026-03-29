@@ -27,10 +27,14 @@ function validateMagicBytes(buffer: Buffer, mime: string): boolean {
 export async function POST(request: Request) {
     try {
         const session = await getServerSession(authOptions);
-        if (!session?.user) {
+        // Remove strictly required session for image uploads (to allow Guest Receipt Upload)
+        const isGuestUpload = uploadType === 'receipt' || uploadType === 'image';
+        
+        if (!session?.user && !isGuestUpload) {
             return NextResponse.json({ error: 'منطقة محظورة' }, { status: 401 });
         }
 
+        const userId = session?.user?.id || 'guest_upload';
         const formData = await request.formData();
         const file = formData.get('file') as File;
         const uploadType = formData.get('type') as string; // 'image' | 'product' | 'avatar'
@@ -84,7 +88,7 @@ export async function POST(request: Request) {
             isPrivate = true;
         }
 
-        const filePath = `${session.user.id}/${secureFileName}`;
+        const filePath = `${userId}/${secureFileName}`;
 
         // 🛡️ SECURITY 5: Service Role Isolation logic
         const supabase = createClient(
