@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
-import prisma from '@/lib/prisma';
-import { sendOrderEmails } from '@/lib/email';
+import { prisma } from '@/lib/db';
+import { fulfillPurchase } from '@/lib/checkout';
+import { processPaymentCommission } from '@/lib/commission';
 
 export async function POST(req: Request) {
     try {
@@ -24,13 +25,28 @@ export async function POST(req: Request) {
         const { payment_status, order_id } = body;
 
         if (payment_status === 'finished') {
-            const order = await prisma.order.update({
-                where: { id: order_id },
-                data: { status: 'COMPLETED', isPaid: true }
+            const order = await prisma.order.findUnique({
+                where: { id: order_id }
             });
 
-            // Trigger product delivery
-            await sendOrderEmails(order.id);
+            if (order && !order.isPaid) {
+                await prisma.$transaction(async (tx) => {
+                    await tx.order.update({
+                        where: { id: order.id },
+                        data: {
+                            status: 'PAID',
+                            isPaid: true,
+                            paidAt: new Date(),
+                            paymentMethod: 'USDT'
+                        } as any
+                    });
+
+                    // Process commissions and fulfillment
+                    await processPaymentCommission(order.id);
+                });
+
+                await fulfillPurchase(order.id);
+            }
         }
 
         return NextResponse.json({ ok: true });
