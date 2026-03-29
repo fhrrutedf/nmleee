@@ -114,7 +114,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
                         <select
                             value={question.type}
                             onChange={(e) => updateQuestion(qIndex, 'type', e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                         >
                             <option value="multiple">اختيار من متعدد</option>
                             <option value="true-false">صح أو خطأ</option>
@@ -129,7 +129,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
                             onChange={(e) => updateQuestion(qIndex, 'question', e.target.value)}
                             placeholder="اكتب السؤال هنا..."
                             rows={2}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                         />
                     </div>
 
@@ -171,7 +171,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
                                             onChange={(e) => updateOption(qIndex, oIndex, e.target.value)}
                                             placeholder={`الخيار ${oIndex + 1}`}
                                             disabled={question.type === 'true-false'}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-50 text-sm shadow-sm transition-shadow"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ink disabled:bg-gray-50 text-sm shadow-sm transition-shadow"
                                         />
                                     </div>
 
@@ -195,7 +195,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
                             <button
                                 type="button"
                                 onClick={() => addOption(qIndex)}
-                                className="mt-4 flex items-center gap-2 text-indigo-600 hover:text-indigo-700 text-sm font-bold bg-indigo-50/50 hover:bg-indigo-50 px-4 py-2 rounded-lg transition-colors"
+                                className="mt-4 flex items-center gap-2 text-ink hover:text-indigo-700 text-sm font-bold bg-indigo-50/50 hover:bg-indigo-50 px-4 py-2 rounded-lg transition-colors"
                             >
                                 <FiPlus size={18} />
                                 إضافة خيار
@@ -205,7 +205,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
 
                     {/* Correct Answer Indicator */}
                     <div className="text-sm font-bold text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100 flex items-center gap-2">
-                        <span className="text-indigo-600">الإجابة الصحيحة:</span>{' '}
+                        <span className="text-ink">الإجابة الصحيحة:</span>{' '}
                         {question.type === 'true-false'
                             ? question.correctAnswer
                                 ? 'صحيح'

@@ -107,7 +107,7 @@ export default function TakeQuizPage() {
     if (loading && !quiz) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
             </div>
         );
     }
@@ -152,7 +152,7 @@ export default function TakeQuizPage() {
                             </div>
                             <div className="bg-gray-50 rounded-lg p-4">
                                 <p className="text-sm text-gray-600 mb-1">الدرجة</p>
-                                <p className="text-2xl font-bold text-indigo-600">
+                                <p className="text-2xl font-bold text-ink">
                                     {result.score.toFixed(0)}%
                                 </p>
                             </div>
@@ -161,7 +161,7 @@ export default function TakeQuizPage() {
                         <div className="flex gap-4 justify-center">
                             <button
                                 onClick={() => window.location.reload()}
-                                className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                                className="px-6 py-2 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors"
                             >
                                 إعادة المحاولة
                             </button>
@@ -224,7 +224,7 @@ export default function TakeQuizPage() {
                                                 newAnswers[qIndex] = question.type === 'true-false' ? (oIndex === 0) : oIndex;
                                                 setAnswers(newAnswers);
                                             }}
-                                            className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                                            className="w-4 h-4 text-ink border-gray-300 focus:ring-ink"
                                         />
                                         <span className="text-gray-900">{option}</span>
                                     </label>
@@ -239,7 +239,7 @@ export default function TakeQuizPage() {
                     <button
                         onClick={handleSubmit}
                         disabled={loading || answers.some(a => a === null)}
-                        className="w-full px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
+                        className="w-full px-6 py-3 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
                     >
                         {loading ? 'جاري التقديم...' : 'تقديم الاختبار'}
                     </button>

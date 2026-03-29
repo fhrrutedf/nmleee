@@ -108,7 +108,7 @@ export default function PayoutSettingsPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
             </div>
         );
     }
@@ -133,7 +133,7 @@ export default function PayoutSettingsPage() {
                                     type="button"
                                     onClick={() => setMethod('bank')}
                                     className={`p-4 border-2 rounded-lg text-center transition-colors ${method === 'bank'
-                                        ? 'border-indigo-600 bg-indigo-50'
+                                        ? 'border-ink bg-indigo-50'
                                         : 'border-gray-200 hover:border-gray-300'
                                         }`}
                                 >
@@ -145,7 +145,7 @@ export default function PayoutSettingsPage() {
                                     type="button"
                                     onClick={() => setMethod('paypal')}
                                     className={`p-4 border-2 rounded-lg text-center transition-colors ${method === 'paypal'
-                                        ? 'border-indigo-600 bg-indigo-50'
+                                        ? 'border-ink bg-indigo-50'
                                         : 'border-gray-200 hover:border-gray-300'
                                         }`}
                                 >
@@ -157,7 +157,7 @@ export default function PayoutSettingsPage() {
                                     type="button"
                                     onClick={() => setMethod('crypto')}
                                     className={`p-4 border-2 rounded-lg text-center transition-colors ${method === 'crypto'
-                                        ? 'border-indigo-600 bg-indigo-50'
+                                        ? 'border-ink bg-indigo-50'
                                         : 'border-gray-200 hover:border-gray-300'
                                         }`}
                                 >
@@ -178,7 +178,7 @@ export default function PayoutSettingsPage() {
                                         type="text"
                                         value={bankName}
                                         onChange={(e) => setBankName(e.target.value)}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                         required
                                     />
                                 </div>
@@ -191,7 +191,7 @@ export default function PayoutSettingsPage() {
                                         type="text"
                                         value={accountName}
                                         onChange={(e) => setAccountName(e.target.value)}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                         required
                                     />
                                 </div>
@@ -204,7 +204,7 @@ export default function PayoutSettingsPage() {
                                         type="text"
                                         value={accountNumber}
                                         onChange={(e) => setAccountNumber(e.target.value)}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                         required
                                     />
                                 </div>
@@ -217,7 +217,7 @@ export default function PayoutSettingsPage() {
                                         type="text"
                                         value={iban}
                                         onChange={(e) => setIban(e.target.value)}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                     />
                                 </div>
 
@@ -229,7 +229,7 @@ export default function PayoutSettingsPage() {
                                         type="text"
                                         value={swiftCode}
                                         onChange={(e) => setSwiftCode(e.target.value)}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                     />
                                 </div>
                             </div>
@@ -245,7 +245,7 @@ export default function PayoutSettingsPage() {
                                     type="email"
                                     value={paypalEmail}
                                     onChange={(e) => setPaypalEmail(e.target.value)}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                     placeholder="example@paypal.com"
                                     required
                                 />
@@ -262,7 +262,7 @@ export default function PayoutSettingsPage() {
                                     type="text"
                                     value={cryptoWallet}
                                     onChange={(e) => setCryptoWallet(e.target.value)}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                     placeholder="TRxxxxxxxxxxxxxxxxxxxxxxxxxx"
                                     required
                                 />
@@ -277,7 +277,7 @@ export default function PayoutSettingsPage() {
                             <button
                                 type="submit"
                                 disabled={saving}
-                                className="w-full px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
+                                className="w-full px-6 py-3 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
                             >
                                 <FiSave />
                                 {saving ? 'جاري الحفظ...' : 'حفظ الإعدادات'}
@@ -287,7 +287,7 @@ export default function PayoutSettingsPage() {
                 </div>
 
                 {/* Info */}
-                <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div className="mt-6 bg-accent-50 border border-blue-200 rounded-lg p-4">
                     <h3 className="font-bold text-blue-900 mb-2">💡 معلومات مهمة:</h3>
                     <ul className="text-sm text-blue-800 space-y-1">
                         <li>• يمكنك تغيير طريقة الدفع في أي وقت</li>

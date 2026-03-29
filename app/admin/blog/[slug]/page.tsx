@@ -204,7 +204,7 @@ export default function EditBlogPost() {
                         <button
                             onClick={handleSave}
                             disabled={isSaving}
-                            className="w-full bg-accent text-white py-3 rounded-xl font-bold hover:bg-blue-600 flex justify-center items-center gap-2 transition"
+                            className="w-full bg-accent text-white py-3 rounded-xl font-bold hover:bg-accent-600 flex justify-center items-center gap-2 transition"
                         >
                             {isSaving ? (
                                 <span>جاري الحفظ...</span>

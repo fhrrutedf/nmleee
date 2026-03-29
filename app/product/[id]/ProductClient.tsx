@@ -140,12 +140,12 @@ export default function ProductDetails({
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
                     {/* Left Column: Product Info Card */}
                     <div className="lg:col-span-5 order-2 lg:order-1 relative">
-                        <div className="sticky top-24 bg-white dark:bg-card-white rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-800 animate-fade-in-up">
+                        <div className="sticky top-24 bg-white dark:bg-card-white rounded-3xl shadow-sm shadow-gray-200/50 dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-800 animate-fade-in-up">
                             <div className="h-6 w-full bg-gradient-to-r from-accent via-purple-500 to-pink-500"></div>
                             <div className="p-8 sm:p-10">
                                 <div className="flex flex-wrap gap-2 mb-6">
                                     {product.category && (
-                                        <span className="px-4 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-accent dark:text-blue-400 rounded-lg text-sm font-bold tracking-wide border border-blue-100 dark:border-blue-900/30">
+                                        <span className="px-4 py-1.5 bg-accent-50 dark:bg-blue-900/20 text-accent dark:text-blue-400 rounded-lg text-sm font-bold tracking-wide border border-blue-100 dark:border-blue-900/30">
                                             {product.category === 'courses' ? '👨‍🏫 دورة متكاملة' : product.category === 'ebooks' ? '📚 كتاب إلكتروني' : product.category}
                                         </span>
                                     )}
@@ -196,13 +196,13 @@ export default function ProductDetails({
 
                                     {/* Urgency Countdown Banner */}
                                     {product.offerExpiresAt && new Date(product.offerExpiresAt) > new Date() && (
-                                        <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/10 rounded-2xl border border-blue-100 dark:border-blue-900/20 flex items-center gap-3 animate-pulse">
-                                            <div className="w-10 h-10 bg-blue-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+                                        <div className="mt-6 p-4 bg-accent-50 dark:bg-blue-900/10 rounded-2xl border border-blue-100 dark:border-blue-900/20 flex items-center gap-3 ">
+                                            <div className="w-10 h-10 bg-accent-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-accent-500/20">
                                                 <FiClock className="text-xl" />
                                             </div>
                                             <div className="text-right">
                                                 <p className="text-[10px] font-bold text-blue-800 dark:text-blue-400 uppercase tracking-widest leading-none mb-1">عرض لفترة محدودة</p>
-                                                <p className="text-xs font-bold text-blue-600 dark:text-blue-500">ينتهي العرض قريباً! سارع بالطلب</p>
+                                                <p className="text-xs font-bold text-accent-600 dark:text-accent-500">ينتهي العرض قريباً! سارع بالطلب</p>
                                             </div>
                                         </div>
                                     )}
@@ -212,7 +212,7 @@ export default function ProductDetails({
                                     <button
                                         onClick={buyNow}
                                         disabled={buyingNow}
-                                        className="w-full btn btn-primary text-xl py-5 rounded-2xl shadow-xl shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-bold disabled:opacity-80 disabled:cursor-not-allowed"
+                                        className="w-full btn btn-primary text-xl py-5 rounded-2xl shadow-sm shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 font-bold disabled:opacity-80 disabled:cursor-not-allowed"
                                         style={product.user?.brandColor ? { backgroundColor: product.user.brandColor, borderColor: product.user.brandColor } : {}}
                                     >
                                         {buyingNow ? (
@@ -262,7 +262,7 @@ export default function ProductDetails({
                     <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col gap-10">
                         <div className="group relative">
                             <div className="absolute -inset-1 bg-gradient-to-r from-accent to-purple-600 rounded-xl blur-xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-                            <div className="relative bg-black rounded-xl overflow-hidden shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10 aspect-[16/10] sm:aspect-video flex items-center justify-center animate-fade-in-up">
+                            <div className="relative bg-black rounded-xl overflow-hidden shadow-sm ring-1 ring-gray-900/10 dark:ring-white/10 aspect-[16/10] sm:aspect-video flex items-center justify-center animate-fade-in-up">
                                 {activeMedia?.type === 'video' ? (
                                     <div className="w-full h-full">
                                         <VideoPlayer src={activeMedia.url} videoId={product.id} title={product.title} poster={product.image} />
@@ -303,7 +303,7 @@ export default function ProductDetails({
 
                         <div className="mt-8 bg-gradient-to-r from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 rounded-3xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden group">
                             <div className="flex items-center gap-6 relative z-10 w-full sm:w-auto">
-                                 <Link href={`/${product.user?.username || 'seller'}`} className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-accent to-purple-600 rounded-2xl flex items-center justify-center font-bold text-3xl text-white shadow-xl overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                                 <Link href={`/${product.user?.username || 'seller'}`} className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-accent to-purple-600 rounded-2xl flex items-center justify-center font-bold text-3xl text-white shadow-sm overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
                                      {product.user?.avatar ? (
                                          <img src={product.user.avatar} className="w-full h-full object-cover" alt={product.user.name} />
                                      ) : (
@@ -333,7 +333,7 @@ export default function ProductDetails({
                              </div>
                              <div className="hidden sm:flex flex-col items-center justify-center p-4 bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-dashed border-gray-200 dark:border-gray-700">
                                 <p className="text-[10px] font-bold uppercase text-gray-400 mb-1">متصل الآن</p>
-                                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse shadow-sm shadow-green-500/50" />
+                                <div className="w-3 h-3 bg-green-500 rounded-full  shadow-sm shadow-green-500/50" />
                              </div>
                         </div>
 

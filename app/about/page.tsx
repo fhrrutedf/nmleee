@@ -119,14 +119,14 @@ export default function AboutPage() {
                                     </div>
                                 ))}
                             </div>
-                            <Link href="/register" className="inline-flex py-4 px-10 bg-ink text-white rounded-2xl font-bold hover:bg-black transition-all shadow-xl shadow-ink/10">
+                            <Link href="/register" className="inline-flex py-4 px-10 bg-ink text-white rounded-2xl font-bold hover:bg-black transition-all shadow-sm shadow-ink/10">
                                 ابدأ رحلتك معنا اليوم
                             </Link>
                         </motion.div>
 
                         <div className="relative group">
                             <div className="absolute -inset-4 bg-accent/5 rounded-[3rem] blur-2xl group-hover:bg-accent/10 transition-all"></div>
-                            <div className="rounded-[2.5rem] overflow-hidden border border-gray-100 shadow-2xl relative z-10">
+                            <div className="rounded-[2.5rem] overflow-hidden border border-gray-100 shadow-sm relative z-10">
                                 <img
                                     src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&q=80"
                                     alt="Tmleen Team"
@@ -137,7 +137,7 @@ export default function AboutPage() {
                             <motion.div
                                 animate={{ y: [0, -10, 0] }}
                                 transition={{ repeat: Infinity, duration: 5 }}
-                                className="absolute -bottom-8 -right-8 bg-white border border-gray-100 p-8 rounded-3xl shadow-2xl z-20 hidden md:block"
+                                className="absolute -bottom-8 -right-8 bg-white border border-gray-100 p-8 rounded-3xl shadow-sm z-20 hidden md:block"
                             >
                                 <div className="text-ink font-black text-4xl font-inter tracking-tighter">2024</div>
                                 <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Founding Year</div>
@@ -179,7 +179,7 @@ export default function AboutPage() {
                     <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-8">جاهز لتحويل خبرتك لمنتج؟</h2>
                     <p className="text-gray-400 text-xl font-bold mb-12">انضم لمئات المبدعين الذين اختاروا التميز والاستقلالية المالية.</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/register" className="px-12 py-5 bg-accent text-white rounded-2xl font-bold hover:bg-accent-hover transition-all shadow-xl shadow-accent/20">
+                        <Link href="/register" className="px-12 py-5 bg-accent text-white rounded-2xl font-bold hover:bg-accent-hover transition-all shadow-sm shadow-accent/20">
                             أنشئ متجرك مجاناً
                         </Link>
                         <Link href="/market" className="px-12 py-5 bg-white/10 text-white border border-white/10 rounded-2xl font-bold hover:bg-white/20 transition-all">

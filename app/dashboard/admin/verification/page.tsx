@@ -68,7 +68,7 @@ export default function AdminVerificationPage() {
         }
     };
 
-    if (loading) return <div className="p-10 text-center animate-pulse">جاري تحميل طلبات التوثيق...</div>;
+    if (loading) return <div className="p-10 text-center ">جاري تحميل طلبات التوثيق...</div>;
 
     return (
         <div className="p-6 lg:p-10 max-w-7xl mx-auto w-full space-y-8">
@@ -91,7 +91,7 @@ export default function AdminVerificationPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {requests.map((request) => (
-                        <div key={request.id} className="card bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-2xl transition-all group">
+                        <div key={request.id} className="card bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-sm transition-all group">
                             {/* Document Preview */}
                             <div className="h-48 bg-gray-100 dark:bg-gray-900 relative overflow-hidden">
                                 <img 
@@ -104,7 +104,7 @@ export default function AdminVerificationPage() {
                                         <FiEye /> عرض كامل
                                     </a>
                                 </div>
-                                <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
+                                <div className="absolute top-4 right-4 bg-black/60  text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
                                     {request.documentType.replace('_', ' ')}
                                 </div>
                             </div>
@@ -153,8 +153,8 @@ export default function AdminVerificationPage() {
 
             {/* Rejection Modal */}
             {showRejectionModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-                    <div className="bg-white dark:bg-card-white rounded-xl p-8 max-w-md w-full shadow-2xl space-y-6">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  animate-fade-in">
+                    <div className="bg-white dark:bg-card-white rounded-xl p-8 max-w-md w-full shadow-sm space-y-6">
                         <div className="flex items-center gap-3 text-red-500">
                             <FiAlertCircle className="text-2xl" />
                             <h3 className="text-xl font-bold">سبب رفض التوثيق</h3>

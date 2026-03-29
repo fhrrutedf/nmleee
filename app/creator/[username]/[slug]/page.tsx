@@ -113,11 +113,11 @@ export default function ProductPage() {
                             <img
                                 src={product.image}
                                 alt={product.title}
-                                className="w-full rounded-2xl shadow-xl"
+                                className="w-full rounded-2xl shadow-sm"
                             />
                         ) : (
                             <div
-                                className="w-full aspect-video rounded-2xl shadow-xl flex items-center justify-center"
+                                className="w-full aspect-video rounded-2xl shadow-sm flex items-center justify-center"
                                 style={{
                                     background: `linear-gradient(135deg, ${brandColor}20 0%, ${brandColor}40 100%)`
                                 }}
@@ -214,7 +214,7 @@ export default function ProductPage() {
                             
                             {/* Urgency Countdown Placeholder (Simplified for now) */}
                             {product.offerExpiresAt && new Date(product.offerExpiresAt) > new Date() && (
-                                <div className="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-100 flex items-center gap-3 animate-pulse">
+                                <div className="mt-6 p-4 bg-accent-50 rounded-xl border border-blue-100 flex items-center gap-3 ">
                                     <div className="w-10 h-10 bg-accent text-white rounded-lg flex items-center justify-center">
                                         <FiClock className="text-xl" />
                                     </div>
@@ -226,7 +226,7 @@ export default function ProductPage() {
                             )}
                             
                             <p className="text-sm text-slate-400 mt-4 font-medium flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-green-500 " />
                                 وصول فوري وكامل للمحتوى مدى الحياة
                             </p>
                         </div>
@@ -258,7 +258,7 @@ export default function ProductPage() {
                         {/* CTA Button */}
                         <button
                             onClick={handlePurchase}
-                            className="w-full py-4 rounded-xl font-bold text-white text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+                            className="w-full py-4 rounded-xl font-bold text-white text-lg shadow-lg hover:shadow-sm transition-all transform hover:scale-105"
                             style={{ backgroundColor: brandColor }}
                         >
                             <FiShoppingCart className="inline ml-2" />

@@ -173,7 +173,7 @@ export default function UsersManagement() {
 
     const planBadge = (planType?: string) => {
         switch (planType) {
-            case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400">🚀 GROWTH</span>;
+            case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-accent-50 text-accent-600 dark:bg-blue-900/20 dark:text-blue-400">🚀 GROWTH</span>;
             case 'PRO': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400">👑 PRO</span>;
             default: return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400">🆓 FREE</span>;
         }
@@ -317,11 +317,11 @@ export default function UsersManagement() {
                                                         )}
                                                         {user.isVerified && (
                                                             <div className="absolute -bottom-1 -right-1 bg-white dark:bg-card-white rounded-full p-0.5" title="حساب موثق">
-                                                                <FiCheckCircle className="text-blue-500 w-4 h-4" />
+                                                                <FiCheckCircle className="text-accent-500 w-4 h-4" />
                                                             </div>
                                                         )}
                                                         {user.verificationRequests && user.verificationRequests.length > 0 && (
-                                                            <div className="absolute -top-1 -right-1 bg-orange-500 text-white rounded-full p-0.5 animate-pulse" title="هناك طلب توثيق بانتظار المراجعة">
+                                                            <div className="absolute -top-1 -right-1 bg-orange-500 text-white rounded-full p-0.5 " title="هناك طلب توثيق بانتظار المراجعة">
                                                                 <FiActivity className="w-2.5 h-2.5" />
                                                             </div>
                                                         )}
@@ -390,7 +390,7 @@ export default function UsersManagement() {
                                                     >
                                                         {user.isActive ? <FiXCircle size={18} /> : <FiCheckCircle size={18} />}
                                                     </button>
-                                                    <button className="p-2 rounded-lg text-gray-400 hover:text-accent hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+                                                    <button className="p-2 rounded-lg text-gray-400 hover:text-accent hover:bg-accent-50 dark:hover:bg-blue-900/20 transition-colors">
                                                         <FiMoreVertical size={18} />
                                                     </button>
                                                     {user.verificationRequests && user.verificationRequests.length > 0 && (
@@ -441,8 +441,8 @@ export default function UsersManagement() {
 
         {/* Plan Management Modal */}
         {planModal && (
-            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setPlanModal(null)}>
-                <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl max-w-md w-full p-8" onClick={e => e.stopPropagation()}>
+            <div className="fixed inset-0 bg-black/50  z-50 flex items-center justify-center p-4" onClick={() => setPlanModal(null)}>
+                <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm max-w-md w-full p-8" onClick={e => e.stopPropagation()}>
                     <h3 className="text-xl font-bold text-ink dark:text-white mb-2 flex items-center gap-2">
                         <FiAward className="text-purple-500" /> إدارة باقة المستخدم
                     </h3>

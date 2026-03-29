@@ -60,7 +60,7 @@ export default function DashboardPage() {
             className="space-y-8 pb-12"
         >
             {/* Professional Welcome Section */}
-            <motion.div variants={item} className="bg-ink rounded-3xl p-8 sm:p-12 text-white shadow-2xl relative overflow-hidden ring-1 ring-white/10">
+            <motion.div variants={item} className="bg-ink rounded-3xl p-8 sm:p-12 text-white shadow-sm relative overflow-hidden ring-1 ring-white/10">
                 <div className="relative z-10 max-w-2xl">
                     <span className="inline-block px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Merchant Dashboard</span>
                     <h1 className="text-3xl sm:text-5xl font-bold mb-4 tracking-tight leading-tight">مرحباً، {session?.user?.name}</h1>
@@ -129,7 +129,7 @@ export default function DashboardPage() {
                         { title: 'إنشاء كورس جديد', desc: 'سجل محاضراتك وأنشئ أكاديميتك', icon: FiVideo, href: '/dashboard/courses/new' },
                         { title: 'تعديل هوية المتجر', desc: 'الألوان، الشعار، والوصف', icon: FiSettings, href: '/dashboard/brand' }
                     ].map((action, idx) => (
-                        <Link key={idx} href={action.href} className="flex items-center gap-5 p-5 rounded-2xl bg-white border border-gray-100 hover:border-accent/20 hover:shadow-xl hover:shadow-accent/5 transition-all group">
+                        <Link key={idx} href={action.href} className="flex items-center gap-5 p-5 rounded-2xl bg-white border border-gray-100 hover:border-accent/20 hover:shadow-sm hover:shadow-accent/5 transition-all group">
                             <div className="w-12 h-12 rounded-xl bg-gray-50 text-ink flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all shadow-sm">
                                 <action.icon className="text-xl" />
                             </div>

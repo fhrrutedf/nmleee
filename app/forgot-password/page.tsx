@@ -58,7 +58,7 @@ export default function ForgotPasswordPage() {
                 {/* Logo/Title */}
                 <motion.div variants={fadeInUp} className="text-center mb-10">
                     <Link href="/" className="inline-block mb-6">
-                        <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-accent to-purple-600 flex items-center justify-center text-white shadow-xl shadow-accent/20">
+                        <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-accent to-purple-600 flex items-center justify-center text-white shadow-sm shadow-accent/20">
                             <span className="text-3xl font-bold">م</span>
                         </div>
                     </Link>
@@ -66,7 +66,7 @@ export default function ForgotPasswordPage() {
                     <p className="text-text-muted text-lg">أدخل بريدك الإلكتروني لاستعادة الوصول لحسابك</p>
                 </motion.div>
 
-                <motion.div variants={fadeInUp} className="bg-white rounded-xl shadow-2xl border border-gray-100 p-8 sm:p-10 relative overflow-hidden">
+                <motion.div variants={fadeInUp} className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 sm:p-10 relative overflow-hidden">
                     <AnimatePresence mode="wait">
                         {status === 'success' ? (
                             <motion.div

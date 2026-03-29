@@ -125,7 +125,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
     return (
         <div
             ref={containerRef}
-            className="relative group bg-black rounded-2xl overflow-hidden aspect-video shadow-2xl"
+            className="relative group bg-black rounded-2xl overflow-hidden aspect-video shadow-sm"
             onMouseLeave={() => setShowSettings(false)}
         >
             <video
@@ -143,7 +143,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
             {/* Play/Pause Overlay - visible when paused or loading */}
             {!isPlaying && (
                 <div
-                    className="absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer backdrop-blur-sm transition-all"
+                    className="absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer  transition-all"
                     onClick={togglePlay}
                 >
                     <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center text-white p-2 hover:scale-110 transition-transform">

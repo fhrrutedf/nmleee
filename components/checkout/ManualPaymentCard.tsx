@@ -92,18 +92,18 @@ export default function ManualPaymentCard({
             </div>
 
             {/* Premium Price Conversion Card */}
-            <div className="relative group overflow-hidden bg-gradient-to-br from-indigo-950 to-blue-950/40 p-10 rounded-[2.5rem] border border-blue-500/20 shadow-2xl">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/10 rounded-full blur-[80px] -mr-10 -mt-10"></div>
+            <div className="relative group overflow-hidden bg-gradient-to-br from-indigo-950 to-blue-950/40 p-10 rounded-[2.5rem] border border-accent-500/20 shadow-sm">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-accent-500/10 rounded-full blur-[80px] -mr-10 -mt-10"></div>
                 <div className="relative">
-                    <p className="text-blue-500/70 text-xs font-bold uppercase tracking-[0.2em] mb-4">المبلغ المطلوب بالعملة المحلية</p>
+                    <p className="text-accent-500/70 text-xs font-bold uppercase tracking-[0.2em] mb-4">المبلغ المطلوب بالعملة المحلية</p>
                     <div className="flex items-baseline gap-3">
                         <span className="text-5xl font-bold text-white tracking-tighter">
                             {new Intl.NumberFormat('ar-EG').format(localPrice.amount)}
                         </span>
-                        <span className="text-2xl font-bold text-blue-500">{localPrice.currency}</span>
+                        <span className="text-2xl font-bold text-accent-500">{localPrice.currency}</span>
                     </div>
-                    <div className="mt-8 flex items-center gap-3 text-xs font-bold bg-black/40 backdrop-blur-3xl w-fit px-4 py-2 rounded-2xl border border-white/5">
-                        <FiInfo size={14} className="text-blue-500" />
+                    <div className="mt-8 flex items-center gap-3 text-xs font-bold bg-black/40  w-fit px-4 py-2 rounded-2xl border border-white/5">
+                        <FiInfo size={14} className="text-accent-500" />
                         <span className="text-slate-400">يعادل تقريباً {usdTotal.toFixed(2)} $ بسعر السوق اليوم</span>
                     </div>
                 </div>
@@ -118,7 +118,7 @@ export default function ManualPaymentCard({
                     </div>
                     <button
                         onClick={handleCopy}
-                        className={`shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center transition-all ${copied ? 'bg-blue-500 text-white scale-95' : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 active:scale-95 border border-white/5'}`}
+                        className={`shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center transition-all ${copied ? 'bg-accent-500 text-white scale-95' : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 active:scale-95 border border-white/5'}`}
                     >
                         {copied ? <FiCheck size={28} /> : <FiCopy size={24} />}
                     </button>
@@ -134,7 +134,7 @@ export default function ManualPaymentCard({
                         value={senderPhone}
                         onChange={(e) => { setSenderPhone(e.target.value); updateParent(e.target.value, transactionRef, proofFile, notes); }}
                         placeholder="09xx-xxx-xxx"
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:border-blue-500/50 outline-none transition-all font-bold text-white text-left"
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:border-accent-500/50 outline-none transition-all font-bold text-white text-left"
                         dir="ltr"
                     />
                 </div>
@@ -145,7 +145,7 @@ export default function ManualPaymentCard({
                         value={transactionRef}
                         onChange={(e) => { setTransactionRef(e.target.value); updateParent(senderPhone, e.target.value, proofFile, notes); }}
                         placeholder="Transaction ID"
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:border-blue-500/50 outline-none transition-all font-mono font-bold text-white text-left"
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:border-accent-500/50 outline-none transition-all font-mono font-bold text-white text-left"
                         dir="ltr"
                     />
                 </div>
@@ -156,7 +156,7 @@ export default function ManualPaymentCard({
                 <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-2">صورة إيصال التحويل (Proof) *</label>
                 <div 
                     onClick={() => fileInputRef.current?.click()}
-                    className={`relative w-full aspect-[16/6] rounded-[2rem] border-2 border-dashed transition-all flex flex-col items-center justify-center cursor-pointer overflow-hidden ${proofPreview ? 'border-blue-500/50 bg-blue-500/5' : 'border-white/10 hover:border-blue-500/30 hover:bg-white/5 group'}`}
+                    className={`relative w-full aspect-[16/6] rounded-[2rem] border-2 border-dashed transition-all flex flex-col items-center justify-center cursor-pointer overflow-hidden ${proofPreview ? 'border-accent-500/50 bg-accent-500/5' : 'border-white/10 hover:border-accent-500/30 hover:bg-white/5 group'}`}
                 >
                     <input type="file" ref={fileInputRef} onChange={handleFile} accept="image/*" className="hidden" />
                     
@@ -173,7 +173,7 @@ export default function ManualPaymentCard({
                                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
                                     <button 
                                         onClick={(e) => { e.stopPropagation(); setProofFile(null); setProofPreview(null); updateParent(senderPhone, transactionRef, null, notes); }}
-                                        className="bg-white/10 backdrop-blur-xl p-3 rounded-full text-white hover:bg-white/20 transition-colors"
+                                        className="bg-white/10  p-3 rounded-full text-white hover:bg-white/20 transition-colors"
                                     >
                                         <FiX size={28} />
                                     </button>
@@ -184,7 +184,7 @@ export default function ManualPaymentCard({
                                 key="upload"
                                 className="flex flex-col items-center gap-2"
                             >
-                                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-slate-500 group-hover:text-blue-500 group-hover:bg-white/10 transition-all">
+                                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-slate-500 group-hover:text-accent-500 group-hover:bg-white/10 transition-all">
                                     <FiUpload size={24} />
                                 </div>
                                 <div className="text-center">
@@ -204,7 +204,7 @@ export default function ManualPaymentCard({
                     value={notes}
                     onChange={(e) => { setNotes(e.target.value); updateParent(senderPhone, transactionRef, proofFile, e.target.value); }}
                     rows={2}
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:border-blue-500/50 outline-none transition-all font-medium text-white resize-none"
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:border-accent-500/50 outline-none transition-all font-medium text-white resize-none"
                     placeholder="..."
                 />
             </div>

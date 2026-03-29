@@ -236,7 +236,7 @@ export default function NewBundlePage() {
                 {/* Left col - Pricing and saving summary */}
                 <div className="col-span-1 border-gray-100">
                     <div className="sticky top-24 space-y-6">
-                        <div className="bg-white dark:bg-card-white rounded-3xl p-6 shadow-xl shadow-gray-100 dark:shadow-gray-900 border border-gray-100 dark:border-gray-800 relative overflow-hidden">
+                        <div className="bg-white dark:bg-card-white rounded-3xl p-6 shadow-sm shadow-gray-100 dark:shadow-gray-900 border border-gray-100 dark:border-gray-800 relative overflow-hidden">
                             {discountPercentage > 0 && (
                                 <div className="absolute top-0 right-0 bg-green-500 text-white px-4 py-1 rounded-bl-2xl font-bold text-sm shadow-md">
                                     خصم  {discountPercentage}%
@@ -281,7 +281,7 @@ export default function NewBundlePage() {
                         <button
                             type="submit"
                             disabled={loading || formData.productIds.length < 2 || !formData.price || !formData.title}
-                            className="w-full btn btn-primary text-lg py-4 shadow-xl shadow-accent/20 hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full btn btn-primary text-lg py-4 shadow-sm shadow-accent/20 hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {loading ? (
                                 <span className="flex items-center justify-center gap-2">

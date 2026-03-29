@@ -259,8 +259,8 @@ export default function CouponsPage() {
 
             {/* Create Modal */}
             {showModal && (
-                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-center p-4">
-                    <div className="bg-white dark:bg-card-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto transform transition-all">
+                <div className="fixed inset-0 bg-black/50  z-50 flex justify-center items-center p-4">
+                    <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm w-full max-w-2xl max-h-[90vh] overflow-y-auto transform transition-all">
                         <div className="sticky top-0 bg-white dark:bg-card-white p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center z-10">
                             <h2 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
                                 <FiTag className="text-accent" /> إضافة كوبون خصم جديد
@@ -385,7 +385,7 @@ export default function CouponsPage() {
 
                             <div className="pt-6 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-4 mt-6">
                                 <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline border-transparent bg-gray-100 dark:bg-gray-800 px-6 font-bold shadow-sm">إلغاء</button>
-                                <button type="submit" className="btn btn-primary px-8 font-bold shadow-xl shadow-accent/20 flex items-center gap-2 text-lg">
+                                <button type="submit" className="btn btn-primary px-8 font-bold shadow-sm shadow-accent/20 flex items-center gap-2 text-lg">
                                     <FiCheckCircle /> <span>اعتماد الكوبون وحفظه</span>
                                 </button>
                             </div>

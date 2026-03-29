@@ -145,7 +145,7 @@ export default function AppointmentSettingsPage() {
 
             <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                 <div className="p-4 md:p-6 border-b border-gray-100 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-blue-100 text-accent-600 flex items-center justify-center flex-shrink-0">
                         <FiCalendar className="text-xl" />
                     </div>
                     <div>
@@ -206,7 +206,7 @@ export default function AppointmentSettingsPage() {
                 </div>
             </div>
 
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex gap-3 text-blue-800">
+            <div className="bg-accent-50 border border-blue-200 rounded-lg p-4 flex gap-3 text-blue-800">
                 <FiClock className="text-xl flex-shrink-0 mt-0.5" />
                 <div>
                     <h3 className="font-semibold mb-1">ملاحظة هامة</h3>

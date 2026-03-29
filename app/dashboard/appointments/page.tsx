@@ -163,7 +163,7 @@ export default function AppointmentsPage() {
 
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-6 shadow-lg">
+                <div className="bg-gradient-to-br from-accent-500 to-accent-600 text-white rounded-xl p-6 shadow-lg">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-blue-100 text-sm">إجمالي الاستشارات</p>
@@ -313,7 +313,7 @@ export default function AppointmentsPage() {
                                         </span>
 
                                         {appointment.isNotified && (
-                                            <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-[10px] font-bold border border-blue-100 flex items-center gap-1">
+                                            <span className="px-3 py-1 bg-accent-50 text-accent-600 rounded-lg text-[10px] font-bold border border-blue-100 flex items-center gap-1">
                                                 🔔 تم الإرسال
                                             </span>
                                         )}
@@ -371,7 +371,7 @@ export default function AppointmentsPage() {
 
             {/* Modal لإضافة موعد جديد */}
             {showModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+                <div className="fixed inset-0 bg-black  flex items-center justify-center z-50 p-4 overflow-y-auto">
                     <div className="bg-white rounded-xl p-6 max-w-2xl w-full my-8">
                         <div className="flex justify-between items-center mb-6">
                             <h3 className="text-xl font-bold">إضافة استشارة جديدة</h3>

@@ -83,7 +83,7 @@ function LoginContent() {
                 {/* Brand Identity Header */}
                 <motion.div variants={fadeInUp} className="text-center mb-12">
                      <Link href="/" className="inline-block mb-10 group">
-                        <div className="w-16 h-16 mx-auto rounded-3xl bg-ink flex items-center justify-center text-white text-3xl font-black shadow-2xl shadow-ink/20 group-hover:scale-110 transition-transform">
+                        <div className="w-16 h-16 mx-auto rounded-3xl bg-ink flex items-center justify-center text-white text-3xl font-black shadow-sm shadow-ink/20 group-hover:scale-110 transition-transform">
                             ت
                         </div>
                     </Link>
@@ -92,7 +92,7 @@ function LoginContent() {
                 </motion.div>
 
                 {/* Login Terminal / Form Card */}
-                <motion.div variants={fadeInUp} className="bg-white rounded-[2.5rem] border border-gray-100 p-10 shadow-2xl shadow-gray-200/50 relative overflow-hidden">
+                <motion.div variants={fadeInUp} className="bg-white rounded-[2.5rem] border border-gray-100 p-10 shadow-sm shadow-gray-200/50 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-[80px] pointer-events-none"></div>
 
                     {/* Social Authentication */}
@@ -100,7 +100,7 @@ function LoginContent() {
                         <button
                             onClick={handleGoogleSignIn}
                             disabled={googleLoading}
-                            className="w-full flex items-center justify-center gap-4 py-4 px-6 rounded-2xl border border-gray-100 bg-white hover:border-ink hover:shadow-xl transition-all duration-300 font-bold text-gray-700 active:scale-95"
+                            className="w-full flex items-center justify-center gap-4 py-4 px-6 rounded-2xl border border-gray-100 bg-white hover:border-ink hover:shadow-sm transition-all duration-300 font-bold text-gray-700 active:scale-95"
                         >
                             {googleLoading ? (
                                 <div className="w-5 h-5 border-2 border-gray-200 border-t-ink rounded-full animate-spin"></div>
@@ -172,7 +172,7 @@ function LoginContent() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`w-full py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-2xl
+                            className={`w-full py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-sm
                                 ${loading ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-ink text-white hover:bg-black shadow-ink/20 active:scale-95'}
                             `}
                         >

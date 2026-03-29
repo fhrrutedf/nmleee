@@ -35,7 +35,7 @@ const ACTION_LABELS: Record<string, { label: string; color: string }> = {
     'broadcast.sent': { label: 'إرسال بث', color: 'bg-pink-100 text-pink-700' },
     'admin.impersonation_started': { label: 'بدء انتحال', color: 'bg-orange-100 text-orange-700' },
     'platform.payment_failed': { label: 'فشل دفع', color: 'bg-red-50 text-red-500' },
-    'platform.settings_updated': { label: 'تحديث منصة', color: 'bg-blue-50 text-blue-600' },
+    'platform.settings_updated': { label: 'تحديث منصة', color: 'bg-accent-50 text-accent-600' },
 };
 
 export default function AdminAuditLogsPage() {
@@ -103,7 +103,7 @@ export default function AdminAuditLogsPage() {
                         <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
                             {loading ? (
                                 [1, 2, 3].map(i => (
-                                    <tr key={i} className="animate-pulse">
+                                    <tr key={i} className="">
                                         <td colSpan={6} className="px-5 py-6 h-12 bg-gray-50/50 dark:bg-gray-800/20"></td>
                                     </tr>
                                 ))

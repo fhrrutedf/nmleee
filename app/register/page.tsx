@@ -124,7 +124,7 @@ function RegisterContent() {
             <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-xl w-full relative z-10">
                 <motion.div variants={fadeInUp} className="text-center mb-12">
                      <Link href="/" className="inline-block mb-8 group">
-                        <div className="w-16 h-16 mx-auto rounded-3xl bg-ink flex items-center justify-center text-white text-3xl font-black shadow-2xl shadow-ink/20 group-hover:scale-110 transition-transform">
+                        <div className="w-16 h-16 mx-auto rounded-3xl bg-ink flex items-center justify-center text-white text-3xl font-black shadow-sm shadow-ink/20 group-hover:scale-110 transition-transform">
                             ت
                         </div>
                     </Link>
@@ -132,7 +132,7 @@ function RegisterContent() {
                     <p className="text-gray-400 font-bold">انضم لمئات المبدعين العرب وابدأ رحلتك التجارية اليوم.</p>
                 </motion.div>
 
-                <motion.div variants={fadeInUp} className="bg-white rounded-[2.5rem] border border-gray-100 p-10 shadow-2xl shadow-gray-200/50 relative overflow-hidden">
+                <motion.div variants={fadeInUp} className="bg-white rounded-[2.5rem] border border-gray-100 p-10 shadow-sm shadow-gray-200/50 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-[80px] pointer-events-none"></div>
 
                     <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
@@ -171,7 +171,7 @@ function RegisterContent() {
                                 </button>
                                 <AnimatePresence>
                                     {countryDropdownOpen && (
-                                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="absolute z-50 mt-2 w-full bg-white border border-gray-100 rounded-2xl shadow-2xl max-h-60 overflow-y-auto p-2 space-y-1">
+                                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="absolute z-50 mt-2 w-full bg-white border border-gray-100 rounded-2xl shadow-sm max-h-60 overflow-y-auto p-2 space-y-1">
                                             {countries.map(c => (
                                                 <button key={c.code} type="button" onClick={() => { setSelectedCountry(c.code as CountryCode); setCountryDropdownOpen(false); }} className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold transition-all ${selectedCountry === c.code ? 'bg-accent text-white' : 'text-gray-500 hover:bg-gray-50 hover:text-ink'}`}>
                                                     <span className="flex items-center gap-2"><span>{c.flag}</span> <span>{c.nameAr}</span></span>
@@ -205,7 +205,7 @@ function RegisterContent() {
                             whileTap={{ scale: 0.99 }} 
                             type="submit" 
                             disabled={loading} 
-                            className={`w-full py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-2xl
+                            className={`w-full py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-sm
                                 ${loading ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-ink text-white hover:bg-black shadow-ink/20'}
                             `}
                         >

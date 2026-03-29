@@ -88,7 +88,7 @@ export default function CryptoCheckoutPage() {
     if (order.status === 'COMPLETED' || order.isPaid) {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
-                <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center border-t-8 border-green-500">
+                <div className="max-w-md w-full bg-white rounded-2xl shadow-sm p-8 text-center border-t-8 border-green-500">
                     <FiCheckCircle className="text-6xl text-green-500 mx-auto mb-4" />
                     <h2 className="text-2xl font-bold mb-2 text-ink">تم الدفع بنجاح!</h2>
                     <p className="text-gray-600 mb-6">شكراً لك، تمت العملية بنجاح. سيتم توجيهك للمنتج...</p>
@@ -104,7 +104,7 @@ export default function CryptoCheckoutPage() {
     return (
         <div className="min-h-screen bg-gray-50 py-12 px-4">
             <div className="max-w-2xl mx-auto">
-                <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+                <div className="bg-white rounded-3xl shadow-sm overflow-hidden border border-gray-100">
                     <div className="bg-gradient-to-r from-ink to-gray-800 p-6 text-center text-white">
                         <h1 className="text-2xl font-bold mb-1">دفع العملات الرقمية</h1>
                         <p className="text-gray-300 text-sm">أرسل المبلغ بدقة إلى العنوان أدناه باستخدام شبكة TRC20</p>
@@ -134,7 +134,7 @@ export default function CryptoCheckoutPage() {
 
                                     <div className="flex-1 space-y-6 w-full">
                                         <div className="bg-orange-50 text-orange-700 p-4 justify-center rounded-xl flex items-center gap-3">
-                                            <FiClock className="text-2xl animate-pulse" />
+                                            <FiClock className="text-2xl " />
                                             <div>
                                                 <p className="text-sm font-bold opacity-80">الوقت المتبقي للدفع</p>
                                                 <p className="text-2xl font-bold font-mono">
@@ -177,7 +177,7 @@ export default function CryptoCheckoutPage() {
                                     </div>
                                 </div>
 
-                                <div className="bg-blue-50 border border-blue-100 p-5 rounded-2xl text-blue-800 text-sm leading-relaxed mb-6">
+                                <div className="bg-accent-50 border border-blue-100 p-5 rounded-2xl text-blue-800 text-sm leading-relaxed mb-6">
                                     <h4 className="font-bold flex items-center gap-2 mb-2">
                                         <FiAlertTriangle /> ملاحظات هامة:
                                     </h4>

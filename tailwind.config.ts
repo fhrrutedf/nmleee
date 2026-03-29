@@ -104,10 +104,7 @@ const config: Config = {
                 heading: ['var(--font-ibm)', 'system-ui', 'sans-serif'],
                 inter: ['var(--font-inter)', 'sans-serif'],
             },
-            animation: {
-                'fade-in': 'fadeIn 0.3s ease-out',
-                'slide-up': 'slideUp 0.3s ease-out',
-            },
+            animation: { 'fade-in': 'fadeIn 0.2s ease-out' },
             keyframes: {
                 fadeIn: {
                     '0%': { opacity: '0' },

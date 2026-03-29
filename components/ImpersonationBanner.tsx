@@ -10,10 +10,10 @@ export default function ImpersonationBanner() {
     if (!user?.isImpersonating) return null;
 
     return (
-        <div className="bg-red-600 text-white py-2 px-4 sticky top-0 z-[100] shadow-lg animate-pulse-slow">
+        <div className="bg-red-600 text-white py-2 px-4 sticky top-0 z-[100] shadow-lg -slow">
             <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
                 <div className="flex items-center gap-2 text-sm md:text-base font-bold">
-                    <FiAlertTriangle className="animate-bounce" />
+                    <FiAlertTriangle className="" />
                     <span>
                         أنت تتصفح كـ <span className="underline">{user.name}</span> (انتحال شخصية)
                     </span>
@@ -35,7 +35,7 @@ export default function ImpersonationBanner() {
                     0%, 100% { opacity: 1; }
                     50% { opacity: 0.95; }
                 }
-                .animate-pulse-slow {
+                .-slow {
                     animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
                 }
             `}</style>

@@ -129,7 +129,7 @@ export default function BrandEditorPage() {
                     <button
                         onClick={saveBrand}
                         disabled={saving}
-                        className="flex items-center gap-2 px-6 py-3 bg-ink text-white rounded-xl font-bold text-sm shadow-xl shadow-ink/10 hover:bg-gray-800 transition-all disabled:opacity-60"
+                        className="flex items-center gap-2 px-6 py-3 bg-ink text-white rounded-xl font-bold text-sm shadow-sm shadow-ink/10 hover:bg-gray-800 transition-all disabled:opacity-60"
                     >
                         <FiSave /> {saving ? 'جاري الحفظ...' : 'حفظ التغييرات'}
                     </button>
@@ -303,7 +303,7 @@ export default function BrandEditorPage() {
                                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                             <button
                                                 onClick={() => setBrand({ ...brand, storeBanner: '' })}
-                                                className="bg-red-500 text-white text-xs px-5 py-2 rounded-xl font-bold shadow-xl"
+                                                className="bg-red-500 text-white text-xs px-5 py-2 rounded-xl font-bold shadow-sm"
                                             >حذف الصورة</button>
                                         </div>
                                     </div>
@@ -324,7 +324,7 @@ export default function BrandEditorPage() {
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] border-r-4 border-ink pr-3">المعاينة الحية</h3>
 
                         {/* Mini Storefront Preview */}
-                        <div className="bg-white rounded-3xl border border-gray-100 shadow-2xl overflow-hidden transition-all duration-500">
+                        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden transition-all duration-500">
                             {/* Cover */}
                             <div
                                 className="h-32 relative"
@@ -340,7 +340,7 @@ export default function BrandEditorPage() {
                             {/* Avatar */}
                             <div className="px-6 -mt-10 relative z-10">
                                 <div
-                                    className="w-20 h-20 rounded-2xl border-4 border-white shadow-xl overflow-hidden flex items-center justify-center text-white text-2xl font-bold"
+                                    className="w-20 h-20 rounded-2xl border-4 border-white shadow-sm overflow-hidden flex items-center justify-center text-white text-2xl font-bold"
                                     style={{ background: brand.brandColor }}
                                 >
                                     {brand.avatar ? (
@@ -379,7 +379,7 @@ export default function BrandEditorPage() {
                                 </div>
 
                                 <button
-                                    className="w-full mt-6 py-3.5 text-white text-xs font-bold shadow-xl transition-transform active:scale-95"
+                                    className="w-full mt-6 py-3.5 text-white text-xs font-bold shadow-sm transition-transform active:scale-95"
                                     style={{ background: brand.brandColor, borderRadius: btnRadius }}
                                 >
                                     عرض كافة المنتجات

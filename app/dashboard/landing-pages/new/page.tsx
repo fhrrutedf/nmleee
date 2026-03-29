@@ -82,7 +82,7 @@ export default function CreateLandingPage() {
                                     required
                                     value={formData.title}
                                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                 />
                             </div>
 
@@ -117,7 +117,7 @@ export default function CreateLandingPage() {
                                 value={formData.headline}
                                 onChange={(e) => setFormData({ ...formData, headline: e.target.value })}
                                 placeholder="مثال: احصل على أفضل دورة في تطوير الويب"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                             />
                         </div>
 
@@ -130,7 +130,7 @@ export default function CreateLandingPage() {
                                 onChange={(e) => setFormData({ ...formData, subheadline: e.target.value })}
                                 placeholder="وصف مختصر للعرض"
                                 rows={2}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                             />
                         </div>
 
@@ -147,14 +147,14 @@ export default function CreateLandingPage() {
                                         value={feature}
                                         onChange={(e) => updateFeature(index, e.target.value)}
                                         placeholder={`ميزة ${index + 1}`}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                     />
                                 ))}
                             </div>
                             <button
                                 type="button"
                                 onClick={addFeature}
-                                className="mt-2 text-sm text-indigo-600 hover:text-indigo-700 font-medium"
+                                className="mt-2 text-sm text-ink hover:text-indigo-700 font-medium"
                             >
                                 + إضافة ميزة
                             </button>
@@ -171,7 +171,7 @@ export default function CreateLandingPage() {
                                     required
                                     value={formData.ctaText}
                                     onChange={(e) => setFormData({ ...formData, ctaText: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                 />
                             </div>
 
@@ -184,7 +184,7 @@ export default function CreateLandingPage() {
                                     required
                                     value={formData.ctaLink}
                                     onChange={(e) => setFormData({ ...formData, ctaLink: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                 />
                             </div>
                         </div>
@@ -197,7 +197,7 @@ export default function CreateLandingPage() {
                                     id="showCountdown"
                                     checked={formData.showCountdown}
                                     onChange={(e) => setFormData({ ...formData, showCountdown: e.target.checked })}
-                                    className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                                    className="w-4 h-4 text-ink border-gray-300 rounded focus:ring-ink"
                                 />
                                 <label htmlFor="showCountdown" className="text-sm font-medium text-gray-700">
                                     إضافة عداد تنازلي للعرض المحدود
@@ -214,7 +214,7 @@ export default function CreateLandingPage() {
                                             type="datetime-local"
                                             value={formData.countdownEndDate}
                                             onChange={(e) => setFormData({ ...formData, countdownEndDate: e.target.value })}
-                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                         />
                                     </div>
 
@@ -228,7 +228,7 @@ export default function CreateLandingPage() {
                                             max="100"
                                             value={formData.discountPercentage}
                                             onChange={(e) => setFormData({ ...formData, discountPercentage: e.target.value })}
-                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                         />
                                     </div>
                                 </div>
@@ -283,7 +283,7 @@ export default function CreateLandingPage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
+                                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
                             >
                                 <FiSave />
                                 {loading ? 'جاري الحفظ...' : 'حفظ ونشر'}

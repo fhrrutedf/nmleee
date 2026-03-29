@@ -137,7 +137,7 @@ export default function ContactPage() {
                         variants={slideInLeft}
                         className="lg:col-span-2 lg:order-1 relative"
                     >
-                        <div className="bg-white rounded-[2.5rem] shadow-premium p-10 md:p-16 border border-gray-100 overflow-hidden relative">
+                        <div className="bg-white rounded-[2.5rem] shadow-sm p-10 md:p-16 border border-gray-100 overflow-hidden relative">
                             {/* Decorative element inside form */}
                             <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-[100px] pointer-events-none"></div>
 
@@ -211,7 +211,7 @@ export default function ContactPage() {
                                     whileTap={{ scale: 0.98 }}
                                     type="submit"
                                     disabled={loading || success}
-                                    className={`w-full text-[10px] font-black uppercase tracking-[0.3em] py-6 rounded-2xl flex items-center justify-center gap-3 transition-all duration-300 shadow-2xl
+                                    className={`w-full text-[10px] font-black uppercase tracking-[0.3em] py-6 rounded-2xl flex items-center justify-center gap-3 transition-all duration-300 shadow-sm
                                         ${success ? 'bg-accent text-white shadow-accent/20' : 'bg-ink text-white hover:bg-black shadow-ink/20'}
                                         ${loading ? 'opacity-80 cursor-not-allowed' : ''}
                                     `}

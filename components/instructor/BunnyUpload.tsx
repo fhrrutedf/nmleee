@@ -111,7 +111,7 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                     </div>
                 ) : (
                     <div className="space-y-4">
-                        <div className={`w-16 h-16 bg-accent/10 text-accent rounded-2xl flex items-center justify-center mx-auto mb-2 transition-transform ${uploading ? 'animate-pulse scale-90' : 'group-hover:scale-110'}`}>
+                        <div className={`w-16 h-16 bg-accent/10 text-accent rounded-2xl flex items-center justify-center mx-auto mb-2 transition-transform ${uploading ? ' scale-90' : 'group-hover:scale-110'}`}>
                             {uploading ? <FiLoader size={32} className="animate-spin" /> : <FiUploadCloud size={32} />}
                         </div>
 

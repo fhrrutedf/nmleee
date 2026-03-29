@@ -80,7 +80,7 @@ export default function ProductPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
             </div>
         );
     }
@@ -100,10 +100,10 @@ export default function ProductPage() {
             {effectiveBrandColor && (
                 <style dangerouslySetInnerHTML={{
                     __html: `
-                    .text-indigo-600 { color: ${effectiveBrandColor} !important; }
-                    .bg-indigo-600 { background-color: ${effectiveBrandColor} !important; }
+                    .text-ink { color: ${effectiveBrandColor} !important; }
+                    .bg-ink { background-color: ${effectiveBrandColor} !important; }
                     .bg-indigo-100 { background-color: ${effectiveBrandColor}20 !important; }
-                    .border-indigo-600 { border-color: ${effectiveBrandColor} !important; }
+                    .border-ink { border-color: ${effectiveBrandColor} !important; }
                     .hover\\:bg-indigo-700:hover { background-color: ${effectiveBrandColor}cc !important; }
                     .hover\\:bg-indigo-50:hover { background-color: ${effectiveBrandColor}10 !important; }
                     `
@@ -133,7 +133,7 @@ export default function ProductPage() {
                         {/* Info Section */}
                         <div className="space-y-6">
                             {product.category && (
-                                <span className="inline-block px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-sm font-medium">
+                                <span className="inline-block px-3 py-1 bg-indigo-100 text-ink rounded-full text-sm font-medium">
                                     {product.category}
                                 </span>
                             )}
@@ -184,14 +184,14 @@ export default function ProductPage() {
 
                             {/* Price */}
                             <div className="bg-gray-50 rounded-lg p-6">
-                                <div className="text-4xl font-bold text-indigo-600 mb-4">
+                                <div className="text-4xl font-bold text-ink mb-4">
                                     {product.price.toFixed(2)} $
                                 </div>
 
                                 <div className="space-y-3">
                                     <button
                                         onClick={handleBuyNow}
-                                        className="w-full py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+                                        className="w-full py-3 bg-ink text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors"
                                     >
                                         اشترِ الآن
                                     </button>
@@ -199,7 +199,7 @@ export default function ProductPage() {
                                     {!isInCart ? (
                                         <button
                                             onClick={handleAddToCart}
-                                            className="w-full py-3 border-2 border-indigo-600 text-indigo-600 rounded-lg font-medium hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2"
+                                            className="w-full py-3 border-2 border-ink text-ink rounded-lg font-medium hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2"
                                         >
                                             <FiShoppingCart />
                                             أضف للسلة
@@ -243,7 +243,7 @@ export default function ProductPage() {
             {/* Simple Footer */}
             <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-indigo-600 font-bold hover:underline">منصة تمالين</a>
+                    مدعوم من <a href="https://tmleen.com" className="text-ink font-bold hover:underline">منصة تمالين</a>
                 </p>
             </footer>
         </div>

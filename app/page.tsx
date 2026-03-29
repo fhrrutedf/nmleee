@@ -118,7 +118,7 @@ export default function Home() {
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6">
                         <Link
                             href="/register"
-                            className="w-full md:w-auto bg-ink text-white px-12 py-6 rounded-2xl font-black text-xs uppercase tracking-[0.3em] shadow-2xl shadow-black/10 hover:bg-accent transition-all active:scale-95 flex items-center justify-center gap-4 group"
+                            className="w-full md:w-auto bg-ink text-white px-12 py-6 rounded-2xl font-black text-xs uppercase tracking-[0.3em] shadow-sm shadow-black/10 hover:bg-accent transition-all active:scale-95 flex items-center justify-center gap-4 group"
                         >
                             Establish Registry <FiArrowRight className="text-xl group-hover:translate-x-2 transition-transform text-accent" />
                         </Link>
@@ -140,7 +140,7 @@ function Hero() {
         <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-white">
             <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-24 lg:py-40 text-center relative z-10 antialiased">
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="inline-flex items-center gap-3 bg-gray-50 text-gray-400 px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-10 border border-gray-100/50 shadow-sm">
-                    <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+                    <span className="w-2 h-2 bg-accent rounded-full "></span>
                     Strategic Growth Infrastructure
                 </motion.div>
                 

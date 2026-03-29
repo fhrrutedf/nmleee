@@ -274,7 +274,7 @@ export default function SettingsPage() {
                         }}
                         className="group relative flex items-center gap-2 px-6 py-3 bg-white dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-accent text-ink dark:text-white shadow-sm transition-all hover:-translate-y-0.5 rounded-2xl"
                     >
-                        <div className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-colors">
+                        <div className="w-8 h-8 rounded-full bg-accent-50 dark:bg-blue-900/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-colors">
                             <FiCopy size={14} />
                         </div>
                         <div className="text-right">
@@ -393,8 +393,8 @@ export default function SettingsPage() {
                                             />
                                         </div>
                                         {showUsernameWarning && (
-                                            <div className="mt-2 p-3 bg-blue-50 border border-amber-200 rounded-xl text-xs text-blue-800 flex items-start gap-2 shadow-sm animate-fade-in">
-                                                <FiAlertCircle className="mt-0.5 shrink-0 text-blue-500" />
+                                            <div className="mt-2 p-3 bg-accent-50 border border-amber-200 rounded-xl text-xs text-blue-800 flex items-start gap-2 shadow-sm animate-fade-in">
+                                                <FiAlertCircle className="mt-0.5 shrink-0 text-accent-500" />
                                                 <p>
                                                     <strong className="block mb-1">تحذير: تغيير اسم المستخدم</strong>
                                                     سيؤدي هذا إلى تغيير رابط متجرك ومنتجاتك. جميع الروابط الخارجية التي شاركتها سابقاً في تويتر أو انستقرام ستتوقف عن العمل.
@@ -687,7 +687,7 @@ export default function SettingsPage() {
                                 {/* Coming Soon - Zoom */}
                                 <div className="p-6 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-2xl opacity-60">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center">
+                                        <div className="w-14 h-14 rounded-xl bg-accent-50 flex items-center justify-center">
                                             <span className="text-2xl">🎥</span>
                                         </div>
                                         <div>
@@ -714,7 +714,7 @@ export default function SettingsPage() {
                                         <div className={`p-6 rounded-2xl border-2 flex items-start gap-4 ${
                                             verificationRequest.status === 'APPROVED' ? 'bg-green-50 border-green-200 text-green-800' :
                                             verificationRequest.status === 'REJECTED' ? 'bg-red-50 border-red-200 text-red-800' :
-                                            'bg-blue-50 border-blue-200 text-blue-800'
+                                            'bg-accent-50 border-blue-200 text-blue-800'
                                         }`}>
                                             <div className="text-3xl mt-1">
                                                 {verificationRequest.status === 'APPROVED' ? '✅' : 
@@ -817,8 +817,8 @@ export default function SettingsPage() {
 
                                     {/* 2FA Setup Modal Partial */}
                                     {show2FASetup && (
-                                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-                                            <div className="bg-white dark:bg-card-white rounded-xl p-8 max-w-md w-full shadow-2xl space-y-6 text-center">
+                                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  animate-fade-in">
+                                            <div className="bg-white dark:bg-card-white rounded-xl p-8 max-w-md w-full shadow-sm space-y-6 text-center">
                                                 <h3 className="text-2xl font-bold text-ink dark:text-white">إعداد التحقق بخطوتين</h3>
                                                 <p className="text-sm text-text-muted">امسح رمز الـ QR التالي باستخدام تطبيق Authenticator (مثل Google أو Microsoft)</p>
                                                 

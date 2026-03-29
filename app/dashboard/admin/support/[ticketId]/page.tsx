@@ -124,7 +124,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                     <div>
                         <h3 className="font-bold text-gray-500 mb-4 whitespace-nowrap overflow-hidden text-ellipsis">معلومات صاحب التذكرة</h3>
                         <div className="flex items-center gap-3 mb-6">
-                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shrink-0 text-lg">
+                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-ink to-purple-600 flex items-center justify-center text-white shrink-0 text-lg">
                                 <FiUser />
                             </div>
                             <div>
@@ -156,7 +156,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                         <h3 className="font-bold text-gray-500 mb-4">إجراءات الإدارة</h3>
                         <div className="space-y-2">
                             {ticket.status !== 'IN_PROGRESS' && ticket.status !== 'RESOLVED' && (
-                                <button disabled={statusUpdating} onClick={() => changeStatus('IN_PROGRESS')} className="btn btn-primary w-full py-2 bg-blue-500 hover:bg-blue-600 border-none shadow-md">
+                                <button disabled={statusUpdating} onClick={() => changeStatus('IN_PROGRESS')} className="btn btn-primary w-full py-2 bg-accent-500 hover:bg-accent-600 border-none shadow-md">
                                     تغيير لـ "جاري العمل"
                                 </button>
                             )}
@@ -242,7 +242,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                 <button
                                     type="submit"
                                     disabled={submitting || !message.trim()}
-                                    className="h-10 px-4 bg-accent hover:bg-blue-600 disabled:bg-gray-300 text-white rounded-xl flex items-center gap-2 transition-colors font-bold shadow-md shadow-accent/20"
+                                    className="h-10 px-4 bg-accent hover:bg-accent-600 disabled:bg-gray-300 text-white rounded-xl flex items-center gap-2 transition-colors font-bold shadow-md shadow-accent/20"
                                 >
                                     {submitting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <><FiSend /> إرسال فقط</>}
                                 </button>

@@ -142,7 +142,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
     );
 
     return (
-        <div className="flex h-[calc(100%-80px)] rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 bg-white dark:bg-card-white shadow-xl shadow-fuchsia-900/5 dark:shadow-black/20">
+        <div className="flex h-[calc(100%-80px)] rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 bg-white dark:bg-card-white shadow-sm shadow-fuchsia-900/5 dark:shadow-black/20">
 
             {/* Left Pane - Discussions List */}
             <div className={`w-full md:w-1/3 lg:w-[400px] flex-shrink-0 border-l border-gray-100 dark:border-gray-800 flex flex-col bg-gray-50/50 dark:bg-black/20 transition-all ${selectedQuestionId ? 'hidden md:flex' : 'flex'}`}>
@@ -258,7 +258,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                     ) : selectedThread ? (
                         <>
                             {/* Header / Breadcrumbs */}
-                            <div className="p-4 sm:p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-white/50 dark:bg-black/10 backdrop-blur-sm z-10 sticky top-0">
+                            <div className="p-4 sm:p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-white/50 dark:bg-black/10  z-10 sticky top-0">
                                 <div>
                                     <div className="flex items-center gap-2 text-xs font-semibold text-gray-400 dark:text-gray-500 mb-2">
                                         <span onClick={() => setSelectedQuestionId(null)} className="md:hidden text-fuchsia-600 cursor-pointer ml-2">← رجوع لردود</span>
@@ -372,7 +372,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                     ) : null
                 ) : (
                     <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-gray-400 dark:text-gray-500 bg-gray-50/50 dark:bg-black/10">
-                        <div className={`w-24 h-24 rounded-full ${ACCENT_COLOR} bg-opacity-10 flex items-center justify-center mb-6`}>
+                        <div className={`w-24 h-24 rounded-full ${ACCENT_COLOR}  flex items-center justify-center mb-6`}>
                             <FiMessageSquare className={`text-4xl ${ACCENT_TEXT}`} />
                         </div>
                         <h2 className="text-2xl font-bold text-ink dark:text-gray-300 mb-2">لوحة النقاشات</h2>

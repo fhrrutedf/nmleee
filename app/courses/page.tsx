@@ -74,7 +74,7 @@ export default function CoursesPage() {
                             <Link
                                 key={course.id}
                                 href={`/product/${course.id}`}
-                                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-xl transition-all group"
+                                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-sm transition-all group"
                             >
                                 {course.image ? (
                                     <img

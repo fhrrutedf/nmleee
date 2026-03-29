@@ -108,7 +108,7 @@ export default function ProductsPage() {
                             <Link
                                 key={product.id}
                                 href={`/product/${product.id}`}
-                                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-xl transition-shadow group"
+                                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-sm transition-shadow group"
                             >
                                 {product.image ? (
                                     <img

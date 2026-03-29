@@ -48,7 +48,7 @@ export default function SellerDashboardPage() {
     if (loading || !overview) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
             </div>
         );
     }
@@ -72,7 +72,7 @@ export default function SellerDashboardPage() {
                         title="إجمالي الطلبات"
                         value={overview.totalOrders.toString()}
                         change={overview.ordersChange}
-                        icon={<FiShoppingBag className="text-blue-600" size={24} />}
+                        icon={<FiShoppingBag className="text-accent-600" size={24} />}
                         bgColor="bg-blue-100"
                     />
 
@@ -104,7 +104,7 @@ export default function SellerDashboardPage() {
                                 return (
                                     <div key={index} className="flex-1 flex flex-col items-center group">
                                         <div
-                                            className="w-full bg-indigo-500 rounded-t hover:bg-indigo-600 transition-colors cursor-pointer relative"
+                                            className="w-full bg-ink rounded-t hover:bg-ink transition-colors cursor-pointer relative"
                                             style={{ height: `${height}%` }}
                                             title={`${item.revenue.toFixed(2)} $ - ${item.orders} طلب`}
                                         >

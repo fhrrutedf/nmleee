@@ -104,7 +104,7 @@ export default function DashboardLayout({
             {sidebarOpen && (
                 <motion.div
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    className="fixed inset-0 bg-ink/60 backdrop-blur-md z-40 lg:hidden"
+                    className="fixed inset-0 bg-ink/60  z-40 lg:hidden"
                     onClick={() => setSidebarOpen(false)}
                 />
             )}
@@ -113,7 +113,7 @@ export default function DashboardLayout({
             <aside className="hidden lg:flex fixed inset-y-0 right-0 bg-white border-l border-gray-100 z-50 w-72 flex-col">
                 <div className="p-10">
                     <div className="flex items-center gap-3 mb-10">
-                         <div className="w-10 h-10 rounded-xl bg-ink text-white flex items-center justify-center font-black text-xl shadow-xl shadow-ink/20">ت</div>
+                         <div className="w-10 h-10 rounded-xl bg-ink text-white flex items-center justify-center font-black text-xl shadow-sm shadow-ink/20">ت</div>
                          <h1 className="text-xl font-black text-ink tracking-tighter">تمالين</h1>
                     </div>
                     
@@ -121,10 +121,10 @@ export default function DashboardLayout({
                     
                     {/* Professional Workspace Switcher */}
                     <div className="bg-gray-50 p-1 rounded-[1.25rem] border border-gray-100 flex">
-                        <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${workspace === 'store' ? 'bg-white text-ink shadow-2xl shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-ink'}`}>
+                        <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${workspace === 'store' ? 'bg-white text-ink shadow-sm shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-ink'}`}>
                              المتجر
                         </button>
-                        <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${workspace === 'academy' ? 'bg-white text-ink shadow-2xl shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-ink'}`}>
+                        <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${workspace === 'academy' ? 'bg-white text-ink shadow-sm shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-ink'}`}>
                              الأكاديمية
                         </button>
                     </div>
@@ -137,7 +137,7 @@ export default function DashboardLayout({
                         const active = isActive || isHome;
                         return (
                             <Link key={item.href} href={item.href}
-                                className={`flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-300 group w-full ${active ? 'bg-ink text-white shadow-2xl shadow-ink/20 transform -translate-y-0.5' : 'text-gray-400 hover:bg-gray-50 hover:text-ink'}`}>
+                                className={`flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-300 group w-full ${active ? 'bg-ink text-white shadow-sm shadow-ink/20 transform -translate-y-0.5' : 'text-gray-400 hover:bg-gray-50 hover:text-ink'}`}>
                                 <item.icon size={18} className={`transition-transform duration-500 ${active ? 'text-accent' : 'group-hover:scale-110 group-hover:text-ink'}`} />
                                 <span className={`text-xs font-black tracking-tight flex-1 text-right ${active ? 'text-white' : ''}`}>{item.label}</span>
                             </Link>
@@ -157,7 +157,7 @@ export default function DashboardLayout({
 
             {/* Main Operational Surface */}
             <div className="lg:mr-72 min-h-screen relative flex flex-col min-w-0">
-                <header className="bg-white/90 backdrop-blur-md border-b border-gray-50 sticky top-0 z-30 w-full transition-all">
+                <header className="bg-white/90  border-b border-gray-50 sticky top-0 z-30 w-full transition-all">
                     <div className="px-8 h-20 flex items-center justify-between">
                         <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-ink p-3 bg-gray-50 rounded-xl hover:bg-gray-100">
                             <FiMenu size={22} />
@@ -168,7 +168,7 @@ export default function DashboardLayout({
                             <Link
                                 href={`/${(session.user as any)?.username}`}
                                 target="_blank"
-                                className="hidden sm:flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 hover:text-ink px-6 py-3 border border-gray-100 rounded-2xl transition-all bg-white hover:shadow-xl hover:shadow-gray-100/50"
+                                className="hidden sm:flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 hover:text-ink px-6 py-3 border border-gray-100 rounded-2xl transition-all bg-white hover:shadow-sm hover:shadow-gray-100/50"
                             >
                                 <FiExternalLink size={14} className="text-accent" />
                                 <span>Preview Store</span>

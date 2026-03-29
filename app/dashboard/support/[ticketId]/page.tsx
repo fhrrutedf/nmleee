@@ -173,7 +173,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                             <button
                                 type="submit"
                                 disabled={submitting || !message.trim()}
-                                className="absolute top-3 left-4 w-10 h-10 bg-accent hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors shadow-md"
+                                className="absolute top-3 left-4 w-10 h-10 bg-accent hover:bg-accent-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors shadow-md"
                             >
                                 {submitting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FiSend />}
                             </button>

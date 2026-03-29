@@ -93,7 +93,7 @@ export default function BundlesPage() {
                                         <FiPackage className="text-4xl text-gray-300" />
                                     </div>
                                 )}
-                                <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-accent text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                                <div className="absolute top-2 right-2 bg-white/90  text-accent text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
                                     <FiPackage />
                                     <span>{bundle.products?.length || 0} منتجات</span>
                                 </div>

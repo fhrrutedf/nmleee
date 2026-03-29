@@ -105,7 +105,7 @@ export default function AdminStudentsPage() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
                         <p className="text-xs text-gray-400 font-bold uppercase">إجمالي الطلاب</p>
-                        <p className="text-2xl font-bold text-indigo-600 mt-1">{totalStudents}</p>
+                        <p className="text-2xl font-bold text-ink mt-1">{totalStudents}</p>
                     </div>
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
                         <p className="text-xs text-gray-400 font-bold uppercase">المدربين</p>
@@ -113,7 +113,7 @@ export default function AdminStudentsPage() {
                     </div>
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
                         <p className="text-xs text-gray-400 font-bold uppercase">الكورسات النشطة</p>
-                        <p className="text-2xl font-bold text-blue-600 mt-1">{trainers.reduce((s, t) => s + t.courses.length, 0)}</p>
+                        <p className="text-2xl font-bold text-accent-600 mt-1">{trainers.reduce((s, t) => s + t.courses.length, 0)}</p>
                     </div>
                 </div>
 
@@ -126,7 +126,7 @@ export default function AdminStudentsPage() {
                             placeholder="ابحث عن مدرب..."
                             value={search}
                             onChange={e => setSearch(e.target.value)}
-                            className="w-full pr-10 pl-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-sm outline-none focus:ring-2 focus:ring-indigo-500/20"
+                            className="w-full pr-10 pl-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-sm outline-none focus:ring-2 focus:ring-ink/20"
                         />
                     </div>
                 </div>
@@ -134,7 +134,7 @@ export default function AdminStudentsPage() {
                 {/* Trainers Tree */}
                 {loading ? (
                     <div className="flex items-center justify-center py-20">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
                     </div>
                 ) : filteredTrainers.length === 0 ? (
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 text-center border border-gray-100 dark:border-gray-700">
@@ -155,7 +155,7 @@ export default function AdminStudentsPage() {
                                             {trainer.avatar ? (
                                                 <img src={trainer.avatar} alt="" className="w-full h-full object-cover" />
                                             ) : (
-                                                <FiUser size={20} className="text-indigo-600" />
+                                                <FiUser size={20} className="text-ink" />
                                             )}
                                         </div>
                                         <div className="text-right">
@@ -165,7 +165,7 @@ export default function AdminStudentsPage() {
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <div className="text-right">
-                                            <p className="text-2xl font-bold text-indigo-600">{trainer.totalStudents}</p>
+                                            <p className="text-2xl font-bold text-ink">{trainer.totalStudents}</p>
                                             <p className="text-[10px] text-gray-400 uppercase font-bold">طالب</p>
                                         </div>
                                         <div className="flex items-center gap-2 text-xs text-gray-400">
@@ -184,7 +184,7 @@ export default function AdminStudentsPage() {
                                     <div className="border-t border-gray-100 dark:border-gray-700">
                                         {loadingStudents === trainer.id ? (
                                             <div className="flex items-center justify-center py-8">
-                                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ink"></div>
                                             </div>
                                         ) : (
                                             <div className="overflow-x-auto">
@@ -209,12 +209,12 @@ export default function AdminStudentsPage() {
                                                                     <div className="flex items-center gap-2">
                                                                         <div className="w-20 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
                                                                             <div
-                                                                                className={`h-1.5 rounded-full ${student.isCompleted ? 'bg-blue-500' : 'bg-indigo-500'}`}
+                                                                                className={`h-1.5 rounded-full ${student.isCompleted ? 'bg-accent-500' : 'bg-ink'}`}
                                                                                 style={{ width: `${student.progress}%` }}
                                                                             />
                                                                         </div>
                                                                         <span className="text-[11px]">{student.progress}%</span>
-                                                                        {student.isCompleted && <FiCheckCircle size={12} className="text-blue-500" />}
+                                                                        {student.isCompleted && <FiCheckCircle size={12} className="text-accent-500" />}
                                                                     </div>
                                                                 </td>
                                                                 <td className="px-4 py-3 text-[11px] text-gray-400">

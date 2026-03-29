@@ -41,7 +41,7 @@ export default function BundleCard({ bundle, brandColor = '#D41295' }: BundleCar
             className="block group"
         >
             <div
-                className="relative rounded-3xl overflow-hidden border-2 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+                className="relative rounded-3xl overflow-hidden border-2 transition-all duration-300 hover:shadow-sm hover:-translate-y-1"
                 style={{
                     borderColor: `${brandColor}60`,
                     background: `linear-gradient(135deg, ${brandColor}08, ${brandColor}03)`,

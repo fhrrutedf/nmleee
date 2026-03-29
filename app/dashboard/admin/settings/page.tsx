@@ -59,7 +59,7 @@ export default function AdminSettingsPage() {
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-[60vh]">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-primary-indigo-600"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-primary-ink"></div>
         </div>
     );
 
@@ -78,13 +78,13 @@ export default function AdminSettingsPage() {
                 <div>
                     <h1 className="text-3xl font-bold text-slate-900 dark:text-white leading-tight">إعدادات المنصة المركزية ⚙️</h1>
                     <p className="text-slate-400 font-bold text-xs mt-2 uppercase tracking-widest flex items-center gap-2">
-                        <FiShield className="text-primary-indigo-600" /> تحكم في العمولات • أيام الضمان • الربحية
+                        <FiShield className="text-primary-ink" /> تحكم في العمولات • أيام الضمان • الربحية
                     </p>
                 </div>
                 <button 
                     onClick={handleUpdate}
                     disabled={saving}
-                    className="px-10 py-4 bg-primary-indigo-600 text-white rounded-[1.5rem] font-bold text-sm flex items-center justify-center gap-2 shadow-xl shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95 transition-all disabled:opacity-50"
+                    className="px-10 py-4 bg-primary-ink text-white rounded-[1.5rem] font-bold text-sm flex items-center justify-center gap-2 shadow-sm shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95 transition-all disabled:opacity-50"
                 >
                     {saving ? <div className="animate-spin h-5 w-5 border-t-2 border-white rounded-full"></div> : <FiSave size={18} />}
                     حفظ كافة التغييرات
@@ -97,7 +97,7 @@ export default function AdminSettingsPage() {
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
-                        className={`px-8 py-3.5 rounded-[1.4rem] font-bold text-xs flex items-center gap-3 transition-all whitespace-nowrap shrink-0 ${activeTab === tab.id ? 'bg-white dark:bg-card-white text-primary-indigo-600 shadow-md' : 'text-slate-400 hover:bg-white/50'}`}
+                        className={`px-8 py-3.5 rounded-[1.4rem] font-bold text-xs flex items-center gap-3 transition-all whitespace-nowrap shrink-0 ${activeTab === tab.id ? 'bg-white dark:bg-card-white text-primary-ink shadow-md' : 'text-slate-400 hover:bg-white/50'}`}
                     >
                         <tab.icon size={18} />
                         {tab.label}
@@ -110,7 +110,7 @@ export default function AdminSettingsPage() {
                     {activeTab === 'commissions' && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="bg-white dark:bg-card-white p-8 rounded-xl border border-slate-50 shadow-sm space-y-6">
-                                <h3 className="text-lg font-bold flex items-center gap-3 mb-6"><FiPercent className="text-primary-indigo-600" /> نسب العمولات (%)</h3>
+                                <h3 className="text-lg font-bold flex items-center gap-3 mb-6"><FiPercent className="text-primary-ink" /> نسب العمولات (%)</h3>
                                 <div className="space-y-4">
                                     <label className="block">
                                         <span className="text-xs font-bold text-slate-500 uppercase mb-2 block">باقة البداية (FREE)</span>
@@ -126,7 +126,7 @@ export default function AdminSettingsPage() {
                                     </label>
                                     <div className="pt-6 border-t border-slate-100 dark:border-gray-800">
                                         <label className="block">
-                                            <span className="text-xs font-bold text-primary-indigo-600 uppercase mb-2 block flex items-center gap-2">
+                                            <span className="text-xs font-bold text-primary-ink uppercase mb-2 block flex items-center gap-2">
                                                 <FiTrendingUp size={14} /> نسبة عمولة المسوقين (من عمولة المنصة)
                                             </span>
                                             <input type="number" value={settings.referralCommissionRate || 1} onChange={(e) => handleChange('referralCommissionRate', e.target.value)} className="w-full h-14 px-5 bg-primary-indigo-50/30 dark:bg-primary-indigo-900/10 border-dashed border-2 border-primary-indigo-100 dark:border-primary-indigo-900/30 rounded-2xl text-lg font-bold text-primary-indigo-700" />
@@ -136,7 +136,7 @@ export default function AdminSettingsPage() {
                                 </div>
                             </div>
                             
-                            <div className="bg-slate-900 text-white p-8 rounded-xl shadow-xl relative overflow-hidden flex flex-col justify-center">
+                            <div className="bg-slate-900 text-white p-8 rounded-xl shadow-sm relative overflow-hidden flex flex-col justify-center">
                                 <div className="absolute right-0 top-0 w-32 h-32 bg-white/5 rounded-full blur-3xl"></div>
                                 <h3 className="text-lg font-bold mb-4">نصيحة المنصة 💡</h3>
                                 <p className="text-white/60 text-sm leading-relaxed font-bold">كلما قمت بتقليل عمولة المنصة للباقات الأعلى، زاد تحفيز البائعين على شحن باقاتهم الشهرية بانتظام. فكر في جعل باقة PRO بعمولة رمزية (مثل 2%) لجذب "كبار التجار".</p>
@@ -172,7 +172,7 @@ export default function AdminSettingsPage() {
 
                     {activeTab === 'currencies' && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="bg-white dark:bg-card-white p-8 rounded-xl border border-slate-50 shadow-sm max-w-2xl">
-                             <h3 className="text-lg font-bold flex items-center gap-3 mb-8"><FiGlobe className="text-blue-500" /> أسعار الصرف (مقابل 1 دولار $)</h3>
+                             <h3 className="text-lg font-bold flex items-center gap-3 mb-8"><FiGlobe className="text-accent-500" /> أسعار الصرف (مقابل 1 دولار $)</h3>
                              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <label className="block">
                                     <span className="text-xs font-bold text-slate-500 mb-2 block">سعر الليرة السورية (SYP)</span>
@@ -192,7 +192,7 @@ export default function AdminSettingsPage() {
 
                     {activeTab === 'payments' && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="bg-white dark:bg-card-white p-8 rounded-xl border border-slate-50 shadow-sm">
-                             <h3 className="text-lg font-bold flex items-center gap-3 mb-8"><FiCreditCard className="text-primary-indigo-600" /> أرقام استلام المدفوعات (رسمي)</h3>
+                             <h3 className="text-lg font-bold flex items-center gap-3 mb-8"><FiCreditCard className="text-primary-ink" /> أرقام استلام المدفوعات (رسمي)</h3>
                              <div className="space-y-6 max-w-md">
                                 <label className="block">
                                     <span className="text-xs font-bold text-slate-500 mb-2 block">شام كاش (ID الحساب)</span>
@@ -212,8 +212,8 @@ export default function AdminSettingsPage() {
                 </AnimatePresence>
             </div>
 
-            <div className="bg-blue-50 dark:bg-blue-900/10 p-6 rounded-xl border border-blue-100 flex items-center gap-4">
-                <FiCheckCircle className="text-blue-500 shrink-0" size={24} />
+            <div className="bg-accent-50 dark:bg-blue-900/10 p-6 rounded-xl border border-blue-100 flex items-center gap-4">
+                <FiCheckCircle className="text-accent-500 shrink-0" size={24} />
                 <p className="text-blue-900/60 text-xs font-bold leading-relaxed">أي تغييرات هنا ستؤثر فوراً على كافة مبيعات البائعين الجدد. تذكر أن العمولات تحسب عند لحظة إنشاء الطلب وليس عند السحب.</p>
             </div>
 

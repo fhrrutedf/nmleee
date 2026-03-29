@@ -155,8 +155,8 @@ export default function PayoutsPage() {
                     </h2>
 
                     {user && !isPayoutMethodConfigured(user) ? (
-                        <div className="bg-blue-50 border border-amber-200 p-6 rounded-2xl flex flex-col items-center text-center animate-fade-in">
-                            <FiAlertCircle className="text-4xl text-blue-500 mb-3" />
+                        <div className="bg-accent-50 border border-amber-200 p-6 rounded-2xl flex flex-col items-center text-center animate-fade-in">
+                            <FiAlertCircle className="text-4xl text-accent-500 mb-3" />
                             <h3 className="font-bold text-blue-900 mb-2">طريقة السحب غير مكتملة</h3>
                             <p className="text-sm text-blue-800 mb-6 max-w-sm">
                                 لم يتم إعداد أو تفعيل طريقة سحب حتى الآن. لتتمكن من استلام أرباحك، يرجى إضافة بياناتك البنكية أو وسيلة دفع أخرى.

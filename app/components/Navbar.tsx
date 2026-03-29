@@ -60,7 +60,7 @@ export default function Navbar() {
                         </Link>
                         <Link
                             href="/register"
-                            className="bg-ink text-white px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-xl shadow-black/5 hover:bg-accent hover:shadow-accent/20 active:scale-95 transition-all"
+                            className="bg-ink text-white px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-sm shadow-black/5 hover:bg-accent hover:shadow-accent/20 active:scale-95 transition-all"
                         >
                             Establish Account
                         </Link>
@@ -83,7 +83,7 @@ export default function Navbar() {
                         className="fixed inset-0 bg-black/30 z-[51] lg:hidden"
                         onClick={() => setIsMenuOpen(false)}
                     />
-                    <div className="fixed top-0 right-0 h-full w-full max-w-xs bg-white z-[52] lg:hidden flex flex-col shadow-xl">
+                    <div className="fixed top-0 right-0 h-full w-full max-w-xs bg-white z-[52] lg:hidden flex flex-col shadow-sm">
                         <div className="p-5 border-b border-gray-100 flex items-center justify-between">
                             <span className="font-bold text-ink">القائمة</span>
                             <button onClick={() => setIsMenuOpen(false)} className="p-1.5 text-gray-400 hover:text-ink">

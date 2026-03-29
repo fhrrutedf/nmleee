@@ -81,7 +81,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                     {result.isPassed ? 'تهانينا! لقد اجتزت الاختبار' : 'للأسف، لم تجتز الاختبار'}
                 </h2>
 
-                <div className="text-4xl font-bold text-indigo-600 mb-4">
+                <div className="text-4xl font-bold text-ink mb-4">
                     {result.score.toFixed(1)}%
                 </div>
 
@@ -147,7 +147,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                         <label
                             key={idx}
                             className={`flex items-center gap-3 p-4 border rounded-lg cursor-pointer transition-colors ${answers[currentQuestion] === idx
-                                    ? 'bg-indigo-50 border-indigo-500 ring-1 ring-indigo-500'
+                                    ? 'bg-indigo-50 border-ink ring-1 ring-ink'
                                     : 'hover:bg-gray-50 border-gray-200'
                                 }`}
                         >
@@ -156,7 +156,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                                 name={`q-${currentQuestion}`}
                                 checked={answers[currentQuestion] === idx}
                                 onChange={() => handleAnswer(idx)}
-                                className="w-4 h-4 text-indigo-600"
+                                className="w-4 h-4 text-ink"
                             />
                             <span>{option}</span>
                         </label>
@@ -166,7 +166,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                         <div className="flex gap-4">
                             <label
                                 className={`flex-1 flex items-center justify-center gap-2 p-4 border rounded-lg cursor-pointer transition-colors ${answers[currentQuestion] === true
-                                        ? 'bg-indigo-50 border-indigo-500 ring-1 ring-indigo-500'
+                                        ? 'bg-indigo-50 border-ink ring-1 ring-ink'
                                         : 'hover:bg-gray-50 border-gray-200'
                                     }`}
                             >
@@ -181,7 +181,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                             </label>
                             <label
                                 className={`flex-1 flex items-center justify-center gap-2 p-4 border rounded-lg cursor-pointer transition-colors ${answers[currentQuestion] === false
-                                        ? 'bg-indigo-50 border-indigo-500 ring-1 ring-indigo-500'
+                                        ? 'bg-indigo-50 border-ink ring-1 ring-ink'
                                         : 'hover:bg-gray-50 border-gray-200'
                                     }`}
                             >
@@ -212,7 +212,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                 {currentQuestion < quiz.questions.length - 1 ? (
                     <button
                         onClick={() => setCurrentQuestion(prev => prev + 1)}
-                        className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                        className="px-6 py-2 bg-ink text-white rounded-lg hover:bg-indigo-700"
                     >
                         التالي
                     </button>

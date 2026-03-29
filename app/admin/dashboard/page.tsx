@@ -108,7 +108,7 @@ export default function AdminDashboard() {
         return (
             <div className="flex-1 flex flex-col p-6 items-center justify-center min-h-[60vh]">
                 <div className="w-16 h-16 border-4 border-gray-100 dark:border-gray-800 border-t-accent rounded-full animate-spin"></div>
-                <p className="mt-4 text-ink dark:text-white font-black text-xs uppercase tracking-widest animate-pulse">Initializing Platform Intelligence...</p>
+                <p className="mt-4 text-ink dark:text-white font-black text-xs uppercase tracking-widest ">Initializing Platform Intelligence...</p>
             </div>
         );
     }
@@ -127,7 +127,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="flex items-center gap-3">
                     <span className="px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-600 font-bold rounded-xl text-sm flex items-center gap-2 border border-green-100 dark:border-green-800/30">
-                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> المنصة تعمل بشكل ممتاز
+                        <span className="w-2 h-2 rounded-full bg-green-500 "></span> المنصة تعمل بشكل ممتاز
                     </span>
                 </div>
             </div>
@@ -142,7 +142,7 @@ export default function AdminDashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
                     {/* Revenue Card (Glassmorphism) */}
-                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-8 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-2xl transition-all duration-500">
+                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-8 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-sm transition-all duration-500">
                         <div className="absolute -right-6 -top-6 w-24 h-24 bg-accent/5 rounded-full blur-2xl group-hover:bg-accent/10 transition-all"></div>
                         <div className="flex justify-between items-start mb-6 relative z-10">
                             <div className="w-14 h-14 rounded-2xl bg-gray-50 dark:bg-gray-800 text-accent flex items-center justify-center text-2xl shadow-sm group-hover:bg-accent group-hover:text-white transition-all">
@@ -159,7 +159,7 @@ export default function AdminDashboard() {
                     </motion.div>
 
                     {/* Platform Fees Card */}
-                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-sm hover:-translate-y-1 transition-all duration-300">
                         <div className="absolute -right-6 -top-6 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
                         <div className="flex justify-between items-start mb-4 relative z-10">
                             <div className="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 flex items-center justify-center text-xl">
@@ -176,7 +176,7 @@ export default function AdminDashboard() {
                     </motion.div>
 
                     {/* Orders Card */}
-                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-sm hover:-translate-y-1 transition-all duration-300">
                         <div className="absolute -right-6 -top-6 w-24 h-24 bg-orange-500/10 rounded-full blur-2xl group-hover:bg-orange-500/20 transition-all"></div>
                         <div className="flex justify-between items-start mb-4 relative z-10">
                             <div className="w-12 h-12 rounded-2xl bg-orange-50 dark:bg-orange-900/20 text-orange-500 flex items-center justify-center text-xl">
@@ -196,7 +196,7 @@ export default function AdminDashboard() {
                     </motion.div>
 
                     {/* Users Card */}
-                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-sm hover:-translate-y-1 transition-all duration-300">
                         <div className="absolute -right-6 -top-6 w-24 h-24 bg-green-500/10 rounded-full blur-2xl group-hover:bg-green-500/20 transition-all"></div>
                         <div className="flex justify-between items-start mb-4 relative z-10">
                             <div className="w-12 h-12 rounded-2xl bg-green-50 dark:bg-green-900/20 text-green-600 flex items-center justify-center text-xl">
@@ -217,7 +217,7 @@ export default function AdminDashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Alerts/Pending Payouts */}
                     <Link href="/admin/dashboard/payouts">
-                        <motion.div variants={itemVariants} className="bg-gradient-to-br from-gray-900 to-black rounded-xl p-6 text-white shadow-xl relative overflow-hidden group cursor-pointer hover:shadow-2xl transition-all">
+                        <motion.div variants={itemVariants} className="bg-gradient-to-br from-gray-900 to-black rounded-xl p-6 text-white shadow-sm relative overflow-hidden group cursor-pointer hover:shadow-sm transition-all">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-xl"></div>
 
                             <div className="flex items-start justify-between">

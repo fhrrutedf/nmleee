@@ -134,7 +134,7 @@ export default function AdminPlatformSettingsPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="w-12 h-12 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
+                <div className="w-12 h-12 border-4 border-accent-500/30 border-t-accent-500 rounded-full animate-spin" />
             </div>
         );
     }
@@ -144,7 +144,7 @@ export default function AdminPlatformSettingsPage() {
             {/* Header / Central Dashboard */}
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800">
                 <div className="flex items-center gap-5">
-                    <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-3xl text-blue-600">
+                    <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-3xl text-accent-600">
                         <FiSettings className="text-3xl" />
                     </div>
                     <div>
@@ -156,15 +156,15 @@ export default function AdminPlatformSettingsPage() {
                     <button
                         onClick={handleAuditorCheck}
                         disabled={auditing}
-                        className="bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 px-6 py-4 rounded-2xl font-bold text-sm flex items-center gap-3 transition-all active:scale-95 disabled:opacity-50"
+                        className="bg-indigo-50 dark:bg-indigo-900/20 text-ink px-6 py-4 rounded-2xl font-bold text-sm flex items-center gap-3 transition-all active:scale-95 disabled:opacity-50"
                     >
-                        {auditing ? <div className="w-4 h-4 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" /> : <FiZap />}
+                        {auditing ? <div className="w-4 h-4 border-2 border-ink border-t-transparent rounded-full animate-spin" /> : <FiZap />}
                         جرد المدفوعات (الموظف الرقمي)
                     </button>
                     <button
                         onClick={handleSave}
                         disabled={saving}
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-blue-500/20 disabled:opacity-50"
+                        className="bg-accent-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-sm shadow-accent-500/20 disabled:opacity-50"
                     >
                         {saving ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FiSave />}
                         تحديث الإمبراطورية
@@ -190,7 +190,7 @@ export default function AdminPlatformSettingsPage() {
                                         checked={settings.withdrawalsEnabled}
                                         onChange={e => update('withdrawalsEnabled', e.target.checked)}
                                     />
-                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-accent-600"></div>
                                 </label>
                             </div>
                             <p className="text-xs text-gray-500">عند التعطيل، يتم إيقاف جميع طلبات سحب الأرباح من البائعين فوراً.</p>
@@ -200,12 +200,12 @@ export default function AdminPlatformSettingsPage() {
                         <div className="bg-white dark:bg-gray-900 p-8 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm">
                             <h3 className="font-bold text-gray-900 dark:text-white mb-4">حد التنبيه للعمليات الكبيرة</h3>
                             <div className="relative">
-                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-500 font-bold">$</span>
+                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-accent-500 font-bold">$</span>
                                 <input
                                     type="number"
                                     value={settings.highValueAlertThreshold}
                                     onChange={e => update('highValueAlertThreshold', parseFloat(e.target.value))}
-                                    className="w-full bg-gray-50 dark:bg-gray-800 border-none rounded-2xl px-10 py-4 font-bold text-lg text-blue-600 focus:ring-2 focus:ring-blue-500/20 outline-none"
+                                    className="w-full bg-gray-50 dark:bg-gray-800 border-none rounded-2xl px-10 py-4 font-bold text-lg text-accent-600 focus:ring-2 focus:ring-accent-500/20 outline-none"
                                 />
                             </div>
                         </div>
@@ -215,7 +215,7 @@ export default function AdminPlatformSettingsPage() {
                     <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-8">
                         <div className="flex items-center justify-between border-b border-gray-50 dark:border-gray-800 pb-6">
                             <div className="flex items-center gap-4">
-                                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-2xl text-blue-600">
+                                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-2xl text-accent-600">
                                     <FiZap className="text-2xl" />
                                 </div>
                                 <h2 className="text-xl font-bold text-gray-900 dark:text-white">بوابة Spaceremit ورسوم الموقع</h2>
@@ -228,7 +228,7 @@ export default function AdminPlatformSettingsPage() {
                                         step="0.1"
                                         value={settings.gatewayFee}
                                         onChange={e => update('gatewayFee', parseFloat(e.target.value))}
-                                        className="w-20 bg-gray-50 dark:bg-gray-800 border-none rounded-xl px-2 py-2 font-bold text-indigo-500 text-center focus:ring-2 focus:ring-indigo-500/20"
+                                        className="w-20 bg-gray-50 dark:bg-gray-800 border-none rounded-xl px-2 py-2 font-bold text-ink text-center focus:ring-2 focus:ring-ink/20"
                                     />
                                 </div>
                                 <label className="relative inline-flex items-center cursor-pointer">
@@ -238,13 +238,13 @@ export default function AdminPlatformSettingsPage() {
                                         checked={settings.spaceremitEnabled}
                                         onChange={e => update('spaceremitEnabled', e.target.checked)}
                                     />
-                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-accent-600"></div>
                                 </label>
                             </div>
                         </div>
 
                         <div className="bg-indigo-50 dark:bg-indigo-900/10 p-6 rounded-2xl border border-indigo-100 dark:border-indigo-900/30">
-                            <p className="text-xs text-indigo-600 dark:text-indigo-400 font-medium leading-relaxed">
+                            <p className="text-xs text-ink dark:text-indigo-400 font-medium leading-relaxed">
                                 💡 يتم إدارة مفاتيح الربط (API Keys) و (Merchant ID) بشكل آمن عبر متغيرات البيئة في الاستضافة (Vercel Envs). 
                                 يمكنك فقط تفعيل/تعطيل البوابة وتعديل الرسوم من هنا.
                             </p>
@@ -254,7 +254,7 @@ export default function AdminPlatformSettingsPage() {
                     {/* 3. Commissions - 4 Tiers */}
                     <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-8">
                         <div className="flex items-center gap-4 border-b border-gray-50 dark:border-gray-800 pb-6">
-                            <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-2xl text-blue-600">
+                            <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-2xl text-accent-600">
                                 <FiDollarSign className="text-2xl" />
                             </div>
                             <h2 className="text-xl font-bold text-gray-900 dark:text-white">باقات البائعين والعمولات</h2>
@@ -262,9 +262,9 @@ export default function AdminPlatformSettingsPage() {
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                             <CommissionInput label="FREE Tier %" value={settings.commissionRate} days={settings.freeEscrowDays} onRateChange={(v: number) => update('commissionRate', v)} onDaysChange={(v: number) => update('freeEscrowDays', v)} color="text-gray-400" />
-                            <CommissionInput label="GROWTH Tier %" value={settings.growthCommissionRate} days={settings.growthEscrowDays} onRateChange={(v: number) => update('growthCommissionRate', v)} onDaysChange={(v: number) => update('growthEscrowDays', v)} color="text-indigo-500" />
-                            <CommissionInput label="PRO Tier %" value={settings.proCommissionRate} days={settings.proEscrowDays} onRateChange={(v: number) => update('proCommissionRate', v)} onDaysChange={(v: number) => update('proEscrowDays', v)} color="text-blue-500" />
-                            <CommissionInput label="AGENCY Tier %" value={settings.agencyCommissionRate} days={settings.agencyEscrowDays} onRateChange={(v: number) => update('agencyCommissionRate', v)} onDaysChange={(v: number) => update('agencyEscrowDays', v)} color="text-blue-500" />
+                            <CommissionInput label="GROWTH Tier %" value={settings.growthCommissionRate} days={settings.growthEscrowDays} onRateChange={(v: number) => update('growthCommissionRate', v)} onDaysChange={(v: number) => update('growthEscrowDays', v)} color="text-ink" />
+                            <CommissionInput label="PRO Tier %" value={settings.proCommissionRate} days={settings.proEscrowDays} onRateChange={(v: number) => update('proCommissionRate', v)} onDaysChange={(v: number) => update('proEscrowDays', v)} color="text-accent-500" />
+                            <CommissionInput label="AGENCY Tier %" value={settings.agencyCommissionRate} days={settings.agencyEscrowDays} onRateChange={(v: number) => update('agencyCommissionRate', v)} onDaysChange={(v: number) => update('agencyEscrowDays', v)} color="text-accent-500" />
                         </div>
                     </div>
 
@@ -287,7 +287,7 @@ export default function AdminPlatformSettingsPage() {
                                         showToast.success('تم تحديث العمولات بنجاح');
                                     }
                                 }}
-                                className="text-xs font-bold text-indigo-500 hover:text-indigo-600 flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/20 px-4 py-2 rounded-xl transition-all"
+                                className="text-xs font-bold text-ink hover:text-ink flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/20 px-4 py-2 rounded-xl transition-all"
                             >
                                 <FiTrendingUp /> مزامنة عالمية
                             </button>
@@ -308,7 +308,7 @@ export default function AdminPlatformSettingsPage() {
                     {/* Platform Wallets (Manual SY) */}
                     <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-6">
                         <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                            <FiPhone className="text-blue-500" /> محافظ الدفع اليدوي
+                            <FiPhone className="text-accent-500" /> محافظ الدفع اليدوي
                         </h3>
                         <div className="space-y-4">
                             <WalletInput label="شام كاش" value={settings.shamCash} onChange={(v: string) => update('shamCash', v)} />
@@ -351,11 +351,11 @@ function CommissionInput({ label, value, days, onRateChange, onDaysChange, color
             <p className={`text-[10px] font-bold uppercase tracking-widest mb-4 ${color}`}>{label}</p>
             <div className="space-y-4">
                 <div className="relative">
-                    <input type="number" step="0.5" value={value} onChange={e => onRateChange(parseFloat(e.target.value))} className="w-full bg-white dark:bg-gray-800 border-none rounded-xl text-center font-bold text-lg py-2 focus:ring-2 focus:ring-blue-500/20" />
+                    <input type="number" step="0.5" value={value} onChange={e => onRateChange(parseFloat(e.target.value))} className="w-full bg-white dark:bg-gray-800 border-none rounded-xl text-center font-bold text-lg py-2 focus:ring-2 focus:ring-accent-500/20" />
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">%</span>
                 </div>
                 <div className="relative">
-                    <input type="number" value={days} onChange={e => onDaysChange(parseInt(e.target.value))} className="w-full bg-white dark:bg-gray-800 border-none rounded-xl text-center font-bold text-sm py-2 focus:ring-2 focus:ring-blue-500/20" />
+                    <input type="number" value={days} onChange={e => onDaysChange(parseInt(e.target.value))} className="w-full bg-white dark:bg-gray-800 border-none rounded-xl text-center font-bold text-sm py-2 focus:ring-2 focus:ring-accent-500/20" />
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">يوم</span>
                 </div>
             </div>
@@ -367,7 +367,7 @@ function RateInput({ label, value, onChange, flag }: { label: string; value: num
     return (
         <div className="space-y-2">
             <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{flag} {label}</label>
-            <input type="number" step="0.01" value={value} onChange={e => onChange(parseFloat(e.target.value))} className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl px-4 py-3 text-center font-bold text-gray-900 dark:text-white focus:border-blue-500 outline-none transition-all" />
+            <input type="number" step="0.01" value={value} onChange={e => onChange(parseFloat(e.target.value))} className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl px-4 py-3 text-center font-bold text-gray-900 dark:text-white focus:border-accent-500 outline-none transition-all" />
         </div>
     );
 }

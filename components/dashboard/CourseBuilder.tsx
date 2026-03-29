@@ -173,7 +173,7 @@ export default function CourseBuilder({
                                                                         ref={provided.innerRef} 
                                                                         {...provided.draggableProps} 
                                                                         {...provided.dragHandleProps}
-                                                                        className={`flex items-center justify-between p-4 bg-white border border-gray-100 rounded-xl group/lesson ${snapshot.isDragging ? 'shadow-xl ring-2 ring-accent/20 border-accent' : 'hover:border-gray-200 shadow-sm'}`}
+                                                                        className={`flex items-center justify-between p-4 bg-white border border-gray-100 rounded-xl group/lesson ${snapshot.isDragging ? 'shadow-sm ring-2 ring-accent/20 border-accent' : 'hover:border-gray-200 shadow-sm'}`}
                                                                     >
                                                                         <div className="flex items-center gap-4">
                                                                             <div className="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center text-ink transition-all group-hover/lesson:bg-ink group-hover/lesson:text-white border border-gray-100">

@@ -36,7 +36,7 @@ export default function Testimonials() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary-indigo-600 font-bold text-sm tracking-widest uppercase bg-indigo-50 px-4 py-2 rounded-full"
+            className="text-primary-ink font-bold text-sm tracking-widest uppercase bg-indigo-50 px-4 py-2 rounded-full"
           >
             ماذا يقول عملاؤنا
           </motion.span>
@@ -47,7 +47,7 @@ export default function Testimonials() {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-5xl font-bold text-slate-900 mt-6"
           >
-            نحن نبني المستقبل <br/> <span className="text-primary-indigo-600">بثقتكم</span>
+            نحن نبني المستقبل <br/> <span className="text-primary-ink">بثقتكم</span>
           </motion.h2>
         </div>
 
@@ -59,7 +59,7 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-white p-8 rounded-[2.5rem] shadow-premium border border-slate-100 hover:shadow-glow transition-all group"
+              className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 hover:shadow-sm transition-all group"
             >
               <div className="flex gap-1 mb-6">
                 {[...Array(t.rating)].map((_, idx) => (

@@ -52,7 +52,7 @@ export default function MyCoursesPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
             </div>
         );
     }
@@ -61,7 +61,7 @@ export default function MyCoursesPage() {
         return (
             <div className="text-center py-12">
                 <p className="text-gray-500">يجب تسجيل الدخول أولاً</p>
-                <Link href="/login" className="text-indigo-600 hover:underline mt-2 inline-block">
+                <Link href="/login" className="text-ink hover:underline mt-2 inline-block">
                     تسجيل الدخول
                 </Link>
             </div>
@@ -78,7 +78,7 @@ export default function MyCoursesPage() {
                     <button
                         onClick={() => setFilter('all')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${filter === 'all'
-                                ? 'bg-indigo-600 text-white'
+                                ? 'bg-ink text-white'
                                 : 'bg-white text-gray-700 hover:bg-gray-100'
                             }`}
                     >
@@ -87,7 +87,7 @@ export default function MyCoursesPage() {
                     <button
                         onClick={() => setFilter('courses')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${filter === 'courses'
-                                ? 'bg-indigo-600 text-white'
+                                ? 'bg-ink text-white'
                                 : 'bg-white text-gray-700 hover:bg-gray-100'
                             }`}
                     >
@@ -96,7 +96,7 @@ export default function MyCoursesPage() {
                     <button
                         onClick={() => setFilter('products')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${filter === 'products'
-                                ? 'bg-indigo-600 text-white'
+                                ? 'bg-ink text-white'
                                 : 'bg-white text-gray-700 hover:bg-gray-100'
                             }`}
                     >
@@ -111,7 +111,7 @@ export default function MyCoursesPage() {
                         <p className="text-gray-500 mb-4">لا توجد مشتريات بعد</p>
                         <Link
                             href="/"
-                            className="inline-block px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                            className="inline-block px-6 py-2 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors"
                         >
                             تصفح المنتجات
                         </Link>
@@ -134,7 +134,7 @@ export default function MyCoursesPage() {
                                 <div className="p-4">
                                     <div className="flex items-center gap-2 mb-2">
                                         {purchase.type === 'course' ? (
-                                            <FiBook className="text-indigo-600" />
+                                            <FiBook className="text-ink" />
                                         ) : (
                                             <FiDownload className="text-green-600" />
                                         )}
@@ -151,11 +151,11 @@ export default function MyCoursesPage() {
                                         <div className="mb-3">
                                             <div className="flex justify-between text-sm mb-1">
                                                 <span className="text-gray-600">التقدم</span>
-                                                <span className="font-medium text-indigo-600">{purchase.progress}%</span>
+                                                <span className="font-medium text-ink">{purchase.progress}%</span>
                                             </div>
                                             <div className="w-full bg-gray-200 rounded-full h-2">
                                                 <div
-                                                    className="bg-indigo-600 h-2 rounded-full transition-all"
+                                                    className="bg-ink h-2 rounded-full transition-all"
                                                     style={{ width: `${purchase.progress}%` }}
                                                 />
                                             </div>
@@ -175,7 +175,7 @@ export default function MyCoursesPage() {
                                                 ? `/learn/${purchase.slug || purchase.id}`
                                                 : `/download/${purchase.id}`
                                         }
-                                        className="block w-full py-2 bg-indigo-600 text-white text-center rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+                                        className="block w-full py-2 bg-ink text-white text-center rounded-lg font-medium hover:bg-indigo-700 transition-colors"
                                     >
                                         {purchase.type === 'course' ? 'متابعة التعلم' : 'تحميل'}
                                     </Link>

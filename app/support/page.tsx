@@ -58,7 +58,7 @@ export default function SupportPage() {
 
                     <Link href="/about" className="bg-white rounded-xl shadow-sm p-6 hover:shadow-lg transition-shadow text-center group">
                         <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                            <FiBook className="text-3xl text-blue-600" />
+                            <FiBook className="text-3xl text-accent-600" />
                         </div>
                         <h3 className="font-bold text-lg mb-2">دليل الاستخدام</h3>
                         <p className="text-gray-600 text-sm">تعلم كيفية استخدام المنصة</p>

@@ -164,7 +164,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                                 {course.isFree && <span className="inline-block px-4 py-1.5 bg-green-100 text-green-700 rounded-lg text-sm font-bold">مجاني 🎉</span>}
                             </div>
                             <div className="space-y-4 mb-8">
-                                <button onClick={enrollNow} className="w-full btn btn-primary text-xl py-5 rounded-2xl font-bold shadow-xl shadow-accent/20">سجّل الآن</button>
+                                <button onClick={enrollNow} className="w-full btn btn-primary text-xl py-5 rounded-2xl font-bold shadow-sm shadow-accent/20">سجّل الآن</button>
                                 <button onClick={addToCart} className="w-full btn btn-outline text-xl py-4 rounded-2xl border-2 font-bold">أضف للسلة</button>
                             </div>
                             <div className="space-y-3 text-sm font-bold">

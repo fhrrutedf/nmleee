@@ -52,7 +52,7 @@ interface FinancialData {
 
 const planBadge: Record<string, { label: string; color: string; bg: string; icon: string }> = {
     FREE: { label: 'مجانية', color: 'text-gray-600', bg: 'bg-gray-100 dark:bg-gray-800', icon: '🆓' },
-    GROWTH: { label: 'Growth', color: 'text-blue-600', bg: 'bg-blue-50 dark:bg-blue-900/20', icon: '🚀' },
+    GROWTH: { label: 'Growth', color: 'text-accent-600', bg: 'bg-accent-50 dark:bg-blue-900/20', icon: '🚀' },
     PRO: { label: 'Pro', color: 'text-purple-600', bg: 'bg-purple-50 dark:bg-purple-900/20', icon: '👑' },
 };
 
@@ -158,7 +158,7 @@ export default function FinancialsPage() {
         switch (type) {
             case 'course': return <FiVideo className="text-purple-500" />;
             case 'bundle': return <FiPackage className="text-orange-500" />;
-            default: return <FiShoppingBag className="text-blue-500" />;
+            default: return <FiShoppingBag className="text-accent-500" />;
         }
     };
 
@@ -248,11 +248,11 @@ export default function FinancialsPage() {
 
                         {/* This Month Revenue */}
                         <motion.div variants={item} className="bg-white dark:bg-card-white rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 relative overflow-hidden group hover:shadow-lg transition-all hover:-translate-y-1">
-                            <div className="absolute top-0 right-0 w-28 h-28 bg-blue-50 dark:bg-blue-900/10 rounded-full blur-3xl -mr-8 -mt-8 transition-transform group-hover:scale-125" />
+                            <div className="absolute top-0 right-0 w-28 h-28 bg-accent-50 dark:bg-blue-900/10 rounded-full blur-3xl -mr-8 -mt-8 transition-transform group-hover:scale-125" />
                             <div className="relative">
                                 <div className="flex items-center justify-between mb-3">
                                     <p className="font-bold text-sm text-gray-500">إيرادات هذا الشهر</p>
-                                    <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/20 text-blue-600 rounded-xl flex items-center justify-center">
+                                    <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/20 text-accent-600 rounded-xl flex items-center justify-center">
                                         <FiTrendingUp size={20} />
                                     </div>
                                 </div>
@@ -268,12 +268,12 @@ export default function FinancialsPage() {
                         </motion.div>
 
                         {/* Total Earnings - Gradient */}
-                        <motion.div variants={item} className="bg-gradient-to-br from-accent to-purple-600 text-white rounded-3xl shadow-lg p-6 relative overflow-hidden group hover:shadow-xl transition-all hover:-translate-y-1">
+                        <motion.div variants={item} className="bg-gradient-to-br from-accent to-purple-600 text-white rounded-3xl shadow-lg p-6 relative overflow-hidden group hover:shadow-sm transition-all hover:-translate-y-1">
                             <div className="absolute top-0 right-0 w-28 h-28 bg-white/10 rounded-full blur-2xl -mr-8 -mt-8" />
                             <div className="relative">
                                 <div className="flex items-center justify-between mb-3">
                                     <p className="font-bold text-sm text-white/80">إجمالي الأرباح</p>
-                                    <div className="w-10 h-10 bg-white/20 backdrop-blur-sm text-white rounded-xl flex items-center justify-center">
+                                    <div className="w-10 h-10 bg-white/20  text-white rounded-xl flex items-center justify-center">
                                         <FiDollarSign size={20} />
                                     </div>
                                 </div>
@@ -437,7 +437,7 @@ export default function FinancialsPage() {
                             </div>
                         </Link>
                         <Link href="/dashboard/earnings" className="card flex items-center gap-4 hover:shadow-lg transition-all hover:-translate-y-1 group">
-                            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 text-blue-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 text-accent-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                                 <FiTrendingUp size={24} />
                             </div>
                             <div>
@@ -463,7 +463,7 @@ export default function FinancialsPage() {
                 <>
                     {/* Referral Stats */}
                     <div className="grid sm:grid-cols-3 gap-6">
-                        <motion.div variants={item} className="bg-gradient-to-br from-purple-500 to-indigo-600 text-white rounded-3xl shadow-lg p-6 relative overflow-hidden">
+                        <motion.div variants={item} className="bg-gradient-to-br from-purple-500 to-ink text-white rounded-3xl shadow-lg p-6 relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-2xl -mr-8 -mt-8" />
                             <div className="relative">
                                 <div className="flex items-center justify-between mb-3">
@@ -536,7 +536,7 @@ export default function FinancialsPage() {
                         </h2>
                         <div className="grid sm:grid-cols-3 gap-6">
                             <div className="text-center p-4">
-                                <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <div className="w-16 h-16 bg-accent-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
                                     <span className="text-3xl">1️⃣</span>
                                 </div>
                                 <h3 className="font-bold text-ink dark:text-white mb-2">شارك رابط الإحالة</h3>
@@ -558,7 +558,7 @@ export default function FinancialsPage() {
                             </div>
                         </div>
 
-                        <div className="mt-6 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/10 dark:to-blue-900/10 rounded-2xl p-5 border border-purple-200/50 dark:border-purple-800/50">
+                        <div className="mt-6 bg-gradient-to-r from-purple-50 to-accent-50 dark:from-purple-900/10 dark:to-blue-900/10 rounded-2xl p-5 border border-purple-200/50 dark:border-purple-800/50">
                             <h4 className="font-bold text-ink dark:text-white mb-2">💡 مثال توضيحي</h4>
                             <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                                 لو أحد المستخدمين اللي سجلوا عبر رابطك باع منتج بقيمة <strong>100 $</strong> وعمولة المنصة <strong>10 $</strong>، فأنت تحصل على <strong>0.10 $</strong> تلقائياً في رصيدك. مع مرور الوقت وكثرة المبيعات، الأرباح تتراكم!

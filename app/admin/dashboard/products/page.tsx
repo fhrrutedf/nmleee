@@ -157,7 +157,7 @@ export default function ProductsManagement() {
                         </div>
                         <div className="px-5 py-3 flex flex-col items-center">
                             <span className="text-accent text-xs">منتج رقمي</span>
-                            <span className="text-blue-600 dark:text-blue-400 text-lg">{stats.totalProducts}</span>
+                            <span className="text-accent-600 dark:text-blue-400 text-lg">{stats.totalProducts}</span>
                         </div>
                         <div className="px-5 py-3 flex flex-col items-center">
                             <span className="text-purple-500 text-xs">دورة تدريبية</span>
@@ -274,7 +274,7 @@ export default function ProductsManagement() {
                                         <motion.tr variants={itemVariants} key={item.id} className="border-b border-gray-50 dark:border-gray-800/60 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
                                             <td className="py-4 px-6">
                                                 <div className="flex items-center gap-3">
-                                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${item.itemType === 'COURSE' ? 'bg-purple-50 text-purple-500 dark:bg-purple-900/20' : 'bg-blue-50 text-accent dark:bg-blue-900/20'}`}>
+                                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${item.itemType === 'COURSE' ? 'bg-purple-50 text-purple-500 dark:bg-purple-900/20' : 'bg-accent-50 text-accent dark:bg-blue-900/20'}`}>
                                                         {item.itemType === 'COURSE' ? <FiPlayCircle size={20} /> : <FiImage size={20} />}
                                                     </div>
                                                     <div>
@@ -316,7 +316,7 @@ export default function ProductsManagement() {
                                                     <Link
                                                         href={item.itemType === 'COURSE' ? `/course/${item.id}` : `/product/${item.id}`}
                                                         target="_blank"
-                                                        className="p-2 rounded-lg text-gray-400 hover:text-accent hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                                                        className="p-2 rounded-lg text-gray-400 hover:text-accent hover:bg-accent-50 dark:hover:bg-blue-900/20 transition-colors"
                                                         title="عرض في المتجر"
                                                     >
                                                         <FiEyeOff size={18} />

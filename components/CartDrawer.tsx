@@ -56,7 +56,7 @@ export default function CartDrawer() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setIsOpen(false)}
-                            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100]"
+                            className="fixed inset-0 bg-black/40  z-[100]"
                         />
 
                         <motion.div
@@ -64,7 +64,7 @@ export default function CartDrawer() {
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
                             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-[101] flex flex-col"
+                            className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-sm z-[101] flex flex-col"
                         >
                             {/* Header */}
                             <div className="flex items-center justify-between p-6 border-b border-gray-100">
@@ -146,7 +146,7 @@ export default function CartDrawer() {
 
                             {/* Footer Summary */}
                             {items.length > 0 && (
-                                <div className="p-6 border-t border-gray-100 bg-gray-50/50 backdrop-blur-md">
+                                <div className="p-6 border-t border-gray-100 bg-gray-50/50 ">
                                     <div className="flex items-center justify-between mb-6">
                                         <span className="text-gray-500 font-bold">إجمالي المبلغ:</span>
                                         <span className="text-2xl font-bold text-ink">
@@ -156,7 +156,7 @@ export default function CartDrawer() {
                                     <Link
                                         href="/checkout"
                                         onClick={() => setIsOpen(false)}
-                                        className="group w-full py-4 bg-accent text-white flex items-center justify-center gap-2 rounded-[1.25rem] font-bold text-lg shadow-xl shadow-accent/20 hover:shadow-accent/40 hover:-translate-y-1 transition-all"
+                                        className="group w-full py-4 bg-accent text-white flex items-center justify-center gap-2 rounded-[1.25rem] font-bold text-lg shadow-sm shadow-accent/20 hover:shadow-accent/40 hover:-translate-y-1 transition-all"
                                     >
                                         <span>إتمام الشراء</span>
                                         <FiArrowRight className="group-hover:translate-x-1 transition-transform rotate-180" />

@@ -143,12 +143,12 @@ export default function ManualOrdersPage() {
                         <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{orders.length}</p>
                     </div>
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-blue-100 dark:border-amber-900/30 shadow-sm">
-                        <p className="text-xs text-blue-500 font-bold uppercase">قيد الانتظار</p>
+                        <p className="text-xs text-accent-500 font-bold uppercase">قيد الانتظار</p>
                         <p className="text-2xl font-bold text-accent mt-1">{pendingCount}</p>
                     </div>
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-blue-100 dark:border-blue-900/30 shadow-sm">
-                        <p className="text-xs text-blue-500 font-bold uppercase">مقبول</p>
-                        <p className="text-2xl font-bold text-blue-600 mt-1">{approvedCount}</p>
+                        <p className="text-xs text-accent-500 font-bold uppercase">مقبول</p>
+                        <p className="text-2xl font-bold text-accent-600 mt-1">{approvedCount}</p>
                     </div>
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-red-100 dark:border-red-900/30 shadow-sm">
                         <p className="text-xs text-red-500 font-bold uppercase">مرفوض</p>
@@ -170,7 +170,7 @@ export default function ManualOrdersPage() {
                                 onClick={() => setStatusFilter(tab.value)}
                                 className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${
                                     statusFilter === tab.value
-                                        ? 'bg-indigo-600 text-white shadow-md'
+                                        ? 'bg-ink text-white shadow-md'
                                         : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                                 }`}
                             >
@@ -183,7 +183,7 @@ export default function ManualOrdersPage() {
                 {/* Orders List */}
                 {loading ? (
                     <div className="flex items-center justify-center py-20">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
                     </div>
                 ) : orders.length === 0 ? (
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 text-center border border-gray-100 dark:border-gray-700">
@@ -206,7 +206,7 @@ export default function ManualOrdersPage() {
                                     {/* Order Header */}
                                     <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-700">
                                         <div className="flex items-center gap-3">
-                                            <span className="font-mono text-sm font-bold text-indigo-600">{order.orderNumber}</span>
+                                            <span className="font-mono text-sm font-bold text-ink">{order.orderNumber}</span>
                                             <span className={`text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 ${st.bg}`}>
                                                 {st.icon} {st.label}
                                             </span>
@@ -259,7 +259,7 @@ export default function ManualOrdersPage() {
                                                 {order.paymentProof && (
                                                     <button
                                                         onClick={() => setProofImage(order.paymentProof)}
-                                                        className="mt-2 flex items-center gap-2 text-xs text-indigo-600 font-bold hover:underline"
+                                                        className="mt-2 flex items-center gap-2 text-xs text-ink font-bold hover:underline"
                                                     >
                                                         <FiEye size={14} /> عرض إيصال الدفع
                                                     </button>
@@ -272,7 +272,7 @@ export default function ManualOrdersPage() {
                                             <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700 flex gap-3">
                                                 <button
                                                     onClick={() => handleApprove(order.id)}
-                                                    className="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-bold text-sm shadow-sm"
+                                                    className="flex-1 px-4 py-2.5 bg-accent-600 text-white rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-bold text-sm shadow-sm"
                                                 >
                                                     <FiCheck /> موافقة
                                                 </button>
@@ -295,7 +295,7 @@ export default function ManualOrdersPage() {
             {/* Rejection Modal */}
             {selectedOrder && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50" onClick={() => setSelectedOrder(null)}>
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-md w-full shadow-2xl" onClick={e => e.stopPropagation()}>
+                    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-md w-full shadow-sm" onClick={e => e.stopPropagation()}>
                         <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
                             رفض الطلب {selectedOrder.orderNumber}
                         </h3>

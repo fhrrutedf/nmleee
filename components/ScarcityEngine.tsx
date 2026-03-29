@@ -70,7 +70,7 @@ export function ScarcityEngine({
     }
 
     const containerClasses = position === 'sticky'
-        ? 'fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 border-t-2 border-red-200 dark:border-red-800 backdrop-blur-sm'
+        ? 'fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 border-t-2 border-red-200 dark:border-red-800 '
         : 'bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/10 dark:to-orange-900/10 border border-red-200 dark:border-red-800 rounded-lg';
 
     return (
@@ -107,7 +107,7 @@ export function ScarcityEngine({
                     {timeLeft && !isExpired && (
                         <div className="flex items-center gap-3">
                             <div className="flex items-center gap-2 text-red-700 dark:text-red-400">
-                                <FiClock className="text-lg animate-pulse" />
+                                <FiClock className="text-lg " />
                                 <span className="font-semibold text-sm">ينتهي العرض خلال:</span>
                             </div>
                             <div className="flex items-center gap-1" dir="ltr">

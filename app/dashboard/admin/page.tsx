@@ -35,7 +35,7 @@ const statusBadge: Record<string, string> = {
 // ─── Components ────────────────────────────────────────────
 function StatCard({ icon: Icon, label, value, sub, trend }: any) {
     return (
-        <div className="bg-white border border-gray-100 p-8 rounded-[2rem] shadow-xl shadow-gray-100/20 hover:border-accent/20 transition-all group relative overflow-hidden">
+        <div className="bg-white border border-gray-100 p-8 rounded-[2rem] shadow-sm shadow-gray-100/20 hover:border-accent/20 transition-all group relative overflow-hidden">
             <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-[80px] group-hover:bg-accent/10 transition-colors"></div>
             <div className="flex items-center justify-between mb-6 relative z-10">
                 <div className="p-4 bg-gray-50 rounded-2xl text-ink group-hover:bg-accent group-hover:text-white transition-all">
@@ -57,14 +57,14 @@ function Tab({ id, active, onClick, icon: Icon, label, badge }: any) {
         <button
             onClick={() => onClick(id)}
             className={`flex items-center gap-3 px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap relative ${active
-                ? 'bg-ink text-white shadow-2xl shadow-ink/20 transform -translate-y-1'
+                ? 'bg-ink text-white shadow-sm shadow-ink/20 transform -translate-y-1'
                 : 'bg-white text-gray-400 border border-gray-100 hover:border-ink hover:text-ink'
                 }`}
         >
             <Icon size={14} />
             {label}
             {badge > 0 && (
-                <span className="absolute -top-2 -left-2 bg-accent text-white text-[10px] font-black w-6 h-6 rounded-full flex items-center justify-center border-4 border-white shadow-xl">
+                <span className="absolute -top-2 -left-2 bg-accent text-white text-[10px] font-black w-6 h-6 rounded-full flex items-center justify-center border-4 border-white shadow-sm">
                     {badge}
                 </span>
             )}
@@ -224,7 +224,7 @@ export default function AdminDashboardPage() {
                     </select>
                     <div className="h-6 w-px bg-gray-200"></div>
                     <button onClick={() => setAutoRefresh(!autoRefresh)} className={`flex items-center gap-2 font-black text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl transition-all ${autoRefresh ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'bg-white text-gray-400 border border-gray-100'}`}>
-                        <FiZap className={autoRefresh ? 'animate-pulse' : ''} /> Live {autoRefresh ? 'On' : 'Off'}
+                        <FiZap className={autoRefresh ? '' : ''} /> Live {autoRefresh ? 'On' : 'Off'}
                     </button>
                     <button onClick={() => load(true)} className="p-2.5 bg-white border border-gray-100 rounded-xl hover:border-ink hover:text-ink transition-all active:rotate-180">
                         <FiRefreshCw className={isRefreshing ? 'animate-spin' : ''} />
@@ -253,7 +253,7 @@ export default function AdminDashboardPage() {
 
                         {/* Charts Section */}
                         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-                            <div className="xl:col-span-2 bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-2xl shadow-gray-100/20 relative overflow-hidden">
+                            <div className="xl:col-span-2 bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-sm shadow-gray-100/20 relative overflow-hidden">
                                 <div className="absolute top-0 right-0 w-40 h-40 bg-accent/5 rounded-bl-[120px] pointer-events-none"></div>
                                 <h3 className="text-xl font-black text-ink mb-10 tracking-widest flex items-center gap-3">
                                     <FiTrendingUp className="text-accent" /> REVENUE GROWTH
@@ -280,7 +280,7 @@ export default function AdminDashboardPage() {
                                 </div>
                             </div>
 
-                            <div className="bg-ink text-white rounded-[2.5rem] p-10 shadow-2xl shadow-ink/20 relative overflow-hidden">
+                            <div className="bg-ink text-white rounded-[2.5rem] p-10 shadow-sm shadow-ink/20 relative overflow-hidden">
                                 <div className="absolute top-0 left-0 w-32 h-32 bg-accent/10 rounded-br-[100px] pointer-events-none"></div>
                                 <h3 className="text-xl font-black mb-10 tracking-widest flex items-center gap-3">
                                     <FiPieChart className="text-accent" /> VOLUME DISTRIBUTION
@@ -302,7 +302,7 @@ export default function AdminDashboardPage() {
                         </div>
 
                         {/* Top Performers Table */}
-                        <div className="bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-2xl shadow-gray-100/20 overflow-x-auto">
+                        <div className="bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-sm shadow-gray-100/20 overflow-x-auto">
                             <h3 className="text-xl font-black text-ink mb-10 tracking-widest flex items-center gap-3 underline underline-offset-[12px] decoration-accent/20 decoration-4">
                                 <FiStar className="text-accent" /> ELITE CREATORS
                             </h3>
@@ -342,7 +342,7 @@ export default function AdminDashboardPage() {
 
                 {/* Other Tabs Simplified Styles */}
                 {activeTab !== 'overview' && (
-                    <div className="bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-premium overflow-hidden">
+                    <div className="bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-sm overflow-hidden">
                         <h2 className="text-2xl font-black text-ink mb-10 tracking-tighter flex items-center gap-4">
                             <FiActivity className="text-accent" /> {tabs.find(t => t.id === activeTab)?.label}
                         </h2>
@@ -373,14 +373,14 @@ export default function AdminDashboardPage() {
             {/* Global Modals Styled v2 */}
             <AnimatePresence>
                 {showBroadcast && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-ink/60 backdrop-blur-md">
-                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-[3rem] p-12 max-w-3xl w-full shadow-2xl relative">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-ink/60 ">
+                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-[3rem] p-12 max-w-3xl w-full shadow-sm relative">
                             <button onClick={() => setShowBroadcast(false)} className="absolute top-8 left-8 p-3 hover:bg-gray-100 rounded-2xl transition-all"><FiX size={24} /></button>
                             <h2 className="text-3xl font-black text-ink mb-10 tracking-tighter">إطلاق حملة بث مركزي</h2>
                             <div className="space-y-6">
                                 <input type="text" className="w-full bg-gray-50 border border-gray-100 rounded-2xl p-5 font-bold outline-none focus:bg-white focus:border-accent transition-all" placeholder="عنوان الحملة الاستراتيجي" />
                                 <textarea className="w-full bg-gray-50 border border-gray-100 rounded-[2rem] p-8 font-bold outline-none focus:bg-white focus:border-accent transition-all min-h-[200px]" placeholder="محتوى الرسالة (يدعم Markdown)..." />
-                                <button onClick={sendBroadcast} className="w-full py-6 bg-ink text-white rounded-2xl font-black text-xs uppercase tracking-[0.3em] hover:bg-black shadow-2xl shadow-ink/20">Initite Global Broadcast</button>
+                                <button onClick={sendBroadcast} className="w-full py-6 bg-ink text-white rounded-2xl font-black text-xs uppercase tracking-[0.3em] hover:bg-black shadow-sm shadow-ink/20">Initite Global Broadcast</button>
                             </div>
                         </motion.div>
                     </div>

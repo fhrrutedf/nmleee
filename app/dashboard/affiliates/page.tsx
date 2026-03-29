@@ -134,7 +134,7 @@ export default function AffiliatesPage() {
                 </div>
                 <button
                     onClick={() => setShowModal(true)}
-                    className="btn bg-accent hover:bg-blue-600 text-white flex items-center gap-2 shadow-lg shadow-accent/20 hover:-translate-y-1 transition-transform"
+                    className="btn bg-accent hover:bg-accent-600 text-white flex items-center gap-2 shadow-lg shadow-accent/20 hover:-translate-y-1 transition-transform"
                 >
                     <FiPlus />
                     <span>إضافة مسوق جديد</span>
@@ -162,7 +162,7 @@ export default function AffiliatesPage() {
                     </div>
                 </div>
                 <div className="bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-3xl p-6 shadow-sm flex items-center gap-4">
-                    <div className="w-14 h-14 bg-blue-100 dark:bg-blue-900/20 text-blue-600 rounded-2xl flex items-center justify-center">
+                    <div className="w-14 h-14 bg-blue-100 dark:bg-blue-900/20 text-accent-600 rounded-2xl flex items-center justify-center">
                         <FiDollarSign size={24} />
                     </div>
                     <div>
@@ -222,7 +222,7 @@ export default function AffiliatesPage() {
                                         </td>
                                         <td className="px-6 py-5 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
                                             <div className="flex items-center gap-4 font-medium">
-                                                <div title="عدد الزيارات للرابط" className="flex items-center tracking-wider"><FiActivity className="ml-1 text-blue-500" /> {link.clicks}</div>
+                                                <div title="عدد الزيارات للرابط" className="flex items-center tracking-wider"><FiActivity className="ml-1 text-accent-500" /> {link.clicks}</div>
                                                 <div title="عدد المبيعات" className="flex items-center text-ink dark:text-white font-bold"><FiCheckCircle className="ml-1 text-green-500" /> {link.salesCount}</div>
                                             </div>
                                         </td>
@@ -240,7 +240,7 @@ export default function AffiliatesPage() {
                                             <div className="flex justify-center items-center gap-2">
                                                 <button
                                                     onClick={() => copyToClipboard(link.code)}
-                                                    className="p-2 text-accent bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 rounded-xl transition-colors"
+                                                    className="p-2 text-accent bg-accent-50 dark:bg-blue-900/20 hover:bg-blue-100 rounded-xl transition-colors"
                                                     title="نسخ الرابط لمشاركته مع المسوق"
                                                 >
                                                     <FiCopy size={18} />
@@ -264,8 +264,8 @@ export default function AffiliatesPage() {
 
             {/* Create Modal */}
             {showModal && (
-                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-center p-4">
-                    <div className="bg-white dark:bg-card-white rounded-3xl shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto transform transition-all">
+                <div className="fixed inset-0 bg-black/50  z-50 flex justify-center items-center p-4">
+                    <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm w-full max-w-xl max-h-[90vh] overflow-y-auto transform transition-all">
                         <div className="sticky top-0 bg-white dark:bg-card-white p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center z-10">
                             <h2 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
                                 <FiLink className="text-accent" /> تكليف مسوق جديد
@@ -349,7 +349,7 @@ export default function AffiliatesPage() {
 
                             <div className="pt-6 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-4 mt-6">
                                 <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline border-transparent bg-gray-100 dark:bg-gray-800 px-6 font-bold shadow-sm">إلغاء الأمر</button>
-                                <button type="submit" disabled={products.length === 0} className="btn btn-primary px-8 font-bold shadow-xl shadow-accent/20 flex items-center gap-2 text-lg">
+                                <button type="submit" disabled={products.length === 0} className="btn btn-primary px-8 font-bold shadow-sm shadow-accent/20 flex items-center gap-2 text-lg">
                                     <FiCheckCircle /> <span>إنشاء وحفظ</span>
                                 </button>
                             </div>

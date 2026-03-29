@@ -86,7 +86,7 @@ export default function CoursesPage() {
                     <h1 className="text-3xl font-bold text-ink dark:text-white">الدورات التدريبية</h1>
                     <p className="text-text-muted mt-2">إدارة شاملة لجميع دوراتك التدريبية ومحتواها التعليمي</p>
                 </div>
-                <Link href="/dashboard/courses/new?new=true" className="px-8 py-4 bg-ink text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-ink/20 hover:bg-black transition-all flex items-center">
+                <Link href="/dashboard/courses/new?new=true" className="px-8 py-4 bg-ink text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-sm shadow-ink/20 hover:bg-black transition-all flex items-center">
                     <FiPlus className="ml-2 text-xl" />
                     <span>إضافة دورة جديدة</span>
                 </Link>
@@ -206,7 +206,7 @@ export default function CoursesPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: idx * 0.1 }}
-                            className="card group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col bg-card-white dark:bg-card-white border border-gray-100 dark:border-gray-800"
+                            className="card group hover:shadow-sm hover:-translate-y-1 transition-all duration-300 flex flex-col bg-card-white dark:bg-card-white border border-gray-100 dark:border-gray-800"
                         >
                             {/* صورة الدورة */}
                             <div className="relative h-48 overflow-hidden rounded-lg mb-4 bg-gray-100 dark:bg-gray-800">
@@ -217,12 +217,12 @@ export default function CoursesPage() {
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     />
                                 ) : (
-                                    <div className="w-full h-full bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
+                                    <div className="w-full h-full bg-gradient-to-br from-accent-50 to-blue-100 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
                                         <FiVideo className="text-5xl text-blue-200 dark:text-gray-600" />
                                     </div>
                                 )}
                                 <div className="absolute top-3 right-3">
-                                    <span className={`px-3 py-1 rounded-full text-xs font-bold shadow-sm backdrop-blur-sm ${course.isActive
+                                    <span className={`px-3 py-1 rounded-full text-xs font-bold shadow-sm  ${course.isActive
                                         ? 'bg-green-500/90 text-white'
                                         : 'bg-gray-500/90 text-white'
                                         }`}>
@@ -260,7 +260,7 @@ export default function CoursesPage() {
                                         {course.price.toFixed(2)} <span className="text-xs font-normal text-text-muted">$</span>
                                     </span>
                                     {course.category && (
-                                        <span className="px-2 py-1 bg-blue-50 dark:bg-blue-900/30 text-accent text-xs rounded-md">
+                                        <span className="px-2 py-1 bg-accent-50 dark:bg-blue-900/30 text-accent text-xs rounded-md">
                                             {course.category}
                                         </span>
                                     )}

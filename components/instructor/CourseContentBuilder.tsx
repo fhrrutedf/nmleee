@@ -109,7 +109,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                 <button
                     type="button"
                     onClick={() => setShowModuleForm(true)}
-                    className="flex items-center justify-center w-full sm:w-auto gap-2 px-8 py-4 bg-ink text-white rounded-2xl font-bold hover:bg-gray-800 transition-all shadow-xl shadow-ink/10 active:scale-95"
+                    className="flex items-center justify-center w-full sm:w-auto gap-2 px-8 py-4 bg-ink text-white rounded-2xl font-bold hover:bg-gray-800 transition-all shadow-sm shadow-ink/10 active:scale-95"
                 >
                     <FiPlus />
                     إنشاء وحدة تعليمية جديدة
@@ -118,7 +118,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
 
             {/* Corporate Module Form */}
             {showModuleForm && (
-                <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8 mb-10 ring-1 ring-gray-100 transition-all">
+                <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 mb-10 ring-1 ring-gray-100 transition-all">
                     <h3 className="text-lg font-bold text-ink mb-6">إضافة وحدة دراسية جديدة</h3>
                     <div className="flex flex-col sm:flex-row gap-4">
                         <input
@@ -164,7 +164,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                     <button
                         type="button"
                         onClick={() => setShowModuleForm(true)}
-                        className="inline-flex items-center gap-3 px-10 py-5 bg-ink text-white rounded-2xl font-bold hover:bg-gray-800 transition-all shadow-2xl shadow-ink/20"
+                        className="inline-flex items-center gap-3 px-10 py-5 bg-ink text-white rounded-2xl font-bold hover:bg-gray-800 transition-all shadow-sm shadow-ink/20"
                     >
                         <FiPlus size={20} />
                         إضافة أول وحدة دراسية

@@ -72,7 +72,7 @@ export default function NewLessonPage() {
             <div className="max-w-4xl mx-auto relative">
                 <div className="mb-8 cursor-default flex items-center justify-between">
                     <div className="text-right">
-                        <h1 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight mb-1 tracking-tighter cursor-pointer relative z-10 hover:text-primary-indigo-600 transition-colors">
+                        <h1 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight mb-1 tracking-tighter cursor-pointer relative z-10 hover:text-primary-ink transition-colors">
                             إضافة درس جديد
                         </h1>
                         <p className="text-sm md:text-base text-slate-500 font-medium mb-2 max-w-xl">
@@ -82,43 +82,43 @@ export default function NewLessonPage() {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="bg-white rounded-xl p-8 md:p-10 shadow-xl shadow-slate-200/50 border border-slate-100 relative overflow-hidden group hover:border-primary-indigo-100 transition-all duration-500">
+                    <div className="bg-white rounded-xl p-8 md:p-10 shadow-sm shadow-slate-200/50 border border-slate-100 relative overflow-hidden group hover:border-primary-indigo-100 transition-all duration-500">
                         <div className="absolute top-0 right-0 w-24 h-24 bg-primary-indigo-50 rounded-bl-[80px] -z-10 transition-all group-hover:scale-110" />
                         
                         <div className="space-y-6">
                             <h2 className="text-xl font-bold flex items-center gap-3 text-slate-800">تفاصيل الدرس</h2>
                             
                             <div className="relative group/input">
-                                <label className="block text-[10px] font-bold text-slate-400 mb-2 tracking-widest uppercase transition-colors group-focus-within/input:text-primary-indigo-500">عنوان الدرس الجذاب</label>
+                                <label className="block text-[10px] font-bold text-slate-400 mb-2 tracking-widest uppercase transition-colors group-focus-within/input:text-primary-ink">عنوان الدرس الجذاب</label>
                                 <input
                                     type="text" required value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                                     placeholder="مثال: مقدمة في بناء أفكار خارج الصندوق..."
-                                    className="w-full bg-slate-50 border-0 rounded-2xl px-6 py-4 text-base font-bold text-slate-800 focus:ring-4 focus:ring-primary-indigo-500/10 focus:bg-white transition-all placeholder:text-slate-300"
+                                    className="w-full bg-slate-50 border-0 rounded-2xl px-6 py-4 text-base font-bold text-slate-800 focus:ring-4 focus:ring-primary-ink/10 focus:bg-white transition-all placeholder:text-slate-300"
                                 />
                             </div>
 
                             <div className="relative group/input">
-                                <label className="block text-[10px] font-bold text-slate-400 mb-2 tracking-widest uppercase transition-colors group-focus-within/input:text-primary-indigo-500">وصف تشويقي للدرس</label>
+                                <label className="block text-[10px] font-bold text-slate-400 mb-2 tracking-widest uppercase transition-colors group-focus-within/input:text-primary-ink">وصف تشويقي للدرس</label>
                                 <textarea
                                     value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                     placeholder="ماذا سيتعلم الطالب من هذا الدرس؟" rows={2}
-                                    className="w-full bg-slate-50 border-0 rounded-2xl px-6 py-4 text-base font-bold text-slate-800 focus:ring-4 focus:ring-primary-indigo-500/10 focus:bg-white transition-all placeholder:text-slate-300"
+                                    className="w-full bg-slate-50 border-0 rounded-2xl px-6 py-4 text-base font-bold text-slate-800 focus:ring-4 focus:ring-primary-ink/10 focus:bg-white transition-all placeholder:text-slate-300"
                                 />
                             </div>
 
                             <div className="relative group/input">
-                                <label className="block text-[10px] font-bold text-slate-400 mb-2 tracking-widest uppercase transition-colors group-focus-within/input:text-primary-indigo-500">المحتوى النصي المفصل (Markdown)</label>
+                                <label className="block text-[10px] font-bold text-slate-400 mb-2 tracking-widest uppercase transition-colors group-focus-within/input:text-primary-ink">المحتوى النصي المفصل (Markdown)</label>
                                 <textarea
                                     value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                                     placeholder="اكتب الشرح، أو أضف روابط خارجية هنا..." rows={5}
-                                    className="w-full bg-slate-50 border-0 rounded-2xl px-6 py-4 font-medium text-slate-700 focus:ring-4 focus:ring-primary-indigo-500/10 focus:bg-white transition-all placeholder:text-slate-300 h-32"
+                                    className="w-full bg-slate-50 border-0 rounded-2xl px-6 py-4 font-medium text-slate-700 focus:ring-4 focus:ring-primary-ink/10 focus:bg-white transition-all placeholder:text-slate-300 h-32"
                                 />
                             </div>
                         </div>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
-                        <div className="bg-white rounded-xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
+                        <div className="bg-white rounded-xl p-8 shadow-sm shadow-slate-200/50 border border-slate-100 flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
                             <h3 className="font-bold text-lg">فيديو الدرس 🔥</h3>
                             <div className="w-full flex-1 flex flex-col justify-center">
                                 {formData.bunnyVideoId ? (
@@ -153,19 +153,19 @@ export default function NewLessonPage() {
                                 <input
                                     type="number" min="0" value={formData.videoDuration} onChange={(e) => setFormData({ ...formData, videoDuration: e.target.value })}
                                     placeholder="مثال: 600"
-                                    className="w-full bg-slate-50 border-0 rounded-xl px-4 py-2.5 font-bold text-slate-800 text-center focus:ring-4 focus:ring-primary-indigo-500/10 text-sm"
+                                    className="w-full bg-slate-50 border-0 rounded-xl px-4 py-2.5 font-bold text-slate-800 text-center focus:ring-4 focus:ring-primary-ink/10 text-sm"
                                 />
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col min-h-[300px]">
+                        <div className="bg-white rounded-xl p-8 shadow-sm shadow-slate-200/50 border border-slate-100 flex flex-col min-h-[300px]">
                             <h3 className="font-bold text-lg mb-4 flex items-center gap-2">ملحقات وموارد الدرس 📚</h3>
                             <div className="flex-1 space-y-4 flex flex-col justify-end">
                                 {formData.attachments.filter(a => a.trim() !== '').length > 0 && (
                                     <div className="space-y-2 mb-4 bg-slate-50 p-3 rounded-2xl border border-dashed border-slate-200">
                                         {formData.attachments.filter(a => a.trim() !== '').map((attachment, index) => (
                                             <div key={index} className="flex items-center gap-2 bg-white p-2 rounded-xl shadow-sm border border-slate-100 animate-in slide-in-from-bottom-1 duration-200">
-                                                <FiUploadCloud className="text-primary-indigo-500 flex-shrink-0" size={16} />
+                                                <FiUploadCloud className="text-primary-ink flex-shrink-0" size={16} />
                                                 <span className="flex-1 text-[10px] font-bold text-slate-600 truncate dir-ltr text-left">{attachment.split('/').pop()}</span>
                                                 <button
                                                     type="button" onClick={() => removeAttachment(index)}
@@ -188,15 +188,15 @@ export default function NewLessonPage() {
                     </div>
 
                     <div 
-                        className={`flex items-center justify-between p-6 rounded-xl border transition-all cursor-pointer group mt-4 relative overflow-hidden ${formData.isFree ? 'bg-indigo-600 border-indigo-500 shadow-lg shadow-indigo-100' : 'bg-white border-slate-100 shadow-sm'}`} 
+                        className={`flex items-center justify-between p-6 rounded-xl border transition-all cursor-pointer group mt-4 relative overflow-hidden ${formData.isFree ? 'bg-ink border-ink shadow-lg shadow-indigo-100' : 'bg-white border-slate-100 shadow-sm'}`} 
                         onClick={() => setFormData({ ...formData, isFree: !formData.isFree })}
                     >
-                        {formData.isFree && <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-indigo-700 opacity-50" />}
+                        {formData.isFree && <div className="absolute inset-0 bg-gradient-to-r from-ink to-indigo-700 opacity-50" />}
                         <div className="text-right relative z-10">
                             <h3 className={`font-bold text-base leading-tight transition-colors ${formData.isFree ? 'text-white' : 'text-slate-800'}`}>إتاحة كدرس مجاني (Free Preview) 👀</h3>
                             <p className={`text-[10px] mt-1 max-w-lg leading-relaxed ${formData.isFree ? 'text-indigo-100' : 'text-slate-400 font-bold'}`}>اسمح للزوار بمشاهدة هذا الدرس مجاناً كإعلان تشويقي.</p>
                         </div>
-                        <div className={`w-12 h-7 rounded-full flex items-center px-1 transition-all relative z-10 ${formData.isFree ? 'bg-white/20 backdrop-blur-md' : 'bg-slate-100'}`}>
+                        <div className={`w-12 h-7 rounded-full flex items-center px-1 transition-all relative z-10 ${formData.isFree ? 'bg-white/20 ' : 'bg-slate-100'}`}>
                             <div className={`w-5 h-5 rounded-full transition-all shadow-md ${formData.isFree ? 'translate-x-[20px] bg-blue-400' : 'translate-x-0 bg-white'}`} />
                         </div>
                     </div>
@@ -210,7 +210,7 @@ export default function NewLessonPage() {
                         </button>
                         <button
                             type="submit" disabled={loading}
-                            className="w-full md:w-auto px-10 py-3.5 bg-slate-900 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-black transition-all shadow-xl shadow-slate-200 active:scale-95 text-base"
+                            className="w-full md:w-auto px-10 py-3.5 bg-slate-900 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-black transition-all shadow-sm shadow-slate-200 active:scale-95 text-base"
                         >
                             <FiSave size={20} />
                             {loading ? 'جاري رفع الإبداع...' : 'اعتماد الدرس بنجاح'}

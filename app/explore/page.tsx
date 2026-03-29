@@ -115,7 +115,7 @@ export default async function ExplorePage({
 
                     {/* Master Search Form - High Performance UI */}
                     <form className="max-w-4xl mx-auto space-y-4">
-                        <div className="flex flex-col md:flex-row gap-2 bg-white/5 p-2 rounded-[2rem] border border-white/10 backdrop-blur-xl shadow-2xl">
+                        <div className="flex flex-col md:flex-row gap-2 bg-white/5 p-2 rounded-[2rem] border border-white/10  shadow-sm">
                             <div className="relative flex-1">
                                 <FiSearch className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
                                 <input
@@ -137,7 +137,7 @@ export default async function ExplorePage({
                                     <option value="ebooks">كتب رقمية</option>
                                     <option value="templates">قوالب وأدوات</option>
                                 </select>
-                                <button type="submit" className="bg-accent text-white px-12 py-5 rounded-3xl font-black text-sm uppercase tracking-widest hover:bg-accent-hover transition-all shadow-xl shadow-accent/20 active:scale-95">
+                                <button type="submit" className="bg-accent text-white px-12 py-5 rounded-3xl font-black text-sm uppercase tracking-widest hover:bg-accent-hover transition-all shadow-sm shadow-accent/20 active:scale-95">
                                     Search
                                 </button>
                             </div>
@@ -187,12 +187,12 @@ export default async function ExplorePage({
 
                 {allItems.length === 0 ? (
                     <div className="text-center py-40 bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-100 p-8">
-                        <div className="w-24 h-24 bg-white rounded-3xl shadow-xl shadow-gray-200/50 flex items-center justify-center mx-auto mb-10 text-gray-200">
+                        <div className="w-24 h-24 bg-white rounded-3xl shadow-sm shadow-gray-200/50 flex items-center justify-center mx-auto mb-10 text-gray-200">
                             <FiSearch size={48} />
                         </div>
                         <h3 className="text-2xl font-black text-ink mb-4">للأسف، لم نجد ما يحاكي بحثك</h3>
                         <p className="text-gray-500 font-bold max-w-sm mx-auto mb-12">حاول استخدام كلمات مفتاحية أكثر عمومية أو قم بإعادة ضبط الفلاتر.</p>
-                        <Link href="/explore" className="inline-flex py-4 px-10 bg-ink text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-gray-800 transition-all shadow-xl shadow-ink/10">
+                        <Link href="/explore" className="inline-flex py-4 px-10 bg-ink text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-gray-800 transition-all shadow-sm shadow-ink/10">
                             Reset Search
                         </Link>
                     </div>
@@ -210,7 +210,7 @@ export default async function ExplorePage({
                     <div className="relative z-10">
                         <h3 className="text-3xl md:text-5xl font-black text-ink tracking-tighter mb-8 leading-tight">جاهز لبيع منتجاتك الخاصة؟</h3>
                         <p className="text-gray-400 text-lg font-bold mb-12 max-w-xl mx-auto">انضم لآلاف البائعين في تمالين وافتح متجرك الاحترافي خلال أقل من 5 دقائق.</p>
-                        <Link href="/register" className="inline-flex items-center gap-3 py-5 px-12 bg-ink text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-black transition-all shadow-2xl shadow-ink/10">
+                        <Link href="/register" className="inline-flex items-center gap-3 py-5 px-12 bg-ink text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-black transition-all shadow-sm shadow-ink/10">
                             Start Selling Now <FiArrowRight className="rotate-180" />
                         </Link>
                     </div>

@@ -4,9 +4,9 @@ export default function DashboardLoading() {
             <div className="relative">
                 {/* Electric Blue Pulsing Spinner */}
                 <div className="w-16 h-16 border-4 border-accent/30 border-t-accent rounded-full animate-spin"></div>
-                <div className="absolute top-0 left-0 w-16 h-16 border-4 border-transparent border-t-accent rounded-full animate-pulse opacity-50"></div>
+                <div className="absolute top-0 left-0 w-16 h-16 border-4 border-transparent border-t-accent rounded-full  opacity-50"></div>
             </div>
-            <p className="mt-4 text-ink font-medium animate-pulse">جاري تحميل البيانات...</p>
+            <p className="mt-4 text-ink font-medium ">جاري تحميل البيانات...</p>
         </div>
     );
 }

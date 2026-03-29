@@ -98,7 +98,7 @@ export default function SellerSupportPage() {
                 </div>
                 <button
                     onClick={() => setShowNewModal(true)}
-                    className="btn btn-primary py-3 px-6 shadow-xl shadow-accent/20 flex items-center gap-2"
+                    className="btn btn-primary py-3 px-6 shadow-sm shadow-accent/20 flex items-center gap-2"
                 >
                     <FiPlus /> تذكرة جديدة
                 </button>
@@ -161,8 +161,8 @@ export default function SellerSupportPage() {
 
             {/* Create Modal */}
             {showNewModal && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex justify-center items-center p-4">
-                    <div className="bg-white dark:bg-card-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden transform transition-all">
+                <div className="fixed inset-0 bg-black/60  z-50 flex justify-center items-center p-4">
+                    <div className="bg-white dark:bg-card-white rounded-3xl shadow-sm w-full max-w-lg overflow-hidden transform transition-all">
                         <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-900/50">
                             <h2 className="text-xl font-bold text-ink dark:text-white flex items-center gap-2">
                                 <FiPlus className="text-accent" /> فتح تذكرة درعم جديدة

@@ -33,7 +33,7 @@ export const NotificationListener = () => {
         const showToast = (notif: any) => {
             const icon = 
                 notif.type === 'SALE' ? <FiDollarSign className="text-green-500" /> :
-                notif.type === 'CUSTOMER' ? <FiUserPlus className="text-blue-500" /> :
+                notif.type === 'CUSTOMER' ? <FiUserPlus className="text-accent-500" /> :
                 notif.type === 'ORDER' ? <FiShoppingBag className="text-purple-500" /> :
                 <FiBell className="text-accent" />;
 
@@ -41,7 +41,7 @@ export const NotificationListener = () => {
                 <div
                     className={`${
                         t.visible ? 'animate-enter' : 'animate-leave'
-                    } max-w-md w-full bg-white dark:bg-card-white shadow-2xl rounded-[2rem] pointer-events-auto flex ring-1 ring-black ring-opacity-5 border border-gray-100 dark:border-gray-800`}
+                    } max-w-md w-full bg-white dark:bg-card-white shadow-sm rounded-[2rem] pointer-events-auto flex ring-1 ring-black ring-opacity-5 border border-gray-100 dark:border-gray-800`}
                 >
                     <div className="flex-1 w-0 p-5">
                         <div className="flex items-start">

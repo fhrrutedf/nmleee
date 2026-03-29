@@ -88,7 +88,7 @@ export function CertificateDownload({
     // Don't show anything while loading
     if (loading) {
         return (
-            <div className="bg-white border border-gray-100 rounded-2xl p-6 animate-pulse">
+            <div className="bg-white border border-gray-100 rounded-2xl p-6 ">
                 <div className="h-20 bg-gray-50 rounded-xl"></div>
             </div>
         );

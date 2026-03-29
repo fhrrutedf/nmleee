@@ -47,7 +47,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                 placeholder="عن ماذا تبحث اليوم؟"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full py-5 pl-8 pr-16 rounded-3xl bg-white text-ink font-bold placeholder:font-bold placeholder:text-gray-300 outline-none focus:ring-4 focus:ring-accent/20 transition-all border-none shadow-2xl"
+                                className="w-full py-5 pl-8 pr-16 rounded-3xl bg-white text-ink font-bold placeholder:font-bold placeholder:text-gray-300 outline-none focus:ring-4 focus:ring-accent/20 transition-all border-none shadow-sm"
                             />
                         </div>
                     </motion.div>
@@ -64,7 +64,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                 key={idx}
                                 onClick={() => setSelectedCategory(cat)}
                                 className={`px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${selectedCategory === cat
-                                    ? 'bg-ink text-white shadow-xl shadow-ink/10 -translate-y-1'
+                                    ? 'bg-ink text-white shadow-sm shadow-ink/10 -translate-y-1'
                                     : 'bg-white text-gray-400 border border-gray-100 hover:border-ink hover:text-ink'
                                     }`}
                             >
@@ -78,7 +78,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                         <>
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 {visiblePosts.map((post) => (
-                                    <article key={post.id} className="group flex flex-col bg-white border border-gray-100 rounded-[2.5rem] p-4 transition-all duration-500 hover:border-accent/20 hover:shadow-2xl hover:shadow-gray-200/50">
+                                    <article key={post.id} className="group flex flex-col bg-white border border-gray-100 rounded-[2.5rem] p-4 transition-all duration-500 hover:border-accent/20 hover:shadow-sm hover:shadow-gray-200/50">
                                         <div className="h-64 overflow-hidden rounded-[2rem] relative bg-gray-50 mb-8 border border-gray-50">
                                             <div className="absolute top-4 right-4 z-10">
                                                 <span className="bg-white px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest text-ink shadow-lg shadow-black/5 flex items-center gap-2 outline outline-1 outline-gray-50">
@@ -127,7 +127,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                 <div className="mt-20 text-center">
                                     <button
                                         onClick={() => setVisibleCount(prev => prev + 6)}
-                                        className="px-12 py-5 bg-white border border-gray-200 text-ink font-black text-xs uppercase tracking-[0.25em] rounded-2xl hover:border-ink hover:text-ink transition-all shadow-sm hover:shadow-xl active:scale-95"
+                                        className="px-12 py-5 bg-white border border-gray-200 text-ink font-black text-xs uppercase tracking-[0.25em] rounded-2xl hover:border-ink hover:text-ink transition-all shadow-sm hover:shadow-sm active:scale-95"
                                     >
                                         Load More Insights
                                     </button>
@@ -136,14 +136,14 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                         </>
                     ) : (
                         <div className="text-center py-40 bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-100 p-8">
-                             <div className="w-20 h-20 bg-white rounded-3xl shadow-xl shadow-gray-200/50 flex items-center justify-center mx-auto mb-8 text-gray-200">
+                             <div className="w-20 h-20 bg-white rounded-3xl shadow-sm shadow-gray-200/50 flex items-center justify-center mx-auto mb-8 text-gray-200">
                                 <FiSearch size={32} />
                             </div>
                             <h3 className="text-2xl font-black text-ink mb-2 tracking-tight">لا توجد نتائج مطابقة لفلترك</h3>
                             <p className="text-gray-400 font-bold mb-10 max-w-sm mx-auto">حاول استخدام كلمات مختلفة أو ابحث في تصنيف آخر.</p>
                             <button
                                 onClick={() => { setSelectedCategory('الكل'); setSearchQuery(''); }}
-                                className="px-10 py-4 bg-ink text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-black transition-all shadow-xl shadow-ink/10"
+                                className="px-10 py-4 bg-ink text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-black transition-all shadow-sm shadow-ink/10"
                             >
                                 Reset All Filters
                             </button>

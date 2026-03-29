@@ -40,7 +40,7 @@ export default function OrderSummary({
     disabled
 }: OrderSummaryProps) {
     return (
-        <div className="bg-white rounded-3xl border border-gray-100 shadow-2xl p-8 space-y-10 sticky top-24">
+        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 space-y-10 sticky top-24">
             <div className="flex items-baseline justify-between overflow-hidden">
                 <h2 className="text-xl font-bold text-ink tracking-tight">ملخص الطلب</h2>
                 <span className="text-[10px] font-bold text-accent bg-accent-light px-3 py-1 rounded-full uppercase tracking-widest">
@@ -141,7 +141,7 @@ export default function OrderSummary({
                 <button
                     onClick={onCheckout}
                     disabled={loading || disabled}
-                    className="group relative w-full h-16 bg-ink text-white rounded-xl overflow-hidden shadow-xl active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="group relative w-full h-16 bg-ink text-white rounded-xl overflow-hidden shadow-sm active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     <div className="relative flex items-center justify-center gap-3 font-bold text-lg tracking-tight">
                         {loading ? (

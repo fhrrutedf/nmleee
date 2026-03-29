@@ -77,7 +77,7 @@ export default function ManualPaymentSettingsPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
             </div>
         );
     }
@@ -107,7 +107,7 @@ export default function ManualPaymentSettingsPage() {
                                         type="text"
                                         value={shamCashNumber}
                                         onChange={(e) => setShamCashNumber(e.target.value)}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                         placeholder="+963 XXX XXX XXX"
                                     />
                                 </div>
@@ -120,7 +120,7 @@ export default function ManualPaymentSettingsPage() {
                                         type="text"
                                         value={omtNumber}
                                         onChange={(e) => setOmtNumber(e.target.value)}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                         placeholder="+963 XXX XXX XXX"
                                     />
                                 </div>
@@ -133,7 +133,7 @@ export default function ManualPaymentSettingsPage() {
                                         type="text"
                                         value={mtncashNumber}
                                         onChange={(e) => setMtncashNumber(e.target.value)}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                         placeholder="+963 XXX XXX XXX"
                                     />
                                 </div>
@@ -154,7 +154,7 @@ export default function ManualPaymentSettingsPage() {
                                     type="text"
                                     value={zainCashNumber}
                                     onChange={(e) => setZainCashNumber(e.target.value)}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                     placeholder="+964 XXX XXX XXXX"
                                 />
                             </div>
@@ -174,7 +174,7 @@ export default function ManualPaymentSettingsPage() {
                                     type="text"
                                     value={vodafoneCash}
                                     onChange={(e) => setVodafoneCash(e.target.value)}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                     placeholder="+20 XXX XXX XXXX"
                                 />
                             </div>
@@ -185,7 +185,7 @@ export default function ManualPaymentSettingsPage() {
                             <button
                                 type="submit"
                                 disabled={saving}
-                                className="w-full px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
+                                className="w-full px-6 py-3 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
                             >
                                 <FiSave />
                                 {saving ? 'جاري الحفظ...' : 'حفظ الإعدادات'}
@@ -195,7 +195,7 @@ export default function ManualPaymentSettingsPage() {
                 </div>
 
                 {/* Info */}
-                <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div className="mt-6 bg-accent-50 border border-blue-200 rounded-lg p-4">
                     <h3 className="font-bold text-blue-900 mb-2">💡 ملاحظات:</h3>
                     <ul className="text-sm text-blue-800 space-y-1">
                         <li>• يمكنك إضافة رقم واحد أو أكثر حسب الدول التي تستقبل منها دفعات</li>

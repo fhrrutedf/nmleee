@@ -80,7 +80,7 @@ export default function CreatorStorePage() {
 
                 {/* Creator Info */}
                 <div className="max-w-5xl mx-auto px-4 -mt-20 relative">
-                    <div className="bg-white rounded-2xl shadow-xl p-8">
+                    <div className="bg-white rounded-2xl shadow-sm p-8">
                         <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
                             {/* Avatar */}
                             <div className="flex-shrink-0">
@@ -175,7 +175,7 @@ export default function CreatorStorePage() {
                             <Link
                                 key={product.id}
                                 href={`/@${creator.username}/${product.slug}`}
-                                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-xl transition-all group"
+                                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-sm transition-all group"
                             >
                                 {product.image ? (
                                     <img

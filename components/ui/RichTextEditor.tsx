@@ -7,7 +7,7 @@ import "react-quill-new/dist/quill.snow.css";
 // Dynamic import with no SSR to avoid 'document is not defined' error
 const ReactQuill = dynamic(() => import("react-quill-new"), {
     ssr: false,
-    loading: () => <div className="h-64 bg-gray-50 flex animate-pulse rounded-2xl border border-gray-200"></div>,
+    loading: () => <div className="h-64 bg-gray-50 flex  rounded-2xl border border-gray-200"></div>,
 });
 
 interface RichTextEditorProps {

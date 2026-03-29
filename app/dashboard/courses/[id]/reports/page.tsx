@@ -66,7 +66,7 @@ export default function CourseReportsPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
             </div>
         );
     }
@@ -85,7 +85,7 @@ export default function CourseReportsPage() {
                                 <p className="text-3xl font-bold text-gray-900">{stats.totalStudents}</p>
                             </div>
                             <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
-                                <FiUsers className="text-indigo-600" size={24} />
+                                <FiUsers className="text-ink" size={24} />
                             </div>
                         </div>
                     </div>
@@ -109,7 +109,7 @@ export default function CourseReportsPage() {
                                 <p className="text-3xl font-bold text-gray-900">{stats.averageProgress.toFixed(0)}%</p>
                             </div>
                             <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                <FiTrendingUp className="text-blue-600" size={24} />
+                                <FiTrendingUp className="text-accent-600" size={24} />
                             </div>
                         </div>
                     </div>
@@ -143,7 +143,7 @@ export default function CourseReportsPage() {
                             return (
                                 <div key={range} className="flex-1 flex flex-col items-center">
                                     <div
-                                        className="w-full bg-indigo-500 rounded-t-lg hover:bg-indigo-600 transition-colors cursor-pointer"
+                                        className="w-full bg-ink rounded-t-lg hover:bg-ink transition-colors cursor-pointer"
                                         style={{ height: `${percentage * 2}px` }}
                                         title={`${count} طلاب`}
                                     />
@@ -195,7 +195,7 @@ export default function CourseReportsPage() {
                                             <div className="flex items-center gap-3">
                                                 <div className="flex-1 bg-gray-200 rounded-full h-2">
                                                     <div
-                                                        className="bg-indigo-600 h-2 rounded-full"
+                                                        className="bg-ink h-2 rounded-full"
                                                         style={{ width: `${student.progress}%` }}
                                                     />
                                                 </div>

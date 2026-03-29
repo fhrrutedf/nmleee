@@ -50,7 +50,7 @@ const plans = [
         storage: '15 جيجابايت',
         students: 'حتى 1,000 طالب',
         support: 'بريد + دردشة مباشرة',
-        color: 'from-blue-500 to-purple-600',
+        color: 'from-accent-500 to-purple-600',
         border: 'border-accent',
         btnClass: 'bg-accent hover:bg-accent/90 text-white',
         popular: true,
@@ -208,7 +208,7 @@ export default function BillingPage() {
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 bg-accent/20 border border-accent/40 text-accent px-4 py-2 rounded-full text-sm font-bold mb-6 backdrop-blur-sm"
+                        className="inline-flex items-center gap-2 bg-accent/20 border border-accent/40 text-accent px-4 py-2 rounded-full text-sm font-bold mb-6 "
                     >
                         🚀 عرض إطلاق حصري — خصم 50% لأول 3 أشهر لأول 500 بائع!
                     </motion.div>
@@ -238,7 +238,7 @@ export default function BillingPage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
-                        className="inline-flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-2xl p-2"
+                        className="inline-flex items-center gap-4 bg-white/10  rounded-2xl p-2"
                     >
                         <button
                             onClick={() => setIsYearly(false)}
@@ -268,7 +268,7 @@ export default function BillingPage() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.1 }}
-                            className={`relative bg-white dark:bg-gray-900 rounded-3xl border-2 ${plan.border} shadow-xl flex flex-col overflow-hidden
+                            className={`relative bg-white dark:bg-gray-900 rounded-3xl border-2 ${plan.border} shadow-sm flex flex-col overflow-hidden
                                 ${plan.popular ? 'ring-2 ring-accent ring-offset-4 ring-offset-bg-light dark:ring-offset-gray-950 scale-105 lg:scale-105 my-2 lg:my-0 z-10' : ''}`}
                         >
                             {/* Popular Badge */}
@@ -359,7 +359,7 @@ export default function BillingPage() {
                                 {/* CTA */}
                                 <button
                                     onClick={() => plan.slug !== 'enterprise' ? handleUpgrade(plan.slug) : window.open('/contact', '_blank')}
-                                    className={`w-full py-3.5 rounded-2xl text-center font-bold text-sm transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5 ${plan.slug === currentPlanSlug ? 'bg-gray-100 text-gray-500 cursor-not-allowed border-none' : plan.btnClass}`}
+                                    className={`w-full py-3.5 rounded-2xl text-center font-bold text-sm transition-all duration-200 shadow-lg hover:shadow-sm hover:-translate-y-0.5 ${plan.slug === currentPlanSlug ? 'bg-gray-100 text-gray-500 cursor-not-allowed border-none' : plan.btnClass}`}
                                     disabled={plan.slug === currentPlanSlug || upgrading === plan.slug}
                                 >
                                     {upgrading === plan.slug ? (
@@ -397,7 +397,7 @@ export default function BillingPage() {
                             <span className="bg-white/20 px-3 py-1 rounded-full mx-2 font-bold">۴۸۳ مقعد</span>
                         </p>
                         <button
-                            className="inline-block bg-white text-accent font-bold px-8 py-3.5 rounded-2xl hover:shadow-2xl transition-all hover:-translate-y-0.5 text-lg"
+                            className="inline-block bg-white text-accent font-bold px-8 py-3.5 rounded-2xl hover:shadow-sm transition-all hover:-translate-y-0.5 text-lg"
                         >
                             قم بالترقية الآن ←
                         </button>
@@ -438,7 +438,7 @@ export default function BillingPage() {
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="mt-8 overflow-x-auto rounded-3xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-xl"
+                        className="mt-8 overflow-x-auto rounded-3xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm"
                     >
                         <table className="w-full text-sm">
                             <thead>

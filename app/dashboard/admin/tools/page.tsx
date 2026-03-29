@@ -374,7 +374,7 @@ export default function AdminPayoutsPage() {
                                             <td className="py-3 px-3">
                                                 <button
                                                     onClick={() => loginAsUser(p.seller.id, p.seller.name)}
-                                                    className="btn bg-blue-50 hover:bg-blue-100 text-accent text-xs py-1.5 px-3 flex items-center gap-1">
+                                                    className="btn bg-accent-50 hover:bg-blue-100 text-accent text-xs py-1.5 px-3 flex items-center gap-1">
                                                     <FiLogIn /> دخول كـ
                                                 </button>
                                             </td>
@@ -411,7 +411,7 @@ export default function AdminPayoutsPage() {
                                             <span className="font-semibold text-ink dark:text-white text-sm">
                                                 {log.actor_name ?? 'System'}
                                             </span>
-                                            <span className={`text-xs px-1.5 py-0.5 rounded ${log.actor_role === 'ADMIN' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-blue-600'}`}>
+                                            <span className={`text-xs px-1.5 py-0.5 rounded ${log.actor_role === 'ADMIN' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-accent-600'}`}>
                                                 {log.actor_role}
                                             </span>
                                         </div>
@@ -435,8 +435,8 @@ export default function AdminPayoutsPage() {
 
             {/* ══════════════ REJECT MODAL ══════════════ */}
             {rejectModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-                    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-4">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50  p-4">
+                    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm w-full max-w-md p-6 space-y-4">
                         <div className="flex items-center justify-between">
                             <h2 className="font-bold text-lg text-ink dark:text-white flex items-center gap-2">
                                 <FiAlertTriangle className="text-red-500" />
@@ -462,8 +462,8 @@ export default function AdminPayoutsPage() {
 
             {/* ══════════════ COMMISSION MODAL ══════════════ */}
             {commModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-                    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-sm p-6 space-y-4">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50  p-4">
+                    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm w-full max-w-sm p-6 space-y-4">
                         <div className="flex items-center justify-between">
                             <h2 className="font-bold text-lg text-ink dark:text-white">
                                 <FiPercent className="inline ml-2 text-purple-600" />

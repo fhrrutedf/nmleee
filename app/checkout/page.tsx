@@ -233,7 +233,7 @@ export default function CheckoutPage() {
                     <div className="lg:col-span-7 space-y-10">
                         
                         {/* 1. Personal Information */}
-                        <div className="bg-white border border-gray-100 p-8 sm:p-10 rounded-3xl shadow-xl shadow-gray-200/20 ring-1 ring-gray-50">
+                        <div className="bg-white border border-gray-100 p-8 sm:p-10 rounded-3xl shadow-sm shadow-gray-200/20 ring-1 ring-gray-50">
                             <h3 className="text-xl font-bold text-ink mb-10 flex items-center gap-4">
                                 <span className="w-1.5 h-6 bg-ink rounded-full"></span> البيانات الشخصية والدولة
                             </h3>
@@ -256,7 +256,7 @@ export default function CheckoutPage() {
                         </div>
 
                         {/* 2. Payment Gateway Section */}
-                        <div className="bg-white border border-gray-100 p-8 sm:p-10 rounded-3xl shadow-xl shadow-gray-200/20 ring-1 ring-gray-50">
+                        <div className="bg-white border border-gray-100 p-8 sm:p-10 rounded-3xl shadow-sm shadow-gray-200/20 ring-1 ring-gray-50">
                             <h3 className="text-xl font-bold text-ink mb-10 flex items-center gap-4">
                                 <span className="w-1.5 h-6 bg-accent rounded-full"></span> اختيار وسيلة الدفع
                             </h3>
@@ -339,9 +339,9 @@ export default function CheckoutPage() {
 
             {/* ═══ Professional Spaceremit V2 Payment Overlay ═══ */}
             <div 
-                className={`fixed inset-0 z-[9999] bg-ink/60 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-500 ${spOrderData ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+                className={`fixed inset-0 z-[9999] bg-ink/60  flex items-center justify-center p-4 transition-all duration-500 ${spOrderData ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
             >
-                <div className="bg-white rounded-[2.5rem] p-10 max-w-lg w-full shadow-2xl border border-gray-100 max-h-[90vh] overflow-y-auto relative">
+                <div className="bg-white rounded-[2.5rem] p-10 max-w-lg w-full shadow-sm border border-gray-100 max-h-[90vh] overflow-y-auto relative">
                     <div className="flex items-center justify-between mb-10">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center text-white shadow-lg shadow-accent/20">
@@ -395,7 +395,7 @@ export default function CheckoutPage() {
                             <div id="spaceremit-card-pay" className="px-2"></div>
                         </div>
 
-                        <button type="submit" className="w-full py-5 bg-ink text-white rounded-2xl font-bold text-lg transition-all shadow-xl shadow-ink/20 hover:bg-gray-800 hover:shadow-ink/30 transform hover:-translate-y-0.5 mt-6 mb-4">
+                        <button type="submit" className="w-full py-5 bg-ink text-white rounded-2xl font-bold text-lg transition-all shadow-sm shadow-ink/20 hover:bg-gray-800 hover:shadow-ink/30 transform hover:-translate-y-0.5 mt-6 mb-4">
                             ادفع الآن آمن
                         </button>
                     </form>

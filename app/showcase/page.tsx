@@ -68,7 +68,7 @@ export default function ShowcasePage() {
                 <div className="container-custom">
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {showcases.map((item, idx) => (
-                            <div key={idx} className="group rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all hover:-translate-y-2 bg-white">
+                            <div key={idx} className="group rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-sm transition-all hover:-translate-y-2 bg-white">
                                 <div className="h-48 overflow-hidden relative">
                                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors z-10"></div>
                                     <img
@@ -103,7 +103,7 @@ export default function ShowcasePage() {
                         <p className="text-xl text-gray-600 mb-8">
                             لا تدع أفكارك تبقى حبيسة الأدراج. ابدأ اليوم وحول شغفك إلى مشروع حقيقي.
                         </p>
-                        <Link href="/register" className="btn btn-primary text-lg px-10 py-4 shadow-xl">
+                        <Link href="/register" className="btn btn-primary text-lg px-10 py-4 shadow-sm">
                             ابدأ قصتك الآن
                         </Link>
                     </div>

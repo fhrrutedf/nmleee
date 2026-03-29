@@ -130,7 +130,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                 PROFILE CARD
             ══════════════════════════════════════════ */}
             <div className="max-w-5xl mx-auto px-4 sm:px-6">
-                <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-xl shadow-gray-200/60 dark:shadow-black/40 -mt-16 sm:-mt-20 relative z-10 overflow-hidden">
+                <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm shadow-gray-200/60 dark:shadow-black/40 -mt-16 sm:-mt-20 relative z-10 overflow-hidden">
 
                     {/* Top accent line */}
                     <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${brandColor}, #7c3aed)` }} />
@@ -141,7 +141,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                             {/* Avatar */}
                             <div className="relative flex-shrink-0 -mt-16 sm:-mt-20 z-10">
                                 <div
-                                    className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-900"
+                                    className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl sm:rounded-3xl overflow-hidden shadow-sm border-4 border-white dark:border-gray-900"
                                     style={{ boxShadow: `0 0 0 4px ${brandColor}40, 0 20px 40px -8px ${brandColor}60` }}
                                 >
                                     {creator.avatar ? (
@@ -198,19 +198,19 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                         initial={{ opacity: 0, scale: 0.95, y: 8 }}
                                                         animate={{ opacity: 1, scale: 1, y: 0 }}
                                                         exit={{ opacity: 0, scale: 0.95, y: 8 }}
-                                                        className="absolute left-0 top-full mt-2 w-52 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 p-2 z-50"
+                                                        className="absolute left-0 top-full mt-2 w-52 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-2 z-50"
                                                     >
                                                         <button onClick={copyLink} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 text-right transition-colors">
                                                             <FiCopy className="text-gray-400" /> نسخ رابط المتجر
                                                         </button>
                                                         <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}&text=${encodeURIComponent(`اكتشف منتجات ${creator.name}`)}`}
                                                             target="_blank" rel="noopener noreferrer"
-                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-500 text-right transition-colors">
+                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-accent-50 dark:hover:bg-blue-900/20 hover:text-accent-500 text-right transition-colors">
                                                             <FiTwitter className="text-gray-400" /> مشاركة على تويتر
                                                         </a>
                                                         <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
                                                             target="_blank" rel="noopener noreferrer"
-                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 text-right transition-colors">
+                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-accent-50 dark:hover:bg-blue-900/20 hover:text-accent-600 text-right transition-colors">
                                                             <FiFacebook className="text-gray-400" /> مشاركة على فيسبوك
                                                         </a>
                                                     </motion.div>
@@ -280,7 +280,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                 : `/product/${featuredProduct.id}`;
                             return brandColor ? `${base}?brand=${encodeURIComponent(brandColor)}` : base;
                         })()}>
-                            <div className="group relative rounded-3xl overflow-hidden bg-white dark:bg-gray-900 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row h-auto sm:h-64">
+                            <div className="group relative rounded-3xl overflow-hidden bg-white dark:bg-gray-900 shadow-sm hover:shadow-sm transition-all duration-300 border border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row h-auto sm:h-64">
 
                                 {/* Image */}
                                 <div className="relative w-full sm:w-80 h-52 sm:h-full flex-shrink-0 overflow-hidden">
@@ -304,7 +304,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                     <div className="flex items-center gap-2 mb-2">
                                         {featuredProduct.category === 'courses'
                                             ? <span className="text-xs font-bold text-purple-600 bg-purple-100 dark:bg-purple-900/30 px-2 py-0.5 rounded-full flex items-center gap-1"><FiVideo size={10} /> دورة تدريبية</span>
-                                            : <span className="text-xs font-bold text-blue-600 bg-blue-100 dark:bg-blue-900/30 px-2 py-0.5 rounded-full flex items-center gap-1"><FiPackage size={10} /> منتج رقمي</span>
+                                            : <span className="text-xs font-bold text-accent-600 bg-blue-100 dark:bg-blue-900/30 px-2 py-0.5 rounded-full flex items-center gap-1"><FiPackage size={10} /> منتج رقمي</span>
                                         }
                                     </div>
                                     <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-accent transition-colors line-clamp-2">
@@ -425,7 +425,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                     const base = product.category === 'courses' ? `/courses/${product.slug || product.id}` : `/product/${product.id}`;
                                                     return brandColor ? `${base}?brand=${encodeURIComponent(brandColor)}` : base;
                                                 })()}
-                                                className="group block bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-xl transition-all duration-300 h-full">
+                                                className="group block bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-sm transition-all duration-300 h-full">
 
                                                 {/* Image */}
                                                 <div className="relative aspect-video overflow-hidden bg-gray-100 dark:bg-gray-800">
@@ -441,7 +441,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                     <div className="absolute top-2.5 right-2.5 flex flex-col gap-1.5">
                                                         {product.isFree || product.price === 0
                                                             ? <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-lg shadow">مجاني</span>
-                                                            : <span className="bg-black/70 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-lg">{product.price} $</span>
+                                                            : <span className="bg-black/70  text-white text-[10px] font-bold px-2 py-1 rounded-lg">{product.price} $</span>
                                                         }
                                                         {(product.category === 'courses' || product.category === 'course') && (
                                                             <span className="bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1">
@@ -452,11 +452,11 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                 </div>
 
                                                 {/* Content */}
-                                                <div className="p-5 backdrop-blur-md bg-white/40 dark:bg-gray-900/40 border-t border-white/20">
+                                                <div className="p-5  bg-white/40 dark:bg-gray-900/40 border-t border-white/20">
                                                     <div className="flex items-center gap-2 mb-2">
                                                         {product.category === 'courses'
                                                             ? <span className="text-[9px] font-bold uppercase tracking-tighter text-purple-600 bg-purple-100 px-2 py-0.5 rounded-md">دورة VIP</span>
-                                                            : <span className="text-[9px] font-bold uppercase tracking-tighter text-blue-600 bg-blue-100 px-2 py-0.5 rounded-md">ملف رقمي</span>
+                                                            : <span className="text-[9px] font-bold uppercase tracking-tighter text-accent-600 bg-blue-100 px-2 py-0.5 rounded-md">ملف رقمي</span>
                                                         }
                                                     </div>
                                                     <h3 className="font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-accent transition-colors text-sm leading-tight h-10">
@@ -478,7 +478,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                                 </span>
                                                             )}
                                                         </div>
-                                                        <div className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-white text-[10px] font-bold shadow-lg transition-all group-hover:scale-105 group-hover:shadow-xl" 
+                                                        <div className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-white text-[10px] font-bold shadow-lg transition-all group-hover:scale-105 group-hover:shadow-sm" 
                                                             style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}>
                                                             <FiShoppingCart size={11} /> شراء سريع
                                                         </div>
@@ -543,7 +543,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                             </div>
                             <Link
                                 href={`/${creator.username}/book`}
-                                className="flex-shrink-0 px-8 py-3.5 bg-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all text-sm"
+                                className="flex-shrink-0 px-8 py-3.5 bg-white font-bold rounded-2xl shadow-lg hover:shadow-sm hover:scale-105 transition-all text-sm"
                                 style={{ color: brandColor }}
                             >
                                 احجز الآن ←

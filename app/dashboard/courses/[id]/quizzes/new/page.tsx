@@ -87,7 +87,7 @@ export default function NewQuizPage() {
                                 value={formData.title}
                                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                                 placeholder="مثال: اختبار الوحدة الأولى"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink focus:border-transparent"
                             />
                         </div>
 
@@ -101,7 +101,7 @@ export default function NewQuizPage() {
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                 placeholder="وصف مختصر للاختبار"
                                 rows={2}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink focus:border-transparent"
                             />
                         </div>
 
@@ -117,7 +117,7 @@ export default function NewQuizPage() {
                                     max="100"
                                     value={formData.passingScore}
                                     onChange={(e) => setFormData({ ...formData, passingScore: parseInt(e.target.value) })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink focus:border-transparent"
                                 />
                             </div>
 
@@ -131,7 +131,7 @@ export default function NewQuizPage() {
                                     value={formData.timeLimit}
                                     onChange={(e) => setFormData({ ...formData, timeLimit: e.target.value })}
                                     placeholder="غير محدود"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink focus:border-transparent"
                                 />
                             </div>
                         </div>
@@ -149,7 +149,7 @@ export default function NewQuizPage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
+                                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
                             >
                                 <FiSave />
                                 {loading ? 'جاري الحفظ...' : 'حفظ الاختبار'}

@@ -24,8 +24,8 @@ export const Skeleton: React.FC<SkeletonProps> = ({
     };
 
     const animationClasses = {
-        pulse: 'animate-pulse',
-        wave: 'animate-shimmer bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700',
+        pulse: '',
+        wave: ' bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700',
     };
 
     const style: React.CSSProperties = {

@@ -95,7 +95,7 @@ export default function PayoutSettings() {
     };
 
     if (loading) {
-        return <div className="animate-pulse space-y-4">
+        return <div className=" space-y-4">
             <div className="h-10 bg-gray-100 rounded-lg w-1/4"></div>
             <div className="h-64 bg-gray-50 rounded-2xl"></div>
         </div>;
@@ -219,7 +219,7 @@ export default function PayoutSettings() {
                                     onChange={e => setData({...data, cryptoWallet: e.target.value})}
                                     placeholder="T..."
                                 />
-                                <p className="text-xs text-blue-600 mt-2">نرجوا التأكد من أن العنوان يدعم شبكة TRC20 لتجنب ضياع المبلغ.</p>
+                                <p className="text-xs text-accent-600 mt-2">نرجوا التأكد من أن العنوان يدعم شبكة TRC20 لتجنب ضياع المبلغ.</p>
                             </div>
                         )}
 

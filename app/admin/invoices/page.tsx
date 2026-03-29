@@ -120,7 +120,7 @@ export default function AdminInvoicesPage() {
                                     value={search}
                                     onChange={e => setSearch(e.target.value)}
                                     onKeyDown={e => e.key === 'Enter' && handleSearch()}
-                                    className="w-full pr-10 pl-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-sm outline-none focus:ring-2 focus:ring-indigo-500/20"
+                                    className="w-full pr-10 pl-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-sm outline-none focus:ring-2 focus:ring-ink/20"
                                 />
                             </div>
                         </div>
@@ -136,7 +136,7 @@ export default function AdminInvoicesPage() {
                         </select>
                         <button
                             onClick={handleSearch}
-                            className="px-4 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-indigo-700 transition-colors"
+                            className="px-4 py-2.5 bg-ink text-white rounded-xl text-sm font-bold hover:bg-indigo-700 transition-colors"
                         >
                             بحث
                         </button>
@@ -146,7 +146,7 @@ export default function AdminInvoicesPage() {
                 {/* Invoices Table */}
                 {loading ? (
                     <div className="flex items-center justify-center py-20">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
                     </div>
                 ) : invoices.length === 0 ? (
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 text-center border border-gray-100 dark:border-gray-700">
@@ -181,7 +181,7 @@ export default function AdminInvoicesPage() {
                                                 onClick={() => setSelectedInvoice(inv)}
                                             >
                                                 <td className="px-4 py-3">
-                                                    <span className="font-mono text-xs font-bold text-indigo-600">{inv.invoiceNumber}</span>
+                                                    <span className="font-mono text-xs font-bold text-ink">{inv.invoiceNumber}</span>
                                                 </td>
                                                 <td className="px-4 py-3">
                                                     <span className="font-mono text-xs text-gray-500">{inv.order.orderNumber}</span>
@@ -209,7 +209,7 @@ export default function AdminInvoicesPage() {
                                                     {inv.paymentProof ? (
                                                         <button
                                                             onClick={(e) => { e.stopPropagation(); setProofImage(inv.paymentProof); }}
-                                                            className="w-10 h-10 rounded-lg border overflow-hidden hover:ring-2 hover:ring-indigo-500 transition-all"
+                                                            className="w-10 h-10 rounded-lg border overflow-hidden hover:ring-2 hover:ring-ink transition-all"
                                                         >
                                                             <img src={inv.paymentProof} alt="" className="w-full h-full object-cover" />
                                                         </button>
@@ -263,7 +263,7 @@ export default function AdminInvoicesPage() {
             {/* Detail Modal */}
             {selectedInvoice && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelectedInvoice(null)}>
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>
+                    <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-sm" onClick={e => e.stopPropagation()}>
                         <div className="p-6 space-y-5">
                             {/* Header */}
                             <div className="flex items-center justify-between">
@@ -312,7 +312,7 @@ export default function AdminInvoicesPage() {
                                 <div className="h-px bg-gray-200 dark:bg-gray-700"></div>
                                 <div className="flex justify-between text-base font-bold">
                                     <span>الإجمالي</span>
-                                    <span className="text-indigo-600">${selectedInvoice.totalAmount.toFixed(2)}</span>
+                                    <span className="text-ink">${selectedInvoice.totalAmount.toFixed(2)}</span>
                                 </div>
                             </div>
 

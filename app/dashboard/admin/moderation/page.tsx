@@ -162,7 +162,7 @@ export default function CourseModerationPage() {
                                                 target="_blank"
                                                 rel="noreferrer"
                                                 title="معاينة كزائر"
-                                                className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors"
+                                                className="w-8 h-8 flex items-center justify-center rounded-full bg-accent-50 text-accent-600 hover:bg-blue-100 transition-colors"
                                             >
                                                 <FiEye className="w-4 h-4" />
                                             </a>
@@ -196,8 +196,8 @@ export default function CourseModerationPage() {
 
             {/* Reject Modal */}
             {isRejectModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-                    <div className="bg-white dark:bg-[#1a1c23] rounded-2xl p-6 w-full max-w-md shadow-2xl relative">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 ">
+                    <div className="bg-white dark:bg-[#1a1c23] rounded-2xl p-6 w-full max-w-md shadow-sm relative">
                         <button
                             onClick={() => setIsRejectModalOpen(false)}
                             className="absolute top-4 left-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 hover:text-red-500"

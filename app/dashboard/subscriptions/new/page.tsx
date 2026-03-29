@@ -80,7 +80,7 @@ export default function NewSubscriptionPlanPage() {
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                 placeholder="مثال: Basic, Pro, Premium"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink focus:border-transparent"
                             />
                         </div>
 
@@ -95,7 +95,7 @@ export default function NewSubscriptionPlanPage() {
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                 placeholder="وصف مختصر للخطة"
                                 rows={3}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink focus:border-transparent"
                             />
                         </div>
 
@@ -113,7 +113,7 @@ export default function NewSubscriptionPlanPage() {
                                     value={formData.price}
                                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                                     placeholder="99.00"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink focus:border-transparent"
                                 />
                             </div>
 
@@ -124,7 +124,7 @@ export default function NewSubscriptionPlanPage() {
                                 <select
                                     value={formData.interval}
                                     onChange={(e) => setFormData({ ...formData, interval: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink focus:border-transparent"
                                 >
                                     <option value="month">شهري</option>
                                     <option value="year">سنوي</option>
@@ -145,7 +145,7 @@ export default function NewSubscriptionPlanPage() {
                                             value={feature}
                                             onChange={(e) => updateFeature(index, e.target.value)}
                                             placeholder="أدخل ميزة"
-                                            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink focus:border-transparent"
                                         />
                                         {formData.features.length > 1 && (
                                             <button
@@ -162,7 +162,7 @@ export default function NewSubscriptionPlanPage() {
                             <button
                                 type="button"
                                 onClick={addFeature}
-                                className="mt-2 flex items-center gap-2 text-indigo-600 hover:text-indigo-700 text-sm font-medium"
+                                className="mt-2 flex items-center gap-2 text-ink hover:text-indigo-700 text-sm font-medium"
                             >
                                 <FiPlus size={16} />
                                 إضافة ميزة
@@ -174,7 +174,7 @@ export default function NewSubscriptionPlanPage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="flex-1 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex-1 px-6 py-3 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {loading ? 'جاري الإنشاء...' : 'إنشاء الخطة'}
                             </button>

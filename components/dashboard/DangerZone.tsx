@@ -73,8 +73,8 @@ export default function DangerZone() {
 
             {/* Delete Modal */}
             {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-                    <div className="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden animate-scale-in">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  animate-fade-in">
+                    <div className="bg-white rounded-3xl shadow-sm w-full max-w-lg overflow-hidden animate-scale-in">
                         <div className="p-6 bg-red-600 text-white flex justify-between items-center">
                             <h3 className="text-xl font-bold flex items-center gap-2">
                                 <FiTrash2 /> تأكيد حذف الحساب
@@ -85,7 +85,7 @@ export default function DangerZone() {
                         </div>
                         
                         <div className="p-8 space-y-6">
-                            <div className="bg-blue-50 border-r-4 border-blue-400 p-4 text-blue-800 text-sm">
+                            <div className="bg-accent-50 border-r-4 border-blue-400 p-4 text-blue-800 text-sm">
                                 <FiInfo className="inline ml-1" /> ستقوم هذه العملية بحذف كافة بياناتك المالية وملفاتك المرفوعة، ولن يتمكن العملاء من تحميل ما اشتروه سابقاً.
                             </div>
 

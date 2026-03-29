@@ -187,13 +187,13 @@ export default function FeaturesPage() {
             {/* High-End Refined CTA */}
             <section className="py-40 bg-white">
                 <div className="max-w-5xl mx-auto px-6 text-center">
-                   <div className="bg-ink rounded-[3.5rem] p-16 md:p-32 border border-white/5 relative overflow-hidden group shadow-2xl shadow-ink/20">
+                   <div className="bg-ink rounded-[3.5rem] p-16 md:p-32 border border-white/5 relative overflow-hidden group shadow-sm shadow-ink/20">
                         <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-accent/10 rounded-full blur-[120px]"></div>
                         <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter mb-12 relative z-10 leading-[0.95]">
                             ابدأ ببناء <br/> <span className="text-accent">إمبراطوريتك.</span>
                         </h2>
                         <div className="flex flex-col sm:flex-row gap-6 justify-center relative z-10">
-                            <Link href="/register" className="px-14 py-6 bg-accent text-white rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-ink transition-all shadow-xl shadow-accent/20">
+                            <Link href="/register" className="px-14 py-6 bg-accent text-white rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-ink transition-all shadow-sm shadow-accent/20">
                                 Start Your Mission Now
                             </Link>
                             <Link href="/pricing" className="px-14 py-6 bg-white/5 text-white border border-white/10 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-ink transition-all">

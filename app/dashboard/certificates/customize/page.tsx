@@ -60,7 +60,7 @@ export default function CertificateCustomizationPage() {
                                             type="text"
                                             value={formData.brandColor}
                                             onChange={(e) => setFormData({ ...formData, brandColor: e.target.value })}
-                                            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink"
                                         />
                                     </div>
                                 </div>
@@ -137,7 +137,7 @@ export default function CertificateCustomizationPage() {
                                 {/* Actions */}
                                 <button
                                     onClick={handleSave}
-                                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors"
                                 >
                                     <FiSave />
                                     حفظ الإعدادات

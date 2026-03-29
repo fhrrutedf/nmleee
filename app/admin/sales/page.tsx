@@ -153,7 +153,7 @@ export default function AdminSalesPage() {
                         <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
-                                    <FiShoppingBag className="text-indigo-600" size={20} />
+                                    <FiShoppingBag className="text-ink" size={20} />
                                 </div>
                                 <span className="text-xs text-gray-400 font-medium">إجمالي الطلبات</span>
                             </div>
@@ -162,7 +162,7 @@ export default function AdminSalesPage() {
                         <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                                    <FiDollarSign className="text-blue-600" size={20} />
+                                    <FiDollarSign className="text-accent-600" size={20} />
                                 </div>
                                 <span className="text-xs text-gray-400 font-medium">إجمالي الإيرادات</span>
                             </div>
@@ -202,7 +202,7 @@ export default function AdminSalesPage() {
                                     value={search}
                                     onChange={e => setSearch(e.target.value)}
                                     onKeyDown={e => e.key === 'Enter' && handleSearch()}
-                                    className="w-full pr-10 pl-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-sm outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                                    className="w-full pr-10 pl-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-sm outline-none focus:ring-2 focus:ring-ink/20 focus:border-ink"
                                 />
                             </div>
                         </div>
@@ -250,7 +250,7 @@ export default function AdminSalesPage() {
 
                         <button
                             onClick={handleSearch}
-                            className="px-4 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-indigo-700 transition-colors flex items-center gap-1"
+                            className="px-4 py-2.5 bg-ink text-white rounded-xl text-sm font-bold hover:bg-indigo-700 transition-colors flex items-center gap-1"
                         >
                             <FiFilter size={14} /> بحث
                         </button>
@@ -260,7 +260,7 @@ export default function AdminSalesPage() {
                 {/* Sales Table */}
                 {loading ? (
                     <div className="flex items-center justify-center py-20">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ink"></div>
                     </div>
                 ) : orders.length === 0 ? (
                     <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 text-center border border-gray-100 dark:border-gray-700">
@@ -291,7 +291,7 @@ export default function AdminSalesPage() {
                                         <tr key={order.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                                             {/* Order Number */}
                                             <td className="px-4 py-3">
-                                                <span className="font-mono text-xs font-bold text-indigo-600">{order.orderNumber}</span>
+                                                <span className="font-mono text-xs font-bold text-ink">{order.orderNumber}</span>
                                             </td>
 
                                             {/* Buyer */}
@@ -363,7 +363,7 @@ export default function AdminSalesPage() {
                                                 {order.paymentProof ? (
                                                     <button
                                                         onClick={() => setProofImage(order.paymentProof)}
-                                                        className="w-12 h-12 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:ring-2 hover:ring-indigo-500 transition-all cursor-pointer"
+                                                        className="w-12 h-12 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:ring-2 hover:ring-ink transition-all cursor-pointer"
                                                     >
                                                         <img src={order.paymentProof} alt="إيصال" className="w-full h-full object-cover" />
                                                     </button>
@@ -390,7 +390,7 @@ export default function AdminSalesPage() {
                                                         {order.invoices.map(inv => (
                                                             <span
                                                                 key={inv.id}
-                                                                className="text-[11px] font-mono text-indigo-600 hover:underline cursor-pointer block"
+                                                                className="text-[11px] font-mono text-ink hover:underline cursor-pointer block"
                                                                 onClick={() => router.push(`/admin/invoices?id=${inv.id}`)}
                                                             >
                                                                 <FiFileText className="inline ml-1" size={12} />
@@ -454,7 +454,7 @@ export default function AdminSalesPage() {
             {/* Proof Image Modal */}
             {proofImage && (
                 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" onClick={() => setProofImage(null)}>
-                    <div className="relative max-w-2xl max-h-[80vh] bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-2xl" onClick={e => e.stopPropagation()}>
+                    <div className="relative max-w-2xl max-h-[80vh] bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm" onClick={e => e.stopPropagation()}>
                         <button
                             onClick={() => setProofImage(null)}
                             className="absolute top-3 left-3 w-8 h-8 bg-black/50 text-white rounded-full flex items-center justify-center hover:bg-black/70 z-10"
@@ -467,7 +467,7 @@ export default function AdminSalesPage() {
                                 href={proofImage}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-xs text-indigo-600 hover:underline flex items-center gap-1"
+                                className="text-xs text-ink hover:underline flex items-center gap-1"
                             >
                                 <FiExternalLink size={12} /> فتح في نافذة جديدة
                             </a>

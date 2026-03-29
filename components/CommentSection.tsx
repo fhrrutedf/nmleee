@@ -107,7 +107,7 @@ export default function CommentSection({ lessonId, comments: initialComments, on
         <div key={comment.id} className={`${isReply ? 'mr-12 mt-4' : ''}`}>
             <div className="flex gap-3">
                 <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                    <div className="w-10 h-10 bg-gradient-to-br from-ink to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
                         {comment.authorName.charAt(0)}
                     </div>
                 </div>
@@ -132,7 +132,7 @@ export default function CommentSection({ lessonId, comments: initialComments, on
                         {!isReply && (
                             <button
                                 onClick={() => setReplyTo(replyTo === comment.id ? null : comment.id)}
-                                className="flex items-center gap-1 text-sm text-gray-600 hover:text-indigo-600 transition-colors"
+                                className="flex items-center gap-1 text-sm text-gray-600 hover:text-ink transition-colors"
                             >
                                 <FiCornerDownRight size={16} />
                                 <span>رد</span>
@@ -148,13 +148,13 @@ export default function CommentSection({ lessonId, comments: initialComments, on
                                 value={replyText}
                                 onChange={(e) => setReplyText(e.target.value)}
                                 placeholder="اكتب ردك..."
-                                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
+                                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink focus:border-transparent text-sm"
                                 onKeyPress={(e) => e.key === 'Enter' && addReply(comment.id)}
                             />
                             <button
                                 onClick={() => addReply(comment.id)}
                                 disabled={loading}
-                                className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
+                                className="px-4 py-2 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
                             >
                                 <FiSend size={16} />
                             </button>
@@ -183,7 +183,7 @@ export default function CommentSection({ lessonId, comments: initialComments, on
             <div className="mb-6">
                 <div className="flex gap-3">
                     <div className="flex-shrink-0">
-                        <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                        <div className="w-10 h-10 bg-gradient-to-br from-ink to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
                             ط
                         </div>
                     </div>
@@ -193,13 +193,13 @@ export default function CommentSection({ lessonId, comments: initialComments, on
                             onChange={(e) => setNewComment(e.target.value)}
                             placeholder="شارك رأيك أو اسأل سؤالاً..."
                             rows={3}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ink focus:border-transparent resize-none"
                         />
                         <div className="flex justify-end mt-2">
                             <button
                                 onClick={addComment}
                                 disabled={loading || !newComment.trim()}
-                                className="flex items-center gap-2 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex items-center gap-2 px-6 py-2 bg-ink text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 <FiSend size={16} />
                                 نشر التعليق

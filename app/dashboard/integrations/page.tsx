@@ -83,8 +83,8 @@ export default function IntegrationsPage() {
                     <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                 </svg>
             ),
-            color: 'text-blue-600',
-            bg: 'bg-blue-50 dark:bg-blue-900/20',
+            color: 'text-accent-600',
+            bg: 'bg-accent-50 dark:bg-blue-900/20',
         },
         {
             id: 'zoom',
@@ -97,7 +97,7 @@ export default function IntegrationsPage() {
             ],
             status: zoomConnected ? 'connected' : 'coming_soon',
             icon: <span className="text-3xl">📹</span>,
-            color: 'text-blue-500',
+            color: 'text-accent-500',
             bg: 'bg-sky-50 dark:bg-sky-900/20',
         },
         {
@@ -209,7 +209,7 @@ export default function IntegrationsPage() {
                                         </span>
                                     )}
                                     {integration.status === 'coming_soon' && (
-                                        <span className="inline-flex items-center gap-1.5 text-accent text-xs font-medium bg-blue-50 dark:bg-amber-900/20 px-2.5 py-1 rounded-full mt-1">
+                                        <span className="inline-flex items-center gap-1.5 text-accent text-xs font-medium bg-accent-50 dark:bg-amber-900/20 px-2.5 py-1 rounded-full mt-1">
                                             قريباً
                                         </span>
                                     )}

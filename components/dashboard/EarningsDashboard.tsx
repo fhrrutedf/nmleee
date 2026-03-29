@@ -66,8 +66,8 @@ function fmt(n: number, decimals = 2): string {
 // ─── Status Badge ───────────────────────────────────────────
 function StatusBadge({ status }: { status: WithdrawalRecord['status'] }) {
     const map: Record<string, { label: string; cls: string }> = {
-        PENDING:    { label: 'قيد المراجعة', cls: 'bg-blue-50 text-blue-700 border border-blue-100' },
-        PROCESSING: { label: 'قيد التحويل',  cls: 'bg-blue-50 text-blue-700 border border-blue-100' },
+        PENDING:    { label: 'قيد المراجعة', cls: 'bg-accent-50 text-blue-700 border border-blue-100' },
+        PROCESSING: { label: 'قيد التحويل',  cls: 'bg-accent-50 text-blue-700 border border-blue-100' },
         PAID:       { label: 'تم الدفع',      cls: 'bg-accent-light text-accent border border-accent/10' },
         COMPLETED:  { label: 'مكتمل',         cls: 'bg-accent-light text-accent border border-accent/10' },
         REJECTED:   { label: 'مرفوض',         cls: 'bg-red-50 text-red-700 border border-red-100' },
@@ -165,7 +165,7 @@ export default function EarningsDashboard() {
     // ── Loading skeleton ────────────────────────────────────
     if (loading) {
         return (
-            <div className="animate-pulse space-y-6">
+            <div className=" space-y-6">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[...Array(4)].map((_, i) => (
                         <div key={i} className="h-28 bg-gray-50 rounded-2xl" />
@@ -215,14 +215,14 @@ export default function EarningsDashboard() {
 
             {/* ── Alerts ─────────────────────────────────── */}
             {!payoutMethodConfigured && (
-                <div className="flex items-start gap-4 p-5 bg-blue-50 border border-blue-200 rounded-2xl text-sm text-blue-900 shadow-sm shadow-blue-900/5">
-                    <FiAlertTriangle className="mt-0.5 shrink-0 text-blue-500" size={20} />
+                <div className="flex items-start gap-4 p-5 bg-accent-50 border border-blue-200 rounded-2xl text-sm text-blue-900 shadow-sm shadow-blue-900/5">
+                    <FiAlertTriangle className="mt-0.5 shrink-0 text-accent-500" size={20} />
                     <p className="leading-relaxed">لم تقم بإعداد طريقة الاستلام بعد. يرجى الذهاب إلى <strong>الإعدادات → طريقة الاستلام</strong> لتفعيل السحب.</p>
                 </div>
             )}
             {hasPendingWithdraw && (
-                <div className="flex items-start gap-4 p-5 bg-blue-50 border border-blue-100 rounded-2xl text-sm text-blue-900 shadow-sm shadow-blue-900/5">
-                    <FiShield className="mt-0.5 shrink-0 text-blue-500" size={20} />
+                <div className="flex items-start gap-4 p-5 bg-accent-50 border border-blue-100 rounded-2xl text-sm text-blue-900 shadow-sm shadow-blue-900/5">
+                    <FiShield className="mt-0.5 shrink-0 text-accent-500" size={20} />
                     <p className="leading-relaxed">لديك طلب سحب قيد المراجعة حالياً. يمكنك تقديم طلب جديد بعد معالجة الطلب الحالي.</p>
                 </div>
             )}
@@ -328,8 +328,8 @@ function BalanceCard({
 }) {
     const colors = {
         accent: { bg: 'bg-accent-light', icon: 'bg-accent', text: 'text-accent', amt: 'text-ink' },
-        amber:  { bg: 'bg-blue-50',     icon: 'bg-blue-500',  text: 'text-blue-700', amt: 'text-ink' },
-        blue:   { bg: 'bg-blue-50',      icon: 'bg-blue-500',   text: 'text-blue-700',  amt: 'text-ink' },
+        amber:  { bg: 'bg-accent-50',     icon: 'bg-accent-500',  text: 'text-blue-700', amt: 'text-ink' },
+        blue:   { bg: 'bg-accent-50',      icon: 'bg-accent-500',   text: 'text-blue-700',  amt: 'text-ink' },
         purple: { bg: 'bg-purple-50',    icon: 'bg-purple-500', text: 'text-purple-700', amt: 'text-ink' },
     };
     const c = colors[color];
@@ -388,9 +388,9 @@ function OverviewTab({ balance, minPayoutAmount }: { balance: BalanceSummary; mi
                 <div className="space-y-4">
                     {[
                         { label: 'إجمالي الأرباح', val: balance.totalEarnings, cls: 'text-ink font-bold' },
-                        { label: 'قيد الحجز (Escrow)', val: balance.pending, cls: 'text-blue-600' },
+                        { label: 'قيد الحجز (Escrow)', val: balance.pending, cls: 'text-accent-600' },
                         { label: 'متاح للسحب', val: balance.available, cls: 'text-accent' },
-                        { label: 'طلبات سحب قيد المراجعة', val: balance.pendingWithdrawals, cls: 'text-blue-500' },
+                        { label: 'طلبات سحب قيد المراجعة', val: balance.pendingWithdrawals, cls: 'text-accent-500' },
                         { label: 'صافي قابل للسحب', val: balance.spendable, cls: 'text-ink font-bold text-lg' },
                         { label: 'أرباح الإحالات', val: balance.referralEarnings, cls: 'text-purple-600' },
                     ].map(row => (
@@ -428,7 +428,7 @@ function ScheduleTab({ releases }: { releases: UpcomingRelease[] }) {
                     return (
                         <div key={i} className="flex items-center justify-between p-6 hover:bg-gray-50 transition-all">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-500">
+                                <div className="w-12 h-12 rounded-2xl bg-accent-50 flex items-center justify-center text-accent-500">
                                     <FiClock size={20} />
                                 </div>
                                 <div>
@@ -506,8 +506,8 @@ function WithdrawModal({
     const isValid = numericAmount >= minPayoutAmount && numericAmount <= spendable;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/60 backdrop-blur-sm animate-in fade-in duration-300">
-            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8 animate-in zoom-in-95 duration-300">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/60  animate-in fade-in duration-300">
+            <div className="bg-white rounded-3xl shadow-sm w-full max-w-md p-8 animate-in zoom-in-95 duration-300">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
                     <div>
@@ -524,7 +524,7 @@ function WithdrawModal({
                 </div>
 
                 {/* Available balance */}
-                <div className="bg-ink rounded-3xl p-6 mb-6 text-white text-center shadow-xl shadow-ink/20">
+                <div className="bg-ink rounded-3xl p-6 mb-6 text-white text-center shadow-sm shadow-ink/20">
                     <p className="text-xs text-white/40 font-bold uppercase tracking-[0.2em] mb-1">Available for Withdrawal</p>
                     <p className="text-4xl font-bold font-inter tracking-tighter">${fmt(spendable)}</p>
                     <div className="mt-4 inline-flex px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold text-white/60">
@@ -596,7 +596,7 @@ function WithdrawModal({
                     id="confirm-withdraw-btn"
                     onClick={onSubmit}
                     disabled={!isValid || submitting}
-                    className="w-full py-4 bg-ink text-white rounded-2xl font-bold text-lg hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-xl shadow-ink/20 active:scale-[0.98]"
+                    className="w-full py-4 bg-ink text-white rounded-2xl font-bold text-lg hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm shadow-ink/20 active:scale-[0.98]"
                 >
                     {submitting ? (
                         <span className="flex items-center justify-center gap-3">
