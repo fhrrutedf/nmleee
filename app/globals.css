@@ -44,6 +44,17 @@
     @apply border-white/5;
   }
 
+  :root {
+    --sat: env(safe-area-inset-top);
+    --sar: env(safe-area-inset-right);
+    --sab: env(safe-area-inset-bottom);
+    --sal: env(safe-area-inset-left);
+  }
+
+  .h-safe-top {
+    height: var(--sat, 0px);
+  }
+
   html {
     @apply scroll-smooth;
     background-color: #0A0A0A;

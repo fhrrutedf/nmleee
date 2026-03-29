@@ -100,7 +100,9 @@ export default function DashboardLayout({
     );
 
     return (
-        <div className="min-h-screen bg-[#0A0A0A] transition-colors duration-300 relative selection:bg-emerald-700 text-white">
+        <div className="min-h-screen bg-[#0A0A0A] transition-colors duration-300 relative selection:bg-emerald-700 text-white flex flex-col">
+            <header className="h-safe-top bg-[#0A0A0A] w-full" />
+            <div className="flex flex-1 relative overflow-hidden">
             {sidebarOpen && (
                 <motion.div
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -207,8 +209,7 @@ export default function DashboardLayout({
                 </div>
             </aside>
 
-            {/* Main Operational Surface */}
-            <div className="lg:mr-72 min-h-screen relative flex flex-col min-w-0 bg-[#0A0A0A]">
+            <div className="lg:mr-72 flex-1 relative flex flex-col min-w-0 bg-[#0A0A0A]">
                 <header className="bg-black/80 backdrop-blur-md border-b border-white/10 sticky top-0 z-30 w-full transition-all">
                     <div className="px-8 h-20 flex items-center justify-between">
                         <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-[#10B981] p-3 bg-[#111111] rounded-xl hover:bg-emerald-800">
@@ -232,6 +233,7 @@ export default function DashboardLayout({
                 <main className="flex-1 p-6 sm:p-12 w-full max-w-7xl mx-auto overflow-x-hidden animate-in fade-in slide-in-from-bottom-2 duration-500 bg-[#0A0A0A]">
                     {children}
                 </main>
+            </div>
             </div>
             <NotificationListener />
         </div>
