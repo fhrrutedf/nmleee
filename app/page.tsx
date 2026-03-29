@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { FiShoppingBag, FiVideo, FiCalendar, FiDollarSign, FiArrowLeft, FiTrendingUp, FiShield, FiCheckCircle, FiGlobe, FiLock, FiSmartphone, FiZap } from 'react-icons/fi';
+import { FiShoppingBag, FiVideo, FiCalendar, FiDollarSign, FiArrowLeft, FiTrendingUp, FiShield, FiCheckCircle, FiGlobe, FiLock, FiSmartphone, FiZap, FiArrowRight, FiPlay } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 
 export default function Home() {
     return (
