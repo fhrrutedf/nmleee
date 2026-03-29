@@ -250,7 +250,7 @@ export default function AdminSalesPage() {
 
                         <button
                             onClick={handleSearch}
-                            className="px-4 py-2.5 bg-emerald-700 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 transition-colors flex items-center gap-1"
+                            className="px-4 py-2.5 bg-emerald-700 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 text-white transition-colors flex items-center gap-1"
                         >
                             <FiFilter size={14} /> بحث
                         </button>
@@ -405,7 +405,7 @@ export default function AdminSalesPage() {
 
                                             {/* Status */}
                                             <td className="px-4 py-3">
-                                                <span className={`text-[11px] font-bold px-2.5 py-1 rounded-xl ${STATUS_COLORS[order.status] || 'bg-emerald-800 text-gray-600'}`}>
+                                                <span className={`text-[11px] font-bold px-2.5 py-1 rounded-xl ${STATUS_COLORS[order.status] || 'bg-emerald-800 text-gray-400'}`}>
                                                     {STATUS_LABELS[order.status] || order.status}
                                                 </span>
                                             </td>
@@ -457,7 +457,7 @@ export default function AdminSalesPage() {
                     <div className="relative max-w-2xl max-h-[80vh] bg-[#0A0A0A] dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20" onClick={e => e.stopPropagation()}>
                         <button
                             onClick={() => setProofImage(null)}
-                            className="absolute top-3 left-3 w-8 h-8 bg-black/50 text-white rounded-xl flex items-center justify-center hover:bg-emerald-700/70 z-10"
+                            className="absolute top-3 left-3 w-8 h-8 bg-black/50 text-white rounded-xl flex items-center justify-center hover:bg-emerald-700 text-white/70 z-10"
                         >
                             <FiX size={16} />
                         </button>

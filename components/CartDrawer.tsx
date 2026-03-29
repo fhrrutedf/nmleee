@@ -69,7 +69,7 @@ export default function CartDrawer() {
                             {/* Header */}
                             <div className="flex items-center justify-between p-6 border-b border-gray-100">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-emerald-700/10 rounded-xl flex items-center justify-center text-[#10B981]">
+                                    <div className="w-10 h-10 bg-emerald-700 text-white/10 rounded-xl flex items-center justify-center text-[#10B981]">
                                         <FiShoppingBag size={20} />
                                     </div>
                                     <h2 className="text-xl font-bold text-[#10B981]">

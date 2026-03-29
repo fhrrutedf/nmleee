@@ -41,7 +41,7 @@ export default function ProductsPage() {
                 <div className="max-w-7xl mx-auto px-4 py-12">
                     <div className="text-center mb-12">
                         <h1 className="text-3xl font-bold text-[#10B981] mb-4">جميع المنتجات</h1>
-                        <p className="text-xl text-gray-600">اكتشف منتجاتنا الرقمية المميزة</p>
+                        <p className="text-xl text-gray-400">اكتشف منتجاتنا الرقمية المميزة</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {[...Array(8)].map((_, i) => (
@@ -59,7 +59,7 @@ export default function ProductsPage() {
                 {/* Header */}
                 <div className="text-center mb-12">
                     <h1 className="text-3xl font-bold text-[#10B981] mb-4">جميع المنتجات</h1>
-                    <p className="text-xl text-gray-600">اكتشف منتجاتنا الرقمية المميزة</p>
+                    <p className="text-xl text-gray-400">اكتشف منتجاتنا الرقمية المميزة</p>
                 </div>
 
                 {/* Search & Filter */}
@@ -117,7 +117,7 @@ export default function ProductsPage() {
                                         className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                                     />
                                 ) : (
-                                    <div className="w-full h-48 bg-emerald-700 flex items-center justify-center">
+                                    <div className="w-full h-48 bg-emerald-700 text-white flex items-center justify-center">
                                         <FiShoppingCart className="text-5xl text-primary-400" />
                                     </div>
                                 )}
@@ -133,7 +133,7 @@ export default function ProductsPage() {
                                         {product.title}
                                     </h3>
 
-                                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                                    <p className="text-gray-400 text-sm mb-4 line-clamp-2">
                                         {product.description ? product.description.replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ') : ''}
                                     </p>
 

@@ -212,7 +212,7 @@ export default function AdminSettingsPage() {
                 </AnimatePresence>
             </div>
 
-            <div className="bg-emerald-700-50 dark:bg-blue-900/10 p-6 rounded-xl border border-blue-100 flex items-center gap-4">
+            <div className="bg-emerald-700 text-white-50 dark:bg-blue-900/10 p-6 rounded-xl border border-blue-100 flex items-center gap-4">
                 <FiCheckCircle className="text-[#10B981]-500 shrink-0" size={24} />
                 <p className="text-blue-900/60 text-xs font-bold leading-relaxed">أي تغييرات هنا ستؤثر فوراً على كافة مبيعات البائعين الجدد. تذكر أن العمولات تحسب عند لحظة إنشاء الطلب وليس عند السحب.</p>
             </div>

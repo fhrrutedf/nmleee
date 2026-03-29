@@ -52,7 +52,7 @@ const plans = [
         support: 'بريد + دردشة مباشرة',
         color: 'from-accent-500 to-ink',
         border: 'border-emerald-600',
-        btnClass: 'bg-emerald-700 hover:bg-emerald-700/90 text-white',
+        btnClass: 'bg-emerald-700 text-white hover:bg-emerald-700 text-white/90 text-white',
         popular: true,
         features: [
             '50 منتج رقمي',
@@ -86,7 +86,7 @@ const plans = [
         support: 'مدير حساب مخصص',
         color: 'from-ink to-pink-600',
         border: 'border-purple-400',
-        btnClass: 'bg-emerald-700 hover:opacity-90 text-white',
+        btnClass: 'bg-emerald-700 text-white hover:opacity-90 text-white',
         popular: false,
         features: [
             'منتجات غير محدودة',
@@ -118,7 +118,7 @@ const plans = [
         support: 'VIP دعم 24/7',
         color: 'from-yellow-500 to-orange-500',
         border: 'border-yellow-400',
-        btnClass: 'bg-emerald-700 hover:opacity-90 text-white',
+        btnClass: 'bg-emerald-700 text-white hover:opacity-90 text-white',
         popular: false,
         features: [
             'صفر عمولة على المبيعات',
@@ -208,7 +208,7 @@ export default function BillingPage() {
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 bg-emerald-700/20 border border-emerald-600/40 text-[#10B981] px-4 py-2 rounded-xl text-sm font-bold mb-6 "
+                        className="inline-flex items-center gap-2 bg-emerald-700 text-white/20 border border-emerald-600/40 text-[#10B981] px-4 py-2 rounded-xl text-sm font-bold mb-6 "
                     >
                         🚀 عرض إطلاق حصري — خصم 50% لأول 3 أشهر لأول 500 بائع!
                     </motion.div>
@@ -220,7 +220,7 @@ export default function BillingPage() {
                         className="text-4xl md:text-5xl font-bold text-white mb-6"
                     >
                         إدارة اشتراكك — رقِ باقتك{' '}
-                        <span className="bg-emerald-700 bg-clip-text text-transparent">
+                        <span className="bg-emerald-700 text-white bg-clip-text text-transparent">
                             الآن
                         </span>
                     </motion.h1>
@@ -385,7 +385,7 @@ export default function BillingPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="mt-12 relative overflow-hidden bg-emerald-700 rounded-xl p-8 text-white text-center"
+                    className="mt-12 relative overflow-hidden bg-emerald-700 text-white rounded-xl p-8 text-white text-center"
                 >
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15)_0%,transparent_60%)]" />
                     <div className="relative">

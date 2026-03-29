@@ -146,7 +146,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                     className="absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer  transition-all"
                     onClick={togglePlay}
                 >
-                    <div className="w-20 h-20 bg-emerald-700 rounded-xl flex items-center justify-center text-white p-2 hover:scale-110 transition-transform">
+                    <div className="w-20 h-20 bg-emerald-700 text-white rounded-xl flex items-center justify-center text-white p-2 hover:scale-110 transition-transform">
                         <FiPlay className="text-4xl ml-2" />
                     </div>
                 </div>
@@ -154,13 +154,13 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
 
             {/* Top Title Bar */}
             {title && (
-                <div className="absolute top-0 left-0 right-0 p-4 bg-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute top-0 left-0 right-0 p-4 bg-emerald-700 text-white opacity-0 group-hover:opacity-100 transition-opacity">
                     <h3 className="text-white font-medium text-lg truncate">{title}</h3>
                 </div>
             )}
 
             {/* Bottom Controls Bar */}
-            <div className={`absolute bottom-0 left-0 right-0 px-4 py-3 bg-emerald-700 transition-opacity duration-300 ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
+            <div className={`absolute bottom-0 left-0 right-0 px-4 py-3 bg-emerald-700 text-white transition-opacity duration-300 ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
                 {/* Progress Bar */}
                 <div className="relative group w-full mb-3 flex items-center h-1 hover:h-2 transition-all cursor-pointer">
                     <input
@@ -173,7 +173,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
                     />
                     <div className="w-full h-full bg-[#0A0A0A] rounded-xl relative z-10 overflow-hidden">
                         <div
-                            className="h-full bg-emerald-700 rounded-xl transition-all ease-linear"
+                            className="h-full bg-emerald-700 text-white rounded-xl transition-all ease-linear"
                             style={{ width: `${(currentTime / (duration || 1)) * 100}%` }}
                         />
                     </div>

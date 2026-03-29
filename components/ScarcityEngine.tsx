@@ -70,8 +70,8 @@ export function ScarcityEngine({
     }
 
     const containerClasses = position === 'sticky'
-        ? 'fixed bottom-0 left-0 right-0 z-50 bg-emerald-700 dark:from-red-900/20 dark:to-orange-900/20 border-t-2 border-red-200 dark:border-red-800 '
-        : 'bg-emerald-700 dark:from-red-900/10 dark:to-orange-900/10 border border-red-200 dark:border-red-800 rounded-lg';
+        ? 'fixed bottom-0 left-0 right-0 z-50 bg-emerald-700 text-white dark:from-red-900/20 dark:to-orange-900/20 border-t-2 border-red-200 dark:border-red-800 '
+        : 'bg-emerald-700 text-white dark:from-red-900/10 dark:to-orange-900/10 border border-red-200 dark:border-red-800 rounded-lg';
 
     return (
         <div className={`${containerClasses} ${className}`}>
@@ -97,7 +97,7 @@ export function ScarcityEngine({
 
                     {/* Stock Depleted */}
                     {remaining === 0 && (
-                        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                        <div className="flex items-center gap-2 text-gray-400 dark:text-gray-400">
                             <FiAlertCircle className="text-lg" />
                             <span className="font-semibold">نفد المخزون 😢</span>
                         </div>
@@ -142,7 +142,7 @@ export function ScarcityEngine({
 
                     {/* Expired */}
                     {isExpired && (
-                        <div className="text-gray-600 dark:text-gray-400 font-semibold">
+                        <div className="text-gray-400 dark:text-gray-400 font-semibold">
                             انتهى العرض ⏰
                         </div>
                     )}

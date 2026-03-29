@@ -95,7 +95,7 @@ export default function AdminSupportPage() {
                                     {ticket.subject}
                                 </h3>
                                 <div className="flex items-center gap-2 mb-4 text-sm text-gray-500 font-medium">
-                                    <div className="w-8 h-8 rounded-xl bg-emerald-700 flex items-center justify-center text-white shrink-0">
+                                    <div className="w-8 h-8 rounded-xl bg-emerald-700 text-white flex items-center justify-center text-white shrink-0">
                                         <FiUser />
                                     </div>
                                     <span className="truncate">{ticket.user.name}</span>

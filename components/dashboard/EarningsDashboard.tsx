@@ -66,13 +66,13 @@ function fmt(n: number, decimals = 2): string {
 // ─── Status Badge ───────────────────────────────────────────
 function StatusBadge({ status }: { status: WithdrawalRecord['status'] }) {
     const map: Record<string, { label: string; cls: string }> = {
-        PENDING:    { label: 'قيد المراجعة', cls: 'bg-emerald-700-50 text-blue-700 border border-blue-100' },
-        PROCESSING: { label: 'قيد التحويل',  cls: 'bg-emerald-700-50 text-blue-700 border border-blue-100' },
-        PAID:       { label: 'تم الدفع',      cls: 'bg-emerald-700-light text-[#10B981] border border-emerald-600/10' },
-        COMPLETED:  { label: 'مكتمل',         cls: 'bg-emerald-700-light text-[#10B981] border border-emerald-600/10' },
+        PENDING:    { label: 'قيد المراجعة', cls: 'bg-emerald-700 text-white-50 text-blue-700 border border-blue-100' },
+        PROCESSING: { label: 'قيد التحويل',  cls: 'bg-emerald-700 text-white-50 text-blue-700 border border-blue-100' },
+        PAID:       { label: 'تم الدفع',      cls: 'bg-emerald-700 text-white-light text-[#10B981] border border-emerald-600/10' },
+        COMPLETED:  { label: 'مكتمل',         cls: 'bg-emerald-700 text-white-light text-[#10B981] border border-emerald-600/10' },
         REJECTED:   { label: 'مرفوض',         cls: 'bg-red-50 text-red-700 border border-red-100' },
     };
-    const { label, cls } = map[status] || { label: status, cls: 'bg-[#111111] text-gray-600 border border-gray-100' };
+    const { label, cls } = map[status] || { label: status, cls: 'bg-[#111111] text-gray-400 border border-gray-100' };
     return (
         <span className={`text-[10px] font-bold px-2.5 py-1 rounded-lg ${cls}`}>
             {label}
@@ -215,13 +215,13 @@ export default function EarningsDashboard() {
 
             {/* ── Alerts ─────────────────────────────────── */}
             {!payoutMethodConfigured && (
-                <div className="flex items-start gap-4 p-5 bg-emerald-700-50 border border-blue-200 rounded-xl text-sm text-blue-900 shadow-lg shadow-[#10B981]/20 shadow-blue-900/5">
+                <div className="flex items-start gap-4 p-5 bg-emerald-700 text-white-50 border border-blue-200 rounded-xl text-sm text-blue-900 shadow-lg shadow-[#10B981]/20 shadow-blue-900/5">
                     <FiAlertTriangle className="mt-0.5 shrink-0 text-[#10B981]-500" size={20} />
                     <p className="leading-relaxed">لم تقم بإعداد طريقة الاستلام بعد. يرجى الذهاب إلى <strong>الإعدادات → طريقة الاستلام</strong> لتفعيل السحب.</p>
                 </div>
             )}
             {hasPendingWithdraw && (
-                <div className="flex items-start gap-4 p-5 bg-emerald-700-50 border border-blue-100 rounded-xl text-sm text-blue-900 shadow-lg shadow-[#10B981]/20 shadow-blue-900/5">
+                <div className="flex items-start gap-4 p-5 bg-emerald-700 text-white-50 border border-blue-100 rounded-xl text-sm text-blue-900 shadow-lg shadow-[#10B981]/20 shadow-blue-900/5">
                     <FiShield className="mt-0.5 shrink-0 text-[#10B981]-500" size={20} />
                     <p className="leading-relaxed">لديك طلب سحب قيد المراجعة حالياً. يمكنك تقديم طلب جديد بعد معالجة الطلب الحالي.</p>
                 </div>
@@ -327,9 +327,9 @@ function BalanceCard({
     sub?: string; highlight?: boolean;
 }) {
     const colors = {
-        accent: { bg: 'bg-emerald-700-light', icon: 'bg-emerald-700', text: 'text-[#10B981]', amt: 'text-[#10B981]' },
-        amber:  { bg: 'bg-emerald-700-50',     icon: 'bg-emerald-700-500',  text: 'text-blue-700', amt: 'text-[#10B981]' },
-        blue:   { bg: 'bg-emerald-700-50',      icon: 'bg-emerald-700-500',   text: 'text-blue-700',  amt: 'text-[#10B981]' },
+        accent: { bg: 'bg-emerald-700 text-white-light', icon: 'bg-emerald-700 text-white', text: 'text-[#10B981]', amt: 'text-[#10B981]' },
+        amber:  { bg: 'bg-emerald-700 text-white-50',     icon: 'bg-emerald-700 text-white-500',  text: 'text-blue-700', amt: 'text-[#10B981]' },
+        blue:   { bg: 'bg-emerald-700 text-white-50',      icon: 'bg-emerald-700 text-white-500',   text: 'text-blue-700',  amt: 'text-[#10B981]' },
         purple: { bg: 'bg-purple-50',    icon: 'bg-purple-500', text: 'text-purple-700', amt: 'text-[#10B981]' },
     };
     const c = colors[color];
@@ -366,12 +366,12 @@ function OverviewTab({ balance, minPayoutAmount }: { balance: BalanceSummary; mi
                 </div>
                 <div className="h-3 bg-[#111111] rounded-xl overflow-hidden mb-6">
                     <div
-                        className={`h-full rounded-xl transition-all duration-1000 ${reachedMin ? 'bg-emerald-700' : 'bg-blue-400'}`}
+                        className={`h-full rounded-xl transition-all duration-1000 ${reachedMin ? 'bg-emerald-700 text-white' : 'bg-blue-400'}`}
                         style={{ width: `${progressPct}%` }}
                     />
                 </div>
                 {reachedMin ? (
-                    <div className="flex items-center gap-2 p-4 bg-emerald-700-light rounded-xl text-[#10B981] text-sm font-bold">
+                    <div className="flex items-center gap-2 p-4 bg-emerald-700 text-white-light rounded-xl text-[#10B981] text-sm font-bold">
                         <FiCheckCircle size={18} />
                         وصبت للحد الأدنى — يمكنك السحب الآن!
                     </div>
@@ -428,7 +428,7 @@ function ScheduleTab({ releases }: { releases: UpcomingRelease[] }) {
                     return (
                         <div key={i} className="flex items-center justify-between p-6 hover:bg-[#111111] transition-all">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-emerald-700-50 flex items-center justify-center text-[#10B981]-500">
+                                <div className="w-12 h-12 rounded-xl bg-emerald-700 text-white-50 flex items-center justify-center text-[#10B981]-500">
                                     <FiClock size={20} />
                                 </div>
                                 <div>
@@ -506,7 +506,7 @@ function WithdrawModal({
     const isValid = numericAmount >= minPayoutAmount && numericAmount <= spendable;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-emerald-700/60  animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-emerald-700 text-white/60  animate-in fade-in duration-300">
             <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 w-full max-w-md p-8 animate-in zoom-in-95 duration-300">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
@@ -524,7 +524,7 @@ function WithdrawModal({
                 </div>
 
                 {/* Available balance */}
-                <div className="bg-emerald-700 rounded-xl p-6 mb-6 text-white text-center shadow-lg shadow-[#10B981]/20 shadow-ink/20">
+                <div className="bg-emerald-700 text-white rounded-xl p-6 mb-6 text-white text-center shadow-lg shadow-[#10B981]/20 shadow-ink/20">
                     <p className="text-xs text-white/40 font-bold uppercase tracking-[0.2em] mb-1">Available for Withdrawal</p>
                     <p className="text-4xl font-bold font-inter tracking-tighter">${fmt(spendable)}</p>
                     <div className="mt-4 inline-flex px-3 py-1 bg-[#0A0A0A]/10 rounded-xl text-[10px] font-bold text-white/60">
@@ -569,7 +569,7 @@ function WithdrawModal({
                         })}
                         <button
                             onClick={() => onAmountChange(spendable.toString())}
-                            className="text-[10px] px-4 py-2 bg-emerald-700-light hover:bg-emerald-700/20 rounded-xl text-[#10B981] font-bold transition-all mr-auto"
+                            className="text-[10px] px-4 py-2 bg-emerald-700 text-white-light hover:bg-emerald-700 text-white/20 rounded-xl text-[#10B981] font-bold transition-all mr-auto"
                         >
                             سحب الكل
                         </button>

@@ -45,7 +45,7 @@ export default function CoursesPage() {
                 {/* Header */}
                 <div className="text-center mb-12">
                     <h1 className="text-3xl font-bold text-[#10B981] mb-4">الدورات التدريبية</h1>
-                    <p className="text-xl text-gray-600">تعلم مهارات جديدة مع خبراء المجال</p>
+                    <p className="text-xl text-gray-400">تعلم مهارات جديدة مع خبراء المجال</p>
                 </div>
 
                 {/* Search */}
@@ -83,7 +83,7 @@ export default function CoursesPage() {
                                         className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                                     />
                                 ) : (
-                                    <div className="w-full h-56 bg-emerald-700 flex items-center justify-center">
+                                    <div className="w-full h-56 bg-emerald-700 text-white flex items-center justify-center">
                                         <FiVideo className="text-6xl text-blue-400" />
                                     </div>
                                 )}
@@ -93,7 +93,7 @@ export default function CoursesPage() {
                                         {course.title}
                                     </h3>
 
-                                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                                    <p className="text-gray-400 text-sm mb-4 line-clamp-3">
                                         {course.description}
                                     </p>
 

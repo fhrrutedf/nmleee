@@ -92,10 +92,10 @@ function ResetPasswordForm() {
     return (
         <div className="max-w-md w-full -up">
             <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden border border-gray-100 dark:border-gray-800">
-                <div className="h-2 w-full bg-emerald-700"></div>
+                <div className="h-2 w-full bg-emerald-700 text-white"></div>
                 <div className="p-8 sm:p-10">
                     <div className="text-center mb-8">
-                        <div className="w-16 h-16 bg-emerald-700-50 dark:bg-blue-900/20 text-[#10B981] rounded-xl flex items-center justify-center mx-auto mb-4 border border-blue-100 dark:border-blue-800/30">
+                        <div className="w-16 h-16 bg-emerald-700 text-white-50 dark:bg-blue-900/20 text-[#10B981] rounded-xl flex items-center justify-center mx-auto mb-4 border border-blue-100 dark:border-blue-800/30">
                             <FiLock size={28} />
                         </div>
                         <h1 className="text-2xl font-bold text-white dark:text-white">إعادة تعيين كلمة المرور</h1>

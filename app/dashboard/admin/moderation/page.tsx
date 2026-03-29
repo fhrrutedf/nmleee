@@ -146,7 +146,7 @@ export default function CourseModerationPage() {
                                         </div>
                                     </td>
                                     <td className="px-5 py-4 text-green-600 font-bold">${course.price}</td>
-                                    <td className="px-5 py-4 text-gray-600 dark:text-gray-300 font-medium">
+                                    <td className="px-5 py-4 text-gray-400 dark:text-gray-300 font-medium">
                                         {course.modules?.length || 0} فصول
                                     </td>
                                     <td className="px-5 py-4 text-gray-500">
@@ -162,7 +162,7 @@ export default function CourseModerationPage() {
                                                 target="_blank"
                                                 rel="noreferrer"
                                                 title="معاينة كزائر"
-                                                className="w-8 h-8 flex items-center justify-center rounded-xl bg-emerald-700-50 text-[#10B981]-600 hover:bg-blue-100 transition-colors"
+                                                className="w-8 h-8 flex items-center justify-center rounded-xl bg-emerald-700 text-white-50 text-[#10B981]-600 hover:bg-blue-100 transition-colors"
                                             >
                                                 <FiEye className="w-4 h-4" />
                                             </a>

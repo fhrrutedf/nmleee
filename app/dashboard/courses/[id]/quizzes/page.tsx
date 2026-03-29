@@ -145,7 +145,7 @@ export default function CourseQuizzesPage() {
                                                 <FiEye size={10} /> منشور
                                             </span>
                                         ) : (
-                                            <span className="px-2 py-0.5 text-xs bg-emerald-800 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-xl flex items-center gap-1">
+                                            <span className="px-2 py-0.5 text-xs bg-emerald-800 dark:bg-gray-700 text-gray-400 dark:text-gray-400 rounded-xl flex items-center gap-1">
                                                 <FiEyeOff size={10} /> مسودة
                                             </span>
                                         )}
@@ -174,7 +174,7 @@ export default function CourseQuizzesPage() {
                                 <div className="flex items-center gap-2">
                                     <button
                                         onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes/${quiz.id}/edit`)}
-                                        className="p-2 text-gray-600 dark:text-gray-400 hover:bg-emerald-800 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                                        className="p-2 text-gray-400 dark:text-gray-400 hover:bg-emerald-800 dark:hover:bg-gray-700 rounded-lg transition-colors"
                                         title="تعديل"
                                     >
                                         <FiEdit2 size={16} />

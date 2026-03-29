@@ -29,7 +29,7 @@ export default function Navbar() {
                     {/* Logo & Nav */}
                     <div className="flex items-center gap-10">
                     <Link href="/" className="flex items-center gap-2 group transition-all">
-                        <div className="w-10 h-10 bg-emerald-700 rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#10B981]/20 shadow-black/5 group-hover:bg-emerald-700 group-hover:scale-105 transition-all duration-500">
+                        <div className="w-10 h-10 bg-emerald-700 text-white rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#10B981]/20 shadow-black/5 group-hover:bg-emerald-700 text-white group-hover:scale-105 transition-all duration-500">
                             <FiLayers size={22} className="group-hover:rotate-12 transition-transform" />
                         </div>
                         <span className="text-xl font-bold text-[#10B981] tracking-tighter">
@@ -60,7 +60,7 @@ export default function Navbar() {
                         </Link>
                         <Link
                             href="/register"
-                            className="bg-emerald-700 text-white px-8 py-3 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-[#10B981]/20 shadow-black/5 hover:bg-emerald-700 hover:shadow-accent/20 active:scale-95 transition-all"
+                            className="bg-emerald-700 text-white px-8 py-3 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-[#10B981]/20 shadow-black/5 hover:bg-emerald-700 text-white hover:shadow-accent/20 active:scale-95 transition-all"
                         >
                             Establish Account
                         </Link>
@@ -68,7 +68,7 @@ export default function Navbar() {
 
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="lg:hidden p-2 text-gray-600 hover:text-[#10B981]"
+                            className="lg:hidden p-2 text-gray-400 hover:text-[#10B981]"
                         >
                             {isMenuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
                         </button>
@@ -96,7 +96,7 @@ export default function Navbar() {
                                 <Link
                                     key={idx}
                                     href={link.href}
-                                    className={`flex items-center justify-between p-3 rounded-lg text-sm font-medium transition-colors ${pathname === link.href ? 'bg-emerald-700-light text-[#10B981]' : 'text-gray-600 hover:bg-[#111111]'}`}
+                                    className={`flex items-center justify-between p-3 rounded-lg text-sm font-medium transition-colors ${pathname === link.href ? 'bg-emerald-700 text-white-light text-[#10B981]' : 'text-gray-400 hover:bg-[#111111]'}`}
                                 >
                                     {link.title}
                                     <FiChevronLeft className="opacity-30" />

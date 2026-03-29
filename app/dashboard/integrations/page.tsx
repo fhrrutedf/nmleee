@@ -84,7 +84,7 @@ export default function IntegrationsPage() {
                 </svg>
             ),
             color: 'text-[#10B981]-600',
-            bg: 'bg-emerald-700-50 dark:bg-blue-900/20',
+            bg: 'bg-emerald-700 text-white-50 dark:bg-blue-900/20',
         },
         {
             id: 'zoom',
@@ -161,7 +161,7 @@ export default function IntegrationsPage() {
             )}
 
             {/* Reminder info box */}
-            <div className="bg-emerald-700/5 border border-emerald-600/20 rounded-xl p-5 flex gap-4 items-start">
+            <div className="bg-emerald-700 text-white/5 border border-emerald-600/20 rounded-xl p-5 flex gap-4 items-start">
                 <FiClock className="text-[#10B981] text-2xl flex-shrink-0 mt-0.5" />
                 <div>
                     <p className="font-bold text-[#10B981]">إرسال رابط الاجتماع تلقائياً</p>
@@ -209,7 +209,7 @@ export default function IntegrationsPage() {
                                         </span>
                                     )}
                                     {integration.status === 'coming_soon' && (
-                                        <span className="inline-flex items-center gap-1.5 text-[#10B981] text-xs font-medium bg-emerald-700-50 dark:bg-amber-900/20 px-2.5 py-1 rounded-xl mt-1">
+                                        <span className="inline-flex items-center gap-1.5 text-[#10B981] text-xs font-medium bg-emerald-700 text-white-50 dark:bg-amber-900/20 px-2.5 py-1 rounded-xl mt-1">
                                             قريباً
                                         </span>
                                     )}

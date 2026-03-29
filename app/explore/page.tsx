@@ -92,13 +92,13 @@ export default async function ExplorePage({
     });
 
     return (
-        <div className="min-h-screen bg-[#0A0A0A] pt-20 pb-24 selection:bg-emerald-700/20">
+        <div className="min-h-screen bg-[#0A0A0A] pt-20 pb-24 selection:bg-emerald-700 text-white/20">
 
             {/* Premium Corporate Search Header */}
             <div className="relative bg-emerald-700 text-white py-24 md:py-32 overflow-hidden border-b border-white/5">
                 {/* Refined Accents */}
-                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-700/10 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
-                <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-700/5 rounded-xl blur-[100px] translate-y-1/2 -translate-x-1/4"></div>
+                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-700 text-white/10 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+                <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-700 text-white/5 rounded-xl blur-[100px] translate-y-1/2 -translate-x-1/4"></div>
 
                 <div className="max-w-5xl mx-auto relative z-10 text-center px-6">
                     <div className="animate-in fade-in slide-in-from-bottom-5 duration-1000">
@@ -137,7 +137,7 @@ export default async function ExplorePage({
                                     <option value="ebooks">كتب رقمية</option>
                                     <option value="templates">قوالب وأدوات</option>
                                 </select>
-                                <button type="submit" className="bg-emerald-700 text-white px-12 py-5 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-emerald-700-hover transition-all shadow-lg shadow-[#10B981]/20 shadow-accent/20 active:scale-95">
+                                <button type="submit" className="bg-emerald-700 text-white px-12 py-5 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-emerald-700 text-white-hover transition-all shadow-lg shadow-[#10B981]/20 shadow-accent/20 active:scale-95">
                                     Search
                                 </button>
                             </div>
@@ -148,9 +148,9 @@ export default async function ExplorePage({
                             <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-2.5 rounded-xl">
                                 <FiFilter className="text-[#10B981]" size={14} />
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Price Range:</span>
-                                <input type="number" name="minPrice" placeholder="Min" defaultValue={minPrice} className="w-16 bg-transparent border-none text-xs font-bold text-center p-0 focus:ring-0 text-white placeholder:text-gray-600" />
+                                <input type="number" name="minPrice" placeholder="Min" defaultValue={minPrice} className="w-16 bg-transparent border-none text-xs font-bold text-center p-0 focus:ring-0 text-white placeholder:text-gray-400" />
                                 <span className="text-gray-700">|</span>
-                                <input type="number" name="maxPrice" placeholder="Max" defaultValue={maxPrice} className="w-16 bg-transparent border-none text-xs font-bold text-center p-0 focus:ring-0 text-white placeholder:text-gray-600" />
+                                <input type="number" name="maxPrice" placeholder="Max" defaultValue={maxPrice} className="w-16 bg-transparent border-none text-xs font-bold text-center p-0 focus:ring-0 text-white placeholder:text-gray-400" />
                             </div>
 
                             <select
@@ -206,11 +206,11 @@ export default async function ExplorePage({
             {/* Professional Bottom CTA */}
             <div className="max-w-7xl mx-auto px-6 mt-32">
                 <div className="bg-[#111111] rounded-[3rem] p-12 md:p-20 border border-gray-100 text-center relative overflow-hidden group">
-                    <div className="absolute top-0 left-0 w-[40%] h-[40%] bg-emerald-700/5 rounded-xl blur-[100px]"></div>
+                    <div className="absolute top-0 left-0 w-[40%] h-[40%] bg-emerald-700 text-white/5 rounded-xl blur-[100px]"></div>
                     <div className="relative z-10">
                         <h3 className="text-3xl md:text-5xl font-bold text-[#10B981] tracking-tighter mb-8 leading-tight">جاهز لبيع منتجاتك الخاصة؟</h3>
                         <p className="text-gray-400 text-lg font-bold mb-12 max-w-xl mx-auto">انضم لآلاف البائعين في تمالين وافتح متجرك الاحترافي خلال أقل من 5 دقائق.</p>
-                        <Link href="/register" className="inline-flex items-center gap-3 py-5 px-12 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/10">
+                        <Link href="/register" className="inline-flex items-center gap-3 py-5 px-12 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-emerald-700 text-white transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/10">
                             Start Selling Now <FiArrowRight className="rotate-180" />
                         </Link>
                     </div>

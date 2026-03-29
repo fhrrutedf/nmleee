@@ -116,15 +116,15 @@ function RegisterContent() {
     const inputClass = "block w-full px-5 py-4 text-[#10B981] bg-[#111111] border border-gray-100 rounded-xl outline-none focus:bg-[#0A0A0A] focus:border-ink focus:ring-4 focus:ring-ink/5 transition-all font-bold text-sm";
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[#0A0A0A] relative overflow-hidden py-16 px-6 selection:bg-emerald-700/20">
+        <div className="min-h-screen flex items-center justify-center bg-[#0A0A0A] relative overflow-hidden py-16 px-6 selection:bg-emerald-700 text-white/20">
             {/* Background Decorations */}
-            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-700/5 rounded-xl blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-700/5 rounded-xl blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
+            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-700 text-white/5 rounded-xl blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-700 text-white/5 rounded-xl blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
 
             <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-xl w-full relative z-10">
                 <motion.div variants={fadeInUp} className="text-center mb-12">
                      <Link href="/" className="inline-block mb-8 group">
-                        <div className="w-16 h-16 mx-auto rounded-xl bg-emerald-700 flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-[#10B981]/20 shadow-ink/20 group-hover:scale-110 transition-transform">
+                        <div className="w-16 h-16 mx-auto rounded-xl bg-emerald-700 text-white flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-[#10B981]/20 shadow-ink/20 group-hover:scale-110 transition-transform">
                             ت
                         </div>
                     </Link>
@@ -133,7 +133,7 @@ function RegisterContent() {
                 </motion.div>
 
                 <motion.div variants={fadeInUp} className="bg-[#0A0A0A] rounded-[2.5rem] border border-gray-100 p-10 shadow-lg shadow-[#10B981]/20 shadow-gray-200/50 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-700/5 rounded-bl-[80px] pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-700 text-white/5 rounded-bl-[80px] pointer-events-none"></div>
 
                     <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                         <AnimatePresence>
@@ -206,7 +206,7 @@ function RegisterContent() {
                             type="submit" 
                             disabled={loading} 
                             className={`w-full py-5 rounded-xl font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-lg shadow-[#10B981]/20
-                                ${loading ? 'bg-emerald-800 text-gray-400 cursor-not-allowed' : 'bg-emerald-700 text-white hover:bg-emerald-700 shadow-ink/20'}
+                                ${loading ? 'bg-emerald-800 text-gray-400 cursor-not-allowed' : 'bg-emerald-700 text-white hover:bg-emerald-700 text-white shadow-ink/20'}
                             `}
                         >
                             {loading ? <div className="w-5 h-5 border-2 border-gray-300 border-t-gray-600 rounded-xl animate-spin" /> : <>Create My Account <FiArrowLeft className="rotate-180" size={16} /></>}

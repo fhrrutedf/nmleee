@@ -104,7 +104,7 @@ export default function SellerDashboardPage() {
                                 return (
                                     <div key={index} className="flex-1 flex flex-col items-center group">
                                         <div
-                                            className="w-full bg-emerald-700 rounded-t hover:bg-emerald-700 transition-colors cursor-pointer relative"
+                                            className="w-full bg-emerald-700 text-white rounded-t hover:bg-emerald-700 text-white transition-colors cursor-pointer relative"
                                             style={{ height: `${height}%` }}
                                             title={`${item.revenue.toFixed(2)} $ - ${item.orders} طلب`}
                                         >
@@ -206,7 +206,7 @@ function StatsCard({ title, value, change, icon, bgColor }: StatsCardProps) {
                     </div>
                 )}
             </div>
-            <p className="text-sm text-gray-600 mb-1">{title}</p>
+            <p className="text-sm text-gray-400 mb-1">{title}</p>
             <p className="text-2xl font-bold text-white">{value}</p>
         </div>
     );

@@ -134,7 +134,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                             <button
                                 type="button"
                                 onClick={createModule}
-                                className="flex-1 sm:flex-none px-8 py-4 bg-emerald-700 font-bold text-white rounded-xl hover:bg-emerald-700-hover active:scale-95 transition-all shadow-lg shadow-[#10B981]/20 shadow-accent/20"
+                                className="flex-1 sm:flex-none px-8 py-4 bg-emerald-700 text-white font-bold text-white rounded-xl hover:bg-emerald-700 text-white-hover active:scale-95 transition-all shadow-lg shadow-[#10B981]/20 shadow-accent/20"
                             >
                                 حفظ الوحدة
                             </button>
@@ -206,7 +206,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                     {module.lessons.map((lesson, lessonIndex) => (
                                         <div key={lesson.id} className="p-6 hover:bg-[#111111]/50 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                                             <div className="flex items-center gap-5 w-full sm:w-auto">
-                                                <div className="w-10 h-10 bg-[#111111] rounded-xl flex items-center justify-center text-gray-400 group-hover:bg-emerald-700 group-hover:text-white transition-colors">
+                                                <div className="w-10 h-10 bg-[#111111] rounded-xl flex items-center justify-center text-gray-400 group-hover:bg-emerald-700 text-white group-hover:text-white transition-colors">
                                                     <FiVideo />
                                                 </div>
                                                 <div className="flex-1">
@@ -216,7 +216,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                                             {formatDuration(lesson.videoDuration)}
                                                         </span>
                                                         {lesson.isFree && (
-                                                            <span className="text-[10px] font-bold text-[#10B981] bg-emerald-700/5 px-2.5 py-1 rounded-lg uppercase tracking-widest flex items-center gap-2 border border-emerald-600/10">
+                                                            <span className="text-[10px] font-bold text-[#10B981] bg-emerald-700 text-white/5 px-2.5 py-1 rounded-lg uppercase tracking-widest flex items-center gap-2 border border-emerald-600/10">
                                                                 <FiEye size={12} /> PUBLIC PREVIEW
                                                             </span>
                                                         )}

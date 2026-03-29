@@ -149,7 +149,7 @@ export default function PayoutsClient({ initialPayouts }: { initialPayouts: any[
                                     ) : (
                                         <div className={`w-full py-2 rounded-lg text-center font-bold text-sm border flex items-center justify-center gap-2
                                             ${payout.status === 'PAID' ? 'bg-green-50 text-green-700 border-green-200' :
-                                                payout.status === 'REJECTED' ? 'bg-red-50 text-red-700 border-red-200' : 'bg-emerald-800 text-gray-600'}
+                                                payout.status === 'REJECTED' ? 'bg-red-50 text-red-700 border-red-200' : 'bg-emerald-800 text-gray-400'}
                                         `}>
                                             {payout.status === 'PAID' && <><FiCheck /> تم الدفع</>}
                                             {payout.status === 'REJECTED' && <><FiX /> مرفوض</>}

@@ -134,7 +134,7 @@ export default function AffiliatesPage() {
                 </div>
                 <button
                     onClick={() => setShowModal(true)}
-                    className="btn bg-emerald-700 hover:bg-emerald-700-600 text-white flex items-center gap-2 shadow-lg shadow-[#10B981]/20 shadow-accent/20 hover:-translate-y-1 transition-transform"
+                    className="btn bg-emerald-700 text-white hover:bg-emerald-700 text-white-600 text-white flex items-center gap-2 shadow-lg shadow-[#10B981]/20 shadow-accent/20 hover:-translate-y-1 transition-transform"
                 >
                     <FiPlus />
                     <span>إضافة مسوق جديد</span>
@@ -220,7 +220,7 @@ export default function AffiliatesPage() {
                                                 {link.commissionType === 'percentage' ? `${link.commissionValue}% نسبة` : `${link.commissionValue} $ ثابت`}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-5 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
+                                        <td className="px-6 py-5 whitespace-nowrap text-sm text-gray-400 dark:text-gray-400">
                                             <div className="flex items-center gap-4 font-medium">
                                                 <div title="عدد الزيارات للرابط" className="flex items-center tracking-wider"><FiActivity className="ml-1 text-[#10B981]-500" /> {link.clicks}</div>
                                                 <div title="عدد المبيعات" className="flex items-center text-[#10B981] dark:text-white font-bold"><FiCheckCircle className="ml-1 text-green-500" /> {link.salesCount}</div>
@@ -240,7 +240,7 @@ export default function AffiliatesPage() {
                                             <div className="flex justify-center items-center gap-2">
                                                 <button
                                                     onClick={() => copyToClipboard(link.code)}
-                                                    className="p-2 text-[#10B981] bg-emerald-700-50 dark:bg-blue-900/20 hover:bg-blue-100 rounded-xl transition-colors"
+                                                    className="p-2 text-[#10B981] bg-emerald-700 text-white-50 dark:bg-blue-900/20 hover:bg-blue-100 rounded-xl transition-colors"
                                                     title="نسخ الرابط لمشاركته مع المسوق"
                                                 >
                                                     <FiCopy size={18} />

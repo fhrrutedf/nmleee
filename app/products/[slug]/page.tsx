@@ -101,7 +101,7 @@ export default function ProductPage() {
                 <style dangerouslySetInnerHTML={{
                     __html: `
                     .text-[#10B981] { color: ${effectiveBrandColor} !important; }
-                    .bg-emerald-700 { background-color: ${effectiveBrandColor} !important; }
+                    .bg-emerald-700 text-white { background-color: ${effectiveBrandColor} !important; }
                     .bg-indigo-100 { background-color: ${effectiveBrandColor}20 !important; }
                     .border-ink { border-color: ${effectiveBrandColor} !important; }
                     .hover\\:bg-indigo-700:hover { background-color: ${effectiveBrandColor}cc !important; }
@@ -158,7 +158,7 @@ export default function ProductPage() {
                                             />
                                         ))}
                                     </div>
-                                    <span className="text-gray-600">
+                                    <span className="text-gray-400">
                                         {product.averageRating.toFixed(1)} ({product.reviewCount} تقييم)
                                     </span>
                                 </div>
@@ -191,7 +191,7 @@ export default function ProductPage() {
                                 <div className="space-y-3">
                                     <button
                                         onClick={handleBuyNow}
-                                        className="w-full py-3 bg-emerald-700 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors"
+                                        className="w-full py-3 bg-emerald-700 text-white rounded-lg font-medium hover:bg-emerald-700 text-white transition-colors"
                                     >
                                         اشترِ الآن
                                     </button>

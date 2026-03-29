@@ -27,7 +27,7 @@ const methodLabel: Record<string, string> = {
     free: 'مجاني', paypal: 'PayPal',
 };
 const statusBadge: Record<string, string> = {
-    PENDING: 'bg-emerald-800 text-gray-500', PAID: 'bg-emerald-700/10 text-[#10B981]',
+    PENDING: 'bg-emerald-800 text-gray-500', PAID: 'bg-emerald-700 text-white/10 text-[#10B981]',
     COMPLETED: 'bg-emerald-700 text-white', CANCELLED: 'bg-red-50 text-red-500',
     REFUNDED: 'bg-orange-50 text-orange-600',
 };
@@ -36,12 +36,12 @@ const statusBadge: Record<string, string> = {
 function StatCard({ icon: Icon, label, value, sub, trend }: any) {
     return (
         <div className="bg-[#0A0A0A] border border-gray-100 p-8 rounded-[2rem] shadow-lg shadow-[#10B981]/20 shadow-gray-100/20 hover:border-emerald-600/20 transition-all group relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-700/5 rounded-bl-[80px] group-hover:bg-emerald-700/10 transition-colors"></div>
+            <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-700 text-white/5 rounded-bl-[80px] group-hover:bg-emerald-700 text-white/10 transition-colors"></div>
             <div className="flex items-center justify-between mb-6 relative z-10">
-                <div className="p-4 bg-[#111111] rounded-xl text-[#10B981] group-hover:bg-emerald-700 group-hover:text-white transition-all">
+                <div className="p-4 bg-[#111111] rounded-xl text-[#10B981] group-hover:bg-emerald-700 text-white group-hover:text-white transition-all">
                     <Icon size={24} />
                 </div>
-                {trend && <span className="text-[10px] font-bold font-inter text-[#10B981] uppercase tracking-widest bg-emerald-700/5 px-3 py-1 rounded-lg">{trend}</span>}
+                {trend && <span className="text-[10px] font-bold font-inter text-[#10B981] uppercase tracking-widest bg-emerald-700 text-white/5 px-3 py-1 rounded-lg">{trend}</span>}
             </div>
             <div className="relative z-10">
                 <div className="text-4xl font-bold text-[#10B981] mb-2 tracking-tighter">{value}</div>
@@ -204,7 +204,7 @@ export default function AdminDashboardPage() {
     );
 
     return (
-        <div className="space-y-12 pb-24 selection:bg-emerald-700/20" dir="rtl">
+        <div className="space-y-12 pb-24 selection:bg-emerald-700 text-white/20" dir="rtl">
             {/* Header Section - Modern Institutional Style */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pt-6">
                 <div>
@@ -254,7 +254,7 @@ export default function AdminDashboardPage() {
                         {/* Charts Section */}
                         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
                             <div className="xl:col-span-2 bg-[#0A0A0A] border border-gray-100 rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20 shadow-gray-100/20 relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-700/5 rounded-bl-[120px] pointer-events-none"></div>
+                                <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-700 text-white/5 rounded-bl-[120px] pointer-events-none"></div>
                                 <h3 className="text-xl font-bold text-[#10B981] mb-10 tracking-widest flex items-center gap-3">
                                     <FiTrendingUp className="text-[#10B981]" /> REVENUE GROWTH
                                 </h3>
@@ -281,7 +281,7 @@ export default function AdminDashboardPage() {
                             </div>
 
                             <div className="bg-emerald-700 text-white rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20 shadow-ink/20 relative overflow-hidden">
-                                <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-700/10 rounded-br-[100px] pointer-events-none"></div>
+                                <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-700 text-white/10 rounded-br-[100px] pointer-events-none"></div>
                                 <h3 className="text-xl font-bold mb-10 tracking-widest flex items-center gap-3">
                                     <FiPieChart className="text-[#10B981]" /> VOLUME DISTRIBUTION
                                 </h3>
@@ -293,7 +293,7 @@ export default function AdminDashboardPage() {
                                                 <span className="text-sm font-bold text-[#10B981]">${fmt(m.total)}</span>
                                             </div>
                                             <div className="w-full bg-[#0A0A0A]/10 h-1.5 rounded-xl overflow-hidden">
-                                                <div className="bg-emerald-700 h-full rounded-xl" style={{ width: '60%' }}></div>
+                                                <div className="bg-emerald-700 text-white h-full rounded-xl" style={{ width: '60%' }}></div>
                                             </div>
                                         </div>
                                     ))}
@@ -320,7 +320,7 @@ export default function AdminDashboardPage() {
                                         <tr key={s.id} className="group hover:bg-[#111111]/50 transition-colors">
                                             <td className="py-6">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-10 h-10 rounded-xl bg-emerald-800 flex items-center justify-center font-bold text-[#10B981] border border-gray-100 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-transparent transition-all overflow-hidden shrink-0 uppercase">
+                                                    <div className="w-10 h-10 rounded-xl bg-emerald-800 flex items-center justify-center font-bold text-[#10B981] border border-gray-100 group-hover:bg-emerald-700 text-white group-hover:text-white group-hover:border-transparent transition-all overflow-hidden shrink-0 uppercase">
                                                         {s.avatar ? <img src={s.avatar} className="w-full h-full object-cover" /> : s.name?.charAt(0)}
                                                     </div>
                                                     <div className="min-w-0">
@@ -373,14 +373,14 @@ export default function AdminDashboardPage() {
             {/* Global Modals Styled v2 */}
             <AnimatePresence>
                 {showBroadcast && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-emerald-700/60 ">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-emerald-700 text-white/60 ">
                         <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-[#0A0A0A] rounded-[3rem] p-12 max-w-3xl w-full shadow-lg shadow-[#10B981]/20 relative">
                             <button onClick={() => setShowBroadcast(false)} className="absolute top-8 left-8 p-3 hover:bg-emerald-800 rounded-xl transition-all"><FiX size={24} /></button>
                             <h2 className="text-3xl font-bold text-[#10B981] mb-10 tracking-tighter">إطلاق حملة بث مركزي</h2>
                             <div className="space-y-6">
                                 <input type="text" className="w-full bg-[#111111] border border-gray-100 rounded-xl p-5 font-bold outline-none focus:bg-[#0A0A0A] focus:border-emerald-600 transition-all" placeholder="عنوان الحملة الاستراتيجي" />
                                 <textarea className="w-full bg-[#111111] border border-gray-100 rounded-[2rem] p-8 font-bold outline-none focus:bg-[#0A0A0A] focus:border-emerald-600 transition-all min-h-[200px]" placeholder="محتوى الرسالة (يدعم Markdown)..." />
-                                <button onClick={sendBroadcast} className="w-full py-6 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-[0.3em] hover:bg-emerald-700 shadow-lg shadow-[#10B981]/20 shadow-ink/20">Initite Global Broadcast</button>
+                                <button onClick={sendBroadcast} className="w-full py-6 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-[0.3em] hover:bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 shadow-ink/20">Initite Global Broadcast</button>
                             </div>
                         </motion.div>
                     </div>

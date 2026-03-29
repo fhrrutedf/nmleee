@@ -274,7 +274,7 @@ export default function ProductsManagement() {
                                         <motion.tr variants={itemVariants} key={item.id} className="border-b border-gray-50 dark:border-gray-800/60 hover:bg-[#111111] dark:hover:bg-gray-800/30 transition-colors">
                                             <td className="py-4 px-6">
                                                 <div className="flex items-center gap-3">
-                                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${item.itemType === 'COURSE' ? 'bg-purple-50 text-purple-500 dark:bg-purple-900/20' : 'bg-emerald-700-50 text-[#10B981] dark:bg-blue-900/20'}`}>
+                                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${item.itemType === 'COURSE' ? 'bg-purple-50 text-purple-500 dark:bg-purple-900/20' : 'bg-emerald-700 text-white-50 text-[#10B981] dark:bg-blue-900/20'}`}>
                                                         {item.itemType === 'COURSE' ? <FiPlayCircle size={20} /> : <FiImage size={20} />}
                                                     </div>
                                                     <div>
@@ -316,7 +316,7 @@ export default function ProductsManagement() {
                                                     <Link
                                                         href={item.itemType === 'COURSE' ? `/course/${item.id}` : `/product/${item.id}`}
                                                         target="_blank"
-                                                        className="p-2 rounded-lg text-gray-400 hover:text-[#10B981] hover:bg-emerald-700-50 dark:hover:bg-blue-900/20 transition-colors"
+                                                        className="p-2 rounded-lg text-gray-400 hover:text-[#10B981] hover:bg-emerald-700 text-white-50 dark:hover:bg-blue-900/20 transition-colors"
                                                         title="عرض في المتجر"
                                                     >
                                                         <FiEyeOff size={18} />
@@ -348,7 +348,7 @@ export default function ProductsManagement() {
                             <button
                                 disabled={page === 1}
                                 onClick={() => setPage(p => p - 1)}
-                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-400 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 السابق
                             </button>
@@ -358,7 +358,7 @@ export default function ProductsManagement() {
                             <button
                                 disabled={page === totalPages}
                                 onClick={() => setPage(p => p + 1)}
-                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-400 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 التالي
                             </button>

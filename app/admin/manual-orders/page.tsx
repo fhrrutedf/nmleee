@@ -38,7 +38,7 @@ const STATUS_CONFIG: Record<string, { label: string; bg: string; icon: ReactNode
     PAID: { label: 'مقبول ✓', bg: 'bg-blue-100 text-blue-800', icon: <FiCheckCircle size={14} /> },
     COMPLETED: { label: 'مقبول ✓', bg: 'bg-blue-100 text-blue-800', icon: <FiCheckCircle size={14} /> },
     REJECTED: { label: 'مرفوض ✗', bg: 'bg-red-100 text-red-800', icon: <FiXCircle size={14} /> },
-    CANCELLED: { label: 'ملغي', bg: 'bg-emerald-800 text-gray-600', icon: <FiXCircle size={14} /> },
+    CANCELLED: { label: 'ملغي', bg: 'bg-emerald-800 text-gray-400', icon: <FiXCircle size={14} /> },
 };
 
 export default function ManualOrdersPage() {
@@ -171,7 +171,7 @@ export default function ManualOrdersPage() {
                                 className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${
                                     statusFilter === tab.value
                                         ? 'bg-emerald-700 text-white shadow-md'
-                                        : 'bg-emerald-800 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                        : 'bg-emerald-800 dark:bg-gray-700 text-gray-400 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                                 }`}
                             >
                                 {tab.label}
@@ -272,7 +272,7 @@ export default function ManualOrdersPage() {
                                             <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700 flex gap-3">
                                                 <button
                                                     onClick={() => handleApprove(order.id)}
-                                                    className="flex-1 px-4 py-2.5 bg-emerald-700-600 text-white rounded-xl hover:bg-emerald-700 transition-colors flex items-center justify-center gap-2 font-bold text-sm shadow-lg shadow-[#10B981]/20"
+                                                    className="flex-1 px-4 py-2.5 bg-emerald-700 text-white-600 text-white rounded-xl hover:bg-emerald-700 text-white transition-colors flex items-center justify-center gap-2 font-bold text-sm shadow-lg shadow-[#10B981]/20"
                                                 >
                                                     <FiCheck /> موافقة
                                                 </button>

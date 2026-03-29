@@ -89,7 +89,7 @@ export default function EmailLogsPage() {
             <div className="flex gap-2">
                 {(['all', 'sent', 'failed'] as const).map(f => (
                     <button key={f} onClick={() => setFilter(f)}
-                        className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${filter === f ? 'bg-emerald-700 text-white' : 'bg-emerald-800 dark:bg-gray-800 text-gray-600 dark:text-gray-400'}`}>
+                        className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${filter === f ? 'bg-emerald-700 text-white' : 'bg-emerald-800 dark:bg-gray-800 text-gray-400 dark:text-gray-400'}`}>
                         {f === 'all' ? 'الكل' : f === 'sent' ? 'مُرسَل ✓' : 'فشل ✗'}
                     </button>
                 ))}
@@ -133,7 +133,7 @@ export default function EmailLogsPage() {
                                                 <p className="font-medium text-[#10B981] dark:text-white">{log.toName || log.toEmail}</p>
                                                 <p className="text-xs text-text-muted">{log.toEmail}</p>
                                             </td>
-                                            <td className="px-4 py-3 text-gray-600 dark:text-gray-400 max-w-[200px] truncate">{log.subject}</td>
+                                            <td className="px-4 py-3 text-gray-400 dark:text-gray-400 max-w-[200px] truncate">{log.subject}</td>
                                             <td className="px-4 py-3">
                                                 {log.status === 'sent' ? (
                                                     <span className="flex items-center gap-1 text-green-600 font-semibold text-xs"><FiCheck /> مُرسَل</span>

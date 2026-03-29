@@ -79,7 +79,7 @@ export default function CartPage() {
                     __html: `
                     .text-[#10B981], .text-primary-700, .text-[#10B981] a { color: ${effectiveBrandColor} !important; }
                     .text-primary-700 { color: ${effectiveBrandColor} !important; filter: brightness(0.85); }
-                    .bg-emerald-700 { background-color: ${effectiveBrandColor} !important; }
+                    .bg-emerald-700 text-white { background-color: ${effectiveBrandColor} !important; }
                     .btn-primary { background-color: ${effectiveBrandColor} !important; border-color: ${effectiveBrandColor} !important; }
                     .btn-primary:hover { background-color: ${effectiveBrandColor} !important; filter: brightness(0.85); }
                     .shadow-accent\\/30 { --tw-shadow-color: ${effectiveBrandColor}4d !important; }
@@ -144,11 +144,11 @@ export default function CartPage() {
                             <h2 className="text-xl font-bold mb-6 text-white">ملخص الطلب</h2>
 
                             <div className="space-y-4 mb-6 pb-6 border-b border-gray-100">
-                                <div className="flex justify-between text-gray-600">
+                                <div className="flex justify-between text-gray-400">
                                     <span>المجموع الفرعي</span>
                                     <span>{subtotal.toFixed(2)} $</span>
                                 </div>
-                                <div className="flex justify-between text-gray-600">
+                                <div className="flex justify-between text-gray-400">
                                     <span>الخصم</span>
                                     <span>0.00 $</span>
                                 </div>

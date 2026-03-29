@@ -85,7 +85,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                     {result.score.toFixed(1)}%
                 </div>
 
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-400 mb-6">
                     درجة النجاح المطلوبة: {quiz.passingScore}%
                 </p>
 
@@ -204,7 +204,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                 <button
                     onClick={() => setCurrentQuestion(prev => Math.max(0, prev - 1))}
                     disabled={currentQuestion === 0}
-                    className="px-4 py-2 text-gray-600 disabled:opacity-50 hover:bg-gray-200 rounded-lg"
+                    className="px-4 py-2 text-gray-400 disabled:opacity-50 hover:bg-gray-200 rounded-lg"
                 >
                     السابق
                 </button>
@@ -212,7 +212,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                 {currentQuestion < quiz.questions.length - 1 ? (
                     <button
                         onClick={() => setCurrentQuestion(prev => prev + 1)}
-                        className="px-6 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700"
+                        className="px-6 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 text-white"
                     >
                         التالي
                     </button>

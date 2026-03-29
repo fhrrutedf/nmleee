@@ -115,7 +115,7 @@ export default function TakeQuizPage() {
     if (!quiz) {
         return (
             <div className="min-h-screen bg-[#111111] flex items-center justify-center">
-                <p className="text-gray-600">الاختبار غير موجود</p>
+                <p className="text-gray-400">الاختبار غير موجود</p>
             </div>
         );
     }
@@ -139,19 +139,19 @@ export default function TakeQuizPage() {
                             {result.isPassed ? 'نجحت!' : 'للأسف، لم تنجح'}
                         </h1>
 
-                        <p className="text-xl text-gray-600 mb-8">
+                        <p className="text-xl text-gray-400 mb-8">
                             حصلت على {result.score.toFixed(0)}% من {quiz.passingScore}%
                         </p>
 
                         <div className="grid grid-cols-2 gap-4 max-w-md mx-auto mb-8">
                             <div className="bg-[#111111] rounded-lg p-4">
-                                <p className="text-sm text-gray-600 mb-1">الإجابات الصحيحة</p>
+                                <p className="text-sm text-gray-400 mb-1">الإجابات الصحيحة</p>
                                 <p className="text-2xl font-bold text-green-600">
                                     {result.correctAnswers} / {result.totalQuestions}
                                 </p>
                             </div>
                             <div className="bg-[#111111] rounded-lg p-4">
-                                <p className="text-sm text-gray-600 mb-1">الدرجة</p>
+                                <p className="text-sm text-gray-400 mb-1">الدرجة</p>
                                 <p className="text-2xl font-bold text-[#10B981]">
                                     {result.score.toFixed(0)}%
                                 </p>
@@ -161,7 +161,7 @@ export default function TakeQuizPage() {
                         <div className="flex gap-4 justify-center">
                             <button
                                 onClick={() => window.location.reload()}
-                                className="px-6 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                                className="px-6 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 text-white transition-colors"
                             >
                                 إعادة المحاولة
                             </button>
@@ -187,12 +187,12 @@ export default function TakeQuizPage() {
                         <div>
                             <h1 className="text-2xl font-bold text-white">{quiz.title}</h1>
                             {quiz.description && (
-                                <p className="text-gray-600 mt-1">{quiz.description}</p>
+                                <p className="text-gray-400 mt-1">{quiz.description}</p>
                             )}
                         </div>
                         {timeLeft !== null && (
                             <div className="flex items-center gap-2 text-lg font-semibold">
-                                <FiClock className={timeLeft < 300 ? 'text-red-600' : 'text-gray-600'} />
+                                <FiClock className={timeLeft < 300 ? 'text-red-600' : 'text-gray-400'} />
                                 <span className={timeLeft < 300 ? 'text-red-600' : 'text-white'}>
                                     {formatTime(timeLeft)}
                                 </span>
@@ -239,7 +239,7 @@ export default function TakeQuizPage() {
                     <button
                         onClick={handleSubmit}
                         disabled={loading || answers.some(a => a === null)}
-                        className="w-full px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
+                        className="w-full px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
                     >
                         {loading ? 'جاري التقديم...' : 'تقديم الاختبار'}
                     </button>

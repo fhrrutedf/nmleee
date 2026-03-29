@@ -204,12 +204,12 @@ export default function AdminStudentsPage() {
                                                                     <p className="font-bold text-white dark:text-white text-xs">{student.name}</p>
                                                                     <p className="text-[11px] text-gray-400">{student.email}</p>
                                                                 </td>
-                                                                <td className="px-4 py-3 text-xs text-gray-600 dark:text-gray-300">{student.courseTitle}</td>
+                                                                <td className="px-4 py-3 text-xs text-gray-400 dark:text-gray-300">{student.courseTitle}</td>
                                                                 <td className="px-4 py-3">
                                                                     <div className="flex items-center gap-2">
                                                                         <div className="w-20 bg-gray-200 dark:bg-gray-700 rounded-xl h-1.5">
                                                                             <div
-                                                                                className={`h-1.5 rounded-xl ${student.isCompleted ? 'bg-emerald-700-500' : 'bg-emerald-700'}`}
+                                                                                className={`h-1.5 rounded-xl ${student.isCompleted ? 'bg-emerald-700 text-white-500' : 'bg-emerald-700 text-white'}`}
                                                                                 style={{ width: `${student.progress}%` }}
                                                                             />
                                                                         </div>

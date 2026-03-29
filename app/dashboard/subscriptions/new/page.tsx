@@ -174,7 +174,7 @@ export default function NewSubscriptionPlanPage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="flex-1 px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex-1 px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {loading ? 'جاري الإنشاء...' : 'إنشاء الخطة'}
                             </button>

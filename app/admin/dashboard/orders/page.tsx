@@ -156,7 +156,7 @@ export default function AdminOrdersManagement() {
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-bold text-[#10B981] dark:text-white mb-2 tracking-tight flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl bg-emerald-700-500/10 text-[#10B981] flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-xl bg-emerald-700 text-white-500/10 text-[#10B981] flex items-center justify-center">
                             <FiShoppingCart />
                         </div>
                         إدارة الطلبات
@@ -328,8 +328,8 @@ export default function AdminOrdersManagement() {
                                             </td>
                                             <td className="py-4 px-6 text-center">
                                                 <span className={`inline-flex items-center px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${order.paymentMethod === 'manual'
-                                                    ? 'bg-emerald-700-50 text-[#10B981]-600 dark:bg-blue-900/20 dark:text-blue-400 border border-blue-200 dark:border-blue-800'
-                                                    : 'bg-emerald-800 text-gray-600 dark:bg-gray-800 dark:text-gray-400 border border-emerald-500/20 dark:border-gray-700'
+                                                    ? 'bg-emerald-700 text-white-50 text-[#10B981]-600 dark:bg-blue-900/20 dark:text-blue-400 border border-blue-200 dark:border-blue-800'
+                                                    : 'bg-emerald-800 text-gray-400 dark:bg-gray-800 dark:text-gray-400 border border-emerald-500/20 dark:border-gray-700'
                                                     }`}>
                                                     {order.paymentMethod === 'manual' ? 'حوالة بنكية يدوية' : order.paymentMethod}
                                                 </span>
@@ -340,7 +340,7 @@ export default function AdminOrdersManagement() {
                                                         {getStatusText(order.status)}
                                                     </span>
                                                     {order.paymentMethod === 'manual' && order.status === 'PENDING' && (
-                                                        <button className="text-[10px] flex items-center gap-1 font-bold text-[#10B981] hover:text-[#10B981] transition-colors bg-emerald-700-50 hover:bg-blue-100 px-2 py-1 rounded w-full justify-center">
+                                                        <button className="text-[10px] flex items-center gap-1 font-bold text-[#10B981] hover:text-[#10B981] transition-colors bg-emerald-700 text-white-50 hover:bg-blue-100 px-2 py-1 rounded w-full justify-center">
                                                             <FiEye /> مرجعة الإيصال
                                                         </button>
                                                     )}
@@ -361,7 +361,7 @@ export default function AdminOrdersManagement() {
                             <button
                                 disabled={page === 1}
                                 onClick={() => setPage(p => p - 1)}
-                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-400 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 السابق
                             </button>
@@ -371,7 +371,7 @@ export default function AdminOrdersManagement() {
                             <button
                                 disabled={page === totalPages}
                                 onClick={() => setPage(p => p + 1)}
-                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-400 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 التالي
                             </button>

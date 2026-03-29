@@ -210,7 +210,7 @@ export default function NewProductPage() {
                                 <Section title="مخزن أصول المنتج الرقمي" icon={<FiLayers />}>
                                     <div className="grid md:grid-cols-2 gap-8">
                                         {/* Main File */}
-                                        <div className="space-y-4 p-8 bg-emerald-700-50/50 border-2 border-dashed border-blue-100 rounded-xl text-center relative group">
+                                        <div className="space-y-4 p-8 bg-emerald-700 text-white-50/50 border-2 border-dashed border-blue-100 rounded-xl text-center relative group">
                                             <div className="absolute top-4 right-4 text-[#10B981]-500 bg-blue-100/50 p-2 rounded-xl" title="ملفك محمي بتشفير قوي">
                                                 <FiLock size={16} />
                                             </div>
@@ -423,7 +423,7 @@ export default function NewProductPage() {
                                                 </div>
                                                 
                                                 {/* Auto-Currency Net Earnings Box */}
-                                                <div className="bg-emerald-700-50 border border-blue-100 rounded-xl p-8 flex items-center justify-between shadow-inner relative overflow-hidden mx-auto max-w-2xl">
+                                                <div className="bg-emerald-700 text-white-50 border border-blue-100 rounded-xl p-8 flex items-center justify-between shadow-inner relative overflow-hidden mx-auto max-w-2xl">
                                                     <div className="absolute right-0 top-0 bottom-0 w-3 bg-blue-400" />
                                                     <div>
                                                         <h4 className="text-lg font-bold text-blue-800">الربح الصافي الخاص بك لكل مبيعة</h4>
@@ -457,11 +457,11 @@ export default function NewProductPage() {
                                 </Section>
 
                                 <Section title="خيارات الطرح والنشر في المتجر" icon={<FiEye />}>
-                                    <div className="flex items-center justify-between p-8 bg-emerald-700 rounded-xl border border-white/10 shadow-lg shadow-[#10B981]/20 transition-all cursor-pointer hover:bg-emerald-700 group" onClick={() => update('isActive', !formData.isActive)}>
+                                    <div className="flex items-center justify-between p-8 bg-emerald-700 text-white rounded-xl border border-white/10 shadow-lg shadow-[#10B981]/20 transition-all cursor-pointer hover:bg-emerald-700 text-white group" onClick={() => update('isActive', !formData.isActive)}>
                                         <div className="text-right">
                                             <h3 className="font-bold text-white text-xl leading-tight transition-colors group-hover:text-blue-400">حالة ظهور المنتج في المتجر</h3>
                                         </div>
-                                        <div className={`w-16 h-9 rounded-xl flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.isActive ? 'bg-emerald-700-500 outline-accent-500/30' : 'bg-slate-700 outline-slate-800'}`}>
+                                        <div className={`w-16 h-9 rounded-xl flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.isActive ? 'bg-emerald-700 text-white-500 outline-accent-500/30' : 'bg-slate-700 outline-slate-800'}`}>
                                             <div className={`w-6 h-6 bg-[#0A0A0A] rounded-xl transition-all ${formData.isActive ? 'translate-x-[26px]' : 'translate-x-0'} shadow-lg shadow-[#10B981]/20 shadow-black/40`} />
                                         </div>
                                     </div>
@@ -471,7 +471,7 @@ export default function NewProductPage() {
                                             <h3 className="font-bold text-white text-xl leading-tight transition-colors group-hover:text-amber-400">تفعيل التسعير العادل (PPP Pricing) 🌍</h3>
                                             <p className="text-xs text-blue-200 mt-1 max-w-lg leading-relaxed">تخفيض السعر تلقائياً للزوار من الدول النامية حسب القوة الشرائية، لضمان أعلى نسبة مبيعات للجميع دون حرمان أحد.</p>
                                         </div>
-                                        <div className={`w-16 h-9 rounded-xl flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-emerald-700 outline-amber-500/30' : 'bg-blue-950 outline-blue-900'}`}>
+                                        <div className={`w-16 h-9 rounded-xl flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-emerald-700 text-white outline-amber-500/30' : 'bg-blue-950 outline-blue-900'}`}>
                                             <div className={`w-6 h-6 bg-[#0A0A0A] rounded-xl transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-lg shadow-[#10B981]/20 shadow-black/40`} />
                                         </div>
                                     </div>
@@ -518,7 +518,7 @@ export default function NewProductPage() {
                             {currentStep < 3 ? (
                                 <button
                                     key="btn-next" type="button" onClick={nextStep}
-                                    className="w-full md:w-auto px-12 py-4 bg-emerald-700-600 text-white rounded-[1.5rem] font-bold flex items-center justify-center gap-2 hover:bg-emerald-700 transition-all shadow-lg shadow-[#10B981]/20 shadow-blue-100 active:scale-95 text-lg"
+                                    className="w-full md:w-auto px-12 py-4 bg-emerald-700 text-white-600 text-white rounded-[1.5rem] font-bold flex items-center justify-center gap-2 hover:bg-emerald-700 text-white transition-all shadow-lg shadow-[#10B981]/20 shadow-blue-100 active:scale-95 text-lg"
                                 >
                                     حفظ والانتقال للخطوة التالية
                                     <FiArrowLeft />
@@ -576,7 +576,7 @@ export default function NewProductPage() {
                                 </div>
                             </div>
                             
-                            <button className="w-full mt-6 py-4 bg-emerald-700-500 text-white font-bold rounded-xl text-sm transition-colors shadow-lg shadow-[#10B981]/20 shadow-accent-500/30 flex items-center justify-center gap-2" disabled>
+                            <button className="w-full mt-6 py-4 bg-emerald-700 text-white-500 text-white font-bold rounded-xl text-sm transition-colors shadow-lg shadow-[#10B981]/20 shadow-accent-500/30 flex items-center justify-center gap-2" disabled>
                                 إتمام الشراء والتنزيل المباشر
                             </button>
                         </div>
@@ -589,13 +589,13 @@ export default function NewProductPage() {
                 {showConfirmModal && (
                     <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/50  ">
                         <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-[#0A0A0A] rounded-xl p-12 max-w-sm w-full text-center space-y-10 shadow-lg shadow-[#10B981]/20">
-                             <div className="w-24 h-24 bg-emerald-700-50 text-[#10B981]-500 rounded-xl flex items-center justify-center mx-auto text-5xl"><FiCheckSquare /></div>
+                             <div className="w-24 h-24 bg-emerald-700 text-white-50 text-[#10B981]-500 rounded-xl flex items-center justify-center mx-auto text-5xl"><FiCheckSquare /></div>
                              <div className="space-y-2">
                                  <h3 className="text-3xl font-bold text-white leading-tight">جاهز للانطلاق!</h3>
                                  <p className="text-sm text-slate-400 font-medium tracking-wide">سيتم عرض المنتج في متجرك الخاص وتفعيل كافة خيارات الشراء فور النشر.</p>
                              </div>
                              <div className="flex flex-col gap-4">
-                                <button onClick={handleSubmit} className="w-full py-5 bg-emerald-700-600 text-white rounded-xl font-bold shadow-lg shadow-[#10B981]/20 hover:bg-emerald-700 transition-all text-lg">نعم، أطلق المنتج فوراً للعلن</button>
+                                <button onClick={handleSubmit} className="w-full py-5 bg-emerald-700 text-white-600 text-white rounded-xl font-bold shadow-lg shadow-[#10B981]/20 hover:bg-emerald-700 text-white transition-all text-lg">نعم، أطلق المنتج فوراً للعلن</button>
                                 <button onClick={() => setShowConfirmModal(false)} className="w-full py-2 text-slate-400 font-bold hover:bg-[#111111] rounded-xl transition-all uppercase tracking-widest text-xs">مراجعة أخيرة للبيانات المدخلة</button>
                              </div>
                         </motion.div>
@@ -610,7 +610,7 @@ function Section({ title, icon, description, children }: any) {
     return (
         <div className="bg-[#0A0A0A] rounded-xl p-8 lg:p-14 shadow-lg shadow-[#10B981]/20 border border-slate-50 space-y-10 overflow-hidden relative">
             <div className="flex items-center gap-5">
-                <div className="w-16 h-16 bg-emerald-700-50 text-[#10B981]-600 rounded-xl flex items-center justify-center text-3xl shadow-lg shadow-[#10B981]/20 shrink-0">
+                <div className="w-16 h-16 bg-emerald-700 text-white-50 text-[#10B981]-600 rounded-xl flex items-center justify-center text-3xl shadow-lg shadow-[#10B981]/20 shrink-0">
                     {icon}
                 </div>
                 <div className="text-right">

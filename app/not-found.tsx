@@ -23,7 +23,7 @@ export default function NotFound() {
                     className="relative -mt-12"
                 >
                     <h2 className="text-3xl font-bold text-white mb-4">هذه الصفحة غير موجودة</h2>
-                    <p className="text-gray-600 mb-8 text-lg">
+                    <p className="text-gray-400 mb-8 text-lg">
                         عذراً، يبدو أن الرابط الذي تحاول الوصول إليه غير صحيح أو قد تم نقله.
                     </p>
 

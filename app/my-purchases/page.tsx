@@ -68,7 +68,7 @@ export default function MyPurchasesPage() {
                 {/* Header */}
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-[#10B981] mb-2">مشترياتي</h1>
-                    <p className="text-gray-600">جميع المنتجات والدورات التي اشتريتها</p>
+                    <p className="text-gray-400">جميع المنتجات والدورات التي اشتريتها</p>
                 </div>
 
                 {/* Stats */}
@@ -111,7 +111,7 @@ export default function MyPurchasesPage() {
                     <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-12 text-center">
                         <FiPackage className="text-6xl text-gray-300 mx-auto mb-4" />
                         <h3 className="text-2xl font-bold mb-2">لا توجد مشتريات بعد</h3>
-                        <p className="text-gray-600 mb-6">ابدأ بتصفح منتجاتنا الرائعة!</p>
+                        <p className="text-gray-400 mb-6">ابدأ بتصفح منتجاتنا الرائعة!</p>
                         <Link href="/" className="btn btn-primary">
                             تصفح المنتجات
                         </Link>
@@ -123,7 +123,7 @@ export default function MyPurchasesPage() {
                                 <div className="flex items-start justify-between mb-4">
                                     <div>
                                         <h3 className="text-xl font-bold mb-1">طلب #{purchase.id.slice(0, 8)}</h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-400 text-sm">
                                             {new Date(purchase.createdAt).toLocaleDateString('ar-EG', {
                                                 year: 'numeric',
                                                 month: 'long',
@@ -210,12 +210,12 @@ export default function MyPurchasesPage() {
                 )}
 
                 {/* Help Section */}
-                <div className="mt-8 bg-emerald-700-50 border border-blue-200 rounded-xl p-6">
+                <div className="mt-8 bg-emerald-700 text-white-50 border border-blue-200 rounded-xl p-6">
                     <h3 className="font-bold text-blue-900 mb-2">هل تحتاج مساعدة؟</h3>
                     <p className="text-blue-800 mb-4">
                         إذا واجهت أي مشكلة في التحميل أو الوصول لمشترياتك، فريق الدعم جاهز لمساعدتك
                     </p>
-                    <Link href="/support" className="btn btn-sm bg-emerald-700-600 hover:bg-emerald-700 text-white">
+                    <Link href="/support" className="btn btn-sm bg-emerald-700 text-white-600 hover:bg-emerald-700 text-white">
                         تواصل مع الدعم
                     </Link>
                 </div>

@@ -82,13 +82,13 @@ export default function SubscriptionsPage() {
                 <div className="flex justify-between items-center mb-8">
                     <div>
                         <h1 className="text-3xl font-bold text-white">خطط الاشتراك</h1>
-                        <p className="mt-2 text-gray-600">
+                        <p className="mt-2 text-gray-400">
                             أنشئ خطط اشتراك شهرية أو سنوية للوصول إلى محتواك
                         </p>
                     </div>
                     <button
                         onClick={() => router.push('/dashboard/subscriptions/new')}
-                        className="flex items-center gap-2 px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 text-white transition-colors"
                     >
                         <FiPlus />
                         خطة جديدة
@@ -102,12 +102,12 @@ export default function SubscriptionsPage() {
                         <h3 className="text-xl font-semibold text-white mb-2">
                             لا توجد خطط اشتراك
                         </h3>
-                        <p className="text-gray-600 mb-6">
+                        <p className="text-gray-400 mb-6">
                             ابدأ بإنشاء خطة اشتراك لتقديم محتوى حصري لمشتركيك
                         </p>
                         <button
                             onClick={() => router.push('/dashboard/subscriptions/new')}
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 text-white transition-colors"
                         >
                             <FiPlus />
                             إنشاء خطة جديدة
@@ -124,7 +124,7 @@ export default function SubscriptionsPage() {
                                 <div className="flex justify-between items-start mb-4">
                                     <div>
                                         <h3 className="text-xl font-bold text-white">{plan.name}</h3>
-                                        <p className="text-sm text-gray-600 mt-1">{plan.description}</p>
+                                        <p className="text-sm text-gray-400 mt-1">{plan.description}</p>
                                     </div>
                                     <span
                                         className={`px-2 py-1 text-xs rounded-xl ${plan.isActive
@@ -142,7 +142,7 @@ export default function SubscriptionsPage() {
                                         <span className="text-3xl font-bold text-[#10B981]">
                                             {plan.price} $
                                         </span>
-                                        <span className="text-gray-600">
+                                        <span className="text-gray-400">
                                             / {plan.interval === 'month' ? 'شهر' : 'سنة'}
                                         </span>
                                     </div>
@@ -153,7 +153,7 @@ export default function SubscriptionsPage() {
                                     <h4 className="text-sm font-semibold text-gray-700 mb-2">المميزات:</h4>
                                     <ul className="space-y-1">
                                         {plan.features.slice(0, 3).map((feature, index) => (
-                                            <li key={index} className="text-sm text-gray-600 flex items-start gap-2">
+                                            <li key={index} className="text-sm text-gray-400 flex items-start gap-2">
                                                 <span className="text-green-500 mt-1">✓</span>
                                                 <span>{feature}</span>
                                             </li>
@@ -168,7 +168,7 @@ export default function SubscriptionsPage() {
 
                                 {/* Stats */}
                                 <div className="flex items-center gap-4 mb-4 pb-4 border-b">
-                                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                                    <div className="flex items-center gap-2 text-sm text-gray-400">
                                         <FiUsers className="text-[#10B981]" />
                                         <span>{plan._count.subscriptions} مشترك</span>
                                     </div>

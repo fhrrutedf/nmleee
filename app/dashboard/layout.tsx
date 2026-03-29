@@ -100,11 +100,11 @@ export default function DashboardLayout({
     );
 
     return (
-        <div className="min-h-screen bg-[#0A0A0A] transition-colors duration-300 relative selection:bg-emerald-700/20">
+        <div className="min-h-screen bg-[#0A0A0A] transition-colors duration-300 relative selection:bg-emerald-700 text-white/20">
             {sidebarOpen && (
                 <motion.div
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    className="fixed inset-0 bg-emerald-700/60  z-40 lg:hidden"
+                    className="fixed inset-0 bg-emerald-700 text-white/60  z-40 lg:hidden"
                     onClick={() => setSidebarOpen(false)}
                 />
             )}
@@ -115,7 +115,7 @@ export default function DashboardLayout({
                     <>
                         <motion.div
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-emerald-700/60  z-[60] lg:hidden"
+                            className="fixed inset-0 bg-emerald-700 text-white/60  z-[60] lg:hidden"
                             onClick={() => setSidebarOpen(false)}
                         />
                         <motion.aside

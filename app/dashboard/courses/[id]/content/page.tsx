@@ -159,7 +159,7 @@ export default function CourseContentPage() {
                             </button>
                             <button
                                 onClick={publishCourse}
-                                className="w-full sm:w-auto px-8 py-4 bg-emerald-700-500 text-white rounded-[1.5rem] font-bold shadow-lg shadow-[#10B981]/20 shadow-blue-200 hover:bg-emerald-700-600 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-xs"
+                                className="w-full sm:w-auto px-8 py-4 bg-emerald-700 text-white-500 text-white rounded-[1.5rem] font-bold shadow-lg shadow-[#10B981]/20 shadow-blue-200 hover:bg-emerald-700 text-white-600 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 text-xs"
                             >
                                 <FiCheckSquare /> نشر الدورة الآن
                             </button>
@@ -194,7 +194,7 @@ export default function CourseContentPage() {
                         <div className="text-slate-200 text-7xl mb-6 flex justify-center"><FiLayers /></div>
                         <h3 className="text-xl font-bold text-white mb-2">المنهج فارغ تماماً</h3>
                         <p className="text-slate-400 font-bold text-sm mb-8">ابدأ بإنشاء أول وحدة دراسية لتبدأ بإضافة الدروس</p>
-                        <button onClick={() => setShowModuleForm(true)} className="px-10 py-4 bg-emerald-700 text-white font-bold rounded-xl hover:bg-emerald-700 transition-all shadow-lg shadow-[#10B981]/20">تحضير أول وحدة</button>
+                        <button onClick={() => setShowModuleForm(true)} className="px-10 py-4 bg-emerald-700 text-white font-bold rounded-xl hover:bg-emerald-700 text-white transition-all shadow-lg shadow-[#10B981]/20">تحضير أول وحدة</button>
                     </div>
                 ) : (
                     <div className="space-y-8">
@@ -237,7 +237,7 @@ export default function CourseContentPage() {
                                                         <h4 className="font-bold text-slate-800 text-sm truncate">{lesson.title}</h4>
                                                         <div className="flex items-center gap-3 mt-1.5 font-bold">
                                                             <span className="text-[10px] text-slate-400 uppercase tracking-tighter" dir="ltr">{formatDuration(lesson.videoDuration)}</span>
-                                                            {lesson.isFree && <span className="text-[9px] bg-emerald-700-50 text-[#10B981]-600 px-2 py-0.5 rounded border border-blue-100">معاينة مجانية</span>}
+                                                            {lesson.isFree && <span className="text-[9px] bg-emerald-700 text-white-50 text-[#10B981]-600 px-2 py-0.5 rounded border border-blue-100">معاينة مجانية</span>}
                                                             {lesson.isPublished ? <FiEye className="text-[#10B981]-500" size={12}/> : <FiEyeOff className="text-slate-300" size={12}/>}
                                                         </div>
                                                     </div>
@@ -245,7 +245,7 @@ export default function CourseContentPage() {
                                                 <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
                                                     <button
                                                         onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes/new?lessonId=${lesson.id}&returnTo=${encodeURIComponent(`/dashboard/courses/${courseId}/content`)}`)}
-                                                        className="px-4 py-1.5 bg-emerald-700-50 text-blue-700 rounded-lg font-bold text-[10px] flex items-center gap-1.5 border border-blue-100 hover:bg-blue-100 transition-colors"
+                                                        className="px-4 py-1.5 bg-emerald-700 text-white-50 text-blue-700 rounded-lg font-bold text-[10px] flex items-center gap-1.5 border border-blue-100 hover:bg-blue-100 transition-colors"
                                                     >
                                                         <FiCheckSquare size={12}/> اختبار
                                                     </button>

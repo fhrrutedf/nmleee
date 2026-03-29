@@ -137,7 +137,7 @@ export default function CertificateCustomizationPage() {
                                 {/* Actions */}
                                 <button
                                     onClick={handleSave}
-                                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 text-white transition-colors"
                                 >
                                     <FiSave />
                                     حفظ الإعدادات

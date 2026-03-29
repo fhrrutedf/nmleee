@@ -87,7 +87,7 @@ export default function ManualPaymentSettingsPage() {
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-white">إعدادات الدفع اليدوي</h1>
-                    <p className="text-gray-600 mt-2">أضف أرقامك لاستقبال الدفعات من المشترين</p>
+                    <p className="text-gray-400 mt-2">أضف أرقامك لاستقبال الدفعات من المشترين</p>
                 </div>
 
                 <div className="bg-[#0A0A0A] rounded-lg shadow p-6">
@@ -185,7 +185,7 @@ export default function ManualPaymentSettingsPage() {
                             <button
                                 type="submit"
                                 disabled={saving}
-                                className="w-full px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition-colors flex items-center justify-center gap-2"
+                                className="w-full px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 text-white transition-colors flex items-center justify-center gap-2"
                             >
                                 <FiSave />
                                 {saving ? 'جاري الحفظ...' : 'حفظ الإعدادات'}
@@ -195,7 +195,7 @@ export default function ManualPaymentSettingsPage() {
                 </div>
 
                 {/* Info */}
-                <div className="mt-6 bg-emerald-700-50 border border-blue-200 rounded-lg p-4">
+                <div className="mt-6 bg-emerald-700 text-white-50 border border-blue-200 rounded-lg p-4">
                     <h3 className="font-bold text-blue-900 mb-2">💡 ملاحظات:</h3>
                     <ul className="text-sm text-blue-800 space-y-1">
                         <li>• يمكنك إضافة رقم واحد أو أكثر حسب الدول التي تستقبل منها دفعات</li>

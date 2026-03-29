@@ -38,7 +38,7 @@ export default function CertificatePreview({
 
                 {/* Title */}
                 <h1 className="text-4xl font-bold text-white mb-2">شهادة إتمام</h1>
-                <p className="text-lg text-gray-600 mb-8">Certificate of Completion</p>
+                <p className="text-lg text-gray-400 mb-8">Certificate of Completion</p>
 
                 {/* Divider */}
                 <div className="w-32 h-1 mb-8" style={{ backgroundColor: brandColor }} />
@@ -57,11 +57,11 @@ export default function CertificatePreview({
                 <div className="mt-auto pt-8 border-t border-emerald-500/20 w-full">
                     <div className="flex items-center justify-between">
                         <div className="text-left">
-                            <p className="text-sm text-gray-600 mb-1">المدرب</p>
+                            <p className="text-sm text-gray-400 mb-1">المدرب</p>
                             <p className="font-semibold text-white">{instructorName}</p>
                         </div>
                         <div className="text-right">
-                            <p className="text-sm text-gray-600 mb-1">تاريخ الإصدار</p>
+                            <p className="text-sm text-gray-400 mb-1">تاريخ الإصدار</p>
                             <p className="font-semibold text-white">{issueDate}</p>
                         </div>
                     </div>

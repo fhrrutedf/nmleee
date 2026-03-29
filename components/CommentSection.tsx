@@ -107,7 +107,7 @@ export default function CommentSection({ lessonId, comments: initialComments, on
         <div key={comment.id} className={`${isReply ? 'mr-12 mt-4' : ''}`}>
             <div className="flex gap-3">
                 <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-emerald-700 rounded-xl flex items-center justify-center text-white font-semibold">
+                    <div className="w-10 h-10 bg-emerald-700 text-white rounded-xl flex items-center justify-center text-white font-semibold">
                         {comment.authorName.charAt(0)}
                     </div>
                 </div>
@@ -124,7 +124,7 @@ export default function CommentSection({ lessonId, comments: initialComments, on
                     <div className="flex items-center gap-4 mt-2">
                         <button
                             onClick={() => likeComment(comment.id)}
-                            className="flex items-center gap-1 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                            className="flex items-center gap-1 text-sm text-gray-400 hover:text-red-600 transition-colors"
                         >
                             <FiHeart size={16} />
                             <span>{comment.likes}</span>
@@ -132,7 +132,7 @@ export default function CommentSection({ lessonId, comments: initialComments, on
                         {!isReply && (
                             <button
                                 onClick={() => setReplyTo(replyTo === comment.id ? null : comment.id)}
-                                className="flex items-center gap-1 text-sm text-gray-600 hover:text-[#10B981] transition-colors"
+                                className="flex items-center gap-1 text-sm text-gray-400 hover:text-[#10B981] transition-colors"
                             >
                                 <FiCornerDownRight size={16} />
                                 <span>رد</span>
@@ -154,7 +154,7 @@ export default function CommentSection({ lessonId, comments: initialComments, on
                             <button
                                 onClick={() => addReply(comment.id)}
                                 disabled={loading}
-                                className="px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50"
+                                className="px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 text-white transition-colors disabled:opacity-50"
                             >
                                 <FiSend size={16} />
                             </button>
@@ -183,7 +183,7 @@ export default function CommentSection({ lessonId, comments: initialComments, on
             <div className="mb-6">
                 <div className="flex gap-3">
                     <div className="flex-shrink-0">
-                        <div className="w-10 h-10 bg-emerald-700 rounded-xl flex items-center justify-center text-white font-semibold">
+                        <div className="w-10 h-10 bg-emerald-700 text-white rounded-xl flex items-center justify-center text-white font-semibold">
                             ط
                         </div>
                     </div>
@@ -199,7 +199,7 @@ export default function CommentSection({ lessonId, comments: initialComments, on
                             <button
                                 onClick={addComment}
                                 disabled={loading || !newComment.trim()}
-                                className="flex items-center gap-2 px-6 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex items-center gap-2 px-6 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 <FiSend size={16} />
                                 نشر التعليق

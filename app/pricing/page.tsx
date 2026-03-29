@@ -48,7 +48,7 @@ const plans = [
         storage: '15 جيجابايت',
         students: '1000 طالب',
         border: 'border-emerald-600/40',
-        btnClass: 'bg-emerald-700 text-white hover:bg-emerald-700 shadow-lg shadow-[#10B981]/20 shadow-accent/20',
+        btnClass: 'bg-emerald-700 text-white hover:bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 shadow-accent/20',
         popular: true,
         features: [
             'أقل عمولة منصة (5% فقط)',
@@ -79,7 +79,7 @@ const plans = [
         storage: '100 جيجابايت',
         students: 'غير محدود',
         border: 'border-ink/20',
-        btnClass: 'bg-emerald-700 text-white hover:bg-emerald-700 shadow-lg shadow-[#10B981]/20 shadow-ink/10',
+        btnClass: 'bg-emerald-700 text-white hover:bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 shadow-ink/10',
         popular: false,
         features: [
             'عمولة بيع رمزية (2.5%)',
@@ -130,10 +130,10 @@ export default function PricingPage() {
     const [isYearly, setIsYearly] = useState(false);
 
     return (
-        <div className="min-h-screen bg-[#0A0A0A] selection:bg-emerald-500/20" dir="rtl">
+        <div className="min-h-screen bg-[#0A0A0A] selection:bg-emerald-500 text-white/20" dir="rtl">
             {/* Minimalist Professional Header */}
             <section className="relative py-32 md:py-48 bg-[#0A0A0A] text-white overflow-hidden border-b border-white/10">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-emerald-500/5 blur-[120px] rounded-full"></div>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-emerald-500 text-white/5 blur-[120px] rounded-full"></div>
                 
                 <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
                     <motion.div
@@ -176,7 +176,7 @@ export default function PricingPage() {
                                 className={`px-12 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all relative ${isYearly ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-500/20 shadow-glow' : 'text-gray-500 hover:text-white'}`}
                             >
                                 yearly
-                                <span className="absolute -top-4 -left-4 bg-emerald-500 text-black text-[9px] px-3 py-1.2 rounded-lg font-black uppercase tracking-widest shadow-xl">
+                                <span className="absolute -top-4 -left-4 bg-emerald-500 text-white text-black text-[9px] px-3 py-1.2 rounded-lg font-black uppercase tracking-widest shadow-xl">
                                     -20%
                                 </span>
                             </button>
@@ -194,9 +194,9 @@ export default function PricingPage() {
                                 <FiX className="text-lg" /> المنصات التقليدية
                              </div>
                              <div className="space-y-5">
-                                <div className="flex justify-between items-center text-sm font-bold text-gray-600 italic"><span>عمولة البيع:</span> <span className="line-through tracking-wider">25% - 15%</span></div>
-                                <div className="flex justify-between items-center text-sm font-bold text-gray-600 italic"><span>تحصيل الأموال:</span> <span className="line-through">بعد 30 يوم</span></div>
-                                <div className="flex justify-between items-center text-sm font-bold text-gray-600 italic"><span>البيانات:</span> <span className="line-through">مخفية عنك</span></div>
+                                <div className="flex justify-between items-center text-sm font-bold text-gray-400 italic"><span>عمولة البيع:</span> <span className="line-through tracking-wider">25% - 15%</span></div>
+                                <div className="flex justify-between items-center text-sm font-bold text-gray-400 italic"><span>تحصيل الأموال:</span> <span className="line-through">بعد 30 يوم</span></div>
+                                <div className="flex justify-between items-center text-sm font-bold text-gray-400 italic"><span>البيانات:</span> <span className="line-through">مخفية عنك</span></div>
                              </div>
                         </div>
                         <div className="bg-[#161616] p-10 rounded-3xl border border-emerald-500/20 shadow-glow transform md:scale-110 relative z-10">
@@ -251,7 +251,7 @@ export default function PricingPage() {
                                             {!plan.custom && plan.monthlyPrice > 0 && <span className="text-gray-500 font-bold text-sm">/mo</span>}
                                         </div>
                                         {isYearly && plan.monthlyPrice > 0 && (
-                                            <p className="text-[#10B981] text-[10px] font-black uppercase tracking-widest mt-4 bg-emerald-500/10 py-1.5 px-4 rounded-lg inline-block">
+                                            <p className="text-[#10B981] text-[10px] font-black uppercase tracking-widest mt-4 bg-emerald-500 text-white/10 py-1.5 px-4 rounded-lg inline-block">
                                                 Total ${plan.yearlyPrice} / Year
                                             </p>
                                         )}
@@ -282,13 +282,13 @@ export default function PricingPage() {
 
                                 <Link
                                     href={plan.href}
-                                    className={`w-full py-6 rounded-2xl text-center font-black text-[10px] uppercase tracking-[0.25em] transition-all duration-300 transform group-hover:-translate-y-1 shadow-lg ${plan.popular ? 'bg-emerald-700 text-white hover:bg-emerald-500 hover:shadow-glow' : 'bg-white/10 text-white hover:bg-white/20'}`}
+                                    className={`w-full py-6 rounded-2xl text-center font-black text-[10px] uppercase tracking-[0.25em] transition-all duration-300 transform group-hover:-translate-y-1 shadow-lg ${plan.popular ? 'bg-emerald-700 text-white hover:bg-emerald-500 text-white hover:shadow-glow' : 'bg-white/10 text-white hover:bg-white/20'}`}
                                 >
                                     {plan.cta}
                                 </Link>
                                 
                                 {plan.monthlyPrice > 0 && !plan.custom && (
-                                    <p className="text-center text-[9px] text-gray-600 font-bold mt-8 uppercase tracking-[0.2em]">
+                                    <p className="text-center text-[9px] text-gray-400 font-bold mt-8 uppercase tracking-[0.2em]">
                                         Risk Free • 14 Day Trial
                                     </p>
                                 )}
@@ -300,9 +300,9 @@ export default function PricingPage() {
 
             {/* Institutional Trust Banner */}
             <section className="bg-[#0A0A0A] py-40 text-white relative overflow-hidden border-t border-white/10">
-                <div className="absolute inset-0 bg-emerald-500/5 blur-[150px] -translate-y-1/2"></div>
+                <div className="absolute inset-0 bg-emerald-500 text-white/5 blur-[150px] -translate-y-1/2"></div>
                 <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-                    <div className="w-24 h-24 bg-emerald-700/10 text-[#10B981] rounded-3xl flex items-center justify-center mx-auto mb-12 shadow-glow border border-emerald-500/20 rotate-3">
+                    <div className="w-24 h-24 bg-emerald-700 text-white/10 text-[#10B981] rounded-3xl flex items-center justify-center mx-auto mb-12 shadow-glow border border-emerald-500/20 rotate-3">
                         <FiShield size={48} />
                     </div>
                     <h2 className="text-5xl md:text-7xl font-black mb-10 tracking-tighter leading-tight">لماذا يختار المحترفون تمالين؟</h2>

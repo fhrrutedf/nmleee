@@ -121,7 +121,7 @@ export default function BrandEditorPage() {
                         <Link
                             href={`/${brand.username}`}
                             target="_blank"
-                            className="flex items-center gap-2 px-5 py-3 bg-[#0A0A0A] border border-emerald-500/20 rounded-xl font-bold text-sm text-gray-600 hover:border-gray-300 transition-all shadow-lg shadow-[#10B981]/20"
+                            className="flex items-center gap-2 px-5 py-3 bg-[#0A0A0A] border border-emerald-500/20 rounded-xl font-bold text-sm text-gray-400 hover:border-gray-300 transition-all shadow-lg shadow-[#10B981]/20"
                         >
                             <FiEye /> معاينة المتجر
                         </Link>
@@ -164,7 +164,7 @@ export default function BrandEditorPage() {
                                     </div>
                                     <span className="text-[11px] font-bold text-[#10B981]">{p.name}</span>
                                     {brand.brandColor === p.primary && (
-                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-emerald-700 rounded-xl flex items-center justify-center text-white text-[12px] shadow-lg shadow-[#10B981]/20">
+                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-emerald-700 text-white rounded-xl flex items-center justify-center text-white text-[12px] shadow-lg shadow-[#10B981]/20">
                                             <FiCheck />
                                         </div>
                                     )}
@@ -231,7 +231,7 @@ export default function BrandEditorPage() {
                                     <div className="text-sm font-bold text-[#10B981]">{f.name}</div>
                                     <div className="text-[10px] text-gray-400 mt-1 font-bold">{f.desc}</div>
                                     {brand.brandFont === f.id && (
-                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-emerald-700 rounded-xl flex items-center justify-center text-white text-[12px] shadow-lg shadow-[#10B981]/20"><FiCheck /></div>
+                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-emerald-700 text-white rounded-xl flex items-center justify-center text-white text-[12px] shadow-lg shadow-[#10B981]/20"><FiCheck /></div>
                                     )}
                                 </button>
                             ))}
@@ -264,7 +264,7 @@ export default function BrandEditorPage() {
                                     </div>
                                     <div className="text-sm font-bold text-[#10B981]">{b.name}</div>
                                     {brand.brandButtonStyle === b.id && (
-                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-emerald-700 rounded-xl flex items-center justify-center text-white text-[12px] shadow-lg shadow-[#10B981]/20"><FiCheck /></div>
+                                        <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-emerald-700 text-white rounded-xl flex items-center justify-center text-white text-[12px] shadow-lg shadow-[#10B981]/20"><FiCheck /></div>
                                     )}
                                 </button>
                             ))}
@@ -334,7 +334,7 @@ export default function BrandEditorPage() {
                                         : `linear-gradient(135deg, ${brand.brandColor} 0%, ${brand.brandSecondaryColor} 100%)`
                                 }}
                             >
-                                <div className="absolute inset-0 bg-emerald-700" />
+                                <div className="absolute inset-0 bg-emerald-700 text-white" />
                             </div>
 
                             {/* Avatar */}

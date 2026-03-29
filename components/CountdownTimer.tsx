@@ -66,7 +66,7 @@ export default function CountdownTimer({
                     <div className="bg-emerald-700 text-white rounded-lg p-3 min-w-[60px]">
                         <div className="text-2xl font-bold">{timeLeft.days}</div>
                     </div>
-                    <div className="text-xs text-gray-600 mt-1">يوم</div>
+                    <div className="text-xs text-gray-400 mt-1">يوم</div>
                 </div>
             )}
 
@@ -77,7 +77,7 @@ export default function CountdownTimer({
                     <div className="bg-emerald-700 text-white rounded-lg p-3 min-w-[60px]">
                         <div className="text-2xl font-bold">{String(timeLeft.hours).padStart(2, '0')}</div>
                     </div>
-                    <div className="text-xs text-gray-600 mt-1">ساعة</div>
+                    <div className="text-xs text-gray-400 mt-1">ساعة</div>
                 </div>
             )}
 
@@ -88,7 +88,7 @@ export default function CountdownTimer({
                     <div className="bg-emerald-700 text-white rounded-lg p-3 min-w-[60px]">
                         <div className="text-2xl font-bold">{String(timeLeft.minutes).padStart(2, '0')}</div>
                     </div>
-                    <div className="text-xs text-gray-600 mt-1">دقيقة</div>
+                    <div className="text-xs text-gray-400 mt-1">دقيقة</div>
                 </div>
             )}
 
@@ -99,7 +99,7 @@ export default function CountdownTimer({
                     <div className="bg-emerald-700 text-white rounded-lg p-3 min-w-[60px]">
                         <div className="text-2xl font-bold">{String(timeLeft.seconds).padStart(2, '0')}</div>
                     </div>
-                    <div className="text-xs text-gray-600 mt-1">ثانية</div>
+                    <div className="text-xs text-gray-400 mt-1">ثانية</div>
                 </div>
             )}
         </div>

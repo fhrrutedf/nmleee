@@ -91,7 +91,7 @@ export default function CryptoCheckoutPage() {
                 <div className="max-w-md w-full bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-8 text-center border-t-8 border-green-500">
                     <FiCheckCircle className="text-6xl text-green-500 mx-auto mb-4" />
                     <h2 className="text-2xl font-bold mb-2 text-[#10B981]">تم الدفع بنجاح!</h2>
-                    <p className="text-gray-600 mb-6">شكراً لك، تمت العملية بنجاح. سيتم توجيهك للمنتج...</p>
+                    <p className="text-gray-400 mb-6">شكراً لك، تمت العملية بنجاح. سيتم توجيهك للمنتج...</p>
                     <button onClick={() => router.push('/dashboard/purchases')} className="btn btn-primary w-full">الانتقال للمشتريات</button>
                 </div>
             </div>
@@ -105,7 +105,7 @@ export default function CryptoCheckoutPage() {
         <div className="min-h-screen bg-[#111111] py-12 px-4">
             <div className="max-w-2xl mx-auto">
                 <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden border border-gray-100">
-                    <div className="bg-emerald-700 p-6 text-center text-white">
+                    <div className="bg-emerald-700 text-white p-6 text-center text-white">
                         <h1 className="text-2xl font-bold mb-1">دفع العملات الرقمية</h1>
                         <p className="text-gray-300 text-sm">أرسل المبلغ بدقة إلى العنوان أدناه باستخدام شبكة TRC20</p>
                     </div>
@@ -152,7 +152,7 @@ export default function CryptoCheckoutPage() {
                                                     </div>
                                                     <button
                                                         onClick={() => handleCopy(order.cryptoAmount.toString(), 'amount')}
-                                                        className={`p-3 rounded-xl border transition-all ${copiedContent === 'amount' ? 'bg-green-500 text-white border-green-500' : 'bg-[#0A0A0A] border-emerald-500/20 hover:bg-[#111111] text-gray-600'}`}
+                                                        className={`p-3 rounded-xl border transition-all ${copiedContent === 'amount' ? 'bg-green-500 text-white border-green-500' : 'bg-[#0A0A0A] border-emerald-500/20 hover:bg-[#111111] text-gray-400'}`}
                                                     >
                                                         {copiedContent === 'amount' ? <FiCheckCircle /> : <FiCopy />}
                                                     </button>
@@ -167,7 +167,7 @@ export default function CryptoCheckoutPage() {
                                                     </div>
                                                     <button
                                                         onClick={() => handleCopy(order.walletAddress, 'address')}
-                                                        className={`p-3 rounded-xl border transition-all flex-shrink-0 ${copiedContent === 'address' ? 'bg-green-500 text-white border-green-500' : 'bg-[#0A0A0A] border-emerald-500/20 hover:bg-[#111111] text-gray-600'}`}
+                                                        className={`p-3 rounded-xl border transition-all flex-shrink-0 ${copiedContent === 'address' ? 'bg-green-500 text-white border-green-500' : 'bg-[#0A0A0A] border-emerald-500/20 hover:bg-[#111111] text-gray-400'}`}
                                                     >
                                                         {copiedContent === 'address' ? <FiCheckCircle /> : <FiCopy />}
                                                     </button>
@@ -177,7 +177,7 @@ export default function CryptoCheckoutPage() {
                                     </div>
                                 </div>
 
-                                <div className="bg-emerald-700-50 border border-blue-100 p-5 rounded-xl text-blue-800 text-sm leading-relaxed mb-6">
+                                <div className="bg-emerald-700 text-white-50 border border-blue-100 p-5 rounded-xl text-blue-800 text-sm leading-relaxed mb-6">
                                     <h4 className="font-bold flex items-center gap-2 mb-2">
                                         <FiAlertTriangle /> ملاحظات هامة:
                                     </h4>

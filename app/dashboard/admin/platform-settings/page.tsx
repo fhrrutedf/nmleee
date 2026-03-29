@@ -164,7 +164,7 @@ export default function AdminPlatformSettingsPage() {
                     <button
                         onClick={handleSave}
                         disabled={saving}
-                        className="bg-emerald-700-600 hover:bg-emerald-700 text-white font-bold px-8 py-4 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-lg shadow-[#10B981]/20 shadow-accent-500/20 disabled:opacity-50"
+                        className="bg-emerald-700 text-white-600 hover:bg-emerald-700 text-white font-bold px-8 py-4 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-lg shadow-[#10B981]/20 shadow-accent-500/20 disabled:opacity-50"
                     >
                         {saving ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-xl animate-spin" /> : <FiSave />}
                         تحديث الإمبراطورية
@@ -190,7 +190,7 @@ export default function AdminPlatformSettingsPage() {
                                         checked={settings.withdrawalsEnabled}
                                         onChange={e => update('withdrawalsEnabled', e.target.checked)}
                                     />
-                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-xl peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[#0A0A0A] after:border-gray-300 after:border after:rounded-xl after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-700-600"></div>
+                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-xl peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[#0A0A0A] after:border-gray-300 after:border after:rounded-xl after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-700 text-white-600"></div>
                                 </label>
                             </div>
                             <p className="text-xs text-gray-500">عند التعطيل، يتم إيقاف جميع طلبات سحب الأرباح من البائعين فوراً.</p>
@@ -238,7 +238,7 @@ export default function AdminPlatformSettingsPage() {
                                         checked={settings.spaceremitEnabled}
                                         onChange={e => update('spaceremitEnabled', e.target.checked)}
                                     />
-                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-xl peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[#0A0A0A] after:border-gray-300 after:border after:rounded-xl after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-700-600"></div>
+                                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-xl peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[#0A0A0A] after:border-gray-300 after:border after:rounded-xl after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-700 text-white-600"></div>
                                 </label>
                             </div>
                         </div>

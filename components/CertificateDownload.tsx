@@ -122,7 +122,7 @@ export function CertificateDownload({
                         <div className="flex items-center gap-4">
                             <div className="flex-1 bg-[#111111] rounded-xl h-2.5 overflow-hidden">
                                 <div
-                                    className="h-full bg-emerald-700 transition-all duration-1000 ease-out"
+                                    className="h-full bg-emerald-700 text-white transition-all duration-1000 ease-out"
                                     style={{ width: `${progress}%` }}
                                 />
                             </div>
@@ -139,7 +139,7 @@ export function CertificateDownload({
     // Eligible and certificate already generated
     if (status.eligible && status.certificateGenerated) {
         return (
-            <div className="bg-emerald-700-light border-2 border-emerald-600/10 rounded-xl p-8">
+            <div className="bg-emerald-700 text-white-light border-2 border-emerald-600/10 rounded-xl p-8">
                 <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-right">
                     <div className="flex-shrink-0 p-5 bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20">
                         <FiCheckCircle className="text-4xl text-[#10B981]" />
@@ -169,7 +169,7 @@ export function CertificateDownload({
         return (
             <div className="bg-[#0A0A0A] border border-gray-100 rounded-xl p-8 shadow-lg shadow-[#10B981]/20">
                 <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-right">
-                    <div className="flex-shrink-0 p-5 bg-emerald-700-light rounded-xl">
+                    <div className="flex-shrink-0 p-5 bg-emerald-700 text-white-light rounded-xl">
                         <FiAward className="text-4xl text-[#10B981]" />
                     </div>
                     <div className="flex-1">
@@ -180,7 +180,7 @@ export function CertificateDownload({
                         <button
                             onClick={generateCertificate}
                             disabled={generating}
-                            className="bg-emerald-700 text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-700-hover transition-all shadow-lg shadow-[#10B981]/20 shadow-accent/20 active:scale-95 w-full sm:w-auto"
+                            className="bg-emerald-700 text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-700 text-white-hover transition-all shadow-lg shadow-[#10B981]/20 shadow-accent/20 active:scale-95 w-full sm:w-auto"
                         >
                             {generating ? (
                                 <>

@@ -70,7 +70,7 @@ export default function ShowcasePage() {
                         {showcases.map((item, idx) => (
                             <div key={idx} className="group rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20 border border-gray-100 hover:shadow-lg shadow-[#10B981]/20 transition-all hover:-translate-y-2 bg-[#0A0A0A]">
                                 <div className="h-48 overflow-hidden relative">
-                                    <div className="absolute inset-0 bg-black/20 group-hover:bg-emerald-700/10 transition-colors z-10"></div>
+                                    <div className="absolute inset-0 bg-black/20 group-hover:bg-emerald-700 text-white/10 transition-colors z-10"></div>
                                     <img
                                         src={item.image}
                                         alt={item.title}
@@ -87,7 +87,7 @@ export default function ShowcasePage() {
                                         <span className="mx-2">•</span>
                                         <FiStar className="text-yellow-400" /> <span>{item.stats}</span>
                                     </div>
-                                    <p className="text-gray-600 leading-relaxed mb-6">
+                                    <p className="text-gray-400 leading-relaxed mb-6">
                                         {item.desc}
                                     </p>
                                     <Link href="#" className="flex items-center justify-center gap-2 w-full py-2 bg-[#111111] hover:bg-primary-50 text-[#10B981] rounded-lg font-bold transition-colors">
@@ -100,7 +100,7 @@ export default function ShowcasePage() {
 
                     <div className="mt-20 bg-[#111111] rounded-xl p-12 text-center">
                         <h2 className="text-3xl font-bold mb-6">هل لديك فكرة مشروع؟</h2>
-                        <p className="text-xl text-gray-600 mb-8">
+                        <p className="text-xl text-gray-400 mb-8">
                             لا تدع أفكارك تبقى حبيسة الأدراج. ابدأ اليوم وحول شغفك إلى مشروع حقيقي.
                         </p>
                         <Link href="/register" className="btn btn-primary text-lg px-10 py-4 shadow-lg shadow-[#10B981]/20">

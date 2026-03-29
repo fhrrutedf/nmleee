@@ -56,9 +56,9 @@ export default function ContactPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#0A0A0A] relative overflow-hidden selection:bg-emerald-700/20">
+        <div className="min-h-screen bg-[#0A0A0A] relative overflow-hidden selection:bg-emerald-700 text-white/20">
             {/* Minimalist Professional Accents */}
-            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-700/5 rounded-xl blur-[150px] -z-10 pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-700 text-white/5 rounded-xl blur-[150px] -z-10 pointer-events-none"></div>
 
             <div className="max-w-7xl mx-auto px-4 py-20 lg:py-32 relative z-10">
                 <motion.div
@@ -139,7 +139,7 @@ export default function ContactPage() {
                     >
                         <div className="bg-[#0A0A0A] rounded-[2.5rem] shadow-lg shadow-[#10B981]/20 p-10 md:p-16 border border-gray-100 overflow-hidden relative">
                             {/* Decorative element inside form */}
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-700/5 rounded-bl-[100px] pointer-events-none"></div>
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-700 text-white/5 rounded-bl-[100px] pointer-events-none"></div>
 
                             <h2 className="text-2xl font-bold mb-10 text-[#10B981] tracking-tight uppercase">SEND ENQUIRY</h2>
 
@@ -212,7 +212,7 @@ export default function ContactPage() {
                                     type="submit"
                                     disabled={loading || success}
                                     className={`w-full text-[10px] font-bold uppercase tracking-[0.3em] py-6 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 shadow-lg shadow-[#10B981]/20
-                                        ${success ? 'bg-emerald-700 text-white shadow-accent/20' : 'bg-emerald-700 text-white hover:bg-emerald-700 shadow-ink/20'}
+                                        ${success ? 'bg-emerald-700 text-white shadow-accent/20' : 'bg-emerald-700 text-white hover:bg-emerald-700 text-white shadow-ink/20'}
                                         ${loading ? 'opacity-80 cursor-not-allowed' : ''}
                                     `}
                                 >

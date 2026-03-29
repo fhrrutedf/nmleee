@@ -62,7 +62,7 @@ export default async function AdminPayoutsPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-white">طلبات سحب الأرباح</h1>
-                    <p className="text-gray-600 mt-2">إدارة ومراجعة طلبات سحب الأرباح المقدمة من البائعين</p>
+                    <p className="text-gray-400 mt-2">إدارة ومراجعة طلبات سحب الأرباح المقدمة من البائعين</p>
                 </div>
 
                 <PayoutsClient initialPayouts={formattedPayouts} />

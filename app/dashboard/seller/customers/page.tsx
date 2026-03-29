@@ -78,7 +78,7 @@ export default function CustomersPage() {
                     <h1 className="text-3xl font-bold text-white">إدارة العملاء</h1>
                     <button
                         onClick={exportToCSV}
-                        className="flex items-center gap-2 px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 text-white transition-colors"
                     >
                         <FiDownload />
                         تصدير CSV
@@ -102,11 +102,11 @@ export default function CustomersPage() {
                 {/* Stats Summary */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
-                        <p className="text-sm text-gray-600 mb-1">إجمالي العملاء</p>
+                        <p className="text-sm text-gray-400 mb-1">إجمالي العملاء</p>
                         <p className="text-3xl font-bold text-white">{customers.length}</p>
                     </div>
                     <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
-                        <p className="text-sm text-gray-600 mb-1">متوسط الطلبات لكل عميل</p>
+                        <p className="text-sm text-gray-400 mb-1">متوسط الطلبات لكل عميل</p>
                         <p className="text-3xl font-bold text-white">
                             {customers.length > 0
                                 ? (customers.reduce((sum, c) => sum + c.ordersCount, 0) / customers.length).toFixed(1)
@@ -114,7 +114,7 @@ export default function CustomersPage() {
                         </p>
                     </div>
                     <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
-                        <p className="text-sm text-gray-600 mb-1">متوسط الإنفاق لكل عميل</p>
+                        <p className="text-sm text-gray-400 mb-1">متوسط الإنفاق لكل عميل</p>
                         <p className="text-3xl font-bold text-white">
                             {customers.length > 0
                                 ? (customers.reduce((sum, c) => sum + c.totalSpent, 0) / customers.length).toFixed(0)

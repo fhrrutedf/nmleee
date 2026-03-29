@@ -51,7 +51,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                 <style dangerouslySetInnerHTML={{
                     __html: `
                     .text-[#10B981] { color: ${course.user.brandColor} !important; }
-                    .bg-emerald-700 { background-color: ${course.user.brandColor} !important; }
+                    .bg-emerald-700 text-white { background-color: ${course.user.brandColor} !important; }
                     .border-emerald-600 { border-color: ${course.user.brandColor} !important; }
                     .ring-accent { --tw-ring-color: ${course.user.brandColor} !important; }
                     .hover\\:bg-primary-700:hover { background-color: ${course.user.brandColor} !important; filter: brightness(0.9); }
@@ -60,7 +60,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                 }} />
             )}
             <div className="max-w-7xl mx-auto px-4 py-8">
-                <div className="flex items-center gap-2 text-sm text-gray-600 mb-6 font-bold">
+                <div className="flex items-center gap-2 text-sm text-gray-400 mb-6 font-bold">
                     <Link href="/" className="hover:text-[#10B981]">الرئيسية</Link>
                     <span>/</span>
                     <Link href="/explore" className="hover:text-[#10B981]">الدورات</Link>
@@ -74,7 +74,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                             {course.image ? (
                                 <img src={course.image} alt={course.title} className="w-full h-[400px] object-cover" />
                             ) : (
-                                <div className="w-full h-[400px] bg-emerald-700 flex items-center justify-center">
+                                <div className="w-full h-[400px] bg-emerald-700 text-white flex items-center justify-center">
                                     <FiVideo className="text-8xl text-blue-400" />
                                 </div>
                             )}
@@ -86,7 +86,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                                 <div className="flex items-center gap-1">
                                     {[...Array(5)].map((_, i) => (<FiStar key={i} className={`text-lg ${i < Math.floor(course.averageRating || 5) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`} />))}
                                 </div>
-                                <span className="text-gray-600 font-bold">({reviews.length} تقييم)</span>
+                                <span className="text-gray-400 font-bold">({reviews.length} تقييم)</span>
                             </div>
 
                             <div className="grid grid-cols-3 gap-4 mb-8">

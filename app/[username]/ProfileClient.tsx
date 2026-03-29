@@ -175,7 +175,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                             creator.website && { href: creator.website, icon: <FiLink size={16} />, label: 'الموقع' },
                                         ].filter(Boolean).map((s: any, i) => (
                                             <a key={i} href={s.href} target="_blank" rel="noopener noreferrer"
-                                                className="p-2.5 rounded-xl bg-emerald-800 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-white transition-all hover:-translate-y-0.5"
+                                                className="p-2.5 rounded-xl bg-emerald-800 dark:bg-gray-800 text-gray-400 dark:text-gray-400 hover:text-white transition-all hover:-translate-y-0.5"
                                                 style={{ ['--hover-bg' as any]: brandColor }}
                                                 onMouseEnter={e => (e.currentTarget.style.backgroundColor = brandColor)}
                                                 onMouseLeave={e => (e.currentTarget.style.backgroundColor = '')}
@@ -205,12 +205,12 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                         </button>
                                                         <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}&text=${encodeURIComponent(`اكتشف منتجات ${creator.name}`)}`}
                                                             target="_blank" rel="noopener noreferrer"
-                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-700-50 dark:hover:bg-blue-900/20 hover:text-[#10B981]-500 text-right transition-colors">
+                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-700 text-white-50 dark:hover:bg-blue-900/20 hover:text-[#10B981]-500 text-right transition-colors">
                                                             <FiTwitter className="text-gray-400" /> مشاركة على تويتر
                                                         </a>
                                                         <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
                                                             target="_blank" rel="noopener noreferrer"
-                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-700-50 dark:hover:bg-blue-900/20 hover:text-[#10B981]-600 text-right transition-colors">
+                                                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-700 text-white-50 dark:hover:bg-blue-900/20 hover:text-[#10B981]-600 text-right transition-colors">
                                                             <FiFacebook className="text-gray-400" /> مشاركة على فيسبوك
                                                         </a>
                                                     </motion.div>
@@ -223,7 +223,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                 {/* Bio */}
                                 {creator.bio && (
                                     <div className="mt-4">
-                                        <p className={`text-gray-600 dark:text-gray-400 leading-relaxed text-sm sm:text-base ${!isBioExpanded ? 'line-clamp-2' : ''}`}>
+                                        <p className={`text-gray-400 dark:text-gray-400 leading-relaxed text-sm sm:text-base ${!isBioExpanded ? 'line-clamp-2' : ''}`}>
                                             {creator.bio}
                                         </p>
                                         {creator.bio.length > 120 && (
@@ -388,7 +388,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                     style={activeTab === tab.id
                                         ? { background: brandColor, color: '#fff', boxShadow: `0 4px 14px -2px ${brandColor}60` }
                                         : {}}
-                                    className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === tab.id ? 'text-white' : 'bg-[#0A0A0A] dark:bg-gray-900 text-gray-600 dark:text-gray-400 border border-emerald-500/20 dark:border-gray-700 hover:border-gray-300'}`}
+                                    className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === tab.id ? 'text-white' : 'bg-[#0A0A0A] dark:bg-gray-900 text-gray-400 dark:text-gray-400 border border-emerald-500/20 dark:border-gray-700 hover:border-gray-300'}`}
                                 >
                                     {tab.icon} {tab.label}
                                 </button>

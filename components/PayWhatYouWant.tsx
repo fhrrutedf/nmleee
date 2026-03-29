@@ -46,7 +46,7 @@ export function PayWhatYouWant({
     return (
         <div className="card p-6 space-y-6">
             <div className="text-center">
-                <div className="inline-flex items-center gap-2 mb-3 px-4 py-2 bg-emerald-700 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
+                <div className="inline-flex items-center gap-2 mb-3 px-4 py-2 bg-emerald-700 text-white dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
                     <FiHeart className="text-[#10B981] dark:text-purple-400" />
                     <span className="font-semibold text-purple-900 dark:text-purple-200 text-sm">
                         ادفع ما تريد

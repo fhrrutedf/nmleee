@@ -5,7 +5,7 @@ import { FiX, FiArrowRight } from 'react-icons/fi';
 
 export default function CancelPage() {
     return (
-        <div className="min-h-screen bg-emerald-700 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-emerald-700 text-white flex items-center justify-center p-4">
             <div className="max-w-md w-full">
                 <div className="card text-center">
                     {/* Cancel Icon */}
@@ -16,7 +16,7 @@ export default function CancelPage() {
                         <h1 className="text-3xl font-bold text-white mb-2">
                             تم إلغاء العملية
                         </h1>
-                        <p className="text-gray-600">
+                        <p className="text-gray-400">
                             لم يتم إكمال عملية الدفع. لا تقلق، لم يتم خصم أي مبلغ من حسابك.
                         </p>
                     </div>

@@ -59,7 +59,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
     return (
         <div className="mt-12 bg-[#0A0A0A] dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-8">
             <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 bg-emerald-700/10 text-[#10B981] rounded-xl">
+                <div className="p-3 bg-emerald-700 text-white/10 text-[#10B981] rounded-xl">
                     <FiMessageSquare size={24} />
                 </div>
                 <h3 className="text-xl font-bold text-[#10B981] dark:text-white">النقاشات والأسئلة ({comments.length})</h3>
@@ -97,7 +97,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                     comments.map((comment) => (
                         <div key={comment.id} className="group">
                             <div className="flex gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-emerald-700 dark:from-gray-800 dark:to-gray-700 font-bold text-[#10B981] dark:text-white flex items-center justify-center shrink-0">
+                                <div className="w-12 h-12 rounded-xl bg-emerald-700 text-white dark:from-gray-800 dark:to-gray-700 font-bold text-[#10B981] dark:text-white flex items-center justify-center shrink-0">
                                     {comment.authorName?.[0]}
                                 </div>
                                 <div className="flex-1">
@@ -107,7 +107,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                                             {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true, locale: ar })}
                                         </span>
                                     </div>
-                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed font-medium mb-3">
+                                    <p className="text-gray-400 dark:text-gray-300 leading-relaxed font-medium mb-3">
                                         {comment.content}
                                     </p>
                                     <div className="flex items-center gap-4">
@@ -128,7 +128,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                                                         <span className="font-bold text-sm text-[#10B981] dark:text-white">{reply.authorName}</span>
                                                         <span className="text-[10px] text-gray-400">{formatDistanceToNow(new Date(reply.createdAt), { addSuffix: true, locale: ar })}</span>
                                                      </div>
-                                                     <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{reply.content}</p>
+                                                     <p className="text-sm text-gray-400 dark:text-gray-400 font-medium">{reply.content}</p>
                                                 </div>
                                             ))}
                                         </div>

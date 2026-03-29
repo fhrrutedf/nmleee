@@ -78,7 +78,7 @@ export default function VerifyTransfersPage() {
                     <button
                         onClick={handleExtract}
                         disabled={!rawText.trim()}
-                        className="w-full py-3.5 bg-gray-900 dark:bg-gray-700 text-white font-bold rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-50"
+                        className="w-full py-3.5 bg-gray-900 dark:bg-gray-700 text-white font-bold rounded-xl hover:bg-emerald-700 text-white transition-colors disabled:opacity-50"
                     >
                         استخراج المعرفات (Reference IDs)
                     </button>
@@ -93,7 +93,7 @@ export default function VerifyTransfersPage() {
 
                     {extractedRefs.length > 0 ? (
                         <div className="space-y-6 flex-1 flex flex-col">
-                            <div className="bg-emerald-700-50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-100 dark:border-blue-800/30 flex-1 overflow-auto max-h-64 mb-auto">
+                            <div className="bg-emerald-700 text-white-50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-100 dark:border-blue-800/30 flex-1 overflow-auto max-h-64 mb-auto">
                                 <p className="font-bold text-blue-800 dark:text-blue-300 mb-3 flex items-center gap-2">
                                     <FiList /> تم استخراج {extractedRefs.length} رقم مرجعي:
                                 </p>

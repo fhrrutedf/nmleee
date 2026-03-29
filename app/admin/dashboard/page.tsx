@@ -143,9 +143,9 @@ export default function AdminDashboard() {
 
                     {/* Revenue Card (Glassmorphism) */}
                     <motion.div variants={itemVariants} className="relative group overflow-hidden bg-[#0A0A0A] dark:bg-card-white p-8 rounded-[2rem] shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 hover:shadow-lg shadow-[#10B981]/20 transition-all duration-500">
-                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-emerald-700/5 rounded-xl blur-2xl group-hover:bg-emerald-700/10 transition-all"></div>
+                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-emerald-700 text-white/5 rounded-xl blur-2xl group-hover:bg-emerald-700 text-white/10 transition-all"></div>
                         <div className="flex justify-between items-start mb-6 relative z-10">
-                            <div className="w-14 h-14 rounded-xl bg-[#111111] dark:bg-gray-800 text-[#10B981] flex items-center justify-center text-2xl shadow-lg shadow-[#10B981]/20 group-hover:bg-emerald-700 group-hover:text-white transition-all">
+                            <div className="w-14 h-14 rounded-xl bg-[#111111] dark:bg-gray-800 text-[#10B981] flex items-center justify-center text-2xl shadow-lg shadow-[#10B981]/20 group-hover:bg-emerald-700 text-white group-hover:text-white transition-all">
                                 <FiDollarSign />
                             </div>
                             <span className="flex items-center gap-1 text-sm font-bold text-green-500 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-lg">
@@ -217,7 +217,7 @@ export default function AdminDashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Alerts/Pending Payouts */}
                     <Link href="/admin/dashboard/payouts">
-                        <motion.div variants={itemVariants} className="bg-emerald-700 rounded-xl p-6 text-white shadow-lg shadow-[#10B981]/20 relative overflow-hidden group cursor-pointer hover:shadow-lg shadow-[#10B981]/20 transition-all">
+                        <motion.div variants={itemVariants} className="bg-emerald-700 text-white rounded-xl p-6 text-white shadow-lg shadow-[#10B981]/20 relative overflow-hidden group cursor-pointer hover:shadow-lg shadow-[#10B981]/20 transition-all">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-xl"></div>
 
                             <div className="flex items-start justify-between">
@@ -228,7 +228,7 @@ export default function AdminDashboard() {
                                         مراجعة الطلبات <FiArrowUpRight />
                                     </span>
                                 </div>
-                                <div className="w-14 h-14 rounded-xl bg-[#0A0A0A]/10 flex items-center justify-center group-hover:bg-emerald-700 group-hover:scale-110 transition-all">
+                                <div className="w-14 h-14 rounded-xl bg-[#0A0A0A]/10 flex items-center justify-center group-hover:bg-emerald-700 text-white group-hover:scale-110 transition-all">
                                     <FiClock className="text-2xl" />
                                 </div>
                             </div>
@@ -260,7 +260,7 @@ export default function AdminDashboard() {
                         <motion.div variants={itemVariants} className={`bg-[#0A0A0A] dark:bg-card-white border rounded-xl p-6 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group cursor-pointer transition-all ${
                             (stats?.pendingVerifications || 0) > 0 ? 'border-emerald-600 ring-2 ring-accent/20' : 'border-gray-100 dark:border-gray-800'
                         }`}>
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-700/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-700 text-white/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
 
                             <div className="flex items-start justify-between">
                                 <div>
@@ -279,7 +279,7 @@ export default function AdminDashboard() {
 
                     {/* Content Inventory Status */}
                     <motion.div variants={itemVariants} className="bg-[#0A0A0A] dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-700/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-700 text-white/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
 
                         <div className="flex items-start justify-between">
                             <div>

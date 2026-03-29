@@ -69,7 +69,7 @@ export default function BlogAdminPage() {
                 </div>
                 <Link
                     href="/dashboard/admin/blog/new"
-                    className="flex items-center gap-2 px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700-600 transition"
+                    className="flex items-center gap-2 px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 text-white-600 transition"
                 >
                     <FiPlus />
                     <span>مقال جديد</span>

@@ -81,7 +81,7 @@ export function CertificateToggle({
                     </p>
 
                     {/* Info Box */}
-                    <div className="flex items-start gap-2 p-3 bg-emerald-700-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                    <div className="flex items-start gap-2 p-3 bg-emerald-700 text-white-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
                         <FiInfo className="text-[#10B981]-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
                         <div className="text-xs text-blue-900 dark:text-blue-200">
                             <p className="font-medium mb-1">ملاحظات هامة:</p>

@@ -92,8 +92,8 @@ export default function ManualPaymentCard({
             </div>
 
             {/* Premium Price Conversion Card */}
-            <div className="relative group overflow-hidden bg-emerald-700 p-10 rounded-[2.5rem] border border-emerald-600-500/20 shadow-lg shadow-[#10B981]/20">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-700-500/10 rounded-xl blur-[80px] -mr-10 -mt-10"></div>
+            <div className="relative group overflow-hidden bg-emerald-700 text-white p-10 rounded-[2.5rem] border border-emerald-600-500/20 shadow-lg shadow-[#10B981]/20">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-700 text-white-500/10 rounded-xl blur-[80px] -mr-10 -mt-10"></div>
                 <div className="relative">
                     <p className="text-[#10B981]-500/70 text-xs font-bold uppercase tracking-[0.2em] mb-4">المبلغ المطلوب بالعملة المحلية</p>
                     <div className="flex items-baseline gap-3">
@@ -118,7 +118,7 @@ export default function ManualPaymentCard({
                     </div>
                     <button
                         onClick={handleCopy}
-                        className={`shrink-0 w-16 h-16 rounded-xl flex items-center justify-center transition-all ${copied ? 'bg-emerald-700-500 text-white scale-95' : 'bg-white/5 text-slate-400 hover:text-white hover:bg-[#0A0A0A]/10 active:scale-95 border border-white/5'}`}
+                        className={`shrink-0 w-16 h-16 rounded-xl flex items-center justify-center transition-all ${copied ? 'bg-emerald-700 text-white-500 text-white scale-95' : 'bg-white/5 text-slate-400 hover:text-white hover:bg-[#0A0A0A]/10 active:scale-95 border border-white/5'}`}
                     >
                         {copied ? <FiCheck size={28} /> : <FiCopy size={24} />}
                     </button>
@@ -156,7 +156,7 @@ export default function ManualPaymentCard({
                 <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest px-2">صورة إيصال التحويل (Proof) *</label>
                 <div 
                     onClick={() => fileInputRef.current?.click()}
-                    className={`relative w-full aspect-[16/6] rounded-[2rem] border-2 border-dashed transition-all flex flex-col items-center justify-center cursor-pointer overflow-hidden ${proofPreview ? 'border-emerald-600-500/50 bg-emerald-700-500/5' : 'border-white/10 hover:border-emerald-600-500/30 hover:bg-white/5 group'}`}
+                    className={`relative w-full aspect-[16/6] rounded-[2rem] border-2 border-dashed transition-all flex flex-col items-center justify-center cursor-pointer overflow-hidden ${proofPreview ? 'border-emerald-600-500/50 bg-emerald-700 text-white-500/5' : 'border-white/10 hover:border-emerald-600-500/30 hover:bg-white/5 group'}`}
                 >
                     <input type="file" ref={fileInputRef} onChange={handleFile} accept="image/*" className="hidden" />
                     

@@ -60,7 +60,7 @@ export default function AdminBroadcastPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 {/* Main Form */}
                 <div className="lg:col-span-8 space-y-6">
-                    <section className="bg-[#0A0A0A] dark:bg-emerald-700/50 border border-slate-200 dark:border-slate-800 rounded-xl p-8 shadow-lg shadow-[#10B981]/20">
+                    <section className="bg-[#0A0A0A] dark:bg-emerald-700 text-white/50 border border-slate-200 dark:border-slate-800 rounded-xl p-8 shadow-lg shadow-[#10B981]/20">
                         <div className="space-y-6">
                             <div>
                                 <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">عنوان البث (الإيميل)</label>
@@ -103,10 +103,10 @@ export default function AdminBroadcastPage() {
                         <motion.div 
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="bg-emerald-700-50 dark:bg-emerald-700-500/10 border border-blue-100 dark:border-emerald-600-500/20 p-6 rounded-xl flex items-center justify-between"
+                            className="bg-emerald-700 text-white-50 dark:bg-emerald-700 text-white-500/10 border border-blue-100 dark:border-emerald-600-500/20 p-6 rounded-xl flex items-center justify-between"
                         >
                             <div className="flex items-center gap-4">
-                                <div className="p-3 bg-blue-100 dark:bg-emerald-700-500/20 text-[#10B981]-600 dark:text-blue-400 rounded-xl">
+                                <div className="p-3 bg-blue-100 dark:bg-emerald-700 text-white-500/20 text-[#10B981]-600 dark:text-blue-400 rounded-xl">
                                     <FiCheckCircle className="text-2xl" />
                                 </div>
                                 <div>
@@ -124,7 +124,7 @@ export default function AdminBroadcastPage() {
 
                 {/* Targeting Segments */}
                 <div className="lg:col-span-4 space-y-6">
-                    <section className="bg-emerald-700 border border-slate-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 overflow-hidden">
+                    <section className="bg-emerald-700 text-white border border-slate-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 overflow-hidden">
                         <h3 className="text-white font-bold mb-6 flex items-center gap-2">
                             <FiTarget className="text-primary" />
                             اختر الجمهور المستهدف
@@ -135,7 +135,7 @@ export default function AdminBroadcastPage() {
                                 <button 
                                     key={segment.id}
                                     onClick={() => setTarget(segment.id)}
-                                    className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all text-right group ${target === segment.id ? 'bg-primary/20 border-primary/50 text-white shadow-[0_0_20px_rgba(14,165,233,0.15)]' : 'bg-slate-800/40 border-slate-800 text-slate-400 hover:bg-emerald-700 hover:border-slate-700'}`}
+                                    className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all text-right group ${target === segment.id ? 'bg-primary/20 border-primary/50 text-white shadow-[0_0_20px_rgba(14,165,233,0.15)]' : 'bg-slate-800/40 border-slate-800 text-slate-400 hover:bg-emerald-700 text-white hover:border-slate-700'}`}
                                 >
                                     <div className={`p-2.5 rounded-xl transition-all ${target === segment.id ? 'bg-primary text-white scale-110' : 'bg-slate-800 text-gray-500 group-hover:scale-105'}`}>
                                         <segment.icon className="text-lg" />
@@ -152,7 +152,7 @@ export default function AdminBroadcastPage() {
                         </div>
 
                         <div className="mt-8 pt-6 border-t border-slate-800/50">
-                             <div className="flex items-start gap-4 p-4 bg-emerald-700/10 border border-amber-500/20 rounded-xl">
+                             <div className="flex items-start gap-4 p-4 bg-emerald-700 text-white/10 border border-amber-500/20 rounded-xl">
                                 <FiAlertTriangle className="text-[#10B981]-500 mt-1 shrink-0" />
                                 <p className="text-[11px] text-[#10B981]-500/80 leading-relaxed font-medium">
                                     تحذير: البث العشوائي والمتكرر قد يؤدي إلى تصنيف خادم الإيميلات كـ Spam. استخدم "البث الذكي" فقط للرسائل الهامة.

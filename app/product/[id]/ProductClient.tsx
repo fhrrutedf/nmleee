@@ -116,12 +116,12 @@ export default function ProductDetails({
                 <style dangerouslySetInnerHTML={{
                     __html: `
                     .text-[#10B981] { color: ${product.user.brandColor} !important; }
-                    .bg-emerald-700 { background-color: ${product.user.brandColor} !important; }
+                    .bg-emerald-700 text-white { background-color: ${product.user.brandColor} !important; }
                     .border-emerald-600 { border-color: ${product.user.brandColor} !important; }
                     .ring-accent { --tw-ring-color: ${product.user.brandColor} !important; }
                     .from-accent { --tw-gradient-from: ${product.user.brandColor} !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
                     .hover\\:text-[#10B981]:hover { color: ${product.user.brandColor} !important; filter: brightness(0.9); }
-                    .hover\\:bg-emerald-700:hover { background-color: ${product.user.brandColor} !important; filter: brightness(0.9); }
+                    .hover\\:bg-emerald-700 text-white:hover { background-color: ${product.user.brandColor} !important; filter: brightness(0.9); }
                     .shadow-accent\\/20 { --tw-shadow-color: ${product.user.brandColor}33 !important; }
                     `
                 }} />
@@ -145,7 +145,7 @@ export default function ProductDetails({
                             <div className="p-8 sm:p-10">
                                 <div className="flex flex-wrap gap-2 mb-6">
                                     {product.category && (
-                                        <span className="px-4 py-1.5 bg-emerald-700-50 dark:bg-blue-900/20 text-[#10B981] dark:text-blue-400 rounded-lg text-sm font-bold tracking-wide border border-blue-100 dark:border-blue-900/30">
+                                        <span className="px-4 py-1.5 bg-emerald-700 text-white-50 dark:bg-blue-900/20 text-[#10B981] dark:text-blue-400 rounded-lg text-sm font-bold tracking-wide border border-blue-100 dark:border-blue-900/30">
                                             {product.category === 'courses' ? '👨‍🏫 دورة متكاملة' : product.category === 'ebooks' ? '📚 كتاب إلكتروني' : product.category}
                                         </span>
                                     )}
@@ -186,7 +186,7 @@ export default function ProductDetails({
                                         </div>
                                     )}
                                     <div className="flex items-end gap-3 leading-none">
-                                        <span className="text-5xl sm:text-6xl font-bold bg-emerald-700 dark:from-white dark:to-gray-400 bg-clip-text text-transparent transform transition-transform hover:scale-105 origin-right">
+                                        <span className="text-5xl sm:text-6xl font-bold bg-emerald-700 text-white dark:from-white dark:to-gray-400 bg-clip-text text-transparent transform transition-transform hover:scale-105 origin-right">
                                             {formatPrice(product.price || 0).value}
                                         </span>
                                         <span className="text-2xl font-bold text-gray-400 dark:text-gray-500 mb-2 font-serif">
@@ -196,8 +196,8 @@ export default function ProductDetails({
 
                                     {/* Urgency Countdown Banner */}
                                     {product.offerExpiresAt && new Date(product.offerExpiresAt) > new Date() && (
-                                        <div className="mt-6 p-4 bg-emerald-700-50 dark:bg-blue-900/10 rounded-xl border border-blue-100 dark:border-blue-900/20 flex items-center gap-3 ">
-                                            <div className="w-10 h-10 bg-emerald-700-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20 shadow-accent-500/20">
+                                        <div className="mt-6 p-4 bg-emerald-700 text-white-50 dark:bg-blue-900/10 rounded-xl border border-blue-100 dark:border-blue-900/20 flex items-center gap-3 ">
+                                            <div className="w-10 h-10 bg-emerald-700 text-white-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20 shadow-accent-500/20">
                                                 <FiClock className="text-xl" />
                                             </div>
                                             <div className="text-right">
@@ -261,7 +261,7 @@ export default function ProductDetails({
                     {/* Right Column: Media & Details */}
                     <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col gap-10">
                         <div className="group relative">
-                            <div className="absolute -inset-1 bg-emerald-700 rounded-xl blur-xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                            <div className="absolute -inset-1 bg-emerald-700 text-white rounded-xl blur-xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
                             <div className="relative bg-black rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20 ring-1 ring-gray-900/10 dark:ring-white/10 aspect-[16/10] sm:aspect-video flex items-center justify-center -up">
                                 {activeMedia?.type === 'video' ? (
                                     <div className="w-full h-full">
@@ -270,7 +270,7 @@ export default function ProductDetails({
                                 ) : activeMedia?.type === 'image' ? (
                                     <img src={activeMedia.url} alt={product.title} className="w-full h-full object-cover transform transition-transform duration-700 hover:scale-105" />
                                 ) : (
-                                    <div className="w-full h-full bg-emerald-700 flex flex-col items-center justify-center text-gray-500">
+                                    <div className="w-full h-full bg-emerald-700 text-white flex flex-col items-center justify-center text-gray-500">
                                         <FiBook className="text-8xl mb-4 opacity-50" />
                                         <span className="font-medium tracking-widest uppercase text-sm">No Preview Available</span>
                                     </div>
@@ -301,9 +301,9 @@ export default function ProductDetails({
                             </div>
                         )}
 
-                        <div className="mt-8 bg-emerald-700 dark:from-gray-900 dark:to-gray-800 rounded-xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-gray-100 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group">
+                        <div className="mt-8 bg-emerald-700 text-white dark:from-gray-900 dark:to-gray-800 rounded-xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-gray-100 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group">
                             <div className="flex items-center gap-6 relative z-10 w-full sm:w-auto">
-                                 <Link href={`/${product.user?.username || 'seller'}`} className="w-20 h-20 sm:w-24 sm:h-24 bg-emerald-700 rounded-xl flex items-center justify-center font-bold text-3xl text-white shadow-lg shadow-[#10B981]/20 overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                                 <Link href={`/${product.user?.username || 'seller'}`} className="w-20 h-20 sm:w-24 sm:h-24 bg-emerald-700 text-white rounded-xl flex items-center justify-center font-bold text-3xl text-white shadow-lg shadow-[#10B981]/20 overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
                                      {product.user?.avatar ? (
                                          <img src={product.user.avatar} className="w-full h-full object-cover" alt={product.user.name} />
                                      ) : (
@@ -325,7 +325,7 @@ export default function ProductDetails({
                                         >
                                             <FiMessageSquare size={12} /> تواصل مع الدعم
                                         </button>
-                                        <Link href={`/${product.user?.username || 'seller'}`} className="px-3 py-1.5 bg-emerald-800 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-lg font-bold text-[10px] hover:bg-gray-200 transition-colors">
+                                        <Link href={`/${product.user?.username || 'seller'}`} className="px-3 py-1.5 bg-emerald-800 dark:bg-gray-800 text-gray-400 dark:text-gray-300 rounded-lg font-bold text-[10px] hover:bg-gray-200 transition-colors">
                                             الملف الشخصي
                                         </Link>
                                      </div>
@@ -346,7 +346,7 @@ export default function ProductDetails({
                                 >
                                     <FiBook className={activeTab === 'description' ? "text-[#10B981]" : "text-gray-400"} />
                                     محتوى وتفاصيل
-                                    {activeTab === 'description' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-700 rounded-t-full"></div>)}
+                                    {activeTab === 'description' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-700 text-white rounded-t-full"></div>)}
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('reviews')}
@@ -354,8 +354,8 @@ export default function ProductDetails({
                                 >
                                     <FiMessageSquare className={activeTab === 'reviews' ? "text-[#10B981]" : "text-gray-400"} />
                                     تجارب المشترين
-                                    <span className="bg-emerald-800 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs px-2 py-1 rounded-xl">{reviews.length}</span>
-                                    {activeTab === 'reviews' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-700 rounded-t-full"></div>)}
+                                    <span className="bg-emerald-800 dark:bg-gray-800 text-gray-400 dark:text-gray-400 text-xs px-2 py-1 rounded-xl">{reviews.length}</span>
+                                    {activeTab === 'reviews' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-700 text-white rounded-t-full"></div>)}
                                 </button>
                             </div>
 
@@ -367,7 +367,7 @@ export default function ProductDetails({
                                 ) : (
                                     <div className="space-y-10 -up">
                                         {/* Review Input Box */}
-                                        <div className="bg-emerald-700 dark:from-gray-900 dark:to-gray-800 p-8 rounded-xl border border-gray-100 dark:border-gray-700 shadow-inner">
+                                        <div className="bg-emerald-700 text-white dark:from-gray-900 dark:to-gray-800 p-8 rounded-xl border border-gray-100 dark:border-gray-700 shadow-inner">
                                             <h3 className="font-bold text-xl mb-6 text-white dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
                                             <form onSubmit={submitReview} className="space-y-5">
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -379,7 +379,7 @@ export default function ProductDetails({
                                                         <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">التقييم من 5</label>
                                                         <div className="flex gap-2">
                                                             {[1, 2, 3, 4, 5].map((star) => (
-                                                                <button key={star} type="button" onClick={() => setNewReview({ ...newReview, rating: star })} className={`flex-1 bg-[#0A0A0A] dark:bg-gray-900 border ${star <= newReview.rating ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : 'border-emerald-500/20 dark:border-gray-700'} rounded-xl py-3 flex items-center justify-center transition-all transform active:scale-95`}><FiStar className={`text-xl ${star <= newReview.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300 dark:text-gray-600'}`} /></button>
+                                                                <button key={star} type="button" onClick={() => setNewReview({ ...newReview, rating: star })} className={`flex-1 bg-[#0A0A0A] dark:bg-gray-900 border ${star <= newReview.rating ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : 'border-emerald-500/20 dark:border-gray-700'} rounded-xl py-3 flex items-center justify-center transition-all transform active:scale-95`}><FiStar className={`text-xl ${star <= newReview.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300 dark:text-gray-400'}`} /></button>
                                                             ))}
                                                         </div>
                                                     </div>
@@ -412,7 +412,7 @@ export default function ProductDetails({
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed font-medium bg-[#111111] dark:bg-gray-900/50 p-5 rounded-tr-3xl rounded-br-3xl rounded-bl-3xl">{review.comment}</p>
+                                                        <p className="text-gray-400 dark:text-gray-300 text-lg leading-relaxed font-medium bg-[#111111] dark:bg-gray-900/50 p-5 rounded-tr-3xl rounded-br-3xl rounded-bl-3xl">{review.comment}</p>
                                                     </div>
                                                 ))
                                             )}

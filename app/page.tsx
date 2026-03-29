@@ -52,7 +52,7 @@ export default function Home() {
                             { icon: <FiLock />, title: 'حماية المحتوى', desc: 'نحمي ملفاتك من النسخ والتحميل غير المصرح به.' },
                         ].map((f, i) => (
                             <div key={i} className="bg-[#111] rounded-2xl p-8 border border-white/10 hover:border-emerald-500/30 hover:shadow-glow transition-all duration-300">
-                                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-[#10B981] text-xl mb-6 shadow-inner">
+                                <div className="w-12 h-12 rounded-xl bg-emerald-500 text-white/10 flex items-center justify-center text-[#10B981] text-xl mb-6 shadow-inner">
                                     {f.icon}
                                 </div>
                                 <h3 className="text-lg font-bold text-white mb-3">{f.title}</h3>
@@ -118,7 +118,7 @@ export default function Home() {
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6">
                         <Link
                             href="/register"
-                            className="w-full md:w-auto bg-emerald-700 text-white px-12 py-6 rounded-xl font-bold text-xs uppercase tracking-[0.3em] shadow-lg shadow-emerald-500/20 hover:bg-emerald-500 hover:shadow-glow transition-all active:scale-95 flex items-center justify-center gap-4 group"
+                            className="w-full md:w-auto bg-emerald-700 text-white px-12 py-6 rounded-xl font-bold text-xs uppercase tracking-[0.3em] shadow-lg shadow-emerald-500/20 hover:bg-emerald-500 text-white hover:shadow-glow transition-all active:scale-95 flex items-center justify-center gap-4 group"
                         >
                             Launch store <FiArrowRight className="text-xl group-hover:translate-x-2 transition-transform text-white" />
                         </Link>
@@ -138,10 +138,10 @@ export default function Home() {
 function Hero() {
     return (
         <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-[#0A0A0A] relative overflow-hidden">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-emerald-500/5 blur-[120px] rounded-full"></div>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-emerald-500 text-white/5 blur-[120px] rounded-full"></div>
             <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-24 lg:py-40 text-center relative z-10 antialiased">
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="inline-flex items-center gap-3 bg-white/5 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] mb-10 border border-white/10 shadow-2xl">
-                    <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                    <span className="w-2 h-2 bg-emerald-500 text-white rounded-full animate-pulse"></span>
                     Strategic Growth Infrastructure
                 </motion.div>
                 
@@ -158,7 +158,7 @@ function Hero() {
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
                     <Link
                         href="/register"
-                        className="inline-flex items-center gap-2 px-8 py-4 bg-emerald-700 text-white rounded-xl font-bold text-sm hover:bg-emerald-500 shadow-lg shadow-emerald-500/20 hover:shadow-glow transition-all"
+                        className="inline-flex items-center gap-2 px-8 py-4 bg-emerald-700 text-white rounded-xl font-bold text-sm hover:bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 hover:shadow-glow transition-all"
                     >
                         ابدأ مجاناً
                         <FiArrowLeft />

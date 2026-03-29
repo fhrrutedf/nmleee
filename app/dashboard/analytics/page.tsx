@@ -290,7 +290,7 @@ export default function AnalyticsPage() {
                             </div>
                             <div className="flex-1">
                                 <p className="font-bold">{activity.title}</p>
-                                <p className="text-sm text-gray-600">{activity.description}</p>
+                                <p className="text-sm text-gray-400">{activity.description}</p>
                             </div>
                             <div className="text-sm text-gray-500 flex items-center gap-1">
                                 <FiCalendar className="text-gray-400" />

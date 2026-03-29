@@ -164,7 +164,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                         <select
                             value={statusFilter}
                             onChange={(e) => setStatusFilter(e.target.value)}
-                            className="flex-1 bg-[#111111] dark:bg-gray-800/50 px-3 py-2 rounded-lg border border-emerald-500/20 dark:border-gray-700 text-xs font-semibold focus:outline-none text-gray-600 dark:text-gray-300"
+                            className="flex-1 bg-[#111111] dark:bg-gray-800/50 px-3 py-2 rounded-lg border border-emerald-500/20 dark:border-gray-700 text-xs font-semibold focus:outline-none text-gray-400 dark:text-gray-300"
                         >
                             <option value="all">كل الحالات</option>
                             <option value="new">بانتظار الرد (جديد)</option>
@@ -174,7 +174,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                         <select
                             value={courseFilter}
                             onChange={(e) => setCourseFilter(e.target.value)}
-                            className="flex-1 bg-[#111111] dark:bg-gray-800/50 px-3 py-2 rounded-lg border border-emerald-500/20 dark:border-gray-700 text-xs font-semibold focus:outline-none text-gray-600 dark:text-gray-300 line-clamp-1"
+                            className="flex-1 bg-[#111111] dark:bg-gray-800/50 px-3 py-2 rounded-lg border border-emerald-500/20 dark:border-gray-700 text-xs font-semibold focus:outline-none text-gray-400 dark:text-gray-300 line-clamp-1"
                         >
                             <option value="">كل الكورسات</option>
                             {courses.map(c => (

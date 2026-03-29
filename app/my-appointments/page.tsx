@@ -49,7 +49,7 @@ export default function MyAppointmentsPage() {
             <div className="max-w-7xl mx-auto px-4">
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-[#10B981] mb-2">مواعيدي</h1>
-                    <p className="text-gray-600">جميع المواعيد التي حجزتها</p>
+                    <p className="text-gray-400">جميع المواعيد التي حجزتها</p>
                 </div>
 
                 {/* Stats */}
@@ -90,7 +90,7 @@ export default function MyAppointmentsPage() {
                     <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-12 text-center">
                         <FiCalendar className="text-6xl text-gray-300 mx-auto mb-4" />
                         <h3 className="text-2xl font-bold mb-2">لا توجد مواعيد</h3>
-                        <p className="text-gray-600 mb-6">لم تحجز أي مواعيد بعد</p>
+                        <p className="text-gray-400 mb-6">لم تحجز أي مواعيد بعد</p>
                         <Link href="/book-appointment" className="btn btn-primary">
                             احجز موعد جديد
                         </Link>
@@ -102,7 +102,7 @@ export default function MyAppointmentsPage() {
                                 <div className="flex items-start justify-between mb-4">
                                     <div>
                                         <h3 className="text-xl font-bold mb-2">{appointment.title || 'موعد'}</h3>
-                                        <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                                        <div className="flex flex-wrap gap-4 text-sm text-gray-400">
                                             <div className="flex items-center gap-2">
                                                 <FiCalendar />
                                                 <span>{new Date(appointment.date).toLocaleDateString('ar-EG')}</span>
@@ -129,7 +129,7 @@ export default function MyAppointmentsPage() {
                                 </div>
 
                                 {appointment.notes && (
-                                    <p className="text-gray-600 text-sm mb-4 p-3 bg-[#111111] rounded-lg">
+                                    <p className="text-gray-400 text-sm mb-4 p-3 bg-[#111111] rounded-lg">
                                         {appointment.notes}
                                     </p>
                                 )}

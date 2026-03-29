@@ -73,7 +73,7 @@ export default function BookAppointmentPage() {
                 {/* Header */}
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-[#10B981] mb-3">احجز موعد استشارة</h1>
-                    <p className="text-xl text-gray-600">اختر الوقت المناسب لك وسنتواصل معك</p>
+                    <p className="text-xl text-gray-400">اختر الوقت المناسب لك وسنتواصل معك</p>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -90,7 +90,7 @@ export default function BookAppointmentPage() {
                                         <label
                                             key={service.id}
                                             className={`relative flex items-center gap-4 p-4 border-2 rounded-lg cursor-pointer transition-all ${formData.service === service.id
-                                                    ? 'border-emerald-600 bg-emerald-700-light'
+                                                    ? 'border-emerald-600 bg-emerald-700 text-white-light'
                                                     : 'border-emerald-500/20 hover:border-gray-400'
                                                 }`}
                                         >
@@ -104,7 +104,7 @@ export default function BookAppointmentPage() {
                                             />
                                             <div className="flex-1">
                                                 <h4 className="font-bold text-white">{service.name}</h4>
-                                                <p className="text-sm text-gray-600">{service.duration}</p>
+                                                <p className="text-sm text-gray-400">{service.duration}</p>
                                             </div>
                                             <div className="text-left">
                                                 <p className="text-2xl font-bold text-[#10B981]">{service.price} $</p>
@@ -276,14 +276,14 @@ export default function BookAppointmentPage() {
                             {selectedService ? (
                                 <div className="space-y-4">
                                     <div className="p-4 bg-primary-50 rounded-lg">
-                                        <p className="text-sm text-gray-600 mb-1">الخدمة</p>
+                                        <p className="text-sm text-gray-400 mb-1">الخدمة</p>
                                         <p className="font-bold">{selectedService.name}</p>
                                         <p className="text-sm text-gray-500">{selectedService.duration}</p>
                                     </div>
 
                                     {formData.date && (
                                         <div className="p-4 bg-[#111111] rounded-lg">
-                                            <p className="text-sm text-gray-600 mb-1">التاريخ</p>
+                                            <p className="text-sm text-gray-400 mb-1">التاريخ</p>
                                             <p className="font-bold">
                                                 {new Date(formData.date).toLocaleDateString('ar-EG', {
                                                     weekday: 'long',
@@ -297,13 +297,13 @@ export default function BookAppointmentPage() {
 
                                     {formData.time && (
                                         <div className="p-4 bg-[#111111] rounded-lg">
-                                            <p className="text-sm text-gray-600 mb-1">الوقت</p>
+                                            <p className="text-sm text-gray-400 mb-1">الوقت</p>
                                             <p className="font-bold">{formData.time}</p>
                                         </div>
                                     )}
 
                                     <div className="p-4 bg-[#111111] rounded-lg">
-                                        <p className="text-sm text-gray-600 mb-1">النوع</p>
+                                        <p className="text-sm text-gray-400 mb-1">النوع</p>
                                         <p className="font-bold">
                                             {formData.type === 'online' ? 'عبر الإنترنت' : 'شخصياً'}
                                         </p>

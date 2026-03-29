@@ -25,14 +25,14 @@ const footerLinks = {
 
 export default function Footer() {
     return (
-        <footer className="bg-[#0A0A0A] text-white py-24 border-t border-white/10 selection:bg-emerald-500/30">
+        <footer className="bg-[#0A0A0A] text-white py-24 border-t border-white/10 selection:bg-emerald-500 text-white/30">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-24">
                     
                     {/* Brand Identifier */}
                     <div className="md:col-span-4 max-w-sm">
                         <div className="flex items-center gap-4 mb-10 group cursor-default">
-                             <div className="w-12 h-12 rounded-2xl bg-emerald-700 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-emerald-500/20 transition-all group-hover:scale-110 group-hover:shadow-glow">
+                             <div className="w-12 h-12 rounded-2xl bg-emerald-700 text-white flex items-center justify-center text-white text-xl font-black shadow-lg shadow-emerald-500/20 transition-all group-hover:scale-110 group-hover:shadow-glow">
                                 ت
                             </div>
                             <span className="text-3xl font-black tracking-tighter">تمالين</span>
@@ -48,9 +48,9 @@ export default function Footer() {
                                 <input 
                                     type="email" 
                                     placeholder="Enter your email" 
-                                    className="bg-transparent border-none focus:ring-0 text-xs font-semibold px-4 flex-1 text-white placeholder:text-gray-600"
+                                    className="bg-transparent border-none focus:ring-0 text-xs font-semibold px-4 flex-1 text-white placeholder:text-gray-400"
                                 />
-                                <button className="px-6 py-2.5 bg-emerald-700 text-white text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-emerald-500 shadow-lg shadow-emerald-500/10 transition-all hover:shadow-glow">
+                                <button className="px-6 py-2.5 bg-emerald-700 text-white text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-emerald-500 text-white shadow-lg shadow-emerald-500/10 transition-all hover:shadow-glow">
                                     Join
                                 </button>
                             </div>
@@ -82,18 +82,18 @@ export default function Footer() {
                 {/* Fine Print / Bottom Bar */}
                 <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-8">
                     <div className="flex items-center gap-8">
-                         <p className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">
+                         <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
                             © {new Date().getFullYear()} TMLEEN INFRASTRUCTURE. All Rights Reserved.
                         </p>
                         <div className="hidden md:flex gap-6 items-center">
                             <span className="w-1.5 h-1.5 bg-white/10 rounded-full"></span>
-                            <p className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] flex items-center gap-2.5">
-                                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-glow animate-pulse"></span> Service Operational
+                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] flex items-center gap-2.5">
+                                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 text-white shadow-glow animate-pulse"></span> Service Operational
                             </p>
                         </div>
                     </div>
                     
-                    <div className="flex gap-10 text-[10px] font-bold uppercase tracking-widest text-gray-600">
+                    <div className="flex gap-10 text-[10px] font-bold uppercase tracking-widest text-gray-400">
                         <Link href="/terms" className="hover:text-[#10B981] transition-colors">Terms of service</Link>
                         <Link href="/privacy" className="hover:text-[#10B981] transition-colors">Privacy Policy</Link>
                         <Link href="/cookies" className="hover:text-[#10B981] transition-colors">Tracking</Link>

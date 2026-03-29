@@ -41,7 +41,7 @@ export const CustomCursor = () => {
                 transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
             />
             <motion.div
-                className="fixed top-0 left-0 w-2 h-2 bg-emerald-700 rounded-xl pointer-events-none z-[100] hidden md:block"
+                className="fixed top-0 left-0 w-2 h-2 bg-emerald-700 text-white rounded-xl pointer-events-none z-[100] hidden md:block"
                 animate={{ x: mousePosition.x - 4, y: mousePosition.y - 4 }}
                 transition={{ type: "spring", stiffness: 1000, damping: 40, mass: 0.1 }}
             />

@@ -111,7 +111,7 @@ export default function MyCoursesPage() {
                         <p className="text-gray-500 mb-4">لا توجد مشتريات بعد</p>
                         <Link
                             href="/"
-                            className="inline-block px-6 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                            className="inline-block px-6 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 text-white transition-colors"
                         >
                             تصفح المنتجات
                         </Link>
@@ -150,12 +150,12 @@ export default function MyCoursesPage() {
                                     {purchase.type === 'course' && purchase.progress !== undefined && (
                                         <div className="mb-3">
                                             <div className="flex justify-between text-sm mb-1">
-                                                <span className="text-gray-600">التقدم</span>
+                                                <span className="text-gray-400">التقدم</span>
                                                 <span className="font-medium text-[#10B981]">{purchase.progress}%</span>
                                             </div>
                                             <div className="w-full bg-gray-200 rounded-xl h-2">
                                                 <div
-                                                    className="bg-emerald-700 h-2 rounded-xl transition-all"
+                                                    className="bg-emerald-700 text-white h-2 rounded-xl transition-all"
                                                     style={{ width: `${purchase.progress}%` }}
                                                 />
                                             </div>
@@ -175,7 +175,7 @@ export default function MyCoursesPage() {
                                                 ? `/learn/${purchase.slug || purchase.id}`
                                                 : `/download/${purchase.id}`
                                         }
-                                        className="block w-full py-2 bg-emerald-700 text-white text-center rounded-lg font-medium hover:bg-emerald-700 transition-colors"
+                                        className="block w-full py-2 bg-emerald-700 text-white text-center rounded-lg font-medium hover:bg-emerald-700 text-white transition-colors"
                                     >
                                         {purchase.type === 'course' ? 'متابعة التعلم' : 'تحميل'}
                                     </Link>

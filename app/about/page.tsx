@@ -25,11 +25,11 @@ export default function AboutPage() {
     const opacityHero = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
 
     return (
-        <div className="min-h-screen bg-[#0A0A0A] overflow-hidden selection:bg-emerald-700/20">
+        <div className="min-h-screen bg-[#0A0A0A] overflow-hidden selection:bg-emerald-700 text-white/20">
             {/* Minimalist Corporate Hero */}
             <section className="relative bg-emerald-700 text-white py-32 md:py-48 flex items-center overflow-hidden">
                 {/* Subtle Refined Accents */}
-                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-700/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-700 text-white/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
                 
                 <div className="max-w-7xl mx-auto px-6 text-center relative z-10 w-full">
                     <motion.div style={{ y: yHero, opacity: opacityHero }}>
@@ -77,7 +77,7 @@ export default function AboutPage() {
                             { value: "99%", label: "معدل الرضا", icon: FiAward }
                         ].map((stat, idx) => (
                             <motion.div key={idx} variants={fadeInUp} className="text-right p-8 bg-[#111111] border border-gray-100 rounded-xl hover:border-emerald-600/20 transition-all group">
-                                <div className="w-12 h-12 bg-[#0A0A0A] border border-gray-100 rounded-xl flex items-center justify-center text-[#10B981] mb-6 group-hover:bg-emerald-700 group-hover:text-white transition-all shadow-lg shadow-[#10B981]/20">
+                                <div className="w-12 h-12 bg-[#0A0A0A] border border-gray-100 rounded-xl flex items-center justify-center text-[#10B981] mb-6 group-hover:bg-emerald-700 text-white group-hover:text-white transition-all shadow-lg shadow-[#10B981]/20">
                                     <stat.icon className="text-xl" />
                                 </div>
                                 <h3 className="text-4xl font-bold text-[#10B981] font-inter tracking-tighter mb-2">{stat.value}</h3>
@@ -109,7 +109,7 @@ export default function AboutPage() {
                                     { t: 'تحليلات ذكية', d: 'مساعدتك في فهم سلوك عملائك وزيادة مبيعاتك عبر البيانات.' }
                                 ].map((item, i) => (
                                     <div key={i} className="flex gap-4">
-                                        <div className="w-6 h-6 rounded-xl bg-emerald-700/10 flex items-center justify-center text-[#10B981] shrink-0 mt-1">
+                                        <div className="w-6 h-6 rounded-xl bg-emerald-700 text-white/10 flex items-center justify-center text-[#10B981] shrink-0 mt-1">
                                             <FiCheckCircle size={14} />
                                         </div>
                                         <div>
@@ -119,13 +119,13 @@ export default function AboutPage() {
                                     </div>
                                 ))}
                             </div>
-                            <Link href="/register" className="inline-flex py-4 px-10 bg-emerald-700 text-white rounded-xl font-bold hover:bg-emerald-700 transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/10">
+                            <Link href="/register" className="inline-flex py-4 px-10 bg-emerald-700 text-white rounded-xl font-bold hover:bg-emerald-700 text-white transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/10">
                                 ابدأ رحلتك معنا اليوم
                             </Link>
                         </motion.div>
 
                         <div className="relative group">
-                            <div className="absolute -inset-4 bg-emerald-700/5 rounded-[3rem] blur-2xl group-hover:bg-emerald-700/10 transition-all"></div>
+                            <div className="absolute -inset-4 bg-emerald-700 text-white/5 rounded-[3rem] blur-2xl group-hover:bg-emerald-700 text-white/10 transition-all"></div>
                             <div className="rounded-[2.5rem] overflow-hidden border border-gray-100 shadow-lg shadow-[#10B981]/20 relative z-10">
                                 <img
                                     src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&q=80"
@@ -162,7 +162,7 @@ export default function AboutPage() {
                             { title: 'عمولات تنافسية', desc: 'أفضل نظام عمولات للمحتوى الرقمي، لكي تحقق أقصى ربح ممكن.', icon: FiTrendingUp }
                         ].map((feature, i) => (
                             <div key={i} className="bg-[#0A0A0A] border border-gray-100 p-10 rounded-xl hover:border-emerald-600/20 transition-all group shadow-lg shadow-[#10B981]/20">
-                                <div className="w-14 h-14 bg-[#111111] text-[#10B981] rounded-xl flex items-center justify-center mb-8 group-hover:bg-emerald-700 group-hover:text-white transition-all shadow-lg shadow-[#10B981]/20">
+                                <div className="w-14 h-14 bg-[#111111] text-[#10B981] rounded-xl flex items-center justify-center mb-8 group-hover:bg-emerald-700 text-white group-hover:text-white transition-all shadow-lg shadow-[#10B981]/20">
                                     <feature.icon className="text-2xl" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-[#10B981] mb-4">{feature.title}</h3>
@@ -174,12 +174,12 @@ export default function AboutPage() {
             </section>
 
             {/* Premium CTA */}
-            <section className="py-24 bg-emerald-700 relative overflow-hidden">
+            <section className="py-24 bg-emerald-700 text-white relative overflow-hidden">
                 <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
                     <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter mb-8">جاهز لتحويل خبرتك لمنتج؟</h2>
                     <p className="text-gray-400 text-xl font-bold mb-12">انضم لمئات المبدعين الذين اختاروا التميز والاستقلالية المالية.</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/register" className="px-12 py-5 bg-emerald-700 text-white rounded-xl font-bold hover:bg-emerald-700-hover transition-all shadow-lg shadow-[#10B981]/20 shadow-accent/20">
+                        <Link href="/register" className="px-12 py-5 bg-emerald-700 text-white rounded-xl font-bold hover:bg-emerald-700 text-white-hover transition-all shadow-lg shadow-[#10B981]/20 shadow-accent/20">
                             أنشئ متجرك مجاناً
                         </Link>
                         <Link href="/market" className="px-12 py-5 bg-[#0A0A0A]/10 text-white border border-white/10 rounded-xl font-bold hover:bg-white/20 transition-all">

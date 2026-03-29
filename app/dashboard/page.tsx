@@ -60,7 +60,7 @@ export default function DashboardPage() {
             className="space-y-8 pb-12"
         >
             {/* Professional Welcome Section */}
-            <motion.div variants={item} className="bg-emerald-700 rounded-xl p-8 sm:p-12 text-white shadow-lg shadow-[#10B981]/20 relative overflow-hidden ring-1 ring-white/10">
+            <motion.div variants={item} className="bg-emerald-700 text-white rounded-xl p-8 sm:p-12 text-white shadow-lg shadow-[#10B981]/20 relative overflow-hidden ring-1 ring-white/10">
                 <div className="relative z-10 max-w-2xl">
                     <span className="inline-block px-3 py-1 bg-[#0A0A0A]/10 rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Merchant Dashboard</span>
                     <h1 className="text-3xl sm:text-5xl font-bold mb-4 tracking-tight leading-tight">مرحباً، {session?.user?.name}</h1>
@@ -69,13 +69,13 @@ export default function DashboardPage() {
                     </p>
                 </div>
                 {/* Minimalist Background Detail */}
-                <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-700/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-[120px]"></div>
+                <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-700 text-white/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-[120px]"></div>
             </motion.div>
 
             {/* High-Contrast Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                    { title: 'إجمالي الأرباح', value: `${(stats.totalRevenue || 0).toLocaleString('en-US')} $`, icon: FiDollarSign, badge: 'Revenue', color: 'text-[#10B981]', bg: 'bg-emerald-700-light' },
+                    { title: 'إجمالي الأرباح', value: `${(stats.totalRevenue || 0).toLocaleString('en-US')} $`, icon: FiDollarSign, badge: 'Revenue', color: 'text-[#10B981]', bg: 'bg-emerald-700 text-white-light' },
                     { title: 'إجمالي المبيعات', value: stats.totalOrders || 0, icon: FiShoppingCart, badge: 'Sales', color: 'text-[#10B981]', bg: 'bg-[#111111]' },
                     { title: 'المنتجات النشطة', value: stats.totalProducts || 0, icon: FiPackage, badge: 'Inventory', color: 'text-[#10B981]', bg: 'bg-[#111111]' },
                     { title: 'عدد الطلاب', value: stats.totalStudents || 0, icon: FiUsers, badge: 'Students', color: 'text-[#10B981]', bg: 'bg-[#111111]' }
@@ -130,7 +130,7 @@ export default function DashboardPage() {
                         { title: 'تعديل هوية المتجر', desc: 'الألوان، الشعار، والوصف', icon: FiSettings, href: '/dashboard/brand' }
                     ].map((action, idx) => (
                         <Link key={idx} href={action.href} className="flex items-center gap-5 p-5 rounded-xl bg-[#0A0A0A] border border-gray-100 hover:border-emerald-600/20 hover:shadow-lg shadow-[#10B981]/20 hover:shadow-accent/5 transition-all group">
-                            <div className="w-12 h-12 rounded-xl bg-[#111111] text-[#10B981] flex items-center justify-center group-hover:bg-emerald-700 group-hover:text-white transition-all shadow-lg shadow-[#10B981]/20">
+                            <div className="w-12 h-12 rounded-xl bg-[#111111] text-[#10B981] flex items-center justify-center group-hover:bg-emerald-700 text-white group-hover:text-white transition-all shadow-lg shadow-[#10B981]/20">
                                 <action.icon className="text-xl" />
                             </div>
                             <div className="flex-1 text-right">
@@ -141,7 +141,7 @@ export default function DashboardPage() {
                         </Link>
                     ))}
                     
-                    <div className="mt-8 p-6 bg-emerald-700-light rounded-xl border border-emerald-600/10">
+                    <div className="mt-8 p-6 bg-emerald-700 text-white-light rounded-xl border border-emerald-600/10">
                         <p className="text-[10px] font-bold text-[#10B981] uppercase tracking-widest mb-2">نصيحة اليوم</p>
                         <p className="text-xs text-[#10B981] font-bold leading-relaxed">
                             تحديث صور المنتجات الرقمية يزيد من معدل التحويل بنسبة تصل إلى 25%.

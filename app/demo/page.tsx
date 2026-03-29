@@ -36,7 +36,7 @@ export default function DemoPage() {
                                 <FiUsers className="text-4xl text-[#10B981]-600" />
                             </div>
                             <h3 className="text-4xl font-bold text-white mb-2">10K+</h3>
-                            <p className="text-gray-600">مستخدم نشط</p>
+                            <p className="text-gray-400">مستخدم نشط</p>
                         </div>
 
                         <div className="text-center">
@@ -44,7 +44,7 @@ export default function DemoPage() {
                                 <FiShoppingCart className="text-4xl text-green-600" />
                             </div>
                             <h3 className="text-4xl font-bold text-white mb-2">50K+</h3>
-                            <p className="text-gray-600">عملية بيع</p>
+                            <p className="text-gray-400">عملية بيع</p>
                         </div>
 
                         <div className="text-center">
@@ -52,7 +52,7 @@ export default function DemoPage() {
                                 <FiBook className="text-4xl text-[#10B981]" />
                             </div>
                             <h3 className="text-4xl font-bold text-white mb-2">5K+</h3>
-                            <p className="text-gray-600">دورة ومنتج</p>
+                            <p className="text-gray-400">دورة ومنتج</p>
                         </div>
 
                         <div className="text-center">
@@ -60,7 +60,7 @@ export default function DemoPage() {
                                 <FiStar className="text-4xl text-orange-600" />
                             </div>
                             <h3 className="text-4xl font-bold text-white mb-2">4.9</h3>
-                            <p className="text-gray-600">تقييم المستخدمين</p>
+                            <p className="text-gray-400">تقييم المستخدمين</p>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@ export default function DemoPage() {
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="text-center mb-12">
                         <h2 className="text-4xl font-bold mb-4">ميزات المنصة</h2>
-                        <p className="text-xl text-gray-600">كل ما تحتاجه لبدء عملك الرقمي</p>
+                        <p className="text-xl text-gray-400">كل ما تحتاجه لبدء عملك الرقمي</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -80,7 +80,7 @@ export default function DemoPage() {
                                 <FiShoppingCart className="text-3xl text-[#10B981]-600" />
                             </div>
                             <h3 className="text-2xl font-bold mb-3">بيع المنتجات</h3>
-                            <p className="text-gray-600 leading-relaxed">
+                            <p className="text-gray-400 leading-relaxed">
                                 بع منتجاتك الرقمية (كتب، قوالب، برمجيات) بسهولة وأمان
                             </p>
                         </div>
@@ -90,7 +90,7 @@ export default function DemoPage() {
                                 <FiVideo className="text-3xl text-[#10B981]" />
                             </div>
                             <h3 className="text-2xl font-bold mb-3">الدورات التدريبية</h3>
-                            <p className="text-gray-600 leading-relaxed">
+                            <p className="text-gray-400 leading-relaxed">
                                 أنشئ وبع دوراتك التدريبية مع نظام إدارة متكامل
                             </p>
                         </div>
@@ -100,7 +100,7 @@ export default function DemoPage() {
                                 <FiTrendingUp className="text-3xl text-green-600" />
                             </div>
                             <h3 className="text-2xl font-bold mb-3">تحليلات شاملة</h3>
-                            <p className="text-gray-600 leading-relaxed">
+                            <p className="text-gray-400 leading-relaxed">
                                 تابع مبيعاتك وأرباحك بتقارير مفصلة ولحظية
                             </p>
                         </div>
@@ -113,7 +113,7 @@ export default function DemoPage() {
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="text-center mb-12">
                         <h2 className="text-4xl font-bold mb-4">كيف تبدأ؟</h2>
-                        <p className="text-xl text-gray-600">3 خطوات بسيطة فقط</p>
+                        <p className="text-xl text-gray-400">3 خطوات بسيطة فقط</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -122,7 +122,7 @@ export default function DemoPage() {
                                 1
                             </div>
                             <h3 className="text-xl font-bold mb-3">أنشئ حسابك</h3>
-                            <p className="text-gray-600">
+                            <p className="text-gray-400">
                                 سجّل مجاناً واملأ بيانات ملفك الشخصي
                             </p>
                         </div>
@@ -132,7 +132,7 @@ export default function DemoPage() {
                                 2
                             </div>
                             <h3 className="text-xl font-bold mb-3">أضف منتجاتك</h3>
-                            <p className="text-gray-600">
+                            <p className="text-gray-400">
                                 ارفع منتجاتك أو دوراتك بسهولة من لوحة التحكم
                             </p>
                         </div>
@@ -142,7 +142,7 @@ export default function DemoPage() {
                                 3
                             </div>
                             <h3 className="text-xl font-bold mb-3">ابدأ البيع</h3>
-                            <p className="text-gray-600">
+                            <p className="text-gray-400">
                                 شارك روابطك وابدأ بتحقيق الدخل فوراً
                             </p>
                         </div>
@@ -155,7 +155,7 @@ export default function DemoPage() {
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="text-center mb-12">
                         <h2 className="text-4xl font-bold mb-4">أمثلة من المنتجات</h2>
-                        <p className="text-xl text-gray-600">اكتشف ما يمكنك بيعه على المنصة</p>
+                        <p className="text-xl text-gray-400">اكتشف ما يمكنك بيعه على المنصة</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -212,7 +212,7 @@ export default function DemoPage() {
             </section>
 
             {/* CTA Section */}
-            <section className="py-20 bg-emerald-700">
+            <section className="py-20 bg-emerald-700 text-white">
                 <div className="max-w-4xl mx-auto px-4 text-center text-white">
                     <h2 className="text-5xl font-bold mb-6">جاهز للبدء؟</h2>
                     <p className="text-2xl mb-8">انضم إلى آلاف المبدعين الذين يحققون دخلهم من مهاراتهم</p>

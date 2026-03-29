@@ -116,7 +116,7 @@ export default function PayoutsPage() {
             {/* Header */}
             <div>
                 <h1 className="text-3xl font-bold">الأرباح والسحب</h1>
-                <p className="text-gray-600 mt-1">إدارة أرباحك وطلبات السحب</p>
+                <p className="text-gray-400 mt-1">إدارة أرباحك وطلبات السحب</p>
             </div>
 
             {/* Stats Cards */}
@@ -150,12 +150,12 @@ export default function PayoutsPage() {
             <div className="card bg-[#0A0A0A] dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20">
                 <div className="p-6 sm:p-8">
                     <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                        <span className="w-1.5 h-6 bg-emerald-700 rounded-xl"></span>
+                        <span className="w-1.5 h-6 bg-emerald-700 text-white rounded-xl"></span>
                         طلب سحب جديد
                     </h2>
 
                     {user && !isPayoutMethodConfigured(user) ? (
-                        <div className="bg-emerald-700-50 border border-amber-200 p-6 rounded-xl flex flex-col items-center text-center ">
+                        <div className="bg-emerald-700 text-white-50 border border-amber-200 p-6 rounded-xl flex flex-col items-center text-center ">
                             <FiAlertCircle className="text-4xl text-[#10B981]-500 mb-3" />
                             <h3 className="font-bold text-blue-900 mb-2">طريقة السحب غير مكتملة</h3>
                             <p className="text-sm text-blue-800 mb-6 max-w-sm">
@@ -257,7 +257,7 @@ export default function PayoutsPage() {
                                                 {getStatusText(payout.status)}
                                             </span>
                                         </td>
-                                        <td className="py-3 px-4 text-gray-600">
+                                        <td className="py-3 px-4 text-gray-400">
                                             {payout.completedAt
                                                 ? new Date(payout.completedAt).toLocaleDateString('ar-EG')
                                                 : '-'}

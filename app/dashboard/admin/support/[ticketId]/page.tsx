@@ -124,7 +124,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                     <div>
                         <h3 className="font-bold text-gray-500 mb-4 whitespace-nowrap overflow-hidden text-ellipsis">معلومات صاحب التذكرة</h3>
                         <div className="flex items-center gap-3 mb-6">
-                            <div className="w-12 h-12 rounded-xl bg-emerald-700 flex items-center justify-center text-white shrink-0 text-lg">
+                            <div className="w-12 h-12 rounded-xl bg-emerald-700 text-white flex items-center justify-center text-white shrink-0 text-lg">
                                 <FiUser />
                             </div>
                             <div>
@@ -156,7 +156,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                         <h3 className="font-bold text-gray-500 mb-4">إجراءات الإدارة</h3>
                         <div className="space-y-2">
                             {ticket.status !== 'IN_PROGRESS' && ticket.status !== 'RESOLVED' && (
-                                <button disabled={statusUpdating} onClick={() => changeStatus('IN_PROGRESS')} className="btn btn-primary w-full py-2 bg-emerald-700-500 hover:bg-emerald-700-600 border-none shadow-md">
+                                <button disabled={statusUpdating} onClick={() => changeStatus('IN_PROGRESS')} className="btn btn-primary w-full py-2 bg-emerald-700 text-white-500 hover:bg-emerald-700 text-white-600 border-none shadow-md">
                                     تغيير لـ "جاري العمل"
                                 </button>
                             )}
@@ -178,7 +178,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                 <div className="w-full md:w-2/3 p-8 flex flex-col justify-between">
                     <div>
                         <div className="flex items-center gap-3 mb-6">
-                            <span className="font-mono text-sm text-[#10B981] font-bold px-3 py-1 bg-emerald-700/10 rounded-xl">
+                            <span className="font-mono text-sm text-[#10B981] font-bold px-3 py-1 bg-emerald-700 text-white/10 rounded-xl">
                                 {ticket.ticketNumber}
                             </span>
                             <h1 className="text-2xl font-bold text-[#10B981] dark:text-white line-clamp-1" title={ticket.subject}>
@@ -195,7 +195,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isAdmin ? 'bg-emerald-700 text-white' : 'bg-gray-200 dark:bg-gray-800 text-gray-500'}`}>
                                             {isAdmin ? <FiInfo /> : <FiUser />}
                                         </div>
-                                        <div className={`max-w-[85%] rounded-xl p-5 ${isAdmin ? 'bg-emerald-700/10 dark:bg-emerald-700/20 text-[#10B981] border border-emerald-600/20 rounded-tl-none' : 'bg-[#111111] dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none'}`}>
+                                        <div className={`max-w-[85%] rounded-xl p-5 ${isAdmin ? 'bg-emerald-700 text-white/10 dark:bg-emerald-700 text-white/20 text-[#10B981] border border-emerald-600/20 rounded-tl-none' : 'bg-[#111111] dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none'}`}>
                                             <div className="flex items-center gap-2 mb-2">
                                                 <span className={`font-bold text-sm ${isAdmin ? 'text-[#10B981]' : 'text-[#10B981] dark:text-white'}`}>
                                                     {isAdmin ? 'أنت (فريق الدعم)' : 'المستخدم'}
@@ -242,7 +242,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                 <button
                                     type="submit"
                                     disabled={submitting || !message.trim()}
-                                    className="h-10 px-4 bg-emerald-700 hover:bg-emerald-700-600 disabled:bg-gray-300 text-white rounded-xl flex items-center gap-2 transition-colors font-bold shadow-md shadow-accent/20"
+                                    className="h-10 px-4 bg-emerald-700 text-white hover:bg-emerald-700 text-white-600 disabled:bg-gray-300 text-white rounded-xl flex items-center gap-2 transition-colors font-bold shadow-md shadow-accent/20"
                                 >
                                     {submitting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-xl animate-spin" /> : <><FiSend /> إرسال فقط</>}
                                 </button>

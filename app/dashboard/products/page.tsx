@@ -110,7 +110,7 @@ export default function ProductsPage() {
             {/* --- TOP PERFORMERS SUMMARY --- */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in slide-in-from-top-4 duration-500">
                 <div className="bg-[#0A0A0A] dark:bg-card-white p-6 rounded-xl border border-slate-50 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group hover:shadow-md transition-all">
-                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-emerald-700-50 dark:bg-blue-900/10 rounded-xl blur-2xl group-hover:scale-150 transition-transform"></div>
+                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-emerald-700 text-white-50 dark:bg-blue-900/10 rounded-xl blur-2xl group-hover:scale-150 transition-transform"></div>
                     <div className="relative">
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">تقدير صافي الأرباح 💰</p>
                         <h4 className="text-3xl font-bold text-white dark:text-white">{(totalInventoryValue * 0.85).toFixed(2)} <span className="text-sm font-bold text-slate-400">$</span></h4>
@@ -152,7 +152,7 @@ export default function ProductsPage() {
                     </button>
                     <Link
                         href="/dashboard/products/new?new=true"
-                        className="px-8 py-3.5 bg-emerald-700 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#10B981]/20 shadow-[#10B981]/20 hover:bg-emerald-700 active:scale-95 transition-all"
+                        className="px-8 py-3.5 bg-emerald-700 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#10B981]/20 shadow-[#10B981]/20 hover:bg-emerald-700 text-white active:scale-95 transition-all"
                     >
                         <FiPlus className="text-lg" /> إضافة منتج جديد
                     </Link>
@@ -242,7 +242,7 @@ export default function ProductsPage() {
                                                         onChange={(e) => setTempPrice(e.target.value)}
                                                         onKeyPress={(e) => e.key === 'Enter' && updatePrice(product.id)}
                                                     />
-                                                    <button onClick={() => updatePrice(product.id)} className="w-8 h-8 bg-emerald-700-500 text-white rounded-lg flex items-center justify-center hover:bg-emerald-700-600 transition-colors"><FiCheck size={14} /></button>
+                                                    <button onClick={() => updatePrice(product.id)} className="w-8 h-8 bg-emerald-700 text-white-500 text-white rounded-lg flex items-center justify-center hover:bg-emerald-700 text-white-600 transition-colors"><FiCheck size={14} /></button>
                                                     <button onClick={() => setEditingPriceId(null)} className="w-8 h-8 bg-emerald-800 text-slate-400 rounded-lg flex items-center justify-center"><FiX size={14} /></button>
                                                 </div>
                                             ) : (
@@ -272,7 +272,7 @@ export default function ProductsPage() {
                                         <td className="p-6 text-center">
                                             <button 
                                                 onClick={() => toggleStatus(product)}
-                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all ${product.isActive ? 'bg-emerald-700-50 text-[#10B981]-600 border border-blue-100 dark:bg-blue-900/20 dark:border-blue-900' : 'bg-[#111111] text-slate-400 border border-emerald-500/20 dark:bg-gray-800 dark:border-gray-700'}`}
+                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all ${product.isActive ? 'bg-emerald-700 text-white-50 text-[#10B981]-600 border border-blue-100 dark:bg-blue-900/20 dark:border-blue-900' : 'bg-[#111111] text-slate-400 border border-emerald-500/20 dark:bg-gray-800 dark:border-gray-700'}`}
                                             >
                                                 {product.isActive ? '● نشط' : '○ مسودة'}
                                             </button>
@@ -338,7 +338,7 @@ export default function ProductsPage() {
                         <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 leading-none mb-1">تعديل سريع</p>
                         <p className="text-xs font-bold italic">اضغط على "السعر" لتعديله فوراً</p>
                     </div>
-                    <div className="w-12 h-12 bg-emerald-700 rounded-xl flex items-center justify-center text-xl shadow-lg shadow-[#10B981]/20 shadow-primary-ink/20">
+                    <div className="w-12 h-12 bg-emerald-700 text-white rounded-xl flex items-center justify-center text-xl shadow-lg shadow-[#10B981]/20 shadow-primary-ink/20">
                         <FiDollarSign />
                     </div>
                 </div>

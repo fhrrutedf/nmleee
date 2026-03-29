@@ -24,7 +24,7 @@ export default function StepProgress({ steps, currentStep }: StepProgressProps) 
         {/* Simplified Connection Line */}
         <div className="absolute top-5 left-0 w-full h-[2px] bg-emerald-800 z-0">
           <motion.div 
-            className="h-full bg-emerald-700" 
+            className="h-full bg-emerald-700 text-white" 
             initial={{ width: '0%' }}
             animate={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
             transition={{ duration: 0.8, ease: "circOut" }}

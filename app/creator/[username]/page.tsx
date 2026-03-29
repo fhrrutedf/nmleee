@@ -45,7 +45,7 @@ export default function CreatorStorePage() {
             <div className="min-h-screen flex items-center justify-center bg-[#111111]">
                 <div className="text-center">
                     <h1 className="text-4xl font-bold mb-4">404</h1>
-                    <p className="text-gray-600 mb-6">المتجر غير موجود</p>
+                    <p className="text-gray-400 mb-6">المتجر غير موجود</p>
                     <Link href="/" className="btn btn-primary">
                         العودة للرئيسية
                     </Link>
@@ -102,7 +102,7 @@ export default function CreatorStorePage() {
 
                             <div className="flex-1 text-center md:text-right">
                                 <h1 className="text-3xl font-bold mb-2">{creator.name}</h1>
-                                <p className="text-gray-600 mb-4">@{creator.username}</p>
+                                <p className="text-gray-400 mb-4">@{creator.username}</p>
 
                                 {creator.bio && (
                                     <p className="text-gray-700 leading-relaxed mb-4 max-w-2xl">
@@ -211,7 +211,7 @@ export default function CreatorStorePage() {
                                         {product.title}
                                     </h3>
 
-                                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                                    <p className="text-gray-400 text-sm mb-4 line-clamp-2">
                                         {product.description ? product.description.replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ') : ''}
                                     </p>
 

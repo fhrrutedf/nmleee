@@ -35,7 +35,7 @@ const ACTION_LABELS: Record<string, { label: string; color: string }> = {
     'broadcast.sent': { label: 'إرسال بث', color: 'bg-pink-100 text-pink-700' },
     'admin.impersonation_started': { label: 'بدء انتحال', color: 'bg-orange-100 text-orange-700' },
     'platform.payment_failed': { label: 'فشل دفع', color: 'bg-red-50 text-red-500' },
-    'platform.settings_updated': { label: 'تحديث منصة', color: 'bg-emerald-700-50 text-[#10B981]-600' },
+    'platform.settings_updated': { label: 'تحديث منصة', color: 'bg-emerald-700 text-white-50 text-[#10B981]-600' },
 };
 
 export default function AdminAuditLogsPage() {
@@ -118,7 +118,7 @@ export default function AdminAuditLogsPage() {
                                 <tr key={log.id} className="hover:bg-[#111111]/50 dark:hover:bg-gray-800/30 transition-colors">
                                     <td className="px-5 py-4">
                                         <div className="flex items-center gap-2">
-                                            <div className="w-8 h-8 rounded-xl bg-emerald-700/10 text-[#10B981] flex items-center justify-center font-bold text-xs">
+                                            <div className="w-8 h-8 rounded-xl bg-emerald-700 text-white/10 text-[#10B981] flex items-center justify-center font-bold text-xs">
                                                 {log.actor_name?.charAt(0) || 'S'}
                                             </div>
                                             <div>
@@ -128,7 +128,7 @@ export default function AdminAuditLogsPage() {
                                         </div>
                                     </td>
                                     <td className="px-5 py-4">
-                                        <span className={`px-2 py-1 rounded-xl text-[10px] font-bold ${ACTION_LABELS[log.action]?.color || 'bg-emerald-800 text-gray-600'}`}>
+                                        <span className={`px-2 py-1 rounded-xl text-[10px] font-bold ${ACTION_LABELS[log.action]?.color || 'bg-emerald-800 text-gray-400'}`}>
                                             {ACTION_LABELS[log.action]?.label || log.action}
                                         </span>
                                     </td>

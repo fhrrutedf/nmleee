@@ -51,8 +51,8 @@ interface FinancialData {
 }
 
 const planBadge: Record<string, { label: string; color: string; bg: string; icon: string }> = {
-    FREE: { label: 'مجانية', color: 'text-gray-600', bg: 'bg-emerald-800 dark:bg-gray-800', icon: '🆓' },
-    GROWTH: { label: 'Growth', color: 'text-[#10B981]-600', bg: 'bg-emerald-700-50 dark:bg-blue-900/20', icon: '🚀' },
+    FREE: { label: 'مجانية', color: 'text-gray-400', bg: 'bg-emerald-800 dark:bg-gray-800', icon: '🆓' },
+    GROWTH: { label: 'Growth', color: 'text-[#10B981]-600', bg: 'bg-emerald-700 text-white-50 dark:bg-blue-900/20', icon: '🚀' },
     PRO: { label: 'Pro', color: 'text-[#10B981]', bg: 'bg-purple-50 dark:bg-purple-900/20', icon: '👑' },
 };
 
@@ -248,7 +248,7 @@ export default function FinancialsPage() {
 
                         {/* This Month Revenue */}
                         <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-6 relative overflow-hidden group hover:shadow-lg shadow-[#10B981]/20 transition-all hover:-translate-y-1">
-                            <div className="absolute top-0 right-0 w-28 h-28 bg-emerald-700-50 dark:bg-blue-900/10 rounded-xl blur-3xl -mr-8 -mt-8 transition-transform group-hover:scale-125" />
+                            <div className="absolute top-0 right-0 w-28 h-28 bg-emerald-700 text-white-50 dark:bg-blue-900/10 rounded-xl blur-3xl -mr-8 -mt-8 transition-transform group-hover:scale-125" />
                             <div className="relative">
                                 <div className="flex items-center justify-between mb-3">
                                     <p className="font-bold text-sm text-gray-500">إيرادات هذا الشهر</p>
@@ -377,7 +377,7 @@ export default function FinancialsPage() {
                                         <tr key={idx} className="hover:bg-[#111111] dark:hover:bg-gray-800/50 transition-colors">
                                             <td className="px-6 py-4 font-bold text-[#10B981] dark:text-white text-sm">{month}</td>
                                             <td className="px-6 py-4 text-green-600 font-bold text-sm">{data.monthlyChart.data[idx].toFixed(2)} $</td>
-                                            <td className="px-6 py-4 text-gray-600 dark:text-gray-300 text-sm">{data.monthlyChart.orders[idx]} طلب</td>
+                                            <td className="px-6 py-4 text-gray-400 dark:text-gray-300 text-sm">{data.monthlyChart.orders[idx]} طلب</td>
                                             <td className="px-6 py-4 text-red-500 text-sm font-medium">-{data.monthlyChart.fees[idx].toFixed(2)} $</td>
                                         </tr>
                                     ))}
@@ -521,7 +521,7 @@ export default function FinancialsPage() {
                                 className={`px-6 py-3 rounded-xl font-bold text-sm transition-all whitespace-nowrap ${
                                     copied
                                         ? 'bg-green-500 text-white'
-                                        : 'bg-emerald-700 text-white hover:bg-emerald-700'
+                                        : 'bg-emerald-700 text-white hover:bg-emerald-700 text-white'
                                 }`}
                             >
                                 {copied ? '✓ تم النسخ!' : '📋 نسخ الرابط'}
@@ -536,7 +536,7 @@ export default function FinancialsPage() {
                         </h2>
                         <div className="grid sm:grid-cols-3 gap-6">
                             <div className="text-center p-4">
-                                <div className="w-16 h-16 bg-emerald-700-50 dark:bg-blue-900/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                                <div className="w-16 h-16 bg-emerald-700 text-white-50 dark:bg-blue-900/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                                     <span className="text-3xl">1️⃣</span>
                                 </div>
                                 <h3 className="font-bold text-[#10B981] dark:text-white mb-2">شارك رابط الإحالة</h3>
@@ -558,9 +558,9 @@ export default function FinancialsPage() {
                             </div>
                         </div>
 
-                        <div className="mt-6 bg-emerald-700 dark:from-purple-900/10 dark:to-blue-900/10 rounded-xl p-5 border border-purple-200/50 dark:border-purple-800/50">
+                        <div className="mt-6 bg-emerald-700 text-white dark:from-purple-900/10 dark:to-blue-900/10 rounded-xl p-5 border border-purple-200/50 dark:border-purple-800/50">
                             <h4 className="font-bold text-[#10B981] dark:text-white mb-2">💡 مثال توضيحي</h4>
-                            <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                            <p className="text-sm text-gray-400 dark:text-gray-300 leading-relaxed">
                                 لو أحد المستخدمين اللي سجلوا عبر رابطك باع منتج بقيمة <strong>100 $</strong> وعمولة المنصة <strong>10 $</strong>، فأنت تحصل على <strong>0.10 $</strong> تلقائياً في رصيدك. مع مرور الوقت وكثرة المبيعات، الأرباح تتراكم!
                             </p>
                         </div>

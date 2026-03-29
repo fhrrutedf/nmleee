@@ -31,7 +31,7 @@ export default async function VerifyCertificatePage(props: { params: Promise<{ c
             <div className="max-w-3xl mx-auto">
                 <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden">
                     {/* Header */}
-                    <div className="bg-emerald-700 px-8 py-12 text-center text-white relative">
+                    <div className="bg-emerald-700 text-white px-8 py-12 text-center text-white relative">
                         <div className="absolute top-4 right-4 flex items-center gap-2 bg-white/20 px-3 py-1 rounded-xl text-sm ">
                             <FiCheckCircle className="text-green-300" />
                             <span>موثقة رسمياً</span>

@@ -73,7 +73,7 @@ export default function CertificatePage() {
                         <FiX className="text-red-600" size={32} />
                     </div>
                     <h1 className="text-2xl font-bold text-white mb-2">غير موجود</h1>
-                    <p className="text-gray-600">{error || 'الشهادة غير موجودة'}</p>
+                    <p className="text-gray-400">{error || 'الشهادة غير موجودة'}</p>
                 </div>
             </div>
         );
@@ -91,14 +91,14 @@ export default function CertificatePage() {
                             </div>
                             <div>
                                 <h2 className="text-lg font-bold text-white">شهادة معتمدة</h2>
-                                <p className="text-sm text-gray-600">
+                                <p className="text-sm text-gray-400">
                                     رقم الشهادة: {certificate.certificateNumber}
                                 </p>
                             </div>
                         </div>
                         <button
                             onClick={downloadPDF}
-                            className="flex items-center gap-2 px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                            className="flex items-center gap-2 px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 text-white transition-colors"
                         >
                             <FiDownload />
                             تحميل PDF
@@ -126,19 +126,19 @@ export default function CertificatePage() {
                     <h3 className="text-lg font-bold text-white mb-4">تفاصيل الشهادة</h3>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <p className="text-sm text-gray-600">اسم الطالب</p>
+                            <p className="text-sm text-gray-400">اسم الطالب</p>
                             <p className="font-semibold text-white">{certificate.studentName}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-600">اسم الدورة</p>
+                            <p className="text-sm text-gray-400">اسم الدورة</p>
                             <p className="font-semibold text-white">{certificate.courseName}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-600">المدرب</p>
+                            <p className="text-sm text-gray-400">المدرب</p>
                             <p className="font-semibold text-white">{certificate.course.user.name}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-600">تاريخ الإصدار</p>
+                            <p className="text-sm text-gray-400">تاريخ الإصدار</p>
                             <p className="font-semibold text-white">
                                 {new Date(certificate.issueDate).toLocaleDateString('ar-EG')}
                             </p>

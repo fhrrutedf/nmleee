@@ -144,7 +144,7 @@ export default function AppointmentsPage() {
             <div className="flex justify-between items-center">
                 <div>
                     <h1 className="text-3xl font-bold text-[#10B981]">إدارة الجلسات والاستشارات</h1>
-                    <p className="text-gray-600 mt-2">جدول جلساتك الاستشارية</p>
+                    <p className="text-gray-400 mt-2">جدول جلساتك الاستشارية</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <Link href="/dashboard/appointments/settings" className="btn btn-outline flex items-center gap-2">
@@ -260,7 +260,7 @@ export default function AppointmentsPage() {
                             >
                                 <div className="flex items-start justify-between">
                                     <div className="flex items-start gap-4 flex-1">
-                                        <div className="w-16 h-16 bg-emerald-700 rounded-xl flex items-center justify-center text-white flex-shrink-0">
+                                        <div className="w-16 h-16 bg-emerald-700 text-white rounded-xl flex items-center justify-center text-white flex-shrink-0">
                                             <FiUser className="text-2xl" />
                                         </div>
                                         <div className="flex-1">
@@ -268,7 +268,7 @@ export default function AppointmentsPage() {
                                                 {appointment.title || 'جلسة استشارية'}
                                             </h3>
 
-                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-gray-600 mb-4">
+                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-gray-400 mb-4">
                                                 <div className="flex items-center gap-2">
                                                     <FiCalendar className="text-[#10B981]" />
                                                     <span>{new Date(appointment.date).toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
@@ -284,7 +284,7 @@ export default function AppointmentsPage() {
                                             </div>
 
                                             {appointment.notes && (
-                                                <div className="flex items-start gap-2 text-sm text-gray-600 mb-3">
+                                                <div className="flex items-start gap-2 text-sm text-gray-400 mb-3">
                                                     <FiMessageSquare className="text-[#10B981] mt-1" />
                                                     <p className="flex-1">{appointment.notes}</p>
                                                 </div>
@@ -313,7 +313,7 @@ export default function AppointmentsPage() {
                                         </span>
 
                                         {appointment.isNotified && (
-                                            <span className="px-3 py-1 bg-emerald-700-50 text-[#10B981]-600 rounded-lg text-[10px] font-bold border border-blue-100 flex items-center gap-1">
+                                            <span className="px-3 py-1 bg-emerald-700 text-white-50 text-[#10B981]-600 rounded-lg text-[10px] font-bold border border-blue-100 flex items-center gap-1">
                                                 🔔 تم الإرسال
                                             </span>
                                         )}

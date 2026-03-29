@@ -31,7 +31,7 @@ export default function SupportPage() {
                 {/* Header */}
                 <div className="text-center mb-12">
                     <h1 className="text-3xl font-bold text-[#10B981] mb-4">مركز الدعم</h1>
-                    <p className="text-xl text-gray-600">كيف يمكننا مساعدتك اليوم؟</p>
+                    <p className="text-xl text-gray-400">كيف يمكننا مساعدتك اليوم؟</p>
                 </div>
 
                 {/* Search */}
@@ -53,7 +53,7 @@ export default function SupportPage() {
                             <FiMessageCircle className="text-3xl text-[#10B981]" />
                         </div>
                         <h3 className="font-bold text-lg mb-2">تواصل معنا</h3>
-                        <p className="text-gray-600 text-sm">أرسل رسالة للدعم الفني</p>
+                        <p className="text-gray-400 text-sm">أرسل رسالة للدعم الفني</p>
                     </Link>
 
                     <Link href="/about" className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-6 hover:shadow-lg shadow-[#10B981]/20 transition-shadow text-center group">
@@ -61,7 +61,7 @@ export default function SupportPage() {
                             <FiBook className="text-3xl text-[#10B981]-600" />
                         </div>
                         <h3 className="font-bold text-lg mb-2">دليل الاستخدام</h3>
-                        <p className="text-gray-600 text-sm">تعلم كيفية استخدام المنصة</p>
+                        <p className="text-gray-400 text-sm">تعلم كيفية استخدام المنصة</p>
                     </Link>
 
                     <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-6 hover:shadow-lg shadow-[#10B981]/20 transition-shadow text-center group">
@@ -69,7 +69,7 @@ export default function SupportPage() {
                             <FiMail className="text-3xl text-green-600" />
                         </div>
                         <h3 className="font-bold text-lg mb-2">البريد الإلكتروني</h3>
-                        <p className="text-gray-600 text-sm">support@tmleen.com</p>
+                        <p className="text-gray-400 text-sm">support@tmleen.com</p>
                     </div>
                 </div>
 
@@ -85,7 +85,7 @@ export default function SupportPage() {
                                 <h3 className="font-bold text-lg mb-3 text-white">
                                     {faq.question}
                                 </h3>
-                                <p className="text-gray-600 leading-relaxed">
+                                <p className="text-gray-400 leading-relaxed">
                                     {faq.answer}
                                 </p>
                             </div>
@@ -94,7 +94,7 @@ export default function SupportPage() {
                 </div>
 
                 {/* CTA */}
-                <div className="mt-12 bg-emerald-700 rounded-xl p-8 text-center text-white">
+                <div className="mt-12 bg-emerald-700 text-white rounded-xl p-8 text-center text-white">
                     <h3 className="text-2xl font-bold mb-4">لم تجد ما تبحث عنه؟</h3>
                     <p className="text-lg mb-6">فريق الدعم جاهز لمساعدتك 24/7</p>
                     <Link

@@ -105,7 +105,7 @@ export default function AdvancedVideoPlayer({ lessonId, courseId, studentEmail, 
             <p className="text-white/60 mb-6">{error || 'بيانات الفيديو غير متوفرة'}</p>
             <button 
                 onClick={fetchPlayback}
-                className="px-6 py-3 bg-emerald-700 rounded-xl font-bold flex items-center gap-2 hover:bg-emerald-700-600 transition-colors"
+                className="px-6 py-3 bg-emerald-700 text-white rounded-xl font-bold flex items-center gap-2 hover:bg-emerald-700 text-white-600 transition-colors"
             >
                 <FiRefreshCw /> إعادة المحاولة
             </button>

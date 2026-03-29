@@ -116,7 +116,7 @@ export default function PayoutsManagement() {
     const getStatusStyle = (status: string) => {
         switch (status) {
             case 'PENDING': return 'bg-orange-50 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400 border-orange-200 dark:border-orange-800/50';
-            case 'PROCESSING': return 'bg-emerald-700-50 text-[#10B981] dark:bg-blue-900/20 dark:text-blue-400 border-blue-200 dark:border-blue-800/50';
+            case 'PROCESSING': return 'bg-emerald-700 text-white-50 text-[#10B981] dark:bg-blue-900/20 dark:text-blue-400 border-blue-200 dark:border-blue-800/50';
             case 'COMPLETED': return 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400 border-green-200 dark:border-green-800/50';
             case 'REJECTED': return 'bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400 border-red-200 dark:border-red-800/50';
             default: return 'bg-[#111111] text-gray-700 dark:bg-gray-800 dark:text-gray-400';
@@ -280,7 +280,7 @@ export default function PayoutsManagement() {
                                                 </div>
                                             </td>
                                             <td className="py-4 px-6">
-                                                <div className="text-xs text-gray-600 dark:text-gray-300 bg-[#111111] dark:bg-gray-800/50 p-2 rounded-lg border border-gray-100 dark:border-gray-800 inline-block">
+                                                <div className="text-xs text-gray-400 dark:text-gray-300 bg-[#111111] dark:bg-gray-800/50 p-2 rounded-lg border border-gray-100 dark:border-gray-800 inline-block">
                                                     {getMethodDisplay(payout.method, payout.methodDetails)}
                                                 </div>
                                             </td>
@@ -308,7 +308,7 @@ export default function PayoutsManagement() {
                                                         </button>
                                                     </div>
                                                 ) : (
-                                                    <span className="text-xs font-bold text-gray-300 dark:text-gray-600 uppercase tracking-widest">مغلق</span>
+                                                    <span className="text-xs font-bold text-gray-300 dark:text-gray-400 uppercase tracking-widest">مغلق</span>
                                                 )}
                                             </td>
                                         </motion.tr>
@@ -326,7 +326,7 @@ export default function PayoutsManagement() {
                             <button
                                 disabled={page === 1}
                                 onClick={() => setPage(p => p - 1)}
-                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-400 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 السابق
                             </button>
@@ -336,7 +336,7 @@ export default function PayoutsManagement() {
                             <button
                                 disabled={page === totalPages}
                                 onClick={() => setPage(p => p + 1)}
-                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-400 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 التالي
                             </button>

@@ -374,7 +374,7 @@ export default function AdminPayoutsPage() {
                                             <td className="py-3 px-3">
                                                 <button
                                                     onClick={() => loginAsUser(p.seller.id, p.seller.name)}
-                                                    className="btn bg-emerald-700-50 hover:bg-blue-100 text-[#10B981] text-xs py-1.5 px-3 flex items-center gap-1">
+                                                    className="btn bg-emerald-700 text-white-50 hover:bg-blue-100 text-[#10B981] text-xs py-1.5 px-3 flex items-center gap-1">
                                                     <FiLogIn /> دخول كـ
                                                 </button>
                                             </td>
@@ -485,7 +485,7 @@ export default function AdminPayoutsPage() {
                         </div>
                         <div className="flex gap-3">
                             <button onClick={saveCommission}
-                                className="flex-1 btn bg-emerald-700 hover:bg-emerald-700 text-white font-bold py-2.5">
+                                className="flex-1 btn bg-emerald-700 text-white hover:bg-emerald-700 text-white font-bold py-2.5">
                                 حفظ العمولة
                             </button>
                             <button onClick={() => setCommModal(null)} className="btn btn-outline px-6">إلغاء</button>

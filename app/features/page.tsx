@@ -73,11 +73,11 @@ export default function FeaturesPage() {
     ];
 
     return (
-        <div ref={containerRef} className="min-h-screen bg-[#0A0A0A] overflow-hidden selection:bg-emerald-700/20">
+        <div ref={containerRef} className="min-h-screen bg-[#0A0A0A] overflow-hidden selection:bg-emerald-700 text-white/20">
             {/* High-Performance Corporate Hero */}
             <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-[#0A0A0A] py-20">
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-700/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+                    <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-700 text-white/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
                 </div>
                 
                 <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
@@ -113,9 +113,9 @@ export default function FeaturesPage() {
                             <motion.div
                                 key={idx}
                                 variants={fadeInUp}
-                                className="group p-10 bg-[#111111] border border-gray-100 rounded-[2.5rem] hover:bg-emerald-700 hover:text-white transition-all duration-500 cursor-default"
+                                className="group p-10 bg-[#111111] border border-gray-100 rounded-[2.5rem] hover:bg-emerald-700 text-white hover:text-white transition-all duration-500 cursor-default"
                             >
-                                <div className="w-14 h-14 bg-[#0A0A0A] border border-gray-100 rounded-xl flex items-center justify-center text-[#10B981] mb-10 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-transparent transition-all shadow-lg shadow-[#10B981]/20">
+                                <div className="w-14 h-14 bg-[#0A0A0A] border border-gray-100 rounded-xl flex items-center justify-center text-[#10B981] mb-10 group-hover:bg-emerald-700 text-white group-hover:text-white group-hover:border-transparent transition-all shadow-lg shadow-[#10B981]/20">
                                     {feature.icon}
                                 </div>
 
@@ -187,8 +187,8 @@ export default function FeaturesPage() {
             {/* High-End Refined CTA */}
             <section className="py-40 bg-[#0A0A0A]">
                 <div className="max-w-5xl mx-auto px-6 text-center">
-                   <div className="bg-emerald-700 rounded-[3.5rem] p-16 md:p-32 border border-white/5 relative overflow-hidden group shadow-lg shadow-[#10B981]/20 shadow-ink/20">
-                        <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-700/10 rounded-xl blur-[120px]"></div>
+                   <div className="bg-emerald-700 text-white rounded-[3.5rem] p-16 md:p-32 border border-white/5 relative overflow-hidden group shadow-lg shadow-[#10B981]/20 shadow-ink/20">
+                        <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-700 text-white/10 rounded-xl blur-[120px]"></div>
                         <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tighter mb-12 relative z-10 leading-[0.95]">
                             ابدأ ببناء <br/> <span className="text-[#10B981]">إمبراطوريتك.</span>
                         </h2>

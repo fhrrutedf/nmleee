@@ -42,7 +42,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ar" dir="rtl" suppressHydrationWarning>
-            <body className={`${ibmPlex.variable} ${inter.variable} font-sans antialiased text-white bg-[#0A0A0A] flex flex-col min-h-screen selection:bg-emerald-500/20`}>
+            <body className={`${ibmPlex.variable} ${inter.variable} font-sans antialiased text-white bg-[#0A0A0A] flex flex-col min-h-screen selection:bg-emerald-500 text-white/20`}>
                 <Providers>
                     <AffiliateBanner />
                     <ImpersonationBanner />

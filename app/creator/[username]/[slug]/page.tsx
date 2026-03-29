@@ -76,7 +76,7 @@ export default function ProductPage() {
             <div className="min-h-screen flex items-center justify-center bg-[#111111]">
                 <div className="text-center">
                     <h1 className="text-4xl font-bold mb-4">404</h1>
-                    <p className="text-gray-600 mb-6">المنتج غير موجود</p>
+                    <p className="text-gray-400 mb-6">المنتج غير موجود</p>
                     <Link href={`/@${username}`} className="btn btn-primary">
                         العودة للمتجر
                     </Link>
@@ -92,7 +92,7 @@ export default function ProductPage() {
             {/* Breadcrumb */}
             <div className="bg-[#0A0A0A] border-b">
                 <div className="max-w-6xl mx-auto px-4 py-4">
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <div className="flex items-center gap-2 text-sm text-gray-400">
                         <Link href="/" className="hover:text-[#10B981]">الرئيسية</Link>
                         <span>/</span>
                         <Link href={`/@${creator.username}`} className="hover:text-[#10B981]">
@@ -186,7 +186,7 @@ export default function ProductPage() {
                                     />
                                 ))}
                             </div>
-                            <span className="text-gray-600">
+                            <span className="text-gray-400">
                                 ({product.reviewCount || 0} تقييم)
                             </span>
                         </div>
@@ -214,7 +214,7 @@ export default function ProductPage() {
                             
                             {/* Urgency Countdown Placeholder (Simplified for now) */}
                             {product.offerExpiresAt && new Date(product.offerExpiresAt) > new Date() && (
-                                <div className="mt-6 p-4 bg-emerald-700-50 rounded-xl border border-blue-100 flex items-center gap-3 ">
+                                <div className="mt-6 p-4 bg-emerald-700 text-white-50 rounded-xl border border-blue-100 flex items-center gap-3 ">
                                     <div className="w-10 h-10 bg-emerald-700 text-white rounded-lg flex items-center justify-center">
                                         <FiClock className="text-xl" />
                                     </div>

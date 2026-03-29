@@ -173,7 +173,7 @@ export default function UsersManagement() {
 
     const planBadge = (planType?: string) => {
         switch (planType) {
-            case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-emerald-700-50 text-[#10B981]-600 dark:bg-blue-900/20 dark:text-blue-400">🚀 GROWTH</span>;
+            case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-emerald-700 text-white-50 text-[#10B981]-600 dark:bg-blue-900/20 dark:text-blue-400">🚀 GROWTH</span>;
             case 'PRO': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-purple-50 text-[#10B981] dark:bg-purple-900/20 dark:text-purple-400">👑 PRO</span>;
             default: return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-emerald-800 text-gray-500 dark:bg-gray-800 dark:text-gray-400">🆓 FREE</span>;
         }
@@ -186,7 +186,7 @@ export default function UsersManagement() {
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-bold text-[#10B981] dark:text-white mb-2 tracking-tight flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl bg-emerald-700/10 text-[#10B981] flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-xl bg-emerald-700 text-white/10 text-[#10B981] flex items-center justify-center">
                             <FiUsers />
                         </div>
                         إدارة المستخدمين
@@ -364,7 +364,7 @@ export default function UsersManagement() {
                                             <td className="py-4 px-6 text-center">
                                                 <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold ${user.isActive
                                                     ? 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400'
-                                                    : 'bg-emerald-800 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
+                                                    : 'bg-emerald-800 text-gray-400 dark:bg-gray-800 dark:text-gray-400'
                                                     }`}>
                                                     {user.isActive ? 'نشط' : 'موقوف'}
                                                 </span>
@@ -390,7 +390,7 @@ export default function UsersManagement() {
                                                     >
                                                         {user.isActive ? <FiXCircle size={18} /> : <FiCheckCircle size={18} />}
                                                     </button>
-                                                    <button className="p-2 rounded-lg text-gray-400 hover:text-[#10B981] hover:bg-emerald-700-50 dark:hover:bg-blue-900/20 transition-colors">
+                                                    <button className="p-2 rounded-lg text-gray-400 hover:text-[#10B981] hover:bg-emerald-700 text-white-50 dark:hover:bg-blue-900/20 transition-colors">
                                                         <FiMoreVertical size={18} />
                                                     </button>
                                                     {user.verificationRequests && user.verificationRequests.length > 0 && (
@@ -419,7 +419,7 @@ export default function UsersManagement() {
                             <button
                                 disabled={page === 1}
                                 onClick={() => setPage(p => p - 1)}
-                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-400 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 السابق
                             </button>
@@ -429,7 +429,7 @@ export default function UsersManagement() {
                             <button
                                 disabled={page === totalPages}
                                 onClick={() => setPage(p => p + 1)}
-                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-400 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 التالي
                             </button>
@@ -489,7 +489,7 @@ export default function UsersManagement() {
                         </button>
                         <button
                             onClick={() => setPlanModal(null)}
-                            className="px-6 py-3 rounded-xl font-bold text-sm bg-emerald-800 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                            className="px-6 py-3 rounded-xl font-bold text-sm bg-emerald-800 dark:bg-gray-800 text-gray-400 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
                         >
                             إلغاء
                         </button>

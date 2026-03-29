@@ -164,7 +164,7 @@ export default function EditCoursePage() {
                         <div>
                             <h1 className="text-2xl font-bold text-white leading-tight line-clamp-1">{formData.title}</h1>
                             <div className="flex items-center gap-3 mt-2">
-                                <span className={`px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-widest ${formData.isActive ? 'bg-emerald-700-50 text-[#10B981]-600' : 'bg-emerald-800 text-gray-500'}`}>
+                                <span className={`px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-widest ${formData.isActive ? 'bg-emerald-700 text-white-50 text-[#10B981]-600' : 'bg-emerald-800 text-gray-500'}`}>
                                     {formData.isActive ? 'منشور للطلاب' : 'مسودة مخفية'}
                                 </span>
                                 <span className="text-[10px] text-slate-400 font-bold">• {modules.length} فصول</span>
@@ -177,7 +177,7 @@ export default function EditCoursePage() {
                 <div className="flex items-center gap-3">
                     <button 
                         onClick={() => window.open(`/courses/${formData.slug || courseId}`, '_blank')}
-                        className="flex-1 lg:flex-none px-6 py-3.5 bg-emerald-700 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-[#10B981]/20 hover:bg-emerald-700 transition-all"
+                        className="flex-1 lg:flex-none px-6 py-3.5 bg-emerald-700 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-[#10B981]/20 hover:bg-emerald-700 text-white transition-all"
                     >
                         <FiEye /> معاينة الكورس
                     </button>
@@ -258,7 +258,7 @@ export default function EditCoursePage() {
                                                 </button>
                                                 <button 
                                                     type="button" onClick={() => setFormData({ ...formData, currency: 'SYP' })}
-                                                    className={`flex-1 py-2 rounded-lg text-[10px] font-bold transition-all ${formData.currency === 'SYP' ? 'bg-emerald-700-600 text-white shadow-md' : 'text-slate-400'}`}
+                                                    className={`flex-1 py-2 rounded-lg text-[10px] font-bold transition-all ${formData.currency === 'SYP' ? 'bg-emerald-700 text-white-600 text-white shadow-md' : 'text-slate-400'}`}
                                                 >
                                                     ليرة سورية (SYP)
                                                 </button>
@@ -341,7 +341,7 @@ export default function EditCoursePage() {
                                                  </div>
                                                  <button 
                                                     onClick={() => router.push(`/dashboard/courses/${courseId}/modules/${m.id}/lessons/new`)}
-                                                    className="w-8 h-8 rounded-lg bg-[#0A0A0A] border border-slate-200 flex items-center justify-center text-slate-400 hover:text-[#10B981]-500 hover:border-blue-100 hover:bg-emerald-700-50 transition-all"
+                                                    className="w-8 h-8 rounded-lg bg-[#0A0A0A] border border-slate-200 flex items-center justify-center text-slate-400 hover:text-[#10B981]-500 hover:border-blue-100 hover:bg-emerald-700 text-white-50 transition-all"
                                                  >
                                                     <FiPlus size={14} />
                                                  </button>
@@ -354,7 +354,7 @@ export default function EditCoursePage() {
                                                              <div className="truncate">
                                                                  <h4 className="text-xs font-bold text-slate-700 truncate">{l.title}</h4>
                                                                  <div className="flex items-center gap-2 mt-1 opacity-60">
-                                                                    {l.isFree && <span className="text-[8px] bg-emerald-700-50 text-[#10B981]-600 px-1.5 py-0.5 rounded font-bold italic">معاينة</span>}
+                                                                    {l.isFree && <span className="text-[8px] bg-emerald-700 text-white-50 text-[#10B981]-600 px-1.5 py-0.5 rounded font-bold italic">معاينة</span>}
                                                                     {l.bunnyVideoId ? <FiVideo size={10} className="text-primary-indigo-400" /> : <FiFileText size={10} />}
                                                                     {l.isPublished ? <FiEye className="text-[#10B981]-500" size={10} /> : <FiEyeOff size={10} />}
                                                                  </div>
@@ -390,7 +390,7 @@ export default function EditCoursePage() {
 
             {/* --- FIXED HUB BOTTOM BAR --- */}
             <div className="fixed bottom-8 left-0 right-0 z-50 px-4">
-                <div className="max-w-4xl mx-auto bg-emerald-700/95  border border-white/10 p-4 rounded-xl shadow-lg shadow-[#10B981]/20 flex items-center justify-between">
+                <div className="max-w-4xl mx-auto bg-emerald-700 text-white/95  border border-white/10 p-4 rounded-xl shadow-lg shadow-[#10B981]/20 flex items-center justify-between">
                     <div className="pr-6 hidden sm:block">
                         <p className="text-[10px] text-white/40 font-bold uppercase tracking-[0.2em] leading-tight">اسم الكورس المختار</p>
                         <p className="text-xs text-white font-bold italic mt-1 truncate max-w-[200px]">{formData.title || 'بدون عنوان'}</p>

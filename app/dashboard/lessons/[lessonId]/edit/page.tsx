@@ -185,7 +185,7 @@ export default function EditLessonPage() {
 
                     {/* Video Section */}
                     <div className="space-y-4">
-                        <div className="p-6 bg-emerald-700-50/30 dark:bg-emerald-700/5 rounded-xl border border-emerald-600/10">
+                        <div className="p-6 bg-emerald-700 text-white-50/30 dark:bg-emerald-700 text-white/5 rounded-xl border border-emerald-600/10">
                             <label className="label mb-4 opacity-70">إعدادات الفيديو (Bunny Stream)</label>
                             
                             {formData.bunnyVideoId ? (

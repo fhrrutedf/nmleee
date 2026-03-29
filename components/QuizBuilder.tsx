@@ -219,7 +219,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
             <button
                 type="button"
                 onClick={addQuestion}
-                className="w-full flex items-center justify-center gap-2 px-6 py-4 border-2 border-dashed border-gray-300 text-gray-600 font-bold rounded-xl hover:bg-indigo-50 hover:border-indigo-400 hover:text-indigo-700 transition-all shadow-lg shadow-[#10B981]/20"
+                className="w-full flex items-center justify-center gap-2 px-6 py-4 border-2 border-dashed border-gray-300 text-gray-400 font-bold rounded-xl hover:bg-indigo-50 hover:border-indigo-400 hover:text-indigo-700 transition-all shadow-lg shadow-[#10B981]/20"
             >
                 <FiPlus size={22} />
                 إضافة سؤال جديد

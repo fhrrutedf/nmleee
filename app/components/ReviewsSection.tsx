@@ -107,7 +107,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
 
             {/* Add Review Form */}
             {showForm && (
-                <div className="bg-emerald-700 dark:from-gray-900 dark:to-gray-800 p-8 rounded-xl border border-gray-100 dark:border-gray-700 shadow-inner">
+                <div className="bg-emerald-700 text-white dark:from-gray-900 dark:to-gray-800 p-8 rounded-xl border border-gray-100 dark:border-gray-700 shadow-inner">
                     <h3 className="font-bold text-xl mb-6 text-white dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
                     <form onSubmit={handleSubmit} className="space-y-0">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
@@ -133,7 +133,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                                             onClick={() => setFormData({ ...formData, rating: star })}
                                             className={`flex-1 bg-[#0A0A0A] dark:bg-gray-900 border ${star <= formData.rating ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : 'border-emerald-500/20 dark:border-gray-700'} rounded-xl py-3 flex items-center justify-center transition-all transform active:scale-95`}
                                         >
-                                            <FiStar className={`text-xl ${star <= formData.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300 dark:text-gray-600'}`} />
+                                            <FiStar className={`text-xl ${star <= formData.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300 dark:text-gray-400'}`} />
                                         </button>
                                     ))}
                                 </div>
@@ -175,7 +175,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                     </div>
                 ) : reviews.length === 0 ? (
                     <div className="text-center py-12 px-4 bg-[#111111] dark:bg-gray-800/20 rounded-xl border border-dashed border-emerald-500/20 dark:border-gray-700">
-                        <div className="w-20 h-20 bg-[#0A0A0A] dark:bg-gray-800 rounded-xl flex items-center justify-center mx-auto mb-4 text-gray-300 dark:text-gray-600 shadow-lg shadow-[#10B981]/20">
+                        <div className="w-20 h-20 bg-[#0A0A0A] dark:bg-gray-800 rounded-xl flex items-center justify-center mx-auto mb-4 text-gray-300 dark:text-gray-400 shadow-lg shadow-[#10B981]/20">
                             <FiStar size={36} />
                         </div>
                         <h4 className="font-bold text-xl text-gray-500 dark:text-gray-400">لا توجد تعليقات بعد</h4>
@@ -187,7 +187,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-800 dark:bg-gray-800 rounded-xl group-hover:bg-yellow-400 transition-colors"></div>
                             <div className="pl-6 pb-2">
                                 <div className="flex items-center gap-3 mb-3">
-                                    <div className="w-12 h-12 bg-emerald-700 dark:from-gray-800 dark:to-gray-900 rounded-xl flex items-center justify-center font-bold text-gray-500 dark:text-gray-400 border border-white dark:border-gray-800 shadow-lg shadow-[#10B981]/20">
+                                    <div className="w-12 h-12 bg-emerald-700 text-white dark:from-gray-800 dark:to-gray-900 rounded-xl flex items-center justify-center font-bold text-gray-500 dark:text-gray-400 border border-white dark:border-gray-800 shadow-lg shadow-[#10B981]/20">
                                         {review.name.charAt(0)}
                                     </div>
                                     <div>
@@ -205,7 +205,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                                         <p className="text-[11px] text-gray-400 font-bold tracking-wider">{new Date(review.createdAt).toLocaleDateString('ar-EG')}</p>
                                     </div>
                                 </div>
-                                <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed font-medium bg-[#111111] dark:bg-gray-900/50 p-5 rounded-tr-3xl rounded-br-3xl rounded-bl-3xl">
+                                <p className="text-gray-400 dark:text-gray-300 text-lg leading-relaxed font-medium bg-[#111111] dark:bg-gray-900/50 p-5 rounded-tr-3xl rounded-br-3xl rounded-bl-3xl">
                                     {review.comment}
                                 </p>
                             </div>

@@ -138,7 +138,7 @@ export default function BookAppointmentPage() {
             <style dangerouslySetInnerHTML={{
                 __html: `
                 .text-[#10B981], .text-primary-700 { color: ${brandColor} !important; }
-                .bg-emerald-700 { background-color: ${brandColor} !important; }
+                .bg-emerald-700 text-white { background-color: ${brandColor} !important; }
                 .bg-primary-50, .bg-primary-100 { background-color: ${brandColor}18 !important; }
                 .bg-primary-100\/50 { background-color: ${brandColor}10 !important; }
                 .bg-primary-50.to-primary-100\/50, .from-primary-50 { --tw-gradient-from: ${brandColor}18 !important; }
@@ -160,12 +160,12 @@ export default function BookAppointmentPage() {
                         <span>العودة لملف {creator.name}</span>
                     </Link>
                     <h1 className="text-3xl font-bold text-white">حجز استشارة / جلسة</h1>
-                    <p className="text-gray-600 mt-2">اختر الوقت المناسب لك للحصول على استشارتك مع {creator.name}</p>
+                    <p className="text-gray-400 mt-2">اختر الوقت المناسب لك للحصول على استشارتك مع {creator.name}</p>
                 </div>
 
                 <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 overflow-hidden">
                     {/* Seller Profile Summary */}
-                    <div className="p-6 bg-emerald-700 border-b border-primary-100 flex gap-4 items-center">
+                    <div className="p-6 bg-emerald-700 text-white border-b border-primary-100 flex gap-4 items-center">
                         <div className="w-16 h-16 rounded-xl overflow-hidden bg-[#0A0A0A] border-2 border-white shadow-lg shadow-[#10B981]/20 flex-shrink-0">
                             {creator.avatar ? (
                                 <img src={creator.avatar} alt={creator.name} className="w-full h-full object-cover" />
@@ -233,7 +233,7 @@ export default function BookAppointmentPage() {
                                             key={time}
                                             onClick={() => setSelectedTime(time)}
                                             className={`py-3 rounded-lg border text-center transition-all ${selectedTime === time
-                                                ? 'bg-emerald-700 border-emerald-600 text-white shadow-md transform scale-105'
+                                                ? 'bg-emerald-700 text-white border-emerald-600 text-white shadow-md transform scale-105'
                                                 : 'bg-[#0A0A0A] border-emerald-500/20 text-gray-700 hover:border-primary-300 hover:bg-primary-50'
                                                 }`}
                                         >

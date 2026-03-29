@@ -81,7 +81,7 @@ export default function CourseReportsPage() {
                     <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm text-gray-600 mb-1">إجمالي الطلاب</p>
+                                <p className="text-sm text-gray-400 mb-1">إجمالي الطلاب</p>
                                 <p className="text-3xl font-bold text-white">{stats.totalStudents}</p>
                             </div>
                             <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
@@ -93,7 +93,7 @@ export default function CourseReportsPage() {
                     <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm text-gray-600 mb-1">معدل الإكمال</p>
+                                <p className="text-sm text-gray-400 mb-1">معدل الإكمال</p>
                                 <p className="text-3xl font-bold text-white">{stats.completionRate.toFixed(0)}%</p>
                             </div>
                             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
@@ -105,7 +105,7 @@ export default function CourseReportsPage() {
                     <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm text-gray-600 mb-1">متوسط التقدم</p>
+                                <p className="text-sm text-gray-400 mb-1">متوسط التقدم</p>
                                 <p className="text-3xl font-bold text-white">{stats.averageProgress.toFixed(0)}%</p>
                             </div>
                             <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -117,7 +117,7 @@ export default function CourseReportsPage() {
                     <div className="bg-[#0A0A0A] rounded-lg shadow-md p-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm text-gray-600 mb-1">إجمالي وقت المشاهدة</p>
+                                <p className="text-sm text-gray-400 mb-1">إجمالي وقت المشاهدة</p>
                                 <p className="text-3xl font-bold text-white">{formatTime(stats.totalWatchTime)}</p>
                             </div>
                             <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -143,11 +143,11 @@ export default function CourseReportsPage() {
                             return (
                                 <div key={range} className="flex-1 flex flex-col items-center">
                                     <div
-                                        className="w-full bg-emerald-700 rounded-t-lg hover:bg-emerald-700 transition-colors cursor-pointer"
+                                        className="w-full bg-emerald-700 text-white rounded-t-lg hover:bg-emerald-700 text-white transition-colors cursor-pointer"
                                         style={{ height: `${percentage * 2}px` }}
                                         title={`${count} طلاب`}
                                     />
-                                    <p className="text-xs text-gray-600 mt-2">{range}%-{range + 24}%</p>
+                                    <p className="text-xs text-gray-400 mt-2">{range}%-{range + 24}%</p>
                                     <p className="text-sm font-semibold text-white">{count}</p>
                                 </div>
                             );
@@ -195,7 +195,7 @@ export default function CourseReportsPage() {
                                             <div className="flex items-center gap-3">
                                                 <div className="flex-1 bg-gray-200 rounded-xl h-2">
                                                     <div
-                                                        className="bg-emerald-700 h-2 rounded-xl"
+                                                        className="bg-emerald-700 text-white h-2 rounded-xl"
                                                         style={{ width: `${student.progress}%` }}
                                                     />
                                                 </div>
