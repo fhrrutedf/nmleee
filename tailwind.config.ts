@@ -19,7 +19,7 @@ const config: Config = {
 
                 // Accent — ONE blue, used sparingly
                 'accent': {
-                    DEFAULT: '#065f46',
+                    DEFAULT: '#10B981',
                     hover: '#064e3b',
                     light: '#ECFDF5',
                     muted: '#93C5FD',
@@ -42,24 +42,24 @@ const config: Config = {
                 'border-color': 'rgba(255, 255, 255, 0.1)',
 
                 // Semantic
-                'success': { DEFAULT: '#16A34A', light: '#F0FDF4' },
-                'warning': { DEFAULT: '#D97706', light: '#FFFBEB' },
-                'danger': { DEFAULT: '#DC2626', light: '#FEF2F2' },
+                'success': { DEFAULT: '#10B981', light: '#F0FDF4' },
+                'warning': { DEFAULT: '#10B981', light: '#FFFBEB' },
+                'danger': { DEFAULT: '#10B981', light: '#FEF2F2' },
 
                 // ── Backward compatible aliases (NOW ALIASED TO V2 ELITE) ──
                 'primary-charcoal': '#0A0A0A',
                 'action-blue': {
-                    DEFAULT: '#065f46',
+                    DEFAULT: '#10B981',
                     hover: '#064e3b',
                     light: '#ECFDF5',
                 },
                 'action-secondary': {
-                    DEFAULT: '#064e3b',
+                    DEFAULT: '#10B981',
                     hover: '#1E40AF',
                     light: '#DBEAFE',
                 },
                 'success-green': {
-                    DEFAULT: '#16A34A',
+                    DEFAULT: '#10B981',
                     light: '#F0FDF4',
                 },
                 'bg-light': '#0A0A0A',
