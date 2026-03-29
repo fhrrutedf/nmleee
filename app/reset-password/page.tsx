@@ -61,7 +61,7 @@ function ResetPasswordForm() {
 
     if (!token || !email) {
         return (
-            <div className="text-center p-8 bg-white dark:bg-card-white rounded-xl shadow-sm max-w-md w-full border border-gray-100 dark:border-gray-800">
+            <div className="text-center p-8 bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 max-w-md w-full border border-gray-100 dark:border-gray-800">
                 <div className="w-16 h-16 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mx-auto mb-6">
                     <FiAlertCircle size={32} />
                 </div>
@@ -76,7 +76,7 @@ function ResetPasswordForm() {
 
     if (success) {
         return (
-            <div className="text-center p-8 bg-white dark:bg-card-white rounded-xl shadow-sm max-w-md w-full border border-gray-100 dark:border-gray-800 -up">
+            <div className="text-center p-8 bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 max-w-md w-full border border-gray-100 dark:border-gray-800 -up">
                 <div className="w-16 h-16 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mx-auto mb-6">
                     <FiCheckCircle size={32} />
                 </div>
@@ -91,8 +91,8 @@ function ResetPasswordForm() {
 
     return (
         <div className="max-w-md w-full -up">
-            <div className="bg-white dark:bg-card-white rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-800">
-                <div className="h-2 w-full bg-ink"></div>
+            <div className="bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden border border-gray-100 dark:border-gray-800">
+                <div className="h-2 w-full bg-emerald-600"></div>
                 <div className="p-8 sm:p-10">
                     <div className="text-center mb-8">
                         <div className="w-16 h-16 bg-emerald-600-50 dark:bg-blue-900/20 text-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-4 border border-blue-100 dark:border-blue-800/30">
@@ -141,7 +141,7 @@ function ResetPasswordForm() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full btn btn-primary py-4 rounded-xl text-lg font-bold shadow-sm shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all disabled:opacity-70 disabled:transform-none disabled:cursor-not-allowed"
+                            className="w-full btn btn-primary py-4 rounded-xl text-lg font-bold shadow-lg shadow-emerald-600/20 shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all disabled:opacity-70 disabled:transform-none disabled:cursor-not-allowed"
                         >
                             {loading ? (
                                 <div className="flex items-center justify-center gap-3">

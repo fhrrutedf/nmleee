@@ -46,13 +46,13 @@ export function PayWhatYouWant({
     return (
         <div className="card p-6 space-y-6">
             <div className="text-center">
-                <div className="inline-flex items-center gap-2 mb-3 px-4 py-2 bg-ink dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                    <FiHeart className="text-ink dark:text-purple-400" />
+                <div className="inline-flex items-center gap-2 mb-3 px-4 py-2 bg-emerald-600 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
+                    <FiHeart className="text-emerald-600 dark:text-purple-400" />
                     <span className="font-semibold text-purple-900 dark:text-purple-200 text-sm">
                         ادفع ما تريد
                     </span>
                 </div>
-                <h3 className="text-xl font-bold text-ink dark:text-white mb-2">
+                <h3 className="text-xl font-bold text-emerald-600 dark:text-white mb-2">
                     اختر السعر المناسب لك
                 </h3>
                 <p className="text-text-muted text-sm">

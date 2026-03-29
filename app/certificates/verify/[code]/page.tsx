@@ -20,7 +20,7 @@ export default async function VerifyCertificatePage(props: { params: Promise<{ c
         return (
             <div className="min-h-screen bg-bg-light flex flex-col items-center justify-center p-6 text-center">
                 <FiXCircle className="text-6xl text-red-500 mb-4" />
-                <h1 className="text-3xl font-bold text-ink mb-2">شهادة غير صالحة</h1>
+                <h1 className="text-3xl font-bold text-emerald-600 mb-2">شهادة غير صالحة</h1>
                 <p className="text-text-muted">عذراً، لم نتمكن من العثور على شهادة برمز التحقق هذا. يرجى التأكد من الرابط والمحاولة مرة أخرى.</p>
             </div>
         );
@@ -29,9 +29,9 @@ export default async function VerifyCertificatePage(props: { params: Promise<{ c
     return (
         <div className="min-h-screen bg-bg-light py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
-                <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+                <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden">
                     {/* Header */}
-                    <div className="bg-ink px-8 py-12 text-center text-white relative">
+                    <div className="bg-emerald-600 px-8 py-12 text-center text-white relative">
                         <div className="absolute top-4 right-4 flex items-center gap-2 bg-white/20 px-3 py-1 rounded-xl text-sm ">
                             <FiCheckCircle className="text-green-300" />
                             <span>موثقة رسمياً</span>

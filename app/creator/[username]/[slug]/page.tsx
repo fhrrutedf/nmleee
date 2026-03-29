@@ -113,11 +113,11 @@ export default function ProductPage() {
                             <img
                                 src={product.image}
                                 alt={product.title}
-                                className="w-full rounded-xl shadow-sm"
+                                className="w-full rounded-xl shadow-lg shadow-emerald-600/20"
                             />
                         ) : (
                             <div
-                                className="w-full aspect-video rounded-xl shadow-sm flex items-center justify-center"
+                                className="w-full aspect-video rounded-xl shadow-lg shadow-emerald-600/20 flex items-center justify-center"
                                 style={{
                                     background: `linear-gradient(135deg, ${brandColor}20 0%, ${brandColor}40 100%)`
                                 }}
@@ -127,7 +127,7 @@ export default function ProductPage() {
                         )}
 
                         {/* Creator Info Card */}
-                        <div className="bg-white rounded-xl p-6 shadow-sm">
+                        <div className="bg-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
                             <h3 className="text-sm font-medium text-gray-500 mb-3">البائع</h3>
                             <Link
                                 href={`/@${creator.username}`}
@@ -192,7 +192,7 @@ export default function ProductPage() {
                         </div>
 
                         {/* Price */}
-                        <div className="bg-white rounded-xl p-8 shadow-sm border border-slate-100">
+                        <div className="bg-white rounded-xl p-8 shadow-lg shadow-emerald-600/20 border border-slate-100">
                             <div className="flex flex-col gap-2">
                                 {product.originalPrice && product.originalPrice > product.price && (
                                     <div className="flex items-center gap-2">
@@ -258,7 +258,7 @@ export default function ProductPage() {
                         {/* CTA Button */}
                         <button
                             onClick={handlePurchase}
-                            className="w-full py-4 rounded-xl font-bold text-white text-lg shadow-sm hover:shadow-sm transition-all transform hover:scale-105"
+                            className="w-full py-4 rounded-xl font-bold text-white text-lg shadow-lg shadow-emerald-600/20 hover:shadow-lg shadow-emerald-600/20 transition-all transform hover:scale-105"
                             style={{ backgroundColor: brandColor }}
                         >
                             <FiShoppingCart className="inline ml-2" />

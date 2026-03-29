@@ -248,7 +248,7 @@ export default function NewCoursePage() {
                         <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-600 font-bold text-[10px] uppercase tracking-widest mb-4 transition-all">
                             <FiArrowRight /> BACK TO ACADEMY
                         </Link>
-                        <h1 className="text-4xl font-bold text-ink tracking-tighter">Architect New Program</h1>
+                        <h1 className="text-4xl font-bold text-emerald-600 tracking-tighter">Architect New Program</h1>
                         <p className="text-gray-400 font-bold mt-2">Design a premium learning experience for your audience.</p>
                     </div>
                     {isSavingDraft && (
@@ -259,7 +259,7 @@ export default function NewCoursePage() {
                 </div>
 
                 {/* Progress Bar */}
-                <div className="bg-white rounded-xl p-6 lg:p-8 shadow-sm border border-slate-50 mb-10 overflow-hidden">
+                <div className="bg-white rounded-xl p-6 lg:p-8 shadow-lg shadow-emerald-600/20 border border-slate-50 mb-10 overflow-hidden">
                     <StepProgress steps={dynamicSteps} currentStep={currentStep} />
                 </div>
 
@@ -290,17 +290,17 @@ export default function NewCoursePage() {
                                     <div className="space-y-4 pt-10 border-t border-slate-50">
                                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6 block border-b border-gray-100 pb-3">Program Delivery Model <span className="text-red-500">*</span></label>
                                         <div className="grid md:grid-cols-2 gap-6">
-                                            <button type="button" onClick={() => update('format', 'recorded')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'recorded' ? 'border-emerald-600 bg-emerald-600/[0.03] shadow-sm shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
-                                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-sm transition-all ${formData.format === 'recorded' ? 'bg-emerald-600 text-white' : 'bg-gray-50 text-gray-400'}`}><FiVideo size={24}/></div>
+                                            <button type="button" onClick={() => update('format', 'recorded')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'recorded' ? 'border-emerald-600 bg-emerald-600/[0.03] shadow-lg shadow-emerald-600/20 shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
+                                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/20 transition-all ${formData.format === 'recorded' ? 'bg-emerald-600 text-white' : 'bg-gray-50 text-gray-400'}`}><FiVideo size={24}/></div>
                                                 <div>
-                                                    <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'recorded' ? 'text-ink' : 'text-gray-400'}`}>Recorded Assets</h4>
+                                                    <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'recorded' ? 'text-emerald-600' : 'text-gray-400'}`}>Recorded Assets</h4>
                                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider opacity-60">High-leverage asynchronous learning.</p>
                                                 </div>
                                             </button>
-                                            <button type="button" onClick={() => update('format', 'online')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'online' ? 'border-emerald-600 bg-emerald-600/5 shadow-sm shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
-                                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-sm transition-all ${formData.format === 'online' ? 'bg-emerald-600 text-white' : 'bg-gray-50 text-gray-400'}`}><FiClock size={24}/></div>
+                                            <button type="button" onClick={() => update('format', 'online')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'online' ? 'border-emerald-600 bg-emerald-600/5 shadow-lg shadow-emerald-600/20 shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
+                                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/20 transition-all ${formData.format === 'online' ? 'bg-emerald-600 text-white' : 'bg-gray-50 text-gray-400'}`}><FiClock size={24}/></div>
                                                 <div>
-                                                    <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'online' ? 'text-ink' : 'text-gray-400'}`}>Institutional Live</h4>
+                                                    <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'online' ? 'text-emerald-600' : 'text-gray-400'}`}>Institutional Live</h4>
                                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider opacity-60">Synchronous coaching & live streaming.</p>
                                                 </div>
                                             </button>
@@ -312,12 +312,12 @@ export default function NewCoursePage() {
                                     <div className="grid md:grid-cols-2 gap-10">
                                         <div>
                                             <label className="label-modern underline decoration-primary-indigo-100 underline-offset-4 mb-4 block">غلاف الدورة الأساسي (16:9) <span className="text-red-500">*</span></label>
-                                            <div className="relative aspect-video rounded-xl bg-slate-50 border-4 border-white shadow-sm overflow-hidden group">
+                                            <div className="relative aspect-video rounded-xl bg-slate-50 border-4 border-white shadow-lg shadow-emerald-600/20 overflow-hidden group">
                                                 {formData.image ? (
                                                     <>
                                                         <img src={formData.image} alt="Cover" className="w-full h-full object-cover" />
                                                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                           <button type="button" onClick={() => update('image', '')} className="bg-red-500 text-white w-12 h-12 rounded-xl flex items-center justify-center font-bold shadow-sm hover:scale-110 transition-transform"><FiX size={20}/></button>
+                                                           <button type="button" onClick={() => update('image', '')} className="bg-red-500 text-white w-12 h-12 rounded-xl flex items-center justify-center font-bold shadow-lg shadow-emerald-600/20 hover:scale-110 transition-transform"><FiX size={20}/></button>
                                                         </div>
                                                     </>
                                                 ) : (
@@ -335,17 +335,17 @@ export default function NewCoursePage() {
 
                                         <div>
                                             <label className="label-modern underline decoration-primary-indigo-100 underline-offset-4 mb-4 block text-slate-700">الفيديو التشويقي (Trailer) 🔥</label>
-                                            <div className="relative aspect-video rounded-xl bg-slate-50 border-4 border-white shadow-sm overflow-hidden group">
+                                            <div className="relative aspect-video rounded-xl bg-slate-50 border-4 border-white shadow-lg shadow-emerald-600/20 overflow-hidden group">
                                                 {formData.trailerUrl ? (
                                                     <div className="flex flex-col items-center justify-center w-full h-full p-6 text-center">
-                                                        <div className="w-16 h-16 bg-indigo-50 text-ink rounded-xl flex items-center justify-center mb-4">
+                                                        <div className="w-16 h-16 bg-indigo-50 text-emerald-600 rounded-xl flex items-center justify-center mb-4">
                                                             <FiFilm size={40} />
                                                         </div>
                                                         <p className="font-bold text-slate-800 text-sm">تم رفع فيديو ترويجي بنجاح</p>
                                                         <button 
                                                             type="button" 
                                                             onClick={() => update('trailerUrl', '')} 
-                                                            className="mt-4 px-6 py-2 bg-red-50 text-red-500 text-xs font-bold rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                                                            className="mt-4 px-6 py-2 bg-red-50 text-red-500 text-xs font-bold rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-lg shadow-emerald-600/20"
                                                         >
                                                             حذف واستبدال الفيديو
                                                         </button>
@@ -423,7 +423,7 @@ export default function NewCoursePage() {
                                                 <FiUpload /> رفع ملفات اضافية مساعدة (PDF, ZIP...)
                                             </button>
                                             {showAttachmentsUploader && (
-                                                <div className="mt-4 bg-white/90  p-6 rounded-xl border shadow-sm relative"><FileUploader onUploadSuccess={urls => { update('attachments', [...formData.attachments, ...urls]); setShowAttachmentsUploader(false); }} /></div>
+                                                <div className="mt-4 bg-white/90  p-6 rounded-xl border shadow-lg shadow-emerald-600/20 relative"><FileUploader onUploadSuccess={urls => { update('attachments', [...formData.attachments, ...urls]); setShowAttachmentsUploader(false); }} /></div>
                                             )}
                                         </div>
                                     </div>
@@ -496,7 +496,7 @@ export default function NewCoursePage() {
                                         <div className="space-y-4">
                                             <div className="flex items-center justify-between mb-4">
                                                 <label className="label-modern underline decoration-blue-200 underline-offset-8">سعر البيع النهائي ($)</label>
-                                                <span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-xl uppercase tracking-tighter shadow-sm ">السعر المعتمد</span>
+                                                <span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-xl uppercase tracking-tighter shadow-lg shadow-emerald-600/20 ">السعر المعتمد</span>
                                             </div>
                                             <div className="relative group/price">
                                                 <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-emerald-600-50 text-emerald-600-600 rounded-r-2xl border-l border-blue-100 transition-colors group-focus-within/price:bg-emerald-600-600 group-focus-within/price:text-white">
@@ -561,23 +561,23 @@ export default function NewCoursePage() {
                                 )}
 
                                 <Section title="خيارات العرض فور الإنشاء" icon={<FiEye />}>
-                                    <div className={`flex items-center justify-between p-8 rounded-xl border transition-all cursor-pointer group hover:opacity-95 ${formData.isActive ? 'bg-slate-900 border-slate-800 shadow-sm' : 'bg-white border-slate-100'}`} onClick={() => update('isActive', !formData.isActive)}>
+                                    <div className={`flex items-center justify-between p-8 rounded-xl border transition-all cursor-pointer group hover:opacity-95 ${formData.isActive ? 'bg-emerald-600 border-slate-800 shadow-lg shadow-emerald-600/20' : 'bg-white border-slate-100'}`} onClick={() => update('isActive', !formData.isActive)}>
                                         <div className="text-right">
                                             <h3 className={`font-bold text-xl leading-tight transition-colors ${formData.isActive ? 'text-white' : 'text-slate-800'}`}>إطلاق وعرض الدورة للبيع</h3>
                                             <p className={`text-xs mt-1 font-bold ${formData.isActive ? 'text-white/40' : 'text-slate-400'}`}>{formData.isActive ? 'الدورة ستظهر في واجهة المتجر الرئيسية للجميع' : 'الدورة ستبقى مخفية (وسيكون الوصول بالرابط السري فقط)'}</p>
                                         </div>
-                                        <div className={`w-14 h-8 rounded-xl flex items-center px-1 transition-all ${formData.isActive ? 'bg-primary-ink' : 'bg-slate-100'}`}>
+                                        <div className={`w-14 h-8 rounded-xl flex items-center px-1 transition-all ${formData.isActive ? 'bg-emerald-600' : 'bg-slate-100'}`}>
                                             <div className={`w-6 h-6 bg-white rounded-xl transition-all shadow-md ${formData.isActive ? 'translate-x-[24px]' : 'translate-x-0'}`} />
                                         </div>
                                     </div>
                                     
-                                    <div className="flex items-center justify-between p-8 bg-blue-900 rounded-xl border border-blue-800 shadow-sm transition-all cursor-pointer hover:bg-blue-800 group" onClick={() => update('enablePPP', !formData.enablePPP)}>
+                                    <div className="flex items-center justify-between p-8 bg-blue-900 rounded-xl border border-blue-800 shadow-lg shadow-emerald-600/20 transition-all cursor-pointer hover:bg-blue-800 group" onClick={() => update('enablePPP', !formData.enablePPP)}>
                                         <div className="text-right">
                                             <h3 className="font-bold text-white text-xl leading-tight transition-colors group-hover:text-blue-400">تفعيل التسعير العادل (PPP Pricing) 🌍</h3>
                                             <p className="text-xs text-blue-200 mt-1 max-w-lg leading-relaxed">تخفيض السعر تلقائياً للزوار من الدول النامية حسب القوة الشرائية، لضمان أعلى نسبة مبيعات للجميع دون حرمان أحد.</p>
                                         </div>
                                         <div className={`w-16 h-9 rounded-xl flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-emerald-600-500 outline-accent-500/30' : 'bg-blue-950 outline-blue-900'}`}>
-                                            <div className={`w-6 h-6 bg-white rounded-xl transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-sm shadow-black/40`} />
+                                            <div className={`w-6 h-6 bg-white rounded-xl transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-lg shadow-emerald-600/20 shadow-black/40`} />
                                         </div>
                                     </div>
                                 </Section>
@@ -607,7 +607,7 @@ export default function NewCoursePage() {
                             {currentStep < 4 ? (
                                 <button
                                     type="button" onClick={nextStep}
-                                    className="w-full md:w-auto px-12 py-4 bg-slate-900 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-black transition-all shadow-sm active:scale-95 text-lg"
+                                    className="w-full md:w-auto px-12 py-4 bg-emerald-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 active:scale-95 text-lg"
                                 >
                                     {currentStep === 3 || (currentStep === 2 && formData.format === 'online') ? 'التالي لتسعير الدورة' : 'المتابعة واختيار الإعدادات'}
                                     <FiArrowLeft />
@@ -615,7 +615,7 @@ export default function NewCoursePage() {
                             ) : (
                                 <button
                                     type="submit" disabled={loading}
-                                    className="w-full md:w-auto px-12 py-5 bg-ink text-white rounded-xl font-bold text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:bg-emerald-600 transition-all shadow-sm shadow-black/10 active:scale-95 group"
+                                    className="w-full md:w-auto px-12 py-5 bg-emerald-600 text-white rounded-xl font-bold text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-600/20 shadow-black/10 active:scale-95 group"
                                 >
                                     {loading ? 'Processing Protocol...' : 'Deploy Program Architecture'}
                                     {!loading && <FiCheck className="text-xl group-hover:scale-125 transition-transform text-white" />}
@@ -635,7 +635,7 @@ export default function NewCoursePage() {
                     </div>
 
                     {/* Miniature Course Card */}
-                    <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden transition-all hover:shadow-sm hover:-translate-y-1">
+                    <div className="bg-white rounded-xl border border-slate-100 shadow-lg shadow-emerald-600/20 overflow-hidden transition-all hover:shadow-lg shadow-emerald-600/20 hover:-translate-y-1">
                         <div className="aspect-video bg-slate-100 relative overflow-hidden flex items-center justify-center text-slate-300">
                             {formData.image ? 
                                 <img src={formData.image} alt="Preview" className="w-full h-full object-cover" /> 
@@ -679,14 +679,14 @@ export default function NewCoursePage() {
             <AnimatePresence>
                 {showConfirmModal && (
                     <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/60  ">
-                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-xl p-12 max-w-sm w-full text-center space-y-10 shadow-sm border border-slate-50">
-                             <div className="w-24 h-24 bg-subtle text-primary-ink rounded-xl flex items-center justify-center mx-auto text-5xl shadow-sm"><FiCheckSquare /></div>
+                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-xl p-12 max-w-sm w-full text-center space-y-10 shadow-lg shadow-emerald-600/20 border border-slate-50">
+                             <div className="w-24 h-24 bg-subtle text-primary-ink rounded-xl flex items-center justify-center mx-auto text-5xl shadow-lg shadow-emerald-600/20"><FiCheckSquare /></div>
                              <div className="space-y-2">
                                  <h3 className="text-3xl font-bold text-slate-900 leading-tight">جاهز للانطلاق!</h3>
                                  <p className="text-sm text-slate-400 font-bold uppercase tracking-widest">سيتم نشر الأكاديمية وتفعيل القبول التلقائي</p>
                              </div>
                              <div className="flex flex-col gap-4">
-                                <button onClick={handleSubmit} className="w-full py-5 bg-ink text-white rounded-xl font-bold shadow-sm hover:opacity-90 transition-all text-lg">تأكيد ونشر الأكاديمية الآن</button>
+                                <button onClick={handleSubmit} className="w-full py-5 bg-emerald-600 text-white rounded-xl font-bold shadow-lg shadow-emerald-600/20 hover:opacity-90 transition-all text-lg">تأكيد ونشر الأكاديمية الآن</button>
                                 <button onClick={() => setShowConfirmModal(false)} className="w-full py-2 text-slate-400 font-bold text-xs uppercase hover:text-slate-600 transition-all">مراجعة المحتوى التفصيلي</button>
                              </div>
                         </motion.div>
@@ -698,7 +698,7 @@ export default function NewCoursePage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-slate-900/80 "
+                        className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-emerald-600/80 "
                     >
                         <motion.div
                             initial={{ scale: 0.8, opacity: 0, y: 50 }}
@@ -708,7 +708,7 @@ export default function NewCoursePage() {
                         >
                             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary-ink via-accent-500 to-primary-ink animate-gradient-x" />
                             
-                            <div className="w-24 h-24 bg-blue-100 text-emerald-600-600 rounded-xl flex items-center justify-center mx-auto mb-10 text-4xl shadow-sm ring-8 ring-accent-50">🎓</div>
+                            <div className="w-24 h-24 bg-blue-100 text-emerald-600-600 rounded-xl flex items-center justify-center mx-auto mb-10 text-4xl shadow-lg shadow-emerald-600/20 ring-8 ring-accent-50">🎓</div>
                             
                             <div className="space-y-4 mb-12">
                                 <h2 className="text-4xl font-bold text-slate-900 tracking-tight leading-none">تهانينا! دورتك جاهزة ✨</h2>
@@ -718,13 +718,13 @@ export default function NewCoursePage() {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <button
                                     onClick={() => router.push(`/dashboard/courses/${finalCourseId}/content`)}
-                                    className="w-full py-5 bg-primary-ink text-white rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-primary-indigo-700 transition-all shadow-sm active:scale-95"
+                                    className="w-full py-5 bg-emerald-600 text-white rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-primary-indigo-700 transition-all shadow-lg shadow-emerald-600/20 active:scale-95"
                                 >
                                     إدارة الدروس <FiLayers />
                                 </button>
                                 <button
                                     onClick={() => router.push(`/dashboard/courses/${finalCourseId}/edit`)}
-                                    className="w-full py-5 bg-slate-900 text-white rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-black transition-all shadow-sm active:scale-95"
+                                    className="w-full py-5 bg-emerald-600 text-white rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 active:scale-95"
                                 >
                                     تعديل التفاصيل <FiEdit2 />
                                 </button>
@@ -737,7 +737,7 @@ export default function NewCoursePage() {
                                 <Link
                                     href={creatorUsername && finalSlug ? `/${creatorUsername}/products/${finalSlug}` : `/dashboard/courses/${finalCourseId}/content`}
                                     target="_blank"
-                                    className="w-full py-5 bg-blue-100 text-blue-700 rounded-xl font-bold hover:bg-blue-200 transition-all flex items-center justify-center gap-3 active:scale-95 shadow-sm"
+                                    className="w-full py-5 bg-blue-100 text-blue-700 rounded-xl font-bold hover:bg-blue-200 transition-all flex items-center justify-center gap-3 active:scale-95 shadow-lg shadow-emerald-600/20"
                                 >
                                     لمحة عن المتجر <FiEye />
                                 </Link>
@@ -752,9 +752,9 @@ export default function NewCoursePage() {
 
 function Section({ title, icon, children }: any) {
     return (
-        <div className="bg-white rounded-xl p-8 lg:p-14 shadow-sm border border-slate-50 space-y-10 overflow-hidden relative">
+        <div className="bg-white rounded-xl p-8 lg:p-14 shadow-lg shadow-emerald-600/20 border border-slate-50 space-y-10 overflow-hidden relative">
             <div className="flex items-center gap-5">
-                <div className="w-16 h-16 bg-slate-50 text-slate-900 rounded-xl flex items-center justify-center text-3xl shadow-sm group-hover:scale-110 transition-transform shrink-0">
+                <div className="w-16 h-16 bg-slate-50 text-slate-900 rounded-xl flex items-center justify-center text-3xl shadow-lg shadow-emerald-600/20 group-hover:scale-110 transition-transform shrink-0">
                     {icon}
                 </div>
                 <div className="text-right">

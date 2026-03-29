@@ -35,13 +35,13 @@ export default function CertificateCustomizationPage() {
     return (
         <div className="min-h-screen bg-bg-light dark:bg-bg-light py-8 px-4">
             <div className="max-w-7xl mx-auto pb-12">
-                <h1 className="text-2xl sm:text-3xl font-bold text-ink dark:text-white mb-8">تخصيص تصميم الشهادة</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-white mb-8">تخصيص تصميم الشهادة</h1>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Settings Panel */}
                     <div className="lg:col-span-1">
-                        <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 sticky top-24">
-                            <h2 className="text-lg font-bold text-ink dark:text-white mb-4">الإعدادات</h2>
+                        <div className="bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 p-6 sticky top-24">
+                            <h2 className="text-lg font-bold text-emerald-600 dark:text-white mb-4">الإعدادات</h2>
 
                             <div className="space-y-4">
                                 {/* Brand Color */}
@@ -137,7 +137,7 @@ export default function CertificateCustomizationPage() {
                                 {/* Actions */}
                                 <button
                                     onClick={handleSave}
-                                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-ink text-white rounded-lg hover:bg-black transition-colors"
+                                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
                                 >
                                     <FiSave />
                                     حفظ الإعدادات
@@ -148,8 +148,8 @@ export default function CertificateCustomizationPage() {
 
                     {/* Preview Panel */}
                     <div className="lg:col-span-2">
-                        <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 sm:p-8">
-                            <h2 className="text-lg font-bold text-ink dark:text-white mb-6">معاينة الشهادة</h2>
+                        <div className="bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 p-4 sm:p-8">
+                            <h2 className="text-lg font-bold text-emerald-600 dark:text-white mb-6">معاينة الشهادة</h2>
                             <div className="overflow-x-auto pb-4">
                                 <div className="min-w-[600px] lg:min-w-0">
                                     <CertificatePreview

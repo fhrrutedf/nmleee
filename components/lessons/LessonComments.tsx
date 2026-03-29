@@ -62,7 +62,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                 <div className="p-3 bg-emerald-600/10 text-emerald-600 rounded-xl">
                     <FiMessageSquare size={24} />
                 </div>
-                <h3 className="text-xl font-bold text-ink dark:text-white">النقاشات والأسئلة ({comments.length})</h3>
+                <h3 className="text-xl font-bold text-emerald-600 dark:text-white">النقاشات والأسئلة ({comments.length})</h3>
             </div>
 
             {/* Post Input */}
@@ -80,7 +80,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                     <button
                         onClick={() => submitComment()}
                         disabled={loading || !newComment.trim()}
-                        className="px-6 py-3 bg-emerald-600 text-white rounded-xl font-bold hover:shadow-sm hover:shadow-accent/20 transition-all disabled:opacity-50"
+                        className="px-6 py-3 bg-emerald-600 text-white rounded-xl font-bold hover:shadow-lg shadow-emerald-600/20 hover:shadow-accent/20 transition-all disabled:opacity-50"
                     >
                         نشـر التعليق
                     </button>
@@ -97,12 +97,12 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                     comments.map((comment) => (
                         <div key={comment.id} className="group">
                             <div className="flex gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-ink dark:from-gray-800 dark:to-gray-700 font-bold text-ink dark:text-white flex items-center justify-center shrink-0">
+                                <div className="w-12 h-12 rounded-xl bg-emerald-600 dark:from-gray-800 dark:to-gray-700 font-bold text-emerald-600 dark:text-white flex items-center justify-center shrink-0">
                                     {comment.authorName?.[0]}
                                 </div>
                                 <div className="flex-1">
                                     <div className="flex items-center justify-between mb-2">
-                                        <h4 className="font-bold text-ink dark:text-white">{comment.authorName}</h4>
+                                        <h4 className="font-bold text-emerald-600 dark:text-white">{comment.authorName}</h4>
                                         <span className="text-xs text-gray-400 font-bold">
                                             {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true, locale: ar })}
                                         </span>
@@ -125,7 +125,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                                             {comment.replies.map(reply => (
                                                 <div key={reply.id}>
                                                      <div className="flex items-center gap-2 mb-1">
-                                                        <span className="font-bold text-sm text-ink dark:text-white">{reply.authorName}</span>
+                                                        <span className="font-bold text-sm text-emerald-600 dark:text-white">{reply.authorName}</span>
                                                         <span className="text-[10px] text-gray-400">{formatDistanceToNow(new Date(reply.createdAt), { addSuffix: true, locale: ar })}</span>
                                                      </div>
                                                      <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{reply.content}</p>

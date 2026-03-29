@@ -63,7 +63,7 @@ export default function CountdownTimer({
         <div className="flex items-center justify-center gap-2">
             {showDays && (
                 <div className="text-center">
-                    <div className="bg-ink text-white rounded-lg p-3 min-w-[60px]">
+                    <div className="bg-emerald-600 text-white rounded-lg p-3 min-w-[60px]">
                         <div className="text-2xl font-bold">{timeLeft.days}</div>
                     </div>
                     <div className="text-xs text-gray-600 mt-1">يوم</div>
@@ -74,7 +74,7 @@ export default function CountdownTimer({
 
             {showHours && (
                 <div className="text-center">
-                    <div className="bg-ink text-white rounded-lg p-3 min-w-[60px]">
+                    <div className="bg-emerald-600 text-white rounded-lg p-3 min-w-[60px]">
                         <div className="text-2xl font-bold">{String(timeLeft.hours).padStart(2, '0')}</div>
                     </div>
                     <div className="text-xs text-gray-600 mt-1">ساعة</div>
@@ -85,7 +85,7 @@ export default function CountdownTimer({
 
             {showMinutes && (
                 <div className="text-center">
-                    <div className="bg-ink text-white rounded-lg p-3 min-w-[60px]">
+                    <div className="bg-emerald-600 text-white rounded-lg p-3 min-w-[60px]">
                         <div className="text-2xl font-bold">{String(timeLeft.minutes).padStart(2, '0')}</div>
                     </div>
                     <div className="text-xs text-gray-600 mt-1">دقيقة</div>
@@ -96,7 +96,7 @@ export default function CountdownTimer({
 
             {showSeconds && (
                 <div className="text-center">
-                    <div className="bg-ink text-white rounded-lg p-3 min-w-[60px]">
+                    <div className="bg-emerald-600 text-white rounded-lg p-3 min-w-[60px]">
                         <div className="text-2xl font-bold">{String(timeLeft.seconds).padStart(2, '0')}</div>
                     </div>
                     <div className="text-xs text-gray-600 mt-1">ثانية</div>

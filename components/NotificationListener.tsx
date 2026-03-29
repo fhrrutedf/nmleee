@@ -41,7 +41,7 @@ export const NotificationListener = () => {
                 <div
                     className={`${
                         t.visible ? 'animate-enter' : 'animate-leave'
-                    } max-w-md w-full bg-white dark:bg-card-white shadow-sm rounded-[2rem] pointer-events-auto flex ring-1 ring-black ring-opacity-5 border border-gray-100 dark:border-gray-800`}
+                    } max-w-md w-full bg-white dark:bg-card-white shadow-lg shadow-emerald-600/20 rounded-[2rem] pointer-events-auto flex ring-1 ring-black ring-opacity-5 border border-gray-100 dark:border-gray-800`}
                 >
                     <div className="flex-1 w-0 p-5">
                         <div className="flex items-start">
@@ -51,7 +51,7 @@ export const NotificationListener = () => {
                                 </div>
                             </div>
                             <div className="mr-4 flex-1">
-                                <p className="text-sm font-bold text-ink dark:text-white">
+                                <p className="text-sm font-bold text-emerald-600 dark:text-white">
                                     {notif.title}
                                 </p>
                                 <p className="mt-1 text-sm text-text-muted">

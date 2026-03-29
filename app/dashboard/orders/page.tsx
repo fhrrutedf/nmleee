@@ -75,7 +75,7 @@ export default function OrdersPage() {
                 <div className="w-16 h-16 bg-red-50 dark:bg-red-900/20 rounded-xl flex items-center justify-center">
                     <FiX className="text-3xl text-red-500" />
                 </div>
-                <h3 className="text-xl font-bold text-ink dark:text-white">فشل تحميل الطلبات</h3>
+                <h3 className="text-xl font-bold text-emerald-600 dark:text-white">فشل تحميل الطلبات</h3>
                 <p className="text-text-muted">تحقق من اتصالك بالإنترنت وحاول مجدداً</p>
                 <button onClick={fetchOrders} className="btn btn-primary flex items-center gap-2">
                     <FiRefreshCw /> إعادة المحاولة
@@ -89,22 +89,22 @@ export default function OrdersPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-ink dark:text-white">الطلبات</h1>
+                    <h1 className="text-3xl font-bold text-emerald-600 dark:text-white">الطلبات</h1>
                     <p className="text-text-muted mt-1">تتبع المبيعات والطلبات الواردة لمتجرك</p>
                 </div>
             </div>
 
             {/* Stats Summary */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20">
                     <p className="text-text-muted text-sm mb-1">إجمالي الطلبات</p>
-                    <p className="text-2xl font-bold text-ink dark:text-white">{orders.length}</p>
+                    <p className="text-2xl font-bold text-emerald-600 dark:text-white">{orders.length}</p>
                 </div>
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20">
                     <p className="text-text-muted text-sm mb-1">الطلبات المكتملة</p>
                     <p className="text-2xl font-bold text-green-600">{orders.filter((o: any) => o.status === 'COMPLETED').length}</p>
                 </div>
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20">
                     <p className="text-text-muted text-sm mb-1">قيد الانتظار</p>
                     <p className="text-2xl font-bold text-orange-500">{orders.filter((o: any) => o.status === 'PENDING').length}</p>
                 </div>
@@ -147,7 +147,7 @@ export default function OrdersPage() {
                     <div className="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center mx-auto mb-6">
                         <FiShoppingBag className="text-4xl text-gray-400" />
                     </div>
-                    <h3 className="text-xl font-bold text-ink dark:text-white mb-2">
+                    <h3 className="text-xl font-bold text-emerald-600 dark:text-white mb-2">
                         {orders.length === 0 ? 'لا توجد طلبات بعد' : 'لا توجد نتائج مطابقة'}
                     </h3>
                     <p className="text-text-muted mb-6 max-w-sm mx-auto">
@@ -157,18 +157,18 @@ export default function OrdersPage() {
                     </p>
                 </div>
             ) : (
-                <div className="card overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm">
+                <div className="card overflow-hidden border border-gray-100 dark:border-gray-800 shadow-lg shadow-emerald-600/20">
                     <div className="overflow-x-auto">
                         <table className="w-full">
                             <thead>
                                 <tr className="border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50">
-                                    <th className="text-right py-4 px-6 text-sm font-semibold text-ink dark:text-white">رقم الطلب</th>
-                                    <th className="text-right py-4 px-6 text-sm font-semibold text-ink dark:text-white">التاريخ</th>
-                                    <th className="text-right py-4 px-6 text-sm font-semibold text-ink dark:text-white">العميل</th>
-                                    <th className="text-right py-4 px-6 text-sm font-semibold text-ink dark:text-white">المنتجات</th>
-                                    <th className="text-right py-4 px-6 text-sm font-semibold text-ink dark:text-white">المسوق</th>
-                                    <th className="text-right py-4 px-6 text-sm font-semibold text-ink dark:text-white">المبلغ</th>
-                                    <th className="text-right py-4 px-6 text-sm font-semibold text-ink dark:text-white">الحالة</th>
+                                    <th className="text-right py-4 px-6 text-sm font-semibold text-emerald-600 dark:text-white">رقم الطلب</th>
+                                    <th className="text-right py-4 px-6 text-sm font-semibold text-emerald-600 dark:text-white">التاريخ</th>
+                                    <th className="text-right py-4 px-6 text-sm font-semibold text-emerald-600 dark:text-white">العميل</th>
+                                    <th className="text-right py-4 px-6 text-sm font-semibold text-emerald-600 dark:text-white">المنتجات</th>
+                                    <th className="text-right py-4 px-6 text-sm font-semibold text-emerald-600 dark:text-white">المسوق</th>
+                                    <th className="text-right py-4 px-6 text-sm font-semibold text-emerald-600 dark:text-white">المبلغ</th>
+                                    <th className="text-right py-4 px-6 text-sm font-semibold text-emerald-600 dark:text-white">الحالة</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
@@ -183,7 +183,7 @@ export default function OrdersPage() {
                                         <td className="py-4 px-6 font-mono text-sm text-text-muted">
                                             #{order.orderNumber || order.id.slice(0, 8)}
                                         </td>
-                                        <td className="py-4 px-6 text-sm text-ink dark:text-gray-300">
+                                        <td className="py-4 px-6 text-sm text-emerald-600 dark:text-gray-300">
                                             {new Date(order.createdAt).toLocaleDateString('ar-EG', {
                                                 year: 'numeric',
                                                 month: 'short',
@@ -191,13 +191,13 @@ export default function OrdersPage() {
                                             })}
                                         </td>
                                         <td className="py-4 px-6 text-sm">
-                                            <div className="font-medium text-ink dark:text-white">{order.customerName || 'عميل زائر'}</div>
+                                            <div className="font-medium text-emerald-600 dark:text-white">{order.customerName || 'عميل زائر'}</div>
                                             <div className="text-xs text-text-muted">{order.customerEmail}</div>
                                         </td>
                                         <td className="py-4 px-6">
                                             <div className="space-y-1">
                                                 {order.items?.map((item: any) => (
-                                                    <div key={item.id} className="text-sm text-ink dark:text-gray-300">
+                                                    <div key={item.id} className="text-sm text-emerald-600 dark:text-gray-300">
                                                         {item.product?.title || 'منتج غير معروف'}
                                                     </div>
                                                 ))}
@@ -213,7 +213,7 @@ export default function OrdersPage() {
                                                 <span className="text-gray-300">—</span>
                                             )}
                                         </td>
-                                        <td className="py-4 px-6 font-bold text-ink dark:text-white">
+                                        <td className="py-4 px-6 font-bold text-emerald-600 dark:text-white">
                                             <div>{order.totalAmount.toFixed(2)} $</div>
                                             {order.paymentMethod === 'CRYPTO_USDT' && (
                                                 <div className="text-xs text-yellow-600 bg-yellow-100 inline-block px-2 py-0.5 rounded-md mt-1">

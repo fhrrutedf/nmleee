@@ -83,16 +83,16 @@ function LoginContent() {
                 {/* Brand Identity Header */}
                 <motion.div variants={fadeInUp} className="text-center mb-12">
                      <Link href="/" className="inline-block mb-10 group">
-                        <div className="w-16 h-16 mx-auto rounded-xl bg-ink flex items-center justify-center text-white text-3xl font-bold shadow-sm shadow-ink/20 group-hover:scale-110 transition-transform">
+                        <div className="w-16 h-16 mx-auto rounded-xl bg-emerald-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-emerald-600/20 shadow-ink/20 group-hover:scale-110 transition-transform">
                             ت
                         </div>
                     </Link>
-                    <h1 className="text-4xl font-bold text-ink mb-4 tracking-tighter">مرحباً بعودتك</h1>
+                    <h1 className="text-4xl font-bold text-emerald-600 mb-4 tracking-tighter">مرحباً بعودتك</h1>
                     <p className="text-gray-400 font-bold">وصول آمن وسريع إلى لوحة تحكم متجرك.</p>
                 </motion.div>
 
                 {/* Login Terminal / Form Card */}
-                <motion.div variants={fadeInUp} className="bg-white rounded-[2.5rem] border border-gray-100 p-10 shadow-sm shadow-gray-200/50 relative overflow-hidden">
+                <motion.div variants={fadeInUp} className="bg-white rounded-[2.5rem] border border-gray-100 p-10 shadow-lg shadow-emerald-600/20 shadow-gray-200/50 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-600/5 rounded-bl-[80px] pointer-events-none"></div>
 
                     {/* Social Authentication */}
@@ -100,7 +100,7 @@ function LoginContent() {
                         <button
                             onClick={handleGoogleSignIn}
                             disabled={googleLoading}
-                            className="w-full flex items-center justify-center gap-4 py-4 px-6 rounded-xl border border-gray-100 bg-white hover:border-ink hover:shadow-sm transition-all duration-300 font-bold text-gray-700 active:scale-95"
+                            className="w-full flex items-center justify-center gap-4 py-4 px-6 rounded-xl border border-gray-100 bg-white hover:border-ink hover:shadow-lg shadow-emerald-600/20 transition-all duration-300 font-bold text-gray-700 active:scale-95"
                         >
                             {googleLoading ? (
                                 <div className="w-5 h-5 border-2 border-gray-200 border-t-ink rounded-xl animate-spin"></div>
@@ -145,7 +145,7 @@ function LoginContent() {
                                     required
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full pl-6 pr-14 py-4 bg-gray-50 border border-gray-100 rounded-xl text-ink font-bold placeholder:text-gray-300 focus:bg-white focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 transition-all text-sm outline-none"
+                                    className="w-full pl-6 pr-14 py-4 bg-gray-50 border border-gray-100 rounded-xl text-emerald-600 font-bold placeholder:text-gray-300 focus:bg-white focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 transition-all text-sm outline-none"
                                     placeholder="البريد الإلكتروني"
                                 />
                             </div>
@@ -157,14 +157,14 @@ function LoginContent() {
                                     required
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                    className="w-full pl-6 pr-14 py-4 bg-gray-50 border border-gray-100 rounded-xl text-ink font-bold placeholder:text-gray-300 focus:bg-white focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 transition-all text-sm outline-none"
+                                    className="w-full pl-6 pr-14 py-4 bg-gray-50 border border-gray-100 rounded-xl text-emerald-600 font-bold placeholder:text-gray-300 focus:bg-white focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 transition-all text-sm outline-none"
                                     placeholder="كلمة المرور"
                                 />
                             </div>
                         </div>
 
                         <div className="flex justify-start pt-2">
-                             <Link href="/forgot-password" className="text-[10px] font-bold uppercase tracking-widest text-emerald-600 hover:text-ink transition-colors">
+                             <Link href="/forgot-password" className="text-[10px] font-bold uppercase tracking-widest text-emerald-600 hover:text-emerald-600 transition-colors">
                                 Forgot password?
                             </Link>
                         </div>
@@ -172,8 +172,8 @@ function LoginContent() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`w-full py-5 rounded-xl font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-sm
-                                ${loading ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-ink text-white hover:bg-black shadow-ink/20 active:scale-95'}
+                            className={`w-full py-5 rounded-xl font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-lg shadow-emerald-600/20
+                                ${loading ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-ink/20 active:scale-95'}
                             `}
                         >
                             {loading ? (
@@ -202,7 +202,7 @@ function LoginContent() {
                     <p className="flex items-center justify-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
                         <FiShield className="text-emerald-600" /> 256-bit Encrypted Connection
                     </p>
-                    <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-ink text-xs font-bold transition-all group">
+                    <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-600 text-xs font-bold transition-all group">
                          Back to Platform <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </motion.div>

@@ -53,7 +53,7 @@ export default function CartPage() {
     if (cart.length === 0) {
         return (
             <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-                <div className="bg-white p-8 rounded-xl shadow-sm text-center max-w-md w-full">
+                <div className="bg-white p-8 rounded-xl shadow-lg shadow-emerald-600/20 text-center max-w-md w-full">
                     <div className="w-20 h-20 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-6">
                         <FiShoppingCart className="text-4xl text-gray-400" />
                     </div>
@@ -104,7 +104,7 @@ export default function CartPage() {
                     {/* Cart Items */}
                     <div className="lg:col-span-2 space-y-4">
                         {cart.map((item, index) => (
-                            <div key={index} className="bg-white rounded-xl shadow-sm p-4 flex gap-4 items-center group hover:shadow-md transition-shadow">
+                            <div key={index} className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-4 flex gap-4 items-center group hover:shadow-md transition-shadow">
                                 <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 relative">
                                     {item.image ? (
                                         <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
@@ -140,7 +140,7 @@ export default function CartPage() {
 
                     {/* Order Summary */}
                     <div className="lg:col-span-1">
-                        <div className="bg-white rounded-xl shadow-sm p-6 sticky top-6">
+                        <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6 sticky top-6">
                             <h2 className="text-xl font-bold mb-6 text-gray-900">ملخص الطلب</h2>
 
                             <div className="space-y-4 mb-6 pb-6 border-b border-gray-100">
@@ -161,7 +161,7 @@ export default function CartPage() {
 
                             <button
                                 onClick={() => router.push('/checkout')}
-                                className="w-full btn btn-primary py-4 text-lg font-bold shadow-sm shadow-accent/30 flex items-center justify-center gap-2"
+                                className="w-full btn btn-primary py-4 text-lg font-bold shadow-lg shadow-emerald-600/20 shadow-accent/30 flex items-center justify-center gap-2"
                             >
                                 <span>إتمام عملية الدفع</span>
                                 <FiArrowRight className="rtl:rotate-180" />

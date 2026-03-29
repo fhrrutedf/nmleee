@@ -138,7 +138,7 @@ export default function EditBundlePage() {
                         <FiPackage className="text-xl text-emerald-600" />
                     </div>
                     <div>
-                        <h1 className="text-2xl sm:text-3xl font-bold text-ink dark:text-white">تعديل الباقة</h1>
+                        <h1 className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-white">تعديل الباقة</h1>
                         <p className="text-sm sm:text-base text-text-muted mt-1 font-medium">قم بتعديل بيانات باقتك لتوفير أسعار أفضل لعملائك</p>
                     </div>
                 </div>
@@ -152,7 +152,7 @@ export default function EditBundlePage() {
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Right col - Form details */}
                     <div className="col-span-1 lg:col-span-2 space-y-6">
-                        <div className="card space-y-6 bg-white dark:bg-card-white rounded-xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-gray-800">
+                        <div className="card space-y-6 bg-white dark:bg-card-white rounded-xl p-6 md:p-8 shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800">
                             <div className="space-y-6">
                                 <div>
                                     <label className="label text-lg font-bold">اسم الباقة الفريد <span className="text-red-500">*</span></label>
@@ -182,11 +182,11 @@ export default function EditBundlePage() {
                                     </h3>
                                     {formData.image ? (
                                         <div className="relative inline-block">
-                                            <img src={formData.image} alt="Preview" className="w-full max-w-sm h-64 object-cover rounded-xl border-2 border-gray-100 shadow-sm" />
+                                            <img src={formData.image} alt="Preview" className="w-full max-w-sm h-64 object-cover rounded-xl border-2 border-gray-100 shadow-lg shadow-emerald-600/20" />
                                             <button
                                                 type="button"
                                                 onClick={() => setFormData({ ...formData, image: '' })}
-                                                className="absolute -top-3 -right-3 bg-red-500 text-white p-2.5 rounded-xl hover:bg-red-600 transition-colors shadow-sm"
+                                                className="absolute -top-3 -right-3 bg-red-500 text-white p-2.5 rounded-xl hover:bg-red-600 transition-colors shadow-lg shadow-emerald-600/20"
                                             >
                                                 <FiX />
                                             </button>
@@ -210,7 +210,7 @@ export default function EditBundlePage() {
                             </div>
                         </div>
 
-                        <div className="card space-y-6 bg-white dark:bg-card-white rounded-xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-gray-800">
+                        <div className="card space-y-6 bg-white dark:bg-card-white rounded-xl p-6 md:p-8 shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800">
                             <h2 className="text-xl font-bold border-b border-gray-100 dark:border-gray-800 pb-4 mb-4">المنتجات المشمولة في الباقة</h2>
 
                             {!products || products.length === 0 ? (
@@ -262,14 +262,14 @@ export default function EditBundlePage() {
                     {/* Left col - Pricing and saving summary */}
                     <div className="col-span-1 border-gray-100">
                         <div className="sticky top-24 space-y-6">
-                            <div className="bg-white dark:bg-card-white rounded-xl p-6 shadow-sm shadow-gray-100 dark:shadow-gray-900 border border-gray-100 dark:border-gray-800 relative overflow-hidden">
+                            <div className="bg-white dark:bg-card-white rounded-xl p-6 shadow-lg shadow-emerald-600/20 shadow-gray-100 dark:shadow-gray-900 border border-gray-100 dark:border-gray-800 relative overflow-hidden">
                                 {discountPercentage > 0 && (
                                     <div className="absolute top-0 right-0 bg-green-500 text-white px-4 py-1 rounded-bl-2xl font-bold text-sm shadow-md">
                                         خصم {discountPercentage}%
                                     </div>
                                 )}
 
-                                <h3 className="font-bold text-xl mb-4 text-ink dark:text-white">تسعير الباقة</h3>
+                                <h3 className="font-bold text-xl mb-4 text-emerald-600 dark:text-white">تسعير الباقة</h3>
                                 <div className="space-y-4">
                                     <div>
                                         <label className="text-sm text-gray-500 mb-1 block">سعر المنتجات الفردية (إجمالي)</label>
@@ -306,7 +306,7 @@ export default function EditBundlePage() {
                             <button
                                 type="submit"
                                 disabled={loading || formData.productIds.length < 2 || !formData.price || !formData.title}
-                                className="w-full btn btn-primary text-lg py-4 shadow-sm shadow-accent/20 hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full btn btn-primary text-lg py-4 shadow-lg shadow-emerald-600/20 shadow-accent/20 hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {loading ? (
                                     <span className="flex items-center justify-center gap-2">

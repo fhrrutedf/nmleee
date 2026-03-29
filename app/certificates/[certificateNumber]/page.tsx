@@ -98,7 +98,7 @@ export default function CertificatePage() {
                         </div>
                         <button
                             onClick={downloadPDF}
-                            className="flex items-center gap-2 px-4 py-2 bg-ink text-white rounded-lg hover:bg-black transition-colors"
+                            className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
                         >
                             <FiDownload />
                             تحميل PDF

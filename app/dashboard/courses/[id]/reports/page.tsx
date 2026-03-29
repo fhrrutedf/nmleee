@@ -85,7 +85,7 @@ export default function CourseReportsPage() {
                                 <p className="text-3xl font-bold text-gray-900">{stats.totalStudents}</p>
                             </div>
                             <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
-                                <FiUsers className="text-ink" size={24} />
+                                <FiUsers className="text-emerald-600" size={24} />
                             </div>
                         </div>
                     </div>
@@ -121,7 +121,7 @@ export default function CourseReportsPage() {
                                 <p className="text-3xl font-bold text-gray-900">{formatTime(stats.totalWatchTime)}</p>
                             </div>
                             <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                                <FiClock className="text-ink" size={24} />
+                                <FiClock className="text-emerald-600" size={24} />
                             </div>
                         </div>
                     </div>
@@ -143,7 +143,7 @@ export default function CourseReportsPage() {
                             return (
                                 <div key={range} className="flex-1 flex flex-col items-center">
                                     <div
-                                        className="w-full bg-ink rounded-t-lg hover:bg-ink transition-colors cursor-pointer"
+                                        className="w-full bg-emerald-600 rounded-t-lg hover:bg-emerald-600 transition-colors cursor-pointer"
                                         style={{ height: `${percentage * 2}px` }}
                                         title={`${count} طلاب`}
                                     />
@@ -195,7 +195,7 @@ export default function CourseReportsPage() {
                                             <div className="flex items-center gap-3">
                                                 <div className="flex-1 bg-gray-200 rounded-xl h-2">
                                                     <div
-                                                        className="bg-ink h-2 rounded-xl"
+                                                        className="bg-emerald-600 h-2 rounded-xl"
                                                         style={{ width: `${student.progress}%` }}
                                                     />
                                                 </div>

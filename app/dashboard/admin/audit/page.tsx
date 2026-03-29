@@ -65,7 +65,7 @@ export default function AdminAuditLogsPage() {
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
+                    <h1 className="text-2xl font-bold text-emerald-600 dark:text-white flex items-center gap-2">
                         <FiShield className="text-emerald-600" /> سجل الرقابة والأنشطة
                     </h1>
                     <p className="text-text-muted text-sm mt-1">تتبع جميع الحركات الحساسة التي تمت على المنصة</p>
@@ -141,7 +141,7 @@ export default function AdminAuditLogsPage() {
                                         )}
                                     </td>
                                     <td className="px-5 py-4">
-                                        <div className="text-[11px] text-ink dark:text-gray-300 max-w-xs truncate">
+                                        <div className="text-[11px] text-emerald-600 dark:text-gray-300 max-w-xs truncate">
                                             {log.details ? JSON.stringify(log.details) : '—'}
                                         </div>
                                     </td>

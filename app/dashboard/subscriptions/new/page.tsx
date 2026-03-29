@@ -162,7 +162,7 @@ export default function NewSubscriptionPlanPage() {
                             <button
                                 type="button"
                                 onClick={addFeature}
-                                className="mt-2 flex items-center gap-2 text-ink hover:text-indigo-700 text-sm font-medium"
+                                className="mt-2 flex items-center gap-2 text-emerald-600 hover:text-indigo-700 text-sm font-medium"
                             >
                                 <FiPlus size={16} />
                                 إضافة ميزة
@@ -174,7 +174,7 @@ export default function NewSubscriptionPlanPage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="flex-1 px-6 py-3 bg-ink text-white rounded-lg hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex-1 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {loading ? 'جاري الإنشاء...' : 'إنشاء الخطة'}
                             </button>

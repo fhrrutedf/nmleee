@@ -174,7 +174,7 @@ export default function UsersManagement() {
     const planBadge = (planType?: string) => {
         switch (planType) {
             case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-emerald-600-50 text-emerald-600-600 dark:bg-blue-900/20 dark:text-blue-400">🚀 GROWTH</span>;
-            case 'PRO': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-purple-50 text-ink dark:bg-purple-900/20 dark:text-purple-400">👑 PRO</span>;
+            case 'PRO': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-purple-50 text-emerald-600 dark:bg-purple-900/20 dark:text-purple-400">👑 PRO</span>;
             default: return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400">🆓 FREE</span>;
         }
     };
@@ -185,7 +185,7 @@ export default function UsersManagement() {
             {/* Header */}
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="text-3xl md:text-4xl font-bold text-ink dark:text-white mb-2 tracking-tight flex items-center gap-3">
+                    <h1 className="text-3xl md:text-4xl font-bold text-emerald-600 dark:text-white mb-2 tracking-tight flex items-center gap-3">
                         <div className="w-12 h-12 rounded-xl bg-emerald-600/10 text-emerald-600 flex items-center justify-center">
                             <FiUsers />
                         </div>
@@ -197,14 +197,14 @@ export default function UsersManagement() {
                 </div>
 
                 {/* Quick Stats */}
-                <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
+                <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
                     <div className="px-5 py-3 flex flex-col items-center">
                         <span className="text-gray-400 text-xs">إجمالي</span>
-                        <span className="text-ink dark:text-white text-lg">{stats.totalUsers}</span>
+                        <span className="text-emerald-600 dark:text-white text-lg">{stats.totalUsers}</span>
                     </div>
                     <div className="px-5 py-3 flex flex-col items-center">
                         <span className="text-purple-500 text-xs">بائع نشط</span>
-                        <span className="text-ink dark:text-purple-400 text-lg">{stats.activeSellers}</span>
+                        <span className="text-emerald-600 dark:text-purple-400 text-lg">{stats.activeSellers}</span>
                     </div>
                     <div className="px-5 py-3 flex flex-col items-center">
                         <span className="text-green-500 text-xs">عميل</span>
@@ -235,7 +235,7 @@ export default function UsersManagement() {
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
-                className="bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col min-h-[500px]"
+                className="bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-lg shadow-emerald-600/20 overflow-hidden flex flex-col min-h-[500px]"
             >
                 {/* Controls Bar */}
                 <div className="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/20 flex flex-col lg:flex-row gap-4 justify-between items-center">
@@ -247,7 +247,7 @@ export default function UsersManagement() {
                             placeholder="ابحث بالاسم أو البريد الإلكتروني..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-emerald-600 transition-all text-ink dark:text-white"
+                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-emerald-600 transition-all text-emerald-600 dark:text-white"
                         />
                         <button type="submit" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-emerald-600 transition-colors">
                             <FiSearch size={18} />
@@ -262,7 +262,7 @@ export default function UsersManagement() {
                             <select
                                 value={roleFilter}
                                 onChange={(e) => { setRoleFilter(e.target.value); setPage(1); }}
-                                className="bg-transparent border-none focus:outline-none text-ink dark:text-white cursor-pointer pr-4"
+                                className="bg-transparent border-none focus:outline-none text-emerald-600 dark:text-white cursor-pointer pr-4"
                             >
                                 <option value="ALL">الجميع</option>
                                 <option value="SELLER">البائعين</option>
@@ -339,7 +339,7 @@ export default function UsersManagement() {
                                             </td>
                                             <td className="py-4 px-6">
                                                 <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-[11px] font-bold tracking-widest uppercase ${user.role === 'ADMIN' ? 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400' :
-                                                    user.role === 'SELLER' ? 'bg-purple-50 text-ink dark:bg-purple-900/20 dark:text-purple-400' :
+                                                    user.role === 'SELLER' ? 'bg-purple-50 text-emerald-600 dark:bg-purple-900/20 dark:text-purple-400' :
                                                         'bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400'
                                                     }`}>
                                                     {user.role === 'ADMIN' && <FiShield size={10} />}
@@ -442,8 +442,8 @@ export default function UsersManagement() {
         {/* Plan Management Modal */}
         {planModal && (
             <div className="fixed inset-0 bg-black/50  z-50 flex items-center justify-center p-4" onClick={() => setPlanModal(null)}>
-                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm max-w-md w-full p-8" onClick={e => e.stopPropagation()}>
-                    <h3 className="text-xl font-bold text-ink dark:text-white mb-2 flex items-center gap-2">
+                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg shadow-emerald-600/20 max-w-md w-full p-8" onClick={e => e.stopPropagation()}>
+                    <h3 className="text-xl font-bold text-emerald-600 dark:text-white mb-2 flex items-center gap-2">
                         <FiAward className="text-purple-500" /> إدارة باقة المستخدم
                     </h3>
                     <p className="text-sm text-gray-500 mb-6">{planModal.userName} — الباقة الحالية: <strong>{planModal.currentPlan}</strong></p>
@@ -483,7 +483,7 @@ export default function UsersManagement() {
                         <button
                             onClick={savePlan}
                             disabled={savingPlan || selectedPlan === planModal.currentPlan}
-                            className="flex-1 bg-ink text-white py-3 rounded-xl font-bold text-sm hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex-1 bg-emerald-600 text-white py-3 rounded-xl font-bold text-sm hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {savingPlan ? 'جاري الحفظ...' : 'تحديث الباقة'}
                         </button>

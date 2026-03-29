@@ -176,10 +176,10 @@ export default function FileUploader({
                     }`}
             >
                 <input {...getInputProps()} />
-                <div className="w-10 h-10 sm:w-14 sm:h-14 bg-white dark:bg-bg-light shadow-sm rounded-xl flex items-center justify-center mb-2 sm:mb-3 shrink-0">
+                <div className="w-10 h-10 sm:w-14 sm:h-14 bg-white dark:bg-bg-light shadow-lg shadow-emerald-600/20 rounded-xl flex items-center justify-center mb-2 sm:mb-3 shrink-0">
                     <FiUploadCloud className="text-xl sm:text-2xl text-emerald-600" />
                 </div>
-                <h4 className="text-sm sm:text-base font-bold text-ink dark:text-white mb-1 text-center w-full">
+                <h4 className="text-sm sm:text-base font-bold text-emerald-600 dark:text-white mb-1 text-center w-full">
                     {isDragActive ? "أفلت الملفات هنا..." : "اسحب وأفلت أو اضغط للاختيار"}
                 </h4>
                 <p className="text-xs sm:text-sm text-text-muted text-center w-full px-2">
@@ -216,7 +216,7 @@ export default function FileUploader({
                             key={index}
                             dir="rtl"
                             style={{ position: 'relative', overflow: 'hidden', width: '100%', display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', background: 'var(--card-white)', borderRadius: '12px', border: '1px solid #f3f4f6' }}
-                            className="shadow-sm dark:border-gray-800"
+                            className="shadow-lg shadow-emerald-600/20 dark:border-gray-800"
                         >
                             {/* Progress Background */}
                             {upload.status === "uploading" && (

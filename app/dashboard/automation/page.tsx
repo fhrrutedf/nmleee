@@ -73,7 +73,7 @@ export default function AutomationPage() {
                 {/* Automation Toggles */}
                 <div className="lg:col-span-2 space-y-6">
                     {/* Welcome Email */}
-                    <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm">
+                    <section className="bg-white dark:bg-emerald-600/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20">
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
                                 <div className="p-2.5 bg-sky-100 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400 rounded-xl">
@@ -121,7 +121,7 @@ export default function AutomationPage() {
                     </section>
 
                     {/* Abandoned Cart Engine */}
-                    <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm overflow-hidden relative">
+                    <section className="bg-white dark:bg-emerald-600/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20 overflow-hidden relative">
                         <div className="absolute top-4 left-4">
                              <div className="flex items-center gap-1.5 bg-blue-100 dark:bg-emerald-600/20 text-emerald-600 dark:text-amber-400 px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-wider">
                                 <FiZap />
@@ -203,7 +203,7 @@ export default function AutomationPage() {
                     </section>
 
                     {/* Inactive User Recovery (Phase 7) */}
-                    <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm overflow-hidden relative">
+                    <section className="bg-white dark:bg-emerald-600/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20 overflow-hidden relative">
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
                                 <div className="p-2.5 bg-blue-100 dark:bg-emerald-600-500/20 text-emerald-600-600 dark:text-blue-400 rounded-xl">
@@ -279,7 +279,7 @@ export default function AutomationPage() {
 
                 {/* Live Activity Feed (Abandoned Carts) */}
                 <div className="space-y-6">
-                    <section className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-sm h-full flex flex-col">
+                    <section className="bg-emerald-600 border border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20 h-full flex flex-col">
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="font-bold text-white flex items-center gap-2">
                                 <FiClock className="text-orange-500" />
@@ -296,14 +296,14 @@ export default function AutomationPage() {
                                 </div>
                             ) : (
                                 carts.map((cart: any) => (
-                                    <div key={cart.id} className="bg-slate-800/50 border border-slate-700 p-3.5 rounded-xl hover:bg-slate-800 transition-colors group">
+                                    <div key={cart.id} className="bg-slate-800/50 border border-slate-700 p-3.5 rounded-xl hover:bg-emerald-700 transition-colors group">
                                         <div className="flex justify-between items-start mb-2">
                                             <span className="font-bold text-xs text-white truncate max-w-[140px]">{cart.customerEmail}</span>
                                             <span className="text-[10px] text-slate-500">{new Date(cart.createdAt).toLocaleDateString('ar-EG', { day: '2-digit', month: 'short' })}</span>
                                         </div>
                                         <p className="text-[10px] text-slate-400 mb-3 truncate leading-relaxed">🏷️ {cart.productNames.join(', ')}</p>
                                         <div className="flex items-center justify-between gap-2 border-t border-slate-700/50 pt-2.5 mt-2.5">
-                                            <div className="flex items-center gap-1.5 bg-slate-900 px-2 py-0.5 rounded-lg border border-slate-700">
+                                            <div className="flex items-center gap-1.5 bg-emerald-600 px-2 py-0.5 rounded-lg border border-slate-700">
                                                 <span className="text-xs font-bold text-white">${cart.totalAmount.toFixed(2)}</span>
                                             </div>
                                             {cart.isConverted ? (

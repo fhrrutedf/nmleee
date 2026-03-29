@@ -104,7 +104,7 @@ export default function DashboardLayout({
             {sidebarOpen && (
                 <motion.div
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    className="fixed inset-0 bg-ink/60  z-40 lg:hidden"
+                    className="fixed inset-0 bg-emerald-600/60  z-40 lg:hidden"
                     onClick={() => setSidebarOpen(false)}
                 />
             )}
@@ -115,18 +115,18 @@ export default function DashboardLayout({
                     <>
                         <motion.div
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-ink/60  z-[60] lg:hidden"
+                            className="fixed inset-0 bg-emerald-600/60  z-[60] lg:hidden"
                             onClick={() => setSidebarOpen(false)}
                         />
                         <motion.aside
                             initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
                             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                            className="fixed inset-y-0 right-0 w-72 bg-white z-[70] lg:hidden flex flex-col shadow-sm"
+                            className="fixed inset-y-0 right-0 w-72 bg-white z-[70] lg:hidden flex flex-col shadow-lg shadow-emerald-600/20"
                         >
                             <div className="p-8 border-b border-gray-100 flex items-center justify-between">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-lg bg-ink text-white flex items-center justify-center font-bold text-sm">ت</div>
-                                    <span className="font-bold text-ink">تمالين</span>
+                                    <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">ت</div>
+                                    <span className="font-bold text-emerald-600">تمالين</span>
                                 </div>
                                 <button onClick={() => setSidebarOpen(false)} className="p-2 bg-gray-50 rounded-lg text-gray-400">
                                     <FiX size={20} />
@@ -140,8 +140,8 @@ export default function DashboardLayout({
                                     const active = isActive || isHome;
                                     return (
                                         <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
-                                            className={`flex items-center gap-4 px-5 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-ink text-white shadow-sm shadow-ink/20' : 'text-gray-400 hover:bg-gray-50 hover:text-ink'}`}>
-                                            <item.icon size={18} className={`${active ? 'text-emerald-600' : 'group-hover:text-ink'}`} />
+                                            className={`flex items-center gap-4 px-5 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20 shadow-ink/20' : 'text-gray-400 hover:bg-gray-50 hover:text-emerald-600'}`}>
+                                            <item.icon size={18} className={`${active ? 'text-emerald-600' : 'group-hover:text-emerald-600'}`} />
                                             <span className="text-xs font-bold tracking-tight flex-1 text-right">{item.label}</span>
                                         </Link>
                                     );
@@ -165,18 +165,18 @@ export default function DashboardLayout({
             <aside className="hidden lg:flex fixed inset-y-0 right-0 bg-white border-l border-gray-100 z-50 w-72 flex-col">
                 <div className="p-10">
                     <div className="flex items-center gap-3 mb-10">
-                         <div className="w-10 h-10 rounded-xl bg-ink text-white flex items-center justify-center font-bold text-xl shadow-sm shadow-ink/20">ت</div>
-                         <h1 className="text-xl font-bold text-ink tracking-tighter">تمالين</h1>
+                         <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-emerald-600/20 shadow-ink/20">ت</div>
+                         <h1 className="text-xl font-bold text-emerald-600 tracking-tighter">تمالين</h1>
                     </div>
                     
                     <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em] mb-4 bg-gray-50 px-3 py-1.5 rounded-lg inline-block">{session.user?.name}</p>
                     
                     {/* Professional Workspace Switcher */}
                     <div className="bg-gray-50 p-1 rounded-[1.25rem] border border-gray-100 flex">
-                        <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all ${workspace === 'store' ? 'bg-white text-ink shadow-sm shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-ink'}`}>
+                        <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all ${workspace === 'store' ? 'bg-white text-emerald-600 shadow-lg shadow-emerald-600/20 shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-emerald-600'}`}>
                              المتجر
                         </button>
-                        <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all ${workspace === 'academy' ? 'bg-white text-ink shadow-sm shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-ink'}`}>
+                        <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all ${workspace === 'academy' ? 'bg-white text-emerald-600 shadow-lg shadow-emerald-600/20 shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-emerald-600'}`}>
                              الأكاديمية
                         </button>
                     </div>
@@ -189,8 +189,8 @@ export default function DashboardLayout({
                         const active = isActive || isHome;
                         return (
                             <Link key={item.href} href={item.href}
-                                className={`flex items-center gap-4 px-6 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-ink text-white shadow-sm shadow-ink/20 transform -translate-y-0.5' : 'text-gray-400 hover:bg-gray-50 hover:text-ink'}`}>
-                                <item.icon size={18} className={`transition-transform duration-500 ${active ? 'text-emerald-600' : 'group-hover:scale-110 group-hover:text-ink'}`} />
+                                className={`flex items-center gap-4 px-6 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20 shadow-ink/20 transform -translate-y-0.5' : 'text-gray-400 hover:bg-gray-50 hover:text-emerald-600'}`}>
+                                <item.icon size={18} className={`transition-transform duration-500 ${active ? 'text-emerald-600' : 'group-hover:scale-110 group-hover:text-emerald-600'}`} />
                                 <span className={`text-xs font-bold tracking-tight flex-1 text-right ${active ? 'text-white' : ''}`}>{item.label}</span>
                             </Link>
                         );
@@ -211,7 +211,7 @@ export default function DashboardLayout({
             <div className="lg:mr-72 min-h-screen relative flex flex-col min-w-0">
                 <header className="bg-white/90  border-b border-gray-50 sticky top-0 z-30 w-full transition-all">
                     <div className="px-8 h-20 flex items-center justify-between">
-                        <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-ink p-3 bg-gray-50 rounded-xl hover:bg-gray-100">
+                        <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-emerald-600 p-3 bg-gray-50 rounded-xl hover:bg-gray-100">
                             <FiMenu size={22} />
                         </button>
 
@@ -220,7 +220,7 @@ export default function DashboardLayout({
                             <Link
                                 href={`/${(session.user as any)?.username}`}
                                 target="_blank"
-                                className="hidden sm:flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-ink px-6 py-3 border border-gray-100 rounded-xl transition-all bg-white hover:shadow-sm hover:shadow-gray-100/50"
+                                className="hidden sm:flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-emerald-600 px-6 py-3 border border-gray-100 rounded-xl transition-all bg-white hover:shadow-lg shadow-emerald-600/20 hover:shadow-gray-100/50"
                             >
                                 <FiExternalLink size={14} className="text-emerald-600" />
                                 <span>Preview Store</span>

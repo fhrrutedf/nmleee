@@ -125,7 +125,7 @@ export default function AdminBroadcastPage() {
                     <span className="inline-flex items-center gap-2 bg-emerald-600-50 text-emerald-600 px-3 py-1 rounded-xl text-sm font-bold border border-blue-100">
                         <FiTarget /> نظام التواصل الجماعي
                     </span>
-                    <h1 className="text-4xl font-bold text-ink">البث الجماعي وخدمة الإشعارات</h1>
+                    <h1 className="text-4xl font-bold text-emerald-600">البث الجماعي وخدمة الإشعارات</h1>
                     <p className="text-text-muted font-medium text-lg">أداة احترافية لإرسال رسائل الإيميل والإشعارات لآلاف المستخدمين بضغطة واحدة.</p>
                 </div>
                 <div className="flex gap-4">
@@ -141,7 +141,7 @@ export default function AdminBroadcastPage() {
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
+                        className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 overflow-hidden"
                     >
                         <div className="p-8 border-b border-gray-50 flex items-center justify-between">
                             <h2 className="text-xl font-bold flex items-center gap-2">
@@ -219,7 +219,7 @@ export default function AdminBroadcastPage() {
                                         <button 
                                             type="submit"
                                             disabled={submitting}
-                                            className="flex-[2] bg-emerald-600 hover:bg-ink text-white font-bold py-4 rounded-xl shadow-sm shadow-accent/30 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                                            className="flex-[2] bg-emerald-600 hover:bg-emerald-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-emerald-600/20 shadow-accent/30 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
                                         >
                                             {submitting ? <FiLoader className="animate-spin text-xl" /> : <FiSend className="text-lg" />}
                                             {submitting ? 'جاري الجدولة...' : 'إرسال البث الآن'}
@@ -233,11 +233,11 @@ export default function AdminBroadcastPage() {
                                         <label className="text-sm font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
                                             <FiSmartphone /> معاينة الجوال (Live)
                                         </label>
-                                        <div className="relative mx-auto w-[300px] h-[580px] bg-slate-100 rounded-xl border-[10px] border-slate-900 shadow-sm overflow-hidden">
+                                        <div className="relative mx-auto w-[300px] h-[580px] bg-slate-100 rounded-xl border-[10px] border-slate-900 shadow-lg shadow-emerald-600/20 overflow-hidden">
                                             {/* Screen Content */}
                                             <div className="h-full flex flex-col bg-white">
                                                 {/* Phone Status Bar */}
-                                                <div className="h-6 bg-slate-900 flex justify-between px-6 pt-1">
+                                                <div className="h-6 bg-emerald-600 flex justify-between px-6 pt-1">
                                                     <span className="text-[10px] text-white">9:41</span>
                                                     <div className="flex gap-1 items-center">
                                                         <div className="w-2 h-2 bg-white rounded-xl opacity-50" />
@@ -256,7 +256,7 @@ export default function AdminBroadcastPage() {
                                                 </div>
                                                 {/* Email Body Template */}
                                                 <div className="flex-1 overflow-y-auto bg-gray-50 p-2">
-                                                    <div className="bg-white rounded-lg shadow-sm overflow-hidden border">
+                                                    <div className="bg-white rounded-lg shadow-lg shadow-emerald-600/20 overflow-hidden border">
                                                         <div className="p-4 bg-emerald-600-600 text-center">
                                                             <div className="text-white font-bold text-xs tracking-widest">TAMLEEN</div>
                                                         </div>
@@ -272,7 +272,7 @@ export default function AdminBroadcastPage() {
                                                 </div>
                                             </div>
                                             {/* Home Indicator */}
-                                            <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-24 h-1 bg-slate-900 rounded-xl opacity-20" />
+                                            <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-24 h-1 bg-emerald-600 rounded-xl opacity-20" />
                                         </div>
                                     </div>
                                 </div>
@@ -284,7 +284,7 @@ export default function AdminBroadcastPage() {
                 {/* Tracking & Quick Stats */}
                 <div className="space-y-8">
                     {/* Stats Card */}
-                    <div className="bg-ink rounded-xl p-8 text-white shadow-sm relative overflow-hidden">
+                    <div className="bg-emerald-600 rounded-xl p-8 text-white shadow-lg shadow-emerald-600/20 relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-[100px]" />
                         <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
                             <FiSearch className="text-blue-400" /> لمحة سريعة
@@ -310,7 +310,7 @@ export default function AdminBroadcastPage() {
                     </div>
 
                     {/* Job Log */}
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 overflow-hidden">
                         <div className="p-6 border-b border-gray-50 bg-gray-50/50">
                             <h3 className="font-bold flex items-center gap-2">
                                 <FiClock className="text-red-500" /> سجل العمليات الأخيرة

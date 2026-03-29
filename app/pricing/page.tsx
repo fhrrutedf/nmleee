@@ -18,7 +18,7 @@ const plans = [
         storage: '1 جيجابايت',
         students: '100 طالب',
         border: 'border-gray-100',
-        btnClass: 'bg-gray-100 text-ink hover:bg-gray-200',
+        btnClass: 'bg-gray-100 text-emerald-600 hover:bg-gray-200',
         popular: false,
         features: [
             '5 منتجات رقمية نشطة',
@@ -48,7 +48,7 @@ const plans = [
         storage: '15 جيجابايت',
         students: '1000 طالب',
         border: 'border-emerald-600/40',
-        btnClass: 'bg-emerald-600 text-white hover:bg-black shadow-sm shadow-accent/20',
+        btnClass: 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 shadow-accent/20',
         popular: true,
         features: [
             'أقل عمولة منصة (5% فقط)',
@@ -79,7 +79,7 @@ const plans = [
         storage: '100 جيجابايت',
         students: 'غير محدود',
         border: 'border-ink/20',
-        btnClass: 'bg-ink text-white hover:bg-black shadow-sm shadow-ink/10',
+        btnClass: 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 shadow-ink/10',
         popular: false,
         features: [
             'عمولة بيع رمزية (2.5%)',
@@ -107,7 +107,7 @@ const plans = [
         storage: '+1 تيرابايت',
         students: 'غير محدود',
         border: 'border-gray-100',
-        btnClass: 'bg-white text-ink border border-gray-200 hover:border-ink',
+        btnClass: 'bg-white text-emerald-600 border border-gray-200 hover:border-ink',
         popular: false,
         features: [
             'بدون أي عمولة بيع (0% Commission)',
@@ -132,14 +132,14 @@ export default function PricingPage() {
     return (
         <div className="min-h-screen bg-white selection:bg-emerald-600/20" dir="rtl">
             {/* Minimalist Professional Header */}
-            <section className="relative py-24 md:py-32 bg-ink text-white overflow-hidden border-b border-white/5">
+            <section className="relative py-24 md:py-32 bg-emerald-600 text-white overflow-hidden border-b border-white/5">
                 <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-600/10 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
                 
                 <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-emerald-600 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 shadow-sm"
+                        className="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-emerald-600 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 shadow-lg shadow-emerald-600/20"
                     >
                         <FiZap size={14} /> خطط مالية مصممة لزيادة المبيعات
                     </motion.div>
@@ -167,16 +167,16 @@ export default function PricingPage() {
                         <div className="flex items-center gap-2 p-1.5 bg-white/5 border border-white/10 rounded-[1.5rem] w-fit">
                             <button
                                 onClick={() => setIsYearly(false)}
-                                className={`px-12 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all ${!isYearly ? 'bg-white text-ink shadow-sm' : 'text-gray-400 hover:text-white'}`}
+                                className={`px-12 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all ${!isYearly ? 'bg-white text-emerald-600 shadow-lg shadow-emerald-600/20' : 'text-gray-400 hover:text-white'}`}
                             >
                                 monthly
                             </button>
                             <button
                                 onClick={() => setIsYearly(true)}
-                                className={`px-12 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all relative ${isYearly ? 'bg-white text-ink shadow-sm' : 'text-gray-400 hover:text-white'}`}
+                                className={`px-12 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all relative ${isYearly ? 'bg-white text-emerald-600 shadow-lg shadow-emerald-600/20' : 'text-gray-400 hover:text-white'}`}
                             >
                                 yearly
-                                <span className="absolute -top-4 -left-4 bg-emerald-600 text-white text-[9px] px-3 py-1 rounded-xl font-bold uppercase tracking-widest shadow-sm ">
+                                <span className="absolute -top-4 -left-4 bg-emerald-600 text-white text-[9px] px-3 py-1 rounded-xl font-bold uppercase tracking-widest shadow-lg shadow-emerald-600/20 ">
                                     -20%
                                 </span>
                             </button>
@@ -189,7 +189,7 @@ export default function PricingPage() {
             <section className="py-20 bg-gray-50/50 border-b border-gray-100">
                 <div className="max-w-4xl mx-auto px-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                        <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm shadow-gray-200/50">
+                        <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-lg shadow-emerald-600/20 shadow-gray-200/50">
                              <div className="flex items-center gap-3 text-red-500 font-bold text-[10px] uppercase tracking-widest mb-6">
                                 <FiX className="text-lg" /> المنصات التقليدية
                              </div>
@@ -199,7 +199,7 @@ export default function PricingPage() {
                                 <div className="flex justify-between items-center text-sm font-bold text-gray-400 italic"><span>البيانات:</span> <span className="line-through">مخفية عنك</span></div>
                              </div>
                         </div>
-                        <div className="bg-ink p-8 rounded-[2rem] border border-emerald-600/20 shadow-sm shadow-accent/10 transform md:scale-110">
+                        <div className="bg-emerald-600 p-8 rounded-[2rem] border border-emerald-600/20 shadow-lg shadow-emerald-600/20 shadow-accent/10 transform md:scale-110">
                              <div className="flex items-center gap-3 text-emerald-600 font-bold text-[10px] uppercase tracking-widest mb-6">
                                 <FiCheckCircle className="text-lg" /> بيئة تمالين الاستثمارية
                              </div>
@@ -222,12 +222,12 @@ export default function PricingPage() {
                             initial={{ opacity: 0, y: 40 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.1 }}
-                            className={`group relative bg-white rounded-[2.5rem] border ${plan.border} p-10 flex flex-col transition-all duration-500 hover:shadow-sm hover:shadow-gray-200/50 
-                                ${plan.popular ? 'lg:scale-[1.08] lg:-translate-y-2 z-20 shadow-sm shadow-accent/5 ring-4 ring-accent/5' : 'shadow-sm'}`}
+                            className={`group relative bg-white rounded-[2.5rem] border ${plan.border} p-10 flex flex-col transition-all duration-500 hover:shadow-lg shadow-emerald-600/20 hover:shadow-gray-200/50 
+                                ${plan.popular ? 'lg:scale-[1.08] lg:-translate-y-2 z-20 shadow-lg shadow-emerald-600/20 shadow-accent/5 ring-4 ring-accent/5' : 'shadow-lg shadow-emerald-600/20'}`}
                         >
                              <div className="mb-8 h-8">
                                 {plan.popular && (
-                                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] px-5 py-2 rounded-xl bg-emerald-600 text-white shadow-sm shadow-accent/20">
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] px-5 py-2 rounded-xl bg-emerald-600 text-white shadow-lg shadow-emerald-600/20 shadow-accent/20">
                                         {plan.badge}
                                     </span>
                                 )}
@@ -239,13 +239,13 @@ export default function PricingPage() {
                              </div>
 
                             <div className="flex flex-col flex-1">
-                                <h3 className="text-3xl font-bold text-ink mb-2 tracking-tighter">{plan.name}</h3>
+                                <h3 className="text-3xl font-bold text-emerald-600 mb-2 tracking-tighter">{plan.name}</h3>
                                 <p className="text-gray-400 text-[11px] font-bold leading-relaxed mb-10 h-12 uppercase tracking-tight">{plan.description}</p>
 
                                 <div className="mb-10 min-h-[100px] flex flex-col justify-end">
                                     <div className="font-inter">
                                         <div className="flex items-baseline gap-1">
-                                            <span className="text-6xl font-bold text-ink tracking-tighter">
+                                            <span className="text-6xl font-bold text-emerald-600 tracking-tighter">
                                                 ${plan.custom ? 'Custom' : (isYearly ? Math.round(plan.yearlyPrice / 12) : plan.monthlyPrice)}
                                             </span>
                                             {!plan.custom && plan.monthlyPrice > 0 && <span className="text-gray-400 font-bold text-sm">/mo</span>}
@@ -266,14 +266,14 @@ export default function PricingPage() {
                                     ].map((s, idx) => (
                                         <div key={idx} className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest">
                                             <span className="text-gray-400">{s.l}</span>
-                                            <span className={s.h ? 'text-emerald-600' : 'text-ink'}>{s.v}</span>
+                                            <span className={s.h ? 'text-emerald-600' : 'text-emerald-600'}>{s.v}</span>
                                         </div>
                                     ))}
                                 </div>
 
                                 <ul className="space-y-4 mb-10 flex-1">
                                     {plan.features.map((f, idx) => (
-                                        <li key={idx} className="flex items-start gap-4 text-xs font-bold text-gray-500 group-hover:text-ink transition-colors">
+                                        <li key={idx} className="flex items-start gap-4 text-xs font-bold text-gray-500 group-hover:text-emerald-600 transition-colors">
                                             <FiCheckCircle className="text-emerald-600 mt-0.5 shrink-0" size={16} />
                                             <span className="leading-relaxed">{f}</span>
                                         </li>
@@ -299,10 +299,10 @@ export default function PricingPage() {
             </section>
 
             {/* Institutional Trust Banner */}
-            <section className="bg-ink py-32 text-white relative overflow-hidden">
+            <section className="bg-emerald-600 py-32 text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
                 <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-                    <div className="w-24 h-24 bg-emerald-600 text-white rounded-xl flex items-center justify-center mx-auto mb-10 shadow-sm shadow-accent/20 rotate-3">
+                    <div className="w-24 h-24 bg-emerald-600 text-white rounded-xl flex items-center justify-center mx-auto mb-10 shadow-lg shadow-emerald-600/20 shadow-accent/20 rotate-3">
                         <FiShield size={48} />
                     </div>
                     <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tighter">لماذا يختار المحترفون تمالين؟</h2>

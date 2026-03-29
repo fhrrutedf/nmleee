@@ -25,14 +25,14 @@ const footerLinks = {
 
 export default function Footer() {
     return (
-        <footer className="bg-ink text-white py-20 border-t border-white/5 selection:bg-emerald-600/30">
+        <footer className="bg-emerald-600 text-white py-20 border-t border-white/5 selection:bg-emerald-600/30">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
                     
                     {/* Brand Identifier */}
                     <div className="md:col-span-4 max-w-sm">
                         <div className="flex items-center gap-3 mb-8 group cursor-default">
-                             <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white text-lg font-bold shadow-sm shadow-accent/20 transition-transform group-hover:scale-110">
+                             <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white text-lg font-bold shadow-lg shadow-emerald-600/20 shadow-accent/20 transition-transform group-hover:scale-110">
                                 ت
                             </div>
                             <span className="text-2xl font-bold tracking-tighter">تمالين</span>
@@ -50,7 +50,7 @@ export default function Footer() {
                                     placeholder="Enter your email" 
                                     className="bg-transparent border-none focus:ring-0 text-xs font-bold px-3 flex-1 text-white"
                                 />
-                                <button className="px-4 py-2 bg-white text-ink text-[10px] font-bold uppercase tracking-widest rounded-lg hover:bg-emerald-600 hover:text-white transition-all">
+                                <button className="px-4 py-2 bg-white text-emerald-600 text-[10px] font-bold uppercase tracking-widest rounded-lg hover:bg-emerald-600 hover:text-white transition-all">
                                     Join
                                 </button>
                             </div>

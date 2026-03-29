@@ -108,7 +108,7 @@ export default async function CreatorProfilePage({ params }: Props) {
         return (
             <div className="min-h-screen bg-bg-light dark:bg-bg-dark flex flex-col items-center justify-center p-4 text-center">
                 <FiStar className="text-6xl text-gray-300 dark:text-gray-700 mb-6" />
-                <h1 className="text-2xl font-bold mb-4 text-ink dark:text-gray-200">
+                <h1 className="text-2xl font-bold mb-4 text-emerald-600 dark:text-gray-200">
                     لم يتم العثور على هذا المدرب/البائع أو الصفحة غير موجودة.
                 </h1>
                 <Link href="/" className="btn btn-primary mt-4">

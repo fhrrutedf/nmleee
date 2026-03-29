@@ -142,7 +142,7 @@ export default function AdminPlatformSettingsPage() {
     return (
         <div className="max-w-5xl mx-auto space-y-8 pb-20 px-4">
             {/* Header / Central Dashboard */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800">
                 <div className="flex items-center gap-5">
                     <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-emerald-600-600">
                         <FiSettings className="text-3xl" />
@@ -156,7 +156,7 @@ export default function AdminPlatformSettingsPage() {
                     <button
                         onClick={handleAuditorCheck}
                         disabled={auditing}
-                        className="bg-indigo-50 dark:bg-indigo-900/20 text-ink px-6 py-4 rounded-xl font-bold text-sm flex items-center gap-3 transition-all active:scale-95 disabled:opacity-50"
+                        className="bg-indigo-50 dark:bg-indigo-900/20 text-emerald-600 px-6 py-4 rounded-xl font-bold text-sm flex items-center gap-3 transition-all active:scale-95 disabled:opacity-50"
                     >
                         {auditing ? <div className="w-4 h-4 border-2 border-ink border-t-transparent rounded-xl animate-spin" /> : <FiZap />}
                         جرد المدفوعات (الموظف الرقمي)
@@ -164,7 +164,7 @@ export default function AdminPlatformSettingsPage() {
                     <button
                         onClick={handleSave}
                         disabled={saving}
-                        className="bg-emerald-600-600 hover:bg-ink text-white font-bold px-8 py-4 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-sm shadow-accent-500/20 disabled:opacity-50"
+                        className="bg-emerald-600-600 hover:bg-emerald-600 text-white font-bold px-8 py-4 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-lg shadow-emerald-600/20 shadow-accent-500/20 disabled:opacity-50"
                     >
                         {saving ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-xl animate-spin" /> : <FiSave />}
                         تحديث الإمبراطورية
@@ -180,7 +180,7 @@ export default function AdminPlatformSettingsPage() {
                     {/* 1. Quick Financial Actions (Panic Button & High Value Alert) */}
                     <div className="grid md:grid-cols-2 gap-6">
                         {/* Panic Button */}
-                        <div className={`p-8 rounded-xl border shadow-sm transition-all ${settings.withdrawalsEnabled ? 'bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800' : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-900/50'}`}>
+                        <div className={`p-8 rounded-xl border shadow-lg shadow-emerald-600/20 transition-all ${settings.withdrawalsEnabled ? 'bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800' : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-900/50'}`}>
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="font-bold text-gray-900 dark:text-white">تجميد السيولة (Panic Button)</h3>
                                 <label className="relative inline-flex items-center cursor-pointer">
@@ -197,7 +197,7 @@ export default function AdminPlatformSettingsPage() {
                         </div>
 
                         {/* High Value Alert Threshold */}
-                        <div className="bg-white dark:bg-gray-900 p-8 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm">
+                        <div className="bg-white dark:bg-gray-900 p-8 rounded-xl border border-gray-100 dark:border-gray-800 shadow-lg shadow-emerald-600/20">
                             <h3 className="font-bold text-gray-900 dark:text-white mb-4">حد التنبيه للعمليات الكبيرة</h3>
                             <div className="relative">
                                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-600-500 font-bold">$</span>
@@ -212,7 +212,7 @@ export default function AdminPlatformSettingsPage() {
                     </div>
 
                     {/* 2. Spaceremit Integration & Gateway Fee */}
-                    <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-8">
+                    <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 space-y-8">
                         <div className="flex items-center justify-between border-b border-gray-50 dark:border-gray-800 pb-6">
                             <div className="flex items-center gap-4">
                                 <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-emerald-600-600">
@@ -228,7 +228,7 @@ export default function AdminPlatformSettingsPage() {
                                         step="0.1"
                                         value={settings.gatewayFee}
                                         onChange={e => update('gatewayFee', parseFloat(e.target.value))}
-                                        className="w-20 bg-gray-50 dark:bg-gray-800 border-none rounded-xl px-2 py-2 font-bold text-ink text-center focus:ring-2 focus:ring-ink/20"
+                                        className="w-20 bg-gray-50 dark:bg-gray-800 border-none rounded-xl px-2 py-2 font-bold text-emerald-600 text-center focus:ring-2 focus:ring-ink/20"
                                     />
                                 </div>
                                 <label className="relative inline-flex items-center cursor-pointer">
@@ -244,7 +244,7 @@ export default function AdminPlatformSettingsPage() {
                         </div>
 
                         <div className="bg-indigo-50 dark:bg-indigo-900/10 p-6 rounded-xl border border-indigo-100 dark:border-indigo-900/30">
-                            <p className="text-xs text-ink dark:text-indigo-400 font-medium leading-relaxed">
+                            <p className="text-xs text-emerald-600 dark:text-indigo-400 font-medium leading-relaxed">
                                 💡 يتم إدارة مفاتيح الربط (API Keys) و (Merchant ID) بشكل آمن عبر متغيرات البيئة في الاستضافة (Vercel Envs). 
                                 يمكنك فقط تفعيل/تعطيل البوابة وتعديل الرسوم من هنا.
                             </p>
@@ -252,7 +252,7 @@ export default function AdminPlatformSettingsPage() {
                     </div>
 
                     {/* 3. Commissions - 4 Tiers */}
-                    <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-8">
+                    <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 space-y-8">
                         <div className="flex items-center gap-4 border-b border-gray-50 dark:border-gray-800 pb-6">
                             <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-emerald-600-600">
                                 <FiDollarSign className="text-2xl" />
@@ -262,17 +262,17 @@ export default function AdminPlatformSettingsPage() {
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                             <CommissionInput label="FREE Tier %" value={settings.commissionRate} days={settings.freeEscrowDays} onRateChange={(v: number) => update('commissionRate', v)} onDaysChange={(v: number) => update('freeEscrowDays', v)} color="text-gray-400" />
-                            <CommissionInput label="GROWTH Tier %" value={settings.growthCommissionRate} days={settings.growthEscrowDays} onRateChange={(v: number) => update('growthCommissionRate', v)} onDaysChange={(v: number) => update('growthEscrowDays', v)} color="text-ink" />
+                            <CommissionInput label="GROWTH Tier %" value={settings.growthCommissionRate} days={settings.growthEscrowDays} onRateChange={(v: number) => update('growthCommissionRate', v)} onDaysChange={(v: number) => update('growthEscrowDays', v)} color="text-emerald-600" />
                             <CommissionInput label="PRO Tier %" value={settings.proCommissionRate} days={settings.proEscrowDays} onRateChange={(v: number) => update('proCommissionRate', v)} onDaysChange={(v: number) => update('proEscrowDays', v)} color="text-emerald-600-500" />
                             <CommissionInput label="AGENCY Tier %" value={settings.agencyCommissionRate} days={settings.agencyEscrowDays} onRateChange={(v: number) => update('agencyCommissionRate', v)} onDaysChange={(v: number) => update('agencyEscrowDays', v)} color="text-emerald-600-500" />
                         </div>
                     </div>
 
                     {/* 3. Exchange Rates */}
-                    <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-8">
+                    <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 space-y-8">
                         <div className="flex items-center justify-between gap-4 border-b border-gray-50 dark:border-gray-800 pb-6">
                             <div className="flex items-center gap-4">
-                                <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl text-ink">
+                                <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl text-emerald-600">
                                     <FiGlobe className="text-2xl" />
                                 </div>
                                 <h2 className="text-xl font-bold text-gray-900 dark:text-white">أسعار الصرف المحلية ($1 =)</h2>
@@ -287,7 +287,7 @@ export default function AdminPlatformSettingsPage() {
                                         showToast.success('تم تحديث العمولات بنجاح');
                                     }
                                 }}
-                                className="text-xs font-bold text-ink hover:text-ink flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/20 px-4 py-2 rounded-xl transition-all"
+                                className="text-xs font-bold text-emerald-600 hover:text-emerald-600 flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/20 px-4 py-2 rounded-xl transition-all"
                             >
                                 <FiTrendingUp /> مزامنة عالمية
                             </button>
@@ -306,7 +306,7 @@ export default function AdminPlatformSettingsPage() {
                 <div className="lg:col-span-4 space-y-8">
                     
                     {/* Platform Wallets (Manual SY) */}
-                    <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-6">
+                    <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 space-y-6">
                         <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
                             <FiPhone className="text-emerald-600-500" /> محافظ الدفع اليدوي
                         </h3>
@@ -319,7 +319,7 @@ export default function AdminPlatformSettingsPage() {
                     </div>
 
                     {/* Social Media */}
-                    <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-6">
+                    <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 space-y-6">
                         <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
                             <FiShare2 className="text-pink-500" /> التواصل الاجتماعي
                         </h3>

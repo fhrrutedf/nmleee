@@ -171,7 +171,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
                                             onChange={(e) => updateOption(qIndex, oIndex, e.target.value)}
                                             placeholder={`الخيار ${oIndex + 1}`}
                                             disabled={question.type === 'true-false'}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ink disabled:bg-gray-50 text-sm shadow-sm transition-shadow"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ink disabled:bg-gray-50 text-sm shadow-lg shadow-emerald-600/20 transition-shadow"
                                         />
                                     </div>
 
@@ -195,7 +195,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
                             <button
                                 type="button"
                                 onClick={() => addOption(qIndex)}
-                                className="mt-4 flex items-center gap-2 text-ink hover:text-indigo-700 text-sm font-bold bg-indigo-50/50 hover:bg-indigo-50 px-4 py-2 rounded-lg transition-colors"
+                                className="mt-4 flex items-center gap-2 text-emerald-600 hover:text-indigo-700 text-sm font-bold bg-indigo-50/50 hover:bg-indigo-50 px-4 py-2 rounded-lg transition-colors"
                             >
                                 <FiPlus size={18} />
                                 إضافة خيار
@@ -205,7 +205,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
 
                     {/* Correct Answer Indicator */}
                     <div className="text-sm font-bold text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100 flex items-center gap-2">
-                        <span className="text-ink">الإجابة الصحيحة:</span>{' '}
+                        <span className="text-emerald-600">الإجابة الصحيحة:</span>{' '}
                         {question.type === 'true-false'
                             ? question.correctAnswer
                                 ? 'صحيح'
@@ -219,7 +219,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
             <button
                 type="button"
                 onClick={addQuestion}
-                className="w-full flex items-center justify-center gap-2 px-6 py-4 border-2 border-dashed border-gray-300 text-gray-600 font-bold rounded-xl hover:bg-indigo-50 hover:border-indigo-400 hover:text-indigo-700 transition-all shadow-sm"
+                className="w-full flex items-center justify-center gap-2 px-6 py-4 border-2 border-dashed border-gray-300 text-gray-600 font-bold rounded-xl hover:bg-indigo-50 hover:border-indigo-400 hover:text-indigo-700 transition-all shadow-lg shadow-emerald-600/20"
             >
                 <FiPlus size={22} />
                 إضافة سؤال جديد

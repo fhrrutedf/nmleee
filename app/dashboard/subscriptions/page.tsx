@@ -88,7 +88,7 @@ export default function SubscriptionsPage() {
                     </div>
                     <button
                         onClick={() => router.push('/dashboard/subscriptions/new')}
-                        className="flex items-center gap-2 px-4 py-2 bg-ink text-white rounded-lg hover:bg-black transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
                     >
                         <FiPlus />
                         خطة جديدة
@@ -107,7 +107,7 @@ export default function SubscriptionsPage() {
                         </p>
                         <button
                             onClick={() => router.push('/dashboard/subscriptions/new')}
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-ink text-white rounded-lg hover:bg-black transition-colors"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
                         >
                             <FiPlus />
                             إنشاء خطة جديدة
@@ -118,7 +118,7 @@ export default function SubscriptionsPage() {
                         {plans.map((plan) => (
                             <div
                                 key={plan.id}
-                                className="bg-white rounded-lg shadow-md p-6 hover:shadow-sm transition-shadow"
+                                className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg shadow-emerald-600/20 transition-shadow"
                             >
                                 {/* Plan Header */}
                                 <div className="flex justify-between items-start mb-4">
@@ -139,7 +139,7 @@ export default function SubscriptionsPage() {
                                 {/* Price */}
                                 <div className="mb-4">
                                     <div className="flex items-baseline gap-2">
-                                        <span className="text-3xl font-bold text-ink">
+                                        <span className="text-3xl font-bold text-emerald-600">
                                             {plan.price} $
                                         </span>
                                         <span className="text-gray-600">
@@ -169,7 +169,7 @@ export default function SubscriptionsPage() {
                                 {/* Stats */}
                                 <div className="flex items-center gap-4 mb-4 pb-4 border-b">
                                     <div className="flex items-center gap-2 text-sm text-gray-600">
-                                        <FiUsers className="text-ink" />
+                                        <FiUsers className="text-emerald-600" />
                                         <span>{plan._count.subscriptions} مشترك</span>
                                     </div>
                                 </div>

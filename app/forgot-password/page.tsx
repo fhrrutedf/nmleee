@@ -58,15 +58,15 @@ export default function ForgotPasswordPage() {
                 {/* Logo/Title */}
                 <motion.div variants={fadeInUp} className="text-center mb-10">
                     <Link href="/" className="inline-block mb-6">
-                        <div className="w-16 h-16 mx-auto rounded-xl bg-ink flex items-center justify-center text-white shadow-sm shadow-accent/20">
+                        <div className="w-16 h-16 mx-auto rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-lg shadow-emerald-600/20 shadow-accent/20">
                             <span className="text-3xl font-bold">م</span>
                         </div>
                     </Link>
-                    <h1 className="text-4xl font-bold text-ink mb-3">نسيت كلمة المرور؟</h1>
+                    <h1 className="text-4xl font-bold text-emerald-600 mb-3">نسيت كلمة المرور؟</h1>
                     <p className="text-text-muted text-lg">أدخل بريدك الإلكتروني لاستعادة الوصول لحسابك</p>
                 </motion.div>
 
-                <motion.div variants={fadeInUp} className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 sm:p-10 relative overflow-hidden">
+                <motion.div variants={fadeInUp} className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 p-8 sm:p-10 relative overflow-hidden">
                     <AnimatePresence mode="wait">
                         {status === 'success' ? (
                             <motion.div
@@ -109,7 +109,7 @@ export default function ForgotPasswordPage() {
                                     </div>
 
                                     {status === 'error' && (
-                                        <div className="p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm flex items-start gap-3 shadow-sm">
+                                        <div className="p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm flex items-start gap-3 shadow-lg shadow-emerald-600/20">
                                             <FiAlertCircle className="mt-0.5 shrink-0" />
                                             {error}
                                         </div>
@@ -118,7 +118,7 @@ export default function ForgotPasswordPage() {
                                     <button
                                         type="submit"
                                         disabled={status === 'loading'}
-                                        className="w-full btn btn-primary py-4 rounded-xl text-lg font-bold shadow-sm shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:transform-none shadow-accent/30"
+                                        className="w-full btn btn-primary py-4 rounded-xl text-lg font-bold shadow-lg shadow-emerald-600/20 shadow-accent/20 hover:shadow-accent/40 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:transform-none shadow-accent/30"
                                     >
                                         {status === 'loading' ? (
                                             <>
@@ -147,7 +147,7 @@ export default function ForgotPasswordPage() {
 
                 {/* Back Link */}
                 <motion.div variants={fadeInUp} className="text-center mt-8">
-                    <Link href="/" className="text-text-muted hover:text-ink transition-colors text-sm font-medium flex items-center justify-center gap-2 group">
+                    <Link href="/" className="text-text-muted hover:text-emerald-600 transition-colors text-sm font-medium flex items-center justify-center gap-2 group">
                         <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                         العودة للمنصة الرئيسية
                     </Link>

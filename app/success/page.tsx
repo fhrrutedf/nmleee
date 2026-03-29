@@ -75,8 +75,8 @@ function SuccessContent() {
     if (!order) {
         return (
             <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
-                <h1 className="text-2xl font-bold mb-4 text-ink">طلب غير موجود</h1>
-                <Link href="/" className="px-8 py-3 bg-ink text-white rounded-xl font-bold">العودة للرئيسية</Link>
+                <h1 className="text-2xl font-bold mb-4 text-emerald-600">طلب غير موجود</h1>
+                <Link href="/" className="px-8 py-3 bg-emerald-600 text-white rounded-xl font-bold">العودة للرئيسية</Link>
             </div>
         )
     }
@@ -96,11 +96,11 @@ function SuccessContent() {
     return (
         <div className="min-h-screen bg-white py-12 md:py-24 selection:bg-emerald-600/20">
             <div className="max-w-5xl mx-auto px-6">
-                <div className="bg-white rounded-[2.5rem] shadow-sm shadow-gray-200/50 overflow-hidden border border-gray-100 flex flex-col">
+                <div className="bg-white rounded-[2.5rem] shadow-lg shadow-emerald-600/20 shadow-gray-200/50 overflow-hidden border border-gray-100 flex flex-col">
 
                     {/* ===== CLEAN STRATEGIC HEADER ===== */}
                     {isPending && !isPaid ? (
-                        <div className="bg-ink text-white p-16 text-center relative overflow-hidden">
+                        <div className="bg-emerald-600 text-white p-16 text-center relative overflow-hidden">
                             <div className="relative z-10">
                                 <div className="w-20 h-20 bg-surface/10 rounded-xl flex items-center justify-center mx-auto mb-8 ">
                                     <FiClock size={40} className="text-white" />
@@ -123,34 +123,34 @@ function SuccessContent() {
                                     شكراً لثقتك بنا. جميع المواد والوصول متاح لك الآن. نتمنى لك رحلة تعليمية مثمرة.
                                 </p>
                             </div>
-                            <div className="absolute inset-0 bg-ink/10 blur-[100px] pointer-events-none"></div>
+                            <div className="absolute inset-0 bg-emerald-600/10 blur-[100px] pointer-events-none"></div>
                         </div>
                     )}
 
                     <div className="grid grid-cols-1 lg:grid-cols-2">
                         {/* ===== ORDER SUMMARY RECEIPT ===== */}
                         <div className="p-10 md:p-16 border-l border-gray-50 flex flex-col">
-                            <h2 className="text-2xl font-bold text-ink mb-10 flex items-center gap-3">
-                                <span className="w-1.5 h-6 bg-ink rounded-xl"></span> تفاصيل الفاتورة
+                            <h2 className="text-2xl font-bold text-emerald-600 mb-10 flex items-center gap-3">
+                                <span className="w-1.5 h-6 bg-emerald-600 rounded-xl"></span> تفاصيل الفاتورة
                             </h2>
                             
                             <div className="bg-gray-50 rounded-xl p-8 space-y-6 mb-10 border border-gray-100">
                                 <div className="flex justify-between items-center border-b border-gray-200/50 pb-5">
                                     <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Order ID</span>
-                                    <span className="font-bold text-ink font-mono text-sm">#{order.orderNumber}</span>
+                                    <span className="font-bold text-emerald-600 font-mono text-sm">#{order.orderNumber}</span>
                                 </div>
                                 <div className="flex justify-between items-center border-b border-gray-200/50 pb-5">
                                     <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Customer</span>
-                                    <span className="font-bold text-ink text-sm">{order.customerEmail}</span>
+                                    <span className="font-bold text-emerald-600 text-sm">{order.customerEmail}</span>
                                 </div>
                                 <div className="flex justify-between items-center border-b border-gray-200/50 pb-5">
                                     <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Status</span>
-                                    <span className={`text-[10px] font-bold px-4 py-1.5 rounded-xl uppercase tracking-widest ${isPending && !isPaid ? 'bg-ink text-white' : 'bg-emerald-600 text-white'}`}>
+                                    <span className={`text-[10px] font-bold px-4 py-1.5 rounded-xl uppercase tracking-widest ${isPending && !isPaid ? 'bg-emerald-600 text-white' : 'bg-emerald-600 text-white'}`}>
                                         {isPending && !isPaid ? 'Verification' : 'Completed ✓'}
                                     </span>
                                 </div>
                                 <div className="flex justify-between items-center pt-3">
-                                    <span className="text-ink font-bold text-lg">إجمالي المبلغ:</span>
+                                    <span className="text-emerald-600 font-bold text-lg">إجمالي المبلغ:</span>
                                     <span className="font-bold text-emerald-600 text-3xl font-inter tracking-tighter">${order.totalAmount.toFixed(2)}</span>
                                 </div>
                             </div>
@@ -159,7 +159,7 @@ function SuccessContent() {
                             <div className="mb-12">
                                 {isPending && !isPaid ? (
                                     <div className="flex gap-4 p-6 bg-gray-50 rounded-xl border border-gray-100 ring-4 ring-gray-50/50">
-                                        <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-ink shrink-0">
+                                        <div className="w-10 h-10 bg-white rounded-xl shadow-lg shadow-emerald-600/20 flex items-center justify-center text-emerald-600 shrink-0">
                                             <FiLock />
                                         </div>
                                         <p className="text-sm text-gray-500 font-bold leading-relaxed">
@@ -168,10 +168,10 @@ function SuccessContent() {
                                     </div>
                                 ) : (
                                     <div className="flex gap-4 p-6 bg-emerald-600/5 rounded-xl border border-emerald-600/10 ring-4 ring-accent/5">
-                                        <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-emerald-600 shrink-0">
+                                        <div className="w-10 h-10 bg-white rounded-xl shadow-lg shadow-emerald-600/20 flex items-center justify-center text-emerald-600 shrink-0">
                                             <FiBook />
                                         </div>
-                                        <p className="text-sm text-ink font-bold leading-relaxed">
+                                        <p className="text-sm text-emerald-600 font-bold leading-relaxed">
                                             جميع المواد الرقمية متاحة الآن. يمكنك الوصول إليها من حسابك الشخصي أو عبر الروابط المرسلة لبريدك.
                                         </p>
                                     </div>
@@ -185,14 +185,14 @@ function SuccessContent() {
                                         {hasCourse && courseItem.id ? (
                                             <Link
                                                 href={sessionStatus === 'authenticated' ? `/learn/${courseItem.id}` : `/login?callbackUrl=/learn/${courseItem.id}`}
-                                                className="flex items-center justify-center gap-3 w-full py-5 bg-ink text-white rounded-xl font-bold transition-all shadow-sm shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
+                                                className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-600 text-white rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
                                             >
                                                 دخول الأكاديمية والبدء الآن <FiExternalLink />
                                             </Link>
                                         ) : (
                                             <Link
                                                 href="/my-purchases"
-                                                className="flex items-center justify-center gap-3 w-full py-5 bg-ink text-white rounded-xl font-bold transition-all shadow-sm shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
+                                                className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-600 text-white rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
                                             >
                                                 تحميل المنتجات الرقمية <FiPackage />
                                             </Link>
@@ -201,7 +201,7 @@ function SuccessContent() {
                                 ) : (
                                     <Link
                                         href="/market"
-                                        className="flex items-center justify-center gap-3 w-full py-5 bg-ink text-white rounded-xl font-bold transition-all shadow-sm shadow-ink/10 hover:bg-gray-800"
+                                        className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-600 text-white rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 shadow-ink/10 hover:bg-gray-800"
                                     >
                                         العودة للمتجر
                                     </Link>
@@ -218,7 +218,7 @@ function SuccessContent() {
                         {/* ===== SOCIAL & SUPPORT COLUMN ===== */}
                         <div className="p-10 md:p-16 bg-gray-50/30 flex flex-col">
                             <div className="mb-12">
-                                <h3 className="text-xl font-bold text-ink mb-6 flex items-center gap-3">
+                                <h3 className="text-xl font-bold text-emerald-600 mb-6 flex items-center gap-3">
                                     <FiMessageCircle className="text-emerald-600" /> قنوات تواصل رسمية
                                 </h3>
                                 <p className="text-sm text-gray-500 font-bold mb-8 leading-relaxed">نحن معك في كل خطوة. إذا كان لديك أي استفسار حول طلبك، لا تتردد في مراسلتنا فوراً.</p>
@@ -230,13 +230,13 @@ function SuccessContent() {
                                             href={link.href}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="bg-white border border-gray-100 p-5 rounded-xl flex items-center justify-between group hover:border-emerald-600 hover:shadow-sm hover:shadow-accent/5 transition-all"
+                                            className="bg-white border border-gray-100 p-5 rounded-xl flex items-center justify-between group hover:border-emerald-600 hover:shadow-lg shadow-emerald-600/20 hover:shadow-accent/5 transition-all"
                                         >
                                             <div className="flex items-center gap-4">
-                                                <div className="w-10 h-10 bg-gray-50 text-ink rounded-xl flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                                                <div className="w-10 h-10 bg-gray-50 text-emerald-600 rounded-xl flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">
                                                     {link.icon}
                                                 </div>
-                                                <span className="font-bold text-ink text-sm">{link.label}</span>
+                                                <span className="font-bold text-emerald-600 text-sm">{link.label}</span>
                                             </div>
                                             <FiArrowLeft className="text-gray-300 group-hover:text-emerald-600 group-hover:-translate-x-1 transition-all" />
                                         </a>
@@ -262,11 +262,11 @@ function SuccessContent() {
                                                         )}
                                                     </div>
                                                     <div>
-                                                        <h4 className="font-bold text-ink text-xs line-clamp-1 group-hover:text-emerald-600 transition-colors">{upsell.title}</h4>
+                                                        <h4 className="font-bold text-emerald-600 text-xs line-clamp-1 group-hover:text-emerald-600 transition-colors">{upsell.title}</h4>
                                                         <p className="text-emerald-600 font-bold font-inter tracking-tighter mt-1">${upsell.price}</p>
                                                     </div>
                                                 </div>
-                                                <div className="w-8 h-8 rounded-lg bg-gray-50 text-ink flex items-center justify-center group-hover:bg-ink group-hover:text-white transition-all">
+                                                <div className="w-8 h-8 rounded-lg bg-gray-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">
                                                     <FiShoppingCart size={14} />
                                                 </div>
                                             </Link>
@@ -280,7 +280,7 @@ function SuccessContent() {
 
                 <div className="mt-16 text-center">
                     <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">
-                        POWERED BY <span className="text-ink">TMLEEN INFRASTRUCTURE</span>
+                        POWERED BY <span className="text-emerald-600">TMLEEN INFRASTRUCTURE</span>
                     </p>
                 </div>
             </div>

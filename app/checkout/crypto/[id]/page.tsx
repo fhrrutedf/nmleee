@@ -88,9 +88,9 @@ export default function CryptoCheckoutPage() {
     if (order.status === 'COMPLETED' || order.isPaid) {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
-                <div className="max-w-md w-full bg-white rounded-xl shadow-sm p-8 text-center border-t-8 border-green-500">
+                <div className="max-w-md w-full bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-8 text-center border-t-8 border-green-500">
                     <FiCheckCircle className="text-6xl text-green-500 mx-auto mb-4" />
-                    <h2 className="text-2xl font-bold mb-2 text-ink">تم الدفع بنجاح!</h2>
+                    <h2 className="text-2xl font-bold mb-2 text-emerald-600">تم الدفع بنجاح!</h2>
                     <p className="text-gray-600 mb-6">شكراً لك، تمت العملية بنجاح. سيتم توجيهك للمنتج...</p>
                     <button onClick={() => router.push('/dashboard/purchases')} className="btn btn-primary w-full">الانتقال للمشتريات</button>
                 </div>
@@ -104,8 +104,8 @@ export default function CryptoCheckoutPage() {
     return (
         <div className="min-h-screen bg-gray-50 py-12 px-4">
             <div className="max-w-2xl mx-auto">
-                <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
-                    <div className="bg-ink p-6 text-center text-white">
+                <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden border border-gray-100">
+                    <div className="bg-emerald-600 p-6 text-center text-white">
                         <h1 className="text-2xl font-bold mb-1">دفع العملات الرقمية</h1>
                         <p className="text-gray-300 text-sm">أرسل المبلغ بدقة إلى العنوان أدناه باستخدام شبكة TRC20</p>
                     </div>
@@ -147,7 +147,7 @@ export default function CryptoCheckoutPage() {
                                             <div>
                                                 <p className="text-sm text-gray-500 mb-1 font-medium">المبلغ المطلوب بدقة ({order.cryptoCoin}):</p>
                                                 <div className="flex items-center gap-2">
-                                                    <div className="flex-1 bg-gray-50 border border-gray-200 p-3 rounded-xl font-mono text-lg font-bold text-ink">
+                                                    <div className="flex-1 bg-gray-50 border border-gray-200 p-3 rounded-xl font-mono text-lg font-bold text-emerald-600">
                                                         {order.cryptoAmount}
                                                     </div>
                                                     <button
@@ -162,7 +162,7 @@ export default function CryptoCheckoutPage() {
                                             <div>
                                                 <p className="text-sm text-gray-500 mb-1 font-medium">عنوان المحفظة (TRC20):</p>
                                                 <div className="flex items-center gap-2">
-                                                    <div className="flex-1 bg-gray-50 border border-gray-200 p-3 rounded-xl font-mono text-sm sm:text-base break-words text-ink">
+                                                    <div className="flex-1 bg-gray-50 border border-gray-200 p-3 rounded-xl font-mono text-sm sm:text-base break-words text-emerald-600">
                                                         {order.walletAddress}
                                                     </div>
                                                     <button

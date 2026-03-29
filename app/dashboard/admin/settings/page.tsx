@@ -74,7 +74,7 @@ export default function AdminSettingsPage() {
         <div className="space-y-8 pb-32 max-w-7xl mx-auto px-4 sm:px-6" dir="rtl">
             
             {/* --- HEADER --- */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white dark:bg-card-white rounded-xl p-8 shadow-sm border border-slate-50 dark:border-gray-800 animate-in fade-in slide-in-from-top-4">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white dark:bg-card-white rounded-xl p-8 shadow-lg shadow-emerald-600/20 border border-slate-50 dark:border-gray-800 animate-in fade-in slide-in-from-top-4">
                 <div>
                     <h1 className="text-3xl font-bold text-slate-900 dark:text-white leading-tight">إعدادات المنصة المركزية ⚙️</h1>
                     <p className="text-slate-400 font-bold text-xs mt-2 uppercase tracking-widest flex items-center gap-2">
@@ -84,7 +84,7 @@ export default function AdminSettingsPage() {
                 <button 
                     onClick={handleUpdate}
                     disabled={saving}
-                    className="px-10 py-4 bg-primary-ink text-white rounded-[1.5rem] font-bold text-sm flex items-center justify-center gap-2 shadow-sm shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95 transition-all disabled:opacity-50"
+                    className="px-10 py-4 bg-emerald-600 text-white rounded-[1.5rem] font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95 transition-all disabled:opacity-50"
                 >
                     {saving ? <div className="animate-spin h-5 w-5 border-t-2 border-white rounded-xl"></div> : <FiSave size={18} />}
                     حفظ كافة التغييرات
@@ -109,7 +109,7 @@ export default function AdminSettingsPage() {
                 <AnimatePresence mode="wait">
                     {activeTab === 'commissions' && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div className="bg-white dark:bg-card-white p-8 rounded-xl border border-slate-50 shadow-sm space-y-6">
+                            <div className="bg-white dark:bg-card-white p-8 rounded-xl border border-slate-50 shadow-lg shadow-emerald-600/20 space-y-6">
                                 <h3 className="text-lg font-bold flex items-center gap-3 mb-6"><FiPercent className="text-primary-ink" /> نسب العمولات (%)</h3>
                                 <div className="space-y-4">
                                     <label className="block">
@@ -136,7 +136,7 @@ export default function AdminSettingsPage() {
                                 </div>
                             </div>
                             
-                            <div className="bg-slate-900 text-white p-8 rounded-xl shadow-sm relative overflow-hidden flex flex-col justify-center">
+                            <div className="bg-emerald-600 text-white p-8 rounded-xl shadow-lg shadow-emerald-600/20 relative overflow-hidden flex flex-col justify-center">
                                 <div className="absolute right-0 top-0 w-32 h-32 bg-white/5 rounded-xl blur-3xl"></div>
                                 <h3 className="text-lg font-bold mb-4">نصيحة المنصة 💡</h3>
                                 <p className="text-white/60 text-sm leading-relaxed font-bold">كلما قمت بتقليل عمولة المنصة للباقات الأعلى، زاد تحفيز البائعين على شحن باقاتهم الشهرية بانتظام. فكر في جعل باقة PRO بعمولة رمزية (مثل 2%) لجذب "كبار التجار".</p>
@@ -146,7 +146,7 @@ export default function AdminSettingsPage() {
 
                     {activeTab === 'escrow' && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div className="bg-white dark:bg-card-white p-8 rounded-xl border border-slate-50 shadow-sm space-y-6">
+                            <div className="bg-white dark:bg-card-white p-8 rounded-xl border border-slate-50 shadow-lg shadow-emerald-600/20 space-y-6">
                                 <h3 className="text-lg font-bold flex items-center gap-3 mb-6"><FiClock className="text-orange-500" /> فترات حجز الأموال (أيام)</h3>
                                 <div className="space-y-4">
                                     <label className="block">
@@ -171,7 +171,7 @@ export default function AdminSettingsPage() {
                     )}
 
                     {activeTab === 'currencies' && (
-                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="bg-white dark:bg-card-white p-8 rounded-xl border border-slate-50 shadow-sm max-w-2xl">
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="bg-white dark:bg-card-white p-8 rounded-xl border border-slate-50 shadow-lg shadow-emerald-600/20 max-w-2xl">
                              <h3 className="text-lg font-bold flex items-center gap-3 mb-8"><FiGlobe className="text-emerald-600-500" /> أسعار الصرف (مقابل 1 دولار $)</h3>
                              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <label className="block">
@@ -191,7 +191,7 @@ export default function AdminSettingsPage() {
                     )}
 
                     {activeTab === 'payments' && (
-                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="bg-white dark:bg-card-white p-8 rounded-xl border border-slate-50 shadow-sm">
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="bg-white dark:bg-card-white p-8 rounded-xl border border-slate-50 shadow-lg shadow-emerald-600/20">
                              <h3 className="text-lg font-bold flex items-center gap-3 mb-8"><FiCreditCard className="text-primary-ink" /> أرقام استلام المدفوعات (رسمي)</h3>
                              <div className="space-y-6 max-w-md">
                                 <label className="block">

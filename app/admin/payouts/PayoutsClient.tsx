@@ -62,7 +62,7 @@ export default function PayoutsClient({ initialPayouts }: { initialPayouts: any[
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-200 overflow-hidden">
             {/* Tabs */}
             <div className="flex border-b border-gray-100 p-2 gap-2 bg-gray-50 overflow-x-auto">
                 {['ALL', 'PENDING', 'PAID', 'REJECTED'].map((status) => (
@@ -70,7 +70,7 @@ export default function PayoutsClient({ initialPayouts }: { initialPayouts: any[
                         key={status}
                         onClick={() => setFilter(status)}
                         className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors ${filter === status
-                                ? 'bg-white text-emerald-600 shadow-sm'
+                                ? 'bg-white text-emerald-600 shadow-lg shadow-emerald-600/20'
                                 : 'text-gray-500 hover:text-gray-800 hover:bg-gray-100'
                             }`}
                     >

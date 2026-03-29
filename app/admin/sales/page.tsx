@@ -150,16 +150,16 @@ export default function AdminSalesPage() {
                 {/* Stats Cards */}
                 {stats && (
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
-                                    <FiShoppingBag className="text-ink" size={20} />
+                                    <FiShoppingBag className="text-emerald-600" size={20} />
                                 </div>
                                 <span className="text-xs text-gray-400 font-medium">إجمالي الطلبات</span>
                             </div>
                             <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalOrders}</p>
                         </div>
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
                                     <FiDollarSign className="text-emerald-600-600" size={20} />
@@ -168,7 +168,7 @@ export default function AdminSalesPage() {
                             </div>
                             <p className="text-2xl font-bold text-gray-900 dark:text-white">${stats.totalRevenue.toFixed(2)}</p>
                         </div>
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-amber-900/30 flex items-center justify-center">
                                     <FiClock className="text-emerald-600" size={20} />
@@ -177,10 +177,10 @@ export default function AdminSalesPage() {
                             </div>
                             <p className="text-2xl font-bold text-emerald-600">{stats.pendingCount}</p>
                         </div>
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
-                                    <FiUsers className="text-ink" size={20} />
+                                    <FiUsers className="text-emerald-600" size={20} />
                                 </div>
                                 <span className="text-xs text-gray-400 font-medium">عمولة المنصة</span>
                             </div>
@@ -190,7 +190,7 @@ export default function AdminSalesPage() {
                 )}
 
                 {/* Filters */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-sm">
+                <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-lg shadow-emerald-600/20">
                     <div className="flex flex-wrap gap-3 items-center">
                         {/* Search */}
                         <div className="flex-1 min-w-[200px]">
@@ -250,7 +250,7 @@ export default function AdminSalesPage() {
 
                         <button
                             onClick={handleSearch}
-                            className="px-4 py-2.5 bg-ink text-white rounded-xl text-sm font-bold hover:bg-black transition-colors flex items-center gap-1"
+                            className="px-4 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 transition-colors flex items-center gap-1"
                         >
                             <FiFilter size={14} /> بحث
                         </button>
@@ -268,7 +268,7 @@ export default function AdminSalesPage() {
                         <p className="text-gray-500 text-lg">لا توجد مبيعات</p>
                     </div>
                 ) : (
-                    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20 overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm">
                                 <thead>
@@ -291,7 +291,7 @@ export default function AdminSalesPage() {
                                         <tr key={order.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                                             {/* Order Number */}
                                             <td className="px-4 py-3">
-                                                <span className="font-mono text-xs font-bold text-ink">{order.orderNumber}</span>
+                                                <span className="font-mono text-xs font-bold text-emerald-600">{order.orderNumber}</span>
                                             </td>
 
                                             {/* Buyer */}
@@ -390,7 +390,7 @@ export default function AdminSalesPage() {
                                                         {order.invoices.map(inv => (
                                                             <span
                                                                 key={inv.id}
-                                                                className="text-[11px] font-mono text-ink hover:underline cursor-pointer block"
+                                                                className="text-[11px] font-mono text-emerald-600 hover:underline cursor-pointer block"
                                                                 onClick={() => router.push(`/admin/invoices?id=${inv.id}`)}
                                                             >
                                                                 <FiFileText className="inline ml-1" size={12} />
@@ -454,10 +454,10 @@ export default function AdminSalesPage() {
             {/* Proof Image Modal */}
             {proofImage && (
                 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" onClick={() => setProofImage(null)}>
-                    <div className="relative max-w-2xl max-h-[80vh] bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm" onClick={e => e.stopPropagation()}>
+                    <div className="relative max-w-2xl max-h-[80vh] bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg shadow-emerald-600/20" onClick={e => e.stopPropagation()}>
                         <button
                             onClick={() => setProofImage(null)}
-                            className="absolute top-3 left-3 w-8 h-8 bg-black/50 text-white rounded-xl flex items-center justify-center hover:bg-black/70 z-10"
+                            className="absolute top-3 left-3 w-8 h-8 bg-black/50 text-white rounded-xl flex items-center justify-center hover:bg-emerald-700/70 z-10"
                         >
                             <FiX size={16} />
                         </button>
@@ -467,7 +467,7 @@ export default function AdminSalesPage() {
                                 href={proofImage}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-xs text-ink hover:underline flex items-center gap-1"
+                                className="text-xs text-emerald-600 hover:underline flex items-center gap-1"
                             >
                                 <FiExternalLink size={12} /> فتح في نافذة جديدة
                             </a>

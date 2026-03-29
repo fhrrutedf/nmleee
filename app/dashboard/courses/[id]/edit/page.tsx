@@ -152,13 +152,13 @@ export default function EditCoursePage() {
         <div className="max-w-6xl mx-auto pb-40 px-4 text-right" dir="rtl">
             
             {/* --- TOP HUB HEADER --- */}
-            <div className="mb-8 bg-white rounded-xl p-8 shadow-sm border border-slate-50 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="mb-8 bg-white rounded-xl p-8 shadow-lg shadow-emerald-600/20 border border-slate-50 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div className="space-y-3">
                     <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-slate-400 hover:text-primary-ink font-bold text-xs mb-1 transition-colors">
                         <FiArrowRight /> العودة للدورات
                     </Link>
                     <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-slate-100 shadow-sm shrink-0">
+                        <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-slate-100 shadow-lg shadow-emerald-600/20 shrink-0">
                             <img src={formData.image || '/placeholder-course.png'} className="w-full h-full object-cover" alt="" />
                         </div>
                         <div>
@@ -177,14 +177,14 @@ export default function EditCoursePage() {
                 <div className="flex items-center gap-3">
                     <button 
                         onClick={() => window.open(`/courses/${formData.slug || courseId}`, '_blank')}
-                        className="flex-1 lg:flex-none px-6 py-3.5 bg-slate-900 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-sm hover:bg-black transition-all"
+                        className="flex-1 lg:flex-none px-6 py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 hover:bg-emerald-700 transition-all"
                     >
                         <FiEye /> معاينة الكورس
                     </button>
                     <button 
                         onClick={() => handleSave()}
                         disabled={saving}
-                        className="flex-1 lg:flex-none px-8 py-3.5 bg-primary-ink text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-sm shadow-primary-indigo-100 hover:bg-primary-indigo-700 transition-all disabled:opacity-50"
+                        className="flex-1 lg:flex-none px-8 py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 shadow-primary-indigo-100 hover:bg-primary-indigo-700 transition-all disabled:opacity-50"
                     >
                         <FiSave /> {saving ? 'جاري الحفظ...' : 'حفظ التعديلات'}
                     </button>
@@ -201,7 +201,7 @@ export default function EditCoursePage() {
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id as any)}
-                        className={`flex shrink-0 items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold transition-all ${activeTab === tab.id ? 'bg-white text-primary-ink shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                        className={`flex shrink-0 items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold transition-all ${activeTab === tab.id ? 'bg-white text-primary-ink shadow-lg shadow-emerald-600/20' : 'text-slate-500 hover:text-slate-700'}`}
                     >
                         {tab.icon} {tab.label}
                     </button>
@@ -252,7 +252,7 @@ export default function EditCoursePage() {
                                             <div className="flex gap-2 p-1 bg-slate-50 rounded-xl">
                                                 <button 
                                                     type="button" onClick={() => setFormData({ ...formData, currency: 'USD' })}
-                                                    className={`flex-1 py-2 rounded-lg text-[10px] font-bold transition-all ${formData.currency === 'USD' ? 'bg-primary-ink text-white shadow-md' : 'text-slate-400'}`}
+                                                    className={`flex-1 py-2 rounded-lg text-[10px] font-bold transition-all ${formData.currency === 'USD' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-400'}`}
                                                 >
                                                     دولار (USD)
                                                 </button>
@@ -285,7 +285,7 @@ export default function EditCoursePage() {
 
                                 <HubSection title="صورة الغلاف" icon={<FiImage />}>
                                     <div className="space-y-6">
-                                        <div className="aspect-video relative rounded-xl overflow-hidden border-4 border-white shadow-sm bg-slate-50 group">
+                                        <div className="aspect-video relative rounded-xl overflow-hidden border-4 border-white shadow-lg shadow-emerald-600/20 bg-slate-50 group">
                                             {formData.image ? (
                                                 <>
                                                     <img src={formData.image} className="w-full h-full object-cover" alt="" />
@@ -308,14 +308,14 @@ export default function EditCoursePage() {
 
                     {activeTab === 'curriculum' && (
                         <div className="space-y-8">
-                             <div className="flex justify-between items-center bg-white rounded-xl p-6 border border-slate-50 shadow-sm">
+                             <div className="flex justify-between items-center bg-white rounded-xl p-6 border border-slate-50 shadow-lg shadow-emerald-600/20">
                                 <div>
                                     <h2 className="text-xl font-bold text-slate-900 pr-4 border-r-4 border-primary-ink leading-none">محتويات الدورة</h2>
                                     <p className="text-[10px] text-slate-400 font-bold mt-2 pr-4">قم ببناء الفصول وإضافة الدروس والفيديوهات</p>
                                 </div>
                                 <button 
                                     onClick={() => router.push(`/dashboard/courses/${courseId}/content`)}
-                                    className="px-6 py-3 bg-subtle text-primary-ink rounded-xl font-bold text-xs hover:bg-primary-indigo-100 transition-all flex items-center gap-2 border border-primary-indigo-100 shadow-sm"
+                                    className="px-6 py-3 bg-subtle text-primary-ink rounded-xl font-bold text-xs hover:bg-primary-indigo-100 transition-all flex items-center gap-2 border border-primary-indigo-100 shadow-lg shadow-emerald-600/20"
                                 >
                                     <FiPlus /> إدارة الفصول والدروس
                                 </button>
@@ -325,15 +325,15 @@ export default function EditCoursePage() {
                                  <div className="text-center py-20 bg-white rounded-xl border-2 border-dashed border-slate-100 mt-6">
                                      <FiLayers size={48} className="mx-auto text-slate-100 mb-4" />
                                      <p className="text-slate-300 font-bold">المنهج فارغ حالياً</p>
-                                     <button onClick={() => router.push(`/dashboard/courses/${courseId}/content`)} className="mt-6 px-8 py-3 bg-slate-900 text-white rounded-xl text-xs font-bold">ابدأ الآن</button>
+                                     <button onClick={() => router.push(`/dashboard/courses/${courseId}/content`)} className="mt-6 px-8 py-3 bg-emerald-600 text-white rounded-xl text-xs font-bold">ابدأ الآن</button>
                                  </div>
                              ) : (
                                  <div className="grid gap-6">
                                      {modules.map((m: any, idx: number) => (
-                                         <div key={m.id} className="bg-white rounded-xl border border-slate-50 shadow-sm overflow-hidden group">
+                                         <div key={m.id} className="bg-white rounded-xl border border-slate-50 shadow-lg shadow-emerald-600/20 overflow-hidden group">
                                              <div className="p-6 bg-slate-50/30 border-b border-slate-50 flex items-center justify-between">
                                                  <div className="flex items-center gap-4">
-                                                     <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center text-xs font-bold text-slate-400 shadow-sm">{idx + 1}</div>
+                                                     <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center text-xs font-bold text-slate-400 shadow-lg shadow-emerald-600/20">{idx + 1}</div>
                                                      <div>
                                                          <h3 className="font-bold text-slate-800 text-sm">{m.title}</h3>
                                                          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{m.lessons?.length || 0} درساً</span>
@@ -377,8 +377,8 @@ export default function EditCoursePage() {
                     )}
 
                     {activeTab === 'students' && (
-                        <div className="bg-white rounded-xl p-16 text-center border-2 border-dashed border-slate-100 shadow-sm">
-                             <div className="w-20 h-20 bg-subtle text-primary-ink rounded-xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+                        <div className="bg-white rounded-xl p-16 text-center border-2 border-dashed border-slate-100 shadow-lg shadow-emerald-600/20">
+                             <div className="w-20 h-20 bg-subtle text-primary-ink rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-600/20">
                                 <FiUsers size={32} />
                              </div>
                              <h3 className="text-xl font-bold text-slate-900 mb-2">إدارة الطلاب والمشتركين</h3>
@@ -390,7 +390,7 @@ export default function EditCoursePage() {
 
             {/* --- FIXED HUB BOTTOM BAR --- */}
             <div className="fixed bottom-8 left-0 right-0 z-50 px-4">
-                <div className="max-w-4xl mx-auto bg-slate-900/95  border border-white/10 p-4 rounded-xl shadow-sm flex items-center justify-between">
+                <div className="max-w-4xl mx-auto bg-emerald-600/95  border border-white/10 p-4 rounded-xl shadow-lg shadow-emerald-600/20 flex items-center justify-between">
                     <div className="pr-6 hidden sm:block">
                         <p className="text-[10px] text-white/40 font-bold uppercase tracking-[0.2em] leading-tight">اسم الكورس المختار</p>
                         <p className="text-xs text-white font-bold italic mt-1 truncate max-w-[200px]">{formData.title || 'بدون عنوان'}</p>
@@ -400,7 +400,7 @@ export default function EditCoursePage() {
                         <button 
                             onClick={() => handleSave()}
                             disabled={saving}
-                            className="px-12 py-3.5 bg-ink text-white rounded-xl font-bold text-xs shadow-sm shadow-accent-500/20 hover:scale-[1.03] active:scale-95 transition-all disabled:opacity-50"
+                            className="px-12 py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-xs shadow-lg shadow-emerald-600/20 shadow-accent-500/20 hover:scale-[1.03] active:scale-95 transition-all disabled:opacity-50"
                         >
                             {saving ? 'جاري الحفظ...' : 'حفظ التعديلات'}
                         </button>
@@ -414,9 +414,9 @@ export default function EditCoursePage() {
 
 function HubSection({ title, icon, children }: any) {
     return (
-        <div className="bg-white rounded-xl p-8 lg:p-10 shadow-sm border border-slate-50 space-y-8 animate-in fade-in duration-500">
+        <div className="bg-white rounded-xl p-8 lg:p-10 shadow-lg shadow-emerald-600/20 border border-slate-50 space-y-8 animate-in fade-in duration-500">
             <div className="flex items-center gap-4 border-b border-slate-50 pb-6 -mx-2">
-                <div className="w-12 h-12 bg-subtle text-primary-ink rounded-xl flex items-center justify-center shadow-sm text-xl shrink-0">
+                <div className="w-12 h-12 bg-subtle text-primary-ink rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/20 text-xl shrink-0">
                     {icon}
                 </div>
                 <div className="text-right">

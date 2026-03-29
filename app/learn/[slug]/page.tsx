@@ -135,7 +135,7 @@ export default function LearnPage() {
     if (!hasAccess) {
         return (
             <div className="min-h-screen bg-gray-950 flex items-center justify-center p-6 text-right" dir="rtl">
-                <div className="max-w-md w-full p-10 bg-gray-900 border border-white/5 rounded-xl shadow-sm">
+                <div className="max-w-md w-full p-10 bg-gray-900 border border-white/5 rounded-xl shadow-lg shadow-emerald-600/20">
                     <div className="w-20 h-20 bg-red-500/10 text-red-500 rounded-xl flex items-center justify-center mx-auto mb-8">
                         <FiLock size={40} />
                     </div>
@@ -224,7 +224,7 @@ export default function LearnPage() {
                                 animate={{ x: 0 }}
                                 exit={{ x: '100%' }}
                                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                                className={`fixed lg:relative top-0 right-0 h-full w-[300px] md:w-[350px] bg-gray-900 border-l border-white/5 z-50 flex flex-col shadow-sm lg:shadow-none`}
+                                className={`fixed lg:relative top-0 right-0 h-full w-[300px] md:w-[350px] bg-gray-900 border-l border-white/5 z-50 flex flex-col shadow-lg shadow-emerald-600/20 lg:shadow-none`}
                             >
                                 <div className="p-6 border-b border-white/5 flex items-center justify-between lg:hidden">
                                     <span className="font-bold text-white">محتوى الدورة</span>
@@ -247,7 +247,7 @@ export default function LearnPage() {
                                                                 setActiveItem({ type: 'lesson', data: l });
                                                                 if (window.innerWidth < 1024) setIsSidebarOpen(false);
                                                             }}
-                                                            className={`w-full text-right p-3.5 rounded-xl flex items-center gap-3 transition-all ${isActive ? 'bg-emerald-600-600 text-white shadow-sm shadow-accent-600/20' : 'hover:bg-white/5 text-gray-400'}`}
+                                                            className={`w-full text-right p-3.5 rounded-xl flex items-center gap-3 transition-all ${isActive ? 'bg-emerald-600-600 text-white shadow-lg shadow-emerald-600/20 shadow-accent-600/20' : 'hover:bg-white/5 text-gray-400'}`}
                                                         >
                                                             <div className={`w-6 h-6 rounded-lg shrink-0 flex items-center justify-center text-[10px] font-bold border transition-colors ${l.completed ? 'bg-emerald-600-500 border-emerald-600-500 text-white' : isActive ? 'bg-white/20 border-transparent text-white' : 'border-white/10 text-gray-500'}`}>
                                                                 {l.completed ? <FiCheck size={12} strokeWidth={4} /> : idx + 1}
@@ -302,7 +302,7 @@ export default function LearnPage() {
                                 {/* Video Player Card */}
                                 <div className="relative group">
                                     <div className="absolute -inset-4 bg-emerald-600-600/5 rounded-xl blur-2xl opacity-0 group-hover:opacity-100 transition-duration-500"></div>
-                                    <div className="relative overflow-hidden rounded-[1.5rem] md:rounded-xl border border-white/5 bg-gray-900 shadow-sm">
+                                    <div className="relative overflow-hidden rounded-[1.5rem] md:rounded-xl border border-white/5 bg-gray-900 shadow-lg shadow-emerald-600/20">
                                         {activeItem.type === 'lesson' ? (
                                             (activeItem.data.videoUrl || activeItem.data.bunnyVideoId) ? (
                                                 <AdvancedVideoPlayer 
@@ -382,7 +382,7 @@ export default function LearnPage() {
                 </main>
 
                 {/* --- BOTTOM MOBILE CONTROLS --- */}
-                <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-gray-900/80  border border-white/10 px-4 py-3 rounded-xl shadow-sm z-40">
+                <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-gray-900/80  border border-white/10 px-4 py-3 rounded-xl shadow-lg shadow-emerald-600/20 z-40">
                     <button onClick={goToPrevItem} className="w-10 h-10 flex items-center justify-center text-gray-400">
                         <FiChevronRight size={20} />
                     </button>

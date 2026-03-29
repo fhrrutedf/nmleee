@@ -10,7 +10,7 @@ export default function ImpersonationBanner() {
     if (!user?.isImpersonating) return null;
 
     return (
-        <div className="bg-red-600 text-white py-2 px-4 sticky top-0 z-[100] shadow-sm -slow">
+        <div className="bg-red-600 text-white py-2 px-4 sticky top-0 z-[100] shadow-lg shadow-emerald-600/20 -slow">
             <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
                 <div className="flex items-center gap-2 text-sm md:text-base font-bold">
                     <FiAlertTriangle className="" />

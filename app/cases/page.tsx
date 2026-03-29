@@ -6,7 +6,7 @@ export default function CasesPage() {
   return (
     <div className="min-h-screen bg-surface py-20 px-6">
       <div className="max-w-4xl mx-auto text-center">
-        <h1 className="text-4xl font-bold text-ink mb-6">قصص النجاح</h1>
+        <h1 className="text-4xl font-bold text-emerald-600 mb-6">قصص النجاح</h1>
         <p className="text-muted text-lg mb-16">انضم إلى آلاف المبدعين الذين بنوا إمبراطورياتهم الرقمية عبر تمالين.</p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-right" dir="rtl">

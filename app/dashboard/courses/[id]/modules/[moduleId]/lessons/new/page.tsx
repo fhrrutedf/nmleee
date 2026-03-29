@@ -82,7 +82,7 @@ export default function NewLessonPage() {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="bg-white rounded-xl p-8 md:p-10 shadow-sm shadow-slate-200/50 border border-slate-100 relative overflow-hidden group hover:border-primary-indigo-100 transition-all duration-500">
+                    <div className="bg-white rounded-xl p-8 md:p-10 shadow-lg shadow-emerald-600/20 shadow-slate-200/50 border border-slate-100 relative overflow-hidden group hover:border-primary-indigo-100 transition-all duration-500">
                         <div className="absolute top-0 right-0 w-24 h-24 bg-subtle rounded-bl-[80px] -z-10 transition-all group-hover:scale-110" />
                         
                         <div className="space-y-6">
@@ -118,7 +118,7 @@ export default function NewLessonPage() {
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
-                        <div className="bg-white rounded-xl p-8 shadow-sm shadow-slate-200/50 border border-slate-100 flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
+                        <div className="bg-white rounded-xl p-8 shadow-lg shadow-emerald-600/20 shadow-slate-200/50 border border-slate-100 flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
                             <h3 className="font-bold text-lg">فيديو الدرس 🔥</h3>
                             <div className="w-full flex-1 flex flex-col justify-center">
                                 {formData.bunnyVideoId ? (
@@ -133,7 +133,7 @@ export default function NewLessonPage() {
                                         <button 
                                             type="button" 
                                             onClick={() => setFormData(p => ({ ...p, bunnyVideoId: '', bunnyLibraryId: '' }))}
-                                            className="px-6 py-2 bg-white text-red-500 hover:bg-red-50 rounded-xl transition-colors shadow-sm font-bold text-[10px] border border-red-100"
+                                            className="px-6 py-2 bg-white text-red-500 hover:bg-red-50 rounded-xl transition-colors shadow-lg shadow-emerald-600/20 font-bold text-[10px] border border-red-100"
                                         >
                                             إلغاء الفيديو
                                         </button>
@@ -158,13 +158,13 @@ export default function NewLessonPage() {
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-xl p-8 shadow-sm shadow-slate-200/50 border border-slate-100 flex flex-col min-h-[300px]">
+                        <div className="bg-white rounded-xl p-8 shadow-lg shadow-emerald-600/20 shadow-slate-200/50 border border-slate-100 flex flex-col min-h-[300px]">
                             <h3 className="font-bold text-lg mb-4 flex items-center gap-2">ملحقات وموارد الدرس 📚</h3>
                             <div className="flex-1 space-y-4 flex flex-col justify-end">
                                 {formData.attachments.filter(a => a.trim() !== '').length > 0 && (
                                     <div className="space-y-2 mb-4 bg-slate-50 p-3 rounded-xl border border-dashed border-slate-200">
                                         {formData.attachments.filter(a => a.trim() !== '').map((attachment, index) => (
-                                            <div key={index} className="flex items-center gap-2 bg-white p-2 rounded-xl shadow-sm border border-slate-100 animate-in slide-in-from-bottom-1 duration-200">
+                                            <div key={index} className="flex items-center gap-2 bg-white p-2 rounded-xl shadow-lg shadow-emerald-600/20 border border-slate-100 animate-in slide-in-from-bottom-1 duration-200">
                                                 <FiUploadCloud className="text-primary-ink flex-shrink-0" size={16} />
                                                 <span className="flex-1 text-[10px] font-bold text-slate-600 truncate dir-ltr text-left">{attachment.split('/').pop()}</span>
                                                 <button
@@ -188,10 +188,10 @@ export default function NewLessonPage() {
                     </div>
 
                     <div 
-                        className={`flex items-center justify-between p-6 rounded-xl border transition-all cursor-pointer group mt-4 relative overflow-hidden ${formData.isFree ? 'bg-ink border-ink shadow-sm shadow-indigo-100' : 'bg-white border-slate-100 shadow-sm'}`} 
+                        className={`flex items-center justify-between p-6 rounded-xl border transition-all cursor-pointer group mt-4 relative overflow-hidden ${formData.isFree ? 'bg-emerald-600 border-ink shadow-lg shadow-emerald-600/20 shadow-indigo-100' : 'bg-white border-slate-100 shadow-lg shadow-emerald-600/20'}`} 
                         onClick={() => setFormData({ ...formData, isFree: !formData.isFree })}
                     >
-                        {formData.isFree && <div className="absolute inset-0 bg-ink opacity-50" />}
+                        {formData.isFree && <div className="absolute inset-0 bg-emerald-600 opacity-50" />}
                         <div className="text-right relative z-10">
                             <h3 className={`font-bold text-base leading-tight transition-colors ${formData.isFree ? 'text-white' : 'text-slate-800'}`}>إتاحة كدرس مجاني (Free Preview) 👀</h3>
                             <p className={`text-[10px] mt-1 max-w-lg leading-relaxed ${formData.isFree ? 'text-indigo-100' : 'text-slate-400 font-bold'}`}>اسمح للزوار بمشاهدة هذا الدرس مجاناً كإعلان تشويقي.</p>
@@ -210,7 +210,7 @@ export default function NewLessonPage() {
                         </button>
                         <button
                             type="submit" disabled={loading}
-                            className="w-full md:w-auto px-10 py-3.5 bg-slate-900 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-black transition-all shadow-sm shadow-slate-200 active:scale-95 text-base"
+                            className="w-full md:w-auto px-10 py-3.5 bg-emerald-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 shadow-slate-200 active:scale-95 text-base"
                         >
                             <FiSave size={20} />
                             {loading ? 'جاري رفع الإبداع...' : 'اعتماد الدرس بنجاح'}

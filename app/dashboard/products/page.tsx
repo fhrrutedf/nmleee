@@ -109,7 +109,7 @@ export default function ProductsPage() {
             
             {/* --- TOP PERFORMERS SUMMARY --- */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in slide-in-from-top-4 duration-500">
-                <div className="bg-white dark:bg-card-white p-6 rounded-xl border border-slate-50 dark:border-gray-800 shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
+                <div className="bg-white dark:bg-card-white p-6 rounded-xl border border-slate-50 dark:border-gray-800 shadow-lg shadow-emerald-600/20 relative overflow-hidden group hover:shadow-md transition-all">
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-emerald-600-50 dark:bg-blue-900/10 rounded-xl blur-2xl group-hover:scale-150 transition-transform"></div>
                     <div className="relative">
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">تقدير صافي الأرباح 💰</p>
@@ -118,7 +118,7 @@ export default function ProductsPage() {
                     </div>
                 </div>
 
-                <div className="bg-white dark:bg-card-white p-6 rounded-xl border border-slate-50 dark:border-gray-800 shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
+                <div className="bg-white dark:bg-card-white p-6 rounded-xl border border-slate-50 dark:border-gray-800 shadow-lg shadow-emerald-600/20 relative overflow-hidden group hover:shadow-md transition-all">
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-subtle dark:bg-indigo-900/10 rounded-xl blur-2xl group-hover:scale-150 transition-transform"></div>
                     <div className="relative">
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">المنتج النجم (الأكثر مبيلاً) ⭐</p>
@@ -127,7 +127,7 @@ export default function ProductsPage() {
                     </div>
                 </div>
 
-                <div className="bg-slate-900 text-white p-6 rounded-xl shadow-sm relative overflow-hidden group">
+                <div className="bg-emerald-600 text-white p-6 rounded-xl shadow-lg shadow-emerald-600/20 relative overflow-hidden group">
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/5 rounded-xl blur-2xl group-hover:scale-150 transition-transform"></div>
                     <div className="relative">
                         <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2">إجمالي قيمة المبيعات (GMV)</p>
@@ -138,7 +138,7 @@ export default function ProductsPage() {
             </div>
 
             {/* --- HEADER --- */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white dark:bg-card-white rounded-xl p-8 shadow-sm border border-slate-50 dark:border-gray-800">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white dark:bg-card-white rounded-xl p-8 shadow-lg shadow-emerald-600/20 border border-slate-50 dark:border-gray-800">
                 <div>
                     <h1 className="text-3xl font-bold text-slate-900 dark:text-white leading-tight">إدارة المنتجات الرقمية 📦</h1>
                     <p className="text-slate-400 font-bold text-xs mt-2 uppercase tracking-widest">تعديل سريع • تحكم شامل • إحصائيات الأرباح</p>
@@ -152,7 +152,7 @@ export default function ProductsPage() {
                     </button>
                     <Link
                         href="/dashboard/products/new?new=true"
-                        className="px-8 py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-sm shadow-emerald-600/20 hover:bg-emerald-700 active:scale-95 transition-all"
+                        className="px-8 py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 shadow-emerald-600/20 hover:bg-emerald-700 active:scale-95 transition-all"
                     >
                         <FiPlus className="text-lg" /> إضافة منتج جديد
                     </Link>
@@ -166,14 +166,14 @@ export default function ProductsPage() {
                     <input 
                         type="text" 
                         placeholder="ابحث عن منتج..."
-                        className="w-full h-14 pr-12 pl-4 bg-white dark:bg-card-white border border-slate-100 dark:border-gray-800 rounded-[1.2rem] text-sm font-bold shadow-sm focus:ring-4 focus:ring-subtle/50 outline-none transition-all dark:text-white"
+                        className="w-full h-14 pr-12 pl-4 bg-white dark:bg-card-white border border-slate-100 dark:border-gray-800 rounded-[1.2rem] text-sm font-bold shadow-lg shadow-emerald-600/20 focus:ring-4 focus:ring-subtle/50 outline-none transition-all dark:text-white"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
                 </div>
                 <div>
                     <select 
-                        className="w-full h-14 bg-white dark:bg-card-white border border-slate-100 dark:border-gray-800 rounded-[1.2rem] px-4 text-xs font-bold text-slate-500 outline-none shadow-sm cursor-pointer"
+                        className="w-full h-14 bg-white dark:bg-card-white border border-slate-100 dark:border-gray-800 rounded-[1.2rem] px-4 text-xs font-bold text-slate-500 outline-none shadow-lg shadow-emerald-600/20 cursor-pointer"
                         value={filterCategory}
                         onChange={(e) => setFilterCategory(e.target.value)}
                     >
@@ -181,13 +181,13 @@ export default function ProductsPage() {
                         {categories.map((cat: any) => <option key={cat} value={cat}>{cat}</option>)}
                     </select>
                 </div>
-                <div className="bg-slate-900 text-white flex items-center justify-center rounded-[1.2rem] h-14 shadow-sm">
+                <div className="bg-emerald-600 text-white flex items-center justify-center rounded-[1.2rem] h-14 shadow-lg shadow-emerald-600/20">
                     <p className="text-[10px] font-bold uppercase tracking-widest text-center px-4">إجمالي المنتجات: {products.length}</p>
                 </div>
             </div>
 
             {/* --- PRODUCTS TABLE --- */}
-            <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-slate-50 dark:border-gray-800 overflow-hidden">
+            <div className="bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 border border-slate-50 dark:border-gray-800 overflow-hidden">
                 <div className="overflow-x-auto no-scrollbar">
                     <table className="w-full text-right border-collapse">
                         <thead>
@@ -212,7 +212,7 @@ export default function ProductsPage() {
                                     >
                                         <td className="p-6">
                                             <div className="flex items-center gap-4 min-w-[250px]">
-                                                <div className="w-14 h-14 rounded-xl overflow-hidden border border-slate-100 bg-slate-50 shrink-0 shadow-sm">
+                                                <div className="w-14 h-14 rounded-xl overflow-hidden border border-slate-100 bg-slate-50 shrink-0 shadow-lg shadow-emerald-600/20">
                                                     <img src={product.image || '/placeholder-product.png'} className="w-full h-full object-cover" alt="" />
                                                 </div>
                                                 <div>
@@ -227,7 +227,7 @@ export default function ProductsPage() {
                                             </div>
                                         </td>
                                         <td className="p-6 text-center">
-                                            <span className="px-3 py-1 bg-white border border-slate-100 rounded-lg text-[10px] font-bold text-slate-500 shadow-sm lowercase">
+                                            <span className="px-3 py-1 bg-white border border-slate-100 rounded-lg text-[10px] font-bold text-slate-500 shadow-lg shadow-emerald-600/20 lowercase">
                                                 {product.category || 'غير مصنف'}
                                             </span>
                                         </td>
@@ -281,7 +281,7 @@ export default function ProductsPage() {
                                             <div className="flex items-center justify-center gap-2">
                                                 <Link 
                                                     href={`/dashboard/products/edit/${product.id}`}
-                                                    className="w-10 h-10 bg-white border border-slate-100 rounded-xl flex items-center justify-center text-slate-400 hover:text-primary-ink hover:bg-subtle transition-all shadow-sm"
+                                                    className="w-10 h-10 bg-white border border-slate-100 rounded-xl flex items-center justify-center text-slate-400 hover:text-primary-ink hover:bg-subtle transition-all shadow-lg shadow-emerald-600/20"
                                                     title="تعديل كامل"
                                                 >
                                                     <FiEdit2 size={16} />
@@ -297,7 +297,7 @@ export default function ProductsPage() {
                                                 {openMenuId === product.id && (
                                                     <>
                                                         <div className="fixed inset-0 z-40" onClick={() => setOpenMenuId(null)} />
-                                                        <div className="absolute left-6 top-[80%] z-50 w-44 bg-white rounded-xl shadow-sm border border-slate-50 p-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                                                        <div className="absolute left-6 top-[80%] z-50 w-44 bg-white rounded-xl shadow-lg shadow-emerald-600/20 border border-slate-50 p-2 animate-in fade-in slide-in-from-top-2 duration-200">
                                                             <Link 
                                                                 href={`/@${(session?.user as any)?.username || 'user'}/${product.slug || product.id}`}
                                                                 target="_blank"
@@ -333,12 +333,12 @@ export default function ProductsPage() {
 
             {/* --- QUICK ACTION BAR --- */}
             <div className="fixed bottom-8 left-0 right-0 z-[100] px-4 pointer-events-none">
-                <div className="max-w-md mx-auto bg-slate-900 text-white p-4 rounded-xl shadow-sm flex items-center justify-between border border-white/10 pointer-events-auto ">
+                <div className="max-w-md mx-auto bg-emerald-600 text-white p-4 rounded-xl shadow-lg shadow-emerald-600/20 flex items-center justify-between border border-white/10 pointer-events-auto ">
                     <div className="pr-6">
                         <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 leading-none mb-1">تعديل سريع</p>
                         <p className="text-xs font-bold italic">اضغط على "السعر" لتعديله فوراً</p>
                     </div>
-                    <div className="w-12 h-12 bg-primary-ink rounded-xl flex items-center justify-center text-xl shadow-sm shadow-primary-ink/20">
+                    <div className="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center text-xl shadow-lg shadow-emerald-600/20 shadow-primary-ink/20">
                         <FiDollarSign />
                     </div>
                 </div>

@@ -132,7 +132,7 @@ export default function EditProductPage() {
         <div className="max-w-4xl mx-auto pb-24 px-4 overflow-hidden">
             
             {/* Elegant Header */}
-            <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white p-10 rounded-xl border border-slate-50 shadow-sm">
+            <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white p-10 rounded-xl border border-slate-50 shadow-lg shadow-emerald-600/20">
                 <div className="space-y-2 max-w-xl">
                     <Link href="/dashboard/products" className="inline-flex items-center gap-2 text-slate-400 hover:text-primary-ink font-bold text-xs mb-2 transition-colors">
                         <FiArrowRight /> العودة للمنتجات
@@ -182,9 +182,9 @@ export default function EditProductPage() {
                                 <div className="p-6 bg-subtle/30 rounded-xl border-2 border-dashed border-primary-indigo-100">
                                     <label className="label-modern mb-3 block">ملف التسليم (الذي سيحمله المشتري) <span className="text-red-500">*</span></label>
                                     {formData.fileUrl ? (
-                                        <div className="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm border border-primary-indigo-100 ">
+                                        <div className="flex items-center justify-between bg-white p-4 rounded-xl shadow-lg shadow-emerald-600/20 border border-primary-indigo-100 ">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 bg-primary-ink text-white rounded-xl flex items-center justify-center">
+                                                <div className="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center">
                                                     <FiCheck />
                                                 </div>
                                                 <div className="text-right overflow-hidden">
@@ -230,11 +230,11 @@ export default function EditProductPage() {
                              <div className="space-y-6">
                                 <div>
                                     <label className="label-modern">صورة الغلاف الرسمية</label>
-                                    <div className="mt-3 relative aspect-video rounded-xl overflow-hidden border-4 border-white shadow-sm bg-slate-50">
+                                    <div className="mt-3 relative aspect-video rounded-xl overflow-hidden border-4 border-white shadow-lg shadow-emerald-600/20 bg-slate-50">
                                         {formData.image ? (
                                             <>
                                                 <img src={formData.image} alt="Cover" className="w-full h-full object-cover" />
-                                                <button type="button" onClick={() => update('image', '')} className="absolute top-3 left-3 bg-red-500 text-white w-8 h-8 rounded-xl flex items-center justify-center shadow-sm"><FiX /></button>
+                                                <button type="button" onClick={() => update('image', '')} className="absolute top-3 left-3 bg-red-500 text-white w-8 h-8 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/20"><FiX /></button>
                                             </>
                                         ) : (
                                             <button type="button" onClick={() => setShowCoverUploader(true)} className="w-full h-full flex flex-col items-center justify-center text-slate-300 font-bold gap-2">
@@ -251,7 +251,7 @@ export default function EditProductPage() {
                                     <label className="label-modern">معرض الصور الإضافي</label>
                                     <div className="grid grid-cols-3 gap-2 mt-3">
                                         {formData.images.map((img, i) => (
-                                            <div key={i} className="relative aspect-square rounded-xl overflow-hidden shadow-sm">
+                                            <div key={i} className="relative aspect-square rounded-xl overflow-hidden shadow-lg shadow-emerald-600/20">
                                                 <img src={img} className="w-full h-full object-cover" />
                                                 <button type="button" onClick={() => update('images', formData.images.filter((_, idx) => idx !== i))} className="absolute top-1 left-1 bg-red-500 text-white w-5 h-5 rounded-xl flex items-center justify-center text-[8px]"><FiX /></button>
                                             </div>
@@ -263,7 +263,7 @@ export default function EditProductPage() {
                                         )}
                                     </div>
                                     {showGalleryUploader && (
-                                        <div className="mt-2 p-4 bg-white rounded-xl border border-slate-100 shadow-sm absolute z-20 max-w-[200px]"><FileUploader maxFiles={3} onUploadSuccess={urls => { update('images', [...formData.images, ...urls]); setShowGalleryUploader(false); }} /></div>
+                                        <div className="mt-2 p-4 bg-white rounded-xl border border-slate-100 shadow-lg shadow-emerald-600/20 absolute z-20 max-w-[200px]"><FileUploader maxFiles={3} onUploadSuccess={urls => { update('images', [...formData.images, ...urls]); setShowGalleryUploader(false); }} /></div>
                                     )}
                                 </div>
                              </div>
@@ -276,7 +276,7 @@ export default function EditProductPage() {
                                         <button
                                             key={type} type="button"
                                             onClick={() => update('pricingType', type)}
-                                            className={`py-2.5 rounded-xl text-xs font-bold transition-all ${formData.pricingType === type ? 'bg-white text-primary-ink shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                                            className={`py-2.5 rounded-xl text-xs font-bold transition-all ${formData.pricingType === type ? 'bg-white text-primary-ink shadow-lg shadow-emerald-600/20' : 'text-slate-400 hover:text-slate-600'}`}
                                         >
                                             {type === 'fixed' ? 'سعر محدد' : type === 'pwyw' ? 'دعم اختياري' : 'مجاني'}
                                         </button>
@@ -300,7 +300,7 @@ export default function EditProductPage() {
                                             <p className="text-sm font-bold text-slate-700">تفعيل المنتج</p>
                                             <p className="text-[10px] text-slate-400 font-medium">اجعله مرئياً في صفحة المتجر</p>
                                         </div>
-                                        <div className={`w-12 h-6 rounded-xl transition-all flex items-center px-1 ${formData.isActive ? 'bg-primary-ink' : 'bg-slate-300'}`}>
+                                        <div className={`w-12 h-6 rounded-xl transition-all flex items-center px-1 ${formData.isActive ? 'bg-emerald-600' : 'bg-slate-300'}`}>
                                             <div className={`w-4 h-4 bg-white rounded-xl transition-all ${formData.isActive ? 'translate-x-6' : 'translate-x-0'}`} />
                                         </div>
                                     </div>
@@ -311,7 +311,7 @@ export default function EditProductPage() {
                 </div>
 
                 {/* Sticky Action Footer */}
-                <div className="sticky bottom-8 z-30 p-4 bg-slate-900/90  rounded-xl flex items-center justify-between shadow-sm border border-white/10  mx-4">
+                <div className="sticky bottom-8 z-30 p-4 bg-emerald-600/90  rounded-xl flex items-center justify-between shadow-lg shadow-emerald-600/20 border border-white/10  mx-4">
                     <div className="flex-1 text-white pr-4 hidden sm:block">
                         <p className="text-xs opacity-60 font-medium">تذكر مراجعة كافة التفاصيل قبل الحفظ</p>
                     </div>
@@ -320,7 +320,7 @@ export default function EditProductPage() {
                         <button
                             type="submit"
                             disabled={saving}
-                            className="px-10 py-3.5 bg-ink text-white rounded-xl font-bold shadow-sm shadow-ink/20 hover:scale-[1.02] transition-all disabled:opacity-50"
+                            className="px-10 py-3.5 bg-emerald-600 text-white rounded-xl font-bold shadow-lg shadow-emerald-600/20 shadow-ink/20 hover:scale-[1.02] transition-all disabled:opacity-50"
                         >
                             {saving ? 'جاري الحفظ...' : 'حفظ كافة التعديلات'}
                         </button>
@@ -333,9 +333,9 @@ export default function EditProductPage() {
 
 function Section({ title, icon, children }: any) {
     return (
-        <div className="bg-white rounded-xl p-8 lg:p-10 shadow-sm border border-slate-50 space-y-6">
+        <div className="bg-white rounded-xl p-8 lg:p-10 shadow-lg shadow-emerald-600/20 border border-slate-50 space-y-6">
             <div className="flex items-center gap-4 border-b border-slate-50 pb-6 -mx-2">
-                <div className="w-12 h-12 bg-subtle text-primary-ink rounded-xl flex items-center justify-center shadow-sm">
+                <div className="w-12 h-12 bg-subtle text-primary-ink rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/20">
                     {icon}
                 </div>
                 <h2 className="text-lg font-bold text-slate-900">{title}</h2>

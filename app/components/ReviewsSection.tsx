@@ -85,7 +85,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                    <h2 className="text-2xl font-bold text-ink dark:text-white">التقييمات والمراجعات</h2>
+                    <h2 className="text-2xl font-bold text-emerald-600 dark:text-white">التقييمات والمراجعات</h2>
                     <div className="flex items-center gap-3 mt-2">
                         <div className="flex items-center gap-1">
                             {renderStars(parseFloat(averageRating))}
@@ -98,7 +98,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                 {!showForm && (
                     <button
                         onClick={() => setShowForm(true)}
-                        className="btn btn-primary px-6 py-3 font-bold rounded-xl shadow-md hover:shadow-sm transition-all"
+                        className="btn btn-primary px-6 py-3 font-bold rounded-xl shadow-md hover:shadow-lg shadow-emerald-600/20 transition-all"
                     >
                         أضف تقييمك
                     </button>
@@ -107,7 +107,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
 
             {/* Add Review Form */}
             {showForm && (
-                <div className="bg-ink dark:from-gray-900 dark:to-gray-800 p-8 rounded-xl border border-gray-100 dark:border-gray-700 shadow-inner">
+                <div className="bg-emerald-600 dark:from-gray-900 dark:to-gray-800 p-8 rounded-xl border border-gray-100 dark:border-gray-700 shadow-inner">
                     <h3 className="font-bold text-xl mb-6 text-gray-900 dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
                     <form onSubmit={handleSubmit} className="space-y-0">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
@@ -153,7 +153,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                         </div>
 
                         <div className="flex gap-2 pt-2">
-                            <button type="submit" className="btn btn-primary flex-1 py-3 text-lg font-bold shadow-sm shadow-accent/20">
+                            <button type="submit" className="btn btn-primary flex-1 py-3 text-lg font-bold shadow-lg shadow-emerald-600/20 shadow-accent/20">
                                 إرسال التقييم
                             </button>
                             <button
@@ -175,7 +175,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                     </div>
                 ) : reviews.length === 0 ? (
                     <div className="text-center py-12 px-4 bg-gray-50 dark:bg-gray-800/20 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
-                        <div className="w-20 h-20 bg-white dark:bg-gray-800 rounded-xl flex items-center justify-center mx-auto mb-4 text-gray-300 dark:text-gray-600 shadow-sm">
+                        <div className="w-20 h-20 bg-white dark:bg-gray-800 rounded-xl flex items-center justify-center mx-auto mb-4 text-gray-300 dark:text-gray-600 shadow-lg shadow-emerald-600/20">
                             <FiStar size={36} />
                         </div>
                         <h4 className="font-bold text-xl text-gray-500 dark:text-gray-400">لا توجد تعليقات بعد</h4>
@@ -187,12 +187,12 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-100 dark:bg-gray-800 rounded-xl group-hover:bg-yellow-400 transition-colors"></div>
                             <div className="pl-6 pb-2">
                                 <div className="flex items-center gap-3 mb-3">
-                                    <div className="w-12 h-12 bg-ink dark:from-gray-800 dark:to-gray-900 rounded-xl flex items-center justify-center font-bold text-gray-500 dark:text-gray-400 border border-white dark:border-gray-800 shadow-sm">
+                                    <div className="w-12 h-12 bg-emerald-600 dark:from-gray-800 dark:to-gray-900 rounded-xl flex items-center justify-center font-bold text-gray-500 dark:text-gray-400 border border-white dark:border-gray-800 shadow-lg shadow-emerald-600/20">
                                         {review.name.charAt(0)}
                                     </div>
                                     <div>
                                         <div className="flex items-center gap-3 mb-1">
-                                            <h4 className="font-bold text-lg text-ink dark:text-white">{review.name}</h4>
+                                            <h4 className="font-bold text-lg text-emerald-600 dark:text-white">{review.name}</h4>
                                             <div className="flex items-center gap-0.5">
                                                 {[...Array(5)].map((_, i) => (
                                                     <FiStar

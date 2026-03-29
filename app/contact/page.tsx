@@ -67,10 +67,10 @@ export default function ContactPage() {
                     variants={fadeInUp}
                     className="text-center mb-24 max-w-4xl mx-auto"
                 >
-                    <div className="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-emerald-600 shadow-sm">
+                    <div className="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-emerald-600 shadow-lg shadow-emerald-600/20">
                         Strategic Support Unit
                     </div>
-                    <h1 className="text-5xl md:text-8xl font-bold text-ink mb-10 tracking-tighter leading-[1.05]">
+                    <h1 className="text-5xl md:text-8xl font-bold text-emerald-600 mb-10 tracking-tighter leading-[1.05]">
                         تحدث معنا <br/> <span className="text-emerald-600 underline underline-offset-[12px] decoration-accent/10">مباشرة</span>
                     </h1>
                     <p className="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto font-bold leading-relaxed">
@@ -120,7 +120,7 @@ export default function ContactPage() {
                                     {info.icon}
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-xl mb-3 text-ink">{info.title}</h3>
+                                    <h3 className="font-bold text-xl mb-3 text-emerald-600">{info.title}</h3>
                                     {info.lines.map((line, i) => (
                                         <p key={i} className="text-text-muted font-medium mb-1" dir={info.title === 'الهاتف الساخن' ? 'ltr' : 'rtl'}>{line}</p>
                                     ))}
@@ -137,11 +137,11 @@ export default function ContactPage() {
                         variants={slideInLeft}
                         className="lg:col-span-2 lg:order-1 relative"
                     >
-                        <div className="bg-white rounded-[2.5rem] shadow-sm p-10 md:p-16 border border-gray-100 overflow-hidden relative">
+                        <div className="bg-white rounded-[2.5rem] shadow-lg shadow-emerald-600/20 p-10 md:p-16 border border-gray-100 overflow-hidden relative">
                             {/* Decorative element inside form */}
                             <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-600/5 rounded-bl-[100px] pointer-events-none"></div>
 
-                            <h2 className="text-2xl font-bold mb-10 text-ink tracking-tight uppercase">SEND ENQUIRY</h2>
+                            <h2 className="text-2xl font-bold mb-10 text-emerald-600 tracking-tight uppercase">SEND ENQUIRY</h2>
 
                             <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -151,7 +151,7 @@ export default function ContactPage() {
                                             id="name"
                                             value={formData.name}
                                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                            className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
+                                            className="block w-full px-5 py-4 text-emerald-600 bg-gray-50 border border-gray-200 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
                                             placeholder=" "
                                             required
                                         />
@@ -166,7 +166,7 @@ export default function ContactPage() {
                                             id="email"
                                             value={formData.email}
                                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                            className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
+                                            className="block w-full px-5 py-4 text-emerald-600 bg-gray-50 border border-gray-200 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
                                             placeholder=" "
                                             required
                                         />
@@ -182,7 +182,7 @@ export default function ContactPage() {
                                         id="subject"
                                         value={formData.subject}
                                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                                        className="block w-full px-5 py-4 text-ink bg-gray-50 border border-gray-200 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
+                                        className="block w-full px-5 py-4 text-emerald-600 bg-gray-50 border border-gray-200 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
                                         placeholder=" "
                                         required
                                     />
@@ -196,7 +196,7 @@ export default function ContactPage() {
                                         id="message"
                                         value={formData.message}
                                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                        className="block w-full px-6 py-5 text-ink bg-gray-50 border border-gray-100 rounded-xl appearance-none focus:outline-none focus:ring-4 focus:ring-accent/10 focus:border-emerald-600 transition-all peer"
+                                        className="block w-full px-6 py-5 text-emerald-600 bg-gray-50 border border-gray-100 rounded-xl appearance-none focus:outline-none focus:ring-4 focus:ring-accent/10 focus:border-emerald-600 transition-all peer"
                                         placeholder=" "
                                         rows={6}
                                         required
@@ -211,8 +211,8 @@ export default function ContactPage() {
                                     whileTap={{ scale: 0.98 }}
                                     type="submit"
                                     disabled={loading || success}
-                                    className={`w-full text-[10px] font-bold uppercase tracking-[0.3em] py-6 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 shadow-sm
-                                        ${success ? 'bg-emerald-600 text-white shadow-accent/20' : 'bg-ink text-white hover:bg-black shadow-ink/20'}
+                                    className={`w-full text-[10px] font-bold uppercase tracking-[0.3em] py-6 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 shadow-lg shadow-emerald-600/20
+                                        ${success ? 'bg-emerald-600 text-white shadow-accent/20' : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-ink/20'}
                                         ${loading ? 'opacity-80 cursor-not-allowed' : ''}
                                     `}
                                 >

@@ -49,7 +49,7 @@ export default function DemoPage() {
 
                         <div className="text-center">
                             <div className="w-20 h-20 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                                <FiBook className="text-4xl text-ink" />
+                                <FiBook className="text-4xl text-emerald-600" />
                             </div>
                             <h3 className="text-4xl font-bold text-gray-900 mb-2">5K+</h3>
                             <p className="text-gray-600">دورة ومنتج</p>
@@ -75,7 +75,7 @@ export default function DemoPage() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="bg-white rounded-xl shadow-sm p-8 hover:shadow-sm transition-shadow">
+                        <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-8 hover:shadow-lg shadow-emerald-600/20 transition-shadow">
                             <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
                                 <FiShoppingCart className="text-3xl text-emerald-600-600" />
                             </div>
@@ -85,9 +85,9 @@ export default function DemoPage() {
                             </p>
                         </div>
 
-                        <div className="bg-white rounded-xl shadow-sm p-8 hover:shadow-sm transition-shadow">
+                        <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-8 hover:shadow-lg shadow-emerald-600/20 transition-shadow">
                             <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
-                                <FiVideo className="text-3xl text-ink" />
+                                <FiVideo className="text-3xl text-emerald-600" />
                             </div>
                             <h3 className="text-2xl font-bold mb-3">الدورات التدريبية</h3>
                             <p className="text-gray-600 leading-relaxed">
@@ -95,7 +95,7 @@ export default function DemoPage() {
                             </p>
                         </div>
 
-                        <div className="bg-white rounded-xl shadow-sm p-8 hover:shadow-sm transition-shadow">
+                        <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-8 hover:shadow-lg shadow-emerald-600/20 transition-shadow">
                             <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-4">
                                 <FiTrendingUp className="text-3xl text-green-600" />
                             </div>
@@ -179,7 +179,7 @@ export default function DemoPage() {
                                 image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400'
                             }
                         ].map((product, index) => (
-                            <div key={index} className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-sm transition-shadow group">
+                            <div key={index} className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden hover:shadow-lg shadow-emerald-600/20 transition-shadow group">
                                 <img
                                     src={product.image}
                                     alt={product.title}
@@ -212,7 +212,7 @@ export default function DemoPage() {
             </section>
 
             {/* CTA Section */}
-            <section className="py-20 bg-ink">
+            <section className="py-20 bg-emerald-600">
                 <div className="max-w-4xl mx-auto px-4 text-center text-white">
                     <h2 className="text-5xl font-bold mb-6">جاهز للبدء؟</h2>
                     <p className="text-2xl mb-8">انضم إلى آلاف المبدعين الذين يحققون دخلهم من مهاراتهم</p>

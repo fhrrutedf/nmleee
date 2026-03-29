@@ -163,10 +163,10 @@ export default function BookAppointmentPage() {
                     <p className="text-gray-600 mt-2">اختر الوقت المناسب لك للحصول على استشارتك مع {creator.name}</p>
                 </div>
 
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 overflow-hidden">
                     {/* Seller Profile Summary */}
-                    <div className="p-6 bg-ink border-b border-primary-100 flex gap-4 items-center">
-                        <div className="w-16 h-16 rounded-xl overflow-hidden bg-white border-2 border-white shadow-sm flex-shrink-0">
+                    <div className="p-6 bg-emerald-600 border-b border-primary-100 flex gap-4 items-center">
+                        <div className="w-16 h-16 rounded-xl overflow-hidden bg-white border-2 border-white shadow-lg shadow-emerald-600/20 flex-shrink-0">
                             {creator.avatar ? (
                                 <img src={creator.avatar} alt={creator.name} className="w-full h-full object-cover" />
                             ) : (
@@ -248,7 +248,7 @@ export default function BookAppointmentPage() {
                                 <button
                                     onClick={handleContinue}
                                     disabled={!selectedDate || !selectedTime}
-                                    className={`btn btn-primary px-8 py-3 text-lg flex items-center gap-2 transition-transform ${(!selectedDate || !selectedTime) ? 'opacity-50 cursor-not-allowed' : 'hover:-translate-y-1 hover:shadow-sm'}`}
+                                    className={`btn btn-primary px-8 py-3 text-lg flex items-center gap-2 transition-transform ${(!selectedDate || !selectedTime) ? 'opacity-50 cursor-not-allowed' : 'hover:-translate-y-1 hover:shadow-lg shadow-emerald-600/20'}`}
                                 >
                                     <span>المتابعة للدفع</span>
                                     <FiCheckCircle />

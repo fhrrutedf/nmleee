@@ -90,7 +90,7 @@ export default function SellerSupportPage() {
         <div className="space-y-6 max-w-6xl mx-auto pb-12">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-ink dark:text-white flex items-center gap-3">
+                    <h1 className="text-3xl font-bold text-emerald-600 dark:text-white flex items-center gap-3">
                         <FiMessageSquare className="text-emerald-600" />
                         الدعم الفني
                     </h1>
@@ -98,7 +98,7 @@ export default function SellerSupportPage() {
                 </div>
                 <button
                     onClick={() => setShowNewModal(true)}
-                    className="btn btn-primary py-3 px-6 shadow-sm shadow-accent/20 flex items-center gap-2"
+                    className="btn btn-primary py-3 px-6 shadow-lg shadow-emerald-600/20 shadow-accent/20 flex items-center gap-2"
                 >
                     <FiPlus /> تذكرة جديدة
                 </button>
@@ -106,13 +106,13 @@ export default function SellerSupportPage() {
 
             {/* Ticket List */}
             {tickets.length === 0 ? (
-                <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-12 text-center text-gray-500">
+                <div className="bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 p-12 text-center text-gray-500">
                     <FiCheckCircle className="text-green-500 mb-4 mx-auto" size={48} />
                     <h3 className="text-xl font-bold mb-2">ليس لديك أي تذاكر سابقة</h3>
                     <p>إذا واجهتك أي مشكلة في المنصة، لا تتردد في مراسلتنا!</p>
                 </div>
             ) : (
-                <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
+                <div className="bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full text-right text-sm">
                             <thead className="bg-gray-50 dark:bg-gray-900/50">
@@ -131,7 +131,7 @@ export default function SellerSupportPage() {
                                         <td className="px-6 py-4 font-mono text-emerald-600 font-bold">
                                             {ticket.ticketNumber}
                                         </td>
-                                        <td className="px-6 py-4 font-bold text-ink dark:text-gray-100 max-w-xs truncate">
+                                        <td className="px-6 py-4 font-bold text-emerald-600 dark:text-gray-100 max-w-xs truncate">
                                             {ticket.subject}
                                         </td>
                                         <td className="px-6 py-4 text-gray-500">
@@ -162,9 +162,9 @@ export default function SellerSupportPage() {
             {/* Create Modal */}
             {showNewModal && (
                 <div className="fixed inset-0 bg-black/60  z-50 flex justify-center items-center p-4">
-                    <div className="bg-white dark:bg-card-white rounded-xl shadow-sm w-full max-w-lg overflow-hidden transform transition-all">
+                    <div className="bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 w-full max-w-lg overflow-hidden transform transition-all">
                         <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-900/50">
-                            <h2 className="text-xl font-bold text-ink dark:text-white flex items-center gap-2">
+                            <h2 className="text-xl font-bold text-emerald-600 dark:text-white flex items-center gap-2">
                                 <FiPlus className="text-emerald-600" /> فتح تذكرة درعم جديدة
                             </h2>
                             <button onClick={() => setShowNewModal(false)} className="text-gray-400 hover:text-red-500">

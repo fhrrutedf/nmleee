@@ -37,7 +37,7 @@ export default function CartDrawer() {
             {/* Cart Button */}
             <button
                 onClick={() => setIsOpen(true)}
-                className="relative p-2.5 text-gray-700 hover:text-emerald-600 transition-all bg-gray-50 hover:bg-white rounded-xl border border-transparent hover:border-gray-100 hover:shadow-sm group"
+                className="relative p-2.5 text-gray-700 hover:text-emerald-600 transition-all bg-gray-50 hover:bg-white rounded-xl border border-transparent hover:border-gray-100 hover:shadow-lg shadow-emerald-600/20 group"
             >
                 <FiShoppingCart size={22} className="group-hover:scale-110 transition-transform" />
                 {itemCount > 0 && (
@@ -64,7 +64,7 @@ export default function CartDrawer() {
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
                             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-sm z-[101] flex flex-col"
+                            className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-lg shadow-emerald-600/20 z-[101] flex flex-col"
                         >
                             {/* Header */}
                             <div className="flex items-center justify-between p-6 border-b border-gray-100">
@@ -72,7 +72,7 @@ export default function CartDrawer() {
                                     <div className="w-10 h-10 bg-emerald-600/10 rounded-xl flex items-center justify-center text-emerald-600">
                                         <FiShoppingBag size={20} />
                                     </div>
-                                    <h2 className="text-xl font-bold text-ink">
+                                    <h2 className="text-xl font-bold text-emerald-600">
                                         سلة المشتريات
                                         <span className="text-sm font-bold text-gray-400 mr-2">({itemCount})</span>
                                     </h2>
@@ -109,10 +109,10 @@ export default function CartDrawer() {
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 key={item.id}
-                                                className="flex gap-4 p-4 bg-white border border-gray-100 rounded-[1.5rem] hover:shadow-sm hover:shadow-gray-200/50 transition-all group"
+                                                className="flex gap-4 p-4 bg-white border border-gray-100 rounded-[1.5rem] hover:shadow-lg shadow-emerald-600/20 hover:shadow-gray-200/50 transition-all group"
                                             >
                                                 {item.image && (
-                                                    <div className="relative w-20 h-20 flex-shrink-0 rounded-xl overflow-hidden shadow-sm">
+                                                    <div className="relative w-20 h-20 flex-shrink-0 rounded-xl overflow-hidden shadow-lg shadow-emerald-600/20">
                                                         <Image
                                                             src={item.image}
                                                             alt={item.title}
@@ -122,7 +122,7 @@ export default function CartDrawer() {
                                                     </div>
                                                 )}
                                                 <div className="flex-1 min-w-0">
-                                                    <h3 className="font-bold text-ink truncate mb-0.5">
+                                                    <h3 className="font-bold text-emerald-600 truncate mb-0.5">
                                                         {item.title}
                                                     </h3>
                                                     <p className="text-xs font-bold text-gray-400 mb-2">
@@ -149,14 +149,14 @@ export default function CartDrawer() {
                                 <div className="p-6 border-t border-gray-100 bg-gray-50/50 ">
                                     <div className="flex items-center justify-between mb-6">
                                         <span className="text-gray-500 font-bold">إجمالي المبلغ:</span>
-                                        <span className="text-2xl font-bold text-ink">
+                                        <span className="text-2xl font-bold text-emerald-600">
                                             {getTotal().toFixed(2)} <span className="text-sm">$</span>
                                         </span>
                                     </div>
                                     <Link
                                         href="/checkout"
                                         onClick={() => setIsOpen(false)}
-                                        className="group w-full py-4 bg-emerald-600 text-white flex items-center justify-center gap-2 rounded-[1.25rem] font-bold text-lg shadow-sm shadow-accent/20 hover:shadow-accent/40 hover:-translate-y-1 transition-all"
+                                        className="group w-full py-4 bg-emerald-600 text-white flex items-center justify-center gap-2 rounded-[1.25rem] font-bold text-lg shadow-lg shadow-emerald-600/20 shadow-accent/20 hover:shadow-accent/40 hover:-translate-y-1 transition-all"
                                     >
                                         <span>إتمام الشراء</span>
                                         <FiArrowRight className="group-hover:translate-x-1 transition-transform rotate-180" />

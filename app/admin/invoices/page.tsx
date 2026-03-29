@@ -109,7 +109,7 @@ export default function AdminInvoicesPage() {
                 </div>
 
                 {/* Filters */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-sm">
+                <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-lg shadow-emerald-600/20">
                     <div className="flex flex-wrap gap-3 items-center">
                         <div className="flex-1 min-w-[200px]">
                             <div className="relative">
@@ -136,7 +136,7 @@ export default function AdminInvoicesPage() {
                         </select>
                         <button
                             onClick={handleSearch}
-                            className="px-4 py-2.5 bg-ink text-white rounded-xl text-sm font-bold hover:bg-black transition-colors"
+                            className="px-4 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 transition-colors"
                         >
                             بحث
                         </button>
@@ -154,7 +154,7 @@ export default function AdminInvoicesPage() {
                         <p className="text-gray-500 text-lg">لا توجد فواتير</p>
                     </div>
                 ) : (
-                    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20 overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm">
                                 <thead>
@@ -181,7 +181,7 @@ export default function AdminInvoicesPage() {
                                                 onClick={() => setSelectedInvoice(inv)}
                                             >
                                                 <td className="px-4 py-3">
-                                                    <span className="font-mono text-xs font-bold text-ink">{inv.invoiceNumber}</span>
+                                                    <span className="font-mono text-xs font-bold text-emerald-600">{inv.invoiceNumber}</span>
                                                 </td>
                                                 <td className="px-4 py-3">
                                                     <span className="font-mono text-xs text-gray-500">{inv.order.orderNumber}</span>
@@ -263,7 +263,7 @@ export default function AdminInvoicesPage() {
             {/* Detail Modal */}
             {selectedInvoice && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelectedInvoice(null)}>
-                    <div className="bg-white dark:bg-gray-800 rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-sm" onClick={e => e.stopPropagation()}>
+                    <div className="bg-white dark:bg-gray-800 rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-lg shadow-emerald-600/20" onClick={e => e.stopPropagation()}>
                         <div className="p-6 space-y-5">
                             {/* Header */}
                             <div className="flex items-center justify-between">
@@ -312,7 +312,7 @@ export default function AdminInvoicesPage() {
                                 <div className="h-px bg-gray-200 dark:bg-gray-700"></div>
                                 <div className="flex justify-between text-base font-bold">
                                     <span>الإجمالي</span>
-                                    <span className="text-ink">${selectedInvoice.totalAmount.toFixed(2)}</span>
+                                    <span className="text-emerald-600">${selectedInvoice.totalAmount.toFixed(2)}</span>
                                 </div>
                             </div>
 

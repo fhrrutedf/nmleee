@@ -46,12 +46,12 @@ export function CertificateToggle({
         <div className="card p-6">
             <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 p-3 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
-                    <FiAward className="text-2xl text-ink dark:text-purple-400" />
+                    <FiAward className="text-2xl text-emerald-600 dark:text-purple-400" />
                 </div>
 
                 <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-lg font-semibold text-ink dark:text-white">
+                        <h3 className="text-lg font-semibold text-emerald-600 dark:text-white">
                             شهادة إتمام الدورة
                         </h3>
 

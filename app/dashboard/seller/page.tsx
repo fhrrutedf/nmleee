@@ -79,7 +79,7 @@ export default function SellerDashboardPage() {
                     <StatsCard
                         title="إجمالي العملاء"
                         value={overview.totalCustomers.toString()}
-                        icon={<FiUsers className="text-ink" size={24} />}
+                        icon={<FiUsers className="text-emerald-600" size={24} />}
                         bgColor="bg-purple-100"
                     />
 
@@ -104,7 +104,7 @@ export default function SellerDashboardPage() {
                                 return (
                                     <div key={index} className="flex-1 flex flex-col items-center group">
                                         <div
-                                            className="w-full bg-ink rounded-t hover:bg-ink transition-colors cursor-pointer relative"
+                                            className="w-full bg-emerald-600 rounded-t hover:bg-emerald-600 transition-colors cursor-pointer relative"
                                             style={{ height: `${height}%` }}
                                             title={`${item.revenue.toFixed(2)} $ - ${item.orders} طلب`}
                                         >

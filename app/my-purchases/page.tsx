@@ -67,7 +67,7 @@ export default function MyPurchasesPage() {
             <div className="max-w-7xl mx-auto px-4">
                 {/* Header */}
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-ink mb-2">مشترياتي</h1>
+                    <h1 className="text-3xl font-bold text-emerald-600 mb-2">مشترياتي</h1>
                     <p className="text-gray-600">جميع المنتجات والدورات التي اشتريتها</p>
                 </div>
 
@@ -77,7 +77,7 @@ export default function MyPurchasesPage() {
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">إجمالي المشتريات</p>
-                                <p className="text-3xl font-bold mt-1 text-ink">{purchases.length}</p>
+                                <p className="text-3xl font-bold mt-1 text-emerald-600">{purchases.length}</p>
                             </div>
                             <FiPackage className="text-4xl text-gray-300" />
                         </div>
@@ -87,7 +87,7 @@ export default function MyPurchasesPage() {
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">متاحة للتحميل</p>
-                                <p className="text-3xl font-bold mt-1 text-ink">{purchases.filter((p: any) => p.status === 'completed').length}</p>
+                                <p className="text-3xl font-bold mt-1 text-emerald-600">{purchases.filter((p: any) => p.status === 'completed').length}</p>
                             </div>
                             <FiCheckCircle className="text-4xl text-gray-300" />
                         </div>
@@ -97,7 +97,7 @@ export default function MyPurchasesPage() {
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">إجمالي الإنفاق</p>
-                                <p className="text-3xl font-bold mt-1 text-ink">
+                                <p className="text-3xl font-bold mt-1 text-emerald-600">
                                     {purchases.reduce((sum: number, p: any) => sum + p.total, 0).toFixed(0)} $
                                 </p>
                             </div>
@@ -108,7 +108,7 @@ export default function MyPurchasesPage() {
 
                 {/* Purchases List */}
                 {purchases.length === 0 ? (
-                    <div className="bg-white rounded-xl shadow-sm p-12 text-center">
+                    <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-12 text-center">
                         <FiPackage className="text-6xl text-gray-300 mx-auto mb-4" />
                         <h3 className="text-2xl font-bold mb-2">لا توجد مشتريات بعد</h3>
                         <p className="text-gray-600 mb-6">ابدأ بتصفح منتجاتنا الرائعة!</p>
@@ -119,7 +119,7 @@ export default function MyPurchasesPage() {
                 ) : (
                     <div className="space-y-6">
                         {purchases.map((purchase: any) => (
-                            <div key={purchase.id} className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow">
+                            <div key={purchase.id} className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6 hover:shadow-md transition-shadow">
                                 <div className="flex items-start justify-between mb-4">
                                     <div>
                                         <h3 className="text-xl font-bold mb-1">طلب #{purchase.id.slice(0, 8)}</h3>
@@ -141,7 +141,7 @@ export default function MyPurchasesPage() {
                                             {purchase.status === 'completed' ? 'مكتمل' :
                                                 purchase.status === 'pending' ? 'قيد المعالجة' : 'ملغي'}
                                         </span>
-                                        <p className="text-2xl font-bold text-ink mt-2">
+                                        <p className="text-2xl font-bold text-emerald-600 mt-2">
                                             {purchase.total.toFixed(2)} $
                                         </p>
                                     </div>
@@ -215,7 +215,7 @@ export default function MyPurchasesPage() {
                     <p className="text-blue-800 mb-4">
                         إذا واجهت أي مشكلة في التحميل أو الوصول لمشترياتك، فريق الدعم جاهز لمساعدتك
                     </p>
-                    <Link href="/support" className="btn btn-sm bg-emerald-600-600 hover:bg-ink text-white">
+                    <Link href="/support" className="btn btn-sm bg-emerald-600-600 hover:bg-emerald-600 text-white">
                         تواصل مع الدعم
                     </Link>
                 </div>

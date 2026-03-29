@@ -29,10 +29,10 @@ export default function Navbar() {
                     {/* Logo & Nav */}
                     <div className="flex items-center gap-10">
                     <Link href="/" className="flex items-center gap-2 group transition-all">
-                        <div className="w-10 h-10 bg-ink rounded-xl flex items-center justify-center text-white shadow-sm shadow-black/5 group-hover:bg-emerald-600 group-hover:scale-105 transition-all duration-500">
+                        <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-600/20 shadow-black/5 group-hover:bg-emerald-600 group-hover:scale-105 transition-all duration-500">
                             <FiLayers size={22} className="group-hover:rotate-12 transition-transform" />
                         </div>
-                        <span className="text-xl font-bold text-ink tracking-tighter">
+                        <span className="text-xl font-bold text-emerald-600 tracking-tighter">
                             TMLEEN<span className="text-emerald-600 font-light">.</span>
                         </span>
                     </Link>
@@ -42,7 +42,7 @@ export default function Navbar() {
                                 <Link
                                     key={idx}
                                     href={link.href}
-                                    className={`text-sm font-medium transition-colors ${pathname === link.href ? 'text-ink' : 'text-gray-500 hover:text-ink'}`}
+                                    className={`text-sm font-medium transition-colors ${pathname === link.href ? 'text-emerald-600' : 'text-gray-500 hover:text-emerald-600'}`}
                                 >
                                     {link.title}
                                 </Link>
@@ -60,7 +60,7 @@ export default function Navbar() {
                         </Link>
                         <Link
                             href="/register"
-                            className="bg-ink text-white px-8 py-3 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] shadow-sm shadow-black/5 hover:bg-emerald-600 hover:shadow-accent/20 active:scale-95 transition-all"
+                            className="bg-emerald-600 text-white px-8 py-3 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-emerald-600/20 shadow-black/5 hover:bg-emerald-600 hover:shadow-accent/20 active:scale-95 transition-all"
                         >
                             Establish Account
                         </Link>
@@ -68,7 +68,7 @@ export default function Navbar() {
 
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="lg:hidden p-2 text-gray-600 hover:text-ink"
+                            className="lg:hidden p-2 text-gray-600 hover:text-emerald-600"
                         >
                             {isMenuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
                         </button>
@@ -83,10 +83,10 @@ export default function Navbar() {
                         className="fixed inset-0 bg-black/30 z-[51] lg:hidden"
                         onClick={() => setIsMenuOpen(false)}
                     />
-                    <div className="fixed top-0 right-0 h-full w-full max-w-xs bg-white z-[52] lg:hidden flex flex-col shadow-sm">
+                    <div className="fixed top-0 right-0 h-full w-full max-w-xs bg-white z-[52] lg:hidden flex flex-col shadow-lg shadow-emerald-600/20">
                         <div className="p-5 border-b border-gray-100 flex items-center justify-between">
-                            <span className="font-bold text-ink">القائمة</span>
-                            <button onClick={() => setIsMenuOpen(false)} className="p-1.5 text-gray-400 hover:text-ink">
+                            <span className="font-bold text-emerald-600">القائمة</span>
+                            <button onClick={() => setIsMenuOpen(false)} className="p-1.5 text-gray-400 hover:text-emerald-600">
                                 <FiX size={20} />
                             </button>
                         </div>
@@ -107,7 +107,7 @@ export default function Navbar() {
                         <div className="p-4 border-t border-gray-100 space-y-2">
                             <Link
                                 href="/register"
-                                className="w-full py-3 bg-ink text-white rounded-lg flex items-center justify-center font-semibold text-sm"
+                                className="w-full py-3 bg-emerald-600 text-white rounded-lg flex items-center justify-center font-semibold text-sm"
                             >
                                 ابدأ مجاناً
                             </Link>

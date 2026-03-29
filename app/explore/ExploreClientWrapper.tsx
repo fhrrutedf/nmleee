@@ -34,9 +34,9 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                         className="group relative block h-full outline-none"
                     >
                         {/* Hover Glow Behind Card */}
-                        <div className="absolute -inset-1 bg-ink rounded-xl blur-xl opacity-0 group-hover:opacity-60 group-focus-visible:opacity-60 transition duration-500 delay-75 -z-10 mt-4 mx-2"></div>
+                        <div className="absolute -inset-1 bg-emerald-600 rounded-xl blur-xl opacity-0 group-hover:opacity-60 group-focus-visible:opacity-60 transition duration-500 delay-75 -z-10 mt-4 mx-2"></div>
 
-                        <div className="bg-white dark:bg-card-white rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-sm transition-all duration-300 flex flex-col h-full ring-2 ring-transparent group-focus-visible:ring-accent">
+                        <div className="bg-white dark:bg-card-white rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-lg shadow-emerald-600/20 hover:shadow-lg shadow-emerald-600/20 transition-all duration-300 flex flex-col h-full ring-2 ring-transparent group-focus-visible:ring-accent">
                             {/* Media Thumbnails Area */}
                             <div className="aspect-[4/3] bg-gray-100 dark:bg-gray-800 relative overflow-hidden group-hover:after:absolute group-hover:after:inset-0 group-hover:after:bg-black/10 transition-all after:transition-colors">
                                 {(item.thumbnail || item.image || (item.images && item.images[0])) ? (
@@ -46,7 +46,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                                     />
                                 ) : (
-                                    <div className="w-full h-full flex flex-col items-center justify-center bg-ink dark:from-gray-800 dark:to-gray-900 text-gray-400 dark:text-gray-500">
+                                    <div className="w-full h-full flex flex-col items-center justify-center bg-emerald-600 dark:from-gray-800 dark:to-gray-900 text-gray-400 dark:text-gray-500">
                                         {item.itemType === 'course' ? <FiVideo className="text-5xl mb-2 opacity-50" /> : <FiBook className="text-5xl mb-2 opacity-50" />}
                                         <span className="font-bold text-sm tracking-widest uppercase">No Preview</span>
                                     </div>
@@ -55,17 +55,17 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                 {/* Top Badges */}
                                 <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
                                     {item.itemType === 'course' ? (
-                                        <span className="bg-emerald-600-500/90 dark:bg-emerald-600-600/90  px-4 py-1.5 rounded-xl text-xs font-bold text-white shadow-sm border border-white/20">
+                                        <span className="bg-emerald-600-500/90 dark:bg-emerald-600-600/90  px-4 py-1.5 rounded-xl text-xs font-bold text-white shadow-lg shadow-emerald-600/20 border border-white/20">
                                             دورة تدريبية
                                         </span>
                                     ) : item.category ? (
-                                        <span className="bg-black/60  px-4 py-1.5 rounded-xl text-xs font-bold text-white shadow-sm border border-white/20">
+                                        <span className="bg-black/60  px-4 py-1.5 rounded-xl text-xs font-bold text-white shadow-lg shadow-emerald-600/20 border border-white/20">
                                             {item.category === 'ebooks' ? 'كتاب إلكتروني' : item.category}
                                         </span>
                                     ) : null}
 
                                     {(item.isFree || item.price === 0) && (
-                                        <span className="bg-green-500/95  px-4 py-1.5 rounded-xl text-[11px] font-bold tracking-widest text-white shadow-sm border border-white/20 -slow">
+                                        <span className="bg-green-500/95  px-4 py-1.5 rounded-xl text-[11px] font-bold tracking-widest text-white shadow-lg shadow-emerald-600/20 border border-white/20 -slow">
                                             مجاني
                                         </span>
                                     )}
@@ -94,7 +94,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
 
                                     {/* Small floating rating above price area */}
                                     {(item.averageRating > 0 || item.rating > 0) && (
-                                        <div className="flex items-center gap-1 bg-white dark:bg-gray-800 px-3 py-1.5 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm text-xs font-bold text-gray-700 dark:text-gray-300">
+                                        <div className="flex items-center gap-1 bg-white dark:bg-gray-800 px-3 py-1.5 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20 text-xs font-bold text-gray-700 dark:text-gray-300">
                                             <FiStar className="text-yellow-400 fill-yellow-400" />
                                             <span>{(item.averageRating || item.rating || 0).toFixed(1)}</span>
                                         </div>
@@ -121,11 +121,11 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                 {/* Card Footer: Price & Action */}
                                 <div className="mt-auto pt-5 flex items-center justify-between border-t border-gray-50 dark:border-gray-800/60">
                                     <div>
-                                        <span className="font-bold text-2xl text-ink dark:text-white">
+                                        <span className="font-bold text-2xl text-emerald-600 dark:text-white">
                                             {item.price === 0 ? (
                                                 <span className="text-green-500">مجاناً</span>
                                             ) : (
-                                                <span className="bg-ink bg-clip-text text-transparent flex items-baseline gap-1">
+                                                <span className="bg-emerald-600 bg-clip-text text-transparent flex items-baseline gap-1">
                                                     {item.price} <span className="text-sm font-bold text-gray-400 dark:text-gray-500 ml-1">$</span>
                                                 </span>
                                             )}
@@ -137,7 +137,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
                                         )}
                                     </div>
 
-                                    <div className="w-12 h-12 rounded-[1rem] bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:bg-emerald-600 group-hover:text-white group-hover:shadow-sm group-hover:shadow-accent/30 transition-all duration-300 transform group-hover:-rotate-6">
+                                    <div className="w-12 h-12 rounded-[1rem] bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:bg-emerald-600 group-hover:text-white group-hover:shadow-lg shadow-emerald-600/20 group-hover:shadow-accent/30 transition-all duration-300 transform group-hover:-rotate-6">
                                         <FiShoppingCart size={20} />
                                     </div>
                                 </div>

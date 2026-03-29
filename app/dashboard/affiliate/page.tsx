@@ -50,7 +50,7 @@ export default function AffiliatePage() {
         <div className="space-y-8 pb-32 max-w-7xl mx-auto px-4 md:px-0" dir="rtl">
             
             {/* --- HERO / LINK SECTION --- */}
-            <div className="relative overflow-hidden bg-white dark:bg-card-white rounded-xl p-1 shadow-sm border border-slate-50 dark:border-gray-800">
+            <div className="relative overflow-hidden bg-white dark:bg-card-white rounded-xl p-1 shadow-lg shadow-emerald-600/20 border border-slate-50 dark:border-gray-800">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary-indigo-400/10 blur-[100px] rounded-xl -translate-y-1/2 translate-x-1/2"></div>
                 <div className="relative p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-12">
                     <div className="max-w-xl text-center md:text-right">
@@ -67,7 +67,7 @@ export default function AffiliatePage() {
                              </div>
                              <button 
                                 onClick={copyLink}
-                                className={`px-10 h-16 rounded-xl font-bold text-sm flex items-center justify-center gap-3 transition-all ${copied ? 'bg-emerald-600-500 text-white shadow-blue-200' : 'bg-primary-ink text-white shadow-sm shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95'}`}
+                                className={`px-10 h-16 rounded-xl font-bold text-sm flex items-center justify-center gap-3 transition-all ${copied ? 'bg-emerald-600-500 text-white shadow-blue-200' : 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20 shadow-primary-indigo-100 hover:bg-primary-indigo-700 active:scale-95'}`}
                              >
                                 {copied ? <FiCheck size={20} /> : <FiCopy size={20} />}
                                 {copied ? 'تم النسخ' : 'نسخ الرابط'}
@@ -75,10 +75,10 @@ export default function AffiliatePage() {
                         </div>
                     </div>
                     <div className="relative shrink-0 md:ml-12">
-                        <div className="w-48 h-48 bg-primary-ink rounded-xl rotate-12 flex items-center justify-center shadow-sm shadow-primary-indigo-400 -slow">
+                        <div className="w-48 h-48 bg-emerald-600 rounded-xl rotate-12 flex items-center justify-center shadow-lg shadow-emerald-600/20 shadow-primary-indigo-400 -slow">
                              <FiShare2 size={80} className="text-white -rotate-12" />
                         </div>
-                        <div className="absolute -bottom-4 -right-4 bg-white dark:bg-gray-900 p-4 rounded-xl shadow-sm flex items-center gap-3 border border-slate-50 dark:border-gray-800 rotate-[-8deg] ">
+                        <div className="absolute -bottom-4 -right-4 bg-white dark:bg-gray-900 p-4 rounded-xl shadow-lg shadow-emerald-600/20 flex items-center gap-3 border border-slate-50 dark:border-gray-800 rotate-[-8deg] ">
                             <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-emerald-600-600"><FiTrendingUp size={20} /></div>
                             <div>
                                 <p className="text-[10px] font-bold text-slate-400 uppercase">اربح حصتك</p>
@@ -98,7 +98,7 @@ export default function AffiliatePage() {
                  ].map((card, i) => (
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
-                        key={i} className="bg-white dark:bg-card-white p-8 rounded-xl border border-slate-50 dark:border-gray-800 shadow-sm flex flex-col items-center text-center group hover:border-primary-indigo-200 transition-colors"
+                        key={i} className="bg-white dark:bg-card-white p-8 rounded-xl border border-slate-50 dark:border-gray-800 shadow-lg shadow-emerald-600/20 flex flex-col items-center text-center group hover:border-primary-indigo-200 transition-colors"
                     >
                         <div className={`w-16 h-16 ${card.bg} rounded-xl flex items-center justify-center ${card.color} mb-6 transition-transform group-hover:scale-110`}>
                             <card.icon size={28} />
@@ -110,7 +110,7 @@ export default function AffiliatePage() {
             </div>
 
             {/* --- REFERRALS TABLE --- */}
-            <div className="bg-white dark:bg-card-white rounded-xl border border-slate-50 dark:border-gray-800 shadow-sm overflow-hidden">
+            <div className="bg-white dark:bg-card-white rounded-xl border border-slate-50 dark:border-gray-800 shadow-lg shadow-emerald-600/20 overflow-hidden">
                 <div className="p-8 border-b border-slate-50 dark:border-gray-800 flex items-center justify-between">
                     <div>
                         <h3 className="text-lg font-bold text-slate-900 dark:text-white">سجل إحالاتك الناجحة 🏆</h3>

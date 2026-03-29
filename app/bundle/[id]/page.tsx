@@ -98,11 +98,11 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                             <div className="h-2.5 w-full" style={{ background: `linear-gradient(90deg, ${brandColor}, ${brandColor}80)` }} />
                             <div className="p-8 sm:p-10">
                                 <div className="flex flex-wrap items-center gap-3 mb-6">
-                                    <span className="text-sm font-bold px-4 py-1.5 rounded-xl text-white shadow-sm flex items-center gap-1.5" style={{ background: brandColor }}>
+                                    <span className="text-sm font-bold px-4 py-1.5 rounded-xl text-white shadow-lg shadow-emerald-600/20 flex items-center gap-1.5" style={{ background: brandColor }}>
                                         <FiPackage className="text-base" /> باقة مميزة
                                     </span>
                                     {discountPct > 0 && (
-                                        <span className="text-sm font-bold px-4 py-1.5 rounded-xl text-green-700 bg-green-100 border border-green-200 shadow-sm flex items-center gap-1.5">
+                                        <span className="text-sm font-bold px-4 py-1.5 rounded-xl text-green-700 bg-green-100 border border-green-200 shadow-lg shadow-emerald-600/20 flex items-center gap-1.5">
                                             <FiCheck /> توفير {discountPct}%
                                         </span>
                                     )}
@@ -127,7 +127,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                             </h2>
                             <div className="space-y-4">
                                 {bundle.products.map((bp: any) => (
-                                    <div key={bp.product.id} className="group flex flex-row items-center gap-4 p-5 rounded-xl bg-[#FCFCFC] dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 transition-all shadow-sm hover:shadow-md">
+                                    <div key={bp.product.id} className="group flex flex-row items-center gap-4 p-5 rounded-xl bg-[#FCFCFC] dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 transition-all shadow-lg shadow-emerald-600/20 hover:shadow-md">
 
                                         {/* Title & Status (First / Right in RTL) */}
                                         <div className="flex-1 min-w-0 flex flex-col justify-center">
@@ -148,9 +148,9 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                         <div className="flex-shrink-0">
                                             {bp.product.image ? (
                                                 <img src={bp.product.image} alt={bp.product.title}
-                                                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border border-gray-100 dark:border-gray-700 shadow-sm" />
+                                                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20" />
                                             ) : (
-                                                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl flex items-center justify-center border border-gray-100 dark:border-gray-700 shadow-sm"
+                                                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl flex items-center justify-center border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20"
                                                     style={{ background: `${brandColor}08` }}>
                                                     <FiPackage className="text-2xl" style={{ color: brandColor }} />
                                                 </div>
@@ -180,7 +180,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                         {originalPrice > bundle.price && (
                                             <div className="flex items-center justify-center gap-3 mt-4">
                                                 <span className="text-gray-400 line-through text-lg font-mono">{originalPrice} $</span>
-                                                <span className="bg-green-50 border border-green-200 text-green-700 dark:bg-green-900/30 dark:border-green-800 dark:text-green-400 text-sm font-bold px-4 py-1.5 rounded-xl shadow-sm">
+                                                <span className="bg-green-50 border border-green-200 text-green-700 dark:bg-green-900/30 dark:border-green-800 dark:text-green-400 text-sm font-bold px-4 py-1.5 rounded-xl shadow-lg shadow-emerald-600/20">
                                                     وفر {discountPct}%
                                                 </span>
                                             </div>

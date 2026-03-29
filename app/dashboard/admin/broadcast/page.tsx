@@ -60,7 +60,7 @@ export default function AdminBroadcastPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 {/* Main Form */}
                 <div className="lg:col-span-8 space-y-6">
-                    <section className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-8 shadow-sm">
+                    <section className="bg-white dark:bg-emerald-600/50 border border-slate-200 dark:border-slate-800 rounded-xl p-8 shadow-lg shadow-emerald-600/20">
                         <div className="space-y-6">
                             <div>
                                 <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">عنوان البث (الإيميل)</label>
@@ -91,7 +91,7 @@ export default function AdminBroadcastPage() {
                             <button 
                                 onClick={handleSend}
                                 disabled={sending || !subject || !message}
-                                className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white py-4 rounded-xl font-bold transition-all shadow-sm shadow-primary/20 disabled:opacity-50 disabled:shadow-none"
+                                className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white py-4 rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 shadow-primary/20 disabled:opacity-50 disabled:shadow-none"
                             >
                                 <FiSend className={sending ? '' : ''} />
                                 {sending ? 'جاري التحليق وبث الرسائل...' : 'إرسال البث الآن لكل المستهدفين'}
@@ -124,7 +124,7 @@ export default function AdminBroadcastPage() {
 
                 {/* Targeting Segments */}
                 <div className="lg:col-span-4 space-y-6">
-                    <section className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-sm overflow-hidden">
+                    <section className="bg-emerald-600 border border-slate-800 rounded-xl p-6 shadow-lg shadow-emerald-600/20 overflow-hidden">
                         <h3 className="text-white font-bold mb-6 flex items-center gap-2">
                             <FiTarget className="text-primary" />
                             اختر الجمهور المستهدف
@@ -135,7 +135,7 @@ export default function AdminBroadcastPage() {
                                 <button 
                                     key={segment.id}
                                     onClick={() => setTarget(segment.id)}
-                                    className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all text-right group ${target === segment.id ? 'bg-primary/20 border-primary/50 text-white shadow-[0_0_20px_rgba(14,165,233,0.15)]' : 'bg-slate-800/40 border-slate-800 text-slate-400 hover:bg-slate-800 hover:border-slate-700'}`}
+                                    className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all text-right group ${target === segment.id ? 'bg-primary/20 border-primary/50 text-white shadow-[0_0_20px_rgba(14,165,233,0.15)]' : 'bg-slate-800/40 border-slate-800 text-slate-400 hover:bg-emerald-700 hover:border-slate-700'}`}
                                 >
                                     <div className={`p-2.5 rounded-xl transition-all ${target === segment.id ? 'bg-primary text-white scale-110' : 'bg-slate-800 text-slate-500 group-hover:scale-105'}`}>
                                         <segment.icon className="text-lg" />

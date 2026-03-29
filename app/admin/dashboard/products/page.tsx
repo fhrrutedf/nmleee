@@ -137,8 +137,8 @@ export default function ProductsManagement() {
             {/* Header */}
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="text-3xl md:text-4xl font-bold text-ink dark:text-white mb-2 tracking-tight flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-ink flex items-center justify-center">
+                    <h1 className="text-3xl md:text-4xl font-bold text-emerald-600 dark:text-white mb-2 tracking-tight flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-emerald-600 flex items-center justify-center">
                             <FiPackage />
                         </div>
                         إدارة المحتوى والمنتجات
@@ -150,10 +150,10 @@ export default function ProductsManagement() {
 
                 {/* Quick Stats and Toggle */}
                 <div className="flex flex-col gap-3">
-                    <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl shadow-sm overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
+                    <div className="flex bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
                         <div className="px-5 py-3 flex flex-col items-center">
                             <span className="text-gray-400 text-xs">إجمالي</span>
-                            <span className="text-ink dark:text-white text-lg">{stats.totalItems}</span>
+                            <span className="text-emerald-600 dark:text-white text-lg">{stats.totalItems}</span>
                         </div>
                         <div className="px-5 py-3 flex flex-col items-center">
                             <span className="text-emerald-600 text-xs">منتج رقمي</span>
@@ -161,7 +161,7 @@ export default function ProductsManagement() {
                         </div>
                         <div className="px-5 py-3 flex flex-col items-center">
                             <span className="text-purple-500 text-xs">دورة تدريبية</span>
-                            <span className="text-ink dark:text-purple-400 text-lg">{stats.totalCourses}</span>
+                            <span className="text-emerald-600 dark:text-purple-400 text-lg">{stats.totalCourses}</span>
                         </div>
                     </div>
 
@@ -178,7 +178,7 @@ export default function ProductsManagement() {
                             </span>}
                         </button>
                         <button onClick={() => fetchItems(true)} className="btn bg-white dark:bg-card-white border border-gray-100 dark:border-gray-800 py-2 px-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800">
-                            <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-ink' : 'text-gray-500 w-4 h-4'} />
+                            <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-emerald-600' : 'text-gray-500 w-4 h-4'} />
                         </button>
                     </div>
                 </div>
@@ -188,7 +188,7 @@ export default function ProductsManagement() {
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
-                className="bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col min-h-[500px]"
+                className="bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-lg shadow-emerald-600/20 overflow-hidden flex flex-col min-h-[500px]"
             >
                 {/* Controls Bar */}
                 <div className="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/20 flex flex-col lg:flex-row gap-4 justify-between items-center">
@@ -200,7 +200,7 @@ export default function ProductsManagement() {
                             placeholder="ابحث باسم المنتج أو الدورة..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all text-ink dark:text-white"
+                            className="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all text-emerald-600 dark:text-white"
                         />
                         <button type="submit" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-500 transition-colors">
                             <FiSearch size={18} />
@@ -216,7 +216,7 @@ export default function ProductsManagement() {
                             <select
                                 value={typeFilter}
                                 onChange={(e) => { setTypeFilter(e.target.value); setPage(1); }}
-                                className="bg-transparent border-none focus:outline-none text-ink dark:text-white cursor-pointer pr-4"
+                                className="bg-transparent border-none focus:outline-none text-emerald-600 dark:text-white cursor-pointer pr-4"
                             >
                                 <option value="ALL">الكل</option>
                                 <option value="PRODUCT">منتجات رقمية</option>
@@ -230,7 +230,7 @@ export default function ProductsManagement() {
                             <select
                                 value={statusFilter}
                                 onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }}
-                                className="bg-transparent border-none focus:outline-none text-ink dark:text-white cursor-pointer pr-4"
+                                className="bg-transparent border-none focus:outline-none text-emerald-600 dark:text-white cursor-pointer pr-4"
                             >
                                 <option value="ALL">الكل</option>
                                 <option value="ACTIVE">نشط ومعروض</option>
@@ -297,7 +297,7 @@ export default function ProductsManagement() {
                                                 {item.isFree ? (
                                                     <span className="text-green-500 font-bold bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded text-xs">مجاني</span>
                                                 ) : (
-                                                    <span className="font-bold text-ink dark:text-white">${item.price.toFixed(2)}</span>
+                                                    <span className="font-bold text-emerald-600 dark:text-white">${item.price.toFixed(2)}</span>
                                                 )}
                                             </td>
                                             <td className="py-4 px-6 text-center text-sm font-bold text-gray-500">

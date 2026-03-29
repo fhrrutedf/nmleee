@@ -103,22 +103,22 @@ export default function AdminStudentsPage() {
 
                 {/* Stats */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
-                    <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20">
                         <p className="text-xs text-gray-400 font-bold uppercase">إجمالي الطلاب</p>
-                        <p className="text-2xl font-bold text-ink mt-1">{totalStudents}</p>
+                        <p className="text-2xl font-bold text-emerald-600 mt-1">{totalStudents}</p>
                     </div>
-                    <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20">
                         <p className="text-xs text-gray-400 font-bold uppercase">المدربين</p>
                         <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{trainers.length}</p>
                     </div>
-                    <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20">
                         <p className="text-xs text-gray-400 font-bold uppercase">الكورسات النشطة</p>
                         <p className="text-2xl font-bold text-emerald-600-600 mt-1">{trainers.reduce((s, t) => s + t.courses.length, 0)}</p>
                     </div>
                 </div>
 
                 {/* Search */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-sm">
+                <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-lg shadow-emerald-600/20">
                     <div className="relative">
                         <FiSearch className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400" size={16} />
                         <input
@@ -144,7 +144,7 @@ export default function AdminStudentsPage() {
                 ) : (
                     <div className="space-y-3">
                         {filteredTrainers.map(trainer => (
-                            <div key={trainer.id} className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
+                            <div key={trainer.id} className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-emerald-600/20 overflow-hidden">
                                 {/* Trainer Card (clickable) */}
                                 <button
                                     onClick={() => toggleTrainer(trainer.id)}
@@ -155,7 +155,7 @@ export default function AdminStudentsPage() {
                                             {trainer.avatar ? (
                                                 <img src={trainer.avatar} alt="" className="w-full h-full object-cover" />
                                             ) : (
-                                                <FiUser size={20} className="text-ink" />
+                                                <FiUser size={20} className="text-emerald-600" />
                                             )}
                                         </div>
                                         <div className="text-right">
@@ -165,7 +165,7 @@ export default function AdminStudentsPage() {
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <div className="text-right">
-                                            <p className="text-2xl font-bold text-ink">{trainer.totalStudents}</p>
+                                            <p className="text-2xl font-bold text-emerald-600">{trainer.totalStudents}</p>
                                             <p className="text-[10px] text-gray-400 uppercase font-bold">طالب</p>
                                         </div>
                                         <div className="flex items-center gap-2 text-xs text-gray-400">
@@ -209,7 +209,7 @@ export default function AdminStudentsPage() {
                                                                     <div className="flex items-center gap-2">
                                                                         <div className="w-20 bg-gray-200 dark:bg-gray-700 rounded-xl h-1.5">
                                                                             <div
-                                                                                className={`h-1.5 rounded-xl ${student.isCompleted ? 'bg-emerald-600-500' : 'bg-ink'}`}
+                                                                                className={`h-1.5 rounded-xl ${student.isCompleted ? 'bg-emerald-600-500' : 'bg-emerald-600'}`}
                                                                                 style={{ width: `${student.progress}%` }}
                                                                             />
                                                                         </div>

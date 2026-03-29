@@ -74,7 +74,7 @@ export default function DangerZone() {
             {/* Delete Modal */}
             {showModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  ">
-                    <div className="bg-white rounded-xl shadow-sm w-full max-w-lg overflow-hidden animate-scale-in">
+                    <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 w-full max-w-lg overflow-hidden animate-scale-in">
                         <div className="p-6 bg-red-600 text-white flex justify-between items-center">
                             <h3 className="text-xl font-bold flex items-center gap-2">
                                 <FiTrash2 /> تأكيد حذف الحساب
@@ -128,7 +128,7 @@ export default function DangerZone() {
                                 <button 
                                     onClick={handleDelete}
                                     disabled={isDeleting || confirmText !== CONFIRM_PHRASE}
-                                    className={`flex-1 btn bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-bold transition-all shadow-sm active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed`}
+                                    className={`flex-1 btn bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed`}
                                 >
                                     {isDeleting ? 'جاري الحذف...' : 'تأكيد الحذف'}
                                 </button>

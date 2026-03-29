@@ -104,7 +104,7 @@ export default function AppointmentSettingsPage() {
         <div className="space-y-6 max-w-4xl mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h1 className="text-2xl md:text-3xl font-bold text-ink">إعدادات توفر الاستشارات</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold text-emerald-600">إعدادات توفر الاستشارات</h1>
                     <p className="text-gray-600 mt-2 text-sm md:text-base">حدد أوقات عملك والأيام المتاحة لاستقبال الجلسات والاستشارات</p>
                 </div>
                 <button
@@ -117,7 +117,7 @@ export default function AppointmentSettingsPage() {
                 </button>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+            <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden mb-6">
                 <div className="p-4 md:p-6 border-b border-gray-100 flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-green-100 text-green-600 flex items-center justify-center flex-shrink-0">
@@ -143,7 +143,7 @@ export default function AppointmentSettingsPage() {
                 </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+            <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden">
                 <div className="p-4 md:p-6 border-b border-gray-100 flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-blue-100 text-emerald-600-600 flex items-center justify-center flex-shrink-0">
                         <FiCalendar className="text-xl" />

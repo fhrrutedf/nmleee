@@ -125,7 +125,7 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
     return (
         <div
             ref={containerRef}
-            className="relative group bg-black rounded-xl overflow-hidden aspect-video shadow-sm"
+            className="relative group bg-black rounded-xl overflow-hidden aspect-video shadow-lg shadow-emerald-600/20"
             onMouseLeave={() => setShowSettings(false)}
         >
             <video
@@ -154,13 +154,13 @@ export default function VideoPlayer({ src, videoId, title, poster }: VideoPlayer
 
             {/* Top Title Bar */}
             {title && (
-                <div className="absolute top-0 left-0 right-0 p-4 bg-ink opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute top-0 left-0 right-0 p-4 bg-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity">
                     <h3 className="text-white font-medium text-lg truncate">{title}</h3>
                 </div>
             )}
 
             {/* Bottom Controls Bar */}
-            <div className={`absolute bottom-0 left-0 right-0 px-4 py-3 bg-ink transition-opacity duration-300 ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
+            <div className={`absolute bottom-0 left-0 right-0 px-4 py-3 bg-emerald-600 transition-opacity duration-300 ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
                 {/* Progress Bar */}
                 <div className="relative group w-full mb-3 flex items-center h-1 hover:h-2 transition-all cursor-pointer">
                     <input

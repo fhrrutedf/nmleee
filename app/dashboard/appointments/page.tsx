@@ -143,7 +143,7 @@ export default function AppointmentsPage() {
             {/* Header */}
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-3xl font-bold text-ink">إدارة الجلسات والاستشارات</h1>
+                    <h1 className="text-3xl font-bold text-emerald-600">إدارة الجلسات والاستشارات</h1>
                     <p className="text-gray-600 mt-2">جدول جلساتك الاستشارية</p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -163,7 +163,7 @@ export default function AppointmentsPage() {
 
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div className="bg-ink text-white rounded-xl p-6 shadow-sm">
+                <div className="bg-emerald-600 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-blue-100 text-sm">إجمالي الاستشارات</p>
@@ -173,7 +173,7 @@ export default function AppointmentsPage() {
                     </div>
                 </div>
 
-                <div className="bg-ink text-white rounded-xl p-6 shadow-sm">
+                <div className="bg-emerald-600 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-green-100 text-sm">قادمة</p>
@@ -183,7 +183,7 @@ export default function AppointmentsPage() {
                     </div>
                 </div>
 
-                <div className="bg-ink text-white rounded-xl p-6 shadow-sm">
+                <div className="bg-emerald-600 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-purple-100 text-sm">مكتملة</p>
@@ -193,7 +193,7 @@ export default function AppointmentsPage() {
                     </div>
                 </div>
 
-                <div className="bg-ink text-white rounded-xl p-6 shadow-sm">
+                <div className="bg-emerald-600 text-white rounded-xl p-6 shadow-lg shadow-emerald-600/20">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-orange-100 text-sm">إجمالي الإيرادات</p>
@@ -205,7 +205,7 @@ export default function AppointmentsPage() {
             </div>
 
             {/* Tabs */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6">
                 <div className="border-b border-gray-200 mb-6">
                     <nav className="flex gap-6">
                         <button
@@ -260,7 +260,7 @@ export default function AppointmentsPage() {
                             >
                                 <div className="flex items-start justify-between">
                                     <div className="flex items-start gap-4 flex-1">
-                                        <div className="w-16 h-16 bg-ink rounded-xl flex items-center justify-center text-white flex-shrink-0">
+                                        <div className="w-16 h-16 bg-emerald-600 rounded-xl flex items-center justify-center text-white flex-shrink-0">
                                             <FiUser className="text-2xl" />
                                         </div>
                                         <div className="flex-1">

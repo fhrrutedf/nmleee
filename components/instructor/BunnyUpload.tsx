@@ -92,7 +92,7 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                         <div className="w-16 h-16 bg-green-500/10 text-green-500 rounded-xl flex items-center justify-center mx-auto mb-4">
                             <FiCheckCircle size={32} />
                         </div>
-                        <h3 className="text-xl font-bold text-ink dark:text-white">تم الرفع!</h3>
+                        <h3 className="text-xl font-bold text-emerald-600 dark:text-white">تم الرفع!</h3>
                         <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest italic">جاري المعالجة الرقمية الآن</p>
                     </div>
                 ) : status === 'error' ? (
@@ -100,7 +100,7 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                         <div className="w-16 h-16 bg-red-500/10 text-red-500 rounded-xl flex items-center justify-center mx-auto mb-4">
                             <FiAlertCircle size={32} />
                         </div>
-                        <h3 className="text-xl font-bold text-ink dark:text-white">خطأ في الرفع</h3>
+                        <h3 className="text-xl font-bold text-emerald-600 dark:text-white">خطأ في الرفع</h3>
                         <button 
                             type="button"
                             onClick={handleUpload} 
@@ -118,7 +118,7 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                         {!uploading ? (
                             <div className="space-y-3">
                                 <div className="space-y-1">
-                                    <h3 className="text-sm font-bold text-ink dark:text-white">اسحب ملف الفيديو هنا</h3>
+                                    <h3 className="text-sm font-bold text-emerald-600 dark:text-white">اسحب ملف الفيديو هنا</h3>
                                     <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-relaxed">أو انقر لاختيار المحتوى</p>
                                 </div>
                                 <input 
@@ -128,7 +128,7 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                                     id={`bunny-upload-${instanceId}`}
                                 />
-                                <div className="relative inline-block px-8 py-3 bg-emerald-600 text-white rounded-xl font-bold text-[10px] shadow-sm shadow-accent/20 uppercase tracking-widest">
+                                <div className="relative inline-block px-8 py-3 bg-emerald-600 text-white rounded-xl font-bold text-[10px] shadow-lg shadow-emerald-600/20 shadow-accent/20 uppercase tracking-widest">
                                     {file ? file.name : 'اختيار فيديو المعاملة'}
                                 </div>
                                 

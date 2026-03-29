@@ -76,7 +76,7 @@ export default function BlogAdminPage() {
                 </Link>
             </div>
 
-            <div className="bg-white dark:bg-card-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100 dark:border-gray-800">
+            <div className="bg-white dark:bg-card-white rounded-xl p-4 sm:p-6 shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800">
                 <div className="relative mb-6">
                     <input
                         type="text"

@@ -86,10 +86,10 @@ export default function FeaturesPage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-emerald-600 shadow-sm">
+                        <div className="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-emerald-600 shadow-lg shadow-emerald-600/20">
                             Infrastructure for Creators
                         </div>
-                        <h1 className="text-5xl md:text-8xl font-bold text-ink mb-10 tracking-tighter leading-[1.05]">
+                        <h1 className="text-5xl md:text-8xl font-bold text-emerald-600 mb-10 tracking-tighter leading-[1.05]">
                             بنية تحتية <br/> <span className="text-emerald-600 underline underline-offset-[12px] decoration-accent/10">بلا حدود</span>
                         </h1>
                         <p className="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto font-bold leading-relaxed">
@@ -113,9 +113,9 @@ export default function FeaturesPage() {
                             <motion.div
                                 key={idx}
                                 variants={fadeInUp}
-                                className="group p-10 bg-gray-50 border border-gray-100 rounded-[2.5rem] hover:bg-ink hover:text-white transition-all duration-500 cursor-default"
+                                className="group p-10 bg-gray-50 border border-gray-100 rounded-[2.5rem] hover:bg-emerald-600 hover:text-white transition-all duration-500 cursor-default"
                             >
-                                <div className="w-14 h-14 bg-white border border-gray-100 rounded-xl flex items-center justify-center text-ink mb-10 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-transparent transition-all shadow-sm">
+                                <div className="w-14 h-14 bg-white border border-gray-100 rounded-xl flex items-center justify-center text-emerald-600 mb-10 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-transparent transition-all shadow-lg shadow-emerald-600/20">
                                     {feature.icon}
                                 </div>
 
@@ -139,12 +139,12 @@ export default function FeaturesPage() {
                 <div className="max-w-7xl mx-auto px-6 w-full">
                    <div className="grid grid-cols-1 md:grid-cols-3 gap-16 items-center">
                         <div>
-                            <h2 className="text-4xl font-bold text-ink tracking-tighter mb-4">أداء لا يتوقف.</h2>
+                            <h2 className="text-4xl font-bold text-emerald-600 tracking-tighter mb-4">أداء لا يتوقف.</h2>
                             <p className="text-gray-400 font-bold">بنية تحتية موزعة عالمياً تضمن استجابة متجرك في أقل من 200ms.</p>
                         </div>
                         <div className="md:col-span-2 grid grid-cols-2 gap-8">
                              <div className="p-8 border-l border-gray-100">
-                                <div className="text-6xl font-bold text-ink font-inter tracking-tighter mb-2">99.9%</div>
+                                <div className="text-6xl font-bold text-emerald-600 font-inter tracking-tighter mb-2">99.9%</div>
                                 <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Uptime Guarantee</div>
                              </div>
                              <div className="p-8 border-l border-gray-100">
@@ -157,7 +157,7 @@ export default function FeaturesPage() {
             </section>
 
             {/* Strategic Integration Section */}
-            <section className="py-32 bg-ink text-white overflow-hidden">
+            <section className="py-32 bg-emerald-600 text-white overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6 text-center mb-24">
                     <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">يتكامل مع نظامك الحالي</h2>
                     <p className="text-gray-400 text-lg font-bold max-w-2xl mx-auto">
@@ -174,7 +174,7 @@ export default function FeaturesPage() {
                         {[1, 2].map((set) => (
                             <div key={set} className="flex gap-12 items-center">
                                 {['Stripe', 'PayPal', 'Mailchimp', 'Zapier', 'Slack', 'Analytics', 'Binance', 'Zoom', 'Discord'].map((item, idx) => (
-                                    <div key={idx} className="text-4xl font-bold font-inter tracking-tighter text-white border-2 border-white/5 px-12 py-6 rounded-xl hover:bg-white hover:text-ink transition-all cursor-default">
+                                    <div key={idx} className="text-4xl font-bold font-inter tracking-tighter text-white border-2 border-white/5 px-12 py-6 rounded-xl hover:bg-white hover:text-emerald-600 transition-all cursor-default">
                                         {item}
                                     </div>
                                 ))}
@@ -187,16 +187,16 @@ export default function FeaturesPage() {
             {/* High-End Refined CTA */}
             <section className="py-40 bg-white">
                 <div className="max-w-5xl mx-auto px-6 text-center">
-                   <div className="bg-ink rounded-[3.5rem] p-16 md:p-32 border border-white/5 relative overflow-hidden group shadow-sm shadow-ink/20">
+                   <div className="bg-emerald-600 rounded-[3.5rem] p-16 md:p-32 border border-white/5 relative overflow-hidden group shadow-lg shadow-emerald-600/20 shadow-ink/20">
                         <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-600/10 rounded-xl blur-[120px]"></div>
                         <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tighter mb-12 relative z-10 leading-[0.95]">
                             ابدأ ببناء <br/> <span className="text-emerald-600">إمبراطوريتك.</span>
                         </h2>
                         <div className="flex flex-col sm:flex-row gap-6 justify-center relative z-10">
-                            <Link href="/register" className="px-14 py-6 bg-emerald-600 text-white rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-ink transition-all shadow-sm shadow-accent/20">
+                            <Link href="/register" className="px-14 py-6 bg-emerald-600 text-white rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-emerald-600 transition-all shadow-lg shadow-emerald-600/20 shadow-accent/20">
                                 Start Your Mission Now
                             </Link>
-                            <Link href="/pricing" className="px-14 py-6 bg-white/5 text-white border border-white/10 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-ink transition-all">
+                            <Link href="/pricing" className="px-14 py-6 bg-white/5 text-white border border-white/10 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-emerald-600 transition-all">
                                 View Pricing Plans
                             </Link>
                         </div>

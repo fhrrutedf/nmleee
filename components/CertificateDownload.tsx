@@ -113,7 +113,7 @@ export function CertificateDownload({
                         <FiLock className="text-2xl text-gray-400" />
                     </div>
                     <div className="flex-1">
-                        <h3 className="text-lg font-bold text-ink mb-1">
+                        <h3 className="text-lg font-bold text-emerald-600 mb-1">
                             شهادة الإتمام 🔒
                         </h3>
                         <p className="text-sm text-gray-500 mb-4 font-bold">
@@ -126,7 +126,7 @@ export function CertificateDownload({
                                     style={{ width: `${progress}%` }}
                                 />
                             </div>
-                            <span className="text-sm font-bold text-ink font-inter">
+                            <span className="text-sm font-bold text-emerald-600 font-inter">
                                 {progress}%
                             </span>
                         </div>
@@ -141,11 +141,11 @@ export function CertificateDownload({
         return (
             <div className="bg-emerald-600-light border-2 border-emerald-600/10 rounded-xl p-8">
                 <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-right">
-                    <div className="flex-shrink-0 p-5 bg-white rounded-xl shadow-sm">
+                    <div className="flex-shrink-0 p-5 bg-white rounded-xl shadow-lg shadow-emerald-600/20">
                         <FiCheckCircle className="text-4xl text-emerald-600" />
                     </div>
                     <div className="flex-1">
-                        <h3 className="text-xl font-bold text-ink mb-1">
+                        <h3 className="text-xl font-bold text-emerald-600 mb-1">
                             🎉 مبروك! لقد أتممت الدورة بنجاح
                         </h3>
                         <p className="text-sm text-emerald-600 font-bold mb-4">
@@ -153,7 +153,7 @@ export function CertificateDownload({
                         </p>
                         <button
                             onClick={downloadCertificate}
-                            className="bg-ink text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-all shadow-sm active:scale-95 w-full sm:w-auto"
+                            className="bg-emerald-600 text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-all shadow-lg shadow-emerald-600/20 active:scale-95 w-full sm:w-auto"
                         >
                             <FiDownload />
                             <span>تحميل الشهادة (PDF)</span>
@@ -167,20 +167,20 @@ export function CertificateDownload({
     // Eligible but not generated yet
     if (status.eligible && !status.certificateGenerated) {
         return (
-            <div className="bg-white border border-gray-100 rounded-xl p-8 shadow-sm">
+            <div className="bg-white border border-gray-100 rounded-xl p-8 shadow-lg shadow-emerald-600/20">
                 <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-right">
                     <div className="flex-shrink-0 p-5 bg-emerald-600-light rounded-xl">
                         <FiAward className="text-4xl text-emerald-600" />
                     </div>
                     <div className="flex-1">
-                        <h3 className="text-xl font-bold text-ink mb-1">
+                        <h3 className="text-xl font-bold text-emerald-600 mb-1">
                             🎊 أحسنت! تستحق شهادة الإتمام
                         </h3>
                         <p className="text-sm text-gray-500 font-bold mb-4 uppercase tracking-wider">Official Certificate Unlocked</p>
                         <button
                             onClick={generateCertificate}
                             disabled={generating}
-                            className="bg-emerald-600 text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-600-hover transition-all shadow-sm shadow-accent/20 active:scale-95 w-full sm:w-auto"
+                            className="bg-emerald-600 text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-600-hover transition-all shadow-lg shadow-emerald-600/20 shadow-accent/20 active:scale-95 w-full sm:w-auto"
                         >
                             {generating ? (
                                 <>

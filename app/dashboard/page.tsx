@@ -60,7 +60,7 @@ export default function DashboardPage() {
             className="space-y-8 pb-12"
         >
             {/* Professional Welcome Section */}
-            <motion.div variants={item} className="bg-ink rounded-xl p-8 sm:p-12 text-white shadow-sm relative overflow-hidden ring-1 ring-white/10">
+            <motion.div variants={item} className="bg-emerald-600 rounded-xl p-8 sm:p-12 text-white shadow-lg shadow-emerald-600/20 relative overflow-hidden ring-1 ring-white/10">
                 <div className="relative z-10 max-w-2xl">
                     <span className="inline-block px-3 py-1 bg-surface/10 rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Merchant Dashboard</span>
                     <h1 className="text-3xl sm:text-5xl font-bold mb-4 tracking-tight leading-tight">مرحباً، {session?.user?.name}</h1>
@@ -76,11 +76,11 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
                     { title: 'إجمالي الأرباح', value: `${(stats.totalRevenue || 0).toLocaleString('en-US')} $`, icon: FiDollarSign, badge: 'Revenue', color: 'text-emerald-600', bg: 'bg-emerald-600-light' },
-                    { title: 'إجمالي المبيعات', value: stats.totalOrders || 0, icon: FiShoppingCart, badge: 'Sales', color: 'text-ink', bg: 'bg-gray-50' },
-                    { title: 'المنتجات النشطة', value: stats.totalProducts || 0, icon: FiPackage, badge: 'Inventory', color: 'text-ink', bg: 'bg-gray-50' },
-                    { title: 'عدد الطلاب', value: stats.totalStudents || 0, icon: FiUsers, badge: 'Students', color: 'text-ink', bg: 'bg-gray-50' }
+                    { title: 'إجمالي المبيعات', value: stats.totalOrders || 0, icon: FiShoppingCart, badge: 'Sales', color: 'text-emerald-600', bg: 'bg-gray-50' },
+                    { title: 'المنتجات النشطة', value: stats.totalProducts || 0, icon: FiPackage, badge: 'Inventory', color: 'text-emerald-600', bg: 'bg-gray-50' },
+                    { title: 'عدد الطلاب', value: stats.totalStudents || 0, icon: FiUsers, badge: 'Students', color: 'text-emerald-600', bg: 'bg-gray-50' }
                 ].map((stat, idx) => (
-                    <motion.div variants={item} key={idx} className="bg-white border border-gray-100 p-6 rounded-xl hover:border-gray-200 transition-all shadow-sm group">
+                    <motion.div variants={item} key={idx} className="bg-white border border-gray-100 p-6 rounded-xl hover:border-gray-200 transition-all shadow-lg shadow-emerald-600/20 group">
                         <div className="flex justify-between items-center mb-6">
                             <div className={`${stat.bg} p-3 rounded-xl border border-transparent group-hover:border-gray-200 transition-all`}>
                                 <stat.icon className={`text-xl ${stat.color}`} />
@@ -88,7 +88,7 @@ export default function DashboardPage() {
                             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{stat.badge}</span>
                         </div>
                         <h3 className="text-gray-500 text-xs font-bold mb-1 uppercase tracking-wider">{stat.title}</h3>
-                        <p className="text-2xl font-bold text-ink font-inter tracking-tight">
+                        <p className="text-2xl font-bold text-emerald-600 font-inter tracking-tight">
                             {loading ? '—' : stat.value}
                         </p>
                     </motion.div>
@@ -98,11 +98,11 @@ export default function DashboardPage() {
             {/* Analytics & Quick Actions */}
             <div className="grid lg:grid-cols-3 gap-8">
                 {/* Analytics Snapshot */}
-                <motion.div variants={item} className="lg:col-span-2 bg-white border border-gray-100 rounded-xl p-8 shadow-sm flex flex-col">
+                <motion.div variants={item} className="lg:col-span-2 bg-white border border-gray-100 rounded-xl p-8 shadow-lg shadow-emerald-600/20 flex flex-col">
                     <div className="flex justify-between items-center mb-10">
                         <div className="flex items-center gap-3">
                             <FiBarChart2 className="text-emerald-600 text-2xl" />
-                            <h2 className="text-xl font-bold text-ink">تحليلات الأداء</h2>
+                            <h2 className="text-xl font-bold text-emerald-600">تحليلات الأداء</h2>
                         </div>
                         <select className="bg-gray-50 border-none rounded-xl text-[11px] font-bold px-4 py-2 text-gray-500 focus:ring-1 focus:ring-gray-200 cursor-pointer">
                             <option>آخر 7 أيام</option>
@@ -114,7 +114,7 @@ export default function DashboardPage() {
                         <div className="w-16 h-16 bg-gray-50 rounded-xl flex items-center justify-center mb-6">
                             <FiActivity className="text-2xl text-gray-300" />
                         </div>
-                        <h3 className="text-lg font-bold text-ink mb-2">في انتظار المزيد من البيانات</h3>
+                        <h3 className="text-lg font-bold text-emerald-600 mb-2">في انتظار المزيد من البيانات</h3>
                         <p className="text-gray-400 text-sm max-w-sm mx-auto font-bold">
                             سنقوم بتحليل مبيعاتك وتفاعلات طلابك فور بدء النشاط على متجرك.
                         </p>
@@ -129,12 +129,12 @@ export default function DashboardPage() {
                         { title: 'إنشاء كورس جديد', desc: 'سجل محاضراتك وأنشئ أكاديميتك', icon: FiVideo, href: '/dashboard/courses/new' },
                         { title: 'تعديل هوية المتجر', desc: 'الألوان، الشعار، والوصف', icon: FiSettings, href: '/dashboard/brand' }
                     ].map((action, idx) => (
-                        <Link key={idx} href={action.href} className="flex items-center gap-5 p-5 rounded-xl bg-white border border-gray-100 hover:border-emerald-600/20 hover:shadow-sm hover:shadow-accent/5 transition-all group">
-                            <div className="w-12 h-12 rounded-xl bg-gray-50 text-ink flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-sm">
+                        <Link key={idx} href={action.href} className="flex items-center gap-5 p-5 rounded-xl bg-white border border-gray-100 hover:border-emerald-600/20 hover:shadow-lg shadow-emerald-600/20 hover:shadow-accent/5 transition-all group">
+                            <div className="w-12 h-12 rounded-xl bg-gray-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-lg shadow-emerald-600/20">
                                 <action.icon className="text-xl" />
                             </div>
                             <div className="flex-1 text-right">
-                                <h3 className="font-bold text-ink group-hover:text-emerald-600 transition-colors text-sm">{action.title}</h3>
+                                <h3 className="font-bold text-emerald-600 group-hover:text-emerald-600 transition-colors text-sm">{action.title}</h3>
                                 <p className="text-[10px] text-gray-400 font-bold mt-0.5">{action.desc}</p>
                             </div>
                             <FiArrowUpRight className="text-gray-300 group-hover:text-emerald-600" />
@@ -143,7 +143,7 @@ export default function DashboardPage() {
                     
                     <div className="mt-8 p-6 bg-emerald-600-light rounded-xl border border-emerald-600/10">
                         <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-2">نصيحة اليوم</p>
-                        <p className="text-xs text-ink font-bold leading-relaxed">
+                        <p className="text-xs text-emerald-600 font-bold leading-relaxed">
                             تحديث صور المنتجات الرقمية يزيد من معدل التحويل بنسبة تصل إلى 25%.
                         </p>
                     </div>

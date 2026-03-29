@@ -173,7 +173,7 @@ export default function ManualCheckoutPage() {
     return (
         <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#0F172A]">
             {/* ── Sticky Header ────────────────────────────────────── */}
-            <header className="bg-white dark:bg-[#1e293b] shadow-sm sticky top-0 z-20 border-b border-gray-100 dark:border-gray-800">
+            <header className="bg-white dark:bg-[#1e293b] shadow-lg shadow-emerald-600/20 sticky top-0 z-20 border-b border-gray-100 dark:border-gray-800">
                 <div className="max-w-xl mx-auto px-4 py-3.5 flex items-center gap-3">
                     <Link href="/" className="text-gray-400 hover:text-[#0052FF] transition-colors">
                         <FiChevronLeft size={22} />
@@ -212,7 +212,7 @@ export default function ManualCheckoutPage() {
                 </div>
 
                 {/* ── Order Summary ────────────────────────────────── */}
-                <div className="bg-white dark:bg-[#1e293b] rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 mb-5">
+                <div className="bg-white dark:bg-[#1e293b] rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 p-4 mb-5">
                     <div className="flex items-center justify-between">
                         <span className="text-xs text-gray-400 font-medium">المبلغ المطلوب</span>
                         <div className="text-left">
@@ -369,7 +369,7 @@ export default function ManualCheckoutPage() {
                                         <img src={proofPreview} alt="إثبات" className="w-full rounded-xl border border-gray-200 dark:border-gray-700 max-h-44 object-cover" />
                                         <button
                                             onClick={() => { setProofFile(null); setProofPreview(null); }}
-                                            className="absolute top-2 left-2 w-7 h-7 bg-red-500 text-white rounded-xl flex items-center justify-center shadow-sm"
+                                            className="absolute top-2 left-2 w-7 h-7 bg-red-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/20"
                                         >
                                             <FiX size={14} />
                                         </button>
@@ -413,7 +413,7 @@ export default function ManualCheckoutPage() {
                         <button
                             onClick={handleSubmit}
                             disabled={isSubmitting || !transactionRef}
-                            className="w-full bg-[#0052FF] text-white py-3.5 rounded-xl font-bold text-sm hover:bg-[#0052FF]/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm shadow-[#0052FF]/20 flex items-center justify-center gap-2 active:scale-[0.98]"
+                            className="w-full bg-[#0052FF] text-white py-3.5 rounded-xl font-bold text-sm hover:bg-[#0052FF]/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-emerald-600/20 shadow-[#0052FF]/20 flex items-center justify-center gap-2 active:scale-[0.98]"
                         >
                             {isSubmitting ? (
                                 <>

@@ -92,7 +92,7 @@ export default function ManualPaymentCard({
             </div>
 
             {/* Premium Price Conversion Card */}
-            <div className="relative group overflow-hidden bg-ink p-10 rounded-[2.5rem] border border-emerald-600-500/20 shadow-sm">
+            <div className="relative group overflow-hidden bg-emerald-600 p-10 rounded-[2.5rem] border border-emerald-600-500/20 shadow-lg shadow-emerald-600/20">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-600-500/10 rounded-xl blur-[80px] -mr-10 -mt-10"></div>
                 <div className="relative">
                     <p className="text-emerald-600-500/70 text-xs font-bold uppercase tracking-[0.2em] mb-4">المبلغ المطلوب بالعملة المحلية</p>

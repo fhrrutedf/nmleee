@@ -255,7 +255,7 @@ export default function SettingsPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-bold text-ink dark:text-white">الإعدادات</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-white">الإعدادات</h1>
                     <p className="text-sm sm:text-base text-text-muted mt-2">إدارة حسابك وتفضيلاتك</p>
                 </div>
                 {profileData.username && (
@@ -272,7 +272,7 @@ export default function SettingsPage() {
                             navigator.clipboard.writeText(url);
                             toast.success('تم نسخ رابط متجرك بنجاح!');
                         }}
-                        className="group relative flex items-center gap-2 px-6 py-3 bg-white dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-emerald-600 text-ink dark:text-white shadow-sm transition-all hover:-translate-y-0.5 rounded-xl"
+                        className="group relative flex items-center gap-2 px-6 py-3 bg-white dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-emerald-600 text-emerald-600 dark:text-white shadow-lg shadow-emerald-600/20 transition-all hover:-translate-y-0.5 rounded-xl"
                     >
                         <div className="w-8 h-8 rounded-xl bg-emerald-600-50 dark:bg-blue-900/20 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
                             <FiCopy size={14} />
@@ -291,7 +291,7 @@ export default function SettingsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 {/* Sidebar Tabs */}
                 <div className="lg:col-span-1 overflow-x-auto pb-2 sm:pb-0 scrollbar-hide">
-                    <div className="card flex lg:flex-col gap-2 p-2 sm:p-4 min-w-max lg:min-w-0 bg-white dark:bg-card-white rounded-xl sm:rounded-xl shadow-sm border border-gray-100 dark:border-gray-800">
+                    <div className="card flex lg:flex-col gap-2 p-2 sm:p-4 min-w-max lg:min-w-0 bg-white dark:bg-card-white rounded-xl sm:rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800">
                         {tabs.map((tab) => (
                             <button
                                 key={tab.id}
@@ -310,11 +310,11 @@ export default function SettingsPage() {
 
                 {/* Content */}
                 <div className="lg:col-span-3">
-                    <div className="card min-h-[500px] bg-white dark:bg-card-white rounded-xl sm:rounded-xl p-6 sm:p-8 shadow-sm border border-gray-100 dark:border-gray-800">
+                    <div className="card min-h-[500px] bg-white dark:bg-card-white rounded-xl sm:rounded-xl p-6 sm:p-8 shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800">
                         {/* Profile Tab */}
                         {activeTab === 'profile' && (
                             <div className="space-y-8 ">
-                                <h2 className="text-xl sm:text-2xl font-bold text-ink dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الملف الشخصي</h2>
+                                <h2 className="text-xl sm:text-2xl font-bold text-emerald-600 dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الملف الشخصي</h2>
 
                                 {/* Avatar & Cover Upload */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -322,7 +322,7 @@ export default function SettingsPage() {
                                     <div className="space-y-3">
                                         <label className="label">الصورة الشخصية (Avatar)</label>
                                         <div className="flex flex-col items-center gap-4 p-4 border border-dashed border-gray-300 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800/50">
-                                            <div className="w-24 h-24 rounded-xl overflow-hidden bg-ink flex items-center justify-center text-white text-3xl font-bold shadow-sm ring-4 ring-white dark:ring-gray-900 border border-gray-100 dark:border-gray-800 shrink-0 relative group">
+                                            <div className="w-24 h-24 rounded-xl overflow-hidden bg-emerald-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-emerald-600/20 ring-4 ring-white dark:ring-gray-900 border border-gray-100 dark:border-gray-800 shrink-0 relative group">
                                                 {profileData.avatar ? (
                                                     <img src={profileData.avatar} alt="Avatar" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                                                 ) : (
@@ -343,7 +343,7 @@ export default function SettingsPage() {
                                     <div className="space-y-3">
                                         <label className="label">صورة الغلاف (Cover)</label>
                                         <div className="flex flex-col gap-4 p-4 border border-dashed border-gray-300 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800/50">
-                                            <div className="h-24 w-full rounded-xl overflow-hidden bg-ink flex items-center justify-center text-white font-bold shadow-inner relative group">
+                                            <div className="h-24 w-full rounded-xl overflow-hidden bg-emerald-600 flex items-center justify-center text-white font-bold shadow-inner relative group">
                                                 {profileData.coverImage ? (
                                                     <img src={profileData.coverImage} alt="Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                                                 ) : (
@@ -393,7 +393,7 @@ export default function SettingsPage() {
                                             />
                                         </div>
                                         {showUsernameWarning && (
-                                            <div className="mt-2 p-3 bg-emerald-600-50 border border-amber-200 rounded-xl text-xs text-blue-800 flex items-start gap-2 shadow-sm ">
+                                            <div className="mt-2 p-3 bg-emerald-600-50 border border-amber-200 rounded-xl text-xs text-blue-800 flex items-start gap-2 shadow-lg shadow-emerald-600/20 ">
                                                 <FiAlertCircle className="mt-0.5 shrink-0 text-emerald-600-500" />
                                                 <p>
                                                     <strong className="block mb-1">تحذير: تغيير اسم المستخدم</strong>
@@ -509,7 +509,7 @@ export default function SettingsPage() {
                         {/* Security Tab */}
                         {activeTab === 'security' && (
                             <div className="space-y-8 ">
-                                <h2 className="text-2xl font-bold text-ink dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الأمان وكلمة المرور</h2>
+                                <h2 className="text-2xl font-bold text-emerald-600 dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الأمان وكلمة المرور</h2>
 
                                 <div className="space-y-6 max-w-lg">
                                     <div>
@@ -568,7 +568,7 @@ export default function SettingsPage() {
                         {/* Notifications Tab */}
                         {activeTab === 'notifications' && (
                             <div className="space-y-8 ">
-                                <h2 className="text-2xl font-bold text-ink dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">إعدادات الإشعارات</h2>
+                                <h2 className="text-2xl font-bold text-emerald-600 dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">إعدادات الإشعارات</h2>
 
                                 <div className="space-y-4">
                                     {[
@@ -579,7 +579,7 @@ export default function SettingsPage() {
                                     ].map((item: any) => (
                                         <div key={item.key} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-800">
                                             <div>
-                                                <h3 className="font-medium text-ink dark:text-white">{item.label}</h3>
+                                                <h3 className="font-medium text-emerald-600 dark:text-white">{item.label}</h3>
                                                 <p className="text-sm text-text-muted">{item.desc}</p>
                                             </div>
                                             <label className="relative inline-flex items-center cursor-pointer">
@@ -621,7 +621,7 @@ export default function SettingsPage() {
                         {/* Integrations Tab */}
                         {activeTab === 'integrations' && (
                             <div className="space-y-8 ">
-                                <h2 className="text-2xl font-bold text-ink dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">التكاملات والخدمات المرتبطة</h2>
+                                <h2 className="text-2xl font-bold text-emerald-600 dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">التكاملات والخدمات المرتبطة</h2>
 
                                 {integrationMsg && (
                                     <div className={`p-4 rounded-xl flex items-center gap-3 font-medium ${integrationMsg.type === 'success'
@@ -644,7 +644,7 @@ export default function SettingsPage() {
                                                 </svg>
                                             </div>
                                             <div>
-                                                <h3 className="text-lg font-bold text-ink dark:text-white">Google Calendar & Meet</h3>
+                                                <h3 className="text-lg font-bold text-emerald-600 dark:text-white">Google Calendar & Meet</h3>
                                                 <p className="text-sm text-text-muted">أنشئ مواعيد تلقائياً مع رابط Google Meet عند كل حجز</p>
                                             </div>
                                         </div>
@@ -691,7 +691,7 @@ export default function SettingsPage() {
                                             <span className="text-2xl">🎥</span>
                                         </div>
                                         <div>
-                                            <h3 className="text-lg font-bold text-ink dark:text-white">Zoom</h3>
+                                            <h3 className="text-lg font-bold text-emerald-600 dark:text-white">Zoom</h3>
                                             <p className="text-sm text-text-muted">قريباً - ربط حسابك على Zoom</p>
                                         </div>
                                         <span className="mr-auto bg-gray-100 dark:bg-gray-800 text-gray-500 text-xs px-3 py-1 rounded-xl">قريباً</span>
@@ -704,7 +704,7 @@ export default function SettingsPage() {
                         {activeTab === 'verification' && (
                             <div className="space-y-8 ">
                                 <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-4">
-                                    <h2 className="text-2xl font-bold text-ink dark:text-white">توثيق الحساب (Trust Badge)</h2>
+                                    <h2 className="text-2xl font-bold text-emerald-600 dark:text-white">توثيق الحساب (Trust Badge)</h2>
                                     <FiCheckCircle className={`text-3xl ${verificationRequest?.status === 'APPROVED' ? 'text-green-500' : 'text-emerald-600'}`} />
                                 </div>
 
@@ -775,18 +775,18 @@ export default function SettingsPage() {
                         {/* Privacy Tab */}
                         {activeTab === 'privacy' && (
                             <div className="space-y-8 ">
-                                <h2 className="text-2xl font-bold text-ink dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الخصوصية والأمان المتقدم</h2>
+                                <h2 className="text-2xl font-bold text-emerald-600 dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الخصوصية والأمان المتقدم</h2>
 
                                 <div className="space-y-6">
                                     <div className="p-5 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
-                                        <div className="flex items-center gap-2 mb-4 text-ink dark:text-white">
+                                        <div className="flex items-center gap-2 mb-4 text-emerald-600 dark:text-white">
                                             <FiEye className="text-emerald-600" />
                                             <h3 className="font-bold">رؤية رقم الهاتف</h3>
                                         </div>
                                         <select 
                                             value={profileData.phoneVisibility}
                                             onChange={(e) => setProfileData({ ...profileData, phoneVisibility: e.target.value as any })}
-                                            className="input rounded-xl bg-white dark:bg-gray-900 shadow-sm border-gray-200"
+                                            className="input rounded-xl bg-white dark:bg-gray-900 shadow-lg shadow-emerald-600/20 border-gray-200"
                                         >
                                             <option value="PUBLIC">عام - يظهر للجميع في صفحة المبدع</option>
                                             <option value="WHATSAPP_ONLY">عبر واتساب فقط - زر تواصل مباشر</option>
@@ -818,8 +818,8 @@ export default function SettingsPage() {
                                     {/* 2FA Setup Modal Partial */}
                                     {show2FASetup && (
                                         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  ">
-                                            <div className="bg-white dark:bg-card-white rounded-xl p-8 max-w-md w-full shadow-sm space-y-6 text-center">
-                                                <h3 className="text-2xl font-bold text-ink dark:text-white">إعداد التحقق بخطوتين</h3>
+                                            <div className="bg-white dark:bg-card-white rounded-xl p-8 max-w-md w-full shadow-lg shadow-emerald-600/20 space-y-6 text-center">
+                                                <h3 className="text-2xl font-bold text-emerald-600 dark:text-white">إعداد التحقق بخطوتين</h3>
                                                 <p className="text-sm text-text-muted">امسح رمز الـ QR التالي باستخدام تطبيق Authenticator (مثل Google أو Microsoft)</p>
                                                 
                                                 <div className="bg-white p-4 rounded-xl inline-block border-4 border-primary-50">

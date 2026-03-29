@@ -30,7 +30,7 @@ export default function SupportPage() {
             <div className="max-w-7xl mx-auto px-4 py-12">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h1 className="text-3xl font-bold text-ink mb-4">مركز الدعم</h1>
+                    <h1 className="text-3xl font-bold text-emerald-600 mb-4">مركز الدعم</h1>
                     <p className="text-xl text-gray-600">كيف يمكننا مساعدتك اليوم؟</p>
                 </div>
 
@@ -48,7 +48,7 @@ export default function SupportPage() {
 
                 {/* Quick Links */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                    <Link href="/contact" className="bg-white rounded-xl shadow-sm p-6 hover:shadow-sm transition-shadow text-center group">
+                    <Link href="/contact" className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6 hover:shadow-lg shadow-emerald-600/20 transition-shadow text-center group">
                         <div className="w-16 h-16 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                             <FiMessageCircle className="text-3xl text-emerald-600" />
                         </div>
@@ -56,7 +56,7 @@ export default function SupportPage() {
                         <p className="text-gray-600 text-sm">أرسل رسالة للدعم الفني</p>
                     </Link>
 
-                    <Link href="/about" className="bg-white rounded-xl shadow-sm p-6 hover:shadow-sm transition-shadow text-center group">
+                    <Link href="/about" className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6 hover:shadow-lg shadow-emerald-600/20 transition-shadow text-center group">
                         <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                             <FiBook className="text-3xl text-emerald-600-600" />
                         </div>
@@ -64,7 +64,7 @@ export default function SupportPage() {
                         <p className="text-gray-600 text-sm">تعلم كيفية استخدام المنصة</p>
                     </Link>
 
-                    <div className="bg-white rounded-xl shadow-sm p-6 hover:shadow-sm transition-shadow text-center group">
+                    <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6 hover:shadow-lg shadow-emerald-600/20 transition-shadow text-center group">
                         <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                             <FiMail className="text-3xl text-green-600" />
                         </div>
@@ -74,7 +74,7 @@ export default function SupportPage() {
                 </div>
 
                 {/* FAQs */}
-                <div className="bg-white rounded-xl shadow-sm p-8">
+                <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-8">
                     <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
                         <FiHelpCircle className="text-emerald-600" />
                         الأسئلة الشائعة
@@ -94,7 +94,7 @@ export default function SupportPage() {
                 </div>
 
                 {/* CTA */}
-                <div className="mt-12 bg-ink rounded-xl p-8 text-center text-white">
+                <div className="mt-12 bg-emerald-600 rounded-xl p-8 text-center text-white">
                     <h3 className="text-2xl font-bold mb-4">لم تجد ما تبحث عنه؟</h3>
                     <p className="text-lg mb-6">فريق الدعم جاهز لمساعدتك 24/7</p>
                     <Link

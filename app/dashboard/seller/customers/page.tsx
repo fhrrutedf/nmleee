@@ -78,7 +78,7 @@ export default function CustomersPage() {
                     <h1 className="text-3xl font-bold text-gray-900">إدارة العملاء</h1>
                     <button
                         onClick={exportToCSV}
-                        className="flex items-center gap-2 px-4 py-2 bg-ink text-white rounded-lg hover:bg-black transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
                     >
                         <FiDownload />
                         تصدير CSV

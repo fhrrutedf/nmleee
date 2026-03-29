@@ -44,12 +44,12 @@ export default function CoursesPage() {
             <div className="max-w-7xl mx-auto px-4 py-12">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h1 className="text-3xl font-bold text-ink mb-4">الدورات التدريبية</h1>
+                    <h1 className="text-3xl font-bold text-emerald-600 mb-4">الدورات التدريبية</h1>
                     <p className="text-xl text-gray-600">تعلم مهارات جديدة مع خبراء المجال</p>
                 </div>
 
                 {/* Search */}
-                <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6 mb-8">
                     <div className="relative max-w-xl mx-auto">
                         <FiSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
                         <input
@@ -74,7 +74,7 @@ export default function CoursesPage() {
                             <Link
                                 key={course.id}
                                 href={`/product/${course.id}`}
-                                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-sm transition-all group"
+                                className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden hover:shadow-lg shadow-emerald-600/20 transition-all group"
                             >
                                 {course.image ? (
                                     <img
@@ -83,7 +83,7 @@ export default function CoursesPage() {
                                         className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                                     />
                                 ) : (
-                                    <div className="w-full h-56 bg-ink flex items-center justify-center">
+                                    <div className="w-full h-56 bg-emerald-600 flex items-center justify-center">
                                         <FiVideo className="text-6xl text-blue-400" />
                                     </div>
                                 )}

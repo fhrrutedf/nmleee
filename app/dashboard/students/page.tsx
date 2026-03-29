@@ -52,7 +52,7 @@ export default async function StudentsPage() {
                         <FiUsers className="text-xl text-emerald-600" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-bold text-ink dark:text-white">إدارة الطلاب والشهادات</h1>
+                        <h1 className="text-2xl font-bold text-emerald-600 dark:text-white">إدارة الطلاب والشهادات</h1>
                         <p className="text-text-muted mt-1 text-sm">عرض وتحليل بيانات طلابك وإصدار الشهادات والتواصل معهم</p>
                     </div>
                 </div>

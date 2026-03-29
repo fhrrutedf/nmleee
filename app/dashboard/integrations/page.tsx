@@ -124,7 +124,7 @@ export default function IntegrationsPage() {
             ],
             status: 'coming_soon',
             icon: <span className="text-3xl">📆</span>,
-            color: 'text-ink',
+            color: 'text-emerald-600',
             bg: 'bg-purple-50 dark:bg-purple-900/20',
         },
     ];
@@ -133,7 +133,7 @@ export default function IntegrationsPage() {
         <div className="space-y-8">
             {/* Header */}
             <div>
-                <h1 className="text-3xl font-bold text-ink dark:text-white flex items-center gap-3">
+                <h1 className="text-3xl font-bold text-emerald-600 dark:text-white flex items-center gap-3">
                     <FiLink2 className="text-emerald-600" />
                     التكاملات
                 </h1>
@@ -190,11 +190,11 @@ export default function IntegrationsPage() {
                         {/* Header */}
                         <div className="flex items-start justify-between gap-4 mb-4">
                             <div className="flex items-center gap-4">
-                                <div className={`w-14 h-14 rounded-xl ${integration.bg} flex items-center justify-center shadow-sm`}>
+                                <div className={`w-14 h-14 rounded-xl ${integration.bg} flex items-center justify-center shadow-lg shadow-emerald-600/20`}>
                                     {integration.icon}
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-bold text-ink dark:text-white">
+                                    <h3 className="text-lg font-bold text-emerald-600 dark:text-white">
                                         {integration.name}
                                     </h3>
                                     {integration.status === 'connected' && (
@@ -223,7 +223,7 @@ export default function IntegrationsPage() {
                         {/* Features */}
                         <ul className="space-y-2 mb-5">
                             {integration.features.map((f, idx) => (
-                                <li key={idx} className="flex items-center gap-2 text-sm text-ink dark:text-gray-300">
+                                <li key={idx} className="flex items-center gap-2 text-sm text-emerald-600 dark:text-gray-300">
                                     <FiCheckCircle className="text-green-500 flex-shrink-0" />
                                     {f}
                                 </li>

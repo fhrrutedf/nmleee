@@ -100,12 +100,12 @@ export default function EditQuizPage() {
                     الاختبارات
                 </button>
                 <FiArrowRight size={12} />
-                <span className="text-ink dark:text-white font-medium">تعديل: {formData.title}</span>
+                <span className="text-emerald-600 dark:text-white font-medium">تعديل: {formData.title}</span>
             </div>
 
             <div className="card">
                 <div className="flex items-center justify-between mb-6">
-                    <h1 className="text-2xl font-bold text-ink dark:text-white">تعديل الاختبار</h1>
+                    <h1 className="text-2xl font-bold text-emerald-600 dark:text-white">تعديل الاختبار</h1>
                     <label className="flex items-center gap-2 cursor-pointer">
                         {formData.isPublished ? (
                             <FiEye className="text-green-500" />
@@ -175,7 +175,7 @@ export default function EditQuizPage() {
 
                     {/* Quiz Builder */}
                     <div>
-                        <h3 className="text-lg font-semibold text-ink dark:text-white mb-4">الأسئلة</h3>
+                        <h3 className="text-lg font-semibold text-emerald-600 dark:text-white mb-4">الأسئلة</h3>
                         <QuizBuilder
                             initialQuestions={formData.questions}
                             onChange={(questions) => setFormData({ ...formData, questions: questions as any })}

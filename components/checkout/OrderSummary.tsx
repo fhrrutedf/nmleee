@@ -40,9 +40,9 @@ export default function OrderSummary({
     disabled
 }: OrderSummaryProps) {
     return (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-8 space-y-10 sticky top-24">
+        <div className="bg-white rounded-xl border border-gray-100 shadow-lg shadow-emerald-600/20 p-8 space-y-10 sticky top-24">
             <div className="flex items-baseline justify-between overflow-hidden">
-                <h2 className="text-xl font-bold text-ink tracking-tight">ملخص الطلب</h2>
+                <h2 className="text-xl font-bold text-emerald-600 tracking-tight">ملخص الطلب</h2>
                 <span className="text-[10px] font-bold text-emerald-600 bg-emerald-600-light px-3 py-1 rounded-xl uppercase tracking-widest">
                     {items.length} Elements
                 </span>
@@ -65,11 +65,11 @@ export default function OrderSummary({
                             )}
                         </div>
                         <div className="flex-1 min-w-0">
-                            <h4 className="text-sm font-bold text-ink truncate leading-tight mb-0.5">{item.title}</h4>
+                            <h4 className="text-sm font-bold text-emerald-600 truncate leading-tight mb-0.5">{item.title}</h4>
                             <span className="text-[10px] font-bold text-gray-400 font-inter uppercase tracking-widest">{item.type}</span>
                         </div>
                         <div className="text-right">
-                            <p className="text-sm font-bold text-ink font-mono font-inter">
+                            <p className="text-sm font-bold text-emerald-600 font-mono font-inter">
                                 {item.price > 0 ? `${item.price.toFixed(2)} $` : 'FREE'}
                             </p>
                         </div>
@@ -83,7 +83,7 @@ export default function OrderSummary({
                     <input 
                         type="text" 
                         placeholder="هل لديك كود خصم؟"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 pr-12 text-sm font-bold text-ink outline-none focus:ring-4 focus:ring-accent/5 focus:border-emerald-600 transition-all font-inter placeholder:text-gray-400"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 pr-12 text-sm font-bold text-emerald-600 outline-none focus:ring-4 focus:ring-accent/5 focus:border-emerald-600 transition-all font-inter placeholder:text-gray-400"
                         value={couponCode}
                         onChange={(e) => onCouponChange(e.target.value.toUpperCase())}
                     />
@@ -103,7 +103,7 @@ export default function OrderSummary({
             <div className="space-y-4 pt-4">
                 <div className="flex justify-between text-sm font-medium text-gray-500">
                     <span className="uppercase tracking-widest text-[10px] font-bold font-inter">Subtotal</span>
-                    <span className="font-mono font-inter text-ink">{subtotal.toFixed(2)} $</span>
+                    <span className="font-mono font-inter text-emerald-600">{subtotal.toFixed(2)} $</span>
                 </div>
                 
                 <AnimatePresence>
@@ -128,7 +128,7 @@ export default function OrderSummary({
                         <p className="text-[10px] text-gray-500">وصول فوري + حماية كاملة</p>
                     </div>
                     <div className="text-right">
-                        <span className="text-3xl font-bold text-ink tracking-tighter font-inter">
+                        <span className="text-3xl font-bold text-emerald-600 tracking-tighter font-inter">
                             {total.toFixed(2)}
                             <span className="text-base font-bold text-gray-400 ml-1">$</span>
                         </span>
@@ -141,7 +141,7 @@ export default function OrderSummary({
                 <button
                     onClick={onCheckout}
                     disabled={loading || disabled}
-                    className="group relative w-full h-16 bg-ink text-white rounded-xl overflow-hidden shadow-sm active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="group relative w-full h-16 bg-emerald-600 text-white rounded-xl overflow-hidden shadow-lg shadow-emerald-600/20 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     <div className="relative flex items-center justify-center gap-3 font-bold text-lg tracking-tight">
                         {loading ? (

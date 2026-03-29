@@ -63,7 +63,7 @@ export default function EmailLogsPage() {
                     <Link href="/dashboard/automation" className="flex items-center gap-2 text-text-muted hover:text-emerald-600 text-sm mb-2 transition-colors">
                         <FiArrowLeft /> العودة للأتمتة
                     </Link>
-                    <h1 className="text-2xl font-bold text-ink dark:text-white">📬 سجل الإيميلات</h1>
+                    <h1 className="text-2xl font-bold text-emerald-600 dark:text-white">📬 سجل الإيميلات</h1>
                     <p className="text-text-muted text-sm mt-1">آخر 100 إيميل تم إرسالها</p>
                 </div>
                 <button onClick={load} className="btn btn-outline flex items-center gap-2">
@@ -130,7 +130,7 @@ export default function EmailLogsPage() {
                                                 </span>
                                             </td>
                                             <td className="px-4 py-3">
-                                                <p className="font-medium text-ink dark:text-white">{log.toName || log.toEmail}</p>
+                                                <p className="font-medium text-emerald-600 dark:text-white">{log.toName || log.toEmail}</p>
                                                 <p className="text-xs text-text-muted">{log.toEmail}</p>
                                             </td>
                                             <td className="px-4 py-3 text-gray-600 dark:text-gray-400 max-w-[200px] truncate">{log.subject}</td>

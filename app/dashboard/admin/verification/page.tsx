@@ -74,7 +74,7 @@ export default function AdminVerificationPage() {
         <div className="p-6 lg:p-10 max-w-7xl mx-auto w-full space-y-8">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-3xl font-bold text-ink dark:text-white">طلبات توثيق الحساب</h1>
+                    <h1 className="text-3xl font-bold text-emerald-600 dark:text-white">طلبات توثيق الحساب</h1>
                     <p className="text-text-muted mt-1">مراجعة هوية البائعين لمنح الشارة الزرقاء (Trust Badge)</p>
                 </div>
                 <div className="bg-emerald-600/10 text-emerald-600 px-4 py-2 rounded-xl font-bold border border-emerald-600/20">
@@ -85,13 +85,13 @@ export default function AdminVerificationPage() {
             {requests.length === 0 ? (
                 <div className="card bg-white dark:bg-card-white p-20 text-center rounded-xl border border-gray-100 dark:border-gray-800">
                     <div className="text-6xl mb-4">🎉</div>
-                    <h3 className="text-xl font-bold text-ink dark:text-white">لا توجد طلبات معلقة حالياً</h3>
+                    <h3 className="text-xl font-bold text-emerald-600 dark:text-white">لا توجد طلبات معلقة حالياً</h3>
                     <p className="text-text-muted">كل شيء تحت السيطرة!</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {requests.map((request) => (
-                        <div key={request.id} className="card bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-sm transition-all group">
+                        <div key={request.id} className="card bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-lg shadow-emerald-600/20 transition-all group">
                             {/* Document Preview */}
                             <div className="h-48 bg-gray-100 dark:bg-gray-900 relative overflow-hidden">
                                 <img 
@@ -111,11 +111,11 @@ export default function AdminVerificationPage() {
 
                             <div className="p-6 space-y-4">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 rounded-xl bg-ink flex items-center justify-center text-white text-xl font-bold shadow-sm">
+                                    <div className="w-12 h-12 rounded-xl bg-emerald-600 flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-emerald-600/20">
                                         {request.user.avatar ? <img src={request.user.avatar} className="w-full h-full object-cover rounded-xl" /> : request.user.name.charAt(0)}
                                     </div>
                                     <div className="overflow-hidden">
-                                        <h3 className="font-bold text-ink dark:text-white truncate">{request.user.name}</h3>
+                                        <h3 className="font-bold text-emerald-600 dark:text-white truncate">{request.user.name}</h3>
                                         <p className="text-xs text-text-muted truncate">{request.user.email}</p>
                                     </div>
                                 </div>
@@ -133,7 +133,7 @@ export default function AdminVerificationPage() {
                                     <button 
                                         onClick={() => handleAction(request.id, 'APPROVED')}
                                         disabled={!!processing}
-                                        className="btn bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl shadow-sm shadow-green-200 dark:shadow-none"
+                                        className="btn bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl shadow-lg shadow-emerald-600/20 shadow-green-200 dark:shadow-none"
                                     >
                                         {processing === request.id ? 'جاري...' : 'قبول'}
                                     </button>
@@ -154,7 +154,7 @@ export default function AdminVerificationPage() {
             {/* Rejection Modal */}
             {showRejectionModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60  ">
-                    <div className="bg-white dark:bg-card-white rounded-xl p-8 max-w-md w-full shadow-sm space-y-6">
+                    <div className="bg-white dark:bg-card-white rounded-xl p-8 max-w-md w-full shadow-lg shadow-emerald-600/20 space-y-6">
                         <div className="flex items-center gap-3 text-red-500">
                             <FiAlertCircle className="text-2xl" />
                             <h3 className="text-xl font-bold">سبب رفض التوثيق</h3>

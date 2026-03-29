@@ -40,7 +40,7 @@ export default function ProductsPage() {
             <div className="min-h-screen bg-gray-50">
                 <div className="max-w-7xl mx-auto px-4 py-12">
                     <div className="text-center mb-12">
-                        <h1 className="text-3xl font-bold text-ink mb-4">جميع المنتجات</h1>
+                        <h1 className="text-3xl font-bold text-emerald-600 mb-4">جميع المنتجات</h1>
                         <p className="text-xl text-gray-600">اكتشف منتجاتنا الرقمية المميزة</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -58,12 +58,12 @@ export default function ProductsPage() {
             <div className="max-w-7xl mx-auto px-4 py-12">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h1 className="text-3xl font-bold text-ink mb-4">جميع المنتجات</h1>
+                    <h1 className="text-3xl font-bold text-emerald-600 mb-4">جميع المنتجات</h1>
                     <p className="text-xl text-gray-600">اكتشف منتجاتنا الرقمية المميزة</p>
                 </div>
 
                 {/* Search & Filter */}
-                <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-6 mb-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="relative">
                             <FiSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -108,7 +108,7 @@ export default function ProductsPage() {
                             <Link
                                 key={product.id}
                                 href={`/product/${product.id}`}
-                                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-sm transition-shadow group"
+                                className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden hover:shadow-lg shadow-emerald-600/20 transition-shadow group"
                             >
                                 {product.image ? (
                                     <img
@@ -117,7 +117,7 @@ export default function ProductsPage() {
                                         className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                                     />
                                 ) : (
-                                    <div className="w-full h-48 bg-ink flex items-center justify-center">
+                                    <div className="w-full h-48 bg-emerald-600 flex items-center justify-center">
                                         <FiShoppingCart className="text-5xl text-primary-400" />
                                     </div>
                                 )}

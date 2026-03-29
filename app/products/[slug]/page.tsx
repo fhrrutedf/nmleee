@@ -100,8 +100,8 @@ export default function ProductPage() {
             {effectiveBrandColor && (
                 <style dangerouslySetInnerHTML={{
                     __html: `
-                    .text-ink { color: ${effectiveBrandColor} !important; }
-                    .bg-ink { background-color: ${effectiveBrandColor} !important; }
+                    .text-emerald-600 { color: ${effectiveBrandColor} !important; }
+                    .bg-emerald-600 { background-color: ${effectiveBrandColor} !important; }
                     .bg-indigo-100 { background-color: ${effectiveBrandColor}20 !important; }
                     .border-ink { border-color: ${effectiveBrandColor} !important; }
                     .hover\\:bg-indigo-700:hover { background-color: ${effectiveBrandColor}cc !important; }
@@ -110,7 +110,7 @@ export default function ProductPage() {
                 }} />
             )}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="bg-white rounded-lg shadow-lg shadow-emerald-600/20 overflow-hidden">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
                         {/* Image Section */}
                         <div>
@@ -133,7 +133,7 @@ export default function ProductPage() {
                         {/* Info Section */}
                         <div className="space-y-6">
                             {product.category && (
-                                <span className="inline-block px-3 py-1 bg-indigo-100 text-ink rounded-xl text-sm font-medium">
+                                <span className="inline-block px-3 py-1 bg-indigo-100 text-emerald-600 rounded-xl text-sm font-medium">
                                     {product.category}
                                 </span>
                             )}
@@ -184,14 +184,14 @@ export default function ProductPage() {
 
                             {/* Price */}
                             <div className="bg-gray-50 rounded-lg p-6">
-                                <div className="text-4xl font-bold text-ink mb-4">
+                                <div className="text-4xl font-bold text-emerald-600 mb-4">
                                     {product.price.toFixed(2)} $
                                 </div>
 
                                 <div className="space-y-3">
                                     <button
                                         onClick={handleBuyNow}
-                                        className="w-full py-3 bg-ink text-white rounded-lg font-medium hover:bg-black transition-colors"
+                                        className="w-full py-3 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors"
                                     >
                                         اشترِ الآن
                                     </button>
@@ -199,7 +199,7 @@ export default function ProductPage() {
                                     {!isInCart ? (
                                         <button
                                             onClick={handleAddToCart}
-                                            className="w-full py-3 border-2 border-ink text-ink rounded-lg font-medium hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2"
+                                            className="w-full py-3 border-2 border-ink text-emerald-600 rounded-lg font-medium hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2"
                                         >
                                             <FiShoppingCart />
                                             أضف للسلة
@@ -243,7 +243,7 @@ export default function ProductPage() {
             {/* Simple Footer */}
             <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-ink font-bold hover:underline">منصة تمالين</a>
+                    مدعوم من <a href="https://tmleen.com" className="text-emerald-600 font-bold hover:underline">منصة تمالين</a>
                 </p>
             </footer>
         </div>

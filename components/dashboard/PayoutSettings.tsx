@@ -150,7 +150,7 @@ export default function PayoutSettings() {
 
             {/* Method Details Form */}
             {activeMethod && (
-                <div className="bg-white border border-gray-100 p-6 rounded-xl shadow-sm ">
+                <div className="bg-white border border-gray-100 p-6 rounded-xl shadow-lg shadow-emerald-600/20 ">
                     <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
                         <span className="w-1.5 h-6 bg-primary-500 rounded-xl"></span>
                         بيانات {getPayoutMethodLabel(activeMethod)}

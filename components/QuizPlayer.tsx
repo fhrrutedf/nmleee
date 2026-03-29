@@ -70,7 +70,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
 
     if (submitted && result) {
         return (
-            <div className="bg-white rounded-xl shadow-sm p-8 text-center">
+            <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-8 text-center">
                 {result.isPassed ? (
                     <FiCheckCircle className="mx-auto text-6xl text-green-500 mb-4" />
                 ) : (
@@ -81,7 +81,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                     {result.isPassed ? 'تهانينا! لقد اجتزت الاختبار' : 'للأسف، لم تجتز الاختبار'}
                 </h2>
 
-                <div className="text-4xl font-bold text-ink mb-4">
+                <div className="text-4xl font-bold text-emerald-600 mb-4">
                     {result.score.toFixed(1)}%
                 </div>
 
@@ -101,7 +101,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
 
     if (!quiz.questions || quiz.questions.length === 0) {
         return (
-            <div className="bg-white rounded-xl shadow-sm p-12 text-center">
+            <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 p-12 text-center">
                 <FiAlertCircle className="mx-auto text-6xl text-orange-500 mb-4" />
                 <h2 className="text-2xl font-bold mb-4">اختبار بدون أسئلة</h2>
                 <p className="text-gray-500 mb-8">عذراً، لم يتم إضافة أسئلة لهذا الاختبار بعد.</p>
@@ -119,7 +119,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
 
     if (!question) return null;
     return (
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+        <div className="bg-white rounded-xl shadow-lg shadow-emerald-600/20 overflow-hidden">
             {/* Header */}
             <div className="bg-gray-50 p-4 border-b flex justify-between items-center">
                 <div>
@@ -156,7 +156,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                                 name={`q-${currentQuestion}`}
                                 checked={answers[currentQuestion] === idx}
                                 onChange={() => handleAnswer(idx)}
-                                className="w-4 h-4 text-ink"
+                                className="w-4 h-4 text-emerald-600"
                             />
                             <span>{option}</span>
                         </label>
@@ -212,7 +212,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                 {currentQuestion < quiz.questions.length - 1 ? (
                     <button
                         onClick={() => setCurrentQuestion(prev => prev + 1)}
-                        className="px-6 py-2 bg-ink text-white rounded-lg hover:bg-black"
+                        className="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700"
                     >
                         التالي
                     </button>

@@ -46,7 +46,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
     );
 
     return (
-        <div className="bg-white dark:bg-card-white rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
+        <div className="bg-white dark:bg-card-white rounded-xl p-6 shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800">
             {/* Toolbar */}
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <div className="relative w-full md:w-96">
@@ -133,7 +133,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
                                                 <FiMail />
                                             </button>
                                             <button
-                                                className="p-2 text-ink hover:bg-ink/10 rounded-lg transition-colors"
+                                                className="p-2 text-emerald-600 hover:bg-emerald-600/10 rounded-lg transition-colors"
                                                 title="إصدار شهادة"
                                             >
                                                 <FiAward />

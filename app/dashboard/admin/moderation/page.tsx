@@ -103,7 +103,7 @@ export default function CourseModerationPage() {
         <div className="max-w-6xl mx-auto space-y-6 pb-12">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-ink dark:text-white flex items-center gap-2">
+                    <h1 className="text-2xl font-bold text-emerald-600 dark:text-white flex items-center gap-2">
                         <FiShield className="text-emerald-600" /> حارس المحتوى (المراجعة)
                     </h1>
                     <p className="text-text-muted text-sm mt-1">كافة الكورسات المدرجة حديثاً تنتظر الموافقة للظهور في السوق</p>
@@ -135,7 +135,7 @@ export default function CourseModerationPage() {
                             {courses.map((course) => (
                                 <tr key={course.id} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                                     <td className="px-5 py-4">
-                                        <p className="font-bold text-ink dark:text-white">
+                                        <p className="font-bold text-emerald-600 dark:text-white">
                                             {course.title.length > 30 ? course.title.substring(0, 30) + '...' : course.title}
                                         </p>
                                     </td>
@@ -197,7 +197,7 @@ export default function CourseModerationPage() {
             {/* Reject Modal */}
             {isRejectModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 ">
-                    <div className="bg-white dark:bg-[#1a1c23] rounded-xl p-6 w-full max-w-md shadow-sm relative">
+                    <div className="bg-white dark:bg-[#1a1c23] rounded-xl p-6 w-full max-w-md shadow-lg shadow-emerald-600/20 relative">
                         <button
                             onClick={() => setIsRejectModalOpen(false)}
                             className="absolute top-4 left-4 w-8 h-8 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-500 hover:text-red-500"

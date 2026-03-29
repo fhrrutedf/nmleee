@@ -95,7 +95,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                 <FiArrowRight /> العودة لمركز الدعم
             </Link>
 
-            <div className="bg-white dark:bg-card-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-8">
+            <div className="bg-white dark:bg-card-white rounded-xl shadow-lg shadow-emerald-600/20 border border-gray-100 dark:border-gray-800 p-8">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-100 dark:border-gray-800 pb-6 mb-6">
                     <div>
                         <div className="flex items-center gap-3 mb-2">
@@ -106,7 +106,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                                 {statusInfo.label}
                             </span>
                         </div>
-                        <h1 className="text-2xl font-bold text-ink dark:text-white">
+                        <h1 className="text-2xl font-bold text-emerald-600 dark:text-white">
                             {ticket.subject}
                         </h1>
                     </div>
@@ -121,12 +121,12 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                         const isAdmin = msg.senderRole === 'ADMIN';
                         return (
                             <div key={msg.id} className={`flex gap-4 ${isAdmin ? '' : 'flex-row-reverse'}`}>
-                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isAdmin ? 'bg-ink' : 'bg-gray-200 dark:bg-gray-800'}`}>
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isAdmin ? 'bg-emerald-600' : 'bg-gray-200 dark:bg-gray-800'}`}>
                                     {isAdmin ? <FiMessageSquare className="text-white" /> : <FiUser className="text-gray-500" />}
                                 </div>
                                 <div className={`max-w-[80%] rounded-xl p-5 ${isAdmin ? 'bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none' : 'bg-emerald-600/10 dark:bg-emerald-600/20 text-emerald-600 rounded-tl-none'}`}>
                                     <div className="flex items-center gap-2 mb-2">
-                                        <span className={`font-bold text-sm ${isAdmin ? 'text-ink dark:text-white' : 'text-emerald-600'}`}>
+                                        <span className={`font-bold text-sm ${isAdmin ? 'text-emerald-600 dark:text-white' : 'text-emerald-600'}`}>
                                             {isAdmin ? 'فريق الدعم (المنصة)' : 'أنت'}
                                         </span>
                                         <span className="text-xs text-gray-400">
