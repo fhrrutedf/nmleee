@@ -27,17 +27,18 @@ function validateMagicBytes(buffer: Buffer, mime: string): boolean {
 export async function POST(request: Request) {
     try {
         const session = await getServerSession(authOptions);
-        // Remove strictly required session for image uploads (to allow Guest Receipt Upload)
+        const formData = await request.formData();
+        const file = formData.get('file') as File;
+        const uploadType = (formData.get('type') as string) || 'image'; // 'image' | 'product' | 'avatar' | 'receipt'
+
+        // 🛡️ SECURITY 0: Remove strictly required session for image/receipt uploads
         const isGuestUpload = uploadType === 'receipt' || uploadType === 'image';
         
         if (!session?.user && !isGuestUpload) {
             return NextResponse.json({ error: 'منطقة محظورة' }, { status: 401 });
         }
 
-        const userId = session?.user?.id || 'guest_upload';
-        const formData = await request.formData();
-        const file = formData.get('file') as File;
-        const uploadType = formData.get('type') as string; // 'image' | 'product' | 'avatar'
+        const userId = (session?.user as any)?.id || 'guest_upload';
 
         if (!file || !(file instanceof File)) {
             return NextResponse.json({ error: 'لم يتم العثور على الملف' }, { status: 400 });
@@ -55,17 +56,15 @@ export async function POST(request: Request) {
         }
 
         // 🛡️ SECURITY 2: Buffer Protection (Anti-DOS)
-        // Note: For Next.js Route Handlers, the request has a 4.5MB limit in Vercel Hobby, 
-        // 500MB in Pro. We check size BEFORE reading into Buffer if possible (but we need it for Magic Bytes).
         const maxImageSize = 10 * 1024 * 1024; // 10MB
-        const maxFileSize  = 100 * 1024 * 1024; // 100MB (For server processing limit)
+        const maxFileSize  = 100 * 1024 * 1024; // 100MB
         
         const limit = file.type.startsWith('image/') ? maxImageSize : maxFileSize;
         if (file.size > limit) {
              return NextResponse.json({ error: `الملف كبير جداً. الحد الأقصى لجلسة الرفع هو ${limit/1024/1024}MB` }, { status: 413 });
         }
 
-        // Read first chunk for verification BEFORE full buffering to minimize memory usage
+        // Read first chunk for verification
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
 
@@ -79,12 +78,11 @@ export async function POST(request: Request) {
         const secureFileName = `${crypto.randomUUID()}.${cleanExtension}`;
         
         // Logical Routing: Private vs Public
-        // Images are public. Digital products are STRICTLY PRIVATE.
         let bucket = 'product-images';
         let isPrivate = false;
 
         if (uploadType === 'product' || !file.type.startsWith('image/')) {
-            bucket = 'product-files'; // Ensure this bucket is PRIVATE in Supabase
+            bucket = 'product-files';
             isPrivate = true;
         }
 
@@ -100,7 +98,7 @@ export async function POST(request: Request) {
             .from(bucket)
             .upload(filePath, buffer, {
                 contentType: file.type,
-                upsert: false // Security: Prevent overwriting other users files
+                upsert: false
             });
 
         if (error) {
@@ -111,16 +109,13 @@ export async function POST(request: Request) {
         // 🛡️ SECURITY 6: Access Control logic (Signed URLs)
         let finalUrl: string;
         if (isPrivate) {
-            // Never return public URL for private products!
-            // Return a 5-minute preview URL for immediate confirmation
             const { data: signedData, error: signError } = await supabase.storage
                 .from(bucket)
-                .createSignedUrl(filePath, 300); // 5 minutes
+                .createSignedUrl(filePath, 300);
             
             if (signError) throw signError;
             finalUrl = signedData.signedUrl;
         } else {
-            // Images can be public
             const { data: publicData } = supabase.storage
                 .from(bucket)
                 .getPublicUrl(filePath);
