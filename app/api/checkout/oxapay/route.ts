@@ -68,11 +68,14 @@ export async function POST(req: NextRequest) {
         const availableAt = new Date();
         availableAt.setDate(availableAt.getDate() + 7); // Default 7 days escrow
 
+        // Ensure we use the Seller ID for the Order record if the user is a guest
+        const orderUserId = buyerId || sellerId;
+
         // 4. Create Order (PENDING)
         const order = await prisma.order.create({
             data: {
                 orderNumber: `OXA-${Date.now()}`,
-                userId: buyerId || sellerId,
+                userId: orderUserId,
                 sellerId,
                 customerName: customerInfo.name,
                 customerEmail: customerInfo.email.toLowerCase(),
@@ -125,13 +128,20 @@ export async function POST(req: NextRequest) {
         }
 
         // 6. Update Order with Oxapay Info
-        await prisma.order.update({
-            where: { id: order.id },
-            data: {
-                paymentId: oxaData.trackId.toString(),
-                cryptoInvoiceId: oxaData.trackId.toString()
-            }
-        });
+        try {
+            await prisma.order.update({
+                where: { id: order.id },
+                data: {
+                    paymentId: oxaData.trackId.toString(),
+                    cryptoInvoiceId: oxaData.trackId.toString()
+                }
+            });
+        } catch (updateErr) {
+            console.error('[OXAPAY_UPDATE_ERROR] Failed to update order with trackId:', updateErr);
+            // Even if update fails, we have the order created and the payment URL, 
+            // but the webhook might struggle to find it if we don't have trackId.
+            // However, the webhook uses orderId from Oxapay callback, so we are safe.
+        }
 
         return NextResponse.json({ paymentUrl: oxaData.payment_url });
 

@@ -88,6 +88,7 @@ export default function AdminDashboardPage() {
     // List States
     const [allCoupons, setAllCoupons] = useState<any[]>([]);
     const [allAffiliates, setAllAffiliates] = useState<any[]>([]);
+    const [allUsers, setAllUsers] = useState<any[]>([]);
     const [allBroadcasts, setAllBroadcasts] = useState<any[]>([]);
     const [verificationRequests, setVerificationRequests] = useState<any[]>([]);
     const [payouts, setPayouts] = useState<any[]>([]);
@@ -127,6 +128,19 @@ export default function AdminDashboardPage() {
             fetchers[activeTab]().finally(() => setMarketingLoading(false));
         }
     }, [activeTab]);
+
+    useEffect(() => {
+        if (activeTab === 'users') {
+            const timer = setTimeout(() => {
+                setMarketingLoading(true);
+                fetch(`/api/admin/users?limit=50&search=${encodeURIComponent(userFilter)}`)
+                    .then(r => r.json())
+                    .then(d => setAllUsers(d.users || []))
+                    .finally(() => setMarketingLoading(false));
+            }, 400);
+            return () => clearTimeout(timer);
+        }
+    }, [activeTab, userFilter]);
 
     useEffect(() => {
         if (!autoRefresh) return;
@@ -411,14 +425,86 @@ export default function AdminDashboardPage() {
                         </div>
                         
                         <div className="overflow-x-auto min-h-[400px]">
-                           {/* Administrative Data Surface */}
-                           <div className="bg-[#0A0A0A] rounded-[2rem] border border-white/10 p-10 text-center shadow-inner">
-                                <div className="w-16 h-16 bg-[#111111] border border-white/10 rounded-xl flex items-center justify-center mx-auto mb-8 text-[#10B981] shadow-lg shadow-[#10B981]/20">
-                                    <FiBox size={24} />
+                            {activeTab === 'users' ? (
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-4 bg-[#111111]/50 p-2 rounded-[1.5rem] border border-white/10 relative">
+                                        <div className="absolute right-6 text-gray-500"><FiSearch size={20} /></div>
+                                        <input 
+                                            type="text"
+                                            placeholder="ابحث برقم الهاتف، البريد الإلكتروني، أو الاسم السريع..."
+                                            value={userFilter}
+                                            onChange={e => setUserFilter(e.target.value)}
+                                            className="w-full bg-transparent border-none outline-none py-4 pr-16 pl-6 text-sm font-bold placeholder-gray-600 text-white focus:text-[#10B981] transition-colors"
+                                        />
+                                        {marketingLoading && (
+                                            <div className="absolute left-6 w-5 h-5 border-2 border-white/10 border-t-accent rounded-full animate-spin"></div>
+                                        )}
+                                    </div>
+                                    <div className="border border-white/10 rounded-3xl overflow-hidden bg-[#0a0a0a]">
+                                        <table className="w-full">
+                                            <thead className="border-b border-white/10 bg-[#111111] text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                                                <tr>
+                                                    <th className="py-6 px-6 text-right">User / Client</th>
+                                                    <th className="py-6 px-6 text-center">Status & Role</th>
+                                                    <th className="py-6 px-6 text-center">Joined</th>
+                                                    <th className="py-6 px-6 text-left">Impersonate</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {allUsers.length === 0 ? (
+                                                    <tr><td colSpan={4} className="py-12 text-center text-gray-500 font-bold">لا يوجد نتائج أو عملاء بهذه البيانات...</td></tr>
+                                                ) : (
+                                                    allUsers.map((u: any) => (
+                                                        <tr key={u.id} className="border-b border-white/5 last:border-0 hover:bg-[#111111]/50 transition-colors">
+                                                            <td className="py-6 px-6 min-w-[250px]">
+                                                                <div className="flex items-center gap-4">
+                                                                    <div className="w-10 h-10 rounded-xl bg-emerald-900 border border-emerald-700/50 flex items-center justify-center font-bold text-[#10B981] shadow-inner uppercase overflow-hidden">
+                                                                        {u.avatar ? <img src={u.avatar} className="w-full h-full object-cover" /> : u.name?.charAt(0)}
+                                                                    </div>
+                                                                    <div>
+                                                                        <div className="font-bold text-sm text-gray-200">{u.name}</div>
+                                                                        <div className="text-[10px] text-gray-500 font-bold tracking-widest">{u.email}</div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td className="py-6 px-6 text-center">
+                                                                <div className="flex flex-col gap-2 items-center">
+                                                                    <span className={`px-3 py-1 text-[9px] font-bold rounded-lg uppercase tracking-widest ${u.role === 'ADMIN' ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' : u.role === 'SELLER' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'bg-gray-800 text-gray-400 border border-white/5'}`}>{u.role}</span>
+                                                                    <span className={`px-3 py-1 text-[9px] font-bold rounded-lg uppercase tracking-widest bg-emerald-500/10 text-[#10B981]`}>{u.totalEarnings ? `$${u.totalEarnings.toFixed(2)} NET` : 'Active'}</span>
+                                                                </div>
+                                                            </td>
+                                                            <td className="py-6 px-6 text-center text-xs text-gray-500 font-bold uppercase tracking-widest">{new Date(u.createdAt).toLocaleDateString('en-GB')}</td>
+                                                            <td className="py-6 px-6 text-left">
+                                                                <button 
+                                                                    onClick={async () => {
+                                                                        try {
+                                                                            const { impersonateUser } = await import('@/app/actions/impersonate');
+                                                                            await impersonateUser(u.id);
+                                                                            window.location.href = '/dashboard';
+                                                                        } catch (e: any) { alert(e.message); }
+                                                                    }}
+                                                                    className="bg-[#111111] border border-white/10 hover:border-emerald-600 hover:bg-emerald-950 text-gray-400 hover:text-[#10B981] px-5 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all shadow-lg hover:shadow-emerald-900/50 inline-flex items-center gap-2 group"
+                                                                >
+                                                                    <FiUnlock size={14} className="group-hover:text-white" />
+                                                                    <span className="group-hover:text-white">Login As</span>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    ))
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                                <h3 className="text-lg font-bold text-[#10B981] mb-2">OPERATIONAL DATA SYNC</h3>
-                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Awaiting central server confirmation for the selected period.</p>
-                           </div>
+                            ) : (
+                                <div className="bg-[#0A0A0A] rounded-[2rem] border border-white/10 p-10 text-center shadow-inner">
+                                    <div className="w-16 h-16 bg-[#111111] border border-white/10 rounded-xl flex items-center justify-center mx-auto mb-8 text-[#10B981] shadow-lg shadow-[#10B981]/20">
+                                        <FiBox size={24} />
+                                    </div>
+                                    <h3 className="text-lg font-bold text-[#10B981] mb-2">OPERATIONAL DATA SYNC</h3>
+                                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Awaiting central server confirmation for the selected period.</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}

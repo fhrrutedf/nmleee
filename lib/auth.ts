@@ -142,6 +142,7 @@ export const authOptions: AuthOptions = {
                 token.role = (user as any).role;
                 token.isImpersonating = (user as any).isImpersonating;
                 token.originalAdminName = (user as any).originalAdminName;
+                token.originalAdminId = (user as any).originalAdminId;
             }
             
             // For Google sign-in, fetch username from DB if not in token
@@ -165,6 +166,7 @@ export const authOptions: AuthOptions = {
                 session.user.role = token.role as string;
                 (session.user as any).isImpersonating = token.isImpersonating;
                 (session.user as any).originalAdminName = token.originalAdminName;
+                (session.user as any).originalAdminId = token.originalAdminId;
             }
             return session;
         }

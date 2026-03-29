@@ -14,6 +14,7 @@ import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { NotificationListener } from '@/components/NotificationListener';
 import { motion, AnimatePresence } from 'framer-motion';
+import { revertImpersonation } from '@/app/actions/impersonate';
 
 export default function DashboardLayout({
     children,
@@ -43,6 +44,16 @@ export default function DashboardLayout({
             router.push('/dashboard');
         }
         setSidebarOpen(false);
+    };
+
+    const handleRevertImpersonation = async () => {
+        if (!session?.user) return;
+        try {
+            await revertImpersonation();
+            window.location.href = '/dashboard/admin';
+        } catch (error) {
+            console.error('Failed to revert impersonation', error);
+        }
     };
 
     useEffect(() => {
@@ -102,6 +113,14 @@ export default function DashboardLayout({
     return (
         <div className="min-h-screen bg-[#0A0A0A] transition-colors duration-300 relative selection:bg-emerald-700 text-white flex flex-col">
             <header className="h-safe-top bg-[#0A0A0A] w-full" />
+            
+            {(session.user as any)?.isImpersonating && (
+                <div className="bg-red-500 text-white text-[10px] font-bold uppercase tracking-widest text-center py-2 z-[100] relative flex items-center justify-center gap-4 shadow-lg shadow-red-500/20">
+                    <span>🕵️‍♂️ أنت تتصفح حالياً كـ {session.user.name}</span>
+                    <button onClick={handleRevertImpersonation} className="bg-black/20 hover:bg-black/40 px-3 py-1 rounded-lg transition-colors border border-white/10">العودة كمدير</button>
+                </div>
+            )}
+
             <div className="flex flex-1 relative overflow-hidden">
             {sidebarOpen && (
                 <motion.div

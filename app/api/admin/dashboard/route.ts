@@ -83,7 +83,7 @@ export async function GET(req: NextRequest) {
         // Recent users
         prisma.user.findMany({
             orderBy: { createdAt: 'desc' },
-            take: 10,
+            take: 50,
             select: {
                 id: true, name: true, email: true, role: true,
                 country: true, createdAt: true, isActive: true,
