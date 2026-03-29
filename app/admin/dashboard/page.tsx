@@ -108,7 +108,7 @@ export default function AdminDashboard() {
         return (
             <div className="flex-1 flex flex-col p-6 items-center justify-center min-h-[60vh]">
                 <div className="w-16 h-16 border-4 border-gray-100 dark:border-gray-800 border-t-accent rounded-full animate-spin"></div>
-                <p className="mt-4 text-gray-500 font-bold animate-pulse">جاري تحميل إحصائيات المنصة...</p>
+                <p className="mt-4 text-ink dark:text-white font-black text-xs uppercase tracking-widest animate-pulse">Initializing Platform Intelligence...</p>
             </div>
         );
     }
@@ -142,10 +142,10 @@ export default function AdminDashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
                     {/* Revenue Card (Glassmorphism) */}
-                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-accent/10 rounded-full blur-2xl group-hover:bg-accent/20 transition-all"></div>
-                        <div className="flex justify-between items-start mb-4 relative z-10">
-                            <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/20 text-accent flex items-center justify-center text-xl">
+                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-white dark:bg-card-white p-8 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-2xl transition-all duration-500">
+                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-accent/5 rounded-full blur-2xl group-hover:bg-accent/10 transition-all"></div>
+                        <div className="flex justify-between items-start mb-6 relative z-10">
+                            <div className="w-14 h-14 rounded-2xl bg-gray-50 dark:bg-gray-800 text-accent flex items-center justify-center text-2xl shadow-sm group-hover:bg-accent group-hover:text-white transition-all">
                                 <FiDollarSign />
                             </div>
                             <span className="flex items-center gap-1 text-sm font-bold text-green-500 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-lg">
@@ -304,12 +304,12 @@ export default function AdminDashboard() {
 
                     {/* Recent Orders Table */}
                     <motion.div variants={itemVariants} className="lg:col-span-2 bg-white dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col">
-                        <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-gray-900/20">
-                            <h2 className="text-lg font-bold text-ink dark:text-white flex items-center gap-2">
-                                <FiActivity className="text-accent" /> أحدث الطلبات
+                        <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/30 dark:bg-gray-900/10">
+                            <h2 className="text-sm font-black text-ink dark:text-white flex items-center gap-3 uppercase tracking-widest">
+                                <FiActivity className="text-accent" /> Recent Activity
                             </h2>
-                            <Link href="/admin/dashboard/orders" className="text-sm font-bold text-accent hover:underline">
-                                عرض الكل
+                            <Link href="/admin/dashboard/orders" className="text-[10px] font-black text-accent hover:text-ink transition-colors uppercase tracking-widest">
+                                View Full Report
                             </Link>
                         </div>
                         <div className="p-0 overflow-x-auto flex-1">

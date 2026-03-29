@@ -245,11 +245,11 @@ export default function NewCoursePage() {
                 {/* Header & Auto-Draft Indicator */}
                 <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between border-b border-slate-100 pb-6">
                     <div className="text-right">
-                        <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-slate-400 hover:text-primary-indigo-600 font-bold text-xs mb-4 transition-colors">
-                            <FiArrowRight /> العودة للدورات
+                        <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-gray-400 hover:text-accent font-black text-[10px] uppercase tracking-widest mb-4 transition-all">
+                            <FiArrowRight /> BACK TO ACADEMY
                         </Link>
-                        <h1 className="text-4xl font-bold text-slate-900 tracking-tight">بناء أكاديمية جديدة</h1>
-                        <p className="text-slate-500 font-medium mt-2">صمم تجربة تعلم فريدة لطلابك، وابدأ بعرض كافة التفاصيل الجذابة</p>
+                        <h1 className="text-4xl font-black text-ink tracking-tighter">Architect New Program</h1>
+                        <p className="text-gray-400 font-bold mt-2">Design a premium learning experience for your audience.</p>
                     </div>
                     {isSavingDraft && (
                         <div className="mt-4 md:mt-0 flex items-center gap-2 text-xs font-bold text-slate-400 bg-slate-50 px-4 py-2 rounded-full border border-slate-100 animate-pulse">
@@ -288,20 +288,20 @@ export default function NewCoursePage() {
                                         </div>
                                     </div>
                                     <div className="space-y-4 pt-10 border-t border-slate-50">
-                                        <label className="label-modern italic mb-4 block underline decoration-primary-indigo-100 underline-offset-8">نوع الدورة التدريبية وأسلوب التقديم <span className="text-red-500">*</span></label>
+                                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-6 block border-b border-gray-100 pb-3">Program Delivery Model <span className="text-red-500">*</span></label>
                                         <div className="grid md:grid-cols-2 gap-6">
-                                            <button type="button" onClick={() => update('format', 'recorded')} className={`p-6 rounded-xl border-2 text-right transition-all flex items-start gap-4 ${formData.format === 'recorded' ? 'border-primary-indigo-500 bg-primary-indigo-50 shadow-lg shadow-primary-indigo-100 scale-[1.02]' : 'border-slate-100 bg-white hover:border-slate-200'}`}>
-                                                <div className={`p-3 rounded-2xl ${formData.format === 'recorded' ? 'bg-primary-indigo-100 text-primary-indigo-600' : 'bg-slate-50 text-slate-400'}`}><FiVideo size={28}/></div>
+                                            <button type="button" onClick={() => update('format', 'recorded')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'recorded' ? 'border-accent bg-accent/[0.03] shadow-xl shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
+                                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm transition-all ${formData.format === 'recorded' ? 'bg-accent text-white' : 'bg-gray-50 text-gray-400'}`}><FiVideo size={24}/></div>
                                                 <div>
-                                                    <h4 className={`font-bold mb-1 text-lg ${formData.format === 'recorded' ? 'text-primary-indigo-700' : 'text-slate-700'}`}>دورة مسجلة (Asynchronous)</h4>
-                                                    <p className={`text-xs font-bold ${formData.format === 'recorded' ? 'text-primary-indigo-600/70' : 'text-slate-400 opacity-80'}`}>محتوى مسجل بالكامل، يتعلمه الطالب بالسرعة التي تناسبه.</p>
+                                                    <h4 className={`font-black mb-1 text-lg tracking-tight ${formData.format === 'recorded' ? 'text-ink' : 'text-gray-400'}`}>Recorded Assets</h4>
+                                                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider opacity-60">High-leverage asynchronous learning.</p>
                                                 </div>
                                             </button>
-                                            <button type="button" onClick={() => update('format', 'online')} className={`p-6 rounded-xl border-2 text-right transition-all flex items-start gap-4 ${formData.format === 'online' ? 'border-blue-500 bg-blue-50 shadow-lg shadow-blue-100 scale-[1.02]' : 'border-slate-100 bg-white hover:border-slate-200'}`}>
-                                                <div className={`p-3 rounded-2xl ${formData.format === 'online' ? 'bg-blue-100 text-blue-600' : 'bg-slate-50 text-slate-400'}`}><FiClock size={28}/></div>
+                                            <button type="button" onClick={() => update('format', 'online')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'online' ? 'border-accent bg-accent/[0.03] shadow-xl shadow-accent/5' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
+                                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm transition-all ${formData.format === 'online' ? 'bg-accent text-white' : 'bg-gray-50 text-gray-400'}`}><FiClock size={24}/></div>
                                                 <div>
-                                                    <h4 className={`font-bold mb-1 text-lg ${formData.format === 'online' ? 'text-blue-700' : 'text-slate-700'}`}>دورة حية (Live / Online)</h4>
-                                                    <p className={`text-xs font-bold ${formData.format === 'online' ? 'text-blue-600/70' : 'text-slate-400 opacity-80'}`}>بث مباشر عبر Zoom / Meet ومقابلات في أوقات محددة.</p>
+                                                    <h4 className={`font-black mb-1 text-lg tracking-tight ${formData.format === 'online' ? 'text-ink' : 'text-gray-400'}`}>Institutional Live</h4>
+                                                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider opacity-60">Synchronous coaching & live streaming.</p>
                                                 </div>
                                             </button>
                                         </div>
@@ -615,10 +615,10 @@ export default function NewCoursePage() {
                             ) : (
                                 <button
                                     type="submit" disabled={loading}
-                                    className="w-full md:w-auto px-12 py-4 bg-gradient-to-l from-primary-indigo-600 to-blue-500 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-indigo-200 active:scale-95 text-lg"
+                                    className="w-full md:w-auto px-12 py-5 bg-ink text-white rounded-2xl font-black text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-4 hover:bg-black transition-all shadow-xl shadow-ink/20 active:scale-95 group"
                                 >
-                                    {loading ? 'جاري التحضير...' : 'إطلاق الأكاديمية ونشر البيانات'}
-                                    {!loading && <FiCheck />}
+                                    {loading ? 'Processing Protocol...' : 'Deploy Program Architecture'}
+                                    {!loading && <FiCheck className="text-xl group-hover:scale-125 transition-transform text-accent" />}
                                 </button>
                             )}
                         </div>

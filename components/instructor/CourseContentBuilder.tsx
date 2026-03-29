@@ -181,10 +181,10 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                     </div>
                                     <div>
                                         <h3 className="text-xl font-bold text-ink">{module.title}</h3>
-                                        <div className="flex items-center gap-3 mt-1.5">
-                                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{module._count.lessons} Lessons</span>
-                                            <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-                                            <span className="text-[10px] font-bold text-accent uppercase tracking-widest cursor-pointer hover:underline">Edit Section</span>
+                                        <div className="flex items-center gap-4 mt-2">
+                                            <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{module._count.lessons} Curriculum Units</span>
+                                            <div className="w-1 h-1 bg-gray-200 rounded-full"></div>
+                                            <button type="button" className="text-[10px] font-black text-accent uppercase tracking-widest hover:text-ink transition-colors">Edit Specification</button>
                                         </div>
                                     </div>
                                 </div>
@@ -216,8 +216,8 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                                             {formatDuration(lesson.videoDuration)}
                                                         </span>
                                                         {lesson.isFree && (
-                                                            <span className="text-[10px] font-bold text-accent bg-accent-light px-2.5 py-1 rounded-lg uppercase tracking-wider flex items-center gap-1.5 border border-accent/5">
-                                                                <FiEye size={12} /> Preview enabled
+                                                            <span className="text-[10px] font-black text-accent bg-accent/5 px-2.5 py-1 rounded-lg uppercase tracking-widest flex items-center gap-2 border border-accent/10">
+                                                                <FiEye size={12} /> PUBLIC PREVIEW
                                                             </span>
                                                         )}
                                                         {lesson.quizzes && lesson.quizzes.length > 0 && (
