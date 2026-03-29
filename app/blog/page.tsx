@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     description: 'أحدث المقالات والنصائح لتنمية أعمالك الرقمية وتحقيق النجاح، اكتشف استراتيجيات التسويق والأدوات المفيدة.',
 };
 
-export const revalidate = 60; // 1 minute
+export const dynamic = 'force-dynamic';
 
 export default async function BlogPage() {
     // 1. Fetch real posts from DB
