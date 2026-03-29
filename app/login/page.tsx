@@ -164,7 +164,7 @@ function LoginContent() {
                         </div>
 
                         <div className="flex justify-start pt-2">
-                             <Link href="/forgot-password" disableAnchor className="text-[10px] font-black uppercase tracking-widest text-accent hover:text-ink transition-colors">
+                             <Link href="/forgot-password" className="text-[10px] font-black uppercase tracking-widest text-accent hover:text-ink transition-colors">
                                 Forgot password?
                             </Link>
                         </div>
