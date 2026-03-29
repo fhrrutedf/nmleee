@@ -42,7 +42,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ar" dir="rtl" suppressHydrationWarning>
-            <body className={`${ibmPlex.variable} ${inter.variable} font-sans antialiased text-emerald-600 bg-white flex flex-col min-h-screen selection:bg-emerald-600/20`}>
+            <body className={`${ibmPlex.variable} ${inter.variable} font-sans antialiased text-white bg-[#0A0A0A] flex flex-col min-h-screen selection:bg-emerald-500/20`}>
                 <Providers>
                     <AffiliateBanner />
                     <ImpersonationBanner />
@@ -64,13 +64,13 @@ export default function RootLayout({
                                 fontSize: '13px',
                                 fontWeight: '700',
                                 boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-                                border: '1px solid #F1F5F9',
-                                background: '#FFFFFF',
-                                color: '#1A1A1A',
+                                border: '1px solid rgba(255, 255, 255, 0.1)',
+                                background: '#111111',
+                                color: '#FFFFFF',
                             },
                             success: {
                                 iconTheme: {
-                                    primary: '#059669',
+                                    primary: '#065f46',
                                     secondary: '#FFFFFF',
                                 },
                             },

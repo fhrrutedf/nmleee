@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 // ─── Preset Color Palettes ────────────────────────────────
 const COLOR_PALETTES = [
-    { name: 'احترافي (افتراضي)', primary: '#1A1A1A', secondary: '#059669' },
+    { name: 'احترافي زمردي (افتراضي)', primary: '#0A0A0A', secondary: '#065f46' },
     { name: 'أزرق ملكي', primary: '#1E40AF', secondary: '#1E293B' },
     { name: 'بنفسجي فاخر', primary: '#6D28D9', secondary: '#1E1B4B' },
     { name: 'وردي عصري', primary: '#BE185D', secondary: '#1C1917' },
@@ -27,7 +27,7 @@ const FONT_OPTIONS = [
 ];
 
 const BUTTON_STYLES = [
-    { id: 'rounded', name: 'مدور خفيف', radius: '8px' },
+    { id: 'rounded', name: 'مدور خفيف', radius: '12px' },
     { id: 'pill', name: 'كبسولة', radius: '9999px' },
     { id: 'square', name: 'حاد', radius: '0px' },
 ];
@@ -43,8 +43,8 @@ export default function BrandEditorPage() {
     const [loading, setLoading] = useState(true);
 
     const [brand, setBrand] = useState({
-        brandColor: '#1A1A1A',
-        brandSecondaryColor: '#059669',
+        brandColor: '#0A0A0A',
+        brandSecondaryColor: '#065f46',
         brandFont: 'default',
         brandButtonStyle: 'rounded',
         brandLayout: 'grid',
@@ -61,8 +61,8 @@ export default function BrandEditorPage() {
             try {
                 const data = await apiGet('/api/user/profile');
                 setBrand({
-                    brandColor: data.brandColor || '#1A1A1A',
-                    brandSecondaryColor: data.brandSecondaryColor || '#059669',
+                    brandColor: data.brandColor || '#0A0A0A',
+                    brandSecondaryColor: data.brandSecondaryColor || '#065f46',
                     brandFont: data.brandFont || 'default',
                     brandButtonStyle: data.brandButtonStyle || 'rounded',
                     brandLayout: data.brandLayout || 'grid',

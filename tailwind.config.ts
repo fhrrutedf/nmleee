@@ -15,12 +15,12 @@ const config: Config = {
                 // ══════════════════════════════════════
 
                 // Ink — near-black for text & primary buttons
-                'ink': '#1A1A1A',
+                'ink': '#0A0A0A',
 
                 // Accent — ONE blue, used sparingly
                 'accent': {
-                    DEFAULT: '#059669',
-                    hover: '#047857',
+                    DEFAULT: '#065f46',
+                    hover: '#064e3b',
                     light: '#ECFDF5',
                     muted: '#93C5FD',
                     50: '#ECFDF5',
@@ -29,8 +29,8 @@ const config: Config = {
                     300: '#93C5FD',
                     400: '#60A5FA',
                     500: '#3B82F6',
-                    600: '#059669',
-                    700: '#047857',
+                    600: '#065f46',
+                    700: '#064e3b',
                     800: '#1E40AF',
                     900: '#1E3A8A',
                 },
@@ -39,7 +39,7 @@ const config: Config = {
                 'surface': '#FFFFFF',
                 'subtle': '#F9FAFB',
                 'muted': '#6B7280',
-                'border-color': '#E5E7EB',
+                'border-color': 'rgba(255, 255, 255, 0.1)',
 
                 // Semantic
                 'success': { DEFAULT: '#16A34A', light: '#F0FDF4' },
@@ -47,14 +47,14 @@ const config: Config = {
                 'danger': { DEFAULT: '#DC2626', light: '#FEF2F2' },
 
                 // ── Backward compatible aliases (NOW ALIASED TO V2 ELITE) ──
-                'primary-charcoal': '#1A1A1A',
+                'primary-charcoal': '#0A0A0A',
                 'action-blue': {
-                    DEFAULT: '#059669',
-                    hover: '#047857',
+                    DEFAULT: '#065f46',
+                    hover: '#064e3b',
                     light: '#ECFDF5',
                 },
                 'action-secondary': {
-                    DEFAULT: '#047857',
+                    DEFAULT: '#064e3b',
                     hover: '#1E40AF',
                     light: '#DBEAFE',
                 },
@@ -62,16 +62,16 @@ const config: Config = {
                     DEFAULT: '#16A34A',
                     light: '#F0FDF4',
                 },
-                'bg-light': '#F9FAFB',
+                'bg-light': '#0A0A0A',
                 'card-white': '#FFFFFF',
                 'text-muted': '#6B7280',
-                'border-glass': 'rgba(0, 0, 0, 0.05)',
-                'bg-glass': 'rgba(255, 255, 255, 0.9)',
+                'border-glass': 'rgba(255, 255, 255, 0.1)',
+                'bg-glass': 'rgba(10, 10, 10, 0.9)',
 
                 // Re-mapping EVERYTHING to follow the NEW ACCENT
                 'brand': {
                     50: '#ECFDF5', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD',
-                    400: '#60A5FA', 500: '#3B82F6', 600: '#059669', 700: '#047857',
+                    400: '#60A5FA', 500: '#3B82F6', 600: '#065f46', 700: '#064e3b',
                     800: '#1E40AF', 900: '#1E3A8A', 950: '#172554',
                 },
                 'navy': {
@@ -81,22 +81,22 @@ const config: Config = {
                 },
                 primary: {
                     50: '#ECFDF5', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD',
-                    400: '#60A5FA', 500: '#3B82F6', 600: '#059669', 700: '#047857',
+                    400: '#60A5FA', 500: '#3B82F6', 600: '#065f46', 700: '#064e3b',
                     800: '#1E40AF', 900: '#1E3A8A',
                 },
                 'primary-indigo': {
                     50: '#ECFDF5', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD',
-                    400: '#60A5FA', 500: '#3B82F6', 600: '#059669', 700: '#047857',
+                    400: '#60A5FA', 500: '#3B82F6', 600: '#065f46', 700: '#064e3b',
                     800: '#1E40AF', 900: '#1E3A8A', 950: '#172554',
                 },
             },
             boxShadow: {
                 'sm': '0 1px 2px rgba(0, 0, 0, 0.04)',
                 'md': '0 4px 12px rgba(0, 0, 0, 0.06)',
-                'lg': '0 8px 24px rgba(0, 0, 0, 0.06)',
-                'premium': '0 20px 50px -12px rgba(0, 0, 0, 0.08)',
+                'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                'premium': '0 20px 50px -12px rgba(0, 0, 0, 0.25)',
                 'glass': '0 4px 16px rgba(0, 0, 0, 0.04)',
-                'glow': 'none',
+                'glow': '0 0 20px rgba(6, 95, 70, 0.3)',
                 'gold': 'none',
             },
             fontFamily: {
