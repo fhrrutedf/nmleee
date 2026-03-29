@@ -96,9 +96,9 @@ export default function Home() {
                 <div className="max-w-5xl mx-auto px-6">
                     <div className="grid md:grid-cols-3 gap-12 text-center">
                         {[
-                            { icon: <FiUsers />, value: '+2,500', label: 'رائد أعمال رقمي' },
-                            { icon: <FiAward />, value: '100%', label: 'ضمان حقوق البائع' },
-                            { icon: <FiStar />, value: '4.9/5', label: 'تقييم المستخدمين' },
+                            { icon: FiUsers, value: '+2,500', label: 'رائد أعمال رقمي' },
+                            { icon: FiAward, value: '100%', label: 'ضمان حقوق البائع' },
+                            { icon: FiStar, value: '4.9/5', label: 'تقييم المستخدمين' },
                         ].map((s, i) => (
                             <div key={i} className="space-y-4">
                                 <div className="text-emerald-500 flex justify-center text-3xl opacity-20"><s.icon /></div>
