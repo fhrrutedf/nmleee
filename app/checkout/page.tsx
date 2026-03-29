@@ -184,39 +184,25 @@ export default function CheckoutPage() {
                     showToast.error(errData.error || 'فشل بدء الدفع بالكريبتو');
                 }
             } else if (paymentMethod === 'nowpayments' && total < 19) {
-                // Manual Crypto for small amounts
-                if (!manualData.transactionRef || !manualData.proofFile) {
-                    return showToast.error('يرجى إدخال رقم المعاملة وصورة الإيصال');
-                }
-                
-                const fd = new FormData();
-                fd.append('file', manualData.proofFile);
-                fd.append('type', 'image');
-                const upRes = await fetch('/api/upload', { method: 'POST', body: fd });
-                if (!upRes.ok) throw new Error('فشل رفع الإيصال');
-                const upD = await upRes.json();
-
-                const res = await fetch('/api/orders/manual', {
+                // Cryptomus for small amounts
+                const res = await fetch('/api/checkout/cryptomus', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        items: cart,
-                        customerName: formData.name,
-                        customerEmail: formData.email,
-                        customerPhone: formData.phone,
-                        country: customerCountry,
-                        paymentProvider: 'manual_crypto',
-                        transactionRef: manualData.transactionRef,
-                        paymentProof: upD.url,
-                        paymentNotes: manualData.notes,
-                        affiliateRef: affRef,
+                        amount: total,
+                        currency: 'USD',
+                        orderId: 'temp_order_' + Date.now(),
+                        description: 'Small payment for ' + cart.map(i => i.title).join(', ')
                     })
                 });
+
                 if (res.ok) {
-                    const d = await res.json();
-                    if (!isDirect) localStorage.removeItem('cart');
-                    router.push(`/success?order_id=${d.orderId}&manual=true`);
-                } else showToast.error('فشل إرسال الطلب اليدوي');
+                    const data = await res.json();
+                    window.location.href = data.url;
+                } else {
+                    const errData = await res.json().catch(() => ({}));
+                    showToast.error(errData.error || 'فشل بدء دفع Cryptomus');
+                }
             } else if (paymentMethod === 'manual' && isSyria) {
                 if (!selectedLocalMethod || !manualData.transactionRef || !manualData.proofFile) {
                     return showToast.error('يرجى اختيار وسيلة وإدخال رقم المرجع وصورة الإيصال');
@@ -372,22 +358,21 @@ export default function CheckoutPage() {
                                                 </div>
                                             </div>
                                         ) : (
-                                            <ManualPaymentCard 
-                                                method={{
-                                                    id: 'manual_crypto',
-                                                    name: 'Manual Crypto',
-                                                    nameAr: 'تحويل كريبتو يدوي',
-                                                    icon: '🪙',
-                                                    fields: ['transactionId'],
-                                                    currency: 'USDT',
-                                                    enabled: true
-                                                }} 
-                                                walletAddress="TUtw75oABmwh7YtcqdGjEi6gFLAZsNE2MK" 
-                                                localPrice={{ amount: total, currency: 'USDT' }} 
-                                                usdTotal={total} 
-                                                onDataChange={setManualData} 
-                                                onBack={() => setPaymentMethod('spaceremit')} 
-                                            />
+                                            <div className="bg-[#111111] p-10 rounded-xl border border-white/10 text-center space-y-6">
+                                                <div className="text-6xl">💎</div>
+                                                <h4 className="text-2xl font-bold text-[#10B981]">دفع سريع (Cryptomus)</h4>
+                                                <p className="text-gray-400 text-sm max-w-md mx-auto">
+                                                    بما أن المبلغ أقل من 19$، سنستخدم بوابة Cryptomus التي تدعم المبالغ الصغيرة بـ **أتمتة كاملة**.
+                                                </p>
+                                                <div className="flex justify-center gap-4">
+                                                    <div className="px-4 py-2 bg-blue-700/10 border border-blue-600/20 rounded-lg text-[10px] font-bold text-blue-400 uppercase tracking-widest">
+                                                        Polygon / BSC
+                                                    </div>
+                                                    <div className="px-4 py-2 bg-blue-700/10 border border-blue-600/20 rounded-lg text-[10px] font-bold text-blue-400 uppercase tracking-widest">
+                                                        Instant
+                                                    </div>
+                                                </div>
+                                            </div>
                                         )}
                                     </motion.div>
                                 )}
