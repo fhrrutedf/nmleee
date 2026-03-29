@@ -6,7 +6,7 @@ import { logActivity, LOG_ACTIONS } from '@/lib/activity-log';
 import { Resend } from 'resend';
 import { sendTelegramMessage } from '@/lib/telegram';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy');
 const FROM = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
 
 // GET /api/admin/courses-review - pending courses

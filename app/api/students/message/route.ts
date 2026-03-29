@@ -67,7 +67,7 @@ export async function POST(req: Request) {
 
         // 2. Here we could integrate with Resend to actually send an email
         // Example logic:
-        // const resend = new Resend(process.env.RESEND_API_KEY);
+        // const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy');
         // await resend.emails.send({ ... });
 
         return NextResponse.json({
