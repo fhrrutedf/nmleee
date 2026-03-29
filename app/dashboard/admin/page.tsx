@@ -27,7 +27,7 @@ const methodLabel: Record<string, string> = {
     free: 'مجاني', paypal: 'PayPal',
 };
 const statusBadge: Record<string, string> = {
-    PENDING: 'bg-gray-100 text-gray-500', PAID: 'bg-emerald-700/10 text-[#10B981]',
+    PENDING: 'bg-emerald-800 text-gray-500', PAID: 'bg-emerald-700/10 text-[#10B981]',
     COMPLETED: 'bg-emerald-700 text-white', CANCELLED: 'bg-red-50 text-red-500',
     REFUNDED: 'bg-orange-50 text-orange-600',
 };
@@ -320,7 +320,7 @@ export default function AdminDashboardPage() {
                                         <tr key={s.id} className="group hover:bg-[#111111]/50 transition-colors">
                                             <td className="py-6">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center font-bold text-[#10B981] border border-gray-100 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-transparent transition-all overflow-hidden shrink-0 uppercase">
+                                                    <div className="w-10 h-10 rounded-xl bg-emerald-800 flex items-center justify-center font-bold text-[#10B981] border border-gray-100 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-transparent transition-all overflow-hidden shrink-0 uppercase">
                                                         {s.avatar ? <img src={s.avatar} className="w-full h-full object-cover" /> : s.name?.charAt(0)}
                                                     </div>
                                                     <div className="min-w-0">
@@ -330,7 +330,7 @@ export default function AdminDashboardPage() {
                                                 </div>
                                             </td>
                                             <td className="py-6 text-center text-xs font-bold text-gray-500 uppercase">{s.country || 'Global'}</td>
-                                            <td className="py-6 text-center"><span className="bg-gray-100 px-3 py-1 rounded-lg text-[10px] font-bold text-gray-400">{s._count?.sellerOrders || 0} DEALS</span></td>
+                                            <td className="py-6 text-center"><span className="bg-emerald-800 px-3 py-1 rounded-lg text-[10px] font-bold text-gray-400">{s._count?.sellerOrders || 0} DEALS</span></td>
                                             <td className="py-6 text-left font-bold text-[#10B981] tracking-tighter">${fmt(s.totalEarnings || 0)}</td>
                                         </tr>
                                     ))}
@@ -375,7 +375,7 @@ export default function AdminDashboardPage() {
                 {showBroadcast && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-emerald-700/60 ">
                         <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-[#0A0A0A] rounded-[3rem] p-12 max-w-3xl w-full shadow-lg shadow-[#10B981]/20 relative">
-                            <button onClick={() => setShowBroadcast(false)} className="absolute top-8 left-8 p-3 hover:bg-gray-100 rounded-xl transition-all"><FiX size={24} /></button>
+                            <button onClick={() => setShowBroadcast(false)} className="absolute top-8 left-8 p-3 hover:bg-emerald-800 rounded-xl transition-all"><FiX size={24} /></button>
                             <h2 className="text-3xl font-bold text-[#10B981] mb-10 tracking-tighter">إطلاق حملة بث مركزي</h2>
                             <div className="space-y-6">
                                 <input type="text" className="w-full bg-[#111111] border border-gray-100 rounded-xl p-5 font-bold outline-none focus:bg-[#0A0A0A] focus:border-emerald-600 transition-all" placeholder="عنوان الحملة الاستراتيجي" />

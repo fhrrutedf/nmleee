@@ -62,7 +62,7 @@ export default function PayoutsClient({ initialPayouts }: { initialPayouts: any[
     };
 
     return (
-        <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-200 overflow-hidden">
+        <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-emerald-500/20 overflow-hidden">
             {/* Tabs */}
             <div className="flex border-b border-gray-100 p-2 gap-2 bg-[#111111] overflow-x-auto">
                 {['ALL', 'PENDING', 'PAID', 'REJECTED'].map((status) => (
@@ -71,7 +71,7 @@ export default function PayoutsClient({ initialPayouts }: { initialPayouts: any[
                         onClick={() => setFilter(status)}
                         className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors ${filter === status
                                 ? 'bg-[#0A0A0A] text-[#10B981] shadow-lg shadow-[#10B981]/20'
-                                : 'text-gray-500 hover:text-gray-800 hover:bg-gray-100'
+                                : 'text-gray-500 hover:text-gray-800 hover:bg-emerald-800'
                             }`}
                     >
                         {status === 'ALL' ? 'الكل' :
@@ -149,7 +149,7 @@ export default function PayoutsClient({ initialPayouts }: { initialPayouts: any[
                                     ) : (
                                         <div className={`w-full py-2 rounded-lg text-center font-bold text-sm border flex items-center justify-center gap-2
                                             ${payout.status === 'PAID' ? 'bg-green-50 text-green-700 border-green-200' :
-                                                payout.status === 'REJECTED' ? 'bg-red-50 text-red-700 border-red-200' : 'bg-gray-100 text-gray-600'}
+                                                payout.status === 'REJECTED' ? 'bg-red-50 text-red-700 border-red-200' : 'bg-emerald-800 text-gray-600'}
                                         `}>
                                             {payout.status === 'PAID' && <><FiCheck /> تم الدفع</>}
                                             {payout.status === 'REJECTED' && <><FiX /> مرفوض</>}

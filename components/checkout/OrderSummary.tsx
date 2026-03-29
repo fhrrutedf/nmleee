@@ -83,7 +83,7 @@ export default function OrderSummary({
                     <input 
                         type="text" 
                         placeholder="هل لديك كود خصم؟"
-                        className="w-full bg-[#111111] border border-gray-200 rounded-xl px-4 py-3.5 pr-12 text-sm font-bold text-[#10B981] outline-none focus:ring-4 focus:ring-accent/5 focus:border-emerald-600 transition-all font-inter placeholder:text-gray-400"
+                        className="w-full bg-[#111111] border border-emerald-500/20 rounded-xl px-4 py-3.5 pr-12 text-sm font-bold text-[#10B981] outline-none focus:ring-4 focus:ring-accent/5 focus:border-emerald-600 transition-all font-inter placeholder:text-gray-400"
                         value={couponCode}
                         onChange={(e) => onCouponChange(e.target.value.toUpperCase())}
                     />
@@ -157,11 +157,11 @@ export default function OrderSummary({
                 
                 {/* Security Badges */}
                 <div className="mt-8 grid grid-cols-2 gap-3">
-                    <div className="flex items-center gap-2.5 p-3.5 bg-[#111111] rounded-xl border border-gray-100 group/badge transition-colors hover:bg-gray-100">
+                    <div className="flex items-center gap-2.5 p-3.5 bg-[#111111] rounded-xl border border-gray-100 group/badge transition-colors hover:bg-emerald-800">
                         <FiShield className="text-[#10B981] group-hover:scale-110 transition-transform" size={18} />
                         <span className="text-[9px] font-bold text-gray-500 leading-tight uppercase tracking-wider font-inter">Secure SSL<br/>Encryption</span>
                     </div>
-                    <div className="flex items-center gap-2.5 p-3.5 bg-[#111111] rounded-xl border border-gray-100 group/badge transition-colors hover:bg-gray-100">
+                    <div className="flex items-center gap-2.5 p-3.5 bg-[#111111] rounded-xl border border-gray-100 group/badge transition-colors hover:bg-emerald-800">
                         <FiClock className="text-[#10B981] group-hover:scale-110 transition-transform" size={18} />
                         <span className="text-[9px] font-bold text-gray-500 leading-tight uppercase tracking-wider font-inter">Instant<br/>Access</span>
                     </div>

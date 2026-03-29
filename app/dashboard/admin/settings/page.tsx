@@ -92,7 +92,7 @@ export default function AdminSettingsPage() {
             </div>
 
             {/* --- TABS --- */}
-            <div className="flex bg-slate-100 dark:bg-gray-900/50 p-2 rounded-[1.8rem] gap-2 overflow-x-auto no-scrollbar">
+            <div className="flex bg-emerald-800 dark:bg-gray-900/50 p-2 rounded-[1.8rem] gap-2 overflow-x-auto no-scrollbar">
                 {tabs.map((tab) => (
                     <button
                         key={tab.id}
@@ -124,7 +124,7 @@ export default function AdminSettingsPage() {
                                         <span className="text-xs font-bold text-gray-500 uppercase mb-2 block">باقة المحترفين (PRO)</span>
                                         <input type="number" value={settings.proCommissionRate} onChange={(e) => handleChange('proCommissionRate', e.target.value)} className="w-full h-14 px-5 bg-[#111111] dark:bg-gray-900 border-none rounded-xl text-lg font-bold focus:ring-4 focus:ring-subtle" />
                                     </label>
-                                    <div className="pt-6 border-t border-slate-100 dark:border-gray-800">
+                                    <div className="pt-6 border-t border-emerald-500/20 dark:border-gray-800">
                                         <label className="block">
                                             <span className="text-xs font-bold text-primary-ink uppercase mb-2 block flex items-center gap-2">
                                                 <FiTrendingUp size={14} /> نسبة عمولة المسوقين (من عمولة المنصة)

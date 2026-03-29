@@ -93,7 +93,7 @@ export default function AdminVerificationPage() {
                     {requests.map((request) => (
                         <div key={request.id} className="card bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-lg shadow-[#10B981]/20 transition-all group">
                             {/* Document Preview */}
-                            <div className="h-48 bg-gray-100 dark:bg-gray-900 relative overflow-hidden">
+                            <div className="h-48 bg-emerald-800 dark:bg-gray-900 relative overflow-hidden">
                                 <img 
                                     src={request.documentUrl} 
                                     className="w-full h-full object-cover transition-transform group-hover:scale-110" 
@@ -176,7 +176,7 @@ export default function AdminVerificationPage() {
                             </button>
                             <button 
                                 onClick={() => setShowRejectionModal(null)} 
-                                className="btn bg-gray-100 text-gray-600 flex-1 py-4"
+                                className="btn bg-emerald-800 text-gray-600 flex-1 py-4"
                             >
                                 تراجع
                             </button>

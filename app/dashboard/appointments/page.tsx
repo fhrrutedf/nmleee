@@ -206,7 +206,7 @@ export default function AppointmentsPage() {
 
             {/* Tabs */}
             <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-6">
-                <div className="border-b border-gray-200 mb-6">
+                <div className="border-b border-emerald-500/20 mb-6">
                     <nav className="flex gap-6">
                         <button
                             onClick={() => setActiveTab('upcoming')}
@@ -256,7 +256,7 @@ export default function AppointmentsPage() {
                         {currentList.map((appointment: any) => (
                             <div
                                 key={appointment.id}
-                                className="border border-gray-200 rounded-lg p-6 hover:border-primary-300 hover:shadow-md transition-all"
+                                className="border border-emerald-500/20 rounded-lg p-6 hover:border-primary-300 hover:shadow-md transition-all"
                             >
                                 <div className="flex items-start justify-between">
                                     <div className="flex items-start gap-4 flex-1">

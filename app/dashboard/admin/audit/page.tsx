@@ -128,7 +128,7 @@ export default function AdminAuditLogsPage() {
                                         </div>
                                     </td>
                                     <td className="px-5 py-4">
-                                        <span className={`px-2 py-1 rounded-xl text-[10px] font-bold ${ACTION_LABELS[log.action]?.color || 'bg-gray-100 text-gray-600'}`}>
+                                        <span className={`px-2 py-1 rounded-xl text-[10px] font-bold ${ACTION_LABELS[log.action]?.color || 'bg-emerald-800 text-gray-600'}`}>
                                             {ACTION_LABELS[log.action]?.label || log.action}
                                         </span>
                                     </td>

@@ -335,7 +335,7 @@ function BalanceCard({
     const c = colors[color];
     
     return (
-        <div className={`p-6 rounded-xl transition-all hover:shadow-lg shadow-[#10B981]/20 ${highlight ? 'bg-emerald-700 text-white ring-1 ring-white/5' : `${c.bg} border border-transparent hover:border-gray-200`}`}>
+        <div className={`p-6 rounded-xl transition-all hover:shadow-lg shadow-[#10B981]/20 ${highlight ? 'bg-emerald-700 text-white ring-1 ring-white/5' : `${c.bg} border border-transparent hover:border-emerald-500/20`}`}>
             <div className="flex items-center justify-between mb-4">
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-white ${highlight ? 'bg-[#0A0A0A]/10' : c.icon}`}>
                     {icon}
@@ -561,7 +561,7 @@ function WithdrawModal({
                                 <button
                                     key={pct}
                                     onClick={() => onAmountChange(val.toString())}
-                                    className="text-[10px] px-3 py-2 bg-[#111111] hover:bg-gray-100 rounded-xl text-gray-500 font-bold transition-all"
+                                    className="text-[10px] px-3 py-2 bg-[#111111] hover:bg-emerald-800 rounded-xl text-gray-500 font-bold transition-all"
                                 >
                                     {pct}% 
                                 </button>

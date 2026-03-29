@@ -111,7 +111,7 @@ function ResetPasswordForm() {
                                         type={showPassword ? 'text' : 'password'}
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full bg-[#111111] dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3.5 pr-11 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
+                                        className="w-full bg-[#111111] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3.5 pr-11 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
                                         placeholder="••••••••"
                                         required
                                     />
@@ -131,7 +131,7 @@ function ResetPasswordForm() {
                                     type={showPassword ? 'text' : 'password'}
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
-                                    className="w-full bg-[#111111] dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3.5 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
+                                    className="w-full bg-[#111111] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3.5 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
                                     placeholder="••••••••"
                                     required
                                 />
@@ -162,7 +162,7 @@ export default function ResetPasswordPage() {
         <div className="min-h-screen bg-bg-light dark:bg-bg-dark flex items-center justify-center p-4">
             <Suspense fallback={
                 <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-gray-200 border-t-accent rounded-xl animate-spin"></div>
+                    <div className="w-12 h-12 border-4 border-emerald-500/20 border-t-accent rounded-xl animate-spin"></div>
                     <p className="text-gray-500 font-bold ">جاري التحميل...</p>
                 </div>
             }>

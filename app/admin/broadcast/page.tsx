@@ -101,8 +101,8 @@ export default function AdminBroadcastPage() {
             case 'SENDING': return 'bg-blue-100 text-blue-700 border-blue-200 ';
             case 'COMPLETED': return 'bg-green-100 text-green-700 border-green-200';
             case 'FAILED': return 'bg-red-100 text-red-700 border-red-200';
-            case 'CANCELLED': return 'bg-gray-100 text-gray-500 border-gray-300 line-through';
-            default: return 'bg-gray-100 text-gray-700 border-gray-200';
+            case 'CANCELLED': return 'bg-emerald-800 text-gray-500 border-gray-300 line-through';
+            default: return 'bg-emerald-800 text-gray-700 border-emerald-500/20';
         }
     };
 
@@ -156,7 +156,7 @@ export default function AdminBroadcastPage() {
                                     <label className="text-sm font-bold text-gray-700">المستهدفين (Audience)</label>
                                     <div className="relative">
                                         <select 
-                                            className="w-full bg-[#111111] border border-gray-200 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all appearance-none"
+                                            className="w-full bg-[#111111] border border-emerald-500/20 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all appearance-none"
                                             value={newBroadcast.target}
                                             onChange={e => setNewBroadcast({...newBroadcast, target: e.target.value})}
                                         >
@@ -174,7 +174,7 @@ export default function AdminBroadcastPage() {
                                     <div className="relative">
                                         <input 
                                             type="datetime-local" 
-                                            className="w-full bg-[#111111] border border-gray-200 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
+                                            className="w-full bg-[#111111] border border-emerald-500/20 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
                                             value={newBroadcast.scheduledAt}
                                             onChange={e => setNewBroadcast({...newBroadcast, scheduledAt: e.target.value})}
                                         />
@@ -190,7 +190,7 @@ export default function AdminBroadcastPage() {
                                         <input 
                                             type="text" 
                                             placeholder="مثال: تحديث شروط الاستخدام الجديدة..."
-                                            className="w-full bg-[#111111] border border-gray-200 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
+                                            className="w-full bg-[#111111] border border-emerald-500/20 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all"
                                             value={newBroadcast.subject}
                                             onChange={e => setNewBroadcast({...newBroadcast, subject: e.target.value})}
                                         />
@@ -201,7 +201,7 @@ export default function AdminBroadcastPage() {
                                         <textarea 
                                             rows={12}
                                             placeholder="اكتب رسالتك لجميع المستخدمين هنا..."
-                                            className="w-full bg-[#111111] border border-gray-200 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none"
+                                            className="w-full bg-[#111111] border border-emerald-500/20 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none"
                                             value={newBroadcast.message}
                                             onChange={e => setNewBroadcast({...newBroadcast, message: e.target.value})}
                                         />
@@ -212,7 +212,7 @@ export default function AdminBroadcastPage() {
                                         <button 
                                             type="button" 
                                             onClick={handleSendTest}
-                                            className="flex-1 bg-gray-100 hover:bg-gray-200 text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2"
+                                            className="flex-1 bg-emerald-800 hover:bg-gray-200 text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2"
                                         >
                                             <FiEye /> إرسال تجربة لي
                                         </button>
@@ -233,7 +233,7 @@ export default function AdminBroadcastPage() {
                                         <label className="text-sm font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
                                             <FiSmartphone /> معاينة الجوال (Live)
                                         </label>
-                                        <div className="relative mx-auto w-[300px] h-[580px] bg-slate-100 rounded-xl border-[10px] border-slate-900 shadow-lg shadow-[#10B981]/20 overflow-hidden">
+                                        <div className="relative mx-auto w-[300px] h-[580px] bg-emerald-800 rounded-xl border-[10px] border-slate-900 shadow-lg shadow-[#10B981]/20 overflow-hidden">
                                             {/* Screen Content */}
                                             <div className="h-full flex flex-col bg-[#0A0A0A]">
                                                 {/* Phone Status Bar */}
@@ -265,7 +265,7 @@ export default function AdminBroadcastPage() {
                                                             <div className="text-[10px] text-gray-600 whitespace-pre-wrap leading-relaxed min-h-[100px]">
                                                                 {newBroadcast.message || 'اكتبي شيئاً لترى المعاينة...'}
                                                             </div>
-                                                            <div className="h-px bg-gray-100" />
+                                                            <div className="h-px bg-emerald-800" />
                                                             <div className="text-[8px] text-center text-gray-400 italic">شركة تمالين - 2026</div>
                                                         </div>
                                                     </div>
@@ -349,7 +349,7 @@ export default function AdminBroadcastPage() {
                                                 <span className="flex items-center gap-1"><FiUsers /> {job.sentCount}/{job.recipientCount}</span>
                                                 <span className="flex items-center gap-1"><FiCalendar /> {new Date(job.createdAt).toLocaleDateString()}</span>
                                             </div>
-                                            <div className="w-20 h-1.5 bg-gray-100 rounded-xl overflow-hidden">
+                                            <div className="w-20 h-1.5 bg-emerald-800 rounded-xl overflow-hidden">
                                                 <div 
                                                     className={`h-full transition-all duration-1000 ${job.status === 'CANCELLED' ? 'bg-gray-300' : 'bg-green-500'}`} 
                                                     style={{ width: `${(job.sentCount / job.recipientCount) * 100}%` }}

@@ -91,7 +91,7 @@ export default function BookAppointmentPage() {
                                             key={service.id}
                                             className={`relative flex items-center gap-4 p-4 border-2 rounded-lg cursor-pointer transition-all ${formData.service === service.id
                                                     ? 'border-emerald-600 bg-emerald-700-light'
-                                                    : 'border-gray-200 hover:border-gray-400'
+                                                    : 'border-emerald-500/20 hover:border-gray-400'
                                                 }`}
                                         >
                                             <input
@@ -204,7 +204,7 @@ export default function BookAppointmentPage() {
                                 <div className="grid grid-cols-2 gap-4">
                                     <label className={`flex items-center gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${formData.type === 'online'
                                             ? 'border-emerald-600 bg-primary-50'
-                                            : 'border-gray-200 hover:border-primary-300'
+                                            : 'border-emerald-500/20 hover:border-primary-300'
                                         }`}>
                                         <input
                                             type="radio"
@@ -223,7 +223,7 @@ export default function BookAppointmentPage() {
 
                                     <label className={`flex items-center gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${formData.type === 'inperson'
                                             ? 'border-emerald-600 bg-primary-50'
-                                            : 'border-gray-200 hover:border-primary-300'
+                                            : 'border-emerald-500/20 hover:border-primary-300'
                                         }`}>
                                         <input
                                             type="radio"

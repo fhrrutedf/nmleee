@@ -54,7 +54,7 @@ export default function CartPage() {
         return (
             <div className="min-h-screen bg-[#111111] flex flex-col items-center justify-center p-4">
                 <div className="bg-[#0A0A0A] p-8 rounded-xl shadow-lg shadow-[#10B981]/20 text-center max-w-md w-full">
-                    <div className="w-20 h-20 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-6">
+                    <div className="w-20 h-20 bg-emerald-800 rounded-xl flex items-center justify-center mx-auto mb-6">
                         <FiShoppingCart className="text-4xl text-gray-400" />
                     </div>
                     <h1 className="text-2xl font-bold mb-2 text-white">سلة المشتريات فارغة</h1>
@@ -105,7 +105,7 @@ export default function CartPage() {
                     <div className="lg:col-span-2 space-y-4">
                         {cart.map((item, index) => (
                             <div key={index} className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-4 flex gap-4 items-center group hover:shadow-md transition-shadow">
-                                <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 relative">
+                                <div className="w-24 h-24 bg-emerald-800 rounded-lg overflow-hidden flex-shrink-0 relative">
                                     {item.image ? (
                                         <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                                     ) : (

@@ -154,17 +154,17 @@ export default function EditCoursePage() {
             {/* --- TOP HUB HEADER --- */}
             <div className="mb-8 bg-[#0A0A0A] rounded-xl p-8 shadow-lg shadow-[#10B981]/20 border border-slate-50 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div className="space-y-3">
-                    <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-slate-400 hover:text-primary-ink font-bold text-xs mb-1 transition-colors">
+                    <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-slate-400 hover:text-white font-bold text-xs mb-1 transition-colors">
                         <FiArrowRight /> العودة للدورات
                     </Link>
                     <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-slate-100 shadow-lg shadow-[#10B981]/20 shrink-0">
+                        <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-emerald-500/20 shadow-lg shadow-[#10B981]/20 shrink-0">
                             <img src={formData.image || '/placeholder-course.png'} className="w-full h-full object-cover" alt="" />
                         </div>
                         <div>
                             <h1 className="text-2xl font-bold text-white leading-tight line-clamp-1">{formData.title}</h1>
                             <div className="flex items-center gap-3 mt-2">
-                                <span className={`px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-widest ${formData.isActive ? 'bg-emerald-700-50 text-[#10B981]-600' : 'bg-slate-100 text-gray-500'}`}>
+                                <span className={`px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-widest ${formData.isActive ? 'bg-emerald-700-50 text-[#10B981]-600' : 'bg-emerald-800 text-gray-500'}`}>
                                     {formData.isActive ? 'منشور للطلاب' : 'مسودة مخفية'}
                                 </span>
                                 <span className="text-[10px] text-slate-400 font-bold">• {modules.length} فصول</span>
@@ -192,7 +192,7 @@ export default function EditCoursePage() {
             </div>
 
             {/* --- HUB NAVIGATION TABS --- */}
-            <div className="flex p-1.5 bg-slate-100 rounded-[1.5rem] mb-10 w-full lg:w-fit overflow-x-auto no-scrollbar">
+            <div className="flex p-1.5 bg-emerald-800 rounded-[1.5rem] mb-10 w-full lg:w-fit overflow-x-auto no-scrollbar">
                 {[
                     { id: 'basics', label: 'البيانات الأساسية', icon: <FiSettings /> },
                     { id: 'curriculum', label: 'المنهاج والدروس', icon: <FiBookOpen /> },
@@ -322,7 +322,7 @@ export default function EditCoursePage() {
                              </div>
 
                              {modules.length === 0 ? (
-                                 <div className="text-center py-20 bg-[#0A0A0A] rounded-xl border-2 border-dashed border-slate-100 mt-6">
+                                 <div className="text-center py-20 bg-[#0A0A0A] rounded-xl border-2 border-dashed border-emerald-500/20 mt-6">
                                      <FiLayers size={48} className="mx-auto text-slate-100 mb-4" />
                                      <p className="text-slate-300 font-bold">المنهج فارغ حالياً</p>
                                      <button onClick={() => router.push(`/dashboard/courses/${courseId}/content`)} className="mt-6 px-8 py-3 bg-emerald-700 text-white rounded-xl text-xs font-bold">ابدأ الآن</button>
@@ -333,7 +333,7 @@ export default function EditCoursePage() {
                                          <div key={m.id} className="bg-[#0A0A0A] rounded-xl border border-slate-50 shadow-lg shadow-[#10B981]/20 overflow-hidden group">
                                              <div className="p-6 bg-[#111111]/30 border-b border-slate-50 flex items-center justify-between">
                                                  <div className="flex items-center gap-4">
-                                                     <div className="w-10 h-10 rounded-xl bg-[#0A0A0A] border border-slate-100 flex items-center justify-center text-xs font-bold text-slate-400 shadow-lg shadow-[#10B981]/20">{idx + 1}</div>
+                                                     <div className="w-10 h-10 rounded-xl bg-[#0A0A0A] border border-emerald-500/20 flex items-center justify-center text-xs font-bold text-slate-400 shadow-lg shadow-[#10B981]/20">{idx + 1}</div>
                                                      <div>
                                                          <h3 className="font-bold text-slate-800 text-sm">{m.title}</h3>
                                                          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{m.lessons?.length || 0} درساً</span>
@@ -362,7 +362,7 @@ export default function EditCoursePage() {
                                                          </div>
                                                          <button 
                                                             onClick={() => router.push(`/dashboard/lessons/${l.id}/edit`)}
-                                                            className="w-8 h-8 rounded-lg bg-[#111111] text-slate-400 hover:text-primary-ink hover:bg-[#0A0A0A] transition-all flex items-center justify-center"
+                                                            className="w-8 h-8 rounded-lg bg-[#111111] text-slate-400 hover:text-white hover:bg-[#0A0A0A] transition-all flex items-center justify-center"
                                                          >
                                                             <FiEdit2 size={12} />
                                                          </button>
@@ -377,7 +377,7 @@ export default function EditCoursePage() {
                     )}
 
                     {activeTab === 'students' && (
-                        <div className="bg-[#0A0A0A] rounded-xl p-16 text-center border-2 border-dashed border-slate-100 shadow-lg shadow-[#10B981]/20">
+                        <div className="bg-[#0A0A0A] rounded-xl p-16 text-center border-2 border-dashed border-emerald-500/20 shadow-lg shadow-[#10B981]/20">
                              <div className="w-20 h-20 bg-[#0A0A0A] text-primary-ink rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-[#10B981]/20">
                                 <FiUsers size={32} />
                              </div>

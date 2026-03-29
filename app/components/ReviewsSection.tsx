@@ -116,7 +116,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                                 <input
                                     type="text"
                                     required
-                                    className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all placeholder:font-normal text-gray-800 dark:text-gray-200"
+                                    className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all placeholder:font-normal text-gray-800 dark:text-gray-200"
                                     placeholder="أدخل اسمك"
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -131,7 +131,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                                             key={star}
                                             type="button"
                                             onClick={() => setFormData({ ...formData, rating: star })}
-                                            className={`flex-1 bg-[#0A0A0A] dark:bg-gray-900 border ${star <= formData.rating ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : 'border-gray-200 dark:border-gray-700'} rounded-xl py-3 flex items-center justify-center transition-all transform active:scale-95`}
+                                            className={`flex-1 bg-[#0A0A0A] dark:bg-gray-900 border ${star <= formData.rating ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : 'border-emerald-500/20 dark:border-gray-700'} rounded-xl py-3 flex items-center justify-center transition-all transform active:scale-95`}
                                         >
                                             <FiStar className={`text-xl ${star <= formData.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300 dark:text-gray-600'}`} />
                                         </button>
@@ -145,7 +145,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                             <textarea
                                 required
                                 rows={4}
-                                className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none placeholder:font-normal text-gray-800 dark:text-gray-200"
+                                className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none placeholder:font-normal text-gray-800 dark:text-gray-200"
                                 placeholder="شارك رأيك عن المنتج..."
                                 value={formData.comment}
                                 onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
@@ -159,7 +159,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                             <button
                                 type="button"
                                 onClick={() => setShowForm(false)}
-                                className="btn border-transparent bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 flex-1 py-3 text-lg font-bold transition-colors"
+                                className="btn border-transparent bg-emerald-800 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 flex-1 py-3 text-lg font-bold transition-colors"
                             >
                                 إلغاء
                             </button>
@@ -174,7 +174,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                         <div className="animate-spin rounded-xl h-12 w-12 border-4 border-emerald-600 border-t-transparent mx-auto"></div>
                     </div>
                 ) : reviews.length === 0 ? (
-                    <div className="text-center py-12 px-4 bg-[#111111] dark:bg-gray-800/20 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
+                    <div className="text-center py-12 px-4 bg-[#111111] dark:bg-gray-800/20 rounded-xl border border-dashed border-emerald-500/20 dark:border-gray-700">
                         <div className="w-20 h-20 bg-[#0A0A0A] dark:bg-gray-800 rounded-xl flex items-center justify-center mx-auto mb-4 text-gray-300 dark:text-gray-600 shadow-lg shadow-[#10B981]/20">
                             <FiStar size={36} />
                         </div>
@@ -184,7 +184,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                 ) : (
                     reviews.map((review: any) => (
                         <div key={review.id} className="relative group">
-                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-100 dark:bg-gray-800 rounded-xl group-hover:bg-yellow-400 transition-colors"></div>
+                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-800 dark:bg-gray-800 rounded-xl group-hover:bg-yellow-400 transition-colors"></div>
                             <div className="pl-6 pb-2">
                                 <div className="flex items-center gap-3 mb-3">
                                     <div className="w-12 h-12 bg-emerald-700 dark:from-gray-800 dark:to-gray-900 rounded-xl flex items-center justify-center font-bold text-gray-500 dark:text-gray-400 border border-white dark:border-gray-800 shadow-lg shadow-[#10B981]/20">

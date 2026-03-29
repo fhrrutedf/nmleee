@@ -66,14 +66,14 @@ export default function VerifyTransfersPage() {
                 {/* Input Section */}
                 <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-700">
                     <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                        <span className="w-8 h-8 rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-sm">1</span>
+                        <span className="w-8 h-8 rounded-xl bg-emerald-800 dark:bg-gray-700 flex items-center justify-center text-sm">1</span>
                         لصق الإشعارات (SMS)
                     </h2>
                     <textarea
                         value={rawText}
                         onChange={(e) => setRawText(e.target.value)}
                         placeholder="الصق تفاصيل ورسائل التحويل هنا..."
-                        className="w-full h-64 p-4 rounded-xl border border-gray-200 dark:border-gray-600 bg-[#111111] dark:bg-gray-900 focus:ring-2 focus:ring-accent-500 font-mono text-sm resize-none mb-4 outline-none transition-shadow"
+                        className="w-full h-64 p-4 rounded-xl border border-emerald-500/20 dark:border-gray-600 bg-[#111111] dark:bg-gray-900 focus:ring-2 focus:ring-accent-500 font-mono text-sm resize-none mb-4 outline-none transition-shadow"
                     />
                     <button
                         onClick={handleExtract}
@@ -120,7 +120,7 @@ export default function VerifyTransfersPage() {
                             </button>
                         </div>
                     ) : (
-                        <div className="flex-1 flex flex-col items-center justify-center text-gray-400 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl bg-[#111111] dark:bg-gray-900/50 min-h-[16rem]">
+                        <div className="flex-1 flex flex-col items-center justify-center text-gray-400 border-2 border-dashed border-emerald-500/20 dark:border-gray-700 rounded-xl bg-[#111111] dark:bg-gray-900/50 min-h-[16rem]">
                             <div className="w-16 h-16 rounded-xl bg-[#0A0A0A] dark:bg-gray-800 flex items-center justify-center mb-4 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-700">
                                 <FiList className="text-3xl opacity-50 text-gray-400" />
                             </div>

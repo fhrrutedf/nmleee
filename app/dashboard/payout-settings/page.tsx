@@ -134,7 +134,7 @@ export default function PayoutSettingsPage() {
                                     onClick={() => setMethod('bank')}
                                     className={`p-4 border-2 rounded-lg text-center transition-colors ${method === 'bank'
                                         ? 'border-ink bg-indigo-50'
-                                        : 'border-gray-200 hover:border-gray-300'
+                                        : 'border-emerald-500/20 hover:border-gray-300'
                                         }`}
                                 >
                                     <FiDollarSign className="mx-auto mb-2" size={24} />
@@ -146,7 +146,7 @@ export default function PayoutSettingsPage() {
                                     onClick={() => setMethod('paypal')}
                                     className={`p-4 border-2 rounded-lg text-center transition-colors ${method === 'paypal'
                                         ? 'border-ink bg-indigo-50'
-                                        : 'border-gray-200 hover:border-gray-300'
+                                        : 'border-emerald-500/20 hover:border-gray-300'
                                         }`}
                                 >
                                     <span className="text-2xl mb-2 block">💙</span>
@@ -158,7 +158,7 @@ export default function PayoutSettingsPage() {
                                     onClick={() => setMethod('crypto')}
                                     className={`p-4 border-2 rounded-lg text-center transition-colors ${method === 'crypto'
                                         ? 'border-ink bg-indigo-50'
-                                        : 'border-gray-200 hover:border-gray-300'
+                                        : 'border-emerald-500/20 hover:border-gray-300'
                                         }`}
                                 >
                                     <span className="text-2xl mb-2 block">🪙</span>

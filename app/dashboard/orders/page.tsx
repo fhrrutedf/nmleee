@@ -62,7 +62,7 @@ export default function OrdersPage() {
                 );
             default:
                 return (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-medium bg-gray-100 text-gray-700">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-medium bg-emerald-800 text-gray-700">
                         {status}
                     </span>
                 );
@@ -144,7 +144,7 @@ export default function OrdersPage() {
                 </div>
             ) : filteredOrders.length === 0 ? (
                 <div className="card text-center py-16 px-6 border-2 border-dashed border-gray-100 dark:border-gray-800 bg-[#111111]/50 dark:bg-gray-800/20">
-                    <div className="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center mx-auto mb-6">
+                    <div className="w-20 h-20 bg-emerald-800 dark:bg-gray-700 rounded-xl flex items-center justify-center mx-auto mb-6">
                         <FiShoppingBag className="text-4xl text-gray-400" />
                     </div>
                     <h3 className="text-xl font-bold text-[#10B981] dark:text-white mb-2">

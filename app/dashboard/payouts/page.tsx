@@ -94,7 +94,7 @@ export default function PayoutsPage() {
             case 'CANCELLED':
                 return 'bg-red-100 text-red-700';
             default:
-                return 'bg-gray-100 text-gray-700';
+                return 'bg-emerald-800 text-gray-700';
         }
     };
 

@@ -192,7 +192,7 @@ export default function ProductPage() {
                         </div>
 
                         {/* Price */}
-                        <div className="bg-[#0A0A0A] rounded-xl p-8 shadow-lg shadow-[#10B981]/20 border border-slate-100">
+                        <div className="bg-[#0A0A0A] rounded-xl p-8 shadow-lg shadow-[#10B981]/20 border border-emerald-500/20">
                             <div className="flex flex-col gap-2">
                                 {product.originalPrice && product.originalPrice > product.price && (
                                     <div className="flex items-center gap-2">
@@ -266,10 +266,10 @@ export default function ProductPage() {
                         </button>
 
                         {/* Additional Info */}
-                        <div className="grid grid-cols-2 gap-6 pt-8 border-t border-slate-100">
+                        <div className="grid grid-cols-2 gap-6 pt-8 border-t border-emerald-500/20">
                             {(product.duration || product.sessions) && (
                                 <div className="flex items-center gap-3 text-gray-400 group">
-                                    <div className="w-10 h-10 rounded-xl bg-[#111111] flex items-center justify-center group-hover:bg-slate-100 transition-colors">
+                                    <div className="w-10 h-10 rounded-xl bg-[#111111] flex items-center justify-center group-hover:bg-emerald-800 transition-colors">
                                         <FiClock className="text-lg" />
                                     </div>
                                     <div>
@@ -282,7 +282,7 @@ export default function ProductPage() {
                                 </div>
                             )}
                             <div className="flex items-center gap-3 text-gray-400 group">
-                                <div className="w-10 h-10 rounded-xl bg-[#111111] flex items-center justify-center group-hover:bg-slate-100 transition-colors">
+                                <div className="w-10 h-10 rounded-xl bg-[#111111] flex items-center justify-center group-hover:bg-emerald-800 transition-colors">
                                     <FiUsers className="text-lg" />
                                 </div>
                                 <div>

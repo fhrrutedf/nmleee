@@ -89,7 +89,7 @@ export default function EmailLogsPage() {
             <div className="flex gap-2">
                 {(['all', 'sent', 'failed'] as const).map(f => (
                     <button key={f} onClick={() => setFilter(f)}
-                        className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${filter === f ? 'bg-emerald-700 text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'}`}>
+                        className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${filter === f ? 'bg-emerald-700 text-white' : 'bg-emerald-800 dark:bg-gray-800 text-gray-600 dark:text-gray-400'}`}>
                         {f === 'all' ? 'الكل' : f === 'sent' ? 'مُرسَل ✓' : 'فشل ✗'}
                     </button>
                 ))}
@@ -121,7 +121,7 @@ export default function EmailLogsPage() {
                             </thead>
                             <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                                 {filtered.map(log => {
-                                    const typeInfo = TYPE_LABELS[log.type] || { label: log.type, color: 'bg-gray-100 text-gray-700' };
+                                    const typeInfo = TYPE_LABELS[log.type] || { label: log.type, color: 'bg-emerald-800 text-gray-700' };
                                     return (
                                         <tr key={log.id} className="hover:bg-[#111111] dark:hover:bg-gray-800/30 transition-colors">
                                             <td className="px-4 py-3">

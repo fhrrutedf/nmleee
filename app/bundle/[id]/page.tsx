@@ -127,7 +127,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                             </h2>
                             <div className="space-y-4">
                                 {bundle.products.map((bp: any) => (
-                                    <div key={bp.product.id} className="group flex flex-row items-center gap-4 p-5 rounded-xl bg-[#FCFCFC] dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 transition-all shadow-lg shadow-[#10B981]/20 hover:shadow-md">
+                                    <div key={bp.product.id} className="group flex flex-row items-center gap-4 p-5 rounded-xl bg-[#FCFCFC] dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-emerald-500/20 dark:hover:border-gray-600 transition-all shadow-lg shadow-[#10B981]/20 hover:shadow-md">
 
                                         {/* Title & Status (First / Right in RTL) */}
                                         <div className="flex-1 min-w-0 flex flex-col justify-center">
@@ -141,7 +141,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                         {/* Price (Middle) */}
                                         <div className="text-start flex flex-col justify-center flex-shrink-0 ps-1">
                                             <p className="text-[10px] sm:text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">السعر الأصلي</p>
-                                            <p className="text-xs sm:text-sm text-gray-500 line-through font-mono bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-md inline-block">{bp.product.price} $</p>
+                                            <p className="text-xs sm:text-sm text-gray-500 line-through font-mono bg-emerald-800 dark:bg-gray-800 px-2 py-0.5 rounded-md inline-block">{bp.product.price} $</p>
                                         </div>
 
                                         {/* Image (Last / Left in RTL) */}
@@ -207,7 +207,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                                 )
                                             ))}
                                             {bundle.products.length > 5 && (
-                                                <div className="w-14 h-14 rounded-xl border-4 border-white dark:border-gray-900 bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 shadow-md relative z-0">
+                                                <div className="w-14 h-14 rounded-xl border-4 border-white dark:border-gray-900 bg-emerald-800 flex items-center justify-center text-xs font-bold text-gray-500 shadow-md relative z-0">
                                                     +{bundle.products.length - 5}
                                                 </div>
                                             )}

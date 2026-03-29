@@ -211,7 +211,7 @@ export default function DashboardLayout({
             <div className="lg:mr-72 min-h-screen relative flex flex-col min-w-0">
                 <header className="bg-white/90  border-b border-gray-50 sticky top-0 z-30 w-full transition-all">
                     <div className="px-8 h-20 flex items-center justify-between">
-                        <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-[#10B981] p-3 bg-[#111111] rounded-xl hover:bg-gray-100">
+                        <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-[#10B981] p-3 bg-[#111111] rounded-xl hover:bg-emerald-800">
                             <FiMenu size={22} />
                         </button>
 

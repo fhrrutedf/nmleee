@@ -151,7 +151,7 @@ export default function ContactPage() {
                                             id="name"
                                             value={formData.name}
                                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                            className="block w-full px-5 py-4 text-[#10B981] bg-[#111111] border border-gray-200 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
+                                            className="block w-full px-5 py-4 text-[#10B981] bg-[#111111] border border-emerald-500/20 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
                                             placeholder=" "
                                             required
                                         />
@@ -166,7 +166,7 @@ export default function ContactPage() {
                                             id="email"
                                             value={formData.email}
                                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                            className="block w-full px-5 py-4 text-[#10B981] bg-[#111111] border border-gray-200 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
+                                            className="block w-full px-5 py-4 text-[#10B981] bg-[#111111] border border-emerald-500/20 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
                                             placeholder=" "
                                             required
                                         />
@@ -182,7 +182,7 @@ export default function ContactPage() {
                                         id="subject"
                                         value={formData.subject}
                                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                                        className="block w-full px-5 py-4 text-[#10B981] bg-[#111111] border border-gray-200 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
+                                        className="block w-full px-5 py-4 text-[#10B981] bg-[#111111] border border-emerald-500/20 rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all peer"
                                         placeholder=" "
                                         required
                                     />

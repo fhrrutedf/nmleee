@@ -22,7 +22,7 @@ export default function StepProgress({ steps, currentStep }: StepProgressProps) 
     <div className="w-full py-8 px-4">
       <div className="relative flex items-center justify-between max-w-2xl mx-auto">
         {/* Simplified Connection Line */}
-        <div className="absolute top-5 left-0 w-full h-[2px] bg-gray-100 z-0">
+        <div className="absolute top-5 left-0 w-full h-[2px] bg-emerald-800 z-0">
           <motion.div 
             className="h-full bg-emerald-700" 
             initial={{ width: '0%' }}

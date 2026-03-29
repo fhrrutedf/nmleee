@@ -110,7 +110,7 @@ export default function EditBlogPost() {
                             </label>
                             <input
                                 type="text"
-                                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-emerald-600"
+                                className="w-full px-4 py-2 border border-emerald-500/20 dark:border-gray-700 rounded-lg focus:outline-none focus:border-emerald-600"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                             />
@@ -122,7 +122,7 @@ export default function EditBlogPost() {
                             </label>
                             <input
                                 type="text"
-                                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-emerald-600 text-left"
+                                className="w-full px-4 py-2 border border-emerald-500/20 dark:border-gray-700 rounded-lg focus:outline-none focus:border-emerald-600 text-left"
                                 value={slug}
                                 onChange={(e) => setSlug(e.target.value)}
                                 dir="ltr"
@@ -153,7 +153,7 @@ export default function EditBlogPost() {
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">حالة المقال</label>
                             <select
-                                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none"
+                                className="w-full px-4 py-2 border border-emerald-500/20 dark:border-gray-700 rounded-lg focus:outline-none"
                                 value={status}
                                 onChange={(e) => setStatus(e.target.value as "DRAFT" | "PUBLISHED")}
                             >
@@ -166,7 +166,7 @@ export default function EditBlogPost() {
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">التصنيف الرئيسي</label>
                             <input
                                 type="text"
-                                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg"
+                                className="w-full px-4 py-2 border border-emerald-500/20 dark:border-gray-700 rounded-lg"
                                 value={category}
                                 onChange={(e) => setCategory(e.target.value)}
                             />
@@ -175,7 +175,7 @@ export default function EditBlogPost() {
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">مقتطف قصير</label>
                             <textarea
-                                className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg h-24 resize-none"
+                                className="w-full px-4 py-2 border border-emerald-500/20 dark:border-gray-700 rounded-lg h-24 resize-none"
                                 value={excerpt}
                                 onChange={(e) => setExcerpt(e.target.value)}
                             ></textarea>

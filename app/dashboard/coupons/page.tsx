@@ -152,18 +152,18 @@ export default function CouponsPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {coupons.map((coupon) => (
-                        <div key={coupon.id} className={`bg-[#0A0A0A] dark:bg-card-white rounded-xl border ${coupon.isActive ? 'border-gray-200 dark:border-gray-700' : 'border-gray-100 dark:border-gray-800 opacity-70'} shadow-lg shadow-[#10B981]/20 overflow-hidden flex flex-col hover:shadow-md transition-shadow relative`}>
+                        <div key={coupon.id} className={`bg-[#0A0A0A] dark:bg-card-white rounded-xl border ${coupon.isActive ? 'border-emerald-500/20 dark:border-gray-700' : 'border-gray-100 dark:border-gray-800 opacity-70'} shadow-lg shadow-[#10B981]/20 overflow-hidden flex flex-col hover:shadow-md transition-shadow relative`}>
                             {/* Top Accent */}
                             <div className={`h-1.5 w-full ${coupon.isActive ? 'bg-emerald-700 shadow-[0_0_15px_rgba(37,99,235,0.3)]' : 'bg-gray-200'}`}></div>
 
                             <div className="p-6">
                                 <div className="flex justify-between items-start mb-4">
-                                    <div className="inline-block px-4 py-1.5 bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg">
+                                    <div className="inline-block px-4 py-1.5 bg-emerald-800 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg">
                                         <h3 className="text-xl font-bold text-[#10B981] dark:text-gray-200 tracking-wider font-mono">{coupon.code}</h3>
                                     </div>
                                     <button
                                         onClick={() => toggleStatus(coupon.id, coupon.isActive, coupon.code)}
-                                        className={`text-xs font-bold px-3 py-1 rounded-xl ${coupon.isActive ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400' : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'}`}
+                                        className={`text-xs font-bold px-3 py-1 rounded-xl ${coupon.isActive ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400' : 'bg-emerald-800 text-gray-500 dark:bg-gray-800 dark:text-gray-400'}`}
                                     >
                                         {coupon.isActive ? 'فعال' : 'معطل'}
                                     </button>
@@ -265,7 +265,7 @@ export default function CouponsPage() {
                             <h2 className="text-2xl font-bold text-[#10B981] dark:text-white flex items-center gap-2">
                                 <FiTag className="text-[#10B981]" /> إضافة كوبون خصم جديد
                             </h2>
-                            <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-red-500 bg-gray-100 dark:bg-gray-800 p-2 rounded-xl transition-colors">
+                            <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-red-500 bg-emerald-800 dark:bg-gray-800 p-2 rounded-xl transition-colors">
                                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                             </button>
                         </div>
@@ -384,7 +384,7 @@ export default function CouponsPage() {
                             </div>
 
                             <div className="pt-6 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-4 mt-6">
-                                <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline border-transparent bg-gray-100 dark:bg-gray-800 px-6 font-bold shadow-lg shadow-[#10B981]/20">إلغاء</button>
+                                <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline border-transparent bg-emerald-800 dark:bg-gray-800 px-6 font-bold shadow-lg shadow-[#10B981]/20">إلغاء</button>
                                 <button type="submit" className="btn btn-primary px-8 font-bold shadow-lg shadow-[#10B981]/20 shadow-accent/20 flex items-center gap-2 text-lg">
                                     <FiCheckCircle /> <span>اعتماد الكوبون وحفظه</span>
                                 </button>

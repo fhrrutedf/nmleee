@@ -38,7 +38,7 @@ const STATUS_CONFIG: Record<string, { label: string; bg: string; icon: ReactNode
     PAID: { label: 'مقبول ✓', bg: 'bg-blue-100 text-blue-800', icon: <FiCheckCircle size={14} /> },
     COMPLETED: { label: 'مقبول ✓', bg: 'bg-blue-100 text-blue-800', icon: <FiCheckCircle size={14} /> },
     REJECTED: { label: 'مرفوض ✗', bg: 'bg-red-100 text-red-800', icon: <FiXCircle size={14} /> },
-    CANCELLED: { label: 'ملغي', bg: 'bg-gray-100 text-gray-600', icon: <FiXCircle size={14} /> },
+    CANCELLED: { label: 'ملغي', bg: 'bg-emerald-800 text-gray-600', icon: <FiXCircle size={14} /> },
 };
 
 export default function ManualOrdersPage() {
@@ -171,7 +171,7 @@ export default function ManualOrdersPage() {
                                 className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${
                                     statusFilter === tab.value
                                         ? 'bg-emerald-700 text-white shadow-md'
-                                        : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                        : 'bg-emerald-800 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                                 }`}
                             >
                                 {tab.label}
@@ -303,7 +303,7 @@ export default function ManualOrdersPage() {
                             value={rejectionReason}
                             onChange={(e) => setRejectionReason(e.target.value)}
                             placeholder="اكتب سبب الرفض..."
-                            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-[#111111] dark:bg-gray-900 focus:ring-2 focus:ring-red-500 mb-4 outline-none"
+                            className="w-full px-4 py-3 border border-emerald-500/20 dark:border-gray-700 rounded-xl bg-[#111111] dark:bg-gray-900 focus:ring-2 focus:ring-red-500 mb-4 outline-none"
                             rows={4}
                         />
                         <div className="flex gap-3">

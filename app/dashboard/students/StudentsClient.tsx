@@ -54,7 +54,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
                     <input
                         type="text"
                         placeholder="ابحث بالاسم، الإيميل، أو اسم الدورة..."
-                        className="w-full pl-4 pr-10 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-bg-light focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all text-sm"
+                        className="w-full pl-4 pr-10 py-3 rounded-xl border border-emerald-500/20 dark:border-gray-700 bg-[#111111] dark:bg-bg-light focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all text-sm"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />

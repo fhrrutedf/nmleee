@@ -18,7 +18,7 @@ const plans = [
         storage: '1 جيجابايت',
         students: '100 طالب',
         border: 'border-gray-100',
-        btnClass: 'bg-gray-100 text-[#10B981] hover:bg-gray-200',
+        btnClass: 'bg-emerald-800 text-[#10B981] hover:bg-gray-200',
         popular: false,
         features: [
             '5 منتجات رقمية نشطة',
@@ -107,7 +107,7 @@ const plans = [
         storage: '+1 تيرابايت',
         students: 'غير محدود',
         border: 'border-gray-100',
-        btnClass: 'bg-[#0A0A0A] text-[#10B981] border border-gray-200 hover:border-ink',
+        btnClass: 'bg-[#0A0A0A] text-[#10B981] border border-emerald-500/20 hover:border-ink',
         popular: false,
         features: [
             'بدون أي عمولة بيع (0% Commission)',

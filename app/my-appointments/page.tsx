@@ -54,7 +54,7 @@ export default function MyAppointmentsPage() {
 
                 {/* Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-[#0A0A0A] border border-gray-200 rounded-xl p-6">
+                    <div className="bg-[#0A0A0A] border border-emerald-500/20 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">القادمة</p>
@@ -64,7 +64,7 @@ export default function MyAppointmentsPage() {
                         </div>
                     </div>
 
-                    <div className="bg-[#0A0A0A] border border-gray-200 rounded-xl p-6">
+                    <div className="bg-[#0A0A0A] border border-emerald-500/20 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">المكتملة</p>
@@ -74,7 +74,7 @@ export default function MyAppointmentsPage() {
                         </div>
                     </div>
 
-                    <div className="bg-[#0A0A0A] border border-gray-200 rounded-xl p-6">
+                    <div className="bg-[#0A0A0A] border border-emerald-500/20 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">الملغاة</p>

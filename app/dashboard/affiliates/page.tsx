@@ -270,7 +270,7 @@ export default function AffiliatesPage() {
                             <h2 className="text-2xl font-bold text-[#10B981] dark:text-white flex items-center gap-2">
                                 <FiLink className="text-[#10B981]" /> تكليف مسوق جديد
                             </h2>
-                            <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-red-500 bg-gray-100 dark:bg-gray-800 p-2 rounded-xl transition-colors">
+                            <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-red-500 bg-emerald-800 dark:bg-gray-800 p-2 rounded-xl transition-colors">
                                 <FiTrash2 className="w-5 h-5" />
                             </button>
                         </div>
@@ -348,7 +348,7 @@ export default function AffiliatesPage() {
                             )}
 
                             <div className="pt-6 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-4 mt-6">
-                                <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline border-transparent bg-gray-100 dark:bg-gray-800 px-6 font-bold shadow-lg shadow-[#10B981]/20">إلغاء الأمر</button>
+                                <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline border-transparent bg-emerald-800 dark:bg-gray-800 px-6 font-bold shadow-lg shadow-[#10B981]/20">إلغاء الأمر</button>
                                 <button type="submit" disabled={products.length === 0} className="btn btn-primary px-8 font-bold shadow-lg shadow-[#10B981]/20 shadow-accent/20 flex items-center gap-2 text-lg">
                                     <FiCheckCircle /> <span>إنشاء وحفظ</span>
                                 </button>

@@ -80,9 +80,9 @@ export default function DashboardPage() {
                     { title: 'المنتجات النشطة', value: stats.totalProducts || 0, icon: FiPackage, badge: 'Inventory', color: 'text-[#10B981]', bg: 'bg-[#111111]' },
                     { title: 'عدد الطلاب', value: stats.totalStudents || 0, icon: FiUsers, badge: 'Students', color: 'text-[#10B981]', bg: 'bg-[#111111]' }
                 ].map((stat, idx) => (
-                    <motion.div variants={item} key={idx} className="bg-[#0A0A0A] border border-gray-100 p-6 rounded-xl hover:border-gray-200 transition-all shadow-lg shadow-[#10B981]/20 group">
+                    <motion.div variants={item} key={idx} className="bg-[#0A0A0A] border border-gray-100 p-6 rounded-xl hover:border-emerald-500/20 transition-all shadow-lg shadow-[#10B981]/20 group">
                         <div className="flex justify-between items-center mb-6">
-                            <div className={`${stat.bg} p-3 rounded-xl border border-transparent group-hover:border-gray-200 transition-all`}>
+                            <div className={`${stat.bg} p-3 rounded-xl border border-transparent group-hover:border-emerald-500/20 transition-all`}>
                                 <stat.icon className={`text-xl ${stat.color}`} />
                             </div>
                             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{stat.badge}</span>

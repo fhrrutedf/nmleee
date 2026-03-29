@@ -54,7 +54,7 @@ export default function CertificatePreview({
                 </h3>
 
                 {/* Instructor */}
-                <div className="mt-auto pt-8 border-t border-gray-200 w-full">
+                <div className="mt-auto pt-8 border-t border-emerald-500/20 w-full">
                     <div className="flex items-center justify-between">
                         <div className="text-left">
                             <p className="text-sm text-gray-600 mb-1">المدرب</p>

@@ -144,7 +144,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                     setShowModuleForm(false);
                                     setNewModuleTitle('');
                                 }}
-                                className="flex-1 sm:flex-none px-8 py-4 bg-gray-100 font-bold text-gray-500 rounded-xl hover:bg-gray-200 transition-colors"
+                                className="flex-1 sm:flex-none px-8 py-4 bg-emerald-800 font-bold text-gray-500 rounded-xl hover:bg-gray-200 transition-colors"
                             >
                                 إلغاء
                             </button>
@@ -192,7 +192,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                     <button
                                         type="button"
                                         onClick={() => router.push(`/dashboard/courses/${courseId}/modules/${module.id}/lessons/new`)}
-                                        className="flex-1 lg:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-[#0A0A0A] border border-gray-200 text-[#10B981] font-bold rounded-xl hover:border-emerald-600 hover:text-[#10B981] transition-all shadow-lg shadow-[#10B981]/20"
+                                        className="flex-1 lg:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-[#0A0A0A] border border-emerald-500/20 text-[#10B981] font-bold rounded-xl hover:border-emerald-600 hover:text-[#10B981] transition-all shadow-lg shadow-[#10B981]/20"
                                     >
                                         <FiPlus size={18} />
                                         إضافة درس أو فيديو
@@ -221,7 +221,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                                             </span>
                                                         )}
                                                         {lesson.quizzes && lesson.quizzes.length > 0 && (
-                                                            <span className="text-[10px] font-bold text-[#10B981] bg-gray-100 px-2.5 py-1 rounded-lg uppercase tracking-wider flex items-center gap-1.5">
+                                                            <span className="text-[10px] font-bold text-[#10B981] bg-emerald-800 px-2.5 py-1 rounded-lg uppercase tracking-wider flex items-center gap-1.5">
                                                                 <FiCheckSquare size={12} /> {lesson.quizzes.length} Assignments
                                                             </span>
                                                         )}

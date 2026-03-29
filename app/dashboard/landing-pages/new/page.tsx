@@ -92,7 +92,7 @@ export default function CreateLandingPage() {
                                 </label>
                                 {formData.heroImage ? (
                                     <div className="relative group">
-                                        <img src={formData.heroImage} alt="صورة" className="w-full h-32 object-cover rounded-lg border border-gray-200" />
+                                        <img src={formData.heroImage} alt="صورة" className="w-full h-32 object-cover rounded-lg border border-emerald-500/20" />
                                         <button type="button" onClick={() => setFormData({ ...formData, heroImage: '' })} className="absolute top-2 left-2 bg-red-500 text-white rounded-xl w-7 h-7 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
                                     </div>
                                 ) : (
@@ -290,7 +290,7 @@ export default function CreateLandingPage() {
                             </button>
                             <button
                                 type="button"
-                                className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2"
+                                className="px-6 py-3 bg-emerald-800 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2"
                             >
                                 <FiEye />
                                 معاينة

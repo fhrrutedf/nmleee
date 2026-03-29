@@ -103,7 +103,7 @@ function LoginContent() {
                             className="w-full flex items-center justify-center gap-4 py-4 px-6 rounded-xl border border-gray-100 bg-[#0A0A0A] hover:border-ink hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 font-bold text-gray-700 active:scale-95"
                         >
                             {googleLoading ? (
-                                <div className="w-5 h-5 border-2 border-gray-200 border-t-ink rounded-xl animate-spin"></div>
+                                <div className="w-5 h-5 border-2 border-emerald-500/20 border-t-ink rounded-xl animate-spin"></div>
                             ) : (
                                 <svg className="w-5 h-5 ml-1" viewBox="0 0 24 24">
                                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -173,7 +173,7 @@ function LoginContent() {
                             type="submit"
                             disabled={loading}
                             className={`w-full py-5 rounded-xl font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-lg shadow-[#10B981]/20
-                                ${loading ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-emerald-700 text-white hover:bg-emerald-700 shadow-ink/20 active:scale-95'}
+                                ${loading ? 'bg-emerald-800 text-gray-400 cursor-not-allowed' : 'bg-emerald-700 text-white hover:bg-emerald-700 shadow-ink/20 active:scale-95'}
                             `}
                         >
                             {loading ? (

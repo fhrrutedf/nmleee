@@ -101,7 +101,7 @@ export default function ForgotPasswordPage() {
                                                 required
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
-                                                className="w-full bg-[#111111] border border-gray-200 rounded-xl px-5 py-4 pr-12 font-semibold focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all ltr"
+                                                className="w-full bg-[#111111] border border-emerald-500/20 rounded-xl px-5 py-4 pr-12 font-semibold focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all ltr"
                                                 placeholder="name@example.com"
                                             />
                                             <FiMail className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl group-focus-within:text-[#10B981] transition-colors" />

@@ -79,7 +79,7 @@ export default function CartDrawer() {
                                 </div>
                                 <button
                                     onClick={() => setIsOpen(false)}
-                                    className="p-2 hover:bg-gray-100 rounded-xl text-gray-400 hover:text-white transition-colors"
+                                    className="p-2 hover:bg-emerald-800 rounded-xl text-gray-400 hover:text-white transition-colors"
                                 >
                                     <FiX size={24} />
                                 </button>

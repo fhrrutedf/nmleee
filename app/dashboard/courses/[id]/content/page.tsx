@@ -153,7 +153,7 @@ export default function CourseContentPage() {
                             </button>
                             <button
                                 onClick={() => saveDraft()}
-                                className="w-full sm:w-auto px-8 py-4 bg-slate-100 text-gray-400 rounded-[1.5rem] font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-2 text-xs"
+                                className="w-full sm:w-auto px-8 py-4 bg-emerald-800 text-gray-400 rounded-[1.5rem] font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-2 text-xs"
                             >
                                 <FiEyeOff /> حفظ كمسودة
                             </button>
@@ -182,7 +182,7 @@ export default function CourseContentPage() {
                             />
                             <div className="flex gap-2">
                                 <button onClick={createModule} className="flex-1 sm:flex-none px-8 py-4 bg-emerald-700 text-white rounded-xl font-bold text-sm">حفظ</button>
-                                <button onClick={() => { setShowModuleForm(false); setNewModuleTitle(''); }} className="flex-1 sm:flex-none px-6 py-4 bg-slate-100 text-gray-500 rounded-xl font-bold text-sm">إلغاء</button>
+                                <button onClick={() => { setShowModuleForm(false); setNewModuleTitle(''); }} className="flex-1 sm:flex-none px-6 py-4 bg-emerald-800 text-gray-500 rounded-xl font-bold text-sm">إلغاء</button>
                             </div>
                         </div>
                     </div>
@@ -199,9 +199,9 @@ export default function CourseContentPage() {
                 ) : (
                     <div className="space-y-8">
                         {modules.map((module, i) => (
-                            <div key={module.id} className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-slate-100 overflow-hidden hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 group">
+                            <div key={module.id} className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-emerald-500/20 overflow-hidden hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 group">
                                 {/* Module Header */}
-                                <div className="p-6 sm:p-8 bg-[#111111]/50 border-b border-slate-100">
+                                <div className="p-6 sm:p-8 bg-[#111111]/50 border-b border-emerald-500/20">
                                     <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
                                         <div className="flex items-center gap-4 w-full lg:w-auto">
                                             <div className="w-12 h-12 bg-[#0A0A0A] rounded-xl border border-slate-200 flex items-center justify-center font-bold text-slate-400 shadow-lg shadow-[#10B981]/20 group-hover:text-[#10B981] group-hover:border-indigo-100 transition-colors">

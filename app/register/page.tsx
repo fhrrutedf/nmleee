@@ -206,7 +206,7 @@ function RegisterContent() {
                             type="submit" 
                             disabled={loading} 
                             className={`w-full py-5 rounded-xl font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-lg shadow-[#10B981]/20
-                                ${loading ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-emerald-700 text-white hover:bg-emerald-700 shadow-ink/20'}
+                                ${loading ? 'bg-emerald-800 text-gray-400 cursor-not-allowed' : 'bg-emerald-700 text-white hover:bg-emerald-700 shadow-ink/20'}
                             `}
                         >
                             {loading ? <div className="w-5 h-5 border-2 border-gray-300 border-t-gray-600 rounded-xl animate-spin" /> : <>Create My Account <FiArrowLeft className="rotate-180" size={16} /></>}

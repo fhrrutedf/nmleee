@@ -243,7 +243,7 @@ export default function NewCoursePage() {
             {/* Form Column - Right Side */}
             <div className="flex-1 lg:max-w-3xl">
                 {/* Header & Auto-Draft Indicator */}
-                <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between border-b border-slate-100 pb-6">
+                <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between border-b border-emerald-500/20 pb-6">
                     <div className="text-right">
                         <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-gray-400 hover:text-[#10B981] font-bold text-[10px] uppercase tracking-widest mb-4 transition-all">
                             <FiArrowRight /> BACK TO ACADEMY
@@ -252,7 +252,7 @@ export default function NewCoursePage() {
                         <p className="text-gray-400 font-bold mt-2">Design a premium learning experience for your audience.</p>
                     </div>
                     {isSavingDraft && (
-                        <div className="mt-4 md:mt-0 flex items-center gap-2 text-xs font-bold text-slate-400 bg-[#111111] px-4 py-2 rounded-xl border border-slate-100 ">
+                        <div className="mt-4 md:mt-0 flex items-center gap-2 text-xs font-bold text-slate-400 bg-[#111111] px-4 py-2 rounded-xl border border-emerald-500/20 ">
                             <FiSave /> جاري الحفظ تلقائياً...
                         </div>
                     )}
@@ -290,14 +290,14 @@ export default function NewCoursePage() {
                                     <div className="space-y-4 pt-10 border-t border-slate-50">
                                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6 block border-b border-gray-100 pb-3">Program Delivery Model <span className="text-red-500">*</span></label>
                                         <div className="grid md:grid-cols-2 gap-6">
-                                            <button type="button" onClick={() => update('format', 'recorded')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'recorded' ? 'border-emerald-600 bg-emerald-700/[0.03] shadow-lg shadow-[#10B981]/20 shadow-accent/5' : 'border-gray-100 bg-[#0A0A0A] hover:border-gray-200'}`}>
+                                            <button type="button" onClick={() => update('format', 'recorded')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'recorded' ? 'border-emerald-600 bg-emerald-700/[0.03] shadow-lg shadow-[#10B981]/20 shadow-accent/5' : 'border-gray-100 bg-[#0A0A0A] hover:border-emerald-500/20'}`}>
                                                 <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20 transition-all ${formData.format === 'recorded' ? 'bg-emerald-700 text-white' : 'bg-[#111111] text-gray-400'}`}><FiVideo size={24}/></div>
                                                 <div>
                                                     <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'recorded' ? 'text-[#10B981]' : 'text-gray-400'}`}>Recorded Assets</h4>
                                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider opacity-60">High-leverage asynchronous learning.</p>
                                                 </div>
                                             </button>
-                                            <button type="button" onClick={() => update('format', 'online')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'online' ? 'border-emerald-600 bg-emerald-700/5 shadow-lg shadow-[#10B981]/20 shadow-accent/5' : 'border-gray-100 bg-[#0A0A0A] hover:border-gray-200'}`}>
+                                            <button type="button" onClick={() => update('format', 'online')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'online' ? 'border-emerald-600 bg-emerald-700/5 shadow-lg shadow-[#10B981]/20 shadow-accent/5' : 'border-gray-100 bg-[#0A0A0A] hover:border-emerald-500/20'}`}>
                                                 <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20 transition-all ${formData.format === 'online' ? 'bg-emerald-700 text-white' : 'bg-[#111111] text-gray-400'}`}><FiClock size={24}/></div>
                                                 <div>
                                                     <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'online' ? 'text-[#10B981]' : 'text-gray-400'}`}>Institutional Live</h4>
@@ -321,7 +321,7 @@ export default function NewCoursePage() {
                                                         </div>
                                                     </>
                                                 ) : (
-                                                    <button type="button" onClick={() => setShowCoverUploader(true)} className="w-full h-full flex flex-col items-center justify-center text-slate-300 gap-3 hover:bg-[#0A0A0A] hover:text-primary-ink transition-all">
+                                                    <button type="button" onClick={() => setShowCoverUploader(true)} className="w-full h-full flex flex-col items-center justify-center text-slate-300 gap-3 hover:bg-[#0A0A0A] hover:text-white transition-all">
                                                         <FiImage size={40} />
                                                         <span className="text-xs font-bold italic">أفلت صورة الغلاف هنا للرفع</span>
                                                     </button>
@@ -411,7 +411,7 @@ export default function NewCoursePage() {
                                         <label className="label-modern mb-4 block underline decoration-primary-indigo-100 underline-offset-4">ملحقات الدورة (اختياري)</label>
                                         <div className="space-y-3">
                                             {formData.attachments.map((file, i) => (
-                                                <div key={i} className="flex items-center justify-between p-4 bg-[#111111] rounded-xl border border-slate-100">
+                                                <div key={i} className="flex items-center justify-between p-4 bg-[#111111] rounded-xl border border-emerald-500/20">
                                                     <div className="flex items-center gap-2 overflow-hidden">
                                                         <FiCheckSquare className="text-primary-ink shrink-0" />
                                                         <span className="text-xs font-bold truncate max-w-[200px]" dir="ltr">{file.split('/').pop()}</span>
@@ -419,7 +419,7 @@ export default function NewCoursePage() {
                                                     <button type="button" onClick={() => update('attachments', formData.attachments.filter((_, idx) => idx !== i))} className="text-red-400 hover:text-red-600"><FiX /></button>
                                                 </div>
                                             ))}
-                                            <button type="button" onClick={() => setShowAttachmentsUploader(true)} className="flex items-center justify-center gap-2 text-xs font-bold text-slate-400 hover:text-primary-ink transition-all border-2 border-dashed border-slate-200 py-6 rounded-[1.5rem] w-full hover:bg-[#111111]">
+                                            <button type="button" onClick={() => setShowAttachmentsUploader(true)} className="flex items-center justify-center gap-2 text-xs font-bold text-slate-400 hover:text-white transition-all border-2 border-dashed border-slate-200 py-6 rounded-[1.5rem] w-full hover:bg-[#111111]">
                                                 <FiUpload /> رفع ملفات اضافية مساعدة (PDF, ZIP...)
                                             </button>
                                             {showAttachmentsUploader && (
@@ -442,7 +442,7 @@ export default function NewCoursePage() {
                                             </div>
                                             <div className="flex flex-wrap gap-2">
                                                 {formData.tags.map(t => (
-                                                    <span key={t} className="text-[10px] font-bold bg-[#111111] text-gray-500 px-3 py-1.5 rounded-xl flex items-center gap-2 border border-slate-100 hover:bg-red-50 transition-colors group">{t} <FiX className="cursor-pointer text-slate-300 group-hover:text-red-500" onClick={() => update('tags', formData.tags.filter(i => i !== t))} /></span>
+                                                    <span key={t} className="text-[10px] font-bold bg-[#111111] text-gray-500 px-3 py-1.5 rounded-xl flex items-center gap-2 border border-emerald-500/20 hover:bg-red-50 transition-colors group">{t} <FiX className="cursor-pointer text-slate-300 group-hover:text-red-500" onClick={() => update('tags', formData.tags.filter(i => i !== t))} /></span>
                                                 ))}
                                             </div>
                                         </div>
@@ -471,7 +471,7 @@ export default function NewCoursePage() {
                         {currentStep === 3 && (
                             <motion.div key="st3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-10">
                                 <Section title="ورشة بناء المحتوى المتقدم" icon={<FiLayers />}>
-                                    <div className="bg-[#111111]/50 -mx-6 -mt-6 sm:-mx-10 sm:-mt-10 p-6 sm:p-10 rounded-t-[3rem] border-b border-slate-100">
+                                    <div className="bg-[#111111]/50 -mx-6 -mt-6 sm:-mx-10 sm:-mt-10 p-6 sm:p-10 rounded-t-[3rem] border-b border-emerald-500/20">
                                         <div className="max-w-xl">
                                             <h3 className="text-xl font-bold text-slate-800 mb-2">منهج الدورة الاحترافي</h3>
                                             <p className="text-sm font-bold text-gray-500">تم حفظ بياناتك المبدئية بنجاح! الآن قم بترتيب الوحدات وإضافة مقاطع الفيديو، الاختباء، والمواد (جميع التعديلات هنا تحفظ تلقائياً دون الحاجة لضغط حفظ).</p>
@@ -504,7 +504,7 @@ export default function NewCoursePage() {
                                                 </div>
                                                 <input type="number" required className="input-modern pr-20 text-4xl font-bold text-slate-800 focus:bg-[#0A0A0A] transition-all text-center tracking-tighter" placeholder="0.00" value={formData.price} onChange={e => update('price', e.target.value)} />
                                             </div>
-                                            <div className="flex items-center justify-between p-4 bg-[#111111]/50 rounded-xl border border-slate-100 mt-4">
+                                            <div className="flex items-center justify-between p-4 bg-[#111111]/50 rounded-xl border border-emerald-500/20 mt-4">
                                                 <span className="text-[11px] font-bold text-slate-400 italic">صافي أرباحك التقريبي (بعد عمولة المنصة 10%):</span>
                                                 <span className="text-lg font-bold text-blue-700">{netEarnings} $</span>
                                             </div>
@@ -516,7 +516,7 @@ export default function NewCoursePage() {
                                                 <span className="text-[10px] font-bold bg-red-50 text-red-500 px-3 py-1 rounded-xl uppercase tracking-tighter">للخصم فقط</span>
                                             </div>
                                             <div className="relative group/price-old">
-                                                <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-[#111111] text-slate-400 rounded-r-2xl border-l border-slate-100 transition-colors group-focus-within/price-old:bg-red-500 group-focus-within/price-old:text-white">
+                                                <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-[#111111] text-slate-400 rounded-r-2xl border-l border-emerald-500/20 transition-colors group-focus-within/price-old:bg-red-500 group-focus-within/price-old:text-white">
                                                     <FiX size={24}/>
                                                 </div>
                                                 <input type="number" className="input-modern pr-20 text-3xl font-bold text-slate-400 line-through focus:bg-[#0A0A0A] transition-all text-center" placeholder="99.00" value={formData.originalPrice} onChange={e => update('originalPrice', e.target.value)} />
@@ -561,12 +561,12 @@ export default function NewCoursePage() {
                                 )}
 
                                 <Section title="خيارات العرض فور الإنشاء" icon={<FiEye />}>
-                                    <div className={`flex items-center justify-between p-8 rounded-xl border transition-all cursor-pointer group hover:opacity-95 ${formData.isActive ? 'bg-emerald-700 border-slate-800 shadow-lg shadow-[#10B981]/20' : 'bg-[#0A0A0A] border-slate-100'}`} onClick={() => update('isActive', !formData.isActive)}>
+                                    <div className={`flex items-center justify-between p-8 rounded-xl border transition-all cursor-pointer group hover:opacity-95 ${formData.isActive ? 'bg-emerald-700 border-slate-800 shadow-lg shadow-[#10B981]/20' : 'bg-[#0A0A0A] border-emerald-500/20'}`} onClick={() => update('isActive', !formData.isActive)}>
                                         <div className="text-right">
                                             <h3 className={`font-bold text-xl leading-tight transition-colors ${formData.isActive ? 'text-white' : 'text-slate-800'}`}>إطلاق وعرض الدورة للبيع</h3>
                                             <p className={`text-xs mt-1 font-bold ${formData.isActive ? 'text-white/40' : 'text-slate-400'}`}>{formData.isActive ? 'الدورة ستظهر في واجهة المتجر الرئيسية للجميع' : 'الدورة ستبقى مخفية (وسيكون الوصول بالرابط السري فقط)'}</p>
                                         </div>
-                                        <div className={`w-14 h-8 rounded-xl flex items-center px-1 transition-all ${formData.isActive ? 'bg-emerald-700' : 'bg-slate-100'}`}>
+                                        <div className={`w-14 h-8 rounded-xl flex items-center px-1 transition-all ${formData.isActive ? 'bg-emerald-700' : 'bg-emerald-800'}`}>
                                             <div className={`w-6 h-6 bg-[#0A0A0A] rounded-xl transition-all shadow-md ${formData.isActive ? 'translate-x-[24px]' : 'translate-x-0'}`} />
                                         </div>
                                     </div>
@@ -587,7 +587,7 @@ export default function NewCoursePage() {
                     </AnimatePresence>
 
                     {/* Footer Built Actions */}
-                    <div className="mt-20 flex flex-col md:flex-row items-center justify-between pt-10 border-t border-slate-100 gap-6 pb-12">
+                    <div className="mt-20 flex flex-col md:flex-row items-center justify-between pt-10 border-t border-emerald-500/20 gap-6 pb-12">
                         <div className="w-full md:w-auto">
                             {currentStep > 1 ? (
                                 <button
@@ -627,7 +627,7 @@ export default function NewCoursePage() {
             </div>
 
             {/* Live Preview Sidepanel - Left Side (Sticky) */}
-            <div className="hidden lg:block w-[420px] shrink-0 border-r border-slate-100 pr-10">
+            <div className="hidden lg:block w-[420px] shrink-0 border-r border-emerald-500/20 pr-10">
                 <div className="sticky top-10 space-y-6">
                     <div className="flex items-center gap-2 text-primary-ink mb-6">
                         <FiEye size={20} />
@@ -635,8 +635,8 @@ export default function NewCoursePage() {
                     </div>
 
                     {/* Miniature Course Card */}
-                    <div className="bg-[#0A0A0A] rounded-xl border border-slate-100 shadow-lg shadow-[#10B981]/20 overflow-hidden transition-all hover:shadow-lg shadow-[#10B981]/20 hover:-translate-y-1">
-                        <div className="aspect-video bg-slate-100 relative overflow-hidden flex items-center justify-center text-slate-300">
+                    <div className="bg-[#0A0A0A] rounded-xl border border-emerald-500/20 shadow-lg shadow-[#10B981]/20 overflow-hidden transition-all hover:shadow-lg shadow-[#10B981]/20 hover:-translate-y-1">
+                        <div className="aspect-video bg-emerald-800 relative overflow-hidden flex items-center justify-center text-slate-300">
                             {formData.image ? 
                                 <img src={formData.image} alt="Preview" className="w-full h-full object-cover" /> 
                             : <span className="font-bold text-xs"><FiImage size={32} className="mx-auto opacity-50 mb-2"/> سيظهر الغلاف هنا</span>}
@@ -730,7 +730,7 @@ export default function NewCoursePage() {
                                 </button>
                                 <button
                                     onClick={() => router.push('/dashboard/courses')}
-                                    className="w-full py-5 bg-slate-100 text-gray-400 rounded-xl font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-3 active:scale-95"
+                                    className="w-full py-5 bg-emerald-800 text-gray-400 rounded-xl font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-3 active:scale-95"
                                 >
                                     لوحة التحكم <FiArrowLeft />
                                 </button>

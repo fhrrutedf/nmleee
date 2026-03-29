@@ -135,15 +135,15 @@ function SuccessContent() {
                             </h2>
                             
                             <div className="bg-[#111111] rounded-xl p-8 space-y-6 mb-10 border border-gray-100">
-                                <div className="flex justify-between items-center border-b border-gray-200/50 pb-5">
+                                <div className="flex justify-between items-center border-b border-emerald-500/20/50 pb-5">
                                     <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Order ID</span>
                                     <span className="font-bold text-[#10B981] font-mono text-sm">#{order.orderNumber}</span>
                                 </div>
-                                <div className="flex justify-between items-center border-b border-gray-200/50 pb-5">
+                                <div className="flex justify-between items-center border-b border-emerald-500/20/50 pb-5">
                                     <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Customer</span>
                                     <span className="font-bold text-[#10B981] text-sm">{order.customerEmail}</span>
                                 </div>
-                                <div className="flex justify-between items-center border-b border-gray-200/50 pb-5">
+                                <div className="flex justify-between items-center border-b border-emerald-500/20/50 pb-5">
                                     <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Status</span>
                                     <span className={`text-[10px] font-bold px-4 py-1.5 rounded-xl uppercase tracking-widest ${isPending && !isPaid ? 'bg-emerald-700 text-white' : 'bg-emerald-700 text-white'}`}>
                                         {isPending && !isPaid ? 'Verification' : 'Completed ✓'}
@@ -208,7 +208,7 @@ function SuccessContent() {
                                 )}
                                 <Link
                                     href="/"
-                                    className="block w-full py-5 text-center bg-[#111111] text-gray-500 rounded-xl font-bold hover:bg-gray-100 transition-all text-sm"
+                                    className="block w-full py-5 text-center bg-[#111111] text-gray-500 rounded-xl font-bold hover:bg-emerald-800 transition-all text-sm"
                                 >
                                     العودة للرئيسية
                                 </Link>

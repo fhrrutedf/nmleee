@@ -134,14 +134,14 @@ export default function EditProductPage() {
             {/* Elegant Header */}
             <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 bg-[#0A0A0A] p-10 rounded-xl border border-slate-50 shadow-lg shadow-[#10B981]/20">
                 <div className="space-y-2 max-w-xl">
-                    <Link href="/dashboard/products" className="inline-flex items-center gap-2 text-slate-400 hover:text-primary-ink font-bold text-xs mb-2 transition-colors">
+                    <Link href="/dashboard/products" className="inline-flex items-center gap-2 text-slate-400 hover:text-white font-bold text-xs mb-2 transition-colors">
                         <FiArrowRight /> العودة للمنتجات
                     </Link>
                     <h1 className="text-3xl font-bold text-white break-words leading-tight">{formData.title}</h1>
                     <p className="text-slate-400 font-medium">تعديل التفاصيل المتقدمة وخيارات العرض</p>
                 </div>
                 <div className="flex gap-4">
-                     <div className={`px-5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 ${formData.isActive ? 'bg-emerald-700-50 text-[#10B981]-600' : 'bg-slate-100 text-slate-400'}`}>
+                     <div className={`px-5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 ${formData.isActive ? 'bg-emerald-700-50 text-[#10B981]-600' : 'bg-emerald-800 text-slate-400'}`}>
                         <div className={`w-2 h-2 rounded-xl ${formData.isActive ? 'bg-emerald-700-500 ' : 'bg-slate-300'}`} />
                         {formData.isActive ? 'معروض للبيع' : 'مخفي من المتجر'}
                     </div>
@@ -204,7 +204,7 @@ export default function EditProductPage() {
                                 </div>
 
                                 {/* Trailer */}
-                                <div className="p-6 bg-[#111111] rounded-xl border border-slate-100">
+                                <div className="p-6 bg-[#111111] rounded-xl border border-emerald-500/20">
                                     <label className="label-modern mb-3 block">فيديو تعريفي (Trailer)</label>
                                     {formData.trailerUrl ? (
                                         <div className="flex items-center justify-between bg-[#0A0A0A] p-4 rounded-xl border border-slate-200">
@@ -212,7 +212,7 @@ export default function EditProductPage() {
                                             <button type="button" onClick={() => update('trailerUrl', '')} className="text-red-400"><FiX /></button>
                                         </div>
                                     ) : (
-                                        <button type="button" onClick={() => setShowTrailerUploader(true)} className="w-full py-6 text-slate-400 font-bold hover:text-primary-ink hover:bg-[#0A0A0A] transition-all rounded-xl flex items-center justify-center gap-2 border border-slate-200 border-dashed">
+                                        <button type="button" onClick={() => setShowTrailerUploader(true)} className="w-full py-6 text-slate-400 font-bold hover:text-white hover:bg-[#0A0A0A] transition-all rounded-xl flex items-center justify-center gap-2 border border-slate-200 border-dashed">
                                             <FiUpload /> ربط فيديو تعريفي
                                         </button>
                                     )}
@@ -263,7 +263,7 @@ export default function EditProductPage() {
                                         )}
                                     </div>
                                     {showGalleryUploader && (
-                                        <div className="mt-2 p-4 bg-[#0A0A0A] rounded-xl border border-slate-100 shadow-lg shadow-[#10B981]/20 absolute z-20 max-w-[200px]"><FileUploader maxFiles={3} onUploadSuccess={urls => { update('images', [...formData.images, ...urls]); setShowGalleryUploader(false); }} /></div>
+                                        <div className="mt-2 p-4 bg-[#0A0A0A] rounded-xl border border-emerald-500/20 shadow-lg shadow-[#10B981]/20 absolute z-20 max-w-[200px]"><FileUploader maxFiles={3} onUploadSuccess={urls => { update('images', [...formData.images, ...urls]); setShowGalleryUploader(false); }} /></div>
                                     )}
                                 </div>
                              </div>
@@ -271,7 +271,7 @@ export default function EditProductPage() {
 
                         <Section title="التسعير والعرض" icon={<FiDollarSign />}>
                              <div className="space-y-6">
-                                <div className="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-xl">
+                                <div className="grid grid-cols-2 gap-2 p-1 bg-emerald-800 rounded-xl">
                                     {['fixed', 'pwyw', 'free'].map(type => (
                                         <button
                                             key={type} type="button"
@@ -295,7 +295,7 @@ export default function EditProductPage() {
                                 )}
 
                                 <div className="pt-6 border-t border-slate-50 space-y-4">
-                                    <div className="flex items-center justify-between p-4 bg-[#111111] rounded-xl hover:bg-slate-100 transition-colors cursor-pointer" onClick={() => update('isActive', !formData.isActive)}>
+                                    <div className="flex items-center justify-between p-4 bg-[#111111] rounded-xl hover:bg-emerald-800 transition-colors cursor-pointer" onClick={() => update('isActive', !formData.isActive)}>
                                         <div className="text-right">
                                             <p className="text-sm font-bold text-slate-700">تفعيل المنتج</p>
                                             <p className="text-[10px] text-slate-400 font-medium">اجعله مرئياً في صفحة المتجر</p>

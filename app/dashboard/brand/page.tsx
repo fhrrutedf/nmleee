@@ -121,7 +121,7 @@ export default function BrandEditorPage() {
                         <Link
                             href={`/${brand.username}`}
                             target="_blank"
-                            className="flex items-center gap-2 px-5 py-3 bg-[#0A0A0A] border border-gray-200 rounded-xl font-bold text-sm text-gray-600 hover:border-gray-300 transition-all shadow-lg shadow-[#10B981]/20"
+                            className="flex items-center gap-2 px-5 py-3 bg-[#0A0A0A] border border-emerald-500/20 rounded-xl font-bold text-sm text-gray-600 hover:border-gray-300 transition-all shadow-lg shadow-[#10B981]/20"
                         >
                             <FiEye /> معاينة المتجر
                         </Link>
@@ -156,7 +156,7 @@ export default function BrandEditorPage() {
                                 <button
                                     key={i}
                                     onClick={() => applyPalette(p)}
-                                    className={`relative p-4 rounded-xl border-2 transition-all text-center hover:scale-[1.02] ${brand.brandColor === p.primary ? 'border-ink bg-[#111111]' : 'border-gray-50 hover:border-gray-200'}`}
+                                    className={`relative p-4 rounded-xl border-2 transition-all text-center hover:scale-[1.02] ${brand.brandColor === p.primary ? 'border-ink bg-[#111111]' : 'border-gray-50 hover:border-emerald-500/20'}`}
                                 >
                                     <div className="flex gap-1.5 justify-center mb-3">
                                         <div className="w-8 h-8 rounded-lg shadow-lg shadow-[#10B981]/20" style={{ background: p.primary }} />
@@ -181,13 +181,13 @@ export default function BrandEditorPage() {
                                         type="color"
                                         value={brand.brandColor}
                                         onChange={e => setBrand({ ...brand, brandColor: e.target.value })}
-                                        className="h-12 w-16 p-1 border border-gray-200 rounded-xl cursor-pointer bg-[#0A0A0A]"
+                                        className="h-12 w-16 p-1 border border-emerald-500/20 rounded-xl cursor-pointer bg-[#0A0A0A]"
                                     />
                                     <input
                                         type="text"
                                         value={brand.brandColor}
                                         onChange={e => setBrand({ ...brand, brandColor: e.target.value })}
-                                        className="w-full bg-[#111111] border border-gray-200 rounded-xl px-4 py-3 text-sm font-bold font-inter" dir="ltr"
+                                        className="w-full bg-[#111111] border border-emerald-500/20 rounded-xl px-4 py-3 text-sm font-bold font-inter" dir="ltr"
                                     />
                                 </div>
                             </div>
@@ -198,13 +198,13 @@ export default function BrandEditorPage() {
                                         type="color"
                                         value={brand.brandSecondaryColor}
                                         onChange={e => setBrand({ ...brand, brandSecondaryColor: e.target.value })}
-                                        className="h-12 w-16 p-1 border border-gray-200 rounded-xl cursor-pointer bg-[#0A0A0A]"
+                                        className="h-12 w-16 p-1 border border-emerald-500/20 rounded-xl cursor-pointer bg-[#0A0A0A]"
                                     />
                                     <input
                                         type="text"
                                         value={brand.brandSecondaryColor}
                                         onChange={e => setBrand({ ...brand, brandSecondaryColor: e.target.value })}
-                                        className="w-full bg-[#111111] border border-gray-200 rounded-xl px-4 py-3 text-sm font-bold font-inter" dir="ltr"
+                                        className="w-full bg-[#111111] border border-emerald-500/20 rounded-xl px-4 py-3 text-sm font-bold font-inter" dir="ltr"
                                     />
                                 </div>
                             </div>
@@ -225,7 +225,7 @@ export default function BrandEditorPage() {
                                 <button
                                     key={f.id}
                                     onClick={() => setBrand({ ...brand, brandFont: f.id })}
-                                    className={`relative p-6 rounded-xl border-2 text-center transition-all hover:scale-[1.02] ${brand.brandFont === f.id ? 'border-ink bg-[#111111]' : 'border-gray-50 hover:border-gray-200'}`}
+                                    className={`relative p-6 rounded-xl border-2 text-center transition-all hover:scale-[1.02] ${brand.brandFont === f.id ? 'border-ink bg-[#111111]' : 'border-gray-50 hover:border-emerald-500/20'}`}
                                 >
                                     <div className="text-2xl font-bold text-[#10B981] mb-2">{f.preview.slice(0, 2)}</div>
                                     <div className="text-sm font-bold text-[#10B981]">{f.name}</div>
@@ -252,7 +252,7 @@ export default function BrandEditorPage() {
                                 <button
                                     key={b.id}
                                     onClick={() => setBrand({ ...brand, brandButtonStyle: b.id })}
-                                    className={`relative p-6 rounded-xl border-2 text-center transition-all ${brand.brandButtonStyle === b.id ? 'border-ink bg-[#111111]' : 'border-gray-50 hover:border-gray-200'}`}
+                                    className={`relative p-6 rounded-xl border-2 text-center transition-all ${brand.brandButtonStyle === b.id ? 'border-ink bg-[#111111]' : 'border-gray-50 hover:border-emerald-500/20'}`}
                                 >
                                     <div className="flex justify-center mb-4">
                                         <div
@@ -288,7 +288,7 @@ export default function BrandEditorPage() {
                                     type="text"
                                     value={brand.storeTagline}
                                     onChange={e => setBrand({ ...brand, storeTagline: e.target.value })}
-                                    className="w-full bg-[#111111] border border-gray-200 rounded-xl px-4 py-4 text-sm font-bold font-inter focus:ring-4 focus:ring-ink/5 focus:border-ink transition-all"
+                                    className="w-full bg-[#111111] border border-emerald-500/20 rounded-xl px-4 py-4 text-sm font-bold font-inter focus:ring-4 focus:ring-ink/5 focus:border-ink transition-all"
                                     maxLength={80}
                                     placeholder='مثال: "نحو احتراف التجارة الرقمية"'
                                 />

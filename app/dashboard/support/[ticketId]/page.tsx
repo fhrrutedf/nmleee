@@ -83,7 +83,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
             case 'IN_PROGRESS': return { label: 'جاري العمل عليها', css: 'bg-blue-100 text-blue-700' };
             case 'RESOLVED': return { label: 'تم الحل', css: 'bg-green-100 text-green-700' };
             case 'CLOSED': return { label: 'مغلقة', css: 'bg-gray-200 text-gray-700' };
-            default: return { label: status, css: 'bg-gray-100 text-gray-700' };
+            default: return { label: status, css: 'bg-emerald-800 text-gray-700' };
         }
     };
 

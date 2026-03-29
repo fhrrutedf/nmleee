@@ -181,7 +181,7 @@ export default function NewProductPage() {
             {/* Form Column - Right Side */}
             <div className="flex-1 lg:max-w-3xl">
                 {/* Header & Auto-Draft Indicator */}
-                <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between border-b border-slate-100 pb-6">
+                <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between border-b border-emerald-500/20 pb-6">
                     <div className="text-right">
                         <Link href="/dashboard/products" className="inline-flex items-center gap-2 text-slate-400 hover:text-[#10B981]-600 font-bold text-xs mb-4 transition-colors">
                             <FiArrowRight /> العودة للمنتجات
@@ -190,7 +190,7 @@ export default function NewProductPage() {
                         <p className="text-gray-500 font-medium mt-2">ابدأ بملء كافة التفاصيل لضمان أفضل تجربة تسويقية لمنتجك الرقمي</p>
                     </div>
                     {isSavingDraft && (
-                        <div className="mt-4 md:mt-0 flex items-center gap-2 text-xs font-bold text-slate-400 bg-[#111111] px-4 py-2 rounded-xl border border-slate-100 ">
+                        <div className="mt-4 md:mt-0 flex items-center gap-2 text-xs font-bold text-slate-400 bg-[#111111] px-4 py-2 rounded-xl border border-emerald-500/20 ">
                             <FiSave /> جاري الحفظ كمسودة...
                         </div>
                     )}
@@ -346,7 +346,7 @@ export default function NewProductPage() {
                                      </div>
 
                                      {/* SEO Optimization Section */}
-                                     <div className="mt-12 pt-10 border-t border-slate-100">
+                                     <div className="mt-12 pt-10 border-t border-emerald-500/20">
                                          <h4 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
                                              <FiEye className="text-[#10B981]-500" /> تحسين محركات البحث والظهور (SEO) 🔍
                                          </h4>
@@ -381,7 +381,7 @@ export default function NewProductPage() {
                             <motion.div key="st3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-10">
                                 <Section title="استراتيجية التسعير وهامش الربح" icon={<FiDollarSign />}>
                                     <h4 className="text-center font-bold text-slate-800 mb-6">هل هذا المنتج مجاني أم مدفوع؟ اختر النمط الأنسب لك:</h4>
-                                    <div className="grid grid-cols-3 gap-4 p-2 bg-slate-100 rounded-xl mb-12">
+                                    <div className="grid grid-cols-3 gap-4 p-2 bg-emerald-800 rounded-xl mb-12">
                                         {['fixed', 'pwyw', 'free'].map(vt => (
                                             <button
                                                 key={vt} type="button"
@@ -437,7 +437,7 @@ export default function NewProductPage() {
                                         )}
 
                                         {/* Free Preview Toggle (Mini Upload) */}
-                                        <div className="pt-10 border-t border-slate-100">
+                                        <div className="pt-10 border-t border-emerald-500/20">
                                             <label className="label-modern mb-4 block underline decoration-slate-200 underline-offset-4">عينة أو معاينة مجانية من المنتج (لإقناع المشترين بقيمته)</label>
                                             {formData.previewFileUrl ? (
                                                 <div className="flex items-center justify-between p-6 bg-[#111111] rounded-xl border border-slate-200 shadow-lg shadow-[#10B981]/20 transition-all">
@@ -499,7 +499,7 @@ export default function NewProductPage() {
                     </AnimatePresence>
 
                     {/* Navigation Footer */}
-                    <div className="mt-20 flex flex-col md:flex-row items-center justify-between pt-10 border-t border-slate-100 gap-6 pb-12">
+                    <div className="mt-20 flex flex-col md:flex-row items-center justify-between pt-10 border-t border-emerald-500/20 gap-6 pb-12">
                         <div className="w-full md:w-auto">
                             {currentStep > 1 ? (
                                 <button
@@ -538,7 +538,7 @@ export default function NewProductPage() {
             </div>
 
             {/* Live Preview Sidepanel - Left Side (Sticky) */}
-            <div className="hidden lg:block w-[420px] shrink-0 border-r border-slate-100 pr-10">
+            <div className="hidden lg:block w-[420px] shrink-0 border-r border-emerald-500/20 pr-10">
                 <div className="sticky top-10 space-y-6">
                     <div className="flex items-center gap-2 text-[#10B981]-600 mb-6">
                         <FiEye size={20} />
@@ -546,8 +546,8 @@ export default function NewProductPage() {
                     </div>
 
                     {/* Miniature Product Card */}
-                    <div className="bg-[#0A0A0A] rounded-xl border border-slate-100 shadow-lg shadow-[#10B981]/20 overflow-hidden transition-all hover:shadow-lg shadow-[#10B981]/20 hover:-translate-y-1 block">
-                        <div className="aspect-[4/3] bg-slate-100 relative overflow-hidden flex items-center justify-center text-slate-300">
+                    <div className="bg-[#0A0A0A] rounded-xl border border-emerald-500/20 shadow-lg shadow-[#10B981]/20 overflow-hidden transition-all hover:shadow-lg shadow-[#10B981]/20 hover:-translate-y-1 block">
+                        <div className="aspect-[4/3] bg-emerald-800 relative overflow-hidden flex items-center justify-center text-slate-300">
                             {formData.image ? 
                                 <img src={formData.image} alt="Preview" className="w-full h-full object-cover" /> 
                             : <span className="font-bold text-xs flex flex-col items-center"><FiImage size={32} className="opacity-50 mb-2"/> أضف الغلاف</span>}
@@ -571,7 +571,7 @@ export default function NewProductPage() {
                                         )}
                                     </div>
                                 </div>
-                                <div className="text-[10px] text-slate-400 font-bold bg-[#111111] border border-slate-100 px-3 py-1.5 rounded-lg flex items-center gap-1">
+                                <div className="text-[10px] text-slate-400 font-bold bg-[#111111] border border-emerald-500/20 px-3 py-1.5 rounded-lg flex items-center gap-1">
                                     <FiPackage /> {formData.fileType.toUpperCase()} {formData.stockLimit && `• بقيت ${formData.stockLimit}`}
                                 </div>
                             </div>

@@ -79,7 +79,7 @@ export default function MyCoursesPage() {
                         onClick={() => setFilter('all')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${filter === 'all'
                                 ? 'bg-emerald-700 text-white'
-                                : 'bg-[#0A0A0A] text-gray-700 hover:bg-gray-100'
+                                : 'bg-[#0A0A0A] text-gray-700 hover:bg-emerald-800'
                             }`}
                     >
                         الكل ({purchases.length})
@@ -88,7 +88,7 @@ export default function MyCoursesPage() {
                         onClick={() => setFilter('courses')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${filter === 'courses'
                                 ? 'bg-emerald-700 text-white'
-                                : 'bg-[#0A0A0A] text-gray-700 hover:bg-gray-100'
+                                : 'bg-[#0A0A0A] text-gray-700 hover:bg-emerald-800'
                             }`}
                     >
                         الكورسات ({purchases.filter((p) => p.type === 'course').length})
@@ -97,7 +97,7 @@ export default function MyCoursesPage() {
                         onClick={() => setFilter('products')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${filter === 'products'
                                 ? 'bg-emerald-700 text-white'
-                                : 'bg-[#0A0A0A] text-gray-700 hover:bg-gray-100'
+                                : 'bg-[#0A0A0A] text-gray-700 hover:bg-emerald-800'
                             }`}
                     >
                         المنتجات ({purchases.filter((p) => p.type === 'product').length})

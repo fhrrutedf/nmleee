@@ -182,7 +182,7 @@ export default function CoursesPage() {
                 </div>
             ) : filteredCourses.length === 0 ? (
                 <div className="card text-center py-16 px-6 border-2 border-dashed border-gray-100 dark:border-gray-800 bg-[#111111]/50 dark:bg-gray-800/20">
-                    <div className="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center mx-auto mb-6">
+                    <div className="w-20 h-20 bg-emerald-800 dark:bg-gray-700 rounded-xl flex items-center justify-center mx-auto mb-6">
                         <FiVideo className="text-4xl text-gray-400" />
                     </div>
                     <h3 className="text-xl font-bold text-[#10B981] dark:text-white mb-2">لا توجد دورات مطابقة</h3>
@@ -209,7 +209,7 @@ export default function CoursesPage() {
                             className="card group hover:shadow-lg shadow-[#10B981]/20 hover:-translate-y-1 transition-all duration-300 flex flex-col bg-card-white dark:bg-card-white border border-gray-100 dark:border-gray-800"
                         >
                             {/* صورة الدورة */}
-                            <div className="relative h-48 overflow-hidden rounded-lg mb-4 bg-gray-100 dark:bg-gray-800">
+                            <div className="relative h-48 overflow-hidden rounded-lg mb-4 bg-emerald-800 dark:bg-gray-800">
                                 {course.image ? (
                                     <img
                                         src={course.image}
@@ -269,7 +269,7 @@ export default function CoursesPage() {
                                 <div className="grid grid-cols-4 gap-2">
                                     <button
                                         onClick={() => router.push(`/course/${course.id}`)}
-                                        className="col-span-1 btn btn-secondary p-0 flex items-center justify-center bg-[#111111] dark:bg-gray-800 hover:bg-gray-100 border-none"
+                                        className="col-span-1 btn btn-secondary p-0 flex items-center justify-center bg-[#111111] dark:bg-gray-800 hover:bg-emerald-800 border-none"
                                         title="عرض"
                                     >
                                         <FiEye className="text-lg" />

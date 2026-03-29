@@ -21,7 +21,7 @@ const methodLabel: Record<string, string> = {
 function Tab({ id, active, onClick, icon: Icon, label, badge }: any) {
     return (
         <button onClick={() => onClick(id)}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap relative ${active ? 'bg-emerald-700 text-white shadow-md' : 'text-text-muted hover:bg-gray-100 dark:hover:bg-gray-800'
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap relative ${active ? 'bg-emerald-700 text-white shadow-md' : 'text-text-muted hover:bg-emerald-800 dark:hover:bg-gray-800'
                 }`}>
             <Icon className="text-base" />{label}
             {badge > 0 && <span className="absolute -top-1.5 -left-1.5 bg-red-500 text-white text-[10px] min-w-[18px] px-1 rounded-xl">{badge}</span>}
@@ -357,7 +357,7 @@ export default function AdminPayoutsPage() {
                                                 </span>
                                             </td>
                                             <td className="py-3 px-3">
-                                                <span className={`text-xs px-2 py-0.5 rounded-xl ${p.seller.custom_commission_rate !== null ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-500'}`}>
+                                                <span className={`text-xs px-2 py-0.5 rounded-xl ${p.seller.custom_commission_rate !== null ? 'bg-purple-100 text-purple-700' : 'bg-emerald-800 text-gray-500'}`}>
                                                     {p.seller.custom_commission_rate !== null ? '🎯 مخصص' : '🌐 عالمي'}
                                                 </span>
                                             </td>

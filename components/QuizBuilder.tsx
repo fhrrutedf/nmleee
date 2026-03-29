@@ -93,7 +93,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
     return (
         <div className="space-y-6">
             {questions.map((question, qIndex) => (
-                <div key={qIndex} className="bg-[#0A0A0A] border border-gray-200 rounded-lg p-6">
+                <div key={qIndex} className="bg-[#0A0A0A] border border-emerald-500/20 rounded-lg p-6">
                     {/* Question Header */}
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-lg font-semibold text-white">السؤال {qIndex + 1}</h3>
@@ -204,7 +204,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
                     </div>
 
                     {/* Correct Answer Indicator */}
-                    <div className="text-sm font-bold text-slate-700 bg-[#111111] p-4 rounded-xl border border-slate-100 flex items-center gap-2">
+                    <div className="text-sm font-bold text-slate-700 bg-[#111111] p-4 rounded-xl border border-emerald-500/20 flex items-center gap-2">
                         <span className="text-[#10B981]">الإجابة الصحيحة:</span>{' '}
                         {question.type === 'true-false'
                             ? question.correctAnswer

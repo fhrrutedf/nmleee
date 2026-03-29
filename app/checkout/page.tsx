@@ -216,7 +216,7 @@ export default function CheckoutPage() {
             {/* Minimalist Background Detail */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden">
                 <div className="absolute top-0 right-0 w-[60%] h-[60%] bg-emerald-700/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
-                <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-gray-100 rounded-xl blur-[120px] translate-y-1/2 -translate-x-1/4"></div>
+                <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-emerald-800 rounded-xl blur-[120px] translate-y-1/2 -translate-x-1/4"></div>
             </div>
 
             <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -277,7 +277,7 @@ export default function CheckoutPage() {
                                                 <button 
                                                     key={m.id} 
                                                     onClick={() => setSelectedLocalMethod(m)} 
-                                                    className={`p-8 rounded-xl border-2 text-right transition-all group relative overflow-hidden ${selectedLocalMethod?.id === m.id ? 'border-emerald-600 bg-emerald-700/5 ring-4 ring-accent/5' : 'border-gray-50 bg-[#111111]/50 hover:border-gray-200'}`}
+                                                    className={`p-8 rounded-xl border-2 text-right transition-all group relative overflow-hidden ${selectedLocalMethod?.id === m.id ? 'border-emerald-600 bg-emerald-700/5 ring-4 ring-accent/5' : 'border-gray-50 bg-[#111111]/50 hover:border-emerald-500/20'}`}
                                                 >
                                                     <span className="text-4xl mb-4 block group-hover:scale-110 transition-transform origin-right">{m.icon}</span>
                                                     <h5 className="font-bold text-[#10B981] text-lg">{m.nameAr}</h5>
@@ -326,7 +326,7 @@ export default function CheckoutPage() {
                         </div>
 
                         <div className="flex items-center gap-4 px-8">
-                            <input type="checkbox" id="terms_agree" checked={agreeToTerms} onChange={e => setAgreeToTerms(e.target.checked)} className="w-5 h-5 rounded-lg border-gray-200 bg-[#0A0A0A] text-[#10B981] focus:ring-accent/20 cursor-pointer shadow-lg shadow-[#10B981]/20" />
+                            <input type="checkbox" id="terms_agree" checked={agreeToTerms} onChange={e => setAgreeToTerms(e.target.checked)} className="w-5 h-5 rounded-lg border-emerald-500/20 bg-[#0A0A0A] text-[#10B981] focus:ring-accent/20 cursor-pointer shadow-lg shadow-[#10B981]/20" />
                             <label htmlFor="terms_agree" className="text-xs text-gray-500 font-bold cursor-pointer select-none">أوافق على جميع <span className="text-[#10B981] underline">أحكام وشروط</span> الموقع العام وسياسة الاستخدام العادل.</label>
                         </div>
                     </div>
@@ -352,7 +352,7 @@ export default function CheckoutPage() {
                         <button 
                             type="button" 
                             onClick={() => setSpOrderData(null)} 
-                            className="w-10 h-10 rounded-xl bg-[#111111] hover:bg-gray-100 text-[#10B981] flex items-center justify-center transition-all text-sm font-bold"
+                            className="w-10 h-10 rounded-xl bg-[#111111] hover:bg-emerald-800 text-[#10B981] flex items-center justify-center transition-all text-sm font-bold"
                         >
                             ✕
                         </button>
@@ -413,7 +413,7 @@ export default function CheckoutPage() {
 function PaymentMethodTab({ id, current, onClick, icon, label, desc }: any) {
     const active = current === id;
     return (
-        <button onClick={onClick} className={`min-w-[180px] p-6 rounded-xl border-2 transition-all text-right relative overflow-hidden group ${active ? 'bg-[#0A0A0A] border-emerald-600 shadow-lg shadow-[#10B981]/20 shadow-accent/5' : 'bg-[#111111] border-gray-100 hover:border-gray-200 shadow-lg shadow-[#10B981]/20'}`}>
+        <button onClick={onClick} className={`min-w-[180px] p-6 rounded-xl border-2 transition-all text-right relative overflow-hidden group ${active ? 'bg-[#0A0A0A] border-emerald-600 shadow-lg shadow-[#10B981]/20 shadow-accent/5' : 'bg-[#111111] border-gray-100 hover:border-emerald-500/20 shadow-lg shadow-[#10B981]/20'}`}>
             <span className="text-4xl mb-4 block group-hover:scale-110 transition-transform origin-right">{icon}</span>
             <h5 className={`font-bold text-sm whitespace-nowrap mb-1 ${active ? 'text-[#10B981]' : 'text-gray-500'}`}>{label}</h5>
             <p className={`text-[10px] font-bold tracking-tight leading-tight ${active ? 'text-[#10B981]' : 'text-gray-400'}`}>{desc}</p>

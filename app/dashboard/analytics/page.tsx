@@ -281,7 +281,7 @@ export default function AnalyticsPage() {
                     {stats?.recentActivity?.map((activity: any, index: number) => (
                         <div
                             key={index}
-                            className="flex items-center gap-4 p-4 bg-[#111111] rounded-lg hover:bg-gray-100 transition-colors"
+                            className="flex items-center gap-4 p-4 bg-[#111111] rounded-lg hover:bg-emerald-800 transition-colors"
                         >
                             <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center">
                                 {activity.type === 'order' && <FiShoppingCart className="text-[#10B981]" />}

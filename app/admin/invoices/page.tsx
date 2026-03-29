@@ -120,14 +120,14 @@ export default function AdminInvoicesPage() {
                                     value={search}
                                     onChange={e => setSearch(e.target.value)}
                                     onKeyDown={e => e.key === 'Enter' && handleSearch()}
-                                    className="w-full pr-10 pl-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none focus:ring-2 focus:ring-ink/20"
+                                    className="w-full pr-10 pl-4 py-2.5 rounded-xl border border-emerald-500/20 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none focus:ring-2 focus:ring-ink/20"
                                 />
                             </div>
                         </div>
                         <select
                             value={statusFilter}
                             onChange={e => { setStatusFilter(e.target.value); setPage(1); }}
-                            className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none"
+                            className="px-3 py-2.5 rounded-xl border border-emerald-500/20 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none"
                         >
                             <option value="all">كل الحالات</option>
                             <option value="pending">قيد الانتظار</option>
@@ -242,14 +242,14 @@ export default function AdminInvoicesPage() {
                                     <button
                                         onClick={() => setPage(p => Math.max(1, p - 1))}
                                         disabled={page === 1}
-                                        className="px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-sm disabled:opacity-30"
+                                        className="px-3 py-1.5 rounded-lg border border-emerald-500/20 dark:border-gray-700 text-sm disabled:opacity-30"
                                     >
                                         <FiChevronRight size={16} />
                                     </button>
                                     <button
                                         onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                                         disabled={page === totalPages}
-                                        className="px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-sm disabled:opacity-30"
+                                        className="px-3 py-1.5 rounded-lg border border-emerald-500/20 dark:border-gray-700 text-sm disabled:opacity-30"
                                     >
                                         <FiChevronLeft size={16} />
                                     </button>
@@ -271,7 +271,7 @@ export default function AdminInvoicesPage() {
                                     <h3 className="text-lg font-bold text-white dark:text-white">🧾 {selectedInvoice.invoiceNumber}</h3>
                                     <p className="text-xs text-gray-400">طلب: {selectedInvoice.order.orderNumber}</p>
                                 </div>
-                                <button onClick={() => setSelectedInvoice(null)} className="w-8 h-8 rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                                <button onClick={() => setSelectedInvoice(null)} className="w-8 h-8 rounded-xl bg-emerald-800 dark:bg-gray-700 flex items-center justify-center">
                                     <FiX size={16} />
                                 </button>
                             </div>
@@ -336,7 +336,7 @@ export default function AdminInvoicesPage() {
                                 <div>
                                     <h4 className="text-xs font-bold text-gray-400 uppercase mb-2">إيصال الدفع</h4>
                                     <a href={selectedInvoice.paymentProof} target="_blank" rel="noopener noreferrer">
-                                        <img src={selectedInvoice.paymentProof} alt="إيصال" className="w-full rounded-xl border border-gray-200 dark:border-gray-700 max-h-60 object-contain bg-[#111111]" />
+                                        <img src={selectedInvoice.paymentProof} alt="إيصال" className="w-full rounded-xl border border-emerald-500/20 dark:border-gray-700 max-h-60 object-contain bg-[#111111]" />
                                     </a>
                                 </div>
                             )}

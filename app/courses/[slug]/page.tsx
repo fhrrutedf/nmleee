@@ -493,7 +493,7 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
                                     {!isInCart ? (
                                         <button
                                             onClick={handleAddToCart}
-                                            className="w-full btn text-lg py-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-[#10B981] dark:text-gray-200 font-bold hover:border-emerald-600 hover:text-[#10B981] dark:hover:border-emerald-600 transition-colors flex items-center justify-center gap-2"
+                                            className="w-full btn text-lg py-4 rounded-xl border-2 border-emerald-500/20 dark:border-gray-700 bg-transparent text-[#10B981] dark:text-gray-200 font-bold hover:border-emerald-600 hover:text-[#10B981] dark:hover:border-emerald-600 transition-colors flex items-center justify-center gap-2"
                                         >
                                             <FiShoppingCart /> أضف للسلة
                                         </button>

@@ -157,7 +157,7 @@ export default function NewQuizPage() {
                             <button
                                 type="button"
                                 onClick={() => router.back()}
-                                className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                                className="px-6 py-3 bg-emerald-800 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
                             >
                                 إلغاء
                             </button>

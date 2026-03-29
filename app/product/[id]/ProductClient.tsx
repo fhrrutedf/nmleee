@@ -232,7 +232,7 @@ export default function ProductDetails({
                                         <button
                                             onClick={addToCart}
                                             disabled={addingToCart}
-                                            className="w-full btn text-lg py-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-transparent text-[#10B981] dark:text-gray-200 font-bold hover:border-emerald-600 hover:text-[#10B981] dark:hover:border-emerald-600 transition-colors disabled:opacity-60"
+                                            className="w-full btn text-lg py-4 rounded-xl border-2 border-emerald-500/20 dark:border-gray-700 bg-transparent text-[#10B981] dark:text-gray-200 font-bold hover:border-emerald-600 hover:text-[#10B981] dark:hover:border-emerald-600 transition-colors disabled:opacity-60"
                                         >
                                             {addingToCart ? (
                                                 <span className="w-5 h-5 rounded-xl border-2 border-current border-t-transparent animate-spin inline-block" />
@@ -325,13 +325,13 @@ export default function ProductDetails({
                                         >
                                             <FiMessageSquare size={12} /> تواصل مع الدعم
                                         </button>
-                                        <Link href={`/${product.user?.username || 'seller'}`} className="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-lg font-bold text-[10px] hover:bg-gray-200 transition-colors">
+                                        <Link href={`/${product.user?.username || 'seller'}`} className="px-3 py-1.5 bg-emerald-800 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-lg font-bold text-[10px] hover:bg-gray-200 transition-colors">
                                             الملف الشخصي
                                         </Link>
                                      </div>
                                  </div>
                              </div>
-                             <div className="hidden sm:flex flex-col items-center justify-center p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
+                             <div className="hidden sm:flex flex-col items-center justify-center p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl border border-dashed border-emerald-500/20 dark:border-gray-700">
                                 <p className="text-[10px] font-bold uppercase text-gray-400 mb-1">متصل الآن</p>
                                 <div className="w-3 h-3 bg-green-500 rounded-xl  shadow-lg shadow-[#10B981]/20 shadow-green-500/50" />
                              </div>
@@ -354,7 +354,7 @@ export default function ProductDetails({
                                 >
                                     <FiMessageSquare className={activeTab === 'reviews' ? "text-[#10B981]" : "text-gray-400"} />
                                     تجارب المشترين
-                                    <span className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs px-2 py-1 rounded-xl">{reviews.length}</span>
+                                    <span className="bg-emerald-800 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs px-2 py-1 rounded-xl">{reviews.length}</span>
                                     {activeTab === 'reviews' && (<div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-700 rounded-t-full"></div>)}
                                 </button>
                             </div>
@@ -373,20 +373,20 @@ export default function ProductDetails({
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                                     <div>
                                                         <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">اسمك الأول</label>
-                                                        <input type="text" value={newReview.name} onChange={(e) => setNewReview({ ...newReview, name: e.target.value })} className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all placeholder:font-normal" placeholder="يكفي الاسم الأول فقط" required />
+                                                        <input type="text" value={newReview.name} onChange={(e) => setNewReview({ ...newReview, name: e.target.value })} className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all placeholder:font-normal" placeholder="يكفي الاسم الأول فقط" required />
                                                     </div>
                                                     <div>
                                                         <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">التقييم من 5</label>
                                                         <div className="flex gap-2">
                                                             {[1, 2, 3, 4, 5].map((star) => (
-                                                                <button key={star} type="button" onClick={() => setNewReview({ ...newReview, rating: star })} className={`flex-1 bg-[#0A0A0A] dark:bg-gray-900 border ${star <= newReview.rating ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : 'border-gray-200 dark:border-gray-700'} rounded-xl py-3 flex items-center justify-center transition-all transform active:scale-95`}><FiStar className={`text-xl ${star <= newReview.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300 dark:text-gray-600'}`} /></button>
+                                                                <button key={star} type="button" onClick={() => setNewReview({ ...newReview, rating: star })} className={`flex-1 bg-[#0A0A0A] dark:bg-gray-900 border ${star <= newReview.rating ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : 'border-emerald-500/20 dark:border-gray-700'} rounded-xl py-3 flex items-center justify-center transition-all transform active:scale-95`}><FiStar className={`text-xl ${star <= newReview.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300 dark:text-gray-600'}`} /></button>
                                                             ))}
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">تعليقك وتقييمك (بصدق)</label>
-                                                    <textarea value={newReview.comment} onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })} className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none placeholder:font-normal" rows={3} placeholder="كيف كانت تجربتك؟ وهل استفدت من المادة؟" required />
+                                                    <textarea value={newReview.comment} onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })} className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none placeholder:font-normal" rows={3} placeholder="كيف كانت تجربتك؟ وهل استفدت من المادة؟" required />
                                                 </div>
                                                 <button type="submit" className="btn btn-primary px-8 py-3 rounded-xl font-bold shadow-lg shadow-[#10B981]/20 shadow-accent/20">إرسال التقييم</button>
                                             </form>
@@ -402,9 +402,9 @@ export default function ProductDetails({
                                             ) : (
                                                 reviews.map((review: any) => (
                                                     <div key={review.id} className="relative group pl-6 pb-2">
-                                                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-100 dark:bg-gray-800 rounded-xl group-hover:bg-yellow-400 transition-colors"></div>
+                                                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-800 dark:bg-gray-800 rounded-xl group-hover:bg-yellow-400 transition-colors"></div>
                                                         <div className="flex items-center gap-3 mb-3">
-                                                            <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center font-bold text-gray-500">{review.name.charAt(0)}</div>
+                                                            <div className="w-12 h-12 bg-emerald-800 rounded-xl flex items-center justify-center font-bold text-gray-500">{review.name.charAt(0)}</div>
                                                             <div>
                                                                 <h4 className="font-bold text-lg text-[#10B981] dark:text-white">{review.name}</h4>
                                                                 <div className="flex items-center gap-0.5">

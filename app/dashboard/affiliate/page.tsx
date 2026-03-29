@@ -61,7 +61,7 @@ export default function AffiliatePage() {
                         <p className="text-slate-400 font-bold leading-relaxed mb-8">شارك رابطك الخاص واربح <span className="text-primary-ink">{stats?.commissionRate || 1}%</span> من إجمالي عمولة المنصة على أي منتج يتم شراؤه عبرك. الأرباح تصلك فورياً دون انتظار.</p>
                         
                         <div className="flex flex-col sm:flex-row items-stretch gap-4">
-                             <div className="flex-1 h-16 bg-[#111111] dark:bg-gray-900 rounded-xl flex items-center px-6 border border-slate-100 dark:border-gray-800 relative group overflow-hidden">
+                             <div className="flex-1 h-16 bg-[#111111] dark:bg-gray-900 rounded-xl flex items-center px-6 border border-emerald-500/20 dark:border-gray-800 relative group overflow-hidden">
                                 <FiLink className="text-slate-400 shrink-0" size={20} />
                                 <code className="text-sm font-bold text-gray-400 dark:text-slate-300 mr-4 truncate select-all">{affiliateLink}</code>
                              </div>

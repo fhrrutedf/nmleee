@@ -147,12 +147,12 @@ export default function CryptoCheckoutPage() {
                                             <div>
                                                 <p className="text-sm text-gray-500 mb-1 font-medium">المبلغ المطلوب بدقة ({order.cryptoCoin}):</p>
                                                 <div className="flex items-center gap-2">
-                                                    <div className="flex-1 bg-[#111111] border border-gray-200 p-3 rounded-xl font-mono text-lg font-bold text-[#10B981]">
+                                                    <div className="flex-1 bg-[#111111] border border-emerald-500/20 p-3 rounded-xl font-mono text-lg font-bold text-[#10B981]">
                                                         {order.cryptoAmount}
                                                     </div>
                                                     <button
                                                         onClick={() => handleCopy(order.cryptoAmount.toString(), 'amount')}
-                                                        className={`p-3 rounded-xl border transition-all ${copiedContent === 'amount' ? 'bg-green-500 text-white border-green-500' : 'bg-[#0A0A0A] border-gray-200 hover:bg-[#111111] text-gray-600'}`}
+                                                        className={`p-3 rounded-xl border transition-all ${copiedContent === 'amount' ? 'bg-green-500 text-white border-green-500' : 'bg-[#0A0A0A] border-emerald-500/20 hover:bg-[#111111] text-gray-600'}`}
                                                     >
                                                         {copiedContent === 'amount' ? <FiCheckCircle /> : <FiCopy />}
                                                     </button>
@@ -162,12 +162,12 @@ export default function CryptoCheckoutPage() {
                                             <div>
                                                 <p className="text-sm text-gray-500 mb-1 font-medium">عنوان المحفظة (TRC20):</p>
                                                 <div className="flex items-center gap-2">
-                                                    <div className="flex-1 bg-[#111111] border border-gray-200 p-3 rounded-xl font-mono text-sm sm:text-base break-words text-[#10B981]">
+                                                    <div className="flex-1 bg-[#111111] border border-emerald-500/20 p-3 rounded-xl font-mono text-sm sm:text-base break-words text-[#10B981]">
                                                         {order.walletAddress}
                                                     </div>
                                                     <button
                                                         onClick={() => handleCopy(order.walletAddress, 'address')}
-                                                        className={`p-3 rounded-xl border transition-all flex-shrink-0 ${copiedContent === 'address' ? 'bg-green-500 text-white border-green-500' : 'bg-[#0A0A0A] border-gray-200 hover:bg-[#111111] text-gray-600'}`}
+                                                        className={`p-3 rounded-xl border transition-all flex-shrink-0 ${copiedContent === 'address' ? 'bg-green-500 text-white border-green-500' : 'bg-[#0A0A0A] border-emerald-500/20 hover:bg-[#111111] text-gray-600'}`}
                                                     >
                                                         {copiedContent === 'address' ? <FiCheckCircle /> : <FiCopy />}
                                                     </button>

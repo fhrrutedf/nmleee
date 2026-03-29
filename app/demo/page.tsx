@@ -17,7 +17,7 @@ export default function DemoPage() {
                         منصة عربية متكاملة لبيع المنتجات الرقمية والدورات التدريبية
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
-                        <Link href="/register" className="btn bg-[#0A0A0A] text-[#10B981] hover:bg-gray-100 px-8 py-4 text-lg">
+                        <Link href="/register" className="btn bg-[#0A0A0A] text-[#10B981] hover:bg-emerald-800 px-8 py-4 text-lg">
                             ابدأ الآن مجاناً
                         </Link>
                         <Link href="/courses" className="btn btn-outline border-white text-white hover:bg-[#0A0A0A] hover:text-[#10B981] px-8 py-4 text-lg">
@@ -219,7 +219,7 @@ export default function DemoPage() {
                     <div className="flex flex-wrap justify-center gap-4">
                         <Link
                             href="/register"
-                            className="btn bg-[#0A0A0A] text-[#10B981] hover:bg-gray-100 px-8 py-4 text-lg"
+                            className="btn bg-[#0A0A0A] text-[#10B981] hover:bg-emerald-800 px-8 py-4 text-lg"
                         >
                             ابدأ مجاناً الآن
                         </Link>

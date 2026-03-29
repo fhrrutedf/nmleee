@@ -19,7 +19,7 @@ const plans = [
         students: 'حتى 100 طالب',
         support: 'بريد إلكتروني',
         color: 'from-gray-500 to-gray-600',
-        border: 'border-gray-200 dark:border-gray-700',
+        border: 'border-emerald-500/20 dark:border-gray-700',
         btnClass: 'bg-gray-800 hover:bg-gray-700 text-white',
         popular: false,
         features: [
@@ -359,7 +359,7 @@ export default function BillingPage() {
                                 {/* CTA */}
                                 <button
                                     onClick={() => plan.slug !== 'enterprise' ? handleUpgrade(plan.slug) : window.open('/contact', '_blank')}
-                                    className={`w-full py-3.5 rounded-xl text-center font-bold text-sm transition-all duration-200 shadow-lg shadow-[#10B981]/20 hover:shadow-lg shadow-[#10B981]/20 hover:-translate-y-0.5 ${plan.slug === currentPlanSlug ? 'bg-gray-100 text-gray-500 cursor-not-allowed border-none' : plan.btnClass}`}
+                                    className={`w-full py-3.5 rounded-xl text-center font-bold text-sm transition-all duration-200 shadow-lg shadow-[#10B981]/20 hover:shadow-lg shadow-[#10B981]/20 hover:-translate-y-0.5 ${plan.slug === currentPlanSlug ? 'bg-emerald-800 text-gray-500 cursor-not-allowed border-none' : plan.btnClass}`}
                                     disabled={plan.slug === currentPlanSlug || upgrading === plan.slug}
                                 >
                                     {upgrading === plan.slug ? (

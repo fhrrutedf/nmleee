@@ -105,7 +105,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
             case 'IN_PROGRESS': return { label: 'جاري العمل عليها', css: 'bg-blue-100 text-blue-700' };
             case 'RESOLVED': return { label: 'تم الحل', css: 'bg-green-100 text-green-700' };
             case 'CLOSED': return { label: 'مغلقة', css: 'bg-gray-200 text-gray-700' };
-            default: return { label: status, css: 'bg-gray-100 text-gray-700' };
+            default: return { label: status, css: 'bg-emerald-800 text-gray-700' };
         }
     };
 
@@ -132,7 +132,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                 <p className="text-sm text-gray-500 line-clamp-1">{ticket.user.email}</p>
                             </div>
                         </div>
-                        <div className="space-y-4 text-sm font-medium border-t border-gray-200 dark:border-gray-700 pt-4">
+                        <div className="space-y-4 text-sm font-medium border-t border-emerald-500/20 dark:border-gray-700 pt-4">
                             <div className="flex justify-between items-center">
                                 <span className="text-gray-500">نوع المستخدم:</span>
                                 <span className="font-bold bg-[#0A0A0A] dark:bg-gray-800 px-2 py-1 rounded shadow-lg shadow-[#10B981]/20">{ticket.user.role === 'SELLER' ? 'بائع / مدرب' : 'عميل'}</span>
@@ -152,7 +152,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                         </div>
                     </div>
 
-                    <div className="border-t border-gray-200 dark:border-gray-700 pt-6 mt-6">
+                    <div className="border-t border-emerald-500/20 dark:border-gray-700 pt-6 mt-6">
                         <h3 className="font-bold text-gray-500 mb-4">إجراءات الإدارة</h3>
                         <div className="space-y-2">
                             {ticket.status !== 'IN_PROGRESS' && ticket.status !== 'RESOLVED' && (
@@ -166,7 +166,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                 </button>
                             )}
                             {ticket.status !== 'CLOSED' && (
-                                <button disabled={statusUpdating} onClick={() => changeStatus('CLOSED')} className="btn btn-outline w-full py-2 bg-[#0A0A0A] dark:bg-gray-800 text-gray-700 hover:bg-gray-100 border-gray-300">
+                                <button disabled={statusUpdating} onClick={() => changeStatus('CLOSED')} className="btn btn-outline w-full py-2 bg-[#0A0A0A] dark:bg-gray-800 text-gray-700 hover:bg-emerald-800 border-gray-300">
                                     إغلاق نهائي
                                 </button>
                             )}

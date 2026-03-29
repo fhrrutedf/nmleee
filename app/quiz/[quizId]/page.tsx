@@ -167,7 +167,7 @@ export default function TakeQuizPage() {
                             </button>
                             <button
                                 onClick={() => window.history.back()}
-                                className="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                                className="px-6 py-2 bg-emerald-800 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
                             >
                                 رجوع
                             </button>
@@ -213,7 +213,7 @@ export default function TakeQuizPage() {
                                 {question.options.map((option, oIndex) => (
                                     <label
                                         key={oIndex}
-                                        className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-[#111111] cursor-pointer transition-colors"
+                                        className="flex items-center gap-3 p-4 border border-emerald-500/20 rounded-lg hover:bg-[#111111] cursor-pointer transition-colors"
                                     >
                                         <input
                                             type="radio"

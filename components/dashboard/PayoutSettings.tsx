@@ -96,7 +96,7 @@ export default function PayoutSettings() {
 
     if (loading) {
         return <div className=" space-y-4">
-            <div className="h-10 bg-gray-100 rounded-lg w-1/4"></div>
+            <div className="h-10 bg-emerald-800 rounded-lg w-1/4"></div>
             <div className="h-64 bg-[#111111] rounded-xl"></div>
         </div>;
     }
@@ -130,11 +130,11 @@ export default function PayoutSettings() {
                             className={`p-4 rounded-xl border-2 transition-all flex items-center gap-4 text-right ${
                                 isActive 
                                 ? 'border-primary-500 bg-primary-50/50 shadow-md ring-2 ring-primary-500/20' 
-                                : 'border-gray-100 hover:border-gray-200 bg-[#0A0A0A]'
+                                : 'border-gray-100 hover:border-emerald-500/20 bg-[#0A0A0A]'
                             }`}
                         >
                             <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl ${
-                                isActive ? 'bg-primary-500 text-white' : 'bg-gray-100 text-gray-500'
+                                isActive ? 'bg-primary-500 text-white' : 'bg-emerald-800 text-gray-500'
                             }`}>
                                 <method.icon />
                             </div>

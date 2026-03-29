@@ -51,7 +51,7 @@ interface FinancialData {
 }
 
 const planBadge: Record<string, { label: string; color: string; bg: string; icon: string }> = {
-    FREE: { label: 'مجانية', color: 'text-gray-600', bg: 'bg-gray-100 dark:bg-gray-800', icon: '🆓' },
+    FREE: { label: 'مجانية', color: 'text-gray-600', bg: 'bg-emerald-800 dark:bg-gray-800', icon: '🆓' },
     GROWTH: { label: 'Growth', color: 'text-[#10B981]-600', bg: 'bg-emerald-700-50 dark:bg-blue-900/20', icon: '🚀' },
     PRO: { label: 'Pro', color: 'text-[#10B981]', bg: 'bg-purple-50 dark:bg-purple-900/20', icon: '👑' },
 };
@@ -184,7 +184,7 @@ export default function FinancialsPage() {
             </motion.div>
 
             {/* Tab Switcher */}
-            <motion.div variants={item} className="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-xl max-w-md">
+            <motion.div variants={item} className="flex bg-emerald-800 dark:bg-gray-800 p-1 rounded-xl max-w-md">
                 <button
                     onClick={() => setActiveTab('overview')}
                     className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-xl transition-all ${activeTab === 'overview' ? 'bg-[#0A0A0A] dark:bg-card-white text-[#10B981] shadow-lg shadow-[#10B981]/20' : 'text-gray-500 hover:text-gray-700'}`}
@@ -314,7 +314,7 @@ export default function FinancialsPage() {
                                 />
                             ) : (
                                 <div className="flex flex-col items-center justify-center py-16 text-center">
-                                    <div className="w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center mb-3">
+                                    <div className="w-14 h-14 bg-emerald-800 dark:bg-gray-800 rounded-xl flex items-center justify-center mb-3">
                                         <FiTrendingUp className="text-2xl text-gray-400" />
                                     </div>
                                     <p className="text-text-muted font-medium">لا توجد بيانات كافية بعد</p>
@@ -346,7 +346,7 @@ export default function FinancialsPage() {
                                 </div>
                             ) : (
                                 <div className="flex flex-col items-center justify-center py-16 text-center">
-                                    <div className="w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center mb-3">
+                                    <div className="w-14 h-14 bg-emerald-800 dark:bg-gray-800 rounded-xl flex items-center justify-center mb-3">
                                         <FiPieChart className="text-2xl text-gray-400" />
                                     </div>
                                     <p className="text-text-muted font-medium">لا توجد بيانات</p>
@@ -513,7 +513,7 @@ export default function FinancialsPage() {
                         </h2>
                         <p className="text-sm text-gray-500 mb-4">شارك هذا الرابط مع أصدقائك. عندما يسجّلون عبره ويبيعون، تكسب تلقائياً!</p>
                         <div className="flex items-center gap-3">
-                            <div className="flex-1 bg-[#111111] dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-mono text-gray-700 dark:text-gray-300 truncate" dir="ltr">
+                            <div className="flex-1 bg-[#111111] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-mono text-gray-700 dark:text-gray-300 truncate" dir="ltr">
                                 {typeof window !== 'undefined' ? `${window.location.origin}/explore?ref=${data.referrals.username}` : `...`}
                             </div>
                             <button

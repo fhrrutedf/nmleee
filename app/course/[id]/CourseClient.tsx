@@ -111,7 +111,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                                 </div>
                             </div>
 
-                            <div className="border-b border-gray-200 mb-6 flex gap-6 overflow-x-auto scrollbar-hide">
+                            <div className="border-b border-emerald-500/20 mb-6 flex gap-6 overflow-x-auto scrollbar-hide">
                                 {['description', 'features', 'reviews'].map((tab) => (
                                     <button
                                         key={tab} onClick={() => setActiveTab(tab)}

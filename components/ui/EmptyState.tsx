@@ -22,7 +22,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
     return (
         <div className={`flex flex-col items-center justify-center text-center p-12 ${className}`}>
             {icon && (
-                <div className="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center mb-6">
+                <div className="w-20 h-20 bg-emerald-800 dark:bg-gray-800 rounded-xl flex items-center justify-center mb-6">
                     <div className="text-4xl text-gray-400 dark:text-gray-500">
                         {icon}
                     </div>

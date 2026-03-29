@@ -129,7 +129,7 @@ export default function SubscriptionsPage() {
                                     <span
                                         className={`px-2 py-1 text-xs rounded-xl ${plan.isActive
                                             ? 'bg-green-100 text-green-800'
-                                            : 'bg-gray-100 text-gray-800'
+                                            : 'bg-emerald-800 text-gray-800'
                                             }`}
                                     >
                                         {plan.isActive ? 'نشط' : 'غير نشط'}
@@ -178,7 +178,7 @@ export default function SubscriptionsPage() {
                                 <div className="flex gap-2">
                                     <button
                                         onClick={() => router.push(`/dashboard/subscriptions/${plan.id}/edit`)}
-                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-emerald-800 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
                                     >
                                         <FiEdit2 size={16} />
                                         تعديل

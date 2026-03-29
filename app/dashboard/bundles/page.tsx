@@ -85,7 +85,7 @@ export default function BundlesPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {bundles?.map((bundle) => (
                         <div key={bundle.id} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 overflow-hidden flex flex-col hover:shadow-md transition-shadow">
-                            <div className="aspect-video bg-gray-100 relative">
+                            <div className="aspect-video bg-emerald-800 relative">
                                 {bundle.image ? (
                                     <img src={bundle.image} alt={bundle.title} className="w-full h-full object-cover" />
                                 ) : (

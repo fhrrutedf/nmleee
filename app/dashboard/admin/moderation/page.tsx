@@ -200,7 +200,7 @@ export default function CourseModerationPage() {
                     <div className="bg-[#0A0A0A] dark:bg-[#1a1c23] rounded-xl p-6 w-full max-w-md shadow-lg shadow-[#10B981]/20 relative">
                         <button
                             onClick={() => setIsRejectModalOpen(false)}
-                            className="absolute top-4 left-4 w-8 h-8 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-500 hover:text-red-500"
+                            className="absolute top-4 left-4 w-8 h-8 flex items-center justify-center rounded-xl bg-emerald-800 dark:bg-gray-800 text-gray-500 hover:text-red-500"
                         >
                             <FiX />
                         </button>
@@ -221,7 +221,7 @@ export default function CourseModerationPage() {
 
                             <div className="flex justify-end gap-3 font-semibold">
                                 <button
-                                    className="px-5 py-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                                    className="px-5 py-2 rounded-xl text-gray-500 hover:bg-emerald-800 dark:hover:bg-gray-800 transition-colors"
                                     onClick={() => {
                                         setIsRejectModalOpen(false);
                                         setRejectReason('');

@@ -68,7 +68,7 @@ const STATUS_COLORS: Record<string, string> = {
     PAID: 'bg-blue-100 text-blue-800',
     COMPLETED: 'bg-blue-100 text-blue-800',
     CANCELLED: 'bg-red-100 text-red-800',
-    REFUNDED: 'bg-gray-100 text-gray-800',
+    REFUNDED: 'bg-emerald-800 text-gray-800',
 };
 
 const STATUS_LABELS: Record<string, string> = {
@@ -202,7 +202,7 @@ export default function AdminSalesPage() {
                                     value={search}
                                     onChange={e => setSearch(e.target.value)}
                                     onKeyDown={e => e.key === 'Enter' && handleSearch()}
-                                    className="w-full pr-10 pl-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none focus:ring-2 focus:ring-ink/20 focus:border-ink"
+                                    className="w-full pr-10 pl-4 py-2.5 rounded-xl border border-emerald-500/20 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none focus:ring-2 focus:ring-ink/20 focus:border-ink"
                                 />
                             </div>
                         </div>
@@ -211,7 +211,7 @@ export default function AdminSalesPage() {
                         <select
                             value={statusFilter}
                             onChange={e => { setStatusFilter(e.target.value); setPage(1); }}
-                            className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none"
+                            className="px-3 py-2.5 rounded-xl border border-emerald-500/20 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none"
                         >
                             <option value="all">كل الحالات</option>
                             <option value="PENDING">معلق</option>
@@ -224,7 +224,7 @@ export default function AdminSalesPage() {
                         <select
                             value={paymentFilter}
                             onChange={e => { setPaymentFilter(e.target.value); setPage(1); }}
-                            className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none"
+                            className="px-3 py-2.5 rounded-xl border border-emerald-500/20 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none"
                         >
                             <option value="all">كل طرق الدفع</option>
                             <option value="manual">دفع يدوي</option>
@@ -237,7 +237,7 @@ export default function AdminSalesPage() {
                             type="date"
                             value={dateFrom}
                             onChange={e => { setDateFrom(e.target.value); setPage(1); }}
-                            className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none"
+                            className="px-3 py-2.5 rounded-xl border border-emerald-500/20 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none"
                         />
 
                         {/* Date To */}
@@ -245,7 +245,7 @@ export default function AdminSalesPage() {
                             type="date"
                             value={dateTo}
                             onChange={e => { setDateTo(e.target.value); setPage(1); }}
-                            className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none"
+                            className="px-3 py-2.5 rounded-xl border border-emerald-500/20 dark:border-gray-700 bg-[#111111] dark:bg-gray-900 text-sm outline-none"
                         />
 
                         <button
@@ -347,7 +347,7 @@ export default function AdminSalesPage() {
 
                                             {/* Payment Method */}
                                             <td className="px-4 py-3">
-                                                <span className="text-xs px-2 py-1 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium">
+                                                <span className="text-xs px-2 py-1 rounded-lg bg-emerald-800 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium">
                                                     {order.paymentMethod === 'manual' ? '💵 يدوي' : order.paymentMethod === 'stripe' ? '💳 Stripe' : order.paymentMethod === 'crypto' ? '🪙 كريبتو' : order.paymentMethod || '—'}
                                                 </span>
                                                 {order.paymentProvider && (
@@ -363,7 +363,7 @@ export default function AdminSalesPage() {
                                                 {order.paymentProof ? (
                                                     <button
                                                         onClick={() => setProofImage(order.paymentProof)}
-                                                        className="w-12 h-12 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:ring-2 hover:ring-ink transition-all cursor-pointer"
+                                                        className="w-12 h-12 rounded-lg border border-emerald-500/20 dark:border-gray-700 overflow-hidden hover:ring-2 hover:ring-ink transition-all cursor-pointer"
                                                     >
                                                         <img src={order.paymentProof} alt="إيصال" className="w-full h-full object-cover" />
                                                     </button>
@@ -405,7 +405,7 @@ export default function AdminSalesPage() {
 
                                             {/* Status */}
                                             <td className="px-4 py-3">
-                                                <span className={`text-[11px] font-bold px-2.5 py-1 rounded-xl ${STATUS_COLORS[order.status] || 'bg-gray-100 text-gray-600'}`}>
+                                                <span className={`text-[11px] font-bold px-2.5 py-1 rounded-xl ${STATUS_COLORS[order.status] || 'bg-emerald-800 text-gray-600'}`}>
                                                     {STATUS_LABELS[order.status] || order.status}
                                                 </span>
                                             </td>
@@ -433,14 +433,14 @@ export default function AdminSalesPage() {
                                     <button
                                         onClick={() => setPage(p => Math.max(1, p - 1))}
                                         disabled={page === 1}
-                                        className="px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-sm disabled:opacity-30 hover:bg-[#111111] dark:hover:bg-gray-800 transition-colors"
+                                        className="px-3 py-1.5 rounded-lg border border-emerald-500/20 dark:border-gray-700 text-sm disabled:opacity-30 hover:bg-[#111111] dark:hover:bg-gray-800 transition-colors"
                                     >
                                         <FiChevronRight size={16} />
                                     </button>
                                     <button
                                         onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                                         disabled={page === totalPages}
-                                        className="px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-sm disabled:opacity-30 hover:bg-[#111111] dark:hover:bg-gray-800 transition-colors"
+                                        className="px-3 py-1.5 rounded-lg border border-emerald-500/20 dark:border-gray-700 text-sm disabled:opacity-30 hover:bg-[#111111] dark:hover:bg-gray-800 transition-colors"
                                     >
                                         <FiChevronLeft size={16} />
                                     </button>

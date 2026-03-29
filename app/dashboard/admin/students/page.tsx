@@ -171,7 +171,7 @@ export default function AdminStudentsPage() {
                                     </div>
                                     <div className="flex items-center gap-2 text-xs text-text-muted">
                                         {trainer.courses.map(c => (
-                                            <span key={c.id} className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-lg hidden sm:inline">
+                                            <span key={c.id} className="bg-emerald-800 dark:bg-gray-700 px-2 py-1 rounded-lg hidden sm:inline">
                                                 {c.title} ({c.studentCount})
                                             </span>
                                         ))}

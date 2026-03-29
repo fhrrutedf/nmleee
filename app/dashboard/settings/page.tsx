@@ -272,7 +272,7 @@ export default function SettingsPage() {
                             navigator.clipboard.writeText(url);
                             toast.success('تم نسخ رابط متجرك بنجاح!');
                         }}
-                        className="group relative flex items-center gap-2 px-6 py-3 bg-[#0A0A0A] dark:bg-card-white border border-gray-200 dark:border-gray-700 hover:border-emerald-600 text-[#10B981] dark:text-white shadow-lg shadow-[#10B981]/20 transition-all hover:-translate-y-0.5 rounded-xl"
+                        className="group relative flex items-center gap-2 px-6 py-3 bg-[#0A0A0A] dark:bg-card-white border border-emerald-500/20 dark:border-gray-700 hover:border-emerald-600 text-[#10B981] dark:text-white shadow-lg shadow-[#10B981]/20 transition-all hover:-translate-y-0.5 rounded-xl"
                     >
                         <div className="w-8 h-8 rounded-xl bg-emerald-700-50 dark:bg-blue-900/20 flex items-center justify-center text-[#10B981] group-hover:bg-emerald-700 group-hover:text-white transition-colors">
                             <FiCopy size={14} />
@@ -409,7 +409,7 @@ export default function SettingsPage() {
                                             type="email"
                                             value={profileData.email}
                                             disabled
-                                            className="input bg-gray-100 dark:bg-gray-800 cursor-not-allowed text-text-muted"
+                                            className="input bg-emerald-800 dark:bg-gray-800 cursor-not-allowed text-text-muted"
                                         />
                                     </div>
 
@@ -685,7 +685,7 @@ export default function SettingsPage() {
                                 </div>
 
                                 {/* Coming Soon - Zoom */}
-                                <div className="p-6 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl opacity-60">
+                                <div className="p-6 border-2 border-dashed border-emerald-500/20 dark:border-gray-700 rounded-xl opacity-60">
                                     <div className="flex items-center gap-4">
                                         <div className="w-14 h-14 rounded-xl bg-emerald-700-50 flex items-center justify-center">
                                             <span className="text-2xl">🎥</span>
@@ -694,7 +694,7 @@ export default function SettingsPage() {
                                             <h3 className="text-lg font-bold text-[#10B981] dark:text-white">Zoom</h3>
                                             <p className="text-sm text-text-muted">قريباً - ربط حسابك على Zoom</p>
                                         </div>
-                                        <span className="mr-auto bg-gray-100 dark:bg-gray-800 text-gray-500 text-xs px-3 py-1 rounded-xl">قريباً</span>
+                                        <span className="mr-auto bg-emerald-800 dark:bg-gray-800 text-gray-500 text-xs px-3 py-1 rounded-xl">قريباً</span>
                                     </div>
                                 </div>
                             </div>
@@ -786,7 +786,7 @@ export default function SettingsPage() {
                                         <select 
                                             value={profileData.phoneVisibility}
                                             onChange={(e) => setProfileData({ ...profileData, phoneVisibility: e.target.value as any })}
-                                            className="input rounded-xl bg-[#0A0A0A] dark:bg-gray-900 shadow-lg shadow-[#10B981]/20 border-gray-200"
+                                            className="input rounded-xl bg-[#0A0A0A] dark:bg-gray-900 shadow-lg shadow-[#10B981]/20 border-emerald-500/20"
                                         >
                                             <option value="PUBLIC">عام - يظهر للجميع في صفحة المبدع</option>
                                             <option value="WHATSAPP_ONLY">عبر واتساب فقط - زر تواصل مباشر</option>
@@ -800,7 +800,7 @@ export default function SettingsPage() {
                                             <FiShield className="text-[#10B981]" />
                                             <h3 className="font-bold text-white dark:text-white">التحقق بخطوتين (2FA)</h3>
                                         </div>
-                                        <div className="bg-[#0A0A0A] dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-800 flex items-center justify-between">
+                                        <div className="bg-[#0A0A0A] dark:bg-gray-900 p-4 rounded-xl border border-emerald-500/20 dark:border-gray-800 flex items-center justify-between">
                                             <div>
                                                 <p className="text-sm font-medium">تأمين الحساب عبر تطبيق (TOTP)</p>
                                                 <p className="text-xs text-gray-500">
@@ -846,7 +846,7 @@ export default function SettingsPage() {
                                                         </button>
                                                         <button 
                                                             onClick={() => setShow2FASetup(false)} 
-                                                            className="btn bg-gray-100 text-gray-600 flex-1 py-4"
+                                                            className="btn bg-emerald-800 text-gray-600 flex-1 py-4"
                                                         >
                                                             إلغاء
                                                         </button>

@@ -189,7 +189,7 @@ export default function AdminDashboard() {
                         <h3 className="text-gray-500 dark:text-gray-400 font-bold text-sm mb-1 relative z-10">إجمالي الطلبات</h3>
                         <div className="flex items-baseline gap-2 relative z-10">
                             <p className="text-3xl font-bold text-[#10B981] dark:text-white">{stats?.totalOrders}</p>
-                            <span className="text-sm font-bold text-gray-400 border-r border-gray-200 dark:border-gray-700 pr-2 mr-1">
+                            <span className="text-sm font-bold text-gray-400 border-r border-emerald-500/20 dark:border-gray-700 pr-2 mr-1">
                                 {stats?.paidOrders} مدفوع
                             </span>
                         </div>
@@ -385,7 +385,7 @@ export default function AdminDashboard() {
                                                     {seller.avatar ? (
                                                         <img src={seller.avatar} className="w-12 h-12 rounded-xl object-cover shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800" alt={seller.name} />
                                                     ) : (
-                                                        <div className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 font-bold text-lg">
+                                                        <div className="w-12 h-12 rounded-xl bg-emerald-800 dark:bg-gray-800 flex items-center justify-center text-gray-500 font-bold text-lg">
                                                             {seller.name.charAt(0).toUpperCase()}
                                                         </div>
                                                     )}
@@ -393,7 +393,7 @@ export default function AdminDashboard() {
                                                     <div className={`absolute -top-2 -right-2 w-6 h-6 rounded-xl flex items-center justify-center text-[10px] font-bold outline outline-2 outline-white dark:outline-card-white ${index === 0 ? 'bg-yellow-400 text-yellow-900' :
                                                             index === 1 ? 'bg-gray-300 text-gray-800' :
                                                                 index === 2 ? 'bg-orange-300 text-orange-900' :
-                                                                    'bg-gray-100 dark:bg-gray-800 text-gray-500'
+                                                                    'bg-emerald-800 dark:bg-gray-800 text-gray-500'
                                                         }`}>
                                                         {index + 1}
                                                     </div>

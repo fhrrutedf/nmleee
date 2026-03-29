@@ -99,7 +99,7 @@ export default function SupportPage() {
                     <p className="text-lg mb-6">فريق الدعم جاهز لمساعدتك 24/7</p>
                     <Link
                         href="/contact"
-                        className="inline-block bg-[#0A0A0A] text-[#10B981] px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
+                        className="inline-block bg-[#0A0A0A] text-[#10B981] px-8 py-3 rounded-lg font-bold hover:bg-emerald-800 transition-colors"
                     >
                         تواصل معنا الآن
                     </Link>

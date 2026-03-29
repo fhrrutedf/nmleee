@@ -108,7 +108,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
 
                                             <div className="mt-auto flex items-center justify-between pt-6 border-t border-gray-50">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-8 h-8 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-400 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-transparent transition-all">
+                                                    <div className="w-8 h-8 rounded-xl bg-emerald-800 border border-emerald-500/20 flex items-center justify-center text-gray-400 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-transparent transition-all">
                                                         <FiUser size={14} />
                                                     </div>
                                                     <span className="text-xs font-bold text-[#10B981] uppercase tracking-wider">{post.authorName || 'Maher'}</span>
@@ -127,7 +127,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                 <div className="mt-20 text-center">
                                     <button
                                         onClick={() => setVisibleCount(prev => prev + 6)}
-                                        className="px-12 py-5 bg-[#0A0A0A] border border-gray-200 text-[#10B981] font-bold text-xs uppercase tracking-[0.25em] rounded-xl hover:border-ink hover:text-[#10B981] transition-all shadow-lg shadow-[#10B981]/20 hover:shadow-lg shadow-[#10B981]/20 active:scale-95"
+                                        className="px-12 py-5 bg-[#0A0A0A] border border-emerald-500/20 text-[#10B981] font-bold text-xs uppercase tracking-[0.25em] rounded-xl hover:border-ink hover:text-[#10B981] transition-all shadow-lg shadow-[#10B981]/20 hover:shadow-lg shadow-[#10B981]/20 active:scale-95"
                                     >
                                         Load More Insights
                                     </button>

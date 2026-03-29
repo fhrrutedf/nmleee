@@ -72,7 +72,7 @@ export default function CertificateCustomizationPage() {
                                     </label>
                                     {formData.logoUrl ? (
                                         <div className="relative group inline-block">
-                                            <img src={formData.logoUrl} alt="شعار" className="h-20 object-contain rounded-lg border border-gray-200" />
+                                            <img src={formData.logoUrl} alt="شعار" className="h-20 object-contain rounded-lg border border-emerald-500/20" />
                                             <button type="button" onClick={() => setFormData({ ...formData, logoUrl: '' })} className="absolute -top-2 -left-2 bg-red-500 text-white rounded-xl w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
                                         </div>
                                     ) : (
@@ -92,7 +92,7 @@ export default function CertificateCustomizationPage() {
                                     </label>
                                     {formData.signatureUrl ? (
                                         <div className="relative group inline-block">
-                                            <img src={formData.signatureUrl} alt="توقيع" className="h-16 object-contain rounded-lg border border-gray-200" />
+                                            <img src={formData.signatureUrl} alt="توقيع" className="h-16 object-contain rounded-lg border border-emerald-500/20" />
                                             <button type="button" onClick={() => setFormData({ ...formData, signatureUrl: '' })} className="absolute -top-2 -left-2 bg-red-500 text-white rounded-xl w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
                                         </div>
                                     ) : (

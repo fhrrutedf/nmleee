@@ -121,7 +121,7 @@ export default function DangerZone() {
                             <div className="flex gap-4">
                                 <button 
                                     onClick={() => setShowModal(false)}
-                                    className="flex-1 btn bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-bold transition-all"
+                                    className="flex-1 btn bg-emerald-800 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-bold transition-all"
                                 >
                                     إلغاء التراجع
                                 </button>

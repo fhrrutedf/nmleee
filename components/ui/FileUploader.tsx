@@ -172,7 +172,7 @@ export default function FileUploader({
                 className={`w-full border-2 border-dashed rounded-xl p-4 sm:p-8 transition-all cursor-pointer flex flex-col items-center justify-center min-h-[140px] sm:min-h-[180px] overflow-hidden
                 ${isDragActive
                         ? "border-emerald-600 bg-emerald-700/5"
-                        : "border-gray-300 dark:border-gray-700 bg-[#111111] dark:bg-card-white hover:bg-gray-100 dark:hover:bg-gray-800"
+                        : "border-gray-300 dark:border-gray-700 bg-[#111111] dark:bg-card-white hover:bg-emerald-800 dark:hover:bg-gray-800"
                     }`}
             >
                 <input {...getInputProps()} />
@@ -232,7 +232,7 @@ export default function FileUploader({
                             )}
 
                             {/* File Icon — rightmost in RTL */}
-                            <div className="flex-shrink-0 p-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg" style={{ position: 'relative', zIndex: 1 }}>
+                            <div className="flex-shrink-0 p-1.5 bg-emerald-800 dark:bg-gray-800 rounded-lg" style={{ position: 'relative', zIndex: 1 }}>
                                 <FiFile className="text-base text-gray-500" />
                             </div>
 

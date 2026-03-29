@@ -158,7 +158,7 @@ export default function AppointmentSettingsPage() {
                     {DAYS_OF_WEEK.map((day) => {
                         const availability = availabilities.find(a => a.dayOfWeek === day.id)!;
                         return (
-                            <div key={day.id} className={`flex flex-col xl:flex-row xl:items-center justify-between p-4 rounded-lg border gap-4 ${availability.isActive ? 'border-primary-200 bg-primary-50/30' : 'border-gray-200 bg-[#111111]'}`}>
+                            <div key={day.id} className={`flex flex-col xl:flex-row xl:items-center justify-between p-4 rounded-lg border gap-4 ${availability.isActive ? 'border-primary-200 bg-primary-50/30' : 'border-emerald-500/20 bg-[#111111]'}`}>
                                 <div className="flex items-center gap-4 w-full xl:w-48 justify-between xl:justify-start">
                                     <span className={`font-semibold text-base md:text-lg order-2 xl:order-1 ${availability.isActive ? 'text-white' : 'text-gray-500'}`}>
                                         {day.name}

@@ -72,7 +72,7 @@ export default function NewLessonPage() {
             <div className="max-w-4xl mx-auto relative">
                 <div className="mb-8 cursor-default flex items-center justify-between">
                     <div className="text-right">
-                        <h1 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-1 tracking-tighter cursor-pointer relative z-10 hover:text-primary-ink transition-colors">
+                        <h1 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-1 tracking-tighter cursor-pointer relative z-10 hover:text-white transition-colors">
                             إضافة درس جديد
                         </h1>
                         <p className="text-sm md:text-base text-gray-500 font-medium mb-2 max-w-xl">
@@ -82,7 +82,7 @@ export default function NewLessonPage() {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="bg-[#0A0A0A] rounded-xl p-8 md:p-10 shadow-lg shadow-[#10B981]/20 shadow-slate-200/50 border border-slate-100 relative overflow-hidden group hover:border-primary-indigo-100 transition-all duration-500">
+                    <div className="bg-[#0A0A0A] rounded-xl p-8 md:p-10 shadow-lg shadow-[#10B981]/20 shadow-slate-200/50 border border-emerald-500/20 relative overflow-hidden group hover:border-primary-indigo-100 transition-all duration-500">
                         <div className="absolute top-0 right-0 w-24 h-24 bg-[#0A0A0A] rounded-bl-[80px] -z-10 transition-all group-hover:scale-110" />
                         
                         <div className="space-y-6">
@@ -118,11 +118,11 @@ export default function NewLessonPage() {
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
-                        <div className="bg-[#0A0A0A] rounded-xl p-8 shadow-lg shadow-[#10B981]/20 shadow-slate-200/50 border border-slate-100 flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
+                        <div className="bg-[#0A0A0A] rounded-xl p-8 shadow-lg shadow-[#10B981]/20 shadow-slate-200/50 border border-emerald-500/20 flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
                             <h3 className="font-bold text-lg">فيديو الدرس 🔥</h3>
                             <div className="w-full flex-1 flex flex-col justify-center">
                                 {formData.bunnyVideoId ? (
-                                    <div className="bg-[#111111] p-6 rounded-xl border border-slate-100 flex flex-col items-center text-center gap-3 transition-all animate-in fade-in zoom-in duration-300">
+                                    <div className="bg-[#111111] p-6 rounded-xl border border-emerald-500/20 flex flex-col items-center text-center gap-3 transition-all animate-in fade-in zoom-in duration-300">
                                         <div className="w-12 h-12 bg-green-500/10 text-green-500 rounded-xl flex items-center justify-center">
                                             <FiCheckCircle size={24} />
                                         </div>
@@ -158,13 +158,13 @@ export default function NewLessonPage() {
                             </div>
                         </div>
 
-                        <div className="bg-[#0A0A0A] rounded-xl p-8 shadow-lg shadow-[#10B981]/20 shadow-slate-200/50 border border-slate-100 flex flex-col min-h-[300px]">
+                        <div className="bg-[#0A0A0A] rounded-xl p-8 shadow-lg shadow-[#10B981]/20 shadow-slate-200/50 border border-emerald-500/20 flex flex-col min-h-[300px]">
                             <h3 className="font-bold text-lg mb-4 flex items-center gap-2">ملحقات وموارد الدرس 📚</h3>
                             <div className="flex-1 space-y-4 flex flex-col justify-end">
                                 {formData.attachments.filter(a => a.trim() !== '').length > 0 && (
                                     <div className="space-y-2 mb-4 bg-[#111111] p-3 rounded-xl border border-dashed border-slate-200">
                                         {formData.attachments.filter(a => a.trim() !== '').map((attachment, index) => (
-                                            <div key={index} className="flex items-center gap-2 bg-[#0A0A0A] p-2 rounded-xl shadow-lg shadow-[#10B981]/20 border border-slate-100 animate-in slide-in-from-bottom-1 duration-200">
+                                            <div key={index} className="flex items-center gap-2 bg-[#0A0A0A] p-2 rounded-xl shadow-lg shadow-[#10B981]/20 border border-emerald-500/20 animate-in slide-in-from-bottom-1 duration-200">
                                                 <FiUploadCloud className="text-primary-ink flex-shrink-0" size={16} />
                                                 <span className="flex-1 text-[10px] font-bold text-gray-400 truncate dir-ltr text-left">{attachment.split('/').pop()}</span>
                                                 <button
@@ -188,7 +188,7 @@ export default function NewLessonPage() {
                     </div>
 
                     <div 
-                        className={`flex items-center justify-between p-6 rounded-xl border transition-all cursor-pointer group mt-4 relative overflow-hidden ${formData.isFree ? 'bg-emerald-700 border-ink shadow-lg shadow-[#10B981]/20 shadow-indigo-100' : 'bg-[#0A0A0A] border-slate-100 shadow-lg shadow-[#10B981]/20'}`} 
+                        className={`flex items-center justify-between p-6 rounded-xl border transition-all cursor-pointer group mt-4 relative overflow-hidden ${formData.isFree ? 'bg-emerald-700 border-ink shadow-lg shadow-[#10B981]/20 shadow-indigo-100' : 'bg-[#0A0A0A] border-emerald-500/20 shadow-lg shadow-[#10B981]/20'}`} 
                         onClick={() => setFormData({ ...formData, isFree: !formData.isFree })}
                     >
                         {formData.isFree && <div className="absolute inset-0 bg-emerald-700 opacity-50" />}
@@ -196,7 +196,7 @@ export default function NewLessonPage() {
                             <h3 className={`font-bold text-base leading-tight transition-colors ${formData.isFree ? 'text-white' : 'text-slate-800'}`}>إتاحة كدرس مجاني (Free Preview) 👀</h3>
                             <p className={`text-[10px] mt-1 max-w-lg leading-relaxed ${formData.isFree ? 'text-indigo-100' : 'text-slate-400 font-bold'}`}>اسمح للزوار بمشاهدة هذا الدرس مجاناً كإعلان تشويقي.</p>
                         </div>
-                        <div className={`w-12 h-7 rounded-xl flex items-center px-1 transition-all relative z-10 ${formData.isFree ? 'bg-white/20 ' : 'bg-slate-100'}`}>
+                        <div className={`w-12 h-7 rounded-xl flex items-center px-1 transition-all relative z-10 ${formData.isFree ? 'bg-white/20 ' : 'bg-emerald-800'}`}>
                             <div className={`w-5 h-5 rounded-xl transition-all shadow-md ${formData.isFree ? 'translate-x-[20px] bg-blue-400' : 'translate-x-0 bg-[#0A0A0A]'}`} />
                         </div>
                     </div>
@@ -204,7 +204,7 @@ export default function NewLessonPage() {
                     <div className="mt-8 flex flex-col md:flex-row items-center justify-between pt-6 border-t border-slate-200 gap-4">
                         <button
                             type="button" onClick={() => router.back()}
-                            className="w-full md:w-auto px-6 py-3 text-gray-500 font-bold hover:text-slate-800 border-2 border-slate-200 rounded-xl transition-all hover:bg-slate-100 text-sm"
+                            className="w-full md:w-auto px-6 py-3 text-gray-500 font-bold hover:text-slate-800 border-2 border-slate-200 rounded-xl transition-all hover:bg-emerald-800 text-sm"
                         >
                             إلغاء والعودة
                         </button>

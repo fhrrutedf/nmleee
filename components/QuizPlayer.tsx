@@ -91,7 +91,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
 
                 <button
                     onClick={() => window.location.reload()} // Simple retry or close
-                    className="px-6 py-2 bg-gray-100 rounded-lg hover:bg-gray-200"
+                    className="px-6 py-2 bg-emerald-800 rounded-lg hover:bg-gray-200"
                 >
                     إغلاق
                 </button>
@@ -148,7 +148,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                             key={idx}
                             className={`flex items-center gap-3 p-4 border rounded-lg cursor-pointer transition-colors ${answers[currentQuestion] === idx
                                     ? 'bg-indigo-50 border-ink ring-1 ring-ink'
-                                    : 'hover:bg-[#111111] border-gray-200'
+                                    : 'hover:bg-[#111111] border-emerald-500/20'
                                 }`}
                         >
                             <input
@@ -167,7 +167,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                             <label
                                 className={`flex-1 flex items-center justify-center gap-2 p-4 border rounded-lg cursor-pointer transition-colors ${answers[currentQuestion] === true
                                         ? 'bg-indigo-50 border-ink ring-1 ring-ink'
-                                        : 'hover:bg-[#111111] border-gray-200'
+                                        : 'hover:bg-[#111111] border-emerald-500/20'
                                     }`}
                             >
                                 <input
@@ -182,7 +182,7 @@ export default function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
                             <label
                                 className={`flex-1 flex items-center justify-center gap-2 p-4 border rounded-lg cursor-pointer transition-colors ${answers[currentQuestion] === false
                                         ? 'bg-indigo-50 border-ink ring-1 ring-ink'
-                                        : 'hover:bg-[#111111] border-gray-200'
+                                        : 'hover:bg-[#111111] border-emerald-500/20'
                                     }`}
                             >
                                 <input

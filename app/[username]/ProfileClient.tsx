@@ -175,7 +175,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                             creator.website && { href: creator.website, icon: <FiLink size={16} />, label: 'الموقع' },
                                         ].filter(Boolean).map((s: any, i) => (
                                             <a key={i} href={s.href} target="_blank" rel="noopener noreferrer"
-                                                className="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-white transition-all hover:-translate-y-0.5"
+                                                className="p-2.5 rounded-xl bg-emerald-800 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-white transition-all hover:-translate-y-0.5"
                                                 style={{ ['--hover-bg' as any]: brandColor }}
                                                 onMouseEnter={e => (e.currentTarget.style.backgroundColor = brandColor)}
                                                 onMouseLeave={e => (e.currentTarget.style.backgroundColor = '')}
@@ -188,7 +188,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                         <div className="relative">
                                             <button
                                                 onClick={handleShare}
-                                                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold text-sm transition-all"
+                                                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-800 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold text-sm transition-all"
                                             >
                                                 <FiShare2 size={15} /> مشاركة
                                             </button>
@@ -370,7 +370,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                 placeholder="ابحث في منتجات البائع..."
                                 value={search}
                                 onChange={e => setSearch(e.target.value)}
-                                className="w-full pr-9 pl-4 py-2.5 bg-[#0A0A0A] dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl text-sm outline-none focus:ring-2 transition-all"
+                                className="w-full pr-9 pl-4 py-2.5 bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl text-sm outline-none focus:ring-2 transition-all"
                                 style={{ '--tw-ring-color': `${brandColor}40` } as any}
                             />
                         </div>
@@ -388,7 +388,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                     style={activeTab === tab.id
                                         ? { background: brandColor, color: '#fff', boxShadow: `0 4px 14px -2px ${brandColor}60` }
                                         : {}}
-                                    className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === tab.id ? 'text-white' : 'bg-[#0A0A0A] dark:bg-gray-900 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700 hover:border-gray-300'}`}
+                                    className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === tab.id ? 'text-white' : 'bg-[#0A0A0A] dark:bg-gray-900 text-gray-600 dark:text-gray-400 border border-emerald-500/20 dark:border-gray-700 hover:border-gray-300'}`}
                                 >
                                     {tab.icon} {tab.label}
                                 </button>
@@ -425,10 +425,10 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                     const base = product.category === 'courses' ? `/courses/${product.slug || product.id}` : `/product/${product.id}`;
                                                     return brandColor ? `${base}?brand=${encodeURIComponent(brandColor)}` : base;
                                                 })()}
-                                                className="group block bg-[#0A0A0A] dark:bg-gray-900 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 h-full">
+                                                className="group block bg-[#0A0A0A] dark:bg-gray-900 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 hover:border-emerald-500/20 dark:hover:border-gray-700 hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 h-full">
 
                                                 {/* Image */}
-                                                <div className="relative aspect-video overflow-hidden bg-gray-100 dark:bg-gray-800">
+                                                <div className="relative aspect-video overflow-hidden bg-emerald-800 dark:bg-gray-800">
                                                     <Image
                                                         src={getImage(product.image, product.category === 'courses' ? 'course' : 'product')}
                                                         alt={product.title}
@@ -592,7 +592,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                     FOOTER
                 ══════════════════════════════════════════ */}
                 <div className="mt-12 mb-8 text-center">
-                    <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0A0A0A] dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
+                    <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0A0A0A] dark:bg-gray-900 rounded-xl border border-emerald-500/20 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                         <div className="w-5 h-5 rounded-xl flex items-center justify-center text-white text-[8px] font-bold"
                             style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}>
                             ت

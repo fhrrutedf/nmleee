@@ -183,7 +183,7 @@ export default function IntegrationsPage() {
                         className={`card p-6 border-2 transition-all duration-300 ${integration.status === 'connected'
                             ? 'border-green-200 dark:border-green-800'
                             : integration.status === 'coming_soon'
-                                ? 'border-dashed border-gray-200 dark:border-gray-700 opacity-70'
+                                ? 'border-dashed border-emerald-500/20 dark:border-gray-700 opacity-70'
                                 : 'border-gray-100 dark:border-gray-800 hover:border-emerald-600/40'
                             }`}
                     >
@@ -204,7 +204,7 @@ export default function IntegrationsPage() {
                                         </span>
                                     )}
                                     {integration.status === 'disconnected' && (
-                                        <span className="inline-flex items-center gap-1.5 text-gray-400 text-xs font-medium bg-gray-100 dark:bg-gray-800 px-2.5 py-1 rounded-xl mt-1">
+                                        <span className="inline-flex items-center gap-1.5 text-gray-400 text-xs font-medium bg-emerald-800 dark:bg-gray-800 px-2.5 py-1 rounded-xl mt-1">
                                             غير مربوط
                                         </span>
                                     )}
@@ -254,7 +254,7 @@ export default function IntegrationsPage() {
                         ) : (
                             <button
                                 disabled
-                                className="w-full py-3 px-4 bg-gray-100 dark:bg-gray-800 text-gray-400 text-sm font-medium rounded-xl cursor-not-allowed"
+                                className="w-full py-3 px-4 bg-emerald-800 dark:bg-gray-800 text-gray-400 text-sm font-medium rounded-xl cursor-not-allowed"
                             >
                                 قريباً...
                             </button>

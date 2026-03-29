@@ -62,7 +62,7 @@ export default async function VerifyCertificatePage(props: { params: Promise<{ c
                         {/* Verification details */}
                         <div className="border-t border-gray-100 pt-8 mt-8 flex flex-col items-center">
                             <p className="text-sm text-gray-400">رمز التحقق المرجعي</p>
-                            <code className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg mt-2 font-mono text-sm tracking-widest">
+                            <code className="bg-emerald-800 text-gray-700 px-4 py-2 rounded-lg mt-2 font-mono text-sm tracking-widest">
                                 {certificate.verificationCode}
                             </code>
                             <p className="text-xs text-gray-400 mt-4 max-w-md mx-auto text-center">

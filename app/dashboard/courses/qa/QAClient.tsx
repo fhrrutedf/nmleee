@@ -156,7 +156,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                             placeholder="ابحث في الأسئلة والأسماء..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-[#111111] dark:bg-gray-800/50 pl-4 pr-10 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-500/50 transition-all"
+                            className="w-full bg-[#111111] dark:bg-gray-800/50 pl-4 pr-10 py-2.5 rounded-xl border border-emerald-500/20 dark:border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-500/50 transition-all"
                         />
                     </div>
 
@@ -164,7 +164,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                         <select
                             value={statusFilter}
                             onChange={(e) => setStatusFilter(e.target.value)}
-                            className="flex-1 bg-[#111111] dark:bg-gray-800/50 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-xs font-semibold focus:outline-none text-gray-600 dark:text-gray-300"
+                            className="flex-1 bg-[#111111] dark:bg-gray-800/50 px-3 py-2 rounded-lg border border-emerald-500/20 dark:border-gray-700 text-xs font-semibold focus:outline-none text-gray-600 dark:text-gray-300"
                         >
                             <option value="all">كل الحالات</option>
                             <option value="new">بانتظار الرد (جديد)</option>
@@ -174,7 +174,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                         <select
                             value={courseFilter}
                             onChange={(e) => setCourseFilter(e.target.value)}
-                            className="flex-1 bg-[#111111] dark:bg-gray-800/50 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-xs font-semibold focus:outline-none text-gray-600 dark:text-gray-300 line-clamp-1"
+                            className="flex-1 bg-[#111111] dark:bg-gray-800/50 px-3 py-2 rounded-lg border border-emerald-500/20 dark:border-gray-700 text-xs font-semibold focus:outline-none text-gray-600 dark:text-gray-300 line-clamp-1"
                         >
                             <option value="">كل الكورسات</option>
                             {courses.map(c => (
@@ -208,7 +208,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                                 >
                                     <div className="flex justify-between items-start mb-2">
                                         <div className="flex items-center gap-3">
-                                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm ${selectedQuestionId === q.id ? 'bg-fuchsia-600 text-white' : 'bg-gray-100 dark:bg-gray-800 text-[#10B981] dark:text-gray-300'
+                                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm ${selectedQuestionId === q.id ? 'bg-fuchsia-600 text-white' : 'bg-emerald-800 dark:bg-gray-800 text-[#10B981] dark:text-gray-300'
                                                 }`}>
                                                 {q.authorName.charAt(0).toUpperCase()}
                                             </div>
@@ -298,7 +298,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
 
                                 {/* 1. The Main Question */}
                                 <div className="flex gap-4">
-                                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center font-bold text-lg text-[#10B981] dark:text-gray-300 flex-shrink-0">
+                                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-800 dark:bg-gray-800 flex items-center justify-center font-bold text-lg text-[#10B981] dark:text-gray-300 flex-shrink-0">
                                         {selectedThread.authorName.charAt(0).toUpperCase()}
                                     </div>
                                     <div className="flex-1 bg-[#0A0A0A] dark:bg-card-white border border-gray-100 dark:border-gray-800 p-5 rounded-xl rounded-tr-sm shadow-lg shadow-[#10B981]/20">
@@ -347,7 +347,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                                             value={replyText}
                                             onChange={(e) => setReplyText(e.target.value)}
                                             placeholder="اكتب ردك هنا بطريقة منظمة وواضحة للطلاب..."
-                                            className="w-full min-h-[100px] p-4 bg-[#111111] dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-fuchsia-500/40 focus:bg-[#0A0A0A] dark:focus:bg-card-white transition-all text-sm resize-none"
+                                            className="w-full min-h-[100px] p-4 bg-[#111111] dark:bg-gray-800/50 rounded-xl border border-emerald-500/20 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-fuchsia-500/40 focus:bg-[#0A0A0A] dark:focus:bg-card-white transition-all text-sm resize-none"
                                         />
                                         <div className="flex justify-end">
                                             <button

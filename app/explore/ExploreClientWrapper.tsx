@@ -38,7 +38,7 @@ export default function ExploreClientWrapper({ allItems }: { allItems: any[] }) 
 
                         <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 flex flex-col h-full ring-2 ring-transparent group-focus-visible:ring-accent">
                             {/* Media Thumbnails Area */}
-                            <div className="aspect-[4/3] bg-gray-100 dark:bg-gray-800 relative overflow-hidden group-hover:after:absolute group-hover:after:inset-0 group-hover:after:bg-black/10 transition-all after:transition-colors">
+                            <div className="aspect-[4/3] bg-emerald-800 dark:bg-gray-800 relative overflow-hidden group-hover:after:absolute group-hover:after:inset-0 group-hover:after:bg-black/10 transition-all after:transition-colors">
                                 {(item.thumbnail || item.image || (item.images && item.images[0])) ? (
                                     <img
                                         src={item.thumbnail || item.image || item.images[0]}

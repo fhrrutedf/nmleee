@@ -191,7 +191,7 @@ export default function PayoutsManagement() {
                             placeholder="ابحث برقم الطلب أو البائع..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all text-[#10B981] dark:text-white"
+                            className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all text-[#10B981] dark:text-white"
                         />
                         <button type="submit" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-green-500 transition-colors">
                             <FiSearch size={18} />
@@ -201,7 +201,7 @@ export default function PayoutsManagement() {
                     {/* Filters */}
                     <div className="flex items-center gap-3 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
                         {/* Status Filter */}
-                        <div className="flex items-center gap-2 text-sm font-bold text-gray-500 bg-[#0A0A0A] dark:bg-gray-900 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700">
+                        <div className="flex items-center gap-2 text-sm font-bold text-gray-500 bg-[#0A0A0A] dark:bg-gray-900 px-4 py-2 rounded-xl border border-emerald-500/20 dark:border-gray-700">
                             <FiFilter className="text-green-500" />
                             الحالة:
                             <select
@@ -223,7 +223,7 @@ export default function PayoutsManagement() {
                 <div className="overflow-x-auto">
                     {loading && payouts.length === 0 ? (
                         <div className="p-12 flex flex-col items-center justify-center text-gray-400">
-                            <div className="w-8 h-8 border-2 border-gray-200 border-t-green-500 rounded-xl animate-spin mb-4"></div>
+                            <div className="w-8 h-8 border-2 border-emerald-500/20 border-t-green-500 rounded-xl animate-spin mb-4"></div>
                             جاري تحميل طلبات السحب...
                         </div>
                     ) : (
@@ -264,7 +264,7 @@ export default function PayoutsManagement() {
                                                     {payout.user.avatar ? (
                                                         <img src={payout.user.avatar} className="w-8 h-8 rounded-xl object-cover border border-gray-100 dark:border-gray-800" alt={payout.user.name} />
                                                     ) : (
-                                                        <div className="w-8 h-8 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 font-bold text-xs">
+                                                        <div className="w-8 h-8 rounded-xl bg-emerald-800 dark:bg-gray-800 flex items-center justify-center text-gray-500 font-bold text-xs">
                                                             {payout.user.name.charAt(0).toUpperCase()}
                                                         </div>
                                                     )}
@@ -326,7 +326,7 @@ export default function PayoutsManagement() {
                             <button
                                 disabled={page === 1}
                                 onClick={() => setPage(p => p - 1)}
-                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 السابق
                             </button>
@@ -336,7 +336,7 @@ export default function PayoutsManagement() {
                             <button
                                 disabled={page === totalPages}
                                 onClick={() => setPage(p => p + 1)}
-                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 التالي
                             </button>

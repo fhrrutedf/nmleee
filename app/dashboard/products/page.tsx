@@ -146,7 +146,7 @@ export default function ProductsPage() {
                 <div className="flex gap-3">
                     <button 
                         onClick={fetchProducts}
-                        className="w-12 h-12 flex items-center justify-center bg-[#111111] dark:bg-gray-800 text-slate-400 rounded-xl hover:bg-slate-100 dark:hover:bg-gray-700 transition-all border border-slate-100 dark:border-gray-700"
+                        className="w-12 h-12 flex items-center justify-center bg-[#111111] dark:bg-gray-800 text-slate-400 rounded-xl hover:bg-emerald-800 dark:hover:bg-gray-700 transition-all border border-emerald-500/20 dark:border-gray-700"
                     >
                         <FiRefreshCw className={loading ? 'animate-spin' : ''} />
                     </button>
@@ -166,14 +166,14 @@ export default function ProductsPage() {
                     <input 
                         type="text" 
                         placeholder="ابحث عن منتج..."
-                        className="w-full h-14 pr-12 pl-4 bg-[#0A0A0A] dark:bg-card-white border border-slate-100 dark:border-gray-800 rounded-[1.2rem] text-sm font-bold shadow-lg shadow-[#10B981]/20 focus:ring-4 focus:ring-subtle/50 outline-none transition-all dark:text-white"
+                        className="w-full h-14 pr-12 pl-4 bg-[#0A0A0A] dark:bg-card-white border border-emerald-500/20 dark:border-gray-800 rounded-[1.2rem] text-sm font-bold shadow-lg shadow-[#10B981]/20 focus:ring-4 focus:ring-subtle/50 outline-none transition-all dark:text-white"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
                 </div>
                 <div>
                     <select 
-                        className="w-full h-14 bg-[#0A0A0A] dark:bg-card-white border border-slate-100 dark:border-gray-800 rounded-[1.2rem] px-4 text-xs font-bold text-gray-500 outline-none shadow-lg shadow-[#10B981]/20 cursor-pointer"
+                        className="w-full h-14 bg-[#0A0A0A] dark:bg-card-white border border-emerald-500/20 dark:border-gray-800 rounded-[1.2rem] px-4 text-xs font-bold text-gray-500 outline-none shadow-lg shadow-[#10B981]/20 cursor-pointer"
                         value={filterCategory}
                         onChange={(e) => setFilterCategory(e.target.value)}
                     >
@@ -191,7 +191,7 @@ export default function ProductsPage() {
                 <div className="overflow-x-auto no-scrollbar">
                     <table className="w-full text-right border-collapse">
                         <thead>
-                            <tr className="bg-[#111111]/50 dark:bg-gray-900/50 border-b border-slate-100 dark:border-gray-800">
+                            <tr className="bg-[#111111]/50 dark:bg-gray-900/50 border-b border-emerald-500/20 dark:border-gray-800">
                                 <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">المنتج والاسم التجاري</th>
                                 <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">التصنيف</th>
                                 <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">السعر ($)</th>
@@ -212,7 +212,7 @@ export default function ProductsPage() {
                                     >
                                         <td className="p-6">
                                             <div className="flex items-center gap-4 min-w-[250px]">
-                                                <div className="w-14 h-14 rounded-xl overflow-hidden border border-slate-100 bg-[#111111] shrink-0 shadow-lg shadow-[#10B981]/20">
+                                                <div className="w-14 h-14 rounded-xl overflow-hidden border border-emerald-500/20 bg-[#111111] shrink-0 shadow-lg shadow-[#10B981]/20">
                                                     <img src={product.image || '/placeholder-product.png'} className="w-full h-full object-cover" alt="" />
                                                 </div>
                                                 <div>
@@ -227,7 +227,7 @@ export default function ProductsPage() {
                                             </div>
                                         </td>
                                         <td className="p-6 text-center">
-                                            <span className="px-3 py-1 bg-[#0A0A0A] border border-slate-100 rounded-lg text-[10px] font-bold text-gray-500 shadow-lg shadow-[#10B981]/20 lowercase">
+                                            <span className="px-3 py-1 bg-[#0A0A0A] border border-emerald-500/20 rounded-lg text-[10px] font-bold text-gray-500 shadow-lg shadow-[#10B981]/20 lowercase">
                                                 {product.category || 'غير مصنف'}
                                             </span>
                                         </td>
@@ -243,7 +243,7 @@ export default function ProductsPage() {
                                                         onKeyPress={(e) => e.key === 'Enter' && updatePrice(product.id)}
                                                     />
                                                     <button onClick={() => updatePrice(product.id)} className="w-8 h-8 bg-emerald-700-500 text-white rounded-lg flex items-center justify-center hover:bg-emerald-700-600 transition-colors"><FiCheck size={14} /></button>
-                                                    <button onClick={() => setEditingPriceId(null)} className="w-8 h-8 bg-slate-100 text-slate-400 rounded-lg flex items-center justify-center"><FiX size={14} /></button>
+                                                    <button onClick={() => setEditingPriceId(null)} className="w-8 h-8 bg-emerald-800 text-slate-400 rounded-lg flex items-center justify-center"><FiX size={14} /></button>
                                                 </div>
                                             ) : (
                                                 <button 
@@ -272,7 +272,7 @@ export default function ProductsPage() {
                                         <td className="p-6 text-center">
                                             <button 
                                                 onClick={() => toggleStatus(product)}
-                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all ${product.isActive ? 'bg-emerald-700-50 text-[#10B981]-600 border border-blue-100 dark:bg-blue-900/20 dark:border-blue-900' : 'bg-[#111111] text-slate-400 border border-slate-100 dark:bg-gray-800 dark:border-gray-700'}`}
+                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all ${product.isActive ? 'bg-emerald-700-50 text-[#10B981]-600 border border-blue-100 dark:bg-blue-900/20 dark:border-blue-900' : 'bg-[#111111] text-slate-400 border border-emerald-500/20 dark:bg-gray-800 dark:border-gray-700'}`}
                                             >
                                                 {product.isActive ? '● نشط' : '○ مسودة'}
                                             </button>
@@ -281,14 +281,14 @@ export default function ProductsPage() {
                                             <div className="flex items-center justify-center gap-2">
                                                 <Link 
                                                     href={`/dashboard/products/edit/${product.id}`}
-                                                    className="w-10 h-10 bg-[#0A0A0A] border border-slate-100 rounded-xl flex items-center justify-center text-slate-400 hover:text-primary-ink hover:bg-[#0A0A0A] transition-all shadow-lg shadow-[#10B981]/20"
+                                                    className="w-10 h-10 bg-[#0A0A0A] border border-emerald-500/20 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#0A0A0A] transition-all shadow-lg shadow-[#10B981]/20"
                                                     title="تعديل كامل"
                                                 >
                                                     <FiEdit2 size={16} />
                                                 </Link>
                                                 <button 
                                                     onClick={() => setOpenMenuId(openMenuId === product.id ? null : product.id)}
-                                                    className="w-10 h-10 bg-[#0A0A0A] border border-slate-100 rounded-xl flex items-center justify-center text-slate-400 hover:bg-[#111111] transition-all"
+                                                    className="w-10 h-10 bg-[#0A0A0A] border border-emerald-500/20 rounded-xl flex items-center justify-center text-slate-400 hover:bg-[#111111] transition-all"
                                                 >
                                                     <FiMoreVertical size={18} />
                                                 </button>

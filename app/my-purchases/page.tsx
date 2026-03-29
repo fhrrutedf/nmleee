@@ -73,7 +73,7 @@ export default function MyPurchasesPage() {
 
                 {/* Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-[#0A0A0A] border border-gray-200 rounded-xl p-6">
+                    <div className="bg-[#0A0A0A] border border-emerald-500/20 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">إجمالي المشتريات</p>
@@ -83,7 +83,7 @@ export default function MyPurchasesPage() {
                         </div>
                     </div>
 
-                    <div className="bg-[#0A0A0A] border border-gray-200 rounded-xl p-6">
+                    <div className="bg-[#0A0A0A] border border-emerald-500/20 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">متاحة للتحميل</p>
@@ -93,7 +93,7 @@ export default function MyPurchasesPage() {
                         </div>
                     </div>
 
-                    <div className="bg-[#0A0A0A] border border-gray-200 rounded-xl p-6">
+                    <div className="bg-[#0A0A0A] border border-emerald-500/20 rounded-xl p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-gray-500 text-sm">إجمالي الإنفاق</p>
@@ -136,7 +136,7 @@ export default function MyPurchasesPage() {
                                             ? 'bg-green-100 text-green-700'
                                             : purchase.status === 'pending'
                                                 ? 'bg-yellow-100 text-yellow-700'
-                                                : 'bg-gray-100 text-gray-700'
+                                                : 'bg-emerald-800 text-gray-700'
                                             }`}>
                                             {purchase.status === 'completed' ? 'مكتمل' :
                                                 purchase.status === 'pending' ? 'قيد المعالجة' : 'ملغي'}
@@ -158,7 +158,7 @@ export default function MyPurchasesPage() {
                                                     className="w-20 h-20 object-cover rounded-lg"
                                                 />
                                             ) : (
-                                                <div className="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center">
+                                                <div className="w-20 h-20 bg-emerald-800 rounded-lg flex items-center justify-center">
                                                     <FiPackage className="text-3xl text-gray-400" />
                                                 </div>
                                             )}

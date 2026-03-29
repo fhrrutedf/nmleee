@@ -117,7 +117,7 @@ export default function CreatorStorePage() {
                                             href={creator.website}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                                            className="flex items-center gap-2 px-4 py-2 bg-emerald-800 hover:bg-gray-200 rounded-lg transition-colors"
                                         >
                                             <FiGlobe />
                                             <span>الموقع</span>

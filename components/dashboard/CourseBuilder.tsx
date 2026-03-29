@@ -108,7 +108,7 @@ export default function CourseBuilder({
                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">إجمالي الدروس</p>
                     <p className="text-2xl font-bold text-[#10B981] font-inter">{stats.count}</p>
                 </div>
-                <div className="flex-1 border-r border-gray-200 pr-5">
+                <div className="flex-1 border-r border-emerald-500/20 pr-5">
                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">مدة المنهج</p>
                     <p className="text-2xl font-bold text-[#10B981] font-inter">{stats.total}m</p>
                 </div>
@@ -173,7 +173,7 @@ export default function CourseBuilder({
                                                                         ref={provided.innerRef} 
                                                                         {...provided.draggableProps} 
                                                                         {...provided.dragHandleProps}
-                                                                        className={`flex items-center justify-between p-4 bg-[#0A0A0A] border border-gray-100 rounded-xl group/lesson ${snapshot.isDragging ? 'shadow-lg shadow-[#10B981]/20 ring-2 ring-accent/20 border-emerald-600' : 'hover:border-gray-200 shadow-lg shadow-[#10B981]/20'}`}
+                                                                        className={`flex items-center justify-between p-4 bg-[#0A0A0A] border border-gray-100 rounded-xl group/lesson ${snapshot.isDragging ? 'shadow-lg shadow-[#10B981]/20 ring-2 ring-accent/20 border-emerald-600' : 'hover:border-emerald-500/20 shadow-lg shadow-[#10B981]/20'}`}
                                                                     >
                                                                         <div className="flex items-center gap-4">
                                                                             <div className="w-10 h-10 bg-[#111111] rounded-xl flex items-center justify-center text-[#10B981] transition-all group-hover/lesson:bg-emerald-700 group-hover/lesson:text-white border border-gray-100">
@@ -224,7 +224,7 @@ export default function CourseBuilder({
             <button 
                 type="button"
                 onClick={addSection} 
-                className="w-full py-6 border border-dashed border-gray-200 rounded-[2rem] text-gray-400 font-bold text-[10px] uppercase tracking-[0.3em] hover:border-emerald-600 hover:text-[#10B981] transition-all flex items-center justify-center gap-3 bg-[#0A0A0A] shadow-lg shadow-[#10B981]/20"
+                className="w-full py-6 border border-dashed border-emerald-500/20 rounded-[2rem] text-gray-400 font-bold text-[10px] uppercase tracking-[0.3em] hover:border-emerald-600 hover:text-[#10B981] transition-all flex items-center justify-center gap-3 bg-[#0A0A0A] shadow-lg shadow-[#10B981]/20"
             >
                 <FiPlus className="text-xl" /> ADD NEW CHAPTER
             </button>

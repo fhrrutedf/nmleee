@@ -243,7 +243,7 @@ export default function ManualCheckoutPage() {
                     <div className="space-y-4 animate-in fade-in">
                         <div className="flex items-center justify-between">
                             <h2 className="text-sm font-bold text-white dark:text-white">اختر طريقة الدفع</h2>
-                            <span className="text-[11px] bg-gray-100 dark:bg-gray-800 text-gray-500 px-2.5 py-1 rounded-xl font-medium">
+                            <span className="text-[11px] bg-emerald-800 dark:bg-gray-800 text-gray-500 px-2.5 py-1 rounded-xl font-medium">
                                 {COUNTRY_FLAGS[country] || '🌍'} {countryConfig.nameAr}
                             </span>
                         </div>
@@ -271,7 +271,7 @@ export default function ManualCheckoutPage() {
                             <select
                                 value={country}
                                 onChange={e => setCountry(e.target.value)}
-                                className="w-full bg-[#0A0A0A] dark:bg-[#1e293b] border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2.5 text-sm text-white dark:text-white focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none"
+                                className="w-full bg-[#0A0A0A] dark:bg-[#1e293b] border border-emerald-500/20 dark:border-gray-700 rounded-xl px-3 py-2.5 text-sm text-white dark:text-white focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none"
                             >
                                 {Object.entries(paymentMethodsByCountry).map(([code, cfg]) => (
                                     <option key={code} value={code}>{COUNTRY_FLAGS[code] || '🌍'} {cfg.nameAr}</option>
@@ -341,7 +341,7 @@ export default function ManualCheckoutPage() {
                                     value={senderPhone}
                                     onChange={e => setSenderPhone(e.target.value)}
                                     placeholder="الرقم الذي حوّلت منه"
-                                    className="w-full bg-[#111111] dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none" dir="ltr"
+                                    className="w-full bg-[#111111] dark:bg-gray-800/60 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none" dir="ltr"
                                 />
                             </div>
 
@@ -355,7 +355,7 @@ export default function ManualCheckoutPage() {
                                     value={transactionRef}
                                     onChange={e => setTransactionRef(e.target.value)}
                                     placeholder="Transaction ID / رقم المرجع"
-                                    className="w-full bg-[#111111] dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none" dir="ltr"
+                                    className="w-full bg-[#111111] dark:bg-gray-800/60 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none" dir="ltr"
                                     required
                                 />
                             </div>
@@ -366,7 +366,7 @@ export default function ManualCheckoutPage() {
                                 <input type="file" ref={fileInputRef} accept="image/*" onChange={handleFileChange} className="hidden" />
                                 {proofPreview ? (
                                     <div className="relative">
-                                        <img src={proofPreview} alt="إثبات" className="w-full rounded-xl border border-gray-200 dark:border-gray-700 max-h-44 object-cover" />
+                                        <img src={proofPreview} alt="إثبات" className="w-full rounded-xl border border-emerald-500/20 dark:border-gray-700 max-h-44 object-cover" />
                                         <button
                                             onClick={() => { setProofFile(null); setProofPreview(null); }}
                                             className="absolute top-2 left-2 w-7 h-7 bg-red-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20"
@@ -377,9 +377,9 @@ export default function ManualCheckoutPage() {
                                 ) : (
                                     <button
                                         onClick={() => fileInputRef.current?.click()}
-                                        className="w-full border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl p-6 flex flex-col items-center gap-2 hover:border-[#0052FF]/40 hover:bg-[#0052FF]/5 transition-all group"
+                                        className="w-full border-2 border-dashed border-emerald-500/20 dark:border-gray-700 rounded-xl p-6 flex flex-col items-center gap-2 hover:border-[#0052FF]/40 hover:bg-[#0052FF]/5 transition-all group"
                                     >
-                                        <div className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center group-hover:bg-[#0052FF]/10 transition-colors">
+                                        <div className="w-12 h-12 rounded-xl bg-emerald-800 dark:bg-gray-800 flex items-center justify-center group-hover:bg-[#0052FF]/10 transition-colors">
                                             <FiUpload className="text-gray-400 group-hover:text-[#0052FF]" size={20} />
                                         </div>
                                         <p className="text-xs text-gray-400 group-hover:text-[#0052FF] font-medium">اضغط لرفع صورة الإيصال</p>
@@ -396,7 +396,7 @@ export default function ManualCheckoutPage() {
                                     onChange={e => setPaymentNotes(e.target.value)}
                                     placeholder="أي معلومات إضافية..."
                                     rows={2}
-                                    className="w-full bg-[#111111] dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none resize-none"
+                                    className="w-full bg-[#111111] dark:bg-gray-800/60 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-[#0052FF]/20 focus:border-[#0052FF] outline-none resize-none"
                                 />
                             </div>
                         </div>
@@ -457,7 +457,7 @@ export default function ManualCheckoutPage() {
                             <Link href="/dashboard" className="bg-[#0052FF] text-white px-5 py-2.5 rounded-xl font-bold text-xs hover:bg-[#0052FF]/90 transition-colors">
                                 لوحة التحكم
                             </Link>
-                            <Link href="/explore" className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-5 py-2.5 rounded-xl font-bold text-xs hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                            <Link href="/explore" className="bg-emerald-800 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-5 py-2.5 rounded-xl font-bold text-xs hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
                                 تابع التسوق
                             </Link>
                         </div>

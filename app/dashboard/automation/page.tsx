@@ -95,7 +95,7 @@ export default function AutomationPage() {
                             </label>
                         </div>
                         {settings.welcomeEmailEnabled && (
-                            <div className="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                            <div className="space-y-4 pt-4 border-t border-emerald-500/20 dark:border-slate-800">
                                 <div>
                                     <label className="block text-sm font-medium mb-1.5 opacity-70">عنوان الرسالة</label>
                                     <input 
@@ -141,7 +141,7 @@ export default function AutomationPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                             {/* Reminder 1 */}
-                            <div className={`p-4 rounded-xl border transition-all ${settings.cartReminder1Enabled ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
+                            <div className={`p-4 rounded-xl border transition-all ${settings.cartReminder1Enabled ? 'border-primary bg-primary/5' : 'border-emerald-500/20 dark:border-slate-800 opacity-60'}`}>
                                 <div className="flex items-center justify-between mb-4">
                                     <span className="text-xs font-bold text-primary italic">#تذكير 1</span>
                                     <input 
@@ -156,7 +156,7 @@ export default function AutomationPage() {
                             </div>
 
                             {/* Reminder 2 */}
-                            <div className={`p-4 rounded-xl border transition-all ${settings.cartReminder2Enabled ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
+                            <div className={`p-4 rounded-xl border transition-all ${settings.cartReminder2Enabled ? 'border-primary bg-primary/5' : 'border-emerald-500/20 dark:border-slate-800 opacity-60'}`}>
                                 <div className="flex items-center justify-between mb-4">
                                     <span className="text-xs font-bold text-primary italic">#تذكير 2</span>
                                     <input 
@@ -171,7 +171,7 @@ export default function AutomationPage() {
                             </div>
 
                             {/* Reminder 3 (The Ultimate) */}
-                            <div className={`p-4 rounded-xl border transition-all ${settings.cartReminder3Enabled ? 'border-emerald-600-500 bg-emerald-700-500/5' : 'border-slate-100 dark:border-slate-800 opacity-60'}`}>
+                            <div className={`p-4 rounded-xl border transition-all ${settings.cartReminder3Enabled ? 'border-emerald-600-500 bg-emerald-700-500/5' : 'border-emerald-500/20 dark:border-slate-800 opacity-60'}`}>
                                 <div className="flex items-center justify-between mb-4">
                                     <span className="text-xs font-bold text-[#10B981]-600 italic">#تذكير 3 (الأخير)</span>
                                     <input 
@@ -226,7 +226,7 @@ export default function AutomationPage() {
                         </div>
 
                         {settings.marketingEnabled && (
-                            <div className="space-y-6 pt-4 border-t border-slate-100 dark:border-slate-800 animate-in fade-in zoom-in-95 duration-300">
+                            <div className="space-y-6 pt-4 border-t border-emerald-500/20 dark:border-slate-800 animate-in fade-in zoom-in-95 duration-300">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-sm font-medium mb-1.5 opacity-70">مدة الخمول (بالأيام)</label>

@@ -86,7 +86,7 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
 
     return (
         <div className="relative group transition-all w-full">
-            <div className={`bg-[#0A0A0A] dark:bg-card-white border-2 border-dashed rounded-[32px] p-6 sm:p-8 text-center transition-all ${uploading ? 'border-emerald-600 bg-emerald-700/5 shadow-inner' : 'border-gray-200 dark:border-gray-800 hover:border-emerald-600/50 hover:bg-[#111111]'}`}>
+            <div className={`bg-[#0A0A0A] dark:bg-card-white border-2 border-dashed rounded-[32px] p-6 sm:p-8 text-center transition-all ${uploading ? 'border-emerald-600 bg-emerald-700/5 shadow-inner' : 'border-emerald-500/20 dark:border-gray-800 hover:border-emerald-600/50 hover:bg-[#111111]'}`}>
                 {status === 'complete' ? (
                     <div className="space-y-4 py-4 animate-in fade-in zoom-in duration-300">
                         <div className="w-16 h-16 bg-green-500/10 text-green-500 rounded-xl flex items-center justify-center mx-auto mb-4">
@@ -145,7 +145,7 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                             </div>
                         ) : (
                             <div className="max-w-xs mx-auto space-y-3">
-                                <div className="h-2.5 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden border border-white/5 shadow-inner">
+                                <div className="h-2.5 bg-emerald-800 dark:bg-gray-800 rounded-xl overflow-hidden border border-white/5 shadow-inner">
                                     <div 
                                         className="h-full bg-emerald-700 transition-all duration-300" 
                                         style={{ width: `${progress}%` }}

@@ -175,7 +175,7 @@ export default function UsersManagement() {
         switch (planType) {
             case 'GROWTH': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-emerald-700-50 text-[#10B981]-600 dark:bg-blue-900/20 dark:text-blue-400">🚀 GROWTH</span>;
             case 'PRO': return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-purple-50 text-[#10B981] dark:bg-purple-900/20 dark:text-purple-400">👑 PRO</span>;
-            default: return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400">🆓 FREE</span>;
+            default: return <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl text-[10px] font-bold bg-emerald-800 text-gray-500 dark:bg-gray-800 dark:text-gray-400">🆓 FREE</span>;
         }
     };
 
@@ -216,7 +216,7 @@ export default function UsersManagement() {
                 <div className="flex items-center gap-2">
                     <button
                         onClick={() => setAutoRefresh(!autoRefresh)}
-                        className={`btn text-sm py-2 px-3 flex items-center justify-center gap-1.5 rounded-xl transition-all ${autoRefresh ? 'bg-green-100 text-green-700 hover:bg-green-200 border-none' : 'border border-gray-200 dark:border-gray-800 text-gray-500 hover:bg-[#111111]'}`}
+                        className={`btn text-sm py-2 px-3 flex items-center justify-center gap-1.5 rounded-xl transition-all ${autoRefresh ? 'bg-green-100 text-green-700 hover:bg-green-200 border-none' : 'border border-emerald-500/20 dark:border-gray-800 text-gray-500 hover:bg-[#111111]'}`}
                         title="تحديث تلقائي (لحظي)"
                     >
                         تحديث لحظي
@@ -247,7 +247,7 @@ export default function UsersManagement() {
                             placeholder="ابحث بالاسم أو البريد الإلكتروني..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-emerald-600 transition-all text-[#10B981] dark:text-white"
+                            className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-emerald-600 transition-all text-[#10B981] dark:text-white"
                         />
                         <button type="submit" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#10B981] transition-colors">
                             <FiSearch size={18} />
@@ -256,7 +256,7 @@ export default function UsersManagement() {
 
                     {/* Filters */}
                     <div className="flex items-center gap-3 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
-                        <div className="flex items-center gap-2 text-sm font-bold text-gray-500 bg-[#0A0A0A] dark:bg-gray-900 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700">
+                        <div className="flex items-center gap-2 text-sm font-bold text-gray-500 bg-[#0A0A0A] dark:bg-gray-900 px-4 py-2 rounded-xl border border-emerald-500/20 dark:border-gray-700">
                             <FiFilter className="text-[#10B981]" />
                             الفئة:
                             <select
@@ -276,7 +276,7 @@ export default function UsersManagement() {
                 <div className="overflow-x-auto">
                     {loading && users.length === 0 ? (
                         <div className="p-12 flex flex-col items-center justify-center text-gray-400">
-                            <div className="w-8 h-8 border-2 border-gray-200 border-t-accent rounded-xl animate-spin mb-4"></div>
+                            <div className="w-8 h-8 border-2 border-emerald-500/20 border-t-accent rounded-xl animate-spin mb-4"></div>
                             جاري تحميل حسابات المستخدمين...
                         </div>
                     ) : (
@@ -311,7 +311,7 @@ export default function UsersManagement() {
                                                         {user.avatar ? (
                                                             <img src={user.avatar} className="w-10 h-10 rounded-xl object-cover border border-gray-100 dark:border-gray-700" alt={user.name} />
                                                         ) : (
-                                                            <div className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 font-bold">
+                                                            <div className="w-10 h-10 rounded-xl bg-emerald-800 dark:bg-gray-800 flex items-center justify-center text-gray-500 font-bold">
                                                                 {user.name.charAt(0).toUpperCase()}
                                                             </div>
                                                         )}
@@ -364,7 +364,7 @@ export default function UsersManagement() {
                                             <td className="py-4 px-6 text-center">
                                                 <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold ${user.isActive
                                                     ? 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400'
-                                                    : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
+                                                    : 'bg-emerald-800 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
                                                     }`}>
                                                     {user.isActive ? 'نشط' : 'موقوف'}
                                                 </span>
@@ -419,7 +419,7 @@ export default function UsersManagement() {
                             <button
                                 disabled={page === 1}
                                 onClick={() => setPage(p => p - 1)}
-                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 السابق
                             </button>
@@ -429,7 +429,7 @@ export default function UsersManagement() {
                             <button
                                 disabled={page === totalPages}
                                 onClick={() => setPage(p => p + 1)}
-                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
                                 التالي
                             </button>
@@ -454,7 +454,7 @@ export default function UsersManagement() {
                             <select
                                 value={selectedPlan}
                                 onChange={(e) => setSelectedPlan(e.target.value)}
-                                className="w-full bg-[#111111] dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full bg-[#111111] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-purple-500"
                             >
                                 <option value="FREE">🆓 FREE — مجانية (عمولة 10%)</option>
                                 <option value="GROWTH">🚀 GROWTH — رواد (عمولة 5%)</option>
@@ -468,7 +468,7 @@ export default function UsersManagement() {
                                 <select
                                     value={planDuration}
                                     onChange={(e) => setPlanDuration(e.target.value)}
-                                    className="w-full bg-[#111111] dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    className="w-full bg-[#111111] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 >
                                     <option value="1">شهر واحد</option>
                                     <option value="3">3 أشهر</option>
@@ -489,7 +489,7 @@ export default function UsersManagement() {
                         </button>
                         <button
                             onClick={() => setPlanModal(null)}
-                            className="px-6 py-3 rounded-xl font-bold text-sm bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                            className="px-6 py-3 rounded-xl font-bold text-sm bg-emerald-800 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
                         >
                             إلغاء
                         </button>

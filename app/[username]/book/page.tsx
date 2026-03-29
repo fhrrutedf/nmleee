@@ -189,7 +189,7 @@ export default function BookAppointmentPage() {
 
                     {!hasAvailability ? (
                         <div className="p-12 text-center">
-                            <div className="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-gray-400">
+                            <div className="w-16 h-16 bg-emerald-800 rounded-xl flex items-center justify-center mx-auto mb-4 text-gray-400">
                                 <FiCalendar className="text-2xl" />
                             </div>
                             <h3 className="text-xl font-bold text-gray-800 mb-2">لا توجد مواعيد متاحة حالياً</h3>
@@ -234,7 +234,7 @@ export default function BookAppointmentPage() {
                                             onClick={() => setSelectedTime(time)}
                                             className={`py-3 rounded-lg border text-center transition-all ${selectedTime === time
                                                 ? 'bg-emerald-700 border-emerald-600 text-white shadow-md transform scale-105'
-                                                : 'bg-[#0A0A0A] border-gray-200 text-gray-700 hover:border-primary-300 hover:bg-primary-50'
+                                                : 'bg-[#0A0A0A] border-emerald-500/20 text-gray-700 hover:border-primary-300 hover:bg-primary-50'
                                                 }`}
                                         >
                                             <span className="block font-medium">{time}</span>
