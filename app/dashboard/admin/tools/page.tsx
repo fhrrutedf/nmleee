@@ -24,7 +24,7 @@ function Tab({ id, active, onClick, icon: Icon, label, badge }: any) {
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap relative ${active ? 'bg-emerald-700 text-white shadow-md' : 'text-text-muted hover:bg-emerald-800 dark:hover:bg-gray-800'
                 }`}>
             <Icon className="text-base" />{label}
-            {badge > 0 && <span className="absolute -top-1.5 -left-1.5 bg-red-500 text-white text-[10px] min-w-[18px] px-1 rounded-xl">{badge}</span>}
+            {badge > 0 && <span className="absolute -top-1.5 -left-1.5 bg-red-500/100/100 text-white text-[10px] min-w-[18px] px-1 rounded-xl">{badge}</span>}
         </button>
     );
 }
@@ -261,7 +261,7 @@ export default function AdminPayoutsPage() {
                                         تم التحويل ✓
                                     </button>
                                     <button onClick={() => setRejectModal({ id: p.id, type: 'payout', title: `سحب $${fmt(p.amount)}` })}
-                                        className="btn bg-red-500 hover:bg-red-600 text-white py-2 px-4 flex items-center gap-1">
+                                        className="btn bg-red-500/100/100 hover:bg-red-600 text-white py-2 px-4 flex items-center gap-1">
                                         <FiX /> رفض
                                     </button>
                                 </div>
@@ -309,7 +309,7 @@ export default function AdminPayoutsPage() {
                                     نشر الكورس ✓
                                 </button>
                                 <button onClick={() => setRejectModal({ id: c.id, type: 'course', title: c.title })}
-                                    className="btn bg-red-500 hover:bg-red-600 text-white py-2 px-4 flex items-center gap-1">
+                                    className="btn bg-red-500/100/100 hover:bg-red-600 text-white py-2 px-4 flex items-center gap-1">
                                     <FiX /> رفض مع ملاحظة
                                 </button>
                                 <Link href={`/dashboard/courses/${c.id}/edit`}
@@ -332,7 +332,7 @@ export default function AdminPayoutsPage() {
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead>
-                                <tr className="border-b border-gray-100 dark:border-gray-800 text-text-muted text-xs">
+                                <tr className="border-b border-white/10 dark:border-gray-800 text-text-muted text-xs">
                                     <th className="text-right py-3 px-3">البائع</th>
                                     <th className="text-right py-3 px-3">العمولة الحالية</th>
                                     <th className="text-right py-3 px-3">النوع</th>
@@ -344,7 +344,7 @@ export default function AdminPayoutsPage() {
                                 {payouts
                                     .filter((_, i, arr) => arr.findIndex(p => p.seller?.id === payouts[i]?.seller?.id) === i)
                                     .map((p: any) => p.seller && (
-                                        <tr key={p.seller.id} className="border-b border-gray-50 dark:border-gray-800/50 hover:bg-[#111111] dark:hover:bg-gray-800/30">
+                                        <tr key={p.seller.id} className="border-b border-white/10 dark:border-gray-800/50 hover:bg-[#111111] dark:hover:bg-gray-800/30">
                                             <td className="py-3 px-3">
                                                 <div className="font-semibold">{p.seller.name}</div>
                                                 <div className="text-xs text-text-muted">{p.seller.email}</div>
@@ -451,7 +451,7 @@ export default function AdminPayoutsPage() {
                         </div>
                         <div className="flex gap-3">
                             <button onClick={rejectItem} disabled={processing !== null}
-                                className="flex-1 btn bg-red-500 hover:bg-red-600 text-white font-bold py-2.5">
+                                className="flex-1 btn bg-red-500/100/100 hover:bg-red-600 text-white font-bold py-2.5">
                                 {processing ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-xl animate-spin mx-auto" /> : 'تأكيد الرفض'}
                             </button>
                             <button onClick={() => setRejectModal(null)} className="btn btn-accent px-6">إلغاء</button>

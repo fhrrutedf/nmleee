@@ -103,7 +103,7 @@ export default function CourseBuilder({
         <div className="space-y-6">
             
             {/* Professional Stats Display */}
-            <div className="flex gap-4 p-6 bg-[#111111] border border-gray-100 rounded-xl">
+            <div className="flex gap-4 p-6 bg-[#111111] border border-white/10 rounded-xl">
                 <div className="flex-1">
                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">إجمالي الدروس</p>
                     <p className="text-2xl font-bold text-[#10B981] font-inter">{stats.count}</p>
@@ -124,7 +124,7 @@ export default function CourseBuilder({
                             {sections.map((section, index) => (
                                 <Draggable key={section.id} draggableId={section.id} index={index}>
                                     {(provided) => (
-                                        <div ref={provided.innerRef} {...provided.draggableProps} className="bg-[#0A0A0A] rounded-xl border border-gray-100 shadow-lg shadow-[#10B981]/20 overflow-hidden group">
+                                        <div ref={provided.innerRef} {...provided.draggableProps} className="bg-[#0A0A0A] rounded-xl border border-white/10 shadow-lg shadow-[#10B981]/20 overflow-hidden group">
                                             {/* Section Header */}
                                             <div className="p-4 flex items-center justify-between hover:bg-[#111111] transition-colors">
                                                 <div className="flex items-center gap-4 flex-1">
@@ -144,7 +144,7 @@ export default function CourseBuilder({
                                                     <button 
                                                         type="button" 
                                                         onClick={() => addLesson(section.id)} 
-                                                        className="text-[10px] font-bold text-[#10B981] bg-[#111111] px-5 py-2.5 rounded-xl hover:bg-emerald-700 text-white hover:text-white transition-all uppercase tracking-widest border border-gray-100"
+                                                        className="text-[10px] font-bold text-[#10B981] bg-[#111111] px-5 py-2.5 rounded-xl hover:bg-emerald-700 text-white hover:text-white transition-all uppercase tracking-widest border border-white/10"
                                                     >
                                                         + ADD LESSON
                                                     </button>
@@ -173,10 +173,10 @@ export default function CourseBuilder({
                                                                         ref={provided.innerRef} 
                                                                         {...provided.draggableProps} 
                                                                         {...provided.dragHandleProps}
-                                                                        className={`flex items-center justify-between p-4 bg-[#0A0A0A] border border-gray-100 rounded-xl group/lesson ${snapshot.isDragging ? 'shadow-lg shadow-[#10B981]/20 ring-2 ring-accent/20 border-emerald-600' : 'hover:border-emerald-500/20 shadow-lg shadow-[#10B981]/20'}`}
+                                                                        className={`flex items-center justify-between p-4 bg-[#0A0A0A] border border-white/10 rounded-xl group/lesson ${snapshot.isDragging ? 'shadow-lg shadow-[#10B981]/20 ring-2 ring-accent/20 border-emerald-600' : 'hover:border-emerald-500/20 shadow-lg shadow-[#10B981]/20'}`}
                                                                     >
                                                                         <div className="flex items-center gap-4">
-                                                                            <div className="w-10 h-10 bg-[#111111] rounded-xl flex items-center justify-center text-[#10B981] transition-all group-hover/lesson:bg-emerald-700 text-white group-hover/lesson:text-white border border-gray-100">
+                                                                            <div className="w-10 h-10 bg-[#111111] rounded-xl flex items-center justify-center text-[#10B981] transition-all group-hover/lesson:bg-emerald-700 text-white group-hover/lesson:text-white border border-white/10">
                                                                                 <FiVideo size={16} />
                                                                             </div>
                                                                             <input 

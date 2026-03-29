@@ -113,7 +113,7 @@ function RegisterContent() {
         }
     };
 
-    const inputClass = "block w-full px-5 py-4 text-[#10B981] bg-[#111111] border border-gray-100 rounded-xl outline-none focus:bg-[#0A0A0A] focus:border-ink focus:ring-4 focus:ring-ink/5 transition-all font-bold text-sm";
+    const inputClass = "block w-full px-5 py-4 text-[#10B981] bg-[#111111] border border-white/10 rounded-xl outline-none focus:bg-[#0A0A0A] focus:border-ink focus:ring-4 focus:ring-ink/5 transition-all font-bold text-sm";
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-[#0A0A0A] relative overflow-hidden py-16 px-6 selection:bg-emerald-700 text-white/20">
@@ -132,12 +132,12 @@ function RegisterContent() {
                     <p className="text-gray-400 font-bold">انضم لمئات المبدعين العرب وابدأ رحلتك التجارية اليوم.</p>
                 </motion.div>
 
-                <motion.div variants={fadeInUp} className="bg-[#0A0A0A] rounded-[2.5rem] border border-gray-100 p-10 shadow-lg shadow-[#10B981]/20 shadow-gray-200/50 relative overflow-hidden">
+                <motion.div variants={fadeInUp} className="bg-[#0A0A0A] rounded-[2.5rem] border border-white/10 p-10 shadow-lg shadow-[#10B981]/20 shadow-gray-200/50 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-700 text-white/5 rounded-bl-[80px] pointer-events-none"></div>
 
                     <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                         <AnimatePresence>
-                            {error && <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-red-50 text-red-700 p-4 rounded-xl text-xs font-bold border border-red-100 flex items-center gap-3"><FiAlertCircle size={16} /> {error}</motion.div>}
+                            {error && <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-red-500/10 text-red-700 p-4 rounded-xl text-xs font-bold border border-red-100 flex items-center gap-3"><FiAlertCircle size={16} /> {error}</motion.div>}
                             {successMsg && <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-green-50 text-green-700 p-4 rounded-xl text-xs font-bold border border-green-100 flex items-center gap-3"><FiCheckCircle size={16} /> {successMsg}</motion.div>}
                         </AnimatePresence>
 
@@ -171,7 +171,7 @@ function RegisterContent() {
                                 </button>
                                 <AnimatePresence>
                                     {countryDropdownOpen && (
-                                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="absolute z-50 mt-2 w-full bg-[#0A0A0A] border border-gray-100 rounded-xl shadow-lg shadow-[#10B981]/20 max-h-60 overflow-y-auto p-2 space-y-1">
+                                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="absolute z-50 mt-2 w-full bg-[#0A0A0A] border border-white/10 rounded-xl shadow-lg shadow-[#10B981]/20 max-h-60 overflow-y-auto p-2 space-y-1">
                                             {countries.map(c => (
                                                 <button key={c.code} type="button" onClick={() => { setSelectedCountry(c.code as CountryCode); setCountryDropdownOpen(false); }} className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold transition-all ${selectedCountry === c.code ? 'bg-emerald-700 text-white' : 'text-gray-500 hover:bg-[#111111] hover:text-[#10B981]'}`}>
                                                     <span className="flex items-center gap-2"><span>{c.flag}</span> <span>{c.nameAr}</span></span>
@@ -213,7 +213,7 @@ function RegisterContent() {
                         </motion.button>
                     </form>
 
-                    <div className="mt-10 pt-10 border-t border-gray-50 text-center">
+                    <div className="mt-10 pt-10 border-t border-white/10 text-center">
                         <p className="text-gray-400 text-xs font-bold">
                             هل تملك حساباً بالفعل؟ {' '}
                             <Link href="/login" className="text-[#10B981] underline underline-offset-4 decoration-accent/30 hover:decoration-accent transition-all">
@@ -235,7 +235,7 @@ function RegisterContent() {
 
 export default function RegisterPage() {
     return (
-        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#0A0A0A]"><div className="w-8 h-8 border-2 border-gray-100 border-t-accent rounded-xl animate-spin"></div></div>}>
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#0A0A0A]"><div className="w-8 h-8 border-2 border-white/10 border-t-accent rounded-xl animate-spin"></div></div>}>
             <RegisterContent />
         </Suspense>
     );

@@ -40,7 +40,7 @@ export default function OrderSummary({
     disabled
 }: OrderSummaryProps) {
     return (
-        <div className="bg-[#0A0A0A] rounded-xl border border-gray-100 shadow-lg shadow-[#10B981]/20 p-8 space-y-10 sticky top-24">
+        <div className="bg-[#0A0A0A] rounded-xl border border-white/10 shadow-lg shadow-[#10B981]/20 p-8 space-y-10 sticky top-24">
             <div className="flex items-baseline justify-between overflow-hidden">
                 <h2 className="text-xl font-bold text-[#10B981] tracking-tight">ملخص الطلب</h2>
                 <span className="text-[10px] font-bold text-[#10B981] bg-emerald-700 text-white-light px-3 py-1 rounded-xl uppercase tracking-widest">
@@ -55,7 +55,7 @@ export default function OrderSummary({
                         key={idx} 
                         className="flex gap-4 items-center group"
                     >
-                        <div className="w-14 h-14 rounded-xl bg-[#111111] border border-gray-100 overflow-hidden flex-shrink-0 relative">
+                        <div className="w-14 h-14 rounded-xl bg-[#111111] border border-white/10 overflow-hidden flex-shrink-0 relative">
                             {item.image ? (
                                 <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                             ) : (
@@ -78,7 +78,7 @@ export default function OrderSummary({
             </div>
 
             {/* Coupon Section */}
-            <div className="pt-8 border-t border-gray-50">
+            <div className="pt-8 border-t border-white/10">
                 <div className="relative group/input">
                     <input 
                         type="text" 
@@ -157,11 +157,11 @@ export default function OrderSummary({
                 
                 {/* Security Badges */}
                 <div className="mt-8 grid grid-cols-2 gap-3">
-                    <div className="flex items-center gap-2.5 p-3.5 bg-[#111111] rounded-xl border border-gray-100 group/badge transition-colors hover:bg-emerald-800">
+                    <div className="flex items-center gap-2.5 p-3.5 bg-[#111111] rounded-xl border border-white/10 group/badge transition-colors hover:bg-emerald-800">
                         <FiShield className="text-[#10B981] group-hover:scale-110 transition-transform" size={18} />
                         <span className="text-[9px] font-bold text-gray-500 leading-tight uppercase tracking-wider font-inter">Secure SSL<br/>Encryption</span>
                     </div>
-                    <div className="flex items-center gap-2.5 p-3.5 bg-[#111111] rounded-xl border border-gray-100 group/badge transition-colors hover:bg-emerald-800">
+                    <div className="flex items-center gap-2.5 p-3.5 bg-[#111111] rounded-xl border border-white/10 group/badge transition-colors hover:bg-emerald-800">
                         <FiClock className="text-[#10B981] group-hover:scale-110 transition-transform" size={18} />
                         <span className="text-[9px] font-bold text-gray-500 leading-tight uppercase tracking-wider font-inter">Instant<br/>Access</span>
                     </div>

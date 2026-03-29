@@ -132,7 +132,7 @@ export default function EditProductPage() {
         <div className="max-w-4xl mx-auto pb-24 px-4 overflow-hidden">
             
             {/* Elegant Header */}
-            <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 bg-[#0A0A0A] p-10 rounded-xl border border-slate-50 shadow-lg shadow-[#10B981]/20">
+            <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 bg-[#0A0A0A] p-10 rounded-xl border border-white/10 shadow-lg shadow-[#10B981]/20">
                 <div className="space-y-2 max-w-xl">
                     <Link href="/dashboard/products" className="inline-flex items-center gap-2 text-slate-400 hover:text-white font-bold text-xs mb-2 transition-colors">
                         <FiArrowRight /> العودة للمنتجات
@@ -234,7 +234,7 @@ export default function EditProductPage() {
                                         {formData.image ? (
                                             <>
                                                 <img src={formData.image} alt="Cover" className="w-full h-full object-cover" />
-                                                <button type="button" onClick={() => update('image', '')} className="absolute top-3 left-3 bg-red-500 text-white w-8 h-8 rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20"><FiX /></button>
+                                                <button type="button" onClick={() => update('image', '')} className="absolute top-3 left-3 bg-red-500/100/100 text-white w-8 h-8 rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20"><FiX /></button>
                                             </>
                                         ) : (
                                             <button type="button" onClick={() => setShowCoverUploader(true)} className="w-full h-full flex flex-col items-center justify-center text-slate-300 font-bold gap-2">
@@ -253,7 +253,7 @@ export default function EditProductPage() {
                                         {formData.images.map((img, i) => (
                                             <div key={i} className="relative aspect-square rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20">
                                                 <img src={img} className="w-full h-full object-cover" />
-                                                <button type="button" onClick={() => update('images', formData.images.filter((_, idx) => idx !== i))} className="absolute top-1 left-1 bg-red-500 text-white w-5 h-5 rounded-xl flex items-center justify-center text-[8px]"><FiX /></button>
+                                                <button type="button" onClick={() => update('images', formData.images.filter((_, idx) => idx !== i))} className="absolute top-1 left-1 bg-red-500/100/100 text-white w-5 h-5 rounded-xl flex items-center justify-center text-[8px]"><FiX /></button>
                                             </div>
                                         ))}
                                         {formData.images.length < 5 && (
@@ -294,10 +294,10 @@ export default function EditProductPage() {
                                     </div>
                                 )}
 
-                                <div className="pt-6 border-t border-slate-50 space-y-4">
+                                <div className="pt-6 border-t border-white/10 space-y-4">
                                     <div className="flex items-center justify-between p-4 bg-[#111111] rounded-xl hover:bg-emerald-800 transition-colors cursor-pointer" onClick={() => update('isActive', !formData.isActive)}>
                                         <div className="text-right">
-                                            <p className="text-sm font-bold text-slate-700">تفعيل المنتج</p>
+                                            <p className="text-sm font-bold text-gray-300">تفعيل المنتج</p>
                                             <p className="text-[10px] text-slate-400 font-medium">اجعله مرئياً في صفحة المتجر</p>
                                         </div>
                                         <div className={`w-12 h-6 rounded-xl transition-all flex items-center px-1 ${formData.isActive ? 'bg-emerald-700 text-white' : 'bg-slate-300'}`}>
@@ -333,8 +333,8 @@ export default function EditProductPage() {
 
 function Section({ title, icon, children }: any) {
     return (
-        <div className="bg-[#0A0A0A] rounded-xl p-8 lg:p-10 shadow-lg shadow-[#10B981]/20 border border-slate-50 space-y-6">
-            <div className="flex items-center gap-4 border-b border-slate-50 pb-6 -mx-2">
+        <div className="bg-[#0A0A0A] rounded-xl p-8 lg:p-10 shadow-lg shadow-[#10B981]/20 border border-white/10 space-y-6">
+            <div className="flex items-center gap-4 border-b border-white/10 pb-6 -mx-2">
                 <div className="w-12 h-12 bg-[#0A0A0A] text-primary-ink rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20">
                     {icon}
                 </div>

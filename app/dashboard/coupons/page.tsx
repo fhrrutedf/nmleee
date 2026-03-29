@@ -152,7 +152,7 @@ export default function CouponsPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {coupons.map((coupon) => (
-                        <div key={coupon.id} className={`bg-[#0A0A0A] dark:bg-card-white rounded-xl border ${coupon.isActive ? 'border-emerald-500/20 dark:border-gray-700' : 'border-gray-100 dark:border-gray-800 opacity-70'} shadow-lg shadow-[#10B981]/20 overflow-hidden flex flex-col hover:shadow-md transition-shadow relative`}>
+                        <div key={coupon.id} className={`bg-[#0A0A0A] dark:bg-card-white rounded-xl border ${coupon.isActive ? 'border-emerald-500/20 dark:border-gray-700' : 'border-white/10 dark:border-gray-800 opacity-70'} shadow-lg shadow-[#10B981]/20 overflow-hidden flex flex-col hover:shadow-md transition-shadow relative`}>
                             {/* Top Accent */}
                             <div className={`h-1.5 w-full ${coupon.isActive ? 'bg-emerald-700 text-white shadow-[0_0_15px_rgba(37,99,235,0.3)]' : 'bg-gray-200'}`}></div>
 
@@ -220,7 +220,7 @@ export default function CouponsPage() {
                                 </div>
                             </div>
 
-                            <div className="bg-[#111111] dark:bg-gray-900/50 p-4 border-t border-gray-100 dark:border-gray-800">
+                            <div className="bg-[#111111] dark:bg-gray-900/50 p-4 border-t border-white/10 dark:border-gray-800">
                                 {deletingId === coupon.id ? (
                                     <div className="flex items-center gap-2 justify-end">
                                         <span className="text-sm text-red-600 font-medium flex items-center gap-1">
@@ -229,13 +229,13 @@ export default function CouponsPage() {
                                         </span>
                                         <button
                                             onClick={() => setDeletingId(null)}
-                                            className="text-xs px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 transition-colors"
+                                            className="text-xs px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-300 dark:text-gray-300 hover:bg-gray-300 transition-colors"
                                         >
                                             إلغاء
                                         </button>
                                         <button
                                             onClick={() => handleDelete(coupon.id, coupon.code)}
-                                            className="text-xs px-3 py-1.5 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors font-bold flex items-center gap-1"
+                                            className="text-xs px-3 py-1.5 rounded-lg bg-red-500/100/100 text-white hover:bg-red-600 transition-colors font-bold flex items-center gap-1"
                                         >
                                             <FiTrash2 size={12} /> حذف نهائياً
                                         </button>
@@ -244,7 +244,7 @@ export default function CouponsPage() {
                                     <div className="flex justify-end">
                                         <button
                                             onClick={() => handleDelete(coupon.id, coupon.code)}
-                                            className="text-red-500 hover:text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-900/10 dark:hover:bg-red-900/30 p-2 rounded-lg transition-colors flex items-center justify-center"
+                                            className="text-red-500 hover:text-red-600 bg-red-500/100/10 hover:bg-red-100 dark:bg-red-900/10 dark:hover:bg-red-900/30 p-2 rounded-lg transition-colors flex items-center justify-center"
                                             title="حذف الكوبون"
                                         >
                                             <FiTrash2 />
@@ -261,7 +261,7 @@ export default function CouponsPage() {
             {showModal && (
                 <div className="fixed inset-0 bg-black/50  z-50 flex justify-center items-center p-4">
                     <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 w-full max-w-2xl max-h-[90vh] overflow-y-auto transform transition-all">
-                        <div className="sticky top-0 bg-[#0A0A0A] dark:bg-card-white p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center z-10">
+                        <div className="sticky top-0 bg-[#0A0A0A] dark:bg-card-white p-6 border-b border-white/10 dark:border-gray-800 flex justify-between items-center z-10">
                             <h2 className="text-2xl font-bold text-[#10B981] dark:text-white flex items-center gap-2">
                                 <FiTag className="text-[#10B981]" /> إضافة كوبون خصم جديد
                             </h2>
@@ -273,7 +273,7 @@ export default function CouponsPage() {
                         <form onSubmit={handleCreateCoupon} className="p-6 space-y-6">
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div>
-                                    <label className="label font-bold text-gray-700 dark:text-gray-300">كود الخصم (لغة انجليزية) <span className="text-red-500">*</span></label>
+                                    <label className="label font-bold text-gray-300 dark:text-gray-300">كود الخصم (لغة انجليزية) <span className="text-red-500">*</span></label>
                                     <input
                                         type="text"
                                         required
@@ -285,7 +285,7 @@ export default function CouponsPage() {
                                 </div>
 
                                 <div>
-                                    <label className="label font-bold text-gray-700 dark:text-gray-300">نوع الخصم <span className="text-red-500">*</span></label>
+                                    <label className="label font-bold text-gray-300 dark:text-gray-300">نوع الخصم <span className="text-red-500">*</span></label>
                                     <select
                                         className="input"
                                         value={formData.type}
@@ -297,8 +297,8 @@ export default function CouponsPage() {
                                 </div>
 
                                 <div className="md:col-span-2">
-                                    <label className="label font-bold text-gray-700 dark:text-gray-300">قيمة الخصم <span className="text-red-500">*</span></label>
-                                    <div className="relative border border-gray-100 rounded-xl overflow-hidden focus-within:ring-4 focus-within:ring-accent/10 transition-all bg-[#111111]">
+                                    <label className="label font-bold text-gray-300 dark:text-gray-300">قيمة الخصم <span className="text-red-500">*</span></label>
+                                    <div className="relative border border-white/10 rounded-xl overflow-hidden focus-within:ring-4 focus-within:ring-accent/10 transition-all bg-[#111111]">
                                         <input
                                             type="number"
                                             required
@@ -317,12 +317,12 @@ export default function CouponsPage() {
                                 </div>
 
                                 {/* Advanced Options Toggle could be added here, currently displaying directly */}
-                                <div className="md:col-span-2 pt-4 border-t border-gray-100 dark:border-gray-800">
+                                <div className="md:col-span-2 pt-4 border-t border-white/10 dark:border-gray-800">
                                     <h4 className="text-lg font-bold mb-4 flex items-center gap-2"><FiClock className="text-[#10B981]" /> الإعدادات والقيود المتطورة (اختياري)</h4>
                                 </div>
 
                                 <div>
-                                    <label className="label text-gray-700 dark:text-gray-300">حد استخدام الكوبون (إجمالي)</label>
+                                    <label className="label text-gray-300 dark:text-gray-300">حد استخدام الكوبون (إجمالي)</label>
                                     <input
                                         type="number"
                                         min="1"
@@ -335,7 +335,7 @@ export default function CouponsPage() {
                                 </div>
 
                                 <div>
-                                    <label className="label text-gray-700 dark:text-gray-300">الحد الأدنى للطب ($)</label>
+                                    <label className="label text-gray-300 dark:text-gray-300">الحد الأدنى للطب ($)</label>
                                     <input
                                         type="number"
                                         min="0"
@@ -349,7 +349,7 @@ export default function CouponsPage() {
 
                                 {formData.type === 'percentage' && (
                                     <div className="md:col-span-2">
-                                        <label className="label text-gray-700 dark:text-gray-300">الحد الأقصى للخصم ($)</label>
+                                        <label className="label text-gray-300 dark:text-gray-300">الحد الأقصى للخصم ($)</label>
                                         <input
                                             type="number"
                                             min="0"
@@ -363,7 +363,7 @@ export default function CouponsPage() {
                                 )}
 
                                 <div>
-                                    <label className="label text-gray-700 dark:text-gray-300">تاريخ بدء الخصم</label>
+                                    <label className="label text-gray-300 dark:text-gray-300">تاريخ بدء الخصم</label>
                                     <input
                                         type="datetime-local"
                                         className="input"
@@ -373,7 +373,7 @@ export default function CouponsPage() {
                                 </div>
 
                                 <div>
-                                    <label className="label text-gray-700 dark:text-gray-300">تاريخ انتهاء الخصم</label>
+                                    <label className="label text-gray-300 dark:text-gray-300">تاريخ انتهاء الخصم</label>
                                     <input
                                         type="datetime-local"
                                         className="input"
@@ -383,7 +383,7 @@ export default function CouponsPage() {
                                 </div>
                             </div>
 
-                            <div className="pt-6 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-4 mt-6">
+                            <div className="pt-6 border-t border-white/10 dark:border-gray-800 flex justify-end gap-4 mt-6">
                                 <button type="button" onClick={() => setShowModal(false)} className="btn btn-accent border-transparent bg-emerald-800 dark:bg-gray-800 px-6 font-bold shadow-lg shadow-[#10B981]/20">إلغاء</button>
                                 <button type="submit" className="btn btn-primary px-8 font-bold shadow-lg shadow-[#10B981]/20 shadow-accent/20 flex items-center gap-2 text-lg">
                                     <FiCheckCircle /> <span>اعتماد الكوبون وحفظه</span>

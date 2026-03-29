@@ -104,7 +104,7 @@ export default function CryptoCheckoutPage() {
     return (
         <div className="min-h-screen bg-[#111111] py-12 px-4">
             <div className="max-w-2xl mx-auto">
-                <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden border border-gray-100">
+                <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden border border-white/10">
                     <div className="bg-emerald-700 text-white p-6 text-center text-white">
                         <h1 className="text-2xl font-bold mb-1">دفع العملات الرقمية</h1>
                         <p className="text-gray-300 text-sm">أرسل المبلغ بدقة إلى العنوان أدناه باستخدام شبكة TRC20</p>
@@ -112,7 +112,7 @@ export default function CryptoCheckoutPage() {
 
                     <div className="p-8">
                         {timeLeft <= 0 ? (
-                            <div className="bg-red-50 text-red-600 p-6 rounded-xl border border-red-200 text-center">
+                            <div className="bg-red-500/10 text-red-600 p-6 rounded-xl border border-red-200 text-center">
                                 <FiAlertTriangle className="text-5xl mx-auto mb-3" />
                                 <h3 className="text-xl font-bold mb-2">انتهت صلاحية الفاتورة</h3>
                                 <p className="mb-4">انتهى الوقت المسموح به للدفع التلقائي لهذه الفاتورة.</p>
@@ -121,7 +121,7 @@ export default function CryptoCheckoutPage() {
                         ) : (
                             <>
                                 <div className="flex flex-col md:flex-row gap-8 items-center justify-center mb-8">
-                                    <div className="bg-[#0A0A0A] p-4 rounded-xl shadow border border-gray-100 pb-2">
+                                    <div className="bg-[#0A0A0A] p-4 rounded-xl shadow border border-white/10 pb-2">
                                         <img
                                             src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${order.walletAddress}`}
                                             alt="QR Code"

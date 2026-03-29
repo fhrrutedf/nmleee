@@ -25,17 +25,17 @@ const footerLinks = {
 
 export default function Footer() {
     return (
-        <footer className="bg-[#0A0A0A] text-white py-24 border-t border-white/10 selection:bg-emerald-500 text-white/30">
+        <footer className="bg-[#0A0A0A] text-white py-24 border-t border-white/10 selection:bg-emerald-500">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-24">
                     
                     {/* Brand Identifier */}
-                    <div className="md:col-span-4 max-w-sm">
+                                <div className="md:col-span-4 max-w-sm">
                         <div className="flex items-center gap-4 mb-10 group cursor-default">
-                             <div className="w-12 h-12 rounded-2xl bg-emerald-700 text-white flex items-center justify-center text-white text-xl font-black shadow-lg shadow-emerald-500/20 transition-all group-hover:scale-110 group-hover:shadow-glow">
+                             <div className="w-12 h-12 rounded-2xl bg-emerald-700 text-white flex items-center justify-center text-xl font-black shadow-lg shadow-emerald-500/20 transition-all group-hover:scale-110 group-hover:bg-emerald-600">
                                 ت
                             </div>
-                            <span className="text-3xl font-black tracking-tighter">تمالين</span>
+                            <span className="text-3xl font-black tracking-tighter text-white">تمالين</span>
                         </div>
                         <p className="text-gray-400 text-sm font-medium leading-relaxed mb-12">
                             البنية التحتية المتكاملة لبيع المنتجات الرقمية والدورات التدريبية في الوطن العربي. نحن نمكّن المبدعين من بناء إمبراطورياتهم الخاصة بسهولة وأمان.
@@ -43,14 +43,14 @@ export default function Footer() {
                         
                         {/* Newsletter Mini */}
                         <div className="flex flex-col gap-5">
-                            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#10B981]">Join our ecosystem</span>
-                            <div className="flex gap-2 p-2 bg-emerald-900/40 border border-emerald-500/20 rounded-2xl max-w-sm focus-within:border-emerald-500/50 transition-colors">
+                            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-emerald-500">Join our ecosystem</span>
+                            <div className="flex gap-2 p-2 bg-[#111111] border border-white/10 rounded-2xl max-w-sm focus-within:border-emerald-500/50 transition-colors">
                                 <input 
                                     type="email" 
                                     placeholder="Enter your email" 
-                                    className="bg-transparent border-none focus:ring-0 text-xs font-semibold px-4 flex-1 text-white placeholder:text-gray-400"
+                                    className="bg-transparent border-none focus:ring-0 text-xs font-semibold px-4 flex-1 text-white placeholder:text-gray-600"
                                 />
-                                <button className="px-6 py-2.5 bg-emerald-700 text-white text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-emerald-500 text-white shadow-lg shadow-emerald-500/10 transition-all hover:shadow-glow">
+                                <button className="px-6 py-2.5 bg-emerald-700 text-white text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-emerald-600 shadow-lg shadow-emerald-500/10 transition-all">
                                     Join
                                 </button>
                             </div>

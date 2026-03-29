@@ -86,7 +86,7 @@ export default function FeaturesPage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="inline-flex items-center gap-2 bg-[#111111] border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-[#10B981] shadow-lg shadow-[#10B981]/20">
+                        <div className="inline-flex items-center gap-2 bg-[#111111] border border-white/10 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-[#10B981] shadow-lg shadow-[#10B981]/20">
                             Infrastructure for Creators
                         </div>
                         <h1 className="text-5xl md:text-8xl font-bold text-[#10B981] mb-10 tracking-tighter leading-[1.05]">
@@ -100,7 +100,7 @@ export default function FeaturesPage() {
             </section>
 
             {/* Features Clean Grid */}
-            <section className="py-24 md:py-40 relative z-20 bg-[#0A0A0A] -mt-16 rounded-t-[3rem] border-t border-gray-100">
+            <section className="py-24 md:py-40 relative z-20 bg-[#0A0A0A] -mt-16 rounded-t-[3rem] border-t border-white/10">
                 <div className="max-w-7xl mx-auto px-6">
                     <motion.div
                         variants={staggerContainer}
@@ -113,9 +113,9 @@ export default function FeaturesPage() {
                             <motion.div
                                 key={idx}
                                 variants={fadeInUp}
-                                className="group p-10 bg-[#111111] border border-gray-100 rounded-[2.5rem] hover:bg-emerald-700 text-white hover:text-white transition-all duration-500 cursor-default"
+                                className="group p-10 bg-[#111111] border border-white/10 rounded-[2.5rem] hover:bg-emerald-700 text-white hover:text-white transition-all duration-500 cursor-default"
                             >
-                                <div className="w-14 h-14 bg-[#0A0A0A] border border-gray-100 rounded-xl flex items-center justify-center text-[#10B981] mb-10 group-hover:bg-emerald-700 text-white group-hover:text-white group-hover:border-transparent transition-all shadow-lg shadow-[#10B981]/20">
+                                <div className="w-14 h-14 bg-[#0A0A0A] border border-white/10 rounded-xl flex items-center justify-center text-[#10B981] mb-10 group-hover:bg-emerald-700 text-white group-hover:text-white group-hover:border-transparent transition-all shadow-lg shadow-[#10B981]/20">
                                     {feature.icon}
                                 </div>
 
@@ -135,7 +135,7 @@ export default function FeaturesPage() {
             </section>
 
             {/* Core Statistics / Trust Section */}
-            <section className="py-24 bg-[#0A0A0A] border-y border-gray-50 flex overflow-hidden">
+            <section className="py-24 bg-[#0A0A0A] border-y border-white/10 flex overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6 w-full">
                    <div className="grid grid-cols-1 md:grid-cols-3 gap-16 items-center">
                         <div>
@@ -143,11 +143,11 @@ export default function FeaturesPage() {
                             <p className="text-gray-400 font-bold">بنية تحتية موزعة عالمياً تضمن استجابة متجرك في أقل من 200ms.</p>
                         </div>
                         <div className="md:col-span-2 grid grid-cols-2 gap-8">
-                             <div className="p-8 border-l border-gray-100">
+                             <div className="p-8 border-l border-white/10">
                                 <div className="text-6xl font-bold text-[#10B981] font-inter tracking-tighter mb-2">99.9%</div>
                                 <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Uptime Guarantee</div>
                              </div>
-                             <div className="p-8 border-l border-gray-100">
+                             <div className="p-8 border-l border-white/10">
                                 <div className="text-6xl font-bold text-[#10B981] font-inter tracking-tighter mb-2">24/7</div>
                                 <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Active Monitoring</div>
                              </div>

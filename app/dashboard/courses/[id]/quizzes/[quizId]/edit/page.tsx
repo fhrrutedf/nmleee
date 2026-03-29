@@ -183,7 +183,7 @@ export default function EditQuizPage() {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex gap-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                    <div className="flex gap-4 pt-4 border-t border-white/10 dark:border-gray-700">
                         <button
                             type="submit"
                             disabled={saving}

@@ -233,30 +233,30 @@ export default function CheckoutPage() {
                     <div className="lg:col-span-7 space-y-10">
                         
                         {/* 1. Personal Information */}
-                        <div className="bg-[#0A0A0A] border border-gray-100 p-8 sm:p-10 rounded-xl shadow-lg shadow-[#10B981]/20 shadow-gray-200/20 ring-1 ring-gray-50">
+                        <div className="bg-[#0A0A0A] border border-white/10 p-8 sm:p-10 rounded-xl shadow-lg shadow-[#10B981]/20 shadow-gray-200/20 ring-1 ring-gray-50">
                             <h3 className="text-xl font-bold text-[#10B981] mb-10 flex items-center gap-4">
                                 <span className="w-1.5 h-6 bg-emerald-700 text-white rounded-xl"></span> البيانات الشخصية والدولة
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-3 md:col-span-2">
                                     <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">الدولة أو الإقليم *</label>
-                                    <select value={customerCountry} onChange={e => handleCountryLogic(e.target.value)} className="w-full bg-[#111111] border border-gray-100 rounded-xl px-6 py-4 focus:bg-[#0A0A0A] focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 outline-none transition-all font-bold text-[#10B981] appearance-none cursor-pointer">
+                                    <select value={customerCountry} onChange={e => handleCountryLogic(e.target.value)} className="w-full bg-[#111111] border border-white/10 rounded-xl px-6 py-4 focus:bg-[#0A0A0A] focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 outline-none transition-all font-bold text-[#10B981] appearance-none cursor-pointer">
                                         {Object.entries(paymentMethodsByCountry).map(([code, cfg]) => <option key={code} value={code}>{cfg.nameAr}</option>)}
                                     </select>
                                 </div>
                                 <div className="space-y-3">
                                     <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">الاسم الكامل *</label>
-                                    <input type="text" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} className="w-full bg-[#111111] border border-gray-100 rounded-xl px-6 py-4 focus:bg-[#0A0A0A] focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 outline-none transition-all font-bold text-[#10B981] text-right" placeholder="أدخل اسمك الكامل..." />
+                                    <input type="text" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} className="w-full bg-[#111111] border border-white/10 rounded-xl px-6 py-4 focus:bg-[#0A0A0A] focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 outline-none transition-all font-bold text-[#10B981] text-right" placeholder="أدخل اسمك الكامل..." />
                                 </div>
                                 <div className="space-y-3">
                                     <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">البريد الإلكتروني *</label>
-                                    <input type="email" dir="ltr" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} className="w-full bg-[#111111] border border-gray-100 rounded-xl px-6 py-4 focus:bg-[#0A0A0A] focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 outline-none transition-all font-bold text-[#10B981] text-left" placeholder="email@example.com" />
+                                    <input type="email" dir="ltr" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} className="w-full bg-[#111111] border border-white/10 rounded-xl px-6 py-4 focus:bg-[#0A0A0A] focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 outline-none transition-all font-bold text-[#10B981] text-left" placeholder="email@example.com" />
                                 </div>
                             </div>
                         </div>
 
                         {/* 2. Payment Gateway Section */}
-                        <div className="bg-[#0A0A0A] border border-gray-100 p-8 sm:p-10 rounded-xl shadow-lg shadow-[#10B981]/20 shadow-gray-200/20 ring-1 ring-gray-50">
+                        <div className="bg-[#0A0A0A] border border-white/10 p-8 sm:p-10 rounded-xl shadow-lg shadow-[#10B981]/20 shadow-gray-200/20 ring-1 ring-gray-50">
                             <h3 className="text-xl font-bold text-[#10B981] mb-10 flex items-center gap-4">
                                 <span className="w-1.5 h-6 bg-emerald-700 text-white rounded-xl"></span> اختيار وسيلة الدفع
                             </h3>
@@ -277,7 +277,7 @@ export default function CheckoutPage() {
                                                 <button 
                                                     key={m.id} 
                                                     onClick={() => setSelectedLocalMethod(m)} 
-                                                    className={`p-8 rounded-xl border-2 text-right transition-all group relative overflow-hidden ${selectedLocalMethod?.id === m.id ? 'border-emerald-600 bg-emerald-700 text-white/5 ring-4 ring-accent/5' : 'border-gray-50 bg-[#111111]/50 hover:border-emerald-500/20'}`}
+                                                    className={`p-8 rounded-xl border-2 text-right transition-all group relative overflow-hidden ${selectedLocalMethod?.id === m.id ? 'border-emerald-600 bg-emerald-700 text-white/5 ring-4 ring-accent/5' : 'border-white/10 bg-[#111111]/50 hover:border-emerald-500/20'}`}
                                                 >
                                                     <span className="text-4xl mb-4 block group-hover:scale-110 transition-transform origin-right">{m.icon}</span>
                                                     <h5 className="font-bold text-[#10B981] text-lg">{m.nameAr}</h5>
@@ -291,7 +291,7 @@ export default function CheckoutPage() {
                                                 </button>
                                             ))}
                                         </div>
-                                        <div className="flex items-start gap-4 bg-[#111111] p-6 rounded-xl border border-gray-100">
+                                        <div className="flex items-start gap-4 bg-[#111111] p-6 rounded-xl border border-white/10">
                                             <FiShield size={22} className="text-[#10B981] shrink-0 mt-0.5" />
                                             <p className="text-xs text-gray-500 leading-relaxed font-bold">
                                                 يتم الدفع عبر بوابة **Spaceremit V2** المشفرة. سيتم توجيهك الآن لإكمال الدفع وتفعيل طلبك بمجرد الانتهاء مباشرة.
@@ -305,7 +305,7 @@ export default function CheckoutPage() {
                                         {!selectedLocalMethod ? (
                                             <div className="space-y-3">
                                                 {countryMethods.methods.map(m => (
-                                                    <button key={m.id} onClick={() => setSelectedLocalMethod(m)} className="w-full group bg-[#111111] border border-gray-100 p-6 rounded-xl flex items-center justify-between transition-all hover:bg-[#0A0A0A] hover:border-emerald-600/40 shadow-lg shadow-[#10B981]/20">
+                                                    <button key={m.id} onClick={() => setSelectedLocalMethod(m)} className="w-full group bg-[#111111] border border-white/10 p-6 rounded-xl flex items-center justify-between transition-all hover:bg-[#0A0A0A] hover:border-emerald-600/40 shadow-lg shadow-[#10B981]/20">
                                                         <div className="flex items-center gap-5">
                                                             <span className="text-3xl">{m.icon}</span>
                                                             <div className="text-right">
@@ -341,7 +341,7 @@ export default function CheckoutPage() {
             <div 
                 className={`fixed inset-0 z-[9999] bg-emerald-700 text-white/60  flex items-center justify-center p-4 transition-all duration-500 ${spOrderData ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
             >
-                <div className="bg-[#0A0A0A] rounded-[2.5rem] p-10 max-w-lg w-full shadow-lg shadow-[#10B981]/20 border border-gray-100 max-h-[90vh] overflow-y-auto relative">
+                <div className="bg-[#0A0A0A] rounded-[2.5rem] p-10 max-w-lg w-full shadow-lg shadow-[#10B981]/20 border border-white/10 max-h-[90vh] overflow-y-auto relative">
                     <div className="flex items-center justify-between mb-10">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-emerald-700 text-white rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#10B981]/20 shadow-accent/20">
@@ -359,7 +359,7 @@ export default function CheckoutPage() {
                     </div>
 
                     {spOrderData && (
-                        <div className="bg-[#111111] rounded-xl p-8 mb-10 text-center border border-gray-100">
+                        <div className="bg-[#111111] rounded-xl p-8 mb-10 text-center border border-white/10">
                             <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-2">إجمالي المطلوب سداده</p>
                             <p className="text-5xl font-bold text-[#10B981] font-inter tracking-tighter">${spOrderData.total}</p>
                             <p className="text-[10px] text-[#10B981] mt-4 font-mono font-bold tracking-widest">ORDER #{spOrderData.orderNumber}</p>
@@ -388,7 +388,7 @@ export default function CheckoutPage() {
 
                         <div className="sp-one-type-select">
                             <input type="radio" name="sp-pay-type-radio" value="card-pay" id="sp_card_radio" className="hidden" />
-                            <label htmlFor="sp_card_radio" className="block p-5 rounded-xl border-2 border-gray-50 bg-[#111111] cursor-pointer mb-4 hover:border-emerald-600/30 transition-all">
+                            <label htmlFor="sp_card_radio" className="block p-5 rounded-xl border-2 border-white/10 bg-[#111111] cursor-pointer mb-4 hover:border-emerald-600/30 transition-all">
                                 <div className="font-bold text-[#10B981] flex items-center gap-2 text-sm">💳 البطاقة البنكية الدولية</div>
                                 <p className="text-[10px] text-gray-500 font-bold mt-1">Visa, Mastercard, American Express</p>
                             </label>
@@ -413,7 +413,7 @@ export default function CheckoutPage() {
 function PaymentMethodTab({ id, current, onClick, icon, label, desc }: any) {
     const active = current === id;
     return (
-        <button onClick={onClick} className={`min-w-[180px] p-6 rounded-xl border-2 transition-all text-right relative overflow-hidden group ${active ? 'bg-[#0A0A0A] border-emerald-600 shadow-lg shadow-[#10B981]/20 shadow-accent/5' : 'bg-[#111111] border-gray-100 hover:border-emerald-500/20 shadow-lg shadow-[#10B981]/20'}`}>
+        <button onClick={onClick} className={`min-w-[180px] p-6 rounded-xl border-2 transition-all text-right relative overflow-hidden group ${active ? 'bg-[#0A0A0A] border-emerald-600 shadow-lg shadow-[#10B981]/20 shadow-accent/5' : 'bg-[#111111] border-white/10 hover:border-emerald-500/20 shadow-lg shadow-[#10B981]/20'}`}>
             <span className="text-4xl mb-4 block group-hover:scale-110 transition-transform origin-right">{icon}</span>
             <h5 className={`font-bold text-sm whitespace-nowrap mb-1 ${active ? 'text-[#10B981]' : 'text-gray-500'}`}>{label}</h5>
             <p className={`text-[10px] font-bold tracking-tight leading-tight ${active ? 'text-[#10B981]' : 'text-gray-400'}`}>{desc}</p>

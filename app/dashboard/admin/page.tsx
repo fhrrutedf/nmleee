@@ -27,15 +27,15 @@ const methodLabel: Record<string, string> = {
     free: 'مجاني', paypal: 'PayPal',
 };
 const statusBadge: Record<string, string> = {
-    PENDING: 'bg-emerald-800 text-gray-500', PAID: 'bg-emerald-700 text-white/10 text-[#10B981]',
-    COMPLETED: 'bg-emerald-700 text-white', CANCELLED: 'bg-red-50 text-red-500',
-    REFUNDED: 'bg-orange-50 text-orange-600',
+    PENDING: 'bg-emerald-800 text-gray-400', PAID: 'bg-emerald-700/10 text-[#10B981] border border-emerald-500/20',
+    COMPLETED: 'bg-emerald-700 text-white shadow-lg shadow-emerald-500/20', CANCELLED: 'bg-red-500/10 text-red-400 border border-red-500/20',
+    REFUNDED: 'bg-orange-500/10 text-orange-400 border border-orange-500/20',
 };
 
 // ─── Components ────────────────────────────────────────────
 function StatCard({ icon: Icon, label, value, sub, trend }: any) {
     return (
-        <div className="bg-[#0A0A0A] border border-gray-100 p-8 rounded-[2rem] shadow-lg shadow-[#10B981]/20 shadow-gray-100/20 hover:border-emerald-600/20 transition-all group relative overflow-hidden">
+        <div className="bg-[#0A0A0A] border border-white/10 p-8 rounded-[2rem] shadow-lg shadow-[#10B981]/20 shadow-gray-100/20 hover:border-emerald-600/20 transition-all group relative overflow-hidden">
             <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-700 text-white/5 rounded-bl-[80px] group-hover:bg-emerald-700 text-white/10 transition-colors"></div>
             <div className="flex items-center justify-between mb-6 relative z-10">
                 <div className="p-4 bg-[#111111] rounded-xl text-[#10B981] group-hover:bg-emerald-700 text-white group-hover:text-white transition-all">
@@ -47,7 +47,7 @@ function StatCard({ icon: Icon, label, value, sub, trend }: any) {
                 <div className="text-4xl font-bold text-[#10B981] mb-2 tracking-tighter">{value}</div>
                 <div className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">{label}</div>
             </div>
-            {sub && <div className="mt-6 pt-6 border-t border-gray-50 text-[10px] font-bold text-gray-400 uppercase tracking-widest">{sub}</div>}
+            {sub && <div className="mt-6 pt-6 border-t border-white/10 text-[10px] font-bold text-gray-400 uppercase tracking-widest">{sub}</div>}
         </div>
     );
 }
@@ -58,7 +58,7 @@ function Tab({ id, active, onClick, icon: Icon, label, badge }: any) {
             onClick={() => onClick(id)}
             className={`flex items-center gap-3 px-8 py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all whitespace-nowrap relative ${active
                 ? 'bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 shadow-ink/20 transform -translate-y-1'
-                : 'bg-[#0A0A0A] text-gray-400 border border-gray-100 hover:border-ink hover:text-[#10B981]'
+                : 'bg-[#0A0A0A] text-gray-400 border border-white/10 hover:border-ink hover:text-[#10B981]'
                 }`}
         >
             <Icon size={14} />
@@ -199,7 +199,7 @@ export default function AdminDashboardPage() {
 
     if (loading && !data) return (
         <div className="flex items-center justify-center min-h-[60vh]">
-            <div className="w-10 h-10 border-2 border-gray-100 border-t-accent rounded-xl animate-spin" />
+            <div className="w-10 h-10 border-2 border-white/10 border-t-accent rounded-xl animate-spin" />
         </div>
     );
 
@@ -216,17 +216,17 @@ export default function AdminDashboardPage() {
                     </h1>
                 </div>
                 
-                <div className="flex items-center gap-4 bg-[#111111] p-2 rounded-xl border border-gray-100">
+                <div className="flex items-center gap-4 bg-[#111111] p-2 rounded-xl border border-white/10">
                     <select value={period} onChange={e => setPeriod(e.target.value)} className="bg-transparent border-none font-bold text-[10px] uppercase tracking-widest text-gray-500 pr-10 outline-none">
                         <option value="7">Last 7 Days</option>
                         <option value="30">Last 30 Days</option>
                         <option value="365">Last Year</option>
                     </select>
                     <div className="h-6 w-px bg-gray-200"></div>
-                    <button onClick={() => setAutoRefresh(!autoRefresh)} className={`flex items-center gap-2 font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl transition-all ${autoRefresh ? 'bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 shadow-accent/20' : 'bg-[#0A0A0A] text-gray-400 border border-gray-100'}`}>
+                    <button onClick={() => setAutoRefresh(!autoRefresh)} className={`flex items-center gap-2 font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl transition-all ${autoRefresh ? 'bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 shadow-accent/20' : 'bg-[#0A0A0A] text-gray-400 border border-white/10'}`}>
                         <FiZap className={autoRefresh ? '' : ''} /> Live {autoRefresh ? 'On' : 'Off'}
                     </button>
-                    <button onClick={() => load(true)} className="p-2.5 bg-[#0A0A0A] border border-gray-100 rounded-xl hover:border-ink hover:text-[#10B981] transition-all active:rotate-180">
+                    <button onClick={() => load(true)} className="p-2.5 bg-[#0A0A0A] border border-white/10 rounded-xl hover:border-ink hover:text-[#10B981] transition-all active:rotate-180">
                         <FiRefreshCw className={isRefreshing ? 'animate-spin' : ''} />
                     </button>
                 </div>
@@ -253,7 +253,7 @@ export default function AdminDashboardPage() {
 
                         {/* Charts Section */}
                         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-                            <div className="xl:col-span-2 bg-[#0A0A0A] border border-gray-100 rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20 shadow-gray-100/20 relative overflow-hidden">
+                            <div className="xl:col-span-2 bg-[#0A0A0A] border border-white/10 rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20 shadow-gray-100/20 relative overflow-hidden">
                                 <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-700 text-white/5 rounded-bl-[120px] pointer-events-none"></div>
                                 <h3 className="text-xl font-bold text-[#10B981] mb-10 tracking-widest flex items-center gap-3">
                                     <FiTrendingUp className="text-[#10B981]" /> REVENUE GROWTH
@@ -267,11 +267,11 @@ export default function AdminDashboardPage() {
                                                     <stop offset="95%" stopColor="#059669" stopOpacity={0}/>
                                                 </linearGradient>
                                             </defs>
-                                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
+                                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.03)" />
                                             <XAxis dataKey="date" hide />
-                                            <YAxis axisLine={false} tickLine={false} tick={{fontSize: 10, fontWeight: 900, fill: '#94A3B8'}} />
+                                            <YAxis axisLine={false} tickLine={false} tick={{fontSize: 10, fontWeight: 900, fill: '#4B5563'}} />
                                             <RechartsTooltip 
-                                                contentStyle={{ borderRadius: '24px', border: 'none', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', backgroundColor: '#1A1A1A', color: '#fff', fontWeight: 900, fontSize: '10px' }}
+                                                contentStyle={{ borderRadius: '24px', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)', backgroundColor: '#111111', color: '#fff', fontWeight: 900, fontSize: '10px' }}
                                                 itemStyle={{ color: '#fff', textTransform: 'uppercase', letterSpacing: '0.1em' }}
                                             />
                                             <Area type="monotone" dataKey="revenue" stroke="#059669" strokeWidth={4} fill="url(#chartGradient)" />
@@ -280,20 +280,20 @@ export default function AdminDashboardPage() {
                                 </div>
                             </div>
 
-                            <div className="bg-emerald-700 text-white rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20 shadow-ink/20 relative overflow-hidden">
-                                <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-700 text-white/10 rounded-br-[100px] pointer-events-none"></div>
-                                <h3 className="text-xl font-bold mb-10 tracking-widest flex items-center gap-3">
+                            <div className="bg-emerald-950/20 text-white rounded-[2.5rem] p-10 shadow-lg shadow-emerald-500/10 relative overflow-hidden border border-emerald-500/10">
+                                <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-500/5 rounded-br-[100px] pointer-events-none"></div>
+                                <h3 className="text-xl font-bold mb-10 tracking-widest flex items-center gap-3 text-white">
                                     <FiPieChart className="text-[#10B981]" /> VOLUME DISTRIBUTION
                                 </h3>
                                 <div className="space-y-6">
                                     {(data?.ordersByMethod || []).map((m: any, idx: number) => (
                                         <div key={m.method} className="flex flex-col gap-2 p-4 bg-white/5 rounded-xl border border-white/5">
                                             <div className="flex items-center justify-between">
-                                                <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{methodLabel[m.method] || m.method}</span>
+                                                <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">{methodLabel[m.method] || m.method}</span>
                                                 <span className="text-sm font-bold text-[#10B981]">${fmt(m.total)}</span>
                                             </div>
-                                            <div className="w-full bg-[#0A0A0A]/10 h-1.5 rounded-xl overflow-hidden">
-                                                <div className="bg-emerald-700 text-white h-full rounded-xl" style={{ width: '60%' }}></div>
+                                            <div className="w-full bg-white/5 h-1.5 rounded-xl overflow-hidden">
+                                                <div className="bg-emerald-500 h-full rounded-xl" style={{ width: '60%' }}></div>
                                             </div>
                                         </div>
                                     ))}
@@ -302,12 +302,12 @@ export default function AdminDashboardPage() {
                         </div>
 
                         {/* Top Performers Table */}
-                        <div className="bg-[#0A0A0A] border border-gray-100 rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20 shadow-gray-100/20 overflow-x-auto">
+                        <div className="bg-[#0A0A0A] border border-white/10 rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20 shadow-gray-100/20 overflow-x-auto">
                             <h3 className="text-xl font-bold text-[#10B981] mb-10 tracking-widest flex items-center gap-3 underline underline-offset-[12px] decoration-accent/20 decoration-4">
                                 <FiStar className="text-[#10B981]" /> ELITE CREATORS
                             </h3>
                             <table className="w-full">
-                                <thead className="border-b border-gray-50 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                                <thead className="border-b border-white/10 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
                                     <tr>
                                         <th className="pb-6 text-right">Creator</th>
                                         <th className="pb-6 text-center">Country</th>
@@ -320,7 +320,7 @@ export default function AdminDashboardPage() {
                                         <tr key={s.id} className="group hover:bg-[#111111]/50 transition-colors">
                                             <td className="py-6">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-10 h-10 rounded-xl bg-emerald-800 flex items-center justify-center font-bold text-[#10B981] border border-gray-100 group-hover:bg-emerald-700 text-white group-hover:text-white group-hover:border-transparent transition-all overflow-hidden shrink-0 uppercase">
+                                                    <div className="w-10 h-10 rounded-xl bg-emerald-800 flex items-center justify-center font-bold text-[#10B981] border border-white/10 group-hover:bg-emerald-700 text-white group-hover:text-white group-hover:border-transparent transition-all overflow-hidden shrink-0 uppercase">
                                                         {s.avatar ? <img src={s.avatar} className="w-full h-full object-cover" /> : s.name?.charAt(0)}
                                                     </div>
                                                     <div className="min-w-0">
@@ -342,12 +342,12 @@ export default function AdminDashboardPage() {
 
                 {/* Other Tabs Simplified Styles */}
                 {activeTab !== 'overview' && (
-                    <div className="bg-[#0A0A0A] border border-gray-100 rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20 overflow-hidden">
+                    <div className="bg-[#0A0A0A] border border-white/10 rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20 overflow-hidden">
                         <h2 className="text-2xl font-bold text-[#10B981] mb-10 tracking-tighter flex items-center gap-4">
                             <FiActivity className="text-[#10B981]" /> {tabs.find(t => t.id === activeTab)?.label}
                         </h2>
                         {/* Table View Header Styling */}
-                        <div className="bg-[#111111]/50 p-6 rounded-xl border border-gray-100 mb-8 flex items-center justify-between">
+                        <div className="bg-[#111111]/50 p-6 rounded-xl border border-white/10 mb-8 flex items-center justify-between">
                             <div className="flex items-center gap-4">
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Total Entries: {fmt(ov.totalOrders || 0)}</span>
                             </div>
@@ -358,8 +358,8 @@ export default function AdminDashboardPage() {
                         
                         <div className="overflow-x-auto min-h-[400px]">
                            {/* Administrative Data Surface */}
-                           <div className="bg-[#0A0A0A] rounded-[2rem] border border-gray-50 p-10 text-center shadow-inner">
-                                <div className="w-16 h-16 bg-[#111111] border border-gray-100 rounded-xl flex items-center justify-center mx-auto mb-8 text-[#10B981] shadow-lg shadow-[#10B981]/20">
+                           <div className="bg-[#0A0A0A] rounded-[2rem] border border-white/10 p-10 text-center shadow-inner">
+                                <div className="w-16 h-16 bg-[#111111] border border-white/10 rounded-xl flex items-center justify-center mx-auto mb-8 text-[#10B981] shadow-lg shadow-[#10B981]/20">
                                     <FiBox size={24} />
                                 </div>
                                 <h3 className="text-lg font-bold text-[#10B981] mb-2">OPERATIONAL DATA SYNC</h3>
@@ -378,8 +378,8 @@ export default function AdminDashboardPage() {
                             <button onClick={() => setShowBroadcast(false)} className="absolute top-8 left-8 p-3 hover:bg-emerald-800 rounded-xl transition-all"><FiX size={24} /></button>
                             <h2 className="text-3xl font-bold text-[#10B981] mb-10 tracking-tighter">إطلاق حملة بث مركزي</h2>
                             <div className="space-y-6">
-                                <input type="text" className="w-full bg-[#111111] border border-gray-100 rounded-xl p-5 font-bold outline-none focus:bg-[#0A0A0A] focus:border-emerald-600 transition-all" placeholder="عنوان الحملة الاستراتيجي" />
-                                <textarea className="w-full bg-[#111111] border border-gray-100 rounded-[2rem] p-8 font-bold outline-none focus:bg-[#0A0A0A] focus:border-emerald-600 transition-all min-h-[200px]" placeholder="محتوى الرسالة (يدعم Markdown)..." />
+                                <input type="text" className="w-full bg-[#111111] border border-white/10 rounded-xl p-5 font-bold outline-none focus:bg-[#0A0A0A] focus:border-emerald-600 transition-all" placeholder="عنوان الحملة الاستراتيجي" />
+                                <textarea className="w-full bg-[#111111] border border-white/10 rounded-[2rem] p-8 font-bold outline-none focus:bg-[#0A0A0A] focus:border-emerald-600 transition-all min-h-[200px]" placeholder="محتوى الرسالة (يدعم Markdown)..." />
                                 <button onClick={sendBroadcast} className="w-full py-6 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-[0.3em] hover:bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 shadow-ink/20">Initite Global Broadcast</button>
                             </div>
                         </motion.div>

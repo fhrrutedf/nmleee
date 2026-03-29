@@ -82,7 +82,7 @@ export default function BookAppointmentPage() {
                         <form onSubmit={handleSubmit} className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-8 space-y-6">
                             {/* Service Selection */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-3">
+                                <label className="block text-sm font-medium text-gray-300 mb-3">
                                     اختر نوع الخدمة <span className="text-red-500">*</span>
                                 </label>
                                 <div className="grid grid-cols-1 gap-3">
@@ -117,7 +117,7 @@ export default function BookAppointmentPage() {
                             {/* Personal Info */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         <FiUser className="inline ml-1" />
                                         الاسم الكامل <span className="text-red-500">*</span>
                                     </label>
@@ -131,7 +131,7 @@ export default function BookAppointmentPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         <FiMail className="inline ml-1" />
                                         البريد الإلكتروني <span className="text-red-500">*</span>
                                     </label>
@@ -145,7 +145,7 @@ export default function BookAppointmentPage() {
                                 </div>
 
                                 <div className="md:col-span-2">
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         <FiPhone className="inline ml-1" />
                                         رقم الهاتف <span className="text-red-500">*</span>
                                     </label>
@@ -163,7 +163,7 @@ export default function BookAppointmentPage() {
                             {/* Date & Time */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         <FiCalendar className="inline ml-1" />
                                         التاريخ <span className="text-red-500">*</span>
                                     </label>
@@ -178,7 +178,7 @@ export default function BookAppointmentPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         <FiClock className="inline ml-1" />
                                         الوقت <span className="text-red-500">*</span>
                                     </label>
@@ -198,7 +198,7 @@ export default function BookAppointmentPage() {
 
                             {/* Meeting Type */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-3">
+                                <label className="block text-sm font-medium text-gray-300 mb-3">
                                     نوع الموعد <span className="text-red-500">*</span>
                                 </label>
                                 <div className="grid grid-cols-2 gap-4">
@@ -244,7 +244,7 @@ export default function BookAppointmentPage() {
 
                             {/* Notes */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">
                                     <FiMessageSquare className="inline ml-1" />
                                     ملاحظات إضافية
                                 </label>

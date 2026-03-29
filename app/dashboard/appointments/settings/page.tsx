@@ -118,7 +118,7 @@ export default function AppointmentSettingsPage() {
             </div>
 
             <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden mb-6">
-                <div className="p-4 md:p-6 border-b border-gray-100 flex items-center justify-between gap-3">
+                <div className="p-4 md:p-6 border-b border-white/10 flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-green-100 text-green-600 flex items-center justify-center flex-shrink-0">
                             <FiClock className="text-xl" />
@@ -144,7 +144,7 @@ export default function AppointmentSettingsPage() {
             </div>
 
             <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden">
-                <div className="p-4 md:p-6 border-b border-gray-100 flex items-center gap-3">
+                <div className="p-4 md:p-6 border-b border-white/10 flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-blue-100 text-[#10B981]-600 flex items-center justify-center flex-shrink-0">
                         <FiCalendar className="text-xl" />
                     </div>

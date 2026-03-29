@@ -65,8 +65,8 @@ export default function SellerSupportPage() {
             case 'OPEN': return 'bg-yellow-100 text-yellow-700';
             case 'IN_PROGRESS': return 'bg-blue-100 text-blue-700';
             case 'RESOLVED': return 'bg-green-100 text-green-700';
-            case 'CLOSED': return 'bg-gray-200 text-gray-700';
-            default: return 'bg-emerald-800 text-gray-700';
+            case 'CLOSED': return 'bg-gray-200 text-gray-300';
+            default: return 'bg-emerald-800 text-gray-300';
         }
     };
 
@@ -106,13 +106,13 @@ export default function SellerSupportPage() {
 
             {/* Ticket List */}
             {tickets.length === 0 ? (
-                <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-12 text-center text-gray-500">
+                <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 p-12 text-center text-gray-500">
                     <FiCheckCircle className="text-green-500 mb-4 mx-auto" size={48} />
                     <h3 className="text-xl font-bold mb-2">ليس لديك أي تذاكر سابقة</h3>
                     <p>إذا واجهتك أي مشكلة في المنصة، لا تتردد في مراسلتنا!</p>
                 </div>
             ) : (
-                <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 overflow-hidden">
+                <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full text-right text-sm">
                             <thead className="bg-[#111111] dark:bg-gray-900/50">
@@ -163,7 +163,7 @@ export default function SellerSupportPage() {
             {showNewModal && (
                 <div className="fixed inset-0 bg-black/60  z-50 flex justify-center items-center p-4">
                     <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 w-full max-w-lg overflow-hidden transform transition-all">
-                        <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-[#111111] dark:bg-gray-900/50">
+                        <div className="p-6 border-b border-white/10 dark:border-gray-800 flex justify-between items-center bg-[#111111] dark:bg-gray-900/50">
                             <h2 className="text-xl font-bold text-[#10B981] dark:text-white flex items-center gap-2">
                                 <FiPlus className="text-[#10B981]" /> فتح تذكرة درعم جديدة
                             </h2>
@@ -174,7 +174,7 @@ export default function SellerSupportPage() {
 
                         <div className="p-6 space-y-5">
                             <div>
-                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">اختر التصنيف</label>
+                                <label className="block text-sm font-bold text-gray-300 dark:text-gray-300 mb-2">اختر التصنيف</label>
                                 <select
                                     className="input w-full"
                                     value={newTicket.category}
@@ -187,7 +187,7 @@ export default function SellerSupportPage() {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">موضوع التذكرة <span className="text-red-500">*</span></label>
+                                <label className="block text-sm font-bold text-gray-300 dark:text-gray-300 mb-2">موضوع التذكرة <span className="text-red-500">*</span></label>
                                 <input
                                     type="text"
                                     className="input w-full"
@@ -197,7 +197,7 @@ export default function SellerSupportPage() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">تفاصيل المشكلة <span className="text-red-500">*</span></label>
+                                <label className="block text-sm font-bold text-gray-300 dark:text-gray-300 mb-2">تفاصيل المشكلة <span className="text-red-500">*</span></label>
                                 <textarea
                                     rows={5}
                                     className="input w-full resize-none"
@@ -207,7 +207,7 @@ export default function SellerSupportPage() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">رابط المرفقات (اختياري)</label>
+                                <label className="block text-sm font-bold text-gray-300 dark:text-gray-300 mb-2">رابط المرفقات (اختياري)</label>
                                 <input
                                     type="url"
                                     className="input w-full"
@@ -218,7 +218,7 @@ export default function SellerSupportPage() {
                             </div>
                         </div>
 
-                        <div className="p-6 border-t border-gray-100 dark:border-gray-800 bg-[#111111] dark:bg-gray-900/50 flex justify-end gap-3">
+                        <div className="p-6 border-t border-white/10 dark:border-gray-800 bg-[#111111] dark:bg-gray-900/50 flex justify-end gap-3">
                             <button
                                 onClick={() => setShowNewModal(false)}
                                 disabled={submitting}

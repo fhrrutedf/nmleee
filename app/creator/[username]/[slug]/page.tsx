@@ -199,7 +199,7 @@ export default function ProductPage() {
                                         <span className="text-xl text-slate-400 line-through font-bold">
                                             {product.originalPrice} $
                                         </span>
-                                        <span className="bg-red-50 text-red-600 text-xs font-bold px-2 py-1 rounded-lg uppercase tracking-wider">
+                                        <span className="bg-red-500/10 text-red-600 text-xs font-bold px-2 py-1 rounded-lg uppercase tracking-wider">
                                             وفر {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
                                         </span>
                                     </div>
@@ -235,7 +235,7 @@ export default function ProductPage() {
                         <div>
                             <h2 className="text-xl font-bold mb-3">عن المنتج</h2>
                             <div
-                                className="prose max-w-none text-gray-700 leading-relaxed"
+                                className="prose max-w-none text-gray-300 leading-relaxed"
                                 dangerouslySetInnerHTML={{ __html: product.description?.replace(/&nbsp;/g, ' ') || '' }}
                             />
                         </div>
@@ -248,7 +248,7 @@ export default function ProductPage() {
                                     {product.features.map((feature: string, index: number) => (
                                         <li key={index} className="flex items-start gap-2">
                                             <FiCheckCircle className="text-green-500 mt-1 flex-shrink-0" />
-                                            <span className="text-gray-700">{feature}</span>
+                                            <span className="text-gray-300">{feature}</span>
                                         </li>
                                     ))}
                                 </ul>

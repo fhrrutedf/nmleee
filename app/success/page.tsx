@@ -96,7 +96,7 @@ function SuccessContent() {
     return (
         <div className="min-h-screen bg-[#0A0A0A] py-12 md:py-24 selection:bg-emerald-700 text-white/20">
             <div className="max-w-5xl mx-auto px-6">
-                <div className="bg-[#0A0A0A] rounded-[2.5rem] shadow-lg shadow-[#10B981]/20 shadow-gray-200/50 overflow-hidden border border-gray-100 flex flex-col">
+                <div className="bg-[#0A0A0A] rounded-[2.5rem] shadow-lg shadow-[#10B981]/20 shadow-gray-200/50 overflow-hidden border border-white/10 flex flex-col">
 
                     {/* ===== CLEAN STRATEGIC HEADER ===== */}
                     {isPending && !isPaid ? (
@@ -129,12 +129,12 @@ function SuccessContent() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2">
                         {/* ===== ORDER SUMMARY RECEIPT ===== */}
-                        <div className="p-10 md:p-16 border-l border-gray-50 flex flex-col">
+                        <div className="p-10 md:p-16 border-l border-white/10 flex flex-col">
                             <h2 className="text-2xl font-bold text-[#10B981] mb-10 flex items-center gap-3">
                                 <span className="w-1.5 h-6 bg-emerald-700 text-white rounded-xl"></span> تفاصيل الفاتورة
                             </h2>
                             
-                            <div className="bg-[#111111] rounded-xl p-8 space-y-6 mb-10 border border-gray-100">
+                            <div className="bg-[#111111] rounded-xl p-8 space-y-6 mb-10 border border-white/10">
                                 <div className="flex justify-between items-center border-b border-emerald-500/20/50 pb-5">
                                     <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Order ID</span>
                                     <span className="font-bold text-[#10B981] font-mono text-sm">#{order.orderNumber}</span>
@@ -158,7 +158,7 @@ function SuccessContent() {
                             {/* Verification/Welcome Message */}
                             <div className="mb-12">
                                 {isPending && !isPaid ? (
-                                    <div className="flex gap-4 p-6 bg-[#111111] rounded-xl border border-gray-100 ring-4 ring-gray-50/50">
+                                    <div className="flex gap-4 p-6 bg-[#111111] rounded-xl border border-white/10 ring-4 ring-gray-50/50">
                                         <div className="w-10 h-10 bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 flex items-center justify-center text-[#10B981] shrink-0">
                                             <FiLock />
                                         </div>
@@ -230,7 +230,7 @@ function SuccessContent() {
                                             href={link.href}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="bg-[#0A0A0A] border border-gray-100 p-5 rounded-xl flex items-center justify-between group hover:border-emerald-600 hover:shadow-lg shadow-[#10B981]/20 hover:shadow-accent/5 transition-all"
+                                            className="bg-[#0A0A0A] border border-white/10 p-5 rounded-xl flex items-center justify-between group hover:border-emerald-600 hover:shadow-lg shadow-[#10B981]/20 hover:shadow-accent/5 transition-all"
                                         >
                                             <div className="flex items-center gap-4">
                                                 <div className="w-10 h-10 bg-[#111111] text-[#10B981] rounded-xl flex items-center justify-center group-hover:bg-emerald-700 text-white group-hover:text-white transition-all">
@@ -246,13 +246,13 @@ function SuccessContent() {
 
                             {/* High-End Upsell Section */}
                             {upsells.length > 0 && (
-                                <div className="mt-8 pt-10 border-t border-gray-100">
+                                <div className="mt-8 pt-10 border-t border-white/10">
                                     <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6 px-1">عروض حصرية لك</h3>
                                     <div className="space-y-4">
                                         {upsells.map((upsell) => (
-                                            <Link key={upsell.id} href={`/${upsell.id}`} className="bg-[#0A0A0A] border border-gray-100 p-4 rounded-xl flex items-center justify-between hover:border-emerald-600 group transition-all">
+                                            <Link key={upsell.id} href={`/${upsell.id}`} className="bg-[#0A0A0A] border border-white/10 p-4 rounded-xl flex items-center justify-between hover:border-emerald-600 group transition-all">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-14 h-14 bg-[#111111] rounded-xl overflow-hidden shrink-0 border border-gray-50">
+                                                    <div className="w-14 h-14 bg-[#111111] rounded-xl overflow-hidden shrink-0 border border-white/10">
                                                         {upsell.image ? (
                                                             <img src={upsell.image} alt={upsell.title} className="w-full h-full object-cover" />
                                                         ) : (

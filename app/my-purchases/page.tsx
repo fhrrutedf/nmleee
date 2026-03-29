@@ -136,7 +136,7 @@ export default function MyPurchasesPage() {
                                             ? 'bg-green-100 text-green-700'
                                             : purchase.status === 'pending'
                                                 ? 'bg-yellow-100 text-yellow-700'
-                                                : 'bg-emerald-800 text-gray-700'
+                                                : 'bg-emerald-800 text-gray-300'
                                             }`}>
                                             {purchase.status === 'completed' ? 'مكتمل' :
                                                 purchase.status === 'pending' ? 'قيد المعالجة' : 'ملغي'}

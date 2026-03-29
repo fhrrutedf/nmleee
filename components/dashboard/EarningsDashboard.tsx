@@ -70,9 +70,9 @@ function StatusBadge({ status }: { status: WithdrawalRecord['status'] }) {
         PROCESSING: { label: 'قيد التحويل',  cls: 'bg-emerald-700 text-white-50 text-blue-700 border border-blue-100' },
         PAID:       { label: 'تم الدفع',      cls: 'bg-emerald-700 text-white-light text-[#10B981] border border-emerald-600/10' },
         COMPLETED:  { label: 'مكتمل',         cls: 'bg-emerald-700 text-white-light text-[#10B981] border border-emerald-600/10' },
-        REJECTED:   { label: 'مرفوض',         cls: 'bg-red-50 text-red-700 border border-red-100' },
+        REJECTED:   { label: 'مرفوض',         cls: 'bg-red-500/10 text-red-700 border border-red-100' },
     };
-    const { label, cls } = map[status] || { label: status, cls: 'bg-[#111111] text-gray-400 border border-gray-100' };
+    const { label, cls } = map[status] || { label: status, cls: 'bg-[#111111] text-gray-400 border border-white/10' };
     return (
         <span className={`text-[10px] font-bold px-2.5 py-1 rounded-lg ${cls}`}>
             {label}
@@ -196,7 +196,7 @@ export default function EarningsDashboard() {
                         id="refresh-earnings-btn"
                         onClick={() => fetchData(true)}
                         disabled={refreshing}
-                        className="p-2.5 rounded-xl border border-gray-100 text-gray-500 hover:bg-[#111111] transition-colors"
+                        className="p-2.5 rounded-xl border border-white/10 text-gray-500 hover:bg-[#111111] transition-colors"
                         title="تحديث"
                     >
                         <FiRefreshCw className={refreshing ? 'animate-spin' : ''} />
@@ -261,7 +261,7 @@ export default function EarningsDashboard() {
             </div>
 
             {/* ── Tabs ───────────────────────────────────── */}
-            <div className="border-b border-gray-100">
+            <div className="border-b border-white/10">
                 <nav className="flex gap-2">
                     {([
                         { id: 'overview', label: 'نظرة عامة', icon: FiDollarSign },
@@ -357,7 +357,7 @@ function OverviewTab({ balance, minPayoutAmount }: { balance: BalanceSummary; mi
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Minimum payout progress */}
-            <div className="bg-[#0A0A0A] border border-gray-100 rounded-xl p-8 shadow-lg shadow-[#10B981]/20">
+            <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-8 shadow-lg shadow-[#10B981]/20">
                 <div className="flex items-center justify-between mb-6">
                     <h3 className="font-bold text-[#10B981]">الحد الأدنى للسحب</h3>
                     <span className={`text-sm font-bold font-inter ${reachedMin ? 'text-[#10B981]' : 'text-gray-400'}`}>
@@ -383,7 +383,7 @@ function OverviewTab({ balance, minPayoutAmount }: { balance: BalanceSummary; mi
             </div>
 
             {/* Financial summary */}
-            <div className="bg-[#0A0A0A] border border-gray-100 rounded-xl p-8 shadow-lg shadow-[#10B981]/20">
+            <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-8 shadow-lg shadow-[#10B981]/20">
                 <h3 className="font-bold text-[#10B981] mb-6">ملخص مالي</h3>
                 <div className="space-y-4">
                     {[
@@ -394,7 +394,7 @@ function OverviewTab({ balance, minPayoutAmount }: { balance: BalanceSummary; mi
                         { label: 'صافي قابل للسحب', val: balance.spendable, cls: 'text-[#10B981] font-bold text-lg' },
                         { label: 'أرباح الإحالات', val: balance.referralEarnings, cls: 'text-[#10B981]' },
                     ].map(row => (
-                        <div key={row.label} className="flex justify-between items-center py-2 border-b border-gray-50 last:border-0 last:pt-4 last:mt-2">
+                        <div key={row.label} className="flex justify-between items-center py-2 border-b border-white/10 last:border-0 last:pt-4 last:mt-2">
                             <span className="text-sm text-gray-500 font-medium">{row.label}</span>
                             <span className={`text-sm font-inter ${row.cls}`}>${fmt(row.val)}</span>
                         </div>
@@ -408,7 +408,7 @@ function OverviewTab({ balance, minPayoutAmount }: { balance: BalanceSummary; mi
 function ScheduleTab({ releases }: { releases: UpcomingRelease[] }) {
     if (releases.length === 0) {
         return (
-            <div className="bg-[#0A0A0A] border border-gray-100 rounded-xl p-16 shadow-lg shadow-[#10B981]/20 text-center">
+            <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-16 shadow-lg shadow-[#10B981]/20 text-center">
                 <FiCalendar className="mx-auto text-4xl mb-4 text-gray-100" />
                 <p className="text-gray-400 font-bold">لا توجد مبالغ معلقة قادمة</p>
             </div>
@@ -416,8 +416,8 @@ function ScheduleTab({ releases }: { releases: UpcomingRelease[] }) {
     }
 
     return (
-        <div className="bg-[#0A0A0A] border border-gray-100 rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20">
-            <div className="p-6 border-b border-gray-50">
+        <div className="bg-[#0A0A0A] border border-white/10 rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20">
+            <div className="p-6 border-b border-white/10">
                 <h3 className="font-bold text-[#10B981]">مواعيد الإفراج عن الأرباح المحجوزة</h3>
                 <p className="text-xs text-gray-400 mt-1">يتم الإفراج تلقائياً بعد فترة الحجز</p>
             </div>
@@ -452,7 +452,7 @@ function ScheduleTab({ releases }: { releases: UpcomingRelease[] }) {
 function HistoryTab({ withdrawals }: { withdrawals: WithdrawalRecord[] }) {
     if (withdrawals.length === 0) {
         return (
-            <div className="bg-[#0A0A0A] border border-gray-100 rounded-xl p-16 shadow-lg shadow-[#10B981]/20 text-center">
+            <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-16 shadow-lg shadow-[#10B981]/20 text-center">
                 <FiList className="mx-auto text-4xl mb-4 text-gray-100" />
                 <p className="text-gray-400 font-bold">لا توجد عمليات سحب بعد</p>
             </div>
@@ -460,10 +460,10 @@ function HistoryTab({ withdrawals }: { withdrawals: WithdrawalRecord[] }) {
     }
 
     return (
-        <div className="bg-[#0A0A0A] border border-gray-100 rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20">
+        <div className="bg-[#0A0A0A] border border-white/10 rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20">
             <div className="overflow-x-auto">
                 <table className="w-full text-sm">
-                    <thead className="bg-[#111111] border-b border-gray-100">
+                    <thead className="bg-[#111111] border-b border-white/10">
                         <tr>
                             <th className="text-right p-5 font-bold text-gray-500 uppercase tracking-widest text-[10px]">رقم الطلب</th>
                             <th className="text-right p-5 font-bold text-gray-500 uppercase tracking-widest text-[10px]">المبلغ</th>
@@ -547,7 +547,7 @@ function WithdrawModal({
                             step="0.01"
                             value={amount}
                             onChange={e => onAmountChange(e.target.value)}
-                            className="w-full pl-9 pr-4 py-4 border-2 border-gray-100 rounded-xl text-xl font-bold font-inter focus:outline-none focus:border-ink transition-all text-left"
+                            className="w-full pl-9 pr-4 py-4 border-2 border-white/10 rounded-xl text-xl font-bold font-inter focus:outline-none focus:border-ink transition-all text-left"
                             dir="ltr"
                             placeholder={`${minPayoutAmount}.00`}
                         />

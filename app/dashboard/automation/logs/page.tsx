@@ -74,11 +74,11 @@ export default function EmailLogsPage() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4">
                 {[
-                    { label: 'إجمالي', value: stats.total, color: 'text-gray-700' },
+                    { label: 'إجمالي', value: stats.total, color: 'text-gray-300' },
                     { label: 'مُرسَل', value: stats.sent, color: 'text-green-600' },
                     { label: 'فشل', value: stats.failed, color: 'text-red-600' },
                 ].map(stat => (
-                    <div key={stat.label} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 p-4 text-center">
+                    <div key={stat.label} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-white/10 dark:border-gray-800 p-4 text-center">
                         <p className={`text-3xl font-bold ${stat.color}`}>{stat.value}</p>
                         <p className="text-text-muted text-sm">{stat.label}</p>
                     </div>
@@ -96,7 +96,7 @@ export default function EmailLogsPage() {
             </div>
 
             {/* Logs Table */}
-            <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden">
+            <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-white/10 dark:border-gray-800 overflow-hidden">
                 {loading ? (
                     <div className="flex items-center justify-center h-32">
                         <div className="w-6 h-6 border-4 border-emerald-600 border-t-transparent rounded-xl animate-spin" />
@@ -121,7 +121,7 @@ export default function EmailLogsPage() {
                             </thead>
                             <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                                 {filtered.map(log => {
-                                    const typeInfo = TYPE_LABELS[log.type] || { label: log.type, color: 'bg-emerald-800 text-gray-700' };
+                                    const typeInfo = TYPE_LABELS[log.type] || { label: log.type, color: 'bg-emerald-800 text-gray-300' };
                                     return (
                                         <tr key={log.id} className="hover:bg-[#111111] dark:hover:bg-gray-800/30 transition-colors">
                                             <td className="px-4 py-3">

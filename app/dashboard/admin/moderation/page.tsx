@@ -121,7 +121,7 @@ export default function CourseModerationPage() {
             ) : (
                 <div className="card overflow-x-auto">
                     <table className="w-full text-right whitespace-nowrap">
-                        <thead className="border-b border-gray-100 dark:border-gray-800 text-sm">
+                        <thead className="border-b border-white/10 dark:border-gray-800 text-sm">
                             <tr>
                                 <th className="px-5 py-4 font-semibold text-gray-500">اسم الكورس</th>
                                 <th className="px-5 py-4 font-semibold text-gray-500">المدرب</th>
@@ -181,7 +181,7 @@ export default function CourseModerationPage() {
                                                 }}
                                                 disabled={processingId === course.id}
                                                 title="رفض"
-                                                className="w-8 h-8 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition-colors disabled:opacity-50"
+                                                className="w-8 h-8 flex items-center justify-center rounded-xl bg-red-500/100/10 text-red-600 hover:bg-red-100 transition-colors disabled:opacity-50"
                                             >
                                                 <FiX className="w-4 h-4" />
                                             </button>

@@ -409,7 +409,7 @@ export default function BillingPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
-                    className="mt-8 bg-[#0A0A0A] dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 p-8 text-center"
+                    className="mt-8 bg-[#0A0A0A] dark:bg-gray-900 rounded-xl border border-white/10 dark:border-gray-800 p-8 text-center"
                 >
                     <div className="text-4xl mb-3">🤝</div>
                     <h3 className="text-2xl font-bold text-[#10B981] dark:text-white mb-2">
@@ -438,11 +438,11 @@ export default function BillingPage() {
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="mt-8 overflow-x-auto rounded-xl border border-gray-100 dark:border-gray-800 bg-[#0A0A0A] dark:bg-gray-900 shadow-lg shadow-[#10B981]/20"
+                        className="mt-8 overflow-x-auto rounded-xl border border-white/10 dark:border-gray-800 bg-[#0A0A0A] dark:bg-gray-900 shadow-lg shadow-[#10B981]/20"
                     >
                         <table className="w-full text-sm">
                             <thead>
-                                <tr className="border-b border-gray-100 dark:border-gray-800">
+                                <tr className="border-b border-white/10 dark:border-gray-800">
                                     <th className="text-right p-4 font-bold text-[#10B981] dark:text-white w-40">الميزة</th>
                                     {['انطلاقة', 'رواد', 'تميز', 'مؤسسات'].map(name => (
                                         <th key={name} className="p-4 font-bold text-[#10B981] dark:text-white text-center">{name}</th>
@@ -451,7 +451,7 @@ export default function BillingPage() {
                             </thead>
                             <tbody>
                                 {comparisonFeatures.map((row, i) => (
-                                    <tr key={i} className={`border-b border-gray-50 dark:border-gray-800/50 ${i % 2 === 0 ? 'bg-[#111111]/50 dark:bg-gray-800/20' : ''}`}>
+                                    <tr key={i} className={`border-b border-white/10 dark:border-gray-800/50 ${i % 2 === 0 ? 'bg-[#111111]/50 dark:bg-gray-800/20' : ''}`}>
                                         <td className="p-4 font-medium text-[#10B981] dark:text-gray-300">{row.feature}</td>
                                         {[row.free, row.starter, row.pro, row.enterprise].map((val, j) => (
                                             <td key={j} className="p-4 text-center">
@@ -484,7 +484,7 @@ export default function BillingPage() {
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.05 }}
-                            className="border-b border-gray-100 dark:border-gray-800 py-6"
+                            className="border-b border-white/10 dark:border-gray-800 py-6"
                         >
                             <h4 className="font-bold text-[#10B981] dark:text-white mb-2">{faq.q}</h4>
                             <p className="text-text-muted text-sm leading-relaxed">{faq.a}</p>

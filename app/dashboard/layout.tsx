@@ -56,7 +56,7 @@ export default function DashboardLayout({
         return (
             <div className="min-h-[100dvh] flex items-center justify-center bg-[#0A0A0A]">
                 <div className="text-center">
-                    <div className="animate-spin rounded-xl h-10 w-10 border-2 border-gray-100 border-t-accent mx-auto"></div>
+                    <div className="animate-spin rounded-xl h-10 w-10 border-2 border-white/10 border-t-accent mx-auto"></div>
                 </div>
             </div>
         );
@@ -100,11 +100,11 @@ export default function DashboardLayout({
     );
 
     return (
-        <div className="min-h-screen bg-[#0A0A0A] transition-colors duration-300 relative selection:bg-emerald-700 text-white/20">
+        <div className="min-h-screen bg-[#0A0A0A] transition-colors duration-300 relative selection:bg-emerald-700 text-white">
             {sidebarOpen && (
                 <motion.div
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    className="fixed inset-0 bg-emerald-700 text-white/60  z-40 lg:hidden"
+                    className="fixed inset-0 bg-black/60  z-40 lg:hidden"
                     onClick={() => setSidebarOpen(false)}
                 />
             )}
@@ -115,7 +115,7 @@ export default function DashboardLayout({
                     <>
                         <motion.div
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-emerald-700 text-white/60  z-[60] lg:hidden"
+                            className="fixed inset-0 bg-black/60  z-[60] lg:hidden"
                             onClick={() => setSidebarOpen(false)}
                         />
                         <motion.aside
@@ -123,7 +123,7 @@ export default function DashboardLayout({
                             transition={{ type: "spring", damping: 30, stiffness: 300 }}
                             className="fixed inset-y-0 right-0 w-72 bg-[#0A0A0A] z-[70] lg:hidden flex flex-col shadow-lg shadow-[#10B981]/20"
                         >
-                            <div className="p-8 border-b border-gray-100 flex items-center justify-between">
+                            <div className="p-8 border-b border-white/10 flex items-center justify-between">
                                 <div className="flex items-center gap-3">
                                     <div className="w-8 h-8 rounded-lg bg-emerald-700 text-white flex items-center justify-center font-bold text-sm">ت</div>
                                     <span className="font-bold text-[#10B981]">تمالين</span>
@@ -140,19 +140,19 @@ export default function DashboardLayout({
                                     const active = isActive || isHome;
                                     return (
                                         <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
-                                            className={`flex items-center gap-4 px-5 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 shadow-ink/20' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
-                                            <item.icon size={18} className={`${active ? 'text-[#10B981]' : 'group-hover:text-[#10B981]'}`} />
+                                            className={`flex items-center gap-4 px-5 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 shadow-black/20' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                            <item.icon size={18} className={`${active ? 'text-white' : 'group-hover:text-[#10B981]'}`} />
                                             <span className="text-xs font-bold tracking-tight flex-1 text-right">{item.label}</span>
                                         </Link>
                                     );
                                 })}
                             </nav>
 
-                            <div className="p-6 border-t border-gray-100 bg-[#111111]/50 space-y-2">
-                                <Link href="/explore" className="flex items-center gap-3 px-5 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                            <div className="p-6 border-t border-white/10 bg-[#111111]/50 space-y-2">
+                                <Link href="/explore" className="flex items-center gap-3 px-5 py-3 text-[10px] font-bold text-gray-400 hover:text-white uppercase tracking-widest transition-colors">
                                     <FiGlobe size={16}/> <span>Marketplace</span>
                                 </Link>
-                                <button onClick={() => signOut({ callbackUrl: '/' })} className="flex items-center gap-3 px-5 py-3 text-[10px] font-bold text-red-400 uppercase tracking-widest">
+                                <button onClick={() => signOut({ callbackUrl: '/' })} className="flex items-center gap-3 px-5 py-3 text-[10px] font-bold text-red-400 hover:text-red-300 uppercase tracking-widest transition-colors">
                                     <FiLogOut size={16}/> <span>End Session</span>
                                 </button>
                             </div>
@@ -162,21 +162,21 @@ export default function DashboardLayout({
             </AnimatePresence>
 
             {/* Desktop Sidebar - Institutional Grade */}
-            <aside className="hidden lg:flex fixed inset-y-0 right-0 bg-[#0A0A0A] border-l border-gray-100 z-50 w-72 flex-col">
+            <aside className="hidden lg:flex fixed inset-y-0 right-0 bg-[#0A0A0A] border-l border-white/10 z-50 w-72 flex-col">
                 <div className="p-10">
                     <div className="flex items-center gap-3 mb-10">
-                         <div className="w-10 h-10 rounded-xl bg-emerald-700 text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-[#10B981]/20 shadow-ink/20">ت</div>
+                         <div className="w-10 h-10 rounded-xl bg-emerald-700 text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-[#10B981]/20 shadow-black/20">ت</div>
                          <h1 className="text-xl font-bold text-[#10B981] tracking-tighter">تمالين</h1>
                     </div>
                     
-                    <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em] mb-4 bg-[#111111] px-3 py-1.5 rounded-lg inline-block">{session.user?.name}</p>
+                    <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em] mb-4 bg-[#111111] px-3 py-1.5 rounded-lg inline-block border border-white/5">{session.user?.name}</p>
                     
                     {/* Professional Workspace Switcher */}
-                    <div className="bg-[#111111] p-1 rounded-[1.25rem] border border-gray-100 flex">
-                        <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all ${workspace === 'store' ? 'bg-[#0A0A0A] text-[#10B981] shadow-lg shadow-[#10B981]/20 shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-[#10B981]'}`}>
+                    <div className="bg-[#111111] p-1 rounded-[1.25rem] border border-white/10 flex">
+                        <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all ${workspace === 'store' ? 'bg-[#0A0A0A] text-[#10B981] shadow-lg shadow-[#10B981]/20 shadow-black/5 outline outline-1 outline-white/10' : 'text-gray-400 hover:text-[#10B981]'}`}>
                              المتجر
                         </button>
-                        <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all ${workspace === 'academy' ? 'bg-[#0A0A0A] text-[#10B981] shadow-lg shadow-[#10B981]/20 shadow-black/5 outline outline-1 outline-gray-100' : 'text-gray-400 hover:text-[#10B981]'}`}>
+                        <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all ${workspace === 'academy' ? 'bg-[#0A0A0A] text-[#10B981] shadow-lg shadow-[#10B981]/20 shadow-black/5 outline outline-1 outline-white/10' : 'text-gray-400 hover:text-[#10B981]'}`}>
                              الأكاديمية
                         </button>
                     </div>
@@ -189,27 +189,27 @@ export default function DashboardLayout({
                         const active = isActive || isHome;
                         return (
                             <Link key={item.href} href={item.href}
-                                className={`flex items-center gap-4 px-6 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 shadow-ink/20 transform -translate-y-0.5' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
-                                <item.icon size={18} className={`transition-transform duration-500 ${active ? 'text-[#10B981]' : 'group-hover:scale-110 group-hover:text-[#10B981]'}`} />
+                                className={`flex items-center gap-4 px-6 py-4 rounded-xl transition-all duration-300 group w-full ${active ? 'bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 shadow-black/20 transform -translate-y-0.5' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                <item.icon size={18} className={`transition-transform duration-500 ${active ? 'text-white' : 'group-hover:scale-110 group-hover:text-[#10B981]'}`} />
                                 <span className={`text-xs font-bold tracking-tight flex-1 text-right ${active ? 'text-white' : ''}`}>{item.label}</span>
                             </Link>
                         );
                     })}
                 </nav>
 
-                <div className="p-6 border-t border-gray-50 bg-[#111111]/20 space-y-2">
-                    <Link href="/explore" target="_blank" className="flex items-center gap-4 px-6 py-4 rounded-xl text-gray-400 hover:bg-[#0A0A0A] hover:text-[#10B981] border border-transparent hover:border-gray-100 transition-all text-[10px] font-bold uppercase tracking-widest">
+                <div className="p-6 border-t border-white/5 bg-[#111111]/20 space-y-2">
+                    <Link href="/explore" target="_blank" className="flex items-center gap-4 px-6 py-4 rounded-xl text-gray-400 hover:bg-[#0A0A0A] hover:text-[#10B981] border border-transparent hover:border-white/10 transition-all text-[10px] font-bold uppercase tracking-widest">
                         <FiGlobe size={18} /><span>Marketplace</span>
                     </Link>
-                    <button onClick={() => signOut({ callbackUrl: '/' })} className="flex items-center gap-4 px-6 py-4 rounded-xl text-red-400 hover:bg-red-50 hover:text-red-600 transition-all text-[10px] font-bold uppercase tracking-widest">
+                    <button onClick={() => signOut({ callbackUrl: '/' })} className="flex items-center gap-4 px-6 py-4 rounded-xl text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all text-[10px] font-bold uppercase tracking-widest">
                         <FiLogOut size={18} /><span>End Session</span>
                     </button>
                 </div>
             </aside>
 
             {/* Main Operational Surface */}
-            <div className="lg:mr-72 min-h-screen relative flex flex-col min-w-0">
-                <header className="bg-white/90  border-b border-gray-50 sticky top-0 z-30 w-full transition-all">
+            <div className="lg:mr-72 min-h-screen relative flex flex-col min-w-0 bg-[#0A0A0A]">
+                <header className="bg-black/80 backdrop-blur-md border-b border-white/10 sticky top-0 z-30 w-full transition-all">
                     <div className="px-8 h-20 flex items-center justify-between">
                         <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-[#10B981] p-3 bg-[#111111] rounded-xl hover:bg-emerald-800">
                             <FiMenu size={22} />
@@ -220,7 +220,7 @@ export default function DashboardLayout({
                             <Link
                                 href={`/${(session.user as any)?.username}`}
                                 target="_blank"
-                                className="hidden sm:flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-[#10B981] px-6 py-3 border border-gray-100 rounded-xl transition-all bg-[#0A0A0A] hover:shadow-lg shadow-[#10B981]/20 hover:shadow-gray-100/50"
+                                className="hidden sm:flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-white px-6 py-3 border border-white/10 rounded-xl transition-all bg-[#111111] hover:shadow-lg hover:shadow-[#10B981]/10"
                             >
                                 <FiExternalLink size={14} className="text-[#10B981]" />
                                 <span>Preview Store</span>
@@ -229,7 +229,7 @@ export default function DashboardLayout({
                     </div>
                 </header>
 
-                <main className="flex-1 p-6 sm:p-12 w-full max-w-7xl mx-auto overflow-x-hidden animate-in fade-in slide-in-from-bottom-2 duration-500">
+                <main className="flex-1 p-6 sm:p-12 w-full max-w-7xl mx-auto overflow-x-hidden animate-in fade-in slide-in-from-bottom-2 duration-500 bg-[#0A0A0A]">
                     {children}
                 </main>
             </div>

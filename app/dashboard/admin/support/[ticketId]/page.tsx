@@ -104,8 +104,8 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
             case 'OPEN': return { label: 'مفتوحة (قيد الانتظار)', css: 'bg-yellow-100 text-yellow-700' };
             case 'IN_PROGRESS': return { label: 'جاري العمل عليها', css: 'bg-blue-100 text-blue-700' };
             case 'RESOLVED': return { label: 'تم الحل', css: 'bg-green-100 text-green-700' };
-            case 'CLOSED': return { label: 'مغلقة', css: 'bg-gray-200 text-gray-700' };
-            default: return { label: status, css: 'bg-emerald-800 text-gray-700' };
+            case 'CLOSED': return { label: 'مغلقة', css: 'bg-gray-200 text-gray-300' };
+            default: return { label: status, css: 'bg-emerald-800 text-gray-300' };
         }
     };
 
@@ -117,10 +117,10 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                 <FiArrowRight /> العودة لقائمة التذاكر (المشرف)
             </Link>
 
-            <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row overflow-hidden">
+            <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 flex flex-col md:flex-row overflow-hidden">
 
                 {/* User Info Sidebar */}
-                <div className="w-full md:w-1/3 border-b md:border-b-0 md:border-l border-gray-100 dark:border-gray-800 bg-[#111111] dark:bg-gray-900/50 p-6 flex flex-col justify-between">
+                <div className="w-full md:w-1/3 border-b md:border-b-0 md:border-l border-white/10 dark:border-gray-800 bg-[#111111] dark:bg-gray-900/50 p-6 flex flex-col justify-between">
                     <div>
                         <h3 className="font-bold text-gray-500 mb-4 whitespace-nowrap overflow-hidden text-ellipsis">معلومات صاحب التذكرة</h3>
                         <div className="flex items-center gap-3 mb-6">
@@ -166,7 +166,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                 </button>
                             )}
                             {ticket.status !== 'CLOSED' && (
-                                <button disabled={statusUpdating} onClick={() => changeStatus('CLOSED')} className="btn btn-accent w-full py-2 bg-[#0A0A0A] dark:bg-gray-800 text-gray-700 hover:bg-emerald-800 border-gray-300">
+                                <button disabled={statusUpdating} onClick={() => changeStatus('CLOSED')} className="btn btn-accent w-full py-2 bg-[#0A0A0A] dark:bg-gray-800 text-gray-300 hover:bg-emerald-800 border-gray-300">
                                     إغلاق نهائي
                                 </button>
                             )}
@@ -195,7 +195,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isAdmin ? 'bg-emerald-700 text-white' : 'bg-gray-200 dark:bg-gray-800 text-gray-500'}`}>
                                             {isAdmin ? <FiInfo /> : <FiUser />}
                                         </div>
-                                        <div className={`max-w-[85%] rounded-xl p-5 ${isAdmin ? 'bg-emerald-700 text-white/10 dark:bg-emerald-700 text-white/20 text-[#10B981] border border-emerald-600/20 rounded-tl-none' : 'bg-[#111111] dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none'}`}>
+                                        <div className={`max-w-[85%] rounded-xl p-5 ${isAdmin ? 'bg-emerald-700 text-white/10 dark:bg-emerald-700 text-white/20 text-[#10B981] border border-emerald-600/20 rounded-tl-none' : 'bg-[#111111] dark:bg-gray-900 border border-white/10 dark:border-gray-800 rounded-tr-none'}`}>
                                             <div className="flex items-center gap-2 mb-2">
                                                 <span className={`font-bold text-sm ${isAdmin ? 'text-[#10B981]' : 'text-[#10B981] dark:text-white'}`}>
                                                     {isAdmin ? 'أنت (فريق الدعم)' : 'المستخدم'}
@@ -204,7 +204,7 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                                                     {new Date(msg.createdAt).toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })}
                                                 </span>
                                             </div>
-                                            <p className={`whitespace-pre-wrap leading-relaxed ${isAdmin ? 'text-gray-800 dark:text-gray-200 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>
+                                            <p className={`whitespace-pre-wrap leading-relaxed ${isAdmin ? 'text-gray-800 dark:text-gray-200 font-medium' : 'text-gray-300 dark:text-gray-300'}`}>
                                                 {msg.message}
                                             </p>
                                         </div>
@@ -223,8 +223,8 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
                             <button onClick={() => changeStatus('IN_PROGRESS')} className="mt-4 text-xs font-bold underline hover:text-green-800">إعادة الفتح؟</button>
                         </div>
                     ) : (
-                        <form onSubmit={(e) => handleReply(e, false)} className="relative mt-auto border-t border-gray-100 dark:border-gray-800 pt-6">
-                            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">رد الدعم الفني</label>
+                        <form onSubmit={(e) => handleReply(e, false)} className="relative mt-auto border-t border-white/10 dark:border-gray-800 pt-6">
+                            <label className="block text-sm font-bold text-gray-300 dark:text-gray-300 mb-2">رد الدعم الفني</label>
                             <textarea
                                 rows={4}
                                 className="input w-full pr-14 resize-none rounded-xl focus:ring-2 focus:ring-accent bg-[#111111] dark:bg-gray-900"

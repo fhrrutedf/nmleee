@@ -94,7 +94,7 @@ export default function CoursesPage() {
 
             {/* High-Contrast Corporate Stats */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-[#0A0A0A] p-8 rounded-[2rem] border border-gray-100 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group">
+                <div className="bg-[#0A0A0A] p-8 rounded-[2rem] border border-white/10 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-700 text-white/5 rounded-bl-[60px] pointer-events-none"></div>
                     <div className="flex items-center justify-between relative z-10">
                         <div>
@@ -107,7 +107,7 @@ export default function CoursesPage() {
                     </div>
                 </div>
 
-                <div className="bg-[#0A0A0A] p-8 rounded-[2rem] border border-gray-100 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group">
+                <div className="bg-[#0A0A0A] p-8 rounded-[2rem] border border-white/10 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-green-500/5 rounded-bl-[60px] pointer-events-none"></div>
                     <div className="flex items-center justify-between relative z-10">
                         <div>
@@ -120,7 +120,7 @@ export default function CoursesPage() {
                     </div>
                 </div>
 
-                <div className="bg-[#0A0A0A] p-8 rounded-[2rem] border border-gray-100 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group">
+                <div className="bg-[#0A0A0A] p-8 rounded-[2rem] border border-white/10 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-[#111111] rounded-bl-[60px] pointer-events-none"></div>
                     <div className="flex items-center justify-between relative z-10">
                         <div>
@@ -133,7 +133,7 @@ export default function CoursesPage() {
                     </div>
                 </div>
 
-                <div className="bg-[#0A0A0A] p-8 rounded-[2rem] border border-gray-100 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group">
+                <div className="bg-[#0A0A0A] p-8 rounded-[2rem] border border-white/10 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-700 text-white/5 rounded-bl-[60px] pointer-events-none"></div>
                     <div className="flex items-center justify-between relative z-10">
                         <div>
@@ -148,7 +148,7 @@ export default function CoursesPage() {
             </div>
 
             {/* Search and Filter */}
-            <div className="card bg-[#0A0A0A] dark:bg-gray-800 p-4 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-700">
+            <div className="card bg-[#0A0A0A] dark:bg-gray-800 p-4 shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-700">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="relative">
                         <FiSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -181,7 +181,7 @@ export default function CoursesPage() {
                     <div className="animate-spin rounded-xl h-12 w-12 border-4 border-emerald-600 border-t-transparent mx-auto"></div>
                 </div>
             ) : filteredCourses.length === 0 ? (
-                <div className="card text-center py-16 px-6 border-2 border-dashed border-gray-100 dark:border-gray-800 bg-[#111111]/50 dark:bg-gray-800/20">
+                <div className="card text-center py-16 px-6 border-2 border-dashed border-white/10 dark:border-gray-800 bg-[#111111]/50 dark:bg-gray-800/20">
                     <div className="w-20 h-20 bg-emerald-800 dark:bg-gray-700 rounded-xl flex items-center justify-center mx-auto mb-6">
                         <FiVideo className="text-4xl text-gray-400" />
                     </div>
@@ -206,7 +206,7 @@ export default function CoursesPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: idx * 0.1 }}
-                            className="card group hover:shadow-lg shadow-[#10B981]/20 hover:-translate-y-1 transition-all duration-300 flex flex-col bg-card-white dark:bg-card-white border border-gray-100 dark:border-gray-800"
+                            className="card group hover:shadow-lg shadow-[#10B981]/20 hover:-translate-y-1 transition-all duration-300 flex flex-col bg-card-white dark:bg-card-white border border-white/10 dark:border-gray-800"
                         >
                             {/* صورة الدورة */}
                             <div className="relative h-48 overflow-hidden rounded-lg mb-4 bg-emerald-800 dark:bg-gray-800">
@@ -240,7 +240,7 @@ export default function CoursesPage() {
                             </div>
 
                             {/* تفاصيل */}
-                            <div className="flex items-center gap-4 text-sm text-text-muted mb-4 pb-4 border-b border-gray-100 dark:border-gray-800">
+                            <div className="flex items-center gap-4 text-sm text-text-muted mb-4 pb-4 border-b border-white/10 dark:border-gray-800">
                                 {course.duration && (
                                     <div className="flex items-center gap-1.5">
                                         <FiCalendar />
@@ -282,7 +282,7 @@ export default function CoursesPage() {
                                     </button>
                                     <button
                                         onClick={() => deleteCourse(course.id)}
-                                        className="col-span-1 btn p-0 flex items-center justify-center text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                                        className="col-span-1 btn p-0 flex items-center justify-center text-red-500 hover:bg-red-500/100/10 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                                         title="حذف"
                                     >
                                         <FiTrash2 className="text-lg" />

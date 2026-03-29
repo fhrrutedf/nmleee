@@ -117,7 +117,7 @@ export default function CommentSection({ lessonId, comments: initialComments, on
                             <h4 className="font-semibold text-white">{comment.authorName}</h4>
                             <span className="text-xs text-gray-500">{formatDate(comment.createdAt)}</span>
                         </div>
-                        <p className="text-gray-700">{comment.content}</p>
+                        <p className="text-gray-300">{comment.content}</p>
                     </div>
 
                     {/* Actions */}

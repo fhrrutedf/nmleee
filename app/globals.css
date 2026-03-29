@@ -4,13 +4,13 @@
 
 @layer base {
   :root {
-    /* ══ Tmleen Brand System v4.0 Elite Emerald ══ */
+    /* ══ Tmleen Brand System v4.2 Elite Emerald ══ */
     --ink: #0A0A0A;
     --accent: #10B981;
     --accent-hover: #064e3b;
-    --surface: #FFFFFF;
-    --subtle: #F9FAFB;
-    --muted: #6B7280;
+    --surface: #0A0A0A;
+    --subtle: #111111;
+    --muted: #A3A3A3;
     --border: rgba(255, 255, 255, 0.1);
 
     /* Backward-compatible tokens */
@@ -19,7 +19,7 @@
     --action-secondary: #064e3b;
     --bg-light: #0A0A0A;
     --card-white: #111111;
-    --text-muted: #6B7280;
+    --text-muted: #A3A3A3;
   }
 
   .dark {
@@ -79,11 +79,11 @@
   }
 
   .btn-primary {
-    background: #FFFFFF;
-    color: #0A0A0A;
+    background: #10B981;
+    color: #FFFFFF;
   }
   .btn-primary:hover {
-    @apply bg-gray-100 shadow-xl;
+    @apply bg-emerald-500 shadow-glow;
     transform: translateY(-1px);
   }
 

@@ -9,7 +9,7 @@ export default function TermsPage() {
             </section>
 
             <section className="py-16">
-                <div className="max-w-4xl mx-auto px-4 prose prose-lg text-gray-700">
+                <div className="max-w-4xl mx-auto px-4 prose prose-lg text-gray-300">
                     <h2 className="text-2xl font-bold text-[#10B981] mb-4">1. مقدمة</h2>
                     <p className="mb-6">
                         مرحباً بك في منصة تمكين. باستخدامك للمنصة، فإنك توافق على الالتزام بشروط الاستخدام هذه وكافة القوانين واللوائح المعمول بها.

@@ -102,7 +102,7 @@ export default function AdminBroadcastPage() {
             case 'COMPLETED': return 'bg-green-100 text-green-700 border-green-200';
             case 'FAILED': return 'bg-red-100 text-red-700 border-red-200';
             case 'CANCELLED': return 'bg-emerald-800 text-gray-500 border-gray-300 line-through';
-            default: return 'bg-emerald-800 text-gray-700 border-emerald-500/20';
+            default: return 'bg-emerald-800 text-gray-300 border-emerald-500/20';
         }
     };
 
@@ -141,9 +141,9 @@ export default function AdminBroadcastPage() {
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 overflow-hidden"
+                        className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 overflow-hidden"
                     >
-                        <div className="p-8 border-b border-gray-50 flex items-center justify-between">
+                        <div className="p-8 border-b border-white/10 flex items-center justify-between">
                             <h2 className="text-xl font-bold flex items-center gap-2">
                                 <FiSend className="text-[#10B981]" /> إنشاء بث جديد
                             </h2>
@@ -153,7 +153,7 @@ export default function AdminBroadcastPage() {
                         <form onSubmit={handleCreateBroadcast} className="p-8 space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <label className="text-sm font-bold text-gray-700">المستهدفين (Audience)</label>
+                                    <label className="text-sm font-bold text-gray-300">المستهدفين (Audience)</label>
                                     <div className="relative">
                                         <select 
                                             className="w-full bg-[#111111] border border-emerald-500/20 rounded-xl px-5 py-4 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all appearance-none"
@@ -170,7 +170,7 @@ export default function AdminBroadcastPage() {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-sm font-bold text-gray-700">توقيت الإرسال (Scheduling)</label>
+                                    <label className="text-sm font-bold text-gray-300">توقيت الإرسال (Scheduling)</label>
                                     <div className="relative">
                                         <input 
                                             type="datetime-local" 
@@ -186,7 +186,7 @@ export default function AdminBroadcastPage() {
                             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
                                 <div className="space-y-6">
                                     <div className="space-y-2">
-                                        <label className="text-sm font-bold text-gray-700">عنوان الرسالة (Subject)</label>
+                                        <label className="text-sm font-bold text-gray-300">عنوان الرسالة (Subject)</label>
                                         <input 
                                             type="text" 
                                             placeholder="مثال: تحديث شروط الاستخدام الجديدة..."
@@ -197,7 +197,7 @@ export default function AdminBroadcastPage() {
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label className="text-sm font-bold text-gray-700">نص الرسالة (Content)</label>
+                                        <label className="text-sm font-bold text-gray-300">نص الرسالة (Content)</label>
                                         <textarea 
                                             rows={12}
                                             placeholder="اكتب رسالتك لجميع المستخدمين هنا..."
@@ -310,8 +310,8 @@ export default function AdminBroadcastPage() {
                     </div>
 
                     {/* Job Log */}
-                    <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 overflow-hidden">
-                        <div className="p-6 border-b border-gray-50 bg-[#111111]/50">
+                    <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 overflow-hidden">
+                        <div className="p-6 border-b border-white/10 bg-[#111111]/50">
                             <h3 className="font-bold flex items-center gap-2">
                                 <FiClock className="text-red-500" /> سجل العمليات الأخيرة
                             </h3>
@@ -333,7 +333,7 @@ export default function AdminBroadcastPage() {
                                                 {job.status === 'SENDING' && (
                                                     <button 
                                                         onClick={() => handleCancelJob(job.id)}
-                                                        className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-all"
+                                                        className="p-1.5 text-red-500 hover:bg-red-500/100/10 rounded-lg transition-all"
                                                         title="إيقاف طوارئ"
                                                     >
                                                         <FiSlash size={14} />

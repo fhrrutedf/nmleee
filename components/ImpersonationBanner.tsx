@@ -24,7 +24,7 @@ export default function ImpersonationBanner() {
                 
                 <button
                     onClick={() => signOut({ callbackUrl: '/dashboard/admin/users' })}
-                    className="flex items-center gap-1.5 bg-[#0A0A0A] text-red-600 px-3 py-1 rounded-lg text-xs font-bold hover:bg-red-50 transition-colors uppercase tracking-tight"
+                    className="flex items-center gap-1.5 bg-[#0A0A0A] text-red-600 px-3 py-1 rounded-lg text-xs font-bold hover:bg-red-500/10 transition-colors uppercase tracking-tight"
                 >
                     <FiLogOut size={14} />
                     إنهاء الجلسة

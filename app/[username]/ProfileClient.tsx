@@ -188,7 +188,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                         <div className="relative">
                                             <button
                                                 onClick={handleShare}
-                                                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-800 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold text-sm transition-all"
+                                                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-800 dark:bg-gray-800 text-gray-300 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold text-sm transition-all"
                                             >
                                                 <FiShare2 size={15} /> مشاركة
                                             </button>
@@ -198,7 +198,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                         initial={{ opacity: 0, scale: 0.95, y: 8 }}
                                                         animate={{ opacity: 1, scale: 1, y: 0 }}
                                                         exit={{ opacity: 0, scale: 0.95, y: 8 }}
-                                                        className="absolute left-0 top-full mt-2 w-52 bg-[#0A0A0A] dark:bg-gray-800 rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-700 p-2 z-50"
+                                                        className="absolute left-0 top-full mt-2 w-52 bg-[#0A0A0A] dark:bg-gray-800 rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-700 p-2 z-50"
                                                     >
                                                         <button onClick={copyLink} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-[#111111] dark:hover:bg-gray-700 text-right transition-colors">
                                                             <FiCopy className="text-gray-400" /> نسخ رابط المتجر
@@ -239,7 +239,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                         </div>
 
                         {/* ─── Stats Bar ─── */}
-                        <div className="grid grid-cols-3 gap-3 mt-8 pt-8 border-t border-gray-100 dark:border-gray-800">
+                        <div className="grid grid-cols-3 gap-3 mt-8 pt-8 border-t border-white/10 dark:border-gray-800">
                             {[
                                 { icon: <FiPackage />, value: products.length, label: 'منتج متاح' },
                                 { icon: <FiUsers />, value: (totalSold + 100), label: 'طالب سعيد' }, // Social proof boost
@@ -280,7 +280,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                 : `/product/${featuredProduct.id}`;
                             return brandColor ? `${base}?brand=${encodeURIComponent(brandColor)}` : base;
                         })()}>
-                            <div className="group relative rounded-xl overflow-hidden bg-[#0A0A0A] dark:bg-gray-900 shadow-lg shadow-[#10B981]/20 hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 border border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row h-auto sm:h-64">
+                            <div className="group relative rounded-xl overflow-hidden bg-[#0A0A0A] dark:bg-gray-900 shadow-lg shadow-[#10B981]/20 hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 border border-white/10 dark:border-gray-800 flex flex-col sm:flex-row h-auto sm:h-64">
 
                                 {/* Image */}
                                 <div className="relative w-full sm:w-80 h-52 sm:h-full flex-shrink-0 overflow-hidden">
@@ -407,7 +407,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                         >
                             {filteredProducts.length === 0 ? (
                                 <div className="text-center py-20">
-                                    <FiSearch className="text-5xl text-gray-300 dark:text-gray-700 mx-auto mb-4" />
+                                    <FiSearch className="text-5xl text-gray-300 dark:text-gray-300 mx-auto mb-4" />
                                     <p className="text-gray-500 font-semibold">لا توجد نتائج</p>
                                     {search && <button onClick={() => setSearch('')} className="mt-2 text-sm font-bold" style={{ color: brandColor }}>مسح البحث</button>}
                                 </div>
@@ -425,7 +425,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                     const base = product.category === 'courses' ? `/courses/${product.slug || product.id}` : `/product/${product.id}`;
                                                     return brandColor ? `${base}?brand=${encodeURIComponent(brandColor)}` : base;
                                                 })()}
-                                                className="group block bg-[#0A0A0A] dark:bg-gray-900 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 hover:border-emerald-500/20 dark:hover:border-gray-700 hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 h-full">
+                                                className="group block bg-[#0A0A0A] dark:bg-gray-900 rounded-xl overflow-hidden border border-white/10 dark:border-gray-800 hover:border-emerald-500/20 dark:hover:border-gray-700 hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 h-full">
 
                                                 {/* Image */}
                                                 <div className="relative aspect-video overflow-hidden bg-emerald-800 dark:bg-gray-800">
@@ -467,7 +467,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                                             {stripHtml(product.description)}
                                                         </p>
                                                     )}
-                                                    <div className="flex items-center justify-between pt-4 border-t border-gray-100/50 dark:border-gray-800/50">
+                                                    <div className="flex items-center justify-between pt-4 border-t border-white/10/50 dark:border-gray-800/50">
                                                         <div className="flex flex-col">
                                                             <span className="text-xs font-bold" style={{ color: brandColor }}>
                                                                 {product.isFree || product.price === 0 ? 'مجاني بالكامل' : `${product.price} $`}
@@ -556,7 +556,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                     CONTACT SECTION
                 ══════════════════════════════════════════ */}
                 {(creator.email || creator.phone) && (
-                    <div className="mt-10 bg-[#0A0A0A] dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 p-6 sm:p-8">
+                    <div className="mt-10 bg-[#0A0A0A] dark:bg-gray-900 rounded-xl border border-white/10 dark:border-gray-800 p-6 sm:p-8">
                         <h2 className="font-bold text-xl text-white dark:text-white mb-5 flex items-center gap-2">
                             <FiMessageCircle style={{ color: brandColor }} />
                             تواصل مع البائع

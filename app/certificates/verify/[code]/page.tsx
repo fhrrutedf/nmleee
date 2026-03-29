@@ -49,20 +49,20 @@ export default async function VerifyCertificatePage(props: { params: Promise<{ c
                         <h3 className="text-2xl font-bold text-[#10B981] mb-8">"{certificate.courseName}"</h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 mb-8 text-right">
-                            <div className="bg-[#111111] p-6 rounded-xl border border-gray-100">
+                            <div className="bg-[#111111] p-6 rounded-xl border border-white/10">
                                 <p className="text-sm text-gray-400 mb-1">تاريخ الإصدار</p>
                                 <p className="font-semibold text-white">{format(new Date(certificate.issueDate), "dd MMMM yyyy", { locale: ar })}</p>
                             </div>
-                            <div className="bg-[#111111] p-6 rounded-xl border border-gray-100">
+                            <div className="bg-[#111111] p-6 rounded-xl border border-white/10">
                                 <p className="text-sm text-gray-400 mb-1">مُقدم الدورة (المدرب)</p>
                                 <p className="font-semibold text-white">{certificate.course.user.name}</p>
                             </div>
                         </div>
 
                         {/* Verification details */}
-                        <div className="border-t border-gray-100 pt-8 mt-8 flex flex-col items-center">
+                        <div className="border-t border-white/10 pt-8 mt-8 flex flex-col items-center">
                             <p className="text-sm text-gray-400">رمز التحقق المرجعي</p>
-                            <code className="bg-emerald-800 text-gray-700 px-4 py-2 rounded-lg mt-2 font-mono text-sm tracking-widest">
+                            <code className="bg-emerald-800 text-gray-300 px-4 py-2 rounded-lg mt-2 font-mono text-sm tracking-widest">
                                 {certificate.verificationCode}
                             </code>
                             <p className="text-xs text-gray-400 mt-4 max-w-md mx-auto text-center">

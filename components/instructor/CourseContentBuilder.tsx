@@ -118,7 +118,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
 
             {/* Corporate Module Form */}
             {showModuleForm && (
-                <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 p-8 mb-10 ring-1 ring-gray-100 transition-all">
+                <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 p-8 mb-10 ring-1 ring-gray-100 transition-all">
                     <h3 className="text-lg font-bold text-[#10B981] mb-6">إضافة وحدة دراسية جديدة</h3>
                     <div className="flex flex-col sm:flex-row gap-4">
                         <input
@@ -126,7 +126,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                             value={newModuleTitle}
                             onChange={(e) => setNewModuleTitle(e.target.value)}
                             placeholder="مثال: مقدمة في علوم البيانات..."
-                            className="flex-1 bg-[#111111] border-gray-100 rounded-xl px-6 py-4 font-bold text-[#10B981] focus:ring-4 focus:ring-accent/5 focus:border-emerald-600 transition-all w-full"
+                            className="flex-1 bg-[#111111] border-white/10 rounded-xl px-6 py-4 font-bold text-[#10B981] focus:ring-4 focus:ring-accent/5 focus:border-emerald-600 transition-all w-full"
                             onKeyPress={(e) => e.key === 'Enter' && createModule()}
                             autoFocus
                         />
@@ -155,7 +155,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
 
             {/* Modules / Sections List */}
             {modules.length === 0 ? (
-                <div className="text-center py-24 bg-[#0A0A0A] rounded-[2rem] border-2 border-dashed border-gray-100 hover:border-emerald-600/30 transition-all duration-300">
+                <div className="text-center py-24 bg-[#0A0A0A] rounded-[2rem] border-2 border-dashed border-white/10 hover:border-emerald-600/30 transition-all duration-300">
                     <div className="w-20 h-20 bg-[#111111] rounded-xl flex items-center justify-center mx-auto mb-8">
                          <FiLayers className="text-4xl text-gray-200" />
                     </div>
@@ -173,10 +173,10 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
             ) : (
                 <div className="space-y-8">
                     {modules.map((module, moduleIndex) => (
-                        <div key={module.id} className="bg-[#0A0A0A] rounded-xl border border-gray-100 overflow-hidden shadow-lg shadow-[#10B981]/20 hover:shadow-md transition-all">
-                            <div className="p-6 sm:p-8 bg-[#111111]/50 border-b border-gray-100 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                        <div key={module.id} className="bg-[#0A0A0A] rounded-xl border border-white/10 overflow-hidden shadow-lg shadow-[#10B981]/20 hover:shadow-md transition-all">
+                            <div className="p-6 sm:p-8 bg-[#111111]/50 border-b border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
                                 <div className="flex items-center gap-5">
-                                    <div className="w-12 h-12 bg-[#0A0A0A] rounded-xl border border-gray-100 flex items-center justify-center text-[#10B981] font-inter font-bold shadow-lg shadow-[#10B981]/20">
+                                    <div className="w-12 h-12 bg-[#0A0A0A] rounded-xl border border-white/10 flex items-center justify-center text-[#10B981] font-inter font-bold shadow-lg shadow-[#10B981]/20">
                                         {moduleIndex + 1}
                                     </div>
                                     <div>
@@ -212,7 +212,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                                 <div className="flex-1">
                                                     <h4 className="font-bold text-[#10B981] text-base tracking-tight">{lesson.title}</h4>
                                                     <div className="flex flex-wrap items-center gap-3 mt-2">
-                                                        <span className="text-xs font-bold text-gray-500 bg-[#0A0A0A] border border-gray-100 px-3 py-1 rounded-lg font-inter">
+                                                        <span className="text-xs font-bold text-gray-500 bg-[#0A0A0A] border border-white/10 px-3 py-1 rounded-lg font-inter">
                                                             {formatDuration(lesson.videoDuration)}
                                                         </span>
                                                         {lesson.isFree && (
@@ -232,7 +232,7 @@ export default function CourseContentBuilder({ courseId, onLessonsChange }: Cour
                                                 <button
                                                     type="button"
                                                     onClick={() => router.push(`/dashboard/courses/${courseId}/quizzes/new?lessonId=${lesson.id}&returnTo=${encodeURIComponent('/dashboard/courses/new')}`)}
-                                                    className="flex-1 sm:flex-none px-4 py-2.5 text-[11px] font-bold text-gray-500 bg-[#0A0A0A] border border-gray-100 rounded-xl hover:border-emerald-600 hover:text-[#10B981] transition-all flex items-center justify-center gap-2"
+                                                    className="flex-1 sm:flex-none px-4 py-2.5 text-[11px] font-bold text-gray-500 bg-[#0A0A0A] border border-white/10 rounded-xl hover:border-emerald-600 hover:text-[#10B981] transition-all flex items-center justify-center gap-2"
                                                 >
                                                     <FiPlus size={14} /> إضافة اختبار
                                                 </button>

@@ -181,7 +181,7 @@ export default function CourseQuizzesPage() {
                                     </button>
                                     <button
                                         onClick={() => deleteQuiz(quiz.id)}
-                                        className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                                        className="p-2 text-red-500 hover:bg-red-500/100/10 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                                         title="حذف"
                                     >
                                         <FiTrash2 size={16} />

@@ -68,7 +68,7 @@ export default function ShowcasePage() {
                 <div className="container-custom">
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {showcases.map((item, idx) => (
-                            <div key={idx} className="group rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20 border border-gray-100 hover:shadow-lg shadow-[#10B981]/20 transition-all hover:-translate-y-2 bg-[#0A0A0A]">
+                            <div key={idx} className="group rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20 border border-white/10 hover:shadow-lg shadow-[#10B981]/20 transition-all hover:-translate-y-2 bg-[#0A0A0A]">
                                 <div className="h-48 overflow-hidden relative">
                                     <div className="absolute inset-0 bg-black/20 group-hover:bg-emerald-700 text-white/10 transition-colors z-10"></div>
                                     <img

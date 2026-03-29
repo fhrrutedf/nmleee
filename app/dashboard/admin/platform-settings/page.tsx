@@ -142,7 +142,7 @@ export default function AdminPlatformSettingsPage() {
     return (
         <div className="max-w-5xl mx-auto space-y-8 pb-20 px-4">
             {/* Header / Central Dashboard */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-[#0A0A0A] dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-[#0A0A0A] dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800">
                 <div className="flex items-center gap-5">
                     <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-[#10B981]-600">
                         <FiSettings className="text-3xl" />
@@ -180,7 +180,7 @@ export default function AdminPlatformSettingsPage() {
                     {/* 1. Quick Financial Actions (Panic Button & High Value Alert) */}
                     <div className="grid md:grid-cols-2 gap-6">
                         {/* Panic Button */}
-                        <div className={`p-8 rounded-xl border shadow-lg shadow-[#10B981]/20 transition-all ${settings.withdrawalsEnabled ? 'bg-[#0A0A0A] dark:bg-gray-900 border-gray-100 dark:border-gray-800' : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-900/50'}`}>
+                        <div className={`p-8 rounded-xl border shadow-lg shadow-[#10B981]/20 transition-all ${settings.withdrawalsEnabled ? 'bg-[#0A0A0A] dark:bg-gray-900 border-white/10 dark:border-gray-800' : 'bg-red-500/100/10 dark:bg-red-900/20 border-red-200 dark:border-red-900/50'}`}>
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="font-bold text-white dark:text-white">تجميد السيولة (Panic Button)</h3>
                                 <label className="relative inline-flex items-center cursor-pointer">
@@ -197,7 +197,7 @@ export default function AdminPlatformSettingsPage() {
                         </div>
 
                         {/* High Value Alert Threshold */}
-                        <div className="bg-[#0A0A0A] dark:bg-gray-900 p-8 rounded-xl border border-gray-100 dark:border-gray-800 shadow-lg shadow-[#10B981]/20">
+                        <div className="bg-[#0A0A0A] dark:bg-gray-900 p-8 rounded-xl border border-white/10 dark:border-gray-800 shadow-lg shadow-[#10B981]/20">
                             <h3 className="font-bold text-white dark:text-white mb-4">حد التنبيه للعمليات الكبيرة</h3>
                             <div className="relative">
                                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#10B981]-500 font-bold">$</span>
@@ -212,8 +212,8 @@ export default function AdminPlatformSettingsPage() {
                     </div>
 
                     {/* 2. Spaceremit Integration & Gateway Fee */}
-                    <div className="bg-[#0A0A0A] dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 space-y-8">
-                        <div className="flex items-center justify-between border-b border-gray-50 dark:border-gray-800 pb-6">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 space-y-8">
+                        <div className="flex items-center justify-between border-b border-white/10 dark:border-gray-800 pb-6">
                             <div className="flex items-center gap-4">
                                 <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-[#10B981]-600">
                                     <FiZap className="text-2xl" />
@@ -252,8 +252,8 @@ export default function AdminPlatformSettingsPage() {
                     </div>
 
                     {/* 3. Commissions - 4 Tiers */}
-                    <div className="bg-[#0A0A0A] dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 space-y-8">
-                        <div className="flex items-center gap-4 border-b border-gray-50 dark:border-gray-800 pb-6">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 space-y-8">
+                        <div className="flex items-center gap-4 border-b border-white/10 dark:border-gray-800 pb-6">
                             <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl text-[#10B981]-600">
                                 <FiDollarSign className="text-2xl" />
                             </div>
@@ -269,8 +269,8 @@ export default function AdminPlatformSettingsPage() {
                     </div>
 
                     {/* 3. Exchange Rates */}
-                    <div className="bg-[#0A0A0A] dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 space-y-8">
-                        <div className="flex items-center justify-between gap-4 border-b border-gray-50 dark:border-gray-800 pb-6">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 space-y-8">
+                        <div className="flex items-center justify-between gap-4 border-b border-white/10 dark:border-gray-800 pb-6">
                             <div className="flex items-center gap-4">
                                 <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl text-[#10B981]">
                                     <FiGlobe className="text-2xl" />
@@ -306,7 +306,7 @@ export default function AdminPlatformSettingsPage() {
                 <div className="lg:col-span-4 space-y-8">
                     
                     {/* Platform Wallets (Manual SY) */}
-                    <div className="bg-[#0A0A0A] dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 space-y-6">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 space-y-6">
                         <h3 className="text-lg font-bold text-white dark:text-white flex items-center gap-2">
                             <FiPhone className="text-[#10B981]-500" /> محافظ الدفع اليدوي
                         </h3>
@@ -319,7 +319,7 @@ export default function AdminPlatformSettingsPage() {
                     </div>
 
                     {/* Social Media */}
-                    <div className="bg-[#0A0A0A] dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 space-y-6">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-900 p-8 rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 space-y-6">
                         <h3 className="text-lg font-bold text-white dark:text-white flex items-center gap-2">
                             <FiShare2 className="text-pink-500" /> التواصل الاجتماعي
                         </h3>
@@ -347,7 +347,7 @@ interface CommissionInputProps {
 
 function CommissionInput({ label, value, days, onRateChange, onDaysChange, color }: CommissionInputProps) {
     return (
-        <div className="bg-[#111111] dark:bg-gray-800/50 p-6 rounded-xl border border-gray-100 dark:border-gray-800 text-center">
+        <div className="bg-[#111111] dark:bg-gray-800/50 p-6 rounded-xl border border-white/10 dark:border-gray-800 text-center">
             <p className={`text-[10px] font-bold uppercase tracking-widest mb-4 ${color}`}>{label}</p>
             <div className="space-y-4">
                 <div className="relative">
@@ -367,7 +367,7 @@ function RateInput({ label, value, onChange, flag }: { label: string; value: num
     return (
         <div className="space-y-2">
             <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{flag} {label}</label>
-            <input type="number" step="0.01" value={value} onChange={e => onChange(parseFloat(e.target.value))} className="w-full bg-[#111111] dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl px-4 py-3 text-center font-bold text-white dark:text-white focus:border-emerald-600-500 outline-none transition-all" />
+            <input type="number" step="0.01" value={value} onChange={e => onChange(parseFloat(e.target.value))} className="w-full bg-[#111111] dark:bg-gray-800 border border-white/10 dark:border-gray-700 rounded-xl px-4 py-3 text-center font-bold text-white dark:text-white focus:border-emerald-600-500 outline-none transition-all" />
         </div>
     );
 }
@@ -376,7 +376,7 @@ function WalletInput({ label, value, onChange }: { label: string; value: string;
     return (
         <div className="space-y-1">
             <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2">{label}</label>
-            <input type="text" value={value || ''} onChange={e => onChange(e.target.value)} className="w-full bg-[#111111] dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl px-4 py-3 font-bold text-gray-700 dark:text-white focus:border-amber-500 outline-none transition-all" dir="ltr" />
+            <input type="text" value={value || ''} onChange={e => onChange(e.target.value)} className="w-full bg-[#111111] dark:bg-gray-800 border border-white/10 dark:border-gray-700 rounded-xl px-4 py-3 font-bold text-gray-300 dark:text-white focus:border-amber-500 outline-none transition-all" dir="ltr" />
         </div>
     );
 }
@@ -385,7 +385,7 @@ function SocialInput({ icon, label, value, onChange }: { icon: any; label: strin
     return (
         <div className="flex items-center gap-3">
             <div className="p-3 bg-[#111111] dark:bg-gray-800 rounded-xl text-gray-400">{icon}</div>
-            <input type="text" value={value || ''} onChange={e => onChange(e.target.value)} placeholder={label} className="flex-1 bg-[#111111] dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-bold text-gray-700 dark:text-white focus:border-pink-500 outline-none transition-all" dir="ltr" />
+            <input type="text" value={value || ''} onChange={e => onChange(e.target.value)} placeholder={label} className="flex-1 bg-[#111111] dark:bg-gray-800 border border-white/10 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-bold text-gray-300 dark:text-white focus:border-pink-500 outline-none transition-all" dir="ltr" />
         </div>
     );
 }

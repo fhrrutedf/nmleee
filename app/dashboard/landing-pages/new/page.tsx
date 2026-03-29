@@ -67,14 +67,14 @@ export default function CreateLandingPage() {
     return (
         <div className="min-h-screen bg-[#111111] py-8">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-                <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-6 sm:p-8">
+                <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 p-6 sm:p-8">
                     <h1 className="text-2xl font-bold text-white dark:text-white mb-6">إنشاء صفحة هبوط</h1>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Basic Info */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">
                                     عنوان الصفحة *
                                 </label>
                                 <input
@@ -87,13 +87,13 @@ export default function CreateLandingPage() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">
                                     الصورة الرئيسية
                                 </label>
                                 {formData.heroImage ? (
                                     <div className="relative group">
                                         <img src={formData.heroImage} alt="صورة" className="w-full h-32 object-cover rounded-lg border border-emerald-500/20" />
-                                        <button type="button" onClick={() => setFormData({ ...formData, heroImage: '' })} className="absolute top-2 left-2 bg-red-500 text-white rounded-xl w-7 h-7 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
+                                        <button type="button" onClick={() => setFormData({ ...formData, heroImage: '' })} className="absolute top-2 left-2 bg-red-500/100/100 text-white rounded-xl w-7 h-7 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
                                     </div>
                                 ) : (
                                     <FileUploader
@@ -108,7 +108,7 @@ export default function CreateLandingPage() {
 
                         {/* Headlines */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
                                 العنوان الرئيسي *
                             </label>
                             <input
@@ -122,7 +122,7 @@ export default function CreateLandingPage() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
                                 العنوان الفرعي
                             </label>
                             <textarea
@@ -136,7 +136,7 @@ export default function CreateLandingPage() {
 
                         {/* Features */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
                                 المميزات
                             </label>
                             <div className="space-y-2">
@@ -163,7 +163,7 @@ export default function CreateLandingPage() {
                         {/* CTA */}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">
                                     نص زر الإجراء *
                                 </label>
                                 <input
@@ -176,7 +176,7 @@ export default function CreateLandingPage() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">
                                     رابط زر الإجراء *
                                 </label>
                                 <input
@@ -199,7 +199,7 @@ export default function CreateLandingPage() {
                                     onChange={(e) => setFormData({ ...formData, showCountdown: e.target.checked })}
                                     className="w-4 h-4 text-[#10B981] border-gray-300 rounded focus:ring-ink"
                                 />
-                                <label htmlFor="showCountdown" className="text-sm font-medium text-gray-700">
+                                <label htmlFor="showCountdown" className="text-sm font-medium text-gray-300">
                                     إضافة عداد تنازلي للعرض المحدود
                                 </label>
                             </div>
@@ -207,7 +207,7 @@ export default function CreateLandingPage() {
                             {formData.showCountdown && (
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">
                                             تاريخ انتهاء العرض
                                         </label>
                                         <input
@@ -219,7 +219,7 @@ export default function CreateLandingPage() {
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">
                                             نسبة الخصم (%)
                                         </label>
                                         <input
@@ -238,7 +238,7 @@ export default function CreateLandingPage() {
                         {/* Colors */}
                         <div className="grid grid-cols-2 gap-4 border-t pt-6">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">
                                     لون الخلفية
                                 </label>
                                 <div className="flex gap-2">
@@ -258,7 +258,7 @@ export default function CreateLandingPage() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">
                                     اللون الأساسي
                                 </label>
                                 <div className="flex gap-2">
@@ -290,7 +290,7 @@ export default function CreateLandingPage() {
                             </button>
                             <button
                                 type="button"
-                                className="px-6 py-3 bg-emerald-800 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2"
+                                className="px-6 py-3 bg-emerald-800 text-gray-300 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2"
                             >
                                 <FiEye />
                                 معاينة

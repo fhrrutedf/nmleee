@@ -105,7 +105,7 @@ export default function CreatorStorePage() {
                                 <p className="text-gray-400 mb-4">@{creator.username}</p>
 
                                 {creator.bio && (
-                                    <p className="text-gray-700 leading-relaxed mb-4 max-w-2xl">
+                                    <p className="text-gray-300 leading-relaxed mb-4 max-w-2xl">
                                         {creator.bio}
                                     </p>
                                 )}

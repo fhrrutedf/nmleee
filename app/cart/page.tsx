@@ -7,7 +7,6 @@ import Link from 'next/link';
 
 export default function CartPage() {
     const router = useRouter();
-    // Read cart synchronously from localStorage to get brandColor immediately for spinner
     const [cart, setCart] = useState<any[]>(() => {
         if (typeof window === 'undefined') return [];
         try { return JSON.parse(localStorage.getItem('cart') || '[]'); } catch { return []; }
@@ -15,7 +14,6 @@ export default function CartPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Re-read to ensure latest data (handles back-navigation)
         const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
         setCart(savedCart);
         setLoading(false);
@@ -37,29 +35,24 @@ export default function CartPage() {
 
     const subtotal = cart.reduce((sum, item) => sum + (item.price || 0), 0);
 
-    const spinColor = cart.find(item => item.brandColor)?.brandColor || '#D41295';
-
     if (loading) {
         return (
-            <div className="flex justify-center items-center min-h-screen">
-                <div
-                    className="animate-spin rounded-xl h-12 w-12 border-4 border-transparent"
-                    style={{ borderBottomColor: spinColor, borderLeftColor: `${spinColor}60` }}
-                />
+            <div className="flex justify-center items-center min-h-screen bg-[#0A0A0A]">
+                <div className="animate-spin rounded-xl h-12 w-12 border-4 border-emerald-500 border-t-transparent" />
             </div>
         );
     }
 
     if (cart.length === 0) {
         return (
-            <div className="min-h-screen bg-[#111111] flex flex-col items-center justify-center p-4">
-                <div className="bg-[#0A0A0A] p-8 rounded-xl shadow-lg shadow-[#10B981]/20 text-center max-w-md w-full">
-                    <div className="w-20 h-20 bg-emerald-800 rounded-xl flex items-center justify-center mx-auto mb-6">
-                        <FiShoppingCart className="text-4xl text-gray-400" />
+            <div className="min-h-screen bg-[#0A0A0A] flex flex-col items-center justify-center p-4">
+                <div className="bg-[#111111] p-10 rounded-2xl border border-white/10 shadow-2xl text-center max-w-md w-full">
+                    <div className="w-20 h-20 bg-emerald-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <FiShoppingCart className="text-4xl text-emerald-500" />
                     </div>
-                    <h1 className="text-2xl font-bold mb-2 text-white">سلة المشتريات فارغة</h1>
-                    <p className="text-gray-500 mb-8">لم تضف أي منتجات للسلة بعد. تصفح منتجاتنا وابدأ التسوق!</p>
-                    <Link href="/products" className="btn btn-primary w-full flex items-center justify-center gap-2">
+                    <h2 className="text-2xl font-bold mb-2 text-white">سلة المشتريات فارغة</h2>
+                    <p className="text-gray-400 mb-8 font-medium">لم تضف أي منتجات للسلة بعد. ابدأ بناء إمبراطوريتك الآن.</p>
+                    <Link href="/explore" className="w-full bg-emerald-500 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-500/20">
                         تصفح المنتجات
                     </Link>
                 </div>
@@ -67,69 +60,49 @@ export default function CartPage() {
         );
     }
 
-    const effectiveBrandColor = cart.find(item => item.brandColor)?.brandColor;
-
     return (
-        <div
-            className="min-h-screen bg-[#111111] py-12"
-            style={effectiveBrandColor ? { '--brand': effectiveBrandColor } as React.CSSProperties : {}}
-        >
-            {effectiveBrandColor && (
-                <style dangerouslySetInnerHTML={{
-                    __html: `
-                    .text-[#10B981], .text-primary-700, .text-[#10B981] a { color: ${effectiveBrandColor} !important; }
-                    .text-primary-700 { color: ${effectiveBrandColor} !important; filter: brightness(0.85); }
-                    .bg-emerald-700 text-white { background-color: ${effectiveBrandColor} !important; }
-                    .btn-primary { background-color: ${effectiveBrandColor} !important; border-color: ${effectiveBrandColor} !important; }
-                    .btn-primary:hover { background-color: ${effectiveBrandColor} !important; filter: brightness(0.85); }
-                    .shadow-accent\\/30 { --tw-shadow-color: ${effectiveBrandColor}4d !important; }
-                    .hover\\:text-[#10B981]:hover { color: ${effectiveBrandColor} !important; }
-                    .focus\\:ring-accent:focus { --tw-ring-color: ${effectiveBrandColor} !important; }
-                    a[class*="text-primary"] { color: ${effectiveBrandColor} !important; }
-                    `
-                }} />
-            )}
+        <div className="min-h-screen bg-[#0A0A0A] py-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between mb-8">
-                    <h1 className="text-3xl font-bold text-white">سلة المشتريات ({cart.length})</h1>
+                <div className="flex items-center justify-between mb-12 border-b border-white/5 pb-8">
+                    <h1 className="text-4xl font-bold text-white tracking-tight">سلة المشتريات <span className="text-emerald-500 text-2xl ml-2">({cart.length})</span></h1>
                     <button
                         onClick={clearCart}
-                        className="text-red-600 hover:text-red-700 text-sm font-medium flex items-center gap-1"
+                        className="text-gray-500 hover:text-red-500 text-xs font-bold uppercase tracking-widest flex items-center gap-2 transition-colors"
                     >
                         <FiTrash2 /> إفراغ السلة
                     </button>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                     {/* Cart Items */}
-                    <div className="lg:col-span-2 space-y-4">
+                    <div className="lg:col-span-2 space-y-6">
                         {cart.map((item, index) => (
-                            <div key={index} className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-4 flex gap-4 items-center group hover:shadow-md transition-shadow">
-                                <div className="w-24 h-24 bg-emerald-800 rounded-lg overflow-hidden flex-shrink-0 relative">
+                            <div key={index} className="bg-[#111111] border border-white/5 rounded-2xl p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-center group hover:border-emerald-500/30 transition-all shadow-lg">
+                                <div className="w-full sm:w-28 h-48 sm:h-28 bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden flex-shrink-0 relative">
                                     {item.image ? (
-                                        <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                                        <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center">
-                                            <FiShoppingCart className="text-2xl text-gray-300" />
+                                            <FiShoppingCart className="text-2xl text-gray-700" />
                                         </div>
                                     )}
                                 </div>
-                                <div className="flex-1 min-w-0">
-                                    <div className="flex justify-between items-start">
+                                <div className="flex-1 min-w-0 text-center sm:text-right w-full">
+                                    <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start gap-4">
                                         <div>
-                                            <h3 className="font-bold text-white line-clamp-1">{item.title}</h3>
-                                            <p className="text-sm text-gray-500 mt-1">{item.category || 'منتج عام'}</p>
+                                            <h3 className="font-bold text-lg text-white group-hover:text-emerald-500 transition-colors">{item.title}</h3>
+                                            <p className="text-xs text-gray-500 mt-1 font-bold uppercase tracking-wider">{item.category || 'منتج رقمي'}</p>
                                         </div>
                                         <button
                                             onClick={() => removeFromCart(index)}
-                                            className="text-gray-400 hover:text-red-500 p-2 transition-colors"
+                                            className="text-gray-600 hover:text-red-500 p-2 transition-colors sm:self-start"
                                             title="حذف من السلة"
                                         >
-                                            <FiTrash2 size={18} />
+                                            <FiTrash2 size={20} />
                                         </button>
                                     </div>
-                                    <div className="mt-4 flex items-center justify-between">
-                                        <span className="font-bold text-lg text-[#10B981]">
+                                    <div className="mt-6 sm:mt-4">
+                                        <span className="font-bold text-xl text-emerald-500">
                                             {item.price > 0 ? `${item.price.toFixed(2)} $` : 'مجاني'}
                                         </span>
                                     </div>
@@ -140,36 +113,36 @@ export default function CartPage() {
 
                     {/* Order Summary */}
                     <div className="lg:col-span-1">
-                        <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-6 sticky top-6">
-                            <h2 className="text-xl font-bold mb-6 text-white">ملخص الطلب</h2>
+                        <div className="bg-[#111111] border border-white/5 rounded-2xl p-8 sticky top-32 shadow-2xl">
+                            <h2 className="text-xl font-bold mb-8 text-white">ملخص الإمبراطورية</h2>
 
-                            <div className="space-y-4 mb-6 pb-6 border-b border-gray-100">
-                                <div className="flex justify-between text-gray-400">
+                            <div className="space-y-5 mb-8 pb-8 border-b border-white/5">
+                                <div className="flex justify-between text-gray-400 text-sm font-medium">
                                     <span>المجموع الفرعي</span>
-                                    <span>{subtotal.toFixed(2)} $</span>
+                                    <span className="text-white">{subtotal.toFixed(2)} $</span>
                                 </div>
-                                <div className="flex justify-between text-gray-400">
-                                    <span>الخصم</span>
-                                    <span>0.00 $</span>
+                                <div className="flex justify-between text-gray-400 text-sm font-medium">
+                                    <span>رسوم النظام</span>
+                                    <span className="text-emerald-500">مشمولة</span>
                                 </div>
                             </div>
 
-                            <div className="flex justify-between items-center mb-8">
-                                <span className="text-lg font-bold text-white">الإجمالي</span>
-                                <span className="text-2xl font-bold text-primary-700">{subtotal.toFixed(2)} $</span>
+                            <div className="flex justify-between items-center mb-10">
+                                <span className="text-gray-400 font-bold uppercase tracking-widest text-xs">الإجمالي النهائي</span>
+                                <span className="text-3xl font-black text-emerald-500">{subtotal.toFixed(2)} $</span>
                             </div>
 
                             <button
                                 onClick={() => router.push('/checkout')}
-                                className="w-full btn btn-primary py-4 text-lg font-bold shadow-lg shadow-[#10B981]/20 shadow-accent/30 flex items-center justify-center gap-2"
+                                className="w-full bg-emerald-500 text-white py-5 rounded-xl text-lg font-bold shadow-lg shadow-emerald-500/20 hover:bg-emerald-600 transition-all flex items-center justify-center gap-3 active:scale-[0.98]"
                             >
-                                <span>إتمام عملية الدفع</span>
+                                <span>إتمام العملية</span>
                                 <FiArrowRight className="rtl:rotate-180" />
                             </button>
 
-                            <div className="mt-4 text-center">
-                                <Link href="/products" className="text-sm text-gray-500 hover:text-[#10B981] underline">
-                                    الاستمرار في التسوق
+                            <div className="mt-6 text-center">
+                                <Link href="/explore" className="text-xs text-gray-500 font-bold uppercase tracking-widest hover:text-emerald-500 transition-colors">
+                                    ← العودة للمتجر
                                 </Link>
                             </div>
                         </div>
@@ -177,10 +150,9 @@ export default function CartPage() {
                 </div>
             </div>
 
-            {/* Simple Footer */}
-            <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
-                <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-[#10B981] font-bold hover:underline">منصة تمالين</a>
+            <footer className="mt-32 py-12 text-center border-t border-white/5">
+                <p className="text-gray-600 text-xs font-bold uppercase tracking-[0.3em]">
+                    Institutional Grade Infrastructure by <span className="text-emerald-500">Tmleen</span>
                 </p>
             </footer>
         </div>

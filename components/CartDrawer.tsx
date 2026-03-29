@@ -37,7 +37,7 @@ export default function CartDrawer() {
             {/* Cart Button */}
             <button
                 onClick={() => setIsOpen(true)}
-                className="relative p-2.5 text-gray-700 hover:text-[#10B981] transition-all bg-[#111111] hover:bg-[#0A0A0A] rounded-xl border border-transparent hover:border-gray-100 hover:shadow-lg shadow-[#10B981]/20 group"
+                className="relative p-2.5 text-gray-300 hover:text-[#10B981] transition-all bg-[#111111] hover:bg-[#0A0A0A] rounded-xl border border-transparent hover:border-white/10 hover:shadow-lg shadow-[#10B981]/20 group"
             >
                 <FiShoppingCart size={22} className="group-hover:scale-110 transition-transform" />
                 {itemCount > 0 && (
@@ -67,7 +67,7 @@ export default function CartDrawer() {
                             className="fixed top-0 right-0 h-full w-full max-w-md bg-[#0A0A0A] shadow-lg shadow-[#10B981]/20 z-[101] flex flex-col"
                         >
                             {/* Header */}
-                            <div className="flex items-center justify-between p-6 border-b border-gray-100">
+                            <div className="flex items-center justify-between p-6 border-b border-white/10">
                                 <div className="flex items-center gap-3">
                                     <div className="w-10 h-10 bg-emerald-700 text-white/10 rounded-xl flex items-center justify-center text-[#10B981]">
                                         <FiShoppingBag size={20} />
@@ -109,7 +109,7 @@ export default function CartDrawer() {
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 key={item.id}
-                                                className="flex gap-4 p-4 bg-[#0A0A0A] border border-gray-100 rounded-[1.5rem] hover:shadow-lg shadow-[#10B981]/20 hover:shadow-gray-200/50 transition-all group"
+                                                className="flex gap-4 p-4 bg-[#0A0A0A] border border-white/10 rounded-[1.5rem] hover:shadow-lg shadow-[#10B981]/20 hover:shadow-gray-200/50 transition-all group"
                                             >
                                                 {item.image && (
                                                     <div className="relative w-20 h-20 flex-shrink-0 rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20">
@@ -134,7 +134,7 @@ export default function CartDrawer() {
                                                 </div>
                                                 <button
                                                     onClick={() => removeFromCart(item.id)}
-                                                    className="p-2 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-xl h-fit transition-all"
+                                                    className="p-2 text-gray-300 hover:text-red-500 hover:bg-red-500/10 rounded-xl h-fit transition-all"
                                                 >
                                                     <FiTrash2 size={18} />
                                                 </button>
@@ -146,7 +146,7 @@ export default function CartDrawer() {
 
                             {/* Footer Summary */}
                             {items.length > 0 && (
-                                <div className="p-6 border-t border-gray-100 bg-[#111111]/50 ">
+                                <div className="p-6 border-t border-white/10 bg-[#111111]/50 ">
                                     <div className="flex items-center justify-between mb-6">
                                         <span className="text-gray-500 font-bold">إجمالي المبلغ:</span>
                                         <span className="text-2xl font-bold text-[#10B981]">

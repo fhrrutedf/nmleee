@@ -72,9 +72,9 @@ export default function NewBlogPost() {
 
                 {/* Main Content Area */}
                 <div className="lg:col-span-2 space-y-6">
-                    <div className="bg-[#0A0A0A] dark:bg-card-white p-6 rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800">
+                    <div className="bg-[#0A0A0A] dark:bg-card-white p-6 rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800">
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <label className="block text-sm font-medium text-gray-300 dark:text-gray-300 mb-2">
                                 عنوان المقال <span className="text-red-500">*</span>
                             </label>
                             <input
@@ -88,7 +88,7 @@ export default function NewBlogPost() {
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <label className="block text-sm font-medium text-gray-300 dark:text-gray-300 mb-2">
                                 الرابط المخصص للمقال (Slug) <span className="text-red-500">*</span>
                             </label>
                             <input
@@ -102,7 +102,7 @@ export default function NewBlogPost() {
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <label className="block text-sm font-medium text-gray-300 dark:text-gray-300 mb-2">
                                 محتوى المقال <span className="text-red-500">*</span>
                             </label>
                             <div className="h-96 pb-12 mb-4 text-black dark:text-white">
@@ -119,11 +119,11 @@ export default function NewBlogPost() {
 
                 {/* Sidebar (Settings) */}
                 <div className="space-y-6">
-                    <div className="bg-[#0A0A0A] dark:bg-card-white p-6 rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800">
+                    <div className="bg-[#0A0A0A] dark:bg-card-white p-6 rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800">
                         <h2 className="font-bold text-lg mb-4 text-white dark:text-white">تفضيلات النشر</h2>
 
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">حالة المقال</label>
+                            <label className="block text-sm font-medium text-gray-300 dark:text-gray-300 mb-2">حالة المقال</label>
                             <select
                                 className="w-full px-4 py-2 border border-emerald-500/20 dark:border-gray-700 rounded-lg focus:outline-none"
                                 value={status}
@@ -135,7 +135,7 @@ export default function NewBlogPost() {
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">التصنيف الرئيسي</label>
+                            <label className="block text-sm font-medium text-gray-300 dark:text-gray-300 mb-2">التصنيف الرئيسي</label>
                             <input
                                 type="text"
                                 className="w-full px-4 py-2 border border-emerald-500/20 dark:border-gray-700 rounded-lg"
@@ -146,7 +146,7 @@ export default function NewBlogPost() {
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">مقتطف قصير (للسيو والتلخيص)</label>
+                            <label className="block text-sm font-medium text-gray-300 dark:text-gray-300 mb-2">مقتطف قصير (للسيو والتلخيص)</label>
                             <textarea
                                 className="w-full px-4 py-2 border border-emerald-500/20 dark:border-gray-700 rounded-lg h-24 resize-none"
                                 value={excerpt}
@@ -156,12 +156,12 @@ export default function NewBlogPost() {
                         </div>
 
                         <div className="mb-6">
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">صورة الغلاف</label>
+                            <label className="block text-sm font-medium text-gray-300 dark:text-gray-300 mb-2">صورة الغلاف</label>
                             {coverImage ? (
                                 <div className="relative">
                                     <img src={coverImage} alt="Cover" className="w-full h-32 object-cover rounded-lg" />
                                     <button
-                                        className="absolute top-2 right-2 p-1 bg-red-500 rounded-md text-white hover:bg-red-600"
+                                        className="absolute top-2 right-2 p-1 bg-red-500/100/100 rounded-md text-white hover:bg-red-600"
                                         onClick={() => setCoverImage("")}
                                     >حذف</button>
                                 </div>

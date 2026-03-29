@@ -10,14 +10,10 @@ import Link from 'next/link';
 
 // ─── Preset Color Palettes ────────────────────────────────
 const COLOR_PALETTES = [
-    { name: 'احترافي زمردي (افتراضي)', primary: '#0A0A0A', secondary: '#065f46' },
+    { name: 'احترافي زمردي (v4.2)', primary: '#10B981', secondary: '#059669' },
     { name: 'أزرق ملكي', primary: '#1E40AF', secondary: '#1E293B' },
     { name: 'بنفسجي فاخر', primary: '#6D28D9', secondary: '#1E1B4B' },
-    { name: 'وردي عصري', primary: '#BE185D', secondary: '#1C1917' },
     { name: 'ذهبي كلاسيكي', primary: '#92400E', secondary: '#1C1917' },
-    { name: 'أحمر جريء', primary: '#991B1B', secondary: '#18181B' },
-    { name: 'تركوازي', primary: '#0D9488', secondary: '#134E4A' },
-    { name: 'رمادي أنيق', primary: '#374151', secondary: '#111827' },
 ];
 
 const FONT_OPTIONS = [
@@ -141,9 +137,9 @@ export default function BrandEditorPage() {
                 <div className="lg:col-span-2 space-y-8">
 
                     {/* ══ Section 1: Colors ══ */}
-                    <div className="bg-[#0A0A0A] rounded-xl border border-gray-100 p-6 sm:p-8 shadow-lg shadow-[#10B981]/20">
+                    <div className="bg-[#0A0A0A] rounded-xl border border-white/10 p-6 sm:p-8 shadow-lg shadow-[#10B981]/20">
                         <div className="flex items-center gap-3 mb-8">
-                            <div className="w-10 h-10 rounded-xl bg-[#111111] flex items-center justify-center text-[#10B981] border border-gray-100"><FiDroplet /></div>
+                            <div className="w-10 h-10 rounded-xl bg-[#111111] flex items-center justify-center text-[#10B981] border border-white/10"><FiDroplet /></div>
                             <div>
                                 <h2 className="text-lg font-bold text-[#10B981]">الألوان</h2>
                                 <p className="text-xs text-gray-400 font-bold">اختر لوحة ألوان جاهزة أو حدد ألوانك يدوياً</p>
@@ -156,7 +152,7 @@ export default function BrandEditorPage() {
                                 <button
                                     key={i}
                                     onClick={() => applyPalette(p)}
-                                    className={`relative p-4 rounded-xl border-2 transition-all text-center hover:scale-[1.02] ${brand.brandColor === p.primary ? 'border-ink bg-[#111111]' : 'border-gray-50 hover:border-emerald-500/20'}`}
+                                    className={`relative p-4 rounded-xl border-2 transition-all text-center hover:scale-[1.02] ${brand.brandColor === p.primary ? 'border-ink bg-[#111111]' : 'border-white/10 hover:border-emerald-500/20'}`}
                                 >
                                     <div className="flex gap-1.5 justify-center mb-3">
                                         <div className="w-8 h-8 rounded-lg shadow-lg shadow-[#10B981]/20" style={{ background: p.primary }} />
@@ -212,9 +208,9 @@ export default function BrandEditorPage() {
                     </div>
 
                     {/* ══ Section 2: Typography ══ */}
-                    <div className="bg-[#0A0A0A] rounded-xl border border-gray-100 p-6 sm:p-8 shadow-lg shadow-[#10B981]/20">
+                    <div className="bg-[#0A0A0A] rounded-xl border border-white/10 p-6 sm:p-8 shadow-lg shadow-[#10B981]/20">
                         <div className="flex items-center gap-3 mb-8">
-                            <div className="w-10 h-10 rounded-xl bg-[#111111] flex items-center justify-center text-[#10B981] border border-gray-100"><FiType /></div>
+                            <div className="w-10 h-10 rounded-xl bg-[#111111] flex items-center justify-center text-[#10B981] border border-white/10"><FiType /></div>
                             <div>
                                 <h2 className="text-lg font-bold text-[#10B981]">الخطوط</h2>
                                 <p className="text-xs text-gray-400 font-bold">اختر نمط الخط الذي يناسب هوية متجرك</p>
@@ -225,7 +221,7 @@ export default function BrandEditorPage() {
                                 <button
                                     key={f.id}
                                     onClick={() => setBrand({ ...brand, brandFont: f.id })}
-                                    className={`relative p-6 rounded-xl border-2 text-center transition-all hover:scale-[1.02] ${brand.brandFont === f.id ? 'border-ink bg-[#111111]' : 'border-gray-50 hover:border-emerald-500/20'}`}
+                                    className={`relative p-6 rounded-xl border-2 text-center transition-all hover:scale-[1.02] ${brand.brandFont === f.id ? 'border-ink bg-[#111111]' : 'border-white/10 hover:border-emerald-500/20'}`}
                                 >
                                     <div className="text-2xl font-bold text-[#10B981] mb-2">{f.preview.slice(0, 2)}</div>
                                     <div className="text-sm font-bold text-[#10B981]">{f.name}</div>
@@ -239,9 +235,9 @@ export default function BrandEditorPage() {
                     </div>
 
                     {/* ══ Section 3: Button Style ══ */}
-                    <div className="bg-[#0A0A0A] rounded-xl border border-gray-100 p-6 sm:p-8 shadow-lg shadow-[#10B981]/20">
+                    <div className="bg-[#0A0A0A] rounded-xl border border-white/10 p-6 sm:p-8 shadow-lg shadow-[#10B981]/20">
                         <div className="flex items-center gap-3 mb-8">
-                            <div className="w-10 h-10 rounded-xl bg-[#111111] flex items-center justify-center text-[#10B981] border border-gray-100"><FiSquare /></div>
+                            <div className="w-10 h-10 rounded-xl bg-[#111111] flex items-center justify-center text-[#10B981] border border-white/10"><FiSquare /></div>
                             <div>
                                 <h2 className="text-lg font-bold text-[#10B981]">شكل الأزرار</h2>
                                 <p className="text-xs text-gray-400 font-bold">حدد نمط الزوايا لأزرار متجرك</p>
@@ -252,7 +248,7 @@ export default function BrandEditorPage() {
                                 <button
                                     key={b.id}
                                     onClick={() => setBrand({ ...brand, brandButtonStyle: b.id })}
-                                    className={`relative p-6 rounded-xl border-2 text-center transition-all ${brand.brandButtonStyle === b.id ? 'border-ink bg-[#111111]' : 'border-gray-50 hover:border-emerald-500/20'}`}
+                                    className={`relative p-6 rounded-xl border-2 text-center transition-all ${brand.brandButtonStyle === b.id ? 'border-ink bg-[#111111]' : 'border-white/10 hover:border-emerald-500/20'}`}
                                 >
                                     <div className="flex justify-center mb-4">
                                         <div
@@ -272,9 +268,9 @@ export default function BrandEditorPage() {
                     </div>
 
                     {/* ══ Section 5: Store Banner & Tagline ══ */}
-                    <div className="bg-[#0A0A0A] rounded-xl border border-gray-100 p-6 sm:p-8 shadow-lg shadow-[#10B981]/20">
+                    <div className="bg-[#0A0A0A] rounded-xl border border-white/10 p-6 sm:p-8 shadow-lg shadow-[#10B981]/20">
                         <div className="flex items-center gap-3 mb-8">
-                            <div className="w-10 h-10 rounded-xl bg-[#111111] flex items-center justify-center text-[#10B981] border border-gray-100"><FiEdit3 /></div>
+                            <div className="w-10 h-10 rounded-xl bg-[#111111] flex items-center justify-center text-[#10B981] border border-white/10"><FiEdit3 /></div>
                             <div>
                                 <h2 className="text-lg font-bold text-[#10B981]">شعار المتجر والوصف</h2>
                                 <p className="text-xs text-gray-400 font-bold">حدد الوصف والبانر المميز لواجهة متجرك</p>
@@ -303,7 +299,7 @@ export default function BrandEditorPage() {
                                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                             <button
                                                 onClick={() => setBrand({ ...brand, storeBanner: '' })}
-                                                className="bg-red-500 text-white text-xs px-5 py-2 rounded-xl font-bold shadow-lg shadow-[#10B981]/20"
+                                                className="bg-red-500/100/100 text-white text-xs px-5 py-2 rounded-xl font-bold shadow-lg shadow-[#10B981]/20"
                                             >حذف الصورة</button>
                                         </div>
                                     </div>
@@ -324,7 +320,7 @@ export default function BrandEditorPage() {
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] border-r-4 border-ink pr-3">المعاينة الحية</h3>
 
                         {/* Mini Storefront Preview */}
-                        <div className="bg-[#0A0A0A] rounded-xl border border-gray-100 shadow-lg shadow-[#10B981]/20 overflow-hidden transition-all duration-500">
+                        <div className="bg-[#0A0A0A] rounded-xl border border-white/10 shadow-lg shadow-[#10B981]/20 overflow-hidden transition-all duration-500">
                             {/* Cover */}
                             <div
                                 className="h-32 relative"
@@ -362,8 +358,8 @@ export default function BrandEditorPage() {
                                 {/* Mini Product Cards */}
                                 <div className="mt-6 space-y-3">
                                     {['دورة احترافية الرقمية', 'كتاب استراتيجيات البيع'].map((t, i) => (
-                                        <div key={i} className="flex items-center gap-4 p-3 rounded-xl bg-[#111111] border border-gray-100">
-                                            <div className="w-12 h-12 rounded-lg flex-shrink-0 bg-[#0A0A0A] border border-gray-100 flex items-center justify-center">
+                                        <div key={i} className="flex items-center gap-4 p-3 rounded-xl bg-[#111111] border border-white/10">
+                                            <div className="w-12 h-12 rounded-lg flex-shrink-0 bg-[#0A0A0A] border border-white/10 flex items-center justify-center">
                                                 <div className="w-6 h-6 rounded-xl" style={{ background: `${brand.brandSecondaryColor}20` }} />
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -388,7 +384,7 @@ export default function BrandEditorPage() {
                         </div>
 
                         {/* Color Code Card */}
-                        <div className="bg-[#111111] rounded-xl p-5 border border-gray-100">
+                        <div className="bg-[#111111] rounded-xl p-5 border border-white/10">
                              <div className="flex items-center gap-3">
                                 <div className="w-3 h-3 rounded-xl" style={{ background: brand.brandColor }} />
                                 <span className="text-[10px] font-bold font-inter text-[#10B981] uppercase tracking-widest">{brand.brandColor}</span>

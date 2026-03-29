@@ -62,7 +62,7 @@ export default function OrdersPage() {
                 );
             default:
                 return (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-medium bg-emerald-800 text-gray-700">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-medium bg-emerald-800 text-gray-300">
                         {status}
                     </span>
                 );
@@ -72,7 +72,7 @@ export default function OrdersPage() {
     if (error) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[400px] text-center gap-4">
-                <div className="w-16 h-16 bg-red-50 dark:bg-red-900/20 rounded-xl flex items-center justify-center">
+                <div className="w-16 h-16 bg-red-500/100/10 dark:bg-red-900/20 rounded-xl flex items-center justify-center">
                     <FiX className="text-3xl text-red-500" />
                 </div>
                 <h3 className="text-xl font-bold text-[#10B981] dark:text-white">فشل تحميل الطلبات</h3>
@@ -96,15 +96,15 @@ export default function OrdersPage() {
 
             {/* Stats Summary */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-[#0A0A0A] dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
+                <div className="bg-[#0A0A0A] dark:bg-gray-800 p-4 rounded-xl border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                     <p className="text-text-muted text-sm mb-1">إجمالي الطلبات</p>
                     <p className="text-2xl font-bold text-[#10B981] dark:text-white">{orders.length}</p>
                 </div>
-                <div className="bg-[#0A0A0A] dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
+                <div className="bg-[#0A0A0A] dark:bg-gray-800 p-4 rounded-xl border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                     <p className="text-text-muted text-sm mb-1">الطلبات المكتملة</p>
                     <p className="text-2xl font-bold text-green-600">{orders.filter((o: any) => o.status === 'COMPLETED').length}</p>
                 </div>
-                <div className="bg-[#0A0A0A] dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
+                <div className="bg-[#0A0A0A] dark:bg-gray-800 p-4 rounded-xl border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                     <p className="text-text-muted text-sm mb-1">قيد الانتظار</p>
                     <p className="text-2xl font-bold text-orange-500">{orders.filter((o: any) => o.status === 'PENDING').length}</p>
                 </div>
@@ -143,7 +143,7 @@ export default function OrdersPage() {
                     <div className="animate-spin rounded-xl h-12 w-12 border-4 border-emerald-600 border-t-transparent mx-auto"></div>
                 </div>
             ) : filteredOrders.length === 0 ? (
-                <div className="card text-center py-16 px-6 border-2 border-dashed border-gray-100 dark:border-gray-800 bg-[#111111]/50 dark:bg-gray-800/20">
+                <div className="card text-center py-16 px-6 border-2 border-dashed border-white/10 dark:border-gray-800 bg-[#111111]/50 dark:bg-gray-800/20">
                     <div className="w-20 h-20 bg-emerald-800 dark:bg-gray-700 rounded-xl flex items-center justify-center mx-auto mb-6">
                         <FiShoppingBag className="text-4xl text-gray-400" />
                     </div>
@@ -157,11 +157,11 @@ export default function OrdersPage() {
                     </p>
                 </div>
             ) : (
-                <div className="card overflow-hidden border border-gray-100 dark:border-gray-800 shadow-lg shadow-[#10B981]/20">
+                <div className="card overflow-hidden border border-white/10 dark:border-gray-800 shadow-lg shadow-[#10B981]/20">
                     <div className="overflow-x-auto">
                         <table className="w-full">
                             <thead>
-                                <tr className="border-b border-gray-100 dark:border-gray-800 bg-[#111111]/50 dark:bg-gray-900/50">
+                                <tr className="border-b border-white/10 dark:border-gray-800 bg-[#111111]/50 dark:bg-gray-900/50">
                                     <th className="text-right py-4 px-6 text-sm font-semibold text-[#10B981] dark:text-white">رقم الطلب</th>
                                     <th className="text-right py-4 px-6 text-sm font-semibold text-[#10B981] dark:text-white">التاريخ</th>
                                     <th className="text-right py-4 px-6 text-sm font-semibold text-[#10B981] dark:text-white">العميل</th>

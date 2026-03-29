@@ -60,35 +60,35 @@ export default function DashboardPage() {
             className="space-y-8 pb-12"
         >
             {/* Professional Welcome Section */}
-            <motion.div variants={item} className="bg-emerald-700 text-white rounded-xl p-8 sm:p-12 text-white shadow-lg shadow-[#10B981]/20 relative overflow-hidden ring-1 ring-white/10">
+            <motion.div variants={item} className="bg-emerald-700 text-white rounded-xl p-8 sm:p-12 text-white shadow-lg shadow-emerald-500/20 relative overflow-hidden ring-1 ring-white/10">
                 <div className="relative z-10 max-w-2xl">
-                    <span className="inline-block px-3 py-1 bg-[#0A0A0A]/10 rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Merchant Dashboard</span>
+                    <span className="inline-block px-3 py-1 bg-black/20 rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Merchant Dashboard</span>
                     <h1 className="text-3xl sm:text-5xl font-bold mb-4 tracking-tight leading-tight">مرحباً، {session?.user?.name}</h1>
-                    <p className="text-gray-400 text-sm sm:text-lg leading-relaxed font-bold">
+                    <p className="text-emerald-50 text-sm sm:text-lg leading-relaxed font-bold">
                         إليك ملخص أداء متجرك وأهم التحديثات. استمر في النمو وتحقيق النجاح.
                     </p>
                 </div>
                 {/* Minimalist Background Detail */}
-                <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-700 text-white/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-[120px]"></div>
+                <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-xl -translate-y-1/2 translate-x-1/2 blur-[120px]"></div>
             </motion.div>
 
             {/* High-Contrast Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                    { title: 'إجمالي الأرباح', value: `${(stats.totalRevenue || 0).toLocaleString('en-US')} $`, icon: FiDollarSign, badge: 'Revenue', color: 'text-[#10B981]', bg: 'bg-emerald-700 text-white-light' },
+                    { title: 'إجمالي الأرباح', value: `${(stats.totalRevenue || 0).toLocaleString('en-US')} $`, icon: FiDollarSign, badge: 'Revenue', color: 'text-[#10B981]', bg: 'bg-[#111111]' },
                     { title: 'إجمالي المبيعات', value: stats.totalOrders || 0, icon: FiShoppingCart, badge: 'Sales', color: 'text-[#10B981]', bg: 'bg-[#111111]' },
                     { title: 'المنتجات النشطة', value: stats.totalProducts || 0, icon: FiPackage, badge: 'Inventory', color: 'text-[#10B981]', bg: 'bg-[#111111]' },
                     { title: 'عدد الطلاب', value: stats.totalStudents || 0, icon: FiUsers, badge: 'Students', color: 'text-[#10B981]', bg: 'bg-[#111111]' }
                 ].map((stat, idx) => (
-                    <motion.div variants={item} key={idx} className="bg-[#0A0A0A] border border-gray-100 p-6 rounded-xl hover:border-emerald-500/20 transition-all shadow-lg shadow-[#10B981]/20 group">
+                    <motion.div variants={item} key={idx} className="bg-[#0A0A0A] border border-white/10 p-6 rounded-xl hover:border-emerald-500/30 transition-all shadow-lg shadow-black/20 group">
                         <div className="flex justify-between items-center mb-6">
-                            <div className={`${stat.bg} p-3 rounded-xl border border-transparent group-hover:border-emerald-500/20 transition-all`}>
+                            <div className={`${stat.bg} p-3 rounded-xl border border-white/5 group-hover:border-emerald-500/20 transition-all`}>
                                 <stat.icon className={`text-xl ${stat.color}`} />
                             </div>
-                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{stat.badge}</span>
+                            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{stat.badge}</span>
                         </div>
-                        <h3 className="text-gray-500 text-xs font-bold mb-1 uppercase tracking-wider">{stat.title}</h3>
-                        <p className="text-2xl font-bold text-[#10B981] font-inter tracking-tight">
+                        <h3 className="text-gray-400 text-xs font-bold mb-1 uppercase tracking-wider">{stat.title}</h3>
+                        <p className="text-2xl font-bold text-white font-inter tracking-tight">
                             {loading ? '—' : stat.value}
                         </p>
                     </motion.div>
@@ -98,23 +98,23 @@ export default function DashboardPage() {
             {/* Analytics & Quick Actions */}
             <div className="grid lg:grid-cols-3 gap-8">
                 {/* Analytics Snapshot */}
-                <motion.div variants={item} className="lg:col-span-2 bg-[#0A0A0A] border border-gray-100 rounded-xl p-8 shadow-lg shadow-[#10B981]/20 flex flex-col">
+                <motion.div variants={item} className="lg:col-span-2 bg-[#0A0A0A] border border-white/10 rounded-xl p-8 shadow-lg shadow-black/20 flex flex-col">
                     <div className="flex justify-between items-center mb-10">
                         <div className="flex items-center gap-3">
                             <FiBarChart2 className="text-[#10B981] text-2xl" />
-                            <h2 className="text-xl font-bold text-[#10B981]">تحليلات الأداء</h2>
+                            <h2 className="text-xl font-bold text-white">تحليلات الأداء</h2>
                         </div>
-                        <select className="bg-[#111111] border-none rounded-xl text-[11px] font-bold px-4 py-2 text-gray-500 focus:ring-1 focus:ring-gray-200 cursor-pointer">
+                        <select className="bg-[#111111] border-white/10 rounded-xl text-[11px] font-bold px-4 py-2 text-gray-400 focus:ring-1 focus:ring-emerald-500 cursor-pointer outline-none">
                             <option>آخر 7 أيام</option>
                             <option>هذا الشهر</option>
                         </select>
                     </div>
 
-                    <div className="flex-1 flex flex-col items-center justify-center text-center py-16 px-8 border-2 border-dashed border-gray-50 rounded-xl">
+                    <div className="flex-1 flex flex-col items-center justify-center text-center py-16 px-8 border-2 border-dashed border-white/5 rounded-xl">
                         <div className="w-16 h-16 bg-[#111111] rounded-xl flex items-center justify-center mb-6">
-                            <FiActivity className="text-2xl text-gray-300" />
+                            <FiActivity className="text-2xl text-emerald-500/50" />
                         </div>
-                        <h3 className="text-lg font-bold text-[#10B981] mb-2">في انتظار المزيد من البيانات</h3>
+                        <h3 className="text-lg font-bold text-white mb-2">في انتظار المزيد من البيانات</h3>
                         <p className="text-gray-400 text-sm max-w-sm mx-auto font-bold">
                             سنقوم بتحليل مبيعاتك وتفاعلات طلابك فور بدء النشاط على متجرك.
                         </p>
@@ -123,27 +123,27 @@ export default function DashboardPage() {
 
                 {/* Corporate Quick Actions */}
                 <motion.div variants={item} className="space-y-4">
-                    <h2 className="text-sm font-bold text-gray-400 uppercase tracking-[0.2em] mb-6 border-r-4 border-ink pr-3 ml-auto text-right">إجراءات سريعة</h2>
+                    <h2 className="text-sm font-bold text-gray-500 uppercase tracking-[0.2em] mb-6 border-r-4 border-emerald-500 pr-3 ml-auto text-right">إجراءات سريعة</h2>
                     {[
                         { title: 'إضافة منتج رقمي', desc: 'كتب، ملفات، قوالب جاهزة', icon: FiPackage, href: '/dashboard/products/new' },
                         { title: 'إنشاء كورس جديد', desc: 'سجل محاضراتك وأنشئ أكاديميتك', icon: FiVideo, href: '/dashboard/courses/new' },
                         { title: 'تعديل هوية المتجر', desc: 'الألوان، الشعار، والوصف', icon: FiSettings, href: '/dashboard/brand' }
                     ].map((action, idx) => (
-                        <Link key={idx} href={action.href} className="flex items-center gap-5 p-5 rounded-xl bg-[#0A0A0A] border border-gray-100 hover:border-emerald-600/20 hover:shadow-lg shadow-[#10B981]/20 hover:shadow-accent/5 transition-all group">
-                            <div className="w-12 h-12 rounded-xl bg-[#111111] text-[#10B981] flex items-center justify-center group-hover:bg-emerald-700 text-white group-hover:text-white transition-all shadow-lg shadow-[#10B981]/20">
+                        <Link key={idx} href={action.href} className="flex items-center gap-5 p-5 rounded-xl bg-[#0A0A0A] border border-white/10 hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5 transition-all group">
+                            <div className="w-12 h-12 rounded-xl bg-[#111111] text-[#10B981] flex items-center justify-center group-hover:bg-emerald-700 group-hover:text-white transition-all shadow-lg shadow-black/20">
                                 <action.icon className="text-xl" />
                             </div>
                             <div className="flex-1 text-right">
-                                <h3 className="font-bold text-[#10B981] group-hover:text-[#10B981] transition-colors text-sm">{action.title}</h3>
+                                <h3 className="font-bold text-white group-hover:text-[#10B981] transition-colors text-sm">{action.title}</h3>
                                 <p className="text-[10px] text-gray-400 font-bold mt-0.5">{action.desc}</p>
                             </div>
-                            <FiArrowUpRight className="text-gray-300 group-hover:text-[#10B981]" />
+                            <FiArrowUpRight className="text-gray-500 group-hover:text-[#10B981]" />
                         </Link>
                     ))}
                     
-                    <div className="mt-8 p-6 bg-emerald-700 text-white-light rounded-xl border border-emerald-600/10">
-                        <p className="text-[10px] font-bold text-[#10B981] uppercase tracking-widest mb-2">نصيحة اليوم</p>
-                        <p className="text-xs text-[#10B981] font-bold leading-relaxed">
+                    <div className="mt-8 p-6 bg-emerald-950/30 text-emerald-200 rounded-xl border border-emerald-500/20">
+                        <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-2">نصيحة اليوم</p>
+                        <p className="text-xs font-bold leading-relaxed text-emerald-100">
                             تحديث صور المنتجات الرقمية يزيد من معدل التحويل بنسبة تصل إلى 25%.
                         </p>
                     </div>

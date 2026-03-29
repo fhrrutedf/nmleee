@@ -259,7 +259,7 @@ export default function NewCoursePage() {
                 </div>
 
                 {/* Progress Bar */}
-                <div className="bg-[#0A0A0A] rounded-xl p-6 lg:p-8 shadow-lg shadow-[#10B981]/20 border border-slate-50 mb-10 overflow-hidden">
+                <div className="bg-[#0A0A0A] rounded-xl p-6 lg:p-8 shadow-lg shadow-[#10B981]/20 border border-white/10 mb-10 overflow-hidden">
                     <StepProgress steps={dynamicSteps} currentStep={currentStep} />
                 </div>
 
@@ -287,17 +287,17 @@ export default function NewCoursePage() {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="space-y-4 pt-10 border-t border-slate-50">
-                                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6 block border-b border-gray-100 pb-3">Program Delivery Model <span className="text-red-500">*</span></label>
+                                    <div className="space-y-4 pt-10 border-t border-white/10">
+                                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6 block border-b border-white/10 pb-3">Program Delivery Model <span className="text-red-500">*</span></label>
                                         <div className="grid md:grid-cols-2 gap-6">
-                                            <button type="button" onClick={() => update('format', 'recorded')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'recorded' ? 'border-emerald-600 bg-emerald-700 text-white/[0.03] shadow-lg shadow-[#10B981]/20 shadow-accent/5' : 'border-gray-100 bg-[#0A0A0A] hover:border-emerald-500/20'}`}>
+                                            <button type="button" onClick={() => update('format', 'recorded')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'recorded' ? 'border-emerald-600 bg-emerald-700 text-white/[0.03] shadow-lg shadow-[#10B981]/20 shadow-accent/5' : 'border-white/10 bg-[#0A0A0A] hover:border-emerald-500/20'}`}>
                                                 <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20 transition-all ${formData.format === 'recorded' ? 'bg-emerald-700 text-white' : 'bg-[#111111] text-gray-400'}`}><FiVideo size={24}/></div>
                                                 <div>
                                                     <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'recorded' ? 'text-[#10B981]' : 'text-gray-400'}`}>Recorded Assets</h4>
                                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider opacity-60">High-leverage asynchronous learning.</p>
                                                 </div>
                                             </button>
-                                            <button type="button" onClick={() => update('format', 'online')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'online' ? 'border-emerald-600 bg-emerald-700 text-white/5 shadow-lg shadow-[#10B981]/20 shadow-accent/5' : 'border-gray-100 bg-[#0A0A0A] hover:border-emerald-500/20'}`}>
+                                            <button type="button" onClick={() => update('format', 'online')} className={`p-8 rounded-[2rem] border-2 text-right transition-all flex items-start gap-5 ${formData.format === 'online' ? 'border-emerald-600 bg-emerald-700 text-white/5 shadow-lg shadow-[#10B981]/20 shadow-accent/5' : 'border-white/10 bg-[#0A0A0A] hover:border-emerald-500/20'}`}>
                                                 <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20 transition-all ${formData.format === 'online' ? 'bg-emerald-700 text-white' : 'bg-[#111111] text-gray-400'}`}><FiClock size={24}/></div>
                                                 <div>
                                                     <h4 className={`font-bold mb-1 text-lg tracking-tight ${formData.format === 'online' ? 'text-[#10B981]' : 'text-gray-400'}`}>Institutional Live</h4>
@@ -317,7 +317,7 @@ export default function NewCoursePage() {
                                                     <>
                                                         <img src={formData.image} alt="Cover" className="w-full h-full object-cover" />
                                                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                           <button type="button" onClick={() => update('image', '')} className="bg-red-500 text-white w-12 h-12 rounded-xl flex items-center justify-center font-bold shadow-lg shadow-[#10B981]/20 hover:scale-110 transition-transform"><FiX size={20}/></button>
+                                                           <button type="button" onClick={() => update('image', '')} className="bg-red-500/100/100 text-white w-12 h-12 rounded-xl flex items-center justify-center font-bold shadow-lg shadow-[#10B981]/20 hover:scale-110 transition-transform"><FiX size={20}/></button>
                                                         </div>
                                                     </>
                                                 ) : (
@@ -334,7 +334,7 @@ export default function NewCoursePage() {
                                         </div>
 
                                         <div>
-                                            <label className="label-modern underline decoration-primary-indigo-100 underline-offset-4 mb-4 block text-slate-700">الفيديو التشويقي (Trailer) 🔥</label>
+                                            <label className="label-modern underline decoration-primary-indigo-100 underline-offset-4 mb-4 block text-gray-300">الفيديو التشويقي (Trailer) 🔥</label>
                                             <div className="relative aspect-video rounded-xl bg-[#111111] border-4 border-white shadow-lg shadow-[#10B981]/20 overflow-hidden group">
                                                 {formData.trailerUrl ? (
                                                     <div className="flex flex-col items-center justify-center w-full h-full p-6 text-center">
@@ -345,7 +345,7 @@ export default function NewCoursePage() {
                                                         <button 
                                                             type="button" 
                                                             onClick={() => update('trailerUrl', '')} 
-                                                            className="mt-4 px-6 py-2 bg-red-50 text-red-500 text-xs font-bold rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-lg shadow-[#10B981]/20"
+                                                            className="mt-4 px-6 py-2 bg-red-500/100/10 text-red-500 text-xs font-bold rounded-xl hover:bg-red-500/100/100 hover:text-white transition-all shadow-lg shadow-[#10B981]/20"
                                                         >
                                                             حذف واستبدال الفيديو
                                                         </button>
@@ -407,7 +407,7 @@ export default function NewCoursePage() {
                                         )}
                                     </div>
 
-                                    <div className="pt-10 border-t border-slate-50">
+                                    <div className="pt-10 border-t border-white/10">
                                         <label className="label-modern mb-4 block underline decoration-primary-indigo-100 underline-offset-4">ملحقات الدورة (اختياري)</label>
                                         <div className="space-y-3">
                                             {formData.attachments.map((file, i) => (
@@ -442,7 +442,7 @@ export default function NewCoursePage() {
                                             </div>
                                             <div className="flex flex-wrap gap-2">
                                                 {formData.tags.map(t => (
-                                                    <span key={t} className="text-[10px] font-bold bg-[#111111] text-gray-500 px-3 py-1.5 rounded-xl flex items-center gap-2 border border-emerald-500/20 hover:bg-red-50 transition-colors group">{t} <FiX className="cursor-pointer text-slate-300 group-hover:text-red-500" onClick={() => update('tags', formData.tags.filter(i => i !== t))} /></span>
+                                                    <span key={t} className="text-[10px] font-bold bg-[#111111] text-gray-500 px-3 py-1.5 rounded-xl flex items-center gap-2 border border-emerald-500/20 hover:bg-red-500/100/10 transition-colors group">{t} <FiX className="cursor-pointer text-slate-300 group-hover:text-red-500" onClick={() => update('tags', formData.tags.filter(i => i !== t))} /></span>
                                                 ))}
                                             </div>
                                         </div>
@@ -482,7 +482,7 @@ export default function NewCoursePage() {
                                             <CourseContentBuilder courseId={draftId} onLessonsChange={setLessonCount} />
                                         </div>
                                     ) : (
-                                        <div className="text-center p-10 text-red-500 font-bold bg-red-50 rounded-xl border-2 border-red-100 italic">حدث خطأ. لم يتم التعرف على الدورة المؤقتة. الرجاء العودة والتأكد من البيانات.</div>
+                                        <div className="text-center p-10 text-red-500 font-bold bg-red-500/100/10 rounded-xl border-2 border-red-100 italic">حدث خطأ. لم يتم التعرف على الدورة المؤقتة. الرجاء العودة والتأكد من البيانات.</div>
                                     )}
                                 </Section>
                             </motion.div>
@@ -513,10 +513,10 @@ export default function NewCoursePage() {
                                         <div className="space-y-4">
                                             <div className="flex items-center justify-between mb-4">
                                                 <label className="label-modern underline decoration-red-200 underline-offset-8">السعر الوهمي / السابق ($)</label>
-                                                <span className="text-[10px] font-bold bg-red-50 text-red-500 px-3 py-1 rounded-xl uppercase tracking-tighter">للخصم فقط</span>
+                                                <span className="text-[10px] font-bold bg-red-500/100/10 text-red-500 px-3 py-1 rounded-xl uppercase tracking-tighter">للخصم فقط</span>
                                             </div>
                                             <div className="relative group/price-old">
-                                                <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-[#111111] text-slate-400 rounded-r-2xl border-l border-emerald-500/20 transition-colors group-focus-within/price-old:bg-red-500 group-focus-within/price-old:text-white">
+                                                <div className="absolute inset-y-0 right-0 w-16 flex items-center justify-center bg-[#111111] text-slate-400 rounded-r-2xl border-l border-emerald-500/20 transition-colors group-focus-within/price-old:bg-red-500/100/100 group-focus-within/price-old:text-white">
                                                     <FiX size={24}/>
                                                 </div>
                                                 <input type="number" className="input-modern pr-20 text-3xl font-bold text-slate-400 line-through focus:bg-[#0A0A0A] transition-all text-center" placeholder="99.00" value={formData.originalPrice} onChange={e => update('originalPrice', e.target.value)} />
@@ -525,7 +525,7 @@ export default function NewCoursePage() {
                                         </div>
                                     </div>
 
-                                    <div className="mt-12 pt-10 border-t border-slate-50">
+                                    <div className="mt-12 pt-10 border-t border-white/10">
                                         <div className="grid md:grid-cols-2 gap-10">
                                             <div className="space-y-4">
                                                 <label className="label-modern text-xs">تاريخ انتهاء عرض الخصم (اختياري)</label>
@@ -598,7 +598,7 @@ export default function NewCoursePage() {
                                     خطوة للخلف
                                 </button>
                             ) : (
-                                <Link href="/dashboard/courses" className="w-full md:w-auto block text-center text-slate-400 hover:text-red-500 font-bold border border-transparent hover:bg-red-50 rounded-xl px-8 py-4 transition-all">
+                                <Link href="/dashboard/courses" className="w-full md:w-auto block text-center text-slate-400 hover:text-red-500 font-bold border border-transparent hover:bg-red-500/100/10 rounded-xl px-8 py-4 transition-all">
                                     تراجع وألغي كل شيء
                                 </Link>
                             )}
@@ -641,7 +641,7 @@ export default function NewCoursePage() {
                                 <img src={formData.image} alt="Preview" className="w-full h-full object-cover" /> 
                             : <span className="font-bold text-xs"><FiImage size={32} className="mx-auto opacity-50 mb-2"/> سيظهر الغلاف هنا</span>}
                             
-                            <div className="absolute top-4 right-4 bg-white/90  px-3 py-1.5 font-bold text-[10px] text-slate-800 rounded-xl">
+                            <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1.5 font-bold text-[10px] text-[#10B981] rounded-xl">
                                 {formData.category || 'تصنيف الدورة'}
                             </div>
                         </div>
@@ -657,7 +657,7 @@ export default function NewCoursePage() {
                                 ))}
                             </div>
 
-                            <div className="flex justify-between items-center mt-6 pt-4 border-t border-slate-50">
+                            <div className="flex justify-between items-center mt-6 pt-4 border-t border-white/10">
                                 <div className="text-xl font-bold text-white" dir="ltr">
                                     <span className="text-sm text-slate-400 mr-1">$</span>
                                     {formData.price || '0.00'}
@@ -679,7 +679,7 @@ export default function NewCoursePage() {
             <AnimatePresence>
                 {showConfirmModal && (
                     <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/60  ">
-                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-[#0A0A0A] rounded-xl p-12 max-w-sm w-full text-center space-y-10 shadow-lg shadow-[#10B981]/20 border border-slate-50">
+                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-[#0A0A0A] rounded-xl p-12 max-w-sm w-full text-center space-y-10 shadow-lg shadow-[#10B981]/20 border border-white/10">
                              <div className="w-24 h-24 bg-[#0A0A0A] text-primary-ink rounded-xl flex items-center justify-center mx-auto text-5xl shadow-lg shadow-[#10B981]/20"><FiCheckSquare /></div>
                              <div className="space-y-2">
                                  <h3 className="text-3xl font-bold text-white leading-tight">جاهز للانطلاق!</h3>
@@ -752,7 +752,7 @@ export default function NewCoursePage() {
 
 function Section({ title, icon, children }: any) {
     return (
-        <div className="bg-[#0A0A0A] rounded-xl p-8 lg:p-14 shadow-lg shadow-[#10B981]/20 border border-slate-50 space-y-10 overflow-hidden relative">
+        <div className="bg-[#0A0A0A] rounded-xl p-8 lg:p-14 shadow-lg shadow-[#10B981]/20 border border-white/10 space-y-10 overflow-hidden relative">
             <div className="flex items-center gap-5">
                 <div className="w-16 h-16 bg-[#111111] text-white rounded-xl flex items-center justify-center text-3xl shadow-lg shadow-[#10B981]/20 group-hover:scale-110 transition-transform shrink-0">
                     {icon}

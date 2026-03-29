@@ -150,7 +150,7 @@ export default function IntegrationsPage() {
                     exit={{ opacity: 0 }}
                     className={`p-4 rounded-xl flex items-center gap-3 font-medium shadow-md ${notification.type === 'success'
                         ? 'bg-green-50 text-green-800 border border-green-200'
-                        : 'bg-red-50 text-red-800 border border-red-200'
+                        : 'bg-red-500/100/10 text-red-800 border border-red-200'
                         }`}
                 >
                     {notification.type === 'success'
@@ -184,7 +184,7 @@ export default function IntegrationsPage() {
                             ? 'border-green-200 dark:border-green-800'
                             : integration.status === 'coming_soon'
                                 ? 'border-dashed border-emerald-500/20 dark:border-gray-700 opacity-70'
-                                : 'border-gray-100 dark:border-gray-800 hover:border-emerald-600/40'
+                                : 'border-white/10 dark:border-gray-800 hover:border-emerald-600/40'
                             }`}
                     >
                         {/* Header */}
@@ -238,7 +238,7 @@ export default function IntegrationsPage() {
                                 </div>
                                 <a
                                     href={integration.connectUrl}
-                                    className="py-2.5 px-4 border border-red-200 text-red-500 hover:bg-red-50 text-sm font-medium rounded-xl transition-colors"
+                                    className="py-2.5 px-4 border border-red-200 text-red-500 hover:bg-red-500/100/10 text-sm font-medium rounded-xl transition-colors"
                                 >
                                     قطع
                                 </a>

@@ -57,7 +57,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
     };
 
     return (
-        <div className="mt-12 bg-[#0A0A0A] dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-8">
+        <div className="mt-12 bg-[#0A0A0A] dark:bg-card-white border border-white/10 dark:border-gray-800 rounded-xl p-8">
             <div className="flex items-center gap-3 mb-8">
                 <div className="p-3 bg-emerald-700 text-white/10 text-[#10B981] rounded-xl">
                     <FiMessageSquare size={24} />
@@ -71,7 +71,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="لديك استفسار أو إضافة؟ اكتبها هنا..."
-                    className="w-full p-5 bg-[#111111]/50 dark:bg-bg-dark/50 border border-gray-100 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all min-h-[120px] text-lg font-medium pr-14"
+                    className="w-full p-5 bg-[#111111]/50 dark:bg-bg-dark/50 border border-white/10 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all min-h-[120px] text-lg font-medium pr-14"
                 />
                 <div className="absolute top-5 right-5 text-gray-400">
                     <FiSend size={24} />
@@ -121,7 +121,7 @@ export default function LessonComments({ lessonId, courseId }: { lessonId: strin
 
                                     {/* Replies Loop */}
                                     {comment.replies && comment.replies.length > 0 && (
-                                        <div className="mt-6 border-r-2 border-gray-100 dark:border-gray-800 pr-6 space-y-6">
+                                        <div className="mt-6 border-r-2 border-white/10 dark:border-gray-800 pr-6 space-y-6">
                                             {comment.replies.map(reply => (
                                                 <div key={reply.id}>
                                                      <div className="flex items-center gap-2 mb-1">

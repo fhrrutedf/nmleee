@@ -152,7 +152,7 @@ export default function EditCoursePage() {
         <div className="max-w-6xl mx-auto pb-40 px-4 text-right" dir="rtl">
             
             {/* --- TOP HUB HEADER --- */}
-            <div className="mb-8 bg-[#0A0A0A] rounded-xl p-8 shadow-lg shadow-[#10B981]/20 border border-slate-50 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="mb-8 bg-[#0A0A0A] rounded-xl p-8 shadow-lg shadow-[#10B981]/20 border border-white/10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div className="space-y-3">
                     <Link href="/dashboard/courses" className="inline-flex items-center gap-2 text-slate-400 hover:text-white font-bold text-xs mb-1 transition-colors">
                         <FiArrowRight /> العودة للدورات
@@ -201,7 +201,7 @@ export default function EditCoursePage() {
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id as any)}
-                        className={`flex shrink-0 items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold transition-all ${activeTab === tab.id ? 'bg-[#0A0A0A] text-primary-ink shadow-lg shadow-[#10B981]/20' : 'text-gray-500 hover:text-slate-700'}`}
+                        className={`flex shrink-0 items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold transition-all ${activeTab === tab.id ? 'bg-[#0A0A0A] text-primary-ink shadow-lg shadow-[#10B981]/20' : 'text-gray-500 hover:text-gray-300'}`}
                     >
                         {tab.icon} {tab.label}
                     </button>
@@ -275,7 +275,7 @@ export default function EditCoursePage() {
                                             <div>
                                                 <label className="text-[10px] font-bold text-slate-400 mb-1 block italic">السعر السابق</label>
                                                 <input
-                                                    type="number" className="input-modern text-center font-bold text-lg border-2 border-slate-50 text-slate-400 line-through"
+                                                    type="number" className="input-modern text-center font-bold text-lg border-2 border-white/10 text-slate-400 line-through"
                                                     value={formData.originalPrice} onChange={(e) => setFormData({ ...formData, originalPrice: e.target.value })}
                                                 />
                                             </div>
@@ -308,7 +308,7 @@ export default function EditCoursePage() {
 
                     {activeTab === 'curriculum' && (
                         <div className="space-y-8">
-                             <div className="flex justify-between items-center bg-[#0A0A0A] rounded-xl p-6 border border-slate-50 shadow-lg shadow-[#10B981]/20">
+                             <div className="flex justify-between items-center bg-[#0A0A0A] rounded-xl p-6 border border-white/10 shadow-lg shadow-[#10B981]/20">
                                 <div>
                                     <h2 className="text-xl font-bold text-white pr-4 border-r-4 border-primary-ink leading-none">محتويات الدورة</h2>
                                     <p className="text-[10px] text-slate-400 font-bold mt-2 pr-4">قم ببناء الفصول وإضافة الدروس والفيديوهات</p>
@@ -330,8 +330,8 @@ export default function EditCoursePage() {
                              ) : (
                                  <div className="grid gap-6">
                                      {modules.map((m: any, idx: number) => (
-                                         <div key={m.id} className="bg-[#0A0A0A] rounded-xl border border-slate-50 shadow-lg shadow-[#10B981]/20 overflow-hidden group">
-                                             <div className="p-6 bg-[#111111]/30 border-b border-slate-50 flex items-center justify-between">
+                                         <div key={m.id} className="bg-[#0A0A0A] rounded-xl border border-white/10 shadow-lg shadow-[#10B981]/20 overflow-hidden group">
+                                             <div className="p-6 bg-[#111111]/30 border-b border-white/10 flex items-center justify-between">
                                                  <div className="flex items-center gap-4">
                                                      <div className="w-10 h-10 rounded-xl bg-[#0A0A0A] border border-emerald-500/20 flex items-center justify-center text-xs font-bold text-slate-400 shadow-lg shadow-[#10B981]/20">{idx + 1}</div>
                                                      <div>
@@ -352,7 +352,7 @@ export default function EditCoursePage() {
                                                          <div className="flex items-center gap-4 min-w-0">
                                                              <span className="text-[10px] font-bold text-slate-300">{lIdx + 1}</span>
                                                              <div className="truncate">
-                                                                 <h4 className="text-xs font-bold text-slate-700 truncate">{l.title}</h4>
+                                                                 <h4 className="text-xs font-bold text-gray-300 truncate">{l.title}</h4>
                                                                  <div className="flex items-center gap-2 mt-1 opacity-60">
                                                                     {l.isFree && <span className="text-[8px] bg-emerald-700 text-white-50 text-[#10B981]-600 px-1.5 py-0.5 rounded font-bold italic">معاينة</span>}
                                                                     {l.bunnyVideoId ? <FiVideo size={10} className="text-primary-indigo-400" /> : <FiFileText size={10} />}
@@ -414,8 +414,8 @@ export default function EditCoursePage() {
 
 function HubSection({ title, icon, children }: any) {
     return (
-        <div className="bg-[#0A0A0A] rounded-xl p-8 lg:p-10 shadow-lg shadow-[#10B981]/20 border border-slate-50 space-y-8 animate-in fade-in duration-500">
-            <div className="flex items-center gap-4 border-b border-slate-50 pb-6 -mx-2">
+        <div className="bg-[#0A0A0A] rounded-xl p-8 lg:p-10 shadow-lg shadow-[#10B981]/20 border border-white/10 space-y-8 animate-in fade-in duration-500">
+            <div className="flex items-center gap-4 border-b border-white/10 pb-6 -mx-2">
                 <div className="w-12 h-12 bg-[#0A0A0A] text-primary-ink rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20 text-xl shrink-0">
                     {icon}
                 </div>

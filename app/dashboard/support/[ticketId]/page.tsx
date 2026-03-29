@@ -82,8 +82,8 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
             case 'OPEN': return { label: 'مفتوحة (قيد الانتظار)', css: 'bg-yellow-100 text-yellow-700' };
             case 'IN_PROGRESS': return { label: 'جاري العمل عليها', css: 'bg-blue-100 text-blue-700' };
             case 'RESOLVED': return { label: 'تم الحل', css: 'bg-green-100 text-green-700' };
-            case 'CLOSED': return { label: 'مغلقة', css: 'bg-gray-200 text-gray-700' };
-            default: return { label: status, css: 'bg-emerald-800 text-gray-700' };
+            case 'CLOSED': return { label: 'مغلقة', css: 'bg-gray-200 text-gray-300' };
+            default: return { label: status, css: 'bg-emerald-800 text-gray-300' };
         }
     };
 
@@ -95,8 +95,8 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                 <FiArrowRight /> العودة لمركز الدعم
             </Link>
 
-            <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-8">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-100 dark:border-gray-800 pb-6 mb-6">
+            <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 p-8">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/10 dark:border-gray-800 pb-6 mb-6">
                     <div>
                         <div className="flex items-center gap-3 mb-2">
                             <span className="font-mono text-sm text-[#10B981] font-bold px-3 py-1 bg-emerald-700 text-white/10 rounded-xl">
@@ -124,7 +124,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isAdmin ? 'bg-emerald-700 text-white' : 'bg-gray-200 dark:bg-gray-800'}`}>
                                     {isAdmin ? <FiMessageSquare className="text-white" /> : <FiUser className="text-gray-500" />}
                                 </div>
-                                <div className={`max-w-[80%] rounded-xl p-5 ${isAdmin ? 'bg-[#111111] dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-tr-none' : 'bg-emerald-700 text-white/10 dark:bg-emerald-700 text-white/20 text-[#10B981] rounded-tl-none'}`}>
+                                <div className={`max-w-[80%] rounded-xl p-5 ${isAdmin ? 'bg-[#111111] dark:bg-gray-900 border border-white/10 dark:border-gray-800 rounded-tr-none' : 'bg-emerald-700 text-white/10 dark:bg-emerald-700 text-white/20 text-[#10B981] rounded-tl-none'}`}>
                                     <div className="flex items-center gap-2 mb-2">
                                         <span className={`font-bold text-sm ${isAdmin ? 'text-[#10B981] dark:text-white' : 'text-[#10B981]'}`}>
                                             {isAdmin ? 'فريق الدعم (المنصة)' : 'أنت'}
@@ -133,16 +133,16 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
                                             {new Date(msg.createdAt).toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })}
                                         </span>
                                     </div>
-                                    <p className={`whitespace-pre-wrap leading-relaxed ${isAdmin ? 'text-gray-700 dark:text-gray-300' : 'text-gray-800 dark:text-gray-200'}`}>
+                                    <p className={`whitespace-pre-wrap leading-relaxed ${isAdmin ? 'text-gray-300 dark:text-gray-300' : 'text-gray-800 dark:text-gray-200'}`}>
                                         {msg.message}
                                     </p>
                                     {msg.attachmentUrl && (
-                                        <div className="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800">
+                                        <div className="mt-4 pt-3 border-t border-white/10 dark:border-gray-800">
                                             <a 
                                                 href={msg.attachmentUrl} 
                                                 target="_blank" 
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center gap-2 text-xs font-bold bg-[#0A0A0A] dark:bg-gray-800 px-3 py-2 rounded-lg border border-gray-100 hover:border-emerald-600 transition-colors"
+                                                className="inline-flex items-center gap-2 text-xs font-bold bg-[#0A0A0A] dark:bg-gray-800 px-3 py-2 rounded-lg border border-white/10 hover:border-emerald-600 transition-colors"
                                             >
                                                 📂 عرض المرفقات
                                             </a>
@@ -156,7 +156,7 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
 
                 {/* Reply Form */}
                 {isClosed ? (
-                    <div className="bg-[#111111] dark:bg-gray-900/50 p-6 rounded-xl border border-gray-100 dark:border-gray-800 flex items-center gap-3 text-gray-500 justify-center">
+                    <div className="bg-[#111111] dark:bg-gray-900/50 p-6 rounded-xl border border-white/10 dark:border-gray-800 flex items-center gap-3 text-gray-500 justify-center">
                         <FiInfo className="text-xl" />
                         <p className="font-bold">هذه التذكرة مغلقة ولا يمكن إضافة المزيد من الردود عليها.</p>
                     </div>

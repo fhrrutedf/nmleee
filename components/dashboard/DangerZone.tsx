@@ -39,9 +39,9 @@ export default function DangerZone() {
 
     return (
         <div className="space-y-6">
-            <div className="p-6 bg-red-50/50 border border-red-100 rounded-xl">
+            <div className="p-6 bg-red-500/10/50 border border-red-100 rounded-xl">
                 <div className="flex items-start gap-4 mb-6">
-                    <div className="w-12 h-12 bg-red-500/10 text-red-600 rounded-xl flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 bg-red-500/100/10 text-red-600 rounded-xl flex items-center justify-center shrink-0">
                         <FiAlertTriangle className="text-2xl" />
                     </div>
                     <div>
@@ -57,7 +57,7 @@ export default function DangerZone() {
                         onClick={() => toast.success('تم إرسال طلب تجميد الحساب لمراجعة الإدارة')}
                         className="w-full flex items-center justify-between p-4 bg-[#0A0A0A] hover:bg-[#111111] border border-red-200 rounded-xl transition-all group"
                     >
-                        <span className="font-bold text-gray-700 group-hover:text-red-900">تعطيل الحساب مؤقتاً</span>
+                        <span className="font-bold text-gray-300 group-hover:text-red-900">تعطيل الحساب مؤقتاً</span>
                         <FiAlertTriangle className="text-red-300 group-hover:text-red-500" />
                     </button>
 
@@ -106,7 +106,7 @@ export default function DangerZone() {
                                 </div>
                                 <h4 className="font-bold text-white mb-2">أمنيتي الأخيرة قبل الحذف</h4>
                                 <p className="text-sm text-gray-500 mb-4">
-                                    هذا الإجراء سيقوم بحذف متجرك ومنتجاتك وسجل مبيعاتك وأرباحك **نهائياً**. لتأكيد العملية، يرجى كتابة <span className="font-mono font-bold text-red-600 bg-red-50 px-1 rounded">DELETE</span> بالأسفل:
+                                    هذا الإجراء سيقوم بحذف متجرك ومنتجاتك وسجل مبيعاتك وأرباحك **نهائياً**. لتأكيد العملية، يرجى كتابة <span className="font-mono font-bold text-red-600 bg-red-500/10 px-1 rounded">DELETE</span> بالأسفل:
                                 </p>
                                 
                                 <input 
@@ -121,7 +121,7 @@ export default function DangerZone() {
                             <div className="flex gap-4">
                                 <button 
                                     onClick={() => setShowModal(false)}
-                                    className="flex-1 btn bg-emerald-800 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-bold transition-all"
+                                    className="flex-1 btn bg-emerald-800 hover:bg-gray-200 text-gray-300 py-3 rounded-xl font-bold transition-all"
                                 >
                                     إلغاء التراجع
                                 </button>

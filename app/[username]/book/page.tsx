@@ -163,7 +163,7 @@ export default function BookAppointmentPage() {
                     <p className="text-gray-400 mt-2">اختر الوقت المناسب لك للحصول على استشارتك مع {creator.name}</p>
                 </div>
 
-                <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 overflow-hidden">
+                <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 overflow-hidden">
                     {/* Seller Profile Summary */}
                     <div className="p-6 bg-emerald-700 text-white border-b border-primary-100 flex gap-4 items-center">
                         <div className="w-16 h-16 rounded-xl overflow-hidden bg-[#0A0A0A] border-2 border-white shadow-lg shadow-[#10B981]/20 flex-shrink-0">
@@ -234,7 +234,7 @@ export default function BookAppointmentPage() {
                                             onClick={() => setSelectedTime(time)}
                                             className={`py-3 rounded-lg border text-center transition-all ${selectedTime === time
                                                 ? 'bg-emerald-700 text-white border-emerald-600 text-white shadow-md transform scale-105'
-                                                : 'bg-[#0A0A0A] border-emerald-500/20 text-gray-700 hover:border-primary-300 hover:bg-primary-50'
+                                                : 'bg-[#0A0A0A] border-emerald-500/20 text-gray-300 hover:border-primary-300 hover:bg-primary-50'
                                                 }`}
                                         >
                                             <span className="block font-medium">{time}</span>
@@ -244,7 +244,7 @@ export default function BookAppointmentPage() {
                             </div>
 
                             {/* Actions */}
-                            <div className="mt-10 pt-6 border-t border-gray-100 flex justify-end">
+                            <div className="mt-10 pt-6 border-t border-white/10 flex justify-end">
                                 <button
                                     onClick={handleContinue}
                                     disabled={!selectedDate || !selectedTime}

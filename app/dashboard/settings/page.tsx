@@ -291,7 +291,7 @@ export default function SettingsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 {/* Sidebar Tabs */}
                 <div className="lg:col-span-1 overflow-x-auto pb-2 sm:pb-0 scrollbar-hide">
-                    <div className="card flex lg:flex-col gap-2 p-2 sm:p-4 min-w-max lg:min-w-0 bg-[#0A0A0A] dark:bg-card-white rounded-xl sm:rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800">
+                    <div className="card flex lg:flex-col gap-2 p-2 sm:p-4 min-w-max lg:min-w-0 bg-[#0A0A0A] dark:bg-card-white rounded-xl sm:rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800">
                         {tabs.map((tab) => (
                             <button
                                 key={tab.id}
@@ -310,11 +310,11 @@ export default function SettingsPage() {
 
                 {/* Content */}
                 <div className="lg:col-span-3">
-                    <div className="card min-h-[500px] bg-[#0A0A0A] dark:bg-card-white rounded-xl sm:rounded-xl p-6 sm:p-8 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800">
+                    <div className="card min-h-[500px] bg-[#0A0A0A] dark:bg-card-white rounded-xl sm:rounded-xl p-6 sm:p-8 shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800">
                         {/* Profile Tab */}
                         {activeTab === 'profile' && (
                             <div className="space-y-8 ">
-                                <h2 className="text-xl sm:text-2xl font-bold text-[#10B981] dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الملف الشخصي</h2>
+                                <h2 className="text-xl sm:text-2xl font-bold text-[#10B981] dark:text-white border-b border-white/10 dark:border-gray-800 pb-4">الملف الشخصي</h2>
 
                                 {/* Avatar & Cover Upload */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -322,7 +322,7 @@ export default function SettingsPage() {
                                     <div className="space-y-3">
                                         <label className="label">الصورة الشخصية (Avatar)</label>
                                         <div className="flex flex-col items-center gap-4 p-4 border border-dashed border-gray-300 dark:border-gray-700 rounded-xl bg-[#111111] dark:bg-gray-800/50">
-                                            <div className="w-24 h-24 rounded-xl overflow-hidden bg-emerald-700 text-white flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-[#10B981]/20 ring-4 ring-white dark:ring-gray-900 border border-gray-100 dark:border-gray-800 shrink-0 relative group">
+                                            <div className="w-24 h-24 rounded-xl overflow-hidden bg-emerald-700 text-white flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-[#10B981]/20 ring-4 ring-white dark:ring-gray-900 border border-white/10 dark:border-gray-800 shrink-0 relative group">
                                                 {profileData.avatar ? (
                                                     <img src={profileData.avatar} alt="Avatar" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                                                 ) : (
@@ -493,7 +493,7 @@ export default function SettingsPage() {
                                     </div>
                                 </div>
 
-                                <div className="pt-6 border-t border-gray-100 dark:border-gray-800 flex justify-end">
+                                <div className="pt-6 border-t border-white/10 dark:border-gray-800 flex justify-end">
                                     <button
                                         onClick={saveProfile}
                                         disabled={saving}
@@ -509,7 +509,7 @@ export default function SettingsPage() {
                         {/* Security Tab */}
                         {activeTab === 'security' && (
                             <div className="space-y-8 ">
-                                <h2 className="text-2xl font-bold text-[#10B981] dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الأمان وكلمة المرور</h2>
+                                <h2 className="text-2xl font-bold text-[#10B981] dark:text-white border-b border-white/10 dark:border-gray-800 pb-4">الأمان وكلمة المرور</h2>
 
                                 <div className="space-y-6 max-w-lg">
                                     <div>
@@ -552,7 +552,7 @@ export default function SettingsPage() {
                                     </div>
                                 </div>
 
-                                <div className="pt-6 border-t border-gray-100 dark:border-gray-800">
+                                <div className="pt-6 border-t border-white/10 dark:border-gray-800">
                                     <button
                                         onClick={savePassword}
                                         disabled={saving}
@@ -568,7 +568,7 @@ export default function SettingsPage() {
                         {/* Notifications Tab */}
                         {activeTab === 'notifications' && (
                             <div className="space-y-8 ">
-                                <h2 className="text-2xl font-bold text-[#10B981] dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">إعدادات الإشعارات</h2>
+                                <h2 className="text-2xl font-bold text-[#10B981] dark:text-white border-b border-white/10 dark:border-gray-800 pb-4">إعدادات الإشعارات</h2>
 
                                 <div className="space-y-4">
                                     {[
@@ -577,7 +577,7 @@ export default function SettingsPage() {
                                         { key: 'marketingEmails', label: 'رسائل تسويقية', desc: 'تلقي عروض وتحديثات المنتجات' },
                                         { key: 'weeklyReport', label: 'التقرير الأسبوعي', desc: 'تلقي  ملخص أسبوعي بنشاطك' }
                                     ].map((item: any) => (
-                                        <div key={item.key} className="flex items-center justify-between p-4 bg-[#111111] dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-800">
+                                        <div key={item.key} className="flex items-center justify-between p-4 bg-[#111111] dark:bg-gray-800/50 rounded-lg border border-white/10 dark:border-gray-800">
                                             <div>
                                                 <h3 className="font-medium text-[#10B981] dark:text-white">{item.label}</h3>
                                                 <p className="text-sm text-text-muted">{item.desc}</p>
@@ -598,7 +598,7 @@ export default function SettingsPage() {
                                     ))}
                                 </div>
 
-                                <div className="pt-6 border-t border-gray-100 dark:border-gray-800">
+                                <div className="pt-6 border-t border-white/10 dark:border-gray-800">
                                     <button className="btn btn-primary">
                                         <FiSave />
                                         <span>حفظ الإعدادات</span>
@@ -610,7 +610,7 @@ export default function SettingsPage() {
                         {/* Payment Tab */}
                         {activeTab === 'payment' && (
                             <div className="space-y-8 ">
-                                <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-4">
+                                <div className="flex items-center justify-between border-b border-white/10 dark:border-gray-800 pb-4">
                                     <h2 className="text-2xl font-bold text-white dark:text-white">إعدادات تحويل الأرباح</h2>
                                     <FiTrendingUp className="text-2xl text-[#10B981]" />
                                 </div>
@@ -621,12 +621,12 @@ export default function SettingsPage() {
                         {/* Integrations Tab */}
                         {activeTab === 'integrations' && (
                             <div className="space-y-8 ">
-                                <h2 className="text-2xl font-bold text-[#10B981] dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">التكاملات والخدمات المرتبطة</h2>
+                                <h2 className="text-2xl font-bold text-[#10B981] dark:text-white border-b border-white/10 dark:border-gray-800 pb-4">التكاملات والخدمات المرتبطة</h2>
 
                                 {integrationMsg && (
                                     <div className={`p-4 rounded-xl flex items-center gap-3 font-medium ${integrationMsg.type === 'success'
                                         ? 'bg-green-50 text-green-800 border border-green-200'
-                                        : 'bg-red-50 text-red-800 border border-red-200'
+                                        : 'bg-red-500/100/10 text-red-800 border border-red-200'
                                         }`}>
                                         {integrationMsg.type === 'success' ? <FiCheckCircle className="text-xl flex-shrink-0" /> : <FiXCircle className="text-xl flex-shrink-0" />}
                                         {integrationMsg.text}
@@ -634,10 +634,10 @@ export default function SettingsPage() {
                                 )}
 
                                 {/* Google Calendar */}
-                                <div className="p-6 border-2 border-gray-100 dark:border-gray-800 rounded-xl hover:border-emerald-600/30 transition-all">
+                                <div className="p-6 border-2 border-white/10 dark:border-gray-800 rounded-xl hover:border-emerald-600/30 transition-all">
                                     <div className="flex items-center justify-between flex-wrap gap-4">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-14 h-14 rounded-xl bg-[#0A0A0A] shadow-md border border-gray-100 flex items-center justify-center">
+                                            <div className="w-14 h-14 rounded-xl bg-[#0A0A0A] shadow-md border border-white/10 flex items-center justify-center">
                                                 <svg viewBox="0 0 24 24" className="w-8 h-8">
                                                     <path fill="#4285F4" d="M22 12A10 10 0 1 1 12 2a10 10 0 0 1 10 10z" />
                                                     <path fill="white" d="M12 6.5v5.5l3.5 3.5-1 1L10.5 12V6.5h1.5z" />
@@ -656,7 +656,7 @@ export default function SettingsPage() {
                                                         <FiCheckCircle />
                                                         متصل
                                                     </span>
-                                                    <a href="/api/google/calendar/connect" className="btn btn-accent text-sm border-red-300 text-red-500 hover:bg-red-50">
+                                                    <a href="/api/google/calendar/connect" className="btn btn-accent text-sm border-red-300 text-red-500 hover:bg-red-500/100/10">
                                                         قطع الاتصال
                                                     </a>
                                                 </>
@@ -703,7 +703,7 @@ export default function SettingsPage() {
                         {/* Verification Tab (Phase 10) */}
                         {activeTab === 'verification' && (
                             <div className="space-y-8 ">
-                                <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-4">
+                                <div className="flex items-center justify-between border-b border-white/10 dark:border-gray-800 pb-4">
                                     <h2 className="text-2xl font-bold text-[#10B981] dark:text-white">توثيق الحساب (Trust Badge)</h2>
                                     <FiCheckCircle className={`text-3xl ${verificationRequest?.status === 'APPROVED' ? 'text-green-500' : 'text-[#10B981]'}`} />
                                 </div>
@@ -713,7 +713,7 @@ export default function SettingsPage() {
                                     {verificationRequest ? (
                                         <div className={`p-6 rounded-xl border-2 flex items-start gap-4 ${
                                             verificationRequest.status === 'APPROVED' ? 'bg-green-50 border-green-200 text-green-800' :
-                                            verificationRequest.status === 'REJECTED' ? 'bg-red-50 border-red-200 text-red-800' :
+                                            verificationRequest.status === 'REJECTED' ? 'bg-red-500/100/10 border-red-200 text-red-800' :
                                             'bg-emerald-700 text-white-50 border-blue-200 text-blue-800'
                                         }`}>
                                             <div className="text-3xl mt-1">
@@ -775,10 +775,10 @@ export default function SettingsPage() {
                         {/* Privacy Tab */}
                         {activeTab === 'privacy' && (
                             <div className="space-y-8 ">
-                                <h2 className="text-2xl font-bold text-[#10B981] dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">الخصوصية والأمان المتقدم</h2>
+                                <h2 className="text-2xl font-bold text-[#10B981] dark:text-white border-b border-white/10 dark:border-gray-800 pb-4">الخصوصية والأمان المتقدم</h2>
 
                                 <div className="space-y-6">
-                                    <div className="p-5 bg-[#111111] dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
+                                    <div className="p-5 bg-[#111111] dark:bg-gray-800/50 rounded-xl border border-white/10 dark:border-gray-800">
                                         <div className="flex items-center gap-2 mb-4 text-[#10B981] dark:text-white">
                                             <FiEye className="text-[#10B981]" />
                                             <h3 className="font-bold">رؤية رقم الهاتف</h3>
@@ -795,7 +795,7 @@ export default function SettingsPage() {
                                         <p className="mt-2 text-xs text-text-muted">نوصي باختيار "مخفي" أو "واتساب فقط" لخصوصية أفضل.</p>
                                     </div>
 
-                                    <div className="p-4 bg-[#111111] dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
+                                    <div className="p-4 bg-[#111111] dark:bg-gray-800/50 rounded-xl border border-white/10 dark:border-gray-800">
                                         <div className="flex items-center gap-2 mb-4">
                                             <FiShield className="text-[#10B981]" />
                                             <h3 className="font-bold text-white dark:text-white">التحقق بخطوتين (2FA)</h3>
@@ -808,7 +808,7 @@ export default function SettingsPage() {
                                                 </p>
                                             </div>
                                             {profileData.twoFactorEnabled ? (
-                                                <button onClick={disable2FA} className="btn bg-red-50 text-red-600 border-red-100 hover:bg-red-100 py-2 text-sm">تعطيل 2FA</button>
+                                                <button onClick={disable2FA} className="btn bg-red-500/100/10 text-red-600 border-red-100 hover:bg-red-100 py-2 text-sm">تعطيل 2FA</button>
                                             ) : (
                                                 <button onClick={setup2FA} className="btn btn-primary py-2 text-sm">تفعيل 2FA</button>
                                             )}

@@ -109,25 +109,25 @@ export default function ProductsPage() {
             
             {/* --- TOP PERFORMERS SUMMARY --- */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in slide-in-from-top-4 duration-500">
-                <div className="bg-[#0A0A0A] dark:bg-card-white p-6 rounded-xl border border-slate-50 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group hover:shadow-md transition-all">
-                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-emerald-700 text-white-50 dark:bg-blue-900/10 rounded-xl blur-2xl group-hover:scale-150 transition-transform"></div>
+                <div className="bg-[#0A0A0A] p-6 rounded-xl border border-white/10 shadow-lg shadow-black/20 relative overflow-hidden group hover:border-emerald-500/30 transition-all">
+                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-emerald-500/10 rounded-xl blur-2xl group-hover:scale-150 transition-transform"></div>
                     <div className="relative">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">تقدير صافي الأرباح 💰</p>
-                        <h4 className="text-3xl font-bold text-white dark:text-white">{(totalInventoryValue * 0.85).toFixed(2)} <span className="text-sm font-bold text-slate-400">$</span></h4>
-                        <p className="text-[10px] text-[#10B981]-500 font-bold mt-2 flex items-center gap-1">بعد خصم عمولة المنصة التقريبية</p>
+                        <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">تقدير صافي الأرباح 💰</p>
+                        <h4 className="text-3xl font-bold text-white">{(totalInventoryValue * 0.85).toFixed(2)} <span className="text-sm font-bold text-gray-500">$</span></h4>
+                        <p className="text-[10px] text-emerald-500 font-bold mt-2 flex items-center gap-1">بعد خصم عمولة المنصة التقريبية</p>
                     </div>
                 </div>
 
-                <div className="bg-[#0A0A0A] dark:bg-card-white p-6 rounded-xl border border-slate-50 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group hover:shadow-md transition-all">
-                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-[#0A0A0A] dark:bg-indigo-900/10 rounded-xl blur-2xl group-hover:scale-150 transition-transform"></div>
+                <div className="bg-[#0A0A0A] p-6 rounded-xl border border-white/10 shadow-lg shadow-black/20 relative overflow-hidden group hover:border-emerald-500/30 transition-all">
+                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-emerald-500/5 rounded-xl blur-2xl group-hover:scale-150 transition-transform"></div>
                     <div className="relative">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">المنتج النجم (الأكثر مبيلاً) ⭐</p>
-                        <h4 className="text-lg font-bold text-white dark:text-white truncate">{topProduct?.title || 'لا يوجد مبيعات بعد'}</h4>
-                        <p className="text-[10px] text-primary-ink font-bold mt-2 uppercase tracking-tighter">باع {topProduct?.soldCount || 0} نسخة إجمالاً</p>
+                        <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">المنتج النجم (الأكثر مبيعاً) ⭐</p>
+                        <h4 className="text-lg font-bold text-white truncate">{topProduct?.title || 'لا يوجد مبيعات بعد'}</h4>
+                        <p className="text-[10px] text-emerald-500 font-bold mt-2 uppercase tracking-tighter">باع {topProduct?.soldCount || 0} نسخة إجمالاً</p>
                     </div>
                 </div>
 
-                <div className="bg-emerald-700 text-white p-6 rounded-xl shadow-lg shadow-[#10B981]/20 relative overflow-hidden group">
+                <div className="bg-emerald-700 text-white p-6 rounded-xl shadow-lg shadow-emerald-500/20 relative overflow-hidden group border border-white/10">
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/5 rounded-xl blur-2xl group-hover:scale-150 transition-transform"></div>
                     <div className="relative">
                         <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2">إجمالي قيمة المبيعات (GMV)</p>
@@ -138,21 +138,21 @@ export default function ProductsPage() {
             </div>
 
             {/* --- HEADER --- */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 bg-[#0A0A0A] dark:bg-card-white rounded-xl p-8 shadow-lg shadow-[#10B981]/20 border border-slate-50 dark:border-gray-800">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 bg-[#0A0A0A] rounded-xl p-8 shadow-lg shadow-black/20 border border-white/10">
                 <div>
-                    <h1 className="text-3xl font-bold text-white dark:text-white leading-tight">إدارة المنتجات الرقمية 📦</h1>
-                    <p className="text-slate-400 font-bold text-xs mt-2 uppercase tracking-widest">تعديل سريع • تحكم شامل • إحصائيات الأرباح</p>
+                    <h1 className="text-3xl font-bold text-white leading-tight">إدارة المنتجات الرقمية 📦</h1>
+                    <p className="text-gray-400 font-bold text-xs mt-2 uppercase tracking-widest">تعديل سريع • تحكم شامل • إحصائيات الأرباح</p>
                 </div>
                 <div className="flex gap-3">
                     <button 
                         onClick={fetchProducts}
-                        className="w-12 h-12 flex items-center justify-center bg-[#111111] dark:bg-gray-800 text-slate-400 rounded-xl hover:bg-emerald-800 dark:hover:bg-gray-700 transition-all border border-emerald-500/20 dark:border-gray-700"
+                        className="w-12 h-12 flex items-center justify-center bg-[#111111] text-gray-400 rounded-xl hover:bg-emerald-800 transition-all border border-white/10"
                     >
                         <FiRefreshCw className={loading ? 'animate-spin' : ''} />
                     </button>
                     <Link
                         href="/dashboard/products/new?new=true"
-                        className="px-8 py-3.5 bg-emerald-700 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#10B981]/20 shadow-[#10B981]/20 hover:bg-emerald-700 text-white active:scale-95 transition-all"
+                        className="px-8 py-3.5 bg-emerald-700 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 hover:bg-emerald-600 active:scale-95 transition-all"
                     >
                         <FiPlus className="text-lg" /> إضافة منتج جديد
                     </Link>
@@ -162,18 +162,18 @@ export default function ProductsPage() {
             {/* --- FILTERS BAR --- */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="md:col-span-2 relative">
-                    <FiSearch className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300" />
+                    <FiSearch className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500" />
                     <input 
                         type="text" 
                         placeholder="ابحث عن منتج..."
-                        className="w-full h-14 pr-12 pl-4 bg-[#0A0A0A] dark:bg-card-white border border-emerald-500/20 dark:border-gray-800 rounded-[1.2rem] text-sm font-bold shadow-lg shadow-[#10B981]/20 focus:ring-4 focus:ring-subtle/50 outline-none transition-all dark:text-white"
+                        className="w-full h-14 pr-12 pl-4 bg-[#0A0A0A] border border-white/10 rounded-xl text-sm font-bold shadow-lg shadow-black/20 focus:ring-1 focus:ring-emerald-500 outline-none transition-all text-white"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
                 </div>
                 <div>
                     <select 
-                        className="w-full h-14 bg-[#0A0A0A] dark:bg-card-white border border-emerald-500/20 dark:border-gray-800 rounded-[1.2rem] px-4 text-xs font-bold text-gray-500 outline-none shadow-lg shadow-[#10B981]/20 cursor-pointer"
+                        className="w-full h-14 bg-[#0A0A0A] border border-white/10 rounded-xl px-4 text-xs font-bold text-gray-400 outline-none shadow-lg shadow-black/20 cursor-pointer focus:ring-1 focus:ring-emerald-500"
                         value={filterCategory}
                         onChange={(e) => setFilterCategory(e.target.value)}
                     >
@@ -181,38 +181,38 @@ export default function ProductsPage() {
                         {categories.map((cat: any) => <option key={cat} value={cat}>{cat}</option>)}
                     </select>
                 </div>
-                <div className="bg-emerald-700 text-white flex items-center justify-center rounded-[1.2rem] h-14 shadow-lg shadow-[#10B981]/20">
+                <div className="bg-emerald-700 text-white flex items-center justify-center rounded-xl h-14 shadow-lg shadow-emerald-500/20">
                     <p className="text-[10px] font-bold uppercase tracking-widest text-center px-4">إجمالي المنتجات: {products.length}</p>
                 </div>
             </div>
 
             {/* --- PRODUCTS TABLE --- */}
-            <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-slate-50 dark:border-gray-800 overflow-hidden">
+            <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-black/20 border border-white/10 overflow-hidden">
                 <div className="overflow-x-auto no-scrollbar">
                     <table className="w-full text-right border-collapse">
                         <thead>
-                            <tr className="bg-[#111111]/50 dark:bg-gray-900/50 border-b border-emerald-500/20 dark:border-gray-800">
-                                <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">المنتج والاسم التجاري</th>
-                                <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">التصنيف</th>
-                                <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">السعر ($)</th>
-                                <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">الأرباح (الصافي)</th>
-                                <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">تاريخ النشر</th>
-                                <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">الحالة</th>
-                                <th className="p-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">إجراءات</th>
+                            <tr className="bg-[#111111]/50 border-b border-white/10">
+                                <th className="p-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest">المنتج والاسم التجاري</th>
+                                <th className="p-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center">التصنيف</th>
+                                <th className="p-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center">السعر ($)</th>
+                                <th className="p-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center">الأرباح (الصافي)</th>
+                                <th className="p-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center">تاريخ النشر</th>
+                                <th className="p-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center">الحالة</th>
+                                <th className="p-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center">إجراءات</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-50">
+                        <tbody className="divide-y divide-white/5">
                             <AnimatePresence>
                                 {filtered.map((product) => (
                                     <motion.tr 
                                         key={product.id}
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        className="hover:bg-[#111111]/20 transition-colors group"
+                                        className="hover:bg-[#111111]/30 transition-colors group"
                                     >
                                         <td className="p-6">
                                             <div className="flex items-center gap-4 min-w-[250px]">
-                                                <div className="w-14 h-14 rounded-xl overflow-hidden border border-emerald-500/20 bg-[#111111] shrink-0 shadow-lg shadow-[#10B981]/20">
+                                                <div className="w-14 h-14 rounded-xl overflow-hidden border border-white/10 bg-[#111111] shrink-0 shadow-lg shadow-black/40">
                                                     <img src={product.image || '/placeholder-product.png'} className="w-full h-full object-cover" alt="" />
                                                 </div>
                                                 <div>
@@ -222,12 +222,12 @@ export default function ProductsPage() {
                                                     {product.title?.includes('Screenshot') && (
                                                         <p className="text-[9px] text-red-400 font-bold mt-1">⚠️ اسم غير احترافي (يجب تعديله)</p>
                                                     )}
-                                                    <p className="text-[10px] text-slate-400 mt-1 font-bold">Slug: {product.slug || 'لا يوجد'}</p>
+                                                    <p className="text-[10px] text-gray-500 mt-1 font-bold">Slug: {product.slug || 'لا يوجد'}</p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="p-6 text-center">
-                                            <span className="px-3 py-1 bg-[#0A0A0A] border border-emerald-500/20 rounded-lg text-[10px] font-bold text-gray-500 shadow-lg shadow-[#10B981]/20 lowercase">
+                                            <span className="px-3 py-1 bg-[#111111] border border-white/10 rounded-lg text-[10px] font-bold text-gray-400 shadow-sm lowercase">
                                                 {product.category || 'غير مصنف'}
                                             </span>
                                         </td>
@@ -237,13 +237,13 @@ export default function ProductsPage() {
                                                     <input 
                                                         autoFocus
                                                         type="number"
-                                                        className="w-20 h-9 p-2 text-center text-xs font-bold border-2 border-primary-indigo-100 rounded-lg focus:ring-0 outline-none"
+                                                        className="w-20 h-9 p-2 text-center text-xs font-bold bg-[#111111] border border-emerald-500 rounded-lg focus:ring-0 outline-none text-white"
                                                         value={tempPrice}
                                                         onChange={(e) => setTempPrice(e.target.value)}
                                                         onKeyPress={(e) => e.key === 'Enter' && updatePrice(product.id)}
                                                     />
-                                                    <button onClick={() => updatePrice(product.id)} className="w-8 h-8 bg-emerald-700 text-white-500 text-white rounded-lg flex items-center justify-center hover:bg-emerald-700 text-white-600 transition-colors"><FiCheck size={14} /></button>
-                                                    <button onClick={() => setEditingPriceId(null)} className="w-8 h-8 bg-emerald-800 text-slate-400 rounded-lg flex items-center justify-center"><FiX size={14} /></button>
+                                                    <button onClick={() => updatePrice(product.id)} className="w-8 h-8 bg-emerald-700 text-white rounded-lg flex items-center justify-center hover:bg-emerald-600 transition-colors"><FiCheck size={14} /></button>
+                                                    <button onClick={() => setEditingPriceId(null)} className="w-8 h-8 bg-[#111111] text-gray-400 border border-white/10 rounded-lg flex items-center justify-center"><FiX size={14} /></button>
                                                 </div>
                                             ) : (
                                                 <button 
@@ -251,28 +251,28 @@ export default function ProductsPage() {
                                                     className="inline-flex items-center gap-2 group/price"
                                                 >
                                                     <span className="text-lg font-bold text-white">{product.price}</span>
-                                                    <span className="text-[10px] font-bold text-primary-ink bg-[#0A0A0A] px-1.5 py-0.5 rounded opacity-100 sm:opacity-0 group-hover/price:opacity-100 transition-opacity">تعديل</span>
+                                                    <span className="text-[10px] font-bold text-emerald-500 bg-[#111111] px-1.5 py-0.5 rounded opacity-0 group-hover/price:opacity-100 transition-opacity border border-emerald-500/20">تعديل</span>
                                                 </button>
                                             )}
                                         </td>
                                         <td className="p-6 text-center">
                                             <div className="flex flex-col items-center">
                                                 <div className="flex items-center gap-1">
-                                                    <span className="text-sm font-bold text-[#10B981]-600 dark:text-[#10B981]-500">{(product.price * (product.soldCount || 0) * 0.85).toFixed(2)}</span>
-                                                    <span className="text-[10px] font-bold text-slate-400">$</span>
+                                                    <span className="text-sm font-bold text-emerald-500">{(product.price * (product.soldCount || 0) * 0.85).toFixed(2)}</span>
+                                                    <span className="text-[10px] font-bold text-gray-500">$</span>
                                                 </div>
-                                                <p className="text-[9px] text-slate-300 dark:text-gray-400 font-bold uppercase tracking-tighter">باع {product.soldCount || 0} مرات</p>
+                                                <p className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter">باع {product.soldCount || 0} مرات</p>
                                             </div>
                                         </td>
                                         <td className="p-6 text-center">
-                                            <span className="text-[10px] font-bold text-slate-400 dark:text-gray-500">
+                                            <span className="text-[10px] font-bold text-gray-500">
                                                 {new Date(product.createdAt).toLocaleDateString('ar-EG', { day: 'numeric', month: 'short' })}
                                             </span>
                                         </td>
                                         <td className="p-6 text-center">
                                             <button 
                                                 onClick={() => toggleStatus(product)}
-                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all ${product.isActive ? 'bg-emerald-700 text-white-50 text-[#10B981]-600 border border-blue-100 dark:bg-blue-900/20 dark:border-blue-900' : 'bg-[#111111] text-slate-400 border border-emerald-500/20 dark:bg-gray-800 dark:border-gray-700'}`}
+                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all ${product.isActive ? 'bg-emerald-950/30 text-emerald-400 border border-emerald-500/20' : 'bg-[#111111] text-gray-500 border border-white/10'}`}
                                             >
                                                 {product.isActive ? '● نشط' : '○ مسودة'}
                                             </button>
@@ -281,14 +281,14 @@ export default function ProductsPage() {
                                             <div className="flex items-center justify-center gap-2">
                                                 <Link 
                                                     href={`/dashboard/products/edit/${product.id}`}
-                                                    className="w-10 h-10 bg-[#0A0A0A] border border-emerald-500/20 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#0A0A0A] transition-all shadow-lg shadow-[#10B981]/20"
+                                                    className="w-10 h-10 bg-[#111111] border border-white/10 rounded-xl flex items-center justify-center text-gray-400 hover:text-white hover:border-emerald-500/30 transition-all shadow-lg"
                                                     title="تعديل كامل"
                                                 >
                                                     <FiEdit2 size={16} />
                                                 </Link>
                                                 <button 
                                                     onClick={() => setOpenMenuId(openMenuId === product.id ? null : product.id)}
-                                                    className="w-10 h-10 bg-[#0A0A0A] border border-emerald-500/20 rounded-xl flex items-center justify-center text-slate-400 hover:bg-[#111111] transition-all"
+                                                    className="w-10 h-10 bg-[#111111] border border-white/10 rounded-xl flex items-center justify-center text-gray-400 hover:bg-[#111111] transition-all"
                                                 >
                                                     <FiMoreVertical size={18} />
                                                 </button>
@@ -297,7 +297,7 @@ export default function ProductsPage() {
                                                 {openMenuId === product.id && (
                                                     <>
                                                         <div className="fixed inset-0 z-40" onClick={() => setOpenMenuId(null)} />
-                                                        <div className="absolute left-6 top-[80%] z-50 w-44 bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-slate-50 p-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                                                        <div className="absolute left-6 top-[80%] z-50 w-44 bg-[#0A0A0A] rounded-xl shadow-xl shadow-black/60 border border-white/10 p-2 animate-in fade-in slide-in-from-top-2 duration-200">
                                                             <Link 
                                                                 href={`/@${(session?.user as any)?.username || 'user'}/${product.slug || product.id}`}
                                                                 target="_blank"
@@ -307,7 +307,7 @@ export default function ProductsPage() {
                                                             </Link>
                                                             <button 
                                                                 onClick={() => { setOpenMenuId(null); deleteProduct(product.id); }}
-                                                                className="flex items-center gap-3 w-full p-3 hover:bg-red-50 rounded-xl text-red-500 font-bold text-xs transition-colors border-t border-slate-50 mt-1 pt-3"
+                                                                className="flex items-center gap-3 w-full p-3 hover:bg-red-500/10 rounded-xl text-red-500 font-bold text-xs transition-colors border-t border-white/10 mt-1 pt-3"
                                                             >
                                                                 <FiTrash2 /> حذف نهائياً
                                                             </button>
@@ -325,20 +325,20 @@ export default function ProductsPage() {
 
                 {!loading && filtered.length === 0 && (
                     <div className="text-center py-20 bg-[#0A0A0A]">
-                        <FiPackage size={48} className="mx-auto text-slate-100 mb-4" />
-                        <h3 className="text-slate-400 font-bold">لا توجد منتجات مطابقة للبحث</h3>
+                        <FiPackage size={48} className="mx-auto text-gray-600 mb-4" />
+                        <h3 className="text-gray-500 font-bold">لا توجد منتجات مطابقة للبحث</h3>
                     </div>
                 )}
             </div>
 
             {/* --- QUICK ACTION BAR --- */}
             <div className="fixed bottom-8 left-0 right-0 z-[100] px-4 pointer-events-none">
-                <div className="max-w-md mx-auto bg-emerald-700 text-white p-4 rounded-xl shadow-lg shadow-[#10B981]/20 flex items-center justify-between border border-white/10 pointer-events-auto ">
+                <div className="max-w-md mx-auto bg-emerald-900/90 backdrop-blur-md text-white p-4 rounded-xl shadow-2xl shadow-emerald-500/20 flex items-center justify-between border border-emerald-500/30 pointer-events-auto">
                     <div className="pr-6">
-                        <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 leading-none mb-1">تعديل سريع</p>
-                        <p className="text-xs font-bold italic">اضغط على "السعر" لتعديله فوراً</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-400 leading-none mb-1">تعديل سريع</p>
+                        <p className="text-xs font-bold text-emerald-100 italic">اضغط على "السعر" لتعديله فوراً</p>
                     </div>
-                    <div className="w-12 h-12 bg-emerald-700 text-white rounded-xl flex items-center justify-center text-xl shadow-lg shadow-[#10B981]/20 shadow-primary-ink/20">
+                    <div className="w-12 h-12 bg-emerald-700 text-white rounded-xl flex items-center justify-center text-xl shadow-lg shadow-emerald-500/20">
                         <FiDollarSign />
                     </div>
                 </div>

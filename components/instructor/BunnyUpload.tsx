@@ -97,14 +97,14 @@ export default function BunnyUpload({ lessonId, onComplete }: BunnyUploadProps) 
                     </div>
                 ) : status === 'error' ? (
                     <div className="space-y-4 py-4 animate-in fade-in duration-300">
-                        <div className="w-16 h-16 bg-red-500/10 text-red-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <div className="w-16 h-16 bg-red-500/100/10 text-red-500 rounded-xl flex items-center justify-center mx-auto mb-4">
                             <FiAlertCircle size={32} />
                         </div>
                         <h3 className="text-xl font-bold text-[#10B981] dark:text-white">خطأ في الرفع</h3>
                         <button 
                             type="button"
                             onClick={handleUpload} 
-                            className="px-6 py-2 bg-red-500 text-white rounded-xl font-bold text-xs hover:scale-105 transition-transform"
+                            className="px-6 py-2 bg-red-500/100 text-white rounded-xl font-bold text-xs hover:scale-105 transition-transform"
                         >
                             إعادة المحاولة
                         </button>

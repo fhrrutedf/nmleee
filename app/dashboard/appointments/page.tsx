@@ -212,7 +212,7 @@ export default function AppointmentsPage() {
                             onClick={() => setActiveTab('upcoming')}
                             className={`pb-4 px-2 border-b-2 font-medium transition-colors ${activeTab === 'upcoming'
                                 ? 'border-emerald-600 text-[#10B981]'
-                                : 'border-transparent text-gray-500 hover:text-gray-700'
+                                : 'border-transparent text-gray-500 hover:text-gray-300'
                                 }`}
                         >
                             القادمة ({upcomingAppointments.length})
@@ -221,7 +221,7 @@ export default function AppointmentsPage() {
                             onClick={() => setActiveTab('completed')}
                             className={`pb-4 px-2 border-b-2 font-medium transition-colors ${activeTab === 'completed'
                                 ? 'border-emerald-600 text-[#10B981]'
-                                : 'border-transparent text-gray-500 hover:text-gray-700'
+                                : 'border-transparent text-gray-500 hover:text-gray-300'
                                 }`}
                         >
                             المكتملة ({completedAppointments.length})
@@ -230,7 +230,7 @@ export default function AppointmentsPage() {
                             onClick={() => setActiveTab('cancelled')}
                             className={`pb-4 px-2 border-b-2 font-medium transition-colors ${activeTab === 'cancelled'
                                 ? 'border-emerald-600 text-[#10B981]'
-                                : 'border-transparent text-gray-500 hover:text-gray-700'
+                                : 'border-transparent text-gray-500 hover:text-gray-300'
                                 }`}
                         >
                             الملغاة ({cancelledAppointments.length})
@@ -242,7 +242,7 @@ export default function AppointmentsPage() {
                 {currentList.length === 0 ? (
                     <div className="text-center py-12">
                         <FiCalendar className="text-6xl text-gray-300 mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold text-gray-700 mb-2">لا توجد استشارات</h3>
+                        <h3 className="text-xl font-semibold text-gray-300 mb-2">لا توجد استشارات</h3>
                         <p className="text-gray-500 mb-6">لم تقم بإنشاء أي استشارات في هذه الفئة بعد</p>
                         <button
                             onClick={() => setShowModal(true)}
@@ -336,7 +336,7 @@ export default function AppointmentsPage() {
                                                     </button>
                                                     <button
                                                         onClick={() => updateStatus(appointment.id, 'cancelled')}
-                                                        className="btn btn-sm bg-red-500 hover:bg-red-600 text-white"
+                                                        className="btn btn-sm bg-red-500/100/100 hover:bg-red-600 text-white"
                                                         title="إلغاء"
                                                     >
                                                         <FiX />
@@ -355,7 +355,7 @@ export default function AppointmentsPage() {
 
                                             <button
                                                 onClick={() => deleteAppointment(appointment.id)}
-                                                className="btn btn-sm btn-accent text-red-500 hover:bg-red-50"
+                                                className="btn btn-sm btn-accent text-red-500 hover:bg-red-500/100/10"
                                                 title="حذف"
                                             >
                                                 <FiTrash2 />
@@ -375,7 +375,7 @@ export default function AppointmentsPage() {
                     <div className="bg-[#0A0A0A] rounded-xl p-6 max-w-2xl w-full my-8">
                         <div className="flex justify-between items-center mb-6">
                             <h3 className="text-xl font-bold">إضافة استشارة جديدة</h3>
-                            <button onClick={() => setShowModal(false)} className="text-gray-500 hover:text-gray-700">
+                            <button onClick={() => setShowModal(false)} className="text-gray-500 hover:text-gray-300">
                                 <FiX className="text-2xl" />
                             </button>
                         </div>
@@ -383,7 +383,7 @@ export default function AppointmentsPage() {
                         <form onSubmit={handleAddConsultation} className="space-y-4">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">عنوان الاستشارة *</label>
+                                    <label className="block text-sm font-medium text-gray-300 mb-1">عنوان الاستشارة *</label>
                                     <input
                                         type="text"
                                         required
@@ -393,7 +393,7 @@ export default function AppointmentsPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">السعر ($) *</label>
+                                    <label className="block text-sm font-medium text-gray-300 mb-1">السعر ($) *</label>
                                     <input
                                         type="number"
                                         required
@@ -404,7 +404,7 @@ export default function AppointmentsPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">التاريخ *</label>
+                                    <label className="block text-sm font-medium text-gray-300 mb-1">التاريخ *</label>
                                     <input
                                         type="date"
                                         required
@@ -414,7 +414,7 @@ export default function AppointmentsPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">الوقت *</label>
+                                    <label className="block text-sm font-medium text-gray-300 mb-1">الوقت *</label>
                                     <input
                                         type="time"
                                         required
@@ -424,7 +424,7 @@ export default function AppointmentsPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">المدة (بالدقائق) *</label>
+                                    <label className="block text-sm font-medium text-gray-300 mb-1">المدة (بالدقائق) *</label>
                                     <input
                                         type="number"
                                         required
@@ -436,7 +436,7 @@ export default function AppointmentsPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">رابط الاجتماع (اختياري)</label>
+                                    <label className="block text-sm font-medium text-gray-300 mb-1">رابط الاجتماع (اختياري)</label>
                                     <input
                                         type="url"
                                         className="input-field w-full text-left"
@@ -448,11 +448,11 @@ export default function AppointmentsPage() {
                                 </div>
                             </div>
 
-                            <div className="border-t border-gray-100 pt-4 mt-6">
+                            <div className="border-t border-white/10 pt-4 mt-6">
                                 <h4 className="font-semibold text-gray-800 mb-4">بيانات العميل (اختياري)</h4>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">اسم العميل</label>
+                                        <label className="block text-sm font-medium text-gray-300 mb-1">اسم العميل</label>
                                         <input
                                             type="text"
                                             className="input-field w-full"
@@ -461,7 +461,7 @@ export default function AppointmentsPage() {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">البريد الإلكتروني للعميل</label>
+                                        <label className="block text-sm font-medium text-gray-300 mb-1">البريد الإلكتروني للعميل</label>
                                         <input
                                             type="email"
                                             className="input-field w-full text-left"
@@ -474,7 +474,7 @@ export default function AppointmentsPage() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">ملاحظات إضافية (اختياري)</label>
+                                <label className="block text-sm font-medium text-gray-300 mb-1">ملاحظات إضافية (اختياري)</label>
                                 <textarea
                                     className="input-field w-full"
                                     rows={3}

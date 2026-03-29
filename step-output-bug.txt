@@ -1,0 +1,7 @@
+STATUS: done
+REPO: C:\Users\TECHNO\.openclaw\workspace\antfarm_repo
+BRANCH: fix-setup-keys
+SEVERITY: critical
+AFFECTED_AREA: src/workflows/feature-dev/setup.ts (or similar logic in step processing)
+REPRODUCTION: Run any feature-dev workflow with --repo and --branch flags. It will fail at the setup step with 'missing required template key(s) repo, branch'.
+PROBLEM_STATEMENT: The setup step in feature-dev workflow fails to recognize 'repo' and 'branch' template keys even when provided at run initialization. This blocks all feature-dev workflows.

@@ -136,7 +136,7 @@ export default function LearnPage() {
         return (
             <div className="min-h-screen bg-gray-950 flex items-center justify-center p-6 text-right" dir="rtl">
                 <div className="max-w-md w-full p-10 bg-gray-900 border border-white/5 rounded-xl shadow-lg shadow-[#10B981]/20">
-                    <div className="w-20 h-20 bg-red-500/10 text-red-500 rounded-xl flex items-center justify-center mx-auto mb-8">
+                    <div className="w-20 h-20 bg-red-500/100/10 text-red-500 rounded-xl flex items-center justify-center mx-auto mb-8">
                         <FiLock size={40} />
                     </div>
                     <h2 className="text-2xl font-bold text-white mb-3">الوصول مقيد</h2>
@@ -373,7 +373,7 @@ export default function LearnPage() {
 
                             </div>
                         ) : (
-                            <div className="h-[60vh] flex flex-col items-center justify-center text-gray-700 opacity-20">
+                            <div className="h-[60vh] flex flex-col items-center justify-center text-gray-300 opacity-20">
                                 <FiPlay size={100} strokeWidth={1} />
                                 <p className="mt-6 font-bold text-2xl uppercase tracking-widest">اختر درساً للبدء</p>
                             </div>

@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function CookiesPage() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] py-20 px-6">
-      <div className="max-w-3xl mx-auto bg-[#0A0A0A] p-10 rounded-2xl border border-gray-100 shadow-lg shadow-[#10B981]/20" dir="rtl">
+      <div className="max-w-3xl mx-auto bg-[#0A0A0A] p-10 rounded-2xl border border-white/10 shadow-lg shadow-[#10B981]/20" dir="rtl">
         <h1 className="text-3xl font-bold text-[#10B981] mb-8">سياسة الكوكيز (Cookies Policy)</h1>
         <div className="prose prose-emerald max-w-none text-muted leading-relaxed">
           <p>نحن نستخدم ملفات تعريف الارتباط (Cookies) لتحسين تجربتك على منصة تمالين. هذه الملفات تساعدنا في:</p>

@@ -115,7 +115,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                                 {['description', 'features', 'reviews'].map((tab) => (
                                     <button
                                         key={tab} onClick={() => setActiveTab(tab)}
-                                        className={`pb-4 px-2 border-b-2 font-bold transition-colors whitespace-nowrap ${activeTab === tab ? 'border-emerald-600 text-[#10B981]' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+                                        className={`pb-4 px-2 border-b-2 font-bold transition-colors whitespace-nowrap ${activeTab === tab ? 'border-emerald-600 text-[#10B981]' : 'border-transparent text-gray-500 hover:text-gray-300'}`}
                                     >
                                         {tab === 'description' ? 'الوصف' : tab === 'features' ? 'محتوى الدورة' : `التقييمات (${reviews.length})`}
                                     </button>
@@ -147,7 +147,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                                                             {[...Array(5)].map((_, i) => (<FiStar key={i} className={`text-sm ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`} />))}
                                                         </div>
                                                     </div>
-                                                    <p className="text-gray-700 font-medium leading-relaxed">{review.comment}</p>
+                                                    <p className="text-gray-300 font-medium leading-relaxed">{review.comment}</p>
                                                 </div>
                                             ))
                                         )}
@@ -158,7 +158,7 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                     </div>
 
                     <div className="lg:col-span-1">
-                        <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-8 sticky top-6 border border-gray-100">
+                        <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 p-8 sticky top-6 border border-white/10">
                            <div className="text-center mb-8">
                                 <div className="text-5xl font-bold text-[#10B981] mb-2">{course.price.toFixed(2)} $</div>
                                 {course.isFree && <span className="inline-block px-4 py-1.5 bg-green-100 text-green-700 rounded-lg text-sm font-bold">مجاني 🎉</span>}
@@ -168,15 +168,15 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
                                 <button onClick={addToCart} className="w-full btn btn-accent text-xl py-4 rounded-xl border-2 font-bold">أضف للسلة</button>
                             </div>
                             <div className="space-y-3 text-sm font-bold">
-                                <div className="flex items-center gap-3 text-gray-700"><FiCheckCircle className="text-green-500 text-lg" /><span>الوصول مدى الحياة</span></div>
-                                <div className="flex items-center gap-3 text-gray-700"><FiCheckCircle className="text-green-500 text-lg" /><span>دعم فني وتواصل مباشر</span></div>
-                                <div className="flex items-center gap-3 text-gray-700"><FiCheckCircle className="text-green-500 text-lg" /><span>شهادة إتمام معتمدة</span></div>
+                                <div className="flex items-center gap-3 text-gray-300"><FiCheckCircle className="text-green-500 text-lg" /><span>الوصول مدى الحياة</span></div>
+                                <div className="flex items-center gap-3 text-gray-300"><FiCheckCircle className="text-green-500 text-lg" /><span>دعم فني وتواصل مباشر</span></div>
+                                <div className="flex items-center gap-3 text-gray-300"><FiCheckCircle className="text-green-500 text-lg" /><span>شهادة إتمام معتمدة</span></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer className="mt-16 py-8 border-t border-gray-100 dark:border-gray-800 text-center"><p className="text-gray-500 dark:text-gray-400 font-medium">مدعوم من <a href="https://tmleen.com" className="text-[#10B981] font-bold hover:underline">منصة تمالين</a></p></footer>
+            <footer className="mt-16 py-8 border-t border-white/10 dark:border-gray-800 text-center"><p className="text-gray-500 dark:text-gray-400 font-medium">مدعوم من <a href="https://tmleen.com" className="text-[#10B981] font-bold hover:underline">منصة تمالين</a></p></footer>
         </div>
     );
 }

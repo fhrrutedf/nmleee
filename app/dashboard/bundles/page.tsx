@@ -84,7 +84,7 @@ export default function BundlesPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {bundles?.map((bundle) => (
-                        <div key={bundle.id} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+                        <div key={bundle.id} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-white/10 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 overflow-hidden flex flex-col hover:shadow-md transition-shadow">
                             <div className="aspect-video bg-emerald-800 relative">
                                 {bundle.image ? (
                                     <img src={bundle.image} alt={bundle.title} className="w-full h-full object-cover" />
@@ -93,7 +93,7 @@ export default function BundlesPage() {
                                         <FiPackage className="text-4xl text-gray-300" />
                                     </div>
                                 )}
-                                <div className="absolute top-2 right-2 bg-white/90  text-[#10B981] text-xs font-bold px-3 py-1 rounded-xl flex items-center gap-1 shadow-lg shadow-[#10B981]/20">
+                                <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-md border border-white/10 text-[#10B981] text-xs font-bold px-3 py-1 rounded-xl flex items-center gap-1 shadow-lg shadow-black/20">
                                     <FiPackage />
                                     <span>{bundle.products?.length || 0} منتجات</span>
                                 </div>
@@ -106,7 +106,7 @@ export default function BundlesPage() {
                                 </p>
 
                                 <div className="flex items-center justify-between mb-4">
-                                    <div className="text-xl font-bold text-[#10B981] dark:text-white bg-[#111111] dark:bg-gray-800 px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-700">
+                                    <div className="text-xl font-bold text-[#10B981] dark:text-white bg-[#111111] dark:bg-gray-800 px-3 py-1 rounded-lg border border-white/10 dark:border-gray-700">
                                         {bundle.price} $
                                     </div>
                                     <div className="text-sm text-gray-500 flex items-center gap-1">
@@ -115,7 +115,7 @@ export default function BundlesPage() {
                                     </div>
                                 </div>
 
-                                <div className="flex gap-2 pt-4 border-t border-gray-100 dark:border-gray-800">
+                                <div className="flex gap-2 pt-4 border-t border-white/10 dark:border-gray-800">
                                     <Link href={`/bundle/${bundle.slug || bundle.id}`} target="_blank" className="flex-1 btn btn-accent flex items-center justify-center gap-2 text-sm py-2 px-3">
                                         <FiEye className="text-gray-500" />
                                         <span>معاينة</span>
@@ -126,7 +126,7 @@ export default function BundlesPage() {
                                     </Link>
                                     <button
                                         onClick={() => handleDelete(bundle.id)}
-                                        className="btn btn-accent text-red-500 hover:bg-red-50 hover:border-red-200 py-2 px-3"
+                                        className="btn btn-accent text-red-500 hover:bg-red-500/100/10 hover:border-red-200 py-2 px-3"
                                     >
                                         <FiTrash2 />
                                     </button>

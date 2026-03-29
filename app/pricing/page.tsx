@@ -17,7 +17,7 @@ const plans = [
         maxProducts: '5 منتجات',
         storage: '1 جيجابايت',
         students: '100 طالب',
-        border: 'border-gray-100',
+        border: 'border-white/10',
         btnClass: 'bg-emerald-800 text-[#10B981] hover:bg-gray-200',
         popular: false,
         features: [
@@ -106,7 +106,7 @@ const plans = [
         maxProducts: 'غير محدود',
         storage: '+1 تيرابايت',
         students: 'غير محدود',
-        border: 'border-gray-100',
+        border: 'border-white/10',
         btnClass: 'bg-[#0A0A0A] text-[#10B981] border border-emerald-500/20 hover:border-ink',
         popular: false,
         features: [

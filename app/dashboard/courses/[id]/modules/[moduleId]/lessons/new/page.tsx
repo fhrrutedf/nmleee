@@ -111,7 +111,7 @@ export default function NewLessonPage() {
                                 <textarea
                                     value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                                     placeholder="اكتب الشرح، أو أضف روابط خارجية هنا..." rows={5}
-                                    className="w-full bg-[#111111] border-0 rounded-xl px-6 py-4 font-medium text-slate-700 focus:ring-4 focus:ring-primary-ink/10 focus:bg-[#0A0A0A] transition-all placeholder:text-slate-300 h-32"
+                                    className="w-full bg-[#111111] border-0 rounded-xl px-6 py-4 font-medium text-gray-300 focus:ring-4 focus:ring-primary-ink/10 focus:bg-[#0A0A0A] transition-all placeholder:text-slate-300 h-32"
                                 />
                             </div>
                         </div>
@@ -133,7 +133,7 @@ export default function NewLessonPage() {
                                         <button 
                                             type="button" 
                                             onClick={() => setFormData(p => ({ ...p, bunnyVideoId: '', bunnyLibraryId: '' }))}
-                                            className="px-6 py-2 bg-[#0A0A0A] text-red-500 hover:bg-red-50 rounded-xl transition-colors shadow-lg shadow-[#10B981]/20 font-bold text-[10px] border border-red-100"
+                                            className="px-6 py-2 bg-[#0A0A0A] text-red-500 hover:bg-red-500/100/10 rounded-xl transition-colors shadow-lg shadow-[#10B981]/20 font-bold text-[10px] border border-red-100"
                                         >
                                             إلغاء الفيديو
                                         </button>
@@ -169,7 +169,7 @@ export default function NewLessonPage() {
                                                 <span className="flex-1 text-[10px] font-bold text-gray-400 truncate dir-ltr text-left">{attachment.split('/').pop()}</span>
                                                 <button
                                                     type="button" onClick={() => removeAttachment(index)}
-                                                    className="w-6 h-6 flex items-center justify-center bg-red-50 text-red-600 rounded-lg hover:bg-red-500 hover:text-white transition-colors"
+                                                    className="w-6 h-6 flex items-center justify-center bg-red-500/100/10 text-red-600 rounded-lg hover:bg-red-500/100/100 hover:text-white transition-colors"
                                                 >
                                                     <FiX size={12} />
                                                 </button>

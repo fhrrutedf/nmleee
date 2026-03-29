@@ -71,7 +71,7 @@ export default function NewSubscriptionPlanPage() {
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Name */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
                                 اسم الخطة *
                             </label>
                             <input
@@ -86,7 +86,7 @@ export default function NewSubscriptionPlanPage() {
 
                         {/* Description */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
                                 الوصف *
                             </label>
                             <textarea
@@ -102,7 +102,7 @@ export default function NewSubscriptionPlanPage() {
                         {/* Price & Interval */}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">
                                     السعر ($) *
                                 </label>
                                 <input
@@ -118,7 +118,7 @@ export default function NewSubscriptionPlanPage() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">
                                     الفترة *
                                 </label>
                                 <select
@@ -134,7 +134,7 @@ export default function NewSubscriptionPlanPage() {
 
                         {/* Features */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
                                 المميزات
                             </label>
                             <div className="space-y-2">
@@ -151,7 +151,7 @@ export default function NewSubscriptionPlanPage() {
                                             <button
                                                 type="button"
                                                 onClick={() => removeFeature(index)}
-                                                className="px-3 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
+                                                className="px-3 py-2 bg-red-500/100/10 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
                                             >
                                                 <FiX />
                                             </button>
@@ -181,7 +181,7 @@ export default function NewSubscriptionPlanPage() {
                             <button
                                 type="button"
                                 onClick={() => router.back()}
-                                className="px-6 py-3 bg-emerald-800 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                                className="px-6 py-3 bg-emerald-800 text-gray-300 rounded-lg hover:bg-gray-200 transition-colors"
                             >
                                 إلغاء
                             </button>

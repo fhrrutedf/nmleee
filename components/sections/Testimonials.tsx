@@ -69,7 +69,7 @@ export default function Testimonials() {
               <p className="text-gray-400 leading-relaxed font-medium mb-8 text-lg">
                 "{t.content}"
               </p>
-              <div className="flex items-center gap-4 border-t border-slate-50 pt-6">
+              <div className="flex items-center gap-4 border-t border-white/10 pt-6">
                 <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-xl object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
                 <div>
                   <h4 className="font-bold text-white">{t.name}</h4>

@@ -149,7 +149,7 @@ export default async function ExplorePage({
                                 <FiFilter className="text-[#10B981]" size={14} />
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Price Range:</span>
                                 <input type="number" name="minPrice" placeholder="Min" defaultValue={minPrice} className="w-16 bg-transparent border-none text-xs font-bold text-center p-0 focus:ring-0 text-white placeholder:text-gray-400" />
-                                <span className="text-gray-700">|</span>
+                                <span className="text-gray-300">|</span>
                                 <input type="number" name="maxPrice" placeholder="Max" defaultValue={maxPrice} className="w-16 bg-transparent border-none text-xs font-bold text-center p-0 focus:ring-0 text-white placeholder:text-gray-400" />
                             </div>
 
@@ -186,7 +186,7 @@ export default async function ExplorePage({
                 </div>
 
                 {allItems.length === 0 ? (
-                    <div className="text-center py-40 bg-[#111111] rounded-[3rem] border-2 border-dashed border-gray-100 p-8">
+                    <div className="text-center py-40 bg-[#111111] rounded-[3rem] border-2 border-dashed border-white/10 p-8">
                         <div className="w-24 h-24 bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 shadow-gray-200/50 flex items-center justify-center mx-auto mb-10 text-gray-200">
                             <FiSearch size={48} />
                         </div>
@@ -205,7 +205,7 @@ export default async function ExplorePage({
             
             {/* Professional Bottom CTA */}
             <div className="max-w-7xl mx-auto px-6 mt-32">
-                <div className="bg-[#111111] rounded-[3rem] p-12 md:p-20 border border-gray-100 text-center relative overflow-hidden group">
+                <div className="bg-[#111111] rounded-[3rem] p-12 md:p-20 border border-white/10 text-center relative overflow-hidden group">
                     <div className="absolute top-0 left-0 w-[40%] h-[40%] bg-emerald-700 text-white/5 rounded-xl blur-[100px]"></div>
                     <div className="relative z-10">
                         <h3 className="text-3xl md:text-5xl font-bold text-[#10B981] tracking-tighter mb-8 leading-tight">جاهز لبيع منتجاتك الخاصة؟</h3>

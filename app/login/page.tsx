@@ -92,7 +92,7 @@ function LoginContent() {
                 </motion.div>
 
                 {/* Login Terminal / Form Card */}
-                <motion.div variants={fadeInUp} className="bg-[#0A0A0A] rounded-[2.5rem] border border-gray-100 p-10 shadow-lg shadow-[#10B981]/20 shadow-gray-200/50 relative overflow-hidden">
+                <motion.div variants={fadeInUp} className="bg-[#0A0A0A] rounded-[2.5rem] border border-white/10 p-10 shadow-lg shadow-[#10B981]/20 shadow-gray-200/50 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-700 text-white/5 rounded-bl-[80px] pointer-events-none"></div>
 
                     {/* Social Authentication */}
@@ -100,7 +100,7 @@ function LoginContent() {
                         <button
                             onClick={handleGoogleSignIn}
                             disabled={googleLoading}
-                            className="w-full flex items-center justify-center gap-4 py-4 px-6 rounded-xl border border-gray-100 bg-[#0A0A0A] hover:border-ink hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 font-bold text-gray-700 active:scale-95"
+                            className="w-full flex items-center justify-center gap-4 py-4 px-6 rounded-xl border border-white/10 bg-[#0A0A0A] hover:border-ink hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 font-bold text-gray-300 active:scale-95"
                         >
                             {googleLoading ? (
                                 <div className="w-5 h-5 border-2 border-emerald-500/20 border-t-ink rounded-xl animate-spin"></div>
@@ -118,9 +118,9 @@ function LoginContent() {
 
                     {/* Divider */}
                     <div className="relative flex items-center mb-10">
-                        <div className="flex-1 border-t border-gray-100"></div>
+                        <div className="flex-1 border-t border-white/10"></div>
                         <span className="px-5 text-[10px] font-bold text-gray-300 uppercase tracking-widest">OR EMAIL</span>
-                        <div className="flex-1 border-t border-gray-100"></div>
+                        <div className="flex-1 border-t border-white/10"></div>
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-5">
@@ -129,7 +129,7 @@ function LoginContent() {
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     animate={{ opacity: 1, scale: 1 }}
-                                    className="bg-red-50 text-red-700 p-4 rounded-xl text-xs font-bold border border-red-100 flex items-center gap-3 mb-6"
+                                    className="bg-red-500/10 text-red-700 p-4 rounded-xl text-xs font-bold border border-red-100 flex items-center gap-3 mb-6"
                                 >
                                     <FiAlertCircle size={16} className="shrink-0" />
                                     {error}
@@ -145,7 +145,7 @@ function LoginContent() {
                                     required
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full pl-6 pr-14 py-4 bg-[#111111] border border-gray-100 rounded-xl text-[#10B981] font-bold placeholder:text-gray-300 focus:bg-[#0A0A0A] focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 transition-all text-sm outline-none"
+                                    className="w-full pl-6 pr-14 py-4 bg-[#111111] border border-white/10 rounded-xl text-[#10B981] font-bold placeholder:text-gray-300 focus:bg-[#0A0A0A] focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 transition-all text-sm outline-none"
                                     placeholder="البريد الإلكتروني"
                                 />
                             </div>
@@ -157,7 +157,7 @@ function LoginContent() {
                                     required
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                    className="w-full pl-6 pr-14 py-4 bg-[#111111] border border-gray-100 rounded-xl text-[#10B981] font-bold placeholder:text-gray-300 focus:bg-[#0A0A0A] focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 transition-all text-sm outline-none"
+                                    className="w-full pl-6 pr-14 py-4 bg-[#111111] border border-white/10 rounded-xl text-[#10B981] font-bold placeholder:text-gray-300 focus:bg-[#0A0A0A] focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 transition-all text-sm outline-none"
                                     placeholder="كلمة المرور"
                                 />
                             </div>
@@ -187,7 +187,7 @@ function LoginContent() {
                         </button>
                     </form>
 
-                    <div className="mt-10 pt-10 border-t border-gray-50 text-center">
+                    <div className="mt-10 pt-10 border-t border-white/10 text-center">
                         <p className="text-gray-400 text-xs font-bold">
                             لا تملك حساباً؟ {' '}
                             <Link href="/register" className="text-[#10B981] underline underline-offset-4 decoration-accent/30 hover:decoration-accent transition-all">
@@ -215,7 +215,7 @@ export default function LoginPage() {
     return (
         <Suspense fallback={
             <div className="min-h-screen flex items-center justify-center bg-[#0A0A0A]">
-                <div className="w-8 h-8 border-2 border-gray-100 border-t-accent rounded-xl animate-spin"></div>
+                <div className="w-8 h-8 border-2 border-white/10 border-t-accent rounded-xl animate-spin"></div>
             </div>
         }>
             <LoginContent />

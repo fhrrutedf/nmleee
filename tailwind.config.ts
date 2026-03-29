@@ -11,100 +11,70 @@ const config: Config = {
         extend: {
             colors: {
                 // ══════════════════════════════════════
-                // Tmleen Brand System v2.1 (Ink & Accent Elite)
+                // Tmleen Brand System v4.2 Elite Emerald
                 // ══════════════════════════════════════
 
-                // Ink — near-black for text & primary buttons
+                // Global Ink & Emerald Core
                 'ink': '#0A0A0A',
+                'emerald': {
+                    50: '#ECFDF5',
+                    100: '#D1FAE5',
+                    200: '#A7F3D0',
+                    300: '#6EE7B7',
+                    400: '#34D399',
+                    500: '#10B981', // Main Accent
+                    600: '#059669', // Royal Accent
+                    700: '#047857',
+                    800: '#065F46',
+                    900: '#064E3B',
+                    950: '#022C22',
+                },
 
-                // Accent — ONE blue, used sparingly
+                // Aliases for clean code transition (All mapped to Emerald)
                 'accent': {
                     DEFAULT: '#10B981',
-                    hover: '#064e3b',
+                    hover: '#059669',
                     light: '#ECFDF5',
-                    muted: '#93C5FD',
-                    50: '#ECFDF5',
-                    100: '#DBEAFE',
-                    200: '#BFDBFE',
-                    300: '#93C5FD',
-                    400: '#60A5FA',
-                    500: '#3B82F6',
-                    600: '#065f46',
-                    700: '#064e3b',
-                    800: '#1E40AF',
-                    900: '#1E3A8A',
+                    muted: '#6EE7B7',
                 },
-
-                // Surface grays
-                'surface': '#FFFFFF',
-                'subtle': '#F9FAFB',
-                'muted': '#6B7280',
-                'border-color': 'rgba(255, 255, 255, 0.1)',
-
-                // Semantic
-                'success': { DEFAULT: '#10B981', light: '#F0FDF4' },
-                'warning': { DEFAULT: '#10B981', light: '#FFFBEB' },
-                'danger': { DEFAULT: '#10B981', light: '#FEF2F2' },
-
-                // ── Backward compatible aliases (NOW ALIASED TO V2 ELITE) ──
-                'primary-charcoal': '#0A0A0A',
-                'action-blue': {
+                'primary': {
                     DEFAULT: '#10B981',
-                    hover: '#064e3b',
-                    light: '#ECFDF5',
+                    50: '#ECFDF5', 100: '#D1FAE5', 200: '#A7F3D0', 300: '#6EE7B7',
+                    400: '#34D399', 500: '#10B981', 600: '#059669', 700: '#047857',
+                    800: '#065F46', 900: '#064E3B',
                 },
-                'action-secondary': {
-                    DEFAULT: '#10B981',
-                    hover: '#1E40AF',
-                    light: '#DBEAFE',
-                },
-                'success-green': {
-                    DEFAULT: '#10B981',
-                    light: '#F0FDF4',
-                },
-                'bg-light': '#0A0A0A',
-                'card-white': '#FFFFFF',
-                'text-muted': '#6B7280',
-                'border-glass': 'rgba(255, 255, 255, 0.1)',
-                'bg-glass': 'rgba(10, 10, 10, 0.9)',
 
-                // Re-mapping EVERYTHING to follow the NEW ACCENT
-                'brand': {
-                    50: '#ECFDF5', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD',
-                    400: '#60A5FA', 500: '#3B82F6', 600: '#065f46', 700: '#064e3b',
-                    800: '#1E40AF', 900: '#1E3A8A', 950: '#172554',
-                },
-                'navy': {
-                    50: '#F9FAFB', 100: '#F3F4F6', 200: '#E5E7EB', 300: '#D1D5DB',
-                    400: '#9CA3AF', 500: '#6B7280', 600: '#4B5563', 700: '#374151',
-                    800: '#1F2937', 900: '#111827', 950: '#030712',
-                },
-                primary: {
-                    50: '#ECFDF5', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD',
-                    400: '#60A5FA', 500: '#3B82F6', 600: '#065f46', 700: '#064e3b',
-                    800: '#1E40AF', 900: '#1E3A8A',
-                },
-                'primary-indigo': {
-                    50: '#ECFDF5', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD',
-                    400: '#60A5FA', 500: '#3B82F6', 600: '#065f46', 700: '#064e3b',
-                    800: '#1E40AF', 900: '#1E3A8A', 950: '#172554',
-                },
+                // Backward compatibility (Mapping old color names to Emerald)
+                'action-blue': '#10B981',
+                'primary-indigo': '#10B981',
+                'brand': '#10B981',
+                'success': '#10B981',
+                'warning': '#10B981',
+                'danger': '#EF4444', // Keep danger red but emerald-tinted if possible
+
+                // Surface & Neutrals
+                'surface': '#0A0A0A',
+                'subtle': '#111111',
+                'muted': '#A3A3A3',
+                'card-white': '#111111',
+                'text-muted': '#A3A3A3',
             },
             boxShadow: {
-                'sm': '0 1px 2px rgba(0, 0, 0, 0.04)',
-                'md': '0 4px 12px rgba(0, 0, 0, 0.06)',
-                'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-                'premium': '0 20px 50px -12px rgba(0, 0, 0, 0.25)',
-                'glass': '0 4px 16px rgba(0, 0, 0, 0.04)',
-                'glow': '0 0 20px rgba(6, 95, 70, 0.3)',
-                'gold': 'none',
+                'sm': '0 1px 2px rgba(0, 0, 0, 0.4)',
+                'md': '0 4px 12px rgba(0, 0, 0, 0.5)',
+                'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.6)',
+                'premium': '0 20px 50px -12px rgba(0, 0, 0, 0.8)',
+                'glow': '0 0 20px rgba(16, 185, 129, 0.2)',
             },
             fontFamily: {
                 sans: ['var(--font-ibm)', 'system-ui', 'sans-serif'],
                 heading: ['var(--font-ibm)', 'system-ui', 'sans-serif'],
                 inter: ['var(--font-inter)', 'sans-serif'],
             },
-            animation: { 'fade-in': 'fadeIn 0.2s ease-out' },
+            animation: {
+                'fade-in': 'fadeIn 0.3s ease-out',
+                'slide-up': 'slideUp 0.4s ease-out',
+            },
             keyframes: {
                 fadeIn: {
                     '0%': { opacity: '0' },

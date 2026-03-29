@@ -131,16 +131,16 @@ export default function ProductDetails({
                 {/* Breadcrumb Navigation */}
                 <div className="flex items-center gap-3 text-sm font-bold text-gray-500 dark:text-gray-400 mb-8 overflow-x-auto whitespace-nowrap scrollbar-hide py-2">
                     <Link href="/" className="hover:text-[#10B981] transition-colors flex items-center gap-1"><FiStar /> الرئيسية</Link>
-                    <span className="text-gray-300 dark:text-gray-700">/</span>
+                    <span className="text-gray-300 dark:text-gray-300">/</span>
                     <Link href="/explore" className="hover:text-[#10B981] transition-colors">تصفح المنتجات</Link>
-                    <span className="text-gray-300 dark:text-gray-700">/</span>
+                    <span className="text-gray-300 dark:text-gray-300">/</span>
                     <span className="text-[#10B981] dark:text-gray-200 truncate max-w-[200px] sm:max-w-md">{product.title}</span>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
                     {/* Left Column: Product Info Card */}
                     <div className="lg:col-span-5 order-2 lg:order-1 relative">
-                        <div className="sticky top-24 bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 shadow-gray-200/50 dark:shadow-black/20 overflow-hidden border border-gray-100 dark:border-gray-800 -up">
+                        <div className="sticky top-24 bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 shadow-gray-200/50 dark:shadow-black/20 overflow-hidden border border-white/10 dark:border-gray-800 -up">
                             <div className="h-6 w-full bg-gradient-to-r from-accent via-purple-500 to-pink-500"></div>
                             <div className="p-8 sm:p-10">
                                 <div className="flex flex-wrap gap-2 mb-6">
@@ -160,7 +160,7 @@ export default function ProductDetails({
                                     {product.title}
                                 </h1>
 
-                                <div className="flex items-center gap-6 mb-8 pb-8 border-b border-gray-100 dark:border-gray-800">
+                                <div className="flex items-center gap-6 mb-8 pb-8 border-b border-white/10 dark:border-gray-800">
                                     <div className="flex items-center gap-2 group cursor-pointer" onClick={() => setActiveTab('reviews')}>
                                         <div className="flex items-center text-yellow-500 bg-yellow-50 dark:bg-yellow-900/10 px-2 py-1 rounded-lg">
                                             <FiStar className="fill-yellow-500 mr-1" />
@@ -180,7 +180,7 @@ export default function ProductDetails({
                                             <span className="text-xl text-gray-400 line-through font-bold">
                                                 {formatPrice(product.originalPrice).value} {formatPrice(product.originalPrice).symbol}
                                             </span>
-                                            <span className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs font-bold px-2 py-1 rounded-lg">
+                                            <span className="bg-red-500/10 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs font-bold px-2 py-1 rounded-lg">
                                                 وفر {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
                                             </span>
                                         </div>
@@ -247,10 +247,10 @@ export default function ProductDetails({
                                     </div>
                                 </div>
                                 <div className="mt-8 grid grid-cols-2 gap-3">
-                                    <div className="flex items-center gap-2 text-[10px] text-gray-500 font-bold bg-[#111111] dark:bg-gray-900/10 py-2.5 rounded-xl border border-gray-100 dark:border-gray-800 justify-center">
+                                    <div className="flex items-center gap-2 text-[10px] text-gray-500 font-bold bg-[#111111] dark:bg-gray-900/10 py-2.5 rounded-xl border border-white/10 dark:border-gray-800 justify-center">
                                         <FiCheckCircle className="text-green-500" /> وصول فوري 100%
                                     </div>
-                                    <div className="flex items-center gap-2 text-[10px] text-gray-500 font-bold bg-[#111111] dark:bg-gray-900/10 py-2.5 rounded-xl border border-gray-100 dark:border-gray-800 justify-center">
+                                    <div className="flex items-center gap-2 text-[10px] text-gray-500 font-bold bg-[#111111] dark:bg-gray-900/10 py-2.5 rounded-xl border border-white/10 dark:border-gray-800 justify-center">
                                         <FiCheckCircle className="text-green-500" /> ضمان تحديثات مدى الحياة
                                     </div>
                                 </div>
@@ -301,7 +301,7 @@ export default function ProductDetails({
                             </div>
                         )}
 
-                        <div className="mt-8 bg-emerald-700 text-white dark:from-gray-900 dark:to-gray-800 rounded-xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-gray-100 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group">
+                        <div className="mt-8 bg-emerald-700 text-white dark:from-gray-900 dark:to-gray-800 rounded-xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/10 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 relative overflow-hidden group">
                             <div className="flex items-center gap-6 relative z-10 w-full sm:w-auto">
                                  <Link href={`/${product.user?.username || 'seller'}`} className="w-20 h-20 sm:w-24 sm:h-24 bg-emerald-700 text-white rounded-xl flex items-center justify-center font-bold text-3xl text-white shadow-lg shadow-[#10B981]/20 overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
                                      {product.user?.avatar ? (
@@ -338,8 +338,8 @@ export default function ProductDetails({
                         </div>
 
                         {/* Interactive Content Tabs */}
-                        <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 overflow-hidden mt-4">
-                            <div className="flex overflow-x-auto border-b border-gray-100 dark:border-gray-800 scrollbar-hide">
+                        <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 overflow-hidden mt-4">
+                            <div className="flex overflow-x-auto border-b border-white/10 dark:border-gray-800 scrollbar-hide">
                                 <button
                                     onClick={() => setActiveTab('description')}
                                     className={`flex-1 min-w-[150px] py-6 px-4 font-bold text-lg transition-colors flex justify-center items-center gap-2 relative ${activeTab === 'description' ? 'text-[#10B981]' : 'text-gray-500 hover:text-white dark:hover:text-gray-300 bg-[#111111]/50 dark:bg-gray-800/20'}`}
@@ -361,22 +361,22 @@ export default function ProductDetails({
 
                             <div className="p-6 sm:p-10">
                                 {activeTab === 'description' ? (
-                                    <div className="prose prose-lg sm:prose-xl max-w-none dark:prose-invert text-gray-700 dark:text-gray-300 leading-relaxed ql-editor px-0">
+                                    <div className="prose prose-lg sm:prose-xl max-w-none dark:prose-invert text-gray-300 dark:text-gray-300 leading-relaxed ql-editor px-0">
                                         <div dangerouslySetInnerHTML={{ __html: stripHtml(product.description) }} />
                                     </div>
                                 ) : (
                                     <div className="space-y-10 -up">
                                         {/* Review Input Box */}
-                                        <div className="bg-emerald-700 text-white dark:from-gray-900 dark:to-gray-800 p-8 rounded-xl border border-gray-100 dark:border-gray-700 shadow-inner">
+                                        <div className="bg-emerald-700 text-white dark:from-gray-900 dark:to-gray-800 p-8 rounded-xl border border-white/10 dark:border-gray-700 shadow-inner">
                                             <h3 className="font-bold text-xl mb-6 text-white dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
                                             <form onSubmit={submitReview} className="space-y-5">
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                                     <div>
-                                                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">اسمك الأول</label>
+                                                        <label className="block text-sm font-bold text-gray-300 dark:text-gray-300 mb-2">اسمك الأول</label>
                                                         <input type="text" value={newReview.name} onChange={(e) => setNewReview({ ...newReview, name: e.target.value })} className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all placeholder:font-normal" placeholder="يكفي الاسم الأول فقط" required />
                                                     </div>
                                                     <div>
-                                                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">التقييم من 5</label>
+                                                        <label className="block text-sm font-bold text-gray-300 dark:text-gray-300 mb-2">التقييم من 5</label>
                                                         <div className="flex gap-2">
                                                             {[1, 2, 3, 4, 5].map((star) => (
                                                                 <button key={star} type="button" onClick={() => setNewReview({ ...newReview, rating: star })} className={`flex-1 bg-[#0A0A0A] dark:bg-gray-900 border ${star <= newReview.rating ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : 'border-emerald-500/20 dark:border-gray-700'} rounded-xl py-3 flex items-center justify-center transition-all transform active:scale-95`}><FiStar className={`text-xl ${star <= newReview.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300 dark:text-gray-400'}`} /></button>
@@ -385,7 +385,7 @@ export default function ProductDetails({
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">تعليقك وتقييمك (بصدق)</label>
+                                                    <label className="block text-sm font-bold text-gray-300 dark:text-gray-300 mb-2">تعليقك وتقييمك (بصدق)</label>
                                                     <textarea value={newReview.comment} onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })} className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3 font-semibold focus:ring-2 focus:ring-accent outline-none transition-all resize-none placeholder:font-normal" rows={3} placeholder="كيف كانت تجربتك؟ وهل استفدت من المادة؟" required />
                                                 </div>
                                                 <button type="submit" className="btn btn-primary px-8 py-3 rounded-xl font-bold shadow-lg shadow-[#10B981]/20 shadow-accent/20">إرسال التقييم</button>
@@ -408,7 +408,7 @@ export default function ProductDetails({
                                                             <div>
                                                                 <h4 className="font-bold text-lg text-[#10B981] dark:text-white">{review.name}</h4>
                                                                 <div className="flex items-center gap-0.5">
-                                                                    {[...Array(5)].map((_, i) => (<FiStar key={i} className={`text-sm ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200 dark:text-gray-700'}`} />))}
+                                                                    {[...Array(5)].map((_, i) => (<FiStar key={i} className={`text-sm ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200 dark:text-gray-300'}`} />))}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -424,7 +424,7 @@ export default function ProductDetails({
                     </div>
                 </div>
             </div>
-            <footer className="mt-16 py-8 border-t border-gray-100 dark:border-gray-800 text-center">
+            <footer className="mt-16 py-8 border-t border-white/10 dark:border-gray-800 text-center">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">مدعوم من <a href="https://tmleen.com" className="text-[#10B981] font-bold hover:underline">منصة تمالين</a></p>
             </footer>
         </div>

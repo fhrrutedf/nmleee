@@ -76,8 +76,8 @@ export default function AboutPage() {
                             { value: "5K+", label: "منتج رقمي فريد", icon: FiTrendingUp },
                             { value: "99%", label: "معدل الرضا", icon: FiAward }
                         ].map((stat, idx) => (
-                            <motion.div key={idx} variants={fadeInUp} className="text-right p-8 bg-[#111111] border border-gray-100 rounded-xl hover:border-emerald-600/20 transition-all group">
-                                <div className="w-12 h-12 bg-[#0A0A0A] border border-gray-100 rounded-xl flex items-center justify-center text-[#10B981] mb-6 group-hover:bg-emerald-700 text-white group-hover:text-white transition-all shadow-lg shadow-[#10B981]/20">
+                            <motion.div key={idx} variants={fadeInUp} className="text-right p-8 bg-[#111111] border border-white/10 rounded-xl hover:border-emerald-600/20 transition-all group">
+                                <div className="w-12 h-12 bg-[#0A0A0A] border border-white/10 rounded-xl flex items-center justify-center text-[#10B981] mb-6 group-hover:bg-emerald-700 text-white group-hover:text-white transition-all shadow-lg shadow-[#10B981]/20">
                                     <stat.icon className="text-xl" />
                                 </div>
                                 <h3 className="text-4xl font-bold text-[#10B981] font-inter tracking-tighter mb-2">{stat.value}</h3>
@@ -126,7 +126,7 @@ export default function AboutPage() {
 
                         <div className="relative group">
                             <div className="absolute -inset-4 bg-emerald-700 text-white/5 rounded-[3rem] blur-2xl group-hover:bg-emerald-700 text-white/10 transition-all"></div>
-                            <div className="rounded-[2.5rem] overflow-hidden border border-gray-100 shadow-lg shadow-[#10B981]/20 relative z-10">
+                            <div className="rounded-[2.5rem] overflow-hidden border border-white/10 shadow-lg shadow-[#10B981]/20 relative z-10">
                                 <img
                                     src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&q=80"
                                     alt="Tmleen Team"
@@ -137,7 +137,7 @@ export default function AboutPage() {
                             <motion.div
                                 animate={{ y: [0, -10, 0] }}
                                 transition={{ repeat: Infinity, duration: 5 }}
-                                className="absolute -bottom-8 -right-8 bg-[#0A0A0A] border border-gray-100 p-8 rounded-xl shadow-lg shadow-[#10B981]/20 z-20 hidden md:block"
+                                className="absolute -bottom-8 -right-8 bg-[#0A0A0A] border border-white/10 p-8 rounded-xl shadow-lg shadow-[#10B981]/20 z-20 hidden md:block"
                             >
                                 <div className="text-[#10B981] font-bold text-4xl font-inter tracking-tighter">2024</div>
                                 <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Founding Year</div>
@@ -161,7 +161,7 @@ export default function AboutPage() {
                             { title: 'دعم فني استباقي', desc: 'فريقنا متواجد ليضمن استقرار متجرك على مدار الساعة.', icon: FiGlobe },
                             { title: 'عمولات تنافسية', desc: 'أفضل نظام عمولات للمحتوى الرقمي، لكي تحقق أقصى ربح ممكن.', icon: FiTrendingUp }
                         ].map((feature, i) => (
-                            <div key={i} className="bg-[#0A0A0A] border border-gray-100 p-10 rounded-xl hover:border-emerald-600/20 transition-all group shadow-lg shadow-[#10B981]/20">
+                            <div key={i} className="bg-[#0A0A0A] border border-white/10 p-10 rounded-xl hover:border-emerald-600/20 transition-all group shadow-lg shadow-[#10B981]/20">
                                 <div className="w-14 h-14 bg-[#111111] text-[#10B981] rounded-xl flex items-center justify-center mb-8 group-hover:bg-emerald-700 text-white group-hover:text-white transition-all shadow-lg shadow-[#10B981]/20">
                                     <feature.icon className="text-2xl" />
                                 </div>

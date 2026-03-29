@@ -23,7 +23,7 @@ export default function Navbar() {
     }, [isMenuOpen]);
 
     return (
-        <header className="sticky top-0 z-50 bg-[#0A0A0A] border-b border-gray-100">
+        <header className="sticky top-0 z-50 bg-[#0A0A0A] border-b border-white/10 shadow-2xl shadow-black/50">
             <nav className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5">
                 <div className="flex items-center justify-between">
                     {/* Logo & Nav */}
@@ -60,7 +60,7 @@ export default function Navbar() {
                         </Link>
                         <Link
                             href="/register"
-                            className="bg-emerald-700 text-white px-8 py-3 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-[#10B981]/20 shadow-black/5 hover:bg-emerald-700 text-white hover:shadow-accent/20 active:scale-95 transition-all"
+                            className="bg-emerald-700 text-white px-8 py-3 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-emerald-500/20 hover:bg-emerald-600 active:scale-95 transition-all"
                         >
                             Establish Account
                         </Link>
@@ -84,7 +84,7 @@ export default function Navbar() {
                         onClick={() => setIsMenuOpen(false)}
                     />
                     <div className="fixed top-0 right-0 h-full w-full max-w-xs bg-[#0A0A0A] z-[52] lg:hidden flex flex-col shadow-lg shadow-[#10B981]/20">
-                        <div className="p-5 border-b border-gray-100 flex items-center justify-between">
+                        <div className="p-5 border-b border-white/10 flex items-center justify-between">
                             <span className="font-bold text-[#10B981]">القائمة</span>
                             <button onClick={() => setIsMenuOpen(false)} className="p-1.5 text-gray-400 hover:text-[#10B981]">
                                 <FiX size={20} />
@@ -96,7 +96,7 @@ export default function Navbar() {
                                 <Link
                                     key={idx}
                                     href={link.href}
-                                    className={`flex items-center justify-between p-3 rounded-lg text-sm font-medium transition-colors ${pathname === link.href ? 'bg-emerald-700 text-white-light text-[#10B981]' : 'text-gray-400 hover:bg-[#111111]'}`}
+                                    className={`flex items-center justify-between p-3 rounded-xl text-sm font-bold transition-all ${pathname === link.href ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-500/20' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}
                                 >
                                     {link.title}
                                     <FiChevronLeft className="opacity-30" />
@@ -104,7 +104,7 @@ export default function Navbar() {
                             ))}
                         </div>
 
-                        <div className="p-4 border-t border-gray-100 space-y-2">
+                        <div className="p-4 border-t border-white/10 space-y-2">
                             <Link
                                 href="/register"
                                 className="w-full py-3 bg-emerald-700 text-white rounded-lg flex items-center justify-center font-semibold text-sm"

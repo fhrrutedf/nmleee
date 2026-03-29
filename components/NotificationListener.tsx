@@ -41,7 +41,7 @@ export const NotificationListener = () => {
                 <div
                     className={`${
                         t.visible ? 'animate-enter' : 'animate-leave'
-                    } max-w-md w-full bg-[#0A0A0A] dark:bg-card-white shadow-lg shadow-[#10B981]/20 rounded-[2rem] pointer-events-auto flex ring-1 ring-black ring-opacity-5 border border-gray-100 dark:border-gray-800`}
+                    } max-w-md w-full bg-[#0A0A0A] dark:bg-card-white shadow-lg shadow-[#10B981]/20 rounded-[2rem] pointer-events-auto flex ring-1 ring-black ring-opacity-5 border border-white/10 dark:border-gray-800`}
                 >
                     <div className="flex-1 w-0 p-5">
                         <div className="flex items-start">
@@ -60,7 +60,7 @@ export const NotificationListener = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex border-r border-gray-100 dark:border-gray-800">
+                    <div className="flex border-r border-white/10 dark:border-gray-800">
                         <button
                             onClick={() => {
                                 toast.dismiss(t.id);

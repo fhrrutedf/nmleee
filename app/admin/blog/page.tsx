@@ -76,7 +76,7 @@ export default function BlogAdminPage() {
                 </Link>
             </div>
 
-            <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl p-4 sm:p-6 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800">
+            <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl p-4 sm:p-6 shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800">
                 <div className="relative mb-6">
                     <input
                         type="text"
@@ -106,7 +106,7 @@ export default function BlogAdminPage() {
                             </thead>
                             <tbody>
                                 {filteredPosts.map((post) => (
-                                    <tr key={post.id} className="border-b border-gray-50 dark:border-gray-800/50 hover:bg-[#111111] dark:hover:bg-gray-800/20 transition">
+                                    <tr key={post.id} className="border-b border-white/10 dark:border-gray-800/50 hover:bg-[#111111] dark:hover:bg-gray-800/20 transition">
                                         <td className="px-4 py-4 truncate max-w-xs font-medium text-white dark:text-gray-100">
                                             {post.title}
                                         </td>

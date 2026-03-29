@@ -83,7 +83,7 @@ export default function AdminVerificationPage() {
             </div>
 
             {requests.length === 0 ? (
-                <div className="card bg-[#0A0A0A] dark:bg-card-white p-20 text-center rounded-xl border border-gray-100 dark:border-gray-800">
+                <div className="card bg-[#0A0A0A] dark:bg-card-white p-20 text-center rounded-xl border border-white/10 dark:border-gray-800">
                     <div className="text-6xl mb-4">🎉</div>
                     <h3 className="text-xl font-bold text-[#10B981] dark:text-white">لا توجد طلبات معلقة حالياً</h3>
                     <p className="text-text-muted">كل شيء تحت السيطرة!</p>
@@ -91,7 +91,7 @@ export default function AdminVerificationPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {requests.map((request) => (
-                        <div key={request.id} className="card bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-lg shadow-[#10B981]/20 transition-all group">
+                        <div key={request.id} className="card bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-white/10 dark:border-gray-800 overflow-hidden hover:shadow-lg shadow-[#10B981]/20 transition-all group">
                             {/* Document Preview */}
                             <div className="h-48 bg-emerald-800 dark:bg-gray-900 relative overflow-hidden">
                                 <img 
@@ -120,7 +120,7 @@ export default function AdminVerificationPage() {
                                     </div>
                                 </div>
 
-                                <div className="flex items-center justify-between text-xs font-bold text-gray-400 border-t border-gray-100 dark:border-gray-800 pt-4">
+                                <div className="flex items-center justify-between text-xs font-bold text-gray-400 border-t border-white/10 dark:border-gray-800 pt-4">
                                     <div className="flex items-center gap-1">
                                         <FiCalendar /> {new Date(request.createdAt).toLocaleDateString('ar-EG')}
                                     </div>
@@ -140,7 +140,7 @@ export default function AdminVerificationPage() {
                                     <button 
                                         onClick={() => setShowRejectionModal(request.id)}
                                         disabled={!!processing}
-                                        className="btn bg-red-50 text-red-600 border-red-100 hover:bg-red-100 py-3 rounded-xl"
+                                        className="btn bg-red-500/100/10 text-red-600 border-red-100 hover:bg-red-100 py-3 rounded-xl"
                                     >
                                         رفض
                                     </button>

@@ -64,7 +64,7 @@ export default function VerifyTransfersPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Input Section */}
-                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-700">
+                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-700">
                     <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
                         <span className="w-8 h-8 rounded-xl bg-emerald-800 dark:bg-gray-700 flex items-center justify-center text-sm">1</span>
                         لصق الإشعارات (SMS)
@@ -85,7 +85,7 @@ export default function VerifyTransfersPage() {
                 </div>
 
                 {/* Verification Section */}
-                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-700 flex flex-col">
+                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-700 flex flex-col">
                     <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
                         <span className="w-8 h-8 rounded-xl bg-blue-100 text-[#10B981]-600 flex items-center justify-center text-sm">2</span>
                         التحقق والاعتماد
@@ -99,7 +99,7 @@ export default function VerifyTransfersPage() {
                                 </p>
                                 <div className="flex flex-wrap gap-2">
                                     {extractedRefs.map((ref, idx) => (
-                                        <span key={idx} className="bg-[#0A0A0A] dark:bg-gray-900 px-3 py-1.5 rounded-lg border border-blue-200 dark:border-blue-700/50 font-mono text-sm text-gray-700 dark:text-gray-300 shadow-lg shadow-[#10B981]/20">
+                                        <span key={idx} className="bg-[#0A0A0A] dark:bg-gray-900 px-3 py-1.5 rounded-lg border border-blue-200 dark:border-blue-700/50 font-mono text-sm text-gray-300 dark:text-gray-300 shadow-lg shadow-[#10B981]/20">
                                             {ref}
                                         </span>
                                     ))}
@@ -121,7 +121,7 @@ export default function VerifyTransfersPage() {
                         </div>
                     ) : (
                         <div className="flex-1 flex flex-col items-center justify-center text-gray-400 border-2 border-dashed border-emerald-500/20 dark:border-gray-700 rounded-xl bg-[#111111] dark:bg-gray-900/50 min-h-[16rem]">
-                            <div className="w-16 h-16 rounded-xl bg-[#0A0A0A] dark:bg-gray-800 flex items-center justify-center mb-4 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-700">
+                            <div className="w-16 h-16 rounded-xl bg-[#0A0A0A] dark:bg-gray-800 flex items-center justify-center mb-4 shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-700">
                                 <FiList className="text-3xl opacity-50 text-gray-400" />
                             </div>
                             <p className="font-medium text-gray-500">لا توجد أرقام مرجعية مستخرجة</p>
@@ -131,7 +131,7 @@ export default function VerifyTransfersPage() {
 
                     {/* Results */}
                     {result && (
-                        <div className={`mt-6 p-5 rounded-xl border ${result.error ? 'bg-red-50 border-red-200 text-red-700' : result.matchedCount && result.matchedCount > 0 ? 'bg-green-50 border-green-200 text-green-800' : 'bg-yellow-50 border-yellow-200 text-yellow-800'}`}>
+                        <div className={`mt-6 p-5 rounded-xl border ${result.error ? 'bg-red-500/100/10 border-red-200 text-red-700' : result.matchedCount && result.matchedCount > 0 ? 'bg-green-50 border-green-200 text-green-800' : 'bg-yellow-50 border-yellow-200 text-yellow-800'}`}>
                             <p className="font-bold flex items-center gap-2">
                                 {result.error ? <FiAlertCircle className="text-xl" /> : result.matchedCount && result.matchedCount > 0 ? <FiCheck className="text-xl" /> : <FiAlertCircle className="text-xl" />}
                                 {result.error || result.message}

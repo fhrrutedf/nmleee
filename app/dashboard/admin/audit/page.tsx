@@ -34,7 +34,7 @@ const ACTION_LABELS: Record<string, { label: string; color: string }> = {
     'course.approved': { label: 'قبول كورس', color: 'bg-indigo-100 text-indigo-700' },
     'broadcast.sent': { label: 'إرسال بث', color: 'bg-pink-100 text-pink-700' },
     'admin.impersonation_started': { label: 'بدء انتحال', color: 'bg-orange-100 text-orange-700' },
-    'platform.payment_failed': { label: 'فشل دفع', color: 'bg-red-50 text-red-500' },
+    'platform.payment_failed': { label: 'فشل دفع', color: 'bg-red-500/100/10 text-red-500' },
     'platform.settings_updated': { label: 'تحديث منصة', color: 'bg-emerald-700 text-white-50 text-[#10B981]-600' },
 };
 
@@ -90,7 +90,7 @@ export default function AdminAuditLogsPage() {
             <div className="card overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-right">
-                        <thead className="bg-[#111111] dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800">
+                        <thead className="bg-[#111111] dark:bg-gray-800/50 border-b border-white/10 dark:border-gray-800">
                             <tr className="text-text-muted text-xs font-bold">
                                 <th className="px-5 py-4">المنفذ</th>
                                 <th className="px-5 py-4">النشاط</th>
@@ -160,7 +160,7 @@ export default function AdminAuditLogsPage() {
                     </table>
                 </div>
 
-                <div className="p-4 bg-[#111111] dark:bg-gray-800/30 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
+                <div className="p-4 bg-[#111111] dark:bg-gray-800/30 border-t border-white/10 dark:border-gray-800 flex items-center justify-between">
                     <button 
                         disabled={page === 0 || loading}
                         onClick={() => setPage(p => p - 1)}

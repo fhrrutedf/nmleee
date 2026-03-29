@@ -78,7 +78,7 @@ export default function NewQuizPage() {
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Title */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
                                 عنوان الاختبار *
                             </label>
                             <input
@@ -93,7 +93,7 @@ export default function NewQuizPage() {
 
                         {/* Description */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-gray-300 mb-2">
                                 الوصف
                             </label>
                             <textarea
@@ -108,7 +108,7 @@ export default function NewQuizPage() {
                         {/* Settings */}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">
                                     درجة النجاح (%)
                                 </label>
                                 <input
@@ -122,7 +122,7 @@ export default function NewQuizPage() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">
                                     الحد الزمني (دقائق) - اختياري
                                 </label>
                                 <input
@@ -157,7 +157,7 @@ export default function NewQuizPage() {
                             <button
                                 type="button"
                                 onClick={() => router.back()}
-                                className="px-6 py-3 bg-emerald-800 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                                className="px-6 py-3 bg-emerald-800 text-gray-300 rounded-lg hover:bg-gray-200 transition-colors"
                             >
                                 إلغاء
                             </button>

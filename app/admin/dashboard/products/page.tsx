@@ -150,7 +150,7 @@ export default function ProductsManagement() {
 
                 {/* Quick Stats and Toggle */}
                 <div className="flex flex-col gap-3">
-                    <div className="flex bg-[#0A0A0A] dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
+                    <div className="flex bg-[#0A0A0A] dark:bg-card-white border border-white/10 dark:border-gray-800 rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
                         <div className="px-5 py-3 flex flex-col items-center">
                             <span className="text-gray-400 text-xs">إجمالي</span>
                             <span className="text-[#10B981] dark:text-white text-lg">{stats.totalItems}</span>
@@ -177,7 +177,7 @@ export default function ProductsManagement() {
                                 <span className="relative inline-flex rounded-xl h-2 w-2 bg-green-500"></span>
                             </span>}
                         </button>
-                        <button onClick={() => fetchItems(true)} className="btn bg-[#0A0A0A] dark:bg-card-white border border-gray-100 dark:border-gray-800 py-2 px-3 rounded-xl hover:bg-[#111111] dark:hover:bg-gray-800">
+                        <button onClick={() => fetchItems(true)} className="btn bg-[#0A0A0A] dark:bg-card-white border border-white/10 dark:border-gray-800 py-2 px-3 rounded-xl hover:bg-[#111111] dark:hover:bg-gray-800">
                             <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-[#10B981]' : 'text-gray-500 w-4 h-4'} />
                         </button>
                     </div>
@@ -188,10 +188,10 @@ export default function ProductsManagement() {
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
-                className="bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-gray-100 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 overflow-hidden flex flex-col min-h-[500px]"
+                className="bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-white/10 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 overflow-hidden flex flex-col min-h-[500px]"
             >
                 {/* Controls Bar */}
-                <div className="p-6 border-b border-gray-100 dark:border-gray-800 bg-[#111111]/50 dark:bg-gray-900/20 flex flex-col lg:flex-row gap-4 justify-between items-center">
+                <div className="p-6 border-b border-white/10 dark:border-gray-800 bg-[#111111]/50 dark:bg-gray-900/20 flex flex-col lg:flex-row gap-4 justify-between items-center">
 
                     {/* Search */}
                     <form onSubmit={handleSearch} className="relative w-full lg:w-96">
@@ -250,7 +250,7 @@ export default function ProductsManagement() {
                     ) : (
                         <table className="w-full text-right whitespace-nowrap">
                             <thead>
-                                <tr className="text-xs text-gray-400 border-b border-gray-100 dark:border-gray-800 bg-[#111111]/80 dark:bg-gray-900/50">
+                                <tr className="text-xs text-gray-400 border-b border-white/10 dark:border-gray-800 bg-[#111111]/80 dark:bg-gray-900/50">
                                     <th className="font-bold py-4 px-6">المنتج / الدورة</th>
                                     <th className="font-bold py-4 px-6">البائع</th>
                                     <th className="font-bold py-4 px-6 text-center">السعر</th>
@@ -271,7 +271,7 @@ export default function ProductsManagement() {
                                     </tr>
                                 ) : (
                                     items.map((item) => (
-                                        <motion.tr variants={itemVariants} key={item.id} className="border-b border-gray-50 dark:border-gray-800/60 hover:bg-[#111111] dark:hover:bg-gray-800/30 transition-colors">
+                                        <motion.tr variants={itemVariants} key={item.id} className="border-b border-white/10 dark:border-gray-800/60 hover:bg-[#111111] dark:hover:bg-gray-800/30 transition-colors">
                                             <td className="py-4 px-6">
                                                 <div className="flex items-center gap-3">
                                                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${item.itemType === 'COURSE' ? 'bg-purple-50 text-purple-500 dark:bg-purple-900/20' : 'bg-emerald-700 text-white-50 text-[#10B981] dark:bg-blue-900/20'}`}>
@@ -288,7 +288,7 @@ export default function ProductsManagement() {
                                                 </div>
                                             </td>
                                             <td className="py-4 px-6">
-                                                <div className="font-bold text-gray-700 dark:text-gray-300">
+                                                <div className="font-bold text-gray-300 dark:text-gray-300">
                                                     {item.user.name}
                                                 </div>
                                                 <div className="text-xs text-gray-500">{item.user.email}</div>
@@ -306,7 +306,7 @@ export default function ProductsManagement() {
                                             <td className="py-4 px-6 text-center">
                                                 <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold ${item.isActive
                                                     ? 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400'
-                                                    : 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400'
+                                                    : 'bg-red-500/100/10 text-red-600 dark:bg-red-900/20 dark:text-red-400'
                                                     }`}>
                                                     {item.isActive ? 'معروض' : 'مخفي/موقوف'}
                                                 </span>
@@ -324,7 +324,7 @@ export default function ProductsManagement() {
                                                     <button
                                                         onClick={() => toggleItemStatus(item.id, item.itemType, item.isActive)}
                                                         className={`p-2 rounded-lg transition-colors ${item.isActive
-                                                            ? 'text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
+                                                            ? 'text-red-500 hover:bg-red-500/100/10 dark:hover:bg-red-900/20'
                                                             : 'text-green-500 hover:bg-green-50 dark:hover:bg-green-900/20'
                                                             }`}
                                                         title={item.isActive ? 'إخفاء أو إيقاف المحتوى' : 'تفعيل وعرض المحتوى'}
@@ -343,7 +343,7 @@ export default function ProductsManagement() {
 
                 {/* Pagination */}
                 {totalPages > 1 && (
-                    <div className="p-6 border-t border-gray-100 dark:border-gray-800 bg-[#111111]/30 dark:bg-gray-900/10 flex justify-center mt-auto">
+                    <div className="p-6 border-t border-white/10 dark:border-gray-800 bg-[#111111]/30 dark:bg-gray-900/10 flex justify-center mt-auto">
                         <div className="flex items-center gap-2">
                             <button
                                 disabled={page === 1}

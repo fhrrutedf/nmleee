@@ -103,22 +103,22 @@ export default function AdminStudentsPage() {
 
                 {/* Stats */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
-                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-4 border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                         <p className="text-xs text-gray-400 font-bold uppercase">إجمالي الطلاب</p>
                         <p className="text-2xl font-bold text-[#10B981] mt-1">{totalStudents}</p>
                     </div>
-                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-4 border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                         <p className="text-xs text-gray-400 font-bold uppercase">المدربين</p>
                         <p className="text-2xl font-bold text-white dark:text-white mt-1">{trainers.length}</p>
                     </div>
-                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-4 border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                         <p className="text-xs text-gray-400 font-bold uppercase">الكورسات النشطة</p>
                         <p className="text-2xl font-bold text-[#10B981]-600 mt-1">{trainers.reduce((s, t) => s + t.courses.length, 0)}</p>
                     </div>
                 </div>
 
                 {/* Search */}
-                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-lg shadow-[#10B981]/20">
+                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-white/10 dark:border-gray-700 p-4 mb-6 shadow-lg shadow-[#10B981]/20">
                     <div className="relative">
                         <FiSearch className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400" size={16} />
                         <input
@@ -137,14 +137,14 @@ export default function AdminStudentsPage() {
                         <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-ink"></div>
                     </div>
                 ) : filteredTrainers.length === 0 ? (
-                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-12 text-center border border-gray-100 dark:border-gray-700">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-12 text-center border border-white/10 dark:border-gray-700">
                         <FiUsers className="mx-auto text-gray-300 mb-4" size={48} />
                         <p className="text-gray-400 text-lg">لا يوجد مدربين لديهم طلاب</p>
                     </div>
                 ) : (
                     <div className="space-y-3">
                         {filteredTrainers.map(trainer => (
-                            <div key={trainer.id} className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20 overflow-hidden">
+                            <div key={trainer.id} className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20 overflow-hidden">
                                 {/* Trainer Card (clickable) */}
                                 <button
                                     onClick={() => toggleTrainer(trainer.id)}
@@ -181,7 +181,7 @@ export default function AdminStudentsPage() {
 
                                 {/* Students Table (expanded) */}
                                 {expandedTrainer === trainer.id && (
-                                    <div className="border-t border-gray-100 dark:border-gray-700">
+                                    <div className="border-t border-white/10 dark:border-gray-700">
                                         {loadingStudents === trainer.id ? (
                                             <div className="flex items-center justify-center py-8">
                                                 <div className="animate-spin rounded-xl h-8 w-8 border-b-2 border-ink"></div>

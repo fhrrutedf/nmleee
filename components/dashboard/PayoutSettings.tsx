@@ -130,7 +130,7 @@ export default function PayoutSettings() {
                             className={`p-4 rounded-xl border-2 transition-all flex items-center gap-4 text-right ${
                                 isActive 
                                 ? 'border-primary-500 bg-primary-50/50 shadow-md ring-2 ring-primary-500/20' 
-                                : 'border-gray-100 hover:border-emerald-500/20 bg-[#0A0A0A]'
+                                : 'border-white/10 hover:border-emerald-500/20 bg-[#0A0A0A]'
                             }`}
                         >
                             <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl ${
@@ -150,7 +150,7 @@ export default function PayoutSettings() {
 
             {/* Method Details Form */}
             {activeMethod && (
-                <div className="bg-[#0A0A0A] border border-gray-100 p-6 rounded-xl shadow-lg shadow-[#10B981]/20 ">
+                <div className="bg-[#0A0A0A] border border-white/10 p-6 rounded-xl shadow-lg shadow-[#10B981]/20 ">
                     <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
                         <span className="w-1.5 h-6 bg-primary-500 rounded-xl"></span>
                         بيانات {getPayoutMethodLabel(activeMethod)}

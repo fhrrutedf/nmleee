@@ -48,7 +48,7 @@ export default function CancelSubscriptionButton({ subscriptionId, isCanceled }:
         <button
             onClick={handleCancel}
             disabled={loading}
-            className={`px-4 py-2 bg-red-50 text-red-600 rounded-lg text-sm font-medium border border-red-200 transition-colors ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-100 hover:text-red-700'}`}
+            className={`px-4 py-2 bg-red-500/100/10 text-red-600 rounded-lg text-sm font-medium border border-red-200 transition-colors ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-100 hover:text-red-700'}`}
         >
             {loading ? 'جاري التنفيذ...' : 'إيقاف التجديد التلقائي'}
         </button>

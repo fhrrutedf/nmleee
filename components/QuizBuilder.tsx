@@ -101,7 +101,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
                             <button
                                 type="button"
                                 onClick={() => removeQuestion(qIndex)}
-                                className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                className="p-2 text-red-600 hover:bg-red-500/10 rounded-lg transition-colors"
                             >
                                 <FiX size={20} />
                             </button>
@@ -110,7 +110,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
 
                     {/* Question Type */}
                     <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">نوع السؤال</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">نوع السؤال</label>
                         <select
                             value={question.type}
                             onChange={(e) => updateQuestion(qIndex, 'type', e.target.value)}
@@ -123,7 +123,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
 
                     {/* Question Text */}
                     <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">نص السؤال</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">نص السؤال</label>
                         <textarea
                             value={question.question}
                             onChange={(e) => updateQuestion(qIndex, 'question', e.target.value)}
@@ -135,7 +135,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
 
                     {/* Options */}
                     <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">الخيارات</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">الخيارات</label>
                         <div className="space-y-3">
                             {question.options.map((option, oIndex) => (
                                 <div key={oIndex} className="flex flex-row-reverse sm:flex-row items-center gap-3 w-full">
@@ -181,7 +181,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
                                             type="button"
                                             title="حذف الخيار"
                                             onClick={() => removeOption(qIndex, oIndex)}
-                                            className="flex-shrink-0 p-2 text-red-500 hover:bg-red-50 hover:text-red-700 rounded-lg transition-colors border border-transparent hover:border-red-100"
+                                            className="flex-shrink-0 p-2 text-red-500 hover:bg-red-500/10 hover:text-red-700 rounded-lg transition-colors border border-transparent hover:border-red-100"
                                         >
                                             <FiX size={20} />
                                         </button>
@@ -204,7 +204,7 @@ export default function QuizBuilder({ initialQuestions = [], onChange }: QuizBui
                     </div>
 
                     {/* Correct Answer Indicator */}
-                    <div className="text-sm font-bold text-slate-700 bg-[#111111] p-4 rounded-xl border border-emerald-500/20 flex items-center gap-2">
+                    <div className="text-sm font-bold text-gray-300 bg-[#111111] p-4 rounded-xl border border-emerald-500/20 flex items-center gap-2">
                         <span className="text-[#10B981]">الإجابة الصحيحة:</span>{' '}
                         {question.type === 'true-false'
                             ? question.correctAnswer

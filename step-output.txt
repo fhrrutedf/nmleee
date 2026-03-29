@@ -1,0 +1,15 @@
+STATUS: done
+REPO: D:\tmleen
+BRANCH: main
+STORIES_JSON: [
+  {
+    "id": "story-1",
+    "title": "Create permission-test.txt",
+    "description": "Create a file named 'permission-test.txt' in D:\\tmleen\\ with text 'Success'.",
+    "acceptanceCriteria": [
+      "File D:\\tmleen\\permission-test.txt exists",
+      "File content is 'Success'",
+      "Typecheck passes"
+    ]
+  }
+]

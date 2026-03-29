@@ -173,7 +173,7 @@ export default function ManualCheckoutPage() {
     return (
         <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#0F172A]">
             {/* ── Sticky Header ────────────────────────────────────── */}
-            <header className="bg-[#0A0A0A] dark:bg-[#1e293b] shadow-lg shadow-[#10B981]/20 sticky top-0 z-20 border-b border-gray-100 dark:border-gray-800">
+            <header className="bg-[#0A0A0A] dark:bg-[#1e293b] shadow-lg shadow-[#10B981]/20 sticky top-0 z-20 border-b border-white/10 dark:border-gray-800">
                 <div className="max-w-xl mx-auto px-4 py-3.5 flex items-center gap-3">
                     <Link href="/" className="text-gray-400 hover:text-[#0052FF] transition-colors">
                         <FiChevronLeft size={22} />
@@ -212,7 +212,7 @@ export default function ManualCheckoutPage() {
                 </div>
 
                 {/* ── Order Summary ────────────────────────────────── */}
-                <div className="bg-[#0A0A0A] dark:bg-[#1e293b] rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-4 mb-5">
+                <div className="bg-[#0A0A0A] dark:bg-[#1e293b] rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 p-4 mb-5">
                     <div className="flex items-center justify-between">
                         <span className="text-xs text-gray-400 font-medium">المبلغ المطلوب</span>
                         <div className="text-left">
@@ -225,11 +225,11 @@ export default function ManualCheckoutPage() {
                         </div>
                     </div>
                     {items.length > 0 && (
-                        <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1">
+                        <div className="mt-3 pt-3 border-t border-white/10 dark:border-gray-800 space-y-1">
                             {items.map((item: any, i: number) => (
                                 <div key={i} className="flex items-center justify-between text-xs">
                                     <span className="text-gray-500 truncate flex-1">{item.title || item.name || 'منتج'}</span>
-                                    <span className="text-gray-700 dark:text-gray-300 font-semibold mr-3">${item.price}</span>
+                                    <span className="text-gray-300 dark:text-gray-300 font-semibold mr-3">${item.price}</span>
                                 </div>
                             ))}
                         </div>
@@ -253,7 +253,7 @@ export default function ManualCheckoutPage() {
                                 <button
                                     key={method.id}
                                     onClick={() => { setSelectedMethod(method); setStep(2); }}
-                                    className="w-full bg-[#0A0A0A] dark:bg-[#1e293b] rounded-xl border-2 border-gray-100 dark:border-gray-800 p-4 flex items-center gap-3.5 transition-all duration-200 hover:border-[#0052FF]/40 hover:shadow-md active:scale-[0.99] group"
+                                    className="w-full bg-[#0A0A0A] dark:bg-[#1e293b] rounded-xl border-2 border-white/10 dark:border-gray-800 p-4 flex items-center gap-3.5 transition-all duration-200 hover:border-[#0052FF]/40 hover:shadow-md active:scale-[0.99] group"
                                 >
                                     <span className="text-2xl">{method.icon}</span>
                                     <div className="text-right flex-1">
@@ -266,7 +266,7 @@ export default function ManualCheckoutPage() {
                         </div>
 
                         {/* Country Override */}
-                        <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
+                        <div className="pt-4 border-t border-white/10 dark:border-gray-800">
                             <label className="text-[11px] text-gray-400 font-medium block mb-1.5">لست في {countryConfig.nameAr}؟</label>
                             <select
                                 value={country}
@@ -315,7 +315,7 @@ export default function ManualCheckoutPage() {
                         </div>
 
                         {/* Wallet Copy Box */}
-                        <div className="bg-[#0A0A0A] dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-800 p-4">
+                        <div className="bg-[#0A0A0A] dark:bg-[#1e293b] rounded-xl border border-white/10 dark:border-gray-800 p-4">
                             <label className="text-[11px] text-gray-400 font-medium block mb-1.5">رقم محفظة المنصة ({selectedMethod.nameAr})</label>
                             <div className="flex items-center gap-2">
                                 <div className="flex-1 bg-[#111111] dark:bg-gray-800/60 rounded-xl px-3.5 py-3 font-mono text-base font-bold text-white dark:text-white tracking-wider text-left" dir="ltr">
@@ -332,7 +332,7 @@ export default function ManualCheckoutPage() {
                         </div>
 
                         {/* Form */}
-                        <div className="bg-[#0A0A0A] dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-800 p-4 space-y-3.5">
+                        <div className="bg-[#0A0A0A] dark:bg-[#1e293b] rounded-xl border border-white/10 dark:border-gray-800 p-4 space-y-3.5">
                             {/* Sender Phone */}
                             <div>
                                 <label className="text-xs font-semibold text-white dark:text-white block mb-1">رقم هاتف المُرسل</label>
@@ -369,7 +369,7 @@ export default function ManualCheckoutPage() {
                                         <img src={proofPreview} alt="إثبات" className="w-full rounded-xl border border-emerald-500/20 dark:border-gray-700 max-h-44 object-cover" />
                                         <button
                                             onClick={() => { setProofFile(null); setProofPreview(null); }}
-                                            className="absolute top-2 left-2 w-7 h-7 bg-red-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20"
+                                            className="absolute top-2 left-2 w-7 h-7 bg-red-500/100 text-white rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20"
                                         >
                                             <FiX size={14} />
                                         </button>
@@ -403,7 +403,7 @@ export default function ManualCheckoutPage() {
 
                         {/* Error */}
                         {error && (
-                            <div className="flex items-center gap-2 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-3 rounded-xl text-xs font-medium">
+                            <div className="flex items-center gap-2 bg-red-500/10 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-3 rounded-xl text-xs font-medium">
                                 <FiAlertCircle size={14} />
                                 {error}
                             </div>
@@ -443,7 +443,7 @@ export default function ManualCheckoutPage() {
                             سيتم مراجعة الدفعة من قبل فريقنا وتفعيل طلبك خلال ساعات قليلة.
                         </p>
 
-                        <div className="bg-[#0A0A0A] dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-800 p-4 inline-block mb-5">
+                        <div className="bg-[#0A0A0A] dark:bg-[#1e293b] rounded-xl border border-white/10 dark:border-gray-800 p-4 inline-block mb-5">
                             <p className="text-[10px] text-gray-400 font-medium mb-0.5">رقم الطلب</p>
                             <p className="text-lg font-mono font-bold text-[#0052FF]">{orderResult.orderNumber}</p>
                         </div>

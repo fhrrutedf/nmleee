@@ -63,7 +63,7 @@ export default function AdminBroadcastPage() {
                     <section className="bg-[#0A0A0A] dark:bg-emerald-700 text-white/50 border border-slate-200 dark:border-slate-800 rounded-xl p-8 shadow-lg shadow-[#10B981]/20">
                         <div className="space-y-6">
                             <div>
-                                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">عنوان البث (الإيميل)</label>
+                                <label className="block text-sm font-bold text-gray-300 dark:text-slate-300 mb-2">عنوان البث (الإيميل)</label>
                                 <input 
                                     type="text"
                                     value={subject}
@@ -74,7 +74,7 @@ export default function AdminBroadcastPage() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">محتوى الرسالة (يدعم نص حر)</label>
+                                <label className="block text-sm font-bold text-gray-300 dark:text-slate-300 mb-2">محتوى الرسالة (يدعم نص حر)</label>
                                 <textarea 
                                     rows={10}
                                     value={message}

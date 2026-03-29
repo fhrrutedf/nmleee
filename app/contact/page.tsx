@@ -67,7 +67,7 @@ export default function ContactPage() {
                     variants={fadeInUp}
                     className="text-center mb-24 max-w-4xl mx-auto"
                 >
-                    <div className="inline-flex items-center gap-2 bg-[#111111] border border-gray-100 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-[#10B981] shadow-lg shadow-[#10B981]/20">
+                    <div className="inline-flex items-center gap-2 bg-[#111111] border border-white/10 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-[#10B981] shadow-lg shadow-[#10B981]/20">
                         Strategic Support Unit
                     </div>
                     <h1 className="text-5xl md:text-8xl font-bold text-[#10B981] mb-10 tracking-tighter leading-[1.05]">
@@ -114,7 +114,7 @@ export default function ContactPage() {
                                 key={idx}
                                 variants={slideInRight}
                                 whileHover={{ x: -10, scale: 1.02 }}
-                                className="bg-[#0A0A0A] rounded-xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] p-8 border border-gray-50 flex items-start gap-6 group transition-all"
+                                className="bg-[#0A0A0A] rounded-xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] p-8 border border-white/10 flex items-start gap-6 group transition-all"
                             >
                                 <div className={`w-14 h-14 ${info.bg} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
                                     {info.icon}
@@ -137,7 +137,7 @@ export default function ContactPage() {
                         variants={slideInLeft}
                         className="lg:col-span-2 lg:order-1 relative"
                     >
-                        <div className="bg-[#0A0A0A] rounded-[2.5rem] shadow-lg shadow-[#10B981]/20 p-10 md:p-16 border border-gray-100 overflow-hidden relative">
+                        <div className="bg-[#0A0A0A] rounded-[2.5rem] shadow-lg shadow-[#10B981]/20 p-10 md:p-16 border border-white/10 overflow-hidden relative">
                             {/* Decorative element inside form */}
                             <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-700 text-white/5 rounded-bl-[100px] pointer-events-none"></div>
 
@@ -196,7 +196,7 @@ export default function ContactPage() {
                                         id="message"
                                         value={formData.message}
                                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                        className="block w-full px-6 py-5 text-[#10B981] bg-[#111111] border border-gray-100 rounded-xl appearance-none focus:outline-none focus:ring-4 focus:ring-accent/10 focus:border-emerald-600 transition-all peer"
+                                        className="block w-full px-6 py-5 text-[#10B981] bg-[#111111] border border-white/10 rounded-xl appearance-none focus:outline-none focus:ring-4 focus:ring-accent/10 focus:border-emerald-600 transition-all peer"
                                         placeholder=" "
                                         rows={6}
                                         required

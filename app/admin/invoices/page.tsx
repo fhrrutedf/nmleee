@@ -109,7 +109,7 @@ export default function AdminInvoicesPage() {
                 </div>
 
                 {/* Filters */}
-                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-lg shadow-[#10B981]/20">
+                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-white/10 dark:border-gray-700 p-4 mb-6 shadow-lg shadow-[#10B981]/20">
                     <div className="flex flex-wrap gap-3 items-center">
                         <div className="flex-1 min-w-[200px]">
                             <div className="relative">
@@ -149,16 +149,16 @@ export default function AdminInvoicesPage() {
                         <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-ink"></div>
                     </div>
                 ) : invoices.length === 0 ? (
-                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-12 text-center border border-gray-100 dark:border-gray-700">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-12 text-center border border-white/10 dark:border-gray-700">
                         <FiFileText className="mx-auto text-gray-300 mb-4" size={48} />
                         <p className="text-gray-500 text-lg">لا توجد فواتير</p>
                     </div>
                 ) : (
-                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20 overflow-hidden">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20 overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm">
                                 <thead>
-                                    <tr className="bg-[#111111] dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-700">
+                                    <tr className="bg-[#111111] dark:bg-gray-900/50 border-b border-white/10 dark:border-gray-700">
                                         <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase">رقم الفاتورة</th>
                                         <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase">رقم الطلب</th>
                                         <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase">المشتري</th>
@@ -236,7 +236,7 @@ export default function AdminInvoicesPage() {
 
                         {/* Pagination */}
                         {totalPages > 1 && (
-                            <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100 dark:border-gray-700">
+                            <div className="flex items-center justify-between px-4 py-3 border-t border-white/10 dark:border-gray-700">
                                 <p className="text-xs text-gray-400">صفحة {page} من {totalPages}</p>
                                 <div className="flex gap-2">
                                     <button
@@ -346,7 +346,7 @@ export default function AdminInvoicesPage() {
                                 <h4 className="text-xs font-bold text-gray-400 uppercase mb-2">المنتجات</h4>
                                 <div className="space-y-1">
                                     {selectedInvoice.order.items.map((item, i) => (
-                                        <p key={i} className="text-sm text-gray-700 dark:text-gray-300">
+                                        <p key={i} className="text-sm text-gray-300 dark:text-gray-300">
                                             • {item.product?.title || item.course?.title || item.bundle?.title || 'منتج'}
                                         </p>
                                     ))}

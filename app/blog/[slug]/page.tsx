@@ -99,7 +99,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     return (
         <div className="min-h-screen bg-[#0A0A0A]" dir="rtl">
             {/* Header / Breadcrumb */}
-            <div className="bg-[#111111] py-8 border-b border-gray-100">
+            <div className="bg-[#111111] py-8 border-b border-white/10">
                 <div className="container-custom px-4 mx-auto max-w-7xl">
                     <div className="flex items-center gap-2 text-sm text-gray-500">
                         <Link href="/" className="hover:text-[#10B981]">الرئيسية</Link>
@@ -127,7 +127,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                 {post.title}
                             </h1>
 
-                            <div className="flex items-center gap-6 text-gray-500 text-sm border-b border-gray-100 pb-8 mt-6">
+                            <div className="flex items-center gap-6 text-gray-500 text-sm border-b border-white/10 pb-8 mt-6">
                                 <div className="flex items-center gap-2">
                                     <div className="w-10 h-10 rounded-xl bg-gray-200 overflow-hidden flex items-center justify-center text-gray-500 shrink-0">
                                         {post.user?.avatar ? (
@@ -149,14 +149,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                         {/* Featured Image */}
                         {post.coverImage && (
-                            <div className="rounded-xl overflow-hidden mb-10 shadow-lg shadow-[#10B981]/20 border border-gray-100">
+                            <div className="rounded-xl overflow-hidden mb-10 shadow-lg shadow-[#10B981]/20 border border-white/10">
                                 <img src={post.coverImage} alt={post.title} className="w-full h-auto object-cover max-h-[500px]" />
                             </div>
                         )}
 
                         {/* Content */}
                         <article
-                            className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-[#10B981] prose-p:text-gray-700 prose-a:text-[#10B981] prose-img:rounded-xl prose-p:leading-relaxed mb-20"
+                            className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-[#10B981] prose-p:text-gray-300 prose-a:text-[#10B981] prose-img:rounded-xl prose-p:leading-relaxed mb-20"
                             dangerouslySetInnerHTML={{ __html: post.content }}
                         />
 

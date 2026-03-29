@@ -94,7 +94,7 @@ export default function PayoutsPage() {
             case 'CANCELLED':
                 return 'bg-red-100 text-red-700';
             default:
-                return 'bg-emerald-800 text-gray-700';
+                return 'bg-emerald-800 text-gray-300';
         }
     };
 
@@ -147,7 +147,7 @@ export default function PayoutsPage() {
             </div>
 
             {/* Request Payout Form */}
-            <div className="card bg-[#0A0A0A] dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20">
+            <div className="card bg-[#0A0A0A] dark:bg-card-white border border-white/10 dark:border-gray-800 rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20">
                 <div className="p-6 sm:p-8">
                     <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
                         <span className="w-1.5 h-6 bg-emerald-700 text-white rounded-xl"></span>
@@ -180,7 +180,7 @@ export default function PayoutsPage() {
                             )}
                             
                             <div className="space-y-2">
-                                <label className="label text-gray-700">المبلغ المطلوب ($)</label>
+                                <label className="label text-gray-300">المبلغ المطلوب ($)</label>
                                 <div className="relative">
                                     <FiDollarSign className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                     <input

@@ -40,13 +40,13 @@ export default function CertificateCustomizationPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Settings Panel */}
                     <div className="lg:col-span-1">
-                        <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-6 sticky top-24">
+                        <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 p-6 sticky top-24">
                             <h2 className="text-lg font-bold text-[#10B981] dark:text-white mb-4">الإعدادات</h2>
 
                             <div className="space-y-4">
                                 {/* Brand Color */}
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         لون العلامة التجارية
                                     </label>
                                     <div className="flex gap-2">
@@ -67,13 +67,13 @@ export default function CertificateCustomizationPage() {
 
                                 {/* Logo Upload */}
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         الشعار (اختياري)
                                     </label>
                                     {formData.logoUrl ? (
                                         <div className="relative group inline-block">
                                             <img src={formData.logoUrl} alt="شعار" className="h-20 object-contain rounded-lg border border-emerald-500/20" />
-                                            <button type="button" onClick={() => setFormData({ ...formData, logoUrl: '' })} className="absolute -top-2 -left-2 bg-red-500 text-white rounded-xl w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
+                                            <button type="button" onClick={() => setFormData({ ...formData, logoUrl: '' })} className="absolute -top-2 -left-2 bg-red-500/100/100 text-white rounded-xl w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
                                         </div>
                                     ) : (
                                         <FileUploader
@@ -87,13 +87,13 @@ export default function CertificateCustomizationPage() {
 
                                 {/* Signature Upload */}
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         التوقيع (اختياري)
                                     </label>
                                     {formData.signatureUrl ? (
                                         <div className="relative group inline-block">
                                             <img src={formData.signatureUrl} alt="توقيع" className="h-16 object-contain rounded-lg border border-emerald-500/20" />
-                                            <button type="button" onClick={() => setFormData({ ...formData, signatureUrl: '' })} className="absolute -top-2 -left-2 bg-red-500 text-white rounded-xl w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
+                                            <button type="button" onClick={() => setFormData({ ...formData, signatureUrl: '' })} className="absolute -top-2 -left-2 bg-red-500/100/100 text-white rounded-xl w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600">✕</button>
                                         </div>
                                     ) : (
                                         <FileUploader
@@ -107,7 +107,7 @@ export default function CertificateCustomizationPage() {
 
                                 {/* Preview Data */}
                                 <div className="pt-4 border-t">
-                                    <h3 className="text-sm font-medium text-gray-700 mb-3">بيانات المعاينة</h3>
+                                    <h3 className="text-sm font-medium text-gray-300 mb-3">بيانات المعاينة</h3>
 
                                     <div className="space-y-2">
                                         <input
@@ -148,7 +148,7 @@ export default function CertificateCustomizationPage() {
 
                     {/* Preview Panel */}
                     <div className="lg:col-span-2">
-                        <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-4 sm:p-8">
+                        <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 p-4 sm:p-8">
                             <h2 className="text-lg font-bold text-[#10B981] dark:text-white mb-6">معاينة الشهادة</h2>
                             <div className="overflow-x-auto pb-4">
                                 <div className="min-w-[600px] lg:min-w-0">

@@ -53,7 +53,7 @@ export default function CountdownTimer({
 
     if (expired) {
         return (
-            <div className="text-center p-4 bg-red-50 border border-red-200 rounded-lg">
+            <div className="text-center p-4 bg-red-500/10 border border-red-200 rounded-lg">
                 <p className="text-red-600 font-semibold">انتهى العرض!</p>
             </div>
         );

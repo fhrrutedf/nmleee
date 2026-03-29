@@ -44,11 +44,11 @@ export default function CertificatePreview({
                 <div className="w-32 h-1 mb-8" style={{ backgroundColor: brandColor }} />
 
                 {/* Student Name */}
-                <p className="text-gray-700 mb-2">تُمنح هذه الشهادة إلى</p>
+                <p className="text-gray-300 mb-2">تُمنح هذه الشهادة إلى</p>
                 <h2 className="text-3xl font-bold text-white mb-8">{studentName}</h2>
 
                 {/* Course Name */}
-                <p className="text-gray-700 mb-2">لإتمامه بنجاح دورة</p>
+                <p className="text-gray-300 mb-2">لإتمامه بنجاح دورة</p>
                 <h3 className="text-2xl font-semibold mb-8" style={{ color: brandColor }}>
                     {courseName}
                 </h3>

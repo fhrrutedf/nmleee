@@ -37,7 +37,7 @@ export default function NotFound() {
                         </Link>
                         <Link
                             href="/contact"
-                            className="btn bg-[#0A0A0A] border border-emerald-500/20 text-gray-700 flex items-center justify-center gap-2 px-8 py-3 hover:bg-[#111111] transition-colors"
+                            className="btn bg-[#0A0A0A] border border-emerald-500/20 text-gray-300 flex items-center justify-center gap-2 px-8 py-3 hover:bg-[#111111] transition-colors"
                         >
                             <FiSearch />
                             مركز المساعدة

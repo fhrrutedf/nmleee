@@ -143,7 +143,7 @@ export default function AffiliatesPage() {
 
             {/* Global Stats Overview (optional based on existing data) */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-[#0A0A0A] dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 flex items-center gap-4">
+                <div className="bg-[#0A0A0A] dark:bg-card-white border border-white/10 dark:border-gray-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 flex items-center gap-4">
                     <div className="w-14 h-14 bg-purple-100 dark:bg-purple-900/20 text-[#10B981] rounded-xl flex items-center justify-center">
                         <FiUsers size={24} />
                     </div>
@@ -152,7 +152,7 @@ export default function AffiliatesPage() {
                         <h4 className="text-3xl font-bold text-[#10B981] dark:text-white">{affiliates.filter(a => a.isActive).length}</h4>
                     </div>
                 </div>
-                <div className="bg-[#0A0A0A] dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 flex items-center gap-4">
+                <div className="bg-[#0A0A0A] dark:bg-card-white border border-white/10 dark:border-gray-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 flex items-center gap-4">
                     <div className="w-14 h-14 bg-green-100 dark:bg-green-900/20 text-green-600 rounded-xl flex items-center justify-center">
                         <FiActivity size={24} />
                     </div>
@@ -161,7 +161,7 @@ export default function AffiliatesPage() {
                         <h4 className="text-3xl font-bold text-[#10B981] dark:text-white">{affiliates.reduce((acc, curr) => acc + curr.salesCount, 0)}</h4>
                     </div>
                 </div>
-                <div className="bg-[#0A0A0A] dark:bg-card-white border border-gray-100 dark:border-gray-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 flex items-center gap-4">
+                <div className="bg-[#0A0A0A] dark:bg-card-white border border-white/10 dark:border-gray-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 flex items-center gap-4">
                     <div className="w-14 h-14 bg-blue-100 dark:bg-blue-900/20 text-[#10B981]-600 rounded-xl flex items-center justify-center">
                         <FiDollarSign size={24} />
                     </div>
@@ -182,7 +182,7 @@ export default function AffiliatesPage() {
                     <p className="text-text-muted mb-6 max-w-md mx-auto">شارك أرباحك مع أشخاص آخرين وضع نظام تسويق بالعمولة لجلب المزيد من الزوار لمنتجاتك.</p>
                 </div>
             ) : (
-                <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 overflow-hidden">
+                <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full text-right border-collapse">
                             <thead className="bg-[#111111] dark:bg-gray-900/50">
@@ -210,7 +210,7 @@ export default function AffiliatesPage() {
                                             </div>
                                         </td>
                                         <td className="px-6 py-5">
-                                            <p className="text-sm font-bold text-gray-700 dark:text-gray-300 max-w-[200px] truncate">
+                                            <p className="text-sm font-bold text-gray-300 dark:text-gray-300 max-w-[200px] truncate">
                                                 {link.product?.title || link.course?.title || "منتج محذوف"}
                                             </p>
                                             <span className="text-xs text-gray-400 font-mono mt-1 block">CODE: {link.code}</span>
@@ -232,7 +232,7 @@ export default function AffiliatesPage() {
                                                 className={`text-xs font-bold px-3 py-1.5 rounded-xl flex items-center gap-1 ${link.isActive ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400' : 'bg-red-100 text-red-500 dark:bg-red-900/20'}`}
                                                 title="اضغط للتفعيل أو التعطيل"
                                             >
-                                                <span className={`w-2 h-2 rounded-xl ${link.isActive ? 'bg-green-500' : 'bg-red-500'}`}></span>
+                                                <span className={`w-2 h-2 rounded-xl ${link.isActive ? 'bg-green-500' : 'bg-red-500/100/100'}`}></span>
                                                 {link.isActive ? 'نشط ويعمل' : 'مُعطل مؤقتاً'}
                                             </button>
                                         </td>
@@ -247,7 +247,7 @@ export default function AffiliatesPage() {
                                                 </button>
                                                 <button
                                                     onClick={() => handleDelete(link.id)}
-                                                    className="p-2 text-red-500 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 rounded-xl transition-colors"
+                                                    className="p-2 text-red-500 bg-red-500/100/10 dark:bg-red-900/20 hover:bg-red-100 rounded-xl transition-colors"
                                                     title="حذف نهائي"
                                                 >
                                                     <FiTrash2 size={18} />
@@ -266,7 +266,7 @@ export default function AffiliatesPage() {
             {showModal && (
                 <div className="fixed inset-0 bg-black/50  z-50 flex justify-center items-center p-4">
                     <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 w-full max-w-xl max-h-[90vh] overflow-y-auto transform transition-all">
-                        <div className="sticky top-0 bg-[#0A0A0A] dark:bg-card-white p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center z-10">
+                        <div className="sticky top-0 bg-[#0A0A0A] dark:bg-card-white p-6 border-b border-white/10 dark:border-gray-800 flex justify-between items-center z-10">
                             <h2 className="text-2xl font-bold text-[#10B981] dark:text-white flex items-center gap-2">
                                 <FiLink className="text-[#10B981]" /> تكليف مسوق جديد
                             </h2>
@@ -284,7 +284,7 @@ export default function AffiliatesPage() {
                             ) : (
                                 <div className="space-y-6">
                                     <div>
-                                        <label className="label font-bold text-gray-700 dark:text-gray-300">البريد الإلكتروني للمسوق <span className="text-red-500">*</span></label>
+                                        <label className="label font-bold text-gray-300 dark:text-gray-300">البريد الإلكتروني للمسوق <span className="text-red-500">*</span></label>
                                         <input
                                             type="email"
                                             required
@@ -298,7 +298,7 @@ export default function AffiliatesPage() {
                                     </div>
 
                                     <div>
-                                        <label className="label font-bold text-gray-700 dark:text-gray-300">المنتج المُستهدف <span className="text-red-500">*</span></label>
+                                        <label className="label font-bold text-gray-300 dark:text-gray-300">المنتج المُستهدف <span className="text-red-500">*</span></label>
                                         <select
                                             required
                                             className="input"
@@ -314,7 +314,7 @@ export default function AffiliatesPage() {
 
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
-                                            <label className="label font-bold text-gray-700 dark:text-gray-300">نوع العمولة <span className="text-red-500">*</span></label>
+                                            <label className="label font-bold text-gray-300 dark:text-gray-300">نوع العمولة <span className="text-red-500">*</span></label>
                                             <select
                                                 className="input"
                                                 value={formData.commissionType}
@@ -325,7 +325,7 @@ export default function AffiliatesPage() {
                                             </select>
                                         </div>
                                         <div>
-                                            <label className="label font-bold text-gray-700 dark:text-gray-300">قيمة العمولة <span className="text-red-500">*</span></label>
+                                            <label className="label font-bold text-gray-300 dark:text-gray-300">قيمة العمولة <span className="text-red-500">*</span></label>
                                             <div className="relative">
                                                 <input
                                                     type="number"
@@ -347,7 +347,7 @@ export default function AffiliatesPage() {
                                 </div>
                             )}
 
-                            <div className="pt-6 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-4 mt-6">
+                            <div className="pt-6 border-t border-white/10 dark:border-gray-800 flex justify-end gap-4 mt-6">
                                 <button type="button" onClick={() => setShowModal(false)} className="btn btn-accent border-transparent bg-emerald-800 dark:bg-gray-800 px-6 font-bold shadow-lg shadow-[#10B981]/20">إلغاء الأمر</button>
                                 <button type="submit" disabled={products.length === 0} className="btn btn-primary px-8 font-bold shadow-lg shadow-[#10B981]/20 shadow-accent/20 flex items-center gap-2 text-lg">
                                     <FiCheckCircle /> <span>إنشاء وحفظ</span>

@@ -187,13 +187,13 @@ export default function FinancialsPage() {
             <motion.div variants={item} className="flex bg-emerald-800 dark:bg-gray-800 p-1 rounded-xl max-w-md">
                 <button
                     onClick={() => setActiveTab('overview')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-xl transition-all ${activeTab === 'overview' ? 'bg-[#0A0A0A] dark:bg-card-white text-[#10B981] shadow-lg shadow-[#10B981]/20' : 'text-gray-500 hover:text-gray-700'}`}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-xl transition-all ${activeTab === 'overview' ? 'bg-[#0A0A0A] dark:bg-card-white text-[#10B981] shadow-lg shadow-[#10B981]/20' : 'text-gray-500 hover:text-gray-300'}`}
                 >
                     <FiBarChart2 /> النظرة المالية
                 </button>
                 <button
                     onClick={() => setActiveTab('referrals')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-xl transition-all ${activeTab === 'referrals' ? 'bg-[#0A0A0A] dark:bg-card-white text-[#10B981] shadow-lg shadow-[#10B981]/20' : 'text-gray-500 hover:text-gray-700'}`}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-xl transition-all ${activeTab === 'referrals' ? 'bg-[#0A0A0A] dark:bg-card-white text-[#10B981] shadow-lg shadow-[#10B981]/20' : 'text-gray-500 hover:text-gray-300'}`}
                 >
                     <FiUsers /> نظام الإحالات
                 </button>
@@ -204,7 +204,7 @@ export default function FinancialsPage() {
                     {/* ─── Financial Summary Cards ──────────────────── */}
                     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                         {/* Available Balance */}
-                        <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-6 relative overflow-hidden group hover:shadow-lg shadow-[#10B981]/20 transition-all hover:-translate-y-1">
+                        <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 p-6 relative overflow-hidden group hover:shadow-lg shadow-[#10B981]/20 transition-all hover:-translate-y-1">
                             <div className="absolute top-0 right-0 w-28 h-28 bg-green-50 dark:bg-green-900/10 rounded-xl blur-3xl -mr-8 -mt-8 transition-transform group-hover:scale-125" />
                             <div className="relative">
                                 <div className="flex items-center justify-between mb-3">
@@ -226,7 +226,7 @@ export default function FinancialsPage() {
                         </motion.div>
 
                         {/* Pending Balance */}
-                        <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-6 relative overflow-hidden group hover:shadow-lg shadow-[#10B981]/20 transition-all hover:-translate-y-1">
+                        <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 p-6 relative overflow-hidden group hover:shadow-lg shadow-[#10B981]/20 transition-all hover:-translate-y-1">
                             <div className="absolute top-0 right-0 w-28 h-28 bg-yellow-50 dark:bg-yellow-900/10 rounded-xl blur-3xl -mr-8 -mt-8 transition-transform group-hover:scale-125" />
                             <div className="relative">
                                 <div className="flex items-center justify-between mb-3">
@@ -247,7 +247,7 @@ export default function FinancialsPage() {
                         </motion.div>
 
                         {/* This Month Revenue */}
-                        <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-6 relative overflow-hidden group hover:shadow-lg shadow-[#10B981]/20 transition-all hover:-translate-y-1">
+                        <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 p-6 relative overflow-hidden group hover:shadow-lg shadow-[#10B981]/20 transition-all hover:-translate-y-1">
                             <div className="absolute top-0 right-0 w-28 h-28 bg-emerald-700 text-white-50 dark:bg-blue-900/10 rounded-xl blur-3xl -mr-8 -mt-8 transition-transform group-hover:scale-125" />
                             <div className="relative">
                                 <div className="flex items-center justify-between mb-3">
@@ -292,7 +292,7 @@ export default function FinancialsPage() {
                     {/* ─── Charts Row ──────────────────────────── */}
                     <div className="grid lg:grid-cols-3 gap-6">
                         {/* Revenue Trend */}
-                        <motion.div variants={item} className="lg:col-span-2 bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-6">
+                        <motion.div variants={item} className="lg:col-span-2 bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 p-6">
                             <h2 className="text-lg font-bold text-[#10B981] dark:text-white mb-4 flex items-center gap-2">
                                 <FiTrendingUp className="text-[#10B981]" /> تطور الإيرادات
                             </h2>
@@ -324,7 +324,7 @@ export default function FinancialsPage() {
                         </motion.div>
 
                         {/* Revenue by Type */}
-                        <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-6">
+                        <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 p-6">
                             <h2 className="text-lg font-bold text-[#10B981] dark:text-white mb-4 flex items-center gap-2">
                                 <FiPieChart className="text-purple-500" /> توزيع الإيرادات
                             </h2>
@@ -356,8 +356,8 @@ export default function FinancialsPage() {
                     </div>
 
                     {/* ─── Monthly Breakdown Table ──────────────────── */}
-                    <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 overflow-hidden">
-                        <div className="p-6 border-b border-gray-100 dark:border-gray-800">
+                    <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 overflow-hidden">
+                        <div className="p-6 border-b border-white/10 dark:border-gray-800">
                             <h2 className="text-lg font-bold text-[#10B981] dark:text-white flex items-center gap-2">
                                 <FiBarChart2 className="text-[#10B981]" /> التقرير الشهري
                             </h2>
@@ -387,8 +387,8 @@ export default function FinancialsPage() {
                     </motion.div>
 
                     {/* ─── Recent Transactions ──────────────────── */}
-                    <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 overflow-hidden">
-                        <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center">
+                    <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 overflow-hidden">
+                        <div className="p-6 border-b border-white/10 dark:border-gray-800 flex justify-between items-center">
                             <h2 className="text-lg font-bold text-[#10B981] dark:text-white flex items-center gap-2">
                                 <FiDollarSign className="text-green-500" /> آخر المعاملات
                             </h2>
@@ -479,7 +479,7 @@ export default function FinancialsPage() {
                             </div>
                         </motion.div>
 
-                        <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-6">
+                        <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 p-6">
                             <div className="flex items-center justify-between mb-3">
                                 <p className="font-bold text-sm text-gray-500">عدد الإحالات</p>
                                 <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/20 text-[#10B981] rounded-xl flex items-center justify-center">
@@ -492,7 +492,7 @@ export default function FinancialsPage() {
                             </p>
                         </motion.div>
 
-                        <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-6">
+                        <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 p-6">
                             <div className="flex items-center justify-between mb-3">
                                 <p className="font-bold text-sm text-gray-500">نسبة العمولة</p>
                                 <div className="w-10 h-10 bg-green-100 dark:bg-green-900/20 text-green-600 rounded-xl flex items-center justify-center">
@@ -507,13 +507,13 @@ export default function FinancialsPage() {
                     </div>
 
                     {/* ─── Referral Link ────────────────────── */}
-                    <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-6">
+                    <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 p-6">
                         <h2 className="text-lg font-bold text-[#10B981] dark:text-white mb-4 flex items-center gap-2">
                             🔗 رابط الإحالة الخاص بك
                         </h2>
                         <p className="text-sm text-gray-500 mb-4">شارك هذا الرابط مع أصدقائك. عندما يسجّلون عبره ويبيعون، تكسب تلقائياً!</p>
                         <div className="flex items-center gap-3">
-                            <div className="flex-1 bg-[#111111] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-mono text-gray-700 dark:text-gray-300 truncate" dir="ltr">
+                            <div className="flex-1 bg-[#111111] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-mono text-gray-300 dark:text-gray-300 truncate" dir="ltr">
                                 {typeof window !== 'undefined' ? `${window.location.origin}/explore?ref=${data.referrals.username}` : `...`}
                             </div>
                             <button
@@ -530,7 +530,7 @@ export default function FinancialsPage() {
                     </motion.div>
 
                     {/* How it works */}
-                    <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800 p-8">
+                    <motion.div variants={item} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800 p-8">
                         <h2 className="text-xl font-bold text-[#10B981] dark:text-white mb-6 flex items-center gap-2">
                             🌳 كيف تعمل شجرة الإحالات؟
                         </h2>

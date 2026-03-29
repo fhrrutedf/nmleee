@@ -138,7 +138,7 @@ export default function ManualOrdersPage() {
 
                 {/* Stats Cards */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-4 border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                         <p className="text-xs text-gray-400 font-bold uppercase">الإجمالي</p>
                         <p className="text-2xl font-bold text-white dark:text-white mt-1">{orders.length}</p>
                     </div>
@@ -157,7 +157,7 @@ export default function ManualOrdersPage() {
                 </div>
 
                 {/* Filter Tabs */}
-                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-3 mb-6 shadow-lg shadow-[#10B981]/20">
+                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-white/10 dark:border-gray-700 p-3 mb-6 shadow-lg shadow-[#10B981]/20">
                     <div className="flex gap-2 flex-wrap">
                         {[
                             { value: 'all', label: 'الكل' },
@@ -186,7 +186,7 @@ export default function ManualOrdersPage() {
                         <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-ink"></div>
                     </div>
                 ) : orders.length === 0 ? (
-                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-12 text-center border border-gray-100 dark:border-gray-700">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-12 text-center border border-white/10 dark:border-gray-700">
                         <p className="text-gray-400 text-lg">لا توجد طلبات</p>
                     </div>
                 ) : (
@@ -200,11 +200,11 @@ export default function ManualOrdersPage() {
                                     className={`bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border shadow-lg shadow-[#10B981]/20 overflow-hidden transition-all ${
                                         isPending
                                             ? 'border-amber-200 dark:border-amber-900/40'
-                                            : 'border-gray-100 dark:border-gray-700'
+                                            : 'border-white/10 dark:border-gray-700'
                                     }`}
                                 >
                                     {/* Order Header */}
-                                    <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-700">
+                                    <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 dark:border-gray-700">
                                         <div className="flex items-center gap-3">
                                             <span className="font-mono text-sm font-bold text-[#10B981]">{order.orderNumber}</span>
                                             <span className={`text-xs font-bold px-3 py-1 rounded-xl flex items-center gap-1 ${st.bg}`}>
@@ -248,12 +248,12 @@ export default function ManualOrdersPage() {
                                             <div className="space-y-2">
                                                 <h4 className="text-xs font-bold text-gray-400 uppercase">المنتجات</h4>
                                                 {order.items.map((item, i) => (
-                                                    <p key={i} className="text-sm text-gray-700 dark:text-gray-300">
+                                                    <p key={i} className="text-sm text-gray-300 dark:text-gray-300">
                                                         • {item.product?.title || item.course?.title || 'منتج'}
                                                     </p>
                                                 ))}
                                                 <h4 className="text-xs font-bold text-gray-400 uppercase mt-3">البائع</h4>
-                                                <p className="text-sm text-gray-700 dark:text-gray-300">{order.seller?.name || '—'}</p>
+                                                <p className="text-sm text-gray-300 dark:text-gray-300">{order.seller?.name || '—'}</p>
 
                                                 {/* Payment Proof */}
                                                 {order.paymentProof && (
@@ -269,7 +269,7 @@ export default function ManualOrdersPage() {
 
                                         {/* Action Buttons — Only for PENDING */}
                                         {isPending && (
-                                            <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700 flex gap-3">
+                                            <div className="mt-6 pt-4 border-t border-white/10 dark:border-gray-700 flex gap-3">
                                                 <button
                                                     onClick={() => handleApprove(order.id)}
                                                     className="flex-1 px-4 py-2.5 bg-emerald-700 text-white-600 text-white rounded-xl hover:bg-emerald-700 text-white transition-colors flex items-center justify-center gap-2 font-bold text-sm shadow-lg shadow-[#10B981]/20"

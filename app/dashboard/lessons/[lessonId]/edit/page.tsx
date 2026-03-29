@@ -189,7 +189,7 @@ export default function EditLessonPage() {
                             <label className="label mb-4 opacity-70">إعدادات الفيديو (Bunny Stream)</label>
                             
                             {formData.bunnyVideoId ? (
-                                <div className="bg-[#0A0A0A] dark:bg-card-white p-6 rounded-xl border border-gray-100 dark:border-gray-800 flex items-center justify-between shadow-lg shadow-[#10B981]/20">
+                                <div className="bg-[#0A0A0A] dark:bg-card-white p-6 rounded-xl border border-white/10 dark:border-gray-800 flex items-center justify-between shadow-lg shadow-[#10B981]/20">
                                     <div className="flex items-center gap-4">
                                         <div className="w-12 h-12 bg-green-500/10 text-green-500 rounded-xl flex items-center justify-center">
                                             <FiCheckCircle size={24} />
@@ -202,7 +202,7 @@ export default function EditLessonPage() {
                                     <button 
                                         type="button" 
                                         onClick={() => setFormData({ ...formData, bunnyVideoId: '', bunnyLibraryId: '' })}
-                                        className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors"
+                                        className="p-2 text-red-500 hover:bg-red-500/100/10 dark:hover:bg-red-900/10 rounded-lg transition-colors"
                                     >
                                         <FiTrash2 size={20} />
                                     </button>
@@ -257,12 +257,12 @@ export default function EditLessonPage() {
                         {formData.attachments.length > 0 && (
                             <div className="space-y-2 mb-3">
                                 {formData.attachments.map((attachment, index) => (
-                                    <div key={index} className="flex items-center gap-2 bg-[#111111] dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700">
-                                        <span className="flex-1 text-sm text-gray-700 dark:text-gray-300 truncate" dir="ltr">{attachment.split('/').pop()}</span>
+                                    <div key={index} className="flex items-center gap-2 bg-[#111111] dark:bg-gray-800 p-3 rounded-lg border border-white/10 dark:border-gray-700">
+                                        <span className="flex-1 text-sm text-gray-300 dark:text-gray-300 truncate" dir="ltr">{attachment.split('/').pop()}</span>
                                         <button
                                             type="button"
                                             onClick={() => removeAttachment(index)}
-                                            className="p-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded"
+                                            className="p-1 text-red-500 hover:bg-red-500/100/10 dark:hover:bg-red-900/20 rounded"
                                         >
                                             <FiTrash2 size={14} />
                                         </button>
@@ -283,7 +283,7 @@ export default function EditLessonPage() {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex gap-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                    <div className="flex gap-4 pt-4 border-t border-white/10 dark:border-gray-700">
                         <button
                             type="submit"
                             disabled={saving}

@@ -88,7 +88,7 @@ export function CertificateDownload({
     // Don't show anything while loading
     if (loading) {
         return (
-            <div className="bg-[#0A0A0A] border border-gray-100 rounded-xl p-6 ">
+            <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-6 ">
                 <div className="h-20 bg-[#111111] rounded-xl"></div>
             </div>
         );
@@ -107,7 +107,7 @@ export function CertificateDownload({
     // Incomplete course
     if (!status.eligible && status.reason === 'incomplete') {
         return (
-            <div className="bg-[#0A0A0A] border-2 border-dashed border-gray-100 rounded-xl p-8">
+            <div className="bg-[#0A0A0A] border-2 border-dashed border-white/10 rounded-xl p-8">
                 <div className="flex items-center gap-6">
                     <div className="flex-shrink-0 p-4 bg-[#111111] rounded-xl">
                         <FiLock className="text-2xl text-gray-400" />
@@ -167,7 +167,7 @@ export function CertificateDownload({
     // Eligible but not generated yet
     if (status.eligible && !status.certificateGenerated) {
         return (
-            <div className="bg-[#0A0A0A] border border-gray-100 rounded-xl p-8 shadow-lg shadow-[#10B981]/20">
+            <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-8 shadow-lg shadow-[#10B981]/20">
                 <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-right">
                     <div className="flex-shrink-0 p-5 bg-emerald-700 text-white-light rounded-xl">
                         <FiAward className="text-4xl text-[#10B981]" />

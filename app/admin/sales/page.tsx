@@ -150,7 +150,7 @@ export default function AdminSalesPage() {
                 {/* Stats Cards */}
                 {stats && (
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                        <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
+                        <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-5 border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
                                     <FiShoppingBag className="text-[#10B981]" size={20} />
@@ -159,7 +159,7 @@ export default function AdminSalesPage() {
                             </div>
                             <p className="text-2xl font-bold text-white dark:text-white">{stats.totalOrders}</p>
                         </div>
-                        <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
+                        <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-5 border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
                                     <FiDollarSign className="text-[#10B981]-600" size={20} />
@@ -168,7 +168,7 @@ export default function AdminSalesPage() {
                             </div>
                             <p className="text-2xl font-bold text-white dark:text-white">${stats.totalRevenue.toFixed(2)}</p>
                         </div>
-                        <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
+                        <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-5 border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-amber-900/30 flex items-center justify-center">
                                     <FiClock className="text-[#10B981]" size={20} />
@@ -177,7 +177,7 @@ export default function AdminSalesPage() {
                             </div>
                             <p className="text-2xl font-bold text-[#10B981]">{stats.pendingCount}</p>
                         </div>
-                        <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
+                        <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-5 border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
                                     <FiUsers className="text-[#10B981]" size={20} />
@@ -190,7 +190,7 @@ export default function AdminSalesPage() {
                 )}
 
                 {/* Filters */}
-                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 mb-6 shadow-lg shadow-[#10B981]/20">
+                <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-white/10 dark:border-gray-700 p-4 mb-6 shadow-lg shadow-[#10B981]/20">
                     <div className="flex flex-wrap gap-3 items-center">
                         {/* Search */}
                         <div className="flex-1 min-w-[200px]">
@@ -263,16 +263,16 @@ export default function AdminSalesPage() {
                         <div className="animate-spin rounded-xl h-12 w-12 border-b-2 border-ink"></div>
                     </div>
                 ) : orders.length === 0 ? (
-                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-12 text-center border border-gray-100 dark:border-gray-700">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl p-12 text-center border border-white/10 dark:border-gray-700">
                         <FiShoppingBag className="mx-auto text-gray-300 mb-4" size={48} />
                         <p className="text-gray-500 text-lg">لا توجد مبيعات</p>
                     </div>
                 ) : (
-                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20 overflow-hidden">
+                    <div className="bg-[#0A0A0A] dark:bg-gray-800 rounded-xl border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20 overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm">
                                 <thead>
-                                    <tr className="bg-[#111111] dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-700">
+                                    <tr className="bg-[#111111] dark:bg-gray-900/50 border-b border-white/10 dark:border-gray-700">
                                         <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase">الطلب</th>
                                         <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase">المشتري</th>
                                         <th className="text-right px-4 py-3 text-xs font-bold text-gray-500 uppercase">المنتجات</th>
@@ -309,7 +309,7 @@ export default function AdminSalesPage() {
                                             <td className="px-4 py-3">
                                                 <div className="space-y-1 max-w-[180px]">
                                                     {order.items.map(item => (
-                                                        <p key={item.id} className="text-xs text-gray-700 dark:text-gray-300 truncate">
+                                                        <p key={item.id} className="text-xs text-gray-300 dark:text-gray-300 truncate">
                                                             {getItemTitle(item)}
                                                         </p>
                                                     ))}
@@ -347,7 +347,7 @@ export default function AdminSalesPage() {
 
                                             {/* Payment Method */}
                                             <td className="px-4 py-3">
-                                                <span className="text-xs px-2 py-1 rounded-lg bg-emerald-800 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium">
+                                                <span className="text-xs px-2 py-1 rounded-lg bg-emerald-800 dark:bg-gray-700 text-gray-300 dark:text-gray-300 font-medium">
                                                     {order.paymentMethod === 'manual' ? '💵 يدوي' : order.paymentMethod === 'stripe' ? '💳 Stripe' : order.paymentMethod === 'crypto' ? '🪙 كريبتو' : order.paymentMethod || '—'}
                                                 </span>
                                                 {order.paymentProvider && (
@@ -375,7 +375,7 @@ export default function AdminSalesPage() {
                                             {/* Transaction Ref */}
                                             <td className="px-4 py-3">
                                                 {order.transactionRef ? (
-                                                    <span className="font-mono text-xs text-gray-700 dark:text-gray-300 bg-[#111111] dark:bg-gray-900 px-2 py-1 rounded">
+                                                    <span className="font-mono text-xs text-gray-300 dark:text-gray-300 bg-[#111111] dark:bg-gray-900 px-2 py-1 rounded">
                                                         {order.transactionRef}
                                                     </span>
                                                 ) : (
@@ -427,7 +427,7 @@ export default function AdminSalesPage() {
 
                         {/* Pagination */}
                         {totalPages > 1 && (
-                            <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100 dark:border-gray-700">
+                            <div className="flex items-center justify-between px-4 py-3 border-t border-white/10 dark:border-gray-700">
                                 <p className="text-xs text-gray-400">صفحة {page} من {totalPages}</p>
                                 <div className="flex gap-2">
                                     <button
@@ -462,7 +462,7 @@ export default function AdminSalesPage() {
                             <FiX size={16} />
                         </button>
                         <img src={proofImage} alt="إيصال الدفع" className="max-w-full max-h-[80vh] object-contain" />
-                        <div className="p-3 border-t border-gray-100 dark:border-gray-700 flex justify-end">
+                        <div className="p-3 border-t border-white/10 dark:border-gray-700 flex justify-end">
                             <a
                                 href={proofImage}
                                 target="_blank"

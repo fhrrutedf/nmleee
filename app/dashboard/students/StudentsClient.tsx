@@ -46,7 +46,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
     );
 
     return (
-        <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl p-6 shadow-lg shadow-[#10B981]/20 border border-gray-100 dark:border-gray-800">
+        <div className="bg-[#0A0A0A] dark:bg-card-white rounded-xl p-6 shadow-lg shadow-[#10B981]/20 border border-white/10 dark:border-gray-800">
             {/* Toolbar */}
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <div className="relative w-full md:w-96">
@@ -106,7 +106,7 @@ export default function StudentsClient({ initialStudents }: { initialStudents: S
                                             {student.email}
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
+                                    <td className="px-6 py-4 text-gray-300 dark:text-gray-300">
                                         {student.courseTitle}
                                     </td>
                                     <td className="px-6 py-4">

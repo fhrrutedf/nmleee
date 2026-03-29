@@ -100,7 +100,7 @@ export default function ManualPaymentSettingsPage() {
 
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         💵 رقم شام كاش
                                     </label>
                                     <input
@@ -113,7 +113,7 @@ export default function ManualPaymentSettingsPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         🏦 رقم OMT
                                     </label>
                                     <input
@@ -126,7 +126,7 @@ export default function ManualPaymentSettingsPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         📱 رقم MTN Cash
                                     </label>
                                     <input
@@ -147,7 +147,7 @@ export default function ManualPaymentSettingsPage() {
                             </h3>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">
                                     📱 رقم Zain Cash
                                 </label>
                                 <input
@@ -167,7 +167,7 @@ export default function ManualPaymentSettingsPage() {
                             </h3>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">
                                     📱 رقم Vodafone Cash
                                 </label>
                                 <input

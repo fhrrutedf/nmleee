@@ -58,14 +58,14 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
             <section className="py-20 bg-[#0A0A0A]">
                 <div className="max-w-7xl mx-auto px-6">
                     {/* Category Filter - Structural Styling */}
-                    <div className="flex flex-wrap items-center justify-center gap-2 mb-20 border-b border-gray-50 pb-10">
+                    <div className="flex flex-wrap items-center justify-center gap-2 mb-20 border-b border-white/10 pb-10">
                         {CATEGORIES.map((cat, idx) => (
                             <button
                                 key={idx}
                                 onClick={() => setSelectedCategory(cat)}
                                 className={`px-8 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all duration-300 ${selectedCategory === cat
                                     ? 'bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 shadow-ink/10 -translate-y-1'
-                                    : 'bg-[#0A0A0A] text-gray-400 border border-gray-100 hover:border-ink hover:text-[#10B981]'
+                                    : 'bg-[#0A0A0A] text-gray-400 border border-white/10 hover:border-ink hover:text-[#10B981]'
                                     }`}
                             >
                                 {cat}
@@ -78,8 +78,8 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                         <>
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 {visiblePosts.map((post) => (
-                                    <article key={post.id} className="group flex flex-col bg-[#0A0A0A] border border-gray-100 rounded-[2.5rem] p-4 transition-all duration-500 hover:border-emerald-600/20 hover:shadow-lg shadow-[#10B981]/20 hover:shadow-gray-200/50">
-                                        <div className="h-64 overflow-hidden rounded-[2rem] relative bg-[#111111] mb-8 border border-gray-50">
+                                    <article key={post.id} className="group flex flex-col bg-[#0A0A0A] border border-white/10 rounded-[2.5rem] p-4 transition-all duration-500 hover:border-emerald-600/20 hover:shadow-lg shadow-[#10B981]/20 hover:shadow-gray-200/50">
+                                        <div className="h-64 overflow-hidden rounded-[2rem] relative bg-[#111111] mb-8 border border-white/10">
                                             <div className="absolute top-4 right-4 z-10">
                                                 <span className="bg-[#0A0A0A] px-4 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-widest text-[#10B981] shadow-lg shadow-[#10B981]/20 shadow-black/5 flex items-center gap-2 outline outline-1 outline-gray-50">
                                                     <FiTag className="text-[#10B981]" /> {post.category || 'Insights'}
@@ -106,7 +106,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                                                 {post.excerpt || 'تعلم استراتيجيات النمو المتقدمة لبناء علامتك التجارية الشخصية والمالية.'}
                                             </p>
 
-                                            <div className="mt-auto flex items-center justify-between pt-6 border-t border-gray-50">
+                                            <div className="mt-auto flex items-center justify-between pt-6 border-t border-white/10">
                                                 <div className="flex items-center gap-3">
                                                     <div className="w-8 h-8 rounded-xl bg-emerald-800 border border-emerald-500/20 flex items-center justify-center text-gray-400 group-hover:bg-emerald-700 text-white group-hover:text-white group-hover:border-transparent transition-all">
                                                         <FiUser size={14} />
@@ -135,7 +135,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                             )}
                         </>
                     ) : (
-                        <div className="text-center py-40 bg-[#111111] rounded-[3rem] border-2 border-dashed border-gray-100 p-8">
+                        <div className="text-center py-40 bg-[#111111] rounded-[3rem] border-2 border-dashed border-white/10 p-8">
                              <div className="w-20 h-20 bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 shadow-gray-200/50 flex items-center justify-center mx-auto mb-8 text-gray-200">
                                 <FiSearch size={32} />
                             </div>

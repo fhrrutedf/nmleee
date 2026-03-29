@@ -125,7 +125,7 @@ export default function PayoutSettingsPage() {
                     <form onSubmit={handleSubmit}>
                         {/* Method Selection */}
                         <div className="mb-6">
-                            <label className="block text-sm font-medium text-gray-700 mb-3">
+                            <label className="block text-sm font-medium text-gray-300 mb-3">
                                 طريقة الدفع
                             </label>
                             <div className="grid grid-cols-3 gap-4">
@@ -171,7 +171,7 @@ export default function PayoutSettingsPage() {
                         {method === 'bank' && (
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         اسم البنك
                                     </label>
                                     <input
@@ -184,7 +184,7 @@ export default function PayoutSettingsPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         اسم صاحب الحساب
                                     </label>
                                     <input
@@ -197,7 +197,7 @@ export default function PayoutSettingsPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         رقم الحساب
                                     </label>
                                     <input
@@ -210,7 +210,7 @@ export default function PayoutSettingsPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         IBAN (اختياري)
                                     </label>
                                     <input
@@ -222,7 +222,7 @@ export default function PayoutSettingsPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-gray-300 mb-2">
                                         SWIFT Code (اختياري)
                                     </label>
                                     <input
@@ -238,7 +238,7 @@ export default function PayoutSettingsPage() {
                         {/* PayPal Field */}
                         {method === 'paypal' && (
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">
                                     بريد PayPal
                                 </label>
                                 <input
@@ -255,7 +255,7 @@ export default function PayoutSettingsPage() {
                         {/* Crypto Field */}
                         {method === 'crypto' && (
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-gray-300 mb-2">
                                     عنوان محفظة USDT (TRC20)
                                 </label>
                                 <input

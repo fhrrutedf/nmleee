@@ -66,7 +66,7 @@ export default function ForgotPasswordPage() {
                     <p className="text-text-muted text-lg">أدخل بريدك الإلكتروني لاستعادة الوصول لحسابك</p>
                 </motion.div>
 
-                <motion.div variants={fadeInUp} className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-gray-100 p-8 sm:p-10 relative overflow-hidden">
+                <motion.div variants={fadeInUp} className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 border border-white/10 p-8 sm:p-10 relative overflow-hidden">
                     <AnimatePresence mode="wait">
                         {status === 'success' ? (
                             <motion.div
@@ -94,7 +94,7 @@ export default function ForgotPasswordPage() {
                             <motion.div key="form" exit={{ opacity: 0, x: -20 }}>
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     <div className="relative group">
-                                        <label className="block text-sm font-bold text-gray-700 mb-2 mr-1">البريد الإلكتروني</label>
+                                        <label className="block text-sm font-bold text-gray-300 mb-2 mr-1">البريد الإلكتروني</label>
                                         <div className="relative">
                                             <input
                                                 type="email"
@@ -109,7 +109,7 @@ export default function ForgotPasswordPage() {
                                     </div>
 
                                     {status === 'error' && (
-                                        <div className="p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm flex items-start gap-3 shadow-lg shadow-[#10B981]/20">
+                                        <div className="p-4 bg-red-500/10 border border-red-100 text-red-600 rounded-xl text-sm flex items-start gap-3 shadow-lg shadow-[#10B981]/20">
                                             <FiAlertCircle className="mt-0.5 shrink-0" />
                                             {error}
                                         </div>
@@ -133,7 +133,7 @@ export default function ForgotPasswordPage() {
                                         )}
                                     </button>
 
-                                    <div className="text-center pt-6 border-t border-gray-100">
+                                    <div className="text-center pt-6 border-t border-white/10">
                                         <Link href="/login" className="text-sm font-bold text-text-muted hover:text-[#10B981] transition-colors flex items-center justify-center gap-2 group">
                                             <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                                             العودة لتسجيل الدخول

@@ -196,7 +196,7 @@ export default function FileUploader({
 
             {/* Error Messages for rejections */}
             {fileRejections.length > 0 && (
-                <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded-xl text-red-600 text-sm">
+                <div className="mt-4 p-4 bg-red-500/10 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded-xl text-red-600 text-sm">
                     <ul>
                         {fileRejections.map(({ file, errors }) => (
                             <li key={file.name} className="flex items-center gap-2">
@@ -292,7 +292,7 @@ export default function FileUploader({
                             <button
                                 type="button"
                                 onClick={() => removeUpload(upload.file)}
-                                className="flex-shrink-0 p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                                className="flex-shrink-0 p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-500/10 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                                 style={{ position: 'relative', zIndex: 1 }}
                                 title="حذف"
                             >

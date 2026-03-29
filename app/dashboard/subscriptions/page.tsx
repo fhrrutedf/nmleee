@@ -150,7 +150,7 @@ export default function SubscriptionsPage() {
 
                                 {/* Features */}
                                 <div className="mb-4">
-                                    <h4 className="text-sm font-semibold text-gray-700 mb-2">المميزات:</h4>
+                                    <h4 className="text-sm font-semibold text-gray-300 mb-2">المميزات:</h4>
                                     <ul className="space-y-1">
                                         {plan.features.slice(0, 3).map((feature, index) => (
                                             <li key={index} className="text-sm text-gray-400 flex items-start gap-2">
@@ -178,14 +178,14 @@ export default function SubscriptionsPage() {
                                 <div className="flex gap-2">
                                     <button
                                         onClick={() => router.push(`/dashboard/subscriptions/${plan.id}/edit`)}
-                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-emerald-800 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-emerald-800 text-gray-300 rounded-lg hover:bg-gray-200 transition-colors"
                                     >
                                         <FiEdit2 size={16} />
                                         تعديل
                                     </button>
                                     <button
                                         onClick={() => deletePlan(plan.id)}
-                                        className="flex items-center justify-center gap-2 px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
+                                        className="flex items-center justify-center gap-2 px-4 py-2 bg-red-500/100/10 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
                                     >
                                         <FiTrash2 size={16} />
                                     </button>

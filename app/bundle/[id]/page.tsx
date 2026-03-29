@@ -45,7 +45,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
         <div className="min-h-[70vh] flex items-center justify-center text-center p-8">
             <div>
                 <FiPackage className="text-6xl text-gray-300 mx-auto mb-4" />
-                <h1 className="text-2xl font-bold text-gray-700">الباقة غير موجودة</h1>
+                <h1 className="text-2xl font-bold text-gray-300">الباقة غير موجودة</h1>
             </div>
         </div>
     );
@@ -94,7 +94,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                     {/* Left: Bundle Details */}
                     <div className="lg:col-span-7 space-y-8">
                         {/* Header Card */}
-                        <div className="bg-[#0A0A0A] dark:bg-gray-900 rounded-xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-gray-100 dark:border-gray-800 transition-shadow">
+                        <div className="bg-[#0A0A0A] dark:bg-gray-900 rounded-xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-white/10 dark:border-gray-800 transition-shadow">
                             <div className="h-2.5 w-full" style={{ background: `linear-gradient(90deg, ${brandColor}, ${brandColor}80)` }} />
                             <div className="p-8 sm:p-10">
                                 <div className="flex flex-wrap items-center gap-3 mb-6">
@@ -111,14 +111,14 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                     {bundle.title}
                                 </h1>
                                 {bundle.description && (
-                                    <div className="prose prose-sm sm:prose-base dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed ql-editor px-0"
+                                    <div className="prose prose-sm sm:prose-base dark:prose-invert max-w-none text-gray-300 dark:text-gray-300 leading-relaxed ql-editor px-0"
                                         dangerouslySetInnerHTML={{ __html: bundle.description.replace(/&nbsp;/g, ' ') }} />
                                 )}
                             </div>
                         </div>
 
                         {/* Products Included */}
-                        <div className="bg-[#0A0A0A] dark:bg-gray-900 rounded-xl p-8 sm:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-gray-100 dark:border-gray-800">
+                        <div className="bg-[#0A0A0A] dark:bg-gray-900 rounded-xl p-8 sm:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-white/10 dark:border-gray-800">
                             <h2 className="font-bold text-2xl text-white dark:text-white mb-8 flex items-center gap-3">
                                 <span className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${brandColor}15` }}>
                                     <FiPackage className="text-xl" style={{ color: brandColor }} />
@@ -127,7 +127,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                             </h2>
                             <div className="space-y-4">
                                 {bundle.products.map((bp: any) => (
-                                    <div key={bp.product.id} className="group flex flex-row items-center gap-4 p-5 rounded-xl bg-[#FCFCFC] dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-emerald-500/20 dark:hover:border-gray-600 transition-all shadow-lg shadow-[#10B981]/20 hover:shadow-md">
+                                    <div key={bp.product.id} className="group flex flex-row items-center gap-4 p-5 rounded-xl bg-[#FCFCFC] dark:bg-gray-800/50 border border-white/10 dark:border-gray-700 hover:border-emerald-500/20 dark:hover:border-gray-600 transition-all shadow-lg shadow-[#10B981]/20 hover:shadow-md">
 
                                         {/* Title & Status (First / Right in RTL) */}
                                         <div className="flex-1 min-w-0 flex flex-col justify-center">
@@ -148,9 +148,9 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                                         <div className="flex-shrink-0">
                                             {bp.product.image ? (
                                                 <img src={bp.product.image} alt={bp.product.title}
-                                                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20" />
+                                                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20" />
                                             ) : (
-                                                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl flex items-center justify-center border border-gray-100 dark:border-gray-700 shadow-lg shadow-[#10B981]/20"
+                                                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl flex items-center justify-center border border-white/10 dark:border-gray-700 shadow-lg shadow-[#10B981]/20"
                                                     style={{ background: `${brandColor}08` }}>
                                                     <FiPackage className="text-2xl" style={{ color: brandColor }} />
                                                 </div>
@@ -165,7 +165,7 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                     {/* Right: Purchase Sidebar */}
                     <div className="lg:col-span-5 relative">
                         <div className="sticky top-24">
-                            <div className="bg-[#0A0A0A] dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden shadow-[0_20px_40px_rgb(0,0,0,0.08)] dark:shadow-none">
+                            <div className="bg-[#0A0A0A] dark:bg-gray-900 rounded-xl border border-white/10 dark:border-gray-800 overflow-hidden shadow-[0_20px_40px_rgb(0,0,0,0.08)] dark:shadow-none">
                                 <div className="h-2.5 w-full" style={{ background: `linear-gradient(90deg, ${brandColor}, ${brandColor}80)` }} />
                                 <div className="p-8 sm:p-10 space-y-8">
                                     {/* Price Section */}

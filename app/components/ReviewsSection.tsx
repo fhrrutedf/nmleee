@@ -107,12 +107,12 @@ export default function ReviewsSection({ productId }: { productId: string }) {
 
             {/* Add Review Form */}
             {showForm && (
-                <div className="bg-emerald-700 text-white dark:from-gray-900 dark:to-gray-800 p-8 rounded-xl border border-gray-100 dark:border-gray-700 shadow-inner">
+                <div className="bg-emerald-700 text-white dark:from-gray-900 dark:to-gray-800 p-8 rounded-xl border border-white/10 dark:border-gray-700 shadow-inner">
                     <h3 className="font-bold text-xl mb-6 text-white dark:text-white flex items-center gap-2"><FiStar className="text-yellow-400" /> قيم تجربتك</h3>
                     <form onSubmit={handleSubmit} className="space-y-0">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                             <div>
-                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">الاسم *</label>
+                                <label className="block text-sm font-bold text-gray-300 dark:text-gray-300 mb-2">الاسم *</label>
                                 <input
                                     type="text"
                                     required
@@ -124,7 +124,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">التقييم *</label>
+                                <label className="block text-sm font-bold text-gray-300 dark:text-gray-300 mb-2">التقييم *</label>
                                 <div className="flex gap-2 mt-1">
                                     {[1, 2, 3, 4, 5].map((star) => (
                                         <button
@@ -141,7 +141,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">التعليق *</label>
+                            <label className="block text-sm font-bold text-gray-300 dark:text-gray-300 mb-2">التعليق *</label>
                             <textarea
                                 required
                                 rows={4}
@@ -159,7 +159,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                             <button
                                 type="button"
                                 onClick={() => setShowForm(false)}
-                                className="btn border-transparent bg-emerald-800 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 flex-1 py-3 text-lg font-bold transition-colors"
+                                className="btn border-transparent bg-emerald-800 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-300 dark:text-gray-300 flex-1 py-3 text-lg font-bold transition-colors"
                             >
                                 إلغاء
                             </button>
@@ -197,7 +197,7 @@ export default function ReviewsSection({ productId }: { productId: string }) {
                                                 {[...Array(5)].map((_, i) => (
                                                     <FiStar
                                                         key={i}
-                                                        className={`text-sm ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200 dark:text-gray-700'}`}
+                                                        className={`text-sm ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200 dark:text-gray-300'}`}
                                                     />
                                                 ))}
                                             </div>

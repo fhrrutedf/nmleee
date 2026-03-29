@@ -197,7 +197,7 @@ export default function NewProductPage() {
                 </div>
 
                 {/* Progress Bar */}
-                <div className="bg-[#0A0A0A] rounded-xl p-6 lg:p-8 shadow-lg shadow-[#10B981]/20 border border-slate-50 mb-10 overflow-hidden">
+                <div className="bg-[#0A0A0A] rounded-xl p-6 lg:p-8 shadow-lg shadow-black/40 border border-white/10 mb-10 overflow-hidden">
                     <StepProgress steps={steps} currentStep={currentStep} />
                 </div>
 
@@ -315,7 +315,7 @@ export default function NewProductPage() {
                                             <div className="relative aspect-video rounded-xl bg-[#111111] border-4 border-white shadow-lg shadow-[#10B981]/20 overflow-hidden group">
                                                 <img src={formData.image} alt="Cover" className="w-full h-full object-cover" />
                                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                    <button type="button" onClick={() => update('image', '')} className="bg-red-500 text-white w-12 h-12 rounded-xl flex items-center justify-center font-bold shadow-lg shadow-[#10B981]/20 hover:scale-110 transition-transform"><FiX size={20}/></button>
+                                                    <button type="button" onClick={() => update('image', '')} className="bg-red-500/100/100 text-white w-12 h-12 rounded-xl flex items-center justify-center font-bold shadow-lg shadow-[#10B981]/20 hover:scale-110 transition-transform"><FiX size={20}/></button>
                                                 </div>
                                             </div>
                                         ) : (
@@ -352,7 +352,7 @@ export default function NewProductPage() {
                                          </h4>
                                          <div className="grid grid-cols-1 gap-8">
                                              <div className="group">
-                                                 <label className="text-sm font-bold text-slate-700 mb-3 block">عنوان البحث المخصص (SEO Title)</label>
+                                                 <label className="text-sm font-bold text-gray-300 mb-3 block">عنوان البحث المخصص (SEO Title)</label>
                                                  <input 
                                                      type="text" 
                                                      className="input-modern h-14 hover:border-blue-400 focus:border-emerald-600-500 transition-colors" 
@@ -362,7 +362,7 @@ export default function NewProductPage() {
                                                  />
                                              </div>
                                              <div className="group">
-                                                 <label className="text-sm font-bold text-slate-700 mb-3 block">وصف البحث المخصص (SEO Description)</label>
+                                                 <label className="text-sm font-bold text-gray-300 mb-3 block">وصف البحث المخصص (SEO Description)</label>
                                                  <textarea 
                                                      className="input-modern h-32 resize-none py-5 hover:border-indigo-400 focus:border-ink transition-colors" 
                                                      placeholder="اكتب وصفاً مختصراً يظهر تحت اسم منتجك في نتائج البحث." 
@@ -405,7 +405,7 @@ export default function NewProductPage() {
                                                     {formData.pricingType === 'pwyw' ? (
                                                         <div className="space-y-2">
                                                             <label className="label-modern opacity-60 text-center block">أقل مبلغ لقبوله ($)</label>
-                                                            <input type="number" step="0.01" className="bg-transparent border-0 border-b-4 border-slate-200 focus:border-slate-500 text-center text-4xl font-bold text-slate-400 w-full outline-none transition-all placeholder:text-slate-100" placeholder="0.00" value={formData.minPrice} onChange={e => update('minPrice', e.target.value)} />
+                                                            <input type="number" step="0.01" className="bg-transparent border-0 border-b-4 border-slate-200 focus:border-white/100 text-center text-4xl font-bold text-slate-400 w-full outline-none transition-all placeholder:text-slate-100" placeholder="0.00" value={formData.minPrice} onChange={e => update('minPrice', e.target.value)} />
                                                         </div>
                                                     ) : (
                                                         <div className="space-y-2 opacity-60 hover:opacity-100 transition-opacity">
@@ -442,7 +442,7 @@ export default function NewProductPage() {
                                             {formData.previewFileUrl ? (
                                                 <div className="flex items-center justify-between p-6 bg-[#111111] rounded-xl border border-slate-200 shadow-lg shadow-[#10B981]/20 transition-all">
                                                     <span className="text-xs font-bold text-gray-400 italic flex items-center gap-2"><FiCheck className="text-[#10B981]-500"/> تم إرفاق ملف العينة بنجاح، وستكون قابلة للتحميل مجاناً في صفحة المنتج</span>
-                                                    <button type="button" onClick={() => update('previewFileUrl', '')} className="text-red-500 hover:bg-red-50 p-3 rounded-xl transition-colors font-bold flex gap-2 items-center text-xs"><FiX /> حذف العينة</button>
+                                                    <button type="button" onClick={() => update('previewFileUrl', '')} className="text-red-500 hover:bg-red-500/100/10 p-3 rounded-xl transition-colors font-bold flex gap-2 items-center text-xs"><FiX /> حذف العينة</button>
                                                 </div>
                                             ) : (
                                                 <button type="button" onClick={() => setShowPreviewUploader(true)} className="flex items-center justify-center gap-3 text-sm font-bold text-gray-500 hover:text-[#10B981]-600 transition-all border-2 border-dashed border-slate-200 py-8 rounded-xl w-full hover:bg-[#111111] hover:border-blue-200">
@@ -510,7 +510,7 @@ export default function NewProductPage() {
                                     خطوة تراجع
                                 </button>
                             ) : (
-                                <Link href="/dashboard/products" className="w-full md:w-auto block text-center text-slate-400 hover:text-red-500 font-bold border border-transparent hover:bg-red-50 rounded-xl px-8 py-4 transition-all">إلغاء تماماً والعودة</Link>
+                                <Link href="/dashboard/products" className="w-full md:w-auto block text-center text-slate-400 hover:text-red-500 font-bold border border-transparent hover:bg-red-500/100/10 rounded-xl px-8 py-4 transition-all">إلغاء تماماً والعودة</Link>
                             )}
                         </div>
 
@@ -538,21 +538,21 @@ export default function NewProductPage() {
             </div>
 
             {/* Live Preview Sidepanel - Left Side (Sticky) */}
-            <div className="hidden lg:block w-[420px] shrink-0 border-r border-emerald-500/20 pr-10">
+            <div className="hidden lg:block w-[420px] shrink-0 border-r border-white/10 pr-10">
                 <div className="sticky top-10 space-y-6">
-                    <div className="flex items-center gap-2 text-[#10B981]-600 mb-6">
+                    <div className="flex items-center gap-2 text-emerald-500 mb-6">
                         <FiEye size={20} />
                         <h3 className="font-bold text-sm uppercase tracking-widest">معاينة الزبون المباشرة (Live)</h3>
                     </div>
 
                     {/* Miniature Product Card */}
-                    <div className="bg-[#0A0A0A] rounded-xl border border-emerald-500/20 shadow-lg shadow-[#10B981]/20 overflow-hidden transition-all hover:shadow-lg shadow-[#10B981]/20 hover:-translate-y-1 block">
-                        <div className="aspect-[4/3] bg-emerald-800 relative overflow-hidden flex items-center justify-center text-slate-300">
+                    <div className="bg-[#0A0A0A] rounded-xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden transition-all hover:border-emerald-500/30 hover:-translate-y-1 block group">
+                        <div className="aspect-[4/3] bg-[#111111] relative overflow-hidden flex items-center justify-center text-gray-600">
                             {formData.image ? 
                                 <img src={formData.image} alt="Preview" className="w-full h-full object-cover" /> 
                             : <span className="font-bold text-xs flex flex-col items-center"><FiImage size={32} className="opacity-50 mb-2"/> أضف الغلاف</span>}
                             
-                            <div className="absolute top-4 right-4 bg-white/90  px-3 py-1.5 font-bold text-[10px] text-slate-800 rounded-xl">
+                            <div className="absolute top-4 right-4 bg-emerald-700 text-white px-3 py-1.5 font-bold text-[10px] rounded-xl shadow-lg">
                                 {formData.category || 'تصنيف المنتج'}
                             </div>
                         </div>
@@ -562,21 +562,21 @@ export default function NewProductPage() {
                                 {formData.title || 'اسم المنتج الرائع الخاص بك ومحتواه سيبدو هنا بشكل متميز...'}
                             </h4>
                             
-                            <div className="flex justify-between items-end mt-4 pt-4 border-t border-slate-50">
+                            <div className="flex justify-between items-end mt-4 pt-4 border-t border-white/10">
                                 <div>
-                                    <p className="text-[10px] text-slate-400 font-bold mb-1 uppercase tracking-widest">السعر النهائي</p>
-                                    <div className="text-2xl font-bold text-[#10B981]-600" dir="ltr">
+                                    <p className="text-[10px] text-gray-500 font-bold mb-1 uppercase tracking-widest">السعر النهائي</p>
+                                    <div className="text-2xl font-bold text-emerald-500" dir="ltr">
                                         {formData.pricingType === 'free' ? 'مجاني' : (
-                                            <><span className="text-sm text-blue-400 mr-1">$</span>{formData.price || '0.00'}</>
+                                            <><span className="text-sm text-emerald-700 mr-1">$</span>{formData.price || '0.00'}</>
                                         )}
                                     </div>
                                 </div>
-                                <div className="text-[10px] text-slate-400 font-bold bg-[#111111] border border-emerald-500/20 px-3 py-1.5 rounded-lg flex items-center gap-1">
+                                <div className="text-[10px] text-gray-500 font-bold bg-[#111111] border border-white/10 px-3 py-1.5 rounded-lg flex items-center gap-1">
                                     <FiPackage /> {formData.fileType.toUpperCase()} {formData.stockLimit && `• بقيت ${formData.stockLimit}`}
                                 </div>
                             </div>
                             
-                            <button className="w-full mt-6 py-4 bg-emerald-700 text-white-500 text-white font-bold rounded-xl text-sm transition-colors shadow-lg shadow-[#10B981]/20 shadow-accent-500/30 flex items-center justify-center gap-2" disabled>
+                            <button className="w-full mt-6 py-4 bg-emerald-700 text-white font-bold rounded-xl text-sm transition-all shadow-lg shadow-emerald-500/20 hover:bg-emerald-600 flex items-center justify-center gap-2" disabled>
                                 إتمام الشراء والتنزيل المباشر
                             </button>
                         </div>
@@ -608,15 +608,15 @@ export default function NewProductPage() {
 
 function Section({ title, icon, description, children }: any) {
     return (
-        <div className="bg-[#0A0A0A] rounded-xl p-8 lg:p-14 shadow-lg shadow-[#10B981]/20 border border-slate-50 space-y-10 overflow-hidden relative">
+        <div className="bg-[#0A0A0A] rounded-xl p-8 lg:p-14 shadow-lg shadow-black/40 border border-white/10 space-y-10 overflow-hidden relative">
             <div className="flex items-center gap-5">
-                <div className="w-16 h-16 bg-emerald-700 text-white-50 text-[#10B981]-600 rounded-xl flex items-center justify-center text-3xl shadow-lg shadow-[#10B981]/20 shrink-0">
+                <div className="w-16 h-16 bg-[#111111] text-emerald-500 rounded-xl flex items-center justify-center text-3xl shadow-lg border border-white/5 shrink-0">
                     {icon}
                 </div>
                 <div className="text-right">
                     <h2 className="text-2xl font-bold text-white tracking-tight">{title}</h2>
-                    {description && <p className="text-xs text-slate-400 font-medium mt-2 uppercase tracking-wider">{description}</p>}
-                    <div className="h-1 w-12 bg-blue-100 rounded-xl mt-3" />
+                    {description && <p className="text-xs text-gray-500 font-medium mt-2 uppercase tracking-wider">{description}</p>}
+                    <div className="h-1 w-12 bg-emerald-500 rounded-xl mt-3" />
                 </div>
             </div>
             <div className="space-y-8 relative z-10">

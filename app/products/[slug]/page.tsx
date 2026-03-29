@@ -224,7 +224,7 @@ export default function ProductPage() {
                                         {product.features.map((feature, index) => (
                                             <li key={index} className="flex items-start gap-2">
                                                 <FiCheck className="text-green-600 mt-1 flex-shrink-0" />
-                                                <span className="text-gray-700">{feature}</span>
+                                                <span className="text-gray-300">{feature}</span>
                                             </li>
                                         ))}
                                     </ul>
@@ -236,12 +236,12 @@ export default function ProductPage() {
                     {/* Description */}
                     <div className="border-t p-8">
                         <h2 className="text-2xl font-bold text-white mb-4">عن المنتج</h2>
-                        <div className="prose max-w-none text-gray-700" dangerouslySetInnerHTML={{ __html: product.description?.replace(/&nbsp;/g, ' ') || '' }} />
+                        <div className="prose max-w-none text-gray-300" dangerouslySetInnerHTML={{ __html: product.description?.replace(/&nbsp;/g, ' ') || '' }} />
                     </div>
                 </div>
             </div>
             {/* Simple Footer */}
-            <footer className="mt-16 py-8 text-center border-t border-gray-100 dark:border-gray-800">
+            <footer className="mt-16 py-8 text-center border-t border-white/10 dark:border-gray-800">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">
                     مدعوم من <a href="https://tmleen.com" className="text-[#10B981] font-bold hover:underline">منصة تمالين</a>
                 </p>
