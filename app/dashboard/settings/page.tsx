@@ -284,7 +284,6 @@ export default function SettingsPage() {
         { id: 'security', name: 'الأمان', icon: FiLock },
         { id: 'notifications', name: 'الإشعارات', icon: FiBell },
         { id: 'payment', name: 'الدفع', icon: FiCreditCard },
-        { id: 'integrations', name: 'التكاملات', icon: FiLink },
         { id: 'verification', name: 'توثيق الحساب', icon: FiCheckCircle },
         { id: 'privacy', name: 'الخصوصية', icon: FiShield }
     ];
@@ -611,40 +610,6 @@ export default function SettingsPage() {
                                                 </div>
                                             </div>
 
-                                            {/* Banner & Tagline */}
-                                            <div className="space-y-6">
-                                                <div className="space-y-2">
-                                                    <label className="label">الوصف القصير للمتجر (Tagline)</label>
-                                                    <input
-                                                        type="text"
-                                                        value={profileData.storeTagline}
-                                                        onChange={e => setProfileData({ ...profileData, storeTagline: e.target.value })}
-                                                        className="input"
-                                                        maxLength={80}
-                                                        placeholder='مثال: "نحو احتراف التجارة الرقمية"'
-                                                    />
-                                                </div>
-
-                                                <div className="space-y-2">
-                                                    <label className="label">بانر المتجر الخاص</label>
-                                                    {profileData.storeBanner && (
-                                                        <div className="mb-4 rounded-xl overflow-hidden h-32 relative group border border-white/10">
-                                                            <img src={profileData.storeBanner} alt="banner" className="w-full h-full object-cover" />
-                                                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                                <button
-                                                                    onClick={() => setProfileData({ ...profileData, storeBanner: '' })}
-                                                                    className="bg-red-500 text-white text-xs px-4 py-1.5 rounded-xl font-bold"
-                                                                >حذف</button>
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                    <FileUploader
-                                                        onUploadSuccess={(urls: string[]) => setProfileData({ ...profileData, storeBanner: urls[0] })}
-                                                        maxSize={5 * 1024 * 1024}
-                                                        accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
-                                                    />
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
 
@@ -663,12 +628,12 @@ export default function SettingsPage() {
                                                 <div 
                                                     className="h-28 relative"
                                                     style={{ 
-                                                        background: profileData.storeBanner 
-                                                            ? `url(${profileData.storeBanner}) center/cover` 
+                                                        background: profileData.coverImage 
+                                                            ? `url(${profileData.coverImage}) center/cover` 
                                                             : `linear-gradient(135deg, ${profileData.brandColor}22 0%, ${profileData.brandSecondaryColor}22 100%)` 
                                                     }}
                                                 >
-                                                    {!profileData.storeBanner && (
+                                                    {!profileData.coverImage && (
                                                         <div className="absolute inset-0 flex items-center justify-center opacity-20">
                                                             <FiLayout size={40} className="text-[#10B981]" />
                                                         </div>
@@ -689,8 +654,8 @@ export default function SettingsPage() {
                                                     <div>
                                                         <h4 className="font-bold text-gray-100 text-sm">{profileData.name || 'اسمك'}</h4>
                                                         <p className="text-[10px] mt-0.5 italic" style={{ color: profileData.brandSecondaryColor }}>@{profileData.username || 'user'}</p>
-                                                        {profileData.storeTagline && (
-                                                            <p className="text-[10px] text-gray-400 mt-2 line-clamp-1">{profileData.storeTagline}</p>
+                                                        {profileData.bio && (
+                                                            <p className="text-[10px] text-gray-400 mt-2 line-clamp-1">{profileData.bio}</p>
                                                         )}
                                                     </div>
 
@@ -850,87 +815,6 @@ export default function SettingsPage() {
                             </div>
                         )}
 
-                        {/* Integrations Tab */}
-                        {activeTab === 'integrations' && (
-                            <div className="space-y-8 ">
-                                <h2 className="text-2xl font-bold text-[#10B981] dark:text-white border-b border-white/10 dark:border-gray-800 pb-4">التكاملات والخدمات المرتبطة</h2>
-
-                                {integrationMsg && (
-                                    <div className={`p-4 rounded-xl flex items-center gap-3 font-medium ${integrationMsg.type === 'success'
-                                        ? 'bg-green-50 text-green-800 border border-green-200'
-                                        : 'bg-red-500/100/10 text-red-800 border border-red-200'
-                                        }`}>
-                                        {integrationMsg.type === 'success' ? <FiCheckCircle className="text-xl flex-shrink-0" /> : <FiXCircle className="text-xl flex-shrink-0" />}
-                                        {integrationMsg.text}
-                                    </div>
-                                )}
-
-                                {/* Google Calendar */}
-                                <div className="p-6 border-2 border-white/10 dark:border-gray-800 rounded-xl hover:border-emerald-600/30 transition-all">
-                                    <div className="flex items-center justify-between flex-wrap gap-4">
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-14 h-14 rounded-xl bg-[#0A0A0A] shadow-md border border-white/10 flex items-center justify-center">
-                                                <svg viewBox="0 0 24 24" className="w-8 h-8">
-                                                    <path fill="#4285F4" d="M22 12A10 10 0 1 1 12 2a10 10 0 0 1 10 10z" />
-                                                    <path fill="white" d="M12 6.5v5.5l3.5 3.5-1 1L10.5 12V6.5h1.5z" />
-                                                </svg>
-                                            </div>
-                                            <div>
-                                                <h3 className="text-lg font-bold text-[#10B981] dark:text-white">Google Calendar & Meet</h3>
-                                                <p className="text-sm text-text-muted">أنشئ مواعيد تلقائياً مع رابط Google Meet عند كل حجز</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="flex items-center gap-3">
-                                            {calendarConnected ? (
-                                                <>
-                                                    <span className="flex items-center gap-2 text-green-600 font-medium bg-green-50 px-3 py-1.5 rounded-xl text-sm">
-                                                        <FiCheckCircle />
-                                                        متصل
-                                                    </span>
-                                                    <a href="/api/google/calendar/connect" className="btn btn-accent text-sm border-red-300 text-red-500 hover:bg-red-500/100/10">
-                                                        قطع الاتصال
-                                                    </a>
-                                                </>
-                                            ) : (
-                                                <a
-                                                    href="/api/google/calendar/connect"
-                                                    className="btn btn-primary flex items-center gap-2 text-sm"
-                                                >
-                                                    <svg viewBox="0 0 24 24" className="w-4 h-4">
-                                                        <path fill="white" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                                                        <path fill="white" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                                                    </svg>
-                                                    ربط Google Calendar
-                                                </a>
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    {calendarConnected && (
-                                        <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/10 rounded-xl border border-green-200 dark:border-green-900/30">
-                                            <p className="text-sm text-green-700 dark:text-green-400">
-                                                🎉 <strong>نشط!</strong> عند حجز أي استشارة، سيتم إنشاء حدث تلقائياً في تقويمك مع رابط Google Meet وإرساله للعميل.
-                                            </p>
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Coming Soon - Zoom */}
-                                <div className="p-6 border-2 border-dashed border-emerald-500/20 dark:border-gray-700 rounded-xl opacity-60">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-14 h-14 rounded-xl bg-emerald-700 text-white-50 flex items-center justify-center">
-                                            <span className="text-2xl">🎥</span>
-                                        </div>
-                                        <div>
-                                            <h3 className="text-lg font-bold text-[#10B981] dark:text-white">Zoom</h3>
-                                            <p className="text-sm text-text-muted">قريباً - ربط حسابك على Zoom</p>
-                                        </div>
-                                        <span className="mr-auto bg-emerald-800 dark:bg-gray-800 text-gray-500 text-xs px-3 py-1 rounded-xl">قريباً</span>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
 
                         {/* Verification Tab (Phase 10) */}
                         {activeTab === 'verification' && (
