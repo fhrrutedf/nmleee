@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { FiUser, FiMail, FiLock, FiGlobe, FiBell, FiCreditCard, FiShield, FiSave, FiUpload, FiEye, FiEyeOff, FiLink, FiCheckCircle, FiXCircle, FiCopy, FiDroplet, FiType, FiLayout, FiSquare, FiCheck } from 'react-icons/fi';
 import { apiGet, apiPost, apiPut, apiDelete, handleApiError } from '@/lib/safe-fetch';
 import FileUploader from '@/components/ui/FileUploader';
