@@ -46,7 +46,8 @@ const TABS = [
     { id: 'spaceremit', label: 'سبيس ريميت', icon: '💳' },
     { id: 'stripe', label: 'سترايب', icon: '🌍' },
     { id: 'shamcash', label: 'شام كاش', icon: '🇸🇾' },
-    { id: 'manual', label: 'الحوالات اليدوية', icon: '🏦' }
+    { id: 'manual', label: 'الحوالات اليدوية', icon: '🏦' },
+    { id: 'subscriptions', label: 'الاشتراكات', icon: '💎' }
 ];
 
 export default function AdminOrdersManagement() {
@@ -99,7 +100,13 @@ export default function AdminOrdersManagement() {
             url.searchParams.append('page', page.toString());
             url.searchParams.append('limit', '10');
             url.searchParams.append('status', statusFilter);
-            url.searchParams.append('gateway', activeTab);
+            if (activeTab === 'subscriptions') {
+                url.searchParams.append('type', 'subscription');
+                url.searchParams.append('gateway', 'ALL');
+            } else {
+                url.searchParams.append('gateway', activeTab);
+            }
+
             if (searchQuery) {
                 url.searchParams.append('search', searchQuery);
             }
@@ -419,9 +426,9 @@ export default function AdminOrdersManagement() {
                                             <td className="py-4 px-6 align-top">
                                                 <div className="text-xs text-gray-400 whitespace-normal">
                                                     {order.items.map((i, idx) => (
-                                                        <div key={idx} className="mb-1 bg-[#111111] px-2 py-1 rounded border border-white/5 truncate max-w-[150px]" title={i.product?.title || i.course?.title || i.bundle?.title}>
+                                                        <div key={idx} className="mb-1 bg-[#111111] px-2 py-1 rounded border border-white/5 truncate max-w-[150px]" title={i.product?.title || i.course?.title || i.bundle?.title || (i.product?.itemType === 'subscription' ? 'باقة اشتراك المنصة' : 'طلب')}>
                                                             <span className="text-emerald-500 mr-1">•</span>
-                                                            {i.product?.title || i.course?.title || i.bundle?.title}
+                                                            {i.product?.title || i.course?.title || i.bundle?.title || (i.product?.itemType === 'subscription' ? 'اشتراك منصة 💎' : 'منتج')}
                                                         </div>
                                                     ))}
                                                 </div>

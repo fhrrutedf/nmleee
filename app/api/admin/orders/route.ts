@@ -26,12 +26,19 @@ export async function GET(request: Request) {
         const search = searchParams.get('search') || '';
         const statusStr = searchParams.get('status') || 'ALL'; // ALL, PENDING, PAID, REFUNDED, COMPLETED
         const gateway = searchParams.get('gateway') || 'ALL'; // ALL, manual, spaceremit, oxapay, stripe, shamcash, free...
+        const type = searchParams.get('type') || 'ALL'; // ALL, subscription
         const page = parseInt(searchParams.get('page') || '1');
         const limit = parseInt(searchParams.get('limit') || '20');
         const skip = (page - 1) * limit;
 
         // Construct where clause
         const whereClause: any = {};
+
+        if (type === 'subscription') {
+            whereClause.items = {
+                some: { itemType: 'subscription' }
+            };
+        }
 
         if (search) {
             whereClause.OR = [

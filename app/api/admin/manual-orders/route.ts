@@ -34,13 +34,13 @@ export async function GET(req: NextRequest) {
             where,
             include: {
                 items: {
-                    include: {
-                        product: {
-                            select: { title: true },
-                        },
-                        course: {
-                            select: { title: true },
-                        },
+                    select: {
+                        id: true,
+                        price: true,
+                        itemType: true,
+                        licenseKeyId: true,
+                        product: { select: { title: true } },
+                        course: { select: { title: true } },
                     },
                 },
                 seller: {

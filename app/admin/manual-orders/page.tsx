@@ -26,6 +26,8 @@ interface ManualOrder {
     items: Array<{
         product?: { title: string };
         course?: { title: string };
+        itemType?: string;
+        licenseKeyId?: string;
     }>;
     seller: {
         name: string;
@@ -248,9 +250,17 @@ export default function ManualOrdersPage() {
                                             <div className="space-y-2">
                                                 <h4 className="text-xs font-bold text-gray-400 uppercase">المنتجات</h4>
                                                 {order.items.map((item, i) => (
-                                                    <p key={i} className="text-sm text-gray-300 dark:text-gray-300">
-                                                        • {item.product?.title || item.course?.title || 'منتج'}
-                                                    </p>
+                                                    <div key={i} className={`flex items-center gap-2 mb-1 p-1 rounded ${item.itemType === 'subscription' ? 'bg-emerald-900/40 border border-emerald-500/30' : ''}`}>
+                                                        <span className="text-xs">•</span>
+                                                        <span className="text-sm text-gray-300 dark:text-gray-300">
+                                                            {item.product?.title || item.course?.title || 'منتج'}
+                                                        </span>
+                                                        {item.itemType === 'subscription' && (
+                                                            <span className="text-[10px] bg-emerald-500 text-white px-2 py-0.5 rounded-full font-bold animate-pulse">
+                                                                اشتراك منصة 💎
+                                                            </span>
+                                                        )}
+                                                    </div>
                                                 ))}
                                                 <h4 className="text-xs font-bold text-gray-400 uppercase mt-3">البائع</h4>
                                                 <p className="text-sm text-gray-300 dark:text-gray-300">{order.seller?.name || '—'}</p>
