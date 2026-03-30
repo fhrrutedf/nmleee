@@ -3,17 +3,12 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
-    FiShoppingCart,
-    FiSearch,
-    FiFilter,
-    FiCreditCard,
-    FiClock,
-    FiEye,
-    FiDownload,
-    FiRefreshCw
+    FiShoppingCart, FiSearch, FiFilter,
+    FiClock, FiEye, FiRefreshCw, FiCheckCircle, FiXCircle, FiX
 } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 interface OrderItem {
     id: string;
@@ -32,21 +27,27 @@ interface OrderData {
     sellerEarnings: number;
     status: 'PENDING' | 'PAID' | 'COMPLETED' | 'REFUNDED';
     paymentMethod: string;
+    paymentProvider: string | null;
+    paymentId: string | null;
+    transactionRef: string | null;
+    paymentProof: string | null;
+    senderPhone: string | null;
+    cryptoPaidAmount: number | null;
+    cryptoAddress: string | null;
     createdAt: string;
     user: { name: string; email: string };
     seller: { name: string; email: string; username?: string } | null;
     items: OrderItem[];
 }
 
-const containerVariants = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.1 } }
-};
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
-};
+const TABS = [
+    { id: 'ALL', label: 'الكل', icon: '' },
+    { id: 'crypto', label: 'العملات الرقمية', icon: '🪙' },
+    { id: 'spaceremit', label: 'سبيس ريميت', icon: '💳' },
+    { id: 'stripe', label: 'سترايب', icon: '🌍' },
+    { id: 'shamcash', label: 'شام كاش', icon: '🇸🇾' },
+    { id: 'manual', label: 'الحوالات اليدوية', icon: '🏦' }
+];
 
 export default function AdminOrdersManagement() {
     const { data: session } = useSession();
@@ -56,11 +57,14 @@ export default function AdminOrdersManagement() {
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [statusFilter, setStatusFilter] = useState('ALL');
-    const [typeFilter, setTypeFilter] = useState('ALL');
+    const [activeTab, setActiveTab] = useState('ALL');
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [autoRefresh, setAutoRefresh] = useState(true);
     const [isRefreshing, setIsRefreshing] = useState(false);
+    
+    // UI Modals
+    const [proofImage, setProofImage] = useState<string | null>(null);
 
     // Stats
     const [stats, setStats] = useState({
@@ -76,7 +80,7 @@ export default function AdminOrdersManagement() {
             return;
         }
         fetchOrders();
-    }, [session, page, statusFilter, typeFilter, searchQuery]);
+    }, [session, page, statusFilter, activeTab, searchQuery]);
 
     // Real-time polling
     useEffect(() => {
@@ -85,7 +89,7 @@ export default function AdminOrdersManagement() {
             fetchOrders(false); // Silent reload
         }, 5000);
         return () => clearInterval(interval);
-    }, [autoRefresh, session, page, statusFilter, typeFilter, searchQuery]);
+    }, [autoRefresh, session, page, statusFilter, activeTab, searchQuery]);
 
     const fetchOrders = async (showSpinner = true) => {
         if (showSpinner) setLoading(true);
@@ -95,7 +99,7 @@ export default function AdminOrdersManagement() {
             url.searchParams.append('page', page.toString());
             url.searchParams.append('limit', '10');
             url.searchParams.append('status', statusFilter);
-            url.searchParams.append('type', typeFilter);
+            url.searchParams.append('gateway', activeTab);
             if (searchQuery) {
                 url.searchParams.append('search', searchQuery);
             }
@@ -117,17 +121,49 @@ export default function AdminOrdersManagement() {
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
-        setPage(1); // Reset to page 1 on new search
+        setPage(1); 
         fetchOrders();
+    };
+
+    const handleApproveManifest = async (orderId: string) => {
+        if (!confirm('هل أنت متأكد من الموافقة على تحويل هذا الطلب إلى مكتمل؟')) return;
+        try {
+            const res = await fetch(`/api/admin/manual-orders/${orderId}/approve`, { method: 'POST' });
+            if (res.ok) {
+                toast.success('تمت الموافقة وتفعيل الكورسات ورصيد البائع!');
+                fetchOrders();
+            } else {
+                toast.error('حدث خطأ أثناء الموافقة');
+            }
+        } catch (e) {
+            toast.error('خطأ في الاتصال بالشبكة');
+        }
+    };
+
+    const handleRejectManifest = async (orderId: string) => {
+        const reason = prompt('يرجى إدخال سبب الرفض (مثال: الإيصال غير صالح أو الرقم خطأ):');
+        if (!reason) return;
+        try {
+            const res = await fetch(`/api/admin/manual-orders/${orderId}/reject`, { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ rejectionReason: reason })
+            });
+            if (res.ok) {
+                toast.success('تم رفض الحوالة وإلغاء الطلب!');
+                fetchOrders();
+            } else {
+                toast.error('حدث خطأ أثناء الرفض');
+            }
+        } catch (e) {
+            toast.error('خطأ في الشبكة');
+        }
     };
 
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('ar-EG', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
+            year: 'numeric', month: 'short', day: 'numeric',
+            hour: '2-digit', minute: '2-digit'
         });
     };
 
@@ -143,7 +179,7 @@ export default function AdminOrdersManagement() {
 
     const getStatusText = (status: string) => {
         switch (status) {
-            case 'PENDING': return 'معلق / بانتظار الدفع';
+            case 'PENDING': return 'معلق/بانتظار الدفع';
             case 'PAID': return 'مدفوع';
             case 'COMPLETED': return 'مكتمل';
             case 'REFUNDED': return 'مسترجع';
@@ -160,14 +196,13 @@ export default function AdminOrdersManagement() {
                         <div className="w-12 h-12 rounded-xl bg-emerald-700 text-white-500/10 text-[#10B981] flex items-center justify-center">
                             <FiShoppingCart />
                         </div>
-                        إدارة الطلبات
+                        غرفة العمليات المالية
                     </h1>
                     <p className="text-gray-500 dark:text-gray-400 font-medium ml-14">
-                        متابعة الطلبات، الحوالات اليدوية، والمدفوعات على المنصة.
+                        معلومات كاملة ومبوبة لكافة مدفوعات البوابات والحوالات اليدوية.
                     </p>
                 </div>
 
-                {/* Quick Stats and Toggle */}
                 <div className="flex flex-col gap-3">
                     <div className="flex bg-[#0A0A0A] dark:bg-card-white border border-white/10 dark:border-gray-800 rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden text-sm font-bold divide-x divide-x-reverse divide-gray-100 dark:divide-gray-800">
                         <div className="px-5 py-3 flex flex-col items-center">
@@ -179,7 +214,7 @@ export default function AdminOrdersManagement() {
                             <span className="text-green-600 dark:text-green-400 text-lg">{stats.paidOrders}</span>
                         </div>
                         <div className="px-5 py-3 flex flex-col items-center text-center">
-                            <span className="text-orange-500 text-[11px] leading-tight">حوالات يدوي<br />(قيد المراجعة)</span>
+                            <span className="text-orange-500 text-[11px] leading-tight">حوالات يدوية<br />(قيد المراجعة)</span>
                             <span className="text-orange-600 dark:text-orange-400 text-lg">{stats.pendingManual}</span>
                         </div>
                     </div>
@@ -188,7 +223,6 @@ export default function AdminOrdersManagement() {
                         <button
                             onClick={() => setAutoRefresh(!autoRefresh)}
                             className={`btn text-sm py-2 px-3 flex items-center justify-center gap-1.5 rounded-xl transition-all ${autoRefresh ? 'bg-green-100 text-green-700 hover:bg-green-200 border-none' : 'border border-emerald-500/20 dark:border-gray-800 text-gray-500 hover:bg-[#111111]'}`}
-                            title="تحديث تلقائي (لحظي)"
                         >
                             تحديث لحظي
                             {autoRefresh && <span className="relative flex h-2 w-2 mr-1">
@@ -196,46 +230,54 @@ export default function AdminOrdersManagement() {
                                 <span className="relative inline-flex rounded-xl h-2 w-2 bg-green-500"></span>
                             </span>}
                         </button>
-                        <button onClick={() => fetchOrders(true)} className="btn bg-[#0A0A0A] dark:bg-card-white border border-white/10 dark:border-gray-800 py-2 px-3 rounded-xl hover:bg-[#111111] dark:hover:bg-gray-800">
+                        <button onClick={() => fetchOrders(true)} className="btn bg-[#0A0A0A] border border-white/10 py-2 px-3 rounded-xl hover:bg-[#111111]">
                             <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-[#10B981]' : 'text-gray-500 w-4 h-4'} />
                         </button>
                     </div>
                 </div>
             </div>
 
-            <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                animate="show"
-                className="bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-white/10 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 overflow-hidden flex flex-col min-h-[500px]"
-            >
-                {/* Controls Bar */}
-                <div className="p-6 border-b border-white/10 dark:border-gray-800 bg-[#111111]/50 dark:bg-gray-900/20 flex flex-col lg:flex-row gap-4 justify-between items-center">
+            {/* Gateway Tabs */}
+            <div className="flex overflow-x-auto pb-4 mb-6 gap-2 scrollbar-hide">
+                {TABS.map(tab => (
+                    <button
+                        key={tab.id}
+                        onClick={() => { setActiveTab(tab.id); setPage(1); }}
+                        className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold whitespace-nowrap transition-all duration-300 ${
+                            activeTab === tab.id
+                                ? 'bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 transform -translate-y-1'
+                                : 'bg-[#0A0A0A] text-gray-400 border border-white/10 hover:bg-[#111111] hover:text-[#10B981]'
+                        }`}
+                    >
+                        <span>{tab.icon}</span> {tab.label}
+                    </button>
+                ))}
+            </div>
 
-                    {/* Search */}
+            <div className="bg-[#0A0A0A] rounded-xl border border-white/10 shadow-lg shadow-[#10B981]/20 overflow-hidden flex flex-col min-h-[500px]">
+                {/* Controls Bar */}
+                <div className="p-6 border-b border-white/10 bg-[#111111]/50 flex flex-col lg:flex-row gap-4 justify-between items-center">
                     <form onSubmit={handleSearch} className="relative w-full lg:w-96">
                         <input
                             type="text"
                             placeholder="ابحث برقم الطلب، اسم العميل، اسم البائع..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-emerald-600 transition-all text-[#10B981] dark:text-white"
+                            className="w-full bg-[#0A0A0A] border border-emerald-500/20 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-emerald-600 transition-all text-[#10B981]"
                         />
                         <button type="submit" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#10B981] transition-colors">
                             <FiSearch size={18} />
                         </button>
                     </form>
 
-                    {/* Filters */}
                     <div className="flex items-center gap-3 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
-                        {/* Status Filter */}
-                        <div className="flex items-center gap-2 text-sm font-bold text-gray-500 bg-[#0A0A0A] dark:bg-gray-900 px-4 py-2 rounded-xl border border-emerald-500/20 dark:border-gray-700">
+                        <div className="flex items-center gap-2 text-sm font-bold text-gray-500 bg-[#0A0A0A] px-4 py-2 rounded-xl border border-emerald-500/20">
                             <FiFilter className="text-[#10B981]" />
                             الحالة:
                             <select
                                 value={statusFilter}
                                 onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }}
-                                className="bg-transparent border-none focus:outline-none text-[#10B981] dark:text-white cursor-pointer pr-4"
+                                className="bg-transparent border-none focus:outline-none text-[#10B981] cursor-pointer pr-4"
                             >
                                 <option value="ALL">الكل</option>
                                 <option value="PENDING">معلق/بانتظار الدفع</option>
@@ -243,111 +285,169 @@ export default function AdminOrdersManagement() {
                                 <option value="REFUNDED">مسترجع</option>
                             </select>
                         </div>
-
-                        {/* Payment Method Filter */}
-                        <div className="flex items-center gap-2 text-sm font-bold text-gray-500 bg-[#0A0A0A] dark:bg-gray-900 px-4 py-2 rounded-xl border border-emerald-500/20 dark:border-gray-700">
-                            الدفع:
-                            <select
-                                value={typeFilter}
-                                onChange={(e) => { setTypeFilter(e.target.value); setPage(1); }}
-                                className="bg-transparent border-none focus:outline-none text-[#10B981] dark:text-white cursor-pointer pr-4"
-                            >
-                                <option value="ALL">الكل</option>
-                                <option value="online">إلكتروني (مباشر)</option>
-                                <option value="manual">يدوي (حوالات بنكية)</option>
-                            </select>
-                        </div>
                     </div>
                 </div>
 
                 {/* Table Area */}
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto flex-1">
                     {loading && orders.length === 0 ? (
                         <div className="p-12 flex flex-col items-center justify-center text-gray-400">
                             <div className="w-8 h-8 border-2 border-emerald-500/20 border-t-accent rounded-xl animate-spin mb-4"></div>
-                            جاري تحميل الطلبات...
+                            جاري جلب المعلومات المالية...
                         </div>
                     ) : (
-                        <table className="w-full text-right whitespace-nowrap">
+                        <table className="w-full text-right whitespace-nowrap lg:whitespace-normal min-w-[1000px]">
                             <thead>
-                                <tr className="text-xs text-gray-400 border-b border-white/10 dark:border-gray-800 bg-[#111111]/80 dark:bg-gray-900/50">
-                                    <th className="font-bold py-4 px-6">رقم الطلب & التاريخ</th>
-                                    <th className="font-bold py-4 px-6">العميل</th>
-                                    <th className="font-bold py-4 px-6">البائع / المتجر</th>
-                                    <th className="font-bold py-4 px-6">المنتجات</th>
-                                    <th className="font-bold py-4 px-6 text-center">الإجمالي</th>
-                                    <th className="font-bold py-4 px-6 text-center">طريقة الدفع</th>
-                                    <th className="font-bold py-4 px-6 text-center">الحالة</th>
+                                <tr className="text-xs text-gray-400 border-b border-white/10 bg-[#111111]/80">
+                                    <th className="font-bold py-4 px-6">الطلب والتاريخ</th>
+                                    <th className="font-bold py-4 px-6">العميل & معلومات الاتصال</th>
+                                    <th className="font-bold py-4 px-6">تفاصيل الاستلام (البوابة)</th>
+                                    <th className="font-bold py-4 px-6 text-center">الإجمالي والصافي</th>
+                                    <th className="font-bold py-4 px-6 text-center">المنتجات</th>
+                                    <th className="font-bold py-4 px-6 text-center">الحالة / إجراء</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {orders.length === 0 ? (
                                     <tr>
-                                        <td colSpan={7} className="text-center py-12">
+                                        <td colSpan={6} className="text-center py-12">
                                             <div className="flex flex-col items-center justify-center text-gray-400">
-                                                <FiShoppingCart size={48} className="mb-4 text-gray-200 dark:text-gray-800" />
-                                                <p className="font-bold">لم يتم العثور على طلبات</p>
+                                                <FiShoppingCart size={48} className="mb-4 text-gray-200 opacity-20" />
+                                                <p className="font-bold">لا توجد حركات مالية مسجلة بهذه الفلاتر</p>
                                             </div>
                                         </td>
                                     </tr>
                                 ) : (
                                     orders.map((order) => (
-                                        <motion.tr variants={itemVariants} key={order.id} className="border-b border-white/10 dark:border-gray-800/60 hover:bg-[#111111] dark:hover:bg-gray-800/30 transition-colors">
-                                            <td className="py-4 px-6">
-                                                <div className="font-mono text-xs font-bold text-gray-500 mb-1">
+                                        <tr key={order.id} className="border-b border-white/10 hover:bg-[#111111]/50 transition-colors">
+                                            {/* Order & Date */}
+                                            <td className="py-4 px-6 align-top">
+                                                <div className="font-mono text-xs font-bold text-gray-300 mb-1">
                                                     #{order.orderNumber}
                                                 </div>
-                                                <div className="text-[11px] text-gray-400 flex items-center gap-1 font-bold">
+                                                <div className="text-[11px] text-gray-500 flex items-center gap-1 font-bold mb-2">
                                                     <FiClock size={10} /> {formatDate(order.createdAt)}
                                                 </div>
-                                            </td>
-                                            <td className="py-4 px-6">
-                                                <div className="font-bold text-white dark:text-white">{order.user.name}</div>
-                                                <div className="text-[10px] text-gray-500">{order.user.email}</div>
-                                            </td>
-                                            <td className="py-4 px-6">
-                                                <div className="font-bold text-white dark:text-white flex items-center gap-2">
-                                                    {order.seller ? order.seller.name : 'المنصة (المدير)'}
-                                                </div>
-                                                <div className="text-[10px] text-gray-500">{order.seller ? order.seller.email : 'admin'}</div>
-                                            </td>
-                                            <td className="py-4 px-6 max-w-[200px]">
-                                                <div className="text-sm text-gray-300 dark:text-gray-300 truncate">
-                                                    {order.items.map(i => i.product?.title || i.course?.title || i.bundle?.title).filter(Boolean).join('، ')}
-                                                </div>
-                                                <div className="text-[10px] font-bold text-gray-400 mt-0.5">
-                                                    {order.items.length} عناصر
+                                                <div className="inline-flex items-center px-2 py-[2px] rounded text-[9px] font-bold uppercase border border-emerald-500/30 text-[#10B981] bg-emerald-900/20">
+                                                    {order.paymentMethod === 'manual' ? 'حوالة يدوية' : order.paymentMethod}
                                                 </div>
                                             </td>
-                                            <td className="py-4 px-6 text-center">
-                                                <div className="font-bold text-white dark:text-white">
-                                                    ${order.totalAmount.toFixed(2)}
-                                                </div>
-                                                <div className="text-[10px] text-gray-500 font-bold" title="ربح البائع">
-                                                    صافي للبائع: ${order.sellerEarnings?.toFixed(2) || '0.00'}
-                                                </div>
+                                            
+                                            {/* Customer & Contacts */}
+                                            <td className="py-4 px-6 align-top max-w-[200px]">
+                                                <div className="font-bold text-white mb-0.5">{order.user.name}</div>
+                                                <div className="text-[10px] text-gray-400 font-mono mb-1">{order.user.email}</div>
+                                                {/* Specifically injected for Manual/SpaceRemit where phone tracking is critical */}
+                                                {(order.senderPhone || activeTab === 'manual' || activeTab === 'spaceremit') && (
+                                                    <div className="mt-2 pt-2 border-t border-white/5">
+                                                        <span className="text-[10px] text-gray-500 block mb-0.5">هاتف الحوالة:</span>
+                                                        <span className="text-xs font-mono font-bold text-emerald-400" dir="ltr">{order.senderPhone || 'غير مدرج'}</span>
+                                                    </div>
+                                                )}
                                             </td>
-                                            <td className="py-4 px-6 text-center">
-                                                <span className={`inline-flex items-center px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${order.paymentMethod === 'manual'
-                                                    ? 'bg-emerald-700 text-white-50 text-[#10B981]-600 dark:bg-blue-900/20 dark:text-blue-400 border border-blue-200 dark:border-blue-800'
-                                                    : 'bg-emerald-800 text-gray-400 dark:bg-gray-800 dark:text-gray-400 border border-emerald-500/20 dark:border-gray-700'
-                                                    }`}>
-                                                    {order.paymentMethod === 'manual' ? 'حوالة بنكية يدوية' : order.paymentMethod}
-                                                </span>
-                                            </td>
-                                            <td className="py-4 px-6 text-center">
-                                                <div className="flex flex-col items-center gap-2">
-                                                    <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold tracking-widest border ${getStatusStyle(order.status)}`}>
-                                                        {getStatusText(order.status)}
-                                                    </span>
-                                                    {order.paymentMethod === 'manual' && order.status === 'PENDING' && (
-                                                        <button className="text-[10px] flex items-center gap-1 font-bold text-[#10B981] hover:text-[#10B981] transition-colors bg-emerald-700 text-white-50 hover:bg-blue-100 px-2 py-1 rounded w-full justify-center">
-                                                            <FiEye /> مرجعة الإيصال
-                                                        </button>
+
+                                            {/* Payment Gateway Specific Metadata */}
+                                            <td className="py-4 px-6 align-top">
+                                                <div className="bg-[#111111] rounded-lg p-2 border border-white/5 space-y-2">
+                                                    
+                                                    {/* Stripe/General TXID */}
+                                                    {(order.paymentId || order.transactionRef) && activeTab !== 'manual' && (
+                                                        <div>
+                                                            <div className="text-[9px] text-gray-500 uppercase tracking-wider">Transaction / Payment ID</div>
+                                                            <div className="text-[11px] font-mono text-gray-300 truncate w-40">{order.paymentId || order.transactionRef}</div>
+                                                        </div>
+                                                    )}
+
+                                                    {/* Crypto Details */}
+                                                    {(activeTab === 'crypto' || order.cryptoPaidAmount) && (
+                                                        <>
+                                                            {order.cryptoAddress && (
+                                                              <div>
+                                                                  <div className="text-[9px] text-gray-500 uppercase tracking-wider">Wallet Address</div>
+                                                                  <div className="text-[11px] font-mono text-gray-300 truncate w-40">{order.cryptoAddress}</div>
+                                                              </div>
+                                                            )}
+                                                            {order.cryptoPaidAmount && (
+                                                              <div>
+                                                                  <div className="text-[9px] text-gray-500 uppercase tracking-wider">Paid Crypto</div>
+                                                                  <div className="text-[11px] font-mono text-[#10B981]">{order.cryptoPaidAmount} USDT</div>
+                                                              </div>
+                                                            )}
+                                                        </>
+                                                    )}
+
+                                                    {/* Manual Transfer Details */}
+                                                    {activeTab === 'manual' && (
+                                                        <>
+                                                            <div>
+                                                                <div className="text-[9px] text-gray-500 uppercase tracking-wider">رقم إيصال الحوالة المرجعي:</div>
+                                                                <div className="text-[11px] font-mono font-bold text-orange-400">{order.transactionRef || 'بدون رقم تحويل'}</div>
+                                                            </div>
+                                                            {order.paymentProof ? (
+                                                                <button onClick={() => setProofImage(order.paymentProof)} className="w-full flex items-center justify-center gap-2 mt-2 py-1.5 px-2 bg-emerald-900/30 text-[#10B981] border border-emerald-500/20 rounded-md text-[10px] font-bold hover:bg-emerald-800 transition-colors">
+                                                                    <FiEye size={12}/> عرض صورة الإيصال المرفق
+                                                                </button>
+                                                            ) : (
+                                                                <div className="mt-2 py-1.5 text-center bg-red-900/10 text-red-500 border border-red-500/10 rounded-md text-[10px] font-bold">
+                                                                    لم يرفق العميل صورة
+                                                                </div>
+                                                            )}
+                                                        </>
                                                     )}
                                                 </div>
                                             </td>
-                                        </motion.tr>
+
+                                            {/* Financial Split */}
+                                            <td className="py-4 px-6 align-top text-center">
+                                                <div className="font-bold text-lg text-white mb-2">
+                                                    ${order.totalAmount.toFixed(2)}
+                                                </div>
+                                                
+                                                <div className="flex flex-col gap-1 text-[10px] items-center">
+                                                    <div className="flex justify-between w-full max-w-[120px] bg-[#111111] px-2 py-1 rounded">
+                                                        <span className="text-gray-500">حصة البائع:</span>
+                                                        <span className="font-bold text-[#10B981]">${order.sellerEarnings?.toFixed(2) || '0.00'}</span>
+                                                    </div>
+                                                    <div className="flex justify-between w-full max-w-[120px] bg-[#111111] px-2 py-1 rounded">
+                                                        <span className="text-gray-500">رسوم المنصة:</span>
+                                                        <span className="font-bold text-gray-300">${order.platformFee?.toFixed(2) || '0.00'}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            {/* Products Block */}
+                                            <td className="py-4 px-6 align-top">
+                                                <div className="text-xs text-gray-400 whitespace-normal">
+                                                    {order.items.map((i, idx) => (
+                                                        <div key={idx} className="mb-1 bg-[#111111] px-2 py-1 rounded border border-white/5 truncate max-w-[150px]" title={i.product?.title || i.course?.title || i.bundle?.title}>
+                                                            <span className="text-emerald-500 mr-1">•</span>
+                                                            {i.product?.title || i.course?.title || i.bundle?.title}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                <div className="text-[9px] font-bold text-gray-500 mt-2 text-center border-t border-white/5 pt-1">
+                                                    للبائع: {order.seller?.name || 'المنصة'}
+                                                </div>
+                                            </td>
+
+                                            {/* Actions & Status */}
+                                            <td className="py-4 px-6 align-top text-center">
+                                                <span className={`inline-flex items-center px-3 py-1.5 rounded-lg text-[11px] font-bold tracking-widest border border-white/10 ${getStatusStyle(order.status)}`}>
+                                                    {getStatusText(order.status)}
+                                                </span>
+                                                
+                                                {order.paymentMethod === 'manual' && order.status === 'PENDING' && (
+                                                    <div className="mt-4 flex flex-col gap-2">
+                                                        <button onClick={() => handleApproveManifest(order.id)} className="flex items-center justify-center gap-1 w-full py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-[11px] font-bold transition-all shadow-lg shadow-emerald-500/20">
+                                                            <FiCheckCircle size={14}/> تأكيد واستلام
+                                                        </button>
+                                                        <button onClick={() => handleRejectManifest(order.id)} className="flex items-center justify-center gap-1 w-full py-1.5 bg-red-900/20 border border-red-500/30 text-red-500 hover:bg-red-900/40 rounded-lg text-[10px] font-bold transition-all">
+                                                            <FiXCircle size={12}/> رفض وتجاهل
+                                                        </button>
+                                                    </div>
+                                                )}
+                                            </td>
+                                        </tr>
                                     ))
                                 )}
                             </tbody>
@@ -355,31 +455,49 @@ export default function AdminOrdersManagement() {
                     )}
                 </div>
 
-                {/* Pagination */}
                 {totalPages > 1 && (
-                    <div className="p-6 border-t border-white/10 dark:border-gray-800 bg-[#111111]/30 dark:bg-gray-900/10 flex justify-center mt-auto">
+                    <div className="p-6 border-t border-white/10 bg-[#111111]/30 flex justify-center mt-auto">
                         <div className="flex items-center gap-2">
                             <button
                                 disabled={page === 1}
                                 onClick={() => setPage(p => p - 1)}
-                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-400 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                            >
-                                السابق
-                            </button>
-                            <span className="text-sm font-bold text-gray-500 px-4">
-                                صفحة {page} من {totalPages}
-                            </span>
+                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] border border-emerald-500/20 text-gray-400 hover:text-white disabled:opacity-50 transition-colors"
+                            >السابق</button>
+                            <span className="text-sm font-bold text-gray-500 px-4">صفحة {page} من {totalPages}</span>
                             <button
                                 disabled={page === totalPages}
                                 onClick={() => setPage(p => p + 1)}
-                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] dark:bg-gray-800 border border-emerald-500/20 dark:border-gray-700 text-gray-400 dark:text-gray-300 hover:bg-[#111111] dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                            >
-                                التالي
-                            </button>
+                                className="px-4 py-2 rounded-xl text-sm font-bold bg-[#0A0A0A] border border-emerald-500/20 text-gray-400 hover:text-white disabled:opacity-50 transition-colors"
+                            >التالي</button>
                         </div>
                     </div>
                 )}
-            </motion.div>
+            </div>
+
+            {/* Proof Image Modal */}
+            <AnimatePresence>
+                {proofImage && (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => setProofImage(null)}>
+                        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="relative max-w-3xl w-full bg-[#0A0A0A] rounded-2xl overflow-hidden shadow-2xl shadow-emerald-500/20 border border-white/10" onClick={e => e.stopPropagation()}>
+                            <div className="flex justify-between items-center p-4 border-b border-white/10 bg-[#111111]">
+                                <h3 className="font-bold text-white text-sm">مراجعة إيصال التحويل المرفق</h3>
+                                <button onClick={() => setProofImage(null)} className="w-8 h-8 bg-black/50 hover:bg-red-500 text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-all">
+                                    <FiX size={16} />
+                                </button>
+                            </div>
+                            <div className="p-4 bg-checkboard flex justify-center items-center overflow-auto max-h-[70vh]">
+                                <img src={proofImage} alt="إيصال الدفع" className="max-w-full max-h-full object-contain rounded-lg" />
+                            </div>
+                            <div className="p-4 bg-[#111111] border-t border-white/10 flex justify-between items-center">
+                                <a href={proofImage} target="_blank" rel="noopener noreferrer" className="text-xs text-emerald-400 font-bold hover:underline flex items-center gap-2 px-4 py-2 bg-emerald-900/30 rounded-lg">
+                                    <FiEye size={14} /> فتح الصورة بنافذة خارجية للتدقيق
+                                </a>
+                                <p className="text-[10px] text-gray-500">تم رفعه عبر العميل كإثبات سداد</p>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

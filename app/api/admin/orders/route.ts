@@ -25,7 +25,7 @@ export async function GET(request: Request) {
         const { searchParams } = new URL(request.url);
         const search = searchParams.get('search') || '';
         const statusStr = searchParams.get('status') || 'ALL'; // ALL, PENDING, PAID, REFUNDED, COMPLETED
-        const paymentType = searchParams.get('type') || 'ALL'; // ALL, manual, online
+        const gateway = searchParams.get('gateway') || 'ALL'; // ALL, manual, spaceremit, oxapay, stripe, shamcash, free...
         const page = parseInt(searchParams.get('page') || '1');
         const limit = parseInt(searchParams.get('limit') || '20');
         const skip = (page - 1) * limit;
@@ -46,11 +46,15 @@ export async function GET(request: Request) {
             whereClause.status = statusStr as OrderStatus;
         }
 
-        if (paymentType !== 'ALL') {
-            if (paymentType === 'manual') {
-                whereClause.paymentMethod = 'manual';
+        if (gateway !== 'ALL') {
+            if (gateway === 'crypto') {
+                whereClause.paymentMethod = { in: ['oxapay', 'cryptomus', 'nowpayments', 'coinremitter', 'crypto', 'crypto_usdt', 'usdt_trc20'] };
+            } else if (gateway === 'stripe') {
+                whereClause.paymentMethod = { in: ['stripe', 'create-session', 'credit_card'] };
+            } else if (gateway === 'spaceremit') {
+                whereClause.paymentMethod = { in: ['spaceremit', 'vodafone_cash', 'zain_cash', 'alharam'] };
             } else {
-                whereClause.paymentMethod = { not: 'manual' };
+                whereClause.paymentMethod = gateway;
             }
         }
 
