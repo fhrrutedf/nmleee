@@ -116,15 +116,6 @@ export const paymentMethodsByCountry: Record<string, CountryPaymentConfig> = {
                 fields: [],
                 currency: 'USD',
                 enabled: true,
-            },
-            {
-                id: 'crypto_usdt', // Mapping to spaceremit 'usdt_trc20'
-                name: 'USDT (TRC20)',
-                nameAr: 'عملات رقمية (USDT)',
-                icon: '🪙',
-                fields: [],
-                currency: 'USD',
-                enabled: true,
             }
         ],
     },
