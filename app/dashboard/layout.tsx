@@ -85,7 +85,6 @@ export default function DashboardLayout({
         { href: '/dashboard/coupons', icon: FiTag, label: 'أكواد الخصم', type: 'store' },
         { href: '/dashboard/affiliates', icon: FiLink2, label: 'التسويق بالعمولة', type: 'store' },
         { href: '/dashboard/automation', icon: FiZap, label: 'الأتمتة الذكية', type: 'store' },
-        { href: '/dashboard/brand', icon: FiDroplet, label: 'الهوية البصرية', type: 'store' },
 
         { href: '/dashboard/courses', icon: FiVideo, label: 'الدورات التدريبية', type: 'academy' },
         { href: '/dashboard/students', icon: FiUsers, label: 'الطلاب والشهادات', type: 'academy' },
@@ -100,8 +99,8 @@ export default function DashboardLayout({
 
         { href: '/dashboard/admin', icon: FiShield, label: 'مركز التحكم الآمن', type: 'admin' },
         { href: '/dashboard/admin/users', icon: FiUsers, label: 'إدارة الأعضاء', type: 'admin' },
-        { href: '/dashboard/admin/orders', icon: FiShoppingCart, label: 'إدارة العمليات', type: 'admin' },
-        { href: '/dashboard/admin/payouts', icon: FiDollarSign, label: 'المالية المركزية', type: 'admin' },
+        { href: '/dashboard/admin/orders', icon: FiTrendingUp, label: 'المركز المالي (المبيعات)', type: 'admin' },
+        { href: '/dashboard/admin/payouts', icon: FiDollarSign, label: 'سحوبات المدربين', type: 'admin' },
         { href: '/dashboard/admin/broadcast', icon: FiZap, label: '🚀 البث الجماعي', type: 'admin' },
         { href: '/dashboard/admin/platform-settings', icon: FiSettings, label: 'إعدادات المنصة', type: 'admin' },
     ];

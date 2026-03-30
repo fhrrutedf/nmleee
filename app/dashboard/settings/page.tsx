@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
-import { FiUser, FiMail, FiLock, FiGlobe, FiBell, FiCreditCard, FiShield, FiSave, FiUpload, FiEye, FiEyeOff, FiLink, FiCheckCircle, FiXCircle, FiCopy } from 'react-icons/fi';
+import { FiUser, FiMail, FiLock, FiGlobe, FiBell, FiCreditCard, FiShield, FiSave, FiUpload, FiEye, FiEyeOff, FiLink, FiCheckCircle, FiXCircle, FiCopy, FiDroplet, FiType, FiLayout, FiSquare, FiCheck } from 'react-icons/fi';
 import { apiGet, apiPost, apiPut, apiDelete, handleApiError } from '@/lib/safe-fetch';
 import FileUploader from '@/components/ui/FileUploader';
 import PayoutSettings from '@/components/dashboard/PayoutSettings';
@@ -31,6 +31,12 @@ export default function SettingsPage() {
         phone: '',
         website: '',
         brandColor: '',
+        brandSecondaryColor: '',
+        brandFont: 'default',
+        brandButtonStyle: 'rounded',
+        brandLayout: 'grid',
+        storeBanner: '',
+        storeTagline: '',
         facebook: '',
         instagram: '',
         twitter: '',
@@ -102,7 +108,13 @@ export default function SettingsPage() {
                     coverImage: data.coverImage || '',
                     phone: data.phone || '',
                     website: data.website || '',
-                    brandColor: data.brandColor || '#0ea5e9',
+                    brandColor: data.brandColor || '#10B981',
+                    brandSecondaryColor: data.brandSecondaryColor || '#059669',
+                    brandFont: data.brandFont || 'default',
+                    brandButtonStyle: data.brandButtonStyle || 'rounded',
+                    brandLayout: data.brandLayout || 'grid',
+                    storeBanner: data.storeBanner || '',
+                    storeTagline: data.storeTagline || '',
                     facebook: data.facebook || '',
                     instagram: data.instagram || '',
                     twitter: data.twitter || '',
@@ -161,6 +173,10 @@ export default function SettingsPage() {
         } finally {
             setSaving(false);
         }
+    };
+
+    const applyPalette = (p: { primary: string, secondary: string }) => {
+        setProfileData({ ...profileData, brandColor: p.primary, brandSecondaryColor: p.secondary });
     };
 
     const savePassword = async () => {
@@ -240,8 +256,31 @@ export default function SettingsPage() {
         }
     };
 
+    // ─── Brand Identity Constants ──────────────────────────────
+    const COLOR_PALETTES = [
+        { name: 'احترافي زمردي (v4.2)', primary: '#10B981', secondary: '#059669' },
+        { name: 'أزرق ملكي', primary: '#1E40AF', secondary: '#1E293B' },
+        { name: 'بنفسجي فاخر', primary: '#6D28D9', secondary: '#1E1B4B' },
+        { name: 'ذهبي كلاسيكي', primary: '#92400E', secondary: '#1C1917' },
+    ];
+
+    const FONT_OPTIONS = [
+        { id: 'default', name: 'افتراضي', desc: 'IBM Plex Sans Arabic', preview: 'خط واضح ومهني' },
+        { id: 'modern', name: 'عصري', desc: 'Outfit + Inter', preview: 'خط هندسي وحديث' },
+        { id: 'elegant', name: 'أنيق', desc: 'Playfair Display', preview: 'خط كلاسيكي فاخر' },
+    ];
+
+    const BUTTON_STYLES = [
+        { id: 'rounded', name: 'مدور خفيف', radius: '12px' },
+        { id: 'pill', name: 'كبسولة', radius: '9999px' },
+        { id: 'square', name: 'حاد', radius: '0px' },
+    ];
+
+    const btnRadius = BUTTON_STYLES.find(b => b.id === profileData.brandButtonStyle)?.radius || '8px';
+
     const tabs = [
         { id: 'profile', name: 'الملف الشخصي', icon: FiUser },
+        { id: 'brand', name: 'الهوية البصرية', icon: FiDroplet },
         { id: 'security', name: 'الأمان', icon: FiLock },
         { id: 'notifications', name: 'الإشعارات', icon: FiBell },
         { id: 'payment', name: 'الدفع', icon: FiCreditCard },
@@ -502,6 +541,259 @@ export default function SettingsPage() {
                                         <FiSave />
                                         <span>{saving ? 'جاري الحفظ...' : 'حفظ التغييرات'}</span>
                                     </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Brand Tab */}
+                        {activeTab === 'brand' && (
+                            <div className="space-y-8 animate-in fade-in duration-500">
+                                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/10 dark:border-gray-800 pb-4">
+                                    <div>
+                                        <h2 className="text-xl sm:text-2xl font-bold text-[#10B981] dark:text-white">الهوية البصرية</h2>
+                                        <p className="text-gray-500 mt-1 text-xs font-bold">خصص مظهر متجرك ليعكس احترافيتك</p>
+                                    </div>
+                                    <button
+                                        onClick={saveProfile}
+                                        disabled={saving}
+                                        className="flex items-center gap-2 px-6 py-2.5 bg-emerald-700 text-white rounded-xl font-bold text-sm shadow-lg shadow-[#10B981]/20 hover:bg-emerald-600 transition-all disabled:opacity-60"
+                                    >
+                                        <FiSave /> {saving ? 'جاري الحفظ...' : 'حفظ الهوية'}
+                                    </button>
+                                </div>
+
+                                <div className="grid grid-cols-1 xl:grid-cols-5 gap-8">
+                                    {/* Brand Controls */}
+                                    <div className="xl:col-span-3 space-y-8">
+                                        {/* Colors */}
+                                        <div className="space-y-4">
+                                            <div className="flex items-center gap-3 text-[#10B981] mb-2">
+                                                <div className="w-8 h-8 rounded-lg bg-emerald-900/20 flex items-center justify-center border border-emerald-500/20"><FiDroplet /></div>
+                                                <h3 className="font-bold">لوحة الألوان</h3>
+                                            </div>
+                                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                                {COLOR_PALETTES.map((p, i) => (
+                                                    <button
+                                                        key={i}
+                                                        onClick={() => applyPalette(p)}
+                                                        className={`relative p-3 rounded-xl border-2 transition-all text-center hover:scale-[1.02] ${profileData.brandColor === p.primary ? 'border-[#10B981] bg-[#111111]' : 'border-white/5 hover:border-emerald-500/20'}`}
+                                                    >
+                                                        <div className="flex gap-1 justify-center mb-2">
+                                                            <div className="w-6 h-6 rounded-lg" style={{ background: p.primary }} />
+                                                            <div className="w-6 h-6 rounded-lg" style={{ background: p.secondary }} />
+                                                        </div>
+                                                        <span className="text-[10px] font-bold text-gray-400">{p.name}</span>
+                                                        {profileData.brandColor === p.primary && (
+                                                            <div className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-emerald-700 text-white rounded-lg flex items-center justify-center text-[10px] shadow-lg shadow-[#10B981]/20">
+                                                                <FiCheck />
+                                                            </div>
+                                                        )}
+                                                    </button>
+                                                ))}
+                                            </div>
+
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                                                <div>
+                                                    <label className="text-[10px] font-bold text-gray-500 uppercase mb-2 block tracking-wider">اللون الرئيسي</label>
+                                                    <div className="flex gap-2 items-center">
+                                                        <input
+                                                            type="color"
+                                                            value={profileData.brandColor}
+                                                            onChange={e => setProfileData({ ...profileData, brandColor: e.target.value })}
+                                                            className="h-10 w-12 p-1 border border-white/10 rounded-xl cursor-pointer bg-[#0A0A0A]"
+                                                        />
+                                                        <input
+                                                            type="text"
+                                                            value={profileData.brandColor}
+                                                            onChange={e => setProfileData({ ...profileData, brandColor: e.target.value })}
+                                                            className="w-full bg-[#111111] border border-white/10 rounded-xl px-3 py-2 text-xs font-bold font-inter" dir="ltr"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label className="text-[10px] font-bold text-gray-500 uppercase mb-2 block tracking-wider">لون النصوص</label>
+                                                    <div className="flex gap-2 items-center">
+                                                        <input
+                                                            type="color"
+                                                            value={profileData.brandSecondaryColor}
+                                                            onChange={e => setProfileData({ ...profileData, brandSecondaryColor: e.target.value })}
+                                                            className="h-10 w-12 p-1 border border-white/10 rounded-xl cursor-pointer bg-[#0A0A0A]"
+                                                        />
+                                                        <input
+                                                            type="text"
+                                                            value={profileData.brandSecondaryColor}
+                                                            onChange={e => setProfileData({ ...profileData, brandSecondaryColor: e.target.value })}
+                                                            className="w-full bg-[#111111] border border-white/10 rounded-xl px-3 py-2 text-xs font-bold font-inter" dir="ltr"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Typography */}
+                                        <div className="space-y-4">
+                                            <div className="flex items-center gap-3 text-[#10B981] mb-2">
+                                                <div className="w-8 h-8 rounded-lg bg-emerald-900/20 flex items-center justify-center border border-emerald-500/20"><FiType /></div>
+                                                <h3 className="font-bold">الخطوط</h3>
+                                            </div>
+                                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                                {FONT_OPTIONS.map(f => (
+                                                    <button
+                                                        key={f.id}
+                                                        onClick={() => setProfileData({ ...profileData, brandFont: f.id })}
+                                                        className={`relative p-4 rounded-xl border-2 text-center transition-all hover:scale-[1.02] ${profileData.brandFont === f.id ? 'border-[#10B981] bg-[#111111]' : 'border-white/5 hover:border-emerald-500/20'}`}
+                                                    >
+                                                        <div className="text-xl font-bold text-[#10B981] mb-1">{f.preview.slice(0, 2)}</div>
+                                                        <div className="text-xs font-bold text-gray-300">{f.name}</div>
+                                                        {profileData.brandFont === f.id && (
+                                                            <div className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-emerald-700 text-white rounded-lg flex items-center justify-center text-[10px] shadow-lg shadow-[#10B981]/20"><FiCheck /></div>
+                                                        )}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* Button Styles */}
+                                        <div className="space-y-4">
+                                            <div className="flex items-center gap-3 text-[#10B981] mb-2">
+                                                <div className="w-8 h-8 rounded-lg bg-emerald-900/20 flex items-center justify-center border border-emerald-500/20"><FiSquare /></div>
+                                                <h3 className="font-bold">نمط الأزرار</h3>
+                                            </div>
+                                            <div className="grid grid-cols-3 gap-3">
+                                                {BUTTON_STYLES.map(b => (
+                                                    <button
+                                                        key={b.id}
+                                                        onClick={() => setProfileData({ ...profileData, brandButtonStyle: b.id })}
+                                                        className={`relative p-4 rounded-xl border-2 text-center transition-all ${profileData.brandButtonStyle === b.id ? 'border-[#10B981] bg-[#111111]' : 'border-white/5 hover:border-emerald-500/20'}`}
+                                                    >
+                                                        <div className="flex justify-center mb-3">
+                                                            <div
+                                                                className="px-4 py-1.5 text-white text-[10px] font-bold shadow-md"
+                                                                style={{ background: profileData.brandColor, borderRadius: b.radius }}
+                                                            >
+                                                                Buy
+                                                            </div>
+                                                        </div>
+                                                        <div className="text-xs font-bold text-gray-400">{b.name}</div>
+                                                        {profileData.brandButtonStyle === b.id && (
+                                                            <div className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-emerald-700 text-white rounded-lg flex items-center justify-center text-[10px] shadow-lg shadow-[#10B981]/20"><FiCheck /></div>
+                                                        )}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* Banner & Tagline */}
+                                        <div className="space-y-6">
+                                            <div className="space-y-2">
+                                                <label className="label">الوصف القصير للمتجر (Tagline)</label>
+                                                <input
+                                                    type="text"
+                                                    value={profileData.storeTagline}
+                                                    onChange={e => setProfileData({ ...profileData, storeTagline: e.target.value })}
+                                                    className="input"
+                                                    maxLength={80}
+                                                    placeholder='مثال: "نحو احتراف التجارة الرقمية"'
+                                                />
+                                            </div>
+
+                                            <div className="space-y-2">
+                                                <label className="label">بانر المتجر</label>
+                                                {profileData.storeBanner && (
+                                                    <div className="mb-4 rounded-xl overflow-hidden h-32 relative group border border-white/10">
+                                                        <img src={profileData.storeBanner} alt="banner" className="w-full h-full object-cover" />
+                                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                            <button
+                                                                onClick={() => setProfileData({ ...profileData, storeBanner: '' })}
+                                                                className="bg-red-500 text-white text-xs px-4 py-1.5 rounded-xl font-bold"
+                                                            >حذف</button>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                <FileUploader
+                                                    onUploadSuccess={(urls: string[]) => setProfileData({ ...profileData, storeBanner: urls[0] })}
+                                                    maxSize={5 * 1024 * 1024}
+                                                    accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Live Preview Side Panel */}
+                                    <div className="xl:col-span-2">
+                                        <div className="sticky top-8 space-y-4">
+                                            <div className="flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-widest pl-2 border-l-2 border-emerald-500">
+                                                <span>معاينة حية</span>
+                                                <Link href={`/${profileData.username}`} target="_blank" className="flex items-center gap-1 text-[#10B981] hover:underline normal-case">
+                                                    <FiEye size={12} /> معاينة المتجر الكامل
+                                                </Link>
+                                            </div>
+                                            
+                                            <div className="bg-[#0A0A0A] rounded-2xl border border-white/10 shadow-2xl shadow-emerald-500/5 overflow-hidden transform scale-95 origin-top transition-all">
+                                                {/* Store Header Preview */}
+                                                <div 
+                                                    className="h-28 relative"
+                                                    style={{ 
+                                                        background: profileData.storeBanner 
+                                                            ? `url(${profileData.storeBanner}) center/cover` 
+                                                            : `linear-gradient(135deg, ${profileData.brandColor}22 0%, ${profileData.brandSecondaryColor}22 100%)` 
+                                                    }}
+                                                >
+                                                    {!profileData.storeBanner && (
+                                                        <div className="absolute inset-0 flex items-center justify-center opacity-20">
+                                                            <FiLayout size={40} className="text-[#10B981]" />
+                                                        </div>
+                                                    )}
+                                                </div>
+
+                                                <div className="px-5 -mt-8 relative z-10">
+                                                    <div className="w-16 h-16 rounded-2xl border-4 border-[#0A0A0A] bg-emerald-800 flex items-center justify-center text-white text-xl font-bold shadow-xl overflow-hidden" style={{ background: profileData.brandColor }}>
+                                                        {profileData.avatar ? (
+                                                            <img src={profileData.avatar} alt="" className="w-full h-full object-cover" />
+                                                        ) : (
+                                                            profileData.name?.charAt(0) || 'T'
+                                                        )}
+                                                    </div>
+                                                </div>
+
+                                                <div className="p-5 space-y-4">
+                                                    <div>
+                                                        <h4 className="font-bold text-gray-100 text-sm">{profileData.name || 'اسمك'}</h4>
+                                                        <p className="text-[10px] mt-0.5" style={{ color: profileData.brandSecondaryColor }}>@{profileData.username || 'user'}</p>
+                                                        {profileData.storeTagline && (
+                                                            <p className="text-[10px] text-gray-400 mt-2 line-clamp-1">{profileData.storeTagline}</p>
+                                                        )}
+                                                    </div>
+
+                                                    <div className="space-y-2">
+                                                        <div className="flex items-center justify-between p-2 rounded-xl bg-[#111111] border border-white/5">
+                                                            <div className="flex items-center gap-2">
+                                                                <div className="w-8 h-8 rounded-lg bg-[#0A0A0A]" />
+                                                                <span className="text-[10px] font-bold text-gray-300">اسم المنتج التجريبي</span>
+                                                            </div>
+                                                            <button 
+                                                                className="px-3 py-1 text-[9px] font-bold text-white shadow-lg"
+                                                                style={{ background: profileData.brandColor, borderRadius: btnRadius }}
+                                                            >
+                                                                BUY
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <button 
+                                                        className="w-full py-2.5 text-white text-[10px] font-bold shadow-lg"
+                                                        style={{ background: profileData.brandColor, borderRadius: btnRadius }}
+                                                    >
+                                                        تصفح المتجر
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div className="bg-[#111111]/50 rounded-xl p-3 border border-white/5 text-[10px] flex justify-center gap-4 text-gray-500 font-mono">
+                                                <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full" style={{ background: profileData.brandColor }} /> {profileData.brandColor}</span>
+                                                <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full" style={{ background: profileData.brandSecondaryColor }} /> {profileData.brandSecondaryColor}</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )}

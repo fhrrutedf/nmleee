@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     FiShoppingCart, FiSearch, FiFilter,
-    FiClock, FiEye, FiRefreshCw, FiCheckCircle, FiXCircle, FiX
+    FiClock, FiEye, FiRefreshCw, FiCheckCircle, FiXCircle, FiX, FiCpu, FiList, FiZap, FiDollarSign
 } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
@@ -41,6 +41,7 @@ interface OrderData {
 }
 
 const TABS = [
+    { id: 'PENDING_MANUAL', label: 'بانتظار الاعتماد', icon: '⚠️' },
     { id: 'ALL', label: 'الكل', icon: '' },
     { id: 'crypto', label: 'العملات الرقمية', icon: '🪙' },
     { id: 'spaceremit', label: 'سبيس ريميت', icon: '💳' },
@@ -75,6 +76,13 @@ export default function AdminOrdersManagement() {
         totalRevenue: { _sum: { totalAmount: 0 } }
     });
 
+    // Smart Match (SMS Verification) Interface State
+    const [showSmartMatch, setShowSmartMatch] = useState(false);
+    const [smsText, setSmsText] = useState('');
+    const [extractedRefs, setExtractedRefs] = useState<string[]>([]);
+    const [isMatching, setIsMatching] = useState(false);
+    const [matchResult, setMatchResult] = useState<any>(null);
+
     useEffect(() => {
         if (!session) {
             router.push('/login');
@@ -99,12 +107,15 @@ export default function AdminOrdersManagement() {
             const url = new URL('/api/admin/orders', window.location.origin);
             url.searchParams.append('page', page.toString());
             url.searchParams.append('limit', '10');
-            url.searchParams.append('status', statusFilter);
             if (activeTab === 'subscriptions') {
                 url.searchParams.append('type', 'subscription');
                 url.searchParams.append('gateway', 'ALL');
+            } else if (activeTab === 'PENDING_MANUAL') {
+                url.searchParams.append('gateway', 'manual');
+                url.searchParams.append('status', 'PENDING');
             } else {
                 url.searchParams.append('gateway', activeTab);
+                url.searchParams.append('status', statusFilter);
             }
 
             if (searchQuery) {
@@ -167,6 +178,47 @@ export default function AdminOrdersManagement() {
         }
     };
 
+    // Smart Match Logic
+    const extractRefs = () => {
+        const regex = /[A-Za-z0-9]{6,20}/g;
+        const matches = smsText.match(regex);
+        if (matches) {
+            const uniqueRefs = Array.from(new Set(matches)).filter(m => /\d/.test(m));
+            setExtractedRefs(uniqueRefs);
+            toast.success(`تم استخراج ${uniqueRefs.length} كود مرجعي`);
+        } else {
+            setExtractedRefs([]);
+            toast.error('لم يتم العثور على أكواد في النص');
+        }
+    };
+
+    const runSmartMatch = async () => {
+        if (extractedRefs.length === 0) return;
+        setIsMatching(true);
+        setMatchResult(null);
+        try {
+            const res = await fetch('/api/admin/verify-transfers', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ references: extractedRefs })
+            });
+            const data = await res.json();
+            setMatchResult(data);
+            if (data.success && data.matchedCount > 0) {
+                toast.success(`تم تفعيل ${data.matchedCount} طلب بنجاح ✅`);
+                setSmsText('');
+                setExtractedRefs([]);
+                fetchOrders();
+            } else {
+                toast.error('لم يتم العثور على طلبات مطابقة لهذه الأكواد');
+            }
+        } catch (e) {
+            toast.error('خطأ في الاتصال بنظام المطابقة');
+        } finally {
+            setIsMatching(false);
+        }
+    };
+
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('ar-EG', {
             year: 'numeric', month: 'short', day: 'numeric',
@@ -195,18 +247,98 @@ export default function AdminOrdersManagement() {
     };
 
     return (
-        <div className="flex-1 p-6 lg:p-10 max-w-7xl mx-auto w-full">
+        <div className="flex-1 p-6 lg:p-10 max-w-7xl mx-auto w-full relative">
+            {/* Smart Match Interface (Overlay) */}
+            <AnimatePresence>
+                {showSmartMatch && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="mb-8 overflow-hidden z-50 relative"
+                    >
+                        <div className="bg-[#0A0A0A] border border-emerald-500/30 rounded-3xl p-8 shadow-2xl shadow-emerald-900/40">
+                            <div className="flex items-center justify-between mb-6">
+                                <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+                                    <FiCpu className="text-emerald-500 animate-pulse" /> نظام المطابقة الذكي (Smart Match)
+                                </h3>
+                                <button onClick={() => setShowSmartMatch(false)} className="text-gray-500 hover:text-white transition-colors bg-white/5 p-2 rounded-xl">
+                                    <FiX size={20} />
+                                </button>
+                            </div>
+                            
+                            <div className="flex flex-col lg:flex-row gap-8">
+                                <div className="flex-1">
+                                    <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                                        هذا النظام يقوم باستخراج الأرقام المرجعية تلقائياً من رسائل الـ SMS أو إشعارات الدفع. قم بلصق النص كاملاً وسنقوم بالباقي.
+                                    </p>
+                                    <textarea
+                                        value={smsText}
+                                        onChange={(e) => setSmsText(e.target.value)}
+                                        placeholder="مثال: تم تحويل مبلغ 15.00$ بواسطة زين كاش... المرجع: 789456123"
+                                        className="w-full h-40 bg-[#111111] border border-white/10 rounded-2xl p-5 text-sm font-mono text-emerald-400 focus:border-emerald-500 outline-none transition-all placeholder:text-gray-700 shadow-inner"
+                                    />
+                                    <button
+                                        onClick={extractRefs}
+                                        disabled={!smsText.trim()}
+                                        className="mt-4 w-full py-4 bg-[#0A0A0A] border border-emerald-500/20 text-[#10B981] rounded-2xl font-bold hover:bg-emerald-900/20 transition-all disabled:opacity-30 tracking-widest text-xs"
+                                    >
+                                        استخراج البيانات المرجعية
+                                    </button>
+                                </div>
+                                
+                                <div className="w-full lg:w-96 bg-[#111111] rounded-3xl p-6 border border-white/5 flex flex-col shadow-xl">
+                                    <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 flex items-center justify-between">
+                                        <span>الأكواد المكتشفة</span>
+                                        <span className="bg-emerald-500/10 text-[#10B981] px-2 py-1 rounded-lg text-[10px]">{extractedRefs.length}</span>
+                                    </h4>
+                                    
+                                    <div className="flex-1 overflow-y-auto max-h-48 space-y-3 mb-6 scrollbar-hide">
+                                        {extractedRefs.length === 0 ? (
+                                            <div className="h-full flex flex-col items-center justify-center text-gray-600 gap-3 border-2 border-dashed border-white/5 rounded-2xl py-8">
+                                                <FiList size={32} className="opacity-20" />
+                                                <span className="text-[10px] uppercase font-bold tracking-tighter">بانتظار استخراج البيانات...</span>
+                                            </div>
+                                        ) : (
+                                            extractedRefs.map((ref, idx) => (
+                                                <motion.div 
+                                                    initial={{ opacity: 0, x: 10 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    key={idx} 
+                                                    className="bg-[#0A0A0A] p-3 rounded-xl border border-emerald-500/20 text-xs font-mono text-emerald-300 flex justify-between items-center shadow-lg shadow-[#10B981]/10"
+                                                >
+                                                    <span>{ref}</span>
+                                                    <FiCheckCircle className="text-emerald-500" />
+                                                </motion.div>
+                                            ))
+                                        )}
+                                    </div>
+                                    
+                                    <button
+                                        onClick={runSmartMatch}
+                                        disabled={extractedRefs.length === 0 || isMatching}
+                                        className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-bold transition-all shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-3 active:scale-95"
+                                    >
+                                        {isMatching ? <FiRefreshCw className="animate-spin" /> : <FiZap />}
+                                        {isMatching ? 'جاري المطابقة والاعتماد...' : 'اعتماد الحوالات المكتشفة'}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
             {/* Header */}
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-bold text-[#10B981] dark:text-white mb-2 tracking-tight flex items-center gap-3">
                         <div className="w-12 h-12 rounded-xl bg-emerald-700 text-white-500/10 text-[#10B981] flex items-center justify-center">
-                            <FiShoppingCart />
+                            <FiDollarSign size={24} />
                         </div>
-                        غرفة العمليات المالية
+                        المركز المالي الموحد
                     </h1>
                     <p className="text-gray-500 dark:text-gray-400 font-medium ml-14">
-                        معلومات كاملة ومبوبة لكافة مدفوعات البوابات والحوالات اليدوية.
+                        نظام إدارة الإيرادات، اشتراكات الـ SaaS، والمطابقة الذكية للحوالات اليدوية.
                     </p>
                 </div>
 
@@ -236,6 +368,12 @@ export default function AdminOrdersManagement() {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-xl bg-green-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-xl h-2 w-2 bg-green-500"></span>
                             </span>}
+                        </button>
+                        <button
+                            onClick={() => setShowSmartMatch(!showSmartMatch)}
+                            className={`btn text-sm py-2 px-4 shadow-lg shadow-[#10B981]/20 flex items-center justify-center gap-1.5 rounded-xl transition-all ${showSmartMatch ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-500/20' : 'bg-emerald-900/30 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-800 transition-colors'}`}
+                        >
+                            <FiCpu /> المطابقة الذكية (SMS)
                         </button>
                         <button onClick={() => fetchOrders(true)} className="btn bg-[#0A0A0A] border border-white/10 py-2 px-3 rounded-xl hover:bg-[#111111]">
                             <FiRefreshCw className={loading || isRefreshing ? 'animate-spin text-[#10B981]' : 'text-gray-500 w-4 h-4'} />
