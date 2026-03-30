@@ -124,6 +124,31 @@ export async function POST(request: NextRequest) {
         const body = await request.json();
         const userId = (session.user as any).id;
 
+        // --- SUBSCRIPTION ENFORCEMENT ---
+        const userScope = await prisma.user.findUnique({
+            where: { id: userId },
+            select: { 
+                role: true, 
+                planType: true, 
+                _count: { select: { courses: true } },
+                subscriptions: { 
+                    where: { status: 'active', currentPeriodEnd: { gt: new Date() } },
+                    include: { plan: true },
+                    orderBy: { currentPeriodEnd: 'desc' },
+                    take: 1
+                } 
+            }
+        });
+        
+        if (userScope?.role !== 'ADMIN') {
+            const activeSub = userScope?.subscriptions?.[0];
+            
+            if (!activeSub && userScope?.planType === 'FREE') {
+                return NextResponse.json({ error: 'باقة حسابك انتهت أو غير مفعلة! لا يمكنك نشر المزيد من المنتجات حتى تقوم بتجديد اشتراك المتجر الخاص بك.' }, { status: 403 });
+            }
+        }
+        // --- END ENFORCEMENT ---
+
         // Generate unique slug
         const baseSlug = generateSlug(body.title);
         const slug = await ensureUniqueSlug(baseSlug, userId);

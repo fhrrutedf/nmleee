@@ -75,6 +75,12 @@ export async function fulfillPurchase(orderId: string, userId?: string) {
                     // الوصول للمنتجات الرقمية يتم عادة عبر عرض الطلبات، لا يحتاج جدول تسجيل خاص مثل الكورسات
                     console.log(`   - Product purchase noted: ${item.productId}`);
                 }
+                // د. اشتراك منصة (SaaS Subscription)
+                else if (item.itemType === 'subscription' && item.licenseKeyId) {
+                    // Start of SaaS Subscription Activation Routine
+                    await activatePlatformSubscription(item.licenseKeyId, order.userId, order.id);
+                    console.log(`   - Activated platform subscription: ${item.licenseKeyId}`);
+                }
             } catch (itemErr) {
                 console.error(`[FULFILL_ITEM_ERROR] Failed to process item:`, itemErr);
             }
@@ -218,5 +224,86 @@ async function enrollInCourse(courseId: string, studentEmail: string, studentNam
             studentEmail,
             orderId
         }
+    });
+}
+
+/**
+ * دالة مساعدة لتنشيط أو تجديد اشتراك الساس (SaaS Platform Subscription)
+ * تقوم بإضافة المدة بناءً على خطة الدفع الخاصة بالباقة (شهر أو سنة).
+ */
+async function activatePlatformSubscription(planId: string, customerId: string, orderId: string) {
+    const plan = await prisma.subscriptionPlan.findUnique({
+        where: { id: planId }
+    });
+
+    if (!plan) {
+        console.error(`[SUBSCRIPTION_ERROR] Plan ${planId} not found`);
+        return;
+    }
+
+    // Determine end date
+    const now = new Date();
+    const currentPeriodStart = now;
+    const currentPeriodEnd = new Date(now);
+    
+    if (plan.interval === 'year') {
+        currentPeriodEnd.setFullYear(currentPeriodEnd.getFullYear() + 1);
+    } else if (plan.interval === 'lifetime') {
+        currentPeriodEnd.setFullYear(currentPeriodEnd.getFullYear() + 100);
+    } else {
+        currentPeriodEnd.setMonth(currentPeriodEnd.getMonth() + 1);
+    }
+
+    // Upsert the subscription (create active or extend existing if exists)
+    // Note: Schema has array of customer Subscriptions, not unique per customer/plan
+    // But logically we want to find the latest active one and extend it, or just create a new one.
+    
+    // Check if user has an existing active subscription
+    const existingSub = await prisma.subscription.findFirst({
+        where: { customerId, status: 'active' },
+        orderBy: { currentPeriodEnd: 'desc' }
+    });
+
+    if (existingSub) {
+        // If renewing, extend from the END DATE of their current plan, or NOW if it's already expired
+        const extendDate = existingSub.currentPeriodEnd > now ? existingSub.currentPeriodEnd : now;
+        const newExpiration = new Date(extendDate);
+        if (plan.interval === 'year') newExpiration.setFullYear(newExpiration.getFullYear() + 1);
+        else if (plan.interval === 'lifetime') newExpiration.setFullYear(newExpiration.getFullYear() + 100);
+        else newExpiration.setMonth(newExpiration.getMonth() + 1);
+
+        // Update to new plan & new date
+        await prisma.subscription.update({
+            where: { id: existingSub.id },
+            data: {
+                planId: plan.id,
+                currentPeriodStart: now,
+                currentPeriodEnd: newExpiration,
+                status: 'active'
+            }
+        });
+        
+    } else {
+        // Create brand new
+        await prisma.subscription.create({
+            data: {
+                customerId,
+                planId: plan.id,
+                status: 'active',
+                currentPeriodStart,
+                currentPeriodEnd,
+                cancelAtPeriodEnd: false
+            }
+        });
+    }
+    
+    // Also inject their plan type context into User struct for legacy compatibility if it matches names
+    let updatedPlanType = 'GROWTH'; // Example fallback
+    if (plan.name.toUpperCase().includes('PRO')) updatedPlanType = 'PRO';
+    else if (plan.name.toUpperCase().includes('AGENCY')) updatedPlanType = 'AGENCY';
+    
+    await prisma.user.update({
+        where: { id: customerId },
+        data: { planType: updatedPlanType as any }
     });
 }

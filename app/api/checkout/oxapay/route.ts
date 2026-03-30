@@ -34,6 +34,9 @@ export async function POST(req: NextRequest) {
         } else if (firstItem.type === 'course') {
             const c = await prisma.course.findUnique({ where: { id: firstItem.id }, select: { userId: true } });
             sellerId = c?.userId || '';
+        } else if (firstItem.type === 'subscription') {
+            const admin = await prisma.user.findFirst({ where: { role: 'ADMIN' }, select: { id: true } });
+            sellerId = admin?.id || '';
         }
         if (!sellerId) return NextResponse.json({ error: 'لم يتم العثور على البائع' }, { status: 400 });
 
@@ -96,6 +99,7 @@ export async function POST(req: NextRequest) {
                         itemType: i.type,
                         productId: i.type === 'product' ? i.id : null,
                         courseId: i.type === 'course' ? i.id : null,
+                        licenseKeyId: i.type === 'subscription' ? String(i.id) : null,
                         price: i.price,
                         quantity: 1,
                     }))

@@ -26,10 +26,14 @@ export async function POST(req: NextRequest) {
         } else if (firstItem.type === 'course') {
             const course = await prisma.course.findUnique({ where: { id: firstItem.id } });
             sellerId = course?.userId || '';
+        } else if (firstItem.type === 'subscription') {
+            sellerId = ''; // Platform subscription, no seller
         }
 
         if (!userId) userId = sellerId;
         if (sellerId) await ensurePlanCurrent(sellerId);
+        
+        const finalSellerId = sellerId === '' ? null : sellerId;
 
         // --- DYNAMIC SETTINGS LOGIC ---
         const platformSettings = await prisma.platformSettings.findFirst() || { 
@@ -105,7 +109,7 @@ export async function POST(req: NextRequest) {
             data: {
                 orderNumber,
                 userId: userId,
-                sellerId: sellerId,
+                sellerId: finalSellerId,
                 customerName: customerInfo.name,
                 customerEmail: customerInfo.email,
                 customerPhone: customerInfo.phone || '',
@@ -125,6 +129,7 @@ export async function POST(req: NextRequest) {
                         itemType: item.type,
                         productId: item.type === 'product' ? item.id : null,
                         courseId: item.type === 'course' ? item.id : null,
+                        licenseKeyId: item.type === 'subscription' ? String(item.id) : null,
                         price: item.price,
                         quantity: 1
                     }))

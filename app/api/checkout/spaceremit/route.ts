@@ -124,6 +124,7 @@ export async function POST(req: NextRequest) {
                         productId: (ri.userId && ri.type === 'product') ? ri.id : null,
                         courseId:  (ri.userId && ri.type === 'course')  ? ri.id : null,
                         bundleId:  (ri.userId && ri.type === 'bundle')  ? ri.id : null,
+                        licenseKeyId: ri.type === 'subscription' ? String(ri.id) : null,
                         price: ri.price,
                         quantity: 1,
                     }))
