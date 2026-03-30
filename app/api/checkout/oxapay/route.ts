@@ -122,7 +122,7 @@ export async function POST(req: NextRequest) {
         });
 
         const oxaData = await oxaRes.json();
-        if (oxaData.status !== 1) {
+        if (oxaData.result !== 100) {
             console.error('[OXAPAY_API_ERROR]', oxaData);
             return NextResponse.json({ error: 'فشل الاتصال ببوابة Oxapay: ' + (oxaData.message || 'Unknown') }, { status: 502 });
         }
@@ -143,7 +143,7 @@ export async function POST(req: NextRequest) {
             // However, the webhook uses orderId from Oxapay callback, so we are safe.
         }
 
-        return NextResponse.json({ paymentUrl: oxaData.payment_url });
+        return NextResponse.json({ paymentUrl: oxaData.payLink });
 
     } catch (err: any) {
         console.error('[OXAPAY_CRITICAL]', err);
