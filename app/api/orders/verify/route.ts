@@ -90,10 +90,12 @@ export async function GET(req: NextRequest) {
             status: order.status,
             paymentMethod: order.paymentMethod,
             items: order.items.map((item) => ({
-                id: item.productId || item.courseId || '',
+                id: item.productId || item.courseId || item.licenseKeyId || '',
                 type: item.itemType,
-                title: item.product?.title || item.course?.title || 'Unknown',
+                title: item.product?.title || item.course?.title || (item.itemType === 'subscription' ? 'اشتراك منصة' : 'Unknown'),
+                isSubscription: item.itemType === 'subscription',
             })),
+            hasSubscription: order.items.some(i => i.itemType === 'subscription'),
         };
 
         return NextResponse.json(response);

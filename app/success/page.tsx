@@ -85,6 +85,7 @@ function SuccessContent() {
     const isPaid = order.status === 'PAID' || order.status === 'COMPLETED';
     const courseItem = order.items?.find((i: any) => i.type === 'course');
     const hasCourse = !!courseItem;
+    const hasSubscription = order.hasSubscription || order.items?.some((i: any) => i.type === 'subscription' || i.isSubscription);
 
     const socialLinks = [
         social?.supportWhatsapp && { icon: <FaWhatsapp size={18} />, label: 'واتساب الدعم', href: `https://wa.me/${social.supportWhatsapp}` },
@@ -182,7 +183,14 @@ function SuccessContent() {
                             <div className="mt-auto space-y-4">
                                 {isPaid || (!isPending) ? (
                                     <>
-                                        {hasCourse && courseItem.id ? (
+                                        {hasSubscription ? (
+                                            <Link
+                                                href="/dashboard/settings/billing"
+                                                className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
+                                            >
+                                                إدارة الاشتراك <FiExternalLink />
+                                            </Link>
+                                        ) : hasCourse && courseItem.id ? (
                                             <Link
                                                 href={sessionStatus === 'authenticated' ? `/learn/${courseItem.id}` : `/login?callbackUrl=/learn/${courseItem.id}`}
                                                 className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
