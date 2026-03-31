@@ -51,6 +51,7 @@ export default function NewProductPage() {
         description: '',
         category: '',
         tags: '',
+        prerequisites: '',
         price: '',
         image: '',
         images: [] as string[],
