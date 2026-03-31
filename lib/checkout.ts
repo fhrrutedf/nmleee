@@ -297,13 +297,15 @@ async function activatePlatformSubscription(planId: string, customerId: string, 
         });
     }
     
-    // Also inject their plan type context into User struct for legacy compatibility if it matches names
-    let updatedPlanType = 'GROWTH'; // Example fallback
-    if (plan.name.toUpperCase().includes('PRO')) updatedPlanType = 'PRO';
-    else if (plan.name.toUpperCase().includes('AGENCY')) updatedPlanType = 'AGENCY';
+    // Also inject their plan type context into User struct for legacy compatibility
+    // استخدام planType من DB مباشرة بدلاً من البحث في الاسم
+    const updatedPlanType = (plan.planType || 'GROWTH').toUpperCase();
     
     await prisma.user.update({
         where: { id: customerId },
-        data: { planType: updatedPlanType as any }
+        data: { 
+            planType: updatedPlanType as any,
+            planExpiresAt: currentPeriodEnd  // تحديث تاريخ انتهاء الاشتراك
+        }
     });
 }

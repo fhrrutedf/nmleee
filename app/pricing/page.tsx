@@ -1,11 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FiCheck, FiX, FiZap, FiArrowLeft, FiShield, FiStar, FiTrendingUp, FiCheckCircle } from 'react-icons/fi';
 
-const plans = [
+interface Plan {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  interval: string;
+  features: string[];
+  planType: string;
+}
+
+// Default plans fallback
+const defaultPlans = [
     {
         slug: 'free',
         name: 'البداية الحرة',
@@ -128,6 +139,47 @@ const plans = [
 
 export default function PricingPage() {
     const [isYearly, setIsYearly] = useState(false);
+    const [dbPlans, setDbPlans] = useState<Plan[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // Fetch plans from database
+        fetch('/api/plans/public')
+            .then(res => res.ok ? res.json() : [])
+            .then(data => {
+                if (Array.isArray(data) && data.length > 0) {
+                    setDbPlans(data);
+                }
+                setLoading(false);
+            })
+            .catch(() => setLoading(false));
+    }, []);
+
+    // Convert DB plans to display format or use default
+    const displayPlans = dbPlans.length > 0 
+        ? dbPlans.map((plan, index) => ({
+            slug: plan.planType?.toLowerCase() || `plan-${index}`,
+            name: plan.name,
+            badge: index === 0 ? 'بداية آمنة' : index === 1 ? 'الأكثر ربحية' : 'احترافي',
+            description: plan.description,
+            monthlyPrice: plan.price,
+            yearlyPrice: Math.round(plan.price * 12 * 0.8), // 20% discount for yearly
+            commission: plan.planType === 'FREE' ? '10%' : plan.planType === 'PRO' ? '5%' : plan.planType === 'AGENCY' ? '0%' : '5%',
+            maxProducts: plan.planType === 'FREE' ? '5 منتجات' : plan.planType === 'GROWTH' ? '50 منتج' : 'غير محدود',
+            storage: plan.planType === 'FREE' ? '1 جيجابايت' : plan.planType === 'GROWTH' ? '15 جيجابايت' : '100 جيجابايت',
+            students: plan.planType === 'FREE' ? '100 طالب' : plan.planType === 'GROWTH' ? '1000 طالب' : 'غير محدود',
+            border: index === 1 ? 'border-emerald-600/40' : 'border-white/10',
+            btnClass: index === 1 
+                ? 'bg-emerald-700 text-white hover:bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20' 
+                : 'bg-emerald-800 text-[#10B981] hover:bg-gray-200',
+            popular: index === 1,
+            features: plan.features || [],
+            notIncluded: plan.planType === 'FREE' ? ['إزالة شعار تمالين', 'نظام المسوقين'] : [],
+            cta: plan.price === 0 ? 'ابدأ مجاناً' : 'اشترك الآن',
+            href: plan.price === 0 ? '/register' : `/register?plan=${plan.planType?.toLowerCase()}`,
+            custom: false,
+        }))
+        : defaultPlans;
 
     return (
         <div className="min-h-screen bg-[#0A0A0A] selection:bg-emerald-500 text-white/20" dir="rtl">
@@ -216,7 +268,7 @@ export default function PricingPage() {
             {/* Plans Surface */}
             <section className="max-w-7xl mx-auto px-6 -mt-20 pb-40">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {plans.map((plan, i) => (
+                    {displayPlans.map((plan, i) => (
                         <motion.div
                             key={plan.slug}
                             initial={{ opacity: 0, y: 40 }}

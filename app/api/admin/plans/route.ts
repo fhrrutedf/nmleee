@@ -52,7 +52,7 @@ export async function POST(req: Request) {
         }
 
         const body = await req.json();
-        const { name, description, price, interval, features, isActive } = body;
+        const { name, description, price, interval, features, isActive, planType } = body;
 
         if (!name || isNaN(price) || !interval) {
             return NextResponse.json({ error: 'البيانات غير مكتملة' }, { status: 400 });
@@ -66,6 +66,7 @@ export async function POST(req: Request) {
                 interval, // "month", "year", "lifetime"
                 features: Array.isArray(features) ? features : [],
                 isActive: isActive ?? true,
+                planType: planType || 'GROWTH', // FREE, GROWTH, PRO, AGENCY
                 userId: adminUser.id // Required by schema
             }
         });

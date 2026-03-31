@@ -12,6 +12,7 @@ interface SubscriptionPlan {
     interval: string;
     features: string[];
     isActive: boolean;
+    planType: string;
     _count?: {
         subscriptions: number;
     };
@@ -29,7 +30,8 @@ export default function AdminPlansManagement() {
         price: 0,
         interval: 'month',
         features: ['إضافة كورسات غير محدودة'],
-        isActive: true
+        isActive: true,
+        planType: 'GROWTH'
     });
 
     useEffect(() => {
@@ -66,7 +68,7 @@ export default function AdminPlansManagement() {
             
             if (res.ok) {
                 showToast.success('تم إنشاء الباقة بنجاح');
-                setNewPlan({ name: '', description: '', price: 0, interval: 'month', features: [''], isActive: true });
+                setNewPlan({ name: '', description: '', price: 0, interval: 'month', features: [''], isActive: true, planType: 'GROWTH' });
                 fetchPlans(); // Refresh the list
             } else {
                 const data = await res.json();
@@ -181,6 +183,20 @@ export default function AdminPlansManagement() {
                                     onChange={e => setNewPlan({...newPlan, name: e.target.value})}
                                     className="w-full bg-[#111] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#10B981] outline-none"
                                 />
+                            </div>
+
+                            <div>
+                                <label className="text-xs font-bold text-gray-400 block mb-2">نوع الباقة (PlanType)</label>
+                                <select 
+                                    value={newPlan.planType}
+                                    onChange={e => setNewPlan({...newPlan, planType: e.target.value})}
+                                    className="w-full bg-[#111] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#10B981] outline-none"
+                                >
+                                    <option value="FREE">FREE (مجاني)</option>
+                                    <option value="GROWTH">GROWTH (نمو)</option>
+                                    <option value="PRO">PRO (احترافي)</option>
+                                    <option value="AGENCY">AGENCY (وكالة)</option>
+                                </select>
                             </div>
 
                             <div>

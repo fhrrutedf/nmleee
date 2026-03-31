@@ -677,9 +677,10 @@ model SubscriptionPlan {
   name        String   // "Basic", "Pro", "Premium"
   description String
   price       Float
-  interval    String   // "month", "year"
+  interval    String   // "month", "year", "lifetime"
   features    String[] @default([])
   isActive    Boolean  @default(true)
+  planType    String   @default("GROWTH") // FREE, GROWTH, PRO, AGENCY
   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
