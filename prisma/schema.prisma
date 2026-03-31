@@ -313,6 +313,7 @@ model Course {
   affiliateLinks AffiliateLink[]
   comments    Comment[]
   reviews     Review[]
+  liveAttendance LiveAttendance[]
 
   // Reviews stats
   averageRating Float?   @default(0)
@@ -785,6 +786,7 @@ model Lesson {
   quizzes     Quiz[]
   comments    Comment[]
   progress    LessonProgress[]
+  liveAttendance LiveAttendance[]
   
   @@index([moduleId])
 }
@@ -1197,6 +1199,35 @@ model UserGamification {
   
   @@index([userEmail])
   @@index([totalPoints])
+}
+
+model LiveAttendance {
+  id           String   @id @default(uuid())
+  courseId     String
+  course       Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessonId     String?
+  lesson       Lesson?  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  
+  studentEmail String
+  studentName  String
+  
+  joinedAt     DateTime @default(now())
+  leftAt       DateTime?
+  duration     Int      @default(0) // بالدقائق
+  
+  status       String   @default("joined") // joined, present, late, left, absent
+  
+  // For live session tracking
+  sessionStart DateTime? // when instructor started
+  sessionEnd   DateTime? // when instructor ended
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@index([courseId])
+  @@index([lessonId])
+  @@index([studentEmail])
+  @@index([status])
 }
 
 model Notification {
