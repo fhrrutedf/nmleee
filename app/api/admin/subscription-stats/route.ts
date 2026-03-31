@@ -35,14 +35,7 @@ export async function GET(req: NextRequest) {
             },
             include: {
                 items: {
-                    where: { itemType: 'subscription' },
-                    include: {
-                        licenseKey: {
-                            include: {
-                                plan: true
-                            }
-                        }
-                    }
+                    where: { itemType: 'subscription' }
                 },
                 user: {
                     select: {
@@ -50,8 +43,7 @@ export async function GET(req: NextRequest) {
                         name: true,
                         email: true,
                         planType: true,
-                        planExpiresAt: true,
-                        image: true
+                        planExpiresAt: true
                     }
                 }
             },
@@ -114,7 +106,7 @@ export async function GET(req: NextRequest) {
             amount: order.totalAmount,
             status: order.status,
             createdAt: order.createdAt,
-            planName: order.items[0]?.licenseKey?.plan?.name || 'Unknown'
+            planName: 'اشتراك منصة'
         }));
 
         // Upcoming expirations
