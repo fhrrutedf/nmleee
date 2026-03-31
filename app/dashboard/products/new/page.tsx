@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
     FiArrowRight, FiUpload, FiDollarSign, FiPackage,
-    FiX, FiImage, FiCheck, FiArrowLeft, FiFilm, FiEye, FiLayers, FiPlus, FiSave, FiLock, FiCheckSquare
+    FiX, FiImage, FiCheck, FiArrowLeft, FiFilm, FiEye, FiLayers, FiPlus, FiSave, FiLock, FiCheckSquare, FiList
 } from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
@@ -63,7 +63,7 @@ export default function NewProductPage() {
         suggestedPrice: '',
         originalPrice: '',
         enablePPP: false,
-        prerequisites: '',
+        features: [] as string[],
         upsellProductId: '',
         upsellPrice: '',
         offerExpiresAt: '',
@@ -155,6 +155,8 @@ export default function NewProductPage() {
                     suggestedPrice: pricingType === 'pwyw' && formData.suggestedPrice ? parseFloat(formData.suggestedPrice) : null,
                     tags: (formData.tags || '').split(',').map(t => t.trim()).filter(Boolean),
                     prerequisites: (formData.prerequisites || '').split(',').map(t => t.trim()).filter(Boolean),
+                    features: formData.features.filter(f => f.trim() !== ''),
+                    images: formData.images,
                 }),
             });
             if (res.ok) {
@@ -308,6 +310,46 @@ export default function NewProductPage() {
                         {currentStep === 2 && (
                             <motion.div key="st2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-10">
                                 <Section title="الهواية البصرية والجاليري" icon={<FiImage />}>
+                                     {/* Gallery Images */}
+                                     <div className="space-y-4 mb-8">
+                                         <label className="label-modern mb-2 block">معرض الصور الإضافية (اختياري)</label>
+                                         <div className="grid grid-cols-4 gap-4">
+                                             {formData.images.map((img, index) => (
+                                                 <div key={index} className="relative aspect-square rounded-xl overflow-hidden group">
+                                                     <img src={img} alt={`صورة ${index + 1}`} className="w-full h-full object-cover" />
+                                                     <button
+                                                         type="button"
+                                                         onClick={() => update('images', formData.images.filter((_, i) => i !== index))}
+                                                         className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                                                     >
+                                                         <FiX size={14} />
+                                                     </button>
+                                                 </div>
+                                             ))}
+                                             {formData.images.length < 8 && (
+                                                 <button
+                                                     type="button"
+                                                     onClick={() => setShowGalleryUploader(true)}
+                                                     className="aspect-square rounded-xl border-2 border-dashed border-slate-600 flex flex-col items-center justify-center gap-2 text-slate-400 hover:text-emerald-500 hover:border-emerald-500/30 transition-all"
+                                                 >
+                                                     <FiPlus size={24} />
+                                                     <span className="text-xs">صورة {formData.images.length + 1}</span>
+                                                 </button>
+                                             )}
+                                         </div>
+                                         {showGalleryUploader && (
+                                             <div className="bg-[#111111] p-4 rounded-xl border border-slate-700">
+                                                 <FileUploader 
+                                                     onUploadSuccess={urls => {
+                                                         update('images', [...formData.images, urls[0]]);
+                                                         setShowGalleryUploader(false);
+                                                     }} 
+                                                 />
+                                             </div>
+                                         )}
+                                     </div>
+
+                                     {/* Main Cover Image */}
                                      <div className="space-y-6">
                                         <label className="label-modern mb-0 block underline decoration-blue-200 underline-offset-4">صورة غلاف المنتج (16:9) <span className="text-red-500">*</span></label>
                                         
@@ -343,6 +385,53 @@ export default function NewProductPage() {
                                             <input type="text" className="input-modern" placeholder="مثال: لاب توب, اشتراك فوتوشوب" value={formData.prerequisites} onChange={e => update('prerequisites', e.target.value)} />
                                             <p className="text-[10px] text-slate-400 mt-2 font-bold">افصل بفاصلة لعرضها كنقاط منظمة</p>
                                         </div>
+                                     </div>
+
+                                     {/* Product Features Section */}
+                                     <div className="mt-8 p-6 bg-[#111111] border border-slate-200 rounded-xl">
+                                         <label className="label-modern mb-4 flex items-center gap-2">
+                                             <FiList className="text-emerald-500" />
+                                             مميزات المنتج الرئيسية
+                                         </label>
+                                         <div className="space-y-3">
+                                             {formData.features.map((feature, index) => (
+                                                 <div key={index} className="flex items-center gap-2">
+                                                     <span className="w-6 h-6 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">{index + 1}</span>
+                                                     <input
+                                                         type="text"
+                                                         className="flex-1 input-modern py-2"
+                                                         placeholder={`الميزة ${index + 1}`}
+                                                         value={feature}
+                                                         onChange={e => {
+                                                             const newFeatures = [...formData.features];
+                                                             newFeatures[index] = e.target.value;
+                                                             update('features', newFeatures);
+                                                         }}
+                                                     />
+                                                     <button
+                                                         type="button"
+                                                         onClick={() => {
+                                                             const newFeatures = formData.features.filter((_, i) => i !== index);
+                                                             update('features', newFeatures);
+                                                         }}
+                                                         className="p-2 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                                                     >
+                                                         <FiX size={16} />
+                                                     </button>
+                                                 </div>
+                                             ))}
+                                             {formData.features.length < 8 && (
+                                                 <button
+                                                     type="button"
+                                                     onClick={() => update('features', [...formData.features, ''])}
+                                                     className="w-full py-3 border-2 border-dashed border-slate-700 rounded-xl text-slate-400 hover:text-emerald-500 hover:border-emerald-500/30 transition-all flex items-center justify-center gap-2"
+                                                 >
+                                                     <FiPlus size={16} />
+                                                     إضافة ميزة جديدة ({formData.features.length}/8)
+                                                 </button>
+                                             )}
+                                         </div>
+                                         <p className="text-[10px] text-slate-400 mt-3 font-bold">أضف حتى 8 مميزات رئيسية لمنتجك (مثال: سهل الاستخدام، يعمل على جميع الأجهزة، تحديثات مجانية)</p>
                                      </div>
 
                                      {/* SEO Optimization Section */}
@@ -467,20 +556,34 @@ export default function NewProductPage() {
                                     </div>
                                     
                                     <div className="flex items-center justify-between p-8 bg-blue-900 rounded-xl border border-blue-800 shadow-lg shadow-[#10B981]/20 transition-all cursor-pointer hover:bg-blue-800 group" onClick={() => update('enablePPP', !formData.enablePPP)}>
-                                        <div className="text-right">
+                                        <div className="text-right flex-1">
                                             <h3 className="font-bold text-white text-xl leading-tight transition-colors group-hover:text-amber-400">تفعيل التسعير العادل (PPP Pricing) 🌍</h3>
-                                            <p className="text-xs text-blue-200 mt-1 max-w-lg leading-relaxed">تخفيض السعر تلقائياً للزوار من الدول النامية حسب القوة الشرائية، لضمان أعلى نسبة مبيعات للجميع دون حرمان أحد.</p>
+                                            <p className="text-xs text-blue-200 mt-1 max-w-lg leading-relaxed">تخفيض السعر تلقائياً للزوار من الدول النامية حسب القوة الشرائية.</p>
+                                            
+                                            {/* PPP Details */}
+                                            {formData.enablePPP && (
+                                                <div className="mt-4 p-4 bg-blue-950/50 rounded-xl border border-blue-700/50">
+                                                    <p className="text-[11px] text-blue-300 mb-2 font-bold">نسب الخصم التلقائي:</p>
+                                                    <div className="grid grid-cols-2 gap-2 text-[10px]">
+                                                        <div className="flex justify-between"><span>مصر، السودان، اليمن</span><span className="text-emerald-400">خصم 70%</span></div>
+                                                        <div className="flex justify-between"><span>العراق، سوريا، ليبيا</span><span className="text-emerald-400">خصم 60%</span></div>
+                                                        <div className="flex justify-between"><span>الأردن، تونس، المغرب</span><span className="text-emerald-400">خصم 40%</span></div>
+                                                        <div className="flex justify-between"><span>تركيا، لبنان</span><span className="text-emerald-400">خصم 30%</span></div>
+                                                    </div>
+                                                    <p className="text-[10px] text-blue-400 mt-2 italic">السعر الأدنى: 1$ مهما كان الخصم</p>
+                                                </div>
+                                            )}
                                         </div>
                                         <div className={`w-16 h-9 rounded-xl flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-emerald-700 text-white outline-amber-500/30' : 'bg-blue-950 outline-blue-900'}`}>
                                             <div className={`w-6 h-6 bg-[#0A0A0A] rounded-xl transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-lg shadow-[#10B981]/20 shadow-black/40`} />
                                         </div>
                                     </div>
 
-                                    {/* Stock Limit Section */}
+                                    {/* Stock Limit Section - For Digital Products */}
                                     <div className="p-8 bg-[#111111] border border-slate-200 rounded-xl flex flex-col md:flex-row items-center justify-between gap-6 hover:shadow-md transition-shadow">
                                         <div className="text-right flex-1">
-                                            <h3 className="font-bold text-slate-800 text-xl leading-tight">حد المخزون (Inventory Control)</h3>
-                                            <p className="text-xs text-slate-400 mt-1 font-medium">اترك الحقل فارغاً إذا كان المنتج غير محدود الكمية.</p>
+                                            <h3 className="font-bold text-slate-800 text-xl leading-tight">عدد النسخ المسموح بيعها</h3>
+                                            <p className="text-xs text-slate-400 mt-1 font-medium">حدد عدد المبيعات المسموح بها لهذا المنتج (للندرة الاصطناعية). اتركه فارغاً لبيع غير محدود.</p>
                                         </div>
                                         <div className="w-full md:w-32">
                                             <input 
