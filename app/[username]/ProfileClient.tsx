@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { FiLink, FiFacebook, FiInstagram, FiTwitter, FiStar,
     FiShoppingCart, FiClock, FiCheckCircle, FiShare2,
     FiGrid, FiPackage, FiVideo, FiCopy, FiChevronDown,
     FiChevronUp, FiSearch, FiMail, FiMessageCircle,
     FiZap, FiUsers, FiCalendar, FiAward, FiArrowLeft,
-    FiBell, FiBellOff
+    FiBell, FiBellOff, FiHeart, FiTag, FiTrendingUp,
+    FiDollarSign, FiPercent
 } from 'react-icons/fi';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -23,6 +24,157 @@ interface ProfileClientProps {
         totalReviews: number;
         totalRevenue: number;
     };
+    coupons?: any[];
+}
+
+// ─── Star Rating Component ─────────────────────────────────────────
+function StarRating({ rating, count, size = 'sm' }: { rating: number; count?: number; size?: 'xs' | 'sm' | 'md' }) {
+    const sizeClasses = { xs: 'w-3 h-3', sm: 'w-4 h-4', md: 'w-5 h-5' };
+    const starSize = sizeClasses[size];
+    
+    return (
+        <div className="flex items-center gap-1">
+            <div className="flex">
+                {[1, 2, 3, 4, 5].map((star) => (
+                    <FiStar
+                        key={star}
+                        className={`${starSize} ${star <= Math.round(rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`}
+                    />
+                ))}
+            </div>
+            {count !== undefined && (
+                <span className="text-xs text-gray-500">({count})</span>
+            )}
+        </div>
+    );
+}
+
+// ─── Wishlist Button Component ─────────────────────────────────────────
+function WishlistButton({ productId, courseId, brandColor }: { productId?: string; courseId?: string; brandColor: string }) {
+    const [isInWishlist, setIsInWishlist] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        async function checkWishlist() {
+            try {
+                const params = new URLSearchParams();
+                if (productId) params.append('productId', productId);
+                if (courseId) params.append('courseId', courseId);
+                const response = await fetch(`/api/wishlist?${params}`, { method: 'HEAD' });
+                if (response.ok) {
+                    const data = await response.json();
+                    setIsInWishlist(data.isInWishlist);
+                }
+            } catch (error) {
+                // Silent fail
+            }
+        }
+        checkWishlist();
+    }, [productId, courseId]);
+
+    const toggleWishlist = async (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsLoading(true);
+        
+        try {
+            if (isInWishlist) {
+                const params = new URLSearchParams();
+                if (productId) params.append('productId', productId);
+                if (courseId) params.append('courseId', courseId);
+                await fetch(`/api/wishlist?${params}`, { method: 'DELETE' });
+                setIsInWishlist(false);
+                toast.success('تمت الإزالة من المفضلة');
+            } else {
+                await fetch('/api/wishlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ productId, courseId })
+                });
+                setIsInWishlist(true);
+                toast.success('تمت الإضافة للمفضلة');
+            }
+        } catch (error) {
+            toast.error('يجب تسجيل الدخول أولاً');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    return (
+        <button
+            onClick={toggleWishlist}
+            disabled={isLoading}
+            className={`p-2 rounded-lg transition-all ${isInWishlist ? 'text-red-500' : 'text-gray-400 hover:text-white'}`}
+            style={isInWishlist ? { backgroundColor: `${brandColor}20` } : {}}
+        >
+            <FiHeart className={`w-5 h-5 ${isInWishlist ? 'fill-current' : ''} ${isLoading ? 'animate-pulse' : ''}`} />
+        </button>
+    );
+}
+
+// ─── Product Share Button ─────────────────────────────────────────
+function ProductShareButton({ title, url, brandColor }: { title: string; url: string; brandColor: string }) {
+    const [showMenu, setShowMenu] = useState(false);
+
+    const copyLink = () => {
+        navigator.clipboard.writeText(url);
+        toast.success('تم نسخ الرابط!');
+        setShowMenu(false);
+    };
+
+    return (
+        <div className="relative">
+            <button
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowMenu(!showMenu); }}
+                className="p-2 rounded-lg text-gray-400 hover:text-white transition-all"
+            >
+                <FiShare2 className="w-4 h-4" />
+            </button>
+            <AnimatePresence>
+                {showMenu && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: 8 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: 8 }}
+                        className="absolute left-0 top-full mt-2 w-44 bg-[#0A0A0A] rounded-xl shadow-lg border border-white/10 p-2 z-50"
+                    >
+                        <button onClick={copyLink} className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm hover:bg-white/5 text-right transition-colors">
+                            <FiCopy className="text-gray-400" /> نسخ الرابط
+                        </button>
+                        <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`}
+                            target="_blank" rel="noopener noreferrer"
+                            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm hover:bg-white/5 text-right transition-colors">
+                            <FiTwitter className="text-blue-400" /> تويتر
+                        </a>
+                        <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
+                            target="_blank" rel="noopener noreferrer"
+                            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm hover:bg-white/5 text-right transition-colors">
+                            <FiFacebook className="text-blue-600" /> فيسبوك
+                        </a>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
+}
+
+// ─── Skeleton Card ─────────────────────────────────────────
+function SkeletonCard() {
+    return (
+        <div className="bg-[#0A0A0A] rounded-xl overflow-hidden border border-white/10 animate-pulse">
+            <div className="aspect-video bg-gray-800" />
+            <div className="p-5 space-y-3">
+                <div className="h-4 bg-gray-800 rounded w-3/4" />
+                <div className="h-3 bg-gray-800 rounded w-full" />
+                <div className="h-3 bg-gray-800 rounded w-2/3" />
+                <div className="flex justify-between pt-3">
+                    <div className="h-4 bg-gray-800 rounded w-16" />
+                    <div className="h-8 bg-gray-800 rounded w-20" />
+                </div>
+            </div>
+        </div>
+    );
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────
@@ -50,20 +202,39 @@ function isValidImage(url: string | null | undefined): boolean {
 
 import BundleCard from '../components/BundleCard';
 
-export default function ProfileClient({ creator, products, bundles = [], stats }: ProfileClientProps) {
+export default function ProfileClient({ creator, products, bundles = [], stats, coupons = [] }: ProfileClientProps) {
     const [activeTab, setActiveTab] = useState<'all' | 'products' | 'courses'>('all');
     const [isBioExpanded, setIsBioExpanded] = useState(false);
     const [showShareMenu, setShowShareMenu] = useState(false);
     const [search, setSearch] = useState('');
     const [featuredExpanded, setFeaturedExpanded] = useState(false);
-    const [sortBy, setSortBy] = useState<'newest' | 'popular' | 'priceLow' | 'priceHigh'>('newest');
+    const [sortBy, setSortBy] = useState<'newest' | 'popular' | 'priceLow' | 'priceHigh' | 'rated'>('newest');
     const [currentPage, setCurrentPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
+    
+    // Price filter
+    const prices = useMemo(() => products.map(p => p.price || 0), [products]);
+    const maxPrice = useMemo(() => Math.max(...prices, 0), [prices]);
+    const [priceRange, setPriceRange] = useState<[number, number]>([0, maxPrice || 1000]);
+    const [showPriceFilter, setShowPriceFilter] = useState(false);
     
     // Follow button state
     const [isFollowing, setIsFollowing] = useState(false);
     const [followerCount, setFollowerCount] = useState(0);
     const [isFollowLoading, setIsFollowLoading] = useState(false);
+    
     const ITEMS_PER_PAGE = 12;
+
+    // Simulate loading on mount
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoading(false), 500);
+        return () => clearTimeout(timer);
+    }, []);
+
+    // Update price range when maxPrice changes
+    useEffect(() => {
+        setPriceRange([0, maxPrice || 1000]);
+    }, [maxPrice]);
 
     // Check follow status on mount
     useEffect(() => {
@@ -129,10 +300,11 @@ export default function ProfileClient({ creator, products, bundles = [], stats }
             || (activeTab === 'courses' && (p.category === 'courses' || p.category === 'course'))
             || (activeTab === 'products' && p.category !== 'courses' && p.category !== 'course');
         const matchSearch = !search || p.title?.toLowerCase().includes(search.toLowerCase());
-        return matchTab && matchSearch;
+        const matchPrice = (p.price || 0) >= priceRange[0] && (p.price || 0) <= priceRange[1];
+        return matchTab && matchSearch && matchPrice;
     });
 
-    // Sorting logic
+    // Sorting logic - updated with rating sort
     const sortedProducts = [...filteredProducts].sort((a, b) => {
         switch (sortBy) {
             case 'popular':
@@ -141,11 +313,32 @@ export default function ProfileClient({ creator, products, bundles = [], stats }
                 return (a.price || 0) - (b.price || 0);
             case 'priceHigh':
                 return (b.price || 0) - (a.price || 0);
+            case 'rated':
+                return (b.averageRating || 0) - (a.averageRating || 0);
             case 'newest':
             default:
                 return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
         }
     });
+
+    // Get new products (this week)
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    const newProducts = products.filter(p => new Date(p.createdAt) > oneWeekAgo).slice(0, 4);
+
+    // Get best sellers (top 3 by sold count)
+    const bestSellers = [...products].sort((a, b) => (b.soldCount || 0) - (a.soldCount || 0)).slice(0, 3);
+    const isBestSeller = (productId: string) => bestSellers.some(p => p.id === productId);
+
+    // Calculate sales percentage indicator
+    const getSalesIndicator = (soldCount: number) => {
+        const maxSold = Math.max(...products.map(p => p.soldCount || 0), 1);
+        const percentage = Math.round((soldCount / maxSold) * 100);
+        if (percentage >= 80) return { label: 'الأكثر مبيعاً', color: '#ef4444' };
+        if (percentage >= 60) return { label: 'مبيعات عالية', color: '#f59e0b' };
+        if (percentage >= 40) return { label: 'مبيعات جيدة', color: '#10b981' };
+        return null;
+    };
 
     // Pagination
     const totalPages = Math.ceil(sortedProducts.length / ITEMS_PER_PAGE);
@@ -189,6 +382,9 @@ export default function ProfileClient({ creator, products, bundles = [], stats }
         toast.success('تم نسخ رابط المتجر!');
         setShowShareMenu(false);
     };
+
+    // Price range steps
+    const priceSteps = [0, Math.round(maxPrice * 0.25), Math.round(maxPrice * 0.5), Math.round(maxPrice * 0.75), maxPrice];
 
     return (
         <div className="min-h-screen bg-[#111111] dark:bg-gray-950 font-sans" style={{ '--brand': brandColor } as React.CSSProperties}>
@@ -454,6 +650,93 @@ export default function ProfileClient({ creator, products, bundles = [], stats }
                 )}
 
                 {/* ══════════════════════════════════════════
+                    NEW PRODUCTS THIS WEEK
+                ══════════════════════════════════════════ */}
+                {newProducts.length > 0 && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                        className="mt-8"
+                    >
+                        <div className="flex items-center gap-2 mb-4">
+                            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                            <h2 className="font-bold text-lg text-white dark:text-white flex items-center gap-2">
+                                منتجات جديدة هذا الأسبوع
+                                <span className="text-xs font-bold px-2 py-1 rounded-lg bg-green-500/20 text-green-400">
+                                    {newProducts.length} جديد
+                                </span>
+                            </h2>
+                        </div>
+                        <div className={`grid gap-4 ${brandLayout === 'list' ? 'grid-cols-1' : 'grid-cols-2 sm:grid-cols-4'}`}>
+                            {newProducts.map((product, index) => (
+                                <motion.div
+                                    key={product.id}
+                                    initial={{ opacity: 0, scale: 0.97 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: index * 0.05 }}
+                                >
+                                    <Link
+                                        href={product.category === 'courses' ? `/courses/${product.slug || product.id}` : `/product/${product.id}`}
+                                        className="group block bg-[#0A0A0A] rounded-xl overflow-hidden border border-green-500/20 hover:border-green-500/40 transition-all"
+                                    >
+                                        <div className="relative aspect-square overflow-hidden">
+                                            <Image
+                                                src={getImage(product.image, product.category === 'courses' ? 'course' : 'product')}
+                                                alt={product.title}
+                                                fill
+                                                className="object-cover group-hover:scale-105 transition-transform"
+                                            />
+                                            <div className="absolute top-2 right-2">
+                                                <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-lg">جديد</span>
+                                            </div>
+                                        </div>
+                                        <div className="p-3">
+                                            <h3 className="font-bold text-white text-sm line-clamp-1">{product.title}</h3>
+                                            <p className="text-xs text-gray-400 mt-1">
+                                                {product.isFree || product.price === 0 ? 'مجاني' : `${product.price} $`}
+                                            </p>
+                                        </div>
+                                    </Link>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* ══════════════════════════════════════════
+                    ACTIVE COUPONS
+                ══════════════════════════════════════════ */}
+                {coupons && coupons.length > 0 && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.15 }}
+                        className="mt-8"
+                    >
+                        <div className="flex items-center gap-2 mb-4">
+                            <FiTag className="text-lg" style={{ color: brandColor }} />
+                            <h2 className="font-bold text-lg text-white dark:text-white">كوبونات خصم نشطة</h2>
+                        </div>
+                        <div className="flex flex-wrap gap-3">
+                            {coupons.slice(0, 3).map((coupon) => (
+                                <div key={coupon.id} className="flex items-center gap-3 px-4 py-3 bg-[#0A0A0A] rounded-xl border border-white/10">
+                                    <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `${brandColor}20` }}>
+                                        <FiPercent className="text-lg" style={{ color: brandColor }} />
+                                    </div>
+                                    <div>
+                                        <p className="font-bold text-white text-sm">{coupon.code}</p>
+                                        <p className="text-xs text-gray-400">
+                                            {coupon.type === 'percentage' ? `خصم ${coupon.value}%` : `خصم ${coupon.value}$`}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* ══════════════════════════════════════════
                     PRODUCTS SECTION
                 ══════════════════════════════════════════ */}
                 <div className="mt-10">
@@ -463,14 +746,14 @@ export default function ProfileClient({ creator, products, bundles = [], stats }
                             <FiAward className="text-xl" style={{ color: brandColor }} />
                             <h2 className="font-bold text-xl text-white dark:text-white">
                                 جميع المنتجات
-                                <span className="mr-2 text-sm font-bold px-2.5 py-0.5 rounded-xl text-white" style={{ background: brandColor }}>{products.length}</span>
+                                <span className="mr-2 text-sm font-bold px-2.5 py-0.5 rounded-xl text-white" style={{ background: brandColor }}>{filteredProducts.length}</span>
                             </h2>
                         </div>
                     </div>
 
-                    {/* Search + Tabs + Sort row */}
-                    <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                        {/* Search */}
+                    {/* Filters Row: Search + Price Filter + Sort + Tabs */}
+                    <div className="flex flex-col gap-3 mb-6">
+                        {/* Top row: Search */}
                         <div className="relative flex-1">
                             <FiSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
                             <input
@@ -478,137 +761,268 @@ export default function ProfileClient({ creator, products, bundles = [], stats }
                                 placeholder="ابحث في منتجات البائع..."
                                 value={search}
                                 onChange={e => { setSearch(e.target.value); setCurrentPage(1); }}
-                                className="w-full pr-9 pl-4 py-2.5 bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl text-sm outline-none focus:ring-2 transition-all"
+                                className="w-full pr-9 pl-4 py-2.5 bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl text-sm outline-none focus:ring-2 transition-all text-white"
                                 style={{ '--tw-ring-color': `${brandColor}40` } as any}
                             />
                         </div>
 
-                        {/* Sort Dropdown */}
-                        <select
-                            value={sortBy}
-                            onChange={(e) => setSortBy(e.target.value as any)}
-                            className="px-4 py-2.5 bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl text-sm text-gray-400 outline-none focus:ring-2 transition-all cursor-pointer"
-                            style={{ '--tw-ring-color': `${brandColor}40` } as any}
-                        >
-                            <option value="newest">الأحدث</option>
-                            <option value="popular">الأكثر مبيعاً</option>
-                            <option value="priceLow">السعر: من低 إلى高</option>
-                            <option value="priceHigh">السعر: من高 إلى低</option>
-                        </select>
+                        {/* Second row: Sort + Price Filter + Tabs */}
+                        <div className="flex flex-wrap gap-2 items-center">
+                            {/* Sort Dropdown */}
+                            <select
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value as any)}
+                                className="px-3 py-2 bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl text-sm text-gray-400 outline-none focus:ring-2 transition-all cursor-pointer"
+                                style={{ '--tw-ring-color': `${brandColor}40` } as any}
+                            >
+                                <option value="newest">الأحدث</option>
+                                <option value="popular">الأكثر مبيعاً</option>
+                                <option value="rated">الأعلى تقييماً</option>
+                                <option value="priceLow">السعر: من低 إلى高</option>
+                                <option value="priceHigh">السعر: من高 إلى低</option>
+                            </select>
 
-                        {/* Tabs */}
-                        <div className="flex gap-2 flex-shrink-0">
-                            {[
-                                { id: 'all', label: 'الكل', icon: <FiGrid size={13} /> },
-                                hasDigital && { id: 'products', label: 'منتجات', icon: <FiPackage size={13} /> },
-                                hasCourses && { id: 'courses', label: 'دورات', icon: <FiVideo size={13} /> },
-                            ].filter(Boolean).map((tab: any) => (
-                                <button
-                                    key={tab.id}
-                                    onClick={() => { setActiveTab(tab.id); setCurrentPage(1); }}
-                                    style={activeTab === tab.id
-                                        ? { background: brandColor, color: '#fff', boxShadow: `0 4px 14px -2px ${brandColor}60` }
-                                        : {}}
-                                    className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === tab.id ? 'text-white' : 'bg-[#0A0A0A] dark:bg-gray-900 text-gray-400 dark:text-gray-400 border border-emerald-500/20 dark:border-gray-700 hover:border-gray-300'}`}
-                                >
-                                    {tab.icon} {tab.label}
-                                </button>
-                            ))}
+                            {/* Price Filter Toggle */}
+                            <button
+                                onClick={() => setShowPriceFilter(!showPriceFilter)}
+                                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-bold transition-all border ${showPriceFilter ? 'text-white' : 'text-gray-400 bg-[#0A0A0A] border-emerald-500/20'}`}
+                                style={showPriceFilter ? { background: brandColor, borderColor: brandColor } : {}}
+                            >
+                                <FiDollarSign size={14} />
+                                السعر
+                                {(priceRange[0] > 0 || priceRange[1] < maxPrice) && (
+                                    <span className="w-2 h-2 rounded-full bg-green-500" />
+                                )}
+                            </button>
+
+                            {/* Tabs */}
+                            <div className="flex gap-2 flex-shrink-0">
+                                {[
+                                    { id: 'all', label: 'الكل', icon: <FiGrid size={13} /> },
+                                    hasDigital && { id: 'products', label: 'منتجات', icon: <FiPackage size={13} /> },
+                                    hasCourses && { id: 'courses', label: 'دورات', icon: <FiVideo size={13} /> },
+                                ].filter(Boolean).map((tab: any) => (
+                                    <button
+                                        key={tab.id}
+                                        onClick={() => { setActiveTab(tab.id); setCurrentPage(1); }}
+                                        style={activeTab === tab.id
+                                            ? { background: brandColor, color: '#fff', boxShadow: `0 4px 14px -2px ${brandColor}60` }
+                                            : {}}
+                                        className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-bold transition-all ${activeTab === tab.id ? 'text-white' : 'bg-[#0A0A0A] dark:bg-gray-900 text-gray-400 dark:text-gray-400 border border-emerald-500/20 dark:border-gray-700 hover:border-gray-300'}`}
+                                    >
+                                        {tab.icon} {tab.label}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
+
+                        {/* Price Range Slider */}
+                        {showPriceFilter && (
+                            <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="bg-[#0A0A0A] rounded-xl p-4 border border-emerald-500/20"
+                            >
+                                <div className="flex items-center justify-between mb-3">
+                                    <span className="text-sm text-gray-400">نطاق السعر:</span>
+                                    <span className="text-sm font-bold text-white">
+                                        {priceRange[0]} $ - {priceRange[1]} $
+                                    </span>
+                                </div>
+                                <input
+                                    type="range"
+                                    min={0}
+                                    max={maxPrice}
+                                    value={priceRange[1]}
+                                    onChange={(e) => {
+                                        setPriceRange([priceRange[0], parseInt(e.target.value)]);
+                                        setCurrentPage(1);
+                                    }}
+                                    className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                                    style={{ accentColor: brandColor } as any}
+                                />
+                                <div className="flex justify-between mt-2 text-xs text-gray-500">
+                                    <span>0 $</span>
+                                    <span>{Math.round(maxPrice / 2)} $</span>
+                                    <span>{maxPrice} $</span>
+                                </div>
+                            </motion.div>
+                        )}
                     </div>
 
                     {/* Products Grid */}
                     <AnimatePresence mode="wait">
                         <motion.div
-                            key={activeTab + search}
+                            key={activeTab + search + priceRange.join('-')}
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}
                         >
-                            {filteredProducts.length === 0 ? (
+                            {isLoading ? (
+                                // Skeleton Loading
+                                <div className={`grid gap-5 ${brandLayout === 'list' ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
+                                    {Array.from({ length: 6 }).map((_, i) => (
+                                        <SkeletonCard key={i} />
+                                    ))}
+                                </div>
+                            ) : filteredProducts.length === 0 ? (
                                 <div className="text-center py-20">
                                     <FiSearch className="text-5xl text-gray-300 dark:text-gray-300 mx-auto mb-4" />
                                     <p className="text-gray-500 font-semibold">لا توجد نتائج</p>
-                                    {search && <button onClick={() => { setSearch(''); setCurrentPage(1); }} className="mt-2 text-sm font-bold" style={{ color: brandColor }}>مسح البحث</button>}
+                                    {(search || priceRange[0] > 0 || priceRange[1] < maxPrice) && (
+                                        <button 
+                                            onClick={() => { 
+                                                setSearch(''); 
+                                                setPriceRange([0, maxPrice]);
+                                                setCurrentPage(1); 
+                                            }} 
+                                            className="mt-2 text-sm font-bold" 
+                                            style={{ color: brandColor }}
+                                        >
+                                            مسح الفلاتر
+                                        </button>
+                                    )}
                                 </div>
                             ) : (
                                 <>
                                     <div className={`grid gap-5 ${brandLayout === 'list' ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
-                                        {paginatedProducts.map((product, index) => (
-                                        <motion.div
-                                            key={product.id}
-                                            initial={{ opacity: 0, scale: 0.97 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            transition={{ delay: index * 0.04 }}
-                                        >
-                                            <Link
-                                                href={(() => {
-                                                    const base = product.category === 'courses' ? `/courses/${product.slug || product.id}` : `/product/${product.id}`;
-                                                    return brandColor ? `${base}?brand=${encodeURIComponent(brandColor)}` : base;
-                                                })()}
-                                                className="group block bg-[#0A0A0A] dark:bg-gray-900 rounded-xl overflow-hidden border border-white/10 dark:border-gray-800 hover:border-emerald-500/20 dark:hover:border-gray-700 hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 h-full">
+                                        {paginatedProducts.map((product, index) => {
+                                            const salesIndicator = getSalesIndicator(product.soldCount || 0);
+                                            const productUrl = typeof window !== 'undefined' 
+                                                ? `${window.location.origin}${product.category === 'courses' ? `/courses/${product.slug || product.id}` : `/product/${product.id}`}`
+                                                : '';
+                                            
+                                            return (
+                                                <motion.div
+                                                    key={product.id}
+                                                    initial={{ opacity: 0, scale: 0.97 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    transition={{ delay: index * 0.04 }}
+                                                >
+                                                    <Link
+                                                        href={(() => {
+                                                            const base = product.category === 'courses' ? `/courses/${product.slug || product.id}` : `/product/${product.id}`;
+                                                            return brandColor ? `${base}?brand=${encodeURIComponent(brandColor)}` : base;
+                                                        })()}
+                                                        className="group block bg-[#0A0A0A] dark:bg-gray-900 rounded-xl overflow-hidden border border-white/10 dark:border-gray-800 hover:border-emerald-500/20 dark:hover:border-gray-700 hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 h-full"
+                                                    >
+                                                        {/* Image */}
+                                                        <div className="relative aspect-video overflow-hidden bg-emerald-800 dark:bg-gray-800">
+                                                            <Image
+                                                                src={getImage(product.image, product.category === 'courses' ? 'course' : 'product')}
+                                                                alt={product.title}
+                                                                fill
+                                                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                                                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                                                loading={index > 4 ? 'lazy' : 'eager'}
+                                                            />
+                                                            {/* Badges */}
+                                                            <div className="absolute top-2.5 right-2.5 flex flex-col gap-1.5">
+                                                                {product.isFree || product.price === 0
+                                                                    ? <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-lg shadow">مجاني</span>
+                                                                    : <span className="bg-black/70  text-white text-[10px] font-bold px-2 py-1 rounded-lg">{product.price} $</span>
+                                                                }
+                                                                {/* Best Seller Badge */}
+                                                                {isBestSeller(product.id) && (
+                                                                    <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1 shadow animate-pulse">
+                                                                        <FiTrendingUp size={9} /> الأكثر مبيعاً
+                                                                    </span>
+                                                                )}
+                                                                {/* Sales Performance Badge */}
+                                                                {!isBestSeller(product.id) && salesIndicator && (
+                                                                    <span 
+                                                                        className="text-white text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1 shadow"
+                                                                        style={{ backgroundColor: salesIndicator.color }}
+                                                                    >
+                                                                        <FiTrendingUp size={9} /> {salesIndicator.label}
+                                                                    </span>
+                                                                )}
+                                                                {(product.category === 'courses' || product.category === 'course') && (
+                                                                    <span className="bg-emerald-700 text-white text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1">
+                                                                        <FiVideo size={9} /> دورة
+                                                                    </span>
+                                                                )}
+                                                            </div>
 
-                                                {/* Image */}
-                                                <div className="relative aspect-video overflow-hidden bg-emerald-800 dark:bg-gray-800">
-                                                    <Image
-                                                        src={getImage(product.image, product.category === 'courses' ? 'course' : 'product')}
-                                                        alt={product.title}
-                                                        fill
-                                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                                                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                                        loading={index > 4 ? 'lazy' : 'eager'}
-                                                    />
-                                                    {/* Badges */}
-                                                    <div className="absolute top-2.5 right-2.5 flex flex-col gap-1.5">
-                                                        {product.isFree || product.price === 0
-                                                            ? <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-lg shadow">مجاني</span>
-                                                            : <span className="bg-black/70  text-white text-[10px] font-bold px-2 py-1 rounded-lg">{product.price} $</span>
-                                                        }
-                                                        {(product.category === 'courses' || product.category === 'course') && (
-                                                            <span className="bg-emerald-700 text-white text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1">
-                                                                <FiVideo size={9} /> دورة
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                </div>
+                                                            {/* Action Buttons Overlay */}
+                                                            <div className="absolute top-2.5 left-2.5 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                                <WishlistButton 
+                                                                    productId={product.category !== 'courses' && product.category !== 'course' ? product.id : undefined}
+                                                                    courseId={product.category === 'courses' || product.category === 'course' ? product.id : undefined}
+                                                                    brandColor={brandColor}
+                                                                />
+                                                                <ProductShareButton 
+                                                                    title={product.title}
+                                                                    url={productUrl}
+                                                                    brandColor={brandColor}
+                                                                />
+                                                            </div>
+                                                        </div>
 
-                                                {/* Content */}
-                                                <div className="p-5  bg-white/40 dark:bg-gray-900/40 border-t border-white/20">
-                                                    <div className="flex items-center gap-2 mb-2">
-                                                        {product.category === 'courses'
-                                                            ? <span className="text-[9px] font-bold uppercase tracking-tighter text-[#10B981] bg-purple-100 px-2 py-0.5 rounded-md">دورة VIP</span>
-                                                            : <span className="text-[9px] font-bold uppercase tracking-tighter text-[#10B981]-600 bg-blue-100 px-2 py-0.5 rounded-md">ملف رقمي</span>
-                                                        }
-                                                    </div>
-                                                    <h3 className="font-bold text-white dark:text-white mb-2 line-clamp-2 group-hover:text-[#10B981] transition-colors text-sm leading-tight h-10">
-                                                        {cleanTitle(product.title, product.category)}
-                                                    </h3>
-                                                    {product.description && stripHtml(product.description) && (
-                                                        <p className="text-[11px] text-gray-500 dark:text-gray-400 line-clamp-2 mb-4 leading-relaxed italic opacity-80">
-                                                            {stripHtml(product.description)}
-                                                        </p>
-                                                    )}
-                                                    <div className="flex items-center justify-between pt-4 border-t border-white/10/50 dark:border-gray-800/50">
-                                                        <div className="flex flex-col">
-                                                            <span className="text-xs font-bold" style={{ color: brandColor }}>
-                                                                {product.isFree || product.price === 0 ? 'مجاني بالكامل' : `${product.price} $`}
-                                                            </span>
-                                                            {product.originalPrice && product.originalPrice > product.price && (
-                                                                <span className="text-[9px] text-gray-400 line-through font-bold">
-                                                                    {product.originalPrice} $
-                                                                </span>
+                                                        {/* Content */}
+                                                        <div className="p-5 bg-white/40 dark:bg-gray-900/40 border-t border-white/20">
+                                                            {/* Rating Display */}
+                                                            {(product.averageRating || 0) > 0 && (
+                                                                <div className="flex items-center justify-between mb-2">
+                                                                    <StarRating 
+                                                                        rating={product.averageRating || 0} 
+                                                                        count={product.reviewCount || 0}
+                                                                        size="xs"
+                                                                    />
+                                                                    {product.reviewCount > 0 && (
+                                                                        <span className="text-[10px] text-gray-500">
+                                                                            {product.reviewCount} تقييم
+                                                                        </span>
+                                                                    )}
+                                                                </div>
                                                             )}
+
+                                                            <div className="flex items-center gap-2 mb-2">
+                                                                {product.category === 'courses'
+                                                                    ? <span className="text-[9px] font-bold uppercase tracking-tighter text-[#10B981] bg-purple-100/20 px-2 py-0.5 rounded-md">دورة VIP</span>
+                                                                    : <span className="text-[9px] font-bold uppercase tracking-tighter text-blue-400 bg-blue-100/20 px-2 py-0.5 rounded-md">ملف رقمي</span>
+                                                                }
+                                                            </div>
+                                                            <h3 className="font-bold text-white dark:text-white mb-2 line-clamp-2 group-hover:text-[#10B981] transition-colors text-sm leading-tight h-10">
+                                                                {cleanTitle(product.title, product.category)}
+                                                            </h3>
+                                                            {product.description && stripHtml(product.description) && (
+                                                                <p className="text-[11px] text-gray-500 dark:text-gray-400 line-clamp-2 mb-3 leading-relaxed italic opacity-80">
+                                                                    {stripHtml(product.description)}
+                                                                </p>
+                                                            )}
+
+                                                            {/* Sold Count Indicator */}
+                                                            {(product.soldCount || 0) > 0 && (
+                                                                <div className="flex items-center gap-1 mb-3 text-[10px] text-gray-400">
+                                                                    <FiShoppingCart size={10} />
+                                                                    <span>تم بيع {product.soldCount} مرة</span>
+                                                                </div>
+                                                            )}
+
+                                                            <div className="flex items-center justify-between pt-3 border-t border-white/10/50 dark:border-gray-800/50">
+                                                                <div className="flex flex-col">
+                                                                    <span className="text-sm font-bold" style={{ color: brandColor }}>
+                                                                        {product.isFree || product.price === 0 ? 'مجاني بالكامل' : `${product.price} $`}
+                                                                    </span>
+                                                                    {product.originalPrice && product.originalPrice > product.price && (
+                                                                        <span className="text-[10px] text-gray-400 line-through">
+                                                                            {product.originalPrice} $
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+                                                                <div className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-white text-[10px] font-bold shadow-lg shadow-[#10B981]/20 transition-all group-hover:scale-105 group-hover:shadow-lg shadow-[#10B981]/20" 
+                                                                    style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}>
+                                                                    <FiShoppingCart size={11} /> شراء سريع
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-white text-[10px] font-bold shadow-lg shadow-[#10B981]/20 transition-all group-hover:scale-105 group-hover:shadow-lg shadow-[#10B981]/20" 
-                                                            style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}>
-                                                            <FiShoppingCart size={11} /> شراء سريع
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        </motion.div>
-                                    ))}
+                                                    </Link>
+                                                </motion.div>
+                                            );
+                                        })}
                                     </div>
 
                                     {/* Pagination */}
@@ -622,20 +1036,32 @@ export default function ProfileClient({ creator, products, bundles = [], stats }
                                                 السابق
                                             </button>
                                             <div className="flex gap-1">
-                                                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                                                    <button
-                                                        key={page}
-                                                        onClick={() => setCurrentPage(page)}
-                                                        className={`w-10 h-10 rounded-xl text-sm font-bold transition-all ${
-                                                            currentPage === page
-                                                                ? 'text-white'
-                                                                : 'bg-[#0A0A0A] dark:bg-gray-900 text-gray-400 border border-emerald-500/20 dark:border-gray-700 hover:border-emerald-500/40'
-                                                        }`}
-                                                        style={currentPage === page ? { background: brandColor } : {}}
-                                                    >
-                                                        {page}
-                                                    </button>
-                                                ))}
+                                                {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+                                                    let page: number;
+                                                    if (totalPages <= 5) {
+                                                        page = i + 1;
+                                                    } else if (currentPage <= 3) {
+                                                        page = i + 1;
+                                                    } else if (currentPage >= totalPages - 2) {
+                                                        page = totalPages - 4 + i;
+                                                    } else {
+                                                        page = currentPage - 2 + i;
+                                                    }
+                                                    return (
+                                                        <button
+                                                            key={page}
+                                                            onClick={() => setCurrentPage(page)}
+                                                            className={`w-10 h-10 rounded-xl text-sm font-bold transition-all ${
+                                                                currentPage === page
+                                                                    ? 'text-white'
+                                                                    : 'bg-[#0A0A0A] dark:bg-gray-900 text-gray-400 border border-emerald-500/20 dark:border-gray-700 hover:border-emerald-500/40'
+                                                            }`}
+                                                            style={currentPage === page ? { background: brandColor } : {}}
+                                                        >
+                                                            {page}
+                                                        </button>
+                                                    );
+                                                })}
                                             </div>
                                             <button
                                                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
