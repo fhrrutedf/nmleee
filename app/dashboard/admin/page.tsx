@@ -7,7 +7,8 @@ import {
     FiShield, FiGrid, FiList, FiCreditCard, FiGlobe,
     FiBarChart2, FiActivity, FiUserCheck, FiPackage,
     FiDownload, FiSend, FiSlash, FiUnlock, FiTag, FiLink, FiTarget,
-    FiPlusCircle, FiPieChart, FiSearch, FiUser, FiStar, FiZap, FiBox
+    FiPlusCircle, FiPieChart, FiSearch, FiUser, FiStar, FiZap, FiBox,
+    FiLayers, FiClock
 } from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
@@ -94,6 +95,9 @@ export default function AdminDashboardPage() {
     const [payouts, setPayouts] = useState<any[]>([]);
     const [payoutStats, setPayoutStats] = useState<any>(null);
 
+    const [subscriptionData, setSubscriptionData] = useState<any>(null);
+    const [loadingSubscriptions, setLoadingSubscriptions] = useState(false);
+
     const [showBroadcast, setShowBroadcast] = useState(false);
     const [broadcast, setBroadcast] = useState({ subject: '', message: '', target: 'sellers' });
     const [sending, setSending] = useState(false);
@@ -141,6 +145,16 @@ export default function AdminDashboardPage() {
             return () => clearTimeout(timer);
         }
     }, [activeTab, userFilter]);
+
+    useEffect(() => {
+        if (activeTab === 'subscriptions') {
+            setLoadingSubscriptions(true);
+            fetch('/api/admin/subscription-stats')
+                .then(r => r.json())
+                .then(setSubscriptionData)
+                .finally(() => setLoadingSubscriptions(false));
+        }
+    }, [activeTab]);
 
     useEffect(() => {
         if (!autoRefresh) return;
@@ -204,6 +218,7 @@ export default function AdminDashboardPage() {
     const tabs = [
         { id: 'overview', icon: FiGrid, label: 'الرئيسية', badge: 0 },
         { id: 'sales', icon: FiActivity, label: 'النشاط', badge: 0 },
+        { id: 'subscriptions', icon: FiLayers, label: 'الاشتراكات', badge: subscriptionData?.upcomingExpirations || 0 },
         { id: 'manual', icon: FiCreditCard, label: 'التحويلات', badge: pendingManual.length },
         { id: 'payouts', icon: FiDollarSign, label: 'السحوبات', badge: 0 },
         { id: 'users', icon: FiUsers, label: 'الأوزيرز', badge: 0 },
@@ -262,7 +277,7 @@ export default function AdminDashboardPage() {
                             <StatCard icon={FiUsers} label="قاعدة المستخدمين" value={fmt(ov.totalUsers ?? 0)} sub={`+${ov.newUsers ?? 0} GROWTH`} trend="STABLE" />
                             <StatCard icon={FiDollarSign} label="إجمالي الدوران" value={`$${fmt(ov.totalRevenue ?? 0)}`} sub={`NET: $${fmt(ov.platformFees ?? 0)}`} trend="PROFIT" />
                             <StatCard icon={FiShoppingCart} label="العمليات التجارية" value={fmt(ov.totalOrders ?? 0)} sub={`${ov.periodOrders ?? 0} PERIOD`} trend="ACTIVE" />
-                            <StatCard icon={FiAlertCircle} label="طلبات معلقة" value={ov.pendingManual ?? 0} sub="REQUIRES ACTION" trend="URGENT" />
+                            <StatCard icon={FiLayers} label="المشتركون" value={fmt(subscriptionData?.stats?.totalSubscribers ?? 0)} sub={`${subscriptionData?.stats?.newThisMonth ?? 0} NEW`} trend="SaaS" />
                         </div>
 
                         {/* Charts Section */}
@@ -405,6 +420,151 @@ export default function AdminDashboardPage() {
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                )}
+
+                {/* Subscriptions Tab */}
+                {activeTab === 'subscriptions' && (
+                    <div className="space-y-10">
+                        {/* Subscription Stats Grid */}
+                        {loadingSubscriptions ? (
+                            <div className="flex items-center justify-center min-h-[400px]">
+                                <div className="w-12 h-12 border-4 border-[#10B981]/30 border-t-[#10B981] rounded-full animate-spin" />
+                            </div>
+                        ) : subscriptionData ? (
+                            <>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                                    <StatCard icon={FiLayers} label="إجمالي المشتركين" value={fmt(subscriptionData.stats.totalSubscribers)} sub={`${subscriptionData.stats.newThisMonth} جديد هذا الشهر`} trend="GROWTH" />
+                                    <StatCard icon={FiDollarSign} label="إيرادات الاشتراكات" value={`$${fmt(subscriptionData.stats.totalRevenue)}`} sub="منذ البداية" trend="REVENUE" />
+                                    <StatCard icon={FiUserCheck} label="الاشتراكات النشطة" value={fmt(subscriptionData.stats.active)} sub={`${subscriptionData.upcomingExpirations} تنتهي قريباً`} trend="ACTIVE" />
+                                    <StatCard icon={FiClock} label="منتهية الصلاحية" value={fmt(subscriptionData.stats.expiringSoon)} sub="يحتاجون تجديد" trend="URGENT" />
+                                </div>
+
+                                {/* Plan Distribution */}
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                    <div className="bg-[#0A0A0A] border border-white/10 rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20">
+                                        <h3 className="text-xl font-bold text-[#10B981] mb-10 tracking-widest flex items-center gap-3">
+                                            <FiPieChart className="text-[#10B981]" /> توزيع الباقات
+                                        </h3>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            {Object.entries(subscriptionData.stats.byPlan).map(([plan, count]: [string, any]) => (
+                                                <div key={plan} className={`p-6 rounded-xl border border-white/10 ${
+                                                    plan === 'FREE' ? 'bg-gray-500/10' : 
+                                                    plan === 'GROWTH' ? 'bg-blue-500/10' : 
+                                                    plan === 'PRO' ? 'bg-emerald-500/10' : 
+                                                    'bg-purple-500/10'
+                                                }`}>
+                                                    <div className={`text-3xl font-black ${
+                                                        plan === 'FREE' ? 'text-gray-400' : 
+                                                        plan === 'GROWTH' ? 'text-blue-400' : 
+                                                        plan === 'PRO' ? 'text-emerald-400' : 
+                                                        'text-purple-400'
+                                                    }`}>{fmt(count)}</div>
+                                                    <div className="text-xs text-gray-500 mt-1 uppercase">{plan}</div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-[#0A0A0A] border border-white/10 rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20">
+                                        <h3 className="text-xl font-bold text-[#10B981] mb-10 tracking-widest flex items-center gap-3">
+                                            <FiAlertCircle className="text-[#10B981]" /> تنبيهات مهمة
+                                        </h3>
+                                        <div className="space-y-4">
+                                            {subscriptionData.upcomingExpirations > 0 && (
+                                                <div className="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl">
+                                                    <div className="flex items-center gap-3">
+                                                        <FiClock className="text-yellow-400" />
+                                                        <div>
+                                                            <div className="font-bold text-yellow-400">{subscriptionData.upcomingExpirations} اشتراك تنتهي خلال 7 أيام</div>
+                                                            <div className="text-xs text-gray-500">سيتم إرسال تنبيهات للمستخدمين</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
+                                                <div className="flex items-center gap-3">
+                                                    <FiCheckCircle className="text-[#10B981]" />
+                                                    <div>
+                                                        <div className="font-bold text-[#10B981]">{subscriptionData.stats.active} اشتراك نشط</div>
+                                                        <div className="text-xs text-gray-500">المستخدمون يستفيدون من المنصة</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Recent Subscriptions Table */}
+                                <div className="bg-[#0A0A0A] border border-white/10 rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20 overflow-x-auto">
+                                    <div className="flex items-center justify-between mb-10">
+                                        <h3 className="text-xl font-bold text-[#10B981] tracking-widest flex items-center gap-3">
+                                            <FiActivity className="text-[#10B981]" /> آخر الاشتراكات
+                                        </h3>
+                                        <Link href="/dashboard/admin/subscriptions" className="text-[10px] font-bold text-[#10B981] uppercase tracking-widest hover:underline">
+                                            عرض الكل
+                                        </Link>
+                                    </div>
+                                    <table className="w-full">
+                                        <thead className="border-b border-white/10 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                                            <tr>
+                                                <th className="pb-6 text-right">المستخدم</th>
+                                                <th className="pb-6 text-center">الباقة</th>
+                                                <th className="pb-6 text-center">المبلغ</th>
+                                                <th className="pb-6 text-center">التاريخ</th>
+                                                <th className="pb-6 text-left">الحالة</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {subscriptionData.recentSubscriptions.length === 0 ? (
+                                                <tr><td colSpan={5} className="py-12 text-center text-gray-500 font-bold">لا توجد اشتراكات حالياً...</td></tr>
+                                            ) : (
+                                                subscriptionData.recentSubscriptions.map((sub: any) => (
+                                                    <tr key={sub.id} className="group hover:bg-[#111111]/50 transition-colors border-b border-white/5 last:border-0">
+                                                        <td className="py-6">
+                                                            <div className="flex items-center gap-4">
+                                                                <div className="w-10 h-10 rounded-xl bg-emerald-800 flex items-center justify-center font-bold text-[#10B981] border border-white/10 uppercase">
+                                                                    {sub.user?.name ? sub.user.name.charAt(0) : '?'}
+                                                                </div>
+                                                                <div>
+                                                                    <div className="font-bold text-sm text-white">{sub.user?.name || 'Unknown'}</div>
+                                                                    <div className="text-[10px] font-bold text-gray-500">{sub.user?.email}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td className="py-6 text-center">
+                                                            <span className={`px-3 py-1 rounded-lg text-[9px] font-bold uppercase tracking-widest ${
+                                                                sub.planName?.includes('PRO') ? 'bg-emerald-500/10 text-emerald-400' :
+                                                                sub.planName?.includes('GROWTH') ? 'bg-blue-500/10 text-blue-400' :
+                                                                sub.planName?.includes('AGENCY') ? 'bg-purple-500/10 text-purple-400' :
+                                                                'bg-gray-500/10 text-gray-400'
+                                                            }`}>
+                                                                {sub.planName}
+                                                            </span>
+                                                        </td>
+                                                        <td className="py-6 text-center font-bold text-[#10B981]">${fmt(sub.amount)}</td>
+                                                        <td className="py-6 text-center text-xs text-gray-500">{new Date(sub.createdAt).toLocaleDateString('ar-SA')}</td>
+                                                        <td className="py-6 text-left">
+                                                            <span className={`px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-widest ${statusBadge[sub.status]}`}>
+                                                                {sub.status}
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </>
+                        ) : (
+                            <div className="bg-[#0A0A0A] rounded-[2rem] border border-white/10 p-10 text-center">
+                                <div className="w-16 h-16 bg-[#111111] border border-white/10 rounded-xl flex items-center justify-center mx-auto mb-8 text-[#10B981]">
+                                    <FiLayers size={24} />
+                                </div>
+                                <h3 className="text-lg font-bold text-[#10B981] mb-2">لا توجد بيانات</h3>
+                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">ابدأ بإضافة باقات وجذب المشتركين</p>
+                            </div>
+                        )}
                     </div>
                 )}
 
