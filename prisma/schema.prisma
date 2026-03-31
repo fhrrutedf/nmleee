@@ -312,6 +312,11 @@ model Course {
   certificates Certificate[]
   affiliateLinks AffiliateLink[]
   comments    Comment[]
+  reviews     Review[]
+
+  // Reviews stats
+  averageRating Float?   @default(0)
+  reviewCount   Int      @default(0)
 
   @@unique([userId, slug]) // Unique slug per creator
   @@index([userId])
@@ -599,14 +604,23 @@ model Review {
   rating      Int      // 1-5
   comment     String
   name        String
+  studentEmail String?  // For course reviews
   
   isApproved  Boolean  @default(true)
   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
-  productId   String
-  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  // Can be for Product OR Course
+  productId   String?
+  product     Product?  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  courseId    String?
+  course      Course?   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  
+  @@index([productId])
+  @@index([courseId])
+  @@index([studentEmail])
 }
 
 model AffiliateReferral {
