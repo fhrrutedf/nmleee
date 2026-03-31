@@ -8,7 +8,7 @@ import {
     FiBarChart2, FiActivity, FiUserCheck, FiPackage,
     FiDownload, FiSend, FiSlash, FiUnlock, FiTag, FiLink, FiTarget,
     FiPlusCircle, FiPieChart, FiSearch, FiUser, FiStar, FiZap, FiBox,
-    FiLayers, FiClock
+    FiLayers, FiClock, FiCheckCircle
 } from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
