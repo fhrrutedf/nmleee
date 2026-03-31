@@ -8,7 +8,7 @@ import {
     FiBarChart2, FiActivity, FiUserCheck, FiPackage,
     FiDownload, FiSend, FiSlash, FiUnlock, FiTag, FiLink, FiTarget,
     FiPlusCircle, FiPieChart, FiSearch, FiUser, FiStar, FiZap, FiBox,
-    FiLayers, FiClock, FiCheckCircle, FiFileText
+    FiLayers, FiClock, FiCheckCircle, FiFileText, FiDatabase, FiSave
 } from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
@@ -104,6 +104,12 @@ export default function AdminDashboardPage() {
     const [selectedReport, setSelectedReport] = useState<any>(null);
     const [generatingReport, setGeneratingReport] = useState(false);
 
+    // Backup State
+    const [backups, setBackups] = useState<any[]>([]);
+    const [loadingBackups, setLoadingBackups] = useState(false);
+    const [backingUp, setBackingUp] = useState(false);
+    const [restoring, setRestoring] = useState(false);
+
     const [showBroadcast, setShowBroadcast] = useState(false);
     const [broadcast, setBroadcast] = useState({ subject: '', message: '', target: 'sellers' });
     const [sending, setSending] = useState(false);
@@ -144,6 +150,14 @@ export default function AdminDashboardPage() {
                 .then(r => r.json())
                 .then(d => setReports(d.reports || []))
                 .finally(() => setLoadingReports(false));
+        }
+
+        if (activeTab === 'backup') {
+            setLoadingBackups(true);
+            fetch('/api/admin/backup', { method: 'POST', body: JSON.stringify({ action: 'list' }) })
+                .then(r => r.json())
+                .then(d => setBackups(d.backups || []))
+                .finally(() => setLoadingBackups(false));
         }
     }, [activeTab]);
 
@@ -238,6 +252,7 @@ export default function AdminDashboardPage() {
         { id: 'users', icon: FiUsers, label: 'الأوزيرز', badge: 0 },
         { id: 'verification', icon: FiShield, label: 'التوثيق', badge: ov.pendingVerifications || 0 },
         { id: 'reports', icon: FiFileText, label: 'التقارير', badge: 0 },
+        { id: 'backup', icon: FiDatabase, label: 'النسخ الاحتياطي', badge: 0 },
         { id: 'broadcasts', icon: FiSend, label: 'البث', badge: 0 },
     ];
 
@@ -741,6 +756,147 @@ export default function AdminDashboardPage() {
                                     ))}
                                 </div>
                             )}
+                        </div>
+                    </div>
+                )}
+
+                {/* Backup Tab */}
+                {activeTab === 'backup' && (
+                    <div className="space-y-10">
+                        {/* Backup Actions */}
+                        <div className="bg-[#0A0A0A] border border-white/10 rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20">
+                            <h3 className="text-xl font-bold text-[#10B981] mb-10 tracking-widest flex items-center gap-3">
+                                <FiDatabase className="text-[#10B981]" /> إدارة النسخ الاحتياطي
+                            </h3>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                <button
+                                    onClick={async () => {
+                                        setBackingUp(true);
+                                        try {
+                                            const r = await fetch('/api/admin/backup', {
+                                                method: 'POST',
+                                                headers: { 'Content-Type': 'application/json' },
+                                                body: JSON.stringify({ action: 'backup' }),
+                                            });
+                                            const data = await r.json();
+                                            if (data.success) {
+                                                showToast.success(`تم إنشاء نسخة احتياطية بـ ${data.total} سجل`);
+                                                setBackups([{ file: data.file, timestamp: new Date().toISOString(), total: data.total }, ...backups]);
+                                            }
+                                        } finally { setBackingUp(false); }
+                                    }}
+                                    disabled={backingUp}
+                                    className="p-8 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl hover:bg-emerald-500/20 transition-all disabled:opacity-50 group"
+                                >
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <div className="p-4 bg-emerald-500/20 rounded-xl group-hover:bg-emerald-500/30 transition-all">
+                                            <FiSave className="text-emerald-400" size={28} />
+                                        </div>
+                                        <span className="font-bold text-emerald-400 text-lg">إنشاء نسخة احتياطية</span>
+                                    </div>
+                                    <p className="text-sm text-gray-500">احفظ كل بيانات المنصة في ملف JSON</p>
+                                    {backingUp && (
+                                        <div className="mt-4 flex items-center gap-2">
+                                            <div className="w-5 h-5 border-2 border-emerald-500/30 border-t-emerald-400 rounded-full animate-spin" />
+                                            <span className="text-sm text-emerald-400">جاري النسخ...</span>
+                                        </div>
+                                    )}
+                                </button>
+
+                                <button
+                                    onClick={async () => {
+                                        if (!confirm('⚠️ هل أنت متأكد؟ سيتم استبدال جميع البيانات الحالية!')) return;
+                                        setRestoring(true);
+                                        try {
+                                            const r = await fetch('/api/admin/backup', {
+                                                method: 'POST',
+                                                headers: { 'Content-Type': 'application/json' },
+                                                body: JSON.stringify({ action: 'restore' }),
+                                            });
+                                            const data = await r.json();
+                                            if (data.success) {
+                                                showToast.success('تم استعادة البيانات بنجاح!');
+                                                window.location.reload();
+                                            }
+                                        } finally { setRestoring(false); }
+                                    }}
+                                    disabled={restoring || backups.length === 0}
+                                    className="p-8 bg-blue-500/10 border border-blue-500/20 rounded-2xl hover:bg-blue-500/20 transition-all disabled:opacity-50 group"
+                                >
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <div className="p-4 bg-blue-500/20 rounded-xl group-hover:bg-blue-500/30 transition-all">
+                                            <FiRefreshCw className="text-blue-400" size={28} />
+                                        </div>
+                                        <span className="font-bold text-blue-400 text-lg">استعادة البيانات</span>
+                                    </div>
+                                    <p className="text-sm text-gray-500">استرجع البيانات من آخر نسخة احتياطية</p>
+                                    {restoring && (
+                                        <div className="mt-4 flex items-center gap-2">
+                                            <div className="w-5 h-5 border-2 border-blue-500/30 border-t-blue-400 rounded-full animate-spin" />
+                                            <span className="text-sm text-blue-400">جاري الاستعادة...</span>
+                                        </div>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Backups List */}
+                        <div className="bg-[#0A0A0A] border border-white/10 rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20 overflow-x-auto">
+                            <h3 className="text-xl font-bold text-[#10B981] mb-10 tracking-widest flex items-center gap-3">
+                                <FiFileText className="text-[#10B981]" /> النسخ الاحتياطية المحفوظة
+                            </h3>
+                            
+                            {loadingBackups ? (
+                                <div className="flex items-center justify-center py-12">
+                                    <div className="w-8 h-8 border-4 border-[#10B981]/30 border-t-[#10B981] rounded-full animate-spin" />
+                                </div>
+                            ) : backups.length === 0 ? (
+                                <div className="text-center py-12">
+                                    <div className="w-16 h-16 bg-[#111111] border border-white/10 rounded-xl flex items-center justify-center mx-auto mb-4 text-[#10B981]">
+                                        <FiDatabase size={24} />
+                                    </div>
+                                    <h4 className="font-bold text-gray-400 mb-2">لا توجد نسخ احتياطية</h4>
+                                    <p className="text-xs text-gray-600">أنشئ نسختك الأولى من الأعلى</p>
+                                </div>
+                            ) : (
+                                <div className="space-y-4">
+                                    {backups.map((backup: any, idx: number) => (
+                                        <div key={idx} className="p-6 bg-[#111111]/50 border border-white/10 rounded-2xl hover:border-[#10B981]/30 transition-all">
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-400">
+                                                        <FiSave size={20} />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="font-bold text-white">{backup.file?.split('/').pop() || `Backup ${idx + 1}`}</h4>
+                                                        <p className="text-xs text-gray-500">{new Date(backup.timestamp).toLocaleString('ar-SA')}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="flex items-center gap-6">
+                                                    <div className="text-center">
+                                                        <div className="text-2xl font-bold text-[#10B981]">{backup.total || 0}</div>
+                                                        <div className="text-xs text-gray-500">سجل</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Instructions */}
+                        <div className="bg-yellow-500/5 border border-yellow-500/20 rounded-[2.5rem] p-8">
+                            <h4 className="font-bold text-yellow-400 mb-4 flex items-center gap-2">
+                                <FiAlertCircle /> نصائح مهمة
+                            </h4>
+                            <ul className="space-y-2 text-sm text-gray-400">
+                                <li>• أنشئ نسخة احتياطية يومياً على الأقل</li>
+                                <li>• احتفظ بنسخة خارجية (Google Drive, Dropbox)</li>
+                                <li>• جرب استعادة البيانات كل فترة للتأكد من صحة النسخ</li>
+                                <li>• النسخ الاحتياطي يشمل: المستخدمين، المنتجات، الطلبات، الإعدادات</li>
+                            </ul>
                         </div>
                     </div>
                 )}

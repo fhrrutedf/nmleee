@@ -10,7 +10,8 @@
     "lint": "next lint",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
-    "db:seed": "node prisma/seed.js"
+    "db:seed": "node prisma/seed.js",
+    "seed": "ts-node scripts/seed.ts"
   },
   "dependencies": {
     "@novu/node": "^0.24.0",
