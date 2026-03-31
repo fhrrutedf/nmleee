@@ -8,7 +8,7 @@ import {
     FiBarChart2, FiActivity, FiUserCheck, FiPackage,
     FiDownload, FiSend, FiSlash, FiUnlock, FiTag, FiLink, FiTarget,
     FiPlusCircle, FiPieChart, FiSearch, FiUser, FiStar, FiZap, FiBox,
-    FiLayers, FiClock, FiCheckCircle
+    FiLayers, FiClock, FiCheckCircle, FiFileText
 } from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
@@ -98,6 +98,12 @@ export default function AdminDashboardPage() {
     const [subscriptionData, setSubscriptionData] = useState<any>(null);
     const [loadingSubscriptions, setLoadingSubscriptions] = useState(false);
 
+    // Reports State
+    const [reports, setReports] = useState<any[]>([]);
+    const [loadingReports, setLoadingReports] = useState(false);
+    const [selectedReport, setSelectedReport] = useState<any>(null);
+    const [generatingReport, setGeneratingReport] = useState(false);
+
     const [showBroadcast, setShowBroadcast] = useState(false);
     const [broadcast, setBroadcast] = useState({ subject: '', message: '', target: 'sellers' });
     const [sending, setSending] = useState(false);
@@ -129,7 +135,15 @@ export default function AdminDashboardPage() {
 
         if (fetchers[activeTab]) {
             setMarketingLoading(true);
-            fetchers[activeTab]().finally(() => setMarketingLoading(false));
+            fetchers[activeTab] && fetchers[activeTab]().finally(() => setMarketingLoading(false));
+        }
+
+        if (activeTab === 'reports') {
+            setLoadingReports(true);
+            fetch('/api/admin/reports?limit=10')
+                .then(r => r.json())
+                .then(d => setReports(d.reports || []))
+                .finally(() => setLoadingReports(false));
         }
     }, [activeTab]);
 
@@ -223,6 +237,7 @@ export default function AdminDashboardPage() {
         { id: 'payouts', icon: FiDollarSign, label: 'السحوبات', badge: 0 },
         { id: 'users', icon: FiUsers, label: 'الأوزيرز', badge: 0 },
         { id: 'verification', icon: FiShield, label: 'التوثيق', badge: ov.pendingVerifications || 0 },
+        { id: 'reports', icon: FiFileText, label: 'التقارير', badge: 0 },
         { id: 'broadcasts', icon: FiSend, label: 'البث', badge: 0 },
     ];
 
@@ -565,6 +580,168 @@ export default function AdminDashboardPage() {
                                 <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">ابدأ بإضافة باقات وجذب المشتركين</p>
                             </div>
                         )}
+                    </div>
+                )}
+
+                {/* Reports Tab */}
+                {activeTab === 'reports' && (
+                    <div className="space-y-10">
+                        {/* Generate Report Section */}
+                        <div className="bg-[#0A0A0A] border border-white/10 rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20">
+                            <div className="flex items-center justify-between mb-10">
+                                <h3 className="text-xl font-bold text-[#10B981] tracking-widest flex items-center gap-3">
+                                    <FiFileText className="text-[#10B981]" /> إنشاء تقرير جديد
+                                </h3>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                                <button
+                                    onClick={async () => {
+                                        setGeneratingReport(true);
+                                        try {
+                                            const r = await fetch('/api/admin/reports', {
+                                                method: 'POST',
+                                                headers: { 'Content-Type': 'application/json' },
+                                                body: JSON.stringify({ type: 'daily', period: '24h', title: 'التقرير اليومي' }),
+                                            });
+                                            const data = await r.json();
+                                            if (data.success) {
+                                                showToast.success('تم إنشاء التقرير اليومي');
+                                                setReports([data.report, ...reports]);
+                                            }
+                                        } finally { setGeneratingReport(false); }
+                                    }}
+                                    disabled={generatingReport}
+                                    className="p-6 bg-emerald-500/10 border border-emerald-500/20 rounded-xl hover:bg-emerald-500/20 transition-all disabled:opacity-50"
+                                >
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <FiActivity className="text-emerald-400" />
+                                        <span className="font-bold text-emerald-400">تقرير يومي</span>
+                                    </div>
+                                    <p className="text-xs text-gray-500">آخر 24 ساعة</p>
+                                </button>
+                                <button
+                                    onClick={async () => {
+                                        setGeneratingReport(true);
+                                        try {
+                                            const r = await fetch('/api/admin/reports', {
+                                                method: 'POST',
+                                                headers: { 'Content-Type': 'application/json' },
+                                                body: JSON.stringify({ type: 'weekly', period: '7d', title: 'التقرير الأسبوعي' }),
+                                            });
+                                            const data = await r.json();
+                                            if (data.success) {
+                                                showToast.success('تم إنشاء التقرير الأسبوعي');
+                                                setReports([data.report, ...reports]);
+                                            }
+                                        } finally { setGeneratingReport(false); }
+                                    }}
+                                    disabled={generatingReport}
+                                    className="p-6 bg-blue-500/10 border border-blue-500/20 rounded-xl hover:bg-blue-500/20 transition-all disabled:opacity-50"
+                                >
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <FiPieChart className="text-blue-400" />
+                                        <span className="font-bold text-blue-400">تقرير أسبوعي</span>
+                                    </div>
+                                    <p className="text-xs text-gray-500">آخر 7 أيام</p>
+                                </button>
+                                <button
+                                    onClick={async () => {
+                                        setGeneratingReport(true);
+                                        try {
+                                            const r = await fetch('/api/admin/reports', {
+                                                method: 'POST',
+                                                headers: { 'Content-Type': 'application/json' },
+                                                body: JSON.stringify({ type: 'monthly', period: '30d', title: 'التقرير الشهري' }),
+                                            });
+                                            const data = await r.json();
+                                            if (data.success) {
+                                                showToast.success('تم إنشاء التقرير الشهري');
+                                                setReports([data.report, ...reports]);
+                                            }
+                                        } finally { setGeneratingReport(false); }
+                                    }}
+                                    disabled={generatingReport}
+                                    className="p-6 bg-purple-500/10 border border-purple-500/20 rounded-xl hover:bg-purple-500/20 transition-all disabled:opacity-50"
+                                >
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <FiBarChart2 className="text-purple-400" />
+                                        <span className="font-bold text-purple-400">تقرير شهري</span>
+                                    </div>
+                                    <p className="text-xs text-gray-500">آخر 30 يوم</p>
+                                </button>
+                            </div>
+                            {generatingReport && (
+                                <div className="flex items-center justify-center py-8">
+                                    <div className="w-8 h-8 border-4 border-[#10B981]/30 border-t-[#10B981] rounded-full animate-spin" />
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Reports List */}
+                        <div className="bg-[#0A0A0A] border border-white/10 rounded-[2.5rem] p-10 shadow-lg shadow-[#10B981]/20 overflow-x-auto">
+                            <h3 className="text-xl font-bold text-[#10B981] mb-10 tracking-widest flex items-center gap-3">
+                                <FiFileText className="text-[#10B981]" /> التقارير المحفوظة
+                            </h3>
+                            {loadingReports ? (
+                                <div className="flex items-center justify-center py-12">
+                                    <div className="w-8 h-8 border-4 border-[#10B981]/30 border-t-[#10B981] rounded-full animate-spin" />
+                                </div>
+                            ) : reports.length === 0 ? (
+                                <div className="text-center py-12">
+                                    <div className="w-16 h-16 bg-[#111111] border border-white/10 rounded-xl flex items-center justify-center mx-auto mb-4 text-[#10B981]">
+                                        <FiFileText size={24} />
+                                    </div>
+                                    <h4 className="font-bold text-gray-400 mb-2">لا توجد تقارير حالياً</h4>
+                                    <p className="text-xs text-gray-600">قم بإنشاء تقرير جديد من الأعلى</p>
+                                </div>
+                            ) : (
+                                <div className="space-y-4">
+                                    {reports.map((report: any) => (
+                                        <div key={report.id} className="p-6 bg-[#111111]/50 border border-white/10 rounded-2xl hover:border-[#10B981]/30 transition-all">
+                                            <div className="flex items-center justify-between mb-4">
+                                                <div className="flex items-center gap-4">
+                                                    <div className={`p-3 rounded-xl ${
+                                                        report.type === 'daily' ? 'bg-emerald-500/10 text-emerald-400' :
+                                                        report.type === 'weekly' ? 'bg-blue-500/10 text-blue-400' :
+                                                        'bg-purple-500/10 text-purple-400'
+                                                    }`}>
+                                                        <FiFileText size={20} />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="font-bold text-white">{report.title}</h4>
+                                                        <p className="text-xs text-gray-500">{new Date(report.generatedAt).toLocaleString('ar-SA')}</p>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    onClick={() => setSelectedReport(report)}
+                                                    className="px-4 py-2 bg-emerald-700 text-white rounded-lg text-xs font-bold hover:bg-emerald-600 transition-all"
+                                                >
+                                                    عرض التفاصيل
+                                                </button>
+                                            </div>
+                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                                                <div className="p-3 bg-[#0A0A0A] rounded-xl">
+                                                    <div className="text-lg font-bold text-[#10B981]">{report.summary?.newUsers || 0}</div>
+                                                    <div className="text-xs text-gray-500">مستخدمين جدد</div>
+                                                </div>
+                                                <div className="p-3 bg-[#0A0A0A] rounded-xl">
+                                                    <div className="text-lg font-bold text-[#10B981]">{report.summary?.periodOrders || 0}</div>
+                                                    <div className="text-xs text-gray-500">طلبات</div>
+                                                </div>
+                                                <div className="p-3 bg-[#0A0A0A] rounded-xl">
+                                                    <div className="text-lg font-bold text-[#10B981]">${fmt(report.summary?.periodRevenue || 0)}</div>
+                                                    <div className="text-xs text-gray-500">إيرادات</div>
+                                                </div>
+                                                <div className="p-3 bg-[#0A0A0A] rounded-xl">
+                                                    <div className="text-lg font-bold text-[#10B981]">{report.alerts?.length || 0}</div>
+                                                    <div className="text-xs text-gray-500">تنبيهات</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 )}
 

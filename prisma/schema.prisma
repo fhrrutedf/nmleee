@@ -1524,3 +1524,68 @@ model ProductView {
   @@index([createdAt])
 }
 
+// ─── Automated Reports System ─────────────────────────────
+model AutomatedReport {
+  id          String   @id @default(uuid())
+  type        String   // "daily", "weekly", "monthly", "custom"
+  title       String
+  period      String   // "24h", "7d", "30d", "90d"
+  
+  // Report Data
+  summary     Json     // { totalUsers, newUsers, totalOrders, totalRevenue, etc. }
+  topSellers  Json     // Array of top performing sellers
+  topProducts Json     // Array of top selling products
+  alerts      Json     // Array of alerts and warnings
+  charts      Json     // Chart data for visualizations
+  
+  // Status
+  status      String   @default("generated") // "generating", "generated", "failed"
+  generatedAt DateTime @default(now())
+  
+  // Optional: Email delivery
+  emailSent   Boolean  @default(false)
+  emailSentAt DateTime?
+  recipients  String[] @default([])
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([type])
+  @@index([generatedAt])
+  @@index([status])
+}
+
+// ─── Platform Event Log ───────────────────────────────────
+model PlatformEvent {
+  id          String   @id @default(uuid())
+  eventType   String   // "user_signup", "order_completed", "payout_requested", "verification_submitted", etc.
+  severity    String   @default("info") // "info", "warning", "error", "success"
+  
+  // Event Data
+  title       String
+  description String?
+  metadata    Json?    // Additional event-specific data
+  
+  // Actor (who triggered the event)
+  actorId     String?
+  actorType   String?  // "user", "system", "admin", "webhook"
+  actorName   String?
+  
+  // Related entities
+  userId      String?
+  orderId     String?
+  productId   String?
+  
+  // IP and location (for security events)
+  ipAddress   String?
+  userAgent   String?
+  
+  createdAt   DateTime @default(now())
+  
+  @@index([eventType])
+  @@index([severity])
+  @@index([createdAt])
+  @@index([actorId])
+  @@index([userId])
+}
+
