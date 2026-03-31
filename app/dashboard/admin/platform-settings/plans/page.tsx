@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FiPlus, FiSave, FiTag, FiCheckCircle, FiActivity } from 'react-icons/fi';
+import { FiPlus, FiSave, FiTag, FiCheckCircle, FiActivity, FiEdit2, FiTrash2, FiPower, FiX } from 'react-icons/fi';
 import showToast from '@/lib/toast';
 
 interface SubscriptionPlan {
@@ -96,6 +96,107 @@ export default function AdminPlansManagement() {
         setNewPlan({ ...newPlan, features: feats });
     };
 
+    // Edit Plan State
+    const [editingPlan, setEditingPlan] = useState<SubscriptionPlan | null>(null);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+    const handleTogglePlan = async (planId: string, currentStatus: boolean) => {
+        try {
+            const res = await fetch(`/api/admin/plans/${planId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ isActive: !currentStatus })
+            });
+            
+            if (res.ok) {
+                showToast.success(currentStatus ? 'تم تعطيل الباقة' : 'تم تفعيل الباقة');
+                fetchPlans();
+            } else {
+                showToast.error('فشل تحديث الباقة');
+            }
+        } catch (error) {
+            showToast.error('حدث خطأ');
+        }
+    };
+
+    const handleDeletePlan = async (planId: string) => {
+        if (!confirm('هل أنت متأكد من حذف هذه الباقة؟ لا يمكن التراجع عن هذا الإجراء.')) return;
+        
+        try {
+            const res = await fetch(`/api/admin/plans/${planId}`, {
+                method: 'DELETE'
+            });
+            
+            if (res.ok) {
+                showToast.success('تم حذف الباقة بنجاح');
+                fetchPlans();
+            } else {
+                const data = await res.json();
+                showToast.error(data.error || 'فشل حذف الباقة');
+            }
+        } catch (error) {
+            showToast.error('حدث خطأ');
+        }
+    };
+
+    const openEditModal = (plan: SubscriptionPlan) => {
+        setEditingPlan(plan);
+        setIsEditModalOpen(true);
+    };
+
+    const handleEditPlan = async () => {
+        if (!editingPlan) return;
+        
+        try {
+            const res = await fetch(`/api/admin/plans/${editingPlan.id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(editingPlan)
+            });
+            
+            if (res.ok) {
+                showToast.success('تم تحديث الباقة بنجاح');
+                setIsEditModalOpen(false);
+                setEditingPlan(null);
+                fetchPlans();
+            } else {
+                const data = await res.json();
+                showToast.error(data.error || 'فشل تحديث الباقة');
+            }
+        } catch (error) {
+            showToast.error('حدث خطأ');
+        }
+    };
+
+    const handleEditFeatureChange = (index: number, val: string) => {
+        if (!editingPlan) return;
+        const feats = [...editingPlan.features];
+        feats[index] = val;
+        setEditingPlan({ ...editingPlan, features: feats });
+    };
+
+    const addEditFeatureField = () => {
+        if (!editingPlan) return;
+        setEditingPlan({ ...editingPlan, features: [...editingPlan.features, ''] });
+    };
+
+    const removeEditFeatureField = (index: number) => {
+        if (!editingPlan) return;
+        const feats = editingPlan.features.filter((_, i) => i !== index);
+        setEditingPlan({ ...editingPlan, features: feats });
+    };
+
+    // Get plan type color
+    const getPlanTypeColor = (planType: string) => {
+        switch (planType) {
+            case 'FREE': return 'bg-gray-500/20 text-gray-400';
+            case 'GROWTH': return 'bg-blue-500/20 text-blue-400';
+            case 'PRO': return 'bg-emerald-500/20 text-emerald-400';
+            case 'AGENCY': return 'bg-purple-500/20 text-purple-400';
+            default: return 'bg-gray-500/20 text-gray-400';
+        }
+    };
+
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
@@ -135,15 +236,20 @@ export default function AdminPlansManagement() {
                         <div className="grid md:grid-cols-2 gap-6">
                             {plans.map((plan) => (
                                 <div key={plan.id} className="bg-[#0A0A0A] p-6 rounded-xl border border-white/10 hover:border-[#10B981]/50 transition-colors relative shadow-lg">
+                                    {/* Plan Type Badge */}
+                                    <div className={`absolute top-4 right-4 text-xs px-3 py-1 rounded-lg font-bold ${getPlanTypeColor(plan.planType)}`}>
+                                        {plan.planType}
+                                    </div>
+                                    
                                     {!plan.isActive && <div className="absolute top-4 left-4 text-xs bg-red-500/20 text-red-500 px-2 py-1 rounded font-bold">معطلة</div>}
                                     
-                                    <div className="mb-4">
+                                    <div className="mb-4 mt-8">
                                         <h3 className="text-2xl font-bold text-white">{plan.name}</h3>
                                         <p className="text-sm text-gray-400 mt-1 h-10">{plan.description}</p>
                                     </div>
                                     
                                     <div className="text-3xl font-black text-[#10B981] mb-6">
-                                        ${plan.price} <span className="text-sm text-gray-500 font-normal">/ {plan.interval === 'month' ? 'شهر' : 'سنة'}</span>
+                                        ${plan.price} <span className="text-sm text-gray-500 font-normal">/ {plan.interval === 'month' ? 'شهر' : plan.interval === 'year' ? 'سنة' : 'مدى الحياة'}</span>
                                     </div>
 
                                     <div className="space-y-3 mb-6 flex-1 min-h-[120px]">
@@ -153,6 +259,30 @@ export default function AdminPlansManagement() {
                                                 <span>{feature}</span>
                                             </div>
                                         ))}
+                                    </div>
+                                    
+                                    {/* Action Buttons */}
+                                    <div className="flex gap-2 mb-4">
+                                        <button 
+                                            onClick={() => openEditModal(plan)}
+                                            className="flex-1 py-2 bg-emerald-800 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"
+                                        >
+                                            <FiEdit2 size={16} /> تعديل
+                                        </button>
+                                        <button 
+                                            onClick={() => handleTogglePlan(plan.id, plan.isActive)}
+                                            className={`px-3 py-2 rounded-lg transition-colors ${plan.isActive ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-green-500/10 text-green-400 hover:bg-green-500/20'}`}
+                                            title={plan.isActive ? 'تعطيل' : 'تفعيل'}
+                                        >
+                                            <FiPower size={16} />
+                                        </button>
+                                        <button 
+                                            onClick={() => handleDeletePlan(plan.id)}
+                                            className="px-3 py-2 bg-red-500/10 text-red-500 rounded-lg hover:bg-red-500/20 transition-colors"
+                                            title="حذف"
+                                        >
+                                            <FiTrash2 size={16} />
+                                        </button>
                                     </div>
                                     
                                     <div className="flex items-center justify-between border-t border-white/10 pt-4 mt-4">
@@ -272,6 +402,125 @@ export default function AdminPlansManagement() {
                     </div>
                 </div>
             </div>
+
+            {/* Edit Modal */}
+            {isEditModalOpen && editingPlan && (
+                <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+                    <div className="bg-[#0A0A0A] rounded-xl border border-[#10B981]/30 shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+                        <div className="p-6 border-b border-white/10 flex items-center justify-between">
+                            <h3 className="text-xl font-bold text-white">✏️ تعديل الباقة</h3>
+                            <button 
+                                onClick={() => setIsEditModalOpen(false)}
+                                className="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-white/10"
+                            >
+                                <FiX size={20} />
+                            </button>
+                        </div>
+                        
+                        <div className="p-6 space-y-4">
+                            <div>
+                                <label className="text-xs font-bold text-gray-400 block mb-2">اسم الباقة</label>
+                                <input 
+                                    type="text" 
+                                    value={editingPlan.name}
+                                    onChange={e => setEditingPlan({...editingPlan, name: e.target.value})}
+                                    className="w-full bg-[#111] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#10B981] outline-none"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="text-xs font-bold text-gray-400 block mb-2">نوع الباقة (PlanType)</label>
+                                <select 
+                                    value={editingPlan.planType}
+                                    onChange={e => setEditingPlan({...editingPlan, planType: e.target.value})}
+                                    className="w-full bg-[#111] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#10B981] outline-none"
+                                >
+                                    <option value="FREE">FREE (مجاني)</option>
+                                    <option value="GROWTH">GROWTH (نمو)</option>
+                                    <option value="PRO">PRO (احترافي)</option>
+                                    <option value="AGENCY">AGENCY (وكالة)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label className="text-xs font-bold text-gray-400 block mb-2">السعر (USD)</label>
+                                <input 
+                                    type="number" 
+                                    value={editingPlan.price}
+                                    onChange={e => setEditingPlan({...editingPlan, price: parseFloat(e.target.value)})}
+                                    className="w-full bg-[#111] border border-white/10 rounded-lg px-4 py-3 text-white text-left font-mono focus:border-[#10B981] outline-none"
+                                    dir="ltr"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="text-xs font-bold text-gray-400 block mb-2">دورة التجديد</label>
+                                <select 
+                                    value={editingPlan.interval}
+                                    onChange={e => setEditingPlan({...editingPlan, interval: e.target.value})}
+                                    className="w-full bg-[#111] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#10B981] outline-none"
+                                >
+                                    <option value="month">شهري (Month)</option>
+                                    <option value="year">سنوي (Year)</option>
+                                    <option value="lifetime">مدى الحياة (Lifetime)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label className="text-xs font-bold text-gray-400 block mb-2">الوصف</label>
+                                <input 
+                                    type="text" 
+                                    value={editingPlan.description}
+                                    onChange={e => setEditingPlan({...editingPlan, description: e.target.value})}
+                                    className="w-full bg-[#111] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#10B981] outline-none"
+                                />
+                            </div>
+
+                            <div className="pt-2">
+                                <label className="text-xs font-bold text-gray-400 block mb-2 flex items-center justify-between">
+                                    <span>الميزات المدرجة</span>
+                                    <button onClick={addEditFeatureField} className="text-[#10B981] hover:text-emerald-400 text-xs bg-emerald-900/30 px-2 py-1 rounded flex items-center gap-1">
+                                        <FiPlus /> إضافة
+                                    </button>
+                                </label>
+                                <div className="space-y-2">
+                                    {editingPlan.features.map((feat, idx) => (
+                                        <div key={idx} className="flex gap-2">
+                                            <input 
+                                                type="text" 
+                                                value={feat}
+                                                onChange={e => handleEditFeatureChange(idx, e.target.value)}
+                                                placeholder="مثال: إنشاء 5 كورسات"
+                                                className="flex-1 bg-[#111] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-[#10B981] outline-none"
+                                            />
+                                            {editingPlan.features.length > 1 && (
+                                                <button onClick={() => removeEditFeatureField(idx)} className="text-red-500 p-2 hover:bg-red-500/10 rounded-lg shrink-0">
+                                                    ✕
+                                                </button>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="p-6 border-t border-white/10 flex gap-3">
+                            <button 
+                                onClick={handleEditPlan}
+                                className="flex-1 bg-[#10B981] hover:bg-emerald-600 text-black font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition-all"
+                            >
+                                <FiSave /> حفظ التغييرات
+                            </button>
+                            <button 
+                                onClick={() => setIsEditModalOpen(false)}
+                                className="flex-1 bg-emerald-800 text-gray-300 hover:bg-gray-700 font-bold py-3 rounded-lg transition-all"
+                            >
+                                إلغاء
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
