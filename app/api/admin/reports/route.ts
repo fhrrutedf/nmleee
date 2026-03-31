@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
             prisma.order.aggregate({ where: { isPaid: true }, _sum: { totalAmount: true } }),
             prisma.order.aggregate({ where: { isPaid: true, paidAt: { gte: since } }, _sum: { totalAmount: true } }),
             prisma.order.count({ where: { status: 'PENDING' } }),
-            prisma.user.count({ where: { verificationStatus: 'PENDING' } }),
+            prisma.verificationRequest.count({ where: { status: 'PENDING' } }),
             prisma.payout.count({ where: { status: 'PENDING' } }),
             prisma.user.count({ where: { role: 'SELLER', isActive: true } }),
             prisma.user.groupBy({
