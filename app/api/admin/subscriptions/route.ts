@@ -57,7 +57,6 @@ export async function GET(req: NextRequest) {
                 email: true,
                 planType: true,
                 planExpiresAt: true,
-                image: true,
                 createdAt: true,
                 _count: {
                     select: {
