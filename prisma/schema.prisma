@@ -129,6 +129,14 @@ model User {
   ticketMessages SupportTicketMessage[] @relation("TicketMessages")
   blogPosts     BlogPost[]
 
+  // CRM System Relations
+  crmContacts   CRMContact[]
+  crmTags       CRMTag[]
+  crmDeals      CRMDeal[]
+  crmTasks      CRMTask[]
+  crmCommunications CRMCommunication[]
+  crmSettings   CRMSettings?
+
   // Admin Control
   custom_commission_rate Float?      // عمولة مخصصة لهذا البائع (تتخطى عمولة الاشتراك)
   commission_note        String?     // ملاحظة حول العمولة المخصصة
@@ -454,6 +462,10 @@ model Order {
   
   couponUsages   CouponUsage[]
   affiliateSales AffiliateSale[]
+  
+  // CRM Relations
+  crmContact   CRMContact? @relation(fields: [crmContactId], references: [id])
+  crmContactId  String?
 }
 
 // ============================================
@@ -676,6 +688,10 @@ model CourseEnrollment {
   
   lessonProgress LessonProgress[]
   certificate    Certificate?
+  
+  // CRM Relations
+  crmContact   CRMContact? @relation(fields: [crmContactId], references: [id])
+  crmContactId  String?
   
   @@unique([courseId, studentEmail]) // One enrollment per student per course
   @@index([studentEmail])
@@ -1622,37 +1638,229 @@ model AutomatedReport {
   @@index([status])
 }
 
-// ─── Platform Event Log ───────────────────────────────────
-model PlatformEvent {
+// ============================================
+// CRM SYSTEM - Contact & Pipeline Management
+// ============================================
+
+model CRMContact {
   id          String   @id @default(uuid())
-  eventType   String   // "user_signup", "order_completed", "payout_requested", "verification_submitted", etc.
-  severity    String   @default("info") // "info", "warning", "error", "success"
   
-  // Event Data
-  title       String
-  description String?
-  metadata    Json?    // Additional event-specific data
+  // Contact Info
+  email       String
+  name        String
+  phone       String?
+  company     String?
   
-  // Actor (who triggered the event)
-  actorId     String?
-  actorType   String?  // "user", "system", "admin", "webhook"
-  actorName   String?
+  // Source tracking
+  source      String   @default("manual") // manual, website, referral, social_media
+  sourceDetails String?
   
-  // Related entities
-  userId      String?
-  orderId     String?
-  productId   String?
+  // Status
+  status      String   @default("lead") // lead, prospect, customer, churned
   
-  // IP and location (for security events)
-  ipAddress   String?
-  userAgent   String?
+  // Custom fields (JSON for flexibility)
+  customFields Json?   @default("{}")
+  
+  // Notes
+  notes       String?
+  
+  // Tags relation
+  tags        CRMTag[]
+  
+  // Relations to existing data
+  orders      Order[]  // Linked orders
+  enrollments CourseEnrollment[] // Linked course enrollments
+  
+  // Owner (seller/instructor)
+  ownerId     String
+  owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  
+  // Related records
+  deals       CRMDeal[]
+  tasks       CRMTask[]
+  communications CRMCommunication[]
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  lastContactedAt DateTime?
+  
+  @@index([ownerId])
+  @@index([email])
+  @@index([status])
+  @@index([source])
+}
+
+model CRMTag {
+  id          String   @id @default(uuid())
+  name        String
+  color       String   @default("#10B981") // Hex color
+  
+  ownerId     String
+  owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  
+  contacts    CRMContact[]
   
   createdAt   DateTime @default(now())
   
-  @@index([eventType])
-  @@index([severity])
-  @@index([createdAt])
-  @@index([actorId])
-  @@index([userId])
+  @@unique([ownerId, name])
+  @@index([ownerId])
 }
 
+model CRMDeal {
+  id          String   @id @default(uuid())
+  
+  // Deal info
+  title       String
+  description String?
+  value       Float    @default(0)
+  currency    String   @default("USD")
+  
+  // Pipeline stage
+  stage       String   @default("lead") // lead, qualified, proposal, negotiation, won, lost
+  
+  // Probability of closing
+  probability Int?     @default(0) // 0-100
+  
+  // Expected close date
+  expectedCloseDate DateTime?
+  
+  // Actual close date
+  closedAt    DateTime?
+  
+  // Loss reason
+  lossReason  String?
+  
+  // Related contact
+  contactId   String
+  contact     CRMContact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  
+  // Owner
+  ownerId     String
+  owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  
+  // Related product/course
+  productId   String?
+  courseId    String?
+  
+  // Tasks and communications
+  tasks       CRMTask[]
+  communications CRMCommunication[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([ownerId])
+  @@index([contactId])
+  @@index([stage])
+  @@index([expectedCloseDate])
+}
+
+model CRMTask {
+  id          String   @id @default(uuid())
+  
+  title       String
+  description String?
+  
+  // Due date
+  dueDate     DateTime?
+  completedAt DateTime?
+  
+  // Priority
+  priority    String   @default("medium") // low, medium, high
+  
+  // Status
+  status      String   @default("pending") // pending, in_progress, completed, cancelled
+  
+  // Task type
+  type        String   @default("general") // call, email, meeting, follow_up, general
+  
+  // Related to
+  contactId   String?
+  contact     CRMContact? @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  
+  dealId      String?
+  deal        CRMDeal?   @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  
+  // Owner
+  ownerId     String
+  owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([ownerId])
+  @@index([contactId])
+  @@index([dealId])
+  @@index([status])
+  @@index([dueDate])
+}
+
+model CRMCommunication {
+  id          String   @id @default(uuid())
+  
+  // Type
+  type        String   // email, call, meeting, note, sms, whatsapp
+  
+  // Direction
+  direction   String   @default("outbound") // inbound, outbound
+  
+  // Content
+  subject     String?
+  content     String   @db.Text
+  
+  // Call specific
+  callDuration Int?    // in seconds
+  callRecordingUrl String?
+  
+  // Email specific
+  emailStatus String?  // sent, delivered, opened, bounced
+  
+  // Related to
+  contactId   String
+  contact     CRMContact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  
+  dealId      String?
+  deal        CRMDeal?   @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  
+  // Owner (who made the communication)
+  ownerId     String
+  owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  
+  @@index([ownerId])
+  @@index([contactId])
+  @@index([dealId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+// ============================================
+// CRM ANALYTICS & SETTINGS
+// ============================================
+
+model CRMSettings {
+  id          String   @id @default(uuid())
+  
+  ownerId     String   @unique
+  owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  
+  // Pipeline stages (customizable)
+  dealStages  String[] @default(["lead", "qualified", "proposal", "negotiation", "won", "lost"])
+  
+  // Task types
+  taskTypes   String[] @default(["call", "email", "meeting", "follow_up", "general"])
+  
+  // Lead sources
+  leadSources String[] @default(["website", "social_media", "referral", "advertisement", "manual"])
+  
+  // Automation settings
+  autoCreateContactsFromOrders Boolean @default(true)
+  autoCreateContactsFromEnrollments Boolean @default(true)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([ownerId])
+}
