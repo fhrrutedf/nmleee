@@ -61,20 +61,33 @@ export async function POST(req: NextRequest) {
                     where: { id: item.id },
                     select: { id: true, price: true, userId: true, title: true }
                 });
+            } else if (item.itemType === 'subscription' || item.type === 'subscription') {
+                // For SaaS subscriptions, use the plan data directly
+                dbItem = await prisma.subscriptionPlan.findUnique({
+                    where: { id: item.planId || item.productId || item.id },
+                    select: { id: true, price: true, name: true, userId: true }
+                });
+                if (dbItem) {
+                    (dbItem as any).title = dbItem.name;
+                    dbItem.userId = dbItem.userId || 'platform';
+                }
             }
 
             if (!dbItem) {
-                return NextResponse.json({ error: `المنتج غير موجود: ${item.id}` }, { status: 404 });
+                return NextResponse.json({ error: `المنتج غير موجود: ${item.id || item.planId}` }, { status: 404 });
             }
 
             // Always use DB price, ignore client price
             const price = dbItem.price || 0;
             totalUSD += price;
             
+            // Handle title mapping for different item types
+            const itemTitle = (dbItem as any).title || (dbItem as any).name || 'Unknown';
+            
             validatedItems.push({
                 ...item,
-                price: price, // Server-side validated price
-                title: dbItem.title,
+                price: price,
+                title: itemTitle,
                 userId: dbItem.userId
             });
 
@@ -143,11 +156,12 @@ export async function POST(req: NextRequest) {
                 availableAt: new Date(Date.now() + escrowDays * 24 * 60 * 60 * 1000),
                 items: {
                     create: validatedItems.map((item) => ({
-                        itemType: item.type,
+                        itemType: item.itemType || item.type,
                         productId: item.type === 'product' ? item.id : undefined,
                         courseId: item.type === 'course' ? item.id : undefined,
+                        licenseKeyId: (item.itemType === 'subscription' || item.type === 'subscription') ? (item.planId || item.productId || item.id) : undefined,
                         quantity: 1,
-                        price: item.price, // FIXED: Now uses validated price
+                        price: item.price,
                     })),
                 },
             },
