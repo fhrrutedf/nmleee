@@ -7,8 +7,7 @@ import {
     FiHome, FiShoppingBag, FiVideo, FiCalendar, FiDollarSign,
     FiSettings, FiLogOut, FiMenu, FiX, FiTag, FiLink2,
     FiTrendingUp, FiCreditCard, FiExternalLink, FiGlobe, FiActivity, FiUsers, FiPackage, FiZap, FiDroplet,
-    FiBriefcase, FiBookOpen, FiMessageSquare, FiShield, FiShoppingCart, FiPieChart,
-    FiUser, FiClipboard, FiCheckCircle
+    FiBriefcase, FiBookOpen, FiMessageSquare, FiShield, FiShoppingCart, FiPieChart
 } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
@@ -77,11 +76,6 @@ export default function DashboardLayout({
         { href: '/dashboard/students', icon: FiUsers, label: 'الطلاب والمتعلمين', section: 'customers' },
         { href: '/dashboard/courses/qa', icon: FiMessageSquare, label: 'نقاشات وأسئلة', section: 'customers' },
         
-        // 🤝 CRM Section
-        { href: '/dashboard/crm/contacts', icon: FiUser, label: 'جهات الاتصال', section: 'crm' },
-        { href: '/dashboard/crm/pipeline', icon: FiPieChart, label: 'Pipeline المبيعات', section: 'crm' },
-        { href: '/dashboard/crm/tasks', icon: FiCheckCircle, label: 'المهام والمتابعة', section: 'crm' },
-        
         // 🚀 Growth Section
         { href: '/dashboard/coupons', icon: FiTag, label: 'أكواد الخصم', section: 'growth' },
         { href: '/dashboard/affiliates', icon: FiLink2, label: 'التسويق بالعمولة', section: 'growth' },
@@ -113,7 +107,6 @@ export default function DashboardLayout({
     const productItems = menuItems.filter(item => item.section === 'products');
     const salesItems = menuItems.filter(item => item.section === 'sales');
     const customerItems = menuItems.filter(item => item.section === 'customers');
-    const crmItems = menuItems.filter(item => item.section === 'crm');
     const growthItems = menuItems.filter(item => item.section === 'growth');
     const analyticsItems = menuItems.filter(item => item.section === 'analytics');
     const settingsItems = menuItems.filter(item => item.section === 'settings');
@@ -212,21 +205,6 @@ export default function DashboardLayout({
                                 <div className="mt-4 mb-2">
                                     <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-5 mb-2">👥 العملاء</div>
                                     {customerItems.map((item) => {
-                                        const isActive = pathname.startsWith(item.href);
-                                        return (
-                                            <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
-                                                className={`flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-emerald-700/20 text-emerald-400 border-r-2 border-emerald-500' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
-                                                <item.icon size={16} className={isActive ? 'text-emerald-400' : 'group-hover:text-[#10B981]'} />
-                                                <span className="font-medium flex-1 text-right">{item.label}</span>
-                                            </Link>
-                                        );
-                                    })}
-                                </div>
-
-                                {/* CRM Section */}
-                                <div className="mt-4 mb-2">
-                                    <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-5 mb-2">🤝 إدارة العملاء (CRM)</div>
-                                    {crmItems.map((item) => {
                                         const isActive = pathname.startsWith(item.href);
                                         return (
                                             <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
@@ -376,21 +354,6 @@ export default function DashboardLayout({
                     <div className="mt-4 mb-2">
                         <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-6 mb-2">👥 العملاء</div>
                         {customerItems.map((item) => {
-                            const isActive = pathname.startsWith(item.href);
-                            return (
-                                <Link key={item.href} href={item.href}
-                                    className={`flex items-center gap-4 px-6 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-emerald-700/20 text-emerald-400 border-r-2 border-emerald-500' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
-                                    <item.icon size={16} className={isActive ? 'text-emerald-400' : 'group-hover:text-[#10B981]'} />
-                                    <span className="font-medium tracking-tight flex-1 text-right">{item.label}</span>
-                                </Link>
-                            );
-                        })}
-                    </div>
-
-                    {/* CRM Section */}
-                    <div className="mt-4 mb-2">
-                        <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-6 mb-2">🤝 إدارة العملاء (CRM)</div>
-                        {crmItems.map((item) => {
                             const isActive = pathname.startsWith(item.href);
                             return (
                                 <Link key={item.href} href={item.href}
