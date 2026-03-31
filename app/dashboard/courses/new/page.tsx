@@ -58,7 +58,14 @@ export default function NewCoursePage() {
         isActive: true,
         zoomLink: '',
         meetLink: '',
-        startTime: '', // New field for live sessions
+        startTime: '',
+        level: '',
+        isCertificateEnabled: false,
+        certificateTemplate: '',
+        allowComments: true,
+        requiresQuiz: false,
+        startDate: '',
+        endDate: '',
     });
 
     const [tagInput, setTagInput] = useState('');
@@ -195,6 +202,10 @@ export default function NewCoursePage() {
                     price: parseFloat(formData.price || '0'),
                     sessions: formData.sessions ? parseInt(formData.sessions) : null,
                     prerequisites: formData.prerequisites ? formData.prerequisites.split(',').map(t => t.trim()).filter(Boolean) : [],
+                    level: formData.level || null,
+                    certificateTemplate: formData.isCertificateEnabled ? formData.certificateTemplate : null,
+                    startDate: formData.startDate || null,
+                    endDate: formData.endDate || null,
                 }),
             });
             if (res.ok) {
@@ -284,6 +295,15 @@ export default function NewCoursePage() {
                                                 <option value="لغات">لغات وترجمة</option>
                                                 <option value="أعمال">إدارة وأعمال</option>
                                                 <option value="تسويق">تسويق إلكتروني</option>
+                                            </select>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="label-modern italic">مستوى الصعوبة</label>
+                                            <select className="input-modern bg-[#0A0A0A] font-bold" value={formData.level} onChange={e => update('level', e.target.value)}>
+                                                <option value="">اختر المستوى</option>
+                                                <option value="مبتدئ">مبتدئ 🌱</option>
+                                                <option value="متوسط">متوسط 📈</option>
+                                                <option value="متقدم">متقدم 🚀</option>
                                             </select>
                                         </div>
                                     </div>
@@ -405,6 +425,17 @@ export default function NewCoursePage() {
                                                 <input type="number" className="input-modern" placeholder="مثال: 24" value={formData.sessions} onChange={e => update('sessions', e.target.value)} />
                                             </div>
                                         )}
+
+                                        {/* Start/End Dates for Cohort-based courses */}
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold text-slate-400 italic">تاريخ فتح التسجيل</label>
+                                            <input type="date" className="input-modern" value={formData.startDate} onChange={e => update('startDate', e.target.value)} />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold text-slate-400 italic">تاريخ إغلاق التسجيل</label>
+                                            <input type="date" className="input-modern" value={formData.endDate} onChange={e => update('endDate', e.target.value)} />
+                                            <p className="text-[9px] text-slate-400 font-bold">اتركه فارغاً للدورات المفتوحة دائماً</p>
+                                        </div>
                                     </div>
 
                                     <div className="pt-10 border-t border-white/10">
@@ -425,6 +456,72 @@ export default function NewCoursePage() {
                                             {showAttachmentsUploader && (
                                                 <div className="mt-4 bg-white/90  p-6 rounded-xl border shadow-lg shadow-[#10B981]/20 relative"><FileUploader onUploadSuccess={urls => { update('attachments', [...formData.attachments, ...urls]); setShowAttachmentsUploader(false); }} /></div>
                                             )}
+                                        </div>
+                                    </div>
+
+                                    {/* Certificate & Settings */}
+                                    <div className="pt-10 border-t border-white/10">
+                                        <h3 className="label-modern mb-6 block">إعدادات الشهادة والتفاعل</h3>
+                                        
+                                        <div className="grid md:grid-cols-2 gap-6 mb-6">
+                                            {/* Certificate Toggle */}
+                                            <div 
+                                                className={`p-6 rounded-xl border-2 cursor-pointer transition-all ${formData.isCertificateEnabled ? 'border-emerald-500 bg-emerald-500/10' : 'border-white/10 bg-[#111111]'}`}
+                                                onClick={() => update('isCertificateEnabled', !formData.isCertificateEnabled)}
+                                            >
+                                                <div className="flex items-center justify-between mb-3">
+                                                    <span className="font-bold text-white">🎓 شهادة إتمام</span>
+                                                    <div className={`w-12 h-6 rounded-full flex items-center px-1 transition-all ${formData.isCertificateEnabled ? 'bg-emerald-500' : 'bg-gray-700'}`}>
+                                                        <div className={`w-4 h-4 bg-white rounded-full transition-transform ${formData.isCertificateEnabled ? 'translate-x-6' : 'translate-x-0'}`} />
+                                                    </div>
+                                                </div>
+                                                <p className="text-xs text-gray-400">منح الطلاب شهادة معتمدة عند اجتياز الدورة</p>
+                                            </div>
+
+                                            {/* Comments Toggle */}
+                                            <div 
+                                                className={`p-6 rounded-xl border-2 cursor-pointer transition-all ${formData.allowComments ? 'border-emerald-500 bg-emerald-500/10' : 'border-white/10 bg-[#111111]'}`}
+                                                onClick={() => update('allowComments', !formData.allowComments)}
+                                            >
+                                                <div className="flex items-center justify-between mb-3">
+                                                    <span className="font-bold text-white">💬 التعليقات</span>
+                                                    <div className={`w-12 h-6 rounded-full flex items-center px-1 transition-all ${formData.allowComments ? 'bg-emerald-500' : 'bg-gray-700'}`}>
+                                                        <div className={`w-4 h-4 bg-white rounded-full transition-transform ${formData.allowComments ? 'translate-x-6' : 'translate-x-0'}`} />
+                                                    </div>
+                                                </div>
+                                                <p className="text-xs text-gray-400">السماح للطلاب بالتعليق والسؤال في الدروس</p>
+                                            </div>
+                                        </div>
+
+                                        {/* Certificate Template */}
+                                        {formData.isCertificateEnabled && (
+                                            <div className="mb-6">
+                                                <label className="text-xs font-bold text-gray-400 mb-2 block">قالب الشهادة</label>
+                                                <select 
+                                                    className="input-modern bg-[#0A0A0A] w-full"
+                                                    value={formData.certificateTemplate}
+                                                    onChange={e => update('certificateTemplate', e.target.value)}
+                                                >
+                                                    <option value="">القالب الافتراضي</option>
+                                                    <option value="modern">عصري 🎨</option>
+                                                    <option value="classic">كلاسيكي 📜</option>
+                                                    <option value="minimal">بسيط ✨</option>
+                                                </select>
+                                            </div>
+                                        )}
+
+                                        {/* Quiz Requirement */}
+                                        <div 
+                                            className={`p-6 rounded-xl border-2 cursor-pointer transition-all ${formData.requiresQuiz ? 'border-amber-500 bg-amber-500/10' : 'border-white/10 bg-[#111111]'}`}
+                                            onClick={() => update('requiresQuiz', !formData.requiresQuiz)}
+                                        >
+                                            <div className="flex items-center justify-between mb-3">
+                                                <span className="font-bold text-white">📝 اشتراط اجتياز اختبار</span>
+                                                <div className={`w-12 h-6 rounded-full flex items-center px-1 transition-all ${formData.requiresQuiz ? 'bg-amber-500' : 'bg-gray-700'}`}>
+                                                    <div className={`w-4 h-4 bg-white rounded-full transition-transform ${formData.requiresQuiz ? 'translate-x-6' : 'translate-x-0'}`} />
+                                                </div>
+                                            </div>
+                                            <p className="text-xs text-gray-400">يجب على الطالب اجتياز الاختبار النهائي للحصول على الشهادة</p>
                                         </div>
                                     </div>
 
