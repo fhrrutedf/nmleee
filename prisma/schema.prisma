@@ -1178,6 +1178,27 @@ model Changelog {
 // NOTIFICATIONS & MESSAGING
 // ============================================
 
+model UserGamification {
+  id          String   @id @default(uuid())
+  userEmail   String   @unique
+  userName    String
+  
+  totalPoints Int      @default(0)
+  level       Int      @default(1)
+  achievements String[] @default([])
+  
+  // Streak tracking
+  currentStreak Int    @default(0)
+  longestStreak Int  @default(0)
+  lastActivityAt DateTime @default(now())
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([userEmail])
+  @@index([totalPoints])
+}
+
 model Notification {
   id          String   @id @default(uuid())
   type        String   // "EMAIL" | "INTERNAL"
