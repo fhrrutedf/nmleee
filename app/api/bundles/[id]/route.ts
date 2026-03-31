@@ -71,7 +71,7 @@ export async function PUT(
         if (bundle.userId !== session.user.id) return NextResponse.json({ error: 'ليس لديك صلاحية' }, { status: 403 });
 
         const body = await req.json();
-        const { title, description, price, image, productIds } = body;
+        const { title, description, price, image, productIds, stockLimit } = body;
 
         // Delete existing relations
         await prisma.bundleProduct.deleteMany({
@@ -86,6 +86,7 @@ export async function PUT(
                 description,
                 price: parseFloat(price),
                 image,
+                stockLimit: stockLimit ? parseInt(stockLimit) : null,
                 products: {
                     create: productIds.map((pid: string) => ({
                         product: { connect: { id: pid } }

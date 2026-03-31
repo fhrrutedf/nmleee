@@ -26,6 +26,7 @@ export default function EditBundlePage() {
         price: '',
         image: '',
         productIds: [] as string[],
+        stockLimit: '',
     });
 
     useEffect(() => {
@@ -50,7 +51,8 @@ export default function EditBundlePage() {
                         description: bundle.description || '',
                         price: bundle.price?.toString() || '',
                         image: bundle.image || '',
-                        productIds: bundle.products?.map((bp: any) => bp.product?.id || bp.productId) || []
+                        productIds: bundle.products?.map((bp: any) => bp.product?.id || bp.productId) || [],
+                        stockLimit: bundle.stockLimit?.toString() || ''
                     });
                 } else {
                     showToast.error('لم يتم العثور على الباقة');
@@ -300,6 +302,20 @@ export default function EditBundlePage() {
                                             سيوفر العميل {discountAmount.toFixed(2)} $ !
                                         </div>
                                     )}
+
+                                    {/* Stock Limit Section */}
+                                    <div className="pt-4 border-t border-white/10 dark:border-gray-700">
+                                        <label className="text-sm font-bold text-gray-300 mb-2 block">عدد النسخ المسموح بيعها</label>
+                                        <input
+                                            type="number"
+                                            min="1"
+                                            className="w-full px-4 py-3 rounded-xl border border-slate-600 bg-[#111111] text-xl font-bold text-center focus:ring-2 ring-emerald-500/30 outline-none transition-all"
+                                            placeholder="∞ غير محدود"
+                                            value={formData.stockLimit}
+                                            onChange={(e) => setFormData({ ...formData, stockLimit: e.target.value })}
+                                        />
+                                        <p className="text-xs text-gray-500 mt-2 font-medium">اتركه فارغاً لبيع غير محدود.</p>
+                                    </div>
                                 </div>
                             </div>
 

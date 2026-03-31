@@ -1085,6 +1085,7 @@ model Bundle {
   slug        String?  @unique
   
   isActive    Boolean  @default(true)
+  stockLimit  Int?     // عدد النسخ المسموح بيعها (اختياري)
   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

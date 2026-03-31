@@ -41,7 +41,7 @@ export async function POST(req: Request) {
         }
 
         const userId = session.user.id;
-        const { title, description, price, image, productIds } = await req.json();
+        const { title, description, price, image, productIds, stockLimit } = await req.json();
 
         if (!title || !price || !productIds || productIds.length === 0) {
             return NextResponse.json({ error: 'البيانات غير مكتملة' }, { status: 400 });
@@ -60,6 +60,7 @@ export async function POST(req: Request) {
                 image,
                 slug,
                 userId,
+                stockLimit: stockLimit ? parseInt(stockLimit) : null,
                 products: {
                     create: productIds.map((productId: string) => ({
                         product: {

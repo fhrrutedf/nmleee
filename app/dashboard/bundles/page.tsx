@@ -119,6 +119,12 @@ export default function BundlesPage() {
                                     <FiPackage />
                                     <span>{bundle.products?.length || 0} منتجات</span>
                                 </div>
+                                {bundle.stockLimit && (
+                                    <div className="absolute top-10 right-2 bg-amber-500/80 backdrop-blur-md border border-amber-400/30 text-white text-xs font-bold px-3 py-1 rounded-xl flex items-center gap-1 shadow-lg">
+                                        <FiTag />
+                                        <span>بقي {bundle.stockLimit - (bundle._count?.orderItems || 0)} / {bundle.stockLimit}</span>
+                                    </div>
+                                )}
                                 {!bundle.isActive && (
                                     <div className="absolute top-2 left-2 bg-red-500/80 backdrop-blur-md border border-red-400/30 text-white text-xs font-bold px-3 py-1 rounded-xl flex items-center gap-1 shadow-lg">
                                         <FiPower />
