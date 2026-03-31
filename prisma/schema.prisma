@@ -1864,3 +1864,40 @@ model CRMSettings {
   
   @@index([ownerId])
 }
+
+// ============================================
+// PLATFORM EVENT LOG
+// ============================================
+
+model PlatformEvent {
+  id          String   @id @default(uuid())
+  eventType   String   // "user_signup", "order_completed", "payout_requested", etc.
+  severity    String   @default("info") // "info", "warning", "error", "success"
+  
+  // Event Data
+  title       String
+  description String?
+  metadata    Json?    // Additional event-specific data
+  
+  // Actor (who triggered the event)
+  actorId     String?
+  actorType   String?  // "user", "system", "admin", "webhook"
+  actorName   String?
+  
+  // Related entities
+  userId      String?
+  orderId     String?
+  productId   String?
+  
+  // IP and location (for security events)
+  ipAddress   String?
+  userAgent   String?
+  
+  createdAt   DateTime @default(now())
+  
+  @@index([eventType])
+  @@index([severity])
+  @@index([createdAt])
+  @@index([actorId])
+  @@index([userId])
+}
