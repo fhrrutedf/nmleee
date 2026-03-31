@@ -176,8 +176,10 @@ export async function DELETE(request: Request) {
             where: { id: reviewId }
         });
 
-        // Update course average
-        await updateCourseAverage(review.courseId);
+        // Update course average if it's a course review
+        if (review.courseId) {
+            await updateCourseAverage(review.courseId);
+        }
 
         return NextResponse.json({ success: true });
 
