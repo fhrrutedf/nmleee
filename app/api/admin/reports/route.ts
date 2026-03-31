@@ -111,7 +111,7 @@ export async function POST(req: NextRequest) {
                     order: { createdAt: { gte: since }, isPaid: true },
                     itemType: 'product',
                 },
-                include: { product: { select: { name: true, price: true } } },
+                include: { product: { select: { title: true, price: true } } },
                 take: 100,
             }),
             prisma.platformEvent.findMany({
@@ -127,7 +127,7 @@ export async function POST(req: NextRequest) {
             if (item.product) {
                 const id = item.productId || 'unknown';
                 if (!productSales[id]) {
-                    productSales[id] = { name: item.product.name, quantity: 0, revenue: 0 };
+                    productSales[id] = { name: item.product.title, quantity: 0, revenue: 0 };
                 }
                 productSales[id].quantity += item.quantity;
                 productSales[id].revenue += item.price * item.quantity;
