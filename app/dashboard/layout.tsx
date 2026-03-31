@@ -25,26 +25,7 @@ export default function DashboardLayout({
     const router = useRouter();
     const pathname = usePathname();
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [workspace, setWorkspace] = useState<'store' | 'academy'>('store');
     useViewportHeight();
-
-    useEffect(() => {
-        if (pathname.startsWith('/dashboard/courses') || pathname.startsWith('/dashboard/students')) {
-            setWorkspace('academy');
-        } else {
-            setWorkspace('store');
-        }
-    }, [pathname]);
-
-    const handleWorkspaceChange = (newWs: 'store' | 'academy') => {
-        setWorkspace(newWs);
-        if (newWs === 'academy') {
-            router.push('/dashboard/courses');
-        } else {
-            router.push('/dashboard');
-        }
-        setSidebarOpen(false);
-    };
 
     const handleRevertImpersonation = async () => {
         if (!session?.user) return;
@@ -78,25 +59,37 @@ export default function DashboardLayout({
     const isAdmin = (session.user as any)?.role === 'ADMIN';
 
     const allMenuItems = [
-        { href: '/dashboard', icon: FiHome, label: 'الرئيسية', exact: true, type: 'store' },
-        { href: '/dashboard/products', icon: FiShoppingBag, label: 'المنتجات الرقمية', type: 'store' },
-        { href: '/dashboard/bundles', icon: FiPackage, label: 'الباقات والحزم', type: 'store' },
-        { href: '/dashboard/orders', icon: FiTrendingUp, label: 'الطلبات والمبيعات', type: 'store' },
-        { href: '/dashboard/coupons', icon: FiTag, label: 'أكواد الخصم', type: 'store' },
-        { href: '/dashboard/affiliates', icon: FiLink2, label: 'التسويق بالعمولة', type: 'store' },
-        { href: '/dashboard/automation', icon: FiZap, label: 'الأتمتة الذكية', type: 'store' },
+        // 🏠 Main
+        { href: '/dashboard', icon: FiHome, label: 'الرئيسية', exact: true, section: 'main' },
+        
+        // 📦 Products Section
+        { href: '/dashboard/products', icon: FiShoppingBag, label: 'المنتجات الرقمية', section: 'products' },
+        { href: '/dashboard/bundles', icon: FiPackage, label: 'الباقات والحزم', section: 'products' },
+        { href: '/dashboard/courses', icon: FiVideo, label: 'الدورات التدريبية', section: 'products' },
+        
+        // 💰 Sales Section
+        { href: '/dashboard/orders', icon: FiTrendingUp, label: 'الطلبات والمبيعات', section: 'sales' },
+        { href: '/dashboard/appointments', icon: FiCalendar, label: 'المواعيد والحجز', section: 'sales' },
+        { href: '/dashboard/earnings', icon: FiDollarSign, label: 'السحب والتحصيل', section: 'sales' },
+        
+        // 👥 Customers Section
+        { href: '/dashboard/students', icon: FiUsers, label: 'الطلاب والمتعلمين', section: 'customers' },
+        { href: '/dashboard/courses/qa', icon: FiMessageSquare, label: 'نقاشات وأسئلة', section: 'customers' },
+        
+        // 🚀 Growth Section
+        { href: '/dashboard/coupons', icon: FiTag, label: 'أكواد الخصم', section: 'growth' },
+        { href: '/dashboard/affiliates', icon: FiLink2, label: 'التسويق بالعمولة', section: 'growth' },
+        { href: '/dashboard/automation', icon: FiZap, label: 'الأتمتة الذكية', section: 'growth' },
+        
+        // 📊 Analytics Section
+        { href: '/dashboard/financials', icon: FiPieChart, label: 'التحليلات والإحصائيات', section: 'analytics' },
+        
+        // ⚙️ Settings Section
+        { href: '/dashboard/integrations', icon: FiActivity, label: 'تطبيقات الربط', section: 'settings' },
+        { href: '/dashboard/billing', icon: FiCreditCard, label: 'الباقة والاشتراك', section: 'settings' },
+        { href: '/dashboard/settings', icon: FiSettings, label: 'إعدادات الحساب', section: 'settings' },
 
-        { href: '/dashboard/courses', icon: FiVideo, label: 'الدورات التدريبية', type: 'academy' },
-        { href: '/dashboard/students', icon: FiUsers, label: 'الطلاب والشهادات', type: 'academy' },
-        { href: '/dashboard/courses/qa', icon: FiMessageSquare, label: 'نقاشات الطلاب', type: 'academy' },
-
-        { href: '/dashboard/appointments', icon: FiCalendar, label: 'المواعيد والحجز', type: 'shared' },
-        { href: '/dashboard/financials', icon: FiPieChart, label: 'تحليل مالي', type: 'shared' },
-        { href: '/dashboard/earnings', icon: FiDollarSign, label: 'السحب والتحصيل', type: 'shared' },
-        { href: '/dashboard/integrations', icon: FiActivity, label: 'تطبيقات الربط', type: 'shared' },
-        { href: '/dashboard/billing', icon: FiCreditCard, label: 'الباقة الحالية', type: 'shared' },
-        { href: '/dashboard/settings', icon: FiSettings, label: 'الإعدادات', type: 'shared' },
-
+        // 🔒 Admin Section
         { href: '/dashboard/admin', icon: FiShield, label: 'مركز التحكم الآمن', type: 'admin' },
         { href: '/dashboard/admin/users', icon: FiUsers, label: 'إدارة الأعضاء', type: 'admin' },
         { href: '/dashboard/admin/subscriptions', icon: FiCreditCard, label: 'إدارة الاشتراكات', type: 'admin' },
@@ -107,8 +100,17 @@ export default function DashboardLayout({
     ];
 
     const menuItems = allMenuItems.filter(item =>
-        item.type === workspace || item.type === 'shared' || (item.type === 'admin' && isAdmin)
+        !item.type || item.type === 'shared' || (item.type === 'admin' && isAdmin)
     );
+
+    const mainItems = menuItems.filter(item => item.section === 'main');
+    const productItems = menuItems.filter(item => item.section === 'products');
+    const salesItems = menuItems.filter(item => item.section === 'sales');
+    const customerItems = menuItems.filter(item => item.section === 'customers');
+    const growthItems = menuItems.filter(item => item.section === 'growth');
+    const analyticsItems = menuItems.filter(item => item.section === 'analytics');
+    const settingsItems = menuItems.filter(item => item.section === 'settings');
+    const adminItems = menuItems.filter(item => item.type === 'admin');
 
     return (
         <div className="min-h-screen bg-[#0A0A0A] transition-colors duration-300 relative selection:bg-emerald-700 text-white flex flex-col">
@@ -155,7 +157,8 @@ export default function DashboardLayout({
                             </div>
                             
                             <nav className="flex-1 overflow-y-auto p-4 space-y-1 no-scrollbar">
-                                {menuItems.map((item) => {
+                                {/* Main */}
+                                {mainItems.map((item) => {
                                     const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href) && item.href !== '/dashboard';
                                     const isHome = item.href === '/dashboard' && pathname === '/dashboard';
                                     const active = isActive || isHome;
@@ -167,6 +170,113 @@ export default function DashboardLayout({
                                         </Link>
                                     );
                                 })}
+
+                                {/* Products Section */}
+                                <div className="mt-4 mb-2">
+                                    <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-5 mb-2">📦 المحتوى</div>
+                                    {productItems.map((item) => {
+                                        const isActive = pathname.startsWith(item.href) && item.href !== '/dashboard';
+                                        return (
+                                            <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
+                                                className={`flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-emerald-700/20 text-emerald-400 border-r-2 border-emerald-500' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                                <item.icon size={16} className={isActive ? 'text-emerald-400' : 'group-hover:text-[#10B981]'} />
+                                                <span className="font-medium flex-1 text-right">{item.label}</span>
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+
+                                {/* Sales Section */}
+                                <div className="mt-4 mb-2">
+                                    <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-5 mb-2">💰 المبيعات</div>
+                                    {salesItems.map((item) => {
+                                        const isActive = pathname.startsWith(item.href);
+                                        return (
+                                            <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
+                                                className={`flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-emerald-700/20 text-emerald-400 border-r-2 border-emerald-500' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                                <item.icon size={16} className={isActive ? 'text-emerald-400' : 'group-hover:text-[#10B981]'} />
+                                                <span className="font-medium flex-1 text-right">{item.label}</span>
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+
+                                {/* Customers Section */}
+                                <div className="mt-4 mb-2">
+                                    <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-5 mb-2">👥 العملاء</div>
+                                    {customerItems.map((item) => {
+                                        const isActive = pathname.startsWith(item.href);
+                                        return (
+                                            <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
+                                                className={`flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-emerald-700/20 text-emerald-400 border-r-2 border-emerald-500' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                                <item.icon size={16} className={isActive ? 'text-emerald-400' : 'group-hover:text-[#10B981]'} />
+                                                <span className="font-medium flex-1 text-right">{item.label}</span>
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+
+                                {/* Growth Section */}
+                                <div className="mt-4 mb-2">
+                                    <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-5 mb-2">🚀 النمو</div>
+                                    {growthItems.map((item) => {
+                                        const isActive = pathname.startsWith(item.href);
+                                        return (
+                                            <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
+                                                className={`flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-emerald-700/20 text-emerald-400 border-r-2 border-emerald-500' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                                <item.icon size={16} className={isActive ? 'text-emerald-400' : 'group-hover:text-[#10B981]'} />
+                                                <span className="font-medium flex-1 text-right">{item.label}</span>
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+
+                                {/* Analytics Section */}
+                                <div className="mt-4 mb-2">
+                                    <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-5 mb-2">📊 التحليلات</div>
+                                    {analyticsItems.map((item) => {
+                                        const isActive = pathname.startsWith(item.href);
+                                        return (
+                                            <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
+                                                className={`flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-emerald-700/20 text-emerald-400 border-r-2 border-emerald-500' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                                <item.icon size={16} className={isActive ? 'text-emerald-400' : 'group-hover:text-[#10B981]'} />
+                                                <span className="font-medium flex-1 text-right">{item.label}</span>
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+
+                                {/* Settings Section */}
+                                <div className="mt-4 mb-2">
+                                    <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-5 mb-2">⚙️ الإعدادات</div>
+                                    {settingsItems.map((item) => {
+                                        const isActive = pathname.startsWith(item.href);
+                                        return (
+                                            <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
+                                                className={`flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-emerald-700/20 text-emerald-400 border-r-2 border-emerald-500' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                                <item.icon size={16} className={isActive ? 'text-emerald-400' : 'group-hover:text-[#10B981]'} />
+                                                <span className="font-medium flex-1 text-right">{item.label}</span>
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+
+                                {/* Admin Section */}
+                                {isAdmin && adminItems.length > 0 && (
+                                    <div className="mt-4 mb-2">
+                                        <div className="text-[9px] text-red-400 font-bold uppercase tracking-widest px-5 mb-2">🔒 الإدارة</div>
+                                        {adminItems.map((item) => {
+                                            const isActive = pathname.startsWith(item.href);
+                                            return (
+                                                <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
+                                                    className={`flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-red-500/20 text-red-400 border-r-2 border-red-500' : 'text-gray-400 hover:bg-[#111111] hover:text-red-400'}`}>
+                                                    <item.icon size={16} className={isActive ? 'text-red-400' : 'group-hover:text-red-400'} />
+                                                    <span className="font-medium flex-1 text-right">{item.label}</span>
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                )}
                             </nav>
 
                             <div className="p-6 border-t border-white/10 bg-[#111111]/50 space-y-2">
@@ -192,19 +302,12 @@ export default function DashboardLayout({
                     
                     <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em] mb-4 bg-[#111111] px-3 py-1.5 rounded-lg inline-block border border-white/5">{session.user?.name}</p>
                     
-                    {/* Professional Workspace Switcher */}
-                    <div className="bg-[#111111] p-1 rounded-[1.25rem] border border-white/10 flex">
-                        <button onClick={() => handleWorkspaceChange('store')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all ${workspace === 'store' ? 'bg-[#0A0A0A] text-[#10B981] shadow-lg shadow-[#10B981]/20 shadow-black/5 outline outline-1 outline-white/10' : 'text-gray-400 hover:text-[#10B981]'}`}>
-                             المتجر
-                        </button>
-                        <button onClick={() => handleWorkspaceChange('academy')} className={`flex-1 flex items-center justify-center gap-2 py-3 text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all ${workspace === 'academy' ? 'bg-[#0A0A0A] text-[#10B981] shadow-lg shadow-[#10B981]/20 shadow-black/5 outline outline-1 outline-white/10' : 'text-gray-400 hover:text-[#10B981]'}`}>
-                             الأكاديمية
-                        </button>
-                    </div>
+                    <div className="text-[10px] text-[#10B981] font-bold uppercase tracking-widest mb-2">🚀 لوحة التحكم</div>
                 </div>
 
                 <nav className="px-6 space-y-1.5 overflow-y-auto flex-1 no-scrollbar pt-2 pb-10">
-                    {menuItems.map((item) => {
+                    {/* Main */}
+                    {mainItems.map((item) => {
                         const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href) && item.href !== '/dashboard';
                         const isHome = item.href === '/dashboard' && pathname === '/dashboard';
                         const active = isActive || isHome;
@@ -216,6 +319,113 @@ export default function DashboardLayout({
                             </Link>
                         );
                     })}
+
+                    {/* Products Section */}
+                    <div className="mt-6 mb-2">
+                        <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-6 mb-2">📦 المحتوى</div>
+                        {productItems.map((item) => {
+                            const isActive = pathname.startsWith(item.href) && item.href !== '/dashboard';
+                            return (
+                                <Link key={item.href} href={item.href}
+                                    className={`flex items-center gap-4 px-6 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-emerald-700/20 text-emerald-400 border-r-2 border-emerald-500' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                    <item.icon size={16} className={isActive ? 'text-emerald-400' : 'group-hover:text-[#10B981]'} />
+                                    <span className="font-medium tracking-tight flex-1 text-right">{item.label}</span>
+                                </Link>
+                            );
+                        })}
+                    </div>
+
+                    {/* Sales Section */}
+                    <div className="mt-4 mb-2">
+                        <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-6 mb-2">💰 المبيعات</div>
+                        {salesItems.map((item) => {
+                            const isActive = pathname.startsWith(item.href);
+                            return (
+                                <Link key={item.href} href={item.href}
+                                    className={`flex items-center gap-4 px-6 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-emerald-700/20 text-emerald-400 border-r-2 border-emerald-500' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                    <item.icon size={16} className={isActive ? 'text-emerald-400' : 'group-hover:text-[#10B981]'} />
+                                    <span className="font-medium tracking-tight flex-1 text-right">{item.label}</span>
+                                </Link>
+                            );
+                        })}
+                    </div>
+
+                    {/* Customers Section */}
+                    <div className="mt-4 mb-2">
+                        <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-6 mb-2">👥 العملاء</div>
+                        {customerItems.map((item) => {
+                            const isActive = pathname.startsWith(item.href);
+                            return (
+                                <Link key={item.href} href={item.href}
+                                    className={`flex items-center gap-4 px-6 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-emerald-700/20 text-emerald-400 border-r-2 border-emerald-500' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                    <item.icon size={16} className={isActive ? 'text-emerald-400' : 'group-hover:text-[#10B981]'} />
+                                    <span className="font-medium tracking-tight flex-1 text-right">{item.label}</span>
+                                </Link>
+                            );
+                        })}
+                    </div>
+
+                    {/* Growth Section */}
+                    <div className="mt-4 mb-2">
+                        <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-6 mb-2">🚀 النمو</div>
+                        {growthItems.map((item) => {
+                            const isActive = pathname.startsWith(item.href);
+                            return (
+                                <Link key={item.href} href={item.href}
+                                    className={`flex items-center gap-4 px-6 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-emerald-700/20 text-emerald-400 border-r-2 border-emerald-500' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                    <item.icon size={16} className={isActive ? 'text-emerald-400' : 'group-hover:text-[#10B981]'} />
+                                    <span className="font-medium tracking-tight flex-1 text-right">{item.label}</span>
+                                </Link>
+                            );
+                        })}
+                    </div>
+
+                    {/* Analytics Section */}
+                    <div className="mt-4 mb-2">
+                        <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-6 mb-2">📊 التحليلات</div>
+                        {analyticsItems.map((item) => {
+                            const isActive = pathname.startsWith(item.href);
+                            return (
+                                <Link key={item.href} href={item.href}
+                                    className={`flex items-center gap-4 px-6 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-emerald-700/20 text-emerald-400 border-r-2 border-emerald-500' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                    <item.icon size={16} className={isActive ? 'text-emerald-400' : 'group-hover:text-[#10B981]'} />
+                                    <span className="font-medium tracking-tight flex-1 text-right">{item.label}</span>
+                                </Link>
+                            );
+                        })}
+                    </div>
+
+                    {/* Settings Section */}
+                    <div className="mt-4 mb-2">
+                        <div className="text-[9px] text-gray-500 font-bold uppercase tracking-widest px-6 mb-2">⚙️ الإعدادات</div>
+                        {settingsItems.map((item) => {
+                            const isActive = pathname.startsWith(item.href);
+                            return (
+                                <Link key={item.href} href={item.href}
+                                    className={`flex items-center gap-4 px-6 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-emerald-700/20 text-emerald-400 border-r-2 border-emerald-500' : 'text-gray-400 hover:bg-[#111111] hover:text-[#10B981]'}`}>
+                                    <item.icon size={16} className={isActive ? 'text-emerald-400' : 'group-hover:text-[#10B981]'} />
+                                    <span className="font-medium tracking-tight flex-1 text-right">{item.label}</span>
+                                </Link>
+                            );
+                        })}
+                    </div>
+
+                    {/* Admin Section */}
+                    {isAdmin && adminItems.length > 0 && (
+                        <div className="mt-4 mb-2">
+                            <div className="text-[9px] text-red-400 font-bold uppercase tracking-widest px-6 mb-2">🔒 الإدارة</div>
+                            {adminItems.map((item) => {
+                                const isActive = pathname.startsWith(item.href);
+                                return (
+                                    <Link key={item.href} href={item.href}
+                                        className={`flex items-center gap-4 px-6 py-3 rounded-xl transition-all duration-300 group w-full text-sm ${isActive ? 'bg-red-500/20 text-red-400 border-r-2 border-red-500' : 'text-gray-400 hover:bg-[#111111] hover:text-red-400'}`}>
+                                        <item.icon size={16} className={isActive ? 'text-red-400' : 'group-hover:text-red-400'} />
+                                        <span className="font-medium tracking-tight flex-1 text-right">{item.label}</span>
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    )}
                 </nav>
 
                 <div className="p-6 border-t border-white/5 bg-[#111111]/20 space-y-2">
