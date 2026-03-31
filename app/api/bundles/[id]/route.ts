@@ -100,3 +100,32 @@ export async function PUT(
         return NextResponse.json({ error: 'حدث خطأ أثناء التحديث' }, { status: 500 });
     }
 }
+
+export async function PATCH(
+    req: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
+) {
+    try {
+        const session = await getServerSession(authOptions);
+        if (!session?.user?.id) return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
+
+        const { id } = await params;
+        const bundle = await prisma.bundle.findUnique({ where: { id } });
+
+        if (!bundle) return NextResponse.json({ error: 'الباقة غير موجودة' }, { status: 404 });
+        if (bundle.userId !== session.user.id) return NextResponse.json({ error: 'ليس لديك صلاحية' }, { status: 403 });
+
+        const body = await req.json();
+        const { isActive } = body;
+
+        const updatedBundle = await prisma.bundle.update({
+            where: { id },
+            data: { isActive }
+        });
+
+        return NextResponse.json(updatedBundle);
+    } catch (err) {
+        console.error('PATCH /api/bundles/[id]:', err);
+        return NextResponse.json({ error: 'حدث خطأ أثناء التحديث' }, { status: 500 });
+    }
+}

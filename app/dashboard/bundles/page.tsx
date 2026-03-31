@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FiPlus, FiPackage, FiEdit2, FiTrash2, FiTag, FiEye } from 'react-icons/fi';
+import { FiPlus, FiPackage, FiEdit2, FiTrash2, FiTag, FiEye, FiPower } from 'react-icons/fi';
 import { format } from 'date-fns';
 import { ar } from 'date-fns/locale';
 import showToast from '@/lib/toast';
@@ -44,6 +44,28 @@ export default function BundlesPage() {
         } catch (error) {
             console.error('Delete error:', error);
             showToast.error('حدث خطأ أثناء الحذف', { id: toastId });
+        }
+    };
+
+    const handleToggleActive = async (id: string, currentStatus: boolean) => {
+        const toastId = showToast.loading(currentStatus ? 'جاري إخفاء الباقة...' : 'جاري نشر الباقة...');
+        try {
+            const res = await fetch(`/api/bundles/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ isActive: !currentStatus })
+            });
+            if (res.ok) {
+                setBundles(prev => prev.map(b => 
+                    b.id === id ? { ...b, isActive: !currentStatus } : b
+                ));
+                showToast.success(currentStatus ? 'تم إخفاء الباقة' : 'تم نشر الباقة بنجاح', { id: toastId });
+            } else {
+                throw new Error('فشل التحديث');
+            }
+        } catch (error) {
+            console.error('Toggle error:', error);
+            showToast.error('حدث خطأ أثناء التحديث', { id: toastId });
         }
     };
 
@@ -97,6 +119,12 @@ export default function BundlesPage() {
                                     <FiPackage />
                                     <span>{bundle.products?.length || 0} منتجات</span>
                                 </div>
+                                {!bundle.isActive && (
+                                    <div className="absolute top-2 left-2 bg-red-500/80 backdrop-blur-md border border-red-400/30 text-white text-xs font-bold px-3 py-1 rounded-xl flex items-center gap-1 shadow-lg">
+                                        <FiPower />
+                                        <span>مخفية</span>
+                                    </div>
+                                )}
                             </div>
 
                             <div className="p-5 flex-1 flex flex-col">
@@ -116,6 +144,13 @@ export default function BundlesPage() {
                                 </div>
 
                                 <div className="flex gap-2 pt-4 border-t border-white/10 dark:border-gray-800">
+                                    <button
+                                        onClick={() => handleToggleActive(bundle.id, bundle.isActive)}
+                                        className={`btn btn-accent flex items-center justify-center gap-2 text-sm py-2 px-3 ${bundle.isActive ? 'text-yellow-500 hover:bg-yellow-500/10' : 'text-emerald-500 hover:bg-emerald-500/10'}`}
+                                        title={bundle.isActive ? 'إخفاء الباقة' : 'نشر الباقة'}
+                                    >
+                                        <FiPower />
+                                    </button>
                                     <Link href={`/bundle/${bundle.slug || bundle.id}`} target="_blank" className="flex-1 btn btn-accent flex items-center justify-center gap-2 text-sm py-2 px-3">
                                         <FiEye className="text-gray-500" />
                                         <span>معاينة</span>
