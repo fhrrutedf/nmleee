@@ -35,7 +35,7 @@ export default function EditCoursePage() {
         originalPrice: '',
         currency: 'USD',
         category: '',
-        level: 'beginner',
+        level: '',
         format: 'recorded',
         duration: '',
         sessions: '',
@@ -47,6 +47,13 @@ export default function EditCoursePage() {
         zoomLink: '',
         meetLink: '',
         slug: '',
+        // New fields
+        isCertificateEnabled: false,
+        certificateTemplate: '',
+        allowComments: true,
+        requiresQuiz: false,
+        startDate: '',
+        endDate: '',
     });
 
     const [tagInput, setTagInput] = useState('');
@@ -70,7 +77,7 @@ export default function EditCoursePage() {
                     originalPrice: data.originalPrice?.toString() || '',
                     currency: data.currency || 'USD',
                     category: data.category || '',
-                    level: data.level || 'beginner',
+                    level: data.level || '',
                     format: data.format || 'recorded',
                     duration: data.duration || '',
                     sessions: data.sessions?.toString() || '',
@@ -82,6 +89,12 @@ export default function EditCoursePage() {
                     zoomLink: data.zoomLink || '',
                     meetLink: data.meetLink || '',
                     slug: data.slug || '',
+                    isCertificateEnabled: data.isCertificateEnabled ?? false,
+                    certificateTemplate: data.certificateTemplate || '',
+                    allowComments: data.allowComments ?? true,
+                    requiresQuiz: data.requiresQuiz ?? false,
+                    startDate: data.startDate ? new Date(data.startDate).toISOString().split('T')[0] : '',
+                    endDate: data.endDate ? new Date(data.endDate).toISOString().split('T')[0] : '',
                 });
             }
         } catch (error) {
@@ -116,7 +129,11 @@ export default function EditCoursePage() {
                     ...formData,
                     price: parseFloat(formData.price || '0'),
                     originalPrice: formData.originalPrice ? parseFloat(formData.originalPrice) : null,
-                    sessions: formData.sessions ? parseInt(formData.sessions) : null
+                    sessions: formData.sessions ? parseInt(formData.sessions) : null,
+                    level: formData.level || null,
+                    certificateTemplate: formData.isCertificateEnabled ? formData.certificateTemplate : null,
+                    startDate: formData.startDate || null,
+                    endDate: formData.endDate || null,
                 }),
             });
 
@@ -299,6 +316,91 @@ export default function EditCoursePage() {
                                             {showCoverUploader && (
                                                 <div className="absolute inset-0 bg-[#0A0A0A] p-4 z-10 overflow-auto"><FileUploader onUploadSuccess={urls => { setFormData({ ...formData, image: urls[0] }); setShowCoverUploader(false); }} /></div>
                                             )}
+                                        </div>
+                                    </div>
+                                </HubSection>
+
+                                <HubSection title="إعدادات الشهادة والتفاعل" icon={<FiCheckSquare />}>
+                                    <div className="space-y-4">
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <button
+                                                type="button"
+                                                onClick={() => setFormData({ ...formData, isCertificateEnabled: !formData.isCertificateEnabled })}
+                                                className={`p-4 rounded-xl border-2 text-right transition-all ${formData.isCertificateEnabled ? 'border-emerald-500 bg-emerald-500/10' : 'border-white/10 bg-[#111111]'}`}
+                                            >
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <span className="font-bold text-white text-sm">🎓 شهادة إتمام</span>
+                                                    <div className={`w-10 h-5 rounded-full flex items-center px-1 ${formData.isCertificateEnabled ? 'bg-emerald-500' : 'bg-gray-700'}`}>
+                                                        <div className={`w-3 h-3 bg-white rounded-full transition-transform ${formData.isCertificateEnabled ? 'translate-x-5' : 'translate-x-0'}`} />
+                                                    </div>
+                                                </div>
+                                                <p className="text-[10px] text-gray-400">منح شهادة معتمدة</p>
+                                            </button>
+
+                                            <button
+                                                type="button"
+                                                onClick={() => setFormData({ ...formData, allowComments: !formData.allowComments })}
+                                                className={`p-4 rounded-xl border-2 text-right transition-all ${formData.allowComments ? 'border-emerald-500 bg-emerald-500/10' : 'border-white/10 bg-[#111111]'}`}
+                                            >
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <span className="font-bold text-white text-sm">💬 التعليقات</span>
+                                                    <div className={`w-10 h-5 rounded-full flex items-center px-1 ${formData.allowComments ? 'bg-emerald-500' : 'bg-gray-700'}`}>
+                                                        <div className={`w-3 h-3 bg-white rounded-full transition-transform ${formData.allowComments ? 'translate-x-5' : 'translate-x-0'}`} />
+                                                    </div>
+                                                </div>
+                                                <p className="text-[10px] text-gray-400">السماح بالتعليقات</p>
+                                            </button>
+                                        </div>
+
+                                        {formData.isCertificateEnabled && (
+                                            <div>
+                                                <label className="text-xs font-bold text-gray-500 mb-2 block">قالب الشهادة</label>
+                                                <select
+                                                    className="input-modern w-full"
+                                                    value={formData.certificateTemplate}
+                                                    onChange={(e) => setFormData({ ...formData, certificateTemplate: e.target.value })}
+                                                >
+                                                    <option value="">القالب الافتراضي</option>
+                                                    <option value="modern">عصري 🎨</option>
+                                                    <option value="classic">كلاسيكي 📜</option>
+                                                    <option value="minimal">بسيط ✨</option>
+                                                </select>
+                                            </div>
+                                        )}
+
+                                        <button
+                                            type="button"
+                                            onClick={() => setFormData({ ...formData, requiresQuiz: !formData.requiresQuiz })}
+                                            className={`w-full p-4 rounded-xl border-2 text-right transition-all ${formData.requiresQuiz ? 'border-amber-500 bg-amber-500/10' : 'border-white/10 bg-[#111111]'}`}
+                                        >
+                                            <div className="flex items-center justify-between mb-2">
+                                                <span className="font-bold text-white text-sm">📝 اشتراط اجتياز اختبار</span>
+                                                <div className={`w-10 h-5 rounded-full flex items-center px-1 ${formData.requiresQuiz ? 'bg-amber-500' : 'bg-gray-700'}`}>
+                                                    <div className={`w-3 h-3 bg-white rounded-full transition-transform ${formData.requiresQuiz ? 'translate-x-5' : 'translate-x-0'}`} />
+                                                </div>
+                                            </div>
+                                            <p className="text-[10px] text-gray-400">يجب اجتياز الاختبار للحصول على الشهادة</p>
+                                        </button>
+
+                                        <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
+                                            <div>
+                                                <label className="text-xs font-bold text-gray-500 mb-2 block">تاريخ فتح التسجيل</label>
+                                                <input
+                                                    type="date"
+                                                    className="input-modern w-full"
+                                                    value={formData.startDate}
+                                                    onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="text-xs font-bold text-gray-500 mb-2 block">تاريخ إغلاق التسجيل</label>
+                                                <input
+                                                    type="date"
+                                                    className="input-modern w-full"
+                                                    value={formData.endDate}
+                                                    onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </HubSection>
