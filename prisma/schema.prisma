@@ -129,6 +129,10 @@ model User {
   ticketMessages SupportTicketMessage[] @relation("TicketMessages")
   blogPosts     BlogPost[]
 
+  // Seller Followers
+  followers     SellerFollower[] @relation("Followers")
+  following     SellerFollower[] @relation("Following")
+
   // Admin Control
   custom_commission_rate Float?      // عمولة مخصصة لهذا البائع (تتخطى عمولة الاشتراك)
   commission_note        String?     // ملاحظة حول العمولة المخصصة
@@ -1657,4 +1661,30 @@ model PlatformEvent {
   @@index([createdAt])
   @@index([actorId])
   @@index([userId])
+}
+
+// ============================================
+// SELLER FOLLOWERS - متابعو البائعين
+// ============================================
+model SellerFollower {
+  id          String   @id @default(uuid())
+  
+  // Who follows
+  followerId  String
+  follower    User     @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  
+  // Which seller is followed
+  sellerId    String
+  seller      User     @relation("Followers", fields: [sellerId], references: [id], onDelete: Cascade)
+  
+  // Notifications
+  notifyNewProducts   Boolean @default(true)
+  notifyNewCourses    Boolean @default(true)
+  notifyOffers        Boolean @default(true)
+  
+  createdAt   DateTime @default(now())
+  
+  @@unique([followerId, sellerId])
+  @@index([sellerId])
+  @@index([followerId])
 }

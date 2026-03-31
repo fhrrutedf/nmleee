@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-import {
-    FiLink, FiFacebook, FiInstagram, FiTwitter, FiStar,
+import { useEffect, useState } from 'react';
+import { FiLink, FiFacebook, FiInstagram, FiTwitter, FiStar,
     FiShoppingCart, FiClock, FiCheckCircle, FiShare2,
     FiGrid, FiPackage, FiVideo, FiCopy, FiChevronDown,
     FiChevronUp, FiSearch, FiMail, FiMessageCircle,
-    FiZap, FiUsers, FiCalendar, FiAward, FiArrowLeft
+    FiZap, FiUsers, FiCalendar, FiAward, FiArrowLeft,
+    FiBell, FiBellOff
 } from 'react-icons/fi';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -17,6 +17,12 @@ interface ProfileClientProps {
     creator: any;
     products: any[];
     bundles?: any[];
+    stats: {
+        totalSold: number;
+        averageRating: number;
+        totalReviews: number;
+        totalRevenue: number;
+    };
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────
@@ -44,18 +50,78 @@ function isValidImage(url: string | null | undefined): boolean {
 
 import BundleCard from '../components/BundleCard';
 
-export default function ProfileClient({ creator, products, bundles = [] }: ProfileClientProps) {
+export default function ProfileClient({ creator, products, bundles = [], stats }: ProfileClientProps) {
     const [activeTab, setActiveTab] = useState<'all' | 'products' | 'courses'>('all');
     const [isBioExpanded, setIsBioExpanded] = useState(false);
     const [showShareMenu, setShowShareMenu] = useState(false);
     const [search, setSearch] = useState('');
     const [featuredExpanded, setFeaturedExpanded] = useState(false);
+    const [sortBy, setSortBy] = useState<'newest' | 'popular' | 'priceLow' | 'priceHigh'>('newest');
+    const [currentPage, setCurrentPage] = useState(1);
+    
+    // Follow button state
+    const [isFollowing, setIsFollowing] = useState(false);
+    const [followerCount, setFollowerCount] = useState(0);
+    const [isFollowLoading, setIsFollowLoading] = useState(false);
+    const ITEMS_PER_PAGE = 12;
 
-    const brandColor = creator.brandColor || '#D41295';
+    // Check follow status on mount
+    useEffect(() => {
+        async function checkFollowStatus() {
+            try {
+                const response = await fetch(`/api/creators/${creator.username}/follow`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setIsFollowing(data.isFollowing);
+                    setFollowerCount(data.followerCount);
+                }
+            } catch (error) {
+                console.error('Error checking follow status:', error);
+            }
+        }
+        checkFollowStatus();
+    }, [creator.username]);
+
+    // Handle follow/unfollow
+    const handleFollow = async () => {
+        setIsFollowLoading(true);
+        try {
+            const method = isFollowing ? 'DELETE' : 'POST';
+            const response = await fetch(`/api/creators/${creator.username}/follow`, {
+                method,
+                headers: { 'Content-Type': 'application/json' }
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                setIsFollowing(data.isFollowing);
+                setFollowerCount(data.followerCount);
+                toast.success(data.message);
+            } else {
+                const error = await response.json();
+                if (response.status === 401) {
+                    toast.error('يجب تسجيل الدخول للمتابعة');
+                } else {
+                    toast.error(error.error || 'حدث خطأ');
+                }
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            toast.error('حدث خطأ في الاتصال');
+        } finally {
+            setIsFollowLoading(false);
+        }
+    };
+
+    const brandColor = creator.brandColor || '#10B981';
+    const brandSecondaryColor = creator.brandSecondaryColor || '#7c3aed';
+    const brandFont = creator.brandFont || 'default';
+    const brandLayout = creator.brandLayout || 'grid';
+    const storeBanner = creator.storeBanner;
+    const storeTagline = creator.storeTagline;
 
     const hasCourses = products.some(p => p.category === 'courses' || p.category === 'course');
     const hasDigital = products.some(p => p.category !== 'courses' && p.category !== 'course');
-    const totalSold = products.reduce((sum, p) => sum + (p.soldCount || 0), 0);
     const joinYear = new Date(creator.createdAt).getFullYear();
 
     const filteredProducts = products.filter(p => {
@@ -65,6 +131,28 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
         const matchSearch = !search || p.title?.toLowerCase().includes(search.toLowerCase());
         return matchTab && matchSearch;
     });
+
+    // Sorting logic
+    const sortedProducts = [...filteredProducts].sort((a, b) => {
+        switch (sortBy) {
+            case 'popular':
+                return (b.soldCount || 0) - (a.soldCount || 0);
+            case 'priceLow':
+                return (a.price || 0) - (b.price || 0);
+            case 'priceHigh':
+                return (b.price || 0) - (a.price || 0);
+            case 'newest':
+            default:
+                return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        }
+    });
+
+    // Pagination
+    const totalPages = Math.ceil(sortedProducts.length / ITEMS_PER_PAGE);
+    const paginatedProducts = sortedProducts.slice(
+        (currentPage - 1) * ITEMS_PER_PAGE,
+        currentPage * ITEMS_PER_PAGE
+    );
 
     // منطق تنظيف العناوين المكسورة (أرقام عشوائية أو أسماء ملفات)
     const cleanTitle = (title: string, category: string) => {
@@ -168,6 +256,26 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
 
                                     {/* Action buttons */}
                                     <div className="flex gap-2 justify-center sm:justify-start flex-wrap">
+                                        {/* Follow Button */}
+                                        <button
+                                            onClick={handleFollow}
+                                            disabled={isFollowLoading}
+                                            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm transition-all ${
+                                                isFollowing 
+                                                    ? 'bg-[#0A0A0A] border-2 text-white' 
+                                                    : 'text-white shadow-lg'
+                                            }`}
+                                            style={!isFollowing ? { background: `linear-gradient(135deg, ${brandColor}, ${brandSecondaryColor})` } : { borderColor: brandColor, color: brandColor }}
+                                        >
+                                            {isFollowLoading ? (
+                                                <span className="animate-pulse">...</span>
+                                            ) : isFollowing ? (
+                                                <><FiBellOff size={15} /> متابع ({followerCount})</>
+                                            ) : (
+                                                <><FiBell size={15} /> متابعة ({followerCount})</>
+                                            )}
+                                        </button>
+
                                         {[
                                             creator.facebook && { href: creator.facebook, icon: <FiFacebook size={16} />, label: 'فيسبوك' },
                                             creator.twitter && { href: creator.twitter, icon: <FiTwitter size={16} />, label: 'تويتر' },
@@ -242,13 +350,13 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                         <div className="grid grid-cols-3 gap-3 mt-8 pt-8 border-t border-white/10 dark:border-gray-800">
                             {[
                                 { icon: <FiPackage />, value: products.length, label: 'منتج متاح' },
-                                { icon: <FiUsers />, value: (totalSold + 100), label: 'طالب سعيد' }, // Social proof boost
-                                { icon: <FiAward />, value: '4.9', label: 'تقييم عام' },
+                                { icon: <FiUsers />, value: stats.totalSold, label: 'طالب سعيد' },
+                                { icon: <FiStar />, value: stats.averageRating > 0 ? stats.averageRating : '-', label: `تقييم عام (${stats.totalReviews})` },
                             ].map((stat, i) => (
                                 <div key={i} className="text-center group cursor-default">
                                     <div className="text-2xl sm:text-3xl font-bold text-white dark:text-white group-hover:scale-110 transition-transform duration-300">
                                         {stat.value}
-                                        {stat.label === 'تقييم عام' && <FiStar className="inline mr-1 text-sm text-yellow-400 fill-yellow-400" />}
+                                        {stat.icon?.type === FiStar && stats.averageRating > 0 && <FiStar className="inline mr-1 text-sm text-yellow-400 fill-yellow-400" />}
                                     </div>
                                     <div className="text-[10px] sm:text-xs font-bold text-gray-500 dark:text-gray-400 mt-1 uppercase tracking-widest flex items-center justify-center gap-1">
                                         <span style={{ color: brandColor }}>{stat.icon}</span> {stat.label}
@@ -360,7 +468,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                         </div>
                     </div>
 
-                    {/* Search + Tabs row */}
+                    {/* Search + Tabs + Sort row */}
                     <div className="flex flex-col sm:flex-row gap-3 mb-6">
                         {/* Search */}
                         <div className="relative flex-1">
@@ -369,11 +477,24 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                 type="text"
                                 placeholder="ابحث في منتجات البائع..."
                                 value={search}
-                                onChange={e => setSearch(e.target.value)}
+                                onChange={e => { setSearch(e.target.value); setCurrentPage(1); }}
                                 className="w-full pr-9 pl-4 py-2.5 bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl text-sm outline-none focus:ring-2 transition-all"
                                 style={{ '--tw-ring-color': `${brandColor}40` } as any}
                             />
                         </div>
+
+                        {/* Sort Dropdown */}
+                        <select
+                            value={sortBy}
+                            onChange={(e) => setSortBy(e.target.value as any)}
+                            className="px-4 py-2.5 bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 rounded-xl text-sm text-gray-400 outline-none focus:ring-2 transition-all cursor-pointer"
+                            style={{ '--tw-ring-color': `${brandColor}40` } as any}
+                        >
+                            <option value="newest">الأحدث</option>
+                            <option value="popular">الأكثر مبيعاً</option>
+                            <option value="priceLow">السعر: من低 إلى高</option>
+                            <option value="priceHigh">السعر: من高 إلى低</option>
+                        </select>
 
                         {/* Tabs */}
                         <div className="flex gap-2 flex-shrink-0">
@@ -384,7 +505,7 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                             ].filter(Boolean).map((tab: any) => (
                                 <button
                                     key={tab.id}
-                                    onClick={() => setActiveTab(tab.id)}
+                                    onClick={() => { setActiveTab(tab.id); setCurrentPage(1); }}
                                     style={activeTab === tab.id
                                         ? { background: brandColor, color: '#fff', boxShadow: `0 4px 14px -2px ${brandColor}60` }
                                         : {}}
@@ -409,11 +530,12 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                 <div className="text-center py-20">
                                     <FiSearch className="text-5xl text-gray-300 dark:text-gray-300 mx-auto mb-4" />
                                     <p className="text-gray-500 font-semibold">لا توجد نتائج</p>
-                                    {search && <button onClick={() => setSearch('')} className="mt-2 text-sm font-bold" style={{ color: brandColor }}>مسح البحث</button>}
+                                    {search && <button onClick={() => { setSearch(''); setCurrentPage(1); }} className="mt-2 text-sm font-bold" style={{ color: brandColor }}>مسح البحث</button>}
                                 </div>
                             ) : (
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                                    {filteredProducts.map((product, index) => (
+                                <>
+                                    <div className={`grid gap-5 ${brandLayout === 'list' ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
+                                        {paginatedProducts.map((product, index) => (
                                         <motion.div
                                             key={product.id}
                                             initial={{ opacity: 0, scale: 0.97 }}
@@ -487,7 +609,44 @@ export default function ProfileClient({ creator, products, bundles = [] }: Profi
                                             </Link>
                                         </motion.div>
                                     ))}
-                                </div>
+                                    </div>
+
+                                    {/* Pagination */}
+                                    {totalPages > 1 && (
+                                        <div className="flex justify-center items-center gap-2 mt-8">
+                                            <button
+                                                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                                disabled={currentPage === 1}
+                                                className="px-4 py-2 rounded-xl bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 text-gray-400 disabled:opacity-50 disabled:cursor-not-allowed hover:border-emerald-500/40 transition-all"
+                                            >
+                                                السابق
+                                            </button>
+                                            <div className="flex gap-1">
+                                                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                                                    <button
+                                                        key={page}
+                                                        onClick={() => setCurrentPage(page)}
+                                                        className={`w-10 h-10 rounded-xl text-sm font-bold transition-all ${
+                                                            currentPage === page
+                                                                ? 'text-white'
+                                                                : 'bg-[#0A0A0A] dark:bg-gray-900 text-gray-400 border border-emerald-500/20 dark:border-gray-700 hover:border-emerald-500/40'
+                                                        }`}
+                                                        style={currentPage === page ? { background: brandColor } : {}}
+                                                    >
+                                                        {page}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                            <button
+                                                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                                disabled={currentPage === totalPages}
+                                                className="px-4 py-2 rounded-xl bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-700 text-gray-400 disabled:opacity-50 disabled:cursor-not-allowed hover:border-emerald-500/40 transition-all"
+                                            >
+                                                التالي
+                                            </button>
+                                        </div>
+                                    )}
+                                </>
                             )}
                         </motion.div>
                     </AnimatePresence>

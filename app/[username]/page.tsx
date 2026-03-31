@@ -118,11 +118,14 @@ export default async function CreatorProfilePage({ params }: Props) {
         );
     }
 
-    // Fetch Products, Courses, and Bundles
-    const [productsRaw, coursesRaw, bundlesRaw] = await Promise.all([
+    // Fetch Products, Courses, Bundles, and calculate REAL stats
+    const [productsRaw, coursesRaw, bundlesRaw, ordersStats, reviewsStats, enrollmentsStats] = await Promise.all([
         prisma.product.findMany({
             where: { userId: creator.id, isActive: true },
             orderBy: { createdAt: 'desc' },
+            include: {
+                _count: { select: { reviews: true } }
+            }
         }),
         prisma.course.findMany({
             where: { userId: creator.id, isActive: true },
@@ -138,18 +141,48 @@ export default async function CreatorProfilePage({ params }: Props) {
                 }
             },
             orderBy: { createdAt: 'desc' }
+        }),
+        // Real sold count from orders
+        prisma.order.aggregate({
+            where: { 
+                sellerId: creator.id,
+                status: { in: ['PAID', 'COMPLETED'] }
+            },
+            _count: { id: true },
+            _sum: { totalAmount: true }
+        }),
+        // Real reviews and ratings
+        prisma.review.aggregate({
+            where: {
+                product: { userId: creator.id }
+            },
+            _avg: { rating: true },
+            _count: { id: true }
+        }),
+        // Course enrollments count
+        prisma.courseEnrollment.count({
+            where: {
+                course: { userId: creator.id }
+            }
         })
     ]);
 
-    // Unify mapping
+    // Calculate real stats
+    const totalSold = ordersStats._count.id + enrollmentsStats;
+    const averageRating = reviewsStats._avg.rating || 0;
+    const totalReviews = reviewsStats._count.id;
+    const totalRevenue = ordersStats._sum.totalAmount || 0;
+
+    // Unify mapping with real stats
     const productsList = productsRaw.map(p => ({
         ...p,
         isFree: p.isFree || p.price === 0,
+        reviewCount: p._count?.reviews || 0,
     }));
 
     const coursesList = coursesRaw.map(c => ({
         ...c,
-        category: 'courses', // Force category for courses to easily filter in client
+        category: 'courses',
         isFree: c.price === 0,
     }));
 
@@ -157,12 +190,18 @@ export default async function CreatorProfilePage({ params }: Props) {
         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
 
-    // Pass data to Client Component
+    // Pass data to Client Component with REAL stats
     return (
         <ProfileClient
             creator={creator}
             products={combinedProducts}
             bundles={bundlesRaw}
+            stats={{
+                totalSold,
+                averageRating: Number(averageRating.toFixed(1)),
+                totalReviews,
+                totalRevenue
+            }}
         />
     );
 
