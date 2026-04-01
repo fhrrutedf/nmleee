@@ -22,12 +22,15 @@ interface CartContextType {
     items: CartItem[];
     addItem: (item: CartItem) => void;
     removeItem: (itemId: string) => void;
+    removeFromCart: (itemId: string) => void; // alias
     updateQuantity: (itemId: string, quantity: number) => void;
     clearCart: () => void;
     isOpen: boolean;
     setIsOpen: (open: boolean) => void;
     totalItems: number;
+    itemCount: number; // alias
     totalPrice: number;
+    getTotal: () => number; // alias
     isLoading: boolean;
 }
 
@@ -104,17 +107,25 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         return sum + (item.price * (item.quantity || 1));
     }, 0);
 
+    // Aliases for compatibility with existing components
+    const removeFromCart = removeItem;
+    const getTotal = () => totalPrice;
+    const itemCount = totalItems;
+
     return (
         <CartContext.Provider value={{
             items,
             addItem,
             removeItem,
+            removeFromCart,
             updateQuantity,
             clearCart,
             isOpen,
             setIsOpen,
             totalItems,
+            itemCount,
             totalPrice,
+            getTotal,
             isLoading
         }}>
             {children}

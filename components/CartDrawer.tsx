@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useCart } from '@/contexts/CartContext';
+import { useCart } from '@/app/context/CartContext';
 import { FiShoppingCart, FiX, FiTrash2, FiShoppingBag, FiArrowRight } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
