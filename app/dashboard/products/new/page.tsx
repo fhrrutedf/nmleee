@@ -547,36 +547,43 @@ export default function NewProductPage() {
                                 </Section>
 
                                 <Section title="خيارات الطرح والنشر في المتجر" icon={<FiEye />}>
-                                    <div className="flex items-center justify-between p-8 bg-emerald-700 text-white rounded-xl border border-white/10 shadow-lg shadow-[#10B981]/20 transition-all cursor-pointer hover:bg-emerald-700 text-white group" onClick={() => update('isActive', !formData.isActive)}>
+                                    <div 
+                                        className={`flex items-center justify-between p-8 rounded-xl border transition-all cursor-pointer group shadow-lg ${formData.isActive ? 'bg-emerald-900/40 border-emerald-500/30 shadow-emerald-500/10' : 'bg-slate-900/40 border-white/5 shadow-black/40'}`} 
+                                        onClick={() => update('isActive', !formData.isActive)}
+                                    >
                                         <div className="text-right">
-                                            <h3 className="font-bold text-white text-xl leading-tight transition-colors group-hover:text-blue-400">حالة ظهور المنتج في المتجر</h3>
+                                            <h3 className={`font-bold text-xl leading-tight transition-colors ${formData.isActive ? 'text-white' : 'text-gray-400'}`}>
+                                                {formData.isActive ? 'المنتج متاح للشراء (نشط)' : 'حفظ كمسودة (مخفي)'}
+                                            </h3>
+                                            <p className={`text-xs mt-1 transition-colors ${formData.isActive ? 'text-emerald-400' : 'text-gray-500'}`}>
+                                                {formData.isActive ? 'سيظهر هذا المنتج في متجرك فور ضغط زر النشر.' : 'لن يظهر هذا المنتج في متجرك وسيكون متاحاً لك فقط للتعديل.'}
+                                            </p>
                                         </div>
-                                        <div className={`w-16 h-9 rounded-xl flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.isActive ? 'bg-emerald-700 text-white-500 outline-accent-500/30' : 'bg-slate-700 outline-slate-800'}`}>
-                                            <div className={`w-6 h-6 bg-[#0A0A0A] rounded-xl transition-all ${formData.isActive ? 'translate-x-[26px]' : 'translate-x-0'} shadow-lg shadow-[#10B981]/20 shadow-black/40`} />
+                                        <div className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.isActive ? 'bg-emerald-500 outline-emerald-500/30' : 'bg-slate-700 outline-slate-800'}`}>
+                                            <div className={`w-6 h-6 bg-white rounded-full transition-all shadow-md ${formData.isActive ? 'translate-x-[26px]' : 'translate-x-0'}`} />
                                         </div>
                                     </div>
                                     
-                                    <div className="flex items-center justify-between p-8 bg-blue-900 rounded-xl border border-blue-800 shadow-lg shadow-[#10B981]/20 transition-all cursor-pointer hover:bg-blue-800 group" onClick={() => update('enablePPP', !formData.enablePPP)}>
+                                    <div className={`flex items-center justify-between p-8 rounded-xl border transition-all cursor-pointer group shadow-lg ${formData.enablePPP ? 'bg-blue-900/40 border-blue-500/30 shadow-blue-500/10' : 'bg-slate-900/40 border-white/5 shadow-black/40'}`} onClick={() => update('enablePPP', !formData.enablePPP)}>
                                         <div className="text-right flex-1">
-                                            <h3 className="font-bold text-white text-xl leading-tight transition-colors group-hover:text-amber-400">تفعيل التسعير العادل (PPP Pricing) 🌍</h3>
-                                            <p className="text-xs text-blue-200 mt-1 max-w-lg leading-relaxed">تخفيض السعر تلقائياً للزوار من الدول النامية حسب القوة الشرائية.</p>
+                                            <h3 className={`font-bold text-xl leading-tight transition-colors ${formData.enablePPP ? 'text-white' : 'text-gray-400'}`}>تفعيل التسعير العادل (PPP Pricing) 🌍</h3>
+                                            <p className={`text-xs mt-1 transition-colors ${formData.enablePPP ? 'text-blue-300' : 'text-gray-500'} max-w-lg leading-relaxed`}>تخفيض السعر تلقائياً للزوار من الدول النامية حسب القوة الشرائية.</p>
                                             
                                             {/* PPP Details */}
                                             {formData.enablePPP && (
-                                                <div className="mt-4 p-4 bg-blue-950/50 rounded-xl border border-blue-700/50">
+                                                <div className="mt-4 p-4 bg-blue-950/30 rounded-xl border border-blue-700/30">
                                                     <p className="text-[11px] text-blue-300 mb-2 font-bold">نسب الخصم التلقائي:</p>
                                                     <div className="grid grid-cols-2 gap-2 text-[10px]">
-                                                        <div className="flex justify-between"><span>مصر، السودان، اليمن</span><span className="text-emerald-400">خصم 70%</span></div>
-                                                        <div className="flex justify-between"><span>العراق، سوريا، ليبيا</span><span className="text-emerald-400">خصم 60%</span></div>
-                                                        <div className="flex justify-between"><span>الأردن، تونس، المغرب</span><span className="text-emerald-400">خصم 40%</span></div>
-                                                        <div className="flex justify-between"><span>تركيا، لبنان</span><span className="text-emerald-400">خصم 30%</span></div>
+                                                        <div className="flex justify-between"><span>مصر، السودان، اليمن</span><span className="text-emerald-400 font-bold">خصم 70%</span></div>
+                                                        <div className="flex justify-between"><span>العراق، سوريا، ليبيا</span><span className="text-emerald-400 font-bold">خصم 60%</span></div>
+                                                        <div className="flex justify-between"><span>الأردن، تونس، المغرب</span><span className="text-emerald-400 font-bold">خصم 40%</span></div>
+                                                        <div className="flex justify-between"><span>تركيا، لبنان</span><span className="text-emerald-400 font-bold">خصم 30%</span></div>
                                                     </div>
-                                                    <p className="text-[10px] text-blue-400 mt-2 italic">السعر الأدنى: 1$ مهما كان الخصم</p>
                                                 </div>
                                             )}
                                         </div>
-                                        <div className={`w-16 h-9 rounded-xl flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-emerald-700 text-white outline-amber-500/30' : 'bg-blue-950 outline-blue-900'}`}>
-                                            <div className={`w-6 h-6 bg-[#0A0A0A] rounded-xl transition-all ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'} shadow-lg shadow-[#10B981]/20 shadow-black/40`} />
+                                        <div className={`w-16 h-9 rounded-full flex items-center px-1.5 transition-all outline outline-offset-2 ${formData.enablePPP ? 'bg-blue-500 outline-blue-500/30' : 'bg-slate-700 outline-slate-800'}`}>
+                                            <div className={`w-6 h-6 bg-white rounded-full transition-all shadow-md ${formData.enablePPP ? 'translate-x-[26px]' : 'translate-x-0'}`} />
                                         </div>
                                     </div>
 

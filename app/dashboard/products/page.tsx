@@ -272,9 +272,9 @@ export default function ProductsPage() {
                                         <td className="p-6 text-center">
                                             <button 
                                                 onClick={() => toggleStatus(product)}
-                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all ${product.isActive ? 'bg-emerald-950/30 text-emerald-400 border border-emerald-500/20' : 'bg-[#111111] text-gray-500 border border-white/10'}`}
+                                                className={`px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all border ${product.isActive ? 'bg-emerald-950/30 text-emerald-400 border-emerald-500/20 hover:bg-emerald-900/50' : 'bg-amber-950/30 text-amber-500 border-amber-500/20 hover:bg-amber-900/50 animate-pulse'}`}
                                             >
-                                                {product.isActive ? '● نشط' : '○ مسودة'}
+                                                {product.isActive ? '● متاح بالمتجر' : '○ مسودة (مخفي)'}
                                             </button>
                                         </td>
                                         <td className="p-6 text-center relative">

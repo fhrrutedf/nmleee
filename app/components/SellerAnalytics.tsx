@@ -95,7 +95,7 @@ export default function SellerAnalytics({ sellerId, stats, brandColor = '#10B981
                         <div className={`w-10 h-10 md:w-14 md:h-14 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform`}>
                             <stat.icon className={stat.iconColor} size={20} />
                         </div>
-                        <p className="text-xl md:text-3xl font-black text-white mb-0.5 md:mb-1 tracking-tight">
+                        <p className="text-lg md:text-3xl font-black text-white mb-0.5 md:mb-1 tracking-tight truncate">
                             {typeof stat.value === 'number' ? stat.value.toLocaleString() : stat.value}
                         </p>
                         <p className="text-[8px] md:text-[10px] font-bold text-gray-500 uppercase tracking-widest">{stat.label}</p>
