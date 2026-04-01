@@ -63,27 +63,27 @@ export default function DashboardPage() {
             {/* Glassmorphism Welcome Section */}
             <motion.div 
                 variants={item} 
-                className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 sm:p-12 backdrop-blur-xl shadow-2xl shadow-black/50 group"
+                className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-white/10 bg-white/5 p-6 md:p-12 backdrop-blur-xl shadow-2xl shadow-black/50 group"
             >
                 <div className="relative z-10 max-w-2xl">
-                    <div className="flex items-center gap-3 mb-6">
-                        <span className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-[10px] font-bold text-emerald-400 uppercase tracking-[0.2em]">
+                    <div className="flex items-center gap-3 mb-4 md:mb-6">
+                        <span className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-[9px] md:text-[10px] font-bold text-emerald-400 uppercase tracking-[0.2em]">
                             Professional Dashboard
                         </span>
-                        <div className="h-px w-12 bg-gradient-to-r from-emerald-500/50 to-transparent"></div>
+                        <div className="h-px w-8 md:w-12 bg-gradient-to-r from-emerald-500/50 to-transparent"></div>
                     </div>
                     
-                    <h1 className="text-4xl sm:text-6xl font-black mb-6 tracking-tight leading-[1.1] text-white">
+                    <h1 className="text-3xl md:text-6xl font-black mb-4 md:mb-6 tracking-tight leading-[1.1] text-white">
                         مرحباً بك، <span className="text-emerald-500">{session?.user?.name?.split(' ')[0]}</span>
                     </h1>
                     
-                    <p className="text-gray-400 text-sm sm:text-lg leading-relaxed max-w-xl font-medium">
+                    <p className="text-gray-400 text-xs md:text-lg leading-relaxed max-w-xl font-medium">
                         إليك ملخص شامل لأداء متجرك الرقمي اليوم. نحن هنا لمساعدتك على تحويل أفكارك إلى نجاحات مستمرة.
                     </p>
                     
-                    <div className="mt-8 flex flex-wrap gap-4">
-                        <div className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-xl border border-white/10 text-[11px] font-bold text-gray-300">
-                             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <div className="mt-6 md:mt-8 flex flex-wrap gap-3 md:gap-4">
+                        <div className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-white/5 rounded-xl border border-white/10 text-[9px] md:text-[11px] font-bold text-gray-300">
+                             <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-emerald-500 animate-pulse"></div>
                              متجرك الآن متاح للعملاء
                         </div>
                     </div>
@@ -146,7 +146,7 @@ export default function DashboardPage() {
                         },
                         { 
                             title: 'تعديل هوية المتجر', 
-                            desc: 'الألوان، الشعار، والوصف العام', 
+                            desc: 'الألوان، الشعار والوصف', 
                             icon: FiSettings, 
                             href: '/dashboard/settings',
                             accent: 'emerald'
@@ -158,14 +158,14 @@ export default function DashboardPage() {
                             key={idx} 
                             href={action.href} 
                             {...linkProps} 
-                            className="flex items-center gap-5 p-5 rounded-2xl bg-[#111111] border border-white/5 hover:border-emerald-500/30 hover:bg-white/[0.02] transition-all group relative overflow-hidden active:scale-[0.98]"
+                            className="flex items-center gap-4 md:gap-5 p-4 md:p-5 rounded-2xl bg-[#111111] border border-white/5 hover:border-emerald-500/30 hover:bg-white/[0.02] transition-all group relative overflow-hidden active:scale-[0.98]"
                         >
-                            <div className="w-14 h-14 rounded-2xl bg-black border border-white/10 flex items-center justify-center text-gray-400 group-hover:text-emerald-400 group-hover:border-emerald-500/50 transition-all shadow-xl group-hover:shadow-emerald-500/10">
-                                <action.icon className="text-2xl" />
+                            <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-black border border-white/10 flex items-center justify-center text-gray-400 group-hover:text-emerald-400 group-hover:border-emerald-500/50 transition-all shadow-xl group-hover:shadow-emerald-500/10">
+                                <action.icon className="text-xl md:text-2xl" />
                             </div>
                             <div className="flex-1 text-right">
-                                <h3 className="font-bold text-white group-hover:text-emerald-400 transition-colors text-sm">{action.title}</h3>
-                                <p className="text-[10px] text-gray-500 font-medium mt-1">{action.desc}</p>
+                                <h3 className="font-bold text-white group-hover:text-emerald-400 transition-colors text-[13px] md:text-sm">{action.title}</h3>
+                                <p className="text-[9px] md:text-[10px] text-gray-500 font-medium mt-1">{action.desc}</p>
                             </div>
                             <FiArrowUpRight className="text-gray-600 group-hover:text-emerald-400 group-hover:translate-x-[-2px] group-hover:translate-y-[-2px] transition-all" />
                             
