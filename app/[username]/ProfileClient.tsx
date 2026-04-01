@@ -201,6 +201,13 @@ function isValidImage(url: string | null | undefined): boolean {
 }
 
 import BundleCard from '../components/BundleCard';
+import AddToCartButton from '../components/AddToCartButton';
+import CartButton from '../components/CartButton';
+import CartDrawer from '../components/CartDrawer';
+import LowStockBadge from '../components/LowStockBadge';
+import CountdownTimer from '../components/CountdownTimer';
+import SmartRecommendations from '../components/SmartRecommendations';
+import SellerAnalytics from '../components/SellerAnalytics';
 
 export default function ProfileClient({ creator, products, bundles = [], stats, coupons = [] }: ProfileClientProps) {
     const [activeTab, setActiveTab] = useState<'all' | 'products' | 'courses'>('all');
@@ -452,6 +459,9 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
 
                                     {/* Action buttons */}
                                     <div className="flex gap-2 justify-center sm:justify-start flex-wrap">
+                                        {/* Cart Button */}
+                                        <CartButton />
+
                                         {/* Follow Button */}
                                         <button
                                             onClick={handleFollow}
@@ -692,7 +702,7 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                                             </div>
                                         </div>
                                         <div className="p-3">
-                                            <h3 className="font-bold text-white text-sm line-clamp-1">{product.title}</h3>
+                                            <h4 className="font-bold text-white text-sm line-clamp-1">{product.title}</h4>
                                             <p className="text-xs text-gray-400 mt-1">
                                                 {product.isFree || product.price === 0 ? 'مجاني' : `${product.price} $`}
                                             </p>
@@ -1002,6 +1012,26 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                                                                 </div>
                                                             )}
 
+                                                            {/* Low Stock Alert */}
+                                                            {product.stockLimit && (
+                                                                <div className="mb-2">
+                                                                    <LowStockBadge 
+                                                                        stockLimit={product.stockLimit} 
+                                                                        soldCount={product.soldCount || 0} 
+                                                                    />
+                                                                </div>
+                                                            )}
+
+                                                            {/* Countdown Timer for limited offers */}
+                                                            {product.offerExpiresAt && (
+                                                                <div className="mb-3">
+                                                                    <CountdownTimer 
+                                                                        expiresAt={product.offerExpiresAt} 
+                                                                        brandColor={brandColor}
+                                                                    />
+                                                                </div>
+                                                            )}
+
                                                             <div className="flex items-center justify-between pt-3 border-t border-white/10/50 dark:border-gray-800/50">
                                                                 <div className="flex flex-col">
                                                                     <span className="text-sm font-bold" style={{ color: brandColor }}>
@@ -1013,10 +1043,18 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                                                                         </span>
                                                                     )}
                                                                 </div>
-                                                                <div className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-white text-[10px] font-bold shadow-lg shadow-[#10B981]/20 transition-all group-hover:scale-105 group-hover:shadow-lg shadow-[#10B981]/20" 
-                                                                    style={{ background: `linear-gradient(135deg, ${brandColor}, #7c3aed)` }}>
-                                                                    <FiShoppingCart size={11} /> شراء سريع
-                                                                </div>
+                                                                <AddToCartButton 
+                                                                    product={{
+                                                                        ...product,
+                                                                        user: {
+                                                                            id: creator.id,
+                                                                            name: creator.name,
+                                                                            username: creator.username
+                                                                        }
+                                                                    }}
+                                                                    variant="icon"
+                                                                    brandColor={brandColor}
+                                                                />
                                                             </div>
                                                         </div>
                                                     </Link>
@@ -1070,6 +1108,18 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                                             >
                                                 التالي
                                             </button>
+                                        </div>
+                                    )}
+                                    {/* Smart Recommendations */}
+                                    {paginatedProducts.length > 0 && (
+                                        <div className="mt-12">
+                                            <SmartRecommendations
+                                                currentProductId={paginatedProducts[0]?.id || ''}
+                                                sellerId={creator.id}
+                                                type="related"
+                                                maxItems={4}
+                                                brandColor={brandColor}
+                                            />
                                         </div>
                                     )}
                                 </>
@@ -1138,6 +1188,23 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                 )}
 
                 {/* ══════════════════════════════════════════
+                    SELLER ANALYTICS (Public Stats)
+                ══════════════════════════════════════════ */}
+                <div className="mt-12">
+                    <SellerAnalytics
+                        sellerId={creator.id}
+                        stats={{
+                            totalProducts: products.length,
+                            totalSales: stats.totalSold,
+                            totalRevenue: stats.totalRevenue,
+                            totalCustomers: stats.totalSold,
+                            conversionRate: 0
+                        }}
+                        brandColor={brandColor}
+                    />
+                </div>
+
+                {/* ══════════════════════════════════════════
                     CONTACT SECTION
                 ══════════════════════════════════════════ */}
                 {(creator.email || creator.phone) && (
@@ -1172,6 +1239,9 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                         </div>
                     </div>
                 )}
+
+                {/* Cart Drawer */}
+                <CartDrawer />
 
                 {/* ══════════════════════════════════════════
                     FOOTER

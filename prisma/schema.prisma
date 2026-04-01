@@ -136,6 +136,10 @@ model User {
   // Wishlist
   wishlist      WishlistItem[]
 
+  // Product Q&A
+  questionsAsked ProductQuestion[] @relation("QuestionsAsked")
+  answersGiven   ProductAnswer[] @relation("AnswersGiven")
+
   // Admin Control
   custom_commission_rate Float?      // عمولة مخصصة لهذا البائع (تتخطى عمولة الاشتراك)
   commission_note        String?     // ملاحظة حول العمولة المخصصة
@@ -253,6 +257,7 @@ model Product {
   licenses    License[]
   changelogs  Changelog[]
   wishlist    WishlistItem[]
+  questions   ProductQuestion[]  // أسئلة المنتج
 
   @@unique([userId, slug]) // Unique slug per creator
   @@index([userId])
@@ -1715,4 +1720,55 @@ model WishlistItem {
   @@index([userId])
   @@index([productId])
   @@index([courseId])
+}
+
+// ============================================
+// PRODUCT Q&A - أسئلة وأجوبة المنتج
+// ============================================
+model ProductQuestion {
+  id          String   @id @default(uuid())
+  
+  content     String   @db.Text
+  isAnonymous Boolean  @default(false)
+  isApproved  Boolean  @default(true)
+  
+  // Ask info
+  askerId     String?
+  asker       User?    @relation("QuestionsAsked", fields: [askerId], references: [id], onDelete: Cascade)
+  askerName   String?
+  askerEmail  String?
+  
+  // Relations
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  answers     ProductAnswer[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([productId])
+  @@index([askerId])
+  @@index([isApproved])
+  @@index([createdAt])
+}
+
+model ProductAnswer {
+  id          String   @id @default(uuid())
+  
+  content     String   @db.Text
+  
+  // Answerer info (usually the seller)
+  answererId  String
+  answerer    User     @relation("AnswersGiven", fields: [answererId], references: [id], onDelete: Cascade)
+  
+  // Relation
+  questionId  String
+  question    ProductQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([questionId])
+  @@index([answererId])
 }
