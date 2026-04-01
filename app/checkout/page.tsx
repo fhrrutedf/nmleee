@@ -51,6 +51,8 @@ export default function CheckoutPage() {
     const spFormRef = useRef<HTMLFormElement>(null);
     const [spOrderData, setSpOrderData] = useState<any>(null);
     const [spScriptLoaded, setSpScriptLoaded] = useState(false);
+    const [spScriptError, setSpScriptError] = useState(false);
+    const [spScriptLoading, setSpScriptLoading] = useState(false);
 
     useEffect(() => {
         if (!spOrderData) return;
@@ -86,17 +88,37 @@ export default function CheckoutPage() {
         (window as any).SP_RECIVED_MESSAGE = (msg: string) => console.log('[Spaceremit]:', msg);
         (window as any).SP_NEED_AUTH = (link: string) => { window.location.href = link; };
 
+        setSpScriptLoading(true);
+        setSpScriptError(false);
+
         const script = document.createElement('script');
         script.src = 'https://spaceremit.com/api/v2/js_script/spaceremit.js';
         script.async = true;
         script.onload = () => {
             console.log('[Spaceremit] JS loaded successfully');
             setSpScriptLoaded(true);
+            setSpScriptLoading(false);
         };
-        script.onerror = () => console.error('[Spaceremit] Failed to load JS script');
+        script.onerror = () => {
+            console.error('[Spaceremit] Failed to load JS script');
+            setSpScriptError(true);
+            setSpScriptLoading(false);
+            showToast.error('فشل تحميل بوابة الدفع. يرجى تحديث الصفحة أو اختيار وسيلة دفع أخرى.');
+        };
+        
+        // Timeout after 15 seconds
+        const timeoutId = setTimeout(() => {
+            if (!spScriptLoaded) {
+                setSpScriptError(true);
+                setSpScriptLoading(false);
+                showToast.error('استغرق تحميل بوابة الدفع وقتاً طويلاً. يرجى المحاولة مرة أخرى.');
+            }
+        }, 15000);
+        
         document.body.appendChild(script);
 
         return () => {
+            clearTimeout(timeoutId);
             try { document.body.removeChild(script); } catch {}
         };
     }, [spOrderData]);
@@ -441,39 +463,59 @@ export default function CheckoutPage() {
                         </div>
                     )}
 
-                    <form
-                        id="spaceremit-hidden-form"
-                        ref={spFormRef}
-                        className="space-y-4"
-                    >
-                        <input type="hidden" name="amount" value={spOrderData?.total || 0} />
-                        <input type="hidden" name="currency" value="USD" />
-                        <input type="hidden" name="fullname" value={spOrderData?.customerName || ''} />
-                        <input type="hidden" name="email" value={spOrderData?.customerEmail || ''} />
-                        <input type="hidden" name="notes" value={spOrderData?.orderNumber || ''} />
-
-                        <div className="sp-one-type-select">
-                            <input type="radio" name="sp-pay-type-radio" value="local-methods-pay" id="sp_local_methods_radio" defaultChecked className="hidden" />
-                            <label htmlFor="sp_local_methods_radio" className="block p-5 rounded-xl border-2 border-emerald-600 bg-emerald-700 text-white/5 cursor-pointer mb-4 transition-all">
-                                <div className="font-bold text-[#10B981] flex items-center gap-2 text-sm">🌍 الدفع المحلي (بينانس/زين/فودافون)</div>
-                                <p className="text-[10px] text-gray-500 font-bold mt-1">يُوصى به للمستخدمين في الشرق الأوسط</p>
-                            </label>
-                            <div id="spaceremit-local-methods-pay" className="space-y-2 min-h-[40px] px-2"></div>
+                    {spScriptLoading && (
+                        <div className="text-center py-10">
+                            <div className="animate-spin rounded-xl h-12 w-12 border-2 border-emerald-500/20 border-t-emerald-500 mx-auto mb-4"></div>
+                            <p className="text-gray-400 text-sm font-bold">جاري تحميل بوابة الدفع...</p>
+                            <p className="text-[10px] text-gray-500 mt-2">يرجى الانتظار لحظات</p>
                         </div>
+                    )}
 
-                        <div className="sp-one-type-select">
-                            <input type="radio" name="sp-pay-type-radio" value="card-pay" id="sp_card_radio" className="hidden" />
-                            <label htmlFor="sp_card_radio" className="block p-5 rounded-xl border-2 border-white/10 bg-[#111111] cursor-pointer mb-4 hover:border-emerald-600/30 transition-all">
-                                <div className="font-bold text-[#10B981] flex items-center gap-2 text-sm">💳 البطاقة البنكية الدولية</div>
-                                <p className="text-[10px] text-gray-500 font-bold mt-1">Visa, Mastercard, American Express</p>
-                            </label>
-                            <div id="spaceremit-card-pay" className="px-2"></div>
+                    {spScriptError && (
+                        <div className="text-center py-10">
+                            <div className="w-16 h-16 bg-red-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                                <FiAlertTriangle className="text-red-500 text-3xl" />
+                            </div>
+                            <p className="text-red-400 text-sm font-bold mb-2">فشل تحميل بوابة الدفع</p>
+                            <p className="text-[10px] text-gray-500 mb-4">يمكنك المحاولة مرة أخرى أو اختيار وسيلة دفع أخرى</p>
+                            <button 
+                                onClick={() => { setSpOrderData(null); setSpScriptError(false); }}
+                                className="px-6 py-3 bg-emerald-700 text-white rounded-xl font-bold text-sm hover:bg-emerald-600 transition-all"
+                            >
+                                العودة واختيار وسيلة أخرى
+                            </button>
                         </div>
+                    )}
 
-                        <button type="submit" className="w-full py-5 bg-emerald-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/20 hover:bg-gray-800 hover:shadow-ink/30 transform hover:-translate-y-0.5 mt-6 mb-4">
-                            ادفع الآن آمن
-                        </button>
-                    </form>
+                    {!spScriptLoading && !spScriptError && (
+                        <form
+                            id="spaceremit-hidden-form"
+                            ref={spFormRef}
+                            className="space-y-4"
+                        >
+                            <div className="sp-one-type-select">
+                                <input type="radio" name="sp-pay-type-radio" value="local-methods-pay" id="sp_local_methods_radio" defaultChecked className="hidden" />
+                                <label htmlFor="sp_local_methods_radio" className="block p-5 rounded-xl border-2 border-emerald-600 bg-emerald-700/10 cursor-pointer mb-4 transition-all">
+                                    <div className="font-bold text-emerald-400 flex items-center gap-2 text-sm">🌍 الدفع المحلي (بينانس/زين/فودافون)</div>
+                                    <p className="text-[10px] text-gray-500 font-bold mt-1">يُوصى به للمستخدمين في الشرق الأوسط</p>
+                                </label>
+                                <div id="spaceremit-local-methods-pay" className="space-y-2 min-h-[40px] px-2"></div>
+                            </div>
+
+                            <div className="sp-one-type-select">
+                                <input type="radio" name="sp-pay-type-radio" value="card-pay" id="sp_card_radio" className="hidden" />
+                                <label htmlFor="sp_card_radio" className="block p-5 rounded-xl border-2 border-white/10 bg-[#111111] cursor-pointer mb-4 hover:border-emerald-600/30 transition-all">
+                                    <div className="font-bold text-[#10B981] flex items-center gap-2 text-sm">💳 البطاقة البنكية الدولية</div>
+                                    <p className="text-[10px] text-gray-500 font-bold mt-1">Visa, Mastercard, American Express</p>
+                                </label>
+                                <div id="spaceremit-card-pay" className="px-2"></div>
+                            </div>
+
+                            <button type="submit" className="w-full py-5 bg-emerald-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-[#10B981]/20 hover:bg-emerald-600 transform hover:-translate-y-0.5 mt-6 mb-4">
+                                ادفع الآن آمن
+                            </button>
+                        </form>
+                    )}
 
                     <div className="flex items-center justify-center gap-3 text-[10px] text-gray-400 font-bold uppercase tracking-widest">
                         <FiShield className="text-[#10B981]" />

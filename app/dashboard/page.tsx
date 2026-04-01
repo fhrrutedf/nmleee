@@ -73,33 +73,10 @@ export default function DashboardPage() {
                 <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-xl -translate-y-1/2 translate-x-1/2 blur-[120px]"></div>
             </motion.div>
 
-            {/* High-Contrast Stats Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {[
-                    { title: 'إجمالي الأرباح', value: `${(stats.totalRevenue || 0).toLocaleString('en-US')} $`, icon: FiDollarSign, badge: 'Revenue', color: 'text-[#10B981]', bg: 'bg-[#111111]' },
-                    { title: 'إجمالي المبيعات', value: stats.totalOrders || 0, icon: FiShoppingCart, badge: 'Sales', color: 'text-[#10B981]', bg: 'bg-[#111111]' },
-                    { title: 'المنتجات النشطة', value: stats.totalProducts || 0, icon: FiPackage, badge: 'Inventory', color: 'text-[#10B981]', bg: 'bg-[#111111]' },
-                    { title: 'عدد الطلاب', value: stats.totalStudents || 0, icon: FiUsers, badge: 'Students', color: 'text-[#10B981]', bg: 'bg-[#111111]' }
-                ].map((stat, idx) => (
-                    <motion.div variants={item} key={idx} className="bg-[#0A0A0A] border border-white/10 p-6 rounded-xl hover:border-emerald-500/30 transition-all shadow-lg shadow-black/20 group">
-                        <div className="flex justify-between items-center mb-6">
-                            <div className={`${stat.bg} p-3 rounded-xl border border-white/5 group-hover:border-emerald-500/20 transition-all`}>
-                                <stat.icon className={`text-xl ${stat.color}`} />
-                            </div>
-                            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{stat.badge}</span>
-                        </div>
-                        <h3 className="text-gray-400 text-xs font-bold mb-1 uppercase tracking-wider">{stat.title}</h3>
-                        <p className="text-2xl font-bold text-white font-inter tracking-tight">
-                            {loading ? '—' : stat.value}
-                        </p>
-                    </motion.div>
-                ))}
-            </div>
-
             {/* Analytics & Quick Actions */}
             <div className="grid lg:grid-cols-3 gap-8">
-                {/* Seller Analytics Component */}
-                <motion.div variants={item} className="lg:col-span-3">
+                {/* Seller Analytics Component - Detailed Stats */}
+                <motion.div variants={item} className="lg:col-span-2">
                     <SellerAnalytics
                         sellerId={session?.user?.id || ''}
                         stats={{
@@ -112,35 +89,8 @@ export default function DashboardPage() {
                         brandColor="#10B981"
                     />
                 </motion.div>
-            </div>
 
-            {/* Analytics & Quick Actions */}
-            <div className="grid lg:grid-cols-3 gap-8">
-                {/* Analytics Snapshot */}
-                <motion.div variants={item} className="lg:col-span-2 bg-[#0A0A0A] border border-white/10 rounded-xl p-8 shadow-lg shadow-black/20 flex flex-col">
-                    <div className="flex justify-between items-center mb-10">
-                        <div className="flex items-center gap-3">
-                            <FiBarChart2 className="text-[#10B981] text-2xl" />
-                            <h2 className="text-xl font-bold text-white">تحليلات الأداء</h2>
-                        </div>
-                        <select className="bg-[#111111] border-white/10 rounded-xl text-[11px] font-bold px-4 py-2 text-gray-400 focus:ring-1 focus:ring-emerald-500 cursor-pointer outline-none">
-                            <option>آخر 7 أيام</option>
-                            <option>هذا الشهر</option>
-                        </select>
-                    </div>
-
-                    <div className="flex-1 flex flex-col items-center justify-center text-center py-16 px-8 border-2 border-dashed border-white/5 rounded-xl">
-                        <div className="w-16 h-16 bg-[#111111] rounded-xl flex items-center justify-center mb-6">
-                            <FiActivity className="text-2xl text-emerald-500/50" />
-                        </div>
-                        <h3 className="text-lg font-bold text-white mb-2">في انتظار المزيد من البيانات</h3>
-                        <p className="text-gray-400 text-sm max-w-sm mx-auto font-bold">
-                            سنقوم بتحليل مبيعاتك وتفاعلات طلابك فور بدء النشاط على متجرك.
-                        </p>
-                    </div>
-                </motion.div>
-
-                {/* Corporate Quick Actions */}
+                {/* Quick Actions */}
                 <motion.div variants={item} className="space-y-4">
                     <h2 className="text-sm font-bold text-gray-500 uppercase tracking-[0.2em] mb-6 border-r-4 border-emerald-500 pr-3 ml-auto text-right">إجراءات سريعة</h2>
                     {[{
@@ -150,9 +100,9 @@ export default function DashboardPage() {
                         href: `/${session?.user?.username || session?.user?.name}`,
                         external: true
                     },
-                        { title: 'إضافة منتج رقمي', desc: 'كتب، ملفات، قوالب جاهزة', icon: FiPackage, href: '/dashboard/products/new' },
-                        { title: 'إنشاء كورس جديد', desc: 'سجل محاضراتك وأنشئ أكاديميتك', icon: FiVideo, href: '/dashboard/courses/new' },
-                        { title: 'تعديل هوية المتجر', desc: 'الألوان، الشعار، والوصف', icon: FiSettings, href: '/dashboard/brand' }
+                        { title: 'إضافة منتج رقمي', desc: 'ملفات PDF, ZIP, قوالب جاهزة - تحميل فوري', icon: FiPackage, href: '/dashboard/products/new' },
+                        { title: 'إنشاء كورس تدريبي', desc: 'دروس فيديو, اختبارات, شهادات - أكاديمية متكاملة', icon: FiVideo, href: '/dashboard/courses/new' },
+                        { title: 'تعديل هوية المتجر', desc: 'الألوان، الشعار، والوصف', icon: FiSettings, href: '/dashboard/settings' }
                     ].map((action, idx) => {
                         const linkProps = action.external ? { target: "_blank", rel: "noopener noreferrer" } : {};
                         return (
@@ -169,11 +119,29 @@ export default function DashboardPage() {
                         );
                     })}
                     
-                    <div className="mt-8 p-6 bg-emerald-950/30 text-emerald-200 rounded-xl border border-emerald-500/20">
-                        <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-2">نصيحة اليوم</p>
-                        <p className="text-xs font-bold leading-relaxed text-emerald-100">
-                            تحديث صور المنتجات الرقمية يزيد من معدل التحويل بنسبة تصل إلى 25%.
-                        </p>
+                    {/* Product vs Course Comparison */}
+                    <div className="mt-6 p-5 bg-[#111111] rounded-xl border border-white/10">
+                        <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-3">📦 المنتج vs 🎓 الدورة</p>
+                        <div className="grid grid-cols-2 gap-3 text-[10px]">
+                            <div className="p-3 bg-[#0A0A0A] rounded-lg border border-emerald-500/20">
+                                <p className="font-bold text-emerald-400 mb-1">المنتج الرقمي</p>
+                                <ul className="text-gray-400 space-y-1">
+                                    <li>• ملفات PDF, ZIP, Word</li>
+                                    <li>• قوالب, تصاميم, كود</li>
+                                    <li>• تحميل فوري بعد الشراء</li>
+                                    <li>• مناسب للكتب والملفات</li>
+                                </ul>
+                            </div>
+                            <div className="p-3 bg-[#0A0A0A] rounded-lg border border-blue-500/20">
+                                <p className="font-bold text-blue-400 mb-1">الدورة التدريبية</p>
+                                <ul className="text-gray-400 space-y-1">
+                                    <li>• دروس فيديو مصنفة</li>
+                                    <li>• اختبارات وشهادات</li>
+                                    <li>• تتبع تقدم الطالب</li>
+                                    <li>• مناسب للتعليم المنهجي</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </motion.div>
             </div>

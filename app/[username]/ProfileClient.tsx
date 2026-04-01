@@ -553,21 +553,24 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
 
                         {/* ─── Stats Bar ─── */}
                         <div className="grid grid-cols-3 gap-3 mt-8 pt-8 border-t border-white/10 dark:border-gray-800">
-                            {[
-                                creator.showProductsCount !== false && { icon: <FiPackage />, value: products.length, label: 'منتج متاح' },
-                                creator.showSalesCount !== false && { icon: <FiUsers />, value: stats.totalSold, label: 'طالب سعيد' },
-                                creator.showRating !== false && { icon: <FiStar />, value: stats.averageRating > 0 ? stats.averageRating : '-', label: `تقييم عام (${stats.totalReviews})` },
-                            ].filter(Boolean).map((stat, i) => (
-                                <div key={i} className="text-center group cursor-default">
-                                    <div className="text-2xl sm:text-3xl font-bold text-white dark:text-white group-hover:scale-110 transition-transform duration-300">
-                                        {stat.value}
-                                        {stat.icon?.type === FiStar && stats.averageRating > 0 && <FiStar className="inline mr-1 text-sm text-yellow-400 fill-yellow-400" />}
+                            {(() => {
+                                const statsList: Array<{ icon: React.ReactElement; value: string | number; label: string }> = [
+                                    ...(creator.showProductsCount !== false ? [{ icon: <FiPackage />, value: products.length, label: 'منتج متاح' }] : []),
+                                    ...(creator.showSalesCount !== false ? [{ icon: <FiUsers />, value: stats.totalSold, label: 'طالب سعيد' }] : []),
+                                    ...(creator.showRating !== false ? [{ icon: <FiStar />, value: stats.averageRating > 0 ? stats.averageRating : '-', label: `تقييم عام (${stats.totalReviews})` }] : []),
+                                ];
+                                return statsList.map((stat, i) => (
+                                    <div key={i} className="text-center group cursor-default">
+                                        <div className="text-2xl sm:text-3xl font-bold text-white dark:text-white group-hover:scale-110 transition-transform duration-300">
+                                            {stat.value}
+                                            {stat.icon?.type === FiStar && stats.averageRating > 0 && <FiStar className="inline mr-1 text-sm text-yellow-400 fill-yellow-400" />}
+                                        </div>
+                                        <div className="text-[10px] sm:text-xs font-bold text-gray-500 dark:text-gray-400 mt-1 uppercase tracking-widest flex items-center justify-center gap-1">
+                                            <span style={{ color: brandColor }}>{stat.icon}</span> {stat.label}
+                                        </div>
                                     </div>
-                                    <div className="text-[10px] sm:text-xs font-bold text-gray-500 dark:text-gray-400 mt-1 uppercase tracking-widest flex items-center justify-center gap-1">
-                                        <span style={{ color: brandColor }}>{stat.icon}</span> {stat.label}
-                                    </div>
-                                </div>
-                            ))}
+                                ));
+                            })()}
                         </div>
                     </div>
                 </div>
