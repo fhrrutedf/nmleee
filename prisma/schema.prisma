@@ -101,6 +101,12 @@ model User {
   twoFactorSecret  String?
   phoneVisibility   String   @default("HIDDEN") // "PUBLIC" | "WHATSAPP_ONLY" | "HIDDEN"
 
+  // Store Privacy Settings
+  showProductsCount Boolean  @default(true)  // إظهار عدد المنتجات
+  showSalesCount    Boolean  @default(true)  // إظهار عدد المبيعات
+  showRevenue       Boolean  @default(false) // إظهار الإيرادات (افتراضي مخفي)
+  showRating        Boolean  @default(true)  // إظهار التقييم
+
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   

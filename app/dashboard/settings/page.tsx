@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { FiUser, FiMail, FiLock, FiGlobe, FiBell, FiCreditCard, FiShield, FiSave, FiUpload, FiEye, FiEyeOff, FiLink, FiCheckCircle, FiXCircle, FiCopy, FiDroplet, FiType, FiLayout, FiSquare, FiCheck } from 'react-icons/fi';
+import { FiUser, FiMail, FiLock, FiGlobe, FiBell, FiCreditCard, FiShield, FiSave, FiUpload, FiEye, FiEyeOff, FiLink, FiCheckCircle, FiXCircle, FiCopy, FiDroplet, FiType, FiLayout, FiSquare, FiCheck, FiPackage, FiUsers, FiStar } from 'react-icons/fi';
 import { apiGet, apiPost, apiPut, apiDelete, handleApiError } from '@/lib/safe-fetch';
 import FileUploader from '@/components/ui/FileUploader';
 import PayoutSettings from '@/components/dashboard/PayoutSettings';
@@ -52,6 +52,10 @@ export default function SettingsPage() {
         twoFactorEnabled: false,
         phoneVisibility: 'HIDDEN' as 'PUBLIC' | 'HIDDEN' | 'WHATSAPP_ONLY',
         customDomain: '',
+        showProductsCount: true,
+        showSalesCount: true,
+        showRevenue: false,
+        showRating: true,
     });
 
     const [show2FASetup, setShow2FASetup] = useState(false);
@@ -130,6 +134,10 @@ export default function SettingsPage() {
                     twoFactorEnabled: data.twoFactorEnabled || false,
                     phoneVisibility: data.phoneVisibility || 'HIDDEN',
                     customDomain: data.customDomain || '',
+                    showProductsCount: data.showProductsCount !== false,
+                    showSalesCount: data.showSalesCount !== false,
+                    showRevenue: data.showRevenue === true,
+                    showRating: data.showRating !== false,
                 });
                 setOriginalUsername(data.username || '');
                 setPaymentData({
@@ -909,6 +917,64 @@ export default function SettingsPage() {
                                             <option value="HIDDEN">مخفي - يظهر للإدارة فقط عند الضرورة</option>
                                         </select>
                                         <p className="mt-2 text-xs text-text-muted">نوصي باختيار "مخفي" أو "واتساب فقط" لخصوصية أفضل.</p>
+                                    </div>
+
+                                    <div className="p-5 bg-[#111111] dark:bg-gray-800/50 rounded-xl border border-white/10 dark:border-gray-800">
+                                        <div className="flex items-center gap-2 mb-4 text-[#10B981] dark:text-white">
+                                            <FiEye className="text-[#10B981]" />
+                                            <h3 className="font-bold">إعدادات خصوصية المتجر</h3>
+                                        </div>
+                                        <p className="text-xs text-gray-500 mb-4">تحكم فيما يظهر للزوار على صفحة متجرك العامة</p>
+                                        
+                                        <div className="space-y-3">
+                                            <label className="flex items-center justify-between p-3 bg-[#0A0A0A] dark:bg-gray-900 rounded-xl border border-emerald-500/20 cursor-pointer hover:border-emerald-500/40 transition-colors">
+                                                <div className="flex items-center gap-3">
+                                                    <FiPackage className="text-gray-400" />
+                                                    <div>
+                                                        <p className="text-sm font-bold text-white">عدد المنتجات</p>
+                                                        <p className="text-[10px] text-gray-500">إظهار عدد المنتجات المتاحة</p>
+                                                    </div>
+                                                </div>
+                                                <input 
+                                                    type="checkbox" 
+                                                    checked={profileData.showProductsCount !== false}
+                                                    onChange={(e) => setProfileData({ ...profileData, showProductsCount: e.target.checked })}
+                                                    className="w-5 h-5 accent-[#10B981] cursor-pointer"
+                                                />
+                                            </label>
+
+                                            <label className="flex items-center justify-between p-3 bg-[#0A0A0A] dark:bg-gray-900 rounded-xl border border-emerald-500/20 cursor-pointer hover:border-emerald-500/40 transition-colors">
+                                                <div className="flex items-center gap-3">
+                                                    <FiUsers className="text-gray-400" />
+                                                    <div>
+                                                        <p className="text-sm font-bold text-white">عدد المبيعات</p>
+                                                        <p className="text-[10px] text-gray-500">إظهار عدد العملاء/المبيعات</p>
+                                                    </div>
+                                                </div>
+                                                <input 
+                                                    type="checkbox" 
+                                                    checked={profileData.showSalesCount !== false}
+                                                    onChange={(e) => setProfileData({ ...profileData, showSalesCount: e.target.checked })}
+                                                    className="w-5 h-5 accent-[#10B981] cursor-pointer"
+                                                />
+                                            </label>
+
+                                            <label className="flex items-center justify-between p-3 bg-[#0A0A0A] dark:bg-gray-900 rounded-xl border border-emerald-500/20 cursor-pointer hover:border-emerald-500/40 transition-colors">
+                                                <div className="flex items-center gap-3">
+                                                    <FiStar className="text-gray-400" />
+                                                    <div>
+                                                        <p className="text-sm font-bold text-white">التقييم والمراجعات</p>
+                                                        <p className="text-[10px] text-gray-500">إظهار متوسط التقييم وعدد المراجعات</p>
+                                                    </div>
+                                                </div>
+                                                <input 
+                                                    type="checkbox" 
+                                                    checked={profileData.showRating !== false}
+                                                    onChange={(e) => setProfileData({ ...profileData, showRating: e.target.checked })}
+                                                    className="w-5 h-5 accent-[#10B981] cursor-pointer"
+                                                />
+                                            </label>
+                                        </div>
                                     </div>
 
                                     <div className="p-4 bg-[#111111] dark:bg-gray-800/50 rounded-xl border border-white/10 dark:border-gray-800">

@@ -23,7 +23,7 @@ export default function SellerAnalytics({ sellerId, stats, brandColor = '#10B981
 
     useEffect(() => {
         // Generate or fetch referral code
-        if (sellerId) {
+        if (sellerId && typeof window !== 'undefined') {
             setReferralCode(`${window.location.origin}/ref/${sellerId.slice(0, 8)}`);
         }
     }, [sellerId]);

@@ -207,7 +207,6 @@ import CartDrawer from '../components/CartDrawer';
 import LowStockBadge from '../components/LowStockBadge';
 import CountdownTimer from '../components/CountdownTimer';
 import SmartRecommendations from '../components/SmartRecommendations';
-import SellerAnalytics from '../components/SellerAnalytics';
 
 export default function ProfileClient({ creator, products, bundles = [], stats, coupons = [] }: ProfileClientProps) {
     const [activeTab, setActiveTab] = useState<'all' | 'products' | 'courses'>('all');
@@ -555,10 +554,10 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                         {/* ─── Stats Bar ─── */}
                         <div className="grid grid-cols-3 gap-3 mt-8 pt-8 border-t border-white/10 dark:border-gray-800">
                             {[
-                                { icon: <FiPackage />, value: products.length, label: 'منتج متاح' },
-                                { icon: <FiUsers />, value: stats.totalSold, label: 'طالب سعيد' },
-                                { icon: <FiStar />, value: stats.averageRating > 0 ? stats.averageRating : '-', label: `تقييم عام (${stats.totalReviews})` },
-                            ].map((stat, i) => (
+                                creator.showProductsCount !== false && { icon: <FiPackage />, value: products.length, label: 'منتج متاح' },
+                                creator.showSalesCount !== false && { icon: <FiUsers />, value: stats.totalSold, label: 'طالب سعيد' },
+                                creator.showRating !== false && { icon: <FiStar />, value: stats.averageRating > 0 ? stats.averageRating : '-', label: `تقييم عام (${stats.totalReviews})` },
+                            ].filter(Boolean).map((stat, i) => (
                                 <div key={i} className="text-center group cursor-default">
                                     <div className="text-2xl sm:text-3xl font-bold text-white dark:text-white group-hover:scale-110 transition-transform duration-300">
                                         {stat.value}
@@ -1186,23 +1185,6 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                         </div>
                     </motion.div>
                 )}
-
-                {/* ══════════════════════════════════════════
-                    SELLER ANALYTICS (Public Stats)
-                ══════════════════════════════════════════ */}
-                <div className="mt-12">
-                    <SellerAnalytics
-                        sellerId={creator.id}
-                        stats={{
-                            totalProducts: products.length,
-                            totalSales: stats.totalSold,
-                            totalRevenue: stats.totalRevenue,
-                            totalCustomers: stats.totalSold,
-                            conversionRate: 0
-                        }}
-                        brandColor={brandColor}
-                    />
-                </div>
 
                 {/* ══════════════════════════════════════════
                     CONTACT SECTION

@@ -101,6 +101,11 @@ export default async function CreatorProfilePage({ params }: Props) {
             consultationPrice: true,
             role: true,
             createdAt: true,
+            // Store Privacy Settings
+            showProductsCount: true,
+            showSalesCount: true,
+            showRevenue: true,
+            showRating: true,
         },
     });
 

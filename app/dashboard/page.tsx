@@ -7,6 +7,7 @@ import { FiTrendingUp, FiShoppingCart, FiDollarSign, FiPackage, FiCalendar, FiAr
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { apiGet, handleApiError } from '@/lib/safe-fetch';
+import SellerAnalytics from '@/app/components/SellerAnalytics';
 
 export default function DashboardPage() {
     const { data: session } = useSession();
@@ -93,6 +94,24 @@ export default function DashboardPage() {
                         </p>
                     </motion.div>
                 ))}
+            </div>
+
+            {/* Analytics & Quick Actions */}
+            <div className="grid lg:grid-cols-3 gap-8">
+                {/* Seller Analytics Component */}
+                <motion.div variants={item} className="lg:col-span-3">
+                    <SellerAnalytics
+                        sellerId={session?.user?.id || ''}
+                        stats={{
+                            totalProducts: stats.totalProducts || 0,
+                            totalSales: stats.totalOrders || 0,
+                            totalRevenue: stats.totalRevenue || 0,
+                            totalCustomers: stats.totalStudents || 0,
+                            conversionRate: 0
+                        }}
+                        brandColor="#10B981"
+                    />
+                </motion.div>
             </div>
 
             {/* Analytics & Quick Actions */}
