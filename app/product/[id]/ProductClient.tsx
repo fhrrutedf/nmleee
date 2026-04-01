@@ -241,7 +241,7 @@ export default function ProductDetails({
                                         {product.previewFileUrl && (
                                             <a href={product.previewFileUrl} target="_blank" rel="noopener noreferrer" className="w-full btn bg-purple-50 hover:bg-purple-100 dark:bg-purple-900/20 dark:hover:bg-purple-900/40 text-[#10B981] dark:text-purple-400 text-lg py-4 rounded-xl flex items-center justify-center gap-2 transition-colors font-bold border border-purple-100 dark:border-purple-800/30">
                                                 <FiEye className="text-xl" />
-                                                <span>معاينة للدرس</span>
+                                                <span>{product.category === 'courses' ? 'معاينة للدرس' : 'معاينة المحتوى'}</span>
                                             </a>
                                         )}
                                     </div>

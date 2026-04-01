@@ -452,7 +452,7 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                             <div className="flex-1 text-center sm:text-right w-full min-w-0">
                                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                                     <div>
-                                        <h1 className="text-2xl sm:text-3xl font-bold text-white dark:text-white">{creator.name}</h1>
+                                        <h1 className="text-2xl sm:text-3xl font-bold text-white dark:text-white break-words">{creator.name}</h1>
                                         <p className="text-sm font-bold mt-0.5 font-mono" style={{ color: brandColor }}>@{creator.username}</p>
                                     </div>
 

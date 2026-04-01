@@ -11,12 +11,6 @@ export async function GET(
     try {
         const { username } = await params;
         
-        // Get current user session
-        const session = await getServerSession(authOptions);
-        if (!session?.user?.id) {
-            return NextResponse.json({ isFollowing: false });
-        }
-
         // Find seller by username
         const seller = await prisma.user.findUnique({
             where: { username },
@@ -27,6 +21,17 @@ export async function GET(
             return NextResponse.json({ error: 'Seller not found' }, { status: 404 });
         }
 
+        // Get follower count
+        const followerCount = await prisma.sellerFollower.count({
+            where: { sellerId: seller.id }
+        });
+
+        // Get current user session
+        const session = await getServerSession(authOptions);
+        if (!session?.user?.id) {
+            return NextResponse.json({ isFollowing: false, followerCount });
+        }
+
         // Check if following
         const follow = await prisma.sellerFollower.findUnique({
             where: {
@@ -35,11 +40,6 @@ export async function GET(
                     sellerId: seller.id
                 }
             }
-        });
-
-        // Get follower count
-        const followerCount = await prisma.sellerFollower.count({
-            where: { sellerId: seller.id }
         });
 
         return NextResponse.json({

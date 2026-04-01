@@ -73,7 +73,7 @@ export default function DashboardPage() {
                         <div className="h-px w-8 md:w-12 bg-gradient-to-r from-emerald-500/50 to-transparent"></div>
                     </div>
                     
-                    <h1 className="text-3xl md:text-6xl font-black mb-4 md:mb-6 tracking-tight leading-[1.1] text-white">
+                    <h1 className="text-3xl md:text-6xl font-black mb-4 md:mb-6 tracking-tight leading-[1.1] text-white break-words">
                         مرحباً بك، <span className="text-emerald-500">{session?.user?.name?.split(' ')[0]}</span>
                     </h1>
                     
@@ -163,9 +163,9 @@ export default function DashboardPage() {
                             <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-black border border-white/10 flex items-center justify-center text-gray-400 group-hover:text-emerald-400 group-hover:border-emerald-500/50 transition-all shadow-xl group-hover:shadow-emerald-500/10">
                                 <action.icon className="text-xl md:text-2xl" />
                             </div>
-                            <div className="flex-1 text-right">
-                                <h3 className="font-bold text-white group-hover:text-emerald-400 transition-colors text-[13px] md:text-sm">{action.title}</h3>
-                                <p className="text-[9px] md:text-[10px] text-gray-500 font-medium mt-1">{action.desc}</p>
+                            <div className="flex-1 text-right min-w-0">
+                                <h3 className="font-bold text-white group-hover:text-emerald-400 transition-colors text-[13px] md:text-sm truncate">{action.title}</h3>
+                                <p className="text-[9px] md:text-[10px] text-gray-500 font-medium mt-1 truncate">{action.desc}</p>
                             </div>
                             <FiArrowUpRight className="text-gray-600 group-hover:text-emerald-400 group-hover:translate-x-[-2px] group-hover:translate-y-[-2px] transition-all" />
                             
