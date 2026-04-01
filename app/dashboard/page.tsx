@@ -60,17 +60,41 @@ export default function DashboardPage() {
             animate="show"
             className="space-y-8 pb-12"
         >
-            {/* Professional Welcome Section */}
-            <motion.div variants={item} className="bg-emerald-700 text-white rounded-xl p-8 sm:p-12 text-white shadow-lg shadow-emerald-500/20 relative overflow-hidden ring-1 ring-white/10">
+            {/* Glassmorphism Welcome Section */}
+            <motion.div 
+                variants={item} 
+                className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 sm:p-12 backdrop-blur-xl shadow-2xl shadow-black/50 group"
+            >
                 <div className="relative z-10 max-w-2xl">
-                    <span className="inline-block px-3 py-1 bg-black/20 rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Merchant Dashboard</span>
-                    <h1 className="text-3xl sm:text-5xl font-bold mb-4 tracking-tight leading-tight">مرحباً، {session?.user?.name}</h1>
-                    <p className="text-emerald-50 text-sm sm:text-lg leading-relaxed font-bold">
-                        إليك ملخص أداء متجرك وأهم التحديثات. استمر في النمو وتحقيق النجاح.
+                    <div className="flex items-center gap-3 mb-6">
+                        <span className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-[10px] font-bold text-emerald-400 uppercase tracking-[0.2em]">
+                            Professional Dashboard
+                        </span>
+                        <div className="h-px w-12 bg-gradient-to-r from-emerald-500/50 to-transparent"></div>
+                    </div>
+                    
+                    <h1 className="text-4xl sm:text-6xl font-black mb-6 tracking-tight leading-[1.1] text-white">
+                        مرحباً بك، <span className="text-emerald-500">{session?.user?.name?.split(' ')[0]}</span>
+                    </h1>
+                    
+                    <p className="text-gray-400 text-sm sm:text-lg leading-relaxed max-w-xl font-medium">
+                        إليك ملخص شامل لأداء متجرك الرقمي اليوم. نحن هنا لمساعدتك على تحويل أفكارك إلى نجاحات مستمرة.
                     </p>
+                    
+                    <div className="mt-8 flex flex-wrap gap-4">
+                        <div className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-xl border border-white/10 text-[11px] font-bold text-gray-300">
+                             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                             متجرك الآن متاح للعملاء
+                        </div>
+                    </div>
                 </div>
-                {/* Minimalist Background Detail */}
-                <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-xl -translate-y-1/2 translate-x-1/2 blur-[120px]"></div>
+
+                {/* Premium Background Graphics */}
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-[120px] group-hover:bg-emerald-500/15 transition-colors duration-700"></div>
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-700/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-[80px]"></div>
+                
+                {/* Decorative Line */}
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
             </motion.div>
 
             {/* Analytics & Quick Actions */}
@@ -92,56 +116,94 @@ export default function DashboardPage() {
 
                 {/* Quick Actions */}
                 <motion.div variants={item} className="space-y-4">
-                    <h2 className="text-sm font-bold text-gray-500 uppercase tracking-[0.2em] mb-6 border-r-4 border-emerald-500 pr-3 ml-auto text-right">إجراءات سريعة</h2>
-                    {[{
-                        title: 'فتح متجري',
-                        desc: 'معاينة متجرك كما يراه الزبائن',
-                        icon: FiExternalLink,
-                        href: `/${session?.user?.username || session?.user?.name}`,
-                        external: true
-                    },
-                        { title: 'إضافة منتج رقمي', desc: 'ملفات PDF, ZIP, قوالب جاهزة - تحميل فوري', icon: FiPackage, href: '/dashboard/products/new' },
-                        { title: 'إنشاء كورس تدريبي', desc: 'دروس فيديو, اختبارات, شهادات - أكاديمية متكاملة', icon: FiVideo, href: '/dashboard/courses/new' },
-                        { title: 'تعديل هوية المتجر', desc: 'الألوان، الشعار، والوصف', icon: FiSettings, href: '/dashboard/settings' }
+                    <div className="flex items-center justify-between mb-8">
+                        <h2 className="text-sm font-bold text-gray-400 uppercase tracking-[0.3em] border-r-4 border-emerald-500 pr-4">إجراءات سريعة</h2>
+                        <div className="h-px flex-1 bg-white/5 mr-4"></div>
+                    </div>
+                    
+                    {[
+                        {
+                            title: 'فتح متجري',
+                            desc: 'معاينة متجرك كما يراه الزبائن',
+                            icon: FiExternalLink,
+                            href: `/${session?.user?.username || session?.user?.name}`,
+                            external: true,
+                            accent: 'emerald'
+                        },
+                        { 
+                            title: 'إضافة منتج رقمي', 
+                            desc: 'ملفات PDF, ZIP, قوالب جاهزة', 
+                            icon: FiPackage, 
+                            href: '/dashboard/products/new',
+                            accent: 'emerald' 
+                        },
+                        { 
+                            title: 'إنشاء كورس تدريبي', 
+                            desc: 'دروس فيديو، اختبارات، وشهادات', 
+                            icon: FiVideo, 
+                            href: '/dashboard/courses/new',
+                            accent: 'emerald'
+                        },
+                        { 
+                            title: 'تعديل هوية المتجر', 
+                            desc: 'الألوان، الشعار، والوصف العام', 
+                            icon: FiSettings, 
+                            href: '/dashboard/settings',
+                            accent: 'emerald'
+                        }
                     ].map((action, idx) => {
                         const linkProps = action.external ? { target: "_blank", rel: "noopener noreferrer" } : {};
                         return (
-                        <Link key={idx} href={action.href} {...linkProps} className="flex items-center gap-5 p-5 rounded-xl bg-[#0A0A0A] border border-white/10 hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5 transition-all group">
-                            <div className="w-12 h-12 rounded-xl bg-[#111111] text-[#10B981] flex items-center justify-center group-hover:bg-emerald-700 group-hover:text-white transition-all shadow-lg shadow-black/20">
-                                <action.icon className="text-xl" />
+                        <Link 
+                            key={idx} 
+                            href={action.href} 
+                            {...linkProps} 
+                            className="flex items-center gap-5 p-5 rounded-2xl bg-[#111111] border border-white/5 hover:border-emerald-500/30 hover:bg-white/[0.02] transition-all group relative overflow-hidden active:scale-[0.98]"
+                        >
+                            <div className="w-14 h-14 rounded-2xl bg-black border border-white/10 flex items-center justify-center text-gray-400 group-hover:text-emerald-400 group-hover:border-emerald-500/50 transition-all shadow-xl group-hover:shadow-emerald-500/10">
+                                <action.icon className="text-2xl" />
                             </div>
                             <div className="flex-1 text-right">
-                                <h3 className="font-bold text-white group-hover:text-[#10B981] transition-colors text-sm">{action.title}</h3>
-                                <p className="text-[10px] text-gray-400 font-bold mt-0.5">{action.desc}</p>
+                                <h3 className="font-bold text-white group-hover:text-emerald-400 transition-colors text-sm">{action.title}</h3>
+                                <p className="text-[10px] text-gray-500 font-medium mt-1">{action.desc}</p>
                             </div>
-                            <FiArrowUpRight className="text-gray-500 group-hover:text-[#10B981]" />
+                            <FiArrowUpRight className="text-gray-600 group-hover:text-emerald-400 group-hover:translate-x-[-2px] group-hover:translate-y-[-2px] transition-all" />
+                            
+                            {/* Hover Glow Effect */}
+                            <div className="absolute inset-0 bg-emerald-500/[0.02] opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         </Link>
                         );
                     })}
                     
-                    {/* Product vs Course Comparison */}
-                    <div className="mt-6 p-5 bg-[#111111] rounded-xl border border-white/10">
-                        <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-3">📦 المنتج vs 🎓 الدورة</p>
-                        <div className="grid grid-cols-2 gap-3 text-[10px]">
-                            <div className="p-3 bg-[#0A0A0A] rounded-lg border border-emerald-500/20">
-                                <p className="font-bold text-emerald-400 mb-1">المنتج الرقمي</p>
-                                <ul className="text-gray-400 space-y-1">
-                                    <li>• ملفات PDF, ZIP, Word</li>
-                                    <li>• قوالب, تصاميم, كود</li>
-                                    <li>• تحميل فوري بعد الشراء</li>
-                                    <li>• مناسب للكتب والملفات</li>
-                                </ul>
+                    {/* Platform Guidance Section */}
+                    <div className="mt-8 p-6 bg-emerald-500/[0.02] rounded-2xl border border-emerald-500/10 relative overflow-hidden">
+                        <div className="relative z-10">
+                            <div className="flex items-center gap-2 mb-6">
+                                <span className="text-xl">🚀</span>
+                                <p className="text-[11px] font-bold text-emerald-500 uppercase tracking-widest">اختر مسارك المهني</p>
                             </div>
-                            <div className="p-3 bg-[#0A0A0A] rounded-lg border border-blue-500/20">
-                                <p className="font-bold text-blue-400 mb-1">الدورة التدريبية</p>
-                                <ul className="text-gray-400 space-y-1">
-                                    <li>• دروس فيديو مصنفة</li>
-                                    <li>• اختبارات وشهادات</li>
-                                    <li>• تتبع تقدم الطالب</li>
-                                    <li>• مناسب للتعليم المنهجي</li>
-                                </ul>
+                            
+                            <div className="grid grid-cols-1 gap-4">
+                                <div className="p-4 bg-black/40 rounded-xl border border-white/5 hover:border-emerald-500/20 transition-colors group">
+                                    <h4 className="font-bold text-emerald-400 text-xs mb-2 flex items-center gap-2">
+                                        <FiPackage size={14} /> المنتجات الرقمية
+                                    </h4>
+                                    <p className="text-[10px] text-gray-400 leading-relaxed">
+                                        مثالية لبيع ملفات الـ PDF، القوالب الجاهزة، الكود البرمجي، أو الصور. التحميل فوري للعميل بعد إتمام الدفع.
+                                    </p>
+                                </div>
+                                <div className="p-4 bg-black/40 rounded-xl border border-white/5 hover:border-emerald-500/20 transition-colors group">
+                                    <h4 className="font-bold text-emerald-400 text-xs mb-2 flex items-center gap-2">
+                                        <FiVideo size={14} /> الدورات التدريبية
+                                    </h4>
+                                    <p className="text-[10px] text-gray-400 leading-relaxed">
+                                        أكاديمية متكاملة تشمل دروس فيديو، اختبارات، وشهادات إتمام. تتيح لك متابعة تقدم طلابك وتفاعلهم.
+                                    </p>
+                                </div>
                             </div>
                         </div>
+                        {/* Background Decor */}
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-[50px]"></div>
                     </div>
                 </motion.div>
             </div>
