@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { FiTrendingUp, FiShoppingCart, FiDollarSign, FiPackage, FiCalendar, FiArrowUpRight, FiActivity, FiVideo, FiSettings, FiUsers, FiBarChart2 } from 'react-icons/fi';
+import { FiTrendingUp, FiShoppingCart, FiDollarSign, FiPackage, FiCalendar, FiArrowUpRight, FiActivity, FiVideo, FiSettings, FiUsers, FiBarChart2, FiExternalLink } from 'react-icons/fi';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { apiGet, handleApiError } from '@/lib/safe-fetch';
@@ -124,12 +124,20 @@ export default function DashboardPage() {
                 {/* Corporate Quick Actions */}
                 <motion.div variants={item} className="space-y-4">
                     <h2 className="text-sm font-bold text-gray-500 uppercase tracking-[0.2em] mb-6 border-r-4 border-emerald-500 pr-3 ml-auto text-right">إجراءات سريعة</h2>
-                    {[
+                    {[{
+                        title: 'فتح متجري',
+                        desc: 'معاينة متجرك كما يراه الزبائن',
+                        icon: FiExternalLink,
+                        href: `/${session?.user?.username || session?.user?.name}`,
+                        external: true
+                    },
                         { title: 'إضافة منتج رقمي', desc: 'كتب، ملفات، قوالب جاهزة', icon: FiPackage, href: '/dashboard/products/new' },
                         { title: 'إنشاء كورس جديد', desc: 'سجل محاضراتك وأنشئ أكاديميتك', icon: FiVideo, href: '/dashboard/courses/new' },
                         { title: 'تعديل هوية المتجر', desc: 'الألوان، الشعار، والوصف', icon: FiSettings, href: '/dashboard/brand' }
-                    ].map((action, idx) => (
-                        <Link key={idx} href={action.href} className="flex items-center gap-5 p-5 rounded-xl bg-[#0A0A0A] border border-white/10 hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5 transition-all group">
+                    ].map((action, idx) => {
+                        const linkProps = action.external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+                        return (
+                        <Link key={idx} href={action.href} {...linkProps} className="flex items-center gap-5 p-5 rounded-xl bg-[#0A0A0A] border border-white/10 hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5 transition-all group">
                             <div className="w-12 h-12 rounded-xl bg-[#111111] text-[#10B981] flex items-center justify-center group-hover:bg-emerald-700 group-hover:text-white transition-all shadow-lg shadow-black/20">
                                 <action.icon className="text-xl" />
                             </div>
@@ -139,7 +147,8 @@ export default function DashboardPage() {
                             </div>
                             <FiArrowUpRight className="text-gray-500 group-hover:text-[#10B981]" />
                         </Link>
-                    ))}
+                        );
+                    })}
                     
                     <div className="mt-8 p-6 bg-emerald-950/30 text-emerald-200 rounded-xl border border-emerald-500/20">
                         <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-2">نصيحة اليوم</p>
