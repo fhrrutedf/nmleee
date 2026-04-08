@@ -14,10 +14,10 @@ export default function Home() {
                 <div className="max-w-7xl mx-auto px-6">
                     <h2 className="sr-only">بوابات الدفع الموثوقة والمدعومة في منصتكم</h2>
                     <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-700">
-                         <div className="flex items-center gap-2 text-white font-bold tracking-tighter text-xl italic" title="دفع عبر فواتيرك">FAWATERK</div>
-                         <div className="flex items-center gap-2 text-white font-bold tracking-tighter text-xl italic" title="الدفع بالعملات الرقمية">NOWPAYMENTS</div>
-                         <div className="flex items-center gap-2 text-white font-bold tracking-tighter text-xl italic" title="دفع عبر سترايب">STRIPE</div>
-                         <div className="flex items-center gap-2 text-white font-bold tracking-tighter text-xl italic" title="دفع عبر سبيس ريميت">SPACEREMIT</div>
+                         <div className="flex items-center gap-2 text-white font-bold text-xl italic" title="دفع عبر فواتيرك">FAWATERK</div>
+                         <div className="flex items-center gap-2 text-white font-bold text-xl italic" title="الدفع بالعملات الرقمية">NOWPAYMENTS</div>
+                         <div className="flex items-center gap-2 text-white font-bold text-xl italic" title="دفع عبر سترايب">STRIPE</div>
+                         <div className="flex items-center gap-2 text-white font-bold text-xl italic" title="دفع عبر سبيس ريميت">SPACEREMIT</div>
                     </div>
                 </div>
             </section>
@@ -27,7 +27,7 @@ export default function Home() {
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="text-center mb-20">
                         <h2 className="text-[12px] font-bold text-emerald-500 mb-4 uppercase tracking-[0.4em]">مميزات منصتك الرقمية</h2>
-                        <h3 className="text-4xl md:text-5xl font-bold text-white tracking-tight">أدوات احترافية لبيع منتجاتك الرقمية</h3>
+                        <h3 className="text-4xl md:text-5xl font-bold text-white leading-snug">أدوات احترافية لبيع منتجاتك الرقمية</h3>
                         <p className="mt-6 text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
                             نقدم لك نظاماً متكاملاً لإدارة، حماية، وبيع منتجاتك الرقمية ودوراتك التدريبية. لا تقلق بشأن الأمور التقنية، وركز على صناعة المحتوى الرائع.
                         </p>
@@ -59,7 +59,7 @@ export default function Home() {
                 <div className="max-w-5xl mx-auto px-6">
                     <div className="text-center mb-20">
                         <span className="text-[10px] font-bold text-emerald-500 mb-4 uppercase tracking-[0.4em] block">دليل البدء خطوة بخطوة</span>
-                        <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">كيف تبدأ ببيع منتجاتك الرقمية؟</h2>
+                        <h2 className="text-4xl md:text-5xl font-bold text-white leading-snug">كيف تبدأ ببيع منتجاتك الرقمية؟</h2>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-12">
@@ -123,7 +123,7 @@ export default function Home() {
             <section className="py-32 bg-emerald-700 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
                 <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-                    <h2 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter">
+                    <h2 className="text-4xl md:text-6xl font-black text-white mb-6 leading-snug">
                         جاهز لإطلاق متجرك الرقمي؟
                     </h2>
                     <p className="text-emerald-100 text-lg mb-12 max-w-xl mx-auto font-medium">
@@ -165,7 +165,7 @@ function Hero() {
                     initial={{ opacity: 0, y: 20 }} 
                     animate={{ opacity: 1, y: 0 }} 
                     transition={{ duration: 1, delay: 0.2 }} 
-                    className="text-4xl sm:text-5xl md:text-7xl lg:text-[6.5rem] font-black text-white leading-[1.1] tracking-tighter mb-8 max-w-5xl mx-auto"
+                    className="text-4xl sm:text-5xl md:text-7xl lg:text-[6.5rem] font-black text-white leading-[1.4] sm:leading-[1.3] mb-8 max-w-5xl mx-auto"
                 >
                     حوّل شغفك ومعرفتك إلى <br />
                     <span className="text-emerald-500">أرباح رقمية مستدامة.</span>
