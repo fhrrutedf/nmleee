@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { FiMail, FiPhone, FiMapPin, FiSend, FiCheckCircle } from 'react-icons/fi';
@@ -90,7 +90,7 @@ export default function ContactPage() {
                             {
                                 icon: <FiMail className="text-2xl text-[#10B981]" />,
                                 title: 'البريد الإلكتروني',
-                                lines: ['support@tmleen.com', 'info@tmleen.com'],
+                                lines: ['support@manasadigital.com', 'info@manasadigital.com'],
                                 bg: 'bg-[#111111]',
                                 delay: 0.1
                             },

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { FiUsers, FiShoppingCart, FiTrendingUp, FiAward, FiCheckCircle, FiGlobe, FiRadio } from 'react-icons/fi';
 import Link from 'next/link';
@@ -54,7 +54,7 @@ export default function AboutPage() {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="text-lg md:text-2xl max-w-2xl mx-auto text-gray-400 font-bold leading-relaxed"
                         >
-                            تمالين هي البنية التحتية المتكاملة للمبدعين العرب، حيث نجمع بين قوة التكنولوجيا وسهولة التجارة الرقمية لتحويل المعرفة إلى قيمة.
+                            منصتك الرقمية هي البنية التحتية المتكاملة للمبدعين العرب، حيث نجمع بين قوة التكنولوجيا وسهولة التجارة الرقمية لتحويل المعرفة إلى قيمة.
                         </motion.p>
                     </motion.div>
                 </div>
@@ -100,7 +100,7 @@ export default function AboutPage() {
                         >
                             <h2 className="text-4xl md:text-6xl font-bold text-[#10B981] mb-10 tracking-tight">الرؤية <span className="text-[#10B981]">الاستراتيجية</span></h2>
                             <p className="text-lg text-gray-500 font-bold leading-relaxed mb-8">
-                                في تمالين، لا نكتفي بكوننا منصة بيع، بل نحن "مسرع نمو" للمبدع العربي. رسالتنا هي القضاء على التعقيدات التقنية وتمكينك من التركيز عما تبدعه فقط.
+                                في منصتك الرقمية، لا نكتفي بكوننا منصة بيع، بل نحن "مسرع نمو" للمبدع العربي. رسالتنا هي القضاء على التعقيدات التقنية وتمكينك من التركيز عما تبدعه فقط.
                             </p>
                             <div className="space-y-6 mb-12">
                                 {[
@@ -129,7 +129,7 @@ export default function AboutPage() {
                             <div className="rounded-[2.5rem] overflow-hidden border border-white/10 shadow-lg shadow-[#10B981]/20 relative z-10">
                                 <img
                                     src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&q=80"
-                                    alt="Tmleen Team"
+                                    alt="MANASA DIGITAL Team"
                                     className="w-full h-[600px] object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                                 />
                             </div>

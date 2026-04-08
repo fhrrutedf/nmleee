@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { FaWhatsapp } from 'react-icons/fa';
@@ -10,7 +10,7 @@ export const WhatsAppButton = () => {
 
     // Replace with your real support number
     const whatsappNumber = '201012345678'; 
-    const message = 'مرحباً، أحتاج للمساعدة في منصة تمالين';
+    const message = 'مرحباً، أحتاج للمساعدة في منصتك الرقمية';
 
     const showButton = pathname === '/dashboard/support' || pathname?.startsWith('/dashboard/support/') || pathname === '/dashboard/admin/platform-settings';
     

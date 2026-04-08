@@ -1,4 +1,4 @@
-import { prisma } from '../lib/db';
+﻿import { prisma } from '../lib/db';
 import bcrypt from 'bcryptjs';
 
 async function seed() {
@@ -7,10 +7,10 @@ async function seed() {
     // Create Admin User
     const adminPassword = await bcrypt.hash('admin123', 10);
     const admin = await prisma.user.upsert({
-        where: { email: 'admin@tmleen.com' },
+        where: { email: 'admin@manasadigital.com' },
         update: {},
         create: {
-            email: 'admin@tmleen.com',
+            email: 'admin@manasadigital.com',
             username: 'admin',
             name: 'المشرف العام',
             password: adminPassword,
@@ -29,7 +29,7 @@ async function seed() {
         update: {},
         create: {
             id: 'singleton',
-            platformName: 'منصة تمالين',
+            platformName: 'منصتك الرقمية',
             commissionRate: 10,
             minPayoutAmount: 50,
             growthCommissionRate: 5,
@@ -119,7 +119,7 @@ async function seed() {
 
     console.log('\n🎉 Seed completed successfully!');
     console.log('\n📧 Login credentials:');
-    console.log('   Admin: admin@tmleen.com / admin123');
+    console.log('   Admin: admin@manasadigital.com / admin123');
     console.log('   Seller: seller@example.com / seller123');
 }
 

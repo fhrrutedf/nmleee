@@ -1,4 +1,4 @@
-# 📚 فهرس الوثائق - tmleen Platform
+﻿# 📚 فهرس الوثائق - MANASA DIGITAL Platform
 
 ## 🚨 ابدأ من هنا (الأولوية القصوى!)
 
@@ -149,7 +149,7 @@
 ## 📁 هيكل المجلدات
 
 ```
-tmleen/
+MANASA DIGITAL/
 ├── START_HERE.txt                  ← ابدأ من هنا!
 ├── FIX_DATABASE_ERROR.md          ← حل المشكلة الحالية
 ├── CURRENT_STATUS.md              ← الوضع الحالي

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { Resend } from 'resend';
 
@@ -62,13 +62,13 @@ export async function GET(request: NextRequest) {
             const platformLogo = appointment.user.logoUrl || 'https://noaof.vercel.app/logo.png'; // Fallback to main logo if available
 
             await resend.emails.send({
-                from: process.env.RESEND_FROM_EMAIL || 'no-reply@tmleen.com', // Professional Branding
+                from: process.env.RESEND_FROM_EMAIL || 'no-reply@manasadigital.com', // Professional Branding
                 to: appointment.customerEmail,
                 subject: `🔔 تذكير بموعدك القريب: ${appointment.title}`,
                 html: `
                     <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #1e293b; background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 20px;">
                         <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: linear-gradient(135deg, #0ea5e9, #6366f1); border-radius: 15px;">
-                            <h2 style="color: white; margin: 0; font-size: 26px;">⏰ تذكير بالموعد | تمالين</h2>
+                            <h2 style="color: white; margin: 0; font-size: 26px;">⏰ تذكير بالموعد | منصتك الرقمية</h2>
                         </div>
                         
                         <div style="padding: 10px 20px;">
@@ -96,8 +96,8 @@ export async function GET(request: NextRequest) {
                             `}
                             
                             <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #f1f5f9; text-align: center;">
-                                <p style="color: #94a3b8; font-size: 13px;">تم إرسال هذا البريد تلقائياً من نظام المواعيد في منصة <strong>تمالين</strong>.</p>
-                                <p style="color: #cbd5e1; font-size: 11px;">© 2026 تمالين. جميع الحقوق محفوظة.</p>
+                                <p style="color: #94a3b8; font-size: 13px;">تم إرسال هذا البريد تلقائياً من نظام المواعيد في منصة <strong>منصتك الرقمية</strong>.</p>
+                                <p style="color: #cbd5e1; font-size: 11px;">© 2026 منصتك الرقمية. جميع الحقوق محفوظة.</p>
                             </div>
                         </div>
                     </div>

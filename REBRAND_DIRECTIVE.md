@@ -1,7 +1,7 @@
-# 🏛️ Tmleen Internal Directive: Visual Identity v2.0 Migration
+﻿# 🏛️ MANASA DIGITAL Internal Directive: Visual Identity v2.0 Migration
 **To:** Frontend Development Division, Design Division
 **From:** System Architect (Gawad)
-**Project Location:** `D:\tmleen`
+**Project Location:** `D:\MANASA DIGITAL`
 
 ## 🎯 Objective
 Transform the entire project UI into the "v2.0 Premium Identity". Remove all "AI-generated" visual signatures (gradients, blurs, excessive animations) and replace them with a bespoke, solid, corporate-grade aesthetic.
@@ -31,4 +31,4 @@ Transform the entire project UI into the "v2.0 Premium Identity". Remove all "AI
 3. **Reality Checker:** Verify the "Anti-AI" feel and performance across pages.
 
 ---
-**Status:** Directive Issued. Execution starting on local directory `D:\tmleen`.
+**Status:** Directive Issued. Execution starting on local directory `D:\MANASA DIGITAL`.

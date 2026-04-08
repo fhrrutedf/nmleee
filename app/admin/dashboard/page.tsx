@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
@@ -344,7 +344,7 @@ export default function AdminDashboard() {
                                                     <div className="font-bold text-gray-300 dark:text-gray-300">
                                                         {order.seller?.name || 'المنصة (المدير)'}
                                                     </div>
-                                                    <div className="text-[10px] text-gray-500 font-bold">{order.seller?.email || 'admin@تمالين'}</div>
+                                                    <div className="text-[10px] text-gray-500 font-bold">{order.seller?.email || 'admin@منصتك الرقمية'}</div>
                                                 </td>
                                                 <td className="py-4 px-6">
                                                     <div className="font-bold text-[#10B981] dark:text-white text-lg">

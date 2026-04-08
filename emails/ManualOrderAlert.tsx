@@ -1,4 +1,4 @@
-import {
+﻿import {
     Html,
     Head,
     Body,
@@ -72,7 +72,7 @@ export default function ManualOrderAlertEmail({
                         </Text>
 
                         <Button
-                            href={`https://tmleen.com/admin/manual-orders`}
+                            href={`https://manasadigital.com/admin/manual-orders`}
                             style={button}
                         >
                             مراجعة الطلب
@@ -88,7 +88,7 @@ export default function ManualOrderAlertEmail({
                         )}
 
                         <Text style={footer}>
-                            منصة Tmleen - لوحة التحكم
+                            منصة MANASA DIGITAL - لوحة التحكم
                         </Text>
                     </Section>
                 </Container>

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 import { FiShoppingBag, FiVideo, FiCalendar, FiDollarSign, FiArrowLeft, FiTrendingUp, FiShield, FiCheckCircle, FiGlobe, FiLock, FiSmartphone, FiZap, FiArrowRight, FiPlay, FiStar, FiUsers, FiAward } from 'react-icons/fi';
@@ -54,7 +54,7 @@ export default function Home() {
                     <div className="relative z-10 text-right">
                         <span className="bg-emerald-500 text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">Partner Program</span>
                         <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">شاركنا النجاح واربح 10$</h2>
-                        <p className="text-emerald-500/60 font-bold text-sm">اربح مكافأة نقدية فورية عن كل بائع ينضم لتمالين من خلالك.</p>
+                        <p className="text-emerald-500/60 font-bold text-sm">اربح مكافأة نقدية فورية عن كل بائع ينضم للمنصة من خلالك.</p>
                     </div>
                     <Link href="/register" className="relative z-10 px-8 py-4 bg-white text-black rounded-xl font-bold text-sm hover:bg-emerald-500 hover:text-white transition-all shadow-xl active:scale-95">
                         ابدأ الربح الآن
@@ -118,7 +118,7 @@ export default function Home() {
                         إمبراطوريتك تنتظرك.
                     </h2>
                     <p className="text-emerald-100 text-lg mb-12 max-w-xl mx-auto font-medium">
-                        انضم لآلاف المبدعين العرب الذين اختاروا تمالين لبناء مستقبلهم المالي الرقمي.
+                        انضم لآلاف المبدعين العرب الذين اختاروا منصتك الرقمية لبناء مستقبلهم المالي الرقمي.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                         <Link

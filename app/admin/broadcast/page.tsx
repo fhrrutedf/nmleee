@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
@@ -205,7 +205,7 @@ export default function AdminBroadcastPage() {
                                             value={newBroadcast.message}
                                             onChange={e => setNewBroadcast({...newBroadcast, message: e.target.value})}
                                         />
-                                        <p className="text-[10px] text-gray-400 font-medium">* سيتم إرسال هذه الرسالة في قالب 'تمالين' الرسمي تلقائياً.</p>
+                                        <p className="text-[10px] text-gray-400 font-medium">* سيتم إرسال هذه الرسالة في قالب 'منصتك الرقمية' الرسمي تلقائياً.</p>
                                     </div>
 
                                     <div className="flex gap-4">
@@ -250,7 +250,7 @@ export default function AdminBroadcastPage() {
                                                         T
                                                     </div>
                                                     <div>
-                                                        <div className="text-[10px] font-bold text-white">تمالين - Tamleen</div>
+                                                        <div className="text-[10px] font-bold text-white">منصتك الرقمية - Tamleen</div>
                                                         <div className="text-[8px] text-gray-400">{newBroadcast.subject || 'بدون عنوان...'}</div>
                                                     </div>
                                                 </div>
@@ -266,7 +266,7 @@ export default function AdminBroadcastPage() {
                                                                 {newBroadcast.message || 'اكتبي شيئاً لترى المعاينة...'}
                                                             </div>
                                                             <div className="h-px bg-emerald-800" />
-                                                            <div className="text-[8px] text-center text-gray-400 italic">شركة تمالين - 2026</div>
+                                                            <div className="text-[8px] text-center text-gray-400 italic">شركة منصتك الرقمية - 2026</div>
                                                         </div>
                                                     </div>
                                                 </div>

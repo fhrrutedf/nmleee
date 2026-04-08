@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
                 html: `
                     <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
                         <h2 style="color: #0ea5e9;">مرحباً ${user.name}،</h2>
-                        <p>نشكرك على تواصلك مع فريق دعم <strong>تمالين</strong>.</p>
+                        <p>نشكرك على تواصلك مع فريق دعم <strong>منصتك الرقمية</strong>.</p>
                         <p>لقد تم فتح التذكرة رقم <strong>${ticketNumber}</strong> بخصوص <strong>"${subject}"</strong>.</p>
                         <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin: 20px 0;">
                             <p><strong>حالة الطلب:</strong> قيد المراجعة</p>
@@ -112,13 +112,13 @@ export async function POST(req: NextRequest) {
                         </div>
                         <p style="color: #64748b; font-size: 14px;">يمكنك متابعة حالة التذكرة من خلال لوحة التحكم الخاصة بك.</p>
                         <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;">
-                        <p style="text-align: center; color: #94a3b8; font-size: 11px;">© منصة تمالين - نظام الدعم الفني الآلي</p>
+                        <p style="text-align: center; color: #94a3b8; font-size: 11px;">© منصتك الرقمية - نظام الدعم الفني الآلي</p>
                     </div>
                 `
             });
 
             // Admin Notification (Using environment email)
-            const adminEmail = process.env.ADMIN_SUPPORT_EMAIL || 'support@tmleen.com';
+            const adminEmail = process.env.ADMIN_SUPPORT_EMAIL || 'support@manasadigital.com';
             await sendEmail({
                 to: adminEmail,
                 toName: 'Platform Admin',

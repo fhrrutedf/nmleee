@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { FiStar } from 'react-icons/fi';
@@ -7,7 +7,7 @@ const testimonials = [
   {
     name: 'أحمد علي',
     role: 'مصمم جرافيك',
-    content: 'منصة تمالين سهلت علي بيع قوالبي الرقمية بشكل لم أتوقعه. الواجهة احترافية جداً والدعم فني سريع.',
+    content: 'منصتك الرقمية سهلت علي بيع قوالبي الرقمية بشكل لم أتوقعه. الواجهة احترافية جداً والدعم فني سريع.',
     avatar: 'https://i.pravatar.cc/150?u=ahmed',
     rating: 5
   },

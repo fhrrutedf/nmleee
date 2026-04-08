@@ -1,4 +1,4 @@
-# 🎯 ملخص كامل للمشروع - tmleen Platform
+﻿# 🎯 ملخص كامل للمشروع - MANASA DIGITAL Platform
 
 ## 📌 الوضع الحالي
 
@@ -76,7 +76,7 @@ Error: No connection could be made to localhost:27017
 5. انسخ Connection String
 6. حدّث ملف `.env`:
    ```env
-   DATABASE_URL="mongodb+srv://user:pass@cluster.mongodb.net/tmleen?retryWrites=true&w=majority"
+   DATABASE_URL="mongodb+srv://user:pass@cluster.mongodb.net/MANASA DIGITAL?retryWrites=true&w=majority"
    ```
 
 ---

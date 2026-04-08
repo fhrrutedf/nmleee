@@ -1,4 +1,4 @@
-# Quick Start Guide 🚀
+﻿# Quick Start Guide 🚀
 
 ## التثبيت والتشغيل السريع
 
@@ -10,7 +10,7 @@ npm install --legacy-peer-deps
 ### الخطوة 2: إعداد ملف .env
 ```env
 # Database
-DATABASE_URL="mongodb+srv://username:password@cluster.mongodb.net/tmleen"
+DATABASE_URL="mongodb+srv://username:password@cluster.mongodb.net/MANASA DIGITAL"
 
 # NextAuth
 NEXTAUTH_URL="http://localhost:3000"

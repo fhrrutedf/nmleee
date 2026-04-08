@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -288,7 +288,7 @@ function SuccessContent() {
 
                 <div className="mt-16 text-center">
                     <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">
-                        POWERED BY <span className="text-[#10B981]">TMLEEN INFRASTRUCTURE</span>
+                        POWERED BY <span className="text-[#10B981]">MANASA DIGITAL</span>
                     </p>
                 </div>
             </div>

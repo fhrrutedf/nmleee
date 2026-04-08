@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
@@ -326,7 +326,7 @@ export default function SettingsPage() {
                         <div className="text-right">
                             <span className="block text-xs text-text-muted font-bold">رابط المتجر المباشر</span>
                             <span className="block text-sm font-bold truncate max-w-[150px]">
-                                {profileData.customDomain || `${profileData.username}.tmleen.com`}
+                                {profileData.customDomain || `${profileData.username}.manasadigital.com`}
                             </span>
                         </div>
                         <FiExternalLink className="text-gray-300 group-hover:text-[#10B981]" size={14} />

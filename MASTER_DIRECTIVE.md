@@ -1,10 +1,10 @@
-# 🏛️ Tmleen Master Execution Directive: Final v2.0 Rollout
+﻿# 🏛️ MANASA DIGITAL Master Execution Directive: Final v2.0 Rollout
 **To:** ALL DIVISIONS (Engineering, Design, Marketing, Sales, Product, Support)
 **From:** System Architect (Gawad)
 **Status:** EMERGENCY ROLLOUT - FULL SITE TRANSFORMATION
 
 ## 🎯 The Mission
-Complete the total visual and structural overhaul of "Tmleen" across 130+ files in `D:\tmleen`. Eradicate all AI-generated footprints and install the bespoke v2.0 Global Identity.
+Complete the total visual and structural overhaul of "MANASA DIGITAL" across 130+ files in `D:\MANASA DIGITAL`. Eradicate all AI-generated footprints and install the bespoke v2.0 Global Identity.
 
 ## 👥 Assigned Positions & Tasks
 

@@ -1,4 +1,4 @@
-import { Metadata, ResolvingMetadata } from 'next';
+﻿import { Metadata, ResolvingMetadata } from 'next';
 import { prisma } from '@/lib/db';
 import ProfileClient from './ProfileClient';
 import { FiStar } from 'react-icons/fi';
@@ -52,7 +52,7 @@ export async function generateMetadata(
         openGraph: {
             title: siteTitle,
             description: siteDescription,
-            url: `https://tmleen.com/${username}`,
+            url: `https://manasadigital.com/${username}`,
             siteName: 'منصة تمكين',
             images: [
                 creator.avatar || creator.coverImage || '',

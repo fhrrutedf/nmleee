@@ -1,4 +1,4 @@
-# 🏗️ Multi-Tenant Creator Marketplace - Implementation Summary
+﻿# 🏗️ Multi-Tenant Creator Marketplace - Implementation Summary
 
 ## ✅ Architecture Transformation Complete!
 
@@ -98,12 +98,12 @@ const products = await prisma.product.findMany({
 
 ### **Use Case 1: Ahmed (Fitness Coach)**
 ```
-Store: https://tmleen.com/@ahmed-coach
+Store: https://manasadigital.com/@ahmed-coach
 
 Products:
-- https://tmleen.com/@ahmed-coach/fitness-program
-- https://tmleen.com/@ahmed-coach/meal-plans
-- https://tmleen.com/@ahmed-coach/consultation
+- https://manasadigital.com/@ahmed-coach/fitness-program
+- https://manasadigital.com/@ahmed-coach/meal-plans
+- https://manasadigital.com/@ahmed-coach/consultation
 
 Branding:
 - Brand Color: #FF6B6B (Red)
@@ -113,12 +113,12 @@ Branding:
 
 ### **Use Case 2: Sara (UI Designer)**
 ```
-Store: https://tmleen.com/@sara-designs
+Store: https://manasadigital.com/@sara-designs
 
 Products:
-- https://tmleen.com/@sara-designs/ui-kit-pro
-- https://tmleen.com/@sara-designs/logo-templates
-- https://tmleen.com/@sara-designs/icons-pack
+- https://manasadigital.com/@sara-designs/ui-kit-pro
+- https://manasadigital.com/@sara-designs/logo-templates
+- https://manasadigital.com/@sara-designs/icons-pack
 
 Branding:
 - Brand Color: #A855F7 (Purple)
@@ -187,7 +187,7 @@ import { buildProductUrl } from '@/lib/multi-tenant-utils';
 
 // In your component:
 const shareUrl = buildProductUrl(creator.username, product.slug);
-// Result: "https://tmleen.com/@ahmed-coach/fitness-program"
+// Result: "https://manasadigital.com/@ahmed-coach/fitness-program"
 
 // Share on social media:
 <ShareButton url={shareUrl} />

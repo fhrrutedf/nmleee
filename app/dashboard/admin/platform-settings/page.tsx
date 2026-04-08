@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { FiSave, FiDollarSign, FiClock, FiGlobe, FiPhone, FiSettings, FiTrendingUp, FiShare2, FiZap, FiKey } from 'react-icons/fi';
@@ -65,7 +65,7 @@ export default function AdminPlatformSettingsPage() {
         usdToIqd: 1500,
         usdToEgp: 50,
         usdToAed: 3.67,
-        platformName: 'تمالين - Tmleen',
+        platformName: 'منصتك الرقمية',
         supportEmail: '',
         supportWhatsapp: '',
         socialTelegram: '',

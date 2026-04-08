@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
@@ -183,7 +183,7 @@ export async function GET(
         }
 
         // Platform
-        page.drawText('منصة تمالين', {
+        page.drawText('منصتك الرقمية', {
             x: width - 150,
             y: 100,
             size: 14,

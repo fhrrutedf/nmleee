@@ -1,4 +1,4 @@
-# ✅ الميزات الجديدة المضافة
+﻿# ✅ الميزات الجديدة المضافة
 
 ## 🎉 تم إضافة 5 ميزات رئيسية!
 
@@ -123,8 +123,8 @@ export async function generateMetadata({ params }) {
 
 ### الوصول:
 ```
-https://tmleen.com/robots.txt
-https://tmleen.com/sitemap.xml
+https://manasadigital.com/robots.txt
+https://manasadigital.com/sitemap.xml
 ```
 
 ---
@@ -214,7 +214,7 @@ http://localhost:3000/robots.txt
 ## 📁 الملفات الجديدة:
 
 ```
-tmleen/
+MANASA DIGITAL/
 ├── locales/
 │   ├── ar.json                          # الترجمة العربية
 │   └── en.json                          # الترجمة الإنجليزية

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useState, useMemo } from 'react';
 import { FiLink, FiFacebook, FiInstagram, FiTwitter, FiStar,
@@ -1238,7 +1238,7 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                             ت
                         </div>
                         <span className="text-xs text-gray-500 dark:text-gray-400">مدعوم من </span>
-                        <Link href="/" className="text-xs font-bold" style={{ color: brandColor }}>منصة تمالين</Link>
+                        <Link href="/" className="text-xs font-bold" style={{ color: brandColor }}>منصتك الرقمية</Link>
                     </div>
                 </div>
             </div>

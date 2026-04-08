@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { FiZap, FiMail, FiShoppingCart, FiClock, FiCheckCircle, FiEdit3, FiPercent, FiSave, FiAlertCircle } from 'react-icons/fi';
@@ -57,7 +57,7 @@ export default function AutomationPage() {
                         <FiZap className="text-[#10B981]-500" />
                         مركز الأتمتة والنمو
                     </h1>
-                    <p className="text-gray-500 dark:text-slate-400 mt-1">قم بزيادة مبيعاتك تلقائياً باستخدام "دروع تمالين" للنمو.</p>
+                    <p className="text-gray-500 dark:text-slate-400 mt-1">قم بزيادة مبيعاتك تلقائياً باستخدام "أدوات النمو" للنمو.</p>
                 </div>
                 <button 
                     onClick={handleSave}

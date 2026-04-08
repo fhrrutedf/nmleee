@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { prisma } from '@/lib/db';
 import { fulfillPurchase } from '@/lib/checkout';
@@ -27,19 +27,19 @@ export async function POST(req: NextRequest) {
         const payload = JSON.parse(bodyText);
 
         if (payload.event === 'payment.success') {
-            const tmleenOrderId = payload.metadata?.tmleen_order_id;
+            const MANASA DIGITALOrderId = payload.metadata?.MANASA DIGITAL_order_id;
 
-            if (tmleenOrderId) {
+            if (MANASA DIGITALOrderId) {
                 // نبحث عن الطلب
                 const order = await prisma.order.findUnique({
-                    where: { id: tmleenOrderId },
+                    where: { id: MANASA DIGITALOrderId },
                     include: { items: true }
                 });
 
                 if (order && order.status === 'PENDING') {
                     // تحديث حالة الطلب لـ LEAD/PAID
                     await prisma.order.update({
-                        where: { id: tmleenOrderId },
+                        where: { id: MANASA DIGITALOrderId },
                         data: {
                             status: 'PAID',
                             isPaid: true,
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
                         console.error('[FULFILL_Purchase_ERROR]', err);
                     }
                     
-                    console.log(`[SHAM_CASH_WEBHOOK] Order ${tmleenOrderId} completed!`);
+                    console.log(`[SHAM_CASH_WEBHOOK] Order ${MANASA DIGITALOrderId} completed!`);
                 }
             }
         }

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
         });
 
         // 5. Call Oxapay API
-        const appUrl = process.env.NEXT_PUBLIC_URL || process.env.NEXTAUTH_URL || 'https://tmleen.com';
+        const appUrl = process.env.NEXT_PUBLIC_URL || process.env.NEXTAUTH_URL || 'https://manasadigital.com';
         const oxaRes = await fetch(`${OXAPAY_API_URL}/merchants/request`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -119,7 +119,7 @@ export async function POST(req: NextRequest) {
                 order_id: order.id,
                 email: customerInfo.email,
                 name: customerInfo.name,
-                description: `Tmleen Order #${order.orderNumber}`,
+                description: `MANASA DIGITAL Order #${order.orderNumber}`,
                 callback_url: `${appUrl}/api/webhooks/oxapay`,
                 return_url: `${appUrl}/success?orderId=${order.id}`,
             }),

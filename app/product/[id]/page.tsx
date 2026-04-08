@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+﻿import { Metadata } from 'next';
 import { prisma } from '@/lib/db';
 import ProductClient from './ProductClient';
 import { notFound } from 'next/navigation';
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (!product) return { title: 'منتج غير موجود' };
 
     const description = product.description.replace(/<[^>]*>?/gm, '').substring(0, 160);
-    const platformName = process.env.NEXT_PUBLIC_PLATFORM_NAME || 'تمالين';
+    const platformName = process.env.NEXT_PUBLIC_PLATFORM_NAME || 'منصتك الرقمية';
 
     return {
         title: `${product.title} | ${platformName}`,

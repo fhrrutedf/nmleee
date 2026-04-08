@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+﻿import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { FiCalendar, FiUser, FiClock, FiShare2, FiArrowRight, FiFacebook, FiTwitter, FiLinkedin } from 'react-icons/fi';
 import { prisma } from '@/lib/db';
@@ -32,13 +32,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     if (!post) {
         return {
-            title: 'مقال غير موجود | تمالين',
+            title: 'مقال غير موجود | منصتك الرقمية',
         };
     }
 
     return {
-        title: `${post.title} | تمالين`,
-        description: post.excerpt || 'قم بقراءة هذا المقال المميز على تمالين',
+        title: `${post.title} | منصتك الرقمية`,
+        description: post.excerpt || 'قم بقراءة هذا المقال المميز على منصتك الرقمية',
         openGraph: {
             title: post.title,
             description: post.excerpt || '',
@@ -169,7 +169,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                            <div className="relative z-10 flex flex-col md:flex-row items-center gap-10">
                                <div className="flex-1 text-center md:text-right">
                                    <h3 className="text-2xl md:text-4xl font-bold mb-4 leading-tight">جاهز لتحويل خبرتك إلى أرباح؟ 🚀</h3>
-                                   <p className="text-white/80 text-lg font-medium max-w-lg mb-8">انضم لآلاف المبدعين العرب الذين يبيعون منتجاتهم الرقمية ودوراتهم التدريبية عبر تمالين بكل سهولة.</p>
+                                   <p className="text-white/80 text-lg font-medium max-w-lg mb-8">انضم لآلاف المبدعين العرب الذين يبيعون منتجاتهم الرقمية ودوراتهم التدريبية عبر منصتك الرقمية بكل سهولة.</p>
                                    <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                                        <Link href="/register" className="px-8 py-4 bg-[#0A0A0A] text-[#10B981] rounded-xl font-bold text-xl shadow-lg shadow-[#10B981]/20 hover:scale-105 transition-transform text-center">
                                            أنشئ متجرك مجاناً

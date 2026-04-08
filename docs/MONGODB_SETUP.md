@@ -1,4 +1,4 @@
-# 🗄️ إعداد قاعدة البيانات - MongoDB Atlas
+﻿# 🗄️ إعداد قاعدة البيانات - MongoDB Atlas
 
 ## المشكلة الحالية:
 ```
@@ -26,7 +26,7 @@ Error: No connection could be made because the target machine actively refused i
 1. بعد التسجيل، اضغط **"Build a Database"**
 2. اختر **"M0 FREE"**
 3. اختر المنطقة الأقرب لك (مثلاً: AWS - Frankfurt)
-4. اسم الـ Cluster: `tmleen-cluster` (أو أي اسم)
+4. اسم الـ Cluster: `MANASA DIGITAL-cluster` (أو أي اسم)
 5. اضغط **"Create"**
 
 ⏳ انتظر 2-3 دقائق حتى ينشأ الـ Cluster
@@ -39,7 +39,7 @@ Error: No connection could be made because the target machine actively refused i
 2. اضغط **"Add New Database User"**
 3. اختر **"Password"**
 4. أدخل:
-   - **Username:** `tmleenuser` (أو أي اسم)
+   - **Username:** `MANASA DIGITALuser` (أو أي اسم)
    - **Password:** كلمة مرور قوية (احفظها!)
 5. **Database User Privileges:** اختر **"Read and write to any database"**
 6. اضغط **"Add User"**
@@ -66,14 +66,14 @@ Error: No connection could be made because the target machine actively refused i
 5. انسخ الـ **Connection String**، سيكون شبيه بهذا:
 
 ```
-mongodb+srv://tmleenuser:<password>@tmleen-cluster.xxxxx.mongodb.net/?retryWrites=true&w=majority
+mongodb+srv://MANASA DIGITALuser:<password>@MANASA DIGITAL-cluster.xxxxx.mongodb.net/?retryWrites=true&w=majority
 ```
 
 ---
 
 ### الخطوة 6: تحديث ملف .env
 
-1. افتح ملف `d:\tmleen\.env`
+1. افتح ملف `d:\MANASA DIGITAL\.env`
 2. استبدل السطر الثاني:
 
 **قبل:**
@@ -83,17 +83,17 @@ DATABASE_URL="mongodb://localhost:27017/digital-platform"
 
 **بعد:**
 ```env
-DATABASE_URL="mongodb+srv://tmleenuser:<password>@tmleen-cluster.xxxxx.mongodb.net/tmleen?retryWrites=true&w=majority"
+DATABASE_URL="mongodb+srv://MANASA DIGITALuser:<password>@MANASA DIGITAL-cluster.xxxxx.mongodb.net/MANASA DIGITAL?retryWrites=true&w=majority"
 ```
 
 ⚠️ **مهم جداً:**
 - استبدل `<password>` بكلمة المرور الحقيقية (بدون `<>`)
-- استبدل `tmleen-cluster.xxxxx` بالعنوان الحقيقي من Connection String
-- أضف `/tmleen` قبل علامة `?` (اسم قاعدة البيانات)
+- استبدل `MANASA DIGITAL-cluster.xxxxx` بالعنوان الحقيقي من Connection String
+- أضف `/MANASA DIGITAL` قبل علامة `?` (اسم قاعدة البيانات)
 
 **مثال كامل:**
 ```env
-DATABASE_URL="mongodb+srv://tmleenuser:MyPass123@cluster0.abcde.mongodb.net/tmleen?retryWrites=true&w=majority"
+DATABASE_URL="mongodb+srv://MANASA DIGITALuser:MyPass123@cluster0.abcde.mongodb.net/MANASA DIGITAL?retryWrites=true&w=majority"
 ```
 
 ---
@@ -156,7 +156,7 @@ npm run dev
 بعد التسجيل بنجاح، يمكنك رؤية البيانات:
 
 1. في MongoDB Atlas → **Database** → **Browse Collections**
-2. ستجد قاعدة بيانات `tmleen`
+2. ستجد قاعدة بيانات `MANASA DIGITAL`
 3. فيها مجموعات (Collections) مثل:
    - `User`
    - `Product`

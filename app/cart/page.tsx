@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -152,7 +152,7 @@ export default function CartPage() {
 
             <footer className="mt-32 py-12 text-center border-t border-white/5">
                 <p className="text-gray-600 text-xs font-bold uppercase tracking-[0.3em]">
-                    Institutional Grade Infrastructure by <span className="text-emerald-500">Tmleen</span>
+                    Institutional Grade Infrastructure by <span className="text-emerald-500">MANASA DIGITAL</span>
                 </p>
             </footer>
         </div>

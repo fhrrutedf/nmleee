@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { FiShoppingBag, FiCreditCard, FiBarChart2, FiGlobe, FiSmartphone, FiShield, FiUsers, FiCpu, FiArrowLeft, FiLayers, FiActivity, FiSearch } from 'react-icons/fi';
 import Link from 'next/link';
@@ -161,7 +161,7 @@ export default function FeaturesPage() {
                 <div className="max-w-7xl mx-auto px-6 text-center mb-24">
                     <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">يتكامل مع نظامك الحالي</h2>
                     <p className="text-gray-400 text-lg font-bold max-w-2xl mx-auto">
-                        اربط تمالين مع عشرات الأدوات التي تحبها، من أنظمة الأتمتة إلى تحليلات قوقل المتقدمة.
+                        اربط منصتك الرقمية مع عشرات الأدوات التي تحبها، من أنظمة الأتمتة إلى تحليلات قوقل المتقدمة.
                     </p>
                 </div>
 

@@ -1,4 +1,4 @@
-import {
+﻿import {
     Html,
     Head,
     Body,
@@ -70,14 +70,14 @@ export default function PayoutApprovedEmail({
                         </Text>
 
                         <Button
-                            href="https://tmleen.com/dashboard/earnings"
+                            href="https://manasadigital.com/dashboard/earnings"
                             style={button}
                         >
                             عرض الأرباح
                         </Button>
 
                         <Text style={footer}>
-                            شكراً لك - منصة Tmleen
+                            شكراً لك - منصة MANASA DIGITAL
                         </Text>
                     </Section>
                 </Container>

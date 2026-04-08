@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -40,7 +40,7 @@ const defaultPlans = [
             'دعم فني عبر التذاكر',
         ],
         notIncluded: [
-            'إزالة شعار تمالين',
+            'إزالة شعار المنصة',
             'نظام المسوقين (Affiliates)',
             'إدارة الكوبونات والخصومات',
         ],
@@ -174,7 +174,7 @@ export default function PricingPage() {
                 : 'bg-emerald-800 text-[#10B981] hover:bg-gray-200',
             popular: index === 1,
             features: plan.features || [],
-            notIncluded: plan.planType === 'FREE' ? ['إزالة شعار تمالين', 'نظام المسوقين'] : [],
+            notIncluded: plan.planType === 'FREE' ? ['إزالة شعار المنصة', 'نظام المسوقين'] : [],
             cta: plan.price === 0 ? 'ابدأ مجاناً' : 'اشترك الآن',
             href: plan.price === 0 ? '/register' : `/register?plan=${plan.planType?.toLowerCase()}`,
             custom: false,
@@ -211,7 +211,7 @@ export default function PricingPage() {
                         transition={{ delay: 0.3 }}
                         className="text-lg md:text-2xl text-gray-400 mb-16 max-w-2xl mx-auto font-medium leading-relaxed"
                     >
-                        لماذا تدفع عمولة 20% للمنصات الأخرى؟ مع تمالين ابدأ بـ <span className="text-white border-b-2 border-emerald-500/50 pb-1">5% فقط</span> واحتفظ بجهدك وعرقك لنفسك.
+                        لماذا تدفع عمولة 20% للمنصات الأخرى؟ مع منصتك الرقمية ابدأ بـ <span className="text-white border-b-2 border-emerald-500/50 pb-1">5% فقط</span> واحتفظ بجهدك وعرقك لنفسك.
                     </motion.p>
 
                     {/* Pro Toggle */}
@@ -253,7 +253,7 @@ export default function PricingPage() {
                         </div>
                         <div className="bg-[#161616] p-10 rounded-3xl border border-emerald-500/20 shadow-glow transform md:scale-110 relative z-10">
                              <div className="flex items-center gap-3 text-[#10B981] font-bold text-[10px] uppercase tracking-widest mb-8">
-                                <FiCheckCircle className="text-lg" /> بيئة تمالين الاستثمارية
+                                <FiCheckCircle className="text-lg" /> بيئة منصتك الرقمية الاستثمارية
                              </div>
                              <div className="space-y-5 text-white">
                                 <div className="flex justify-between items-center text-sm font-bold"><span>عمولة البيع:</span> <span className="text-[#10B981] text-xl tracking-widest font-black">5% ONLY</span></div>
@@ -357,7 +357,7 @@ export default function PricingPage() {
                     <div className="w-24 h-24 bg-emerald-700 text-white/10 text-[#10B981] rounded-3xl flex items-center justify-center mx-auto mb-12 shadow-glow border border-emerald-500/20 rotate-3">
                         <FiShield size={48} />
                     </div>
-                    <h2 className="text-5xl md:text-7xl font-black mb-10 tracking-tighter leading-tight">لماذا يختار المحترفون تمالين؟</h2>
+                    <h2 className="text-5xl md:text-7xl font-black mb-10 tracking-tighter leading-tight">لماذا يختار المحترفون منصتك الرقمية؟</h2>
                     <p className="text-gray-400 text-xl font-medium mb-16 leading-relaxed max-w-3xl mx-auto">
                         نحن لسنا مجرد منصة بيع، نحن شريكك الاستراتيجي في النمو. نقوم بمعالجة مدفوعاتك بأمان، وتوصيل منتجاتك لعملائك فوراً، وحماية حقوقك القانونية والمالية.
                     </p>

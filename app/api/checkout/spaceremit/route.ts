@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
         const session = await getServerSession(authOptions).catch(() => null);
         let buyerId = (session?.user as any)?.id || null;
         if (!buyerId) {
-            buyerId = await ensureUserAccount(customerInfo.email, customerInfo.name || 'عميل تمالين');
+            buyerId = await ensureUserAccount(customerInfo.email, customerInfo.name || 'عميل منصتك الرقمية');
         }
 
         let sellerId = resolvedItems[0]?.userId;

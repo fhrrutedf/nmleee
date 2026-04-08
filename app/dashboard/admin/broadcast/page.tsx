@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { FiSend, FiUsers, FiTarget, FiActivity, FiMail, FiCheckCircle, FiAlertTriangle, FiZap } from 'react-icons/fi';
@@ -54,7 +54,7 @@ export default function AdminBroadcastPage() {
                     </div>
                     نظام البث الذكي والمستهدف
                 </h1>
-                <p className="text-gray-500 dark:text-slate-400 mt-2 max-w-2xl">أرسل رسائل مخصصة لشرائح معينة من مستخدمين "تمالين" بدقة عالية لزيادة التفاعل.</p>
+                <p className="text-gray-500 dark:text-slate-400 mt-2 max-w-2xl">أرسل رسائل مخصصة لشرائح معينة من مستخدمين "منصتك الرقمية" بدقة عالية لزيادة التفاعل.</p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -84,7 +84,7 @@ export default function AdminBroadcastPage() {
                                 />
                                 <p className="text-[10px] text-slate-400 mt-2 italic flex items-center gap-1">
                                     <FiAlertTriangle className="text-[#10B981]-500" />
-                                    تذكير: سيتم وضع محتوى رسالتك داخل "قالب تمالين الرسمي" الموحد لضمان الاحترافية.
+                                    تذكير: سيتم وضع محتوى رسالتك داخل "قالب منصتك الرقمية الرسمي" الموحد لضمان الاحترافية.
                                 </p>
                             </div>
 

@@ -1,4 +1,4 @@
-import { MetadataRoute } from 'next';
+﻿import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
     return {
@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
                 disallow: ['/dashboard/', '/admin/', '/api/'],
             },
         ],
-        sitemap: 'https://tmleen.com/sitemap.xml',
+        sitemap: 'https://manasadigital.com/sitemap.xml',
     };
 }

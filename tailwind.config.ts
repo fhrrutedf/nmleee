@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+﻿import type { Config } from "tailwindcss";
 
 const config: Config = {
     darkMode: 'class',
@@ -11,7 +11,7 @@ const config: Config = {
         extend: {
             colors: {
                 // ══════════════════════════════════════
-                // Tmleen Brand System v4.2 Elite Emerald
+                // MANASA DIGITAL Brand System v4.2 Elite Emerald
                 // ══════════════════════════════════════
 
                 // Global Ink & Emerald Core

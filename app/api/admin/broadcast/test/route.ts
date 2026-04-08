@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
@@ -18,8 +18,8 @@ export async function POST(req: NextRequest) {
 
     try {
         const resend = new Resend(process.env.RESEND_API_KEY!);
-        const FROM = process.env.RESEND_FROM_EMAIL || 'no-reply@tmleen.com';
-        const platformSettings = await prisma.platformSettings.findFirst() || { platformName: 'تمالين' };
+        const FROM = process.env.RESEND_FROM_EMAIL || 'no-reply@manasadigital.com';
+        const platformSettings = await prisma.platformSettings.findFirst() || { platformName: 'منصتك الرقمية' };
         
         const adminEmail = session?.user?.email;
         if (!adminEmail) throw new Error('Admin email not found');

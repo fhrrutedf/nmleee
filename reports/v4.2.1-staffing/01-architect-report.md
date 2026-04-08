@@ -1,5 +1,5 @@
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🏛️ ARCHITECTURE DECISION: TMLEEN DIGITAL DEPARTMENT STRUCTURE
+﻿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏛️ ARCHITECTURE DECISION: MANASA DIGITAL DIGITAL DEPARTMENT STRUCTURE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ## Decision: Virtual Staffing & Departmental Matrix (v4.2.1)
 
@@ -7,7 +7,7 @@
 To manage the transition from a "Marketplace" to a "Digital Infrastructure for Creators," the platform requires a dedicated team of specialized digital agents (Internal and Human-led) to manage Brand, Business, and Code quality.
 
 ### Chosen Solution: The Hybrid Operational Matrix
-Tmleen will be structured into three core Pillars, each led by the specialized roles requested:
+MANASA DIGITAL will be structured into three core Pillars, each led by the specialized roles requested:
 
 1. **Identity & Luxury Pillar (القطاع البصري والبراند)**
    - **Lead:** المسؤول عن الهوية البصرية (Visual Identity Manager)

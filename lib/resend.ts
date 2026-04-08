@@ -1,9 +1,9 @@
-import { Resend } from 'resend';
+﻿import { Resend } from 'resend';
 import nodemailer from 'nodemailer';
 import { render } from '@react-email/components';
 
-export const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || process.env.BREVO_FROM_EMAIL || process.env.GMAIL_USER || 'noreply@tmleen.com';
-export const FROM_NAME = process.env.RESEND_FROM_NAME || 'تمالين';
+export const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || process.env.BREVO_FROM_EMAIL || process.env.GMAIL_USER || 'noreply@manasadigital.com';
+export const FROM_NAME = process.env.RESEND_FROM_NAME || 'منصتك الرقمية';
 
 const resendClient = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 

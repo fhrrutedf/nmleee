@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 import { FiMenu, FiX, FiChevronLeft, FiLayers } from 'react-icons/fi';
@@ -33,7 +33,7 @@ export default function Navbar() {
                             <FiLayers size={22} className="group-hover:rotate-12 transition-transform" />
                         </div>
                         <span className="text-xl font-bold text-[#10B981] tracking-tighter">
-                            TMLEEN<span className="text-[#10B981] font-light">.</span>
+                            MANASA DIGITAL<span className="text-[#10B981] font-light">.</span>
                         </span>
                     </Link>
 

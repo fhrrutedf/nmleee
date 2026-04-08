@@ -1,10 +1,10 @@
-import { prisma } from '@/lib/db';
+﻿import { prisma } from '@/lib/db';
 import Link from 'next/link';
 import { FiSearch, FiLayers, FiTrendingUp, FiStar, FiArrowRight, FiFilter, FiCheckCircle } from 'react-icons/fi';
 import ExploreClientWrapper from './ExploreClientWrapper';
 
 export const metadata = {
-    title: 'تصفح المتجر والمبدعين | تمالين',
+    title: 'تصفح المتجر والمبدعين | منصتك الرقمية',
     description: 'اكتشف أفضل المنتجات الرقمية والدورات التدريبية من نخبة صناع المحتوى في الوطن العربي.',
 };
 
@@ -209,7 +209,7 @@ export default async function ExplorePage({
                     <div className="absolute top-0 left-0 w-[40%] h-[40%] bg-emerald-700 text-white/5 rounded-xl blur-[100px]"></div>
                     <div className="relative z-10">
                         <h3 className="text-3xl md:text-5xl font-bold text-[#10B981] tracking-tighter mb-8 leading-tight">جاهز لبيع منتجاتك الخاصة؟</h3>
-                        <p className="text-gray-400 text-lg font-bold mb-12 max-w-xl mx-auto">انضم لآلاف البائعين في تمالين وافتح متجرك الاحترافي خلال أقل من 5 دقائق.</p>
+                        <p className="text-gray-400 text-lg font-bold mb-12 max-w-xl mx-auto">انضم لآلاف البائعين في منصتك الرقمية وافتح متجرك الاحترافي خلال أقل من 5 دقائق.</p>
                         <Link href="/register" className="inline-flex items-center gap-3 py-5 px-12 bg-emerald-700 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-emerald-700 text-white transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/10">
                             Start Selling Now <FiArrowRight className="rotate-180" />
                         </Link>

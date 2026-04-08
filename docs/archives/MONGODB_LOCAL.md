@@ -1,4 +1,4 @@
-# 🗄️ استخدام MongoDB محلي (بديل)
+﻿# 🗄️ استخدام MongoDB محلي (بديل)
 
 ## إذا لا يمكنك الاتصال بـ MongoDB Atlas:
 
@@ -21,7 +21,7 @@ https://www.mongodb.com/try/download/community
 
 ```env
 # بدلاً من Atlas، استخدم محلي:
-DATABASE_URL="mongodb://localhost:27017/tmleen"
+DATABASE_URL="mongodb://localhost:27017/MANASA DIGITAL"
 ```
 
 ### 4. أعد تشغيل:

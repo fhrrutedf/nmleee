@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { sendEmail } from '@/lib/resend';
 import { getBaseUrl } from '@/lib/host-utils';
@@ -46,18 +46,18 @@ export async function POST(request: Request) {
         const { success, error } = await sendEmail({
             to: user.email,
             toName: user.name,
-            subject: 'إعادة تعيين كلمة المرور | منصة تمالين',
+            subject: 'إعادة تعيين كلمة المرور | منصتك الرقمية',
             html: `
                 <div style="direction: rtl; font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
                     <h2 style="color: #0ea5e9;">مرحباً ${user.name}،</h2>
-                    <p>لقد تلقينا طلباً لإعادة تعيين كلمة المرور الخاصة بحسابك على منصة تمالين.</p>
+                    <p>لقد تلقينا طلباً لإعادة تعيين كلمة المرور الخاصة بحسابك على منصتك الرقمية.</p>
                     <p>يمكنك إعادة تعيين كلمة المرور من خلال الضغط على الزر أدناه (هذا الرابط صالح لمدة ساعة واحدة):</p>
                     <div style="text-align: center; margin: 30px 0;">
                         <a href="${resetLink}" style="background-color: #0ea5e9; color: white; padding: 12px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">إعادة تعيين كلمة المرور</a>
                     </div>
                     <p style="color: #666; font-size: 14px;">إذا لم تكن أنت من طلب هذا، فيرجى تجاهل هذا البريد.</p>
                     <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-                    <p style="text-align: center; color: #999; font-size: 12px;">© منصة تمالين - جميع الحقوق محفوظة</p>
+                    <p style="text-align: center; color: #999; font-size: 12px;">© منصتك الرقمية - جميع الحقوق محفوظة</p>
                 </div>
             `
         });

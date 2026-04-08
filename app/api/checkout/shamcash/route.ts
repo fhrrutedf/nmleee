@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
@@ -103,9 +103,9 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        // 2. Create TMLEEN Order with Dynamic Logistics
+        // 2. Create MANASA DIGITAL Order with Dynamic Logistics
         const orderNumber = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-        const tmleenOrder = await prisma.order.create({
+        const MANASA DIGITALOrder = await prisma.order.create({
             data: {
                 orderNumber,
                 userId: userId,
@@ -147,7 +147,7 @@ export async function POST(req: NextRequest) {
                 user_email: customerInfo.email,
                 user_name: customerInfo.name,
                 metadata: {
-                    tmleen_order_id: tmleenOrder.id
+                    MANASA DIGITAL_order_id: MANASA DIGITALOrder.id
                 }
             })
         });
@@ -158,7 +158,7 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({
             success: true,
-            orderId: tmleenOrder.id,
+            orderId: MANASA DIGITALOrder.id,
             total: totalUSD,
             totalLocal: totalSYP,
             shamCashRefCode: gatewayData.ref_code,

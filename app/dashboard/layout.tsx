@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { signOut, useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -144,7 +144,7 @@ export default function DashboardLayout({
                             <div className="p-8 border-b border-white/10 flex items-center justify-between">
                                 <div className="flex items-center gap-3">
                                     <div className="w-8 h-8 rounded-lg bg-emerald-700 text-white flex items-center justify-center font-bold text-sm">ت</div>
-                                    <span className="font-bold text-[#10B981]">تمالين</span>
+                                    <span className="font-bold text-[#10B981]">منصتك الرقمية</span>
                                 </div>
                                 <button onClick={() => setSidebarOpen(false)} className="p-2 bg-[#111111] rounded-lg text-gray-400">
                                     <FiX size={20} />
@@ -277,7 +277,7 @@ export default function DashboardLayout({
                 <div className="p-10">
                     <div className="flex items-center gap-3 mb-10">
                          <div className="w-10 h-10 rounded-xl bg-emerald-700 text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-[#10B981]/20 shadow-black/20">ت</div>
-                         <h1 className="text-xl font-bold text-[#10B981] tracking-tighter">تمالين</h1>
+                         <h1 className="text-xl font-bold text-[#10B981] tracking-tighter">منصتك الرقمية</h1>
                     </div>
                     
                     <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em] mb-4 bg-[#111111] px-3 py-1.5 rounded-lg inline-block border border-white/5">{session.user?.name}</p>

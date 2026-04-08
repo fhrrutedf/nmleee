@@ -1,10 +1,10 @@
-import { MetadataRoute } from 'next';
+﻿import { MetadataRoute } from 'next';
 import { prisma } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://tmleen.com';
+    const baseUrl = 'https://manasadigital.com';
 
     // الصفحات الثابتة
     const staticPages: MetadataRoute.Sitemap = [

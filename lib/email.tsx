@@ -1,4 +1,4 @@
-import { sendEmail } from './resend';
+﻿import { sendEmail } from './resend';
 import OrderConfirmationEmail from '@/emails/OrderConfirmation';
 import PayoutApprovedEmail from '@/emails/PayoutApproved';
 import ManualOrderAlertEmail from '@/emails/ManualOrderAlert';
@@ -94,7 +94,7 @@ export async function sendPayoutRejected(data: {
                     <p><strong>المبلغ: </strong> ${data.amount.toFixed(2)}</p>
                     <p><strong>السبب: </strong> {data.reason}</p>
                     <p>تم إرجاع المبلغ إلى رصيدك المتاح.</p>
-                    <a href="https://tmleen.com/dashboard/earnings" style={{
+                    <a href="https://manasadigital.com/dashboard/earnings" style={{
                         backgroundColor: '#4f46e5',
                         color: 'white',
                         padding: '12px 24px',
@@ -166,7 +166,7 @@ export async function sendManualOrderReview(data: {
                         </div>
                         <p style={{ color: '#64748b', fontSize: '14px' }}>سيتم إرسال إيميل آخر فور تفعيل الطلب (عادة ما يستغرق الأمر من 15 دقيقة إلى ساعتين خلال أوقات العمل).</p>
                         <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                            <a href="https://tmleen.com/my-purchases" style={{
+                            <a href="https://manasadigital.com/my-purchases" style={{
                                 backgroundColor: '#4338ca', color: 'white', padding: '14px 28px',
                                 borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
                             }}>
@@ -216,7 +216,7 @@ export async function sendManualOrderApproved(data: {
                             <>
                                 <p style={{ color: '#059669', fontWeight: 'bold', fontSize: '16px' }}>🎓 تم فتح الدورة! يمكنك الآن البدء بالتعلم.</p>
                                 <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                                    <a href={`https://tmleen.com/learn/${data.courseId}`} style={{
+                                    <a href={`https://manasadigital.com/learn/${data.courseId}`} style={{
                                         backgroundColor: '#059669', color: 'white', padding: '14px 28px',
                                         borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold', fontSize: '16px'
                                     }}>
@@ -226,7 +226,7 @@ export async function sendManualOrderApproved(data: {
                             </>
                         ) : (
                             <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                                <a href="https://tmleen.com/my-purchases" style={{
+                                <a href="https://manasadigital.com/my-purchases" style={{
                                     backgroundColor: '#166534', color: 'white', padding: '14px 28px',
                                     borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
                                 }}>
@@ -301,7 +301,7 @@ export async function sendSubscriptionConfirmation(data: {
                             <p style={{ margin: '5px 0' }}><strong>دورة الدفع:</strong> {data.billingCycle === 'month' ? 'شهري' : 'سنوي'}</p>
                         </div>
                         <div style={{ textAlign: 'center', marginTop: '30px' }}>
-                            <a href="https://tmleen.com/dashboard/billing" style={{
+                            <a href="https://manasadigital.com/dashboard/billing" style={{
                                 backgroundColor: '#0ea5e9', color: 'white', padding: '14px 28px',
                                 borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
                             }}>
@@ -340,10 +340,10 @@ export async function sendWelcomeEmail(
                         <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', margin: '20px 0', border: '1px solid #e2e8f0' }}>
                             <h3 style={{ margin: '0 0 15px 0', color: '#0f172a' }}>معلومات حسابك:</h3>
                             <p style={{ margin: '5px 0' }}><strong>الاسم:</strong> {name}</p>
-                            <p style={{ margin: '5px 0' }}><strong>رابط متجرك:</strong> <a href={`https://tmleen.com/${username}`}>tmleen.com/{username}</a></p>
+                            <p style={{ margin: '5px 0' }}><strong>رابط متجرك:</strong> <a href={`https://manasadigital.com/${username}`}>manasadigital.com/{username}</a></p>
                         </div>
                         <div style={{ textAlign: 'center', marginTop: '30px' }}>
-                            <a href="https://tmleen.com/dashboard" style={{
+                            <a href="https://manasadigital.com/dashboard" style={{
                                 backgroundColor: '#D41295', color: 'white', padding: '14px 28px',
                                 borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
                             }}>
@@ -385,7 +385,7 @@ export async function sendGuestWelcomeEmail(
                             <p style={{ margin: '15px 0 0 0', fontSize: '14px', color: '#dc2626' }}>* ننصح بشدة بتغيير كلمة المرور من صفحة الإعدادات بعد تسجيل الدخول الأول.</p>
                         </div>
                         <div style={{ textAlign: 'center', marginTop: '30px' }}>
-                            <a href="https://tmleen.com/login" style={{
+                            <a href="https://manasadigital.com/login" style={{
                                 backgroundColor: '#4f46e5', color: 'white', padding: '14px 28px',
                                 borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
                             }}>
@@ -430,7 +430,7 @@ export async function sendUnderPaidNotification(data: {
                         </div>
                         <p style={{ color: '#475569' }}>يرجى إرسال المبلغ المتبقي لنفس عنوان المحفظة لتفعيل طلبك آلياً.</p>
                         <div style={{ textAlign: 'center', marginTop: '30px' }}>
-                            <a href="https://tmleen.com/my-purchases" style={{
+                            <a href="https://manasadigital.com/my-purchases" style={{
                                 backgroundColor: '#ea580c', color: 'white', padding: '14px 28px',
                                 borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
                             }}>

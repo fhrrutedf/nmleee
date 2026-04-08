@@ -1,4 +1,4 @@
-# ✅ Multi-Tenant Marketplace - تم الإنجاز
+﻿# ✅ Multi-Tenant Marketplace - تم الإنجاز
 
 ## 🎉 ملخص التنفيذ
 
@@ -21,8 +21,8 @@ app/
 
 ### 2️⃣ **URL Structure (Deep Linking)**
 
-- **متجر Creator**: `https://tmleen.com/@username`
-- **منتج مباشر**: `https://tmleen.com/@username/product-slug`
+- **متجر Creator**: `https://manasadigital.com/@username`
+- **منتج مباشر**: `https://manasadigital.com/@username/product-slug`
 
 ### 3️⃣ **Rewrites في next.config.js**
 
@@ -143,12 +143,12 @@ node prisma/migrate-product-slugs-mongodb.js
 
 3. **مشاركة الروابط:**
    - من صفحة Products، اضغط على Eye Icon (👁️)
-   - انسخ الرابط: `tmleen.com/@username/product-slug`
+   - انسخ الرابط: `manasadigital.com/@username/product-slug`
    - شارك على Instagram, Twitter, WhatsApp
 
 4. **عرض المتجر:**
    - اضغط "عرض متجري" في Dashboard
-   - سيفتح `tmleen.com/@username`
+   - سيفتح `manasadigital.com/@username`
 
 ---
 
@@ -186,7 +186,7 @@ npx prisma generate
 
 ### 3. **Custom Domains** (مستقبلاً):
 - السماح لكل Creator بربط دومين خاص
-- مثال: `ahmed.com` بدلاً من `tmleen.com/@ahmed`
+- مثال: `ahmed.com` بدلاً من `manasadigital.com/@ahmed`
 
 ### 4. **Analytics Dashboard**:
 - عدد الزيارات لكل منتج

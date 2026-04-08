@@ -1,4 +1,4 @@
-# 🏗️ Multi-Tenant Creator Marketplace Architecture
+﻿# 🏗️ Multi-Tenant Creator Marketplace Architecture
 
 ## 📋 Overview
 
@@ -23,8 +23,8 @@ https://platform.com/@username
 ```
 **مثال:**
 ```
-https://tmleen.com/@ahmed-coach
-https://tmleen.com/@designer-pro
+https://manasadigital.com/@ahmed-coach
+https://manasadigital.com/@designer-pro
 ```
 
 #### 🔗 **Direct Product Link (Deep Linking)**
@@ -33,8 +33,8 @@ https://platform.com/@username/product-slug
 ```
 **مثال:**
 ```
-https://tmleen.com/@ahmed-coach/web-development-course
-https://tmleen.com/@designer-pro/logo-templates-pack
+https://manasadigital.com/@ahmed-coach/web-development-course
+https://manasadigital.com/@designer-pro/logo-templates-pack
 ```
 
 ---
@@ -369,14 +369,14 @@ for (const product of products) {
 ## 🔗 URL Examples in Real World
 
 ### **Creator: Ahmed (Coach)**
-- Profile: `https://tmleen.com/@ahmed-coach`
-- Course 1: `https://tmleen.com/@ahmed-coach/web-dev-bootcamp`
-- Course 2: `https://tmleen.com/@ahmed-coach/react-mastery`
+- Profile: `https://manasadigital.com/@ahmed-coach`
+- Course 1: `https://manasadigital.com/@ahmed-coach/web-dev-bootcamp`
+- Course 2: `https://manasadigital.com/@ahmed-coach/react-mastery`
 
 ### **Creator: Sara (Designer)**
-- Profile: `https://tmleen.com/@sara-designs`
-- Product 1: `https://tmleen.com/@sara-designs/logo-templates`
-- Product 2: `https://tmleen.com/@sara-designs/brand-kit`
+- Profile: `https://manasadigital.com/@sara-designs`
+- Product 1: `https://manasadigital.com/@sara-designs/logo-templates`
+- Product 2: `https://manasadigital.com/@sara-designs/brand-kit`
 
 **لاحظ:** كل creator له namespace خاص، لا تعارض بين الـ slugs!
 
@@ -387,7 +387,7 @@ for (const product of products) {
 ### **Environment Variables:**
 
 ```env
-NEXT_PUBLIC_APP_URL=https://tmleen.com
+NEXT_PUBLIC_APP_URL=https://manasadigital.com
 ```
 
 **يستخدم في:**
@@ -403,7 +403,7 @@ NEXT_PUBLIC_APP_URL=https://tmleen.com
 
 1. **Custom Domains:**
    - السماح للـ Creator بربط domain خاص
-   - مثال: `https://ahmed.coach` → `https://tmleen.com/@ahmed-coach`
+   - مثال: `https://ahmed.coach` → `https://manasadigital.com/@ahmed-coach`
 
 2. **Advanced Analytics:**
    - Page views per product

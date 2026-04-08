@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { Resend } from 'resend';
 
@@ -51,8 +51,8 @@ async function processOneBroadcast(broadcast: any) {
     });
 
     const resend = new Resend(process.env.RESEND_API_KEY!);
-    const platformSettings = await prisma.platformSettings.findFirst() || { platformName: 'تمالين' };
-    const FROM = process.env.RESEND_FROM_EMAIL || 'no-reply@tmleen.com';
+    const platformSettings = await prisma.platformSettings.findFirst() || { platformName: 'منصتك الرقمية' };
+    const FROM = process.env.RESEND_FROM_EMAIL || 'no-reply@manasadigital.com';
 
     // Criteria logic
     const criteria = broadcast.recipientCriteria || 'all';

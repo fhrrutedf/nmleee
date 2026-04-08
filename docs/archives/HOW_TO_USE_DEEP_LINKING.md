@@ -1,23 +1,23 @@
-# 🔗 How to Use Deep Linking in Tmleen
+﻿# 🔗 How to Use Deep Linking in MANASA DIGITAL
 
 Deep linking allows you to share direct links to your products that open directly in your branded store view.
 
 ## 🎯 Format
 The standard format for deep links is:
 ```
-https://tmleen.com/@username/product-slug
+https://manasadigital.com/@username/product-slug
 ```
 
 ## 📝 Examples
 
 ### **1. Sharing a Course**
 If your username is `ahmed-coach` and you have a course "Web Development":
-- **Link:** `tmleen.com/@ahmed-coach/web-development`
+- **Link:** `manasadigital.com/@ahmed-coach/web-development`
 - **Result:** Opens the product page directly with your branding (colors, avatar) and NO distraction.
 
 ### **2. Sharing an E-book**
 If your username is `sara-design` and you have a product "Logo Templates":
-- **Link:** `tmleen.com/@sara-design/logo-templates`
+- **Link:** `manasadigital.com/@sara-design/logo-templates`
 - **Result:** Direct purchase page for the e-book.
 
 ## 🛠️ How to Find Your Links?

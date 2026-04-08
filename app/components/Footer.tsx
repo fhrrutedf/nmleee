@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 
@@ -35,7 +35,7 @@ export default function Footer() {
                              <div className="w-12 h-12 rounded-2xl bg-emerald-700 text-white flex items-center justify-center text-xl font-black shadow-lg shadow-emerald-500/20 transition-all group-hover:scale-110 group-hover:bg-emerald-600">
                                 ت
                             </div>
-                            <span className="text-3xl font-black tracking-tighter text-white">تمالين</span>
+                            <span className="text-3xl font-black tracking-tighter text-white">منصتك الرقمية</span>
                         </div>
                         <p className="text-gray-400 text-sm font-medium leading-relaxed mb-12">
                             البنية التحتية المتكاملة لبيع المنتجات الرقمية والدورات التدريبية في الوطن العربي. نحن نمكّن المبدعين من بناء إمبراطورياتهم الخاصة بسهولة وأمان.
@@ -83,7 +83,7 @@ export default function Footer() {
                 <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-8">
                     <div className="flex items-center gap-8">
                          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                            © {new Date().getFullYear()} TMLEEN INFRASTRUCTURE. All Rights Reserved.
+                            © {new Date().getFullYear()} MANASA DIGITAL. All Rights Reserved.
                         </p>
                         <div className="hidden md:flex gap-6 items-center">
                             <span className="w-1.5 h-1.5 bg-white/10 rounded-full"></span>

@@ -1,9 +1,9 @@
-import { Metadata } from 'next';
+﻿import { Metadata } from 'next';
 import { prisma } from '@/lib/db';
 import BlogListClient from './BlogListClient';
 
 export const metadata: Metadata = {
-    title: 'المدونة | تمالين',
+    title: 'المدونة | منصتك الرقمية',
     description: 'أحدث المقالات والنصائح لتنمية أعمالك الرقمية وتحقيق النجاح، اكتشف استراتيجيات التسويق والأدوات المفيدة.',
 };
 

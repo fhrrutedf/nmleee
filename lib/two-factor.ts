@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+﻿/* eslint-disable @typescript-eslint/no-require-imports */
 const { authenticator } = require('otplib');
 import QRCode from 'qrcode';
 
@@ -11,7 +11,7 @@ import QRCode from 'qrcode';
  */
 export function generateTwoFactorSecret(userEmail: string) {
     const secret = authenticator.generateSecret();
-    const otpauth = authenticator.keyuri(userEmail, 'Tmleen', secret);
+    const otpauth = authenticator.keyuri(userEmail, 'MANASA DIGITAL', secret);
     return { secret, otpauth };
 }
 
@@ -48,5 +48,5 @@ export async function verifyTwoFactorToken(token: string, secret: string) {
 export async function sendSMSVerification(phone: string, code: string) {
     // This is where you'd call Twilio or a local SMS gateway
     console.log(`Sending SMS to ${phone} with code: ${code}`);
-    // return await twilio.messages.create({ body: `رمز التحقق الخاص بك هو: ${code}`, to: phone, from: 'Tmleen' });
+    // return await twilio.messages.create({ body: `رمز التحقق الخاص بك هو: ${code}`, to: phone, from: 'MANASA DIGITAL' });
 }

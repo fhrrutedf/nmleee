@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -319,7 +319,7 @@ export default function ProductDetails({
                                         <button 
                                             onClick={() => {
                                                 const cleanPhone = supportWhatsapp.replace(/\D/g, '');
-                                                window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(`مرحباً دعم تمالين، لدي استفسار حول المنتج: ${product.title}`)}`, '_blank');
+                                                window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(`مرحباً دعم منصتك الرقمية، لدي استفسار حول المنتج: ${product.title}`)}`, '_blank');
                                             }} 
                                             className="px-3 py-1.5 bg-green-500 text-white rounded-lg font-bold text-[10px] flex items-center gap-1 hover:bg-green-600 transition-colors shadow-lg shadow-[#10B981]/20 shadow-green-500/20"
                                         >
@@ -425,7 +425,7 @@ export default function ProductDetails({
                 </div>
             </div>
             <footer className="mt-16 py-8 border-t border-white/10 dark:border-gray-800 text-center">
-                <p className="text-gray-500 dark:text-gray-400 font-medium">مدعوم من <a href="https://tmleen.com" className="text-[#10B981] font-bold hover:underline">منصة تمالين</a></p>
+                <p className="text-gray-500 dark:text-gray-400 font-medium">مدعوم من <a href="https://manasadigital.com" className="text-[#10B981] font-bold hover:underline">منصتك الرقمية</a></p>
             </footer>
         </div>
     );

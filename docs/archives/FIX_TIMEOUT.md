@@ -1,4 +1,4 @@
-# 🔥 حلول مشكلة MongoDB Timeout
+﻿# 🔥 حلول مشكلة MongoDB Timeout
 
 ## ✅ الحلول (بالترتيب):
 
@@ -49,7 +49,7 @@ Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
 جرب هذا البديل:
 
 ```env
-DATABASE_URL="mongodb+srv://aeaaboaleon_db_user:Perb4FwkDl4LvBjM@cluster0.f76n83k.mongodb.net/tmleen?retryWrites=true&w=majority&ssl=true&authSource=admin&connectTimeoutMS=60000&serverSelectionTimeoutMS=60000"
+DATABASE_URL="mongodb+srv://aeaaboaleon_db_user:Perb4FwkDl4LvBjM@cluster0.f76n83k.mongodb.net/MANASA DIGITAL?retryWrites=true&w=majority&ssl=true&authSource=admin&connectTimeoutMS=60000&serverSelectionTimeoutMS=60000"
 ```
 
 ---
@@ -75,12 +75,12 @@ DATABASE_URL="mongodb+srv://aeaaboaleon_db_user:Perb4FwkDl4LvBjM@cluster0.f76n83
 1. في MongoDB Atlas → Security → Database Access
 2. احذف المستخدم الحالي: `aeaaboaleon_db_user`
 3. أنشئ مستخدم جديد:
-   - Username: `tmleen_admin`
+   - Username: `MANASA DIGITAL_admin`
    - Password: (اختر كلمة مرور بسيطة بدون أحرف خاصة، مثل: `Admin123456`)
    - Privileges: **Atlas Admin**
 4. حدّث `.env`:
    ```env
-   DATABASE_URL="mongodb+srv://tmleen_admin:Admin123456@cluster0.f76n83k.mongodb.net/tmleen?retryWrites=true&w=majority"
+   DATABASE_URL="mongodb+srv://MANASA DIGITAL_admin:Admin123456@cluster0.f76n83k.mongodb.net/MANASA DIGITAL?retryWrites=true&w=majority"
    ```
 5. نفّذ:
    ```bash
@@ -140,7 +140,7 @@ npm run dev
 2. ثبّته
 3. في `.env`:
    ```env
-   DATABASE_URL="mongodb://localhost:27017/tmleen"
+   DATABASE_URL="mongodb://localhost:27017/MANASA DIGITAL"
    ```
 4. نفّذ:
    ```bash

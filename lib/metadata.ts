@@ -1,21 +1,21 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 
 export const defaultMetadata: Metadata = {
     title: {
-        default: 'tmleen - منصة المنتجات الرقمية والدورات التدريبية',
-        template: '%s | tmleen'
+        default: 'MANASA DIGITAL - منصة المنتجات الرقمية والدورات التدريبية',
+        template: '%s | MANASA DIGITAL'
     },
     description: 'منصة عربية احترافية لبيع وشراء المنتجات الرقمية والدورات التدريبية. ابدأ مشروعك الرقمي اليوم!',
     keywords: ['منتجات رقمية', 'دورات تدريبية', 'كتب إلكترونية', 'قوالب', 'تصميم', 'برمجة', 'تسويق'],
-    authors: [{ name: 'tmleen' }],
-    creator: 'tmleen',
-    publisher: 'tmleen',
+    authors: [{ name: 'MANASA DIGITAL' }],
+    creator: 'MANASA DIGITAL',
+    publisher: 'MANASA DIGITAL',
     formatDetection: {
         email: false,
         address: false,
         telephone: false,
     },
-    metadataBase: new URL('https://tmleen.com'),
+    metadataBase: new URL('https://manasadigital.com'),
     alternates: {
         canonical: '/',
         languages: {
@@ -26,25 +26,25 @@ export const defaultMetadata: Metadata = {
     openGraph: {
         type: 'website',
         locale: 'ar_AR',
-        url: 'https://tmleen.com',
-        title: 'tmleen - منصة المنتجات الرقمية والدورات التدريبية',
+        url: 'https://manasadigital.com',
+        title: 'MANASA DIGITAL - منصة المنتجات الرقمية والدورات التدريبية',
         description: 'منصة عربية احترافية لبيع وشراء المنتجات الرقمية والدورات التدريبية',
-        siteName: 'tmleen',
+        siteName: 'MANASA DIGITAL',
         images: [
             {
                 url: '/og-image.jpg',
                 width: 1200,
                 height: 630,
-                alt: 'tmleen',
+                alt: 'MANASA DIGITAL',
             },
         ],
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'tmleen - منصة المنتجات الرقمية والدورات التدريبية',
+        title: 'MANASA DIGITAL - منصة المنتجات الرقمية والدورات التدريبية',
         description: 'منصة عربية احترافية لبيع وشراء المنتجات الرقمية والدورات التدريبية',
         images: ['/twitter-image.jpg'],
-        creator: '@tmleen',
+        creator: '@MANASA DIGITAL',
     },
     robots: {
         index: true,
@@ -97,17 +97,17 @@ export function generateUserMetadata(user: {
 }): Metadata {
     return {
         title: user.name,
-        description: user.bio || `تصفح منتجات ${user.name} على tmleen`,
+        description: user.bio || `تصفح منتجات ${user.name} على MANASA DIGITAL`,
         openGraph: {
             title: user.name,
-            description: user.bio || `تصفح منتجات ${user.name} على tmleen`,
+            description: user.bio || `تصفح منتجات ${user.name} على MANASA DIGITAL`,
             images: user.avatar ? [user.avatar] : [],
             type: 'profile' as any,
         },
         twitter: {
             card: 'summary',
             title: user.name,
-            description: user.bio || `تصفح منتجات ${user.name} على tmleen`,
+            description: user.bio || `تصفح منتجات ${user.name} على MANASA DIGITAL`,
             images: user.avatar ? [user.avatar] : [],
         },
     };

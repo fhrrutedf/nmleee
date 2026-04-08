@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -243,7 +243,7 @@ export default function ProductPage() {
             {/* Simple Footer */}
             <footer className="mt-16 py-8 text-center border-t border-white/10 dark:border-gray-800">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">
-                    مدعوم من <a href="https://tmleen.com" className="text-[#10B981] font-bold hover:underline">منصة تمالين</a>
+                    مدعوم من <a href="https://manasadigital.com" className="text-[#10B981] font-bold hover:underline">منصتك الرقمية</a>
                 </p>
             </footer>
         </div>

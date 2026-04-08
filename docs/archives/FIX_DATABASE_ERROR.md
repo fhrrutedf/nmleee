@@ -1,4 +1,4 @@
-# ⚠️ خطأ قاعدة البيانات - الحل السريع
+﻿# ⚠️ خطأ قاعدة البيانات - الحل السريع
 
 ## 🔴 الخطأ الحالي:
 ```
@@ -25,7 +25,7 @@ Code: localhost:27017
 
 3. **أنشئ User:**
    - Security → Database Access → Add User
-   - Username: `tmleenuser`
+   - Username: `MANASA DIGITALuser`
    - Password: (اختر كلمة مرور قوية)
    - Privileges: Read and write to any database
 
@@ -37,18 +37,18 @@ Code: localhost:27017
    - Database → Connect → Drivers
    - انسخ الرابط، سيكون مثل:
    ```
-   mongodb+srv://tmleenuser:<password>@cluster0.xxxxx.mongodb.net/
+   mongodb+srv://MANASA DIGITALuser:<password>@cluster0.xxxxx.mongodb.net/
    ```
 
 6. **حدّث ملف `.env`:**
    ```env
-   DATABASE_URL="mongodb+srv://tmleenuser:YourPassword@cluster0.xxxxx.mongodb.net/tmleen?retryWrites=true&w=majority"
+   DATABASE_URL="mongodb+srv://MANASA DIGITALuser:YourPassword@cluster0.xxxxx.mongodb.net/MANASA DIGITAL?retryWrites=true&w=majority"
    ```
    
    ⚠️ استبدل:
    - `<password>` بكلمة المرور الحقيقية
    - `cluster0.xxxxx` بالعنوان من الرابط الخاص بك
-   - أضف `/tmleen` قبل `?`
+   - أضف `/MANASA DIGITAL` قبل `?`
 
 7. **طبّق التغييرات:**
    ```bash

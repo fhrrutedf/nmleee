@@ -1,4 +1,4 @@
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+﻿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📚 DOCUMENTATION COMPLETE: STAFFING & ROLES (v4.2.1-STAFFING)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ## Documentation: Role Mapping & Organizational Infrastructure
@@ -14,7 +14,7 @@
 
 ### Summary of New Roles
 1. **Visual Identity Manager (المسؤول عن الهوية البصرية):** Guardian of Elite Emerald v4.2 colors, fonts, and aesthetics.
-2. **Brand Guardian (المسؤول عن البراند):** Voice of Tmleen, values, and market positioning.
+2. **Brand Guardian (المسؤول عن البراند):** Voice of MANASA DIGITAL, values, and market positioning.
 3. **Entrepreneurship Lead (المسؤول عن ريادة الأعمال):** Growth of the digital ecosystem and merchant success.
 4. **Corporate Analyst (المسؤول على دراسة الشركات):** Data-driven analysis and competitive research.
 5. **Engineering Team (فريق البرمجة والتصميم):**

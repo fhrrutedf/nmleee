@@ -1,4 +1,4 @@
-# 🔧 Fix: Multi-Tenant Migration Steps
+﻿# 🔧 Fix: Multi-Tenant Migration Steps
 
 ## ❗ المشكلة
 حقل `slug` تم تعريفه كـ required لكن المنتجات الموجودة لا تحتوي عليه.
@@ -73,7 +73,7 @@ node prisma/migrate-product-slugs-mongodb.js
 
 تأكد أن `.env` يحتوي على:
 ```env
-DATABASE_URL="mongodb+srv://username:password@cluster.mongodb.net/tmleen"
+DATABASE_URL="mongodb+srv://username:password@cluster.mongodb.net/MANASA DIGITAL"
 ```
 
 ---

@@ -1,11 +1,11 @@
-# 🌱 إضافة بيانات تجريبية
+﻿# 🌱 إضافة بيانات تجريبية
 
 ## ✅ تم إنشاء script لإضافة بيانات تجريبية!
 
 ### 📦 ما سيتم إضافته:
 
 1. **مستخدم تجريبي** 👤
-   - البريد: `demo@tmleen.com`
+   - البريد: `demo@manasadigital.com`
    - كلمة المرور: `demo123`
    - Username: `demo`
 
@@ -47,7 +47,7 @@ npm run db:seed
 
 ### 1. سجّل دخول:
 ```
-البريد: demo@tmleen.com
+البريد: demo@manasadigital.com
 كلمة المرور: demo123
 ```
 

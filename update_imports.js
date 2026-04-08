@@ -1,4 +1,4 @@
-const fs = require('fs');
+﻿const fs = require('fs');
 const path = require('path');
 
 function walk(dir) {
@@ -19,7 +19,7 @@ function walk(dir) {
     return results;
 }
 
-const files = walk('d:/tmleen');
+const files = walk('d:/MANASA DIGITAL');
 let count = 0;
 
 files.forEach(file => {

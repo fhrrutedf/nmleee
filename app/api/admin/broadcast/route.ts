@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
@@ -138,8 +138,8 @@ async function processBroadcast(broadcastId: string) {
     });
 
     const resend = new Resend(process.env.RESEND_API_KEY!);
-    const platformSettings = await prisma.platformSettings.findFirst() || { platformName: 'تمالين' };
-    const FROM = process.env.RESEND_FROM_EMAIL || 'no-reply@tmleen.com';
+    const platformSettings = await prisma.platformSettings.findFirst() || { platformName: 'منصتك الرقمية' };
+    const FROM = process.env.RESEND_FROM_EMAIL || 'no-reply@manasadigital.com';
 
     // 3. Define where filter based on criteria
     const target = (broadcast as any).recipientCriteria;

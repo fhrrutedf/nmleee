@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Inter, IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
@@ -25,8 +25,8 @@ const ibmPlex = IBM_Plex_Sans_Arabic({
 
 export const metadata: Metadata = {
     title: {
-        default: "تمالين — بيع وشراء المنتجات الرقمية بالعربي",
-        template: "%s | تمالين"
+        default: "منصتك الرقمية — بيع وشراء المنتجات الرقمية بالعربي",
+        template: "%s | منصتك الرقمية"
     },
     description: "المنصة الرائدة في العالم العربي لبيع الدورات، الكتب، والقوالب الرقمية. ابدأ مشروعك الرقمي اليوم بكل سهولة وأمان.",
     icons: {

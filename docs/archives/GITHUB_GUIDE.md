@@ -1,4 +1,4 @@
-# 📖 دليل Git الشامل
+﻿# 📖 دليل Git الشامل
 
 ## 🎯 الخطوات الكاملة لرفع المشروع على GitHub
 
@@ -6,7 +6,7 @@
 
 ```bash
 # 1. افتح terminal في مجلد المشروع
-cd d:\tmleen
+cd d:\MANASA DIGITAL
 
 # 2. تأكد من وجود .gitignore
 # (تم إنشاؤه تلقائياً)
@@ -30,7 +30,7 @@ git commit -m "🎉 Initial commit: Complete creator marketplace platform"
 **طريقة 1: عبر الموقع**
 1. اذهب إلى https://github.com
 2. اضغط على **New Repository** (أخضر)
-3. اسم المشروع: `tmleen`
+3. اسم المشروع: `MANASA DIGITAL`
 4. الوصف: `Creator Marketplace Platform with Escrow and Manual Payment`
 5. اختر **Public** أو **Private**
 6. **لا تختر** "Add README" (لأن عندك واحد)
@@ -45,14 +45,14 @@ git commit -m "🎉 Initial commit: Complete creator marketplace platform"
 gh auth login
 
 # إنشاء repo
-gh repo create tmleen --public --source=. --remote=origin
+gh repo create MANASA DIGITAL --public --source=. --remote=origin
 ```
 
 ### 4️⃣ ربط المشروع بـ GitHub
 
 ```bash
 # أضف رابط GitHub repo
-git remote add origin https://github.com/YOUR_USERNAME/tmleen.git
+git remote add origin https://github.com/YOUR_USERNAME/MANASA DIGITAL.git
 
 # أو إذا استخدمت gh CLI، سيُضاف تلقائياً
 ```

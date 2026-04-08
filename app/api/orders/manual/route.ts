@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { getPaymentMethodsForCountry, convertCurrency } from '@/config/paymentMethods';
 import { sendManualOrderAlert, sendManualOrderApproved } from '@/lib/email';
@@ -172,7 +172,7 @@ export async function POST(req: NextRequest) {
         const { sendManualOrderAlert, sendManualOrderReview } = await import('@/lib/email');
         
         await sendManualOrderAlert({
-            adminEmail: process.env.ADMIN_EMAIL || 'admin@tmleen.com',
+            adminEmail: process.env.ADMIN_EMAIL || 'admin@manasadigital.com',
             adminName: 'Admin',
             orderNumber: order.orderNumber,
             customerName: customerName,

@@ -1,77 +1,27 @@
-import prisma from "@/lib/prisma";
-import { format } from "date-fns";
-import { ar } from "date-fns/locale";
-import { FiCheckCircle, FiXCircle } from "react-icons/fi";
+﻿'use client';
 
-export default async function VerifyCertificatePage(props: { params: Promise<{ code: string }> }) {
-    const params = await props.params;
-    const certificate = await prisma.certificate.findUnique({
-        where: { verificationCode: params.code },
-        include: {
-            course: {
-                include: {
-                    user: true // The instructor
-                }
-            }
-        }
-    });
+import Link from 'next/link';
 
-    if (!certificate) {
-        return (
-            <div className="min-h-screen bg-bg-light flex flex-col items-center justify-center p-6 text-center">
-                <FiXCircle className="text-6xl text-red-500 mb-4" />
-                <h1 className="text-3xl font-bold text-[#10B981] mb-2">شهادة غير صالحة</h1>
-                <p className="text-text-muted">عذراً، لم نتمكن من العثور على شهادة برمز التحقق هذا. يرجى التأكد من الرابط والمحاولة مرة أخرى.</p>
-            </div>
-        );
-    }
-
-    return (
-        <div className="min-h-screen bg-bg-light py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto">
-                <div className="bg-[#0A0A0A] rounded-xl shadow-lg shadow-[#10B981]/20 overflow-hidden">
-                    {/* Header */}
-                    <div className="bg-emerald-700 text-white px-8 py-12 text-center text-white relative">
-                        <div className="absolute top-4 right-4 flex items-center gap-2 bg-white/20 px-3 py-1 rounded-xl text-sm ">
-                            <FiCheckCircle className="text-green-300" />
-                            <span>موثقة رسمياً</span>
-                        </div>
-                        <h1 className="text-4xl font-bold mb-2">شهادة إتمام دورة</h1>
-                        <p className="text-white/80 text-lg">هذه الشهادة تثبت إتمام المتدرب للدورة التدريبية بنجاح</p>
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-8 md:p-12 text-center">
-                        <p className="text-gray-500 mb-2">تُمنح هذه الشهادة إلى:</p>
-                        <h2 className="text-3xl font-bold text-white mb-8">{certificate.studentName}</h2>
-
-                        <p className="text-gray-500 mb-2">لإتمامه بنجاح دورة:</p>
-                        <h3 className="text-2xl font-bold text-[#10B981] mb-8">"{certificate.courseName}"</h3>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 mb-8 text-right">
-                            <div className="bg-[#111111] p-6 rounded-xl border border-white/10">
-                                <p className="text-sm text-gray-400 mb-1">تاريخ الإصدار</p>
-                                <p className="font-semibold text-white">{format(new Date(certificate.issueDate), "dd MMMM yyyy", { locale: ar })}</p>
-                            </div>
-                            <div className="bg-[#111111] p-6 rounded-xl border border-white/10">
-                                <p className="text-sm text-gray-400 mb-1">مُقدم الدورة (المدرب)</p>
-                                <p className="font-semibold text-white">{certificate.course.user.name}</p>
-                            </div>
-                        </div>
-
-                        {/* Verification details */}
-                        <div className="border-t border-white/10 pt-8 mt-8 flex flex-col items-center">
-                            <p className="text-sm text-gray-400">رمز التحقق المرجعي</p>
-                            <code className="bg-emerald-800 text-gray-300 px-4 py-2 rounded-lg mt-2 font-mono text-sm tracking-widest">
-                                {certificate.verificationCode}
-                            </code>
-                            <p className="text-xs text-gray-400 mt-4 max-w-md mx-auto text-center">
-                                هذه الشهادة صادرة إلكترونياً ولا تتطلب توقيعاً يدوياً. يمكنك دائماً التحقق من صحتها من خلال هذا الرابط.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+export default function CasesPage() {
+  return (
+    <div className="min-h-screen bg-[#0A0A0A] py-20 px-6">
+      <div className="max-w-4xl mx-auto text-center">
+        <h1 className="text-4xl font-bold text-[#10B981] mb-6">قصص النجاح</h1>
+        <p className="text-muted text-lg mb-16">انضم إلى آلاف المبدعين الذين بنوا إمبراطورياتهم الرقمية عبر منصتك الرقمية.</p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-right" dir="rtl">
+          <div className="card border-emerald-100 bg-emerald-50/30">
+            <div className="w-12 h-12 bg-emerald-700 text-white rounded-full mb-4"></div>
+            <h3 className="text-xl font-bold mb-2">محمد أ. (مدرب برمجة)</h3>
+            <p className="text-sm text-muted">"حققت أكثر من $5000 في أول شهر من بيع كورس رياكت على منصتك الرقمية. الدفع كان سلساً جداً."</p>
+          </div>
+          <div className="bg-[#111] border border-white/10 rounded-2xl p-6">
+             <div className="w-12 h-12 bg-gray-200 rounded-full mb-4"></div>
+            <h3 className="text-xl font-bold mb-2">سارة م. (مصممة جرافيك)</h3>
+            <p className="text-sm text-muted">"قوالب السوشيال ميديا الخاصة بي تباع يومياً بشكل آلي تماماً. منصتك الرقمية وفرت عليّ عناء المتابعة اليدوية."</p>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }

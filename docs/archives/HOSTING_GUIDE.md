@@ -1,4 +1,4 @@
-# 🚀 دليل الاستضافة - أفضل الخيارات
+﻿# 🚀 دليل الاستضافة - أفضل الخيارات
 
 ## 🏆 الخيارات الموصى بها
 
@@ -141,14 +141,14 @@ netlify deploy
 #    - اختر: "Allow access from anywhere" (0.0.0.0/0)
 # 8. Clusters → Connect → Connect your application
 #    - انسخ الـ connection string:
-#      mongodb+srv://admin:<password>@cluster0.xxxxx.mongodb.net/tmleen
+#      mongodb+srv://admin:<password>@cluster0.xxxxx.mongodb.net/MANASA DIGITAL
 ```
 
 ### 2. Deploy على Vercel
 
 ```bash
 # Terminal في مجلد المشروع
-cd d:\tmleen
+cd d:\MANASA DIGITAL
 
 # Deploy
 vercel
@@ -157,7 +157,7 @@ vercel
 # - Set up and deploy? Yes
 # - Which scope? (اختر حسابك)
 # - Link to existing project? No
-# - Project name? tmleen
+# - Project name? MANASA DIGITAL
 # - Directory? ./
 # - Override settings? No
 

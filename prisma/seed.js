@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+﻿const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 
 const prisma = new PrismaClient();
@@ -12,14 +12,14 @@ async function main() {
     const hashedPassword = await bcrypt.hash('demo123', 10);
 
     const demoUser = await prisma.user.upsert({
-        where: { email: 'demo@tmleen.com' },
+        where: { email: 'demo@manasadigital.com' },
         update: {},
         create: {
-            email: 'demo@tmleen.com',
+            email: 'demo@manasadigital.com',
             password: hashedPassword,
             name: 'مستخدم تجريبي',
             username: 'demo',
-            bio: 'مرحباً! أنا بائع على منصة tmleen',
+            bio: 'مرحباً! أنا بائع على منصة MANASA DIGITAL',
             isActive: true,
             affiliateCode: 'DEMO123'
         }
@@ -286,7 +286,7 @@ async function main() {
     console.log(`- الكوبونات: ${coupons.length}`);
     console.log(`- التقييمات: ${reviews.length}`);
     console.log('\n🔑 بيانات تسجيل الدخول:');
-    console.log('   البريد: demo@tmleen.com');
+    console.log('   البريد: demo@manasadigital.com');
     console.log('   كلمة المرور: demo123');
     console.log('\n✨ يمكنك الآن تسجيل الدخول والبدء!');
 }

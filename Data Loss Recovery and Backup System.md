@@ -1,4 +1,4 @@
-# Cascade Chat Conversation
+﻿# Cascade Chat Conversation
 
   Note: _This is purely the output of the chat conversation and does not contain any raw data, codebase snippets, etc. used to generate the output._
 
@@ -12,15 +12,15 @@
 
 دعني أستكشف المزيد من تفاصيل نظام الدفع:
 
-*Viewed [spaceremit.ts](file:///d:/tmleen/lib/spaceremit.ts) *
+*Viewed [spaceremit.ts](file:///d:/MANASA DIGITAL/lib/spaceremit.ts) *
 
-*Viewed [paymentMethods.ts](file:///d:/tmleen/config/paymentMethods.ts) *
+*Viewed [paymentMethods.ts](file:///d:/MANASA DIGITAL/config/paymentMethods.ts) *
 
 *Searched filesystem*
 
 ### Planner Response
 
-# نظام الدفع في منصة تمالين
+# نظام الدفع في منصتك الرقمية
 
 ## بوابات الدفع المدعومة
 
@@ -72,12 +72,12 @@
 
 ## الملفات الرئيسية
 
-- `@d:\tmleen\app\checkout\page.tsx` - صفحة الدفع الرئيسية
-- `@d:\tmleen\app\api\checkout\spaceremit\route.ts` - إنشاء طلب Spaceremit
-- `@d:\tmleen\app\api\webhooks\spaceremit\route.ts` - استقبال تأكيد الدفع
-- `@d:\tmleen\config\paymentMethods.ts` - إعدادات طرق الدفع حسب الدولة
-- `@d:\tmleen\lib\spaceremit.ts` - مكتبة Spaceremit الأساسية
-- `@d:\tmleen\lib\commission.ts` - حساب العمولات
+- `@d:\MANASA DIGITAL\app\checkout\page.tsx` - صفحة الدفع الرئيسية
+- `@d:\MANASA DIGITAL\app\api\checkout\spaceremit\route.ts` - إنشاء طلب Spaceremit
+- `@d:\MANASA DIGITAL\app\api\webhooks\spaceremit\route.ts` - استقبال تأكيد الدفع
+- `@d:\MANASA DIGITAL\config\paymentMethods.ts` - إعدادات طرق الدفع حسب الدولة
+- `@d:\MANASA DIGITAL\lib\spaceremit.ts` - مكتبة Spaceremit الأساسية
+- `@d:\MANASA DIGITAL\lib\commission.ts` - حساب العمولات
 
 ---
 
@@ -95,7 +95,7 @@
 
 ### Planner Response
 
-# الباقات في منصة تمالين
+# الباقات في منصتك الرقمية
 
 لديك **نوعين** من الباقات:
 
@@ -113,11 +113,11 @@
 | **العرض** | يظهر للمشتري نسبة التوفير (%) |
 
 ### الملفات:
-- `@d:\tmleen\app\api\bundles\route.ts` - CRUD للباقات
-- `@d:\tmleen\app\dashboard\bundles\new\page.tsx` - إنشاء باقة جديدة
-- `@d:\tmleen\app\dashboard\bundles\edit\[id]\page.tsx` - تعديل باقة
-- `@d:\tmleen\app\bundle\[id]\page.tsx` - صفحة عرض الباقة للمشتري
-- `@d:\tmleen\app\components\BundleCard.tsx` - كارت عرض الباقة
+- `@d:\MANASA DIGITAL\app\api\bundles\route.ts` - CRUD للباقات
+- `@d:\MANASA DIGITAL\app\dashboard\bundles\new\page.tsx` - إنشاء باقة جديدة
+- `@d:\MANASA DIGITAL\app\dashboard\bundles\edit\[id]\page.tsx` - تعديل باقة
+- `@d:\MANASA DIGITAL\app\bundle\[id]\page.tsx` - صفحة عرض الباقة للمشتري
+- `@d:\MANASA DIGITAL\app\components\BundleCard.tsx` - كارت عرض الباقة
 
 ### مسار الشراء:
 ```
@@ -138,10 +138,10 @@
 | **الربط** | مرتبطة بالبائع (userId) |
 
 ### الملفات:
-- `@d:\tmleen\app\api\subscriptions\plans\route.ts` - CRUD لخطط الاشتراك
-- `@d:\tmleen\app\api\subscriptions\plans\[id]\route.ts` - تعديل/حذف خطة
-- `@d:\tmleen\app\dashboard\subscriptions\page.tsx` - إدارة الخطط
-- `@d:\tmleen\app\dashboard\subscriptions\new\page.tsx` - إنشاء خطة جديدة
+- `@d:\MANASA DIGITAL\app\api\subscriptions\plans\route.ts` - CRUD لخطط الاشتراك
+- `@d:\MANASA DIGITAL\app\api\subscriptions\plans\[id]\route.ts` - تعديل/حذف خطة
+- `@d:\MANASA DIGITAL\app\dashboard\subscriptions\page.tsx` - إدارة الخطط
+- `@d:\MANASA DIGITAL\app\dashboard\subscriptions\new\page.tsx` - إنشاء خطة جديدة
 
 ---
 
@@ -177,9 +177,9 @@
 
 *Grep searched codebase*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/platform-settings/plans/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/platform-settings/plans/page.tsx) *
 
-*Viewed [page.tsx](file:///d:/tmleen/app/pricing/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/pricing/page.tsx) *
 
 *Grep searched codebase*
 
@@ -189,15 +189,15 @@
 
 *Grep searched codebase*
 
-*Listed directory [plans](file:///d:/tmleen/app/api/admin/plans) *
+*Listed directory [plans](file:///d:/MANASA DIGITAL/app/api/admin/plans) *
 
-*Listed directory [plans](file:///d:/tmleen/app/api/plans) *
+*Listed directory [plans](file:///d:/MANASA DIGITAL/app/api/plans) *
 
-*Viewed [route.ts](file:///d:/tmleen/app/api/admin/plans/route.ts) *
+*Viewed [route.ts](file:///d:/MANASA DIGITAL/app/api/admin/plans/route.ts) *
 
-*Listed directory [public](file:///d:/tmleen/app/api/plans/public) *
+*Listed directory [public](file:///d:/MANASA DIGITAL/app/api/plans/public) *
 
-*Viewed [route.ts](file:///d:/tmleen/app/api/plans/public/route.ts) *
+*Viewed [route.ts](file:///d:/MANASA DIGITAL/app/api/plans/public/route.ts) *
 
 ### Planner Response
 
@@ -208,7 +208,7 @@
 ## الوضع الحالي
 
 ### 1. الباقات المعروضة في صفحة التسعير
-الملف: `@d:\tmleen\app\pricing\page.tsx`
+الملف: `@d:\MANASA DIGITAL\app\pricing\page.tsx`
 
 | الباقة | السعر الشهري | العمولة | الحالة |
 |--------|-------------|---------|--------|
@@ -222,11 +222,11 @@
 ---
 
 ### 2. نظام الباقات الديناميكي (للأدمن)
-الملف: `@d:\tmleen\app\dashboard\admin\platform-settings\plans\page.tsx`
+الملف: `@d:\MANASA DIGITAL\app\dashboard\admin\platform-settings\plans\page.tsx`
 
-- الأدمن يمكنه إنشاء باقات جديدة عبر [/api/admin/plans](file:///d:/tmleen/app/api/admin/plans:0:0-0:0)
-- تُخزن في جدول [SubscriptionPlan](file:///d:/tmleen/app/dashboard/admin/platform-settings/plans/page.tsx:6:0-17:1)
-- تُعرض للمستخدمين عبر [/api/plans/public](file:///d:/tmleen/app/api/plans/public:0:0-0:0)
+- الأدمن يمكنه إنشاء باقات جديدة عبر [/api/admin/plans](file:///d:/MANASA DIGITAL/app/api/admin/plans:0:0-0:0)
+- تُخزن في جدول [SubscriptionPlan](file:///d:/MANASA DIGITAL/app/dashboard/admin/platform-settings/plans/page.tsx:6:0-17:1)
+- تُعرض للمستخدمين عبر [/api/plans/public](file:///d:/MANASA DIGITAL/app/api/plans/public:0:0-0:0)
 
 ---
 
@@ -246,7 +246,7 @@
 ---
 
 ### 4. ربط العمولات بالباقات
-الملف: `@d:\tmleen\lib\commission.ts:85-102`
+الملف: `@d:\MANASA DIGITAL\lib\commission.ts:85-102`
 
 ```typescript
 switch (planType) {
@@ -262,9 +262,9 @@ switch (planType) {
 ## المشكلة الرئيسية
 
 **عدم التكامل الكامل:**
-1. الباقات في [pricing/page.tsx](file:///d:/tmleen/app/pricing/page.tsx:0:0-0:0) ثابتة وليست من DB
-2. لا يوجد ربط بين [SubscriptionPlan](file:///d:/tmleen/app/dashboard/admin/platform-settings/plans/page.tsx:6:0-17:1) و `planType` (FREE/PRO/GROWTH/AGENCY)
-3. عند الشراء، يتم تحديث `planExpiresAt` لكن الربط مع [SubscriptionPlan](file:///d:/tmleen/app/dashboard/admin/platform-settings/plans/page.tsx:6:0-17:1) غير واضح
+1. الباقات في [pricing/page.tsx](file:///d:/MANASA DIGITAL/app/pricing/page.tsx:0:0-0:0) ثابتة وليست من DB
+2. لا يوجد ربط بين [SubscriptionPlan](file:///d:/MANASA DIGITAL/app/dashboard/admin/platform-settings/plans/page.tsx:6:0-17:1) و `planType` (FREE/PRO/GROWTH/AGENCY)
+3. عند الشراء، يتم تحديث `planExpiresAt` لكن الربط مع [SubscriptionPlan](file:///d:/MANASA DIGITAL/app/dashboard/admin/platform-settings/plans/page.tsx:6:0-17:1) غير واضح
 
 ---
 
@@ -272,13 +272,13 @@ switch (planType) {
 
 *Updated todo list*
 
-*Viewed [schema.prisma](file:///d:/tmleen/prisma/schema.prisma) *
+*Viewed [schema.prisma](file:///d:/MANASA DIGITAL/prisma/schema.prisma) *
 
 *Grep searched codebase*
 
 *Grep searched codebase*
 
-*Viewed [schema.prisma](file:///d:/tmleen/prisma/schema.prisma) *
+*Viewed [schema.prisma](file:///d:/MANASA DIGITAL/prisma/schema.prisma) *
 
 *Updated todo list*
 
@@ -286,17 +286,17 @@ switch (planType) {
 
 *Grep searched codebase*
 
-*Viewed [checkout.ts](file:///d:/tmleen/lib/checkout.ts) *
+*Viewed [checkout.ts](file:///d:/MANASA DIGITAL/lib/checkout.ts) *
 
 ### User Input
 
 اكمل 
 
-*Viewed [checkout.ts](file:///d:/tmleen/lib/checkout.ts) *
+*Viewed [checkout.ts](file:///d:/MANASA DIGITAL/lib/checkout.ts) *
 
 *Grep searched codebase*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/settings/billing/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/settings/billing/page.tsx) *
 
 *Updated todo list*
 
@@ -308,7 +308,7 @@ switch (planType) {
 
 **الإصلاحات ذات الأولوية العالية:**
 1. إصلاح `planExpiresAt` - إضافته عند تفعيل الاشتراك
-2. إضافة حقل `planType` لنموذج [SubscriptionPlan](file:///d:/tmleen/app/dashboard/admin/platform-settings/plans/page.tsx:6:0-17:1) 
+2. إضافة حقل `planType` لنموذج [SubscriptionPlan](file:///d:/MANASA DIGITAL/app/dashboard/admin/platform-settings/plans/page.tsx:6:0-17:1) 
 3. ربط صفحة التسعير بقاعدة البيانات
 
 **هل تريد أن أبدأ بتنفيذ هذه الإصلاحات؟** أم تفضل مراجعة التقرير أولاً؟
@@ -332,7 +332,7 @@ C:\Users\TECHNO\.windsurf\plans/saas-subscription-review-63339e.md
 
 *Updated todo list*
 
-*Viewed [schema.prisma](file:///d:/tmleen/prisma/schema.prisma) *
+*Viewed [schema.prisma](file:///d:/MANASA DIGITAL/prisma/schema.prisma) *
 
 *Edited relevant file*
 
@@ -340,19 +340,19 @@ C:\Users\TECHNO\.windsurf\plans/saas-subscription-review-63339e.md
 
 *Edited relevant file*
 
-*Viewed [route.ts](file:///d:/tmleen/app/api/admin/plans/route.ts) *
+*Viewed [route.ts](file:///d:/MANASA DIGITAL/app/api/admin/plans/route.ts) *
 
 *Edited relevant file*
 
 *Updated todo list*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/pricing/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/pricing/page.tsx) *
 
 *Edited relevant file*
 
 *Grep searched codebase*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/pricing/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/pricing/page.tsx) *
 
 *Edited relevant file*
 
@@ -360,13 +360,13 @@ C:\Users\TECHNO\.windsurf\plans/saas-subscription-review-63339e.md
 
 *Updated todo list*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/platform-settings/plans/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/platform-settings/plans/page.tsx) *
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/platform-settings/plans/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/platform-settings/plans/page.tsx) *
 
 *Edited relevant file*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/platform-settings/plans/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/platform-settings/plans/page.tsx) *
 
 *Edited relevant file*
 
@@ -380,11 +380,11 @@ C:\Users\TECHNO\.windsurf\plans/saas-subscription-review-63339e.md
 
 | الملف | الإصلاح |
 |-------|---------|
-| `@d:\tmleen\lib\checkout.ts` | إضافة `planExpiresAt` عند تفعيل الاشتراك + استخدام `planType` من DB |
-| `@d:\tmleen\prisma\schema.prisma` | إضافة حقل `planType` لنموذج [SubscriptionPlan](file:///d:/tmleen/app/dashboard/admin/platform-settings/plans/page.tsx:6:0-18:1) |
-| `@d:\tmleen\app\api\admin\plans\route.ts` | إضافة `planType` عند إنشاء الباقة |
-| `@d:\tmleen\app\pricing\page.tsx` | ربط الصفحة بـ [/api/plans/public](file:///d:/tmleen/app/api/plans/public:0:0-0:0) مع fallback للباقات الافتراضية |
-| `@d:\tmleen\app\dashboard\admin\platform-settings\plans\page.tsx` | إضافة حقل `planType` للنموذج |
+| `@d:\MANASA DIGITAL\lib\checkout.ts` | إضافة `planExpiresAt` عند تفعيل الاشتراك + استخدام `planType` من DB |
+| `@d:\MANASA DIGITAL\prisma\schema.prisma` | إضافة حقل `planType` لنموذج [SubscriptionPlan](file:///d:/MANASA DIGITAL/app/dashboard/admin/platform-settings/plans/page.tsx:6:0-18:1) |
+| `@d:\MANASA DIGITAL\app\api\admin\plans\route.ts` | إضافة `planType` عند إنشاء الباقة |
+| `@d:\MANASA DIGITAL\app\pricing\page.tsx` | ربط الصفحة بـ [/api/plans/public](file:///d:/MANASA DIGITAL/app/api/plans/public:0:0-0:0) مع fallback للباقات الافتراضية |
+| `@d:\MANASA DIGITAL\app\dashboard\admin\platform-settings\plans\page.tsx` | إضافة حقل `planType` للنموذج |
 
 ## الخطوات التالية
 
@@ -400,7 +400,7 @@ C:\Users\TECHNO\.windsurf\plans/saas-subscription-review-63339e.md
    الآن يمكن إنشاء باقات مباشرة من `/dashboard/admin/platform-settings/plans` مع تحديد `planType`
 
 ## ملاحظة مهمة
-نظام `ensurePlanCurrent()` موجود في `@d:\tmleen\lib\commission.ts` ويعمل بشكل صحيح للـ downgrade التلقائي عند انتهاء الاشتراك.
+نظام `ensurePlanCurrent()` موجود في `@d:\MANASA DIGITAL\lib\commission.ts` ويعمل بشكل صحيح للـ downgrade التلقائي عند انتهاء الاشتراك.
 
 ### User Input
 
@@ -408,7 +408,7 @@ C:\Users\TECHNO\.windsurf\plans/saas-subscription-review-63339e.md
 
 *Grep searched codebase*
 
-*Viewed [.env.example](file:///d:/tmleen/.env.example) *
+*Viewed [.env.example](file:///d:/MANASA DIGITAL/.env.example) *
 
 ### Planner Response
 
@@ -577,8 +577,8 @@ npx ts-node scripts/update-plans.ts
 
 ### User Input
 
-هيك تمام PS D:\tmleen> npx ts-node scripts/update-plans.ts
-TypeError: Unknown file extension ".ts" for D:\tmleen\scripts\update-plans.ts
+هيك تمام PS D:\MANASA DIGITAL> npx ts-node scripts/update-plans.ts
+TypeError: Unknown file extension ".ts" for D:\MANASA DIGITAL\scripts\update-plans.ts
     at Object.getFileProtocolModuleFormat [as file:] (node:internal/modules/esm/get_format:219:9)
     at defaultGetFormat (node:internal/modules/esm/get_format:245:36)
     at defaultLoad (node:internal/modules/esm/load:120:22)
@@ -611,11 +611,11 @@ node scripts/update-plans.js
 
 ### User Input
 
-D:\tmleen> npx tsx scripts/update-plans.ts
+D:\MANASA DIGITAL> npx tsx scripts/update-plans.ts
 No plans found in database.
-PS D:\tmleen> node scripts/update-plans.js
+PS D:\MANASA DIGITAL> node scripts/update-plans.js
 No plans found in database.
-PS D:\tmleen>  
+PS D:\MANASA DIGITAL>  
 
 ### Planner Response
 
@@ -663,7 +663,7 @@ git push origin main
 
 هل لوحة تحكم عندي نافصها شيء 
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/platform-settings/plans/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/platform-settings/plans/page.tsx) *
 
 ### Planner Response
 
@@ -684,7 +684,7 @@ git push origin main
 
 *Updated todo list*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/platform-settings/plans/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/platform-settings/plans/page.tsx) *
 
 *Edited relevant file*
 
@@ -694,7 +694,7 @@ git push origin main
 
 *Updated todo list*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/platform-settings/plans/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/platform-settings/plans/page.tsx) *
 
 *Edited relevant file*
 
@@ -787,9 +787,9 @@ git push origin main
 
 *Grep searched codebase*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/checkout/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/checkout/page.tsx) *
 
-*Viewed [route.ts](file:///d:/tmleen/app/api/orders/manual/route.ts) *
+*Viewed [route.ts](file:///d:/MANASA DIGITAL/app/api/orders/manual/route.ts) *
 
 ### Planner Response
 
@@ -803,7 +803,7 @@ git push origin main
 
 *Edited relevant file*
 
-*Viewed [route.ts](file:///d:/tmleen/app/api/orders/manual/route.ts) *
+*Viewed [route.ts](file:///d:/MANASA DIGITAL/app/api/orders/manual/route.ts) *
 
 *Edited relevant file*
 
@@ -820,7 +820,7 @@ git push origin main
 ## اللي صار:
 - الـ API (`/api/orders/manual`) صار يدعم `itemType: 'subscription'`
 - بياخذ `planId` من الـ cart item ويستخدمه كـ `licenseKeyId` في الطلب
-- لما الأدمن يوافق على الطلب اليدوي، [fulfillPurchase](file:///d:/tmleen/lib/checkout.ts:4:0-203:1) رح تفعل الاشتراك تلقائياً
+- لما الأدمن يوافق على الطلب اليدوي، [fulfillPurchase](file:///d:/MANASA DIGITAL/lib/checkout.ts:4:0-203:1) رح تفعل الاشتراك تلقائياً
 
 ## مسار الدفع اليدوي للاشتراكات:
 1. المستخدم يختار باقة في `/dashboard/settings/billing`
@@ -856,15 +856,15 @@ git push origin main
 
 *Grep searched codebase*
 
-*Viewed [route.ts](file:///d:/tmleen/app/api/stripe/webhook/route.ts) *
+*Viewed [route.ts](file:///d:/MANASA DIGITAL/app/api/stripe/webhook/route.ts) *
 
 *Grep searched codebase*
 
 *Grep searched codebase*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/success/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/success/page.tsx) *
 
-*Viewed [page.tsx](file:///d:/tmleen/app/success/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/success/page.tsx) *
 
 ### Planner Response
 
@@ -877,7 +877,7 @@ git push origin main
 
 *Grep searched codebase*
 
-*Viewed [route.ts](file:///d:/tmleen/app/api/orders/verify/route.ts) *
+*Viewed [route.ts](file:///d:/MANASA DIGITAL/app/api/orders/verify/route.ts) *
 
 ### Planner Response
 
@@ -908,8 +908,8 @@ git push origin main
 
 | الملف | التغيير |
 |-------|---------|
-| [app/api/orders/verify/route.ts](file:///d:/tmleen/app/api/orders/verify/route.ts:0:0-0:0) | إضافة `hasSubscription` و `isSubscription` للـ response |
-| [app/success/page.tsx](file:///d:/tmleen/app/success/page.tsx:0:0-0:0) | إضافة زر "إدارة الاشتراك" للـ subscription orders |
+| [app/api/orders/verify/route.ts](file:///d:/MANASA DIGITAL/app/api/orders/verify/route.ts:0:0-0:0) | إضافة `hasSubscription` و `isSubscription` للـ response |
+| [app/success/page.tsx](file:///d:/MANASA DIGITAL/app/success/page.tsx:0:0-0:0) | إضافة زر "إدارة الاشتراك" للـ subscription orders |
 
 ## الآن النظام كامل:
 - ✅ إنشاء باقات من الأدمن
@@ -931,11 +931,11 @@ git push origin main
 
 *Grep searched codebase*
 
-*Listed directory [admin](file:///d:/tmleen/app/dashboard/admin) *
+*Listed directory [admin](file:///d:/MANASA DIGITAL/app/dashboard/admin) *
 
-*Listed directory [users](file:///d:/tmleen/app/dashboard/admin/users) *
+*Listed directory [users](file:///d:/MANASA DIGITAL/app/dashboard/admin/users) *
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/users/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/users/page.tsx) *
 
 ### Planner Response
 
@@ -975,9 +975,9 @@ git push origin main
 
 *Grep searched codebase*
 
-*Viewed [layout.tsx](file:///d:/tmleen/app/dashboard/layout.tsx) *
+*Viewed [layout.tsx](file:///d:/MANASA DIGITAL/app/dashboard/layout.tsx) *
 
-*Viewed [layout.tsx](file:///d:/tmleen/app/dashboard/layout.tsx) *
+*Viewed [layout.tsx](file:///d:/MANASA DIGITAL/app/dashboard/layout.tsx) *
 
 *Edited relevant file*
 
@@ -1012,7 +1012,7 @@ git push origin main
 
 *Grep searched codebase*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/settings/billing/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/settings/billing/page.tsx) *
 
 ### Planner Response
 
@@ -1032,13 +1032,13 @@ git push origin main
 
 انت شوف لوحة الادمن كلها 
 
-*Listed directory [admin](file:///d:/tmleen/app/dashboard/admin) *
+*Listed directory [admin](file:///d:/MANASA DIGITAL/app/dashboard/admin) *
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/page.tsx) *
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/page.tsx) *
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/page.tsx) *
 
 ### Planner Response
 
@@ -1082,7 +1082,7 @@ git push origin main
 
 *Edited relevant file*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/page.tsx) *
 
 *Updated todo list*
 
@@ -1112,23 +1112,23 @@ git push origin main
 
 *Updated todo list*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/manual-orders/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/manual-orders/page.tsx) *
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/orders/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/orders/page.tsx) *
 
 *Grep searched codebase*
 
-*Listed directory [dashboard](file:///d:/tmleen/app/admin/dashboard) *
+*Listed directory [dashboard](file:///d:/MANASA DIGITAL/app/admin/dashboard) *
 
-*Viewed [page.tsx](file:///d:/tmleen/app/admin/dashboard/orders/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/admin/dashboard/orders/page.tsx) *
 
-*Viewed [page.tsx](file:///d:/tmleen/app/admin/dashboard/orders/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/admin/dashboard/orders/page.tsx) *
 
 ### Planner Response
 
 الصفحة موجودة وشغالة! عندك:
 
-**✅ تبويب "الاشتراكات"** (💎) في [/dashboard/admin/orders](file:///d:/tmleen/app/dashboard/admin/orders:0:0-0:0)
+**✅ تبويب "الاشتراكات"** (💎) في [/dashboard/admin/orders](file:///d:/MANASA DIGITAL/app/dashboard/admin/orders:0:0-0:0)
 - بيظهر كل طلبات الاشتراكات (يدوية وآلية)
 - بيدعم الموافقة/الرفض للطلبات اليدوية
 - بيظهر تفاصيل الباقة والمبلغ
@@ -1312,11 +1312,11 @@ git push origin main
 
 *Updated todo list*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/subscriptions/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/subscriptions/page.tsx) *
 
 *Edited relevant file*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/subscriptions/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/subscriptions/page.tsx) *
 
 *Edited relevant file*
 
@@ -1324,9 +1324,9 @@ git push origin main
 
 في خطأ syntax. خلي أصلحه:
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/subscriptions/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/subscriptions/page.tsx) *
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/subscriptions/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/subscriptions/page.tsx) *
 
 ### Planner Response
 
@@ -1338,7 +1338,7 @@ git push origin main
 
 الملف فيه أخطاء. خلي أعيد كتابته من جديد بتصميم نظيف:
 
-*User accepted the command `Remove-Item -Path "d:\tmleen\app\dashboard\admin\subscriptions\page.tsx" -Force`*
+*User accepted the command `Remove-Item -Path "d:\MANASA DIGITAL\app\dashboard\admin\subscriptions\page.tsx" -Force`*
 
 *Edited relevant file*
 
@@ -1440,15 +1440,15 @@ git push origin main
 
 *Grep searched codebase*
 
-*Viewed [schema.prisma](file:///d:/tmleen/prisma/schema.prisma) *
+*Viewed [schema.prisma](file:///d:/MANASA DIGITAL/prisma/schema.prisma) *
 
 *Grep searched codebase*
 
-*Viewed [schema.prisma](file:///d:/tmleen/prisma/schema.prisma) *
+*Viewed [schema.prisma](file:///d:/MANASA DIGITAL/prisma/schema.prisma) *
 
 *Grep searched codebase*
 
-*Viewed [route.ts](file:///d:/tmleen/app/api/admin/subscription-stats/route.ts) *
+*Viewed [route.ts](file:///d:/MANASA DIGITAL/app/api/admin/subscription-stats/route.ts) *
 
 ### Planner Response
 
@@ -1456,7 +1456,7 @@ The error is because `licenseKey` relation doesn't exist in the OrderItem model.
 
 *Grep searched codebase*
 
-*Viewed [schema.prisma](file:///d:/tmleen/prisma/schema.prisma) *
+*Viewed [schema.prisma](file:///d:/MANASA DIGITAL/prisma/schema.prisma) *
 
 ### Planner Response
 
@@ -1585,7 +1585,7 @@ git push origin main
 
 ### Planner Response
 
-مركز التحكم الآمن ([/dashboard/admin](file:///d:/tmleen/app/dashboard/admin:0:0-0:0)) هو لوحة الإدارة الرئيسية اللي بتعطيك تحكم كامل بالمنصة:
+مركز التحكم الآمن ([/dashboard/admin](file:///d:/MANASA DIGITAL/app/dashboard/admin:0:0-0:0)) هو لوحة الإدارة الرئيسية اللي بتعطيك تحكم كامل بالمنصة:
 
 ## الإمكانيات:
 
@@ -1628,7 +1628,7 @@ git push origin main
 
 رح أبني لك نظام تقارير تلقائية كامل. خليني أبدأ:
 
-*Viewed [route.ts](file:///d:/tmleen/app/api/admin/dashboard/route.ts) *
+*Viewed [route.ts](file:///d:/MANASA DIGITAL/app/api/admin/dashboard/route.ts) *
 
 *Grep searched codebase*
 
@@ -1636,7 +1636,7 @@ git push origin main
 
 خليني أبني نظام تقارير تلقائية كامل. ببدأ بإضافة نموذج جديد في قاعدة البيانات:
 
-*Viewed [schema.prisma](file:///d:/tmleen/prisma/schema.prisma) *
+*Viewed [schema.prisma](file:///d:/MANASA DIGITAL/prisma/schema.prisma) *
 
 *Edited relevant file*
 
@@ -1652,7 +1652,7 @@ git push origin main
 
 مكمل بناء نظام التقارير - محتاج أضيف UI component:
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/page.tsx) *
 
 ### Planner Response
 
@@ -1664,13 +1664,13 @@ git push origin main
 
 الآن محتاج أحدث الصفحة الرئيسية للإدارة وأضيف تبويب التقارير:
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/page.tsx) *
 
 ### Planner Response
 
 خليني أضيف التقارير للإدارة:
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/page.tsx) *
 
 *Edited relevant file*
 
@@ -1682,7 +1682,7 @@ git push origin main
 
 *Grep searched codebase*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/page.tsx) *
 
 *Edited relevant file*
 
@@ -1724,7 +1724,7 @@ git push origin main
 - `POST /api/admin/events` - تسجيل حدث
 - `GET /api/admin/events` - جلب الأحداث
 
-### 3. **Helper Function** ([lib/platform-events.ts](file:///d:/tmleen/lib/platform-events.ts:0:0-0:0)):
+### 3. **Helper Function** ([lib/platform-events.ts](file:///d:/MANASA DIGITAL/lib/platform-events.ts:0:0-0:0)):
 ```typescript
 import { logPlatformEvent, EventTypes } from '@/lib/platform-events';
 
@@ -1748,7 +1748,7 @@ await logPlatformEvent({
 ## 📊 استخدام النظام:
 
 1. **إنشاء تقرير**: اذهب لـ `/dashboard/admin` → تبويب "التقارير" → اضغط على نوع التقرير
-2. **تسجيل أحداث** programmatically: استخدم [logPlatformEvent()](file:///d:/tmleen/lib/platform-events.ts:2:0-52:1) في أي API route
+2. **تسجيل أحداث** programmatically: استخدم [logPlatformEvent()](file:///d:/MANASA DIGITAL/lib/platform-events.ts:2:0-52:1) في أي API route
 
 هل تريد إضافة شيء إضافي مثل:
 - إرسال التقارير بالبريد الإلكتروني تلقائياً؟
@@ -1834,7 +1834,7 @@ Migration قيد التشغيل... دقيقة:
 
 لا خوف! ما حذفنا أي شيء. خليني أتأكد:
 
-*Viewed [migration.sql](file:///d:/tmleen/prisma/migrations/20260331013602_add_automated_reports/migration.sql) *
+*Viewed [migration.sql](file:///d:/MANASA DIGITAL/prisma/migrations/20260331013602_add_automated_reports/migration.sql) *
 
 ### Planner Response
 
@@ -1874,7 +1874,7 @@ Migration فقط أضاف جدولين جديدين:
 
 سجل الأحداث فاضي. خليني أشوف إذا في backup أو Restore:
 
-*Listed directory [migrations](file:///d:/tmleen/prisma/migrations) *
+*Listed directory [migrations](file:///d:/MANASA DIGITAL/prisma/migrations) *
 
 ### Planner Response
 
@@ -1904,7 +1904,7 @@ Migration فقط أضاف جدولين جديدين:
 
 *Grep searched codebase*
 
-*Viewed [migration.sql](file:///d:/tmleen/prisma/migrations/20260331000802_add_plan_type_to_subscription_plan/migration.sql) *
+*Viewed [migration.sql](file:///d:/MANASA DIGITAL/prisma/migrations/20260331000802_add_plan_type_to_subscription_plan/migration.sql) *
 
 ### Planner Response
 
@@ -1982,7 +1982,7 @@ Migration فقط أضاف جدولين جديدين:
 
 *Edited relevant file*
 
-*Viewed [package.json](file:///d:/tmleen/package.json) *
+*Viewed [package.json](file:///d:/MANASA DIGITAL/package.json) *
 
 *Edited relevant file*
 
@@ -1994,7 +1994,7 @@ Migration فقط أضاف جدولين جديدين:
 
 *User accepted the command `npx ts-node scripts/seed.ts`*
 
-*Viewed [seed.js](file:///d:/tmleen/prisma/seed.js) *
+*Viewed [seed.js](file:///d:/MANASA DIGITAL/prisma/seed.js) *
 
 ### Planner Response
 
@@ -2017,7 +2017,7 @@ Migration فقط أضاف جدولين جديدين:
 - التقييمات: 4
 
 🔑 بيانات تسجيل الدخول:
-   البريد: demo@tmleen.com
+   البريد: demo@manasadigital.com
    كلمة المرور: demo123
 ```
 
@@ -2040,7 +2040,7 @@ Migration فقط أضاف جدولين جديدين:
 
 ## ⚡ الخطوات الجاية:
 
-1. **سجّل دخولك**: `demo@tmleen.com` / `demo123`
+1. **سجّل دخولك**: `demo@manasadigital.com` / `demo123`
 2. **أنشئ Admin جديد** من لوحة التحكم
 3. **أضف منتجاتك** من جديد
 
@@ -2054,13 +2054,13 @@ Migration فقط أضاف جدولين جديدين:
 
 ## 🔍 حقاً؟ خليني أتحقق:
 
-*Viewed [migration.sql](file:///d:/tmleen/prisma/migrations/20260331013602_add_automated_reports/migration.sql) *
+*Viewed [migration.sql](file:///d:/MANASA DIGITAL/prisma/migrations/20260331013602_add_automated_reports/migration.sql) *
 
 ### Planner Response
 
 Migration إلي سويته **ما يحذف بيانات** - بس يضيف جدولين جديدين. خليني أتحقق:
 
-*Viewed [migration.sql](file:///d:/tmleen/prisma/migrations/20260331000802_add_plan_type_to_subscription_plan/migration.sql) *
+*Viewed [migration.sql](file:///d:/MANASA DIGITAL/prisma/migrations/20260331000802_add_plan_type_to_subscription_plan/migration.sql) *
 
 ### Planner Response
 
@@ -2150,7 +2150,7 @@ Migration إلي سويته **ما يحذف بيانات** - بس يضيف جد�
 
 *Edited relevant file*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/page.tsx) *
 
 ### Planner Response
 
@@ -2166,7 +2166,7 @@ Migration إلي سويته **ما يحذف بيانات** - بس يضيف جد�
 
 *Grep searched codebase*
 
-*Viewed [page.tsx](file:///d:/tmleen/app/dashboard/admin/page.tsx) *
+*Viewed [page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/page.tsx) *
 
 *Edited relevant file*
 
@@ -2188,9 +2188,9 @@ Migration إلي سويته **ما يحذف بيانات** - بس يضيف جد�
 
 | الملف | الوصف |
 |-------|-------|
-| [scripts/backup.js](file:///d:/tmleen/scripts/backup.js:0:0-0:0) | سكريبت CLI للنسخ والاستعادة |
-| [app/api/admin/backup/route.ts](file:///d:/tmleen/app/api/admin/backup/route.ts:0:0-0:0) | API endpoint للنسخ الاحتياطي |
-| [app/dashboard/admin/page.tsx](file:///d:/tmleen/app/dashboard/admin/page.tsx:0:0-0:0) | تبويب "النسخ الاحتياطي" في لوحة الإدارة |
+| [scripts/backup.js](file:///d:/MANASA DIGITAL/scripts/backup.js:0:0-0:0) | سكريبت CLI للنسخ والاستعادة |
+| [app/api/admin/backup/route.ts](file:///d:/MANASA DIGITAL/app/api/admin/backup/route.ts:0:0-0:0) | API endpoint للنسخ الاحتياطي |
+| [app/dashboard/admin/page.tsx](file:///d:/MANASA DIGITAL/app/dashboard/admin/page.tsx:0:0-0:0) | تبويب "النسخ الاحتياطي" في لوحة الإدارة |
 
 ---
 

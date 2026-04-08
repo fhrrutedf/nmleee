@@ -1,4 +1,4 @@
-import {
+﻿import {
     Html,
     Head,
     Body,
@@ -59,14 +59,14 @@ export default function OrderConfirmationEmail({
                         </Text>
 
                         <Button
-                            href={`https://tmleen.com/orders`}
+                            href={`https://manasadigital.com/orders`}
                             style={button}
                         >
                             عرض الطلبات
                         </Button>
 
                         <Text style={footer}>
-                            شكراً لاستخدامك منصة Tmleen
+                            شكراً لاستخدامك منصة MANASA DIGITAL
                         </Text>
                     </Section>
                 </Container>

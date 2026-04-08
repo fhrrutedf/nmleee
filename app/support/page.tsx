@@ -1,4 +1,4 @@
-import { FiSearch, FiHelpCircle, FiBook, FiMessageCircle, FiMail } from 'react-icons/fi';
+﻿import { FiSearch, FiHelpCircle, FiBook, FiMessageCircle, FiMail } from 'react-icons/fi';
 import Link from 'next/link';
 
 export default function SupportPage() {
@@ -69,7 +69,7 @@ export default function SupportPage() {
                             <FiMail className="text-3xl text-green-600" />
                         </div>
                         <h3 className="font-bold text-lg mb-2">البريد الإلكتروني</h3>
-                        <p className="text-gray-400 text-sm">support@tmleen.com</p>
+                        <p className="text-gray-400 text-sm">support@manasadigital.com</p>
                     </div>
                 </div>
 

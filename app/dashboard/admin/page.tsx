@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useCallback } from 'react';
 import {
@@ -429,7 +429,7 @@ export default function AdminDashboardPage() {
                                                         </div>
                                                         <div>
                                                             <div className="font-bold text-sm text-gray-200">{o.seller?.name || 'المنصة (المدير)'}</div>
-                                                            <div className="text-[10px] font-bold text-gray-500">{o.seller?.email || 'admin@تمالين'}</div>
+                                                            <div className="text-[10px] font-bold text-gray-500">{o.seller?.email || 'admin@منصتك الرقمية'}</div>
                                                         </div>
                                                     </div>
                                                 </td>

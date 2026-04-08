@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 import { FiSearch, FiCalendar, FiUser, FiArrowLeft, FiTag, FiClock } from 'react-icons/fi';
@@ -33,7 +33,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
                             <FiTag size={14} /> Knowledge & Insights Hub
                         </div>
                         <h1 className="text-5xl md:text-8xl font-bold mb-8 tracking-tighter leading-[1.1]">
-                            مدونة <span className="text-[#10B981] underline underline-offset-[12px] decoration-accent/20 decoration-4 text-white">تمالين</span>
+                            مدونة <span className="text-[#10B981] underline underline-offset-[12px] decoration-accent/20 decoration-4 text-white">منصتك الرقمية</span>
                         </h1>
                         <p className="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto font-bold leading-relaxed mb-12">
                             مقالات استراتيجية مكتوبة بعناية لتساعدك في بناء وتنمية إمبراطوريتك الرقمية في الوطن العربي.

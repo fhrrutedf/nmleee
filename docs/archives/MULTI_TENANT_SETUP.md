@@ -1,4 +1,4 @@
-# 🚀 Multi-Tenant Migration Quick Start
+﻿# 🚀 Multi-Tenant Migration Quick Start
 
 ## ⚡ Quick Setup (3 Steps)
 
@@ -77,14 +77,14 @@ const product = {
 ## 📖 Examples
 
 ### Ahmed's Store
-- Store: `https://tmleen.com/@ahmed-coach`
-- Course 1: `https://tmleen.com/@ahmed-coach/web-development`
-- Course 2: `https://tmleen.com/@ahmed-coach/react-advanced`
+- Store: `https://manasadigital.com/@ahmed-coach`
+- Course 1: `https://manasadigital.com/@ahmed-coach/web-development`
+- Course 2: `https://manasadigital.com/@ahmed-coach/react-advanced`
 
 ### Sara's Store  
-- Store: `https://tmleen.com/@sara-designs`
-- Product 1: `https://tmleen.com/@sara-designs/logo-bundle`
-- Product 2: `https://tmleen.com/@sara-designs/ui-kit`
+- Store: `https://manasadigital.com/@sara-designs`
+- Product 1: `https://manasadigital.com/@sara-designs/logo-bundle`
+- Product 2: `https://manasadigital.com/@sara-designs/ui-kit`
 
 **Notice:** Same slug can be used by different creators!
 
