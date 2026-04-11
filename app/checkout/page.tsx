@@ -124,11 +124,20 @@ export default function CheckoutPage() {
     }, [spOrderData]);
 
     useEffect(() => {
-        const items = isDirect 
-            ? JSON.parse(sessionStorage.getItem('direct_checkout_items') || '[]')
-            : JSON.parse(localStorage.getItem('cart') || '[]');
-        if (!items || items.length === 0) router.push('/market');
-        setCart(items);
+        let items = [];
+        try {
+            const raw = isDirect ? sessionStorage.getItem('direct_checkout_items') : localStorage.getItem('cart');
+            const parsed = JSON.parse(raw || '[]');
+            items = Array.isArray(parsed) ? parsed : [];
+        } catch {
+            items = [];
+        }
+        
+        if (items.length === 0) {
+            router.push('/explore');
+        } else {
+            setCart(items);
+        }
     }, [isDirect, router]);
 
     useEffect(() => {
