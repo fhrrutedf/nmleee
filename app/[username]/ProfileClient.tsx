@@ -406,8 +406,8 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                 {/* Left: avatar + name */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                     <div style={{ width: 36, height: 36, borderRadius: '50%', overflow: 'hidden', border: `2px solid ${brandColor}`, flexShrink: 0 }}>
-                        {creator.avatar
-                            ? <Image src={creator.avatar} alt={creator.name} width={36} height={36} style={{ objectFit: 'cover' }} />
+                        {(creator.image || creator.avatar)
+                            ? <Image src={creator.image || creator.avatar} alt={creator.name} width={36} height={36} style={{ objectFit: 'cover' }} />
                             : <div style={{ width: '100%', height: '100%', background: brandGrad, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 14 }}>{creator.name?.charAt(0)?.toUpperCase()}</div>
                         }
                     </div>
@@ -419,11 +419,6 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                 {/* Right: actions */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <CartButton />
-                    <button onClick={handleFollow} disabled={isFollowLoading}
-                        style={isFollowing ? outlineBtn : primaryBtn}
-                        className={isFollowing ? 'btn-outline' : 'btn-primary'}>
-                        {isFollowLoading ? '...' : isFollowing ? <><FiBellOff size={13} /> متابع</> : <><FiBell size={13} /> متابعة</>}
-                    </button>
                 </div>
             </div>
 
@@ -470,8 +465,8 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                             border: `3px solid ${alpha(brandColor, 0.8)}`,
                             boxShadow: `0 0 0 6px ${alpha(brandColor, 0.2)}, 0 20px 40px -8px ${alpha(brandColor, 0.5)}`,
                         }}>
-                            {creator.avatar
-                                ? <Image src={creator.avatar} alt={creator.name} fill style={{ objectFit: 'cover' }} />
+                            {(creator.image || creator.avatar)
+                                ? <Image src={creator.image || creator.avatar} alt={creator.name} fill style={{ objectFit: 'cover' }} />
                                 : <div style={{ width: '100%', height: '100%', background: brandGrad, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 900, fontSize: 'clamp(24px, 4vw, 36px)' }}>{creator.name?.charAt(0)?.toUpperCase()}</div>
                             }
                         </div>
@@ -537,9 +532,7 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                             <FiShoppingCart size={16} /> تصفح المنتجات <FiArrowDown size={14} />
                         </button>
 
-                        <button onClick={handleFollow} disabled={isFollowLoading} className={isFollowing ? 'btn-outline' : ''} style={isFollowing ? { ...outlineBtn, borderColor: alpha('#fff', 0.4), color: '#fff' } : { ...primaryBtn, background: alpha('#fff', 0.15), backdropFilter: 'blur(10px)', border: `1px solid ${alpha('#fff', 0.2)}` }}>
-                            {isFollowLoading ? '...' : isFollowing ? <><FiBellOff size={14} /> متابَع ({followerCount})</> : <><FiBell size={14} /> متابعة ({followerCount})</>}
-                        </button>
+
 
                         {/* Social links */}
                         {[
@@ -883,8 +876,9 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                                             const productUrl = typeof window !== 'undefined'
                                                 ? `${window.location.origin}${product.category === 'courses' ? `/courses/${product.slug || product.id}` : `/product/${product.id}`}`
                                                 : '';
+                                            const isCourse = product.category === 'courses' || product.category === 'course' || product.type === 'course';
                                             const productLink = (() => {
-                                                const base = product.category === 'courses' ? `/courses/${product.slug || product.id}` : `/product/${product.id}`;
+                                                const base = isCourse ? `/courses/${product.slug || product.id}` : `/product/${product.id}`;
                                                 return brandColor ? `${base}?brand=${encodeURIComponent(brandColor)}` : base;
                                             })();
 
