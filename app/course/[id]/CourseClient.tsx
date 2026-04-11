@@ -17,7 +17,13 @@ export default function CourseClient({ course, reviews: initialReviews, id }: { 
     const [activeTab, setActiveTab] = useState('description');
 
     const addToCartItem = () => {
-        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        let cart = [];
+        try {
+            const parsed = JSON.parse(localStorage.getItem('cart') || '[]');
+            cart = Array.isArray(parsed) ? parsed : [];
+        } catch {
+            cart = [];
+        }
         const existing = cart.find((item: any) => item.id === course.id);
 
         if (!existing) {

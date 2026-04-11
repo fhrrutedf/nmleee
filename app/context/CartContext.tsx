@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import toast from 'react-hot-toast';
@@ -49,7 +49,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         if (stored) {
             try {
                 const parsed = JSON.parse(stored);
-                setItems(parsed);
+                setItems(Array.isArray(parsed) ? parsed : []);
             } catch {
                 console.error('Failed to parse cart');
             }

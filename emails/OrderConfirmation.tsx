@@ -44,8 +44,8 @@ export default function OrderConfirmationEmail({ customerName = 'العميل', 
                         </Section>
 
                         <Section style={{ textAlign: 'center', marginTop: '35px', marginBottom: '35px' }}>
-                            <Button href={`${emailConfig.brand.baseUrl}/orders`} style={{ backgroundColor: emailConfig.theme.primary, borderRadius: '10px', color: '#ffffff', fontSize: '16px', fontWeight: 'bold', textDecoration: 'none', textAlign: 'center' as const, display: 'inline-block', padding: '16px 36px' }}>
-                                عرض الطلبات الخاصة بي
+                            <Button href={`${emailConfig.brand.baseUrl}/my-purchases`} style={{ backgroundColor: emailConfig.theme.primary, borderRadius: '10px', color: '#ffffff', fontSize: '16px', fontWeight: 'bold', textDecoration: 'none', textAlign: 'center' as const, display: 'inline-block', padding: '16px 36px' }}>
+                                عرض مشترياتي والمحتوى
                             </Button>
                         </Section>
 
