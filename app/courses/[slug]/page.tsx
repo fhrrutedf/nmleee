@@ -536,7 +536,6 @@ function CoursePageInner({ params }: { params: Promise<{ slug: string }> }) {
                 </footer>
             </div>
         );
-    }
 }
 
 export default function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
