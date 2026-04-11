@@ -7,7 +7,7 @@ export const emailConfig = {
     },
     theme: {
         primary: '#10B981', // Emerald 500
-        primaryHover: '#059669', // Emerald 600
+        primaryDark: '#059669', // Emerald 600
         background: '#f8fafc', // Light slate
         surface: '#ffffff', // White
         textMain: '#0f172a', // Slate 900
