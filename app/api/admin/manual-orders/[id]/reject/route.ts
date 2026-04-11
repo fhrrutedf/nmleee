@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
+import { sendManualOrderRejected } from '@/lib/email';
 
 export async function POST(
     req: NextRequest,
@@ -52,7 +53,16 @@ export async function POST(
             },
         });
 
-        // TODO: Send notification to customer
+        // Notify customer
+        if (order.customerEmail) {
+            await sendManualOrderRejected({
+                to: order.customerEmail,
+                customerName: order.customerName || 'عميلنا العزيز',
+                orderNumber: order.orderNumber,
+                reason: rejectionReason || 'غير مطابق للشروط',
+                from: 'info@manasadigital.com'
+            });
+        }
 
         return NextResponse.json({ success: true });
     } catch (error) {

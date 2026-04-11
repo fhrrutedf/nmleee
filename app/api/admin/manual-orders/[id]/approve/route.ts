@@ -176,11 +176,24 @@ export async function POST(
         }
 
         // 10. Automation & Notifications (Shield 1)
-        if (order.customerEmail && order.sellerId) {
+        if (order.customerEmail) {
             const customerEmail = order.customerEmail.toLowerCase().trim();
             const customerName = order.customerName || 'عميلنا العزيز';
             
-            // Mark cart as converted
+            const firstCourseItem = orderItems.find(i => i.course);
+            
+            await sendManualOrderApproved({
+                to: customerEmail,
+                customerName: customerName,
+                orderNumber: order.orderNumber,
+                amount: order.totalAmount,
+                courseId: firstCourseItem?.courseId || undefined,
+                courseTitle: firstCourseItem?.course?.title || undefined,
+                from: 'info@manasadigital.com'
+            });
+
+            if (order.sellerId) {
+                // Mark cart as converted
             await markCartConverted(customerEmail, order.sellerId);
 
             // Send Welcome Email if enabled
@@ -203,6 +216,7 @@ export async function POST(
                     productTitle: products.join(', ')
                 }
             });
+            }
         }
 
         return NextResponse.json({ success: true });

@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
 import { logActivity, LOG_ACTIONS } from '@/lib/activity-log';
+import { sendPayoutApproved, sendPayoutRejected } from '@/lib/email';
 
 // GET /api/admin/payouts - all payout requests
 export async function GET(req: NextRequest) {
@@ -85,6 +86,18 @@ export async function PATCH(req: NextRequest) {
             details: { amount: payout.amount, sellerId: payout.sellerId, transactionId },
         });
 
+        // Send Email
+        if (payout.seller.email) {
+            await sendPayoutApproved({
+                to: payout.seller.email,
+                sellerName: payout.seller.name || 'شريكنا العزيز',
+                amount: payout.amount,
+                method: payout.method,
+                payoutNumber: payout.payoutNumber || payout.id.slice(0, 8).toUpperCase(),
+                transactionId: transactionId || undefined
+            });
+        }
+
         return NextResponse.json({ success: true, message: 'تمت الموافقة' });
     }
 
@@ -108,6 +121,17 @@ export async function PATCH(req: NextRequest) {
             entityId: payoutId,
             details: { amount: payout.amount, sellerId: payout.sellerId, note },
         });
+
+        // Send Email
+        if (payout.seller.email) {
+            await sendPayoutRejected({
+                to: payout.seller.email,
+                sellerName: payout.seller.name || 'شريكنا العزيز',
+                amount: payout.amount,
+                payoutNumber: payout.payoutNumber || payout.id.slice(0, 8).toUpperCase(),
+                reason: note || 'لم يتم استيفاء شروط السحب'
+            });
+        }
 
         return NextResponse.json({ success: true, message: 'تم الرفض' });
     }

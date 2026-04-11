@@ -1,9 +1,9 @@
-﻿import { sendEmail } from './resend';
+import { sendEmail } from './resend';
 import OrderConfirmationEmail from '@/emails/OrderConfirmation';
 import PayoutApprovedEmail from '@/emails/PayoutApproved';
 import ManualOrderAlertEmail from '@/emails/ManualOrderAlert';
 
-const FROM_EMAIL = process.env.FROM_EMAIL || process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+const FROM_EMAIL = process.env.FROM_EMAIL || process.env.RESEND_FROM_EMAIL || 'info@manasadigital.com';
 
 async function sendMail({ from, to, subject, html, react }: {
     from: string;
@@ -193,11 +193,12 @@ export async function sendManualOrderApproved(data: {
     amount: number;
     courseId?: string;
     courseTitle?: string;
+    from?: string;
 }) {
     try {
         const hasCourse = data.courseId && data.courseTitle;
         await sendMail({
-            from: FROM_EMAIL,
+            from: data.from || FROM_EMAIL,
             to: data.to,
             subject: `✅ تمت الموافقة على طلبك ${data.orderNumber}`,
             react: (
@@ -252,10 +253,11 @@ export async function sendManualOrderRejected(data: {
     customerName: string;
     orderNumber: string;
     reason: string;
+    from?: string;
 }) {
     try {
         await sendMail({
-            from: FROM_EMAIL,
+            from: data.from || FROM_EMAIL,
             to: data.to,
             subject: `❌ تم رفض طلبك ${data.orderNumber}`,
             react: (
@@ -331,30 +333,80 @@ export async function sendWelcomeEmail(
         await sendMail({
             from: FROM_EMAIL,
             to: email,
-            subject: `مرحباً بك في منصتنا يا ${name}! 🎉`,
+            subject: `مرحباً بك في منصة ديجيتال يا ${name}! 🎉`,
             react: (
-                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl', lineHeight: '1.6' }}>
-                    <div style={{ backgroundColor: '#f8fafc', padding: '30px', borderRadius: '12px', border: '1px solid #e2e8f0', maxWidth: '600px', margin: '0 auto' }}>
-                        <h1 style={{ color: '#0f172a', marginBottom: '20px', textAlign: 'center' }}>مرحباً {name}! 🚀</h1>
-                        <p style={{ color: '#475569', fontSize: '16px' }}>يسعدنا انضمامك إلينا كصانع محتوى. نحن هنا لندعمك في رحلتك لتحويل شغفك إلى دخل مستدام.</p>
-                        <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', margin: '20px 0', border: '1px solid #e2e8f0' }}>
-                            <h3 style={{ margin: '0 0 15px 0', color: '#0f172a' }}>معلومات حسابك:</h3>
-                            <p style={{ margin: '5px 0' }}><strong>الاسم:</strong> {name}</p>
-                            <p style={{ margin: '5px 0' }}><strong>رابط متجرك:</strong> <a href={`https://manasadigital.com/${username}`}>manasadigital.com/{username}</a></p>
+                <div style={{ fontFamily: 'Arial, sans-serif', padding: '40px 20px', direction: 'rtl', lineHeight: '1.6', backgroundColor: '#f3f4f6' }}>
+                    <div style={{ backgroundColor: '#ffffff', padding: '40px', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
+                        <img src="https://manasadigital.com/logo.png" alt="Manasa Digital" style={{ width: '150px', marginBottom: '20px' }} onError={(e: any) => e.target.style.display = 'none'} />
+                        <h1 style={{ color: '#1e293b', marginBottom: '20px', fontSize: '24px' }}>مرحباً بك، {name}! 🚀</h1>
+                        <p style={{ color: '#475569', fontSize: '16px' }}>يسعدنا انضمامك إلى <strong style={{ color: '#4f46e5' }}>منصة ديجيتال (Manasa Digital)</strong>. نحن هنا لندعمك في رحلتك لتحويل التحديات التقنية إلى نجاحات رقمية وتمكين وجودك الرقمي.</p>
+                        
+                        <div style={{ backgroundColor: '#f8fafc', padding: '20px', borderRadius: '12px', margin: '30px 0', border: '1px solid #e2e8f0', textAlign: 'right' }}>
+                            <h3 style={{ margin: '0 0 15px 0', color: '#0f172a', fontSize: '16px' }}>معلومات حسابك:</h3>
+                            <p style={{ margin: '8px 0', color: '#334155' }}><strong>الاسم:</strong> {name}</p>
+                            <p style={{ margin: '8px 0', color: '#334155' }}><strong>رابط متجرك:</strong> <a href={`https://manasadigital.com/${username}`} style={{ color: '#4f46e5', textDecoration: 'none' }}>manasadigital.com/{username}</a></p>
                         </div>
+                        
                         <div style={{ textAlign: 'center', marginTop: '30px' }}>
                             <a href="https://manasadigital.com/dashboard" style={{
-                                backgroundColor: '#D41295', color: 'white', padding: '14px 28px',
-                                borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
+                                backgroundColor: '#4f46e5', color: 'white', padding: '16px 32px',
+                                borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold', fontSize: '16px', transition: 'background-color 0.2s'
                             }}>
                                 الذهاب للوحة التحكم
                             </a>
                         </div>
+                        <p style={{ color: '#94a3b8', fontSize: '14px', marginTop: '30px' }}>في حال احتجت لأي مساعدة، فريق الدعم الفني لدينا دائماً في خدمتك!</p>
+                        <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '30px 0 20px' }} />
+                        <p style={{ color: '#cbd5e1', fontSize: '12px' }}>© منصة ديجيتال - جميع الحقوق محفوظة</p>
                     </div>
                 </div>
             ),
         });
         console.log('✅ Welcome email sent to', email);
+        return { success: true };
+    } catch (error) {
+        console.error('❌ Email error:', error);
+        return { success: false, error };
+    }
+}
+
+// Reset Password Email
+export async function sendResetPasswordEmail(data: {
+    to: string;
+    customerName: string;
+    resetLink: string;
+}) {
+    try {
+        await sendMail({
+            from: FROM_EMAIL,
+            to: data.to,
+            subject: 'إعادة تعيين كلمة المرور | منصة ديجيتال',
+            react: (
+                <div style={{ fontFamily: 'Arial, sans-serif', padding: '40px 20px', direction: 'rtl', lineHeight: '1.6', backgroundColor: '#f3f4f6' }}>
+                    <div style={{ backgroundColor: '#ffffff', padding: '40px', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
+                        <img src="https://manasadigital.com/logo.png" alt="Manasa Digital" style={{ width: '150px', marginBottom: '20px' }} onError={(e: any) => e.target.style.display = 'none'} />
+                        <h2 style={{ color: '#1e293b', marginBottom: '20px', fontSize: '22px' }}>إعادة تعيين كلمة المرور 🔐</h2>
+                        <p style={{ color: '#475569', fontSize: '16px' }}>مرحباً <strong style={{ color: '#4f46e5' }}>{data.customerName}</strong>،</p>
+                        <p style={{ color: '#475569', fontSize: '16px' }}>لقد تلقينا طلباً لإعادة تعيين كلمة المرور الخاصة بحسابك على <strong style={{color: '#4f46e5'}}>منصة ديجيتال</strong>.</p>
+                        <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '30px' }}>يمكنك إعادة تعيين كلمة المرور من خلال الضغط على الزر أدناه (هذا الرابط صالح لمدة ساعة واحدة):</p>
+                        
+                        <div style={{ textAlign: 'center', margin: '30px 0' }}>
+                            <a href={data.resetLink} style={{ 
+                                backgroundColor: '#4f46e5', color: 'white', padding: '16px 36px', 
+                                textDecoration: 'none', borderRadius: '8px', fontWeight: 'bold', display: 'inline-block', fontSize: '16px' 
+                            }}>
+                                إعادة تعيين كلمة المرور
+                            </a>
+                        </div>
+                        
+                        <p style={{ color: '#94a3b8', fontSize: '13px', marginTop: '20px' }}>إذا لم تكن أنت من طلب هذا، فيرجى تجاهل هذا البريد ولن يتم تغيير أي شيء.</p>
+                        <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '30px 0 20px' }} />
+                        <p style={{ color: '#cbd5e1', fontSize: '12px' }}>© منصة ديجيتال - جميع الحقوق محفوظة</p>
+                    </div>
+                </div>
+            ) as React.ReactElement,
+        });
+        console.log('✅ Password reset email sent to', data.to);
         return { success: true };
     } catch (error) {
         console.error('❌ Email error:', error);

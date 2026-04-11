@@ -44,17 +44,12 @@ export async function POST(req: NextRequest) {
 
         // 1. البحث عن رابط المسوق إذا وجد كود في الكوكيز أو الطلب
         const refCode = affiliateRef || req.cookies.get('ref_code')?.value;
-        let affiliateLinkId = null;
+        let affiliateLinkId = undefined;
 
         if (refCode) {
             const link = await prisma.affiliateLink.findUnique({ where: { code: refCode } });
             if (link && link.isActive) {
                 affiliateLinkId = link.id;
-                // تحديث عداد المبيعات حتى في الطلبات المجانية
-                await prisma.affiliateLink.update({
-                    where: { id: link.id },
-                    data: { salesCount: { increment: 1 } }
-                });
             }
         }
 
@@ -64,6 +59,8 @@ export async function POST(req: NextRequest) {
                 orderNumber: `FR-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
                 totalAmount: 0,
                 status: 'COMPLETED',
+                isPaid: true,
+                paidAt: new Date(),
                 customerEmail: customerEmail,
                 customerName: customerName,
                 customerPhone: body.customerPhone || undefined,
@@ -95,56 +92,9 @@ export async function POST(req: NextRequest) {
             console.error('Failed to add to subscribers:', subError);
         }
 
-        // 2. Grant access: Enroll in courses (by email - works whether buyer has account or not)
-        for (const item of items) {
-            if (item.type === 'course') {
-                await prisma.courseEnrollment.upsert({
-                    where: {
-                        courseId_studentEmail: {
-                            courseId: item.id,
-                            studentEmail: customerEmail
-                        }
-                    },
-                    update: {
-                        orderId: order.id
-                    },
-                    create: {
-                        courseId: item.id,
-                        studentName: customerName,
-                        studentEmail: customerEmail,
-                        orderId: order.id
-                    }
-                });
-            } else if (item.type === 'bundle') {
-                const bundle = await prisma.bundle.findUnique({
-                    where: { id: item.id },
-                    include: { products: { include: { product: true } } }
-                });
-                if (bundle) {
-                    for (const bp of bundle.products) {
-                        if (bp.product.category === 'courses' || bp.product.category === 'course') {
-                            await prisma.courseEnrollment.upsert({
-                                where: {
-                                    courseId_studentEmail: {
-                                        courseId: bp.product.id,
-                                        studentEmail: customerEmail
-                                    }
-                                },
-                                update: { orderId: order.id },
-                                create: {
-                                    courseId: bp.product.id,
-                                    studentName: customerName,
-                                    studentEmail: customerEmail,
-                                    orderId: order.id
-                                }
-                            });
-                        }
-                    }
-                }
-            } else if (item.type === 'product') {
-                // Products access is granted via the OrderItem itself
-            }
-        }
+        // 2. Grant access and send emails: Fulfill Purchase
+        const { fulfillPurchase } = await import('@/lib/checkout');
+        await fulfillPurchase(order.id, buyerUserId);
 
         return NextResponse.json({ success: true, orderId: order.id });
 
