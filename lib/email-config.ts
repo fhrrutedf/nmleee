@@ -3,6 +3,12 @@ export const emailConfig = {
         name: 'منصتي الرقمية',
         logoUrl: 'https://manasadigital.com/logo.png', // Fallback display: flex handled safely in templates
         baseUrl: 'https://manasadigital.com',
+        supportEmail: 'info@manasadigital.com',
+        social: {
+            twitter: 'https://twitter.com/manasadigital',
+            instagram: 'https://instagram.com/manasadigital',
+            facebook: 'https://facebook.com/manasadigital'
+        },
         footer: '© منصتي الرقمية - جميع الحقوق محفوظة',
     },
     theme: {
