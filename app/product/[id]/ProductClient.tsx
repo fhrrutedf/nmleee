@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -68,7 +68,14 @@ export default function ProductDetails({
     };
 
     const addToCartItem = () => {
-        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        let cart = [];
+        try {
+            cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            if (!Array.isArray(cart)) cart = [];
+        } catch {
+            cart = [];
+        }
+        
         const existing = cart.find((item: any) => item.id === product.id);
         if (!existing) {
             cart.push({
@@ -79,7 +86,7 @@ export default function ProductDetails({
                 image: product.image,
                 brandColor: product.user?.brandColor
             });
-            localStorage.setItem('cart', JSON.stringify(cart));
+            try { localStorage.setItem('cart', JSON.stringify(cart)); } catch (e) { console.error('LocalStorage error', e); }
         }
         return !existing;
     };
@@ -111,7 +118,7 @@ export default function ProductDetails({
     }
 
     return (
-        <div className="min-h-screen bg-bg-light dark:bg-bg-dark pt-4 pb-24">
+        <div className="min-h-screen bg-[#0A0A0A] pt-4 pb-24">
             {product.user?.brandColor && (
                 <style dangerouslySetInnerHTML={{
                     __html: `

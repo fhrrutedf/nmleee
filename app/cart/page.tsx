@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -14,7 +14,13 @@ export default function CartPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+        let savedCart = [];
+        try { 
+            const parsed = JSON.parse(localStorage.getItem('cart') || '[]'); 
+            savedCart = Array.isArray(parsed) ? parsed : [];
+        } catch { 
+            savedCart = []; 
+        }
         setCart(savedCart);
         setLoading(false);
     }, []);
