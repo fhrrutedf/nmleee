@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FiGlobe, FiShield, FiAlertTriangle, FiArrowRight, FiCheckCircle, FiCreditCard, FiLock } from 'react-icons/fi';
@@ -17,7 +18,8 @@ import { getCookie } from '@/lib/marketing';
 import OrderSummary from '@/components/checkout/OrderSummary';
 import ManualPaymentCard from '@/components/checkout/ManualPaymentCard';
 
-export default function CheckoutPage() {
+// ─── Inner component that uses useSearchParams ────────────────────────────────
+function CheckoutInner() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const isDirect = searchParams.get('direct') === 'true';
@@ -198,7 +200,6 @@ export default function CheckoutPage() {
                 if (!selectedLocalMethod) return showToast.error('يرجى اختيار وسيلة الدفع');
                 let methodId = selectedLocalMethod.id;
                 
-                // If it's a crypto local method, securely redirect to OxaPay directly
                 if (methodId === 'crypto_usdt' || methodId === 'usdt_trc20') {
                     const res = await fetch('/api/checkout/oxapay', {
                         method: 'POST',
@@ -247,7 +248,6 @@ export default function CheckoutPage() {
                 }
 
             } else if (paymentMethod === 'nowpayments') {
-                // Fast-Track Crypto uses OxaPay directly with proper payload
                 const res = await fetch('/api/checkout/oxapay', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -562,6 +562,7 @@ export default function CheckoutPage() {
     );
 }
 
+// ─── Helper component ─────────────────────────────────────────────────────────
 function PaymentMethodTab({ id, current, onClick, icon, label, desc }: any) {
     const active = current === id;
     return (
@@ -575,5 +576,23 @@ function PaymentMethodTab({ id, current, onClick, icon, label, desc }: any) {
                 </div>
             )}
         </button>
+    );
+}
+
+// ─── Loading fallback ─────────────────────────────────────────────────────────
+function CheckoutLoading() {
+    return (
+        <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-2 border-emerald-500/20 border-t-emerald-500" />
+        </div>
+    );
+}
+
+// ─── Default export: wraps inner component in Suspense ────────────────────────
+export default function CheckoutPage() {
+    return (
+        <Suspense fallback={<CheckoutLoading />}>
+            <CheckoutInner />
+        </Suspense>
     );
 }

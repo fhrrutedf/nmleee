@@ -406,8 +406,8 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                 {/* Left: avatar + name */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                     <div style={{ width: 36, height: 36, borderRadius: '50%', overflow: 'hidden', border: `2px solid ${brandColor}`, flexShrink: 0 }}>
-                        {(creator.image || creator.avatar)
-                            ? <Image src={creator.image || creator.avatar} alt={creator.name} width={36} height={36} style={{ objectFit: 'cover' }} />
+                        {creator.avatar
+                            ? <Image src={creator.avatar} alt={creator.name} width={36} height={36} style={{ objectFit: 'cover' }} />
                             : <div style={{ width: '100%', height: '100%', background: brandGrad, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 14 }}>{creator.name?.charAt(0)?.toUpperCase()}</div>
                         }
                     </div>
@@ -465,8 +465,8 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                             border: `3px solid ${alpha(brandColor, 0.8)}`,
                             boxShadow: `0 0 0 6px ${alpha(brandColor, 0.2)}, 0 20px 40px -8px ${alpha(brandColor, 0.5)}`,
                         }}>
-                            {(creator.image || creator.avatar)
-                                ? <Image src={creator.image || creator.avatar} alt={creator.name} fill style={{ objectFit: 'cover' }} />
+                            {creator.avatar
+                                ? <Image src={creator.avatar} alt={creator.name} fill style={{ objectFit: 'cover' }} />
                                 : <div style={{ width: '100%', height: '100%', background: brandGrad, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 900, fontSize: 'clamp(24px, 4vw, 36px)' }}>{creator.name?.charAt(0)?.toUpperCase()}</div>
                             }
                         </div>
