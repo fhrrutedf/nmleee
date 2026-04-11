@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect, use, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FiPackage, FiArrowRight, FiCheck, FiShoppingCart } from 'react-icons/fi';
 import showToast from '@/lib/toast';
 
-export default function BundlePage({ params }: { params: Promise<{ id: string }> }) {
+function BundlePageInner({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -247,5 +247,17 @@ export default function BundlePage({ params }: { params: Promise<{ id: string }>
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function BundlePage({ params }: { params: Promise<{ id: string }> }) {
+    return (
+        <Suspense fallback={
+            <div className="flex items-center justify-center min-h-screen bg-[#0A0A0A]">
+                <div className="animate-spin rounded-full h-12 w-12 border-2 border-emerald-500/20 border-t-emerald-500" />
+            </div>
+        }>
+            <BundlePageInner params={params} />
+        </Suspense>
     );
 }

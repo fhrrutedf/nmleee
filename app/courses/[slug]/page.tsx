@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect, use, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCart } from '@/contexts/CartContext';
 import Image from 'next/image';
@@ -36,7 +36,7 @@ interface Course {
     }>;
 }
 
-export default function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
+function CoursePageInner({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
     const { addToCart, items } = useCart();
     const router = useRouter();
@@ -537,3 +537,16 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
             </div>
         );
     }
+}
+
+export default function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
+    return (
+        <Suspense fallback={
+            <div className="flex items-center justify-center min-h-screen bg-[#0A0A0A]">
+                <div className="animate-spin rounded-full h-12 w-12 border-2 border-emerald-500/20 border-t-emerald-500" />
+            </div>
+        }>
+            <CoursePageInner params={params} />
+        </Suspense>
+    );
+}
