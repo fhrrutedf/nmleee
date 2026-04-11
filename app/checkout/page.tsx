@@ -286,7 +286,7 @@ export default function CheckoutPage() {
     const localPrice = customerCountry ? convertCurrency(total, customerCountry) : { amount: total, currency: 'USD' };
 
     return (
-        <div className="min-h-screen bg-bg-light text-[#10B981] py-16 md:py-24 font-sans selection:bg-emerald-700 text-white/30">
+        <div className="min-h-screen bg-[#0A0A0A] py-16 md:py-24 font-sans selection:bg-emerald-700">
             {/* Minimalist Background Detail */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden">
                 <div className="absolute top-0 right-0 w-[60%] h-[60%] bg-emerald-700 text-white/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
