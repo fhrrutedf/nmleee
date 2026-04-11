@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useState, useMemo } from 'react';
 import { FiLink, FiFacebook, FiInstagram, FiTwitter, FiStar,
@@ -425,11 +425,11 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                     {/* Top accent line */}
                     <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${brandColor}, #7c3aed)` }} />
 
-                    <div className="p-6 sm:p-8">
-                        <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-center sm:items-start">
+                    <div className="p-6 sm:p-8 pt-0">
+                        <div className="flex flex-col items-center text-center gap-4 relative z-10">
 
                             {/* Avatar */}
-                            <div className="relative flex-shrink-0 -mt-16 sm:-mt-20 z-10">
+                            <div className="relative -mt-16 sm:-mt-20 z-10">
                                 <div
                                     className="w-28 h-28 sm:w-36 sm:h-36 rounded-xl sm:rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20 border-4 border-white dark:border-gray-900"
                                     style={{ boxShadow: `0 0 0 4px ${brandColor}40, 0 20px 40px -8px ${brandColor}60` }}
@@ -449,8 +449,8 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                             </div>
 
                             {/* Info */}
-                            <div className="flex-1 text-center sm:text-right w-full min-w-0">
-                                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                            <div className="w-full flex-1">
+                                <div className="flex flex-col items-center gap-4">
                                     <div>
                                         <h1 className="text-2xl sm:text-3xl font-bold text-white dark:text-white break-words">{creator.name}</h1>
                                         <p className="text-sm font-bold mt-0.5 font-mono" style={{ color: brandColor }}>@{creator.username}</p>
@@ -552,7 +552,7 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                         </div>
 
                         {/* ─── Stats Bar ─── */}
-                        <div className="grid grid-cols-3 gap-3 mt-8 pt-8 border-t border-white/10 dark:border-gray-800">
+                        <div className="grid grid-cols-3 gap-3 mt-8 pt-6 border-t border-white/10 dark:border-gray-800">
                             {(() => {
                                 const statsList: Array<{ icon: React.ReactElement; value: string | number; label: string }> = [
                                     ...(creator.showProductsCount !== false ? [{ icon: <FiPackage />, value: products.length, label: 'منتج متاح' }] : []),
@@ -807,8 +807,8 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                                 )}
                             </button>
 
-                            {/* Tabs */}
-                            <div className="flex gap-2 flex-shrink-0">
+                            {/* Tabs (Segmented Control style) */}
+                            <div className="flex p-1 bg-[#0A0A0A] dark:bg-gray-900 border border-emerald-500/20 dark:border-gray-800 rounded-xl flex-shrink-0">
                                 {[
                                     { id: 'all', label: 'الكل', icon: <FiGrid size={13} /> },
                                     hasDigital && { id: 'products', label: 'منتجات', icon: <FiPackage size={13} /> },
@@ -818,9 +818,13 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                                         key={tab.id}
                                         onClick={() => { setActiveTab(tab.id); setCurrentPage(1); }}
                                         style={activeTab === tab.id
-                                            ? { background: brandColor, color: '#fff', boxShadow: `0 4px 14px -2px ${brandColor}60` }
+                                            ? { background: brandColor, color: '#fff', boxShadow: `0 2px 10px -2px ${brandColor}50` }
                                             : {}}
-                                        className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-bold transition-all ${activeTab === tab.id ? 'text-white' : 'bg-[#0A0A0A] dark:bg-gray-900 text-gray-400 dark:text-gray-400 border border-emerald-500/20 dark:border-gray-700 hover:border-gray-300'}`}
+                                        className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+                                            activeTab === tab.id 
+                                                ? 'text-white' 
+                                                : 'text-gray-400 dark:text-gray-500 hover:text-white'
+                                        }`}
                                     >
                                         {tab.icon} {tab.label}
                                     </button>
@@ -899,7 +903,7 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                                 </div>
                             ) : (
                                 <>
-                                    <div className={`grid gap-5 ${brandLayout === 'list' ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
+                                    <div className={`grid gap-6 sm:gap-8 ${brandLayout === 'list' ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
                                         {paginatedProducts.map((product, index) => {
                                             const salesIndicator = getSalesIndicator(product.soldCount || 0);
                                             const productUrl = typeof window !== 'undefined' 
@@ -921,20 +925,20 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                                                         className="group block bg-[#0A0A0A] dark:bg-gray-900 rounded-xl overflow-hidden border border-white/10 dark:border-gray-800 hover:border-emerald-500/20 dark:hover:border-gray-700 hover:shadow-lg shadow-[#10B981]/20 transition-all duration-300 h-full"
                                                     >
                                                         {/* Image */}
-                                                        <div className="relative aspect-video overflow-hidden bg-emerald-800 dark:bg-gray-800">
+                                                        <div className="relative aspect-[4/3] overflow-hidden bg-[#111111] dark:bg-gray-800">
                                                             <Image
                                                                 src={getImage(product.image, product.category === 'courses' ? 'course' : 'product')}
                                                                 alt={product.title}
                                                                 fill
                                                                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                                                                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                                                className="object-cover group-hover:scale-110 transition-transform duration-700"
                                                                 loading={index > 4 ? 'lazy' : 'eager'}
                                                             />
                                                             {/* Badges */}
-                                                            <div className="absolute top-2.5 right-2.5 flex flex-col gap-1.5">
+                                                            <div className="absolute top-3 right-3 flex flex-col gap-2">
                                                                 {product.isFree || product.price === 0
-                                                                    ? <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-lg shadow">مجاني</span>
-                                                                    : <span className="bg-black/70  text-white text-[10px] font-bold px-2 py-1 rounded-lg">{product.price} $</span>
+                                                                    ? <span className="bg-emerald-500/90 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1.5 rounded-lg shadow-lg">مجاني</span>
+                                                                    : <span className="bg-black/80 backdrop-blur-md border border-white/10 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg shadow-lg">{product.price} $</span>
                                                                 }
                                                                 {/* Best Seller Badge */}
                                                                 {isBestSeller(product.id) && (
@@ -959,8 +963,9 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                                                             </div>
 
                                                             {/* Action Buttons Overlay */}
-                                                            <div className="absolute top-2.5 left-2.5 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                                <WishlistButton 
+                                                            <div className="absolute top-3 left-3 flex gap-2 opacity-0 -translate-x-2 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
+                                                                <div className="bg-black/60 backdrop-blur-md rounded-lg border border-white/10 shadow-lg">
+                                                                    <WishlistButton 
                                                                     productId={product.category !== 'courses' && product.category !== 'course' ? product.id : undefined}
                                                                     courseId={product.category === 'courses' || product.category === 'course' ? product.id : undefined}
                                                                     brandColor={brandColor}
@@ -970,11 +975,12 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                                                                     url={productUrl}
                                                                     brandColor={brandColor}
                                                                 />
+                                                                </div>
                                                             </div>
                                                         </div>
 
                                                         {/* Content */}
-                                                        <div className="p-5 bg-white/40 dark:bg-gray-900/40 border-t border-white/20">
+                                                        <div className="p-6 bg-[#0A0A0A] dark:bg-gray-900 border-t border-white/5 relative">
                                                             {/* Rating Display */}
                                                             {(product.averageRating || 0) > 0 && (
                                                                 <div className="flex items-center justify-between mb-2">
@@ -993,11 +999,11 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
 
                                                             <div className="flex items-center gap-2 mb-2">
                                                                 {product.category === 'courses'
-                                                                    ? <span className="text-[9px] font-bold uppercase tracking-tighter text-[#10B981] bg-purple-100/20 px-2 py-0.5 rounded-md">دورة VIP</span>
-                                                                    : <span className="text-[9px] font-bold uppercase tracking-tighter text-blue-400 bg-blue-100/20 px-2 py-0.5 rounded-md">ملف رقمي</span>
+                                                                    ? <span className="text-[10px] font-bold uppercase tracking-widest text-[#10B981]">دورة تدريبية</span>
+                                                                    : <span className="text-[10px] font-bold uppercase tracking-widest text-blue-400">منتج رقمي</span>
                                                                 }
                                                             </div>
-                                                            <h3 className="font-bold text-white dark:text-white mb-2 line-clamp-2 group-hover:text-[#10B981] transition-colors text-sm leading-tight h-10">
+                                                            <h3 className="font-bold text-lg text-white mb-2 line-clamp-2 group-hover:text-[#10B981] transition-colors leading-snug">
                                                                 {cleanTitle(product.title, product.category)}
                                                             </h3>
                                                             {product.description && stripHtml(product.description) && (
