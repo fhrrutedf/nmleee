@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { FiCalendar, FiClock, FiVideo, FiMapPin, FiUser, FiMail, FiPhone, FiMessageSquare, FiDollarSign, FiCheck } from 'react-icons/fi';
 import showToast from '@/lib/toast';
@@ -10,7 +10,7 @@ interface TimeSlot {
   available: boolean;
 }
 
-export default function EnhancedBookAppointmentPage() {
+function BookAppointmentInner() {
   const searchParams = useSearchParams();
   const sellerId = searchParams.get('seller') || '';
   
@@ -347,4 +347,16 @@ export default function EnhancedBookAppointmentPage() {
       </div>
     </div>
   );
+}
+
+export default function EnhancedBookAppointmentPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-2 border-emerald-500/20 border-t-emerald-500" />
+            </div>
+        }>
+            <BookAppointmentInner />
+        </Suspense>
+    );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import {
@@ -43,7 +43,7 @@ const COUNTRY_FLAGS: Record<string, string> = {
 
 type Step = 1 | 2 | 3;
 
-export default function ManualCheckoutPage() {
+function ManualCheckoutInner() {
     const { data: session } = useSession();
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -465,5 +465,17 @@ export default function ManualCheckoutPage() {
                 )}
             </div>
         </div>
+    );
+}
+
+export default function ManualCheckoutPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-2 border-emerald-500/20 border-t-emerald-500" />
+            </div>
+        }>
+            <ManualCheckoutInner />
+        </Suspense>
     );
 }
