@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import { FiZap, FiMail, FiShoppingCart, FiClock, FiCheckCircle, FiEdit3, FiPercent, FiSave, FiAlertCircle } from 'react-icons/fi';
@@ -73,7 +73,7 @@ export default function AutomationPage() {
                 {/* Automation Toggles */}
                 <div className="lg:col-span-2 space-y-6">
                     {/* Welcome Email */}
-                    <section className="bg-[#0A0A0A] dark:bg-emerald-700 text-white/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20">
+                    <section className="bg-[#0A0A0A] border border-white/10 rounded-xl p-6 shadow-lg">
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
                                 <div className="p-2.5 bg-sky-100 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400 rounded-xl">
@@ -123,7 +123,7 @@ export default function AutomationPage() {
                     {/* Abandoned Cart Engine */}
                     <section className="bg-[#0A0A0A] dark:bg-emerald-700 text-white/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 overflow-hidden relative">
                         <div className="absolute top-4 left-4">
-                             <div className="flex items-center gap-1.5 bg-blue-100 dark:bg-emerald-700 text-white/20 text-[#10B981] dark:text-amber-400 px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-wider">
+                        <div className="flex items-center gap-1.5 bg-emerald-900/50 text-emerald-400 px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-wider">
                                 <FiZap />
                                 نظام ذكي
                              </div>
@@ -190,10 +190,10 @@ export default function AutomationPage() {
                         </div>
 
                         {settings.cartReminder3Enabled && (
-                            <div className="bg-emerald-700 text-white-50 dark:bg-emerald-700 text-white-500/10 p-4 rounded-xl border border-blue-100 dark:border-emerald-600-500/20 flex items-start gap-3">
+                            <div className="bg-emerald-900/30 p-4 rounded-xl border border-emerald-500/20 flex items-start gap-3">
                                 <FiAlertCircle className="text-[#10B981]-500 mt-1 shrink-0" />
                                 <div>
-                                    <h5 className="font-bold text-sm text-blue-700 dark:text-blue-400 mb-1">استراتيجية الخصم التلقائي مفعلة</h5>
+                                    <h5 className="font-bold text-sm text-emerald-300 mb-1">استراتيجية الخصم التلقائي مفعلة</h5>
                                     <p className="text-xs text-[#10B981]-600 dark:text-[#10B981]-500/80 leading-relaxed">
                                         سيقوم النظام تلقائياً بتوليد كود خصم بنسبة 10% (لمرة واحدة) لهذا العميل وإرساله في الرسالة الأخيرة لتحفيزه على إتمام الدفعة فوراً.
                                     </p>
@@ -206,7 +206,7 @@ export default function AutomationPage() {
                     <section className="bg-[#0A0A0A] dark:bg-emerald-700 text-white/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 overflow-hidden relative">
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
-                                <div className="p-2.5 bg-blue-100 dark:bg-emerald-700 text-white-500/20 text-[#10B981]-600 dark:text-blue-400 rounded-xl">
+                                <div className="p-2.5 bg-emerald-500/20 text-emerald-400 rounded-xl">
                                     <FiZap className="text-xl" />
                                 </div>
                                 <div>
@@ -279,7 +279,7 @@ export default function AutomationPage() {
 
                 {/* Live Activity Feed (Abandoned Carts) */}
                 <div className="space-y-6">
-                    <section className="bg-emerald-700 text-white border border-slate-800 rounded-xl p-6 shadow-lg shadow-[#10B981]/20 h-full flex flex-col">
+                    <section className="bg-[#111] border border-white/10 rounded-xl p-6 shadow-lg h-full flex flex-col">
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="font-bold text-white flex items-center gap-2">
                                 <FiClock className="text-orange-500" />

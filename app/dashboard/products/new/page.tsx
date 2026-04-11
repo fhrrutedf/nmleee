@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
     FiArrowRight, FiUpload, FiDollarSign, FiPackage,
@@ -31,7 +31,7 @@ function generateSlug(title: string): string {
         .substring(0, 100);
 }
 
-export default function NewProductPage() {
+function NewProductPageInner() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [currentStep, setCurrentStep] = useState(1);
@@ -105,10 +105,19 @@ export default function NewProductPage() {
         setFormData(prev => ({ ...prev, [key]: value }));
 
     const getFileType = (name: string) => {
-        if (name.includes('pdf')) return 'pdf';
-        if (name.includes('video') || name.match(/\.(mp4|mov|avi|mkv)$/i)) return 'video';
-        if (name.match(/\.(zip|rar)$/i)) return 'zip';
-        if (name.match(/\.(mp3|wav)$/i)) return 'audio';
+        const lower = name.toLowerCase();
+        if (lower.endsWith('.pdf')) return 'pdf';
+        if (lower.match(/\.(mp4|mov|avi|mkv|webm|flv|wmv|m4v)$/)) return 'video';
+        if (lower.match(/\.(mp3|wav|ogg|aac|flac|m4a|opus|podcast)$/)) return 'audio';
+        if (lower.match(/\.(zip|rar|7z|tar|gz|bz2|tar\.gz|tar\.bz2|tgz)$/)) return 'zip';
+        if (lower.match(/\.(xlsx|xls|csv|ods)$/)) return 'spreadsheet';
+        if (lower.match(/\.(json|xml|yaml|yml|toml|env)$/)) return 'data';
+        if (lower.match(/\.(js|ts|jsx|tsx|py|php|rb|go|rs|java|c|cpp|cs|swift|kt|dart|sh|bat|sql)$/)) return 'code';
+        if (lower.match(/\.(exe|dmg|apk|ipa|appimage|deb|rpm|msi)$/)) return 'software';
+        if (lower.match(/\.(psd|ai|sketch|fig|xd|afdesign)$/)) return 'design';
+        if (lower.match(/\.(notion|nb|docx|doc|odt|rtf|txt|md)$/)) return 'document';
+        if (lower.match(/\.(pptx|ppt|odp|key)$/)) return 'presentation';
+        if (lower.match(/\.(jpg|jpeg|png|gif|webp|svg|ico|bmp|tiff|avif)$/)) return 'image';
         return 'other';
     };
 
@@ -259,7 +268,14 @@ export default function NewProductPage() {
                                                 </button>
                                             )}
                                             {showTrailerUploader && (
-                                                <div className="mt-4 bg-white/90  p-4 rounded-xl shadow-lg shadow-[#10B981]/20 z-20 relative text-right"><FileUploader onUploadSuccess={urls => { update('trailerUrl', urls[0]); setShowTrailerUploader(false); }} /></div>
+                                                <div className="mt-4 bg-white/90  p-4 rounded-xl shadow-lg shadow-[#10B981]/20 z-20 relative text-right">
+                                                    <FileUploader 
+                                                        accept={{
+                                                            'video/*': ['.mp4', '.mov', '.avi', '.mkv', '.webm', '.flv', '.wmv', '.m4v']
+                                                        }}
+                                                        onUploadSuccess={urls => { update('trailerUrl', urls[0]); setShowTrailerUploader(false); }} 
+                                                    />
+                                                </div>
                                             )}
                                         </div>
                                     </div>
@@ -300,6 +316,12 @@ export default function NewProductPage() {
                                                 <option value="templates">🎨 قوالب، تصاميم وحقائب</option>
                                                 <option value="software">💻 برمجيات، سكريبتات وأدوات</option>
                                                 <option value="services">🛠️ خدمات استشارية / جلسات</option>
+                                                <option value="audio">🎙️ بودكاست وملفات صوتية</option>
+                                                <option value="spreadsheets">📊 جداول بيانات وتقارير</option>
+                                                <option value="code">👨‍💻 ملفات برمجية وسكريبتات</option>
+                                                <option value="compressed">📦 ملفات مضغوطة وحزم</option>
+                                                <option value="data">🗄️ قواعد بيانات وبيانات JSON</option>
+                                                <option value="other">🔗 منتج رقمي متنوع آخر</option>
                                             </select>
                                         </div>
                                      </div>
@@ -736,3 +758,16 @@ function Section({ title, icon, description, children }: any) {
         </div>
     );
 }
+
+export default function NewProductPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex items-center justify-center min-h-screen bg-[#0A0A0A]">
+                <div className="animate-spin rounded-full h-12 w-12 border-2 border-emerald-500/20 border-t-emerald-500" />
+            </div>
+        }>
+            <NewProductPageInner />
+        </Suspense>
+    );
+}
+

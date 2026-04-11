@@ -331,18 +331,6 @@ export default function ProductsPage() {
                 )}
             </div>
 
-            {/* --- QUICK ACTION BAR --- */}
-            <div className="fixed bottom-8 left-0 right-0 z-[100] px-4 pointer-events-none">
-                <div className="max-w-md mx-auto bg-emerald-900/90 backdrop-blur-md text-white p-4 rounded-xl shadow-2xl shadow-emerald-500/20 flex items-center justify-between border border-emerald-500/30 pointer-events-auto">
-                    <div className="pr-6">
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-400 leading-none mb-1">تعديل سريع</p>
-                        <p className="text-xs font-bold text-emerald-100 italic">اضغط على "السعر" لتعديله فوراً</p>
-                    </div>
-                    <div className="w-12 h-12 bg-emerald-700 text-white rounded-xl flex items-center justify-center text-xl shadow-lg shadow-emerald-500/20">
-                        <FiDollarSign />
-                    </div>
-                </div>
-            </div>
         </div>
     );
 }
