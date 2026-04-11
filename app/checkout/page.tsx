@@ -170,6 +170,30 @@ export default function CheckoutPage() {
         try {
             const affRef = getCookie('aff_code') || sessionStorage.getItem('affiliate_ref');
             
+            if (total === 0) {
+                const res = await fetch('/api/checkout/free', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        items: cart,
+                        customerName: formData.name,
+                        customerEmail: formData.email,
+                        customerPhone: formData.phone || '',
+                        affiliateRef: affRef
+                    })
+                });
+                
+                if (res.ok) {
+                    const data = await res.json();
+                    if (!isDirect) localStorage.removeItem('cart');
+                    router.push(`/success?order_id=${data.orderId}&free=true`);
+                } else {
+                    const errData = await res.json().catch(() => ({}));
+                    showToast.error(errData.error || 'فشل معالجة الطلب المجاني');
+                }
+                return;
+            }
+            
             if (paymentMethod === 'spaceremit') {
                 if (!selectedLocalMethod) return showToast.error('يرجى اختيار وسيلة الدفع');
                 let methodId = selectedLocalMethod.id;
@@ -339,21 +363,22 @@ export default function CheckoutPage() {
                         </div>
 
                         {/* 2. Payment Gateway Section */}
-                        <div className="bg-[#0A0A0A] border border-white/10 p-8 sm:p-10 rounded-xl shadow-lg shadow-[#10B981]/20 shadow-gray-200/20 ring-1 ring-gray-50">
-                            <h3 className="text-xl font-bold text-[#10B981] mb-10 flex items-center gap-4">
-                                <span className="w-1.5 h-6 bg-emerald-700 text-white rounded-xl"></span> اختيار وسيلة الدفع
-                            </h3>
+                        {total > 0 && (
+                            <div className="bg-[#0A0A0A] border border-white/10 p-8 sm:p-10 rounded-xl shadow-lg shadow-[#10B981]/20 shadow-gray-200/20 ring-1 ring-gray-50">
+                                <h3 className="text-xl font-bold text-[#10B981] mb-10 flex items-center gap-4">
+                                    <span className="w-1.5 h-6 bg-emerald-700 text-white rounded-xl"></span> اختيار وسيلة الدفع
+                                </h3>
 
-                            <div className="flex gap-4 mb-10 overflow-x-auto pb-4 hide-scrollbar">
-                                {!isSyria ? (
-                                    <>
-                                        <PaymentMethodTab id="spaceremit" current={paymentMethod} onClick={() => setPaymentMethod('spaceremit')} icon="🌍" label="دفع إلكتروني آمن" desc="بطاقات، محافظ دولية، USSD" />
-                                        <PaymentMethodTab id="nowpayments" current={paymentMethod} onClick={() => setPaymentMethod('nowpayments')} icon="🪙" label="عملات رقمية (USDT)" desc="تفعيل تلقائي عبر الكريبتو" />
-                                    </>
-                                ) : (
-                                    <PaymentMethodTab id="manual" current={paymentMethod} onClick={() => setPaymentMethod('manual')} icon="🇸🇾" label="دفع محلي يدوي" desc="خاص بسوريا فقط" />
-                                )}
-                            </div>
+                                <div className="flex gap-4 mb-10 overflow-x-auto pb-4 hide-scrollbar">
+                                    {!isSyria ? (
+                                        <>
+                                            <PaymentMethodTab id="spaceremit" current={paymentMethod} onClick={() => setPaymentMethod('spaceremit')} icon="🌍" label="دفع إلكتروني آمن" desc="بطاقات، محافظ دولية، USSD" />
+                                            <PaymentMethodTab id="nowpayments" current={paymentMethod} onClick={() => setPaymentMethod('nowpayments')} icon="🪙" label="عملات رقمية (USDT)" desc="تفعيل تلقائي عبر الكريبتو" />
+                                        </>
+                                    ) : (
+                                        <PaymentMethodTab id="manual" current={paymentMethod} onClick={() => setPaymentMethod('manual')} icon="🇸🇾" label="دفع محلي يدوي" desc="خاص بسوريا فقط" />
+                                    )}
+                                </div>
 
                             <AnimatePresence mode="wait">
                                 {paymentMethod === 'spaceremit' && (
@@ -430,6 +455,7 @@ export default function CheckoutPage() {
                                 )}
                             </AnimatePresence>
                         </div>
+                        )}
 
                         <div className="flex items-center gap-4 px-8">
                             <input type="checkbox" id="terms_agree" checked={agreeToTerms} onChange={e => setAgreeToTerms(e.target.checked)} className="w-5 h-5 rounded-lg border-emerald-500/20 bg-[#0A0A0A] text-[#10B981] focus:ring-accent/20 cursor-pointer shadow-lg shadow-[#10B981]/20" />
