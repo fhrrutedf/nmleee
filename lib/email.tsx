@@ -2,8 +2,43 @@ import { sendEmail } from './resend';
 import OrderConfirmationEmail from '@/emails/OrderConfirmation';
 import PayoutApprovedEmail from '@/emails/PayoutApproved';
 import ManualOrderAlertEmail from '@/emails/ManualOrderAlert';
+import { emailConfig } from './email-config';
 
 const FROM_EMAIL = process.env.FROM_EMAIL || process.env.RESEND_FROM_EMAIL || 'info@manasadigital.com';
+
+// Reusable Layout for inline templates
+export const EmailLayout = ({ children, headerTitle, headerEmoji }: { children: React.ReactNode, headerTitle?: string, headerEmoji?: string }) => (
+    <div style={{ fontFamily: emailConfig.theme.fontFamily, padding: '40px 20px', direction: 'rtl', lineHeight: '1.6', backgroundColor: emailConfig.theme.background }}>
+        <div style={{ backgroundColor: emailConfig.theme.surface, padding: '40px', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', maxWidth: '600px', margin: '0 auto' }}>
+            <div style={{ textAlign: 'center' }}>
+                <img src={emailConfig.brand.logoUrl} alt={emailConfig.brand.name} style={{ width: '150px', marginBottom: '20px' }} onError={(e: any) => e.target.style.display = 'none'} />
+                {headerTitle && <h1 style={{ color: emailConfig.theme.textMain, marginBottom: '25px', fontSize: '24px' }}>{headerTitle} {headerEmoji}</h1>}
+            </div>
+            <div style={{ color: emailConfig.theme.textMuted, fontSize: '16px', textAlign: 'right' }}>
+                {children}
+            </div>
+            <hr style={{ border: 'none', borderTop: `1px solid ${emailConfig.theme.border}`, margin: '30px 0 20px' }} />
+            <p style={{ color: '#94a3b8', fontSize: '12px', textAlign: 'center' }}>{emailConfig.brand.footer}</p>
+        </div>
+    </div>
+);
+
+export const PrimaryButton = ({ href, text }: { href: string; text: string }) => (
+    <div style={{ textAlign: 'center', marginTop: '30px' }}>
+        <a href={href} style={{
+            backgroundColor: emailConfig.theme.primary, color: 'white', padding: '16px 32px',
+            borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold', fontSize: '16px'
+        }}>
+            {text}
+        </a>
+    </div>
+);
+
+export const InfoBox = ({ children, isWarning = false }: { children: React.ReactNode, isWarning?: boolean }) => (
+    <div style={{ backgroundColor: isWarning ? '#fff7ed' : '#f8fafc', padding: '20px', borderRadius: '12px', margin: '20px 0', border: `1px solid ${isWarning ? '#fed7aa' : emailConfig.theme.border}`, textAlign: 'right' }}>
+        {children}
+    </div>
+);
 
 async function sendMail({ from, to, subject, html, react }: {
     from: string;
@@ -20,27 +55,17 @@ async function sendMail({ from, to, subject, html, react }: {
         react,
     });
 
-    if (!result.success) {
-        throw new Error(result.error);
-    }
-
+    if (!result.success) throw new Error(result.error);
     return result;
 }
 
 // Order Confirmation
 export async function sendOrderConfirmation(data: {
-    to: string;
-    customerName: string;
-    orderNumber: string;
-    totalAmount: number;
-    items: Array<{ title: string; price: number }>;
+    to: string; customerName: string; orderNumber: string; totalAmount: number; items: Array<{ title: string; price: number }>;
 }) {
     try {
         await sendMail({
-            from: FROM_EMAIL,
-            to: data.to,
-            subject: `تأكيد الطلب ${data.orderNumber}`,
-            react: OrderConfirmationEmail(data) as React.ReactElement,
+            from: FROM_EMAIL, to: data.to, subject: `تأكيد الطلب ${data.orderNumber}`, react: OrderConfirmationEmail(data) as React.ReactElement,
         });
         console.log('✅ Order confirmation sent to', data.to);
         return { success: true };
@@ -52,448 +77,269 @@ export async function sendOrderConfirmation(data: {
 
 // Payout Approved
 export async function sendPayoutApproved(data: {
-    to: string;
-    sellerName: string;
-    amount: number;
-    method: string;
-    payoutNumber: string;
-    transactionId?: string;
+    to: string; sellerName: string; amount: number; method: string; payoutNumber: string; transactionId?: string;
 }) {
     try {
         await sendMail({
-            from: FROM_EMAIL,
-            to: data.to,
-            subject: `✅ تمت الموافقة على السحب ${data.payoutNumber}`,
-            react: PayoutApprovedEmail(data) as React.ReactElement,
+            from: FROM_EMAIL, to: data.to, subject: `✅ تمت الموافقة على السحب ${data.payoutNumber}`, react: PayoutApprovedEmail(data) as React.ReactElement,
         });
         console.log('✅ Payout approval sent to', data.to);
         return { success: true };
     } catch (error) {
-        console.error('❌ Email error:', error);
         return { success: false, error };
     }
 }
 
 // Payout Rejected
 export async function sendPayoutRejected(data: {
-    to: string;
-    sellerName: string;
-    amount: number;
-    payoutNumber: string;
-    reason: string;
+    to: string; sellerName: string; amount: number; payoutNumber: string; reason: string;
 }) {
     try {
         await sendMail({
-            from: FROM_EMAIL,
-            to: data.to,
-            subject: `❌ تم رفض السحب ${data.payoutNumber}`,
+            from: FROM_EMAIL, to: data.to, subject: `❌ تم رفض السحب ${data.payoutNumber}`,
             react: (
-                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl' }}>
-                    <h1>مرحباً {data.sellerName}!</h1>
-                    <p>للأسف، تم رفض طلب السحب رقم: {data.payoutNumber}</p>
-                    <p><strong>المبلغ: </strong> ${data.amount.toFixed(2)}</p>
-                    <p><strong>السبب: </strong> {data.reason}</p>
-                    <p>تم إرجاع المبلغ إلى رصيدك المتاح.</p>
-                    <a href="https://manasadigital.com/dashboard/earnings" style={{
-                        backgroundColor: '#4f46e5',
-                        color: 'white',
-                        padding: '12px 24px',
-                        borderRadius: '6px',
-                        textDecoration: 'none',
-                        display: 'inline-block'
-                    }}>
-                        عرض الأرباح
-                    </a>
-                </div>
-            ),
+                <EmailLayout headerTitle={`مرحباً ${data.sellerName}`} headerEmoji="👋">
+                    <p>للأسف، تم رفض طلب السحب الخاص بك.</p>
+                    <InfoBox isWarning={true}>
+                        <p style={{ margin: '8px 0' }}><strong>رقم السحب:</strong> {data.payoutNumber}</p>
+                        <p style={{ margin: '8px 0' }}><strong>المبلغ:</strong> ${data.amount.toFixed(2)}</p>
+                        <p style={{ margin: '8px 0', color: '#dc2626' }}><strong>السبب:</strong> {data.reason}</p>
+                    </InfoBox>
+                    <p>تم إرجاع المبلغ إلى رصيدك المتاح، نعتذر عن هذا الإزعاج.</p>
+                    <PrimaryButton href={`${emailConfig.brand.baseUrl}/dashboard/earnings`} text="عرض الأرباح" />
+                </EmailLayout>
+            ) as React.ReactElement,
         });
-        console.log('✅ Payout rejection sent to', data.to);
         return { success: true };
     } catch (error) {
-        console.error('❌ Email error:', error);
         return { success: false, error };
     }
 }
 
 // Manual Order Alert (للأدمن)
 export async function sendManualOrderAlert(data: {
-    adminEmail: string;
-    adminName: string;
-    orderNumber: string;
-    customerName: string;
-    customerEmail: string;
-    amount: number;
-    paymentMethod: string;
-    orderId: string;
-    proofUrl?: string;
+    adminEmail: string; adminName: string; orderNumber: string; customerName: string; customerEmail: string; amount: number; paymentMethod: string; orderId: string; proofUrl?: string;
 }) {
     try {
         await sendMail({
-            from: FROM_EMAIL,
-            to: data.adminEmail,
-            subject: `🔔 طلب يدوي جديد: ${data.orderNumber}`,
-            react: ManualOrderAlertEmail(data) as React.ReactElement,
+            from: FROM_EMAIL, to: data.adminEmail, subject: `🔔 طلب يدوي جديد: ${data.orderNumber}`, react: ManualOrderAlertEmail(data) as React.ReactElement,
         });
-        console.log('✅ Manual order alert sent to admin');
         return { success: true };
     } catch (error) {
-        console.error('❌ Email error:', error);
         return { success: false, error };
     }
 }
 
-// Manual Order Review - (للعميل: نحن نراجع طلبك)
+// Manual Order Review - (للعميل)
 export async function sendManualOrderReview(data: {
-    to: string;
-    customerName: string;
-    orderNumber: string;
-    amount: number;
+    to: string; customerName: string; orderNumber: string; amount: number;
 }) {
     try {
         await sendMail({
-            from: FROM_EMAIL,
-            to: data.to,
-            subject: `⏳ نحن نراجع دفعتك للطلب ${data.orderNumber}`,
+            from: FROM_EMAIL, to: data.to, subject: `⏳ نحن نراجع دفعتك للطلب ${data.orderNumber}`,
             react: (
-                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl', lineHeight: '1.6' }}>
-                    <div style={{ backgroundColor: '#fff7ed', padding: '30px', borderRadius: '12px', border: '1px solid #fed7aa', maxWidth: '600px', margin: '0 auto' }}>
-                        <h1 style={{ color: '#9a3412', marginBottom: '20px', textAlign: 'center' }}>مرحباً {data.customerName}! 👋</h1>
-                        <p style={{ color: '#4338ca', fontSize: '18px', fontWeight: 'bold' }}>لقد استلمنا بيانات الدفع الخاصة بك.</p>
-                        <p style={{ color: '#475569', fontSize: '16px' }}>طلبك رقم <span style={{ fontWeight: 'bold' }}>{data.orderNumber}</span> قيد المراجعة الآن من قبل فريق الحسابات.</p>
-                        <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', margin: '20px 0', border: '1px solid #fed7aa' }}>
-                            <p style={{ margin: '5px 0' }}><strong>المبلغ المرصود: </strong> ${data.amount.toFixed(2)}</p>
-                            <p style={{ margin: '5px 0' }}><strong>الحالة: </strong> قيد التحقق اليدوي</p>
-                        </div>
-                        <p style={{ color: '#64748b', fontSize: '14px' }}>سيتم إرسال إيميل آخر فور تفعيل الطلب (عادة ما يستغرق الأمر من 15 دقيقة إلى ساعتين خلال أوقات العمل).</p>
-                        <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                            <a href="https://manasadigital.com/my-purchases" style={{
-                                backgroundColor: '#4338ca', color: 'white', padding: '14px 28px',
-                                borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
-                            }}>
-                                📦 متابعة حالة الطلب
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <EmailLayout headerTitle={`لقد استلمنا بيانات الدفع الخاصة بك`} headerEmoji="⏳">
+                    <p>مرحباً <strong style={{ color: emailConfig.theme.primary }}>{data.customerName}</strong>،</p>
+                    <p>طلبك رقم <span style={{ fontWeight: 'bold' }}>{data.orderNumber}</span> قيد المراجعة الآن من قبل فريق الحسابات.</p>
+                    <InfoBox isWarning={true}>
+                        <p style={{ margin: '8px 0' }}><strong>المبلغ المرصود:</strong> ${data.amount.toFixed(2)}</p>
+                        <p style={{ margin: '8px 0' }}><strong>الحالة:</strong> قيد التحقق اليدوي</p>
+                    </InfoBox>
+                    <p>سيتم إرسال إيميل آخر فور تفعيل الطلب (عادة ما يستغرق الأمر من 15 دقيقة إلى ساعتين خلال أوقات العمل).</p>
+                    <PrimaryButton href={`${emailConfig.brand.baseUrl}/my-purchases`} text="📦 متابعة حالة الطلب" />
+                </EmailLayout>
             ) as React.ReactElement,
         });
-        console.log('✅ Manual order review email sent to', data.to);
         return { success: true };
     } catch (error) {
-        console.error('❌ Email error:', error);
         return { success: false, error };
     }
 }
 
-// Manual Order Approved (للعميل: تم القبول بنجاح)
+// Manual Order Approved (للعميل)
 export async function sendManualOrderApproved(data: {
-    to: string;
-    customerName: string;
-    orderNumber: string;
-    amount: number;
-    courseId?: string;
-    courseTitle?: string;
-    from?: string;
+    to: string; customerName: string; orderNumber: string; amount: number; courseId?: string; courseTitle?: string; from?: string;
 }) {
     try {
         const hasCourse = data.courseId && data.courseTitle;
         await sendMail({
-            from: data.from || FROM_EMAIL,
-            to: data.to,
-            subject: `✅ تمت الموافقة على طلبك ${data.orderNumber}`,
+            from: data.from || FROM_EMAIL, to: data.to, subject: `✅ تمت الموافقة على طلبك ${data.orderNumber}`,
             react: (
-                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl', lineHeight: '1.6' }}>
-                    <div style={{ backgroundColor: '#f0fdf4', padding: '30px', borderRadius: '12px', border: '1px solid #bbf7d0', maxWidth: '600px', margin: '0 auto' }}>
-                        <h1 style={{ color: '#166534', marginBottom: '20px', textAlign: 'center' }}>مرحباً {data.customerName}! 🎉</h1>
-                        <p style={{ color: '#166534', fontSize: '16px', fontWeight: 'bold' }}>خبر سعيد! تمت الموافقة على طلبك بنجاح وتم تفعيل المنتجات في حسابك.</p>
-                        <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', margin: '20px 0', border: '1px solid #bbf7d0' }}>
-                            <p style={{ margin: '5px 0' }}><strong>رقم الطلب: </strong> {data.orderNumber}</p>
-                            <p style={{ margin: '5px 0' }}><strong>المبلغ: </strong> ${data.amount.toFixed(2)}</p>
-                            {hasCourse && (
-                                <p style={{ margin: '5px 0' }}><strong>الدورة: </strong> {data.courseTitle}</p>
-                            )}
-                        </div>
-                        {hasCourse ? (
-                            <>
-                                <p style={{ color: '#059669', fontWeight: 'bold', fontSize: '16px' }}>🎓 تم فتح الدورة! يمكنك الآن البدء بالتعلم.</p>
-                                <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                                    <a href={`https://manasadigital.com/learn/${data.courseId}`} style={{
-                                        backgroundColor: '#059669', color: 'white', padding: '14px 28px',
-                                        borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold', fontSize: '16px'
-                                    }}>
-                                        🎓 البدء بالدورة الآن
-                                    </a>
-                                </div>
-                            </>
-                        ) : (
-                            <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                                <a href="https://manasadigital.com/my-purchases" style={{
-                                    backgroundColor: '#166534', color: 'white', padding: '14px 28px',
-                                    borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
-                                }}>
-                                    📦 عرض مشترياتي
-                                </a>
-                            </div>
-                        )}
-                    </div>
-                </div>
+                <EmailLayout headerTitle="خبر سعيد! تمت الموافقة على طلبك" headerEmoji="🎉">
+                    <p>مرحباً <strong style={{ color: emailConfig.theme.primary }}>{data.customerName}</strong>،</p>
+                    <p>لقد تمت مراجعة دفعتك بنجاح، وتم تفعيل المنتجات في حسابك.</p>
+                    <InfoBox>
+                        <p style={{ margin: '8px 0' }}><strong>رقم الطلب:</strong> {data.orderNumber}</p>
+                        <p style={{ margin: '8px 0' }}><strong>المبلغ:</strong> ${data.amount.toFixed(2)}</p>
+                        {hasCourse && <p style={{ margin: '8px 0' }}><strong>الدورة:</strong> {data.courseTitle}</p>}
+                    </InfoBox>
+                    {hasCourse ? (
+                        <>
+                            <p style={{ color: emailConfig.theme.primaryDark, fontWeight: 'bold' }}>🎓 تم فتح الدورة! يمكنك الآن البدء بالتعلم.</p>
+                            <PrimaryButton href={`${emailConfig.brand.baseUrl}/learn/${data.courseId}`} text="🎓 البدء بالدورة الآن" />
+                        </>
+                    ) : (
+                        <PrimaryButton href={`${emailConfig.brand.baseUrl}/my-purchases`} text="📦 عرض مشترياتي" />
+                    )}
+                </EmailLayout>
             ) as React.ReactElement,
         });
-        console.log('✅ Manual order approval sent to', data.to);
         return { success: true };
     } catch (error) {
-        console.error('❌ Email error:', error);
         return { success: false, error };
     }
 }
 
 // Manual Order Rejected (للعميل)
 export async function sendManualOrderRejected(data: {
-    to: string;
-    customerName: string;
-    orderNumber: string;
-    reason: string;
-    from?: string;
+    to: string; customerName: string; orderNumber: string; reason: string; from?: string;
 }) {
     try {
         await sendMail({
-            from: data.from || FROM_EMAIL,
-            to: data.to,
-            subject: `❌ تم رفض طلبك ${data.orderNumber}`,
+            from: data.from || FROM_EMAIL, to: data.to, subject: `❌ تم رفض طلبك ${data.orderNumber}`,
             react: (
-                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl' }}>
-                    <h1>مرحباً {data.customerName}</h1>
-                    <p>للأسف، تم رفض طلبك.</p>
-                    <p><strong>رقم الطلب: </strong> {data.orderNumber}</p>
-                    <p><strong>السبب: </strong> {data.reason}</p>
-                    <p>يرجى التواصل معنا إذا كان لديك أي استفسار.</p>
-                </div>
-            ),
+                <EmailLayout headerTitle="ملاحظة بخصوص طلبك" headerEmoji="⚠️">
+                    <p>مرحباً <strong style={{ color: emailConfig.theme.primary }}>{data.customerName}</strong>،</p>
+                    <p>نعتذر لإبلاغك بأنه تم رفض طلبك بعد مراجعة بيانات الدفع.</p>
+                    <InfoBox isWarning={true}>
+                        <p style={{ margin: '8px 0' }}><strong>رقم الطلب:</strong> {data.orderNumber}</p>
+                        <p style={{ margin: '8px 0', color: '#dc2626' }}><strong>السبب:</strong> {data.reason}</p>
+                    </InfoBox>
+                    <p>يرجى مراجعة السبب والتواصل مع فريق الدعم إذا كان لديك أي استفسار أو لترتيب تحويل جديد صحيح.</p>
+                </EmailLayout>
+            ) as React.ReactElement,
         });
-        console.log('✅ Manual order rejection sent to', data.to);
         return { success: true };
     } catch (error) {
-        console.error('❌ Email error:', error);
         return { success: false, error };
     }
 }
 
 // Subscription Confirmation
 export async function sendSubscriptionConfirmation(data: {
-    to: string;
-    customerName: string;
-    planName: string;
-    amount: number;
-    billingCycle: string;
+    to: string; customerName: string; planName: string; amount: number; billingCycle: string;
 }) {
     try {
         await sendMail({
-            from: FROM_EMAIL,
-            to: data.to,
-            subject: `✅ تم تفعيل اشتراكك في باقة ${data.planName}`,
+            from: FROM_EMAIL, to: data.to, subject: `✅ تم تفعيل اشتراكك في باقة ${data.planName}`,
             react: (
-                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl', lineHeight: '1.6' }}>
-                    <div style={{ backgroundColor: '#f8fafc', padding: '30px', borderRadius: '12px', border: '1px solid #e2e8f0', maxWidth: '600px', margin: '0 auto' }}>
-                        <h1 style={{ color: '#0f172a', marginBottom: '20px', textAlign: 'center' }}>مرحباً {data.customerName}! 🎉</h1>
-                        <p style={{ color: '#475569', fontSize: '16px' }}>شكراً لانضمامك إلينا. لقد تم تفعيل اشتراكك بنجاح.</p>
-                        <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', margin: '20px 0', border: '1px solid #e2e8f0' }}>
-                            <h3 style={{ margin: '0 0 15px 0', color: '#0f172a' }}>تفاصيل الاشتراك:</h3>
-                            <p style={{ margin: '5px 0' }}><strong>الباقة:</strong> {data.planName}</p>
-                            <p style={{ margin: '5px 0' }}><strong>المبلغ:</strong> ${data.amount.toFixed(2)}</p>
-                            <p style={{ margin: '5px 0' }}><strong>دورة الدفع:</strong> {data.billingCycle === 'month' ? 'شهري' : 'سنوي'}</p>
-                        </div>
-                        <div style={{ textAlign: 'center', marginTop: '30px' }}>
-                            <a href="https://manasadigital.com/dashboard/billing" style={{
-                                backgroundColor: '#0ea5e9', color: 'white', padding: '14px 28px',
-                                borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
-                            }}>
-                                إدارة اشتراكي
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            ),
+                <EmailLayout headerTitle="تم تفعيل اشتراكك بنجاح!" headerEmoji="🚀">
+                    <p>مرحباً <strong style={{ color: emailConfig.theme.primary }}>{data.customerName}</strong>،</p>
+                    <p>شكراً لثقتك بنا وانضمامك إلينا. نحن متحمسون جداً لدعم مسيرتك.</p>
+                    <InfoBox>
+                        <h3 style={{ margin: '0 0 15px 0', color: emailConfig.theme.textMain }}>تفاصيل الاشتراك:</h3>
+                        <p style={{ margin: '8px 0' }}><strong>الباقة:</strong> {data.planName}</p>
+                        <p style={{ margin: '8px 0' }}><strong>دورة الدفع:</strong> {data.billingCycle === 'month' ? 'شهري' : 'سنوي'}</p>
+                        <p style={{ margin: '8px 0' }}><strong>المبلغ المدفوع:</strong> ${data.amount.toFixed(2)}</p>
+                    </InfoBox>
+                    <PrimaryButton href={`${emailConfig.brand.baseUrl}/dashboard/billing`} text="إدارة اشتراكي" />
+                </EmailLayout>
+            ) as React.ReactElement,
         });
-        console.log('✅ Subscription confirmation sent to', data.to);
         return { success: true };
     } catch (error) {
-        console.error('❌ Email error:', error);
         return { success: false, error };
     }
 }
 
 // Welcome Email
 export async function sendWelcomeEmail(
-    userId: string,
-    email: string,
-    name: string,
-    username: string
+    userId: string, email: string, name: string, username: string
 ) {
     try {
         await sendMail({
-            from: FROM_EMAIL,
-            to: email,
-            subject: `مرحباً بك في منصة ديجيتال يا ${name}! 🎉`,
+            from: FROM_EMAIL, to: email, subject: `مرحباً بك في ${emailConfig.brand.name} يا ${name}! 🎉`,
             react: (
-                <div style={{ fontFamily: 'Arial, sans-serif', padding: '40px 20px', direction: 'rtl', lineHeight: '1.6', backgroundColor: '#f3f4f6' }}>
-                    <div style={{ backgroundColor: '#ffffff', padding: '40px', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
-                        <img src="https://manasadigital.com/logo.png" alt="Manasa Digital" style={{ width: '150px', marginBottom: '20px' }} onError={(e: any) => e.target.style.display = 'none'} />
-                        <h1 style={{ color: '#1e293b', marginBottom: '20px', fontSize: '24px' }}>مرحباً بك، {name}! 🚀</h1>
-                        <p style={{ color: '#475569', fontSize: '16px' }}>يسعدنا انضمامك إلى <strong style={{ color: '#4f46e5' }}>منصة ديجيتال (Manasa Digital)</strong>. نحن هنا لندعمك في رحلتك لتحويل التحديات التقنية إلى نجاحات رقمية وتمكين وجودك الرقمي.</p>
-                        
-                        <div style={{ backgroundColor: '#f8fafc', padding: '20px', borderRadius: '12px', margin: '30px 0', border: '1px solid #e2e8f0', textAlign: 'right' }}>
-                            <h3 style={{ margin: '0 0 15px 0', color: '#0f172a', fontSize: '16px' }}>معلومات حسابك:</h3>
-                            <p style={{ margin: '8px 0', color: '#334155' }}><strong>الاسم:</strong> {name}</p>
-                            <p style={{ margin: '8px 0', color: '#334155' }}><strong>رابط متجرك:</strong> <a href={`https://manasadigital.com/${username}`} style={{ color: '#4f46e5', textDecoration: 'none' }}>manasadigital.com/{username}</a></p>
-                        </div>
-                        
-                        <div style={{ textAlign: 'center', marginTop: '30px' }}>
-                            <a href="https://manasadigital.com/dashboard" style={{
-                                backgroundColor: '#4f46e5', color: 'white', padding: '16px 32px',
-                                borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold', fontSize: '16px', transition: 'background-color 0.2s'
-                            }}>
-                                الذهاب للوحة التحكم
-                            </a>
-                        </div>
-                        <p style={{ color: '#94a3b8', fontSize: '14px', marginTop: '30px' }}>في حال احتجت لأي مساعدة، فريق الدعم الفني لدينا دائماً في خدمتك!</p>
-                        <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '30px 0 20px' }} />
-                        <p style={{ color: '#cbd5e1', fontSize: '12px' }}>© منصة ديجيتال - جميع الحقوق محفوظة</p>
-                    </div>
-                </div>
-            ),
+                <EmailLayout headerTitle="أهلاً بك معنا!" headerEmoji="🚀">
+                    <p>مرحباً <strong style={{ color: emailConfig.theme.primary }}>{name}</strong>،</p>
+                    <p>يسعدنا انضمامك إلى <strong>{emailConfig.brand.name}</strong>. نحن هنا لندعمك في رحلتك لتحويل التحديات التقنية إلى نجاحات رقمية وتمكين وجودك الرقمي.</p>
+                    <InfoBox>
+                        <h3 style={{ margin: '0 0 15px 0', color: emailConfig.theme.textMain, fontSize: '16px' }}>معلومات حسابك:</h3>
+                        <p style={{ margin: '8px 0' }}><strong>الاسم:</strong> {name}</p>
+                        <p style={{ margin: '8px 0' }}><strong>رابط متجرك:</strong> <a href={`${emailConfig.brand.baseUrl}/${username}`} style={{ color: emailConfig.theme.primary, textDecoration: 'none' }}>{emailConfig.brand.baseUrl.replace('https://', '')}/{username}</a></p>
+                    </InfoBox>
+                    <p>في حال احتجت لأي مساعدة، فريق الدعم الفني لدينا دائماً في خدمتك!</p>
+                    <PrimaryButton href={`${emailConfig.brand.baseUrl}/dashboard`} text="الذهاب للوحة التحكم" />
+                </EmailLayout>
+            ) as React.ReactElement,
         });
-        console.log('✅ Welcome email sent to', email);
         return { success: true };
     } catch (error) {
-        console.error('❌ Email error:', error);
         return { success: false, error };
     }
 }
 
 // Reset Password Email
 export async function sendResetPasswordEmail(data: {
-    to: string;
-    customerName: string;
-    resetLink: string;
+    to: string; customerName: string; resetLink: string;
 }) {
     try {
         await sendMail({
-            from: FROM_EMAIL,
-            to: data.to,
-            subject: 'إعادة تعيين كلمة المرور | منصة ديجيتال',
+            from: FROM_EMAIL, to: data.to, subject: `إعادة تعيين كلمة المرور | ${emailConfig.brand.name}`,
             react: (
-                <div style={{ fontFamily: 'Arial, sans-serif', padding: '40px 20px', direction: 'rtl', lineHeight: '1.6', backgroundColor: '#f3f4f6' }}>
-                    <div style={{ backgroundColor: '#ffffff', padding: '40px', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
-                        <img src="https://manasadigital.com/logo.png" alt="Manasa Digital" style={{ width: '150px', marginBottom: '20px' }} onError={(e: any) => e.target.style.display = 'none'} />
-                        <h2 style={{ color: '#1e293b', marginBottom: '20px', fontSize: '22px' }}>إعادة تعيين كلمة المرور 🔐</h2>
-                        <p style={{ color: '#475569', fontSize: '16px' }}>مرحباً <strong style={{ color: '#4f46e5' }}>{data.customerName}</strong>،</p>
-                        <p style={{ color: '#475569', fontSize: '16px' }}>لقد تلقينا طلباً لإعادة تعيين كلمة المرور الخاصة بحسابك على <strong style={{color: '#4f46e5'}}>منصة ديجيتال</strong>.</p>
-                        <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '30px' }}>يمكنك إعادة تعيين كلمة المرور من خلال الضغط على الزر أدناه (هذا الرابط صالح لمدة ساعة واحدة):</p>
-                        
-                        <div style={{ textAlign: 'center', margin: '30px 0' }}>
-                            <a href={data.resetLink} style={{ 
-                                backgroundColor: '#4f46e5', color: 'white', padding: '16px 36px', 
-                                textDecoration: 'none', borderRadius: '8px', fontWeight: 'bold', display: 'inline-block', fontSize: '16px' 
-                            }}>
-                                إعادة تعيين كلمة المرور
-                            </a>
-                        </div>
-                        
-                        <p style={{ color: '#94a3b8', fontSize: '13px', marginTop: '20px' }}>إذا لم تكن أنت من طلب هذا، فيرجى تجاهل هذا البريد ولن يتم تغيير أي شيء.</p>
-                        <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '30px 0 20px' }} />
-                        <p style={{ color: '#cbd5e1', fontSize: '12px' }}>© منصة ديجيتال - جميع الحقوق محفوظة</p>
-                    </div>
-                </div>
+                <EmailLayout headerTitle="إعادة تعيين كلمة المرور" headerEmoji="🔐">
+                    <p>مرحباً <strong style={{ color: emailConfig.theme.primary }}>{data.customerName}</strong>،</p>
+                    <p>لقد تلقينا طلباً لإعادة تعيين كلمة المرور الخاصة بحسابك على <strong>{emailConfig.brand.name}</strong>.</p>
+                    <p style={{ marginBottom: '30px' }}>يمكنك تعيين كلمة مرور جديدة من خلال الضغط على الزر أدناه (صالح لمدة ساعة):</p>
+                    <PrimaryButton href={data.resetLink} text="إعادة تعيين كلمة المرور" />
+                    <p style={{ fontSize: '13px', marginTop: '30px' }}>إذا لم تكن أنت من طلب هذا، فيرجى تجاهل هذا البريد ولن يتم تغيير أي شيء.</p>
+                </EmailLayout>
             ) as React.ReactElement,
         });
-        console.log('✅ Password reset email sent to', data.to);
         return { success: true };
     } catch (error) {
-        console.error('❌ Email error:', error);
         return { success: false, error };
     }
 }
 
 // Guest Welcome Email (Auto-registration)
 export async function sendGuestWelcomeEmail(
-    email: string,
-    name: string,
-    tempPassword: string
+    email: string, name: string, tempPassword: string
 ) {
     try {
         await sendMail({
-            from: FROM_EMAIL,
-            to: email,
-            subject: `تفاصيل الدخول لدورتك التدريبية يا ${name} 🎓`,
+            from: FROM_EMAIL, to: email, subject: `تفاصيل الدخول لدورتك التدريبية يا ${name} 🎓`,
             react: (
-                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl', lineHeight: '1.6' }}>
-                    <div style={{ backgroundColor: '#f8fafc', padding: '30px', borderRadius: '12px', border: '1px solid #e2e8f0', maxWidth: '600px', margin: '0 auto' }}>
-                        <h1 style={{ color: '#0f172a', marginBottom: '20px', textAlign: 'center' }}>أهلاً بك {name}! 🎓</h1>
-                        <p style={{ color: '#475569', fontSize: '16px' }}>شكراً لانضمامك إلينا! لقد قمنا بإنشاء حساب خاص بك لتتمكن من الوصول إلى الدورات التي قمت بالتسجيل فيها.</p>
-                        <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', margin: '20px 0', border: '1px solid #e2e8f0' }}>
-                            <h3 style={{ margin: '0 0 15px 0', color: '#0f172a' }}>بيانات الدخول لحسابك:</h3>
-                            <p style={{ margin: '5px 0' }}><strong>البريد الإلكتروني:</strong> {email}</p>
-                            <p style={{ margin: '5px 0' }}><strong>كلمة المرور:</strong> <span style={{ fontFamily: 'monospace', backgroundColor: '#e2e8f0', padding: '2px 6px', borderRadius: '4px' }}>{tempPassword}</span></p>
-                            <p style={{ margin: '15px 0 0 0', fontSize: '14px', color: '#dc2626' }}>* ننصح بشدة بتغيير كلمة المرور من صفحة الإعدادات بعد تسجيل الدخول الأول.</p>
-                        </div>
-                        <div style={{ textAlign: 'center', marginTop: '30px' }}>
-                            <a href="https://manasadigital.com/login" style={{
-                                backgroundColor: '#4f46e5', color: 'white', padding: '14px 28px',
-                                borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
-                            }}>
-                                تسجيل الدخول الآن
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            ),
+                <EmailLayout headerTitle="تم إنشاء حسابك بنجاح!" headerEmoji="🎓">
+                    <p>مرحباً <strong style={{ color: emailConfig.theme.primary }}>{name}</strong>،</p>
+                    <p>شكراً لانضمامك إلينا! لقد قمنا بإنشاء حساب خاص بك لتتمكن من الوصول إلى الدورات التي قمت بالتسجيل فيها بشكل دائم.</p>
+                    <InfoBox>
+                        <h3 style={{ margin: '0 0 15px 0', color: emailConfig.theme.textMain }}>بيانات الدخول المؤقتة:</h3>
+                        <p style={{ margin: '8px 0' }}><strong>البريد الإلكتروني:</strong> {email}</p>
+                        <p style={{ margin: '8px 0' }}><strong>كلمة المرور:</strong> <span style={{ fontFamily: 'monospace', backgroundColor: emailConfig.theme.border, padding: '2px 6px', borderRadius: '4px' }}>{tempPassword}</span></p>
+                        <p style={{ margin: '15px 0 0 0', fontSize: '14px', color: '#dc2626' }}>* ننصح بشدة بتغيير كلمة المرور من صفحة الإعدادات فور تسجيل الدخول.</p>
+                    </InfoBox>
+                    <PrimaryButton href={`${emailConfig.brand.baseUrl}/login`} text="تسجيل الدخول الآن" />
+                </EmailLayout>
+            ) as React.ReactElement,
         });
-        console.log('✅ Guest welcome email sent to', email);
         return { success: true };
     } catch (error) {
-        console.error('❌ Email error:', error);
         return { success: false, error };
     }
 }
 
 // UnderPaid Notification (للعميل)
 export async function sendUnderPaidNotification(data: {
-    to: string;
-    customerName: string;
-    orderNumber: string;
-    paidAmount: number;
-    totalAmount: number;
-    remaining: number;
+    to: string; customerName: string; orderNumber: string; paidAmount: number; totalAmount: number; remaining: number;
 }) {
     try {
         await sendMail({
-            from: FROM_EMAIL,
-            to: data.to,
-            subject: `⚠️ تنبيه: دفعة ناقصة للطلب ${data.orderNumber}`,
+            from: FROM_EMAIL, to: data.to, subject: `⚠️ تنبيه: دفعة كريبتو ناقصة للطلب ${data.orderNumber}`,
             react: (
-                <div style={{ fontFamily: 'Arial', padding: '20px', direction: 'rtl', lineHeight: '1.6' }}>
-                    <div style={{ backgroundColor: '#fff7ed', padding: '30px', borderRadius: '12px', border: '1px solid #fdba74', maxWidth: '600px', margin: '0 auto' }}>
-                        <h1 style={{ color: '#9a3412', marginBottom: '20px', textAlign: 'center' }}>مرحباً {data.customerName}! ⚠️</h1>
-                        <p style={{ color: '#475569', fontSize: '16px' }}>لقد استلمنا دفعتك للطلب رقم {data.orderNumber}، ولكن المبلغ كان أقل من المطلوب.</p>
-                        <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', margin: '20px 0', border: '1px solid #fed7aa' }}>
-                            <p style={{ margin: '5px 0' }}><strong>المبلغ المطلوب:</strong> {data.totalAmount.toFixed(2)} USDT</p>
-                            <p style={{ margin: '5px 0' }}><strong>المبلغ المدفوع:</strong> {data.paidAmount.toFixed(2)} USDT</p>
-                            <p style={{ margin: '5px 0', color: '#dc2626', fontWeight: 'bold' }}><strong>المبلغ المتبقي:</strong> {data.remaining.toFixed(2)} USDT</p>
-                        </div>
-                        <p style={{ color: '#475569' }}>يرجى إرسال المبلغ المتبقي لنفس عنوان المحفظة لتفعيل طلبك آلياً.</p>
-                        <div style={{ textAlign: 'center', marginTop: '30px' }}>
-                            <a href="https://manasadigital.com/my-purchases" style={{
-                                backgroundColor: '#ea580c', color: 'white', padding: '14px 28px',
-                                borderRadius: '8px', textDecoration: 'none', display: 'inline-block', fontWeight: 'bold'
-                            }}>
-                                عرض تفاصيل الطلب
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <EmailLayout headerTitle="دفعة غير مكتملة" headerEmoji="⚠️">
+                    <p>مرحباً <strong style={{ color: emailConfig.theme.primary }}>{data.customerName}</strong>،</p>
+                    <p>لقد استلمنا العقد الخاص بك للطلب رقم الحصري <strong>{data.orderNumber}</strong>، ولكن تبين أن المبلغ المحول كان أقل من قيمة الطلب.</p>
+                    <InfoBox isWarning={true}>
+                        <p style={{ margin: '8px 0' }}><strong>المبلغ المطلوب:</strong> {data.totalAmount.toFixed(2)} USDT</p>
+                        <p style={{ margin: '8px 0' }}><strong>المبلغ المُستلم فعلياً:</strong> {data.paidAmount.toFixed(2)} USDT</p>
+                        <p style={{ margin: '8px 0', color: '#dc2626', fontWeight: 'bold' }}><strong>المبلغ المتبقي:</strong> {data.remaining.toFixed(2)} USDT</p>
+                    </InfoBox>
+                    <p>يرجى المبادرة بإرسال المبلغ المتبقي لنفس المحفظة لاستكمال عملية الشراء وتفعيل الطلب.</p>
+                    <PrimaryButton href={`${emailConfig.brand.baseUrl}/my-purchases`} text="عرض تفاصيل الطلب" />
+                </EmailLayout>
             ) as React.ReactElement,
         });
-        console.log('✅ Underpaid notification sent to', data.to);
         return { success: true };
     } catch (error) {
         console.error('❌ Email error:', error);
