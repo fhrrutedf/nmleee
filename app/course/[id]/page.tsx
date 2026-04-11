@@ -1,22 +1,70 @@
-﻿'use client';
+import { Metadata } from 'next';
+import { prisma } from '@/lib/db';
+import CourseClient from './CourseClient';
+import { notFound } from 'next/navigation';
 
-import Link from 'next/link';
+interface Props {
+    params: Promise<{ id: string }>;
+}
 
-export default function CookiesPage() {
-  return (
-    <div className="min-h-screen bg-[#0A0A0A] py-20 px-6">
-      <div className="max-w-3xl mx-auto bg-[#0A0A0A] p-10 rounded-2xl border border-white/10 shadow-lg shadow-[#10B981]/20" dir="rtl">
-        <h1 className="text-3xl font-bold text-[#10B981] mb-8">سياسة الكوكيز (Cookies Policy)</h1>
-        <div className="prose prose-emerald max-w-none text-muted leading-relaxed">
-          <p>نحن نستخدم ملفات تعريف الارتباط (Cookies) لتحسين تجربتك على منصتك الرقمية. هذه الملفات تساعدنا في:</p>
-          <ul className="list-disc pr-6 mt-4 space-y-2">
-            <li>بقاءك مسجلاً في حسابك الشخصي.</li>
-            <li>فهم كيفية استخدامك للموقع لتطوير المميزات.</li>
-            <li>تأمين العمليات المالية وحمايتها من الاحتيال.</li>
-          </ul>
-          <p className="mt-6">باستخدامك للمنصة، أنت توافق على استخدامنا لملفات تعريف الارتباط وفقاً لهذه السياسة.</p>
-        </div>
-      </div>
-    </div>
-  );
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { id } = await params;
+    const course = await prisma.course.findUnique({
+        where: { id },
+        include: { user: true }
+    });
+
+    if (!course) return { title: 'دورة غير موجودة' };
+
+    const description = course.description.replace(/<[^>]*>?/gm, '').substring(0, 160);
+    const platformName = process.env.NEXT_PUBLIC_PLATFORM_NAME || 'تمالين';
+
+    return {
+        title: `${course.title} | ${platformName}`,
+        description,
+        openGraph: {
+            title: course.title,
+            description,
+            images: [course.image || '/og-image.png'],
+            type: 'website',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: course.title,
+            description,
+            images: [course.image || '/og-image.png'],
+        },
+    };
+}
+
+export default async function CoursePage({ params }: Props) {
+    const { id } = await params;
+
+    const course = await prisma.course.findUnique({
+        where: { id },
+        include: { 
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    username: true,
+                    avatar: true,
+                    brandColor: true
+                }
+            }
+        }
+    });
+
+    if (!course) notFound();
+
+    const reviews = await prisma.review.findMany({
+        where: { productId: id },
+        orderBy: { createdAt: 'desc' }
+    });
+
+    // Serialize dates for client component
+    const serializedCourse = JSON.parse(JSON.stringify(course));
+    const serializedReviews = JSON.parse(JSON.stringify(reviews));
+
+    return <CourseClient course={serializedCourse} reviews={serializedReviews} id={id} />;
 }
