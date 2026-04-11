@@ -1,7 +1,7 @@
 import { Html, Head, Body, Container, Section, Text, Button, Hr, Img, Link } from '@react-email/components';
 import { emailConfig } from '../lib/email-config';
 
-interface OrderConfirmationEmailProps { customerName: string; orderNumber: string; totalAmount: number; items: Array<{ title: string; price: number }>; }
+interface OrderConfirmationEmailProps { customerName: string; orderNumber: string; totalAmount: number; items: Array<{ title: string; price: number; link?: string; }>; }
 
 export default function OrderConfirmationEmail({ customerName = 'العميل', orderNumber = 'ORD-123456', totalAmount = 50, items = [] }: OrderConfirmationEmailProps) {
     return (
@@ -32,9 +32,16 @@ export default function OrderConfirmationEmail({ customerName = 'العميل', 
                             <Section style={{ margin: '20px 0', backgroundColor: emailConfig.theme.background, padding: '20px', borderRadius: '12px', border: `1px solid ${emailConfig.theme.border}` }}>
                                 <Text style={{ fontSize: '16px', fontWeight: 'bold', color: emailConfig.theme.textMain, margin: '0 0 15px' }}>المنتجات:</Text>
                                 {items.map((item, idx) => (
-                                    <Text key={idx} style={{ fontSize: '15px', color: emailConfig.theme.textMain, margin: '8px 0', lineHeight: '24px' }}>
-                                        • {item.title} <span style={{ fontWeight: 'bold', color: emailConfig.theme.primaryDark }}>${item.price.toFixed(2)}</span>
-                                    </Text>
+                                    <Section key={idx} style={{ margin: '8px 0' }}>
+                                        <Text style={{ fontSize: '15px', color: emailConfig.theme.textMain, margin: '0', lineHeight: '24px' }}>
+                                            • {item.title} <span style={{ fontWeight: 'bold', color: emailConfig.theme.primaryDark }}>${item.price.toFixed(2)}</span>
+                                            {item.link && (
+                                                <Link href={item.link} style={{ marginRight: '10px', backgroundColor: emailConfig.theme.primary, color: '#fff', padding: '4px 10px', borderRadius: '6px', textDecoration: 'none', fontSize: '12px', fontWeight: 'bold' }}>
+                                                    تحميل / الدخول للمحتوى
+                                                </Link>
+                                            )}
+                                        </Text>
+                                    </Section>
                                 ))}
                                 <Hr style={{ borderColor: emailConfig.theme.border, margin: '15px 0' }} />
                                 <Text style={{ fontSize: '18px', fontWeight: 'bold', color: emailConfig.theme.primaryDark, margin: '10px 0 0' }}>

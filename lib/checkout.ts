@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/db';
 import { triggerWelcomeEmail, triggerSellerNotification } from '@/lib/automation-helpers';
 import { sendOrderConfirmation } from '@/lib/email';
+import { emailConfig } from '@/lib/email-config';
 
 /**
  * دالة تفعيل المشتريات (Fulfillment)
@@ -109,10 +110,22 @@ export async function fulfillPurchase(orderId: string, userId?: string) {
                 customerName: studentName,
                 orderNumber: order.orderNumber,
                 totalAmount: order.totalAmount,
-                items: order.items.map(i => ({
-                    title: i.course?.title || i.product?.title || i.bundle?.title || 'منتج رقمي',
-                    price: i.price
-                }))
+                items: order.items.map(i => {
+                    let link = undefined;
+                    if (i.itemType === 'product' && i.productId) {
+                        link = `${emailConfig.brand.baseUrl}/api/products/${i.productId}/download`;
+                    } else if (i.itemType === 'course' && i.courseId) {
+                        link = `${emailConfig.brand.baseUrl}/learn/${i.courseId}`;
+                    } else if (i.itemType === 'bundle' && i.bundleId) {
+                        link = `${emailConfig.brand.baseUrl}/bundle/${i.bundleId}`;
+                    }
+
+                    return {
+                        title: i.course?.title || i.product?.title || i.bundle?.title || 'منتج رقمي',
+                        price: i.price,
+                        link
+                    };
+                })
             });
             console.log(`[CHECKOUT_FULFILL] Order confirmation email sent to student.`);
 

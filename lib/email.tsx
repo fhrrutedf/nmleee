@@ -78,7 +78,7 @@ async function sendMail({ from, to, subject, html, react }: { from: string; to: 
 }
 
 // Order Confirmation
-export async function sendOrderConfirmation(data: { to: string; customerName: string; orderNumber: string; totalAmount: number; items: Array<{ title: string; price: number }>; }) {
+export async function sendOrderConfirmation(data: { to: string; customerName: string; orderNumber: string; totalAmount: number; items: Array<{ title: string; price: number; link?: string; }>; }) {
     try {
         await sendMail({ from: FROM_EMAIL, to: data.to, subject: `تأكيد الطلب ${data.orderNumber}`, react: OrderConfirmationEmail(data) as React.ReactElement });
         return { success: true };
