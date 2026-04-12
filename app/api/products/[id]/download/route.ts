@@ -5,35 +5,57 @@ import { authOptions } from '@/lib/auth';
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
-        const session = await getServerSession(authOptions);
-        if (!session || !session.user?.email) {
-            return new NextResponse('Unauthorized', { status: 401 });
-        }
-
         const urlParams = await params;
         const productId = urlParams.id;
+        const token = req.nextUrl.searchParams.get('token');
 
-        // Verify the user actually bought this product
-        const orderItem = await prisma.orderItem.findFirst({
-            where: {
-                productId: productId,
-                order: {
-                    user: { email: session.user.email },
-                    status: { in: ['PAID', 'COMPLETED'] }
+        let isAuthorized = false;
+
+        // 1. Try Token Auth (Order ID)
+        if (token) {
+            const validOrder = await prisma.order.findFirst({
+                where: {
+                    id: token,
+                    status: { in: ['PAID', 'COMPLETED'] },
+                    items: {
+                        some: { productId: productId }
+                    }
+                }
+            });
+            if (validOrder) {
+                isAuthorized = true;
+            }
+        }
+
+        // 2. Try Session Auth if no valid token
+        if (!isAuthorized) {
+            const session = await getServerSession(authOptions);
+            if (session?.user?.email) {
+                const orderItem = await prisma.orderItem.findFirst({
+                    where: {
+                        productId: productId,
+                        order: {
+                            user: { email: session.user.email },
+                            status: { in: ['PAID', 'COMPLETED'] }
+                        }
+                    }
+                });
+
+                const isSeller = await prisma.product.findFirst({
+                    where: {
+                        id: productId,
+                        user: { email: session.user.email }
+                    }
+                });
+
+                if (orderItem || isSeller) {
+                    isAuthorized = true;
                 }
             }
-        });
+        }
 
-        // Also allow seller to download their own product
-        const isSeller = await prisma.product.findFirst({
-            where: {
-                id: productId,
-                user: { email: session.user.email }
-            }
-        });
-
-        if (!orderItem && !isSeller) {
-            return new NextResponse('Not purchased or order not completed', { status: 403 });
+        if (!isAuthorized) {
+            return new NextResponse('Unauthorized or Not purchased', { status: 403 });
         }
 
         const product = await prisma.product.findUnique({

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -190,20 +190,30 @@ function SuccessContent() {
                                             >
                                                 إدارة الاشتراك <FiExternalLink />
                                             </Link>
-                                        ) : hasCourse && courseItem.id ? (
-                                            <Link
-                                                href={sessionStatus === 'authenticated' ? `/learn/${courseItem.id}` : `/login?callbackUrl=/learn/${courseItem.id}`}
-                                                className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
-                                            >
-                                                دخول الأكاديمية والبدء الآن <FiExternalLink />
-                                            </Link>
                                         ) : (
-                                            <Link
-                                                href="/my-purchases"
-                                                className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
-                                            >
-                                                تحميل المنتجات الرقمية <FiPackage />
-                                            </Link>
+                                            <div className="space-y-3">
+                                                {order.items?.filter((i: any) => i.type === 'product' || i.type === 'course').map((item: any, idx: number) => {
+                                                    const isProduct = item.type === 'product';
+                                                    return (
+                                                        <Link
+                                                            key={idx}
+                                                            href={isProduct ? `/api/products/${item.id}/download?token=${order.id}` : (sessionStatus === 'authenticated' ? `/learn/${item.id}` : `/login?callbackUrl=/learn/${item.id}`)}
+                                                            className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
+                                                        >
+                                                            {isProduct ? `تحميل ${item.title}` : `دخول لدورة ${item.title}`} 
+                                                            {isProduct ? <FiPackage /> : <FiExternalLink />}
+                                                        </Link>
+                                                    );
+                                                })}
+                                                {(!order.items || order.items.filter((i: any) => i.type === 'product' || i.type === 'course').length === 0) && (
+                                                    <Link
+                                                        href="/my-purchases"
+                                                        className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
+                                                    >
+                                                        تحميل المنتجات الرقمية <FiPackage />
+                                                    </Link>
+                                                )}
+                                            </div>
                                         )}
                                     </>
                                 ) : (

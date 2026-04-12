@@ -113,7 +113,7 @@ export async function fulfillPurchase(orderId: string, userId?: string) {
                 items: order.items.map(i => {
                     let link = undefined;
                     if (i.itemType === 'product' && i.productId) {
-                        link = `${emailConfig.brand.baseUrl}/api/products/${i.productId}/download`;
+                        link = `${emailConfig.brand.baseUrl}/api/products/${i.productId}/download?token=${order.id}`;
                     } else if (i.itemType === 'course' && i.courseId) {
                         link = `${emailConfig.brand.baseUrl}/learn/${i.courseId}`;
                     } else if (i.itemType === 'bundle' && i.bundleId) {
