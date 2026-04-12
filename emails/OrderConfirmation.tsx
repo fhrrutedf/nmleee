@@ -50,10 +50,10 @@ export default function OrderConfirmationEmail({ customerName = 'العميل', 
                             </Section>
                         </Section>
 
-                        <Section style={{ textAlign: 'center', marginTop: '35px', marginBottom: '35px' }}>
-                            <Button href={`${emailConfig.brand.baseUrl}/my-purchases`} style={{ backgroundColor: emailConfig.theme.primary, borderRadius: '10px', color: '#ffffff', fontSize: '16px', fontWeight: 'bold', textDecoration: 'none', textAlign: 'center' as const, display: 'inline-block', padding: '16px 36px' }}>
-                                عرض مشترياتي والمحتوى
-                            </Button>
+                        <Section style={{ textAlign: 'center', marginTop: '15px', marginBottom: '35px' }}>
+                            <Text style={{ fontSize: '15px', color: emailConfig.theme.textMuted }}>
+                                يمكنك دائماً الاعتماد على هذا البريد للوصول لمنتجاتك ومقرراتك.
+                            </Text>
                         </Section>
 
                         <Hr style={{ borderColor: emailConfig.theme.border, margin: '40px 0 30px' }} />

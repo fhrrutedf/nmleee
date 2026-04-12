@@ -137,7 +137,7 @@ export async function sendManualOrderReview(data: { to: string; customerName: st
                         <Text style={{ margin: '6px 0', color: emailConfig.theme.textMain }}><strong>الحالة الحالية:</strong> قيد التحقق اليدوي</Text>
                     </InfoBox>
                     <Text style={{ margin: '15px 0', fontSize: '14px' }}>سيصلك إشعار فوري وتلقائي بمجرد تفعيل الطلب (يستغرق هذا الإجراء عادةً بين 15 دقيقة إلى ساعتين أثناء أوقات العمل).</Text>
-                    <PrimaryButton href={`${emailConfig.brand.baseUrl}/my-purchases`} text="📦 متابعة حالة الطلب" />
+                    <PrimaryButton href={emailConfig.brand.baseUrl} text="العودة للمتجر الرئيسي" />
                 </EmailLayout>
             ) as React.ReactElement,
         });
@@ -166,7 +166,7 @@ export async function sendManualOrderApproved(data: { to: string; customerName: 
                             <PrimaryButton href={`${emailConfig.brand.baseUrl}/learn/${data.courseId}`} text="🎓 البدء بالدورة الآن" />
                         </>
                     ) : (
-                        <PrimaryButton href={`${emailConfig.brand.baseUrl}/my-purchases`} text="📦 عرض مشترياتي" />
+                        <PrimaryButton href={emailConfig.brand.baseUrl} text="🏠 العودة للمتجر" />
                     )}
                 </EmailLayout>
             ) as React.ReactElement,
@@ -301,7 +301,7 @@ export async function sendUnderPaidNotification(data: { to: string; customerName
                         <Text style={{ margin: '6px 0', color: '#dc2626', fontWeight: 'bold' }}><strong>المبلغ العجز المعلق:</strong> {data.remaining.toFixed(2)} USDT</Text>
                     </InfoBox>
                     <Text style={{ margin: '15px 0' }}>لطفاً، استكمل تحويل المبلغ المتبقي على ذات المحفظة لتفادي إلغاء الطلب ولتتم المعالجة آلياً وفوراً.</Text>
-                    <PrimaryButton href={`${emailConfig.brand.baseUrl}/my-purchases`} text="عرض الطلب وتفاصيل الدفع" />
+                    <PrimaryButton href={`${emailConfig.brand.baseUrl}/`} text="العودة للمتجر الرئيسي" />
                 </EmailLayout>
             ) as React.ReactElement,
         });

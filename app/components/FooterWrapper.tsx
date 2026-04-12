@@ -26,7 +26,7 @@ const KNOWN_PUBLIC_PATHS = [
     '', '/', '/about', '/api', '/blog', '/book-appointment', '/cancel', '/cart',
     '/certificates', '/checkout', '/contact', '/courses', '/creator', 
     '/demo', '/explore', '/features', '/learn', '/my-appointments', 
-    '/my-courses', '/my-purchases', '/pricing', '/privacy', '/products', 
+    '/my-courses', '/pricing', '/privacy', '/products', 
     '/quiz', '/showcase', '/success', '/support', '/terms'
 ];
 
