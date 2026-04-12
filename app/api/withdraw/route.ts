@@ -79,6 +79,14 @@ export async function GET(req: NextRequest) {
         const now = new Date();
         const in30Days = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
 
+        const upcomingReleases = await prisma.order.groupBy({
+            by: ['availableAt'],
+            where: {
+                sellerId: userId,
+                payoutStatus: 'pending',
+                isPaid: true,
+                availableAt: { gte: now, lte: in30Days }
+            },
             _sum: { sellerAmount: true },
             orderBy: { availableAt: 'asc' },
         });
