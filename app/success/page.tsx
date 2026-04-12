@@ -190,18 +190,25 @@ function SuccessContent() {
                                             >
                                                 إدارة الاشتراك <FiExternalLink />
                                             </Link>
-                                        ) : hasCourse && courseItem.id ? (
-                                            <Link
-                                                href={sessionStatus === 'authenticated' ? `/learn/${courseItem.id}` : `/login?callbackUrl=/learn/${courseItem.id}`}
-                                                className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
-                                            >
-                                                دخول الأكاديمية والبدء الآن <FiExternalLink />
-                                            </Link>
                                         ) : (
-                                            <div className="flex flex-col items-center gap-3 w-full py-5 bg-emerald-800/80 text-emerald-200 rounded-xl font-bold transition-all shadow-lg shadow-[#10B981]/20 border border-emerald-500/20 text-center px-4">
-                                                <FiMail size={24} className="mb-1" />
-                                                <span>تم إرسال روابط التحميل إلى بريدك الإلكتروني!</span>
-                                                <span className="text-sm font-normal text-emerald-300">يرجى مراجعة رسالة تأكيد الطلب للبدء بالتحميل مباشرة.</span>
+                                            <div className="space-y-4">
+                                                {order.items?.filter((i: any) => i.type === 'course').map((course: any, idx: number) => (
+                                                    <Link
+                                                        key={`course-${idx}`}
+                                                        href={sessionStatus === 'authenticated' ? `/learn/${course.id}` : `/login?callbackUrl=/learn/${course.id}`}
+                                                        className="flex items-center justify-center gap-3 w-full py-5 bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-[#10B981]/20 shadow-ink/10 hover:bg-gray-800 hover:shadow-ink/20 transform hover:-translate-y-0.5"
+                                                    >
+                                                        بدء دورة: {course.title} <FiExternalLink />
+                                                    </Link>
+                                                ))}
+
+                                                {order.items?.some((i: any) => i.type === 'product' || i.type === 'bundle') && (
+                                                    <div className="flex flex-col items-center gap-3 w-full py-5 bg-emerald-800/80 text-emerald-200 rounded-xl font-bold transition-all shadow-lg shadow-[#10B981]/20 border border-emerald-500/20 text-center px-4 mt-2">
+                                                        <FiMail size={24} className="mb-1" />
+                                                        <span>تم إرسال روابط التحميل إلى بريدك الإلكتروني!</span>
+                                                        <span className="text-sm font-normal text-emerald-300">يرجى مراجعة رسالة تأكيد الطلب للبدء بالتحميل مباشرة للمنتجات الرقمية.</span>
+                                                    </div>
+                                                )}
                                             </div>
                                         )}
                                     </>
