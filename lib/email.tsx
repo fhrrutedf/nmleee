@@ -308,3 +308,20 @@ export async function sendUnderPaidNotification(data: { to: string; customerName
         return { success: true };
     } catch (error) { return { success: false, error }; }
 }
+
+// Broadcast Email (للمستفيدين)
+export async function sendBroadcastEmail(data: { to: string; customerName: string; subject: string; content: string; }) {
+    try {
+        await sendMail({
+            from: FROM_EMAIL, to: data.to, subject: data.subject,
+            react: (
+                <EmailLayout headerTitle={data.subject} headerEmoji="📢">
+                    <Text style={{ margin: '0 0 15px' }}>مرحباً <strong style={{ color: emailConfig.theme.primary }}>{data.customerName}</strong>،</Text>
+                    <div dangerouslySetInnerHTML={{ __html: data.content }} style={{ lineHeight: '1.8', fontSize: '16px', margin: '25px 0', color: emailConfig.theme.textMuted, whiteSpace: 'pre-wrap' }} />
+                </EmailLayout>
+            ) as React.ReactElement,
+        });
+        return { success: true };
+    } catch (error) { return { success: false, error }; }
+}
+

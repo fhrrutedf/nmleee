@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
 import { sendEmail } from '@/lib/resend';
+import { sendBroadcastEmail } from '@/lib/email';
 import { sendTelegramMessage } from '@/lib/telegram';
 import { logActivity, LOG_ACTIONS } from '@/lib/activity-log';
 
@@ -190,23 +191,11 @@ async function processBroadcast(broadcastId: string) {
         // Send logic
         for (const user of users) {
             try {
-                await sendEmail({
+                await sendBroadcastEmail({
                     to: user.email,
-                    toName: user.name || 'User',
+                    customerName: user.name || 'عميلنا العزيز',
                     subject: broadcast.subject,
-                    html: `
-                        <div dir="rtl" style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #334155;">
-                            <div style="background: #0ea5e9; padding: 40px; border-radius: 20px 20px 0 0; text-align: center;">
-                                <h1 style="color: white; margin: 0; font-size: 28px;">${platformSettings.platformName}</h1>
-                            </div>
-                            <div style="background: #ffffff; padding: 40px; border-radius: 0 0 20px 20px; border: 1px solid #e2e8f0; border-top: none;">
-                                <p style="font-size: 18px;">مرحباً <strong>${user.name}</strong>،</p>
-                                <div style="line-height: 1.8; font-size: 16px; margin: 25px 0; color: #475569; white-space: pre-wrap;">${broadcast.content}</div>
-                                <hr style="border: none; border-top: 1px solid #f1f5f9; margin: 30px 0;">
-                                <p style="text-align: center; color: #94a3b8; font-size: 12px;">© ${new Date().getFullYear()} ${platformSettings.platformName} - جميع الحقوق محفوظة</p>
-                            </div>
-                        </div>
-                    `
+                    content: broadcast.content
                 });
                 processed++;
             } catch (e) {
