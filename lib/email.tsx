@@ -1,11 +1,9 @@
-import { sendEmail } from './resend';
+import { sendEmail, FROM_EMAIL } from './resend';
 import OrderConfirmationEmail from '@/emails/OrderConfirmation';
 import PayoutApprovedEmail from '@/emails/PayoutApproved';
 import ManualOrderAlertEmail from '@/emails/ManualOrderAlert';
 import { emailConfig } from './email-config';
 import { Html, Head, Body, Container, Section, Text, Button, Hr, Img, Link } from '@react-email/components';
-
-const FROM_EMAIL = process.env.FROM_EMAIL || process.env.RESEND_FROM_EMAIL || 'info@manasadigital.com';
 
 // Reusable Master Layout for inline templates (Fully Responsive & UTF-8)
 export const EmailLayout = ({ children, headerTitle, headerEmoji }: { children: React.ReactNode, headerTitle?: string, headerEmoji?: string }) => (
