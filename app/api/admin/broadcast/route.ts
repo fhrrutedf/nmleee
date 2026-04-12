@@ -188,8 +188,8 @@ async function processBroadcast(broadcastId: string) {
             break;
         }
 
-        // Send logic
-        for (const user of users) {
+        // Send logic - Concurrent execution to prevent Vercel Serverless 10s timeout
+        const emailPromises = users.map(async (user) => {
             try {
                 await sendBroadcastEmail({
                     to: user.email,
@@ -197,11 +197,15 @@ async function processBroadcast(broadcastId: string) {
                     subject: broadcast.subject,
                     content: broadcast.content
                 });
-                processed++;
+                return true;
             } catch (e) {
                 console.error(`Failed to send broadcast to ${user.email}`, e);
+                return false;
             }
-        }
+        });
+
+        const results = await Promise.all(emailPromises);
+        processed += results.filter(Boolean).length;
 
         lastId = users[users.length - 1].id;
         
