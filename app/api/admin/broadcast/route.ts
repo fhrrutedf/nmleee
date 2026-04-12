@@ -124,25 +124,21 @@ export async function PATCH(req: NextRequest) {
     }
 }
 
-/**
- * دالة معالجة البث (Iterative Batch Processing)
- * Note: In a production environment, this should be called by a CRON job at /api/cron/process-broadcasts
- */
 async function processBroadcast(broadcastId: string) {
-    const broadcast = await prisma.broadcast.findUnique({
-        where: { id: broadcastId },
-        status: 'PENDING'
-    } as any);
+    try {
+        const broadcast = await prisma.broadcast.findUnique({
+            where: { id: broadcastId }
+        });
 
-    if (!broadcast) return;
+        if (!broadcast || broadcast.status !== 'PENDING') return;
 
-    // Update status to SENDING
-    await prisma.broadcast.update({
-        where: { id: broadcastId },
-        data: { status: 'SENDING' }
-    });
+        // Update status to SENDING
+        await prisma.broadcast.update({
+            where: { id: broadcastId },
+            data: { status: 'SENDING' }
+        });
 
-    const platformSettings = await prisma.platformSettings.findFirst() || { platformName: 'منصتك الرقمية' };
+        const platformSettings = await prisma.platformSettings.findFirst() || { platformName: 'منصتك الرقمية' };
 
     // 3. Define where filter based on criteria
     const target = (broadcast as any).recipientCriteria;
@@ -223,4 +219,12 @@ async function processBroadcast(broadcastId: string) {
         where: { id: broadcastId },
         data: { status: 'COMPLETED', updatedAt: new Date() }
     });
+    } catch (e: any) {
+        console.error('[PROCESS_BROADCAST_ERROR]', e);
+        // Mark as failed if possible
+        await prisma.broadcast.update({
+            where: { id: broadcastId },
+            data: { status: 'CANCELLED' }
+        }).catch(() => {});
+    }
 }
