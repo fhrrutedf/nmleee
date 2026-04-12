@@ -3,36 +3,36 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
 
+/**
+ * GET /api/admin/customers — Global CRM for the Website Owner
+ */
 export async function GET(req: NextRequest) {
     try {
         const session = await getServerSession(authOptions);
-
-        if (!session || !(session.user as any)?.id) {
+        if (!session?.user?.email) {
             return NextResponse.json({ error: 'غير مصرح' }, { status: 401 });
         }
 
-        const sellerId = (session.user as any).id;
+        const admin = await prisma.user.findUnique({
+            where: { email: session.user.email },
+            select: { role: true },
+        });
+
+        if (admin?.role !== 'ADMIN') {
+            return NextResponse.json({ error: 'غير مصرح' }, { status: 403 });
+        }
+
         const { searchParams } = new URL(req.url);
-        
-        // Filters
-        const productId = searchParams.get('productId');
+        const sellerId = searchParams.get('sellerId');
         const startDate = searchParams.get('startDate');
         const endDate = searchParams.get('endDate');
 
         const where: any = {
-            sellerId,
             status: 'PAID',
         };
 
-        if (productId) {
-            where.items = {
-                some: {
-                    OR: [
-                        { productId },
-                        { courseId: productId }
-                    ]
-                }
-            };
+        if (sellerId) {
+            where.sellerId = sellerId;
         }
 
         if (startDate || endDate) {
@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
             if (endDate) where.createdAt.lte = new Date(endDate);
         }
 
-        // Fetch orders with buyer info
+        // Fetch orders with buyer and seller info
         const orders = await prisma.order.findMany({
             where,
             include: {
@@ -54,11 +54,14 @@ export async function GET(req: NextRequest) {
                         createdAt: true,
                     }
                 },
+                seller: {
+                    select: {
+                        name: true,
+                        username: true,
+                    }
+                },
                 items: {
                     select: {
-                        id: true,
-                        productId: true,
-                        courseId: true,
                         product: { select: { title: true } },
                         course: { select: { title: true } }
                     }
@@ -67,7 +70,7 @@ export async function GET(req: NextRequest) {
             orderBy: { createdAt: 'desc' },
         });
 
-        // Group by buyer (using email or id)
+        // Group by buyer
         const customerMap = new Map();
 
         orders.forEach((order) => {
@@ -83,7 +86,7 @@ export async function GET(req: NextRequest) {
                     totalSpent: 0,
                     firstPurchase: order.createdAt,
                     lastPurchase: order.createdAt,
-                    products: new Set<string>(),
+                    associatedSellers: new Set<string>(),
                 });
             }
 
@@ -92,23 +95,21 @@ export async function GET(req: NextRequest) {
             customer.totalSpent += order.totalAmount;
             customer.lastPurchase = order.createdAt;
             
-            order.items.forEach(item => {
-                if (item.product?.title) customer.products.add(item.product.title);
-                if (item.course?.title) customer.products.add(item.course.title);
-            });
+            if (order.seller?.name) {
+                customer.associatedSellers.add(order.seller.name);
+            }
         });
 
         const customers = Array.from(customerMap.values()).map(c => ({
             ...c,
-            products: Array.from(c.products),
+            associatedSellers: Array.from(c.associatedSellers),
         }));
 
-        // Sort by total spent by default
         customers.sort((a, b) => b.totalSpent - a.totalSpent);
 
         return NextResponse.json(customers);
     } catch (error) {
-        console.error('Error fetching customers:', error);
+        console.error('Error fetching admin customers:', error);
         return NextResponse.json({ error: 'حدث خطأ في النظام' }, { status: 500 });
     }
 }
