@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
-import { Resend } from 'resend';
+import { sendEmail } from '@/lib/resend';
 import { sendTelegramMessage } from '@/lib/telegram';
 import { logActivity, LOG_ACTIONS } from '@/lib/activity-log';
 
@@ -73,15 +73,15 @@ export async function POST(req: NextRequest) {
             `📢 <b>تم جدولة بث جماعي!</b>\n━━━━━━━━━━━━━━\n📋 <b>العنوان:</b> ${subject}\n👥 <b>المستهدف:</b> ${target} (${totalCount} مستخدم)\n⏰ <b>الموعد:</b> ${broadcastJob.scheduledAt.toLocaleString('ar-SA')}`
         );
 
-        // IMMEDIATE BACKGROUND PROCESSING (Since no CRON is established)
-        // This will process silently in the server background without blocking the UX
-        processBroadcast(broadcastJob.id).catch(err => console.error('Background Broadcast Error:', err));
+        // IMMEDIATE ON-DEMAND PROCESSING (Wait for completion to prevent serverless kill)
+        // Since the list is currently small, we await it. For millions of users, a queue is required.
+        await processBroadcast(broadcastJob.id);
 
         // Instant Response (UX Fix)
         return NextResponse.json({
             success: true,
             jobId: broadcastJob.id,
-            message: `تمت جدولة البث لـ ${totalCount} مستخدم بنجاح. سيبدأ الإرسال فوراً في الخلفية.`,
+            message: `تم البث بنجاح لـ ${totalCount} مستخدم.`,
         });
 
     } catch (error) {
@@ -141,9 +141,7 @@ async function processBroadcast(broadcastId: string) {
         data: { status: 'SENDING' }
     });
 
-    const resend = new Resend(process.env.RESEND_API_KEY!);
     const platformSettings = await prisma.platformSettings.findFirst() || { platformName: 'منصتك الرقمية' };
-    const FROM = process.env.RESEND_FROM_EMAIL || 'no-reply@manasadigital.com';
 
     // 3. Define where filter based on criteria
     const target = (broadcast as any).recipientCriteria;
@@ -192,9 +190,9 @@ async function processBroadcast(broadcastId: string) {
         // Send logic
         for (const user of users) {
             try {
-                await resend.emails.send({
-                    from: FROM,
+                await sendEmail({
                     to: user.email,
+                    toName: user.name || 'User',
                     subject: broadcast.subject,
                     html: `
                         <div dir="rtl" style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #334155;">
