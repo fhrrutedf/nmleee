@@ -45,9 +45,14 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
             return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
         }
 
+        const updateData: any = { ...body };
+        if (updateData.publishedAt) {
+            updateData.publishedAt = new Date(updateData.publishedAt);
+        }
+
         const updatedPost = await prisma.blogPost.update({
             where: { slug },
-            data: body,
+            data: updateData,
         });
 
         return NextResponse.json(updatedPost);

@@ -1481,11 +1481,15 @@ model BlogPost {
   slug        String   @unique
   content     String   // Since it's Postgres, String is TEXT unlimited by default, or we can use db.Text, Prisma handles it as text.
   excerpt     String?
+  metaDescription String? // SEO Meta description
   coverImage  String?
   category    String?
+  categoryId  String?   // Relation or categorical id
   authorName  String?
   tags        String[] @default([])
   status      PostStatus @default(DRAFT)
+  publishedAt DateTime? // Schedule publication
+  viewsCount  Int      @default(0) // Track views
 
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -1500,6 +1504,7 @@ model BlogPost {
 enum PostStatus {
   DRAFT
   PUBLISHED
+  SCHEDULED
 }
 
 enum CourseStatus {

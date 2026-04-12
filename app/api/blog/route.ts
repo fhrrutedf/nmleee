@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
         const user = session.user as any;
         const body = await request.json();
 
-        const { title, slug, content, excerpt, coverImage, category, tags, status } = body;
+        const { title, slug, content, excerpt, coverImage, category, categoryId, tags, status, metaDescription, publishedAt } = body;
 
         if (!title || !slug || !content) {
             return NextResponse.json({ error: 'Title, slug, and content are required' }, { status: 400 });
@@ -75,8 +75,11 @@ export async function POST(request: NextRequest) {
                 excerpt,
                 coverImage,
                 category,
+                categoryId,
                 tags: tags || [],
                 status: status || 'DRAFT',
+                metaDescription,
+                publishedAt: publishedAt ? new Date(publishedAt) : null,
                 authorName: user.name || '',
                 userId: user.id,
             },
