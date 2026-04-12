@@ -72,6 +72,7 @@ export default function DashboardLayout({
         { href: '/dashboard/appointments', icon: FiCalendar, label: 'المواعيد والحجز', section: 'sales' },
         { href: '/dashboard/earnings', icon: FiDollarSign, label: 'السحب والتحصيل', section: 'sales' },
         { href: '/dashboard/students', icon: FiUsers, label: 'الطلاب والمتعلمين', section: 'sales' },
+        { href: '/dashboard/seller/customers', icon: FiActivity, label: 'نظام إدارة العملاء (CRM)', section: 'sales' },
         
         // 🚀 Marketing (Coupons + Affiliates + Automation)
         { href: '/dashboard/coupons', icon: FiTag, label: 'أكواد الخصم', section: 'marketing' },
@@ -92,6 +93,7 @@ export default function DashboardLayout({
         { href: '/dashboard/admin/orders', icon: FiTrendingUp, label: 'المركز المالي (المبيعات)', type: 'admin' },
         { href: '/dashboard/admin/payouts', icon: FiDollarSign, label: 'سحوبات المدربين', type: 'admin' },
         { href: '/dashboard/admin/broadcast', icon: FiZap, label: '🚀 البث الجماعي', type: 'admin' },
+        { href: '/admin/customers', icon: FiUser, label: '🔍 قاعدة بيانات العملاء (CRM)', type: 'admin' },
         { href: '/dashboard/admin/blog', icon: FiBookOpen, label: 'إدارة المدونة', type: 'admin' },
         { href: '/dashboard/admin/platform-settings', icon: FiSettings, label: 'إعدادات المنصة', type: 'admin' },
     ];
