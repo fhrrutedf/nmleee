@@ -97,7 +97,7 @@ export default function EarningsDashboard() {
     const [showWithdrawModal, setShowWithdrawModal] = useState(false);
     const [withdrawAmount, setWithdrawAmount] = useState('');
     const [submitting, setSubmitting] = useState(false);
-    const [activeTab, setActiveTab] = useState<'overview' | 'history' | 'schedule'>('overview');
+    const [activeTab, setActiveTab] = useState<'overview' | 'history' | 'schedule' | 'transactions'>('overview');
 
     // ── Fetch earnings data ─────────────────────────────────
     const fetchData = useCallback(async (silent = false) => {
