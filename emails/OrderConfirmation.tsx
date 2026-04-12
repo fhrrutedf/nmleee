@@ -32,15 +32,18 @@ export default function OrderConfirmationEmail({ customerName = 'العميل', 
                             <Section style={{ margin: '20px 0', backgroundColor: emailConfig.theme.background, padding: '20px', borderRadius: '12px', border: `1px solid ${emailConfig.theme.border}` }}>
                                 <Text style={{ fontSize: '16px', fontWeight: 'bold', color: emailConfig.theme.textMain, margin: '0 0 15px' }}>المنتجات:</Text>
                                 {items.map((item, idx) => (
-                                    <Section key={idx} style={{ margin: '8px 0' }}>
-                                        <Text style={{ fontSize: '15px', color: emailConfig.theme.textMain, margin: '0', lineHeight: '24px' }}>
-                                            • {item.title} <span style={{ fontWeight: 'bold', color: emailConfig.theme.primaryDark }}>${item.price.toFixed(2)}</span>
-                                            {item.link && (
-                                                <Link href={item.link} style={{ marginRight: '10px', backgroundColor: emailConfig.theme.primary, color: '#fff', padding: '4px 10px', borderRadius: '6px', textDecoration: 'none', fontSize: '12px', fontWeight: 'bold' }}>
-                                                    تحميل / الدخول للمحتوى
-                                                </Link>
-                                            )}
+                                    <Section key={idx} style={{ margin: '15px 0', padding: '20px', backgroundColor: '#ffffff', borderRadius: '12px', border: `1px solid ${emailConfig.theme.border}`, boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
+                                        <Text style={{ fontSize: '18px', fontWeight: 'bold', color: emailConfig.theme.textMain, margin: '0 0 8px' }}>
+                                            📦 {item.title}
                                         </Text>
+                                        <Text style={{ fontSize: '15px', color: emailConfig.theme.primaryDark, fontWeight: 'bold', margin: '0 0 20px' }}>
+                                            السعر: ${item.price.toFixed(2)}
+                                        </Text>
+                                        {item.link && (
+                                            <Button href={item.link} style={{ backgroundColor: emailConfig.theme.primary, borderRadius: '10px', color: '#ffffff', fontSize: '16px', fontWeight: 'bold', textDecoration: 'none', textAlign: 'center' as const, display: 'block', padding: '16px 24px', width: '100%', boxSizing: 'border-box' }}>
+                                                {item.link.includes('download') ? '📥 تحميل الملف الآن' : '🎓 الدخول للدورة الآن'}
+                                            </Button>
+                                        )}
                                     </Section>
                                 ))}
                                 <Hr style={{ borderColor: emailConfig.theme.border, margin: '15px 0' }} />
