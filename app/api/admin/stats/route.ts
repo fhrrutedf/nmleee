@@ -31,6 +31,8 @@ export async function GET() {
             pendingPayouts,
             pendingManualOrders,
             totalUsers,
+            totalSellers,
+            totalProducts,
             totalCourses,
             pendingVerifications,
             planDistributionRaw,
