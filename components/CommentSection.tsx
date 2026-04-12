@@ -87,8 +87,34 @@ export default function CommentSection({ lessonId, comments: initialComments, on
     };
 
     const likeComment = async (commentId: string) => {
-        // TODO: Implement like API
-        console.log('Like comment:', commentId);
+        // Optimistic UI update
+        setComments((prev) =>
+            prev.map((c) =>
+                c.id === commentId ? { ...c, likes: c.likes + 1 } : {
+                    ...c,
+                    replies: c.replies?.map((r) =>
+                        r.id === commentId ? { ...r, likes: r.likes + 1 } : r
+                    ),
+                }
+            )
+        );
+
+        try {
+            await fetch(`/api/comments/${commentId}/like`, { method: 'POST' });
+        } catch (error) {
+            console.error('Error liking comment:', error);
+            // Revert optimistic update on failure
+            setComments((prev) =>
+                prev.map((c) =>
+                    c.id === commentId ? { ...c, likes: Math.max(0, c.likes - 1) } : {
+                        ...c,
+                        replies: c.replies?.map((r) =>
+                            r.id === commentId ? { ...r, likes: Math.max(0, r.likes - 1) } : r
+                        ),
+                    }
+                )
+            );
+        }
     };
 
     const formatDate = (dateString: string) => {

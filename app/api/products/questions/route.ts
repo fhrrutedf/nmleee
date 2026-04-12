@@ -80,7 +80,16 @@ export async function POST(request: Request) {
             }
         });
 
-        // TODO: Send notification to seller
+        // Send notification to seller
+        await prisma.notification.create({
+            data: {
+                type: 'INTERNAL',
+                title: 'سؤال جديد عن منتجك',
+                content: `تلقيت سؤالاً جديداً من ${question.askerName} بخصوص المنتج "${product.title}".`,
+                receiverId: product.userId,
+                receiverEmail: product.user?.email, // Assuming user is included
+            }
+        });
 
         return NextResponse.json({ question, message: 'تم إرسال السؤال بنجاح' });
     } catch (error) {

@@ -23,6 +23,9 @@ export default function EditCoursePage() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [modules, setModules] = useState<any[]>([]);
+    const [students, setStudents] = useState<any[]>([]);
+    const [studentsLoading, setStudentsLoading] = useState(false);
+    const [studentsStats, setStudentsStats] = useState({ total: 0, completed: 0 });
 
     // Upload Toggles
     const [showCoverUploader, setShowCoverUploader] = useState(false);
@@ -63,6 +66,28 @@ export default function EditCoursePage() {
         fetchCourse();
         fetchModules();
     }, [courseId]);
+
+    useEffect(() => {
+        if (activeTab === 'students' && students.length === 0) {
+            fetchStudents();
+        }
+    }, [activeTab]);
+
+    const fetchStudents = async () => {
+        setStudentsLoading(true);
+        try {
+            const res = await fetch(`/api/courses/${courseId}/students`);
+            if (res.ok) {
+                const data = await res.json();
+                setStudents(data.students || []);
+                setStudentsStats({ total: data.total || 0, completed: data.completed || 0 });
+            }
+        } catch (err) {
+            console.error('Error fetching students:', err);
+        } finally {
+            setStudentsLoading(false);
+        }
+    };
 
     const fetchCourse = async () => {
         try {
@@ -479,12 +504,122 @@ export default function EditCoursePage() {
                     )}
 
                     {activeTab === 'students' && (
-                        <div className="bg-[#0A0A0A] rounded-xl p-16 text-center border-2 border-dashed border-emerald-500/20 shadow-lg shadow-[#10B981]/20">
-                             <div className="w-20 h-20 bg-[#0A0A0A] text-primary-ink rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-[#10B981]/20">
-                                <FiUsers size={32} />
-                             </div>
-                             <h3 className="text-xl font-bold text-white mb-2">إدارة الطلاب والمشتركين</h3>
-                             <p className="text-slate-400 font-bold max-w-sm mx-auto text-sm leading-relaxed">قريباً ستتمكن من رؤية قائمة بأسماء الطلاب الذين اشتروا هذا الكورس ومتابعة مستوى تقدمهم في كل فصل.</p>
+                        <div className="space-y-6">
+                            {/* Stats Cards */}
+                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                                <div className="bg-[#0A0A0A] rounded-xl border border-white/10 p-5 shadow-lg shadow-[#10B981]/20">
+                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">إجمالي الطلاب</p>
+                                    <p className="text-3xl font-bold text-white mt-2">{studentsStats.total}</p>
+                                </div>
+                                <div className="bg-[#0A0A0A] rounded-xl border border-white/10 p-5 shadow-lg shadow-[#10B981]/20">
+                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">أتموا الدورة</p>
+                                    <p className="text-3xl font-bold text-emerald-400 mt-2">{studentsStats.completed}</p>
+                                </div>
+                                <div className="bg-[#0A0A0A] rounded-xl border border-white/10 p-5 shadow-lg shadow-[#10B981]/20">
+                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">قيد التعلم</p>
+                                    <p className="text-3xl font-bold text-amber-400 mt-2">{studentsStats.total - studentsStats.completed}</p>
+                                </div>
+                                <div className="bg-[#0A0A0A] rounded-xl border border-white/10 p-5 shadow-lg shadow-[#10B981]/20">
+                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">معدل الإنجاز</p>
+                                    <p className="text-3xl font-bold text-sky-400 mt-2">
+                                        {studentsStats.total > 0
+                                            ? Math.round((studentsStats.completed / studentsStats.total) * 100)
+                                            : 0}%
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Students Table */}
+                            <div className="bg-[#0A0A0A] rounded-xl border border-white/10 shadow-lg shadow-[#10B981]/20 overflow-hidden">
+                                <div className="p-6 border-b border-white/10 flex items-center justify-between">
+                                    <h2 className="text-base font-bold text-white flex items-center gap-2">
+                                        <FiUsers className="text-emerald-400" />
+                                        قائمة الطلاب المسجلين
+                                    </h2>
+                                    <button
+                                        onClick={fetchStudents}
+                                        className="text-xs text-slate-400 hover:text-white transition-colors px-3 py-1.5 rounded-lg border border-white/10 hover:border-emerald-500/30"
+                                    >
+                                        تحديث
+                                    </button>
+                                </div>
+
+                                {studentsLoading ? (
+                                    <div className="flex items-center justify-center py-20">
+                                        <div className="w-10 h-10 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin" />
+                                    </div>
+                                ) : students.length === 0 ? (
+                                    <div className="text-center py-20">
+                                        <FiUsers size={40} className="mx-auto text-slate-600 mb-4" />
+                                        <p className="text-slate-400 font-bold">لا يوجد طلاب مسجلون بعد</p>
+                                    </div>
+                                ) : (
+                                    <div className="overflow-x-auto">
+                                        <table className="w-full text-sm" dir="rtl">
+                                            <thead>
+                                                <tr className="border-b border-white/10 bg-[#111111]/50">
+                                                    <th className="text-right px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">الطالب</th>
+                                                    <th className="text-right px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">التقدم</th>
+                                                    <th className="text-right px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">الدروس</th>
+                                                    <th className="text-right px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">الحالة</th>
+                                                    <th className="text-right px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">تاريخ التسجيل</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-white/5">
+                                                {students.map((student: any) => (
+                                                    <tr key={student.id} className="hover:bg-[#111111]/40 transition-colors">
+                                                        <td className="px-6 py-4">
+                                                            <div className="flex items-center gap-3">
+                                                                <div className="w-9 h-9 rounded-xl bg-emerald-700 flex items-center justify-center text-white font-bold text-sm shrink-0">
+                                                                    {student.studentName?.charAt(0) || '?'}
+                                                                </div>
+                                                                <div>
+                                                                    <p className="font-bold text-white text-xs">{student.studentName}</p>
+                                                                    <p className="text-slate-500 text-[10px]">{student.studentEmail}</p>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td className="px-6 py-4">
+                                                            <div className="flex items-center gap-3 min-w-[120px]">
+                                                                <div className="flex-1 bg-white/10 rounded-full h-1.5">
+                                                                    <div
+                                                                        className="bg-emerald-500 h-1.5 rounded-full transition-all"
+                                                                        style={{ width: `${Math.min(student.progress, 100)}%` }}
+                                                                    />
+                                                                </div>
+                                                                <span className="text-[11px] font-bold text-slate-300 shrink-0">{student.progress}%</span>
+                                                            </div>
+                                                        </td>
+                                                        <td className="px-6 py-4 text-xs text-slate-300 font-bold">
+                                                            {student.completedLessons} / {student.totalLessons}
+                                                        </td>
+                                                        <td className="px-6 py-4">
+                                                            {student.isCompleted ? (
+                                                                <span className="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">
+                                                                    ✅ مكتمل
+                                                                </span>
+                                                            ) : student.progress > 0 ? (
+                                                                <span className="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-amber-500/15 text-amber-400 border border-amber-500/20">
+                                                                    📚 قيد التعلم
+                                                                </span>
+                                                            ) : (
+                                                                <span className="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-500/15 text-slate-400 border border-slate-500/20">
+                                                                    لم يبدأ
+                                                                </span>
+                                                            )}
+                                                        </td>
+                                                        <td className="px-6 py-4 text-[11px] text-slate-500">
+                                                            {student.enrolledAt
+                                                                ? new Date(student.enrolledAt).toLocaleDateString('ar-EG')
+                                                                : '-'}
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     )}
                 </motion.div>

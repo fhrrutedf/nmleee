@@ -42,7 +42,13 @@ export async function POST(
             return NextResponse.json({ error: 'السحب تمت معالجته بالفعل' }, { status: 400 });
         }
 
-        // Update payout status
+        // Get admin user id for audit trail
+        const adminUser = await prisma.user.findUnique({
+            where: { email: session.user.email },
+            select: { id: true },
+        });
+
+        // Update payout status with full audit trail
         await prisma.payout.update({
             where: { id: payoutId },
             data: {
@@ -51,6 +57,9 @@ export async function POST(
                 adminNotes,
                 processedAt: new Date(),
                 completedAt: new Date(),
+                paidAt: new Date(),
+                approvedBy: adminUser?.id ?? null,
+                approvedAt: new Date(),
             },
         });
 
@@ -68,7 +77,17 @@ export async function POST(
             },
         });
 
-        // TODO: Send notification to seller
+        // Send notification to seller
+        await prisma.notification.create({
+            data: {
+                type: 'INTERNAL',
+                title: 'تمت الموافقة على طلب السحب',
+                content: `تمت الموافقة على طلب السحب الخاص بك بقيمة $${payout.amount} ونعمل على تحويل المبلغ بنجاح.`,
+                receiverId: payout.sellerId,
+                receiverEmail: payout.seller.email,
+            }
+        });
+
         // TODO: Actually process the payment via bank/PayPal/crypto
 
         return NextResponse.json({ success: true });

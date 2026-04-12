@@ -5,6 +5,7 @@ import { prisma } from '@/lib/db';
 import { sendTelegramMessage, newOrderMessage } from '@/lib/telegram';
 import { sendManualOrderApproved } from '@/lib/email';
 import { markCartConverted, triggerWelcomeEmail, triggerSellerNotification } from '@/lib/automation-helpers';
+import { processPaymentCommission } from '@/lib/commission';
 
 export async function POST(
     req: NextRequest,
@@ -55,16 +56,9 @@ export async function POST(
             },
         });
 
-        // Update seller balance
-        if (order.sellerId) {
-            await prisma.user.update({
-                where: { id: order.sellerId },
-                data: {
-                    pendingBalance: { increment: order.sellerAmount },
-                    totalEarnings: { increment: order.sellerAmount },
-                },
-            });
-        }
+        // 2. Process financial commission using the central engine
+        // This handles: referral splits, tiered platform fees, and atomic balance updates
+        await processPaymentCommission(orderId);
 
         // Auto-generate Invoice
         const seller = order.sellerId ? await prisma.user.findUnique({

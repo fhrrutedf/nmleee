@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
     FiDollarSign,
     FiSearch,
@@ -11,7 +11,9 @@ import {
     FiCheckCircle,
     FiXCircle,
     FiClock,
-    FiCreditCard
+    FiCreditCard,
+    FiAlertTriangle,
+    FiLoader
 } from 'react-icons/fi';
 
 interface PayoutData {
@@ -52,6 +54,18 @@ export default function PayoutsManagement() {
     const [statusFilter, setStatusFilter] = useState('ALL');
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [actionLoading, setActionLoading] = useState<string | null>(null);
+
+    // Modal state
+    const [modal, setModal] = useState<{
+        open: boolean;
+        payoutId: string;
+        action: 'APPROVE' | 'REJECT';
+        payoutAmount: number;
+        sellerName: string;
+        transactionId: string;
+        rejectionReason: string;
+    }>({ open: false, payoutId: '', action: 'APPROVE', payoutAmount: 0, sellerName: '', transactionId: '', rejectionReason: '' });
 
     // Stats
     const [stats, setStats] = useState({
@@ -99,8 +113,48 @@ export default function PayoutsManagement() {
         fetchPayouts();
     };
 
-    const handlePayoutAction = async (payoutId: string, action: 'APPROVE' | 'REJECT') => {
-        alert(`جاري العمل على هذه الميزة: ${action === 'APPROVE' ? 'الموافقة على' : 'رفض'} طلب السحب ${payoutId}`);
+    const openModal = (payout: PayoutData, action: 'APPROVE' | 'REJECT') => {
+        setModal({
+            open: true,
+            payoutId: payout.id,
+            action,
+            payoutAmount: payout.amount,
+            sellerName: payout.user.name,
+            transactionId: '',
+            rejectionReason: '',
+        });
+    };
+
+    const handlePayoutAction = async () => {
+        const { payoutId, action, transactionId, rejectionReason } = modal;
+        setActionLoading(payoutId);
+        try {
+            const endpoint = action === 'APPROVE'
+                ? `/api/admin/payouts/${payoutId}/approve`
+                : `/api/admin/payouts/${payoutId}/reject`;
+
+            const body = action === 'APPROVE'
+                ? { transactionId: transactionId || undefined, adminNotes: undefined }
+                : { rejectionReason: rejectionReason || 'غير محدد' };
+
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+                setModal(m => ({ ...m, open: false }));
+                fetchPayouts(); // Refresh table
+            } else {
+                alert(`❌ خطأ: ${data.error || 'حدث خطأ غير متوقع'}`);
+            }
+        } catch (error) {
+            alert('❌ فشل الاتصال بالخادم');
+        } finally {
+            setActionLoading(null);
+        }
     };
 
     const formatDate = (dateString: string) => {
@@ -135,10 +189,16 @@ export default function PayoutsManagement() {
 
     const getMethodDisplay = (method: string, details: any) => {
         switch (method) {
-            case 'paypal': return <span><span className="font-bold">PayPal:</span> {details?.paypalEmail || ''}</span>;
-            case 'bank': return <span><span className="font-bold">حساب بنكي:</span> {details?.accountName} - {details?.bankName} ({details?.accountNumber})</span>;
-            case 'crypto': return <span><span className="font-bold">عملات رقمية:</span> {details?.cryptoWallet}</span>;
-            default: return <span className="uppercase">{method}</span>;
+            case 'paypal': return <span><span className="font-bold text-blue-400">PayPal:</span> {details?.paypalEmail || ''}</span>;
+            case 'bank': return <span><span className="font-bold text-emerald-400">بنكي:</span> {details?.accountName} — {details?.bankName} ({details?.accountNumber})</span>;
+            case 'crypto': return <span><span className="font-bold text-yellow-400">Crypto:</span> {details?.cryptoWallet}</span>;
+            case 'shamcash': return <span><span className="font-bold text-orange-400">شام كاش:</span> {details?.number || details?.phone || ''}</span>;
+            case 'omt': return <span><span className="font-bold text-purple-400">OMT:</span> {details?.number || details?.phone || ''}</span>;
+            case 'zaincash': return <span><span className="font-bold text-red-400">زين كاش:</span> {details?.number || details?.phone || ''}</span>;
+            case 'vodafone': return <span><span className="font-bold text-red-500">فودافون كاش:</span> {details?.number || details?.phone || ''}</span>;
+            case 'mtncash': return <span><span className="font-bold text-yellow-500">MTN كاش:</span> {details?.number || details?.phone || ''}</span>;
+            case 'syriatel': return <span><span className="font-bold text-orange-500">سيريتل كاش:</span> {details?.number || details?.phone || ''}</span>;
+            default: return <span className="uppercase text-gray-400 bg-gray-800 px-2 py-0.5 rounded text-[10px]">{method}</span>;
         }
     };
 
@@ -293,22 +353,24 @@ export default function PayoutsManagement() {
                                                 {payout.status === 'PENDING' ? (
                                                     <div className="flex items-center justify-center gap-2">
                                                         <button
-                                                            onClick={() => handlePayoutAction(payout.id, 'APPROVE')}
-                                                            className="px-3 py-1.5 rounded-lg text-xs font-bold bg-green-500 text-white hover:bg-green-600 transition-colors shadow-lg shadow-[#10B981]/20 shadow-green-500/20"
-                                                            title="اعتماد وجاري التحويل"
+                                                            onClick={() => openModal(payout, 'APPROVE')}
+                                                            disabled={actionLoading === payout.id}
+                                                            className="px-3 py-1.5 rounded-lg text-xs font-bold bg-green-500 text-white hover:bg-green-600 transition-colors shadow-lg shadow-green-500/20 disabled:opacity-50"
+                                                            title="اعتماد وتحويل المبلغ"
                                                         >
-                                                            <FiCheckCircle className="inline mr-1" /> اعتماد
+                                                            {actionLoading === payout.id ? <FiLoader className="inline animate-spin" /> : <FiCheckCircle className="inline mr-1" />} اعتماد
                                                         </button>
                                                         <button
-                                                            onClick={() => handlePayoutAction(payout.id, 'REJECT')}
-                                                            className="px-3 py-1.5 rounded-lg text-xs font-bold text-red-500 bg-red-500/100/10 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 transition-colors"
+                                                            onClick={() => openModal(payout, 'REJECT')}
+                                                            disabled={actionLoading === payout.id}
+                                                            className="px-3 py-1.5 rounded-lg text-xs font-bold text-red-400 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 transition-colors disabled:opacity-50"
                                                             title="رفض الطلب"
                                                         >
                                                             <FiXCircle className="inline mr-1" /> رفض
                                                         </button>
                                                     </div>
                                                 ) : (
-                                                    <span className="text-xs font-bold text-gray-300 dark:text-gray-400 uppercase tracking-widest">مغلق</span>
+                                                    <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">{payout.status === 'COMPLETED' ? '✅ مكتمل' : payout.status === 'REJECTED' ? '❌ مرفوض' : payout.status}</span>
                                                 )}
                                             </td>
                                         </motion.tr>
@@ -344,6 +406,94 @@ export default function PayoutsManagement() {
                     </div>
                 )}
             </motion.div>
+
+            {/* Action Confirmation Modal */}
+            <AnimatePresence>
+                {modal.open && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+                        onClick={() => setModal(m => ({ ...m, open: false }))}
+                    >
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                            className={`bg-[#111111] border rounded-2xl shadow-2xl p-8 max-w-md w-full ${
+                                modal.action === 'APPROVE' ? 'border-green-500/30' : 'border-red-500/30'
+                            }`}
+                            onClick={e => e.stopPropagation()}
+                        >
+                            {/* Icon */}
+                            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 ${
+                                modal.action === 'APPROVE' ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400'
+                            }`}>
+                                {modal.action === 'APPROVE' ? <FiCheckCircle size={32} /> : <FiAlertTriangle size={32} />}
+                            </div>
+
+                            <h3 className="text-xl font-bold text-white text-center mb-2">
+                                {modal.action === 'APPROVE' ? '✅ اعتماد طلب السحب' : '❌ رفض طلب السحب'}
+                            </h3>
+                            <p className="text-gray-400 text-center text-sm mb-6">
+                                {modal.action === 'APPROVE'
+                                    ? `سيتم اعتماد سحب $${modal.payoutAmount.toFixed(2)} للمبدع ${modal.sellerName}`
+                                    : `سيتم رفض طلب سحب $${modal.payoutAmount.toFixed(2)} وإعادة المبلغ لرصيد ${modal.sellerName}`
+                                }
+                            </p>
+
+                            {modal.action === 'APPROVE' ? (
+                                <div className="mb-6">
+                                    <label className="block text-xs font-bold text-gray-400 mb-2">رقم المعاملة / Transaction ID (اختياري)</label>
+                                    <input
+                                        type="text"
+                                        placeholder="TXN-XXXXXXXX"
+                                        value={modal.transactionId}
+                                        onChange={e => setModal(m => ({ ...m, transactionId: e.target.value }))}
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-green-500/50"
+                                    />
+                                </div>
+                            ) : (
+                                <div className="mb-6">
+                                    <label className="block text-xs font-bold text-gray-400 mb-2">سبب الرفض *</label>
+                                    <textarea
+                                        placeholder="مثال: بيانات التحويل غير صحيحة، أو الرصيد تحت الحد الأدنى..."
+                                        value={modal.rejectionReason}
+                                        onChange={e => setModal(m => ({ ...m, rejectionReason: e.target.value }))}
+                                        rows={3}
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-red-500/50 resize-none"
+                                    />
+                                </div>
+                            )}
+
+                            <div className="flex gap-3">
+                                <button
+                                    onClick={() => setModal(m => ({ ...m, open: false }))}
+                                    className="flex-1 py-3 rounded-xl border border-white/10 text-gray-400 hover:bg-white/5 transition-colors text-sm font-bold"
+                                >
+                                    إلغاء
+                                </button>
+                                <button
+                                    onClick={handlePayoutAction}
+                                    disabled={!!actionLoading || (modal.action === 'REJECT' && !modal.rejectionReason.trim())}
+                                    className={`flex-1 py-3 rounded-xl text-sm font-bold transition-colors disabled:opacity-50 flex items-center justify-center gap-2 ${
+                                        modal.action === 'APPROVE'
+                                            ? 'bg-green-500 text-white hover:bg-green-600'
+                                            : 'bg-red-500 text-white hover:bg-red-600'
+                                    }`}
+                                >
+                                    {actionLoading ? (
+                                        <><FiLoader className="animate-spin" /> جاري المعالجة...</>
+                                    ) : (
+                                        modal.action === 'APPROVE' ? '✅ تأكيد الاعتماد' : '❌ تأكيد الرفض'
+                                    )}
+                                </button>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

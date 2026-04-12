@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
@@ -32,6 +32,12 @@ interface Stats {
     totalProducts: number;
     totalCourses: number;
     pendingVerifications: number;
+    planDistribution?: {
+        FREE: number;
+        GROWTH: number;
+        PRO: number;
+        AGENCY: number;
+    };
 }
 
 interface RecentOrder {
@@ -414,6 +420,51 @@ export default function AdminDashboard() {
                                         </div>
                                     ))
                                 )}
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Seller Plan Distribution - Visual breakdown */}
+                    <motion.div variants={itemVariants} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-white/10 dark:border-gray-800 shadow-lg shadow-[#10B981]/20 overflow-hidden flex flex-col">
+                        <div className="p-6 border-b border-white/10 dark:border-gray-800 bg-[#111111]/50 dark:bg-gray-900/20">
+                            <h2 className="text-sm font-bold text-gray-400 flex items-center gap-2 uppercase tracking-widest">
+                                توزيع الاشتراكات (Sellers)
+                            </h2>
+                        </div>
+                        <div className="p-8 flex-1 flex flex-col justify-center gap-8">
+                            <div className="space-y-6">
+                                {[
+                                    { label: 'Growth', key: 'GROWTH', color: 'bg-emerald-500', textColor: 'text-emerald-500' },
+                                    { label: 'Pro', key: 'PRO', color: 'bg-purple-500', textColor: 'text-purple-500' },
+                                    { label: 'Agency', key: 'AGENCY', color: 'bg-blue-500', textColor: 'text-blue-500' },
+                                    { label: 'Free', key: 'FREE', color: 'bg-gray-600', textColor: 'text-gray-400' }
+                                ].map((plan) => {
+                                    const count = stats?.planDistribution?.[plan.key as keyof typeof stats.planDistribution] || 0;
+                                    const total = stats?.totalSellers || 1;
+                                    const percentage = Math.round((count / total) * 100);
+                                    
+                                    return (
+                                        <div key={plan.key} className="space-y-2">
+                                            <div className="flex justify-between items-end">
+                                                <span className={`text-xs font-bold ${plan.textColor}`}>{plan.label}</span>
+                                                <span className="text-xs text-gray-500 font-mono">{count} ({percentage}%)</span>
+                                            </div>
+                                            <div className="h-2 w-full bg-white/5 dark:bg-gray-100 rounded-full overflow-hidden">
+                                                <motion.div 
+                                                    initial={{ width: 0 }}
+                                                    animate={{ width: `${percentage}%` }}
+                                                    transition={{ duration: 1, ease: "easeOut" }}
+                                                    className={`h-full ${plan.color}`}
+                                                ></motion.div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            
+                            <div className="pt-6 border-t border-white/5 flex items-center justify-between">
+                                <span className="text-[10px] text-gray-500 font-bold uppercase tracking-tighter">إجمالي المبدعين النشطين</span>
+                                <span className="text-xl font-bold text-white">{stats?.totalSellers}</span>
                             </div>
                         </div>
                     </motion.div>

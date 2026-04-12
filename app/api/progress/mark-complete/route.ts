@@ -34,34 +34,74 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'ليس لديك صلاحية' }, { status: 403 });
         }
 
-        // Mark lesson as complete
-        // Note: You'll need to create a LessonProgress model first
-        // For now, we'll just return success
-
-        // TODO: Create LessonProgress record
-        /*
-        await prisma.lessonProgress.upsert({
-          where: {
-            userId_lessonId: {
-              userId: session.user.id,
-              lessonId,
-            },
-          },
-          create: {
-            userId: session.user.id,
-            lessonId,
-            courseId,
-            completed: true,
-            completedAt: new Date(),
-          },
-          update: {
-            completed: true,
-            completedAt: new Date(),
-          },
+        let enrollment = await prisma.courseEnrollment.findFirst({
+            where: {
+                courseId,
+                studentEmail: session.user.email,
+            }
         });
-        */
 
-        return NextResponse.json({ success: true });
+        if (!enrollment) {
+            enrollment = await prisma.courseEnrollment.create({
+                data: {
+                    courseId,
+                    studentEmail: session.user.email,
+                    studentName: session.user.name || 'طالب',
+                    orderId: hasAccess.id
+                }
+            });
+        }
+
+        // Mark lesson as complete
+        await prisma.lessonProgress.upsert({
+            where: {
+                lessonId_enrollmentId: {
+                    lessonId,
+                    enrollmentId: enrollment.id
+                }
+            },
+            create: {
+                lessonId,
+                enrollmentId: enrollment.id,
+                isCompleted: true,
+                lastWatchedAt: new Date()
+            },
+            update: {
+                isCompleted: true,
+                lastWatchedAt: new Date()
+            }
+        });
+
+        // Recalculate overall course progress
+        const totalLessons = await prisma.lesson.count({
+            where: { module: { courseId }, isPublished: true }
+        });
+
+        const completedLessons = await prisma.lessonProgress.count({
+            where: { enrollmentId: enrollment.id, isCompleted: true }
+        });
+
+        const progressPercent = totalLessons > 0
+            ? Math.round((completedLessons / totalLessons) * 100)
+            : 0;
+
+        const isCourseCompleted = totalLessons > 0 && completedLessons >= totalLessons;
+
+        await prisma.courseEnrollment.update({
+            where: { id: enrollment.id },
+            data: {
+                progress: progressPercent,
+                isCompleted: isCourseCompleted,
+                completedAt: isCourseCompleted ? new Date() : undefined,
+                lastAccessedAt: new Date(),
+            }
+        });
+
+        return NextResponse.json({
+            success: true,
+            progress: progressPercent,
+            isCompleted: isCourseCompleted,
+        });
     } catch (error) {
         console.error('Error marking complete:', error);
         return NextResponse.json({ error: 'حدث خطأ' }, { status: 500 });

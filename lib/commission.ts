@@ -287,7 +287,10 @@ export async function processPaymentCommission(orderId: string): Promise<void> {
     const commissionRate = getCommissionRateForPlan(seller, settings);
     
     // Step 2b: Calculate Gateway Fees (Spaceremit/Card dynamic from settings)
-    const isLocalManual = order.paymentMethod?.includes('shamcash') || order.paymentMethod?.includes('mtn');
+    const isLocalManual = order.paymentMethod === 'manual' || 
+                          order.paymentProvider?.toLowerCase().includes('sham') || 
+                          order.paymentProvider?.toLowerCase().includes('omt') || 
+                          order.paymentProvider?.toLowerCase().includes('whish');
     const gatewayFeeRate = isLocalManual ? 0 : (settings.gatewayFee ?? 2.5);
 
     const { platformFee, sellerAmount, gatewayFee } = calculateCommission(

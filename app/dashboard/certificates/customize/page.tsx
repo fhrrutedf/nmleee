@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import CertificatePreview from '@/components/CertificatePreview';
 import { FiSave, FiX } from 'react-icons/fi';
@@ -14,6 +14,7 @@ export default function CertificateCustomizationPage() {
         logoUrl: '',
         signatureUrl: '',
     });
+    const [saving, setSaving] = useState(false);
 
     const [preview, setPreview] = useState({
         studentName: 'أحمد محمد',
@@ -27,9 +28,40 @@ export default function CertificateCustomizationPage() {
         certificateNumber: 'CERT-20260212-SAMPLE',
     });
 
+    // Load saved settings on mount
+    useEffect(() => {
+        fetch('/api/user/certificate-settings')
+            .then((r) => r.json())
+            .then((data) => {
+                if (data) {
+                    setFormData({
+                        brandColor: data.brandColor || '#4f46e5',
+                        logoUrl: data.logoUrl || '',
+                        signatureUrl: data.signatureUrl || '',
+                    });
+                }
+            })
+            .catch(console.error);
+    }, []);
+
     const handleSave = async () => {
-        // TODO: Save certificate template settings
-        toast.success('سيتم حفظ إعدادات الشهادة قريباً');
+        setSaving(true);
+        try {
+            const res = await fetch('/api/user/certificate-settings', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+            if (res.ok) {
+                toast.success('تم حفظ إعدادات الشهادة بنجاح ✅');
+            } else {
+                toast.error('فشل في حفظ الإعدادات');
+            }
+        } catch {
+            toast.error('حدث خطأ في الاتصال');
+        } finally {
+            setSaving(false);
+        }
     };
 
     return (
@@ -137,10 +169,11 @@ export default function CertificateCustomizationPage() {
                                 {/* Actions */}
                                 <button
                                     onClick={handleSave}
-                                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 text-white transition-colors"
+                                    disabled={saving}
+                                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                                 >
                                     <FiSave />
-                                    حفظ الإعدادات
+                                    {saving ? 'جاري الحفظ...' : 'حفظ الإعدادات'}
                                 </button>
                             </div>
                         </div>

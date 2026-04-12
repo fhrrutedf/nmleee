@@ -13,55 +13,52 @@ export async function GET(request: NextRequest) {
 
         const userId = (session.user as any).id;
 
-        // حساب إجمالي الأرباح
-        const completedOrders = await prisma.order.aggregate({
-            where: {
-                items: {
-                    some: {
-                        product: {
-                            userId,
-                        },
-                    },
-                },
-                status: 'COMPLETED',
-            },
-            _sum: {
-                totalAmount: true,
+        // استخدام الأرصدة الحقيقية المخزنة في DB (تأخذ Escrow بالحسبان)
+        const user = await prisma.user.findUnique({
+            where: { id: userId },
+            select: {
+                availableBalance: true,
+                pendingBalance: true,
+                totalEarnings: true,
             },
         });
 
-        const totalEarnings = completedOrders._sum.totalAmount || 0;
+        if (!user) {
+            return NextResponse.json({ error: 'المستخدم غير موجود' }, { status: 404 });
+        }
 
-        // حساب المسحوبات المكتملة
+        // مجموع السحوبات المكتملة
         const completedPayouts = await prisma.payout.aggregate({
             where: {
                 sellerId: userId,
                 status: 'COMPLETED',
             },
-            _sum: {
-                amount: true,
+            _sum: { amount: true },
+        });
+
+        // السحوبات قيد المراجعة
+        const pendingPayoutsAgg = await prisma.payout.aggregate({
+            where: {
+                sellerId: userId,
+                status: { in: ['PENDING', 'PROCESSING'] },
             },
+            _sum: { amount: true },
         });
 
         const withdrawnAmount = completedPayouts._sum.amount || 0;
-
-        // حساب الطلبات قيد المراجعة
-        const pendingPayouts = await prisma.payout.aggregate({
-            where: {
-                sellerId: userId,
-                status: 'PENDING',
-            },
-            _sum: {
-                amount: true,
-            },
-        });
-
-        const pendingAmount = pendingPayouts._sum.amount || 0;
+        const pendingPayoutAmount = pendingPayoutsAgg._sum.amount || 0;
 
         return NextResponse.json({
-            totalEarnings,
-            availableBalance: totalEarnings - withdrawnAmount - pendingAmount,
-            pendingPayouts: pendingAmount,
+            // الرصيد الحقيقي المتاح للسحب (يأخذ Escrow بالحسبان)
+            availableBalance: user.availableBalance,
+            // رصيد قيد الـ Escrow
+            pendingBalance: user.pendingBalance,
+            // إجمالي الأرباح التاريخية
+            totalEarnings: user.totalEarnings,
+            // مجموع ما تم سحبه فعلياً
+            withdrawnAmount,
+            // مبالغ طلبات السحب قيد المراجعة
+            pendingPayouts: pendingPayoutAmount,
         });
     } catch (error) {
         console.error('Error fetching payout stats:', error);

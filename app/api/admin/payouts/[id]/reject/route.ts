@@ -31,6 +31,7 @@ export async function POST(
         // Get payout
         const payout = await prisma.payout.findUnique({
             where: { id: payoutId },
+            include: { seller: true }
         });
 
         if (!payout) {
@@ -59,7 +60,16 @@ export async function POST(
             },
         });
 
-        // TODO: Send notification to seller
+        // Send notification to seller
+        await prisma.notification.create({
+            data: {
+                type: 'INTERNAL',
+                title: 'تم رفض طلب السحب',
+                content: `تم رفض طلب السحب الخاص بك بمبلغ $${payout.amount}. السبب: ${rejectionReason || 'غير محدد'}. تم إعادة المبلغ لرصيدك المتاح.`,
+                receiverId: payout.sellerId,
+                receiverEmail: payout.seller.email,
+            }
+        });
 
         return NextResponse.json({ success: true });
     } catch (error) {

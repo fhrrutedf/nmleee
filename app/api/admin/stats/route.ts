@@ -34,7 +34,8 @@ export async function GET() {
             totalSellers,
             totalProducts,
             totalCourses,
-            pendingVerifications
+            pendingVerifications,
+            planDistributionRaw
         ] = await Promise.all([
             prisma.order.count(),
             prisma.order.count({ where: { status: 'PAID' } }),
@@ -60,7 +61,20 @@ export async function GET() {
             prisma.product.count(),
             prisma.course.count(),
             prisma.verificationRequest.count({ where: { status: 'PENDING' } }),
+            prisma.user.groupBy({
+                by: ['planType' as any],
+                where: { role: 'SELLER' },
+                _count: { _all: true },
+            }),
         ]);
+
+        const plansArr = (planDistributionRaw as any[]) || [];
+        const planDistribution = {
+            FREE: plansArr.find(p => p.planType === 'FREE')?._count._all || 0,
+            GROWTH: plansArr.find(p => p.planType === 'GROWTH')?._count._all || 0,
+            PRO: plansArr.find(p => p.planType === 'PRO')?._count._all || 0,
+            AGENCY: plansArr.find(p => p.planType === 'AGENCY')?._count._all || 0,
+        };
 
         // Recent orders
         const recentOrders = await prisma.order.findMany({
@@ -110,6 +124,7 @@ export async function GET() {
                 totalProducts,
                 totalCourses,
                 pendingVerifications,
+                planDistribution
             },
             recentOrders,
             topSellers,
