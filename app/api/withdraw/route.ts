@@ -79,17 +79,53 @@ export async function GET(req: NextRequest) {
         const now = new Date();
         const in30Days = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
 
-        const upcomingReleases = await prisma.order.groupBy({
-            by: ['availableAt'],
-            where: {
-                sellerId: userId,
-                payoutStatus: 'pending',
-                isPaid: true,
-                availableAt: { gte: now, lte: in30Days }
-            },
             _sum: { sellerAmount: true },
             orderBy: { availableAt: 'asc' },
         });
+
+        // 7. Recent Financial Transactions (Ledger)
+        const recentOrders = await prisma.order.findMany({
+            where: { sellerId: userId, isPaid: true },
+            select: {
+                id: true,
+                orderNumber: true,
+                totalAmount: true,
+                sellerAmount: true,
+                platformFee: true,
+                paidAt: true,
+                status: true,
+            },
+            orderBy: { paidAt: 'desc' },
+            take: 10,
+        });
+
+        // 8. 30-Day Income Trend
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        const dailyIncomeRaw = await prisma.order.groupBy({
+            by: ['paidAt' as any],
+            where: {
+                sellerId: userId,
+                isPaid: true,
+                paidAt: { gte: thirtyDaysAgo },
+            },
+            _sum: { sellerAmount: true },
+        });
+
+        const incomeTrend: Record<string, number> = {};
+        for(let i=0; i<30; i++) {
+            const d = new Date();
+            d.setDate(d.getDate() - i);
+            incomeTrend[d.toISOString().split('T')[0]] = 0;
+        }
+        dailyIncomeRaw.forEach(item => {
+            const dateStr = new Date(item.paidAt as any).toISOString().split('T')[0];
+            if (incomeTrend[dateStr] !== undefined) {
+                incomeTrend[dateStr] += item._sum.sellerAmount || 0;
+            }
+        });
+
+        const trendArray = Object.entries(incomeTrend).map(([date, amount]) => ({ date, amount })).reverse();
 
         const settings = await getPlatformSettings();
 
@@ -120,6 +156,15 @@ export async function GET(req: NextRequest) {
                 releaseDate: r.availableAt,
                 amount: round2(r._sum.sellerAmount || 0),
             })),
+            recentTransactions: recentOrders.map(o => ({
+                id: o.id,
+                orderNumber: o.orderNumber,
+                amount: o.totalAmount,
+                net: o.sellerAmount,
+                fee: o.platformFee,
+                date: o.paidAt,
+            })),
+            incomeTrend: trendArray,
         });
 
     } catch (error) {

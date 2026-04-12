@@ -32,6 +32,10 @@ interface Stats {
     totalProducts: number;
     totalCourses: number;
     pendingVerifications: number;
+    platformLiability?: number;
+    referralLiability?: number;
+    gatewayBreakdown?: Array<{ method: string; amount: number }>;
+    revenueTrend?: Array<{ date: string; amount: number }>;
     planDistribution?: {
         FREE: number;
         GROWTH: number;
@@ -217,6 +221,96 @@ export default function AdminDashboard() {
                         <p className="text-3xl font-bold text-[#10B981] dark:text-white relative z-10">
                             {stats?.totalUsers}
                         </p>
+                    </motion.div>
+
+                    {/* Platform Liability Card */}
+                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-[#0A0A0A] dark:bg-card-white p-6 rounded-xl border border-red-500/20 shadow-lg shadow-red-500/5 transition-all">
+                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-red-500/5 rounded-xl blur-2xl"></div>
+                        <h3 className="text-gray-500 font-bold text-xs mb-2 uppercase tracking-widest flex items-center gap-2">
+                             إجمالي ذمم البائعين (Escrow)
+                        </h3>
+                        <p className="text-2xl font-bold text-red-500">
+                            ${stats?.platformLiability?.toFixed(2) || '0.00'}
+                        </p>
+                        <p className="text-[10px] text-gray-500 font-medium mt-1">مبالغ قيد الحجز أو بانتظار السحب</p>
+                    </motion.div>
+
+                    {/* Referral Liability Card */}
+                    <motion.div variants={itemVariants} className="relative group overflow-hidden bg-[#0A0A0A] dark:bg-card-white p-6 rounded-xl border border-blue-500/20 shadow-lg shadow-blue-500/5 transition-all">
+                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-blue-500/5 rounded-xl blur-2xl"></div>
+                        <h3 className="text-gray-500 font-bold text-xs mb-2 uppercase tracking-widest">
+                            عمولات المسوقين (Referrals)
+                        </h3>
+                        <p className="text-2xl font-bold text-blue-400">
+                            ${stats?.referralLiability?.toFixed(2) || '0.00'}
+                        </p>
+                        <p className="text-[10px] text-gray-500 font-medium mt-1">التزامات المنصة للمسوقين</p>
+                    </motion.div>
+                </div>
+
+                {/* Performance & Charts Row */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* Revenue Trend Chart (Simple Visual) */}
+                    <motion.div variants={itemVariants} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-white/10 p-6 shadow-xl">
+                        <div className="flex justify-between items-center mb-8">
+                            <h2 className="text-sm font-bold text-white uppercase tracking-widest flex items-center gap-2">
+                                <FiActivity className="text-emerald-500" /> اتجاه المبيعات (7 أيام)
+                            </h2>
+                            <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Revenue Growth Trend</div>
+                        </div>
+                        
+                        <div className="h-48 flex items-end justify-between gap-2 px-2">
+                            {stats?.revenueTrend?.map((day, idx) => {
+                                const maxAmount = Math.max(...(stats?.revenueTrend?.map(d => d.amount) || [100]));
+                                const height = maxAmount > 0 ? (day.amount / maxAmount) * 100 : 5;
+                                
+                                return (
+                                    <div key={idx} className="flex-1 flex flex-col items-center gap-2 group relative">
+                                        <div className="absolute -top-10 scale-0 group-hover:scale-100 transition-all bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded shadow-lg z-20">
+                                            ${day.amount.toFixed(0)}
+                                        </div>
+                                        <motion.div 
+                                            initial={{ height: 0 }}
+                                            animate={{ height: `${height}%` }}
+                                            transition={{ duration: 1, delay: idx * 0.1 }}
+                                            className={`w-full rounded-t-lg transition-all ${idx === 6 ? 'bg-emerald-500 shadow-lg shadow-emerald-500/20' : 'bg-emerald-500/20 group-hover:bg-emerald-500/40'}`}
+                                        />
+                                        <span className="text-[9px] text-gray-500 font-mono rotate-45 mt-2">{day.date.split('-').slice(1).join('/')}</span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </motion.div>
+
+                    {/* Gateway Distribution */}
+                    <motion.div variants={itemVariants} className="bg-[#0A0A0A] dark:bg-card-white rounded-xl border border-white/10 p-6 shadow-xl">
+                        <div className="flex justify-between items-center mb-6">
+                            <h2 className="text-sm font-bold text-white uppercase tracking-widest flex items-center gap-2">
+                                <FiPackage className="text-blue-500" /> تحليل بوابات الدفع
+                            </h2>
+                        </div>
+                        <div className="space-y-4">
+                            {stats?.gatewayBreakdown?.sort((a,b) => b.amount - a.amount).slice(0, 4).map((gw, idx) => {
+                                const total = stats.totalRevenue || 1;
+                                const percentage = (gw.amount / total) * 100;
+                                return (
+                                    <div key={idx} className="space-y-1.5">
+                                        <div className="flex justify-between text-xs font-bold">
+                                            <span className="text-gray-300 capitalize">{gw.method}</span>
+                                            <span className="text-emerald-500">${gw.amount.toFixed(0)}</span>
+                                        </div>
+                                        <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                                            <motion.div 
+                                                initial={{ width: 0 }}
+                                                animate={{ width: `${percentage}%` }}
+                                                className={`h-full ${idx === 0 ? 'bg-blue-500' : 'bg-blue-500/40'}`}
+                                            />
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                        <p className="mt-8 text-[10px] text-gray-500 text-center font-bold uppercase tracking-widest">Performance optimized gateway analytics</p>
                     </motion.div>
                 </div>
 

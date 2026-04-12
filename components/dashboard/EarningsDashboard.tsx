@@ -53,6 +53,15 @@ interface EarningsData {
     payoutMethodConfigured: boolean;
     withdrawals: WithdrawalRecord[];
     upcomingReleases: UpcomingRelease[];
+    recentTransactions: Array<{
+        id: string;
+        orderNumber: string;
+        amount: number;
+        net: number;
+        fee: number;
+        date: string;
+    }>;
+    incomeTrend: Array<{ date: string; amount: number }>;
 }
 
 // ─── Helper: Format currency ────────────────────────────────
@@ -260,11 +269,38 @@ export default function EarningsDashboard() {
                 />
             </div>
 
+            {/* ── Performance Chart ────────────────────────── */}
+            <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-6 shadow-xl shadow-[#10B981]/5">
+                <div className="flex items-center justify-between mb-8">
+                    <h3 className="text-sm font-bold text-gray-300 uppercase tracking-widest flex items-center gap-2">
+                        <FiTrendingUp className="text-[#10B981]" /> أداء المبيعات (آخر 30 يوم)
+                    </h3>
+                </div>
+                <div className="h-40 flex items-end justify-between gap-1 px-2">
+                    {data.incomeTrend.map((day, idx) => {
+                        const maxAmount = Math.max(...data.incomeTrend.map(d => d.amount), 100);
+                        const height = (day.amount / maxAmount) * 100;
+                        return (
+                            <div key={idx} className="flex-1 group relative">
+                                <div className="absolute -top-10 scale-0 group-hover:scale-100 transition-all bg-emerald-700 text-white text-[10px] font-bold px-2 py-1 rounded shadow-lg z-20 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                                    ${fmt(day.amount, 0)} ({(day.date.split('-').slice(2))})
+                                </div>
+                                <div 
+                                    style={{ height: `${Math.max(5, height)}%` }}
+                                    className={`w-full rounded-t-sm transition-all ${day.amount > 0 ? 'bg-emerald-500/40 group-hover:bg-emerald-500 shadow-sm shadow-emerald-500/10' : 'bg-white/5'}`}
+                                />
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+
             {/* ── Tabs ───────────────────────────────────── */}
             <div className="border-b border-white/10">
                 <nav className="flex gap-2">
                     {([
                         { id: 'overview', label: 'نظرة عامة', icon: FiDollarSign },
+                        { id: 'transactions', label: 'سجل المبيعات', icon: FiTrendingUp },
                         { id: 'schedule', label: 'مواعيد الإفراج', icon: FiCalendar },
                         { id: 'history', label: 'سجل السحوبات', icon: FiList },
                     ] as const).map(tab => (
@@ -290,6 +326,10 @@ export default function EarningsDashboard() {
             <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
                 {activeTab === 'overview' && (
                     <OverviewTab balance={balance} minPayoutAmount={minPayoutAmount} />
+                )}
+
+                {activeTab === 'transactions' && (
+                    <TransactionsTab transactions={data.recentTransactions} />
                 )}
 
                 {activeTab === 'schedule' && (
@@ -400,6 +440,57 @@ function OverviewTab({ balance, minPayoutAmount }: { balance: BalanceSummary; mi
                         </div>
                     ))}
                 </div>
+            </div>
+        </div>
+    );
+}
+
+function TransactionsTab({ transactions }: { transactions: EarningsData['recentTransactions'] }) {
+    if (transactions.length === 0) {
+        return (
+            <div className="bg-[#0A0A0A] border border-white/10 rounded-xl p-16 shadow-lg shadow-[#10B981]/20 text-center">
+                <FiTrendingUp className="mx-auto text-4xl mb-4 text-gray-100" />
+                <p className="text-gray-400 font-bold">لا توجد مبيعات مسجلة بعد</p>
+            </div>
+        );
+    }
+
+    return (
+        <div className="bg-[#0A0A0A] border border-white/10 rounded-xl overflow-hidden shadow-lg shadow-[#10B981]/20">
+            <div className="p-6 border-b border-white/10">
+                <h3 className="font-bold text-[#10B981]">سجل العمليات المالية (آخر 10 مبيعات)</h3>
+                <p className="text-xs text-gray-400 mt-1">تتبع صافي ربحك وعمولة المنصة لكل طلب</p>
+            </div>
+            <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                    <thead className="bg-[#111111] border-b border-white/10">
+                        <tr>
+                            <th className="text-right p-5 font-bold text-gray-500 uppercase tracking-widest text-[10px]">الطلب</th>
+                            <th className="text-right p-5 font-bold text-gray-500 uppercase tracking-widest text-[10px]">المبلغ الكلي</th>
+                            <th className="text-right p-5 font-bold text-gray-500 uppercase tracking-widest text-[10px]">عمولة المنصة</th>
+                            <th className="text-right p-5 font-bold text-gray-500 uppercase tracking-widest text-[10px]">صافي ربحك</th>
+                            <th className="text-right p-5 font-bold text-gray-500 uppercase tracking-widest text-[10px]">التاريخ</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-white/5">
+                        {transactions.map(t => (
+                            <tr key={t.id} className="hover:bg-[#111111] transition-all font-inter">
+                                <td className="p-5 font-bold text-xs text-gray-400">#{t.orderNumber}</td>
+                                <td className="p-5 font-bold text-white">${fmt(t.amount)}</td>
+                                <td className="p-5 text-red-500/70 font-bold text-xs">-${fmt(t.fee)}</td>
+                                <td className="p-5 font-bold text-[#10B981] group-hover:scale-105 transition-transform">
+                                    <div className="flex items-center gap-1.5">
+                                        <FiArrowDownCircle size={14} className="rotate-180" />
+                                        ${fmt(t.net)}
+                                    </div>
+                                </td>
+                                <td className="p-5 text-gray-400 text-xs font-bold">
+                                    {new Date(t.date).toLocaleDateString('ar-EG')}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
     );

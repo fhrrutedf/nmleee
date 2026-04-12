@@ -31,11 +31,11 @@ export async function GET() {
             pendingPayouts,
             pendingManualOrders,
             totalUsers,
-            totalSellers,
-            totalProducts,
             totalCourses,
             pendingVerifications,
-            planDistributionRaw
+            planDistributionRaw,
+            liabilityStatsRaw,
+            gatewayBreakdownRaw
         ] = await Promise.all([
             prisma.order.count(),
             prisma.order.count({ where: { status: 'PAID' } }),
@@ -66,7 +66,46 @@ export async function GET() {
                 where: { role: 'SELLER' },
                 _count: { _all: true },
             }),
+            prisma.user.aggregate({
+                _sum: {
+                    pendingBalance: true,
+                    availableBalance: true,
+                    referralEarnings: true,
+                },
+            }),
+            prisma.order.groupBy({
+                by: ['paymentMethod' as any],
+                where: { status: 'PAID' },
+                _sum: { totalAmount: true },
+            }),
         ]);
+
+        // Calculate 7-day trend
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+        const dailyRevenueRaw = await prisma.order.groupBy({
+            by: ['paidAt' as any],
+            where: {
+                status: 'PAID',
+                paidAt: { gte: sevenDaysAgo },
+            },
+            _sum: { totalAmount: true },
+        });
+
+        const revenueTrend: Record<string, number> = {};
+        for(let i=0; i<7; i++) {
+            const d = new Date();
+            d.setDate(d.getDate() - i);
+            revenueTrend[d.toISOString().split('T')[0]] = 0;
+        }
+        dailyRevenueRaw.forEach(item => {
+            const dateStr = new Date(item.paidAt as any).toISOString().split('T')[0];
+            if (revenueTrend[dateStr] !== undefined) {
+                revenueTrend[dateStr] += item._sum.totalAmount || 0;
+            }
+        });
+
+        const trendArray = Object.entries(revenueTrend).map(([date, amount]) => ({ date, amount })).reverse();
 
         const plansArr = (planDistributionRaw as any[]) || [];
         const planDistribution = {
@@ -124,7 +163,14 @@ export async function GET() {
                 totalProducts,
                 totalCourses,
                 pendingVerifications,
-                planDistribution
+                planDistribution,
+                platformLiability: (liabilityStatsRaw._sum.pendingBalance || 0) + (liabilityStatsRaw._sum.availableBalance || 0),
+                referralLiability: liabilityStatsRaw._sum.referralEarnings || 0,
+                gatewayBreakdown: (gatewayBreakdownRaw as any[]).map(g => ({
+                    method: g.paymentMethod || 'Other',
+                    amount: g._sum.totalAmount || 0
+                })),
+                revenueTrend: trendArray
             },
             recentOrders,
             topSellers,
