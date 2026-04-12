@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
@@ -398,7 +398,7 @@ export default function SettingsPage() {
                                                         </div>
                                                         <div className="w-full scale-90">
                                                             <FileUploader
-                                                                onUploadSuccess={(urls: string[]) => setProfileData({ ...profileData, avatar: urls[0] })}
+                                                                onUploadSuccess={(urls: string[]) => setProfileData(prev => ({ ...prev, avatar: urls[0] }))}
                                                                 maxSize={2 * 1024 * 1024}
                                                                 accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
                                                             />
@@ -419,7 +419,7 @@ export default function SettingsPage() {
                                                         </div>
                                                         <div className="w-full scale-90">
                                                             <FileUploader
-                                                                onUploadSuccess={(urls: string[]) => setProfileData({ ...profileData, coverImage: urls[0] })}
+                                                                onUploadSuccess={(urls: string[]) => setProfileData(prev => ({ ...prev, coverImage: urls[0] }))}
                                                                 maxSize={5 * 1024 * 1024}
                                                                 accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
                                                             />
