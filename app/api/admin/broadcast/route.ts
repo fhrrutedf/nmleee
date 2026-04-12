@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
@@ -73,11 +73,15 @@ export async function POST(req: NextRequest) {
             `📢 <b>تم جدولة بث جماعي!</b>\n━━━━━━━━━━━━━━\n📋 <b>العنوان:</b> ${subject}\n👥 <b>المستهدف:</b> ${target} (${totalCount} مستخدم)\n⏰ <b>الموعد:</b> ${broadcastJob.scheduledAt.toLocaleString('ar-SA')}`
         );
 
+        // IMMEDIATE BACKGROUND PROCESSING (Since no CRON is established)
+        // This will process silently in the server background without blocking the UX
+        processBroadcast(broadcastJob.id).catch(err => console.error('Background Broadcast Error:', err));
+
         // Instant Response (UX Fix)
         return NextResponse.json({
             success: true,
             jobId: broadcastJob.id,
-            message: `تمت جدولة البث لـ ${totalCount} مستخدم بنجاح. سيبدأ الإرسال تلقائياً.`,
+            message: `تمت جدولة البث لـ ${totalCount} مستخدم بنجاح. سيبدأ الإرسال فوراً في الخلفية.`,
         });
 
     } catch (error) {

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect, useCallback } from 'react';
 import {
@@ -245,15 +245,9 @@ export default function AdminDashboardPage() {
 
     const tabs = [
         { id: 'overview', icon: FiGrid, label: 'الرئيسية', badge: 0 },
-        { id: 'sales', icon: FiActivity, label: 'النشاط', badge: 0 },
-        { id: 'subscriptions', icon: FiLayers, label: 'الاشتراكات', badge: subscriptionData?.upcomingExpirations || 0 },
-        { id: 'manual', icon: FiCreditCard, label: 'التحويلات', badge: pendingManual.length },
-        { id: 'payouts', icon: FiDollarSign, label: 'السحوبات', badge: 0 },
-        { id: 'users', icon: FiUsers, label: 'الأوزيرز', badge: 0 },
-        { id: 'verification', icon: FiShield, label: 'التوثيق', badge: ov.pendingVerifications || 0 },
-        { id: 'reports', icon: FiFileText, label: 'التقارير', badge: 0 },
+        { id: 'subscriptions', icon: FiLayers, label: 'إحصائيات الاشتراكات', badge: subscriptionData?.upcomingExpirations || 0 },
+        { id: 'reports', icon: FiFileText, label: 'التقارير المالية', badge: 0 },
         { id: 'backup', icon: FiDatabase, label: 'النسخ الاحتياطي', badge: 0 },
-        { id: 'broadcasts', icon: FiSend, label: 'البث', badge: 0 },
     ];
 
     if (loading && !data) return (
