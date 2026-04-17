@@ -154,7 +154,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                         {/* Content */}
                         <article
-                            className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-[#10B981] prose-p:text-gray-300 prose-a:text-[#10B981] prose-img:rounded-xl prose-p:leading-relaxed mb-20"
+                            className="prose prose-lg prose-invert max-w-none prose-headings:font-bold prose-headings:text-[#10B981] prose-p:text-gray-300 prose-a:text-[#10B981] prose-img:rounded-xl prose-li:text-gray-300 prose-ul:list-disc prose-ol:list-decimal prose-ul:mr-6 prose-ol:mr-6 prose-strong:text-emerald-400 prose-p:leading-relaxed mb-20"
                             dangerouslySetInnerHTML={{ __html: post.content }}
                         />
 
