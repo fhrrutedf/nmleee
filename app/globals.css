@@ -167,23 +167,42 @@
     color: var(--text-muted);
   }
 
-  /* Safe container for pasted HTML in Blog */
-  .prose-safe [class*="w-screen"], .prose-safe [class*="w-full"] {
+  /* Safe container for pasted HTML in Blog (Defenses Activated) */
+  .prose-safe * {
+    max-width: 100% !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    box-sizing: border-box !important;
+  }
+  
+  .prose-safe [class*="flex"] {
+    flex-wrap: wrap !important;
+  }
+
+  .prose-safe [class*="w-"], .prose-safe [class*="min-w-"] {
+    min-width: 0 !important;
+  }
+
+  .prose-safe [class*="w-screen"] {
     width: 100% !important;
-    max-width: 100% !important;
   }
+
   .prose-safe [style*="width"] {
+    width: auto !important;
     max-width: 100% !important;
   }
+  
   .prose-safe img, .prose-safe video, .prose-safe iframe {
     max-width: 100% !important;
     height: auto !important;
   }
+  
   .prose-safe table {
     width: 100% !important;
     max-width: 100% !important;
-    overflow-x: auto;
     display: block;
+    overflow-x: auto;
   }
 }
 
