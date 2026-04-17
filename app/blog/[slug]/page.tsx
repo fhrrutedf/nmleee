@@ -99,8 +99,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <div className="min-h-screen bg-[#0A0A0A]" dir="rtl">
             {/* Header / Breadcrumb */}
             <div className="bg-[#111111] py-8 border-b border-white/10">
-                <div className="container-custom px-4 mx-auto max-w-7xl">
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                <div className="w-full px-6 md:px-10 mx-auto max-w-7xl">
+                    <div className="flex items-center gap-2 text-sm text-gray-500 overflow-x-auto whitespace-nowrap hide-scrollbar">
                         <Link href="/" className="hover:text-[#10B981]">الرئيسية</Link>
                         <span>/</span>
                         <Link href="/blog" className="hover:text-[#10B981]">المدونة</Link>
@@ -111,8 +111,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </div>
 
             {/* Main Content */}
-            <main className="container-custom px-4 mx-auto max-w-7xl py-12">
-                <div className="grid lg:grid-cols-12 gap-12">
+            <main className="w-full px-6 md:px-10 mx-auto max-w-7xl py-12">
+                <div className="grid lg:grid-cols-12 gap-8 md:gap-12">
                     {/* Article Column */}
                     <div className="lg:col-span-8">
                         {/* Article Header */}

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import Link from 'next/link';
 import { FiSearch, FiCalendar, FiUser, FiArrowLeft, FiTag, FiClock } from 'react-icons/fi';
@@ -27,7 +27,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
             <section className="bg-emerald-700 text-white py-24 md:py-32 relative overflow-hidden border-b border-white/5">
                 <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-emerald-700 text-white/5 rounded-xl blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
                 
-                <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+                <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10 text-center w-full">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                         <div className="inline-flex items-center gap-2 bg-emerald-900/40 border border-emerald-500/20 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] mb-10 text-[#10B981] shadow-lg shadow-[#10B981]/20">
                             <FiTag size={14} /> Knowledge & Insights Hub
@@ -56,7 +56,7 @@ export default function BlogListClient({ initialPosts }: { initialPosts: any[] }
 
             {/* Content Section */}
             <section className="py-20 bg-[#0A0A0A]">
-                <div className="max-w-7xl mx-auto px-6">
+                <div className="w-full max-w-7xl mx-auto px-6 md:px-10">
                     {/* Category Filter - Structural Styling */}
                     <div className="flex flex-wrap items-center justify-center gap-2 mb-20 border-b border-white/10 pb-10">
                         {CATEGORIES.map((cat, idx) => (
