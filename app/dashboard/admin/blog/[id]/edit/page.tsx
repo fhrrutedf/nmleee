@@ -1,19 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import toast from "react-hot-toast";
 import FileUploader from "@/components/ui/FileUploader";
 import "react-quill-new/dist/quill.snow.css";
-import { FiSave, FiCheckCircle, FiChevronRight, FiGlobe, FiSettings, FiImage, FiClock, FiCode } from "react-icons/fi";
+import { FiSave, FiCheckCircle, FiChevronRight, FiSettings, FiImage, FiCode } from "react-icons/fi";
 import Link from "next/link";
-import { createArticle } from "../actions";
+import { updateArticle, autoSaveArticle } from "../../actions";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
-export default function NewArticle() {
+export default function EditArticle() {
     const router = useRouter();
+    const params = useParams();
+    const articleId = typeof params?.id === "string" ? params.id : "";
+
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [editorMode, setEditorMode] = useState<"VISUAL" | "HTML">("VISUAL");
@@ -21,21 +24,74 @@ export default function NewArticle() {
     const [status, setStatus] = useState<"DRAFT" | "PUBLISHED" | "SCHEDULED">("DRAFT");
     const [publishedAt, setPublishedAt] = useState("");
     const [coverImage, setCoverImage] = useState<string>("");
+    
+    const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
+    
+    const contentRef = useRef(content);
+    const initialContentLoaded = useRef(false);
+
+    useEffect(() => {
+        if (!articleId) return;
+        const fetchArticle = async () => {
+            try {
+                const res = await fetch(`/api/blog/${articleId}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setTitle(data.title);
+                    setContent(data.content);
+                    contentRef.current = data.content; // Track base content
+                    setExcerpt(data.excerpt || "");
+                    setStatus(data.status);
+                    setCoverImage(data.coverImage || "");
+                    if (data.publishedAt) {
+                        setPublishedAt(new Date(data.publishedAt).toISOString().slice(0, 16));
+                    }
+                    initialContentLoaded.current = true;
+                } else {
+                    toast.error("لم يتم العثور على المقال");
+                    router.push("/dashboard/admin/blog");
+                }
+            } catch (error) {
+                toast.error("خطأ في التحميل");
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchArticle();
+    }, [articleId, router]);
+
+    // Auto-save logic
+    useEffect(() => {
+        if (!initialContentLoaded.current || !articleId) return;
+        
+        const saveTimeout = setTimeout(async () => {
+            if (content !== contentRef.current) {
+                try {
+                    await autoSaveArticle(articleId, content);
+                    contentRef.current = content; // Update baseline
+                    toast.success("تم الحفظ التلقائي", { id: 'autosave', icon: '💾' });
+                } catch(e) {
+                    // Ignore errors silently for autosave
+                }
+            }
+        }, 3000); // 3 seconds after stop typing
+
+        return () => clearTimeout(saveTimeout);
+    }, [content, articleId]);
 
     const handleSave = async () => {
         if (!title || !content) {
             toast.error("يرجى تعبئة العنوان والمحتوى");
             return;
         }
-
         if (status === "SCHEDULED" && !publishedAt) {
             toast.error("يرجى اختيار تاريخ ووقت النشر");
             return;
         }
 
         setIsSaving(true);
-        const res = await createArticle({
+        const res = await updateArticle(articleId, {
             title,
             content,
             excerpt,
@@ -45,30 +101,32 @@ export default function NewArticle() {
         });
 
         if (res.success) {
-            toast.success("تم الحفظ بنجاح!");
-            router.push(`/dashboard/admin/articles/${res.articleId}/edit`);
+            toast.success("تم تشييك وحفظ التعديلات!");
+            contentRef.current = content;
+            router.push("/dashboard/admin/blog");
         } else {
-            toast.error(res.error || "فشل الحفظ");
+            toast.error(res.error || "فشل التحديث");
         }
         setIsSaving(false);
     };
+
+    if (isLoading) {
+        return <div className="text-center text-gray-500 py-10">جاري التحميل...</div>;
+    }
 
     return (
         <div className="p-4 sm:p-6 max-w-7xl mx-auto w-full" dir="rtl">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                 <div>
                     <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
-                        <Link href="/dashboard/admin/articles" className="hover:text-emerald-500 transition">إدارة المقالات</Link>
+                        <Link href="/dashboard/admin/blog" className="hover:text-emerald-500 transition">إدارة المقالات</Link>
                         <FiChevronRight size={12} />
-                        <span className="text-emerald-500 font-bold">إضافة مقال جديد</span>
+                        <span className="text-emerald-500 font-bold">تعديل المقال</span>
                     </div>
-                    <h1 className="text-2xl font-bold text-white">كتابة مقال جديد</h1>
+                    <h1 className="text-2xl font-bold text-white">تعديل المقال</h1>
                 </div>
                 <div className="flex items-center gap-3">
-                    <button
-                        onClick={() => router.back()}
-                        className="px-4 py-2 text-sm font-bold text-gray-400 hover:text-white transition"
-                    >
+                    <button onClick={() => router.back()} className="px-4 py-2 text-sm font-bold text-gray-400 hover:text-white transition">
                         إلغاء
                     </button>
                     <button
@@ -76,7 +134,7 @@ export default function NewArticle() {
                         disabled={isSaving}
                         className="flex items-center gap-2 px-6 py-2.5 bg-emerald-700 text-white rounded-xl font-bold text-sm shadow-lg hover:bg-emerald-600 transition disabled:opacity-50"
                     >
-                        {isSaving ? "جاري الحفظ..." : <><FiSave /> حفظ المقال</>}
+                        {isSaving ? "جاري الحفظ..." : <><FiSave /> حفظ الكل</>}
                     </button>
                 </div>
             </div>
@@ -96,7 +154,7 @@ export default function NewArticle() {
 
                         <div className="space-y-2">
                              <div className="flex items-center justify-between mb-2">
-                                 <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-2 border-l-2 border-emerald-500">المحتوى</label>
+                                 <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-2 border-l-2 border-emerald-500">المحتوى <span className="text-gray-600 pr-2">({content !== contentRef.current ? "جاري الحفظ..." : "محفوظ"})</span></label>
                                  <div className="flex bg-[#111111] border border-white/10 rounded-lg p-1">
                                      <button
                                          onClick={() => setEditorMode("VISUAL")}
@@ -159,7 +217,7 @@ export default function NewArticle() {
                                     onChange={(e) => setStatus(e.target.value as any)}
                                 >
                                     <option value="DRAFT">مسودة</option>
-                                    <option value="PUBLISHED">نشر فوري</option>
+                                    <option value="PUBLISHED">منشور فوري</option>
                                     <option value="SCHEDULED">جدولة النشر</option>
                                 </select>
                             </div>
