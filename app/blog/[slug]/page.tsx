@@ -7,12 +7,13 @@ import { Metadata } from 'next';
 // 1. Generate Metadata dynamically
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
+    const decodedSlug = decodeURIComponent(slug);
 
     let post = await prisma.article.findUnique({
-        where: { slug },
+        where: { slug: decodedSlug },
     });
 
-    if (!post && slug === 'choosing-winning-digital-product-idea-2026') {
+    if (!post && decodedSlug === 'choosing-winning-digital-product-idea-2026') {
         post = {
             id: 'maher-post-1',
             title: "فن اختيار المنتج الرقمي: كيف تلاقي فكرة يدفع الناس لأجلها؟",
@@ -50,9 +51,10 @@ export const revalidate = 60; // SSR with ISR
 // 2. Server Component setup
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
+    const decodedSlug = decodeURIComponent(slug);
 
     let post = await prisma.article.findUnique({
-        where: { slug },
+        where: { slug: decodedSlug },
         include: {
             author: {
                 select: { name: true, avatar: true }
@@ -60,7 +62,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         }
     });
 
-    if (!post && slug === 'choosing-winning-digital-product-idea-2026') {
+    if (!post && decodedSlug === 'choosing-winning-digital-product-idea-2026') {
         post = {
             id: 'maher-post-1',
             title: "فن اختيار المنتج الرقمي: كيف تلاقي فكرة يدفع الناس لأجلها؟",
