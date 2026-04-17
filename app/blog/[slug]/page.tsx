@@ -20,9 +20,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             content: `أسمع الكثير من المدربين يقولون: "عندي فكرة كورس خرافية، لكن لا أحد يشتري". الحقيقة المرة التي لا يحب أحد سماعها هي أن جمهورك لا يهتم بـ "فكرتك"، بل يهتم بـ "مشكلته"...`,
             excerpt: "الفكرة ليست هي الكنز.. الاحتياج هو الكنز الحقيقي. تعلم كيف تكتشف ما يحتاجه جمهورك فعلياً وتحوله إلى أرباح مستدامة.",
             coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800",
-            category: "تحليلات",
             status: 'PUBLISHED',
-            tags: [],
+            tags: ["تحليلات"],
             createdAt: new Date(),
             updatedAt: new Date(),
             authorId: 'maher-id',
@@ -69,9 +68,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             content: `أسمع الكثير من المدربين يقولون: "عندي فكرة كورس خرافية، لكن لا أحد يشتري". الحقيقة المرة التي لا يحب أحد سماعها هي أن جمهورك لا يهتم بـ "فكرتك"، بل يهتم بـ "مشكلته"...`,
             excerpt: "الفكرة ليست هي الكنز.. الاحتياج هو الكنز الحقيقي. تعلم كيف تكتشف ما يحتاجه جمهورك فعلياً وتحوله إلى أرباح مستدامة.",
             coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800",
-            category: "تحليلات",
             status: 'PUBLISHED',
-            tags: [],
+            tags: ["تحليلات"],
             createdAt: new Date(),
             updatedAt: new Date(),
             authorId: 'maher-id',
@@ -116,9 +114,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <div className="lg:col-span-8">
                         {/* Article Header */}
                         <div className="mb-8">
-                            {post.category && (
+                            {post.tags && post.tags.length > 0 && (
                                 <span className="inline-block py-1 px-3 rounded-xl bg-emerald-700 text-white-50 text-[#10B981] text-sm font-bold mb-4">
-                                    {post.category}
+                                    {post.tags[0]}
                                 </span>
                             )}
                             <h1 className="text-3xl md:text-5xl font-bold text-[#10B981] mb-6 leading-tight">
