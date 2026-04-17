@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { FiCalendar, FiUser, FiClock, FiShare2, FiArrowRight, FiFacebook, FiTwitter, FiLinkedin } from 'react-icons/fi';
+import { FiCalendar, FiClock, FiShare2, FiArrowRight, FiFacebook, FiTwitter, FiLinkedin } from 'react-icons/fi';
+import NewsletterWidget from '@/components/blog/NewsletterWidget';
 import { prisma } from '@/lib/db';
 import { Metadata } from 'next';
 
@@ -126,19 +127,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             </h1>
 
                             <div className="flex items-center gap-6 text-gray-500 text-sm border-b border-white/10 pb-8 mt-6">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-10 h-10 rounded-xl bg-gray-200 overflow-hidden flex items-center justify-center text-gray-500 shrink-0">
-                                        {post.author?.avatar ? (
-                                            <img src={post.author.avatar} alt="Author" className="w-full h-full object-cover" />
-                                        ) : (
-                                            <FiUser size={20} />
-                                        )}
-                                    </div>
-                                    <div>
-                                        <p className="font-bold text-white">{authorName}</p>
-                                    </div>
-                                </div>
-                                <span className="h-4 w-px bg-gray-300"></span>
                                 <span className="flex items-center gap-2"><FiCalendar /> {postDate}</span>
                                 <span className="h-4 w-px bg-gray-300"></span>
                                 <span className="flex items-center gap-2"><FiClock /> {readTime}</span>
@@ -190,18 +178,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                     {/* Sidebar */}
                     <aside className="lg:col-span-4 space-y-8">
-                        {/* Newsletter Widget */}
-                        <div className="bg-primary-900 text-white rounded-xl p-8 shadow-lg shadow-[#10B981]/20 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-700 text-white rounded-xl mix-blend-overlay filter blur-2xl opacity-20"></div>
-                            <h3 className="text-xl font-bold mb-4 relative z-10">تحديثات أسبوعية</h3>
-                            <p className="text-gray-300 mb-6 text-sm relative z-10">
-                                اشترك في القائمة البريدية ليصلك كل جديد في عالم التجارة الرقمية.
-                            </p>
-                            <input type="email" placeholder="بريدك الإلكتروني" className="w-full py-3 px-4 rounded-lg bg-gray-800 border border-gray-700 text-white mb-3 focus:outline-none focus:border-emerald-600 relative z-10" />
-                            <button className="w-full py-3 bg-emerald-700 text-white rounded-lg font-bold hover:bg-emerald-700 text-white-600 transition-colors relative z-10">
-                                اشتراك
-                            </button>
-                        </div>
+                        <NewsletterWidget />
                     </aside>
                 </div>
             </main>

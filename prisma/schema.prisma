@@ -1818,3 +1818,15 @@ model Article {
   @@index([authorId])
   @@index([createdAt])
 }
+
+model NewsletterSubscriber {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  status    String   @default("SUBSCRIBED") // SUBSCRIBED, UNSUBSCRIBED
+  source    String?  // blog_sidebar or other source
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([status])
+}
