@@ -176,7 +176,16 @@ export default function EditArticle() {
                                         <style>{`
                                             .ql-toolbar { background: #1a1a1a !important; border: none !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; padding: 12px !important; }
                                             .ql-container { border: none !important; font-size: 16px !important; color: #e5e7eb !important; font-family: inherit !important; }
-                                            .ql-editor { min-h-[500px] padding: 24px !important; line-height: 1.8 !important; }
+                                            .ql-editor { min-height: 500px; padding: 24px !important; line-height: 1.8 !important; }
+                                            .ql-editor h1, .ql-editor h2, .ql-editor h3 { font-weight: bold !important; color: #10B981 !important; margin-bottom: 0.5em !important; }
+                                            .ql-editor p { margin-bottom: 1em !important; color: #d1d5db !important; }
+                                            .ql-editor a { color: #10B981 !important; text-decoration: underline !important; }
+                                            .ql-editor ul { padding-right: 1.5rem !important; margin-bottom: 1em !important; }
+                                            .ql-editor ol { padding-right: 1.5rem !important; margin-bottom: 1em !important; }
+                                            .ql-editor li { margin-bottom: 0.25em !important; color: #d1d5db !important; }
+                                            .ql-editor li::before { content: none !important; }
+                                            .ql-editor strong { color: #34D399 !important; font-weight: bold !important; }
+                                            .ql-editor img { border-radius: 0.75rem !important; margin: 1rem 0 !important; max-width: 100% !important; height: auto !important; }
                                         `}</style>
                                         <ReactQuill theme="snow" value={content} onChange={setContent} placeholder="ابدأ بكتابة قصتك..." />
                                     </>
