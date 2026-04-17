@@ -96,7 +96,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     const postDate = new Date(post.createdAt).toLocaleDateString("ar");
 
     return (
-        <div className="min-h-screen bg-[#0A0A0A]" dir="rtl">
+        <div className="min-h-screen bg-[#0A0A0A] overflow-x-hidden" dir="rtl">
             {/* Header / Breadcrumb */}
             <div className="bg-[#111111] py-8 border-b border-white/10">
                 <div className="w-full px-6 md:px-10 mx-auto max-w-7xl">
@@ -142,7 +142,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                         {/* Content */}
                         <article
-                            className="prose prose-lg prose-invert max-w-none prose-headings:font-bold prose-headings:text-[#10B981] prose-p:text-gray-300 prose-a:text-[#10B981] prose-img:rounded-xl prose-li:text-gray-300 prose-ul:list-disc prose-ol:list-decimal prose-ul:mr-6 prose-ol:mr-6 prose-strong:text-emerald-400 prose-p:leading-relaxed mb-20"
+                            className="prose prose-lg prose-invert max-w-none prose-headings:font-bold prose-headings:text-[#10B981] prose-p:text-gray-300 prose-a:text-[#10B981] prose-img:rounded-xl prose-li:text-gray-300 prose-ul:list-disc prose-ol:list-decimal prose-ul:mr-6 prose-ol:mr-6 prose-strong:text-emerald-400 prose-p:leading-relaxed mb-20 overflow-x-clip"
                             dangerouslySetInnerHTML={{ __html: post.content }}
                         />
 
