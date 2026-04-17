@@ -61,7 +61,7 @@ export async function createArticle(data: {
             }
         });
 
-        revalidatePath("/admin/articles");
+        revalidatePath("/dashboard/admin/articles");
         return { success: true, articleId: article.id, slug: article.slug };
     } catch (error: any) {
         return { success: false, error: error.message };
@@ -92,8 +92,8 @@ export async function updateArticle(articleId: string, data: {
             }
         });
 
-        revalidatePath("/admin/articles");
-        revalidatePath(`/admin/articles/${articleId}/edit`);
+        revalidatePath("/dashboard/admin/articles");
+        revalidatePath(`/dashboard/admin/articles/${articleId}/edit`);
         return { success: true };
     } catch (error: any) {
         return { success: false, error: error.message };
@@ -104,7 +104,7 @@ export async function deleteArticle(articleId: string) {
     try {
         await checkAdminAccess();
         await prisma.article.delete({ where: { id: articleId } });
-        revalidatePath("/admin/articles");
+        revalidatePath("/dashboard/admin/articles");
         return { success: true };
     } catch (error: any) {
         return { success: false, error: error.message };

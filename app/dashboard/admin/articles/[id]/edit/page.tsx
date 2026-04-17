@@ -50,7 +50,7 @@ export default function EditArticle() {
                     initialContentLoaded.current = true;
                 } else {
                     toast.error("لم يتم العثور على المقال");
-                    router.push("/admin/articles");
+                    router.push("/dashboard/admin/articles");
                 }
             } catch (error) {
                 toast.error("خطأ في التحميل");
@@ -103,7 +103,7 @@ export default function EditArticle() {
         if (res.success) {
             toast.success("تم تشييك وحفظ التعديلات!");
             contentRef.current = content;
-            router.push("/admin/articles");
+            router.push("/dashboard/admin/articles");
         } else {
             toast.error(res.error || "فشل التحديث");
         }
@@ -119,7 +119,7 @@ export default function EditArticle() {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                 <div>
                     <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
-                        <Link href="/admin/articles" className="hover:text-emerald-500 transition">إدارة المقالات</Link>
+                        <Link href="/dashboard/admin/articles" className="hover:text-emerald-500 transition">إدارة المقالات</Link>
                         <FiChevronRight size={12} />
                         <span className="text-emerald-500 font-bold">تعديل المقال</span>
                     </div>

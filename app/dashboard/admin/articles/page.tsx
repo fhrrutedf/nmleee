@@ -50,7 +50,7 @@ export default function ArticlesList() {
                     <p className="text-sm text-gray-500">نظام مستقل لإدارة محتوى منصة ماناسا ديجيتال</p>
                 </div>
                 <Link
-                    href="/admin/articles/new"
+                    href="/dashboard/admin/articles/new"
                     className="flex items-center gap-2 px-6 py-2.5 bg-emerald-700 text-white rounded-xl font-bold text-sm shadow-lg hover:bg-emerald-600 transition"
                 >
                     <FiPlus /> إضافة مقال
@@ -95,7 +95,7 @@ export default function ArticlesList() {
                                         </td>
                                         <td className="px-6 py-4">{new Date(article.createdAt).toLocaleDateString("ar-SA")}</td>
                                         <td className="px-6 py-4 flex justify-center gap-2">
-                                            <Link href={`/admin/articles/${article.id}/edit`} className="p-2 text-emerald-500 hover:bg-emerald-500/10 rounded-lg transition">
+                                            <Link href={`/dashboard/admin/articles/${article.id}/edit`} className="p-2 text-emerald-500 hover:bg-emerald-500/10 rounded-lg transition">
                                                 <FiEdit2 size={16} />
                                             </Link>
                                             <button onClick={() => handleDelete(article.id)} className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg transition">
