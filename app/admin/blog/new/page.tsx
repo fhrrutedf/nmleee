@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import FileUploader from "@/components/ui/FileUploader";
 import "react-quill-new/dist/quill.snow.css";
-import { FiSave, FiCheckCircle, FiChevronRight, FiGlobe, FiSettings, FiImage, FiClock } from "react-icons/fi";
+import { FiSave, FiCheckCircle, FiChevronRight, FiGlobe, FiSettings, FiImage, FiClock, FiCode } from "react-icons/fi";
 import Link from "next/link";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
@@ -16,6 +16,7 @@ export default function NewBlogPost() {
     const [title, setTitle] = useState("");
     const [slug, setSlug] = useState("");
     const [content, setContent] = useState("");
+    const [editorMode, setEditorMode] = useState<"VISUAL" | "HTML">("VISUAL");
     const [excerpt, setExcerpt] = useState("");
     const [metaDescription, setMetaDescription] = useState("");
     const [category, setCategory] = useState("");
@@ -125,25 +126,55 @@ export default function NewBlogPost() {
                             />
                         </div>
 
-                        {/* Rich Text Editor */}
+                        {/* Rich Text / HTML Editor */}
                         <div className="space-y-2">
-                             <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-2 border-l-2 border-emerald-500">المحتوى</label>
+                             <div className="flex items-center justify-between mb-2">
+                                 <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-2 border-l-2 border-emerald-500">المحتوى</label>
+                                 <div className="flex bg-[#111111] border border-white/10 rounded-lg p-1">
+                                     <button
+                                         type="button"
+                                         onClick={() => setEditorMode("VISUAL")}
+                                         className={`px-3 py-1.5 text-xs font-bold rounded-md transition ${editorMode === "VISUAL" ? "bg-emerald-600 text-white" : "text-gray-400 hover:text-white"}`}
+                                     >
+                                         محرر مرئي
+                                     </button>
+                                     <button
+                                         type="button"
+                                         onClick={() => setEditorMode("HTML")}
+                                         className={`px-3 py-1.5 text-xs font-bold rounded-md transition flex items-center gap-2 ${editorMode === "HTML" ? "bg-emerald-600 text-white" : "text-gray-400 hover:text-white"}`}
+                                     >
+                                         <FiCode size={12} /> محرر HTML
+                                     </button>
+                                 </div>
+                             </div>
                              <div className="min-h-[500px] border border-white/10 rounded-xl overflow-hidden bg-[#111111]">
-                                <style>{`
-                                    .ql-toolbar { background: #1a1a1a !important; border: none !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; padding: 12px !important; }
-                                    .ql-container { border: none !important; font-size: 16px !important; color: #e5e7eb !important; font-family: inherit !important; }
-                                    .ql-editor { min-h-[500px] padding: 24px !important; line-height: 1.8 !important; }
-                                    .ql-editor.ql-blank::before { color: #374151 !important; font-style: normal !important; }
-                                    .ql-stroke { stroke: #9ca3af !important; }
-                                    .ql-fill { fill: #9ca3af !important; }
-                                    .ql-picker { color: #9ca3af !important; }
-                                `}</style>
-                                <ReactQuill
-                                    theme="snow"
-                                    value={content}
-                                    onChange={setContent}
-                                    placeholder="ابدأ بكتابة قصتك..."
-                                />
+                                {editorMode === "VISUAL" ? (
+                                    <>
+                                        <style>{`
+                                            .ql-toolbar { background: #1a1a1a !important; border: none !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; padding: 12px !important; }
+                                            .ql-container { border: none !important; font-size: 16px !important; color: #e5e7eb !important; font-family: inherit !important; }
+                                            .ql-editor { min-h-[500px] padding: 24px !important; line-height: 1.8 !important; }
+                                            .ql-editor.ql-blank::before { color: #374151 !important; font-style: normal !important; }
+                                            .ql-stroke { stroke: #9ca3af !important; }
+                                            .ql-fill { fill: #9ca3af !important; }
+                                            .ql-picker { color: #9ca3af !important; }
+                                        `}</style>
+                                        <ReactQuill
+                                            theme="snow"
+                                            value={content}
+                                            onChange={setContent}
+                                            placeholder="ابدأ بكتابة قصتك..."
+                                        />
+                                    </>
+                                ) : (
+                                    <textarea
+                                        className="w-full min-h-[500px] bg-[#111111] text-[#e5e7eb] border-none focus:ring-0 p-6 font-mono text-left focus:outline-none resize-y"
+                                        dir="ltr"
+                                        value={content}
+                                        onChange={(e) => setContent(e.target.value)}
+                                        placeholder="<h1>اكتب كود HTML هنا...</h1>"
+                                    />
+                                )}
                              </div>
                         </div>
 

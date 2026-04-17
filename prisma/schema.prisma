@@ -134,6 +134,7 @@ model User {
   supportTickets SupportTicket[] @relation("UserTickets")
   ticketMessages SupportTicketMessage[] @relation("TicketMessages")
   blogPosts     BlogPost[]
+  articles      Article[] @relation("UserArticles")
 
   // Seller Followers
   followers     SellerFollower[] @relation("Followers")
@@ -1782,4 +1783,38 @@ model ProductAnswer {
   
   @@index([questionId])
   @@index([answererId])
+}
+
+// ============================================
+// NEW BLOG SYSTEM -> ARTICLE MODEL
+// ============================================
+enum ArticleStatus {
+  DRAFT
+  PUBLISHED
+  SCHEDULED
+}
+
+model Article {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  excerpt         String   @db.Text
+  content         String   @db.Text
+  coverImage      String?
+  status          ArticleStatus @default(DRAFT)
+  publishedAt     DateTime?
+  seoTitle        String?
+  seoDescription  String?
+  tags            String[]
+  
+  authorId        String
+  author          User     @relation("UserArticles", fields: [authorId], references: [id])
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([slug])
+  @@index([status])
+  @@index([authorId])
+  @@index([createdAt])
 }

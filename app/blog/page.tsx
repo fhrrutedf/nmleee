@@ -1,4 +1,4 @@
-﻿import { Metadata } from 'next';
+import { Metadata } from 'next';
 import { prisma } from '@/lib/db';
 import BlogListClient from './BlogListClient';
 
@@ -11,11 +11,11 @@ export const dynamic = 'force-dynamic';
 
 export default async function BlogPage() {
     // 1. Fetch real posts from DB
-    const dbPosts = await prisma.blogPost.findMany({
+    const dbPosts = await prisma.article.findMany({
         where: { status: 'PUBLISHED' },
         orderBy: { createdAt: 'desc' },
         include: {
-            user: {
+            author: { // New Article model uses 'author' relation
                 select: { name: true, avatar: true }
             }
         }
@@ -32,13 +32,19 @@ export default async function BlogPage() {
         category: "تحليلات",
         authorName: "ماهر",
         createdAt: new Date().toISOString(),
-        user: { name: "ماهر", avatar: null }
+        author: { name: "ماهر", avatar: null }
     };
 
-    // 3. Combine them (ensure Maher's post is there if DB is empty or just as first post)
-    // We'll check if the slug already exists in DB to avoid duplicates
-    const hasMaherPost = dbPosts.some(p => p.slug === maherPost.slug);
-    const finalPosts = hasMaherPost ? dbPosts : [maherPost, ...dbPosts];
+    // Prepare articles for client component matching expected interface
+    const formattedDbPosts = dbPosts.map(post => ({
+        ...post,
+        authorName: post.author?.name || 'الكاتب',
+        category: post.tags && post.tags.length > 0 ? post.tags[0] : 'مقالات',
+    }));
+
+    // 3. Combine them
+    const hasMaherPost = formattedDbPosts.some(p => p.slug === maherPost.slug);
+    const finalPosts = hasMaherPost ? formattedDbPosts : [maherPost, ...formattedDbPosts];
 
     return <BlogListClient initialPosts={finalPosts as any} />;
 }

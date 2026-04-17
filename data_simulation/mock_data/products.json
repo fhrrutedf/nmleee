@@ -1,0 +1,322 @@
+[
+    {
+        "id": "prod_1",
+        "title": "Organic non-volatile synergy",
+        "category": "Software",
+        "price": 32.57,
+        "seller_id": "user_46",
+        "tier": "STAR"
+    },
+    {
+        "id": "prod_2",
+        "title": "Enterprise-wide logistical toolset",
+        "category": "Software",
+        "price": 312.28,
+        "seller_id": "user_68",
+        "tier": "STAR"
+    },
+    {
+        "id": "prod_3",
+        "title": "Adaptive logistical firmware",
+        "category": "Course",
+        "price": 234.11,
+        "seller_id": "user_24",
+        "tier": "STAR"
+    },
+    {
+        "id": "prod_4",
+        "title": "Re-engineered upward-trending superstructure",
+        "category": "Audio",
+        "price": 492.46,
+        "seller_id": "user_68",
+        "tier": "STAR"
+    },
+    {
+        "id": "prod_5",
+        "title": "Focused logistical policy",
+        "category": "Course",
+        "price": 380.73,
+        "seller_id": "user_75",
+        "tier": "STAR"
+    },
+    {
+        "id": "prod_6",
+        "title": "Open-architected human-resource methodology",
+        "category": "Course",
+        "price": 316.45,
+        "seller_id": "user_24",
+        "tier": "STAR"
+    },
+    {
+        "id": "prod_7",
+        "title": "Versatile bottom-line function",
+        "category": "Audio",
+        "price": 253.77,
+        "seller_id": "user_44",
+        "tier": "STAR"
+    },
+    {
+        "id": "prod_8",
+        "title": "Extended intermediate capacity",
+        "category": "Audio",
+        "price": 454.28,
+        "seller_id": "user_93",
+        "tier": "STAR"
+    },
+    {
+        "id": "prod_9",
+        "title": "Face-to-face fresh-thinking secured line",
+        "category": "E-Book",
+        "price": 80.39,
+        "seller_id": "user_55",
+        "tier": "GOOD"
+    },
+    {
+        "id": "prod_10",
+        "title": "Adaptive asynchronous intranet",
+        "category": "Course",
+        "price": 284.31,
+        "seller_id": "user_86",
+        "tier": "GOOD"
+    },
+    {
+        "id": "prod_11",
+        "title": "Persevering neutral website",
+        "category": "Graphics",
+        "price": 347.64,
+        "seller_id": "user_27",
+        "tier": "GOOD"
+    },
+    {
+        "id": "prod_12",
+        "title": "Expanded well-modulated structure",
+        "category": "Template",
+        "price": 82.42,
+        "seller_id": "user_78",
+        "tier": "GOOD"
+    },
+    {
+        "id": "prod_13",
+        "title": "Switchable 3rdgeneration throughput",
+        "category": "Software",
+        "price": 235.47,
+        "seller_id": "user_47",
+        "tier": "GOOD"
+    },
+    {
+        "id": "prod_14",
+        "title": "Re-engineered responsive archive",
+        "category": "Course",
+        "price": 499.68,
+        "seller_id": "user_52",
+        "tier": "GOOD"
+    },
+    {
+        "id": "prod_15",
+        "title": "Sharable 6thgeneration strategy",
+        "category": "E-Book",
+        "price": 108.24,
+        "seller_id": "user_95",
+        "tier": "GOOD"
+    },
+    {
+        "id": "prod_16",
+        "title": "Persevering mobile focus group",
+        "category": "Audio",
+        "price": 320.93,
+        "seller_id": "user_30",
+        "tier": "GOOD"
+    },
+    {
+        "id": "prod_17",
+        "title": "Organized didactic access",
+        "category": "E-Book",
+        "price": 25.37,
+        "seller_id": "user_24",
+        "tier": "GOOD"
+    },
+    {
+        "id": "prod_18",
+        "title": "Devolved 6thgeneration flexibility",
+        "category": "E-Book",
+        "price": 20.0,
+        "seller_id": "user_57",
+        "tier": "GOOD"
+    },
+    {
+        "id": "prod_19",
+        "title": "Compatible holistic infrastructure",
+        "category": "E-Book",
+        "price": 358.06,
+        "seller_id": "user_50",
+        "tier": "GOOD"
+    },
+    {
+        "id": "prod_20",
+        "title": "Distributed zero-defect project",
+        "category": "Software",
+        "price": 302.09,
+        "seller_id": "user_73",
+        "tier": "GOOD"
+    },
+    {
+        "id": "prod_21",
+        "title": "Multi-lateral cohesive adapter",
+        "category": "Software",
+        "price": 399.79,
+        "seller_id": "user_75",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_22",
+        "title": "Polarized analyzing open architecture",
+        "category": "E-Book",
+        "price": 137.33,
+        "seller_id": "user_94",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_23",
+        "title": "Persistent bandwidth-monitored moratorium",
+        "category": "E-Book",
+        "price": 64.72,
+        "seller_id": "user_68",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_24",
+        "title": "Polarized incremental model",
+        "category": "Course",
+        "price": 212.1,
+        "seller_id": "user_57",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_25",
+        "title": "Future-proofed encompassing product",
+        "category": "E-Book",
+        "price": 429.33,
+        "seller_id": "user_13",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_26",
+        "title": "Innovative local Local Area Network",
+        "category": "Audio",
+        "price": 346.93,
+        "seller_id": "user_8",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_27",
+        "title": "Multi-layered bifurcated database",
+        "category": "Template",
+        "price": 75.47,
+        "seller_id": "user_9",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_28",
+        "title": "Universal eco-centric matrices",
+        "category": "Graphics",
+        "price": 483.32,
+        "seller_id": "user_55",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_29",
+        "title": "De-engineered system-worthy strategy",
+        "category": "Template",
+        "price": 377.45,
+        "seller_id": "user_24",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_30",
+        "title": "Upgradable clear-thinking challenge",
+        "category": "Template",
+        "price": 414.76,
+        "seller_id": "user_29",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_31",
+        "title": "Reactive bifurcated capability",
+        "category": "Course",
+        "price": 36.91,
+        "seller_id": "user_14",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_32",
+        "title": "Exclusive national implementation",
+        "category": "Course",
+        "price": 294.15,
+        "seller_id": "user_33",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_33",
+        "title": "Team-oriented logistical success",
+        "category": "E-Book",
+        "price": 279.21,
+        "seller_id": "user_49",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_34",
+        "title": "Public-key human-resource initiative",
+        "category": "Software",
+        "price": 432.75,
+        "seller_id": "user_40",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_35",
+        "title": "Persevering client-server complexity",
+        "category": "Audio",
+        "price": 211.59,
+        "seller_id": "user_55",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_36",
+        "title": "Object-based optimizing matrix",
+        "category": "Audio",
+        "price": 311.79,
+        "seller_id": "user_27",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_37",
+        "title": "Horizontal impactful monitoring",
+        "category": "Course",
+        "price": 476.44,
+        "seller_id": "user_30",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_38",
+        "title": "Horizontal well-modulated superstructure",
+        "category": "Audio",
+        "price": 446.15,
+        "seller_id": "user_95",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_39",
+        "title": "Expanded responsive synergy",
+        "category": "Software",
+        "price": 422.4,
+        "seller_id": "user_55",
+        "tier": "NORMAL"
+    },
+    {
+        "id": "prod_40",
+        "title": "Exclusive multimedia extranet",
+        "category": "Audio",
+        "price": 199.66,
+        "seller_id": "user_97",
+        "tier": "NORMAL"
+    }
+]

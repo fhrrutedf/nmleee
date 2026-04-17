@@ -1,4 +1,4 @@
-﻿import { notFound } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { FiCalendar, FiUser, FiClock, FiShare2, FiArrowRight, FiFacebook, FiTwitter, FiLinkedin } from 'react-icons/fi';
 import { prisma } from '@/lib/db';
@@ -8,7 +8,7 @@ import { Metadata } from 'next';
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
 
-    let post = await prisma.blogPost.findUnique({
+    let post = await prisma.article.findUnique({
         where: { slug },
     });
 
@@ -21,12 +21,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             excerpt: "الفكرة ليست هي الكنز.. الاحتياج هو الكنز الحقيقي. تعلم كيف تكتشف ما يحتاجه جمهورك فعلياً وتحوله إلى أرباح مستدامة.",
             coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800",
             category: "تحليلات",
-            authorName: "ماهر",
             status: 'PUBLISHED',
             tags: [],
             createdAt: new Date(),
             updatedAt: new Date(),
-            userId: 'maher-id',
+            authorId: 'maher-id',
         } as any;
     }
 
@@ -53,10 +52,10 @@ export const revalidate = 60; // SSR with ISR
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
 
-    let post = await prisma.blogPost.findUnique({
+    let post = await prisma.article.findUnique({
         where: { slug },
         include: {
-            user: {
+            author: {
                 select: { name: true, avatar: true }
             }
         }
@@ -71,13 +70,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             excerpt: "الفكرة ليست هي الكنز.. الاحتياج هو الكنز الحقيقي. تعلم كيف تكتشف ما يحتاجه جمهورك فعلياً وتحوله إلى أرباح مستدامة.",
             coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800",
             category: "تحليلات",
-            authorName: "ماهر",
             status: 'PUBLISHED',
             tags: [],
             createdAt: new Date(),
             updatedAt: new Date(),
-            userId: 'maher-id',
-            user: { name: "ماهر", avatar: null }
+            authorId: 'maher-id',
+            author: { name: "ماهر", avatar: null }
         } as any;
     }
 
@@ -93,7 +91,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     };
 
     const readTime = calculateReadTime(post.content);
-    const authorName = post.authorName || post.user?.name || 'الكاتب';
+    const authorName = post.author?.name || 'الكاتب';
     const postDate = new Date(post.createdAt).toLocaleDateString("ar");
 
     return (
@@ -130,8 +128,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             <div className="flex items-center gap-6 text-gray-500 text-sm border-b border-white/10 pb-8 mt-6">
                                 <div className="flex items-center gap-2">
                                     <div className="w-10 h-10 rounded-xl bg-gray-200 overflow-hidden flex items-center justify-center text-gray-500 shrink-0">
-                                        {post.user?.avatar ? (
-                                            <img src={post.user.avatar} alt="Author" className="w-full h-full object-cover" />
+                                        {post.author?.avatar ? (
+                                            <img src={post.author.avatar} alt="Author" className="w-full h-full object-cover" />
                                         ) : (
                                             <FiUser size={20} />
                                         )}

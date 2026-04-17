@@ -1,0 +1,46 @@
+[
+    {
+        "url": "https://mostaql.com",
+        "domain": "mostaql.com",
+        "status": "Success",
+        "title": "مستقل | وظف أفضل المستقلين لإنجاز أعمالك",
+        "meta_description": "أنجز مشاريعك عبر الإنترنت بسهولة وأمان بالاعتماد على توظيف مستقلين محترفين في البرمجة، تطوير المواقع والتطبيقات، التصميم، التسويق، الترجمة وغيرها من المجالات من خلال مستقل، منصّة العمل الحر للمستقلين في العالم العربي التي تضمن كامل حقوق أصحاب المشاريع والمستقلين حيث تبقى كوسيط بين الطرفين حتى تسليم العمل كاملًا.",
+        "has_arabic": true,
+        "has_pricing": false,
+        "links_count": 39,
+        "error": null
+    },
+    {
+        "url": "https://khamsat.com",
+        "domain": "khamsat.com",
+        "status": "Success",
+        "title": "خمسات - أكبر سوق عربي للخدمات الرقمية",
+        "meta_description": "حلول رقمية متكاملة لإنجاز أعمالك بسهولة وأمان",
+        "has_arabic": true,
+        "has_pricing": false,
+        "links_count": 82,
+        "error": null
+    },
+    {
+        "url": "https://salla.sa",
+        "domain": "salla.sa",
+        "status": "Failed",
+        "title": "N/A",
+        "meta_description": "N/A",
+        "has_arabic": false,
+        "has_pricing": false,
+        "links_count": 0,
+        "error": "HTTP Error: 403"
+    },
+    {
+        "url": "https://zid.sa",
+        "domain": "zid.sa",
+        "status": "Success",
+        "title": "Ø²Ø¯ | Ø£Ù†Ø´Ø¦ Ù…ØªØ¬Ø±Ùƒ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ Ø¨Ø³Ù‡ÙˆÙ„Ø© ÙˆØ§Ø¨Ø¯Ø£ Ø§Ù„Ø¨ÙŠØ¹ Ù�ÙŠ 24 Ø³Ø§Ø¹Ø©",
+        "meta_description": "Ø²Ø¯ Ù‡ÙŠ Ù…Ù†ØµØªÙƒ Ø§Ù„Ù…ØªÙƒØ§Ù…Ù„Ø© Ù„Ø¥Ù†Ø´Ø§Ø¡ Ù…ØªØ¬Ø± Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ Ù�ÙŠ Ø¯Ù‚Ø§Ø¦Ù‚ØŒ Ù…Ø¹ Ø­Ù„ÙˆÙ„ Ø´Ø§Ù…Ù„Ø© Ù„Ù„Ø¯Ù�Ø¹ØŒ Ø§Ù„Ø´Ø­Ù† Ø§Ù„Ù…Ø­Ù„ÙŠ ÙˆØ§Ù„Ø¯ÙˆÙ„ÙŠØŒ ÙˆØ¥Ø¯Ø§Ø±Ø© Ø§Ù„Ù…Ø®Ø²ÙˆÙ† ÙˆØ§Ù„ØªØ³ÙˆÙŠÙ‚ Ø§Ù„Ù�Ø¹Ù‘Ø§Ù„",
+        "has_arabic": false,
+        "has_pricing": false,
+        "links_count": 94,
+        "error": null
+    }
+]
