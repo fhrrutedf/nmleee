@@ -141,7 +141,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         )}
 
                         {/* Content */}
-                        <div className="w-full overflow-x-auto overflow-y-hidden mb-20 hide-scrollbar pb-4 rounded-xl">
+                        <div className="w-full overflow-hidden mb-20 pb-4 rounded-xl">
                             <article
                                 className="prose prose-safe prose-lg prose-invert max-w-none prose-headings:font-bold prose-headings:text-[#10B981] prose-p:text-gray-300 prose-a:text-[#10B981] prose-img:rounded-xl prose-li:text-gray-300 prose-ul:list-disc prose-ol:list-decimal prose-ul:mr-6 prose-ol:mr-6 prose-strong:text-emerald-400 prose-p:leading-relaxed"
                                 dangerouslySetInnerHTML={{ __html: post.content }}
