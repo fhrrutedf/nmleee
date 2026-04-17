@@ -114,7 +114,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <main className="w-full px-6 md:px-10 mx-auto max-w-7xl py-12">
                 <div className="grid lg:grid-cols-12 gap-8 md:gap-12">
                     {/* Article Column */}
-                    <div className="lg:col-span-8">
+                    <div className="lg:col-span-8 min-w-0 w-full">
                         {/* Article Header */}
                         <div className="mb-8">
                             {post.tags && post.tags.length > 0 && (
@@ -141,10 +141,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         )}
 
                         {/* Content */}
-                        <article
-                            className="prose prose-lg prose-invert max-w-none prose-headings:font-bold prose-headings:text-[#10B981] prose-p:text-gray-300 prose-a:text-[#10B981] prose-img:rounded-xl prose-li:text-gray-300 prose-ul:list-disc prose-ol:list-decimal prose-ul:mr-6 prose-ol:mr-6 prose-strong:text-emerald-400 prose-p:leading-relaxed mb-20 overflow-x-clip"
-                            dangerouslySetInnerHTML={{ __html: post.content }}
-                        />
+                        <div className="w-full overflow-x-auto overflow-y-hidden mb-20 hide-scrollbar pb-4 rounded-xl">
+                            <article
+                                className="prose prose-lg prose-invert max-w-none prose-headings:font-bold prose-headings:text-[#10B981] prose-p:text-gray-300 prose-a:text-[#10B981] prose-img:rounded-xl prose-li:text-gray-300 prose-ul:list-disc prose-ol:list-decimal prose-ul:mr-6 prose-ol:mr-6 prose-strong:text-emerald-400 prose-p:leading-relaxed [&_*]:max-w-full break-words"
+                                dangerouslySetInnerHTML={{ __html: post.content }}
+                            />
+                        </div>
 
                         {/* Conversion CTA Block */}
                         <div className="bg-emerald-700 text-white rounded-xl p-8 md:p-12 text-white shadow-lg shadow-[#10B981]/20 shadow-accent/20 relative overflow-hidden group">
@@ -177,7 +179,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     </div>
 
                     {/* Sidebar */}
-                    <aside className="lg:col-span-4 space-y-8">
+                    <aside className="lg:col-span-4 space-y-8 min-w-0 w-full">
                         <NewsletterWidget />
                     </aside>
                 </div>
