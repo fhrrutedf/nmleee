@@ -166,6 +166,25 @@
   .text-muted {
     color: var(--text-muted);
   }
+
+  /* Safe container for pasted HTML in Blog */
+  .prose-safe [class*="w-screen"], .prose-safe [class*="w-full"] {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .prose-safe [style*="width"] {
+    max-width: 100% !important;
+  }
+  .prose-safe img, .prose-safe video, .prose-safe iframe {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  .prose-safe table {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto;
+    display: block;
+  }
 }
 
 /* Scrollbar */
