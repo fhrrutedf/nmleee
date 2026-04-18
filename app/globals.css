@@ -171,6 +171,8 @@
   .prose-safe * {
     max-width: 100% !important;
     box-sizing: border-box !important;
+    white-space: normal !important;
+    word-break: normal !important;
   }
   
   .prose-safe [class*="w-screen"], .prose-safe [class*="w-[100vw]"] {
