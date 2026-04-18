@@ -103,7 +103,7 @@ export async function updateArticle(articleId: string, data: {
         await checkAdminAccess();
         const cleanContent = sanitize(data.content);
 
-        await prisma.article.update({
+        const article = await prisma.article.update({
             where: { id: articleId },
             data: {
                 title: data.title,
@@ -117,6 +117,8 @@ export async function updateArticle(articleId: string, data: {
 
         revalidatePath("/dashboard/admin/blog");
         revalidatePath(`/dashboard/admin/blog/${articleId}/edit`);
+        revalidatePath(`/blog/${article.slug}`);
+        revalidatePath("/blog");
         return { success: true };
     } catch (error: any) {
         return { success: false, error: error.message };
