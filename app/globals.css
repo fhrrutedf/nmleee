@@ -171,8 +171,12 @@
   .prose-safe * {
     max-width: 100% !important;
     box-sizing: border-box !important;
-    white-space: normal !important;
+    white-space: pre-wrap !important;
     word-break: normal !important;
+    overflow-wrap: break-word !important;
+    text-align: right !important;
+    direction: rtl !important;
+    unicode-bidi: isolate;
   }
   
   .prose-safe [class*="w-screen"], .prose-safe [class*="w-[100vw]"] {
