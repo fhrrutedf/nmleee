@@ -167,12 +167,21 @@
     color: var(--text-muted);
   }
 
-  /* Core safety rules: Just prevent w-screen from breaking the main window */
-  .prose-safe [class*="w-screen"] {
+  /* Core safety rules to scale down pasted HTML without slicing Arabic text */
+  .prose-safe * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .prose-safe [class*="w-screen"], .prose-safe [class*="w-[100vw]"] {
     width: 100% !important;
   }
   
-  .prose-safe img, .prose-safe video, .prose-safe iframe {
+  .prose-safe [class*="flex"] {
+    flex-wrap: wrap !important;
+  }
+  
+  .prose-safe img, .prose-safe video, .prose-safe iframe, .prose-safe svg {
     max-width: 100% !important;
     height: auto !important;
   }
