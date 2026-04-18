@@ -96,25 +96,25 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     const postDate = new Date(post.createdAt).toLocaleDateString("ar");
 
     return (
-        <div className="min-h-screen bg-[#0A0A0A] overflow-x-hidden" dir="rtl">
+        <div className="min-h-screen bg-[#0A0A0A] flex flex-col w-full max-w-[100vw] overflow-x-hidden" dir="rtl">
             {/* Header / Breadcrumb */}
-            <div className="bg-[#111111] py-8 border-b border-white/10">
-                <div className="w-full px-6 md:px-10 mx-auto max-w-7xl">
+            <div className="bg-[#111111] py-8 border-b border-white/10 w-full">
+                <div className="w-full px-4 md:px-10 mx-auto max-w-7xl">
                     <div className="flex items-center gap-2 text-sm text-gray-500 overflow-x-auto whitespace-nowrap hide-scrollbar">
                         <Link href="/" className="hover:text-[#10B981]">الرئيسية</Link>
                         <span>/</span>
                         <Link href="/blog" className="hover:text-[#10B981]">المدونة</Link>
                         <span>/</span>
-                        <span className="text-gray-800 font-medium truncate max-w-xs">{post.title}</span>
+                        <span className="text-gray-800 font-medium truncate max-w-[150px]">{post.title}</span>
                     </div>
                 </div>
             </div>
 
             {/* Main Content */}
-            <main className="w-full px-6 md:px-10 mx-auto max-w-7xl py-12">
-                <div className="grid lg:grid-cols-12 gap-8 md:gap-12">
+            <main className="w-full px-4 md:px-10 mx-auto max-w-7xl py-12 flex-1">
+                <div className="flex flex-col lg:flex-row gap-8 md:gap-12">
                     {/* Article Column */}
-                    <div className="lg:col-span-8 min-w-0 w-full">
+                    <div className="flex-1 min-w-0 w-full max-w-full">
                         {/* Article Header */}
                         <div className="mb-8">
                             {post.tags && post.tags.length > 0 && (
@@ -179,7 +179,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     </div>
 
                     {/* Sidebar */}
-                    <aside className="lg:col-span-4 space-y-8 min-w-0 w-full">
+                    <aside className="lg:w-[350px] shrink-0 space-y-8 min-w-0 w-full">
                         <NewsletterWidget />
                     </aside>
                 </div>
