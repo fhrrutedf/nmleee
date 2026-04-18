@@ -15,13 +15,36 @@ const checkAdminAccess = async () => {
 };
 
 const sanitize = (html: string) => {
-    return sanitizeHtml(html, {
+    // Enterprise class sanitizer: strip copied layout bounds (Tailwind Grids, Flex, absolute logic)
+    // Ensures only Quill formatting and safe text attributes pass through.
+    const aggressiveSanitized = html.replace(/class="([^"]*)"/g, (match, classNames) => {
+        const safeClasses = classNames.split(/\s+/).filter((cls: string) => {
+            if (cls.startsWith('ql-')) return true; // Keep Quill editor classes
+            if (cls.startsWith('text-')) return true;
+            if (cls.startsWith('font-')) return true;
+            if (cls.startsWith('list-')) return true;
+            if (cls.match(/^p[xyrtlb]?-\d+/)) return true; // allow basic padding
+            return false; // Destroy all other classes (w-screen, flex, absolute, block, w-full, etc.)
+        });
+        return safeClasses.length > 0 ? `class="${safeClasses.join(' ')}"` : '';
+    });
+
+    return sanitizeHtml(aggressiveSanitized, {
         allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img", "h1", "h2", "iframe", "span"]),
         allowedAttributes: {
             ...sanitizeHtml.defaults.allowedAttributes,
-            '*': ['style', 'class'],
+            '*': ['style', 'class'], // Only the safe classes remain
             img: ['src', 'alt', 'width', 'height'],
             iframe: ['src', 'title', 'allow', 'allowfullscreen']
+        },
+        allowedStyles: {
+            '*': {
+                'color': [/.*/],
+                'text-align': [/.*/],
+                'font-size': [/.*/],
+                'background-color': [/.*/],
+                'direction': [/.*/]
+            }
         },
         allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com']
     });
