@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { FiPlus, FiLink, FiUsers, FiDollarSign, FiActivity, FiCopy, FiTrash2, FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
 import showToast from '@/lib/toast';
 import { useSession } from 'next-auth/react';
+import { apiGet, apiPost, apiPut, apiDelete, handleApiError } from '@/lib/safe-fetch';
 
 export default function AffiliatesPage() {
     const { data: session } = useSession();
@@ -28,15 +29,12 @@ export default function AffiliatesPage() {
 
     const fetchAffiliatesData = async () => {
         try {
-            const res = await fetch('/api/affiliates');
-            if (res.ok) {
-                const data = await res.json();
-                setAffiliates(data.affiliateLinks || []);
-                setProducts(data.products || []);
-            }
+            const data = await apiGet('/api/affiliates');
+            setAffiliates(data.affiliateLinks || []);
+            setProducts(data.products || []);
         } catch (error) {
-            console.error('Error fetching data:', error);
-            showToast.error("حدث خطأ أثناء تحميل بيانات المسوقين");
+            console.error('Error fetching data:', handleApiError(error));
+            showToast.error(handleApiError(error) || "حدث خطأ أثناء تحميل بيانات المسوقين");
         } finally {
             setLoading(false);
         }
@@ -47,26 +45,17 @@ export default function AffiliatesPage() {
         const toastId = showToast.loading('جاري إضافة مسوق جديد...');
 
         try {
-            const response = await fetch('/api/affiliates', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
+            await apiPost('/api/affiliates', formData);
 
-            if (response.ok) {
-                showToast.dismiss(toastId);
-                showToast.success('تم إنشاء الرابط وإضافة المسوق بنجاح!');
-                setShowModal(false);
-                fetchAffiliatesData();
-                setFormData({ email: '', productId: '', commissionType: 'percentage', commissionValue: '' });
-            } else {
-                const err = await response.json();
-                throw new Error(err.error || 'فشل إضافة المسوق');
-            }
+            showToast.dismiss(toastId);
+            showToast.success('تم إنشاء الرابط وإضافة المسوق بنجاح!');
+            setShowModal(false);
+            fetchAffiliatesData();
+            setFormData({ email: '', productId: '', commissionType: 'percentage', commissionValue: '' });
         } catch (error: any) {
             console.error('Error creating affiliate link:', error);
             showToast.dismiss(toastId);
-            showToast.error(error.message || 'المسوق غير موجود أو حدث خطأ');
+            showToast.error(handleApiError(error) || 'المسوق غير موجود أو حدث خطأ');
         }
     };
 
@@ -74,34 +63,24 @@ export default function AffiliatesPage() {
         if (!confirm('هل أنت متأكد أنك تريد إيقاف ورشة مسح رابط هذا المسوق بشكل نهائي؟')) return;
 
         try {
-            const res = await fetch(`/api/affiliates/${id}`, { method: 'DELETE' });
-            if (res.ok) {
-                showToast.success('تم حذف رابط التسويق!');
-                fetchAffiliatesData();
-            } else {
-                showToast.error('حدث خطأ أثناء محاولة الحذف');
-            }
+            await apiDelete(`/api/affiliates/${id}`);
+            showToast.success('تم حذف رابط التسويق!');
+            fetchAffiliatesData();
         } catch (error) {
             console.error('Error:', error);
+            showToast.error(handleApiError(error) || 'حدث خطأ أثناء محاولة الحذف');
         }
     };
 
     const toggleStatus = async (id: string, currentStatus: boolean) => {
         try {
-            const res = await fetch(`/api/affiliates/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ isActive: !currentStatus })
-            });
+            await apiPut(`/api/affiliates/${id}`, { isActive: !currentStatus });
 
-            if (res.ok) {
-                showToast.success(`تم ${!currentStatus ? 'تفعيل' : 'إيقاف'} رابط المسوق بنجاح`);
-                fetchAffiliatesData();
-            } else {
-                showToast.error("حدث خطأ أثناء تعديل الحالة");
-            }
+            showToast.success(`تم ${!currentStatus ? 'تفعيل' : 'إيقاف'} رابط المسوق بنجاح`);
+            fetchAffiliatesData();
         } catch (error) {
-            console.error('Error toggling status:', error);
+            console.error('Error toggling status:', handleApiError(error));
+            showToast.error(handleApiError(error) || "حدث خطأ أثناء تعديل الحالة");
         }
     };
 

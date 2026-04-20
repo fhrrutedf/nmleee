@@ -10,6 +10,7 @@ import {
 } from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
+import { apiGet, apiPatch, apiPost, handleApiError } from '@/lib/safe-fetch';
 
 const fmt = (n: number) => new Intl.NumberFormat('ar-SA', { maximumFractionDigits: 2 }).format(n);
 const fmtDate = (d: string) => new Date(d).toLocaleDateString('ar-SA', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
@@ -48,9 +49,9 @@ export default function AdminPayoutsPage() {
         setLoading(true);
         try {
             const [p, c, l] = await Promise.all([
-                fetch('/api/admin/payouts').then(r => r.json()),
-                fetch('/api/admin/courses-review?status=PENDING').then(r => r.json()),
-                fetch('/api/admin/activity-logs?limit=30').then(r => r.json()),
+                apiGet('/api/admin/payouts'),
+                apiGet('/api/admin/courses-review?status=PENDING'),
+                apiGet('/api/admin/activity-logs?limit=30'),
             ]);
             setPayouts(Array.isArray(p) ? p : []);
             setCourses(Array.isArray(c) ? c : []);
@@ -62,14 +63,12 @@ export default function AdminPayoutsPage() {
 
     const approvePayout = async (payoutId: string) => {
         setProcessing(payoutId);
-        const r = await fetch('/api/admin/payouts', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ payoutId, action: 'approve', transactionId: txId }),
-        });
-        const d = await r.json();
-        if (r.ok) { showToast.success(d.message); setTxId(''); await loadAll(); }
-        else showToast.error(d.error);
+        try {
+            const d = await apiPatch('/api/admin/payouts', { payoutId, action: 'approve', transactionId: txId });
+            showToast.success(d.message); setTxId(''); await loadAll();
+        } catch(error) {
+            showToast.error(handleApiError(error));
+        }
         setProcessing(null);
     };
 
@@ -80,31 +79,30 @@ export default function AdminPayoutsPage() {
         const body = rejectModal.type === 'payout'
             ? { payoutId: rejectModal.id, action: 'reject', note: rejectNote }
             : { courseId: rejectModal.id, action: 'reject', note: rejectNote };
-        const r = await fetch(api, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-        const d = await r.json();
-        if (r.ok) { showToast.success(d.message); setRejectModal(null); setRejectNote(''); await loadAll(); }
-        else showToast.error(d.error);
+        try {
+            const d = await apiPatch(api, body);
+            showToast.success(d.message); setRejectModal(null); setRejectNote(''); await loadAll();
+        } catch(error) {
+            showToast.error(handleApiError(error));
+        }
         setProcessing(null);
     };
 
     const approveCourse = async (courseId: string) => {
         setProcessing(courseId);
-        const r = await fetch('/api/admin/courses-review', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ courseId, action: 'approve' }),
-        });
-        const d = await r.json();
-        if (r.ok) { showToast.success(d.message); await loadAll(); }
-        else showToast.error(d.error);
+        try {
+            const d = await apiPatch('/api/admin/courses-review', { courseId, action: 'approve' });
+            showToast.success(d.message); await loadAll();
+        } catch(error) {
+            showToast.error(handleApiError(error));
+        }
         setProcessing(null);
     };
 
     const loginAsUser = async (userId: string, name: string) => {
         if (!confirm(`هل تريد الدخول كـ "${name}"؟ ستنتهي صلاحيتك بعد ساعتين.`)) return;
-        const r = await fetch(`/api/admin/impersonate/${userId}`, { method: 'POST' });
-        const d = await r.json();
-        if (r.ok) {
+        try {
+            const d = await apiPost(`/api/admin/impersonate/${userId}`, {});
             showToast.success(`جاري الدخول كـ ${name}...`);
             // Store original session and redirect
             sessionStorage.setItem('adminImpersonating', JSON.stringify({
@@ -114,20 +112,21 @@ export default function AdminPayoutsPage() {
             }));
             // Use the token to update session - redirect to dashboard
             window.location.href = `/api/admin/impersonate/${userId}/session?token=${d.token}`;
-        } else showToast.error(d.error);
+        } catch(error) {
+            showToast.error(handleApiError(error));
+        }
     };
 
     const saveCommission = async () => {
         if (!commModal) return;
         const rate = parseFloat(commRate);
         if (isNaN(rate) || rate < 0 || rate > 100) { showToast.error('نسبة غير صالحة'); return; }
-        const r = await fetch(`/api/admin/users/${commModal.userId}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ customCommissionRate: rate }),
-        });
-        if (r.ok) { showToast.success('تم حفظ العمولة المخصصة'); setCommModal(null); }
-        else showToast.error('فشل الحفظ');
+        try {
+            await apiPatch(`/api/admin/users/${commModal.userId}`, { customCommissionRate: rate });
+            showToast.success('تم حفظ العمولة المخصصة'); setCommModal(null);
+        } catch(error) {
+            showToast.error(handleApiError(error));
+        }
     };
 
     const exportPayoutsCSV = () => {

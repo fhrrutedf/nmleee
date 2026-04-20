@@ -6,6 +6,7 @@ import {
     FiUsers, FiChevronDown, FiChevronUp, FiSearch,
     FiBook, FiUser, FiMail, FiCheckCircle, FiArrowRight
 } from 'react-icons/fi';
+import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
 interface CourseInfo {
     id: string;
@@ -50,13 +51,10 @@ export default function AdminStudentsPage() {
 
     const fetchTrainers = async () => {
         try {
-            const res = await fetch('/api/admin/students');
-            if (res.ok) {
-                const data = await res.json();
-                setTrainers(data.trainers || []);
-            }
-        } catch (e) {
-            console.error('Error:', e);
+            const data = await apiGet('/api/admin/students');
+            setTrainers(data.trainers || []);
+        } catch (error) {
+            console.error('Error:', handleApiError(error));
         } finally {
             setLoading(false);
         }
@@ -72,13 +70,10 @@ export default function AdminStudentsPage() {
         if (!trainerStudents[trainerId]) {
             setLoadingStudents(trainerId);
             try {
-                const res = await fetch(`/api/admin/students?trainerId=${trainerId}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    setTrainerStudents(prev => ({ ...prev, [trainerId]: data.students }));
-                }
-            } catch (e) {
-                console.error('Error:', e);
+                const data = await apiGet(`/api/admin/students?trainerId=${trainerId}`);
+                setTrainerStudents(prev => ({ ...prev, [trainerId]: data.students }));
+            } catch (error) {
+                console.error('Error:', handleApiError(error));
             } finally {
                 setLoadingStudents(null);
             }

@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { FiStar } from 'react-icons/fi';
+import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 
 export default function ReviewsSection({ productId }: { productId: string }) {
     const [reviews, setReviews] = useState([]);
@@ -23,11 +25,10 @@ export default function ReviewsSection({ productId }: { productId: string }) {
 
     const fetchReviews = async () => {
         try {
-            const response = await fetch(`/api/reviews?productId=${productId}`);
-            const data = await response.json();
+            const data = await apiGet(`/api/reviews?productId=${productId}`);
             setReviews(data);
         } catch (error) {
-            console.error('Error fetching reviews:', error);
+            console.error('Error fetching reviews:', handleApiError(error));
         } finally {
             setLoading(false);
         }
@@ -36,23 +37,18 @@ export default function ReviewsSection({ productId }: { productId: string }) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await fetch('/api/reviews', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...formData,
-                    productId,
-                }),
+            await apiPost('/api/reviews', {
+                ...formData,
+                productId,
             });
 
-            if (response.ok) {
-                alert('تم إضافة تقييمك بنجاح! ✅');
-                setShowForm(false);
-                setFormData({ rating: 5, comment: '', name: '' });
-                fetchReviews();
-            }
+            alert('تم إضافة تقييمك بنجاح! ✅');
+            setShowForm(false);
+            setFormData({ rating: 5, comment: '', name: '' });
+            fetchReviews();
         } catch (error) {
-            console.error('Error submitting review:', error);
+            console.error('Error submitting review:', handleApiError(error));
+            alert(handleApiError(error) || 'حدث خطأ أثناء إضافة التقييم');
         }
     };
 

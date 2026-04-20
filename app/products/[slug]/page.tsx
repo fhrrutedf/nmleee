@@ -1,10 +1,11 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useCart } from '@/contexts/CartContext';
 import Image from 'next/image';
 import { FiShoppingCart, FiCheck, FiStar, FiUsers, FiClock, FiVideo } from 'react-icons/fi';
+import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
 interface Product {
     id: string;
@@ -44,13 +45,10 @@ export default function ProductPage() {
 
     const fetchProduct = async () => {
         try {
-            const response = await fetch(`/api/products/${params.slug}`);
-            if (response.ok) {
-                const data = await response.json();
-                setProduct(data);
-            }
+            const data = await apiGet(`/api/products/${params.slug}`);
+            setProduct(data);
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', handleApiError(error));
         } finally {
             setLoading(false);
         }

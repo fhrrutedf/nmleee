@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useSession } from 'next-auth/react';
+import { apiGet } from '@/lib/safe-fetch';
 
 const plans = [
     {
@@ -166,8 +167,7 @@ export default function BillingPage() {
 
     useEffect(() => {
         // Fetch current plan
-        fetch('/api/seller/financial-overview')
-            .then(res => res.json())
+        apiGet('/api/seller/financial-overview')
             .then(data => {
                 if (data?.plan?.type) {
                     setCurrentPlanSlug(planTypeToSlug[data.plan.type] || 'free');

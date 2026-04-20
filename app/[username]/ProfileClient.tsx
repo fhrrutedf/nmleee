@@ -14,7 +14,9 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
+import { apiGet, apiPost, apiDelete, handleApiError } from '@/lib/safe-fetch';
 
 interface ProfileClientProps {
     creator: any;
@@ -111,8 +113,8 @@ function WishlistButton({ productId, courseId, brandColor }: { productId?: strin
                 const p = new URLSearchParams();
                 if (productId) p.append('productId', productId);
                 if (courseId) p.append('courseId', courseId);
-                const res = await fetch(`/api/wishlist?${p}`, { method: 'HEAD' });
-                if (res.ok) { const d = await res.json(); setIsInWishlist(d.isInWishlist); }
+                const res = await apiGet(`/api/wishlist?${p}`);
+                setIsInWishlist(res?.isInWishlist);
             } catch (_) {}
         }
         check();
@@ -126,13 +128,13 @@ function WishlistButton({ productId, courseId, brandColor }: { productId?: strin
                 const p = new URLSearchParams();
                 if (productId) p.append('productId', productId);
                 if (courseId) p.append('courseId', courseId);
-                await fetch(`/api/wishlist?${p}`, { method: 'DELETE' });
+                await apiDelete(`/api/wishlist?${p}`);
                 setIsInWishlist(false); toast.success('تمت الإزالة من المفضلة');
             } else {
-                await fetch('/api/wishlist', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ productId, courseId }) });
+                await apiPost('/api/wishlist', { productId, courseId });
                 setIsInWishlist(true); toast.success('تمت الإضافة للمفضلة');
             }
-        } catch { toast.error('يجب تسجيل الدخول أولاً'); } finally { setIsLoading(false); }
+        } catch(error) { toast.error(handleApiError(error) || 'يجب تسجيل الدخول أولاً'); } finally { setIsLoading(false); }
     };
 
     return (
@@ -223,8 +225,8 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
     useEffect(() => {
         async function checkFollowStatus() {
             try {
-                const res = await fetch(`/api/creators/${creator.username}/follow`);
-                if (res.ok) { const d = await res.json(); setIsFollowing(d.isFollowing); setFollowerCount(d.followerCount); }
+                const d = await apiGet(`/api/creators/${creator.username}/follow`);
+                setIsFollowing(d.isFollowing); setFollowerCount(d.followerCount);
             } catch {}
         }
         checkFollowStatus();
@@ -234,11 +236,17 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
     const handleFollow = async () => {
         setIsFollowLoading(true);
         try {
-            const method = isFollowing ? 'DELETE' : 'POST';
-            const res = await fetch(`/api/creators/${creator.username}/follow`, { method, headers: { 'Content-Type': 'application/json' } });
-            if (res.ok) { const d = await res.json(); setIsFollowing(d.isFollowing); setFollowerCount(d.followerCount); toast.success(d.message); }
-            else { const e = await res.json(); if (res.status === 401) toast.error('يجب تسجيل الدخول للمتابعة'); else toast.error(e.error || 'حدث خطأ'); }
-        } catch { toast.error('حدث خطأ في الاتصال'); } finally { setIsFollowLoading(false); }
+            if (isFollowing) {
+                const d = await apiDelete(`/api/creators/${creator.username}/follow`);
+                setIsFollowing(d.isFollowing); setFollowerCount(d.followerCount); toast.success(d.message);
+            } else {
+                const d = await apiPost(`/api/creators/${creator.username}/follow`, {});
+                setIsFollowing(d.isFollowing); setFollowerCount(d.followerCount); toast.success(d.message);
+            }
+        } catch(error: any) { 
+            if (error?.status === 401) toast.error('يجب تسجيل الدخول للمتابعة');
+            else toast.error(handleApiError(error) || 'حدث خطأ');
+        } finally { setIsFollowLoading(false); }
     };
 
     const copyLink = useCallback(() => {

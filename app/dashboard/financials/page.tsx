@@ -9,6 +9,7 @@ import {
     FiArrowUpRight, FiArrowDownRight, FiPieChart, FiStar,
     FiShoppingBag, FiVideo, FiPackage, FiExternalLink, FiBarChart2
 } from 'react-icons/fi';
+import { apiGet, handleApiError } from '@/lib/safe-fetch';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -78,13 +79,10 @@ export default function FinancialsPage() {
 
     const fetchData = async () => {
         try {
-            const res = await fetch('/api/seller/financial-overview');
-            if (res.ok) {
-                const json = await res.json();
-                setData(json);
-            }
+            const json = await apiGet('/api/seller/financial-overview');
+            setData(json);
         } catch (error) {
-            console.error('Error fetching financial data:', error);
+            console.error('Error fetching financial data:', handleApiError(error));
         } finally {
             setLoading(false);
         }

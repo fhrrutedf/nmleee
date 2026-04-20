@@ -12,6 +12,7 @@ import {
 } from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
+import { apiGet, apiPatch, apiPost, handleApiError } from '@/lib/safe-fetch';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer,
     PieChart, Pie, Cell, Legend, AreaChart, Area
@@ -120,8 +121,8 @@ export default function AdminDashboardPage() {
         if (showSpinner) setLoading(true);
         else setIsRefreshing(true);
         try {
-            const r = await fetch(`/api/admin/dashboard?period=${period}`);
-            setData(await r.json());
+            const data = await apiGet(`/api/admin/dashboard?period=${period}`);
+            setData(data);
         } catch { } finally { setLoading(false); setIsRefreshing(false); }
     }, [period]);
 
@@ -129,14 +130,14 @@ export default function AdminDashboardPage() {
 
     useEffect(() => {
         const fetchers: any = {
-            coupons: () => fetch('/api/admin/coupons').then(r => r.json()).then(setAllCoupons),
-            affiliates: () => fetch('/api/admin/affiliates').then(r => r.json()).then(setAllAffiliates),
-            broadcasts: () => fetch('/api/admin/broadcast/list').then(r => r.json()).then(setAllBroadcasts),
-            verification: () => fetch('/api/admin/verification').then(r => r.json()).then(d => setVerificationRequests(d.requests)),
-            payouts: () => fetch('/api/admin/payouts?limit=50&status=PENDING').then(r => r.json()).then(d => {
+            coupons: () => apiGet('/api/admin/coupons').then(setAllCoupons).catch(() => {}),
+            affiliates: () => apiGet('/api/admin/affiliates').then(setAllAffiliates).catch(() => {}),
+            broadcasts: () => apiGet('/api/admin/broadcast/list').then(setAllBroadcasts).catch(() => {}),
+            verification: () => apiGet('/api/admin/verification').then(d => setVerificationRequests(d.requests)).catch(() => {}),
+            payouts: () => apiGet('/api/admin/payouts?limit=50&status=PENDING').then(d => {
                 setPayouts(d.payouts || []);
                 setPayoutStats(d.stats);
-            })
+            }).catch(() => {})
         };
 
         if (fetchers[activeTab]) {
@@ -146,17 +147,17 @@ export default function AdminDashboardPage() {
 
         if (activeTab === 'reports') {
             setLoadingReports(true);
-            fetch('/api/admin/reports?limit=10')
-                .then(r => r.json())
+            apiGet('/api/admin/reports?limit=10')
                 .then(d => setReports(d.reports || []))
+                .catch(() => {})
                 .finally(() => setLoadingReports(false));
         }
 
         if (activeTab === 'backup') {
             setLoadingBackups(true);
-            fetch('/api/admin/backup', { method: 'POST', body: JSON.stringify({ action: 'list' }) })
-                .then(r => r.json())
+            apiPost('/api/admin/backup', { action: 'list' })
                 .then(d => setBackups(d.backups || []))
+                .catch(() => {})
                 .finally(() => setLoadingBackups(false));
         }
     }, [activeTab]);
@@ -165,9 +166,9 @@ export default function AdminDashboardPage() {
         if (activeTab === 'users') {
             const timer = setTimeout(() => {
                 setMarketingLoading(true);
-                fetch(`/api/admin/users?limit=50&search=${encodeURIComponent(userFilter)}`)
-                    .then(r => r.json())
+                apiGet(`/api/admin/users?limit=50&search=${encodeURIComponent(userFilter)}`)
                     .then(d => setAllUsers(d.users || []))
+                    .catch(() => {})
                     .finally(() => setMarketingLoading(false));
             }, 400);
             return () => clearTimeout(timer);
@@ -177,9 +178,9 @@ export default function AdminDashboardPage() {
     useEffect(() => {
         if (activeTab === 'subscriptions') {
             setLoadingSubscriptions(true);
-            fetch('/api/admin/subscription-stats')
-                .then(r => r.json())
+            apiGet('/api/admin/subscription-stats')
                 .then(setSubscriptionData)
+                .catch(() => {})
                 .finally(() => setLoadingSubscriptions(false));
         }
     }, [activeTab]);
@@ -193,18 +194,14 @@ export default function AdminDashboardPage() {
     const toggleUser = async (userId: string, isActive: boolean) => {
         setTogglingUser(userId);
         try {
-            const r = await fetch(`/api/admin/users/${userId}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ isActive }),
-            });
-            if (r.ok) {
-                setData((prev: any) => ({
-                    ...prev,
-                    recentUsers: prev.recentUsers.map((u: any) => u.id === userId ? { ...u, isActive } : u),
-                }));
-                showToast.success(isActive ? 'تفعيل كامل' : 'إيقاف مؤقت');
-            }
+            await apiPatch(`/api/admin/users/${userId}`, { isActive });
+            setData((prev: any) => ({
+                ...prev,
+                recentUsers: prev.recentUsers.map((u: any) => u.id === userId ? { ...u, isActive } : u),
+            }));
+            showToast.success(isActive ? 'تفعيل كامل' : 'إيقاف مؤقت');
+        } catch (error) {
+            showToast.error(handleApiError(error));
         } finally { setTogglingUser(null); }
     };
 
@@ -212,31 +209,25 @@ export default function AdminDashboardPage() {
         if (!broadcast.subject || !broadcast.message) return;
         setSending(true);
         try {
-            const r = await fetch('/api/admin/broadcast', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(broadcast),
-            });
-            if (r.ok) {
-                showToast.success('تم إطلاق الرحلة بنجاح');
-                setShowBroadcast(false);
-            }
+            await apiPost('/api/admin/broadcast', broadcast);
+            showToast.success('تم إطلاق الرحلة بنجاح');
+            setShowBroadcast(false);
+        } catch(error) {
+            showToast.error(handleApiError(error));
         } finally { 
             setSending(false); 
-            fetch('/api/admin/broadcast/list').then(r => r.json()).then(setAllBroadcasts);
+            apiGet('/api/admin/broadcast/list').then(setAllBroadcasts).catch(() => {});
         }
     };
 
     const verifyOrder = async (orderId: string, action: 'approve' | 'reject') => {
         setVerifying(orderId);
         try {
-            await fetch(`/api/admin/orders/${orderId}/verify`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action }),
-            });
+            await apiPost(`/api/admin/orders/${orderId}/verify`, { action });
             await load();
             showToast.success('تم التحديث بنجاح');
+        } catch(error) {
+            showToast.error(handleApiError(error));
         } finally { setVerifying(null); }
     };
 
@@ -607,16 +598,13 @@ export default function AdminDashboardPage() {
                                     onClick={async () => {
                                         setGeneratingReport(true);
                                         try {
-                                            const r = await fetch('/api/admin/reports', {
-                                                method: 'POST',
-                                                headers: { 'Content-Type': 'application/json' },
-                                                body: JSON.stringify({ type: 'daily', period: '24h', title: 'التقرير اليومي' }),
-                                            });
-                                            const data = await r.json();
+                                            const data = await apiPost('/api/admin/reports', { type: 'daily', period: '24h', title: 'التقرير اليومي' });
                                             if (data.success) {
                                                 showToast.success('تم إنشاء التقرير اليومي');
                                                 setReports([data.report, ...reports]);
                                             }
+                                        } catch(error) {
+                                            showToast.error(handleApiError(error));
                                         } finally { setGeneratingReport(false); }
                                     }}
                                     disabled={generatingReport}
@@ -632,16 +620,13 @@ export default function AdminDashboardPage() {
                                     onClick={async () => {
                                         setGeneratingReport(true);
                                         try {
-                                            const r = await fetch('/api/admin/reports', {
-                                                method: 'POST',
-                                                headers: { 'Content-Type': 'application/json' },
-                                                body: JSON.stringify({ type: 'weekly', period: '7d', title: 'التقرير الأسبوعي' }),
-                                            });
-                                            const data = await r.json();
+                                            const data = await apiPost('/api/admin/reports', { type: 'weekly', period: '7d', title: 'التقرير الأسبوعي' });
                                             if (data.success) {
                                                 showToast.success('تم إنشاء التقرير الأسبوعي');
                                                 setReports([data.report, ...reports]);
                                             }
+                                        } catch(error) {
+                                            showToast.error(handleApiError(error));
                                         } finally { setGeneratingReport(false); }
                                     }}
                                     disabled={generatingReport}
@@ -657,16 +642,13 @@ export default function AdminDashboardPage() {
                                     onClick={async () => {
                                         setGeneratingReport(true);
                                         try {
-                                            const r = await fetch('/api/admin/reports', {
-                                                method: 'POST',
-                                                headers: { 'Content-Type': 'application/json' },
-                                                body: JSON.stringify({ type: 'monthly', period: '30d', title: 'التقرير الشهري' }),
-                                            });
-                                            const data = await r.json();
+                                            const data = await apiPost('/api/admin/reports', { type: 'monthly', period: '30d', title: 'التقرير الشهري' });
                                             if (data.success) {
                                                 showToast.success('تم إنشاء التقرير الشهري');
                                                 setReports([data.report, ...reports]);
                                             }
+                                        } catch(error) {
+                                            showToast.error(handleApiError(error));
                                         } finally { setGeneratingReport(false); }
                                     }}
                                     disabled={generatingReport}
@@ -768,16 +750,13 @@ export default function AdminDashboardPage() {
                                     onClick={async () => {
                                         setBackingUp(true);
                                         try {
-                                            const r = await fetch('/api/admin/backup', {
-                                                method: 'POST',
-                                                headers: { 'Content-Type': 'application/json' },
-                                                body: JSON.stringify({ action: 'backup' }),
-                                            });
-                                            const data = await r.json();
+                                            const data = await apiPost('/api/admin/backup', { action: 'backup' });
                                             if (data.success) {
                                                 showToast.success(`تم إنشاء نسخة احتياطية بـ ${data.total} سجل`);
                                                 setBackups([{ file: data.file, timestamp: new Date().toISOString(), total: data.total }, ...backups]);
                                             }
+                                        } catch(error) {
+                                            showToast.error(handleApiError(error));
                                         } finally { setBackingUp(false); }
                                     }}
                                     disabled={backingUp}
@@ -803,16 +782,13 @@ export default function AdminDashboardPage() {
                                         if (!confirm('⚠️ هل أنت متأكد؟ سيتم استبدال جميع البيانات الحالية!')) return;
                                         setRestoring(true);
                                         try {
-                                            const r = await fetch('/api/admin/backup', {
-                                                method: 'POST',
-                                                headers: { 'Content-Type': 'application/json' },
-                                                body: JSON.stringify({ action: 'restore' }),
-                                            });
-                                            const data = await r.json();
+                                            const data = await apiPost('/api/admin/backup', { action: 'restore' });
                                             if (data.success) {
                                                 showToast.success('تم استعادة البيانات بنجاح!');
                                                 window.location.reload();
                                             }
+                                        } catch(error) {
+                                            showToast.error(handleApiError(error));
                                         } finally { setRestoring(false); }
                                     }}
                                     disabled={restoring || backups.length === 0}

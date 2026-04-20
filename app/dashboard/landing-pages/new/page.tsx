@@ -6,6 +6,7 @@ import { FiSave, FiEye } from 'react-icons/fi';
 import CountdownTimer from '@/components/CountdownTimer';
 import toast from 'react-hot-toast';
 import FileUploader from '@/components/ui/FileUploader';
+import { apiPost, handleApiError } from '@/lib/safe-fetch';
 
 export default function CreateLandingPage() {
     const router = useRouter();
@@ -44,21 +45,11 @@ export default function CreateLandingPage() {
         setLoading(true);
 
         try {
-            const response = await fetch('/api/landing-pages', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                router.push(`/landing/${data.slug}`);
-            } else {
-                toast.error('حدث خطأ أثناء إنشاء الصفحة');
-            }
+            const data = await apiPost('/api/landing-pages', formData);
+            router.push(`/landing/${data.slug}`);
         } catch (error) {
             console.error('Error creating landing page:', error);
-            toast.error('حدث خطأ غير متوقع');
+            toast.error(handleApiError(error) || 'حدث خطأ غير متوقع');
         } finally {
             setLoading(false);
         }

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FiCalendar, FiClock, FiVideo, FiMapPin, FiUser, FiMail, FiPhone, FiMessageSquare } from 'react-icons/fi';
+import { apiPost, handleApiError } from '@/lib/safe-fetch';
 
 export default function BookAppointmentPage() {
     const router = useRouter();
@@ -42,21 +43,13 @@ export default function BookAppointmentPage() {
         setLoading(true);
 
         try {
-            const res = await fetch('/api/appointments/book', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
+            await apiPost('/api/appointments/book', formData);
 
-            if (res.ok) {
-                alert('تم حجز الموعد بنجاح! سنتواصل معك قريباً للتأكيد.');
-                router.push('/my-appointments');
-            } else {
-                alert('حدث خطأ في الحجز. حاول مرة أخرى');
-            }
+            alert('تم حجز الموعد بنجاح! سنتواصل معك قريباً للتأكيد.');
+            router.push('/my-appointments');
         } catch (error) {
-            console.error('Error booking appointment:', error);
-            alert('حدث خطأ. حاول مرة أخرى');
+            console.error('Error booking appointment:', handleApiError(error));
+            alert(handleApiError(error) || 'حدث خطأ. حاول مرة أخرى');
         } finally {
             setLoading(false);
         }

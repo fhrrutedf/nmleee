@@ -14,6 +14,7 @@ import RichTextEditor from '@/components/ui/RichTextEditor';
 import { motion, AnimatePresence } from 'framer-motion';
 import StepProgress from '@/components/ui/StepProgress';
 import CourseContentBuilder from '@/components/instructor/CourseContentBuilder';
+import { apiPost, apiPut, handleApiError } from '@/lib/safe-fetch';
 
 // Steps moved inside component to be dynamic
 
@@ -129,28 +130,17 @@ export default function NewCoursePage() {
             if (!draftId) {
                 const toastId = showToast.loading('جاري تحضير بيئة المنهج الذكية...');
                 try {
-                    const res = await fetch('/api/courses', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            ...formData,
-                            price: 0,
-                            isActive: false, // Create as invisible draft
-                        }),
+                    const data = await apiPost('/api/courses', {
+                        ...formData,
+                        price: 0,
+                        isActive: false, // Create as invisible draft
                     });
-                    if (res.ok) {
-                        const data = await res.json();
-                        setDraftId(data.id);
-                        showToast.dismiss(toastId);
-                    } else {
-                        showToast.dismiss(toastId);
-                        showToast.error('فشل تحضير المنهج');
-                        return; // Prevent advancing if failing
-                    }
+                    setDraftId(data.id);
+                    showToast.dismiss(toastId);
                 } catch (e) {
                     showToast.dismiss(toastId);
-                    showToast.error('خطأ في الاتصال بالخادم');
-                    return;
+                    showToast.error(handleApiError(e) || 'فشل تحضير المنهج');
+                    return; // Prevent advancing if failing
                 }
             }
         }
@@ -192,42 +182,34 @@ export default function NewCoursePage() {
         setLoading(true);
         const toastId = showToast.loading(draftId ? 'جاري إطلاق الأكاديمية ونشر البيانات...' : 'جاري إنشاء دورتك التدريبية...');
         try {
-            const method = draftId ? 'PUT' : 'POST';
-            const endpoint = draftId ? `/api/courses/${draftId}` : '/api/courses';
-            const res = await fetch(endpoint, {
-                method,
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...formData,
-                    price: parseFloat(formData.price || '0'),
-                    status: 'APPROVED',
-                    sessions: formData.sessions ? parseInt(formData.sessions) : null,
-                    prerequisites: formData.prerequisites ? formData.prerequisites.split(',').map(t => t.trim()).filter(Boolean) : [],
-                    level: formData.level || null,
-                    certificateTemplate: formData.isCertificateEnabled ? formData.certificateTemplate : null,
-                    startDate: formData.startDate || null,
-                    endDate: formData.endDate || null,
-                }),
-            });
-            if (res.ok) {
-                const data = await res.json();
-                showToast.dismiss(toastId);
-                showToast.success('بداية رائعة! تم إنشاء الدورة بنجاح 🎓');
-                localStorage.removeItem('course_draft');
-                localStorage.removeItem('course_draft_id');
-                localStorage.removeItem('course_draft_step');
-                setFinalCourseId(data.id);
-                setFinalSlug(data.slug);
-                setCreatorUsername(data.user?.username || null);
-                setShowSuccessModal(true);
-                // Notification: We stay here and show a success modal instead of immediate push
-                // router.push(`/dashboard/courses/${data.id}/content`);
-            } else {
-                throw new Error('فشل الحفظ');
-            }
-        } catch {
+            const body = {
+                ...formData,
+                price: parseFloat(formData.price || '0'),
+                status: 'APPROVED',
+                sessions: formData.sessions ? parseInt(formData.sessions) : null,
+                prerequisites: formData.prerequisites ? formData.prerequisites.split(',').map(t => t.trim()).filter(Boolean) : [],
+                level: formData.level || null,
+                certificateTemplate: formData.isCertificateEnabled ? formData.certificateTemplate : null,
+                startDate: formData.startDate || null,
+                endDate: formData.endDate || null,
+            };
+
+            const data = draftId ? await apiPut(`/api/courses/${draftId}`, body) : await apiPost('/api/courses', body);
+
             showToast.dismiss(toastId);
-            showToast.error('حدث خطأ أثناء الحفظ. يرجى المحاولة لاحقاً.');
+            showToast.success('بداية رائعة! تم إنشاء الدورة بنجاح 🎓');
+            localStorage.removeItem('course_draft');
+            localStorage.removeItem('course_draft_id');
+            localStorage.removeItem('course_draft_step');
+            setFinalCourseId(data.id);
+            setFinalSlug(data.slug);
+            setCreatorUsername(data.user?.username || null);
+            setShowSuccessModal(true);
+            // Notification: We stay here and show a success modal instead of immediate push
+            // router.push(`/dashboard/courses/${data.id}/content`);
+        } catch (e) {
+            showToast.dismiss(toastId);
+            showToast.error(handleApiError(e) || 'حدث خطأ أثناء الحفظ. يرجى المحاولة لاحقاً.');
         } finally {
             setLoading(false);
         }

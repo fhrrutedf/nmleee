@@ -3,7 +3,9 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMessageCircle, FiSend, FiUser, FiCheck, FiTrash2 } from 'react-icons/fi';
+import { FiMessageCircle, FiSend, FiUser, FiCheck, FiTrash2 } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import { apiGet, apiPost, apiDelete, handleApiError } from '@/lib/safe-fetch';
 
 interface QAProps {
     productId: string;
@@ -44,13 +46,10 @@ export default function ProductQASection({ productId, sellerId, currentUserId, i
 
     const fetchQuestions = async () => {
         try {
-            const response = await fetch(`/api/products/questions?productId=${productId}`);
-            if (response.ok) {
-                const data = await response.json();
-                setQuestions(data.questions || []);
-            }
+            const data = await apiGet(`/api/products/questions?productId=${productId}`);
+            setQuestions(data.questions || []);
         } catch (error) {
-            console.error('Error fetching questions:', error);
+            console.error('Error fetching questions:', handleApiError(error));
         }
     };
 
@@ -60,27 +59,19 @@ export default function ProductQASection({ productId, sellerId, currentUserId, i
 
         setLoading(true);
         try {
-            const response = await fetch('/api/products/questions', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    productId,
-                    content: newQuestion,
-                    isAnonymous,
-                    askerName: isAnonymous ? null : askerName
-                })
+            await apiPost('/api/products/questions', {
+                productId,
+                content: newQuestion,
+                isAnonymous,
+                askerName: isAnonymous ? null : askerName
             });
 
-            if (response.ok) {
-                toast.success('تم إرسال السؤال بنجاح');
-                setNewQuestion('');
-                setAskerName('');
-                fetchQuestions();
-            } else {
-                toast.error('حدث خطأ أثناء إرسال السؤال');
-            }
+            toast.success('تم إرسال السؤال بنجاح');
+            setNewQuestion('');
+            setAskerName('');
+            fetchQuestions();
         } catch (error) {
-            toast.error('حدث خطأ');
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء إرسال السؤال');
         } finally {
             setLoading(false);
         }
@@ -91,37 +82,24 @@ export default function ProductQASection({ productId, sellerId, currentUserId, i
         if (!content?.trim()) return;
 
         try {
-            const response = await fetch('/api/products/answers', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ questionId, content })
-            });
+            await apiPost('/api/products/answers', { questionId, content });
 
-            if (response.ok) {
-                toast.success('تم إرسال الإجابة بنجاح');
-                setAnswerInputs(prev => ({ ...prev, [questionId]: '' }));
-                setShowAnswerForm(prev => ({ ...prev, [questionId]: false }));
-                fetchQuestions();
-            } else {
-                toast.error('حدث خطأ');
-            }
+            toast.success('تم إرسال الإجابة بنجاح');
+            setAnswerInputs(prev => ({ ...prev, [questionId]: '' }));
+            setShowAnswerForm(prev => ({ ...prev, [questionId]: false }));
+            fetchQuestions();
         } catch (error) {
-            toast.error('حدث خطأ');
+            toast.error(handleApiError(error) || 'حدث خطأ');
         }
     };
 
     const deleteAnswer = async (answerId: string) => {
         try {
-            const response = await fetch(`/api/products/answers?answerId=${answerId}`, {
-                method: 'DELETE'
-            });
-
-            if (response.ok) {
-                toast.success('تم حذف الإجابة');
-                fetchQuestions();
-            }
+            await apiDelete(`/api/products/answers?answerId=${answerId}`);
+            toast.success('تم حذف الإجابة');
+            fetchQuestions();
         } catch (error) {
-            toast.error('حدث خطأ');
+            toast.error(handleApiError(error) || 'حدث خطأ');
         }
     };
 

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { FiSearch, FiCheckCircle, FiClock, FiCornerDownRight, FiFilter, FiSend, FiMessageSquare, FiBookOpen, FiUser, FiMoreVertical } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import { apiGet, apiPost, apiPatch, handleApiError } from '@/lib/safe-fetch';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Format date helper
@@ -58,14 +59,13 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
             if (statusFilter !== 'all') queryParams.append('status', statusFilter);
             if (courseFilter) queryParams.append('courseId', courseFilter);
 
-            const res = await fetch(`/api/qa?${queryParams.toString()}`);
-            const data = await res.json();
+            const data = await apiGet(`/api/qa?${queryParams.toString()}`);
 
             if (data.questions) {
                 setQuestions(data.questions);
             }
         } catch (error) {
-            toast.error('حدث خطأ أثناء جلب الأسئلة');
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء جلب الأسئلة');
         } finally {
             setLoading(false);
         }
@@ -74,14 +74,13 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
     const fetchThread = async (id: string) => {
         setThreadLoading(true);
         try {
-            const res = await fetch(`/api/qa/${id}`);
-            const data = await res.json();
+            const data = await apiGet(`/api/qa/${id}`);
 
             if (data.question) {
                 setSelectedThread(data.question);
             }
         } catch (error) {
-            toast.error('حدث خطأ أثناء جلب تفاصيل السؤال');
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء جلب تفاصيل السؤال');
         } finally {
             setThreadLoading(false);
         }
@@ -92,13 +91,8 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
 
         setIsSubmitting(true);
         try {
-            const res = await fetch(`/api/qa/${selectedQuestionId}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: replyText })
-            });
+            const data = await apiPost(`/api/qa/${selectedQuestionId}`, { content: replyText });
 
-            const data = await res.json();
             if (data.success) {
                 toast.success('تم إرسال الرد بنجاح');
                 setReplyText('');
@@ -108,7 +102,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                 toast.error(data.error || 'فشل في إرسال الرد');
             }
         } catch (error) {
-            toast.error('خطأ في الاتصال بالخادم');
+            toast.error(handleApiError(error) || 'خطأ في الاتصال بالخادم');
         } finally {
             setIsSubmitting(false);
         }
@@ -118,12 +112,8 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
         if (!selectedQuestionId) return;
 
         try {
-            const res = await fetch(`/api/qa/${selectedQuestionId}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-            });
+            const data = await apiPatch(`/api/qa/${selectedQuestionId}`, {});
 
-            const data = await res.json();
             if (data.success) {
                 toast.success('تم تحديد السؤال كمحلول');
                 fetchThread(selectedQuestionId);
@@ -132,7 +122,7 @@ export default function QAClient({ courses }: { courses: { id: string, title: st
                 toast.error(data.error || 'فشل في تحديث الحالة');
             }
         } catch (error) {
-            toast.error('خطأ في الاتصال بالخادم');
+            toast.error(handleApiError(error) || 'خطأ في الاتصال بالخادم');
         }
     };
 

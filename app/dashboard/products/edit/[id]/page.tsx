@@ -10,6 +10,7 @@ import Link from 'next/link';
 import showToast from '@/lib/toast';
 import FileUploader from '@/components/ui/FileUploader';
 import RichTextEditor from '@/components/ui/RichTextEditor';
+import { apiGet, apiPut, handleApiError } from '@/lib/safe-fetch';
 import { motion, AnimatePresence } from 'framer-motion';
 
 type PricingType = 'fixed' | 'free' | 'pwyw';
@@ -52,39 +53,34 @@ export default function EditProductPage() {
 
     const fetchProduct = async () => {
         try {
-            const response = await fetch(`/api/products/${params.id}`);
-            if (response.ok) {
-                const data = await response.json();
+            const data = await apiGet(`/api/products/${params.id}`);
 
-                let pType: PricingType = 'fixed';
-                if (data.isFree || data.price === 0) pType = 'free';
-                else if (data.minPrice !== null && data.minPrice !== undefined) pType = 'pwyw';
+            let pType: PricingType = 'fixed';
+            if (data.isFree || data.price === 0) pType = 'free';
+            else if (data.minPrice !== null && data.minPrice !== undefined) pType = 'pwyw';
 
-                setFormData({
-                    title: data.title || '',
-                    description: data.description || '',
-                    price: data.price ? data.price.toString() : '',
-                    category: data.category || '',
-                    tags: data.tags ? data.tags.join(', ') : '',
-                    image: data.image || '',
-                    images: data.images || [],
-                    fileUrl: data.fileUrl || '',
-                    fileType: data.fileType || 'pdf',
-                    trailerUrl: data.trailerUrl || '',
-                    previewFileUrl: data.previewFileUrl || '',
-                    pricingType: pType,
-                    minPrice: data.minPrice ? data.minPrice.toString() : '',
-                    suggestedPrice: data.suggestedPrice ? data.suggestedPrice.toString() : '',
-                    isActive: data.isActive ?? true,
-                    displayOrder: data.displayOrder || 0
-                });
-            } else {
-                showToast.error('المنتج غير موجود');
-                router.push('/dashboard/products');
-            }
+            setFormData({
+                title: data.title || '',
+                description: data.description || '',
+                price: data.price ? data.price.toString() : '',
+                category: data.category || '',
+                tags: data.tags ? data.tags.join(', ') : '',
+                image: data.image || '',
+                images: data.images || [],
+                fileUrl: data.fileUrl || '',
+                fileType: data.fileType || 'pdf',
+                trailerUrl: data.trailerUrl || '',
+                previewFileUrl: data.previewFileUrl || '',
+                pricingType: pType,
+                minPrice: data.minPrice ? data.minPrice.toString() : '',
+                suggestedPrice: data.suggestedPrice ? data.suggestedPrice.toString() : '',
+                isActive: data.isActive ?? true,
+                displayOrder: data.displayOrder || 0
+            });
         } catch (error) {
-            console.error('Error fetching product:', error);
+            console.error('Error fetching product:', handleApiError(error));
             showToast.error('حدث خطأ أثناء جلب البيانات');
+            router.push('/dashboard/products');
         } finally {
             setLoading(false);
         }
@@ -99,28 +95,20 @@ export default function EditProductPage() {
         const toastId = showToast.loading('جاري حفظ التعديلات...');
         try {
             const { pricingType, ...rest } = formData;
-            const res = await fetch(`/api/products/${params.id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...rest,
-                    price: pricingType === 'free' ? 0 : parseFloat(formData.price || '0'),
-                    isFree: pricingType === 'free',
-                    minPrice: pricingType === 'pwyw' ? parseFloat(formData.minPrice || '0') : null,
-                    suggestedPrice: pricingType === 'pwyw' && formData.suggestedPrice ? parseFloat(formData.suggestedPrice) : null,
-                    tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
-                }),
+            await apiPut(`/api/products/${params.id}`, {
+                ...rest,
+                price: pricingType === 'free' ? 0 : parseFloat(formData.price || '0'),
+                isFree: pricingType === 'free',
+                minPrice: pricingType === 'pwyw' ? parseFloat(formData.minPrice || '0') : null,
+                suggestedPrice: pricingType === 'pwyw' && formData.suggestedPrice ? parseFloat(formData.suggestedPrice) : null,
+                tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
             });
-            if (res.ok) {
-                showToast.dismiss(toastId);
-                showToast.success('تم التحديث بنجاح! 🎉');
-                router.push('/dashboard/products');
-            } else {
-                throw new Error('فشل الحفظ');
-            }
-        } catch {
             showToast.dismiss(toastId);
-            showToast.error('حدث خطأ أثناء الحفظ');
+            showToast.success('تم التحديث بنجاح! 🎉');
+            router.push('/dashboard/products');
+        } catch (error) {
+            showToast.dismiss(toastId);
+            showToast.error(handleApiError(error) || 'حدث خطأ أثناء الحفظ');
         } finally {
             setSaving(false);
         }

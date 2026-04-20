@@ -9,6 +9,7 @@ import {
     FiUsers, FiBarChart2, FiEye, FiEdit2, FiTrash2, FiEyeOff, FiFileText
 } from 'react-icons/fi';
 import showToast from '@/lib/toast';
+import { apiGet, apiPut, handleApiError } from '@/lib/safe-fetch';
 import RichTextEditor from '@/components/ui/RichTextEditor';
 import FileUploader from '@/components/ui/FileUploader';
 import BunnyUpload from '@/components/instructor/BunnyUpload';
@@ -76,14 +77,11 @@ export default function EditCoursePage() {
     const fetchStudents = async () => {
         setStudentsLoading(true);
         try {
-            const res = await fetch(`/api/courses/${courseId}/students`);
-            if (res.ok) {
-                const data = await res.json();
-                setStudents(data.students || []);
-                setStudentsStats({ total: data.total || 0, completed: data.completed || 0 });
-            }
+            const data = await apiGet(`/api/courses/${courseId}/students`);
+            setStudents(data.students || []);
+            setStudentsStats({ total: data.total || 0, completed: data.completed || 0 });
         } catch (err) {
-            console.error('Error fetching students:', err);
+            console.error('Error fetching students:', handleApiError(err));
         } finally {
             setStudentsLoading(false);
         }
@@ -91,12 +89,10 @@ export default function EditCoursePage() {
 
     const fetchCourse = async () => {
         try {
-            const response = await fetch(`/api/courses/${courseId}`);
-            if (response.ok) {
-                const data = await response.json();
-                setFormData({
-                    ...data,
-                    title: data.title || '',
+            const data = await apiGet(`/api/courses/${courseId}`);
+            setFormData({
+                ...data,
+                title: data.title || '',
                     description: data.description || '',
                     price: data.price?.toString() || '',
                     originalPrice: data.originalPrice?.toString() || '',
@@ -131,13 +127,10 @@ export default function EditCoursePage() {
 
     const fetchModules = async () => {
         try {
-            const response = await fetch(`/api/courses/${courseId}/modules`);
-            if (response.ok) {
-                const data = await response.json();
-                setModules(data);
-            }
+            const data = await apiGet(`/api/courses/${courseId}/modules`);
+            setModules(data);
         } catch (error) {
-            console.error('Error fetching modules:', error);
+            console.error('Error fetching modules:', handleApiError(error));
         }
     };
 
@@ -147,31 +140,22 @@ export default function EditCoursePage() {
         const toastId = showToast.loading('جاري حفظ التغييرات...');
 
         try {
-            const response = await fetch(`/api/courses/${courseId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...formData,
-                    price: parseFloat(formData.price || '0'),
-                    originalPrice: formData.originalPrice ? parseFloat(formData.originalPrice) : null,
-                    sessions: formData.sessions ? parseInt(formData.sessions) : null,
-                    level: formData.level || null,
-                    certificateTemplate: formData.isCertificateEnabled ? formData.certificateTemplate : null,
-                    startDate: formData.startDate || null,
-                    endDate: formData.endDate || null,
-                }),
+            await apiPut(`/api/courses/${courseId}`, {
+                ...formData,
+                price: parseFloat(formData.price || '0'),
+                originalPrice: formData.originalPrice ? parseFloat(formData.originalPrice) : null,
+                sessions: formData.sessions ? parseInt(formData.sessions) : null,
+                level: formData.level || null,
+                certificateTemplate: formData.isCertificateEnabled ? formData.certificateTemplate : null,
+                startDate: formData.startDate || null,
+                endDate: formData.endDate || null,
             });
 
-            if (response.ok) {
-                showToast.dismiss(toastId);
-                showToast.success('تم الحفظ بنجاح! ✅');
-            } else {
-                showToast.dismiss(toastId);
-                showToast.error('فشل في الحفظ');
-            }
+            showToast.dismiss(toastId);
+            showToast.success('تم الحفظ بنجاح! ✅');
         } catch (error) {
             showToast.dismiss(toastId);
-            showToast.error('خطأ في الاتصال');
+            showToast.error(handleApiError(error) || 'خطأ في الاتصال');
         } finally {
             setSaving(false);
         }

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { FiPlus, FiEdit2, FiTrash2, FiEye, FiEyeOff, FiMove, FiCheckSquare, FiArrowRight, FiLayers } from 'react-icons/fi';
 import showToast from '@/lib/toast';
+import { apiGet, apiPost, apiPatch, handleApiError } from '@/lib/safe-fetch';
 
 interface Module {
     id: string;
@@ -42,13 +43,10 @@ export default function CourseContentPage() {
 
     const fetchModules = async () => {
         try {
-            const response = await fetch(`/api/courses/${courseId}/modules`);
-            if (response.ok) {
-                const data = await response.json();
-                setModules(data);
-            }
+            const data = await apiGet(`/api/courses/${courseId}/modules`);
+            setModules(data);
         } catch (error) {
-            console.error('Error fetching modules:', error);
+            console.error('Error fetching modules:', handleApiError(error));
         } finally {
             setLoading(false);
         }
@@ -58,20 +56,15 @@ export default function CourseContentPage() {
         if (!newModuleTitle.trim()) return;
 
         try {
-            const response = await fetch(`/api/courses/${courseId}/modules`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title: newModuleTitle }),
-            });
+            await apiPost(`/api/courses/${courseId}/modules`, { title: newModuleTitle });
 
-            if (response.ok) {
-                setNewModuleTitle('');
-                setShowModuleForm(false);
-                fetchModules();
-                showToast.success('تم إنشاء الوحدة بنجاح! 📚');
-            }
+            setNewModuleTitle('');
+            setShowModuleForm(false);
+            fetchModules();
+            showToast.success('تم إنشاء الوحدة بنجاح! 📚');
         } catch (error) {
             console.error('Error creating module:', error);
+            showToast.error(handleApiError(error) || 'حدث خطأ');
         }
     };
 
@@ -85,42 +78,26 @@ export default function CourseContentPage() {
     const saveDraft = async () => {
         try {
             showToast.loading('جاري حفظ المسودة...');
-            const response = await fetch(`/api/courses/${courseId}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ isActive: false, status: 'PENDING_REVIEW' })
-            });
+            await apiPatch(`/api/courses/${courseId}`, { isActive: false, status: 'PENDING_REVIEW' });
             
-            if (response.ok) {
-                showToast.success('تم حفظ الدورة كمسودة بنجاح! 📥');
-                router.push('/dashboard/courses');
-            } else {
-                showToast.error('فشل في حفظ المسودة');
-            }
+            showToast.success('تم حفظ الدورة كمسودة بنجاح! 📥');
+            router.push('/dashboard/courses');
         } catch (error) {
             console.error('Error:', error);
-            showToast.error('خطأ في الاتصال');
+            showToast.error(handleApiError(error) || 'خطأ في الاتصال');
         }
     };
 
     const publishCourse = async () => {
         try {
             showToast.loading('جاري نشر الدورة...');
-            const response = await fetch(`/api/courses/${courseId}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ isActive: true, status: 'APPROVED' })
-            });
+            await apiPatch(`/api/courses/${courseId}`, { isActive: true, status: 'APPROVED' });
             
-            if (response.ok) {
-                showToast.success('تم نشر الدورة بنجاح!');
-                router.push('/dashboard/courses'); // Redirect back to courses list
-            } else {
-                showToast.error('حدث خطأ أثناء نشر الدورة');
-            }
+            showToast.success('تم نشر الدورة بنجاح!');
+            router.push('/dashboard/courses'); // Redirect back to courses list
         } catch (error) {
             console.error('Error publishing course:', error);
-            showToast.error('تعذر الاتصال بالخادم لنشر الدورة');
+            showToast.error(handleApiError(error) || 'تعذر الاتصال بالخادم لنشر الدورة');
         }
     };
 

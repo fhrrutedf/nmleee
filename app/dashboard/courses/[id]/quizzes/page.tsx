@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { FiPlus, FiEdit2, FiTrash2, FiCheckSquare, FiClock, FiTarget, FiEye, FiEyeOff } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import { apiGet, apiDelete, handleApiError } from '@/lib/safe-fetch';
 
 interface Quiz {
     id: string;
@@ -31,32 +32,29 @@ export default function CourseQuizzesPage() {
 
     const fetchQuizzes = async () => {
         try {
-            const res = await fetch(`/api/courses/${courseId}/content`);
-            if (res.ok) {
-                const data = await res.json();
-                // Extract quizzes from Course and Modules/Lessons
-                const allQuizzes: Quiz[] = data.quizzes || [];
-                if (data.modules) {
-                    for (const mod of data.modules) {
-                        if (mod.lessons) {
-                            for (const lesson of mod.lessons) {
-                                if (lesson.quizzes) {
-                                    for (const quiz of lesson.quizzes) {
-                                        allQuizzes.push({
-                                            ...quiz,
-                                            lesson: { title: lesson.title },
-                                            lessonId: lesson.id,
-                                        });
-                                    }
+            const data = await apiGet(`/api/courses/${courseId}/content`);
+            // Extract quizzes from Course and Modules/Lessons
+            const allQuizzes: Quiz[] = data.quizzes || [];
+            if (data.modules) {
+                for (const mod of data.modules) {
+                    if (mod.lessons) {
+                        for (const lesson of mod.lessons) {
+                            if (lesson.quizzes) {
+                                for (const quiz of lesson.quizzes) {
+                                    allQuizzes.push({
+                                        ...quiz,
+                                        lesson: { title: lesson.title },
+                                        lessonId: lesson.id,
+                                    });
                                 }
                             }
                         }
                     }
                 }
-                setQuizzes(allQuizzes);
             }
+            setQuizzes(allQuizzes);
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', handleApiError(error));
         } finally {
             setLoading(false);
         }
@@ -65,15 +63,11 @@ export default function CourseQuizzesPage() {
     const deleteQuiz = async (quizId: string) => {
         if (!confirm('هل أنت متأكد من حذف هذا الاختبار؟')) return;
         try {
-            const res = await fetch(`/api/quizzes/${quizId}`, { method: 'DELETE' });
-            if (res.ok) {
-                toast.success('تم حذف الاختبار');
-                setQuizzes(prev => prev.filter(q => q.id !== quizId));
-            } else {
-                toast.error('فشل حذف الاختبار');
-            }
-        } catch {
-            toast.error('حدث خطأ');
+            await apiDelete(`/api/quizzes/${quizId}`);
+            toast.success('تم حذف الاختبار');
+            setQuizzes(prev => prev.filter(q => q.id !== quizId));
+        } catch (error) {
+            toast.error(handleApiError(error) || 'حدث خطأ');
         }
     };
 

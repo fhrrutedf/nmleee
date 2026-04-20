@@ -8,6 +8,7 @@ import { FiShoppingCart, FiCheck, FiStar, FiUsers, FiClock, FiVideo, FiBookOpen,
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
+import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 
 interface Course {
     id: string;
@@ -60,16 +61,12 @@ function CoursePageInner({ params }: { params: Promise<{ slug: string }> }) {
     const trackView = async () => {
         if (typeof window !== 'undefined' && course?.id) {
             try {
-                await fetch('/api/analytics/track', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        courseId: course.id,
-                        referrer: document.referrer || 'direct'
-                    }),
+                await apiPost('/api/analytics/track', { 
+                    courseId: course.id,
+                    referrer: document.referrer || 'direct'
                 });
             } catch (e) {
-                console.error('Tracking Error:', e);
+                console.error('Tracking Error:', handleApiError(e));
             }
         }
     };
@@ -81,11 +78,9 @@ function CoursePageInner({ params }: { params: Promise<{ slug: string }> }) {
         }
     }, [course?.id]);
 
-    // جلب الـ Trailer URL الموقع من الـ Backend لتجنب خطأ 403 مع Bunny Stream
     useEffect(() => {
         if (course?.trailerUrl) {
-            fetch(`/api/courses/${slug}/trailer`)
-                .then(r => r.json())
+            apiGet(`/api/courses/${slug}/trailer`)
                 .then(data => { if (data.trailerUrl) setTrailerSignedUrl(data.trailerUrl); })
                 .catch(() => setTrailerSignedUrl(course.trailerUrl ?? null));
         }
@@ -102,24 +97,17 @@ function CoursePageInner({ params }: { params: Promise<{ slug: string }> }) {
             const ref = new URLSearchParams(window.location.search).get('ref');
             if (ref) {
                 localStorage.setItem('affiliateRef', ref);
-                fetch('/api/affiliate/track', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ code: ref }),
-                }).catch(console.error);
+                apiPost('/api/affiliate/track', { code: ref }).catch(console.error);
             }
         }
     };
 
     const fetchCourse = async () => {
         try {
-            const response = await fetch(`/api/courses/${slug}`);
-            if (response.ok) {
-                const data = await response.json();
-                setCourse(data);
-            }
+            const data = await apiGet(`/api/courses/${slug}`);
+            setCourse(data);
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', handleApiError(error));
         } finally {
             setLoading(false);
         }

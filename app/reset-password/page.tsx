@@ -4,6 +4,7 @@ import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FiLock, FiCheckCircle, FiAlertCircle, FiEye, FiEyeOff, FiArrowRight } from 'react-icons/fi';
 import showToast from '@/lib/toast';
+import { apiPost, handleApiError } from '@/lib/safe-fetch';
 
 function ResetPasswordForm() {
     const router = useRouter();
@@ -38,22 +39,13 @@ function ResetPasswordForm() {
         setLoading(true);
 
         try {
-            const res = await fetch('/api/auth/reset-password', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ token, email, password })
-            });
+            await apiPost('/api/auth/reset-password', { token, email, password });
 
-            if (res.ok) {
-                setSuccess(true);
-                showToast.success('تم تغيير كلمة المرور بنجاح!');
-                setTimeout(() => router.push('/login'), 3000);
-            } else {
-                const data = await res.json();
-                showToast.error(data.error || 'فشل إعادة تعيين كلمة المرور');
-            }
+            setSuccess(true);
+            showToast.success('تم تغيير كلمة المرور بنجاح!');
+            setTimeout(() => router.push('/login'), 3000);
         } catch (error) {
-            showToast.error('حدث خطأ أثناء الاتصال بالسيرفر');
+            showToast.error(handleApiError(error) || 'حدث خطأ أثناء الاتصال بالسيرفر');
         } finally {
             setLoading(false);
         }

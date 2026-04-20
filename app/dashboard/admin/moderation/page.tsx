@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { FiCheck, FiX, FiEye, FiClock, FiShield } from 'react-icons/fi';
 import showToast from '@/lib/toast';
+import { apiGet, apiPut, handleApiError } from '@/lib/safe-fetch';
 
 interface PendingCourse {
     id: string;
@@ -29,12 +30,10 @@ export default function CourseModerationPage() {
 
     const fetchCourses = async () => {
         try {
-            const res = await fetch('/api/admin/moderation');
-            if (!res.ok) throw new Error('فشل جلب الكورسات');
-            const data = await res.json();
+            const data = await apiGet('/api/admin/moderation');
             setCourses(data);
         } catch (error) {
-            showToast.error('حدث خطأ');
+            showToast.error(handleApiError(error) || 'حدث خطأ');
         } finally {
             setLoading(false);
         }
@@ -43,20 +42,11 @@ export default function CourseModerationPage() {
     const handleApprove = async (id: string) => {
         setProcessingId(id);
         try {
-            const res = await fetch(`/api/admin/moderation/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ status: 'APPROVED' })
-            });
-
-            if (res.ok) {
-                showToast.success('تمت الموافقة بنجاح');
-                setCourses(prev => prev.filter(c => c.id !== id));
-            } else {
-                showToast.error('حدث خطأ');
-            }
-        } catch {
-            showToast.error('حدث خطأ بالاتصال');
+            await apiPut(`/api/admin/moderation/${id}`, { status: 'APPROVED' });
+            showToast.success('تمت الموافقة بنجاح');
+            setCourses(prev => prev.filter(c => c.id !== id));
+        } catch (error) {
+            showToast.error(handleApiError(error) || 'حدث خطأ بالاتصال');
         } finally {
             setProcessingId(null);
         }
@@ -70,22 +60,13 @@ export default function CourseModerationPage() {
 
         setProcessingId(activeCourseId);
         try {
-            const res = await fetch(`/api/admin/moderation/${activeCourseId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ status: 'REJECTED', reason: rejectReason })
-            });
-
-            if (res.ok) {
-                showToast.success('تم رفض الكورس بنجاح وتم إشعار المدرب');
-                setCourses(prev => prev.filter(c => c.id !== activeCourseId));
-                setIsRejectModalOpen(false);
-                setRejectReason('');
-            } else {
-                showToast.error('حدث خطأ');
-            }
-        } catch {
-            showToast.error('حدث خطأ بالاتصال');
+            await apiPut(`/api/admin/moderation/${activeCourseId}`, { status: 'REJECTED', reason: rejectReason });
+            showToast.success('تم رفض الكورس بنجاح وتم إشعار المدرب');
+            setCourses(prev => prev.filter(c => c.id !== activeCourseId));
+            setIsRejectModalOpen(false);
+            setRejectReason('');
+        } catch (error) {
+            showToast.error(handleApiError(error) || 'حدث خطأ بالاتصال');
         } finally {
             setProcessingId(null);
         }

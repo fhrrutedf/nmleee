@@ -11,7 +11,9 @@ import {
 import QuizPlayer from '@/components/QuizPlayer';
 import AdvancedVideoPlayer from '@/components/lessons/AdvancedVideoPlayer';
 import LessonComments from '@/components/lessons/LessonComments';
+import LessonComments from '@/components/lessons/LessonComments';
 import { motion, AnimatePresence } from 'framer-motion';
+import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 
 export default function LearnPage() {
     const params = useParams();
@@ -55,19 +57,17 @@ export default function LearnPage() {
 
     const fetchCourse = async () => {
         try {
-            const response = await fetch(`/api/courses/${params.slug}/content`);
-            if (response.ok) {
-                const data = await response.json();
-                setCourse(data);
-                setHasAccess(data.isEnrolled || false);
-                if (data.modules?.[0]?.lessons?.[0]) {
-                    setActiveItem({ type: 'lesson', data: data.modules[0].lessons[0] });
-                }
-            } else {
+            const data = await apiGet(`/api/courses/${params.slug}/content`);
+            setCourse(data);
+            setHasAccess(data.isEnrolled || false);
+            if (data.modules?.[0]?.lessons?.[0]) {
+                setActiveItem({ type: 'lesson', data: data.modules[0].lessons[0] });
+            }
+        } catch (error: any) {
+            console.error('Error fetching course:', handleApiError(error));
+            if (error?.status === 403 || error?.status === 401) {
                 setHasAccess(false);
             }
-        } catch (error) {
-            console.error('Error fetching course:', error);
         } finally {
             setLoading(false);
         }
@@ -96,10 +96,9 @@ export default function LearnPage() {
     const handleLessonComplete = async () => {
         if (!activeItem || activeItem.type !== 'lesson') return;
         try {
-            await fetch('/api/progress/mark-complete', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ courseId: course?.id, lessonId: activeItem.data?.id }),
+            await apiPost('/api/progress/mark-complete', {
+                courseId: course?.id,
+                lessonId: activeItem.data?.id
             });
             setCourse((prev: any) => ({
                 ...prev,

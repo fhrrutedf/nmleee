@@ -8,6 +8,7 @@ import {
 } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-hot-toast';
+import { apiGet, apiPatch, handleApiError } from '@/lib/safe-fetch';
 
 export default function AdminSettingsPage() {
     const [settings, setSettings] = useState<any>(null);
@@ -21,11 +22,10 @@ export default function AdminSettingsPage() {
 
     const fetchSettings = async () => {
         try {
-            const res = await fetch('/api/admin/settings');
-            const data = await res.json();
+            const data = await apiGet('/api/admin/settings');
             setSettings(data);
         } catch (error) {
-            toast.error('فشل في جلب الإعدادات');
+            toast.error(handleApiError(error) || 'فشل في جلب الإعدادات');
         } finally {
             setLoading(false);
         }
@@ -37,17 +37,10 @@ export default function AdminSettingsPage() {
         const toastId = toast.loading('جاري حفظ التغييرات...');
         
         try {
-            const res = await fetch('/api/admin/settings', {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(settings),
-            });
-
-            if (!res.ok) throw new Error();
-            
+            await apiPatch('/api/admin/settings', settings);
             toast.success('تم التحديث بنجاح!', { id: toastId });
         } catch (error) {
-            toast.error('فشل في الحفظ، حاول مجدداً', { id: toastId });
+            toast.error(handleApiError(error) || 'فشل في الحفظ، حاول مجدداً', { id: toastId });
         } finally {
             setSaving(false);
         }

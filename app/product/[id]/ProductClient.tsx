@@ -5,7 +5,9 @@ import { useRouter } from 'next/navigation';
 import { FiShoppingCart, FiStar, FiClock, FiVideo, FiCheckCircle, FiBook, FiEye, FiPlayCircle, FiMessageSquare } from 'react-icons/fi';
 import Link from 'next/link';
 import 'react-quill-new/dist/quill.snow.css';
-import { apiPost, handleApiError } from '@/lib/safe-fetch';
+import Link from 'next/link';
+import 'react-quill-new/dist/quill.snow.css';
+import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 import VideoPlayer from '@/components/ui/VideoPlayer';
 import showToast from '@/lib/toast';
 import { useCurrency } from '@/hooks/useCurrency';
@@ -40,13 +42,10 @@ export default function ProductDetails({
 
     const fetchReviews = async () => {
         try {
-            const res = await fetch(`/api/reviews?productId=${id}`);
-            if (res.ok) {
-                const data = await res.json();
-                setReviews(data);
-            }
+            const data = await apiGet(`/api/reviews?productId=${id}`);
+            setReviews(data);
         } catch (error) {
-            console.error('Error fetching reviews:', error);
+            console.error('Error fetching reviews:', handleApiError(error));
         }
     };
 

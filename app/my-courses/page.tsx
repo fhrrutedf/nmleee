@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Image from 'next/image';
 import { FiBook, FiDownload, FiClock } from 'react-icons/fi';
+import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
 interface Purchase {
     id: string;
@@ -30,13 +32,10 @@ export default function MyCoursesPage() {
 
     const fetchPurchases = async () => {
         try {
-            const response = await fetch('/api/my-purchases');
-            if (response.ok) {
-                const data = await response.json();
-                setPurchases(data);
-            }
+            const data = await apiGet('/api/my-purchases');
+            setPurchases(data);
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', handleApiError(error));
         } finally {
             setLoading(false);
         }

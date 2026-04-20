@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { FiMessageSquare, FiFilter, FiClock, FiUser, FiInfo, FiHash } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
+import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
 export default function AdminSupportPage() {
     const { data: session } = useSession();
@@ -19,10 +20,10 @@ export default function AdminSupportPage() {
     const fetchTickets = async (status: string) => {
         setLoading(true);
         try {
-            const res = await fetch(`/api/admin/tickets?status=${status}`);
-            if (res.ok) setTickets(await res.json());
-        } catch {
-            toast.error('حدث خطأ أثناء تحميل التذاكر');
+            const data = await apiGet(`/api/admin/tickets?status=${status}`);
+            setTickets(data);
+        } catch (error) {
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء تحميل التذاكر');
         } finally {
             setLoading(false);
         }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { FiDollarSign, FiShoppingBag, FiUsers, FiTrendingUp, FiTrendingDown } from 'react-icons/fi';
+import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
 interface Overview {
     totalRevenue: number;
@@ -24,22 +25,15 @@ export default function SellerDashboardPage() {
 
     const fetchData = async () => {
         try {
-            const [overviewRes, chartRes] = await Promise.all([
-                fetch('/api/seller/analytics/overview'),
-                fetch('/api/seller/analytics/sales-chart?period=30d'),
+            const [overviewData, chartData] = await Promise.all([
+                apiGet('/api/seller/analytics/overview'),
+                apiGet('/api/seller/analytics/sales-chart?period=30d'),
             ]);
 
-            if (overviewRes.ok) {
-                const data = await overviewRes.json();
-                setOverview(data);
-            }
-
-            if (chartRes.ok) {
-                const data = await chartRes.json();
-                setSalesChart(data);
-            }
+            setOverview(overviewData);
+            setSalesChart(chartData);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('Error fetching data:', handleApiError(error));
         } finally {
             setLoading(false);
         }

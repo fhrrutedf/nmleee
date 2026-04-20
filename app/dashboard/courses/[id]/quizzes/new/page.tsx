@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import QuizBuilder from '@/components/QuizBuilder';
 import { FiSave } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import { apiPost, handleApiError } from '@/lib/safe-fetch';
 
 export default function NewQuizPage() {
     const params = useParams();
@@ -40,30 +41,21 @@ export default function NewQuizPage() {
         setLoading(true);
 
         try {
-            const response = await fetch('/api/quizzes', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...formData,
-                    courseId,
-                    lessonId: formData.lessonId || null,
-                }),
+            await apiPost('/api/quizzes', {
+                ...formData,
+                courseId,
+                lessonId: formData.lessonId || null,
             });
 
-            if (response.ok) {
-                toast.success('تم حفظ الاختبار بنجاح');
-                if (returnTo) {
-                    router.push(returnTo);
-                } else {
-                    router.push(`/dashboard/courses/${courseId}/content`);
-                }
+            toast.success('تم حفظ الاختبار بنجاح');
+            if (returnTo) {
+                router.push(returnTo);
             } else {
-                const data = await response.json();
-                toast.error(data.error || 'حدث خطأ');
+                router.push(`/dashboard/courses/${courseId}/content`);
             }
         } catch (error) {
             console.error('Error creating quiz:', error);
-            toast.error('حدث خطأ أثناء إنشاء الاختبار');
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء إنشاء الاختبار');
         } finally {
             setLoading(false);
         }

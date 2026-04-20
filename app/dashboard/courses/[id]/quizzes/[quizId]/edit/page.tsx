@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import QuizBuilder from '@/components/QuizBuilder';
 import { FiSave, FiArrowRight, FiEye, FiEyeOff } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import { apiGet, apiPut, handleApiError } from '@/lib/safe-fetch';
 
 export default function EditQuizPage() {
     const params = useParams();
@@ -29,24 +30,19 @@ export default function EditQuizPage() {
 
     const fetchQuiz = async () => {
         try {
-            const res = await fetch(`/api/quizzes/${quizId}`);
-            if (res.ok) {
-                const data = await res.json();
-                setFormData({
-                    title: data.title || '',
-                    description: data.description || '',
-                    passingScore: data.passingScore || 70,
-                    timeLimit: data.timeLimit?.toString() || '',
-                    isPublished: data.isPublished || false,
-                    questions: Array.isArray(data.questions) ? data.questions : [],
-                });
-            } else {
-                toast.error('الاختبار غير موجود');
-                router.back();
-            }
+            const data = await apiGet(`/api/quizzes/${quizId}`);
+            setFormData({
+                title: data.title || '',
+                description: data.description || '',
+                passingScore: data.passingScore || 70,
+                timeLimit: data.timeLimit?.toString() || '',
+                isPublished: data.isPublished || false,
+                questions: Array.isArray(data.questions) ? data.questions : [],
+            });
         } catch (error) {
             console.error('Error:', error);
-            toast.error('حدث خطأ');
+            toast.error('الاختبار غير موجود أو حدث خطأ');
+            router.back();
         } finally {
             setLoading(false);
         }
@@ -63,22 +59,13 @@ export default function EditQuizPage() {
         setSaving(true);
 
         try {
-            const res = await fetch(`/api/quizzes/${quizId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
+            await apiPut(`/api/quizzes/${quizId}`, formData);
 
-            if (res.ok) {
-                toast.success('تم حفظ التغييرات');
-                router.push(`/dashboard/courses/${courseId}/quizzes`);
-            } else {
-                const data = await res.json();
-                toast.error(data.error || 'حدث خطأ');
-            }
+            toast.success('تم حفظ التغييرات');
+            router.push(`/dashboard/courses/${courseId}/quizzes`);
         } catch (error) {
             console.error('Error:', error);
-            toast.error('حدث خطأ أثناء حفظ الاختبار');
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء حفظ الاختبار');
         } finally {
             setSaving(false);
         }

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { FiVideo, FiStar, FiSearch, FiClock, FiUsers } from 'react-icons/fi';
+import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
 export default function CoursesPage() {
     const [courses, setCourses] = useState([]);
@@ -15,13 +16,10 @@ export default function CoursesPage() {
 
     const fetchCourses = async () => {
         try {
-            const res = await fetch('/api/courses');
-            if (res.ok) {
-                const data = await res.json();
-                setCourses(data.filter((c: any) => c.isActive));
-            }
+            const data = await apiGet('/api/courses');
+            setCourses(data.filter((c: any) => c.isActive));
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', handleApiError(error));
         } finally {
             setLoading(false);
         }

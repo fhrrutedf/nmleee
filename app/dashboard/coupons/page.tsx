@@ -5,6 +5,7 @@ import { FiPlus, FiTag, FiCalendar, FiUsers, FiClock, FiTrash2, FiAlertCircle, F
 import showToast from '@/lib/toast';
 import { LineChart, Line, ResponsiveContainer, YAxis, Tooltip } from 'recharts';
 import { format, subDays, isSameDay } from 'date-fns';
+import { apiGet, apiPost, apiPut, apiDelete, handleApiError } from '@/lib/safe-fetch';
 
 export default function CouponsPage() {
     const [coupons, setCoupons] = useState<any[]>([]);
@@ -31,13 +32,10 @@ export default function CouponsPage() {
 
     const fetchCoupons = async () => {
         try {
-            const res = await fetch('/api/coupons');
-            if (res.ok) {
-                const data = await res.json();
-                setCoupons(data);
-            }
+            const data = await apiGet('/api/coupons');
+            setCoupons(data);
         } catch (error) {
-            console.error('Error fetching coupons:', error);
+            console.error('Error fetching coupons:', handleApiError(error));
         } finally {
             setLoading(false);
         }
@@ -48,30 +46,21 @@ export default function CouponsPage() {
         const toastId = showToast.loading('جاري إنشاء الكوبون...');
 
         try {
-            const response = await fetch('/api/coupons', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
+            await apiPost('/api/coupons', formData);
 
-            if (response.ok) {
-                showToast.dismiss(toastId);
-                showToast.success('تم إنشاء الكوبون بنجاح!');
-                setShowModal(false);
-                fetchCoupons();
-                // reset form
-                setFormData({
-                    code: '', type: 'percentage', value: '', usageLimit: '', minPurchase: '',
-                    maxDiscount: '', startDate: '', endDate: '', isActive: true
-                });
-            } else {
-                const err = await response.json();
-                throw new Error(err.error || 'فشل إنشاء الكوبون');
-            }
+            showToast.dismiss(toastId);
+            showToast.success('تم إنشاء الكوبون بنجاح!');
+            setShowModal(false);
+            fetchCoupons();
+            // reset form
+            setFormData({
+                code: '', type: 'percentage', value: '', usageLimit: '', minPurchase: '',
+                maxDiscount: '', startDate: '', endDate: '', isActive: true
+            });
         } catch (error: any) {
             console.error('Error creating coupon:', error);
             showToast.dismiss(toastId);
-            showToast.error(error.message || 'حدث خطأ أثناء الإنشاء');
+            showToast.error(handleApiError(error) || 'حدث خطأ أثناء الإنشاء');
         }
     };
 
@@ -83,33 +72,23 @@ export default function CouponsPage() {
         // Second click: actual delete
         setDeletingId(null);
         try {
-            const res = await fetch(`/api/coupons/${id}`, { method: 'DELETE' });
-            if (res.ok) {
-                showToast.success('تم حذف الكوبون!');
-                fetchCoupons();
-            } else {
-                throw new Error('Failed to delete');
-            }
+            await apiDelete(`/api/coupons/${id}`);
+            showToast.success('تم حذف الكوبون!');
+            fetchCoupons();
         } catch (error) {
             console.error('Error deleting coupon:', error);
-            showToast.error('خطأ في عملية الحذف');
+            showToast.error(handleApiError(error) || 'خطأ في عملية الحذف');
         }
     };
 
     const toggleStatus = async (id: string, currentStatus: boolean, code: string) => {
         try {
-            const res = await fetch(`/api/coupons/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ isActive: !currentStatus })
-            });
+            await apiPut(`/api/coupons/${id}`, { isActive: !currentStatus });
 
-            if (res.ok) {
-                showToast.success(`تم ${!currentStatus ? 'تفعيل' : 'إيقاف'} الكوبون ${code}`);
-                fetchCoupons();
-            }
+            showToast.success(`تم ${!currentStatus ? 'تفعيل' : 'إيقاف'} الكوبون ${code}`);
+            fetchCoupons();
         } catch (error) {
-            console.error('Error toggling status:', error);
+            console.error('Error toggling status:', handleApiError(error));
         }
     };
 

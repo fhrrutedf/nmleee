@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FiUsers, FiMail, FiDownload, FiSearch } from "react-icons/fi";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { apiGet } from "@/lib/safe-fetch";
 
 export default function SubscribersList() {
     const [subscribers, setSubscribers] = useState<any[]>([]);
@@ -12,11 +13,8 @@ export default function SubscribersList() {
 
     const fetchSubscribers = async () => {
         try {
-            const res = await fetch("/api/admin/subscribers");
-            if (res.ok) {
-                const data = await res.json();
-                setSubscribers(data);
-            }
+            const data = await apiGet("/api/admin/subscribers");
+            setSubscribers(data);
         } catch (error) {
             console.error(error);
         } finally {

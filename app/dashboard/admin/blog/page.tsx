@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FiPlus, FiEdit2, FiTrash2, FiSearch, FiFilter, FiUsers } from "react-icons/fi";
 import { deleteArticle } from "./actions";
 import toast from "react-hot-toast";
+import { apiGet } from "@/lib/safe-fetch";
 
 export default function ArticlesList() {
     const [articles, setArticles] = useState<any[]>([]);
@@ -13,11 +14,8 @@ export default function ArticlesList() {
 
     const fetchArticles = async () => {
         try {
-            const res = await fetch("/api/blog"); // We need to create an API route for GET
-            if (res.ok) {
-                const data = await res.json();
-                setArticles(data || []);
-            }
+            const data = await apiGet("/api/blog"); // We need to create an API route for GET
+            setArticles(data || []);
         } catch (error) {
             console.error(error);
         } finally {

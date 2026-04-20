@@ -16,6 +16,7 @@ import {
     type PaymentMethod,
     type CountryPaymentConfig
 } from '@/config/paymentMethods';
+import { apiGet, apiPost, safeFetch, handleApiError } from '@/lib/safe-fetch';
 
 // ─── Platform Wallet Addresses ────────────────────────────────────
 // The student pays directly to the platform admin.
@@ -70,9 +71,8 @@ function ManualCheckoutInner() {
 
     // ─── Detect Country ────────────────────────────────────────────
     useEffect(() => {
-        fetch('/api/geo')
-            .then(r => r.ok ? r.json() : { country: 'DEFAULT' })
-            .then(d => setCountry(d.country || 'DEFAULT'))
+        apiGet('/api/geo')
+            .then(d => setCountry(d?.country || 'DEFAULT'))
             .catch(() => setCountry('DEFAULT'));
     }, []);
 
@@ -129,38 +129,31 @@ function ManualCheckoutInner() {
                 const fd = new FormData();
                 fd.append('file', proofFile);
                 fd.append('type', 'image');
-                const upRes = await fetch('/api/upload', { method: 'POST', body: fd });
-                if (upRes.ok) { const d = await upRes.json(); proofUrl = d.url; }
+                const upD = await safeFetch('/api/upload', { method: 'POST', body: fd });
+                proofUrl = upD.url;
             }
 
             // Create order
-            const res = await fetch('/api/orders/manual', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    items,
-                    customerName: session?.user?.name || 'عميل',
-                    customerEmail: session?.user?.email || '',
-                    customerPhone: senderPhone,
-                    country,
-                    paymentProvider: selectedMethod.id,
-                    senderPhone,
-                    transactionRef,
-                    paymentProof: proofUrl,
-                    paymentNotes,
-                    userId: (session?.user as any)?.id,
-                }),
+            const data = await apiPost('/api/orders/manual', {
+                items,
+                customerName: session?.user?.name || 'عميل',
+                customerEmail: session?.user?.email || '',
+                customerPhone: senderPhone,
+                country,
+                paymentProvider: selectedMethod.id,
+                senderPhone,
+                transactionRef,
+                paymentProof: proofUrl,
+                paymentNotes,
+                userId: (session?.user as any)?.id,
             });
 
-            if (res.ok) {
-                const data = await res.json();
-                setOrderResult({ orderNumber: data.orderNumber });
-                setStep(3);
-            } else {
-                const d = await res.json();
-                setError(d.error || 'حدث خطأ أثناء إنشاء الطلب');
-            }
-        } catch { setError('حدث خطأ في الاتصال'); }
+            setOrderResult({ orderNumber: data.orderNumber });
+            setStep(3);
+
+        } catch (err) { 
+            setError(handleApiError(err)); 
+        }
         finally { setIsSubmitting(false); }
     };
 

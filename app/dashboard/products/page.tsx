@@ -9,7 +9,7 @@ import {
 } from 'react-icons/fi';
 import Link from 'next/link';
 import Image from 'next/image';
-import { apiGet, apiDelete, apiPost, handleApiError } from '@/lib/safe-fetch';
+import { apiGet, apiDelete, apiPut, apiPost, handleApiError } from '@/lib/safe-fetch';
 import showToast from '@/lib/toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -42,19 +42,13 @@ export default function ProductsPage() {
     const toggleStatus = async (product: any) => {
         const toastId = showToast.loading('جاري تحديث الحالة...');
         try {
-            const response = await fetch(`/api/products/${product.id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...product, isActive: !product.isActive }),
-            });
-            if (response.ok) {
-                showToast.dismiss(toastId);
-                showToast.success('تم تحديث حالة المنتج بنجاح');
-                fetchProducts();
-            }
+            await apiPut(`/api/products/${product.id}`, { ...product, isActive: !product.isActive });
+            showToast.dismiss(toastId);
+            showToast.success('تم تحديث حالة المنتج بنجاح');
+            fetchProducts();
         } catch (error) {
             showToast.dismiss(toastId);
-            showToast.error('فشل التحديث');
+            showToast.error(handleApiError(error) || 'فشل التحديث');
         }
     };
 
@@ -63,20 +57,14 @@ export default function ProductsPage() {
         const toastId = showToast.loading('جاري تحديث السعر...');
         try {
             const product = products.find(p => p.id === id);
-            const response = await fetch(`/api/products/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...product, price: parseFloat(tempPrice) }),
-            });
-            if (response.ok) {
-                showToast.dismiss(toastId);
-                showToast.success('تم تحديث السعر ✅');
-                setEditingPriceId(null);
-                fetchProducts();
-            }
+            await apiPut(`/api/products/${id}`, { ...product, price: parseFloat(tempPrice) });
+            showToast.dismiss(toastId);
+            showToast.success('تم تحديث السعر ✅');
+            setEditingPriceId(null);
+            fetchProducts();
         } catch (error) {
             showToast.dismiss(toastId);
-            showToast.error('خطأ في التحديث');
+            showToast.error(handleApiError(error) || 'خطأ في التحديث');
         }
     };
 

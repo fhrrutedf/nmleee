@@ -13,6 +13,7 @@ import {
     type PaymentMethod,
 } from '@/config/paymentMethods';
 import { getCookie } from '@/lib/marketing';
+import { apiGet, apiPost, safeFetch, handleApiError } from '@/lib/safe-fetch';
 
 // Components
 import OrderSummary from '@/components/checkout/OrderSummary';
@@ -75,11 +76,9 @@ function CheckoutInner() {
         (window as any).SP_SUCCESSFUL_PAYMENT = (spaceremit_code: string) => {
             const orderId = (window as any).__SP_ORDER_ID;
             const orderNumber = (window as any).__SP_ORDER_NUMBER;
-            fetch('/api/webhooks/spaceremit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ SP_payment_code: spaceremit_code, notes: orderNumber })
-            }).finally(() => {
+            apiPost('/api/webhooks/spaceremit', { SP_payment_code: spaceremit_code, notes: orderNumber })
+            .catch(() => {})
+            .finally(() => {
                 window.location.href = `/success?orderId=${orderId}`;
             });
         };
@@ -143,10 +142,9 @@ function CheckoutInner() {
     }, [isDirect, router]);
 
     useEffect(() => {
-        fetch('/api/geo')
-            .then(r => r.ok ? r.json() : { country: 'DEFAULT' })
+        apiGet('/api/geo')
             .then(d => {
-                const code = d.country || 'DEFAULT';
+                const code = d?.country || 'DEFAULT';
                 handleCountryLogic(code);
             }).catch(() => handleCountryLogic('DEFAULT'));
     }, []);
@@ -173,26 +171,15 @@ function CheckoutInner() {
             const affRef = getCookie('aff_code') || sessionStorage.getItem('affiliate_ref');
             
             if (total === 0) {
-                const res = await fetch('/api/checkout/free', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        items: cart,
-                        customerName: formData.name,
-                        customerEmail: formData.email,
-                        customerPhone: formData.phone || '',
-                        affiliateRef: affRef
-                    })
+                const data = await apiPost('/api/checkout/free', {
+                    items: cart,
+                    customerName: formData.name,
+                    customerEmail: formData.email,
+                    customerPhone: formData.phone || '',
+                    affiliateRef: affRef
                 });
-                
-                if (res.ok) {
-                    const data = await res.json();
-                    if (!isDirect) localStorage.removeItem('cart');
-                    router.push(`/success?order_id=${data.orderId}&free=true`);
-                } else {
-                    const errData = await res.json().catch(() => ({}));
-                    showToast.error(errData.error || 'فشل معالجة الطلب المجاني');
-                }
+                if (!isDirect) localStorage.removeItem('cart');
+                router.push(`/success?order_id=${data.orderId}&free=true`);
                 return;
             }
             
@@ -201,75 +188,44 @@ function CheckoutInner() {
                 let methodId = selectedLocalMethod.id;
                 
                 if (methodId === 'crypto_usdt' || methodId === 'usdt_trc20') {
-                    const res = await fetch('/api/checkout/oxapay', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            items: cart,
-                            customerInfo: formData,
-                            paymentMethod: 'crypto',
-                            couponCode: discount > 0 ? couponCode : null,
-                            affiliateRef: affRef
-                        })
-                    });
-                    
-                    if (res.ok) {
-                        const data = await res.json();
-                        if (data.paymentUrl) {
-                            window.location.href = data.paymentUrl;
-                        } else {
-                            showToast.error('عذراً، لم نتمكن من توليد رابط الدفع');
-                        }
-                    } else {
-                        const errData = await res.json().catch(() => ({}));
-                        showToast.error(errData.error || 'فشل الاتصال ببوابة الدفع الرقمية');
-                    }
-                    return;
-                }
-
-                const res = await fetch('/api/checkout/spaceremit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        items: cart,
-                        customerInfo: formData,
-                        paymentMethod: methodId,
-                        couponCode: discount > 0 ? couponCode : null,
-                        affiliateRef: affRef
-                    })
-                });
-
-                if (res.ok) {
-                    const data = await res.json();
-                    setSpOrderData(data);
-                } else {
-                    const errData = await res.json().catch(() => ({}));
-                    showToast.error(errData.error || 'فشل بدء عملية الدفع');
-                }
-
-            } else if (paymentMethod === 'nowpayments') {
-                const res = await fetch('/api/checkout/oxapay', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
+                    const data = await apiPost('/api/checkout/oxapay', {
                         items: cart,
                         customerInfo: formData,
                         paymentMethod: 'crypto',
                         couponCode: discount > 0 ? couponCode : null,
                         affiliateRef: affRef
-                    })
-                });
-
-                if (res.ok) {
-                    const data = await res.json();
+                    });
+                    
                     if (data.paymentUrl) {
                         window.location.href = data.paymentUrl;
                     } else {
-                        showToast.error('لم نتمكن من جلب رابط الدفع');
+                        showToast.error('عذراً، لم نتمكن من توليد رابط الدفع');
                     }
+                    return;
+                }
+
+                const data = await apiPost('/api/checkout/spaceremit', {
+                    items: cart,
+                    customerInfo: formData,
+                    paymentMethod: methodId,
+                    couponCode: discount > 0 ? couponCode : null,
+                    affiliateRef: affRef
+                });
+                setSpOrderData(data);
+
+            } else if (paymentMethod === 'nowpayments') {
+                const data = await apiPost('/api/checkout/oxapay', {
+                    items: cart,
+                    customerInfo: formData,
+                    paymentMethod: 'crypto',
+                    couponCode: discount > 0 ? couponCode : null,
+                    affiliateRef: affRef
+                });
+
+                if (data.paymentUrl) {
+                    window.location.href = data.paymentUrl;
                 } else {
-                    const errData = await res.json().catch(() => ({}));
-                    showToast.error(errData.error || 'البيانات غير مكتملة، يرجى ملء السلة والمحاولة');
+                    showToast.error('لم نتمكن من جلب رابط الدفع');
                 }
             } else if (paymentMethod === 'manual' && isSyria) {
                 if (!selectedLocalMethod || !manualData.transactionRef || !manualData.proofFile) {
@@ -279,35 +235,27 @@ function CheckoutInner() {
                 const fd = new FormData();
                 fd.append('file', manualData.proofFile);
                 fd.append('type', 'receipt');
-                const upRes = await fetch('/api/upload', { method: 'POST', body: fd });
-                if (!upRes.ok) throw new Error('فشل رفع الإيصال');
-                const upD = await upRes.json();
+                const upD = await safeFetch('/api/upload', { method: 'POST', body: fd });
 
-                const res = await fetch('/api/orders/manual', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        items: cart,
-                        customerName: formData.name,
-                        customerEmail: formData.email,
-                        customerPhone: formData.phone,
-                        country: 'SY',
-                        paymentProvider: selectedLocalMethod.id,
-                        transactionRef: manualData.transactionRef,
-                        paymentProof: upD.url,
-                        paymentNotes: manualData.notes,
-                        affiliateRef: affRef,
-                    })
+                const d = await apiPost('/api/orders/manual', {
+                    items: cart,
+                    customerName: formData.name,
+                    customerEmail: formData.email,
+                    customerPhone: formData.phone,
+                    country: 'SY',
+                    paymentProvider: selectedLocalMethod.id,
+                    transactionRef: manualData.transactionRef,
+                    paymentProof: upD.url,
+                    paymentNotes: manualData.notes,
+                    affiliateRef: affRef,
                 });
-                if (res.ok) {
-                    const d = await res.json();
-                    if (!isDirect) localStorage.removeItem('cart');
-                    router.push(`/success?order_id=${d.orderId}&manual=true`);
-                } else showToast.error('فشل إرسال الطلب اليدوي');
+                
+                if (!isDirect) localStorage.removeItem('cart');
+                router.push(`/success?order_id=${d.orderId}&manual=true`);
             }
         } catch (err) {
             console.error(err);
-            showToast.error('حدث خطأ أثناء معالجة الدفع');
+            showToast.error(handleApiError(err));
         } finally {
             setLoading(false);
         }

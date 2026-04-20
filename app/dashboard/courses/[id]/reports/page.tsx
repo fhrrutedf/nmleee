@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { FiUsers, FiTrendingUp, FiClock, FiAward, FiBarChart2 } from 'react-icons/fi';
+import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
 interface StudentProgress {
     id: string;
@@ -36,14 +37,11 @@ export default function CourseReportsPage() {
 
     const fetchReports = async () => {
         try {
-            const response = await fetch(`/api/courses/${courseId}/reports`);
-            if (response.ok) {
-                const data = await response.json();
-                setStudents(data.students);
-                setStats(data.stats);
-            }
+            const data = await apiGet(`/api/courses/${courseId}/reports`);
+            setStudents(data.students);
+            setStats(data.stats);
         } catch (error) {
-            console.error('Error fetching reports:', error);
+            console.error('Error fetching reports:', handleApiError(error));
         } finally {
             setLoading(false);
         }

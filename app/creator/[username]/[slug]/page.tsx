@@ -3,7 +3,9 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Link from 'next/link';
 import { FiShoppingCart, FiStar, FiClock, FiUsers, FiCheckCircle } from 'react-icons/fi';
+import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 
 export default function ProductPage() {
     const params = useParams();
@@ -26,32 +28,25 @@ export default function ProductPage() {
     const trackView = async (pId: string) => {
         if (typeof window !== 'undefined' && pId) {
             try {
-                await fetch('/api/analytics/track', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        productId: pId,
-                        referrer: document.referrer || 'direct'
-                    }),
+                await apiPost('/api/analytics/track', {
+                    productId: pId,
+                    referrer: document.referrer || 'direct'
                 });
             } catch (e) {
-                console.error('Tracking Error:', e);
+                console.error('Tracking Error:', handleApiError(e));
             }
         }
     };
 
     const fetchProductData = async () => {
         try {
-            const res = await fetch(`/api/creators/${username}/products/${slug}`);
-            if (res.ok) {
-                const data = await res.json();
-                setProduct(data.product);
-                setCreator(data.creator);
-                // تتبع المشاهدة فور التحميل
-                if (data.product?.id) trackView(data.product.id);
-            }
+            const data = await apiGet(`/api/creators/${username}/products/${slug}`);
+            setProduct(data.product);
+            setCreator(data.creator);
+            // تتبع المشاهدة فور التحميل
+            if (data.product?.id) trackView(data.product.id);
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', handleApiError(error));
         } finally {
             setLoading(false);
         }

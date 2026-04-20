@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { FiCalendar, FiClock, FiVideo, FiMapPin, FiUser, FiMail, FiPhone, FiMessageSquare, FiDollarSign, FiCheck } from 'react-icons/fi';
 import showToast from '@/lib/toast';
+import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 
 interface TimeSlot {
   time: string;
@@ -53,16 +54,10 @@ function BookAppointmentInner() {
       setFetchingSlots(true);
       try {
         const service = services.find(s => s.id === formData.service);
-        const res = await fetch(
-          `/api/appointments/slots?userId=${sellerId}&date=${formData.date}&duration=${service?.duration || 30}`
-        );
-        
-        if (res.ok) {
-          const data = await res.json();
-          setAvailableSlots(data);
-        }
+        const data = await apiGet(`/api/appointments/slots?userId=${sellerId}&date=${formData.date}&duration=${service?.duration || 30}`);
+        setAvailableSlots(data);
       } catch (error) {
-        console.error('Error fetching slots:', error);
+        console.error('Error fetching slots:', handleApiError(error));
       } finally {
         setFetchingSlots(false);
       }
@@ -84,31 +79,21 @@ function BookAppointmentInner() {
     try {
       const service = services.find(s => s.id === formData.service);
       
-      const res = await fetch('/api/appointments/book', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          sellerId,
-          duration: service?.duration || 30,
-          price: service?.price || 0
-        })
+      const data = await apiPost('/api/appointments/book', {
+        ...formData,
+        sellerId,
+        duration: service?.duration || 30,
+        price: service?.price || 0
       });
 
-      if (res.ok) {
-        const data = await res.json();
-        showToast.success('تم حجز الموعد بنجاح!');
+      showToast.success('تم حجز الموعد بنجاح!');
         
-        // If paid service, redirect to checkout
-        if (service && service.price > 0) {
-          window.location.href = `/checkout?type=appointment&id=${data.appointment.id}`;
-        }
-      } else {
-        const error = await res.json();
-        showToast.error(error.error || 'فشل حجز الموعد');
+      // If paid service, redirect to checkout
+      if (service && service.price > 0) {
+        window.location.href = `/checkout?type=appointment&id=${data.appointment.id}`;
       }
     } catch (error) {
-      showToast.error('حدث خطأ في حجز الموعد');
+      showToast.error(handleApiError(error) || 'حدث خطأ في حجز الموعد');
     } finally {
       setLoading(false);
     }

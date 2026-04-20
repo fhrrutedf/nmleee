@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { FiCheckCircle, FiActivity, FiArrowLeft, FiClock } from 'react-icons/fi';
 import showToast from '@/lib/toast';
+import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
 interface SubscriptionPlan {
     id: string;
@@ -33,23 +34,23 @@ export default function SellerBillingPage() {
         const loadData = async () => {
             try {
                 // Fetch public plans listed on platform
-                const resPlans = await fetch('/api/plans/public');
-                if (resPlans.ok) {
-                    const data = await resPlans.json();
-                    setPlans(data);
+                try {
+                    const resPlans = await apiGet('/api/plans/public');
+                    setPlans(resPlans);
+                } catch (error) {
+                    console.error("Error loading plans", handleApiError(error));
                 }
 
                 // Fetch user's current subscription
-                const resSub = await fetch('/api/user/subscription');
-                if (resSub.ok) {
-                    const dataSub = await resSub.json();
+                try {
+                    const dataSub = await apiGet('/api/user/subscription');
                     // if they have active sub
                     if (dataSub && dataSub.id) {
                         setCurrentSub(dataSub);
                     }
+                } catch (error) {
+                    console.error("Error loading subscription", handleApiError(error));
                 }
-            } catch (error) {
-                console.error("Error loading billing data", error);
             } finally {
                 setLoading(false);
             }

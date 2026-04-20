@@ -7,6 +7,7 @@ import Link from 'next/link';
 import showToast from '@/lib/toast';
 import FileUploader from '@/components/ui/FileUploader';
 import RichTextEditor from '@/components/ui/RichTextEditor';
+import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 
 export default function NewBundlePage() {
     const router = useRouter();
@@ -30,13 +31,10 @@ export default function NewBundlePage() {
         // Fetch products to allow bundle selection
         const loadProducts = async () => {
             try {
-                const res = await fetch('/api/products');
-                if (res.ok) {
-                    const data = await res.json();
-                    setProducts(data);
-                }
+                const data = await apiGet('/api/products');
+                setProducts(data);
             } catch (error) {
-                console.error("Error fetching products:", error);
+                console.error("Error fetching products:", handleApiError(error));
             } finally {
                 setFetchingProducts(false);
             }
@@ -75,23 +73,14 @@ export default function NewBundlePage() {
         const toastId = showToast.loading('جاري حفظ الباقة...');
 
         try {
-            const response = await fetch('/api/bundles', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
-
-            if (response.ok) {
-                showToast.dismiss(toastId);
-                showToast.success('تم إنشاء الباقة بنجاح!');
-                router.push('/dashboard/bundles');
-            } else {
-                throw new Error('فشل إضافة الباقة');
-            }
+            await apiPost('/api/bundles', formData);
+            showToast.dismiss(toastId);
+            showToast.success('تم إنشاء الباقة بنجاح!');
+            router.push('/dashboard/bundles');
         } catch (error) {
             console.error('Error creating bundle:', error);
             showToast.dismiss(toastId);
-            showToast.error('حدث خطأ أثناء حفظ الباقة');
+            showToast.error(handleApiError(error) || 'حدث خطأ أثناء حفظ الباقة');
         } finally {
             setLoading(false);
         }

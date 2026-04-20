@@ -3,7 +3,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import Link from 'next/link';
 import { FiShoppingCart, FiStar, FiFacebook, FiInstagram, FiTwitter, FiGlobe } from 'react-icons/fi';
+import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
 export default function CreatorStorePage() {
     const params = useParams();
@@ -19,14 +21,11 @@ export default function CreatorStorePage() {
 
     const fetchCreatorData = async () => {
         try {
-            const res = await fetch(`/api/creators/${username}`);
-            if (res.ok) {
-                const data = await res.json();
-                setCreator(data.creator);
-                setProducts(data.products);
-            }
+            const data = await apiGet(`/api/creators/${username}`);
+            setCreator(data.creator);
+            setProducts(data.products);
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', handleApiError(error));
         } finally {
             setLoading(false);
         }

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { FiUsers, FiRefreshCw, FiEdit2, FiTrash2, FiX } from 'react-icons/fi';
 import showToast from '@/lib/toast';
+import { apiGet, apiPut, apiDelete, handleApiError } from '@/lib/safe-fetch';
 
 interface User {
     id: string;
@@ -41,31 +42,26 @@ export default function AdminSubscriptionsManagement() {
     const fetchSubscriptions = async () => {
         try {
             setLoading(true);
-            const res = await fetch(`/api/admin/subscriptions?filter=${filter}`);
-            const data = await res.json();
-            if (res.ok) { setUsers(data.users); setStats(data.stats); }
-        } catch { showToast.error('فشل جلب البيانات'); }
+            const data = await apiGet(`/api/admin/subscriptions?filter=${filter}`);
+            setUsers(data.users); setStats(data.stats);
+        } catch (error) { showToast.error(handleApiError(error) || 'فشل جلب البيانات'); }
         finally { setLoading(false); }
     };
 
     const handleUpdate = async () => {
         if (!editingUser) return;
         try {
-            const res = await fetch(`/api/admin/users/${editingUser.id}/subscription`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ planType: editingUser.planType, planExpiresAt: editingUser.planExpiresAt })
-            });
-            if (res.ok) { showToast.success('تم التحديث'); setEditingUser(null); fetchSubscriptions(); }
-        } catch { showToast.error('فشل التحديث'); }
+            await apiPut(`/api/admin/users/${editingUser.id}/subscription`, { planType: editingUser.planType, planExpiresAt: editingUser.planExpiresAt });
+            showToast.success('تم التحديث'); setEditingUser(null); fetchSubscriptions();
+        } catch (error) { showToast.error(handleApiError(error) || 'فشل التحديث'); }
     };
 
     const handleCancel = async (userId: string) => {
         if (!confirm('إلغاء الاشتراك؟')) return;
         try {
-            const res = await fetch(`/api/admin/users/${userId}/subscription`, { method: 'DELETE' });
-            if (res.ok) { showToast.success('تم الإلغاء'); fetchSubscriptions(); }
-        } catch { showToast.error('فشل الإلغاء'); }
+            await apiDelete(`/api/admin/users/${userId}/subscription`);
+            showToast.success('تم الإلغاء'); fetchSubscriptions();
+        } catch (error) { showToast.error(handleApiError(error) || 'فشل الإلغاء'); }
     };
 
     const getStatus = (user: User) => {

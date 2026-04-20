@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FiSave, FiDollarSign } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 
 export default function ManualPaymentSettingsPage() {
     const { data: session } = useSession();
@@ -26,49 +27,36 @@ export default function ManualPaymentSettingsPage() {
         fetchSettings();
     }, [session]);
 
-    const fetchSettings = async () => {
         try {
-            const response = await fetch('/api/seller/manual-payment-settings');
-            if (response.ok) {
-                const data = await response.json();
-                setShamCashNumber(data.shamCashNumber || '');
-                setOmtNumber(data.omtNumber || '');
-                setZainCashNumber(data.zainCashNumber || '');
-                setVodafoneCash(data.vodafoneCash || '');
-                setMtncashNumber(data.mtncashNumber || '');
-            }
+            const data = await apiGet('/api/seller/manual-payment-settings');
+            setShamCashNumber(data.shamCashNumber || '');
+            setOmtNumber(data.omtNumber || '');
+            setZainCashNumber(data.zainCashNumber || '');
+            setVodafoneCash(data.vodafoneCash || '');
+            setMtncashNumber(data.mtncashNumber || '');
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', handleApiError(error));
         } finally {
             setLoading(false);
         }
-    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSaving(true);
 
         try {
-            const response = await fetch('/api/seller/manual-payment-settings', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    shamCashNumber,
-                    omtNumber,
-                    zainCashNumber,
-                    vodafoneCash,
-                    mtncashNumber,
-                }),
+            await apiPost('/api/seller/manual-payment-settings', {
+                shamCashNumber,
+                omtNumber,
+                zainCashNumber,
+                vodafoneCash,
+                mtncashNumber,
             });
 
-            if (response.ok) {
-                toast.success('تم حفظ الإعدادات بنجاح ✅');
-            } else {
-                toast.error('حدث خطأ أثناء الحفظ ❌');
-            }
+            toast.success('تم حفظ الإعدادات بنجاح ✅');
         } catch (error) {
             console.error('Error:', error);
-            toast.error('حدث خطأ أثناء الحفظ ❌');
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء الحفظ ❌');
         } finally {
             setSaving(false);
         }

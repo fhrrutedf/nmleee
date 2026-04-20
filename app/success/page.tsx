@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { FiCheckCircle, FiPackage, FiBook, FiArrowLeft, FiGift, FiShoppingCart, FiClock, FiMail, FiLock, FiMessageCircle, FiExternalLink } from 'react-icons/fi';
 import { FaWhatsapp, FaTelegram, FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
+import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
 function SuccessContent() {
     const searchParams = useSearchParams();
@@ -30,16 +31,13 @@ function SuccessContent() {
 
     const fetchOrder = async () => {
         try {
-            const response = await fetch(`/api/orders/verify?session_id=${sessionId}`);
-            if (response.ok) {
-                const data = await response.json();
-                setOrder(data.order || data);
-                if (data.order?.sellerId || data.sellerId) {
-                    fetchUpsells(data.order?.sellerId || data.sellerId);
-                }
+            const data: any = await apiGet(`/api/orders/verify?session_id=${sessionId}`);
+            setOrder(data.order || data);
+            if (data.order?.sellerId || data.sellerId) {
+                fetchUpsells(data.order?.sellerId || data.sellerId);
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', handleApiError(error));
         } finally {
             setLoading(false);
         }
@@ -47,18 +45,15 @@ function SuccessContent() {
 
     const fetchSocial = async () => {
         try {
-            const res = await fetch('/api/platform/social');
-            if (res.ok) setSocial(await res.json());
+            const data = await apiGet('/api/platform/social');
+            setSocial(data);
         } catch (e) { /* ignore */ }
     };
 
     const fetchUpsells = async (sellerId: string) => {
         try {
-            const res = await fetch(`/api/store/${sellerId}/upsells`);
-            if (res.ok) {
-                const data = await res.json();
-                setUpsells(data.slice(0, 2));
-            }
+            const data: any[] = await apiGet(`/api/store/${sellerId}/upsells`);
+            setUpsells(data.slice(0, 2));
         } catch (e) {
             console.error("Failed to load upsells", e);
         }

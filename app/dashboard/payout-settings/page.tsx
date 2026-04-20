@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FiSave, FiDollarSign } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 
 export default function PayoutSettingsPage() {
     const { data: session } = useSession();
@@ -37,12 +38,10 @@ export default function PayoutSettingsPage() {
 
     const fetchSettings = async () => {
         try {
-            const response = await fetch('/api/seller/payout-settings');
-            if (response.ok) {
-                const data = await response.json();
+            const data = await apiGet('/api/seller/payout-settings');
 
-                if (data.payoutMethod) {
-                    setMethod(data.payoutMethod);
+            if (data.payoutMethod) {
+                setMethod(data.payoutMethod);
                 }
 
                 if (data.bankDetails) {
@@ -62,7 +61,7 @@ export default function PayoutSettingsPage() {
                 }
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', handleApiError(error));
         } finally {
             setLoading(false);
         }
@@ -81,25 +80,17 @@ export default function PayoutSettingsPage() {
                 swiftCode,
             } : null;
 
-            const response = await fetch('/api/seller/payout-settings', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    method,
-                    bankDetails,
-                    paypalEmail: method === 'paypal' ? paypalEmail : null,
-                    cryptoWallet: method === 'crypto' ? cryptoWallet : null,
-                }),
+            await apiPost('/api/seller/payout-settings', {
+                method,
+                bankDetails,
+                paypalEmail: method === 'paypal' ? paypalEmail : null,
+                cryptoWallet: method === 'crypto' ? cryptoWallet : null,
             });
 
-            if (response.ok) {
-                toast.success('تم حفظ الإعدادات بنجاح ✅');
-            } else {
-                toast.error('حدث خطأ أثناء الحفظ ❌');
-            }
+            toast.success('تم حفظ الإعدادات بنجاح ✅');
         } catch (error) {
             console.error('Error:', error);
-            toast.error('حدث خطأ أثناء الحفظ ❌');
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء الحفظ ❌');
         } finally {
             setSaving(false);
         }

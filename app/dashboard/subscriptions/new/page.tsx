@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FiPlus, FiX } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import { apiPost, handleApiError } from '@/lib/safe-fetch';
 
 export default function NewSubscriptionPlanPage() {
     const router = useRouter();
@@ -39,24 +40,14 @@ export default function NewSubscriptionPlanPage() {
         setLoading(true);
 
         try {
-            const response = await fetch('/api/subscriptions/plans', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...formData,
-                    features: formData.features.filter(f => f.trim() !== ''),
-                }),
+            await apiPost('/api/subscriptions/plans', {
+                ...formData,
+                features: formData.features.filter(f => f.trim() !== ''),
             });
-
-            if (response.ok) {
-                router.push('/dashboard/subscriptions');
-            } else {
-                const data = await response.json();
-                toast.error(data.error || 'حدث خطأ');
-            }
+            router.push('/dashboard/subscriptions');
         } catch (error) {
             console.error('Error creating plan:', error);
-            toast.error('حدث خطأ أثناء إنشاء الخطة');
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء إنشاء الخطة');
         } finally {
             setLoading(false);
         }

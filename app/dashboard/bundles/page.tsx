@@ -5,6 +5,7 @@ import { FiPlus, FiPackage, FiEdit2, FiTrash2, FiTag, FiEye, FiPower } from 'rea
 import { format } from 'date-fns';
 import { ar } from 'date-fns/locale';
 import showToast from '@/lib/toast';
+import { apiGet, apiDelete, apiPatch, handleApiError } from '@/lib/safe-fetch';
 import Link from 'next/link';
 
 export default function BundlesPage() {
@@ -17,13 +18,10 @@ export default function BundlesPage() {
 
     const fetchBundles = async () => {
         try {
-            const res = await fetch('/api/bundles');
-            if (res.ok) {
-                const data = await res.json();
-                setBundles(data);
-            }
+            const data = await apiGet('/api/bundles');
+            setBundles(data);
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', handleApiError(error));
         } finally {
             setLoading(false);
         }
@@ -34,38 +32,26 @@ export default function BundlesPage() {
 
         const toastId = showToast.loading('جاري الحذف...');
         try {
-            const res = await fetch(`/api/bundles/${id}`, { method: 'DELETE' });
-            if (res.ok) {
-                setBundles(prev => prev.filter(b => b.id !== id));
-                showToast.success('تم حذف الباقة بنجاح', { id: toastId });
-            } else {
-                throw new Error('فشل الحذف');
-            }
+            await apiDelete(`/api/bundles/${id}`);
+            setBundles(prev => prev.filter(b => b.id !== id));
+            showToast.success('تم حذف الباقة بنجاح', { id: toastId });
         } catch (error) {
             console.error('Delete error:', error);
-            showToast.error('حدث خطأ أثناء الحذف', { id: toastId });
+            showToast.error(handleApiError(error) || 'حدث خطأ أثناء الحذف', { id: toastId });
         }
     };
 
     const handleToggleActive = async (id: string, currentStatus: boolean) => {
         const toastId = showToast.loading(currentStatus ? 'جاري إخفاء الباقة...' : 'جاري نشر الباقة...');
         try {
-            const res = await fetch(`/api/bundles/${id}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ isActive: !currentStatus })
-            });
-            if (res.ok) {
-                setBundles(prev => prev.map(b => 
-                    b.id === id ? { ...b, isActive: !currentStatus } : b
-                ));
-                showToast.success(currentStatus ? 'تم إخفاء الباقة' : 'تم نشر الباقة بنجاح', { id: toastId });
-            } else {
-                throw new Error('فشل التحديث');
-            }
+            await apiPatch(`/api/bundles/${id}`, { isActive: !currentStatus });
+            setBundles(prev => prev.map(b => 
+                b.id === id ? { ...b, isActive: !currentStatus } : b
+            ));
+            showToast.success(currentStatus ? 'تم إخفاء الباقة' : 'تم نشر الباقة بنجاح', { id: toastId });
         } catch (error) {
             console.error('Toggle error:', error);
-            showToast.error('حدث خطأ أثناء التحديث', { id: toastId });
+            showToast.error(handleApiError(error) || 'حدث خطأ أثناء التحديث', { id: toastId });
         }
     };
 

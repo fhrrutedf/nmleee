@@ -6,6 +6,7 @@ import { FiSave, FiArrowRight, FiTrash2, FiCheckCircle } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import FileUploader from '@/components/ui/FileUploader';
 import BunnyUpload from '@/components/instructor/BunnyUpload';
+import { apiGet, apiPut, handleApiError } from '@/lib/safe-fetch';
 
 interface LessonData {
     id: string;
@@ -54,29 +55,24 @@ export default function EditLessonPage() {
 
     const fetchLesson = async () => {
         try {
-            const res = await fetch(`/api/lessons/${lessonId}`);
-            if (res.ok) {
-                const data = await res.json();
-                setLesson(data);
-                setFormData({
-                    title: data.title || '',
-                    description: data.description || '',
-                    content: data.content || '',
-                    videoUrl: data.videoUrl || '',
-                    videoDuration: data.videoDuration?.toString() || '',
-                    isFree: data.isFree || false,
-                    isPublished: data.isPublished || false,
-                    attachments: data.attachments || [],
-                    bunnyVideoId: data.bunnyVideoId || '',
-                    bunnyLibraryId: data.bunnyLibraryId || '',
-                });
-            } else {
-                toast.error('الدرس غير موجود');
-                router.back();
-            }
+            const data = await apiGet(`/api/lessons/${lessonId}`);
+            setLesson(data);
+            setFormData({
+                title: data.title || '',
+                description: data.description || '',
+                content: data.content || '',
+                videoUrl: data.videoUrl || '',
+                videoDuration: data.videoDuration?.toString() || '',
+                isFree: data.isFree || false,
+                isPublished: data.isPublished || false,
+                attachments: data.attachments || [],
+                bunnyVideoId: data.bunnyVideoId || '',
+                bunnyLibraryId: data.bunnyLibraryId || '',
+            });
         } catch (error) {
-            console.error('Error:', error);
-            toast.error('حدث خطأ أثناء تحميل الدرس');
+            console.error('Error:', handleApiError(error));
+            toast.error(handleApiError(error) || 'الدرس غير موجود');
+            router.back();
         } finally {
             setLoading(false);
         }
@@ -87,29 +83,20 @@ export default function EditLessonPage() {
         setSaving(true);
 
         try {
-            const res = await fetch(`/api/lessons/${lessonId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...formData,
-                    attachments: formData.attachments.filter(a => a.trim() !== ''),
-                }),
+            await apiPut(`/api/lessons/${lessonId}`, {
+                ...formData,
+                attachments: formData.attachments.filter(a => a.trim() !== ''),
             });
 
-            if (res.ok) {
-                toast.success('تم حفظ التغييرات');
-                if (lesson?.module?.course?.id) {
-                    router.push(`/dashboard/courses/${lesson.module.course.id}/content`);
-                } else {
-                    router.back();
-                }
+            toast.success('تم حفظ التغييرات');
+            if (lesson?.module?.course?.id) {
+                router.push(`/dashboard/courses/${lesson.module.course.id}/content`);
             } else {
-                const data = await res.json();
-                toast.error(data.error || 'حدث خطأ');
+                router.back();
             }
         } catch (error) {
             console.error('Error:', error);
-            toast.error('حدث خطأ أثناء حفظ التغييرات');
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء حفظ التغييرات');
         } finally {
             setSaving(false);
         }

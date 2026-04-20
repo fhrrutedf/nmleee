@@ -9,6 +9,7 @@ import "react-quill-new/dist/quill.snow.css";
 import { FiSave, FiCheckCircle, FiChevronRight, FiSettings, FiImage, FiCode } from "react-icons/fi";
 import Link from "next/link";
 import { updateArticle, autoSaveArticle } from "../../actions";
+import { apiGet, handleApiError } from "@/lib/safe-fetch";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
@@ -35,25 +36,22 @@ export default function EditArticle() {
         if (!articleId) return;
         const fetchArticle = async () => {
             try {
-                const res = await fetch(`/api/blog/${articleId}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    setTitle(data.title);
-                    setContent(data.content);
-                    contentRef.current = data.content; // Track base content
-                    setExcerpt(data.excerpt || "");
-                    setStatus(data.status);
-                    setCoverImage(data.coverImage || "");
-                    if (data.publishedAt) {
-                        setPublishedAt(new Date(data.publishedAt).toISOString().slice(0, 16));
-                    }
-                    initialContentLoaded.current = true;
-                } else {
-                    toast.error("لم يتم العثور على المقال");
+                const data = await apiGet(`/api/blog/${articleId}`);
+                setTitle(data.title);
+                setContent(data.content);
+                contentRef.current = data.content; // Track base content
+                setExcerpt(data.excerpt || "");
+                setStatus(data.status);
+                setCoverImage(data.coverImage || "");
+                if (data.publishedAt) {
+                    setPublishedAt(new Date(data.publishedAt).toISOString().slice(0, 16));
+                }
+                initialContentLoaded.current = true;
+            } catch (error) {
+                toast.error(handleApiError(error) || "لم يتم العثور على المقال أو خطأ في التحميل");
+                if (!initialContentLoaded.current) {
                     router.push("/dashboard/admin/blog");
                 }
-            } catch (error) {
-                toast.error("خطأ في التحميل");
             } finally {
                 setIsLoading(false);
             }

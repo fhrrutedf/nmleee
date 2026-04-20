@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiZap, FiTrendingUp, FiUsers, FiStar } from 'react-icons/fi';
 import Image from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
+import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
 interface Product {
     id: string;
@@ -56,13 +58,10 @@ export default function SmartRecommendations({
             });
             if (category) params.append('category', category);
 
-            const response = await fetch(`/api/recommendations?${params}`);
-            if (response.ok) {
-                const data = await response.json();
-                setProducts(data.products || []);
-            }
+            const data = await apiGet(`/api/recommendations?${params}`);
+            setProducts(data.products || []);
         } catch (error) {
-            console.error('Error fetching recommendations:', error);
+            console.error('Error fetching recommendations:', handleApiError(error));
         } finally {
             setLoading(false);
         }

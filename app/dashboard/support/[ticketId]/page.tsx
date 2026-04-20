@@ -6,6 +6,7 @@ import { FiMessageSquare, FiSend, FiArrowRight, FiUser, FiInfo } from 'react-ico
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 
 export default function TicketDetailsPage({ params }: { params: Promise<{ ticketId: string }> }) {
     const { ticketId } = use(params);
@@ -25,16 +26,11 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
     const fetchTicket = async () => {
         setLoading(true);
         try {
-            const res = await fetch(`/api/tickets/${ticketId}`);
-            const data = await res.json();
-            if (res.ok) {
-                setTicket(data.ticket);
-            } else {
-                toast.error(data.error || 'تذكرة غير موجودة');
-                router.push('/dashboard/support');
-            }
-        } catch {
-            toast.error('حدث خطأ أثناء تحميل التذكرة');
+            const data = await apiGet(`/api/tickets/${ticketId}`);
+            setTicket(data.ticket);
+        } catch (error) {
+            toast.error(handleApiError(error) || 'تذكرة غير موجودة');
+            router.push('/dashboard/support');
         } finally {
             setLoading(false);
         }
@@ -46,22 +42,12 @@ export default function TicketDetailsPage({ params }: { params: Promise<{ ticket
 
         setSubmitting(true);
         try {
-            const res = await fetch(`/api/tickets/${ticketId}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message, attachmentUrl }),
-            });
-            const data = await res.json();
-
-            if (res.ok) {
-                setMessage('');
-                setAttachmentUrl('');
-                fetchTicket(); // Refresh to get the new message
-            } else {
-                toast.error(data.error || 'حدث خطأ');
-            }
-        } catch {
-            toast.error('حدث خطأ أثناء إرسال الرد');
+            await apiPost(`/api/tickets/${ticketId}`, { message, attachmentUrl });
+            setMessage('');
+            setAttachmentUrl('');
+            fetchTicket(); // Refresh to get the new message
+        } catch (error) {
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء إرسال الرد');
         } finally {
             setSubmitting(false);
         }

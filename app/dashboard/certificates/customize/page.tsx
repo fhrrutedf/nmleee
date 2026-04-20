@@ -6,6 +6,7 @@ import CertificatePreview from '@/components/CertificatePreview';
 import { FiSave, FiX } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import FileUploader from '@/components/ui/FileUploader';
+import { apiGet, apiPut, handleApiError } from '@/lib/safe-fetch';
 
 export default function CertificateCustomizationPage() {
     const router = useRouter();
@@ -30,8 +31,7 @@ export default function CertificateCustomizationPage() {
 
     // Load saved settings on mount
     useEffect(() => {
-        fetch('/api/user/certificate-settings')
-            .then((r) => r.json())
+        apiGet('/api/user/certificate-settings')
             .then((data) => {
                 if (data) {
                     setFormData({
@@ -47,18 +47,10 @@ export default function CertificateCustomizationPage() {
     const handleSave = async () => {
         setSaving(true);
         try {
-            const res = await fetch('/api/user/certificate-settings', {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
-            if (res.ok) {
-                toast.success('تم حفظ إعدادات الشهادة بنجاح ✅');
-            } else {
-                toast.error('فشل في حفظ الإعدادات');
-            }
-        } catch {
-            toast.error('حدث خطأ في الاتصال');
+            await apiPut('/api/user/certificate-settings', formData);
+            toast.success('تم حفظ إعدادات الشهادة بنجاح ✅');
+        } catch (error) {
+            toast.error(handleApiError(error) || 'حدث خطأ في الاتصال');
         } finally {
             setSaving(false);
         }

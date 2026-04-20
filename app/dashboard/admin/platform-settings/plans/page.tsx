@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { FiPlus, FiSave, FiTag, FiCheckCircle, FiActivity, FiEdit2, FiTrash2, FiPower, FiX } from 'react-icons/fi';
 import showToast from '@/lib/toast';
+import { apiGet, apiPost, apiPut, apiDelete, handleApiError } from '@/lib/safe-fetch';
 
 interface SubscriptionPlan {
     id: string;
@@ -40,13 +41,10 @@ export default function AdminPlansManagement() {
 
     const fetchPlans = async () => {
         try {
-            const res = await fetch('/api/admin/plans');
-            const data = await res.json();
-            if (res.ok) {
-                setPlans(data);
-            }
+            const data = await apiGet('/api/admin/plans');
+            setPlans(data);
         } catch (error) {
-            showToast.error('فشل جلب باقات الاشتراك');
+            showToast.error(handleApiError(error) || 'فشل جلب باقات الاشتراك');
         } finally {
             setLoading(false);
         }
@@ -60,22 +58,12 @@ export default function AdminPlansManagement() {
         
         setCreating(true);
         try {
-            const res = await fetch('/api/admin/plans', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newPlan)
-            });
-            
-            if (res.ok) {
-                showToast.success('تم إنشاء الباقة بنجاح');
-                setNewPlan({ name: '', description: '', price: 0, interval: 'month', features: [''], isActive: true, planType: 'GROWTH' });
-                fetchPlans(); // Refresh the list
-            } else {
-                const data = await res.json();
-                showToast.error(data.error || 'حدث خطأ');
-            }
+            await apiPost('/api/admin/plans', newPlan);
+            showToast.success('تم إنشاء الباقة بنجاح');
+            setNewPlan({ name: '', description: '', price: 0, interval: 'month', features: [''], isActive: true, planType: 'GROWTH' });
+            fetchPlans(); // Refresh the list
         } catch (error) {
-            showToast.error('فشل في الاتصال لتوليد الباقة');
+            showToast.error(handleApiError(error) || 'فشل في الاتصال لتوليد الباقة');
         } finally {
             setCreating(false);
         }
@@ -102,20 +90,11 @@ export default function AdminPlansManagement() {
 
     const handleTogglePlan = async (planId: string, currentStatus: boolean) => {
         try {
-            const res = await fetch(`/api/admin/plans/${planId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ isActive: !currentStatus })
-            });
-            
-            if (res.ok) {
-                showToast.success(currentStatus ? 'تم تعطيل الباقة' : 'تم تفعيل الباقة');
-                fetchPlans();
-            } else {
-                showToast.error('فشل تحديث الباقة');
-            }
+            await apiPut(`/api/admin/plans/${planId}`, { isActive: !currentStatus });
+            showToast.success(currentStatus ? 'تم تعطيل الباقة' : 'تم تفعيل الباقة');
+            fetchPlans();
         } catch (error) {
-            showToast.error('حدث خطأ');
+            showToast.error(handleApiError(error) || 'فشل تحديث الباقة');
         }
     };
 
@@ -123,19 +102,11 @@ export default function AdminPlansManagement() {
         if (!confirm('هل أنت متأكد من حذف هذه الباقة؟ لا يمكن التراجع عن هذا الإجراء.')) return;
         
         try {
-            const res = await fetch(`/api/admin/plans/${planId}`, {
-                method: 'DELETE'
-            });
-            
-            if (res.ok) {
-                showToast.success('تم حذف الباقة بنجاح');
-                fetchPlans();
-            } else {
-                const data = await res.json();
-                showToast.error(data.error || 'فشل حذف الباقة');
-            }
+            await apiDelete(`/api/admin/plans/${planId}`);
+            showToast.success('تم حذف الباقة بنجاح');
+            fetchPlans();
         } catch (error) {
-            showToast.error('حدث خطأ');
+            showToast.error(handleApiError(error) || 'فشل حذف الباقة');
         }
     };
 
@@ -148,23 +119,13 @@ export default function AdminPlansManagement() {
         if (!editingPlan) return;
         
         try {
-            const res = await fetch(`/api/admin/plans/${editingPlan.id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(editingPlan)
-            });
-            
-            if (res.ok) {
-                showToast.success('تم تحديث الباقة بنجاح');
-                setIsEditModalOpen(false);
-                setEditingPlan(null);
-                fetchPlans();
-            } else {
-                const data = await res.json();
-                showToast.error(data.error || 'فشل تحديث الباقة');
-            }
+            await apiPut(`/api/admin/plans/${editingPlan.id}`, editingPlan);
+            showToast.success('تم تحديث الباقة بنجاح');
+            setIsEditModalOpen(false);
+            setEditingPlan(null);
+            fetchPlans();
         } catch (error) {
-            showToast.error('حدث خطأ');
+            showToast.error(handleApiError(error) || 'فشل تحديث الباقة');
         }
     };
 

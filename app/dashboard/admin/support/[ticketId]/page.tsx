@@ -6,6 +6,7 @@ import { FiMessageSquare, FiSend, FiArrowRight, FiUser, FiInfo, FiCheckCircle } 
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { apiGet, apiPatch, handleApiError } from '@/lib/safe-fetch';
 
 export default function AdminTicketDetailsPage({ params }: { params: Promise<{ ticketId: string }> }) {
     const { ticketId } = use(params);
@@ -25,16 +26,11 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
     const fetchTicket = async () => {
         setLoading(true);
         try {
-            const res = await fetch(`/api/admin/tickets/${ticketId}`);
-            const data = await res.json();
-            if (res.ok) {
-                setTicket(data.ticket);
-            } else {
-                toast.error(data.error || 'تذكرة غير موجودة');
-                router.push('/dashboard/admin/support');
-            }
-        } catch {
-            toast.error('حدث خطأ أثناء تحميل التذكرة');
+            const data = await apiGet(`/api/admin/tickets/${ticketId}`);
+            setTicket(data.ticket);
+        } catch (error) {
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء تحميل التذكرة أو غير موجودة');
+            router.push('/dashboard/admin/support');
         } finally {
             setLoading(false);
         }
@@ -46,27 +42,18 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
 
         setSubmitting(true);
         try {
-            const res = await fetch(`/api/admin/tickets/${ticketId}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'reply',
-                    message: message || (closeTicket ? 'تم الرد وإغلاق التذكرة بناءً على طلبكم. شكراً لتواصلكم.' : ''),
-                    status: closeTicket ? 'RESOLVED' : 'IN_PROGRESS'
-                }),
+            await apiPatch(`/api/admin/tickets/${ticketId}`, {
+                action: 'reply',
+                message: message || (closeTicket ? 'تم الرد وإغلاق التذكرة بناءً على طلبكم. شكراً لتواصلكم.' : ''),
+                status: closeTicket ? 'RESOLVED' : 'IN_PROGRESS'
             });
-            const data = await res.json();
 
-            if (res.ok) {
-                setMessage('');
-                if (closeTicket) toast.success('تم الرد وإغلاق التذكرة');
-                else toast.success('تم إرسال الرد بنجاح');
-                fetchTicket();
-            } else {
-                toast.error(data.error || 'حدث خطأ');
-            }
-        } catch {
-            toast.error('حدث خطأ أثناء إرسال الرد');
+            setMessage('');
+            if (closeTicket) toast.success('تم الرد وإغلاق التذكرة');
+            else toast.success('تم إرسال الرد بنجاح');
+            fetchTicket();
+        } catch (error) {
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء إرسال الرد');
         } finally {
             setSubmitting(false);
         }
@@ -75,15 +62,11 @@ export default function AdminTicketDetailsPage({ params }: { params: Promise<{ t
     const changeStatus = async (newStatus: string) => {
         setStatusUpdating(true);
         try {
-            const res = await fetch(`/api/admin/tickets/${ticketId}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'updateStatus', status: newStatus }),
-            });
-            if (res.ok) {
-                toast.success('تم تحديث حالة التذكرة');
-                fetchTicket();
-            }
+            await apiPatch(`/api/admin/tickets/${ticketId}`, { action: 'updateStatus', status: newStatus });
+            toast.success('تم تحديث حالة التذكرة');
+            fetchTicket();
+        } catch (error) {
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء تحديث الحالة');
         } finally {
             setStatusUpdating(false);
         }

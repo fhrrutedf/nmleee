@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { FiMessageSquare, FiPlus, FiClock, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
+import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 
 export default function SellerSupportPage() {
     const { data: session } = useSession();
@@ -21,10 +22,10 @@ export default function SellerSupportPage() {
     const fetchTickets = async () => {
         setLoading(true);
         try {
-            const res = await fetch('/api/tickets');
-            if (res.ok) setTickets(await res.json());
-        } catch {
-            toast.error('حدث خطأ أثناء تحميل التذاكر');
+            const data = await apiGet('/api/tickets');
+            setTickets(data);
+        } catch (error) {
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء تحميل التذاكر');
         } finally {
             setLoading(false);
         }
@@ -38,23 +39,13 @@ export default function SellerSupportPage() {
 
         setSubmitting(true);
         try {
-            const res = await fetch('/api/tickets', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newTicket),
-            });
-            const data = await res.json();
-
-            if (res.ok) {
-                toast.success('تم فتح تذكرة دعم بنجاح');
-                setShowNewModal(false);
-                setNewTicket({ subject: '', category: 'GENERAL', message: '', attachmentUrl: '' });
-                fetchTickets();
-            } else {
-                toast.error(data.error || 'حدث خطأ');
-            }
-        } catch {
-            toast.error('حدث خطأ أثناء إرسال التذكرة');
+            await apiPost('/api/tickets', newTicket);
+            toast.success('تم فتح تذكرة دعم بنجاح');
+            setShowNewModal(false);
+            setNewTicket({ subject: '', category: 'GENERAL', message: '', attachmentUrl: '' });
+            fetchTickets();
+        } catch (error) {
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء إرسال التذكرة');
         } finally {
             setSubmitting(false);
         }

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { FiSave, FiX, FiUploadCloud, FiEye, FiCheckCircle } from 'react-icons/fi';
 import showToast from '@/lib/toast';
+import { apiPost, handleApiError } from '@/lib/safe-fetch';
 import FileUploader from '@/components/ui/FileUploader';
 import BunnyUpload from '@/components/instructor/BunnyUpload';
 
@@ -43,25 +44,16 @@ export default function NewLessonPage() {
         setLoading(true);
 
         try {
-            const response = await fetch(`/api/modules/${moduleId}/lessons`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...formData,
-                    attachments: formData.attachments.filter(a => a.trim() !== ''),
-                }),
+            await apiPost(`/api/modules/${moduleId}/lessons`, {
+                ...formData,
+                attachments: formData.attachments.filter(a => a.trim() !== ''),
             });
 
-            if (response.ok) {
-                showToast.success('تم حفظ الدرس وإدراجه في المنهج بنجاح! 🎓');
-                router.push(`/dashboard/courses/${courseId}/content`);
-            } else {
-                const data = await response.json();
-                showToast.error(data.error || 'حدث خطأ بشع!');
-            }
+            showToast.success('تم حفظ الدرس وإدراجه في المنهج بنجاح! 🎓');
+            router.push(`/dashboard/courses/${courseId}/content`);
         } catch (error) {
             console.error('Error creating lesson:', error);
-            showToast.error('لم نتمكن من الحفظ، حاول ثانية');
+            showToast.error(handleApiError(error) || 'لم نتمكن من الحفظ، حاول ثانية');
         } finally {
             setLoading(false);
         }

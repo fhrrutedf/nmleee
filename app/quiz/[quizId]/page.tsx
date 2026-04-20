@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { FiClock, FiCheck, FiX } from 'react-icons/fi';
+import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 
 interface Question {
     question: string;
@@ -53,18 +54,15 @@ export default function TakeQuizPage() {
 
     const fetchQuiz = async () => {
         try {
-            const response = await fetch(`/api/quizzes/${quizId}`);
-            if (response.ok) {
-                const data = await response.json();
-                setQuiz(data);
-                setAnswers(new Array(data.questions.length).fill(null));
+            const data = await apiGet(`/api/quizzes/${quizId}`);
+            setQuiz(data);
+            setAnswers(new Array(data.questions.length).fill(null));
 
-                if (data.timeLimit) {
-                    setTimeLeft(data.timeLimit * 60); // Convert to seconds
-                }
+            if (data.timeLimit) {
+                setTimeLeft(data.timeLimit * 60); // Convert to seconds
             }
         } catch (error) {
-            console.error('Error fetching quiz:', error);
+            console.error('Error fetching quiz:', handleApiError(error));
         } finally {
             setLoading(false);
         }
@@ -77,22 +75,15 @@ export default function TakeQuizPage() {
         setLoading(true);
 
         try {
-            const response = await fetch(`/api/quizzes/${quizId}/attempt`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    answers,
-                    studentName: 'الطالب', // Should be from session
-                    studentEmail: 'student@example.com', // Should be from session
-                }),
+            const data = await apiPost(`/api/quizzes/${quizId}/attempt`, {
+                answers,
+                studentName: 'الطالب', // Should be from session
+                studentEmail: 'student@example.com', // Should be from session
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                setResult(data);
-            }
+            setResult(data);
         } catch (error) {
-            console.error('Error submitting quiz:', error);
+            console.error('Error submitting quiz:', handleApiError(error));
         } finally {
             setLoading(false);
         }

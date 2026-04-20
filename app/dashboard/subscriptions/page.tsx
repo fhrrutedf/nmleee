@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FiPlus, FiEdit2, FiTrash2, FiUsers, FiDollarSign } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import { apiGet, apiDelete, handleApiError } from '@/lib/safe-fetch';
 
 interface SubscriptionPlan {
     id: string;
@@ -35,13 +36,10 @@ export default function SubscriptionsPage() {
 
     const fetchPlans = async () => {
         try {
-            const response = await fetch('/api/subscriptions/plans');
-            if (response.ok) {
-                const data = await response.json();
-                setPlans(data);
-            }
+            const data = await apiGet('/api/subscriptions/plans');
+            setPlans(data);
         } catch (error) {
-            console.error('Error fetching plans:', error);
+            console.error('Error fetching plans:', handleApiError(error));
         } finally {
             setLoading(false);
         }
@@ -51,19 +49,11 @@ export default function SubscriptionsPage() {
         if (!confirm('هل أنت متأكد من حذف هذه الخطة؟')) return;
 
         try {
-            const response = await fetch(`/api/subscriptions/plans/${id}`, {
-                method: 'DELETE',
-            });
-
-            if (response.ok) {
-                fetchPlans();
-            } else {
-                const data = await response.json();
-                toast.error(data.error || 'حدث خطأ');
-            }
+            await apiDelete(`/api/subscriptions/plans/${id}`);
+            fetchPlans();
         } catch (error) {
             console.error('Error deleting plan:', error);
-            toast.error('حدث خطأ أثناء الحذف');
+            toast.error(handleApiError(error) || 'حدث خطأ أثناء الحذف');
         }
     };
 

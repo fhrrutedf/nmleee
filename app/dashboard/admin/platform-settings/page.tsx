@@ -1,9 +1,10 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import { FiSave, FiDollarSign, FiClock, FiGlobe, FiPhone, FiSettings, FiTrendingUp, FiShare2, FiZap, FiKey } from 'react-icons/fi';
 import { FaWhatsapp, FaTelegram, FaInstagram, FaFacebook, FaTwitter, FaYoutube } from 'react-icons/fa';
 import showToast from '@/lib/toast';
+import { apiGet, apiPut, apiPost, handleApiError } from '@/lib/safe-fetch';
 
 interface PlatformSettings {
     commissionRate: number;
@@ -83,10 +84,9 @@ export default function AdminPlatformSettingsPage() {
     const [auditing, setAuditing] = useState(false);
 
     useEffect(() => {
-        fetch('/api/admin/settings')
-            .then(r => r.json())
+        apiGet('/api/admin/settings')
             .then(data => {
-                setSettings(s => ({ ...s, ...data }));
+                if (data) setSettings(s => ({ ...s, ...data }));
                 setLoading(false);
             })
             .catch(() => setLoading(false));
@@ -99,13 +99,12 @@ export default function AdminPlatformSettingsPage() {
     const handleAuditorCheck = async () => {
         setAuditing(true);
         try {
-            const res = await fetch('/api/cron/reconcile-payments');
-            const data = await res.json();
+            const data = await apiGet('/api/cron/reconcile-payments');
             if (data.success) {
                 showToast.success(`تم فحص ${data.stats.found} طلبات وتعويض ${data.stats.fulfilled} منها.`);
             }
-        } catch {
-            showToast.error('فشل اتصال الموظف الرقمي');
+        } catch (error) {
+            showToast.error(handleApiError(error) || 'فشل اتصال الموظف الرقمي');
         } finally {
             setAuditing(false);
         }
@@ -114,18 +113,10 @@ export default function AdminPlatformSettingsPage() {
     const handleSave = async () => {
         setSaving(true);
         try {
-            const res = await fetch('/api/admin/settings', {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(settings),
-            });
-            if (res.ok) {
-                showToast.success('تم حفظ الإعدادات والربط بنجاح');
-            } else {
-                showToast.error('فشل في حفظ البيانات');
-            }
-        } catch {
-            showToast.error('خطأ غير متوقع');
+            await apiPut('/api/admin/settings', settings);
+            showToast.success('تم حفظ الإعدادات والربط بنجاح');
+        } catch (error) {
+            showToast.error(handleApiError(error) || 'خطأ غير متوقع');
         } finally {
             setSaving(false);
         }
@@ -280,11 +271,12 @@ export default function AdminPlatformSettingsPage() {
                             <button 
                                 onClick={async () => {
                                     showToast.loading('جاري تحديث الأسعار...');
-                                    const res = await fetch('/api/admin/rates/sync', { method: 'POST' });
-                                    if (res.ok) {
-                                        const d = await res.json();
+                                    try {
+                                        const d = await apiPost('/api/admin/rates/sync', {});
                                         setSettings(s => ({ ...s, ...d.updatedRates }));
                                         showToast.success('تم تحديث العمولات بنجاح');
+                                    } catch (error) {
+                                        showToast.error(handleApiError(error) || 'فشل تحديث العمولات');
                                     }
                                 }}
                                 className="text-xs font-bold text-[#10B981] hover:text-[#10B981] flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/20 px-4 py-2 rounded-xl transition-all"

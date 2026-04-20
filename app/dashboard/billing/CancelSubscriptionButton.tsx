@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { apiPost, handleApiError } from '@/lib/safe-fetch';
 
 export default function CancelSubscriptionButton({ subscriptionId, isCanceled }: { subscriptionId: string, isCanceled: boolean }) {
     const [loading, setLoading] = useState(false);
@@ -15,22 +16,12 @@ export default function CancelSubscriptionButton({ subscriptionId, isCanceled }:
 
         setLoading(true);
         try {
-            const res = await fetch('/api/stripe/cancel-subscription', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ subscriptionId })
-            });
+            const data = await apiPost('/api/stripe/cancel-subscription', { subscriptionId });
 
-            const data = await res.json();
-
-            if (res.ok) {
-                toast.success(data.message || 'تم إيقاف التجديد التلقائي');
-                router.refresh(); // Refresh page to show updated status
-            } else {
-                toast.error(data.error || 'حدث خطأ أثناء إيقاف التجديد');
-            }
+            toast.success(data?.message || 'تم إيقاف التجديد التلقائي');
+            router.refresh(); // Refresh page to show updated status
         } catch (error) {
-            toast.error('خطأ في الاتصال بالخادم');
+            toast.error(handleApiError(error) || 'خطأ في الاتصال بالخادم');
         } finally {
             setLoading(false);
         }

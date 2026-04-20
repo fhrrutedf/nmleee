@@ -10,6 +10,7 @@ import Link from 'next/link';
 import showToast from '@/lib/toast';
 import FileUploader from '@/components/ui/FileUploader';
 import RichTextEditor from '@/components/ui/RichTextEditor';
+import { apiPost, handleApiError } from '@/lib/safe-fetch';
 import { motion, AnimatePresence } from 'framer-motion';
 import StepProgress from '@/components/ui/StepProgress';
 
@@ -154,32 +155,24 @@ function NewProductPageInner() {
         const toastId = showToast.loading('جاري نشر منتجك الجديد...');
         try {
             const { pricingType, ...rest } = formData;
-            const res = await fetch('/api/products', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...rest,
-                    price: pricingType === 'free' ? 0 : parseFloat(formData.price || '0'),
-                    isFree: pricingType === 'free',
-                    minPrice: pricingType === 'pwyw' ? parseFloat(formData.minPrice || '0') : null,
-                    suggestedPrice: pricingType === 'pwyw' && formData.suggestedPrice ? parseFloat(formData.suggestedPrice) : null,
-                    tags: (formData.tags || '').split(',').map(t => t.trim()).filter(Boolean),
-                    prerequisites: (formData.prerequisites || '').split(',').map(t => t.trim()).filter(Boolean),
-                    features: formData.features.filter(f => f.trim() !== ''),
-                    images: formData.images,
-                }),
+            await apiPost('/api/products', {
+                ...rest,
+                price: pricingType === 'free' ? 0 : parseFloat(formData.price || '0'),
+                isFree: pricingType === 'free',
+                minPrice: pricingType === 'pwyw' ? parseFloat(formData.minPrice || '0') : null,
+                suggestedPrice: pricingType === 'pwyw' && formData.suggestedPrice ? parseFloat(formData.suggestedPrice) : null,
+                tags: (formData.tags || '').split(',').map(t => t.trim()).filter(Boolean),
+                prerequisites: (formData.prerequisites || '').split(',').map(t => t.trim()).filter(Boolean),
+                features: formData.features.filter(f => f.trim() !== ''),
+                images: formData.images,
             });
-            if (res.ok) {
-                showToast.dismiss(toastId);
-                showToast.success('تهانينا! تم نشر المنتج بنجاح 🚀');
-                localStorage.removeItem('product_draft');
-                router.push('/dashboard/products');
-            } else {
-                throw new Error('فشل الحفظ');
-            }
-        } catch {
             showToast.dismiss(toastId);
-            showToast.error('حدث خطأ أثناء الحفظ. يرجى المحاولة لاحقاً.');
+            showToast.success('تهانينا! تم نشر المنتج بنجاح 🚀');
+            localStorage.removeItem('product_draft');
+            router.push('/dashboard/products');
+        } catch (error) {
+            showToast.dismiss(toastId);
+            showToast.error(handleApiError(error) || 'حدث خطأ أثناء الحفظ. يرجى المحاولة لاحقاً.');
         } finally {
             setLoading(false);
         }

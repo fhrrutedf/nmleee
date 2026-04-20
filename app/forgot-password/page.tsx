@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FiMail, FiCheckCircle, FiAlertCircle, FiArrowRight, FiLock } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
+import { apiPost, handleApiError } from '@/lib/safe-fetch';
 
 const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -23,20 +24,10 @@ export default function ForgotPasswordPage() {
         setError('');
 
         try {
-            const res = await fetch('/api/auth/forgot-password', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email }),
-            });
-
-            if (res.ok) {
-                setStatus('success');
-            } else {
-                const data = await res.json();
-                throw new Error(data.error || 'حدث خطأ ما');
-            }
+            await apiPost('/api/auth/forgot-password', { email });
+            setStatus('success');
         } catch (err: any) {
-            setError(err.message);
+            setError(handleApiError(err) || 'حدث خطأ ما');
             setStatus('error');
         }
     };

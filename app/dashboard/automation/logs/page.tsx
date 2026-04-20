@@ -5,6 +5,7 @@ import { FiMail, FiCheck, FiAlertCircle, FiArrowLeft, FiRefreshCw } from 'react-
 import { format } from 'date-fns';
 import { ar } from 'date-fns/locale';
 import Link from 'next/link';
+import { apiGet } from '@/lib/safe-fetch';
 
 type EmailLog = {
     id: string;
@@ -38,8 +39,8 @@ export default function EmailLogsPage() {
     const load = async () => {
         setLoading(true);
         try {
-            const res = await fetch('/api/automation/email-logs');
-            if (res.ok) setLogs(await res.json());
+            const data = await apiGet('/api/automation/email-logs');
+            setLogs(data);
         } catch { /* silent */ } finally {
             setLoading(false);
         }

@@ -7,6 +7,7 @@ import Link from 'next/link';
 import showToast from '@/lib/toast';
 import FileUploader from '@/components/ui/FileUploader';
 import RichTextEditor from '@/components/ui/RichTextEditor';
+import { apiGet, apiPut, handleApiError } from '@/lib/safe-fetch';
 
 export default function EditBundlePage() {
     const router = useRouter();
@@ -34,32 +35,25 @@ export default function EditBundlePage() {
 
         const loadData = async () => {
             try {
-                const [prodRes, bundleRes] = await Promise.all([
-                    fetch('/api/products'),
-                    fetch(`/api/bundles/${id}`)
+                const [data, bundle] = await Promise.all([
+                    apiGet('/api/products'),
+                    apiGet(`/api/bundles/${id}`)
                 ]);
 
-                if (prodRes.ok) {
-                    const data = await prodRes.json();
-                    setProducts(data);
-                }
-
-                if (bundleRes.ok) {
-                    const bundle = await bundleRes.json();
-                    setFormData({
-                        title: bundle.title,
-                        description: bundle.description || '',
-                        price: bundle.price?.toString() || '',
-                        image: bundle.image || '',
-                        productIds: bundle.products?.map((bp: any) => bp.product?.id || bp.productId) || [],
-                        stockLimit: bundle.stockLimit?.toString() || ''
-                    });
-                } else {
-                    showToast.error('لم يتم العثور على الباقة');
-                    router.push('/dashboard/bundles');
-                }
+                setProducts(data);
+                
+                setFormData({
+                    title: bundle.title,
+                    description: bundle.description || '',
+                    price: bundle.price?.toString() || '',
+                    image: bundle.image || '',
+                    productIds: bundle.products?.map((bp: any) => bp.product?.id || bp.productId) || [],
+                    stockLimit: bundle.stockLimit?.toString() || ''
+                });
             } catch (error) {
-                console.error("Error fetching data:", error);
+                console.error("Error fetching data:", handleApiError(error));
+                showToast.error('لم يتم العثور على الباقة أو حدث خطأ');
+                router.push('/dashboard/bundles');
             } finally {
                 setFetchingData(false);
             }
@@ -99,23 +93,14 @@ export default function EditBundlePage() {
         const toastId = showToast.loading('جاري حفظ التعديلات...');
 
         try {
-            const response = await fetch(`/api/bundles/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
-
-            if (response.ok) {
-                showToast.dismiss(toastId);
-                showToast.success('تم تحديث الباقة بنجاح!');
-                router.push('/dashboard/bundles');
-            } else {
-                throw new Error('فشل تحديث الباقة');
-            }
+            await apiPut(`/api/bundles/${id}`, formData);
+            showToast.dismiss(toastId);
+            showToast.success('تم تحديث الباقة بنجاح!');
+            router.push('/dashboard/bundles');
         } catch (error) {
             console.error('Error updating bundle:', error);
             showToast.dismiss(toastId);
-            showToast.error('حدث خطأ أثناء التحديث');
+            showToast.error(handleApiError(error) || 'حدث خطأ أثناء التحديث');
         } finally {
             setLoading(false);
         }
