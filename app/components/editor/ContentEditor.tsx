@@ -1,7 +1,7 @@
 'use client';
 
 import './ContentEditor.css';
-import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react';
+import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import Highlight from '@tiptap/extension-highlight';
@@ -88,6 +88,7 @@ export default function ContentEditor({
     const [charCount, setCharCount] = useState(0);
     const [wordCount, setWordCount] = useState(0);
     const [seoScore, setSeoScore] = useState(0);
+    const [bubblePos, setBubblePos] = useState<{ top: number; left: number } | null>(null);
     const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const editorRef = useRef<HTMLDivElement>(null);
 
@@ -149,6 +150,24 @@ export default function ContentEditor({
                 setSaveStatus('saved');
                 setTimeout(() => setSaveStatus('idle'), 2000);
             }, 1500);
+        },
+        onSelectionUpdate({ editor }) {
+            const { from, to } = editor.state.selection;
+            if (from === to) { setBubblePos(null); return; }
+            const sel = window.getSelection();
+            if (sel && sel.rangeCount > 0) {
+                const range = sel.getRangeAt(0);
+                const rect = range.getBoundingClientRect();
+                const canvasRect = editorRef.current?.getBoundingClientRect();
+                if (canvasRect && rect.width > 0) {
+                    setBubblePos({
+                        top: rect.top - canvasRect.top - 48,
+                        left: Math.max(0, rect.left - canvasRect.left + rect.width / 2 - 120),
+                    });
+                } else {
+                    setBubblePos(null);
+                }
+            }
         },
     });
 
@@ -270,13 +289,19 @@ export default function ContentEditor({
                             }}
                         />
 
-                        {/* Bubble Menu */}
-                        {editor && (
-                            <BubbleMenu
-                                editor={editor}
-                                tippyOptions={{ duration: 150, placement: 'top' }}
-                            >
-                                <div className="bubble-menu">
+                        {/* Floating Bubble Toolbar */}
+                        <AnimatePresence>
+                            {editor && bubblePos && (
+                                <motion.div
+                                    key="bubble"
+                                    initial={{ opacity: 0, y: 4, scale: 0.95 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, y: 4, scale: 0.95 }}
+                                    transition={{ duration: 0.12 }}
+                                    className="bubble-menu"
+                                    style={{ position: 'absolute', top: bubblePos.top, left: bubblePos.left, zIndex: 50 }}
+                                    onMouseDown={e => e.preventDefault()}
+                                >
                                     <ToolbarBtn onClick={() => editor.chain().focus().toggleBold().run()} active={editor.isActive('bold')} title="عريض">
                                         <FiBold size={14} />
                                     </ToolbarBtn>
@@ -303,9 +328,9 @@ export default function ContentEditor({
                                     <ToolbarBtn onClick={() => setLinkDialog(true)} active={editor.isActive('link')} title="رابط">
                                         <FiLink size={14} />
                                     </ToolbarBtn>
-                                </div>
-                            </BubbleMenu>
-                        )}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
 
                         {/* TipTap Editor */}
                         <EditorContent editor={editor} className="tiptap-content" />

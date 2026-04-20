@@ -17,12 +17,12 @@ export default function GeoSchemaBuilder({ product, seller, platformName = "تم
       description: product.description?.replace(/<[^>]*>?/gm, ''),
       image: product.image,
       brand: {
-        '@type': 'Person',
+        '@type': 'Organization',
         '@id': `${process.env.NEXT_PUBLIC_APP_URL || ''}/@${seller.username}#seller`,
         name: seller.name,
         url: `${process.env.NEXT_PUBLIC_APP_URL || ''}/@${seller.username}`,
         sameAs: [seller.website, seller.twitter, seller.instagram, seller.facebook, seller.linkedin].filter(Boolean) as string[]
-      },
+      } as any,
       offers: {
         '@type': 'Offer',
         price: product.price,
