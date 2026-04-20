@@ -42,23 +42,22 @@ export default function PayoutSettingsPage() {
 
             if (data.payoutMethod) {
                 setMethod(data.payoutMethod);
-                }
+            }
 
-                if (data.bankDetails) {
-                    setBankName(data.bankDetails.bankName || '');
-                    setAccountNumber(data.bankDetails.accountNumber || '');
-                    setAccountName(data.bankDetails.accountName || '');
-                    setIban(data.bankDetails.iban || '');
-                    setSwiftCode(data.bankDetails.swiftCode || '');
-                }
+            if (data.bankDetails) {
+                setBankName(data.bankDetails.bankName || '');
+                setAccountNumber(data.bankDetails.accountNumber || '');
+                setAccountName(data.bankDetails.accountName || '');
+                setIban(data.bankDetails.iban || '');
+                setSwiftCode(data.bankDetails.swiftCode || '');
+            }
 
-                if (data.paypalEmail) {
-                    setPaypalEmail(data.paypalEmail);
-                }
+            if (data.paypalEmail) {
+                setPaypalEmail(data.paypalEmail);
+            }
 
-                if (data.cryptoWallet) {
-                    setCryptoWallet(data.cryptoWallet);
-                }
+            if (data.cryptoWallet) {
+                setCryptoWallet(data.cryptoWallet);
             }
         } catch (error) {
             console.error('Error:', handleApiError(error));

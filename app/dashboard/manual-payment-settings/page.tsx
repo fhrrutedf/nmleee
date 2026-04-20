@@ -27,6 +27,7 @@ export default function ManualPaymentSettingsPage() {
         fetchSettings();
     }, [session]);
 
+    const fetchSettings = async () => {
         try {
             const data = await apiGet('/api/seller/manual-payment-settings');
             setShamCashNumber(data.shamCashNumber || '');
@@ -39,6 +40,7 @@ export default function ManualPaymentSettingsPage() {
         } finally {
             setLoading(false);
         }
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

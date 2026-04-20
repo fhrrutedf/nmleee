@@ -1,4 +1,4 @@
-import ContentEditor from '@/components/editor/ContentEditor';
+import ContentEditor from '../../components/editor/ContentEditor';
 
 export const metadata = {
     title: 'محرر المحتوى – منصتي الرقمية',
