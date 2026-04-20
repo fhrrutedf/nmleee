@@ -117,7 +117,6 @@ export default function EditCoursePage() {
                     startDate: data.startDate ? new Date(data.startDate).toISOString().split('T')[0] : '',
                     endDate: data.endDate ? new Date(data.endDate).toISOString().split('T')[0] : '',
                 });
-            }
         } catch (error) {
             console.error('Error fetching course:', error);
         } finally {

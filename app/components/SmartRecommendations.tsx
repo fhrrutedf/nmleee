@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiZap, FiTrendingUp, FiUsers, FiStar } from 'react-icons/fi';
 import Image from 'next/image';
-import Image from 'next/image';
 import Link from 'next/link';
 import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
