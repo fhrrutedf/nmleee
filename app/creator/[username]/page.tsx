@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import Link from 'next/link';
 import { FiShoppingCart, FiStar, FiFacebook, FiInstagram, FiTwitter, FiGlobe } from 'react-icons/fi';
 import { apiGet, handleApiError } from '@/lib/safe-fetch';
+import GeoSchemaBuilder from '@/components/GeoSchemaBuilder';
 
 export default function CreatorStorePage() {
     const params = useParams();
@@ -56,7 +56,8 @@ export default function CreatorStorePage() {
     const brandColor = creator.brandColor || '#0ea5e9';
 
     return (
-        <div className="min-h-screen bg-[#111111]">
+        <div className="min-h-screen bg-[#111111]" itemScope itemType="https://schema.org/ProfilePage">
+            <GeoSchemaBuilder seller={creator} type="profile" platformName="تمكين" />
             {/* Creator Header */}
             <div className="relative">
                 {/* Cover Image */}

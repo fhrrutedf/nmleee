@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import {
     FiArrowRight, FiUpload, FiDollarSign, FiPackage,
-    FiSave, FiX, FiFilm, FiEye, FiImage, FiCheck, FiLayers
+    FiSave, FiX, FiFilm, FiEye, FiImage, FiCheck, FiLayers, FiCheckSquare, FiPlus, FiStar
 } from 'react-icons/fi';
 import Link from 'next/link';
 import showToast from '@/lib/toast';
@@ -44,7 +44,8 @@ export default function EditProductPage() {
         minPrice: '',
         suggestedPrice: '',
         isActive: true,
-        displayOrder: 0
+        displayOrder: 0,
+        faqs: [] as { question: string; answer: string }[],
     });
 
     useEffect(() => {
@@ -75,7 +76,8 @@ export default function EditProductPage() {
                 minPrice: data.minPrice ? data.minPrice.toString() : '',
                 suggestedPrice: data.suggestedPrice ? data.suggestedPrice.toString() : '',
                 isActive: data.isActive ?? true,
-                displayOrder: data.displayOrder || 0
+                displayOrder: data.displayOrder || 0,
+                faqs: Array.isArray(data.faqs) ? data.faqs : [],
             });
         } catch (error) {
             console.error('Error fetching product:', handleApiError(error));
@@ -102,6 +104,7 @@ export default function EditProductPage() {
                 minPrice: pricingType === 'pwyw' ? parseFloat(formData.minPrice || '0') : null,
                 suggestedPrice: pricingType === 'pwyw' && formData.suggestedPrice ? parseFloat(formData.suggestedPrice) : null,
                 tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
+                faqs: formData.faqs.filter(f => f.question.trim() !== '' && f.answer.trim() !== ''),
             });
             showToast.dismiss(toastId);
             showToast.success('تم التحديث بنجاح! 🎉');
@@ -161,6 +164,64 @@ export default function EditProductPage() {
                                         />
                                     </div>
                                 </div>
+                                <div className="mt-8 p-6 bg-[#111111] border border-slate-200 rounded-xl relative overflow-hidden">
+                                     <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+                                        <FiStar className="text-9xl text-emerald-500" />
+                                     </div>
+                                     <label className="label-modern mb-2 flex items-center gap-2">
+                                         <FiCheckSquare className="text-emerald-500" />
+                                         الأسئلة الشائعة (SEO Boost) 🚀
+                                     </label>
+                                     <p className="text-xs text-slate-400 mb-6 font-bold">تسهل الأسئلة المكتوبة بطريقة (كيف، متى، هل) من ظهور منتجك في محركات بحث الذكاء الاصطناعي مثل ChatGPT بشكل مضاعف!</p>
+                                     <div className="space-y-4">
+                                         {formData.faqs.map((faq, index) => (
+                                             <div key={index} className="flex flex-col gap-2 p-4 bg-[#0A0A0A] rounded-xl border border-white/5 relative group">
+                                                 <button
+                                                     type="button"
+                                                     onClick={() => {
+                                                         const newFaqs = formData.faqs.filter((_, i) => i !== index);
+                                                         update('faqs', newFaqs);
+                                                     }}
+                                                     className="absolute top-2 left-2 p-2 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
+                                                     title="حذف السؤال"
+                                                 >
+                                                     <FiX size={16} />
+                                                 </button>
+                                                 <input
+                                                     type="text"
+                                                     className="input-modern py-2 text-emerald-100 placeholder:text-slate-600 font-bold"
+                                                     placeholder={`مثال للأسئلة المكررة: هل الدورة مناسبة للمبتدئين تماماً؟`}
+                                                     value={faq.question}
+                                                     onChange={e => {
+                                                         const newFaqs = [...formData.faqs];
+                                                         newFaqs[index].question = e.target.value;
+                                                         update('faqs', newFaqs);
+                                                     }}
+                                                 />
+                                                 <textarea
+                                                     className="input-modern py-2 h-20 resize-none text-sm placeholder:text-slate-600 text-slate-300"
+                                                     placeholder={`مثال للجواب المُقنع للاقتباس: نعم، الدورة تبدأ من الصفر ولا تتطلب أي خبرة برمجية سابقة وتوفر دعماً فنياً كاملاً.`}
+                                                     value={faq.answer}
+                                                     onChange={e => {
+                                                         const newFaqs = [...formData.faqs];
+                                                         newFaqs[index].answer = e.target.value;
+                                                         update('faqs', newFaqs);
+                                                     }}
+                                                 />
+                                             </div>
+                                         ))}
+                                         {formData.faqs.length < 5 && (
+                                             <button
+                                                 type="button"
+                                                 onClick={() => update('faqs', [...formData.faqs, { question: '', answer: '' }])}
+                                                 className="w-full py-4 bg-emerald-900/20 text-emerald-500 rounded-xl font-bold hover:bg-emerald-900/40 border border-emerald-500/20 hover:border-emerald-500/40 transition-all flex items-center justify-center gap-2"
+                                             >
+                                                 <FiPlus size={16} />
+                                                 إضافة سؤال جديد ({formData.faqs.length}/5)
+                                             </button>
+                                         )}
+                                     </div>
+                                 </div>
                             </div>
                         </Section>
 

@@ -14,7 +14,6 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { apiGet, apiPost, apiDelete, handleApiError } from '@/lib/safe-fetch';
 

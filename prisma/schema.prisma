@@ -224,6 +224,7 @@ model Product {
   duration    String?                  // مدة الدورة
   sessions    Int?                     // عدد الجلسات
   features    String[] @default([])    // مميزات المنتج
+  faqs        Json?                    // [{"question":"","answer":""}]
   prerequisites String[] @default([])  // المتطلبات المسبقة
   
   // Marketing & Pricing Features

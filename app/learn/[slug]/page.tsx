@@ -11,7 +11,6 @@ import {
 import QuizPlayer from '@/components/QuizPlayer';
 import AdvancedVideoPlayer from '@/components/lessons/AdvancedVideoPlayer';
 import LessonComments from '@/components/lessons/LessonComments';
-import LessonComments from '@/components/lessons/LessonComments';
 import { motion, AnimatePresence } from 'framer-motion';
 import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 

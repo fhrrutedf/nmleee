@@ -101,7 +101,8 @@ export async function POST(request: NextRequest) {
             stockLimit,
             tags,
             seoTitle,
-            seoDesc
+            seoDesc,
+            faqs
         } = body;
 
         const product = await prisma.product.create({
@@ -130,6 +131,7 @@ export async function POST(request: NextRequest) {
                 slug,
                 seoTitle,
                 seoDesc,
+                faqs: faqs ? faqs : null,
                 userId,
             },
         });

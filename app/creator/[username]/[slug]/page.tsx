@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Link from 'next/link';
-import { FiShoppingCart, FiStar, FiClock, FiUsers, FiCheckCircle } from 'react-icons/fi';
+import { FiShoppingCart, FiStar, FiClock, FiUsers, FiCheckCircle, FiHelpCircle, FiChevronDown } from 'react-icons/fi';
 import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
+import GeoSchemaBuilder from '@/components/GeoSchemaBuilder';
 
 export default function ProductPage() {
     const params = useParams();
@@ -83,7 +83,8 @@ export default function ProductPage() {
     const brandColor = creator.brandColor || '#0ea5e9';
 
     return (
-        <div className="min-h-screen bg-[#111111]">
+        <article className="min-h-screen bg-[#111111]" itemScope itemType="https://schema.org/Product">
+            <GeoSchemaBuilder product={product} seller={creator} type="product" platformName="تمكين" />
             {/* Breadcrumb */}
             <div className="bg-[#0A0A0A] border-b">
                 <div className="max-w-6xl mx-auto px-4 py-4">
@@ -127,6 +128,7 @@ export default function ProductPage() {
                             <Link
                                 href={`/@${creator.username}`}
                                 className="flex items-center gap-4 group"
+                                itemProp="brand" itemScope itemType="https://schema.org/Person"
                             >
                                 {creator.avatar ? (
                                     <img
@@ -143,7 +145,7 @@ export default function ProductPage() {
                                     </div>
                                 )}
                                 <div>
-                                    <p className="font-bold group-hover:text-[#10B981] transition-colors">
+                                    <p className="font-bold group-hover:text-[#10B981] transition-colors" itemProp="name">
                                         {creator.name}
                                     </p>
                                     <p className="text-sm text-gray-500">@{creator.username}</p>
@@ -166,10 +168,12 @@ export default function ProductPage() {
                             </span>
                         )}
 
-                        <h1 className="text-4xl font-bold leading-tight">{product.title}</h1>
+                        <h1 className="text-4xl font-bold leading-tight" itemProp="name">{product.title}</h1>
 
                         {/* Rating */}
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-4" itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
+                            <meta itemProp="ratingValue" content={product.averageRating?.toString() || '0'} />
+                            <meta itemProp="reviewCount" content={product.reviewCount?.toString() || '0'} />
                             <div className="flex items-center gap-1">
                                 {[...Array(5)].map((_, i) => (
                                     <FiStar
@@ -187,7 +191,10 @@ export default function ProductPage() {
                         </div>
 
                         {/* Price */}
-                        <div className="bg-[#0A0A0A] rounded-xl p-8 shadow-lg shadow-[#10B981]/20 border border-emerald-500/20">
+                        <section aria-labelledby="pricing" itemProp="offers" itemScope itemType="https://schema.org/Offer" className="bg-[#0A0A0A] rounded-xl p-8 shadow-lg shadow-[#10B981]/20 border border-emerald-500/20">
+                            <meta itemProp="priceCurrency" content="USD" />
+                            <meta itemProp="availability" content="https://schema.org/InStock" />
+                            <h2 id="pricing" className="sr-only">التسعير والعرض</h2>
                             <div className="flex flex-col gap-2">
                                 {product.originalPrice && product.originalPrice > product.price && (
                                     <div className="flex items-center gap-2">
@@ -200,7 +207,7 @@ export default function ProductPage() {
                                     </div>
                                 )}
                                 <div className="flex items-baseline gap-2">
-                                    <span className="text-6xl font-bold tracking-tight" style={{ color: brandColor }}>
+                                    <span itemProp="price" content={typeof product.price === 'number' ? product.price.toString() : '0'} className="text-6xl font-bold tracking-tight" style={{ color: brandColor }}>
                                         {typeof product.price === 'number' ? product.price.toFixed(0) : '0'}
                                     </span>
                                     <span className="text-2xl text-gray-500 font-bold">$</span>
@@ -224,21 +231,21 @@ export default function ProductPage() {
                                 <span className="w-1.5 h-1.5 rounded-xl bg-green-500 " />
                                 وصول فوري وكامل للمحتوى مدى الحياة
                             </p>
-                        </div>
+                        </section>
 
                         {/* Description */}
-                        <div>
-                            <h2 className="text-xl font-bold mb-3">عن المنتج</h2>
+                        <section aria-labelledby="product-description" itemProp="description">
+                            <h2 id="product-description" className="text-xl font-bold mb-3">عن المنتج</h2>
                             <div
                                 className="prose max-w-none text-gray-300 leading-relaxed"
                                 dangerouslySetInnerHTML={{ __html: product.description?.replace(/&nbsp;/g, ' ') || '' }}
                             />
-                        </div>
+                        </section>
 
                         {/* Features */}
                         {product.features && product.features.length > 0 && (
-                            <div>
-                                <h2 className="text-xl font-bold mb-3">المميزات</h2>
+                            <section aria-labelledby="product-features" className="ai-citable-list">
+                                <h2 id="product-features" className="text-xl font-bold mb-3">المميزات</h2>
                                 <ul className="space-y-2">
                                     {product.features.map((feature: string, index: number) => (
                                         <li key={index} className="flex items-start gap-2">
@@ -247,7 +254,30 @@ export default function ProductPage() {
                                         </li>
                                     ))}
                                 </ul>
-                            </div>
+                            </section>
+                        )}
+
+                        {/* FAQs */}
+                        {product.faqs && product.faqs.length > 0 && (
+                            <section aria-labelledby="product-faqs" className="ai-citable-faqs mt-8">
+                                <h2 id="product-faqs" className="text-xl font-bold mb-4 flex items-center gap-2">
+                                    <FiHelpCircle className="text-emerald-500" />
+                                    الأسئلة الشائعة
+                                </h2>
+                                <div className="space-y-3">
+                                    {product.faqs.map((faq: { question: string, answer: string }, index: number) => (
+                                        <details key={index} className="group bg-[#0A0A0A] border border-white/5 rounded-xl open:border-emerald-500/30 transition-all overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+                                            <summary className="cursor-pointer p-4 font-bold flex items-center justify-between text-gray-300 hover:text-white transition-colors">
+                                                {faq.question}
+                                                <FiChevronDown className="group-open:rotate-180 transition-transform text-emerald-500" />
+                                            </summary>
+                                            <div className="p-4 pt-0 text-sm text-gray-400 leading-relaxed border-t border-white/5 mt-2 bg-[#050505]">
+                                                {faq.answer}
+                                            </div>
+                                        </details>
+                                    ))}
+                                </div>
+                            </section>
                         )}
 
                         {/* CTA Button */}
@@ -286,9 +316,9 @@ export default function ProductPage() {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </main>
                 </div>
             </div>
-        </div>
+        </article>
     );
 }

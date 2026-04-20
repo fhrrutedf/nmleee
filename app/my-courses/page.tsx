@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Image from 'next/image';
 import { FiBook, FiDownload, FiClock } from 'react-icons/fi';
 import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
