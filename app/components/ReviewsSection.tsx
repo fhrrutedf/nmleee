@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { useParams } from 'next/navigation';
 import { FiStar } from 'react-icons/fi';
 import { apiGet, apiPost, handleApiError } from '@/lib/safe-fetch';
 
