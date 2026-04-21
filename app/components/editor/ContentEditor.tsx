@@ -521,6 +521,4 @@ function Stat({ label, value }: { label: string; value: number | string }) {
     );
 }
 
-function FiAlignLeft({ size }: { size?: number }) {
-    return <FiBarChart2 size={size} />;
-}
+
