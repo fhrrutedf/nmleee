@@ -100,7 +100,6 @@ export default function ContentEditor({
             }),
             Placeholder.configure({
                 placeholder: 'اكتب "/" لإدراج محتوى، أو ابدأ رحلتك الإبداعية هنا...',
-                considerAnyAsEmpty: true,
             }),
             Highlight.configure({ multicolor: true }),
             Link.configure({ openOnClick: false, HTMLAttributes: { class: 'text-indigo-600 underline underline-offset-2' } }),
