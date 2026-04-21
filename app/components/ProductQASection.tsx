@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMessageCircle, FiSend, FiUser, FiCheck, FiTrash2 } from 'react-icons/fi';
-import { FiMessageCircle, FiSend, FiUser, FiCheck, FiTrash2 } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import { apiGet, apiPost, apiDelete, handleApiError } from '@/lib/safe-fetch';
 
