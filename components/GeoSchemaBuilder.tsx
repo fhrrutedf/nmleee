@@ -108,7 +108,7 @@ export default function GeoSchemaBuilder({ product, seller, platformName = "تم
           '@type': 'InteractionCounter',
           interactionType: 'https://schema.org/FollowAction',
           userInteractionCount: seller.followersCount || 0
-        }],
+        }] as any,
         sameAs: [seller.website, seller.twitter, seller.instagram, seller.facebook, seller.linkedin].filter(Boolean) as string[]
       }
     };
