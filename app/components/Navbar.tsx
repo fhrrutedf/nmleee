@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import Link from 'next/link';
 import { FiMenu, FiX, FiChevronLeft, FiLayers } from 'react-icons/fi';
@@ -29,11 +29,11 @@ export default function Navbar() {
                     {/* Logo & Nav */}
                     <div className="flex items-center gap-10">
                     <Link href="/" className="flex items-center gap-2 group transition-all">
-                        <div className="w-10 h-10 bg-emerald-700 text-white rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#10B981]/20 shadow-black/5 group-hover:bg-emerald-700 text-white group-hover:scale-105 transition-all duration-500">
-                            <FiLayers size={22} className="group-hover:rotate-12 transition-transform" />
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20 group-hover:scale-105 transition-all duration-300" style={{ background: 'linear-gradient(135deg, #10B981, #7C3AED)' }}>
+                            <FiLayers size={20} className="text-white group-hover:rotate-12 transition-transform" />
                         </div>
-                        <span className="text-xl font-bold text-[#10B981] tracking-tighter">
-                            MANASA DIGITAL<span className="text-[#10B981] font-light">.</span>
+                        <span className="text-xl font-black tracking-tight">
+                            <span className="text-white">منصتي</span><span style={{ background: 'linear-gradient(135deg, #10B981, #7C3AED)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>الرقمية</span>
                         </span>
                     </Link>
 
@@ -60,9 +60,10 @@ export default function Navbar() {
                         </Link>
                         <Link
                             href="/register"
-                            className="bg-emerald-700 text-white px-8 py-3 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-emerald-500/20 hover:bg-emerald-600 active:scale-95 transition-all"
+                            className="px-7 py-2.5 rounded-xl font-bold text-[11px] uppercase tracking-[0.15em] text-white shadow-lg shadow-emerald-500/20 hover:brightness-110 active:scale-95 transition-all"
+                            style={{ background: 'linear-gradient(135deg, #10B981, #7C3AED)' }}
                         >
-                            Establish Account
+                            ابدأ مجاناً
                         </Link>
                     </div>
 

@@ -57,7 +57,7 @@ export default function CreatorStorePage() {
 
     return (
         <div className="min-h-screen bg-[#111111]" itemScope itemType="https://schema.org/ProfilePage">
-            <GeoSchemaBuilder seller={creator} type="profile" platformName="تمكين" />
+            <GeoSchemaBuilder seller={creator} type="profile" platformName="منصتي الرقمية" />
             {/* Creator Header */}
             <div className="relative">
                 {/* Cover Image */}
@@ -240,7 +240,7 @@ export default function CreatorStorePage() {
 
             {/* Footer - Minimal Branding */}
             <div className="text-center py-8 text-gray-500 text-sm border-t">
-                <p>Powered by <span className="font-bold">تمكين</span></p>
+                <p>Powered by <a href="https://manasadigital.com" className="font-bold" style={{ background: 'linear-gradient(135deg, #10B981, #7C3AED)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>منصتي الرقمية</a></p>
             </div>
         </div>
     );

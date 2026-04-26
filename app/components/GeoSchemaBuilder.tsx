@@ -7,7 +7,7 @@ interface GeoSchemaProps {
   type: 'product' | 'profile';
 }
 
-export default function GeoSchemaBuilder({ product, seller, platformName = "تمكين", type }: GeoSchemaProps) {
+export default function GeoSchemaBuilder({ product, seller, platformName = "منصتي الرقمية", type }: GeoSchemaProps) {
   if (type === 'product' && product) {
     const productSchema: WithContext<Product> = {
       '@context': 'https://schema.org',

@@ -1,4 +1,4 @@
-﻿import { Metadata, ResolvingMetadata } from 'next';
+import { Metadata, ResolvingMetadata } from 'next';
 import { prisma } from '@/lib/db';
 import ProfileClient from './ProfileClient';
 import { FiStar } from 'react-icons/fi';
@@ -36,14 +36,14 @@ export async function generateMetadata(
 
     if (!creator) {
         return {
-            title: 'البائع غير موجود | تمكين',
-            description: 'عذراً، هذا البائع غير مسجل في منصة تمكين.',
+            title: 'البائع غير موجود | منصتي الرقمية',
+            description: 'عذراً، هذا البائع غير مسجل في منصتي الرقمية.',
         }
     }
 
     const previousImages = (await parent).openGraph?.images || [];
     const siteTitle = `${creator.name} | متجر المنتجات والدورات`;
-    const siteDescription = creator.bio || `اكتشف أفضل المنتجات والدورات التدريبية المقدمة من ${creator.name} حصرياً على منصة تمكين.`;
+    const siteDescription = creator.bio || `اكتشف أفضل المنتجات والدورات التدريبية المقدمة من ${creator.name} حصرياً على منصتي الرقمية.`;
 
     return {
         title: siteTitle,
@@ -53,7 +53,7 @@ export async function generateMetadata(
             title: siteTitle,
             description: siteDescription,
             url: `https://manasadigital.com/${username}`,
-            siteName: 'منصة تمكين',
+            siteName: 'manasadigital | منصتي الرقمية',
             images: [
                 creator.avatar || creator.coverImage || '',
                 ...previousImages,

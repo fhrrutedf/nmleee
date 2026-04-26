@@ -1,5 +1,5 @@
-﻿import type { Metadata } from "next";
-import { Inter, IBM_Plex_Sans_Arabic } from "next/font/google";
+import type { Metadata } from "next";
+import { Inter, Cairo } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { Toaster } from 'react-hot-toast';
@@ -16,17 +16,17 @@ const inter = Inter({
     weight: ['400', '500', '600', '700', '900'],
 });
 
-const ibmPlex = IBM_Plex_Sans_Arabic({
-    subsets: ["arabic"],
-    variable: '--font-ibm',
+const cairo = Cairo({
+    subsets: ["arabic", "latin"],
+    variable: '--font-cairo',
     display: 'swap',
-    weight: ['300', '400', '500', '600', '700'],
+    weight: ['300', '400', '500', '600', '700', '800', '900'],
 });
 
 export const metadata: Metadata = {
     title: {
-        default: "منصتك الرقمية — بيع وشراء المنتجات الرقمية بالعربي",
-        template: "%s | منصتك الرقمية"
+        default: "منصتي الرقمية — بيع وشراء المنتجات الرقمية بالعربي",
+        template: "%s | منصتي الرقمية"
     },
     description: "المنصة الرائدة في العالم العربي لبيع الدورات، الكتب، والقوالب الرقمية. ابدأ مشروعك الرقمي اليوم بكل سهولة وأمان.",
     icons: {
@@ -42,7 +42,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ar" dir="rtl" suppressHydrationWarning>
-            <body className={`${ibmPlex.variable} ${inter.variable} font-sans antialiased text-white bg-[#0A0A0A] flex flex-col min-h-screen selection:bg-emerald-500`}>
+            <body className={`${cairo.variable} ${inter.variable} font-sans antialiased text-white bg-[#0A0A0A] flex flex-col min-h-screen selection:bg-emerald-500`} style={{ fontFamily: "'Cairo', 'Inter', sans-serif" }}>
                 <Providers>
                     <AffiliateBanner />
                     <ImpersonationBanner />
@@ -58,7 +58,7 @@ export default function RootLayout({
                             duration: 4000,
                             style: {
                                 direction: 'rtl',
-                                fontFamily: 'var(--font-ibm)',
+                                fontFamily: "'Cairo', 'Inter', sans-serif",
                                 borderRadius: '24px',
                                 padding: '16px 28px',
                                 fontSize: '13px',
@@ -70,7 +70,7 @@ export default function RootLayout({
                             },
                             success: {
                                 iconTheme: {
-                                    primary: '#065f46',
+                                    primary: '#10B981',
                                     secondary: '#FFFFFF',
                                 },
                             },
