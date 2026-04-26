@@ -777,7 +777,65 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                     </div>
 
                     {/* ── Filters Bar ─────────────────────────────────── */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 28 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 28 }}>
+
+                        {/* ── TABS ROW — Standalone, prominent ─────────── */}
+                        {(hasCourses || hasDigital) && (
+                            <div style={{
+                                display: 'flex',
+                                gap: 8,
+                                padding: '6px',
+                                background: '#111',
+                                borderRadius: cardRadius,
+                                border: `1.5px solid ${alpha(brandColor, 0.15)}`,
+                                width: 'fit-content',
+                            }}>
+                                {[
+                                    { id: 'all',      label: 'الكل',    icon: <FiGrid size={14} />,    count: products.length },
+                                    hasDigital  && { id: 'products', label: 'منتجات', icon: <FiPackage size={14} />, count: products.filter(p => p.category !== 'courses' && p.category !== 'course').length },
+                                    hasCourses  && { id: 'courses',  label: 'دورات',  icon: <FiVideo size={14} />,   count: products.filter(p => p.category === 'courses' || p.category === 'course').length },
+                                ].filter(Boolean).map((tab: any) => {
+                                    const isActive = activeTab === tab.id;
+                                    return (
+                                        <button
+                                            key={tab.id}
+                                            onClick={() => { setActiveTab(tab.id); setCurrentPage(1); }}
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: 7,
+                                                padding: '9px 18px',
+                                                borderRadius: `calc(${cardRadius} - 4px)`,
+                                                background: isActive ? brandGrad : 'transparent',
+                                                color: isActive ? '#fff' : '#6B7280',
+                                                border: 'none',
+                                                cursor: 'pointer',
+                                                fontSize: 14,
+                                                fontWeight: 700,
+                                                transition: 'all 0.25s cubic-bezier(0.4,0,0.2,1)',
+                                                boxShadow: isActive ? `0 4px 16px -4px ${alpha(brandColor, 0.5)}` : 'none',
+                                                whiteSpace: 'nowrap',
+                                            }}
+                                        >
+                                            {tab.icon}
+                                            {tab.label}
+                                            <span style={{
+                                                fontSize: 11,
+                                                fontWeight: 800,
+                                                padding: '2px 7px',
+                                                borderRadius: 9999,
+                                                background: isActive ? 'rgba(255,255,255,0.2)' : alpha(brandColor, 0.12),
+                                                color: isActive ? '#fff' : brandColor,
+                                                lineHeight: 1.5,
+                                                transition: 'all 0.25s',
+                                            }}>
+                                                {tab.count}
+                                            </span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        )}
 
                         {/* Search */}
                         <div style={{ position: 'relative' }}>
@@ -796,7 +854,7 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                             />
                         </div>
 
-                        {/* Controls row */}
+                        {/* Controls row — Sort + Price only */}
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center' }}>
 
                             {/* Sort */}
@@ -816,25 +874,6 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                                 {(priceRange[0] > 0 || priceRange[1] < maxPrice) && <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#22C55E' }} />}
                             </button>
 
-                            {/* Tabs */}
-                            <div style={{ display: 'flex', background: '#111', border: `1.5px solid ${alpha(brandColor, 0.15)}`, borderRadius: btnRadius, padding: 4, gap: 4, marginRight: 'auto' }}>
-                                {[
-                                    { id: 'all', label: 'الكل', icon: <FiGrid size={12} /> },
-                                    hasDigital && { id: 'products', label: 'منتجات', icon: <FiPackage size={12} /> },
-                                    hasCourses && { id: 'courses', label: 'دورات', icon: <FiVideo size={12} /> },
-                                ].filter(Boolean).map((tab: any) => (
-                                    <button key={tab.id} onClick={() => { setActiveTab(tab.id); setCurrentPage(1); }}
-                                        style={{
-                                            display: 'flex', alignItems: 'center', gap: 6, padding: '7px 14px',
-                                            borderRadius: Number(btnRadius.replace('px', '')) - 2 + 'px',
-                                            background: activeTab === tab.id ? brandGrad : 'transparent',
-                                            color: activeTab === tab.id ? '#fff' : '#6B7280',
-                                            border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 700, transition: 'all 0.2s',
-                                        }}>
-                                        {tab.icon} {tab.label}
-                                    </button>
-                                ))}
-                            </div>
                         </div>
 
                         {/* Price range slider */}
