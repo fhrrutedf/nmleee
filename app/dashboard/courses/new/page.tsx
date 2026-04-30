@@ -9,7 +9,7 @@ import {
 import Link from 'next/link';
 import showToast from '@/lib/toast';
 import FileUploader from '@/components/ui/FileUploader';
-import BunnyUpload from '@/components/instructor/BunnyUpload';
+import ImageKitUpload from '@/components/instructor/ImageKitUpload';
 import RichTextEditor from '@/components/ui/RichTextEditor';
 import { motion, AnimatePresence } from 'framer-motion';
 import StepProgress from '@/components/ui/StepProgress';
@@ -356,18 +356,18 @@ export default function NewCoursePage() {
                                                 ) : (
                                                     <div className="p-4 sm:p-8 w-full h-full flex flex-col justify-center">
                                                         <p className="text-[10px] font-bold text-slate-400 mb-6 text-center uppercase tracking-widest leading-relaxed">ارفع فيديو تعريفي لا يتجاوز دقيقتين لجذب انتباه الطلاب واقناعهم بالدورة</p>
-                                                        <BunnyUpload 
+                                                        <ImageKitUpload
                                                             onComplete={(data) => {
                                                                 if (data) {
-                                                                    const embedUrl = `https://iframe.mediadelivery.net/embed/${data.libraryId}/${data.videoId}`;
-                                                                    update('trailerUrl', embedUrl);
+                                                                    update('trailerUrl', data.url);
+                                                                    setShowTrailerUploader(false);
                                                                 }
                                                             }}
                                                         />
                                                     </div>
                                                 )}
                                             </div>
-                                            <p className="text-[10px] text-indigo-400 font-bold mt-3 flex items-center gap-1 leading-relaxed"><FiAlertCircle /> ملاحظة: فيديوهات Bunny Stream مشفرة ولا يمكن تحميلها بشكل غير قانوني</p>
+                                            <p className="text-[10px] text-emerald-400 font-bold mt-3 flex items-center gap-1 leading-relaxed">🔒 محمي على ImageKit CDN</p>
                                         </div>
                                     </div>
                                 </Section>

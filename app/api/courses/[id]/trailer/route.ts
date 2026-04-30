@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { signBunnyEmbedIfNeeded } from '@/lib/bunny';
+import { getImageKitSignedUrl } from '@/lib/imagekit';
 
 /**
  * GET /api/courses/[id]/trailer
  * يُرجع رابط Trailer الموقع (Signed URL) لصفحة الكورس العامة
- * يُعالج Bunny Stream URLs تلقائياً ويحمي من 403 Forbidden
+ * يدعم: ImageKit (جديد) ← Bunny Embed (قديم) ← رابط مباشر
  */
 export async function GET(
     request: NextRequest,
@@ -34,10 +35,28 @@ export async function GET(
             return NextResponse.json({ trailerUrl: null });
         }
 
-        // توليد الرابط الموقع إذا كان من Bunny
-        const signedUrl = await signBunnyEmbedIfNeeded(course.trailerUrl, 7200); // 2 ساعة
+        const rawUrl: string = course.trailerUrl;
+        let signedUrl: string;
 
-        // Cache headers: لا نُخزن مؤقتاً، لأن الـ token يتغير مع الوقت
+        // الأولوية: ImageKit CDN → Bunny Embed → رابط مباشر
+        const imagekitEndpoint = process.env.IMAGEKIT_URL_ENDPOINT || '';
+        if (
+            imagekitEndpoint &&
+            rawUrl.includes(new URL(imagekitEndpoint).hostname)
+        ) {
+            // ✅ ImageKit: توليد Signed URL
+            signedUrl = getImageKitSignedUrl(rawUrl, 7200);
+        } else if (
+            rawUrl.includes('iframe.mediadelivery.net') ||
+            rawUrl.includes('bunnycdn.com')
+        ) {
+            // 🔄 Bunny Embed (للفيديوهات القديمة)
+            signedUrl = await signBunnyEmbedIfNeeded(rawUrl, 7200);
+        } else {
+            // رابط خارجي مباشر (YouTube وغيره)
+            signedUrl = rawUrl;
+        }
+
         return NextResponse.json(
             { trailerUrl: signedUrl },
             {
