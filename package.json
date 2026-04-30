@@ -36,6 +36,7 @@
     "date-fns": "^3.6.0",
     "dotenv": "^17.2.4",
     "framer-motion": "^11.3.0",
+    "imagekit": "^5.2.0",
     "libphonenumber-js": "^1.12.40",
     "next": "^15.1.0",
     "next-auth": "^4.24.0",
