@@ -4,11 +4,13 @@ const IMAGEKIT_PRIVATE_KEY  = process.env.IMAGEKIT_PRIVATE_KEY  || '';
 const IMAGEKIT_PUBLIC_KEY   = process.env.IMAGEKIT_PUBLIC_KEY   || '';
 const IMAGEKIT_URL_ENDPOINT = process.env.IMAGEKIT_URL_ENDPOINT || '';
 
+// Initialize with dummy values if env variables are missing during build time
 export const imagekit = new ImageKit({
-    publicKey: IMAGEKIT_PUBLIC_KEY,
-    privateKey: IMAGEKIT_PRIVATE_KEY,
-    urlEndpoint: IMAGEKIT_URL_ENDPOINT,
+    publicKey: IMAGEKIT_PUBLIC_KEY || 'dummy_public_key',
+    privateKey: IMAGEKIT_PRIVATE_KEY || 'dummy_private_key',
+    urlEndpoint: IMAGEKIT_URL_ENDPOINT || 'https://ik.imagekit.io/dummy',
 });
+
 
 // ─── توليد توكن رفع (Client-Side Upload Auth) ─────────────────────────────
 export function getImageKitUploadAuth() {
