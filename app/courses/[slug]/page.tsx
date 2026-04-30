@@ -49,25 +49,23 @@ function CoursePageInner({ params }: { params: Promise<{ slug: string }> }) {
     const [buyingNow, setBuyingNow] = useState(false);
     const [activeModule, setActiveModule] = useState<number | null>(0);
     const [trailerSignedUrl, setTrailerSignedUrl] = useState<string | null>(null);
+    const [fetchError, setFetchError] = useState<string | null>(null);
 
     useEffect(() => {
         if (slug) {
             fetchCourse();
             trackAffiliateClick();
-            trackView();
         }
     }, [slug]);
 
     const trackView = async () => {
         if (typeof window !== 'undefined' && course?.id) {
             try {
-                await apiPost('/api/analytics/track', { 
+                await apiPost('/api/analytics/track', {
                     courseId: course.id,
                     referrer: document.referrer || 'direct'
                 });
-            } catch (e) {
-                console.error('Tracking Error:', handleApiError(e));
-            }
+            } catch (e) {}
         }
     };
 
@@ -104,14 +102,25 @@ function CoursePageInner({ params }: { params: Promise<{ slug: string }> }) {
 
     const fetchCourse = async () => {
         try {
+            setFetchError(null);
             const data = await apiGet(`/api/courses/${slug}`);
+            if (!data || data.error) {
+                setFetchError('الدورة غير موجودة أو تم حذفها');
+                return;
+            }
             setCourse(data);
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error:', handleApiError(error));
+            if (error?.status === 404) {
+                setFetchError('الدورة غير موجودة أو تم حذفها');
+            } else {
+                setFetchError('حدث خطأ في تحميل الدورة. حاول مرة أخرى.');
+            }
         } finally {
             setLoading(false);
         }
     };
+
 
     const handleAddToCart = () => {
         if (course) {
@@ -151,13 +160,17 @@ function CoursePageInner({ params }: { params: Promise<{ slug: string }> }) {
         );
     }
 
-    if (!course) {
+    if (fetchError || !course) {
+        const msg = fetchError || 'الدورة غير موجودة أو تم حذفها';
         return (
-            <div className="min-h-[70vh] bg-bg-light dark:bg-bg-dark flex flex-col items-center justify-center p-4 text-center">
-                <FiVideo className="text-6xl text-gray-300 dark:text-gray-300 mb-6" />
-                <h1 className="text-2xl font-bold mb-4 text-[#10B981] dark:text-gray-200">هذه الدورة التدريبية غير موجودة أو تم حذفها</h1>
-                <Link href="/courses" className="btn btn-primary mt-4">
-                    تصفح الدورات التدريبية
+            <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center" dir="rtl">
+                <div className="w-20 h-20 bg-orange-500/10 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-orange-500/20">
+                    <FiVideo size={36} className="text-orange-400" />
+                </div>
+                <h1 className="text-2xl font-bold text-white mb-3">{msg}</h1>
+                <p className="text-gray-400 text-sm mb-8">يمكنك تصفح الدورات الأخرى المتاحة أو التواصل معنا.</p>
+                <Link href="/courses" className="px-8 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold transition-all">
+                    تصفح الدورات
                 </Link>
             </div>
         );

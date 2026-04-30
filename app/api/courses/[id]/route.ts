@@ -9,16 +9,44 @@ export async function GET(
 ) {
     try {
         const { id } = await params;
-        
+
+        const includePayload = {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    username: true,
+                    avatar: true,
+                    brandColor: true,
+                }
+            },
+            modules: {
+                where: { isPublished: true },
+                orderBy: { order: 'asc' as const },
+                select: {
+                    id: true,
+                    title: true,
+                    lessons: {
+                        where: { isPublished: true },
+                        orderBy: { order: 'asc' as const },
+                        select: {
+                            id: true,
+                            title: true,
+                            duration: true,
+                            isFree: true,
+                        }
+                    }
+                }
+            }
+        };
+
         let course = null;
-        
+
         try {
             // First look up by ID
             course = await prisma.course.findUnique({
                 where: { id },
-                include: {
-                    user: { select: { id: true, name: true, username: true, brandColor: true } }
-                }
+                include: includePayload
             });
         } catch (e) {}
 
@@ -26,9 +54,7 @@ export async function GET(
             // Fallback to slug lookup
             course = await prisma.course.findFirst({
                 where: { slug: id },
-                include: {
-                    user: { select: { id: true, name: true, username: true, brandColor: true } }
-                }
+                include: includePayload
             });
         }
 
@@ -45,6 +71,7 @@ export async function GET(
         );
     }
 }
+
 
 export async function PUT(
     request: NextRequest,
