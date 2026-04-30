@@ -68,13 +68,18 @@ export async function POST(req: NextRequest) {
                 userId: buyerUserId,
                 affiliateLinkId, // ربط الطلب بالمسوق
                 items: {
-                    create: items.map((item: any) => ({
-                        productId: item.type === 'product' ? item.id : undefined,
-                        courseId: item.type === 'course' ? item.id : undefined,
-                        bundleId: item.type === 'bundle' ? item.id : undefined,
-                        price: 0,
-                        itemType: item.type,
-                    }))
+                    create: items.map((item: any) => {
+                        const isProduct = products.some(p => p.id === item.id);
+                        const isCourse = courses.some(c => c.id === item.id);
+                        
+                        return {
+                            productId: isProduct ? item.id : undefined,
+                            courseId: isCourse ? item.id : undefined,
+                            bundleId: item.type === 'bundle' ? item.id : undefined,
+                            price: 0,
+                            itemType: isCourse ? 'course' : isProduct ? 'product' : item.type,
+                        };
+                    })
                 }
             },
             include: { items: true }
