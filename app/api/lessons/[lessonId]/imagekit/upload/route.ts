@@ -41,7 +41,7 @@ export async function POST(
             data: { videoStatus: 'uploading' }
         });
 
-        const authParams = getImageKitUploadAuth(3600);
+        const authParams = getImageKitUploadAuth();
 
         // اسم المجلد الخاص بالدرس في ImageKit
         const folder = `/videos/lessons/${lessonId}`;
