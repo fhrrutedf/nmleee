@@ -244,7 +244,7 @@ export default function LearnPage() {
                                             <div className="px-3 space-y-0.5">
                                                 {(module.lessons || []).map((l: any, idx: number) => {
                                                     const isActive = activeItem?.data?.id === l.id;
-                                                    const hasVideo = l.videoUrl || l.muxPlaybackId || l.bunnyVideoId || l.imagekitFileId;
+                                                    const hasVideo = l.videoUrl || l.muxPlaybackId || l.bunnyVideoId || l.imagekitFileId || l.imagekitUrl;
                                                     return (
                                                         <button key={l.id}
                                                             onClick={() => { setActiveItem({ type: 'lesson', data: l }); setIsSidebarOpen(false); }}
@@ -304,7 +304,7 @@ export default function LearnPage() {
                                 {/* Video Player */}
                                 <div className="rounded-2xl overflow-hidden border border-white/[0.07] shadow-2xl shadow-black/60 bg-black">
                                     {activeItem.type === 'lesson' ? (
-                                        (activeItem.data.videoUrl || activeItem.data.bunnyVideoId || activeItem.data.imagekitFileId) ? (
+                                        (activeItem.data.videoUrl || activeItem.data.bunnyVideoId || activeItem.data.imagekitFileId || activeItem.data.imagekitUrl) ? (
                                             <AdvancedVideoPlayer
                                                 lessonId={activeItem.data.id}
                                                 courseId={course.id}

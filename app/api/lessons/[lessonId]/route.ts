@@ -122,6 +122,8 @@ export async function GET(
                 videoDuration: lesson.videoDuration,
                 bunnyVideoId: lesson.bunnyVideoId,
                 bunnyLibraryId: lesson.bunnyLibraryId,
+                imagekitFileId: lesson.imagekitFileId,
+                imagekitUrl: lesson.imagekitUrl,
                 muxPlaybackId: lesson.muxPlaybackId,
                 isProtected: lesson.isProtected,
                 isFree: lesson.isFree,
@@ -184,7 +186,9 @@ export async function PUT(
             isFree, 
             attachments,
             bunnyVideoId,
-            bunnyLibraryId
+            bunnyLibraryId,
+            imagekitFileId,
+            imagekitUrl
         } = body;
 
         const updatedLesson = await (prisma.lesson as any).update({
@@ -199,7 +203,9 @@ export async function PUT(
                 isFree,
                 attachments,
                 bunnyVideoId,
-                bunnyLibraryId
+                bunnyLibraryId,
+                imagekitFileId,
+                imagekitUrl
             },
         });
 
