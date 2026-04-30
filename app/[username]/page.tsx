@@ -1,4 +1,4 @@
-import { Metadata, ResolvingMetadata } from 'next';
+import { Metadata, ResolvingMetadata, Viewport } from 'next';
 import { prisma } from '@/lib/db';
 import ProfileClient from './ProfileClient';
 import { FiStar } from 'react-icons/fi';
@@ -48,7 +48,6 @@ export async function generateMetadata(
     return {
         title: siteTitle,
         description: siteDescription,
-        themeColor: creator.brandColor || '#0ea5e9',
         openGraph: {
             title: siteTitle,
             description: siteDescription,
@@ -67,6 +66,20 @@ export async function generateMetadata(
             images: [creator.avatar || creator.coverImage || ''],
         }
     }
+}
+
+// Viewport export - themeColor must be here in Next.js 14+
+export async function generateViewport({ params }: Props): Promise<Viewport> {
+    const rawUsername = (await params).username;
+    const decodedUsername = decodeURIComponent(rawUsername);
+    const username = decodedUsername.startsWith('@') ? decodedUsername.slice(1) : decodedUsername;
+    const creator = await prisma.user.findUnique({
+        where: { username },
+        select: { brandColor: true }
+    });
+    return {
+        themeColor: creator?.brandColor || '#10B981',
+    };
 }
 
 // 2. Server Component For Data Fetching

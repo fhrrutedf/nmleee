@@ -23,6 +23,7 @@ export default function LearnPage() {
     const [activeItem, setActiveItem] = useState<{ type: 'lesson' | 'quiz'; data: any } | null>(null);
     const [loading, setLoading] = useState(true);
     const [hasAccess, setHasAccess] = useState(false);
+    const [notFound, setNotFound] = useState(false);
     const [showComments, setShowComments] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -49,7 +50,11 @@ export default function LearnPage() {
             setHasAccess(data.isEnrolled || false);
             if (data.modules?.[0]?.lessons?.[0]) setActiveItem({ type: 'lesson', data: data.modules[0].lessons[0] });
         } catch (error: any) {
-            if (error?.status === 403 || error?.status === 401) setHasAccess(false);
+            if (error?.status === 403 || error?.status === 401) {
+                setHasAccess(false);
+            } else if (error?.status === 404) {
+                setNotFound(true);
+            }
         } finally { setLoading(false); }
     };
 
@@ -96,6 +101,35 @@ export default function LearnPage() {
         </div>
     );
 
+    // ── 404 Not Found ──
+    if (notFound) return (
+        <div className="min-h-screen bg-[#080810] flex items-center justify-center p-6" dir="rtl">
+            <div className="max-w-md w-full text-center space-y-8">
+                <div className="w-24 h-24 bg-orange-500/10 rounded-3xl flex items-center justify-center mx-auto border border-orange-500/20">
+                    <span className="text-4xl">🔍</span>
+                </div>
+                <div>
+                    <p className="text-orange-400 font-bold text-xs uppercase tracking-widest mb-3">خطأ 404</p>
+                    <h2 className="text-3xl font-bold text-white mb-3">الدورة غير موجودة</h2>
+                    <p className="text-gray-400 leading-relaxed text-sm">
+                        هذه الدورة لم تعد موجودة أو تم حذفها.<br/>
+                        يمكنك الذهاب للوحة التحكم لاختيار دوراتك المسجّل بها.
+                    </p>
+                </div>
+                <div className="flex flex-col gap-3">
+                    <button onClick={() => router.push('/dashboard')}
+                        className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-bold transition-all flex items-center justify-center gap-3 shadow-lg shadow-emerald-500/20">
+                        لوحة التحكم <FiArrowRight />
+                    </button>
+                    <button onClick={() => router.push('/courses')}
+                        className="w-full py-3 bg-white/5 hover:bg-white/10 text-gray-300 rounded-2xl font-bold transition-all border border-white/10">
+                        استكشاف الدورات
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+
     // ── No Access ──
     if (!hasAccess) return (
         <div className="min-h-screen bg-[#080810] flex items-center justify-center p-6" dir="rtl">
@@ -113,6 +147,7 @@ export default function LearnPage() {
             </div>
         </div>
     );
+
 
     const modules: any[] = Array.isArray(course?.modules) ? course.modules : [];
     const totalLessons = modules.reduce((a, m) => a + (m.lessons?.length || 0), 0);
