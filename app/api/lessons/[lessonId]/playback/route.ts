@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from "@/lib/auth";
+import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { getSignedPlaybackUrl } from '@/lib/mux';
 import { getBunnySignedUrl } from '@/lib/bunny';
+import { getImageKitSignedUrl } from '@/lib/imagekit';
 
 /**
- * الحصول على رابط التشغيل الموقع (Signed URL)
- * لمنع سرقة الفيديوهات وضمان الوصول المصرح فقط
+ * GET /api/lessons/[lessonId]/playback
+ * الحصول على رابط التشغيل الآمن (Signed URL)
+ * يدعم: ImageKit ← Bunny ← Mux ← رابط مباشر
  */
 export async function GET(
     req: NextRequest,
@@ -24,9 +26,7 @@ export async function GET(
             where: { id: lessonId },
             include: {
                 module: {
-                    select: {
-                        courseId: true
-                    }
+                    select: { courseId: true }
                 }
             }
         });
@@ -42,7 +42,6 @@ export async function GET(
 
         const isAdmin = user?.role === 'ADMIN';
 
-        // التحقق من اشتراك المستخدم (كطالب)
         const enrollment = await prisma.courseEnrollment.findFirst({
             where: {
                 courseId: lesson.module.courseId,
@@ -50,19 +49,21 @@ export async function GET(
             }
         });
 
-        // التحقق مما إذا كان المستخدم هو منشئ الكورس
         const course = await prisma.course.findUnique({
             where: { id: lesson.module.courseId },
             select: { userId: true }
         });
         const isCreator = course?.userId === user?.id;
 
-        // السماح بالوصول إذا كان (طالب مشترك) أو (أدمن) أو (منشئ الكورس)
+        // السماح بالوصول: طالب مشترك | أدمن | منشئ الكورس
         if (!enrollment && !isAdmin && !isCreator) {
-            return NextResponse.json({ error: 'يجب الاشتراك في الكورس لمشاهدة الفيديو' }, { status: 403 });
+            return NextResponse.json(
+                { error: 'يجب الاشتراك في الكورس لمشاهدة الفيديو' },
+                { status: 403 }
+            );
         }
 
-        // 2. التحقق من التقدم السابق للدرس لتمريره للـ Player (اختياري للطلاب فقط)
+        // 2. استرجاع التقدم السابق (للطلاب فقط)
         let progress: any = null;
         if (enrollment) {
             progress = await prisma.lessonProgress.findUnique({
@@ -75,28 +76,34 @@ export async function GET(
             });
         }
 
-        // 3. توليد الرابط الموقع إذا كان الفيديو محمياً
+        // 3. توليد رابط التشغيل حسب مزود الفيديو
+        // الأولوية: ImageKit → Bunny → Mux → رابط مباشر
         let playbackUrl = lesson.videoUrl;
-        let provider: 'mux' | 'bunny' | 'native' = 'native';
-        
-        if (lesson.bunnyVideoId) {
-            // bunnyLibraryId قد يكون null - getBunnySignedUrl ستستخدم BUNNY_LIBRARY_ID من .env كـ fallback
-             playbackUrl = await getBunnySignedUrl(lesson.bunnyLibraryId, lesson.bunnyVideoId);
-             provider = 'bunny';
+        let provider: 'imagekit' | 'bunny' | 'mux' | 'native' = 'native';
+
+        if (lesson.imagekitUrl) {
+            // ✅ المزود الجديد: ImageKit مع Signed URL للحماية
+            playbackUrl = getImageKitSignedUrl(lesson.imagekitUrl, 3600);
+            provider    = 'imagekit';
+        } else if (lesson.bunnyVideoId) {
+            // 🔄 Fallback: Bunny (للدروس القديمة)
+            playbackUrl = await getBunnySignedUrl(lesson.bunnyLibraryId, lesson.bunnyVideoId);
+            provider    = 'bunny';
         } else if (lesson.muxPlaybackId) {
-             playbackUrl = await getSignedPlaybackUrl(lesson.muxPlaybackId);
-             provider = 'mux';
+            // 🔄 Fallback: Mux
+            playbackUrl = await getSignedPlaybackUrl(lesson.muxPlaybackId);
+            provider    = 'mux';
         }
 
         return NextResponse.json({
             playbackUrl,
             provider,
             lastPosition: progress?.lastPosition || 0,
-            isCompleted: progress?.isCompleted || false
+            isCompleted:  progress?.isCompleted  || false
         });
 
     } catch (error) {
-        console.error('Playback API Error:', error);
+        console.error('[Playback API Error]', error);
         return NextResponse.json({ error: 'Internal Error' }, { status: 500 });
     }
 }

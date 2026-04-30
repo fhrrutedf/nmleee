@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { FiSave, FiArrowRight, FiTrash2, FiCheckCircle } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import FileUploader from '@/components/ui/FileUploader';
-import BunnyUpload from '@/components/instructor/BunnyUpload';
+import ImageKitUpload from '@/components/instructor/ImageKitUpload';
 import { apiGet, apiPut, handleApiError } from '@/lib/safe-fetch';
 
 interface LessonData {
@@ -18,6 +18,8 @@ interface LessonData {
     isFree: boolean;
     isPublished: boolean;
     attachments: string[];
+    imagekitFileId: string | null;
+    imagekitUrl: string | null;
     bunnyVideoId: string | null;
     bunnyLibraryId: string | null;
     module: {
@@ -45,6 +47,8 @@ export default function EditLessonPage() {
         isFree: false,
         isPublished: false,
         attachments: [] as string[],
+        imagekitFileId: '',
+        imagekitUrl: '',
         bunnyVideoId: '',
         bunnyLibraryId: '',
     });
@@ -66,6 +70,8 @@ export default function EditLessonPage() {
                 isFree: data.isFree || false,
                 isPublished: data.isPublished || false,
                 attachments: data.attachments || [],
+                imagekitFileId: data.imagekitFileId || '',
+                imagekitUrl: data.imagekitUrl || '',
                 bunnyVideoId: data.bunnyVideoId || '',
                 bunnyLibraryId: data.bunnyLibraryId || '',
             });
@@ -173,29 +179,33 @@ export default function EditLessonPage() {
                     {/* Video Section */}
                     <div className="space-y-4">
                         <div className="p-6 bg-emerald-700 text-white-50/30 dark:bg-emerald-700 text-white/5 rounded-xl border border-emerald-600/10">
-                            <label className="label mb-4 opacity-70">إعدادات الفيديو (Bunny Stream)</label>
+                            <label className="label mb-4 opacity-70">إعدادات الفيديو (ImageKit)</label>
                             
-                            {formData.bunnyVideoId ? (
+                            {(formData.imagekitFileId || formData.bunnyVideoId) ? (
                                 <div className="bg-[#0A0A0A] dark:bg-card-white p-6 rounded-xl border border-white/10 dark:border-gray-800 flex items-center justify-between shadow-lg shadow-[#10B981]/20">
                                     <div className="flex items-center gap-4">
                                         <div className="w-12 h-12 bg-green-500/10 text-green-500 rounded-xl flex items-center justify-center">
                                             <FiCheckCircle size={24} />
                                         </div>
                                         <div>
-                                            <p className="font-bold text-[#10B981] dark:text-white">الفيديو مرتبط بـ Bunny</p>
-                                            <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">ID: {formData.bunnyVideoId}</p>
+                                            <p className="font-bold text-[#10B981] dark:text-white">
+                                                {formData.imagekitFileId ? 'الفيديو مرفوع على ImageKit ✅' : 'الفيديو مرتبط بـ Bunny (قديم)'}
+                                            </p>
+                                            <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">
+                                                ID: {formData.imagekitFileId || formData.bunnyVideoId}
+                                            </p>
                                         </div>
                                     </div>
                                     <button 
                                         type="button" 
-                                        onClick={() => setFormData({ ...formData, bunnyVideoId: '', bunnyLibraryId: '' })}
-                                        className="p-2 text-red-500 hover:bg-red-500/100/10 dark:hover:bg-red-900/10 rounded-lg transition-colors"
+                                        onClick={() => setFormData({ ...formData, imagekitFileId: '', imagekitUrl: '', bunnyVideoId: '', bunnyLibraryId: '' })}
+                                        className="p-2 text-red-500 hover:bg-red-500/10 dark:hover:bg-red-900/10 rounded-lg transition-colors"
                                     >
                                         <FiTrash2 size={20} />
                                     </button>
                                 </div>
                             ) : (
-                                <BunnyUpload 
+                                <ImageKitUpload 
                                     lessonId={lessonId} 
                                     onComplete={() => fetchLesson()} 
                                 />

@@ -6,7 +6,7 @@ import { FiSave, FiX, FiUploadCloud, FiEye, FiCheckCircle } from 'react-icons/fi
 import showToast from '@/lib/toast';
 import { apiPost, handleApiError } from '@/lib/safe-fetch';
 import FileUploader from '@/components/ui/FileUploader';
-import BunnyUpload from '@/components/instructor/BunnyUpload';
+import ImageKitUpload from '@/components/instructor/ImageKitUpload';
 
 export default function NewLessonPage() {
     const params = useParams();
@@ -23,6 +23,8 @@ export default function NewLessonPage() {
         videoDuration: '',
         isFree: false,
         attachments: [''],
+        imagekitFileId: '',
+        imagekitUrl: '',
         bunnyVideoId: '',
         bunnyLibraryId: ''
     });
@@ -113,28 +115,30 @@ export default function NewLessonPage() {
                         <div className="bg-[#0A0A0A] rounded-xl p-8 shadow-lg shadow-[#10B981]/20 shadow-slate-200/50 border border-emerald-500/20 flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
                             <h3 className="font-bold text-lg">فيديو الدرس 🔥</h3>
                             <div className="w-full flex-1 flex flex-col justify-center">
-                                {formData.bunnyVideoId ? (
+                                {(formData.imagekitFileId || formData.bunnyVideoId) ? (
                                     <div className="bg-[#111111] p-6 rounded-xl border border-emerald-500/20 flex flex-col items-center text-center gap-3 transition-all animate-in fade-in zoom-in duration-300">
                                         <div className="w-12 h-12 bg-green-500/10 text-green-500 rounded-xl flex items-center justify-center">
                                             <FiCheckCircle size={24} />
                                         </div>
                                         <div>
-                                            <p className="font-bold text-slate-800 text-base">مرفوع على سيرفرات Bunny</p>
+                                            <p className="font-bold text-slate-800 text-base">
+                                                {formData.imagekitFileId ? 'مرفوع على ImageKit ✅' : 'مرفوع على Bunny (قديم)'}
+                                            </p>
                                             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">آمن وجاهز للعرض</p>
                                         </div>
                                         <button 
                                             type="button" 
-                                            onClick={() => setFormData(p => ({ ...p, bunnyVideoId: '', bunnyLibraryId: '' }))}
-                                            className="px-6 py-2 bg-[#0A0A0A] text-red-500 hover:bg-red-500/100/10 rounded-xl transition-colors shadow-lg shadow-[#10B981]/20 font-bold text-[10px] border border-red-100"
+                                            onClick={() => setFormData(p => ({ ...p, imagekitFileId: '', imagekitUrl: '', bunnyVideoId: '', bunnyLibraryId: '' }))}
+                                            className="px-6 py-2 bg-[#0A0A0A] text-red-500 hover:bg-red-500/10 rounded-xl transition-colors shadow-lg shadow-[#10B981]/20 font-bold text-[10px] border border-red-100"
                                         >
                                             إلغاء الفيديو
                                         </button>
                                     </div>
                                 ) : (
                                     <div className="w-full min-h-[160px] flex items-center">
-                                        <BunnyUpload
+                                        <ImageKitUpload
                                             onComplete={(data) => { 
-                                                if (data) setFormData(prev => ({ ...prev, bunnyVideoId: data.videoId, bunnyLibraryId: data.libraryId }));
+                                                if (data) setFormData(prev => ({ ...prev, imagekitFileId: data.fileId, imagekitUrl: data.url }));
                                             }}
                                         />
                                     </div>

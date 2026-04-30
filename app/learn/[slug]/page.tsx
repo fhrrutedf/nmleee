@@ -302,7 +302,7 @@ export default function LearnPage() {
                                     <div className="absolute -inset-4 bg-emerald-700 text-white-600/5 rounded-xl blur-2xl opacity-0 group-hover:opacity-100 transition-duration-500"></div>
                                     <div className="relative overflow-hidden rounded-[1.5rem] md:rounded-xl border border-white/5 bg-gray-900 shadow-lg shadow-[#10B981]/20">
                                         {activeItem.type === 'lesson' ? (
-                                            (activeItem.data.videoUrl || activeItem.data.bunnyVideoId) ? (
+                                            (activeItem.data.videoUrl || activeItem.data.bunnyVideoId || activeItem.data.imagekitFileId) ? (
                                                 <AdvancedVideoPlayer 
                                                     lessonId={activeItem.data.id} 
                                                     courseId={course.id} 

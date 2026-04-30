@@ -790,9 +790,13 @@ model Lesson {
   // Protected Video (Mux)
   muxPlaybackId String?  // Playback ID from Mux
   muxAssetId    String?  // Asset ID from Mux
+  // ImageKit (مزود الفيديو الجديد - مجاني 20GB)
+  imagekitFileId  String?  // File ID in ImageKit
+  imagekitUrl     String?  // Full URL to the video in ImageKit
+  // Bunny Stream (Legacy - للتوافق مع الدروس القديمة)
   bunnyVideoId    String?
   bunnyLibraryId  String?
-  videoStatus   String? // 'processing', 'ready', 'error'
+  videoStatus   String? // 'uploading', 'ready', 'error'
   isProtected   Boolean @default(false)
   // Forces signed URL usage
 
