@@ -17,42 +17,64 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'بيانات ناقصة' }, { status: 400 });
         }
 
-        // Check if user has access to this course
-        const hasAccess = await prisma.order.findFirst({
-            where: {
-                customerEmail: session.user.email,
-                status: 'PAID',
-                items: {
-                    some: {
-                        courseId,
-                    },
-                },
-            },
-        });
+        const userEmail = session.user.email.toLowerCase().trim();
 
-        if (!hasAccess) {
-            return NextResponse.json({ error: 'ليس لديك صلاحية' }, { status: 403 });
-        }
-
+        // ─── التحقق من الوصول ─────────────────────────────────────────────────
+        // 1. هل لديه Enrollment مباشر؟ (مجاني / يدوي / Stripe)
         let enrollment = await prisma.courseEnrollment.findFirst({
             where: {
                 courseId,
-                studentEmail: session.user.email,
+                studentEmail: { equals: userEmail, mode: 'insensitive' },
             }
         });
 
+        // 2. إذا لم يكن enrolled، تحقق من Order مدفوع
         if (!enrollment) {
-            enrollment = await prisma.courseEnrollment.create({
-                data: {
-                    courseId,
-                    studentEmail: session.user.email,
-                    studentName: session.user.name || 'طالب',
-                    orderId: hasAccess.id
-                }
+            const paidOrder = await prisma.order.findFirst({
+                where: {
+                    customerEmail: { equals: userEmail, mode: 'insensitive' },
+                    status: { in: ['PAID', 'COMPLETED'] },
+                    items: {
+                        some: { courseId }
+                    },
+                },
             });
+
+            if (!paidOrder) {
+                // 3. تحقق من أن المستخدم هو صاحب الكورس (المدرب)
+                const course = await prisma.course.findUnique({
+                    where: { id: courseId },
+                    select: { userId: true }
+                });
+                const isOwner = course?.userId === (session.user as any).id;
+                const isAdmin = (session.user as any).role === 'ADMIN';
+
+                if (!isOwner && !isAdmin) {
+                    return NextResponse.json({ error: 'ليس لديك صلاحية الوصول لهذه الدورة' }, { status: 403 });
+                }
+
+                // المدرب/الأدمن: أنشئ enrollment تلقائياً إذا لم يكن موجوداً
+                enrollment = await prisma.courseEnrollment.create({
+                    data: {
+                        courseId,
+                        studentEmail: userEmail,
+                        studentName: session.user.name || 'مدرب',
+                    }
+                });
+            } else {
+                // أنشئ Enrollment من الـ Order المدفوع
+                enrollment = await prisma.courseEnrollment.create({
+                    data: {
+                        courseId,
+                        studentEmail: userEmail,
+                        studentName: session.user.name || 'طالب',
+                        orderId: paidOrder.id,
+                    }
+                });
+            }
         }
 
-        // Mark lesson as complete
+        // ─── تسجيل إتمام الدرس ───────────────────────────────────────────────
         await prisma.lessonProgress.upsert({
             where: {
                 lessonId_enrollmentId: {
@@ -72,7 +94,7 @@ export async function POST(req: NextRequest) {
             }
         });
 
-        // Recalculate overall course progress
+        // ─── حساب نسبة التقدم ────────────────────────────────────────────────
         const totalLessons = await prisma.lesson.count({
             where: { module: { courseId }, isPublished: true }
         });
@@ -102,8 +124,9 @@ export async function POST(req: NextRequest) {
             progress: progressPercent,
             isCompleted: isCourseCompleted,
         });
+
     } catch (error) {
         console.error('Error marking complete:', error);
-        return NextResponse.json({ error: 'حدث خطأ' }, { status: 500 });
+        return NextResponse.json({ error: 'حدث خطأ داخلي' }, { status: 500 });
     }
 }
