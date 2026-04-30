@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
             );
         }
 
-        const authParams = getImageKitUploadAuth(3600); // صالح ساعة
+        const authParams = getImageKitUploadAuth();
 
         return NextResponse.json({
             ...authParams,
