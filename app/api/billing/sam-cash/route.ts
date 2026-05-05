@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
 import { createClient } from '@supabase/supabase-js';
+import { getActiveWalletIdentifier } from '@/lib/sam-api/wallet';
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -52,9 +53,11 @@ export async function POST(req: NextRequest) {
     const webhookUrl = `${APP_URL}/api/webhooks/sam-cash/subscription?userId=${userId}&planType=${planType}&isYearly=${isYearly}&logId=${logId}&gateway=${gateway}`;
 
     const apiMethod = gateway === 'shamcash' ? 'shamcash' : 'syriatel';
-    const apiIdentifier = gateway === 'shamcash' 
-        ? (process.env.SAM_SHAMCASH_IDENTIFIER || '0900000000') 
-        : (process.env.SAM_SYRIATEL_IDENTIFIER || '0900000000');
+    const apiIdentifier = await getActiveWalletIdentifier(apiMethod, SAM_API_KEY);
+
+    if (!apiIdentifier) {
+      return NextResponse.json({ error: 'لم يتم العثور على محفظة مفعلة لاستقبال الأموال.' }, { status: 500 });
+    }
 
     const invoicePayload = {
       method: apiMethod,

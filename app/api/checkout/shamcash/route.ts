@@ -1,9 +1,10 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
 import { ensurePlanCurrent } from '@/lib/commission';
 import { createClient } from '@supabase/supabase-js';
+import { getActiveWalletIdentifier } from '@/lib/sam-api/wallet';
 
 // ═══ Supabase Admin Client ═══
 const supabaseAdmin = createClient(
@@ -178,9 +179,15 @@ export async function POST(req: NextRequest) {
 
     // ── 2. Create SAM API Invoice (payment_method: shamcash) ──
     const webhookUrl = `${APP_URL}/api/webhooks/sam-cash?orderId=${order.id}&gateway=shamcash`;
+    
+    const apiIdentifier = await getActiveWalletIdentifier('shamcash', SAM_API_KEY);
+    if (!apiIdentifier) {
+      return NextResponse.json({ error: 'لم يتم العثور على محفظة شام كاش مفعلة.' }, { status: 500 });
+    }
+
     const invoicePayload = {
       method: "shamcash",
-      identifier: process.env.SAM_SHAMCASH_IDENTIFIER || "0900000000",
+      identifier: apiIdentifier,
       amount: totalSYP.toString(),
       currency: "SYP",
       webhookUrl: webhookUrl,
