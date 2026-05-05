@@ -221,7 +221,7 @@ export async function POST(req: NextRequest) {
 
       const samData = await samRes.json();
 
-      if (!samRes.ok || !samData?.id) {
+      if (!samRes.ok || !samData?.invoiceId) {
         // Log failure
         await logSamAction({
           orderId: order.id,
@@ -242,7 +242,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'فشل إنشاء فاتورة الدفع. يرجى المحاولة مرة أخرى.' }, { status: 502 });
       }
 
-      samInvoiceId = samData.id;
+      samInvoiceId = samData.invoiceId;
       samPaymentUrl = `https://www.sam-api.pro/pay/${samInvoiceId}`;
 
       // Log success + update order

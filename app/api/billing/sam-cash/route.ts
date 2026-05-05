@@ -78,12 +78,12 @@ export async function POST(req: NextRequest) {
 
     const samData = await samRes.json();
 
-    if (!samRes.ok || !samData?.id) {
+    if (!samRes.ok || !samData?.invoiceId) {
       console.error('[SAM API Subscription Error]', samData);
       return NextResponse.json({ error: 'فشل إنشاء فاتورة الدفع.' }, { status: 502 });
     }
 
-    const samPaymentUrl = `https://www.sam-api.pro/pay/${samData.id}`;
+    const samPaymentUrl = `https://www.sam-api.pro/pay/${samData.invoiceId}`;
 
     // Log the initiation
     await supabaseAdmin.from('SamPaymentLog').insert({
@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
       sellerId: userId,
       requestPayload: invoicePayload,
       responsePayload: samData,
-      samInvoiceId: samData.id,
+      samInvoiceId: samData.invoiceId,
     });
 
     return NextResponse.json({
