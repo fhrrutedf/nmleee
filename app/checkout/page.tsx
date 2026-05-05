@@ -242,27 +242,18 @@ function CheckoutInner() {
                     showToast.error('لم يتم الحصول على رابط الدفع');
                 }
             } else if (paymentMethod === 'shamcash') {
-                if (!manualData.transactionRef || !manualData.proofFile) {
-                    return showToast.error('يرجى إدخال رقم المرجع وصورة الإيصال');
-                }
-                const fd = new FormData();
-                fd.append('file', manualData.proofFile);
-                fd.append('type', 'receipt');
-                const upD = await safeFetch('/api/upload', { method: 'POST', body: fd });
-                const d = await apiPost('/api/orders/manual', {
+                const data = await apiPost('/api/checkout/shamcash', {
                     items: cart,
-                    customerName: formData.name,
-                    customerEmail: formData.email,
-                    customerPhone: formData.phone,
-                    country: 'SY',
-                    paymentProvider: 'shamcash',
-                    transactionRef: manualData.transactionRef,
-                    paymentProof: upD.url,
-                    paymentNotes: manualData.notes,
+                    customerInfo: formData,
+                    couponCode: discount > 0 ? couponCode : null,
                     affiliateRef: affRef,
                 });
                 if (!isDirect) localStorage.removeItem('cart');
-                router.push(`/success?order_id=${d.orderId}&manual=true`);
+                if (data.paymentUrl) {
+                    window.location.href = data.paymentUrl;
+                } else {
+                    showToast.error('لم يتم الحصول على رابط دفع شام كاش');
+                }
             }
         } catch (err) {
             console.error(err);
