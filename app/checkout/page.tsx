@@ -210,6 +210,7 @@ function CheckoutInner() {
                 return;
             }
             
+            if (paymentMethod === 'nowpayments') {
                 const data = await apiPost('/api/checkout/oxapay', {
                     items: cart,
                     customerInfo: formData,
