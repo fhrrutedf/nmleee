@@ -16,8 +16,10 @@ import {
     FiActivity,
     FiShield,
     FiRefreshCw,
-    FiAward
+    FiAward,
+    FiUserCheck
 } from 'react-icons/fi';
+import { impersonateUser } from '@/app/actions/impersonate';
 
 interface UserData {
     id: string;
@@ -168,6 +170,19 @@ export default function UsersManagement() {
             alert('❌ حدث خطأ');
         } finally {
             setSavingPlan(false);
+        }
+    };
+
+    const onImpersonate = async (userId: string) => {
+        if (!confirm('هل أنت متأكد من رغبتك في الدخول كـ هذا المستخدم؟')) return;
+        
+        try {
+            const res = await impersonateUser(userId);
+            if (res.success) {
+                window.location.href = '/dashboard';
+            }
+        } catch (error: any) {
+            alert(`❌ فشل الدخول كـ مستخدم: ${error.message}`);
         }
     };
 
@@ -389,6 +404,13 @@ export default function UsersManagement() {
                                                         title={user.isActive ? 'إيقاف الحساب' : 'تفعيل الحساب'}
                                                     >
                                                         {user.isActive ? <FiXCircle size={18} /> : <FiCheckCircle size={18} />}
+                                                    </button>
+                                                    <button
+                                                        onClick={() => onImpersonate(user.id)}
+                                                        className="p-2 rounded-lg text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                                                        title="دخول كـ مستخدم (Impersonate)"
+                                                    >
+                                                        <FiUserCheck size={18} />
                                                     </button>
                                                     <button className="p-2 rounded-lg text-gray-400 hover:text-[#10B981] hover:bg-emerald-700 text-white-50 dark:hover:bg-blue-900/20 transition-colors">
                                                         <FiMoreVertical size={18} />
