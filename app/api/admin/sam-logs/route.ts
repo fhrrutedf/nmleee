@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
 
     let query = supabaseAdmin
       .from('SamPaymentLog')
-      .select('*, Order(orderNumber, customerName, customerEmail, totalAmount, status, currency, paymentProvider)', { count: 'exact' })
+      .select('*, Order(orderNumber, customerName, customerEmail, totalAmount, status, currency, paymentProvider, seller(name, email), items(price, product(id, title, slug), course(id, title, slug)))', { count: 'exact' })
       .order('createdAt', { ascending: false })
       .range(offset, offset + limit - 1);
 

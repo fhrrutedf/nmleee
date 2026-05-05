@@ -106,12 +106,11 @@ export default function SamLogsPage() {
                     <table className="w-full border-collapse">
                         <thead>
                             <tr className="bg-white/5 border-b border-white/10">
-                                <th className="text-right px-8 py-5 text-gray-500 font-bold uppercase tracking-wider text-[10px]">كود الفاتورة</th>
-                                <th className="text-right px-8 py-5 text-gray-500 font-bold uppercase tracking-wider text-[10px]">الخدمة / البوابة</th>
-                                <th className="text-right px-8 py-5 text-gray-500 font-bold uppercase tracking-wider text-[10px]">العميل / الطلب</th>
+                                <th className="text-right px-8 py-5 text-gray-500 font-bold uppercase tracking-wider text-[10px]">كود الفاتورة والخدمة</th>
+                                <th className="text-right px-8 py-5 text-gray-500 font-bold uppercase tracking-wider text-[10px]">العميل والطلب</th>
+                                <th className="text-right px-8 py-5 text-gray-500 font-bold uppercase tracking-wider text-[10px]">التاجر والمنتج</th>
                                 <th className="text-right px-8 py-5 text-gray-500 font-bold uppercase tracking-wider text-[10px]">المبلغ المحول</th>
-                                <th className="text-right px-8 py-5 text-gray-500 font-bold uppercase tracking-wider text-[10px]">الحالة الحالية</th>
-                                <th className="text-right px-8 py-5 text-gray-500 font-bold uppercase tracking-wider text-[10px]">وقت العملية</th>
+                                <th className="text-right px-8 py-5 text-gray-500 font-bold uppercase tracking-wider text-[10px]">الحالة والوقت</th>
                                 <th className="px-8 py-5"></th>
                             </tr>
                         </thead>
@@ -136,36 +135,49 @@ export default function SamLogsPage() {
                                     <>
                                         <tr key={log.id} className={`group hover:bg-white/[0.02] transition-all ${isExpanded ? 'bg-white/[0.03]' : ''}`}>
                                             <td className="px-8 py-6">
-                                                {log.samInvoiceId ? (
-                                                    <a href={`https://www.sam-api.pro/pay/${log.samInvoiceId}`} target="_blank" rel="noopener noreferrer"
-                                                        className="inline-flex items-center gap-2 font-mono text-emerald-500/80 hover:text-emerald-400 transition-colors text-xs bg-emerald-500/5 px-3 py-1 rounded-full border border-emerald-500/10">
-                                                        {log.samInvoiceId.slice(0, 8)} <FiExternalLink size={10} />
-                                                    </a>
-                                                ) : <span className="text-gray-600 font-mono">—</span>}
-                                            </td>
-                                            <td className="px-8 py-6">
-                                                <div className="flex flex-col gap-2">
-                                                    <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-black tracking-tighter uppercase border ${isShamCash ? 'bg-green-500/10 text-green-400 border-green-500/20' : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'}`}>
-                                                        {isShamCash ? '💚 Sham Cash' : '📱 Syriatel Cash'}
-                                                    </span>
-                                                    <span className="text-xs font-bold text-white/90">{ACTION_LABELS[log.action] || log.action}</span>
+                                                <div className="flex flex-col gap-3">
+                                                    {log.samInvoiceId ? (
+                                                        <a href={`https://www.sam-api.pro/pay/${log.samInvoiceId}`} target="_blank" rel="noopener noreferrer"
+                                                            className="inline-flex items-center gap-2 font-mono text-emerald-500/80 hover:text-emerald-400 transition-colors text-xs bg-emerald-500/5 px-3 py-1 rounded-full border border-emerald-500/10 w-fit">
+                                                            {log.samInvoiceId.slice(0, 8)} <FiExternalLink size={10} />
+                                                        </a>
+                                                    ) : <span className="text-gray-600 font-mono">—</span>}
+                                                    <div className="flex flex-col gap-1">
+                                                        <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-black tracking-tighter uppercase border w-fit ${isShamCash ? 'bg-green-500/10 text-green-400 border-green-500/20' : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'}`}>
+                                                            {isShamCash ? '💚 Sham Cash' : '📱 Syriatel Cash'}
+                                                        </span>
+                                                        <span className="text-xs font-bold text-gray-400">{ACTION_LABELS[log.action] || log.action}</span>
+                                                    </div>
                                                 </div>
                                             </td>
                                             <td className="px-8 py-6">
                                                 <div className="font-bold text-white text-sm mb-1">{log.Order?.orderNumber || (log.orderId ? `Order #${log.orderId.slice(0,8)}` : 'N/A')}</div>
-                                                {log.Order?.customerName && <div className="text-gray-500 text-[11px] font-medium">{log.Order.customerName}</div>}
+                                                {log.Order?.customerName && <div className="text-gray-400 text-[11px] font-medium mb-1">{log.Order.customerName}</div>}
+                                                {log.Order?.customerEmail && <div className="text-gray-600 text-[10px] font-medium">{log.Order.customerEmail}</div>}
+                                            </td>
+                                            <td className="px-8 py-6">
+                                                <div className="font-bold text-emerald-400 text-sm mb-1">{log.Order?.seller?.name || 'مدير المنصة'}</div>
+                                                {log.Order?.seller?.email && <div className="text-gray-500 text-[10px] mb-2">{log.Order.seller.email}</div>}
+                                                {log.Order?.items?.[0] && (
+                                                    <a href={log.Order.items[0].product ? `/product/${log.Order.items[0].product.slug}` : (log.Order.items[0].course ? `/course/${log.Order.items[0].course.slug}` : '#')} target="_blank" className="text-[11px] text-white hover:text-emerald-400 transition-colors flex items-center gap-1 bg-white/5 px-2 py-1 rounded w-fit">
+                                                        <FiExternalLink size={10} />
+                                                        <span className="truncate max-w-[120px]">{log.Order.items[0].product?.title || log.Order.items[0].course?.title || 'منتج/دورة'}</span>
+                                                    </a>
+                                                )}
                                             </td>
                                             <td className="px-8 py-6">
                                                 <div className="text-lg font-black text-white">{log.amount ? log.amount.toLocaleString('ar-SY') : '—'}</div>
                                                 <div className="text-[10px] text-gray-500 font-bold">ليرة سورية</div>
                                             </td>
                                             <td className="px-8 py-6">
-                                                <span className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-2xl border text-[11px] font-black uppercase tracking-tight shadow-lg ${st.glow} ${st.cls}`}>
-                                                    <Icon size={14} /> {st.label}
-                                                </span>
-                                            </td>
-                                            <td className="px-8 py-6 text-gray-500 text-[11px] font-bold">
-                                                {new Intl.DateTimeFormat('ar-SY', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(log.createdAt))}
+                                                <div className="flex flex-col gap-2">
+                                                    <span className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-2xl border text-[11px] font-black uppercase tracking-tight shadow-lg w-fit ${st.glow} ${st.cls}`}>
+                                                        <Icon size={14} /> {st.label}
+                                                    </span>
+                                                    <span className="text-gray-500 text-[10px] font-bold">
+                                                        {new Intl.DateTimeFormat('ar-SY', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(log.createdAt))}
+                                                    </span>
+                                                </div>
                                             </td>
                                             <td className="px-8 py-6 text-left">
                                                 <button onClick={() => setExpanded(isExpanded ? null : log.id)}

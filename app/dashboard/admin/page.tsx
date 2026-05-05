@@ -264,6 +264,9 @@ export default function AdminDashboardPage() {
                     <Link href="/admin/sam-logs" className="flex items-center gap-2 font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl transition-all bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500 hover:text-white">
                         <FiActivity /> سجلات بوابة الدفع (SAM)
                     </Link>
+                    <Link href="/admin/seller-sales" className="flex items-center gap-2 font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl transition-all bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-500 hover:text-white">
+                        <FiTrendingUp /> تقارير مبيعات التجار
+                    </Link>
                     <div className="hidden md:block h-6 w-px bg-white/10"></div>
                     <select value={period} onChange={e => setPeriod(e.target.value)} className="bg-transparent border-none font-bold text-[10px] uppercase tracking-widest text-gray-500 pr-10 outline-none">
                         <option value="7">Last 7 Days</option>
