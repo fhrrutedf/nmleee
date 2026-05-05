@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useSession } from 'next-auth/react';
-import { apiGet } from '@/lib/safe-fetch';
+import { apiGet, apiPost } from '@/lib/safe-fetch';
 
 const plans = [
     {
@@ -161,6 +161,8 @@ export default function BillingPage() {
     const [showComparison, setShowComparison] = useState(false);
     const [currentPlanSlug, setCurrentPlanSlug] = useState('free');
     const [upgrading, setUpgrading] = useState<string | null>(null);
+    const [showPaymentModal, setShowPaymentModal] = useState<string | null>(null);
+    const [selectedGateway, setSelectedGateway] = useState<string>('syriatel_cash');
 
     // Map DB plan types to billing page slugs
     const planTypeToSlug: Record<string, string> = { FREE: 'free', GROWTH: 'starter', PRO: 'pro' };
@@ -183,17 +185,29 @@ export default function BillingPage() {
         const planType = slugToPlanType[targetSlug];
         if (!planType) return;
 
-        const confirmed = window.confirm(
-            `هل تريد ${targetSlug === 'free' ? 'تخفيض' : 'ترقية'} باقتك إلى ${plans.find(p => p.slug === targetSlug)?.name}؟\n\nملاحظة: سيتم تحديث باقتك فوراً. تواصل مع الدعم لإتمام الدفع.`
-        );
-        if (!confirmed) return;
+        setShowPaymentModal(targetSlug);
+    };
 
-        setUpgrading(targetSlug);
+    const handleConfirmPayment = async () => {
+        if (!showPaymentModal) return;
+        
+        setUpgrading(showPaymentModal);
         try {
-            // For now, show contact info — in production this would go through Stripe
-            alert(`✅ تم إرسال طلب الترقية إلى ${plans.find(p => p.slug === targetSlug)?.name}.\n\nتواصل معنا عبر الواتساب لإتمام الدفع وتفعيل الباقة فوراً.`);
+            const data = await apiPost('/api/billing/sam-cash', {
+                planSlug: showPaymentModal,
+                isYearly,
+                gateway: selectedGateway
+            });
+            if (data.paymentUrl) {
+                window.location.href = data.paymentUrl;
+            } else {
+                alert('فشل توليد رابط الدفع. حاول مرة أخرى.');
+            }
+        } catch (error: any) {
+            alert('حدث خطأ: ' + error.message);
         } finally {
             setUpgrading(null);
+            setShowPaymentModal(null);
         }
     };
 
@@ -492,6 +506,41 @@ export default function BillingPage() {
                     ))}
                 </div>
             </section>
+            {/* Payment Modal */}
+            {showPaymentModal && (
+                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-[#0A0A0A] border border-white/10 p-8 rounded-2xl w-full max-w-md shadow-2xl relative">
+                        <h3 className="text-2xl font-bold text-white mb-6">اختيار طريقة الدفع الآلي</h3>
+                        
+                        <div className="space-y-4 mb-8">
+                            <button onClick={() => setSelectedGateway('syriatel_cash')} className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all ${selectedGateway === 'syriatel_cash' ? 'border-emerald-500 bg-emerald-500/10' : 'border-white/10 hover:border-emerald-500/30'}`}>
+                                <span className="text-4xl">📱</span>
+                                <div className="text-right">
+                                    <div className="font-bold text-white">سيريتل كاش</div>
+                                    <div className="text-xs text-emerald-400 mt-1">تفعيل الباقة تلقائياً فور الدفع</div>
+                                </div>
+                            </button>
+                            
+                            <button onClick={() => setSelectedGateway('shamcash')} className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all ${selectedGateway === 'shamcash' ? 'border-green-500 bg-green-500/10' : 'border-white/10 hover:border-green-500/30'}`}>
+                                <span className="text-4xl">💚</span>
+                                <div className="text-right">
+                                    <div className="font-bold text-white">شام كاش</div>
+                                    <div className="text-xs text-green-400 mt-1">تفعيل الباقة تلقائياً فور الدفع</div>
+                                </div>
+                            </button>
+                        </div>
+                        
+                        <div className="flex gap-3">
+                            <button onClick={handleConfirmPayment} disabled={!!upgrading} className="flex-1 bg-emerald-700 hover:bg-emerald-600 text-white py-3 rounded-xl font-bold transition-colors disabled:opacity-50">
+                                {upgrading ? 'جاري التحويل...' : 'متابعة الدفع'}
+                            </button>
+                            <button onClick={() => setShowPaymentModal(null)} disabled={!!upgrading} className="px-6 bg-white/5 hover:bg-white/10 text-white py-3 rounded-xl font-bold transition-colors disabled:opacity-50">
+                                إلغاء
+                            </button>
+                        </div>
+                    </motion.div>
+                </div>
+            )}
         </div>
     );
 }

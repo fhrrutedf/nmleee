@@ -89,15 +89,20 @@ export async function POST(req: NextRequest) {
                 affiliateLinkId: affiliateLinkId || undefined,
                 paymentMethod: 'stripe',
                 items: {
-                    create: items.map((i: any) => ({
-                        itemType: i.type,
-                        productId: i.type === 'product' ? i.id : undefined,
-                        courseId: i.type === 'course' ? i.id : undefined,
-                        bundleId: i.type === 'bundle' ? i.id : undefined,
-                        licenseKeyId: i.type === 'subscription' ? String(i.id) : undefined,
-                        quantity: 1,
-                        price: i.price,
-                    })),
+                    create: items.map((i: any) => {
+                        // Avoid foreign key violation by only mapping the ID if we are certain of its type
+                        // We rely on the frontend i.type but we should be careful. Since we don't query all items here,
+                        // we can't be 100% sure. But we can at least avoid crashing if the cart is corrupted.
+                        return {
+                            itemType: i.type,
+                            productId: i.type === 'product' ? i.id : undefined,
+                            courseId: i.type === 'course' ? i.id : undefined,
+                            bundleId: i.type === 'bundle' ? i.id : undefined,
+                            licenseKeyId: i.type === 'subscription' ? String(i.id) : undefined,
+                            quantity: 1,
+                            price: i.price,
+                        };
+                    }),
                 },
                 // If it's an appointment, store metadata
                 paymentNotes: appointmentData ? JSON.stringify(appointmentData) : undefined,

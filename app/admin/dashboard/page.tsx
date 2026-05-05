@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
@@ -351,6 +351,25 @@ export default function AdminDashboard() {
                                 </div>
                                 <div className="w-14 h-14 rounded-xl bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 flex items-center justify-center group-hover:scale-110 transition-all">
                                     <FiAlertCircle className="text-2xl" />
+                                </div>
+                            </div>
+                        </motion.div>
+                    </Link>
+
+                    {/* SAM Syriatel Cash Logs */}
+                    <Link href="/admin/sam-logs">
+                        <motion.div variants={itemVariants} className="bg-[#0A0A0A] dark:bg-card-white border border-emerald-600/40 rounded-xl p-6 shadow-lg shadow-emerald-500/10 relative overflow-hidden group cursor-pointer hover:border-emerald-500 transition-all">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-xl -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                            <div className="flex items-start justify-between">
+                                <div>
+                                    <h3 className="text-gray-500 dark:text-gray-400 font-bold mb-1">سجلات سيريتل كاش</h3>
+                                    <div className="text-4xl font-bold mb-4 text-emerald-400">📱 SAM</div>
+                                    <span className="text-sm font-bold flex items-center gap-1 text-emerald-500 transition-colors">
+                                        عرض السجلات <FiArrowUpRight />
+                                    </span>
+                                </div>
+                                <div className="w-14 h-14 rounded-xl bg-emerald-900/20 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-all text-2xl">
+                                    💳
                                 </div>
                             </div>
                         </motion.div>

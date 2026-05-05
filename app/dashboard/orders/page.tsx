@@ -166,7 +166,8 @@ export default function OrdersPage() {
                                     <th className="text-right py-4 px-6 text-sm font-semibold text-[#10B981] dark:text-white">التاريخ</th>
                                     <th className="text-right py-4 px-6 text-sm font-semibold text-[#10B981] dark:text-white">العميل</th>
                                     <th className="text-right py-4 px-6 text-sm font-semibold text-[#10B981] dark:text-white">المنتجات</th>
-                                    <th className="text-right py-4 px-6 text-sm font-semibold text-[#10B981] dark:text-white">المسوق</th>
+                                    <th className="text-right py-4 px-6 text-sm font-semibold text-[#10B981] dark:text-white">طريقة الدفع</th>
+                                     <th className="text-right py-4 px-6 text-sm font-semibold text-[#10B981] dark:text-white">المسوق</th>
                                     <th className="text-right py-4 px-6 text-sm font-semibold text-[#10B981] dark:text-white">المبلغ</th>
                                     <th className="text-right py-4 px-6 text-sm font-semibold text-[#10B981] dark:text-white">الحالة</th>
                                 </tr>

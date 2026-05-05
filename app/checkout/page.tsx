@@ -34,7 +34,8 @@ function CheckoutInner() {
     const [customerCountry, setCustomerCountry] = useState('');
     const [isSyria, setIsSyria] = useState(false);
     
-    const [paymentMethod, setPaymentMethod] = useState<'spaceremit' | 'manual' | 'nowpayments'>('spaceremit');
+    const [paymentMethod, setPaymentMethod] = useState<'spaceremit' | 'syriatel_cash' | 'shamcash' | 'nowpayments'>('spaceremit');
+    const [samOrderData, setSamOrderData] = useState<any>(null);
     const [selectedLocalMethod, setSelectedLocalMethod] = useState<PaymentMethod | null>(null);
     const [agreeToTerms, setAgreeToTerms] = useState(false);
     
@@ -153,7 +154,7 @@ function CheckoutInner() {
         setCustomerCountry(code);
         if (code === 'SY') {
             setIsSyria(true);
-            setPaymentMethod('manual');
+            setPaymentMethod('syriatel_cash');
         } else {
             setIsSyria(false);
             setPaymentMethod('spaceremit');
@@ -227,29 +228,39 @@ function CheckoutInner() {
                 } else {
                     showToast.error('لم نتمكن من جلب رابط الدفع');
                 }
-            } else if (paymentMethod === 'manual' && isSyria) {
-                if (!selectedLocalMethod || !manualData.transactionRef || !manualData.proofFile) {
-                    return showToast.error('يرجى اختيار وسيلة وإدخال رقم المرجع وصورة الإيصال');
+            } else if (paymentMethod === 'syriatel_cash') {
+                const data = await apiPost('/api/checkout/syriatel-cash', {
+                    items: cart,
+                    customerInfo: formData,
+                    couponCode: discount > 0 ? couponCode : null,
+                    affiliateRef: affRef,
+                });
+                if (!isDirect) localStorage.removeItem('cart');
+                if (data.paymentUrl) {
+                    window.location.href = data.paymentUrl;
+                } else {
+                    showToast.error('لم يتم الحصول على رابط الدفع');
                 }
-                
+            } else if (paymentMethod === 'shamcash') {
+                if (!manualData.transactionRef || !manualData.proofFile) {
+                    return showToast.error('يرجى إدخال رقم المرجع وصورة الإيصال');
+                }
                 const fd = new FormData();
                 fd.append('file', manualData.proofFile);
                 fd.append('type', 'receipt');
                 const upD = await safeFetch('/api/upload', { method: 'POST', body: fd });
-
                 const d = await apiPost('/api/orders/manual', {
                     items: cart,
                     customerName: formData.name,
                     customerEmail: formData.email,
                     customerPhone: formData.phone,
                     country: 'SY',
-                    paymentProvider: selectedLocalMethod.id,
+                    paymentProvider: 'shamcash',
                     transactionRef: manualData.transactionRef,
                     paymentProof: upD.url,
                     paymentNotes: manualData.notes,
                     affiliateRef: affRef,
                 });
-                
                 if (!isDirect) localStorage.removeItem('cart');
                 router.push(`/success?order_id=${d.orderId}&manual=true`);
             }
@@ -324,7 +335,10 @@ function CheckoutInner() {
                                             <PaymentMethodTab id="nowpayments" current={paymentMethod} onClick={() => setPaymentMethod('nowpayments')} icon="🪙" label="عملات رقمية (USDT)" desc="تفعيل تلقائي عبر الكريبتو" />
                                         </>
                                     ) : (
-                                        <PaymentMethodTab id="manual" current={paymentMethod} onClick={() => setPaymentMethod('manual')} icon="🇸🇾" label="دفع محلي يدوي" desc="خاص بسوريا فقط" />
+                                        <>
+                                            <PaymentMethodTab id="syriatel_cash" current={paymentMethod} onClick={() => setPaymentMethod('syriatel_cash')} icon="📱" label="سيريتل كاش" desc="دفع آلي تلقائي | SAM API" />
+                                            <PaymentMethodTab id="shamcash" current={paymentMethod} onClick={() => setPaymentMethod('shamcash')} icon="💚" label="شام كاش" desc="دفع آلي تلقائي | SAM API" />
+                                        </>
                                     )}
                                 </div>
 
@@ -379,28 +393,32 @@ function CheckoutInner() {
                                     </motion.div>
                                 )}
 
-                                {paymentMethod === 'manual' && isSyria && (
-                                    <motion.div key="manual-box" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-                                        {!selectedLocalMethod ? (
-                                            <div className="space-y-3">
-                                                {countryMethods.methods.map(m => (
-                                                    <button key={m.id} onClick={() => setSelectedLocalMethod(m)} className="w-full group bg-[#111111] border border-white/10 p-6 rounded-xl flex items-center justify-between transition-all hover:bg-[#0A0A0A] hover:border-emerald-600/40 shadow-lg shadow-[#10B981]/20">
-                                                        <div className="flex items-center gap-5">
-                                                            <span className="text-3xl">{m.icon}</span>
-                                                            <div className="text-right">
-                                                                <h5 className="font-bold text-[#10B981] text-lg">{m.nameAr}</h5>
-                                                                <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">{m.id}</p>
-                                                            </div>
-                                                        </div>
-                                                        <FiArrowRight className="text-gray-300 group-hover:text-[#10B981] group-hover:translate-x-[-10px] transition-all" />
-                                                    </button>
-                                                ))}
+                                {(paymentMethod === 'syriatel_cash' || paymentMethod === 'shamcash') && isSyria && (() => {
+                                    const isSham = paymentMethod === 'shamcash';
+                                    return (
+                                    <motion.div key={paymentMethod + '-box'} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+                                        <div className={`bg-gradient-to-br ${isSham ? 'from-green-900/30 to-green-800/10 border-green-600/30' : 'from-emerald-900/30 to-emerald-800/10 border-emerald-600/30'} border rounded-xl p-8 text-center space-y-4`}>
+                                            <div className="text-6xl">{isSham ? '💚' : '📱'}</div>
+                                            <h4 className="text-2xl font-bold text-[#10B981]">{isSham ? 'شام كاش' : 'سيريتل كاش'}</h4>
+                                            <p className="text-gray-400 text-sm max-w-sm mx-auto leading-relaxed">
+                                                سيتم توجيهك لبوابة <strong className="text-[#10B981]">SAM API</strong> لإتمام الدفع الآلي عبر <strong className="text-[#10B981]">{isSham ? 'شام كاش' : 'سيريتل كاش'}</strong> مباشرةً.
+                                                سيتم تفعيل طلبك <strong className="text-[#10B981]">تلقائياً</strong> فور تأكيد الدفع.
+                                            </p>
+                                            <div className="flex justify-center gap-3 flex-wrap">
+                                                <span className={`border text-[10px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-widest ${isSham ? 'bg-green-700/20 border-green-600/30 text-green-400' : 'bg-emerald-700/20 border-emerald-600/30 text-emerald-400'}`}>تفعيل فوري</span>
+                                                <span className={`border text-[10px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-widest ${isSham ? 'bg-green-700/20 border-green-600/30 text-green-400' : 'bg-emerald-700/20 border-emerald-600/30 text-emerald-400'}`}>آمن 100%</span>
+                                                <span className={`border text-[10px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-widest ${isSham ? 'bg-green-700/20 border-green-600/30 text-green-400' : 'bg-emerald-700/20 border-emerald-600/30 text-emerald-400'}`}>بدون إيصال يدوي</span>
                                             </div>
-                                        ) : (
-                                            <ManualPaymentCard method={selectedLocalMethod} walletAddress={selectedLocalMethod.id === 'shamcash' ? '09xxxxxx' : '09yyyyyy'} localPrice={localPrice} usdTotal={total} onDataChange={setManualData} onBack={() => setSelectedLocalMethod(null)} />
-                                        )}
+                                        </div>
+                                        <div className="bg-[#111111] border border-white/10 rounded-xl p-5 flex items-start gap-3">
+                                            <FiShield className={`${isSham ? 'text-green-400' : 'text-emerald-400'} shrink-0 mt-0.5`} size={18} />
+                                            <p className="text-xs text-gray-400 leading-relaxed">
+                                                المبلغ الإجمالي بالليرة السورية: <strong className="text-[#10B981]">{(total * 13000).toLocaleString()} ل.س</strong> — اضغط «إتمام العملية» للمتابعة.
+                                            </p>
+                                        </div>
                                     </motion.div>
-                                )}
+                                    );
+                                })()}
                             </AnimatePresence>
                         </div>
                         )}
