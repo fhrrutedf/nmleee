@@ -1162,6 +1162,30 @@ export default function ProfileClient({ creator, products, bundles = [], stats, 
                     </div>
                 )}
 
+                {/* ── Supported Payment Methods ─────────────────────────── */}
+                <div style={{ marginTop: 48, padding: '40px 32px', borderRadius: cardRadius, background: '#0D0D0D', border: `1px solid ${alpha('#fff', 0.05)}`, textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+                    <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '60%', height: 1, background: `linear-gradient(90deg, transparent, ${alpha(brandColor, 0.3)}, transparent)` }} />
+                    <h3 style={{ fontSize: 13, fontWeight: 800, color: '#6B7280', marginBottom: 28, textTransform: 'uppercase', letterSpacing: 2 }}>بوابات الدفع المدعومة</h3>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 16 }}>
+                        {[
+                            { name: 'سيريتل كاش', color: '#E11D48', icon: '📱' },
+                            { name: 'شام كاش', color: '#22C55E', icon: '💚' },
+                            { name: 'بطاقات دولية', color: '#3B82F6', icon: '💳' },
+                            { name: 'عملات رقمية', color: '#F59E0B', icon: '🪙' },
+                        ].map((m, i) => (
+                            <div key={i} style={{ 
+                                display: 'flex', alignItems: 'center', gap: 10, padding: '10px 18px', 
+                                background: '#111', borderRadius: 12, border: '1px solid rgba(255,255,255,0.05)',
+                                transition: 'all 0.3s'
+                            }} className="hover-lift">
+                                <span style={{ fontSize: 18 }}>{m.icon}</span>
+                                <span style={{ fontSize: 12, fontWeight: 800, color: '#F3F4F6' }}>{m.name}</span>
+                            </div>
+                        ))}
+                    </div>
+                    <p style={{ marginTop: 24, fontSize: 11, color: '#4B5563', fontWeight: 600 }}>تفعيل فوري للمحتوى بمجرد إتمام عملية الدفع بنجاح.</p>
+                </div>
+
                 {/* ── Cart Drawer ──────────────────────────────────────── */}
                 <CartDrawer />
 

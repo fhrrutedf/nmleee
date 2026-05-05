@@ -24,6 +24,7 @@ export default function PayoutSettings() {
         zainCashNumber: '',
         vodafoneCash: '',
         mtncashNumber: '',
+        syriatelCashNumber: '',
     });
 
     const [activeMethod, setActiveMethod] = useState<string | null>(null);
@@ -47,6 +48,7 @@ export default function PayoutSettings() {
                 zainCashNumber: profile.zainCashNumber || '',
                 vodafoneCash: profile.vodafoneCash || '',
                 mtncashNumber: profile.mtncashNumber || '',
+                syriatelCashNumber: profile.syriatelCashNumber || '',
             });
             setActiveMethod(profile.payoutMethod);
         } catch (error) {
@@ -80,6 +82,9 @@ export default function PayoutSettings() {
         if (method === PayoutMethods.OMT && !data.omtNumber) {
             return toast.error('يرجى إدخال رقم الـ OMT');
         }
+        if (method === PayoutMethods.SYRIATELCASH && !data.syriatelCashNumber) {
+            return toast.error('يرجى إدخال رقم محفظة سيريتل كاش');
+        }
 
         setSaving(true);
         try {
@@ -108,6 +113,7 @@ export default function PayoutSettings() {
         { id: PayoutMethods.VODAFONE, name: 'فودافون كاش', icon: FiSmartphone, color: 'red' },
         { id: PayoutMethods.ZAINCASH, name: 'زين كاش (العراق)', icon: FiSmartphone, color: 'orange' },
         { id: PayoutMethods.SHAMCASH, name: 'شام كاش (سيريا)', icon: FiSmartphone, color: 'purple' },
+        { id: PayoutMethods.SYRIATELCASH, name: 'سيريتل كاش (سيريا)', icon: FiSmartphone, color: 'emerald' },
         { id: PayoutMethods.OMT, name: 'OMT (لبنان)', icon: FiSmartphone, color: 'blue' },
     ];
 
@@ -234,6 +240,7 @@ export default function PayoutSettings() {
                                         activeMethod === PayoutMethods.VODAFONE ? data.vodafoneCash :
                                         activeMethod === PayoutMethods.ZAINCASH ? data.zainCashNumber :
                                         activeMethod === PayoutMethods.SHAMCASH ? data.shamCashNumber :
+                                        activeMethod === PayoutMethods.SYRIATELCASH ? data.syriatelCashNumber :
                                         data.omtNumber
                                     }
                                     onChange={e => {
@@ -241,6 +248,7 @@ export default function PayoutSettings() {
                                         if (activeMethod === PayoutMethods.VODAFONE) setData({...data, vodafoneCash: val});
                                         else if (activeMethod === PayoutMethods.ZAINCASH) setData({...data, zainCashNumber: val});
                                         else if (activeMethod === PayoutMethods.SHAMCASH) setData({...data, shamCashNumber: val});
+                                        else if (activeMethod === PayoutMethods.SYRIATELCASH) setData({...data, syriatelCashNumber: val});
                                         else setData({...data, omtNumber: val});
                                     }}
                                     placeholder="09..."

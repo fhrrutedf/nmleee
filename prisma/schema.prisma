@@ -80,6 +80,7 @@ model User {
   zainCashNumber    String?
   vodafoneCash      String?
   mtncashNumber     String?
+  syriatelCashNumber String?
   
   // Appointments
   consultationPrice Float?   @default(0)

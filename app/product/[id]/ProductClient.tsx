@@ -428,6 +428,29 @@ export default function ProductDetails({
                     </div>
                 </div>
             </div>
+
+            {/* ── Supported Payment Methods ─────────────────────────── */}
+            <div className="max-w-7xl mx-auto px-6 mt-16">
+                <div className="bg-[#0D0D0D] border border-white/5 p-12 rounded-2xl text-center relative overflow-hidden shadow-2xl">
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent" />
+                    <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-gray-500 mb-8">بوابات الدفع المدعومة وتفعيل تلقائي</h3>
+                    <div className="flex flex-wrap justify-center gap-6 sm:gap-10 opacity-90">
+                        {[
+                            { name: 'سيريتل كاش', icon: '📱' },
+                            { name: 'شام كاش', icon: '💚' },
+                            { name: 'بطاقات دفع', icon: '💳' },
+                            { name: 'عملات رقمية', icon: '🪙' },
+                        ].map((m, i) => (
+                            <div key={i} className="flex items-center gap-3 bg-[#111] border border-white/5 px-6 py-3 rounded-xl hover:border-emerald-500/20 transition-all cursor-default">
+                                <span className="text-2xl">{m.icon}</span>
+                                <span className="font-bold text-sm text-gray-300">{m.name}</span>
+                            </div>
+                        ))}
+                    </div>
+                    <p className="mt-8 text-xs text-gray-600 font-bold uppercase tracking-widest">جميع العمليات مشفرة ومؤمنة بالكامل 256-bit</p>
+                </div>
+            </div>
+
             <footer className="mt-16 py-8 border-t border-white/10 dark:border-gray-800 text-center">
                 <p className="text-gray-500 dark:text-gray-400 font-medium">مدعوم من <a href="https://manasadigital.com" className="text-[#10B981] font-bold hover:underline">منصتك الرقمية</a></p>
             </footer>

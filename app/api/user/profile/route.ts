@@ -45,6 +45,7 @@ export async function GET(request: NextRequest) {
                 zainCashNumber: true,
                 vodafoneCash: true,
                 mtncashNumber: true,
+                syriatelCashNumber: true,
                 twoFactorEnabled: true,
                 customDomain: true,
             },
@@ -104,6 +105,7 @@ export async function PUT(request: NextRequest) {
                 zainCashNumber: body.zainCashNumber,
                 vodafoneCash: body.vodafoneCash,
                 mtncashNumber: body.mtncashNumber,
+                syriatelCashNumber: body.syriatelCashNumber,
             },
             select: {
                 id: true,

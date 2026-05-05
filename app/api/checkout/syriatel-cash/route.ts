@@ -190,8 +190,8 @@ export async function POST(req: NextRequest) {
     const invoicePayload = {
       method: "syriatel",
       identifier: apiIdentifier,
-      amount: totalUSD.toString(),
-      currency: "USD",
+      amount: totalSYP.toString(),
+      currency: "SYP",
       webhookUrl: webhookUrl,
     };
 
@@ -200,8 +200,8 @@ export async function POST(req: NextRequest) {
       sellerId: finalSellerId,
       action: 'CREATE_INVOICE',
       status: 'pending',
-      amount: totalUSD,
-      currency: 'USD',
+      amount: totalSYP,
+      currency: 'SYP',
       requestPayload: invoicePayload,
       ipAddress: ip,
     });
@@ -228,7 +228,7 @@ export async function POST(req: NextRequest) {
           sellerId: finalSellerId,
           action: 'CREATE_INVOICE',
           status: 'failed',
-          amount: totalUSD,
+          amount: totalSYP,
           responsePayload: samData,
           errorMessage: `SAM API Error: ${samRes.status} - ${JSON.stringify(samData)}`,
           ipAddress: ip,
@@ -252,7 +252,7 @@ export async function POST(req: NextRequest) {
         samInvoiceId,
         action: 'CREATE_INVOICE',
         status: 'pending',
-        amount: totalUSD,
+        amount: totalSYP,
         responsePayload: samData,
         ipAddress: ip,
       });

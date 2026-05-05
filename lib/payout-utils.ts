@@ -9,6 +9,7 @@ export const PayoutMethods = {
     ZAINCASH: 'zaincash',
     VODAFONE: 'vodafone',
     MTNCASH: 'mtncash',
+    SYRIATELCASH: 'syriatelcash',
 } as const;
 
 export type PayoutMethod = typeof PayoutMethods[keyof typeof PayoutMethods];
@@ -36,6 +37,8 @@ export function isPayoutMethodConfigured(user: any): boolean {
             return !!user.vodafoneCash;
         case PayoutMethods.MTNCASH:
             return !!user.mtncashNumber;
+        case PayoutMethods.SYRIATELCASH:
+            return !!user.syriatelCashNumber;
         default:
             return false;
     }
@@ -54,6 +57,7 @@ export function getPayoutMethodLabel(method: string | null): string {
         case PayoutMethods.ZAINCASH: return 'زين كاش';
         case PayoutMethods.VODAFONE: return 'فودافون كاش';
         case PayoutMethods.MTNCASH: return 'MTN Cash';
+        case PayoutMethods.SYRIATELCASH: return 'سيريتل كاش';
         default: return 'غير محدد';
     }
 }

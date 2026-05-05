@@ -38,6 +38,7 @@ function CheckoutInner() {
     const [samOrderData, setSamOrderData] = useState<any>(null);
     const [selectedLocalMethod, setSelectedLocalMethod] = useState<PaymentMethod | null>(null);
     const [agreeToTerms, setAgreeToTerms] = useState(false);
+    const [exchangeRate, setExchangeRate] = useState(13000);
     
     // Manual/Syria Data
     const [manualData, setManualData] = useState({
@@ -148,10 +149,21 @@ function CheckoutInner() {
                 const code = d?.country || 'DEFAULT';
                 handleCountryLogic(code);
             }).catch(() => handleCountryLogic('DEFAULT'));
+
+        // Fetch exchange rate
+        fetch('/api/public/exchange-rate')
+            .then(res => res.json())
+            .then(data => {
+                if (data.usdToSyp) setExchangeRate(data.usdToSyp);
+            })
+            .catch(() => {});
     }, []);
 
     const handleCountryLogic = (code: string) => {
         setCustomerCountry(code);
+        // Save to cookie for persistence
+        document.cookie = `user_country=${code}; path=/; max-age=31536000`;
+        
         if (code === 'SY') {
             setIsSyria(true);
             setPaymentMethod('syriatel_cash');
@@ -300,6 +312,11 @@ function CheckoutInner() {
                                     <select value={customerCountry} onChange={e => handleCountryLogic(e.target.value)} className="w-full bg-[#111111] border border-white/10 rounded-xl px-6 py-4 focus:bg-[#0A0A0A] focus:border-emerald-600 focus:ring-4 focus:ring-accent/5 outline-none transition-all font-bold text-[#10B981] appearance-none cursor-pointer">
                                         {Object.entries(paymentMethodsByCountry).map(([code, cfg]) => <option key={code} value={code}>{cfg.nameAr}</option>)}
                                     </select>
+                                    {customerCountry !== 'SY' && (
+                                        <p className="text-[10px] text-gray-500 font-bold mt-2">
+                                            موجود في سوريا؟ <button onClick={() => handleCountryLogic('SY')} className="text-emerald-500 hover:underline">اختر سوريا</button> لإظهار وسائل الدفع المحلية (سيريتل كاش / شام كاش).
+                                        </p>
+                                    )}
                                 </div>
                                 <div className="space-y-3">
                                     <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">الاسم الكامل *</label>
@@ -404,7 +421,11 @@ function CheckoutInner() {
                                         <div className="bg-[#111111] border border-white/10 rounded-xl p-5 flex items-start gap-3">
                                             <FiShield className={`${isSham ? 'text-green-400' : 'text-emerald-400'} shrink-0 mt-0.5`} size={18} />
                                             <p className="text-xs text-gray-400 leading-relaxed">
-                                                المبلغ الإجمالي بالليرة السورية: <strong className="text-[#10B981]">{(total * 13000).toLocaleString()} ل.س</strong> — اضغط «إتمام العملية» للمتابعة.
+                                                {isSham 
+                                                    ? <>عملية الدفع عبر شام كاش ستتم بـ <strong className="text-green-400">الدولار الأمريكي (USD)</strong>. سيتم اقتطاع ما يعادل <strong>${total.toLocaleString()}</strong>.</>
+                                                    : <>عملية الدفع عبر سيريتل كاش ستتم بـ <strong className="text-emerald-400">الليرة السورية (SYP)</strong> بحسب سعر الصرف المحلي، وسيتم اقتطاع <strong className="text-[#10B981]">{(total * exchangeRate).toLocaleString()} ل.س</strong>.</>
+                                                }
+                                                {' '}— اضغط «إتمام العملية» للمتابعة.
                                             </p>
                                         </div>
                                     </motion.div>

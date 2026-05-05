@@ -59,11 +59,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'لم يتم العثور على محفظة مفعلة لاستقبال الأموال.' }, { status: 500 });
     }
 
+    const isSyriatel = gateway === 'syriatel_cash';
+    const finalAmount = isSyriatel ? totalSYP : usdAmount;
+    const finalCurrency = isSyriatel ? "SYP" : "USD";
+
     const invoicePayload = {
       method: apiMethod,
       identifier: apiIdentifier,
-      amount: usdAmount.toString(),
-      currency: "USD",
+      amount: finalAmount.toString(),
+      currency: finalCurrency,
       webhookUrl: webhookUrl,
     };
 
@@ -89,8 +93,8 @@ export async function POST(req: NextRequest) {
     await supabaseAdmin.from('SamPaymentLog').insert({
       action: 'CREATE_SUBSCRIPTION_INVOICE',
       status: 'pending',
-      amount: usdAmount,
-      currency: 'USD',
+      amount: finalAmount,
+      currency: finalCurrency,
       sellerId: userId,
       requestPayload: invoicePayload,
       responsePayload: samData,

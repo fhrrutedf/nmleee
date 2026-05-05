@@ -678,6 +678,7 @@ function WithdrawModal({
                 {/* Info */}
                 <div className="bg-[#111111] rounded-xl p-4 mb-8 text-[10px] text-gray-400 font-bold space-y-2 leading-relaxed">
                     <p className="flex items-start gap-2">• <span className="flex-1">سيتم إرسال المبلغ عبر طريقة الاستلام المحددة في حسابك.</span></p>
+                    <p className="flex items-start gap-2 text-amber-500/80">• <span className="flex-1">للسوريين: السحب عبر <strong className="text-emerald-400">سيريتل كاش</strong> يتم حصراً بالليرة السورية (SYP) حسب الصرف، أما <strong className="text-green-400">شام كاش</strong> فيتم بالدولار (USD).</span></p>
                     <p className="flex items-start gap-2">• <span className="flex-1">رسوم السحب: لا توجد رسوم إضافية من المنصة.</span></p>
                     <p className="flex items-start gap-2">• <span className="flex-1">وقت المعالجة: من 2 إلى 3 أيام عمل للمراجعة والأمان.</span></p>
                 </div>
