@@ -188,8 +188,8 @@ export async function POST(req: NextRequest) {
     const invoicePayload = {
       method: "shamcash",
       identifier: apiIdentifier,
-      amount: totalSYP.toString(),
-      currency: "SYP",
+      amount: totalUSD.toString(),
+      currency: "USD",
       webhookUrl: webhookUrl,
     };
 
@@ -198,7 +198,7 @@ export async function POST(req: NextRequest) {
       sellerId:       finalSellerId,
       action:         'CREATE_INVOICE',
       status:         'pending',
-      amount:         totalSYP,
+      amount:         totalUSD,
       requestPayload: invoicePayload,
       ipAddress:      ip,
     });
@@ -224,7 +224,7 @@ export async function POST(req: NextRequest) {
           sellerId:        finalSellerId,
           action:          'CREATE_INVOICE',
           status:          'failed',
-          amount:          totalSYP,
+          amount:          totalUSD,
           responsePayload: samData,
           errorMessage:    `SAM Error ${samRes.status}: ${JSON.stringify(samData)}`,
           ipAddress:       ip,
@@ -246,7 +246,7 @@ export async function POST(req: NextRequest) {
         samInvoiceId,
         action:          'CREATE_INVOICE',
         status:          'pending',
-        amount:          totalSYP,
+        amount:          totalUSD,
         responsePayload: samData,
         ipAddress:       ip,
       });

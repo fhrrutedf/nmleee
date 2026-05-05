@@ -62,8 +62,8 @@ export async function POST(req: NextRequest) {
     const invoicePayload = {
       method: apiMethod,
       identifier: apiIdentifier,
-      amount: totalSYP.toString(),
-      currency: "SYP",
+      amount: totalUSD.toString(),
+      currency: "USD",
       webhookUrl: webhookUrl,
     };
 
@@ -89,8 +89,8 @@ export async function POST(req: NextRequest) {
     await supabaseAdmin.from('SamPaymentLog').insert({
       action: 'CREATE_SUBSCRIPTION_INVOICE',
       status: 'pending',
-      amount: totalSYP,
-      currency: 'SYP',
+      amount: totalUSD,
+      currency: 'USD',
       sellerId: userId,
       requestPayload: invoicePayload,
       responsePayload: samData,
