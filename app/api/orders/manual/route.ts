@@ -168,9 +168,7 @@ export async function POST(req: NextRequest) {
             to: customerEmail,
             customerName: customerName,
             orderNumber: order.orderNumber,
-            totalAmount: totalUSD,
-            paymentMethod: paymentProvider,
-            orderId: order.id,
+            amount: totalUSD,
         });
 
         return NextResponse.json({
