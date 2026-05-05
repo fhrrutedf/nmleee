@@ -1583,6 +1583,7 @@ model PlatformSettings {
   
   shamcashEnabled     Boolean  @default(true)
   stripeEnabled       Boolean  @default(false)
+  samApiEnabled       Boolean  @default(false)
 
   updatedAt         DateTime @default(now()) @updatedAt
   updatedBy         String?
