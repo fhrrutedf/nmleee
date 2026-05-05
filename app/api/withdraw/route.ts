@@ -236,6 +236,7 @@ export async function POST(req: NextRequest) {
                 zainCashNumber: true,
                 vodafoneCash: true,
                 mtncashNumber: true,
+                syriatelCashNumber: true,
             },
         });
 
@@ -310,6 +311,8 @@ export async function POST(req: NextRequest) {
             payoutDetails = { phone: user.vodafoneCash || '' };
         } else if (method === 'mtncash') {
             payoutDetails = { phone: user.mtncashNumber || '' };
+        } else if (method === 'syriatelcash') {
+            payoutDetails = { phone: user.syriatelCashNumber || '' };
         }
 
         // ── Atomic transaction: debit balance + create payout ────────

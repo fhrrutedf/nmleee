@@ -85,6 +85,9 @@ export default function PayoutSettings() {
         if (method === PayoutMethods.SYRIATELCASH && !data.syriatelCashNumber) {
             return toast.error('يرجى إدخال رقم محفظة سيريتل كاش');
         }
+        if (method === PayoutMethods.MTNCASH && !data.mtncashNumber) {
+            return toast.error('يرجى إدخال رقم محفظة MTN كاش');
+        }
 
         setSaving(true);
         try {
@@ -114,6 +117,7 @@ export default function PayoutSettings() {
         { id: PayoutMethods.ZAINCASH, name: 'زين كاش (العراق)', icon: FiSmartphone, color: 'orange' },
         { id: PayoutMethods.SHAMCASH, name: 'شام كاش (سيريا)', icon: FiSmartphone, color: 'purple' },
         { id: PayoutMethods.SYRIATELCASH, name: 'سيريتل كاش (سيريا)', icon: FiSmartphone, color: 'emerald' },
+        { id: PayoutMethods.MTNCASH, name: 'MTN كاش (سيريا)', icon: FiSmartphone, color: 'yellow' },
         { id: PayoutMethods.OMT, name: 'OMT (لبنان)', icon: FiSmartphone, color: 'blue' },
     ];
 
@@ -229,7 +233,7 @@ export default function PayoutSettings() {
                             </div>
                         )}
 
-                        {(activeMethod === PayoutMethods.VODAFONE || activeMethod === PayoutMethods.ZAINCASH || activeMethod === PayoutMethods.SHAMCASH || activeMethod === PayoutMethods.OMT) && (
+                        {(activeMethod === PayoutMethods.VODAFONE || activeMethod === PayoutMethods.ZAINCASH || activeMethod === PayoutMethods.SHAMCASH || activeMethod === PayoutMethods.SYRIATELCASH || activeMethod === PayoutMethods.MTNCASH || activeMethod === PayoutMethods.OMT) && (
                             <div>
                                 <label className="label">رقم المحفظة / الهاتف</label>
                                 <input 
@@ -241,6 +245,7 @@ export default function PayoutSettings() {
                                         activeMethod === PayoutMethods.ZAINCASH ? data.zainCashNumber :
                                         activeMethod === PayoutMethods.SHAMCASH ? data.shamCashNumber :
                                         activeMethod === PayoutMethods.SYRIATELCASH ? data.syriatelCashNumber :
+                                        activeMethod === PayoutMethods.MTNCASH ? data.mtncashNumber :
                                         data.omtNumber
                                     }
                                     onChange={e => {
@@ -249,6 +254,7 @@ export default function PayoutSettings() {
                                         else if (activeMethod === PayoutMethods.ZAINCASH) setData({...data, zainCashNumber: val});
                                         else if (activeMethod === PayoutMethods.SHAMCASH) setData({...data, shamCashNumber: val});
                                         else if (activeMethod === PayoutMethods.SYRIATELCASH) setData({...data, syriatelCashNumber: val});
+                                        else if (activeMethod === PayoutMethods.MTNCASH) setData({...data, mtncashNumber: val});
                                         else setData({...data, omtNumber: val});
                                     }}
                                     placeholder="09..."
