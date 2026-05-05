@@ -260,17 +260,21 @@ export default function AdminDashboardPage() {
                     </h1>
                 </div>
                 
-                <div className="flex items-center gap-4 bg-[#111111] p-2 rounded-xl border border-white/10">
+                <div className="flex flex-wrap items-center gap-4 bg-[#111111] p-2 rounded-xl border border-white/10">
+                    <Link href="/admin/sam-logs" className="flex items-center gap-2 font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl transition-all bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500 hover:text-white">
+                        <FiActivity /> سجلات بوابة الدفع (SAM)
+                    </Link>
+                    <div className="hidden md:block h-6 w-px bg-white/10"></div>
                     <select value={period} onChange={e => setPeriod(e.target.value)} className="bg-transparent border-none font-bold text-[10px] uppercase tracking-widest text-gray-500 pr-10 outline-none">
                         <option value="7">Last 7 Days</option>
                         <option value="30">Last 30 Days</option>
                         <option value="365">Last Year</option>
                     </select>
-                    <div className="h-6 w-px bg-gray-200"></div>
+                    <div className="h-6 w-px bg-white/10"></div>
                     <button onClick={() => setAutoRefresh(!autoRefresh)} className={`flex items-center gap-2 font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl transition-all ${autoRefresh ? 'bg-emerald-700 text-white shadow-lg shadow-[#10B981]/20 shadow-accent/20' : 'bg-[#0A0A0A] text-gray-400 border border-white/10'}`}>
                         <FiZap className={autoRefresh ? '' : ''} /> Live {autoRefresh ? 'On' : 'Off'}
                     </button>
-                    <button onClick={() => load(true)} className="p-2.5 bg-[#0A0A0A] border border-white/10 rounded-xl hover:border-ink hover:text-[#10B981] transition-all active:rotate-180">
+                    <button onClick={() => load(true)} className="p-2.5 bg-[#0A0A0A] border border-white/10 rounded-xl hover:border-emerald-600 hover:text-[#10B981] transition-all active:rotate-180">
                         <FiRefreshCw className={isRefreshing ? 'animate-spin' : ''} />
                     </button>
                 </div>
