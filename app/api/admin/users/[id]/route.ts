@@ -27,7 +27,6 @@ export async function PATCH(
             WHERE id = ${id}
         `;
         const { logActivity, LOG_ACTIONS, getClientIp } = await import('@/lib/activity-log');
-        const { sendTelegramAlert, AuditTemplates } = await import('@/lib/telegram');
         
         await logActivity({
             actorId: (session?.user as any)?.id,
@@ -39,12 +38,6 @@ export async function PATCH(
             details: { customCommissionRate },
             ipAddress: getClientIp(req),
         });
-
-        await sendTelegramAlert(AuditTemplates.sensitiveAction(
-            (session?.user as any)?.name,
-            'تغيير عمولة مستخدم',
-            `المستخدم ID: ${id} | العمولة الجديدة: ${customCommissionRate || 'الافتراضي'}`
-        ));
 
         if (Object.keys(updateData).length === 0) {
             return NextResponse.json({ success: true });
@@ -78,7 +71,6 @@ export async function DELETE(
     });
 
     const { logActivity, LOG_ACTIONS, getClientIp } = await import('@/lib/activity-log');
-    const { sendTelegramAlert, AuditTemplates } = await import('@/lib/telegram');
 
     await logActivity({
         actorId: (session?.user as any)?.id,

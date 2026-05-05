@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { logActivity, LOG_ACTIONS, getClientIp } from '@/lib/activity-log';
-import { sendTelegramAlert, AuditTemplates } from '@/lib/telegram';
 import crypto from 'crypto';
 
 /**
@@ -54,13 +53,6 @@ export async function POST(request: NextRequest) {
                 },
                 ipAddress: getClientIp(request)
             });
-
-            // Alert Admin via Telegram if it's a critical notification (e.g., Sales, Order)
-            if (stepName.includes('order') || stepName.includes('payment') || stepName.includes('seller')) {
-                await sendTelegramAlert(
-                    `⚠️ <b>فشل إرسال إشعار:</b>\n👤 المستلم: ${subscriber}\n⚡ الحدث: ${stepName}\n❌ الخطأ: ${errorMsg}`
-                );
-            }
         }
 
         return NextResponse.json({ received: true });

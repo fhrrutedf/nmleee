@@ -1557,7 +1557,9 @@ model PlatformSettings {
   vodafoneCashNumber String?  // Vodafone Cash Egypt platform wallet
 
   // Currency rates (admin-set)
-  usdToSyp          Float    @default(13000)
+  usdToSyp          Float    @default(13000) // Default / SAM API
+  usdToSypManual    Float    @default(13500) // Manual Payments (OMT, Whish, etc)
+  usdToSypCrypto    Float    @default(14000) // Crypto (P2P Market Rate)
   usdToIqd          Float    @default(1300)
   usdToEgp          Float    @default(50)
   usdToAed          Float    @default(3.67)

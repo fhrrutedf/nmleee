@@ -67,6 +67,7 @@ function ManualCheckoutInner() {
     const [error, setError] = useState('');
     const [items, setItems] = useState<any[]>([]);
     const [totalUSD, setTotalUSD] = useState(0);
+    const [allRates, setAllRates] = useState<any>({ usdToSyp: 13000, usdToSypManual: 13500, usdToSypCrypto: 14000 });
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     // ─── Detect Country ────────────────────────────────────────────
@@ -74,6 +75,12 @@ function ManualCheckoutInner() {
         apiGet('/api/geo')
             .then(d => setCountry(d?.country || 'DEFAULT'))
             .catch(() => setCountry('DEFAULT'));
+
+        // Fetch exchange rates
+        fetch('/api/public/exchange-rate')
+            .then(res => res.json())
+            .then(data => setAllRates(data))
+            .catch(() => {});
     }, []);
 
     // ─── Parse Items ───────────────────────────────────────────────
@@ -93,7 +100,7 @@ function ManualCheckoutInner() {
     }, [country]);
 
     const localPrice = country
-        ? convertCurrency(totalUSD, country)
+        ? convertCurrency(totalUSD, country, allRates, selectedMethod?.id)
         : { amount: totalUSD, currency: 'USD' };
 
     // ─── Handlers ──────────────────────────────────────────────────

@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { FiCheckCircle, FiPackage, FiBook, FiArrowLeft, FiGift, FiShoppingCart, FiClock, FiMail, FiLock, FiMessageCircle, FiExternalLink } from 'react-icons/fi';
-import { FaWhatsapp, FaTelegram, FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
+import { FaWhatsapp, FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
 import { apiGet, handleApiError } from '@/lib/safe-fetch';
 
 function SuccessContent() {
@@ -84,7 +84,6 @@ function SuccessContent() {
 
     const socialLinks = [
         social?.supportWhatsapp && { icon: <FaWhatsapp size={18} />, label: 'واتساب الدعم', href: `https://wa.me/${social.supportWhatsapp}` },
-        social?.socialTelegram && { icon: <FaTelegram size={18} />, label: 'قناة التليجرام', href: social.socialTelegram.startsWith('http') ? social.socialTelegram : `https://t.me/${social.socialTelegram}` },
         social?.socialInstagram && { icon: <FaInstagram size={18} />, label: 'انستقرام', href: social.socialInstagram.startsWith('http') ? social.socialInstagram : `https://instagram.com/${social.socialInstagram}` },
         social?.supportEmail && { icon: <FiMail size={18} />, label: 'البريد الرسمي', href: `mailto:${social.supportEmail}` },
     ].filter(Boolean) as any[];

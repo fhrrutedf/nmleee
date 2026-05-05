@@ -33,7 +33,6 @@ export const paymentMethodsByCountry: Record<string, CountryPaymentConfig> = {
                 icon: '📱',
                 fields: [],
                 currency: 'SYP',
-                exchangeRate: 13000,
                 enabled: true,
             },
             {
@@ -43,53 +42,17 @@ export const paymentMethodsByCountry: Record<string, CountryPaymentConfig> = {
                 icon: '💚',
                 fields: [],
                 currency: 'SYP',
-                exchangeRate: 13000,
-                enabled: true,
-            },
-        ],
-    },
-    EG: {
-        code: 'EG',
-        name: 'Egypt',
-        nameAr: 'مصر',
-        currency: 'EGP',
-        methods: [
-            {
-                id: 'vodafone_cash',
-                name: 'Vodafone Cash (Auto)',
-                nameAr: 'فودافون كاش (تلقائي)',
-                icon: '📱',
-                fields: ['phone'],
-                currency: 'EGP',
-                exchangeRate: 50,
                 enabled: true,
             },
             {
-                id: 'credit_card',
-                name: 'Global Credit Card',
-                nameAr: 'بطاقة بنكية دولية',
-                icon: '💳',
+                id: 'crypto_usdt',
+                name: 'USDT (TRC20)',
+                nameAr: 'تتر (USDT)',
+                icon: '🪙',
                 fields: [],
                 currency: 'USD',
                 enabled: true,
-            }
-        ],
-    },
-    IQ: {
-        code: 'IQ',
-        name: 'Iraq',
-        nameAr: 'العراق',
-        currency: 'IQD',
-        methods: [
-            {
-                id: 'credit_card',
-                name: 'Global Credit Card',
-                nameAr: 'بطاقة بنكية دولية',
-                icon: '💳',
-                fields: [],
-                currency: 'USD',
-                enabled: true,
-            }
+            },
         ],
     },
     DEFAULT: {
@@ -99,14 +62,14 @@ export const paymentMethodsByCountry: Record<string, CountryPaymentConfig> = {
         currency: 'USD',
         methods: [
             {
-                id: 'credit_card',
-                name: 'Credit Card',
-                nameAr: 'بطاقة بنكية',
-                icon: '💳',
+                id: 'crypto_usdt',
+                name: 'USDT (TRC20)',
+                nameAr: 'تتر (USDT)',
+                icon: '🪙',
                 fields: [],
                 currency: 'USD',
                 enabled: true,
-            }
+            },
         ],
     },
 };
@@ -115,16 +78,36 @@ export function getPaymentMethodsForCountry(countryCode: string): CountryPayment
     return paymentMethodsByCountry[countryCode] || paymentMethodsByCountry.DEFAULT;
 }
 
-export function convertCurrency(amountUSD: number, countryCode: string): {
+export function convertCurrency(
+    amountUSD: number, 
+    countryCode: string, 
+    customRates?: { usdToSyp: number; usdToSypCrypto?: number; usdToEgp?: number; usdToIqd?: number },
+    methodId?: string
+): {
     amount: number;
     currency: string;
 } {
     const config = getPaymentMethodsForCountry(countryCode);
-    const method = config.methods[0];
-
-    if (method.exchangeRate) {
+    
+    if (countryCode === 'SY' && customRates) {
+        let rate = customRates.usdToSyp;
+        if (methodId === 'crypto_usdt') rate = customRates.usdToSypCrypto || rate;
+        
         return {
-            amount: amountUSD * method.exchangeRate,
+            amount: amountUSD * rate,
+            currency: 'SYP'
+        };
+    }
+
+    // Default static fallbacks
+    const symbols: Record<string, number> = {
+        SY: 15000,
+    };
+
+    const rate = symbols[countryCode] || 1;
+    if (countryCode !== 'DEFAULT' && config.currency !== 'USD') {
+        return {
+            amount: amountUSD * rate,
             currency: config.currency,
         };
     }

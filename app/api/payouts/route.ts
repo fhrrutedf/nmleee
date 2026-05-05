@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
-import { sendTelegramMessage, newPayoutMessage } from '@/lib/telegram';
 
 export async function GET(request: NextRequest) {
     try {
@@ -99,17 +98,6 @@ export async function POST(request: NextRequest) {
                 status: 'PENDING',
             },
         });
-
-        // Send Telegram notification to admin
-        const seller = await prisma.user.findUnique({ where: { id: userId }, select: { name: true, email: true } });
-        if (seller) {
-            await sendTelegramMessage(newPayoutMessage({
-                sellerName: seller.name,
-                sellerEmail: seller.email,
-                amount,
-                method: user.payoutMethod,
-            }));
-        }
 
         return NextResponse.json(payout, { status: 201 });
     } catch (error) {

@@ -35,6 +35,8 @@ export async function getPlatformSettings() {
                 referralCommissionRate: (settings as any).referralCommissionRate ?? 10,
                 minPayoutAmount: settings.minPayoutAmount ?? 50,
                 usdToSyp: settings.usdToSyp ?? 13000,
+                usdToSypManual: (settings as any).usdToSypManual ?? 13500,
+                usdToSypCrypto: (settings as any).usdToSypCrypto ?? 14000,
                 usdToIqd: settings.usdToIqd ?? 1300,
                 usdToEgp: settings.usdToEgp ?? 50,
                 usdToAed: settings.usdToAed ?? 3.67,
@@ -66,7 +68,8 @@ export async function getPlatformSettings() {
         escrowDays: 7, freeEscrowDays: 14, growthEscrowDays: 7, proEscrowDays: 1, agencyEscrowDays: 1,
         referralCommissionRate: 10,
         minPayoutAmount: 50,
-        usdToSyp: 13000, usdToIqd: 1300, usdToEgp: 50, usdToAed: 3.67,
+        usdToSyp: 13000, usdToSypManual: 13500, usdToSypCrypto: 14000,
+        usdToIqd: 1300, usdToEgp: 50, usdToAed: 3.67,
         syriatelCash: null, mtnCash: null, zainCash: null, shamCash: null,
         omtNumber: null, whishNumber: null, vodafoneCashNumber: null,
         platformName: 'منصتي الرقمية', supportEmail: null, supportWhatsapp: null,
@@ -147,13 +150,19 @@ export function convertCurrency(
     amount: number,
     fromCurrency: string,
     toCurrency: string,
-    rates: { usdToSyp: number; usdToIqd: number; usdToEgp: number; usdToAed: number }
+    rates: { usdToSyp: number; usdToSypManual?: number; usdToSypCrypto?: number; usdToIqd: number; usdToEgp: number; usdToAed: number },
+    gatewayType?: 'MANUAL' | 'CRYPTO' | 'AUTOMATED'
 ): number {
     if (fromCurrency === toCurrency) return amount;
 
+    // Resolve which SYP rate to use
+    let sypRate = rates.usdToSyp;
+    if (gatewayType === 'MANUAL' && rates.usdToSypManual) sypRate = rates.usdToSypManual;
+    if (gatewayType === 'CRYPTO' && rates.usdToSypCrypto) sypRate = rates.usdToSypCrypto;
+
     const toUSD: Record<string, number> = {
         USD: 1,
-        SYP: 1 / rates.usdToSyp,
+        SYP: 1 / sypRate,
         IQD: 1 / rates.usdToIqd,
         EGP: 1 / rates.usdToEgp,
         AED: 1 / rates.usdToAed,
@@ -161,7 +170,7 @@ export function convertCurrency(
 
     const fromUSD: Record<string, number> = {
         USD: 1,
-        SYP: rates.usdToSyp,
+        SYP: sypRate,
         IQD: rates.usdToIqd,
         EGP: rates.usdToEgp,
         AED: rates.usdToAed,

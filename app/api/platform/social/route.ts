@@ -11,7 +11,6 @@ export async function GET() {
             select: {
                 supportEmail: true,
                 supportWhatsapp: true,
-                socialTelegram: true,
                 socialInstagram: true,
                 socialFacebook: true,
                 socialTwitter: true,
@@ -25,7 +24,6 @@ export async function GET() {
                 platformName: 'منصتي الرقمية',
                 supportEmail: null,
                 supportWhatsapp: null,
-                socialTelegram: null,
                 socialInstagram: null,
                 socialFacebook: null,
                 socialTwitter: null,

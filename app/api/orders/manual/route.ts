@@ -1,7 +1,7 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { getPaymentMethodsForCountry, convertCurrency } from '@/config/paymentMethods';
-import { sendManualOrderAlert, sendManualOrderApproved } from '@/lib/email';
+import { sendManualOrderAlert, sendManualOrderReview } from '@/lib/email';
 import { getPlatformSettings, calculateCommission } from '@/lib/commission';
 import { ensureUserAccount } from '@/lib/auth-utils';
 
@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
             paymentProof,
             paymentNotes,
             userId,
-            affiliateRef, // Code from cookie/storage
+            affiliateRef,
         } = body;
 
         // 1. SECURITY: Check for duplicate transaction reference
@@ -30,16 +30,11 @@ export async function POST(req: NextRequest) {
             });
             if (existingOrder) {
                 const { getClientIp, logActivity, LOG_ACTIONS } = await import('@/lib/activity-log');
-                const { sendTelegramAlert, AuditTemplates } = await import('@/lib/telegram');
-                
                 await logActivity({
                     action: LOG_ACTIONS.PAYMENT_FAILED,
                     details: { error: 'Duplicate Transaction Ref', ref: transactionRef },
                     ipAddress: getClientIp(req),
                 });
-                
-                await sendTelegramAlert(AuditTemplates.failure('دفع متكرر', `محاولة استخدام إيصال مستخدم سابقاً: ${transactionRef}`));
-                
                 return NextResponse.json({ error: 'رقم العملية هذا تم استخدامه مسبقاً (محاولة تكرار)' }, { status: 400 });
             }
         }
@@ -62,7 +57,6 @@ export async function POST(req: NextRequest) {
                     select: { id: true, price: true, userId: true, title: true }
                 });
             } else if (item.itemType === 'subscription' || item.type === 'subscription') {
-                // For SaaS subscriptions, use the plan data directly
                 dbItem = await prisma.subscriptionPlan.findUnique({
                     where: { id: item.planId || item.productId || item.id },
                     select: { id: true, price: true, name: true, userId: true }
@@ -77,11 +71,8 @@ export async function POST(req: NextRequest) {
                 return NextResponse.json({ error: `المنتج غير موجود: ${item.id || item.planId}` }, { status: 404 });
             }
 
-            // Always use DB price, ignore client price
             const price = dbItem.price || 0;
             totalUSD += price;
-            
-            // Handle title mapping for different item types
             const itemTitle = (dbItem as any).title || (dbItem as any).name || 'Unknown';
             
             validatedItems.push({
@@ -91,7 +82,6 @@ export async function POST(req: NextRequest) {
                 userId: dbItem.userId
             });
 
-            // Set main sellerId from first item (simplified for now)
             if (!sellerId) sellerId = dbItem.userId;
         }
 
@@ -105,12 +95,9 @@ export async function POST(req: NextRequest) {
         if (!resolvedUserId && customerEmail) {
             resolvedUserId = await ensureUserAccount(customerEmail, customerName);
         }
-        if (!resolvedUserId) {
-            resolvedUserId = sellerId; // fallback
-        }
+        if (!resolvedUserId) resolvedUserId = sellerId;
 
-        // 5. SECURITY: Generate Signed URL for admin if proof is private
-        // Assumes paymentProof is a Supabase storage path or public URL
+        // 5. Generate Signed URL for admin
         let adminProofUrl = paymentProof;
         try {
             if (paymentProof && !paymentProof.startsWith('http')) {
@@ -119,19 +106,16 @@ export async function POST(req: NextRequest) {
                     process.env.NEXT_PUBLIC_SUPABASE_URL!,
                     process.env.SUPABASE_SERVICE_ROLE_KEY!
                 );
-                
-                // Assuming payments are in 'payments' bucket
                 const { data: signedData } = await supabase.storage
-                    .from('product-files') // Based on app/api/upload bucket logic
-                    .createSignedUrl(paymentProof, 86400); // 24 hours for admin review
-                
+                    .from('product-files')
+                    .createSignedUrl(paymentProof, 86400);
                 if (signedData?.signedUrl) adminProofUrl = signedData.signedUrl;
             }
         } catch (e) {
             console.error('Failed to generate signed URL for admin:', e);
         }
 
-        // 6. DB: Create order with validated data
+        // 6. DB: Create order
         const order = await prisma.order.create({
             data: {
                 orderNumber: `ORD-${Date.now()}`,
@@ -147,7 +131,7 @@ export async function POST(req: NextRequest) {
                 paymentCountry: country,
                 senderPhone,
                 transactionRef,
-                paymentProof, // Save original path/url
+                paymentProof,
                 paymentNotes,
                 userId: resolvedUserId,
                 sellerId: sellerId || undefined,
@@ -167,10 +151,7 @@ export async function POST(req: NextRequest) {
             },
         });
 
-        // 7. NOTIFICATIONS: Correct workflow
-        // Alert Admin with Signed URL
-        const { sendManualOrderAlert, sendManualOrderReview } = await import('@/lib/email');
-        
+        // 7. NOTIFICATIONS
         await sendManualOrderAlert({
             adminEmail: process.env.ADMIN_EMAIL || 'admin@manasadigital.com',
             adminName: 'Admin',
@@ -183,17 +164,12 @@ export async function POST(req: NextRequest) {
             proofUrl: adminProofUrl,
         });
 
-        // Notify Customer: RECEIVED, NOT APPROVED
         await sendManualOrderReview({
             to: customerEmail,
             customerName: customerName,
             orderNumber: order.orderNumber,
-            amount: totalUSD,
-        });
-
-        return NextResponse.json({
-            success: true,
-            orderNumber: order.orderNumber,
+            totalAmount: totalUSD,
+            paymentMethod: paymentProvider,
             orderId: order.id,
         });
 
@@ -204,23 +180,14 @@ export async function POST(req: NextRequest) {
         });
     } catch (error: any) {
         console.error('Error creating manual order:', error);
-        
-        // LOG FAILURE: Lost Opportunity
         try {
             const { logActivity, LOG_ACTIONS, getClientIp } = await import('@/lib/activity-log');
-            const { sendTelegramAlert, AuditTemplates } = await import('@/lib/telegram');
-            
             await logActivity({
                 action: LOG_ACTIONS.PAYMENT_FAILED,
                 details: { error: error.message, stack: error.stack },
                 ipAddress: getClientIp(req),
             });
-
-            await sendTelegramAlert(AuditTemplates.failure('طلب يدوي', error.message));
-        } catch (e) {
-            console.error('Critical log failure:', e);
-        }
-
+        } catch (e) {}
         return NextResponse.json({ error: 'حدث خطأ أثناء معالجة الطلب' }, { status: 500 });
     }
 }

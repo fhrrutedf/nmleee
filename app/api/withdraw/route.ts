@@ -20,7 +20,6 @@ import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { releaseMaturedBalances, getPlatformSettings } from '@/lib/commission';
 import { isPayoutMethodConfigured, getPayoutMethodLabel } from '@/lib/payout-utils';
-import { sendTelegramMessage, newPayoutMessage } from '@/lib/telegram';
 import { round2 } from '@/lib/spaceremit';
 
 // ─── GET: Fetch balance + withdrawal history ───────────────
@@ -344,20 +343,6 @@ export async function POST(req: NextRequest) {
             return newPayout;
         });
 
-        // ── Notify admin via Telegram ────────────────────────────────
-        try {
-            await sendTelegramMessage(
-                newPayoutMessage({
-                    sellerName: user.name,
-                    sellerEmail: user.email,
-                    amount: requestedAmount,
-                    method,
-                })
-            );
-        } catch (telegramErr) {
-            console.error('[WITHDRAW] Telegram notification failed:', telegramErr);
-            // Non-fatal — continue
-        }
 
         console.log(
             `[WITHDRAW] New request: ${payoutNumber} | User: ${userId} | Amount: $${requestedAmount} | Method: ${method}`

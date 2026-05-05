@@ -1,14 +1,8 @@
 import { User } from '@prisma/client';
 
 export const PayoutMethods = {
-    BANK: 'bank',
-    PAYPAL: 'paypal',
     CRYPTO: 'crypto',
     SHAMCASH: 'shamcash',
-    OMT: 'omt',
-    ZAINCASH: 'zaincash',
-    VODAFONE: 'vodafone',
-    MTNCASH: 'mtncash',
     SYRIATELCASH: 'syriatelcash',
 } as const;
 
@@ -21,22 +15,10 @@ export function isPayoutMethodConfigured(user: any): boolean {
     if (!user.payoutMethod) return false;
 
     switch (user.payoutMethod) {
-        case PayoutMethods.BANK:
-            return !!(user.bankName && user.accountNumber && user.accountName);
-        case PayoutMethods.PAYPAL:
-            return !!user.paypalEmail;
         case PayoutMethods.CRYPTO:
             return !!user.cryptoWallet;
         case PayoutMethods.SHAMCASH:
             return !!user.shamCashNumber;
-        case PayoutMethods.OMT:
-            return !!user.omtNumber;
-        case PayoutMethods.ZAINCASH:
-            return !!user.zainCashNumber;
-        case PayoutMethods.VODAFONE:
-            return !!user.vodafoneCash;
-        case PayoutMethods.MTNCASH:
-            return !!user.mtncashNumber;
         case PayoutMethods.SYRIATELCASH:
             return !!user.syriatelCashNumber;
         default:
@@ -49,14 +31,8 @@ export function isPayoutMethodConfigured(user: any): boolean {
  */
 export function getPayoutMethodLabel(method: string | null): string {
     switch (method) {
-        case PayoutMethods.BANK: return 'تحويل بنكي';
-        case PayoutMethods.PAYPAL: return 'PayPal';
         case PayoutMethods.CRYPTO: return 'USDT (Crypto)';
         case PayoutMethods.SHAMCASH: return 'شام كاش';
-        case PayoutMethods.OMT: return 'OMT';
-        case PayoutMethods.ZAINCASH: return 'زين كاش';
-        case PayoutMethods.VODAFONE: return 'فودافون كاش';
-        case PayoutMethods.MTNCASH: return 'MTN Cash';
         case PayoutMethods.SYRIATELCASH: return 'سيريتل كاش';
         default: return 'غير محدد';
     }

@@ -34,11 +34,12 @@ function CheckoutInner() {
     const [customerCountry, setCustomerCountry] = useState('');
     const [isSyria, setIsSyria] = useState(false);
     
-    const [paymentMethod, setPaymentMethod] = useState<'spaceremit' | 'syriatel_cash' | 'shamcash' | 'nowpayments'>('spaceremit');
+    const [paymentMethod, setPaymentMethod] = useState<'syriatel_cash' | 'shamcash' | 'nowpayments'>('nowpayments');
     const [samOrderData, setSamOrderData] = useState<any>(null);
     const [selectedLocalMethod, setSelectedLocalMethod] = useState<PaymentMethod | null>(null);
     const [agreeToTerms, setAgreeToTerms] = useState(false);
     const [exchangeRate, setExchangeRate] = useState(13000);
+    const [allRates, setAllRates] = useState<any>({ usdToSyp: 13000, usdToSypManual: 13500, usdToSypCrypto: 14000 });
     
     // Manual/Syria Data
     const [manualData, setManualData] = useState({
@@ -150,14 +151,27 @@ function CheckoutInner() {
                 handleCountryLogic(code);
             }).catch(() => handleCountryLogic('DEFAULT'));
 
-        // Fetch exchange rate
+        // Fetch exchange rates
         fetch('/api/public/exchange-rate')
             .then(res => res.json())
             .then(data => {
+                setAllRates(data);
                 if (data.usdToSyp) setExchangeRate(data.usdToSyp);
             })
             .catch(() => {});
     }, []);
+
+    // Update exchange rate based on payment method
+    useEffect(() => {
+        if (!isSyria) return;
+        
+        let rate = allRates.usdToSyp; // Default (SAM API)
+        
+        // If we ever add manual payment to this page, we'd use usdToSypManual
+        // Currently this page uses Syriatel Cash / Sham Cash which are automated via SAM API
+        
+        setExchangeRate(rate);
+    }, [paymentMethod, isSyria, allRates]);
 
     const handleCountryLogic = (code: string) => {
         setCustomerCountry(code);
@@ -169,7 +183,7 @@ function CheckoutInner() {
             setPaymentMethod('syriatel_cash');
         } else {
             setIsSyria(false);
-            setPaymentMethod('spaceremit');
+            setPaymentMethod('nowpayments');
             const methods = getPaymentMethodsForCountry(code).methods;
             if (methods.length > 0) setSelectedLocalMethod(methods[0]);
         }
@@ -196,37 +210,6 @@ function CheckoutInner() {
                 return;
             }
             
-            if (paymentMethod === 'spaceremit') {
-                if (!selectedLocalMethod) return showToast.error('يرجى اختيار وسيلة الدفع');
-                let methodId = selectedLocalMethod.id;
-                
-                if (methodId === 'crypto_usdt' || methodId === 'usdt_trc20') {
-                    const data = await apiPost('/api/checkout/oxapay', {
-                        items: cart,
-                        customerInfo: formData,
-                        paymentMethod: 'crypto',
-                        couponCode: discount > 0 ? couponCode : null,
-                        affiliateRef: affRef
-                    });
-                    
-                    if (data.paymentUrl) {
-                        window.location.href = data.paymentUrl;
-                    } else {
-                        showToast.error('عذراً، لم نتمكن من توليد رابط الدفع');
-                    }
-                    return;
-                }
-
-                const data = await apiPost('/api/checkout/spaceremit', {
-                    items: cart,
-                    customerInfo: formData,
-                    paymentMethod: methodId,
-                    couponCode: discount > 0 ? couponCode : null,
-                    affiliateRef: affRef
-                });
-                setSpOrderData(data);
-
-            } else if (paymentMethod === 'nowpayments') {
                 const data = await apiPost('/api/checkout/oxapay', {
                     items: cart,
                     customerInfo: formData,
@@ -338,48 +321,17 @@ function CheckoutInner() {
 
                                 <div className="flex gap-4 mb-10 overflow-x-auto pb-4 hide-scrollbar">
                                     {!isSyria ? (
-                                        <>
-                                            <PaymentMethodTab id="spaceremit" current={paymentMethod} onClick={() => setPaymentMethod('spaceremit')} icon="🌍" label="دفع إلكتروني آمن" desc="بطاقات، محافظ دولية، USSD" />
-                                            <PaymentMethodTab id="nowpayments" current={paymentMethod} onClick={() => setPaymentMethod('nowpayments')} icon="🪙" label="عملات رقمية (USDT)" desc="تفعيل تلقائي عبر الكريبتو" />
-                                        </>
+                                        <PaymentMethodTab id="nowpayments" current={paymentMethod} onClick={() => setPaymentMethod('nowpayments')} icon="🪙" label="عملات رقمية (USDT)" desc="تفعيل تلقائي عبر الكريبتو" />
                                     ) : (
                                         <>
                                             <PaymentMethodTab id="syriatel_cash" current={paymentMethod} onClick={() => setPaymentMethod('syriatel_cash')} icon="📱" label="سيريتل كاش" desc="دفع آلي تلقائي | SAM API" />
                                             <PaymentMethodTab id="shamcash" current={paymentMethod} onClick={() => setPaymentMethod('shamcash')} icon="💚" label="شام كاش" desc="دفع آلي تلقائي | SAM API" />
+                                            <PaymentMethodTab id="nowpayments" current={paymentMethod} onClick={() => setPaymentMethod('nowpayments')} icon="🪙" label="تتر (USDT)" desc="دفع عبر الكريبتو" />
                                         </>
                                     )}
                                 </div>
 
                             <AnimatePresence mode="wait">
-                                {paymentMethod === 'spaceremit' && (
-                                    <motion.div key="spaceremit-box" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                            {countryMethods.methods.map(m => (
-                                                <button 
-                                                    key={m.id} 
-                                                    onClick={() => setSelectedLocalMethod(m)} 
-                                                    className={`p-8 rounded-xl border-2 text-right transition-all group relative overflow-hidden ${selectedLocalMethod?.id === m.id ? 'border-emerald-600 bg-emerald-700 text-white/5 ring-4 ring-accent/5' : 'border-white/10 bg-[#111111]/50 hover:border-emerald-500/20'}`}
-                                                >
-                                                    <span className="text-4xl mb-4 block group-hover:scale-110 transition-transform origin-right">{m.icon}</span>
-                                                    <h5 className="font-bold text-[#10B981] text-lg">{m.nameAr}</h5>
-                                                    <p className="text-[10px] text-[#10B981] uppercase font-bold mt-1.5 tracking-wider">تفعيل فوري للمحتوى</p>
-                                                    
-                                                    {selectedLocalMethod?.id === m.id && (
-                                                        <div className="absolute top-4 left-4 text-[#10B981]">
-                                                            <FiCheckCircle size={20} />
-                                                        </div>
-                                                    )}
-                                                </button>
-                                            ))}
-                                        </div>
-                                        <div className="flex items-start gap-4 bg-[#111111] p-6 rounded-xl border border-white/10">
-                                            <FiShield size={22} className="text-[#10B981] shrink-0 mt-0.5" />
-                                            <p className="text-xs text-gray-500 leading-relaxed font-bold">
-                                                يتم الدفع عبر بوابة **Spaceremit V2** المشفرة. سيتم توجيهك الآن لإكمال الدفع وتفعيل طلبك بمجرد الانتهاء مباشرة.
-                                            </p>
-                                        </div>
-                                    </motion.div>
-                                )}
 
                                 {paymentMethod === 'nowpayments' && (
                                     <motion.div key="nowpayments-box" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
@@ -447,95 +399,6 @@ function CheckoutInner() {
                 </div>
             </div>
 
-            {/* ═══ Professional Spaceremit V2 Payment Overlay ═══ */}
-            <div 
-                className={`fixed inset-0 z-[9999] bg-emerald-700 text-white/60  flex items-center justify-center p-4 transition-all duration-500 ${spOrderData ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
-            >
-                <div className="bg-[#0A0A0A] rounded-[2.5rem] p-10 max-w-lg w-full shadow-lg shadow-[#10B981]/20 border border-white/10 max-h-[90vh] overflow-y-auto relative">
-                    <div className="flex items-center justify-between mb-10">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-emerald-700 text-white rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#10B981]/20 shadow-accent/20">
-                                <FiCreditCard />
-                            </div>
-                            <h3 className="text-xl font-bold text-[#10B981] tracking-tight">إتمام الدفع الآمن</h3>
-                        </div>
-                        <button 
-                            type="button" 
-                            onClick={() => setSpOrderData(null)} 
-                            className="w-10 h-10 rounded-xl bg-[#111111] hover:bg-emerald-800 text-[#10B981] flex items-center justify-center transition-all text-sm font-bold"
-                        >
-                            ✕
-                        </button>
-                    </div>
-
-                    {spOrderData && (
-                        <div className="bg-[#111111] rounded-xl p-8 mb-10 text-center border border-white/10">
-                            <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-2">إجمالي المطلوب سداده</p>
-                            <p className="text-5xl font-bold text-[#10B981] font-inter tracking-tighter">${spOrderData.total}</p>
-                            <p className="text-[10px] text-[#10B981] mt-4 font-mono font-bold tracking-widest">ORDER #{spOrderData.orderNumber}</p>
-                        </div>
-                    )}
-
-                    {spScriptLoading && (
-                        <div className="text-center py-10">
-                            <div className="animate-spin rounded-xl h-12 w-12 border-2 border-emerald-500/20 border-t-emerald-500 mx-auto mb-4"></div>
-                            <p className="text-gray-400 text-sm font-bold">جاري تحميل بوابة الدفع...</p>
-                            <p className="text-[10px] text-gray-500 mt-2">يرجى الانتظار لحظات</p>
-                        </div>
-                    )}
-
-                    {spScriptError && (
-                        <div className="text-center py-10">
-                            <div className="w-16 h-16 bg-red-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                                <FiAlertTriangle className="text-red-500 text-3xl" />
-                            </div>
-                            <p className="text-red-400 text-sm font-bold mb-2">فشل تحميل بوابة الدفع</p>
-                            <p className="text-[10px] text-gray-500 mb-4">يمكنك المحاولة مرة أخرى أو اختيار وسيلة دفع أخرى</p>
-                            <button 
-                                onClick={() => { setSpOrderData(null); setSpScriptError(false); }}
-                                className="px-6 py-3 bg-emerald-700 text-white rounded-xl font-bold text-sm hover:bg-emerald-600 transition-all"
-                            >
-                                العودة واختيار وسيلة أخرى
-                            </button>
-                        </div>
-                    )}
-
-                    {!spScriptLoading && !spScriptError && (
-                        <form
-                            id="spaceremit-hidden-form"
-                            ref={spFormRef}
-                            className="space-y-4"
-                        >
-                            <div className="sp-one-type-select">
-                                <input type="radio" name="sp-pay-type-radio" value="local-methods-pay" id="sp_local_methods_radio" defaultChecked className="hidden" />
-                                <label htmlFor="sp_local_methods_radio" className="block p-5 rounded-xl border-2 border-emerald-600 bg-emerald-700/10 cursor-pointer mb-4 transition-all">
-                                    <div className="font-bold text-emerald-400 flex items-center gap-2 text-sm">🌍 الدفع المحلي (بينانس/زين/فودافون)</div>
-                                    <p className="text-[10px] text-gray-500 font-bold mt-1">يُوصى به للمستخدمين في الشرق الأوسط</p>
-                                </label>
-                                <div id="spaceremit-local-methods-pay" className="space-y-2 min-h-[40px] px-2"></div>
-                            </div>
-
-                            <div className="sp-one-type-select">
-                                <input type="radio" name="sp-pay-type-radio" value="card-pay" id="sp_card_radio" className="hidden" />
-                                <label htmlFor="sp_card_radio" className="block p-5 rounded-xl border-2 border-white/10 bg-[#111111] cursor-pointer mb-4 hover:border-emerald-600/30 transition-all">
-                                    <div className="font-bold text-[#10B981] flex items-center gap-2 text-sm">💳 البطاقة البنكية الدولية</div>
-                                    <p className="text-[10px] text-gray-500 font-bold mt-1">Visa, Mastercard, American Express</p>
-                                </label>
-                                <div id="spaceremit-card-pay" className="px-2"></div>
-                            </div>
-
-                            <button type="submit" className="w-full py-5 bg-emerald-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-[#10B981]/20 hover:bg-emerald-600 transform hover:-translate-y-0.5 mt-6 mb-4">
-                                ادفع الآن آمن
-                            </button>
-                        </form>
-                    )}
-
-                    <div className="flex items-center justify-center gap-3 text-[10px] text-gray-400 font-bold uppercase tracking-widest">
-                        <FiShield className="text-[#10B981]" />
-                        <span>SECURED BY SPACEREMIT CLOUD</span>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 }

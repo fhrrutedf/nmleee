@@ -4,7 +4,6 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
 import { sendEmail } from '@/lib/resend';
 import { sendBroadcastEmail } from '@/lib/email';
-import { sendTelegramMessage } from '@/lib/telegram';
 import { logActivity, LOG_ACTIONS } from '@/lib/activity-log';
 
 // POST /api/admin/broadcast - Scalable Broadcast Job Creation
@@ -68,11 +67,6 @@ export async function POST(req: NextRequest) {
                 scheduledAt: broadcastJob.scheduledAt
             },
         });
-
-        // 5. Fire Telegram Alert
-        await sendTelegramMessage(
-            `📢 <b>تم جدولة بث جماعي!</b>\n━━━━━━━━━━━━━━\n📋 <b>العنوان:</b> ${subject}\n👥 <b>المستهدف:</b> ${target} (${totalCount} مستخدم)\n⏰ <b>الموعد:</b> ${broadcastJob.scheduledAt.toLocaleString('ar-SA')}`
-        );
 
         // IMMEDIATE ON-DEMAND PROCESSING (Wait for completion to prevent serverless kill)
         // Since the list is currently small, we await it. For millions of users, a queue is required.

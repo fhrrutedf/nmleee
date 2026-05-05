@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { prisma } from '@/lib/db';
-import { sendTelegramMessage, newOrderMessage } from '@/lib/telegram';
 import { sendManualOrderApproved } from '@/lib/email';
 import { markCartConverted, triggerWelcomeEmail, triggerSellerNotification } from '@/lib/automation-helpers';
 import { processPaymentCommission } from '@/lib/commission';
@@ -95,21 +94,11 @@ export async function POST(
             },
         });
 
-        // Send Telegram notification to admin
         const orderItems = await prisma.orderItem.findMany({
             where: { orderId },
             include: { product: true, course: true },
         });
         const products = orderItems.map(i => i.product?.title || i.course?.title || 'منتج');
-
-        await sendTelegramMessage(newOrderMessage({
-            orderNumber: order.orderNumber,
-            customerName: order.customerName,
-            customerEmail: order.customerEmail,
-            sellerName: seller?.name || 'غير محدد',
-            amount: order.totalAmount,
-            products,
-        }));
 
         // Auto-enroll in courses (same as Stripe webhook)
         for (const item of orderItems) {

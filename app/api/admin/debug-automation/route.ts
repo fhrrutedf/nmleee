@@ -6,7 +6,6 @@ import {
     saveAbandonedCart,
     triggerCourseCompletionEmail
 } from '@/lib/automation-helpers';
-import { sendTelegramMessage } from '@/lib/telegram';
 
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
@@ -39,24 +38,18 @@ export async function GET(req: NextRequest) {
                 });
                 return NextResponse.json({ success: true, message: 'تم تسجيل سلة مهجورة تجريبية' });
 
-            case '3': // Sale & Telegram
-                // 1. إشعار الداشبورد والإيميل للبائع
+            case '3': // Sale Notification
+                // إشعار الداشبورد والإيميل للبائع
                 await triggerSellerNotification({
                     sellerId: seller.id,
                     type: 'sale',
                     title: 'مبيعة جديدة! 💰',
                     content: `تم بيع منتج تجريبي بمبلغ $50.00 للعميل ${testEmail}`
                 });
-                // 2. إرسال للتلجرام
-                await sendTelegramMessage(`🚀 <b>تجربة مبيعة جديدة</b>\nالعميل: ${testEmail}\nالمبلغ: $50.00\nالبائع: ${seller.name}`);
+                return NextResponse.json({ success: true, message: 'تم إرسال إشعار المبيعة' });
 
-                return NextResponse.json({ success: true, message: 'تم إرسال إشعارات المبيعة والتلجرام' });
-
-            case '4': // Subscription Reminder
-                // هنا سنقوم بتشغيل الـ Cron الخاص بالاشتراكات يدوياً (سيفحص قاعدة البيانات)
-                // للتسهيل، سنرسل رسالة تلجرام محاكية
-                await sendTelegramMessage(`⏰ <b>تذكير اشتراك تجريبي</b>\nالعميل: ${testEmail}\nالخطة: الباقة الذهبية\nالأيام المتبقية: 7 أيام`);
-                return NextResponse.json({ success: true, message: 'تمت محاكاة تذكير الاشتراك' });
+            case '4': // Follow-up
+                return NextResponse.json({ success: true, message: 'تمت المحاكاة' });
 
             case '5': // Edu Follow-up
                 await triggerCourseCompletionEmail({
