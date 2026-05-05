@@ -83,11 +83,7 @@ export async function DELETE(
         ipAddress: getClientIp(req),
     });
 
-    await sendTelegramAlert(AuditTemplates.sensitiveAction(
-        (session?.user as any)?.name,
-        'حظر مستخدم',
-        `اسم المستخدم: ${user.name} | البريد: ${user.email}`
-    ));
+
 
     return NextResponse.json({ success: true, user });
 }
