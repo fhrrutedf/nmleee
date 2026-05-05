@@ -82,16 +82,6 @@ export const paymentMethodsByCountry: Record<string, CountryPaymentConfig> = {
         currency: 'IQD',
         methods: [
             {
-                id: 'zain_cash',
-                name: 'Zain Cash (Auto)',
-                nameAr: 'زين كاش (تلقائي)',
-                icon: '📱',
-                fields: ['phone'],
-                currency: 'IQD',
-                exchangeRate: 1500,
-                enabled: true,
-            },
-            {
                 id: 'credit_card',
                 name: 'Global Credit Card',
                 nameAr: 'بطاقة بنكية دولية',

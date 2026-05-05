@@ -44,8 +44,6 @@ const TABS = [
     { id: 'PENDING_MANUAL', label: 'بانتظار الاعتماد', icon: '⚠️' },
     { id: 'ALL', label: 'الكل', icon: '' },
     { id: 'crypto', label: 'العملات الرقمية', icon: '🪙' },
-    { id: 'spaceremit', label: 'سبيس ريميت', icon: '💳' },
-    { id: 'stripe', label: 'سترايب', icon: '🌍' },
     { id: 'shamcash', label: 'شام كاش', icon: '🇸🇾' },
     { id: 'manual', label: 'الحوالات اليدوية', icon: '🏦' },
     { id: 'subscriptions', label: 'الاشتراكات', icon: '💎' }
