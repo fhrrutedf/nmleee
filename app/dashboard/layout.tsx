@@ -91,9 +91,11 @@ export default function DashboardLayout({
         { href: '/dashboard/admin/users', icon: FiUsers, label: 'إدارة الأعضاء', type: 'admin' },
         { href: '/dashboard/admin/subscriptions', icon: FiCreditCard, label: 'إدارة الاشتراكات', type: 'admin' },
         { href: '/dashboard/admin/orders', icon: FiTrendingUp, label: 'المركز المالي (المبيعات)', type: 'admin' },
+        { href: '/dashboard/admin/seller-sales', icon: FiDollarSign, label: 'مبيعات التجار (Sales)', type: 'admin' },
         { href: '/dashboard/admin/payouts', icon: FiDollarSign, label: 'سحوبات المدربين', type: 'admin' },
+        { href: '/dashboard/admin/sam-logs', icon: FiActivity, label: 'سجلات الدفع (SAM Logs)', type: 'admin' },
+        { href: '/dashboard/admin/customers', icon: FiUser, label: 'قاعدة بيانات العملاء (CRM)', type: 'admin' },
         { href: '/dashboard/admin/broadcast', icon: FiZap, label: '🚀 البث الجماعي', type: 'admin' },
-        { href: '/admin/customers', icon: FiUser, label: '🔍 قاعدة بيانات العملاء (CRM)', type: 'admin' },
         { href: '/dashboard/admin/blog', icon: FiBookOpen, label: 'إدارة المدونة', type: 'admin' },
         { href: '/dashboard/admin/platform-settings', icon: FiSettings, label: 'إعدادات المنصة', type: 'admin' },
     ];
