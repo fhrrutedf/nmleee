@@ -433,6 +433,11 @@ model Order {
   paymentCountry    String?   // الدولة
   paymentProvider   String?   // "shamcash" | "omt" | "zaincash" etc
   
+  // Automated SAM API Fields
+  samInvoiceId      String?
+  samPaymentStatus  String?
+  samErrorMessage   String?
+  
   // Verification
   verifiedBy        String?
   verifier          User?     @relation("OrderVerifier", fields: [verifiedBy], references: [id])
