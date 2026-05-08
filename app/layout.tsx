@@ -8,6 +8,7 @@ import FooterWrapper from "@/app/components/FooterWrapper";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import ImpersonationBanner from "@/components/ImpersonationBanner";
 import AffiliateBanner from "@/components/marketing/AffiliateBanner";
+import CookieConsent from "@/components/CookieConsent";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -76,6 +77,7 @@ export default function RootLayout({
                     </main>
                     <FooterWrapper />
                     <WhatsAppButton />
+                    <CookieConsent />
                     <Toaster
                         position="top-center"
                         toastOptions={{

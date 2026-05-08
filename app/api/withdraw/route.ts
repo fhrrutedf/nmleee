@@ -21,6 +21,7 @@ import { prisma } from '@/lib/db';
 import { releaseMaturedBalances, getPlatformSettings } from '@/lib/commission';
 import { isPayoutMethodConfigured, getPayoutMethodLabel } from '@/lib/payout-utils';
 import { round2 } from '@/lib/spaceremit';
+import { withRateLimit } from '@/lib/rate-limit';
 
 // ─── GET: Fetch balance + withdrawal history ───────────────
 export async function GET(req: NextRequest) {
@@ -183,6 +184,14 @@ export async function GET(req: NextRequest) {
 // ─── POST: Create withdrawal request ──────────────────────
 export async function POST(req: NextRequest) {
     try {
+        // ── Rate Limiting: 5 طلبات / دقيقة لكل IP (STRICT للسحب) ────────
+        const rateLimitRes = await withRateLimit(req, {
+            identifier: 'api:withdraw',
+            limit: 5,
+            windowSeconds: 60,
+        });
+        if (rateLimitRes) return rateLimitRes;
+
         const session = await getServerSession(authOptions);
         const userId = (session?.user as any)?.id;
 

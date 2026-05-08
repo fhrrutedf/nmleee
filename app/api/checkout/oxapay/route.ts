@@ -1,22 +1,38 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { ensurePlanCurrent, getPlatformSettings } from '@/lib/commission';
 import { round2, calculateTieredCommission } from '@/lib/spaceremit';
+import { withRateLimit } from '@/lib/rate-limit';
+import { sanitizeApiInput, isValidEmail } from '@/lib/sanitize';
 
 const OXAPAY_API_URL = 'https://api.oxapay.com';
 const OXAPAY_MERCHANT_KEY = process.env.OXAPAY_MERCHANT_KEY;
 
 export async function POST(req: NextRequest) {
     try {
+        // ── Rate Limiting: 20 طلب/دقيقة لكل IP ──────────────────
+        const rateLimitResponse = await withRateLimit(req, {
+            identifier: 'api:checkout:oxapay',
+            limit: 20,
+            windowSeconds: 60,
+        });
+        if (rateLimitResponse) return rateLimitResponse;
+
         if (!OXAPAY_MERCHANT_KEY) {
             console.error('[OXAPAY_ERROR] Missing OXAPAY_MERCHANT_KEY in Env');
             return NextResponse.json({ error: 'بوابة الدفع غير مهيأة (Env Missing)' }, { status: 500 });
         }
 
-        const body = await req.json();
-        const { items, customerInfo, couponCode, affiliateRef } = body;
+        const rawBody = await req.json();
+        const sanitized = sanitizeApiInput(rawBody, { couponCode: 50 });
+        const { items, customerInfo, couponCode, affiliateRef } = sanitized;
+
+        // التحقق من صحة البريد الإلكتروني
+        if (customerInfo?.email && !isValidEmail(customerInfo.email)) {
+            return NextResponse.json({ error: 'بريد إلكتروني غير صالح' }, { status: 400 });
+        }
 
         // 1. Validation
         if (!items || items.length === 0) return NextResponse.json({ error: 'السلة فارغة' }, { status: 400 });
