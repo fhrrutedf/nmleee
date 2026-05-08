@@ -7,20 +7,23 @@ import { ThemeProvider } from './ThemeProvider';
 import { I18nProvider } from '@/context/I18nContext';
 import { CartProvider } from '@/app/context/CartContext';
 import { ReferralTracker } from '@/app/components/ReferralTracker';
+import ErrorBoundary from './ErrorBoundary';
 
 export function Providers({ children }: { children: ReactNode }) {
     return (
-        <SessionProvider>
-            <ReferralTracker />
-            <I18nProvider>
-                <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-                    <CartProvider>
-                        <ToastProvider>
-                            {children}
-                        </ToastProvider>
-                    </CartProvider>
-                </ThemeProvider>
-            </I18nProvider>
-        </SessionProvider>
+        <ErrorBoundary>
+            <SessionProvider>
+                <ReferralTracker />
+                <I18nProvider>
+                    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                        <CartProvider>
+                            <ToastProvider>
+                                {children}
+                            </ToastProvider>
+                        </CartProvider>
+                    </ThemeProvider>
+                </I18nProvider>
+            </SessionProvider>
+        </ErrorBoundary>
     );
 }

@@ -25,13 +25,37 @@ const cairo = Cairo({
 
 export const metadata: Metadata = {
     title: {
-        default: "منصتي الرقمية — بيع وشراء المنتجات الرقمية بالعربي",
-        template: "%s | منصتي الرقمية"
+        default: "منصة مناسة الرقمية | بيع وشراء المنتجات الرقمية والكورسات العربية",
+        template: "%s | منصة مناسة الرقمية"
     },
-    description: "المنصة الرائدة في العالم العربي لبيع الدورات، الكتب، والقوالب الرقمية. ابدأ مشروعك الرقمي اليوم بكل سهولة وأمان.",
+    description: "منصة مناسة الرقمية هي وجهتك الأولى لبيع وشراء المنتجات الرقمية، الكورسات، القوالب، والملفات في العالم العربي. ابدأ رحلتك الرقمية معنا اليوم!",
+    keywords: ['منتجات رقمية', 'كورسات', 'قوالب', 'بيع', 'شراء', 'منصة عربية', 'دخل سلبي', 'تسويق رقمي', 'manasa digital'],
+    authors: [{ name: 'Manasa Digital', url: 'https://manasadigital.com' }],
+    creator: 'Manasa Digital',
+    publisher: 'Manasa Digital',
+    metadataBase: new URL('https://manasadigital.com'),
+    alternates: { canonical: 'https://manasadigital.com' },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
     icons: {
         icon: '/favicon.ico',
         apple: '/apple-touch-icon.png',
+    },
+    openGraph: {
+        title: 'منصة مناسة الرقمية | بيع وشراء المنتجات الرقمية والكورسات العربية',
+        description: 'منصة مناسة الرقمية هي وجهتك الأولى لبيع وشراء المنتجات الرقمية، الكورسات، القوالب، والملفات في العالم العربي.',
+        url: 'https://manasadigital.com',
+        siteName: 'Manasa Digital',
+        locale: 'ar_AR',
+        type: 'website',
+        images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'منصة مناسة الرقمية' }],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        site: '@manasadigital',
+        creator: '@manasadigital',
+        title: 'منصة مناسة الرقمية | بيع وشراء المنتجات الرقمية',
+        description: 'وجهتك الأولى للمنتجات الرقمية والكورسات في العالم العربي.',
+        images: ['/og-image.png'],
     },
 };
 
