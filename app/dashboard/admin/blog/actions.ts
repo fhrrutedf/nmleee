@@ -178,10 +178,17 @@ export async function getCategories() {
     }
 }
 
-export async function createCategory(data: { nameAr: string; nameEn?: string; slug: string; description?: string }) {
+export async function createCategory(data: { nameAr: string; name?: string; slug: string; description?: string }) {
     try {
         await checkAdminAccess();
-        const category = await prisma.blogCategory.create({ data });
+        const category = await prisma.blogCategory.create({ 
+            data: {
+                name: data.name || data.nameAr,
+                nameAr: data.nameAr,
+                slug: data.slug,
+                description: data.description
+            }
+        });
         revalidatePath("/dashboard/admin/blog/categories");
         return { success: true, category };
     } catch (error: any) {
@@ -189,10 +196,18 @@ export async function createCategory(data: { nameAr: string; nameEn?: string; sl
     }
 }
 
-export async function updateCategory(id: string, data: { nameAr: string; nameEn?: string; slug: string; description?: string }) {
+export async function updateCategory(id: string, data: { nameAr: string; name?: string; slug: string; description?: string }) {
     try {
         await checkAdminAccess();
-        await prisma.blogCategory.update({ where: { id }, data });
+        await prisma.blogCategory.update({ 
+            where: { id }, 
+            data: {
+                name: data.name || data.nameAr,
+                nameAr: data.nameAr,
+                slug: data.slug,
+                description: data.description
+            }
+        });
         revalidatePath("/dashboard/admin/blog/categories");
         return { success: true };
     } catch (error: any) {
