@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { prisma } from '@/lib/db';
 import ProductClient from './ProductClient';
 import { notFound } from 'next/navigation';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const PLATFORM_NAME = process.env.NEXT_PUBLIC_PLATFORM_NAME || 'منصة مناسة الرقمية';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://manasadigital.com';
@@ -117,6 +118,16 @@ export default async function ProductPage({ params }: Props) {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
             />
+            <div className="px-4 md:px-8 pt-4 max-w-7xl mx-auto">
+                <Breadcrumb
+                    items={[
+                        { label: 'المنتجات', href: '/explore' },
+                        ...(product.category ? [{ label: product.category }] : []),
+                        { label: product.title },
+                    ]}
+                    className="mb-2"
+                />
+            </div>
             <ProductClient
                 product={serializedProduct}
                 reviews={serializedReviews}

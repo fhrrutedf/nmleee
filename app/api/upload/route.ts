@@ -1,8 +1,9 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@/lib/auth";
 import { createClient } from '@supabase/supabase-js';
 import crypto from 'crypto';
+import { withRateLimit } from '@/lib/rate-limit';
 
 // ─── MAGIC NUMBER CHECKS ──────────────────────────────────────────
 function validateMagicBytes(buffer: Buffer, mime: string): boolean {
@@ -61,8 +62,16 @@ function validateMagicBytes(buffer: Buffer, mime: string): boolean {
     return true; // Default: allow — frontend already validates type
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     try {
+        // ── Rate Limiting: 30 طلب/دقيقة لكل IP ────────────────
+        const rateLimitRes = await withRateLimit(request, {
+            identifier: 'api:upload',
+            limit: 30,
+            windowSeconds: 60,
+        });
+        if (rateLimitRes) return rateLimitRes;
+
         const session = await getServerSession(authOptions);
         const formData = await request.formData();
         const file = formData.get('file') as File;
