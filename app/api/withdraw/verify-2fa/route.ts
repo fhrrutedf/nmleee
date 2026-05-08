@@ -1,9 +1,8 @@
 /**
- * POST /api/withdraw/verify-2fa
- * يُرسل رمز OTP للبريد الإلكتروني للتحقق قبل السحب
+ * POST /api/withdraw/verify-2fa — يُرسل رمز OTP للبريد
+ * GET  /api/withdraw/verify-2fa?otp=XXXXXX — يتحقق من الرمز
  *
- * GET /api/withdraw/verify-2fa
- * يُتيح التحقق من الرمز المدخل
+ * يستخدم جدول WithdrawOTP المخصص في قاعدة البيانات
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -13,17 +12,15 @@ import { prisma } from '@/lib/db';
 import { withRateLimit } from '@/lib/rate-limit';
 import crypto from 'crypto';
 
-// مدة صلاحية الرمز: 10 دقائق
-const OTP_TTL_MS = 10 * 60 * 1000;
+const OTP_TTL_MS = 10 * 60 * 1000; // 10 دقائق
 
-// توليد رمز رقمي 6 أرقام
 function generateOTP(): string {
     return String(crypto.randomInt(100000, 999999));
 }
 
-// ─── POST: إرسال رمز OTP ──────────────────────────────────
+// ─── POST: إرسال رمز OTP ──────────────────────────────────────────
 export async function POST(req: NextRequest) {
-    // Rate limiting: 3 طلبات / 10 دقائق (صارم جداً لمنع Spam)
+    // Rate limiting: 3 طلبات / 10 دقائق
     const rl = await withRateLimit(req, {
         identifier: 'api:withdraw:2fa:send',
         limit: 3,
@@ -41,27 +38,15 @@ export async function POST(req: NextRequest) {
 
     const otp = generateOTP();
     const expiresAt = new Date(Date.now() + OTP_TTL_MS);
-    const hashedOtp = crypto.createHash('sha256').update(otp).digest('hex');
+    const otpHash = crypto.createHash('sha256').update(otp + userId).digest('hex');
 
-    // تخزين الـ OTP في قاعدة البيانات (مشفّر)
-    await prisma.passwordResetToken.upsert({
-        where: { token: `2fa:${userId}` },
-        create: {
-            token: `2fa:${userId}`,
-            identifier: userId,
-            expires: expiresAt,
-        },
-        update: {
-            expires: expiresAt,
-        },
-    });
-
-    // تخزين الـ hash في RateLimit كـ cache مؤقت
-    await prisma.rateLimit.upsert({
-        where: { key: `otp:${userId}` },
-        create: { key: `otp:${userId}`, points: parseInt(hashedOtp.substring(0, 6), 16), expire: expiresAt },
-        update: { points: parseInt(hashedOtp.substring(0, 6), 16), expire: expiresAt },
-    });
+    // تخزين في WithdrawOTP (upsert: رمز واحد فقط لكل مستخدم)
+    await prisma.$executeRaw`
+        INSERT INTO "WithdrawOTP" ("id", "userId", "otpHash", "expiresAt", "used")
+        VALUES (gen_random_uuid()::text, ${userId}, ${otpHash}, ${expiresAt}, false)
+        ON CONFLICT ("userId") DO UPDATE 
+        SET "otpHash" = ${otpHash}, "expiresAt" = ${expiresAt}, "used" = false, "createdAt" = NOW()
+    `;
 
     // إرسال البريد الإلكتروني
     try {
@@ -71,31 +56,40 @@ export async function POST(req: NextRequest) {
             subject: `رمز التحقق لطلب السحب — ${otp}`,
             html: `
                 <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #111; color: #fff; border-radius: 16px; padding: 32px;">
-                    <h2 style="color: #10B981; margin-bottom: 8px;">🔐 رمز التحقق للسحب</h2>
-                    <p style="color: #9CA3AF; margin-bottom: 24px;">استخدم الرمز التالي لتأكيد طلب سحب الأموال:</p>
-                    <div style="background: #1F2937; border: 2px solid #10B981; border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 24px;">
-                        <span style="font-size: 40px; font-weight: bold; letter-spacing: 12px; color: #10B981;">${otp}</span>
+                    <div style="text-align:center; margin-bottom:24px;">
+                        <div style="font-size:48px;">🔐</div>
+                        <h2 style="color: #10B981; margin: 8px 0;">رمز التحقق للسحب</h2>
                     </div>
-                    <p style="color: #6B7280; font-size: 14px;">صلاحية الرمز: <strong style="color: #fff;">10 دقائق</strong></p>
-                    <p style="color: #6B7280; font-size: 14px;">إذا لم تطلب هذا الرمز، تجاهل هذه الرسالة وتواصل معنا فوراً.</p>
+                    <p style="color: #9CA3AF; margin-bottom: 24px; text-align:center;">استخدم الرمز التالي لتأكيد طلب سحب الأموال من منصة مناسة الرقمية:</p>
+                    <div style="background: #1F2937; border: 2px solid #10B981; border-radius: 12px; padding: 32px; text-align: center; margin-bottom: 24px;">
+                        <span style="font-size: 48px; font-weight: bold; letter-spacing: 16px; color: #10B981; font-family: monospace;">${otp}</span>
+                    </div>
+                    <div style="background:#111827; border-radius:8px; padding:16px; margin-bottom:16px;">
+                        <p style="color: #6B7280; font-size: 14px; margin:0;">⏱️ صلاحية الرمز: <strong style="color: #fff;">10 دقائق</strong></p>
+                        <p style="color: #6B7280; font-size: 14px; margin:8px 0 0;">🔒 إذا لم تطلب هذا الرمز، تجاهل هذه الرسالة وأمّن حسابك فوراً.</p>
+                    </div>
                     <hr style="border-color: #374151; margin: 24px 0;" />
-                    <p style="color: #4B5563; font-size: 12px;">منصة مناسة الرقمية — manasadigital.com</p>
+                    <p style="color: #4B5563; font-size: 12px; text-align:center;">منصة مناسة الرقمية — manasadigital.com</p>
                 </div>
             `,
         });
     } catch (emailErr) {
         console.error('[2FA_EMAIL_ERROR]', emailErr);
-        return NextResponse.json({ error: 'فشل إرسال رمز التحقق. يرجى المحاولة مجدداً.' }, { status: 500 });
+        return NextResponse.json(
+            { error: 'فشل إرسال رمز التحقق. يرجى المحاولة مجدداً.' },
+            { status: 500 }
+        );
     }
 
+    const maskedEmail = userEmail.replace(/(.{2})(.*)(@.*)/, '$1***$3');
     return NextResponse.json({
         success: true,
-        message: `تم إرسال رمز التحقق إلى ${userEmail.replace(/(.{2})(.*)(@.*)/, '$1***$3')}`,
-        expiresIn: 600, // ثواني
+        message: `تم إرسال رمز التحقق إلى ${maskedEmail}`,
+        expiresIn: 600,
     });
 }
 
-// ─── GET: التحقق من الرمز ─────────────────────────────────
+// ─── GET: التحقق من الرمز ─────────────────────────────────────────
 export async function GET(req: NextRequest) {
     const rl = await withRateLimit(req, {
         identifier: 'api:withdraw:2fa:verify',
@@ -111,34 +105,48 @@ export async function GET(req: NextRequest) {
     }
 
     const { searchParams } = new URL(req.url);
-    const inputOtp = searchParams.get('otp');
+    const inputOtp = searchParams.get('otp')?.trim();
 
     if (!inputOtp || !/^\d{6}$/.test(inputOtp)) {
         return NextResponse.json({ error: 'رمز التحقق يجب أن يكون 6 أرقام' }, { status: 400 });
     }
 
-    // التحقق من صلاحية الجلسة
-    const tokenRecord = await prisma.passwordResetToken.findUnique({
-        where: { token: `2fa:${userId}` },
-    });
+    // جلب الرمز من القاعدة
+    const otpRecords = await prisma.$queryRaw<Array<{
+        otpHash: string;
+        expiresAt: Date;
+        used: boolean;
+    }>>`
+        SELECT "otpHash", "expiresAt", "used"
+        FROM "WithdrawOTP"
+        WHERE "userId" = ${userId}
+        LIMIT 1
+    `;
 
-    if (!tokenRecord || tokenRecord.expires < new Date()) {
+    const record = otpRecords[0];
+
+    if (!record) {
+        return NextResponse.json({ error: 'لم يتم إرسال رمز تحقق. أرسل رمزاً جديداً أولاً.' }, { status: 400 });
+    }
+
+    if (record.used) {
+        return NextResponse.json({ error: 'هذا الرمز تم استخدامه مسبقاً.' }, { status: 400 });
+    }
+
+    if (new Date(record.expiresAt) < new Date()) {
         return NextResponse.json({ error: 'رمز التحقق منتهي الصلاحية. أعد إرسال رمز جديد.' }, { status: 400 });
     }
 
-    // التحقق من الرمز
-    const inputHash = crypto.createHash('sha256').update(inputOtp).digest('hex');
-    const storedHash = await prisma.rateLimit.findUnique({ where: { key: `otp:${userId}` } });
+    const inputHash = crypto.createHash('sha256').update(inputOtp + userId).digest('hex');
 
-    if (!storedHash || storedHash.points !== parseInt(inputHash.substring(0, 6), 16)) {
+    if (inputHash !== record.otpHash) {
         return NextResponse.json({ error: 'رمز التحقق غير صحيح' }, { status: 400 });
     }
 
-    // تنظيف الرمز بعد التحقق الناجح
-    await Promise.all([
-        prisma.passwordResetToken.delete({ where: { token: `2fa:${userId}` } }).catch(() => {}),
-        prisma.rateLimit.delete({ where: { key: `otp:${userId}` } }).catch(() => {}),
-    ]);
+    // وضع علامة "مستخدم" على الرمز
+    await prisma.$executeRaw`
+        UPDATE "WithdrawOTP" SET "used" = true WHERE "userId" = ${userId}
+    `;
 
     return NextResponse.json({
         success: true,

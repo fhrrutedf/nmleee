@@ -1,5 +1,6 @@
 /**
  * Rate Limiting — يستخدم جدول RateLimit الموجود في قاعدة البيانات
+ * الهيكل الفعلي: (id, ip, key, count, lastAttempt, points, expire)
  * الحدود الافتراضية: 100 طلب / دقيقة لكل IP
  */
 import { prisma } from '@/lib/db';
@@ -9,12 +10,9 @@ import { NextRequest } from 'next/server';
 const memCache = new Map<string, { count: number; resetAt: number }>();
 
 export interface RateLimitOptions {
-    /** اسم النقطة (مثال: 'api:checkout', 'api:withdraw') */
-    identifier: string;
-    /** الحد الأقصى للطلبات في النافذة الزمنية */
-    limit?: number;
-    /** النافذة الزمنية بالثواني */
-    windowSeconds?: number;
+    identifier: string;  // اسم النقطة مثال: 'api:checkout'
+    limit?: number;      // الحد الأقصى
+    windowSeconds?: number; // النافذة الزمنية
 }
 
 export interface RateLimitResult {
@@ -25,7 +23,7 @@ export interface RateLimitResult {
 }
 
 /**
- * تستخرج IP الحقيقي من الطلب مع دعم Cloudflare و Vercel
+ * يستخرج IP الحقيقي من الطلب (Cloudflare / Vercel)
  */
 export function getClientIP(req: NextRequest): string {
     return (
@@ -43,11 +41,7 @@ export async function checkRateLimit(
     req: NextRequest,
     options: RateLimitOptions
 ): Promise<RateLimitResult> {
-    const {
-        identifier,
-        limit = 100,
-        windowSeconds = 60,
-    } = options;
+    const { identifier, limit = 100, windowSeconds = 60 } = options;
 
     const ip = getClientIP(req);
     const key = `${identifier}:${ip}`;
@@ -55,7 +49,7 @@ export async function checkRateLimit(
     const windowMs = windowSeconds * 1000;
     const resetAt = new Date(Math.ceil(now / windowMs) * windowMs);
 
-    // ── In-memory fast path ──────────────────────────────────
+    // ── In-memory fast path ──────────────────────────────────────────
     const cached = memCache.get(key);
     if (cached && cached.resetAt > now) {
         cached.count++;
@@ -69,25 +63,30 @@ export async function checkRateLimit(
         };
     }
 
-    // ── Reset أو أول طلب ─────────────────────────────────────
+    // ── Reset أو أول طلب ─────────────────────────────────────────────
     memCache.set(key, { count: 1, resetAt: resetAt.getTime() });
 
-    // ── تسجيل في قاعدة البيانات (للمراقبة فقط، وليس الحجب) ─
+    // ── تسجيل في DB (متوافق مع الهيكل الفعلي) ─────────────────────
     try {
         await prisma.rateLimit.upsert({
             where: { key },
             create: {
+                ip,
                 key,
+                count: 1,
+                lastAttempt: new Date(),
                 points: 1,
                 expire: resetAt,
             },
             update: {
+                count: { increment: 1 },
+                lastAttempt: new Date(),
                 points: { increment: 1 },
                 expire: resetAt,
             },
         });
     } catch {
-        // لا نوقف التطبيق إذا فشل التسجيل
+        // لا نوقف التطبيق إذا فشل DB
     }
 
     return {
@@ -126,17 +125,15 @@ export async function withRateLimit(
         );
     }
 
-    return null; // مسموح بالمتابعة
+    return null;
 }
 
 /**
- * تنظيف Cache القديمة (يُستدعى بشكل دوري)
+ * تنظيف Cache القديمة
  */
 export function cleanupRateLimitCache(): void {
     const now = Date.now();
     for (const [key, value] of memCache.entries()) {
-        if (value.resetAt <= now) {
-            memCache.delete(key);
-        }
+        if (value.resetAt <= now) memCache.delete(key);
     }
 }
