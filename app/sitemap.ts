@@ -47,7 +47,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }));
 
         // مقالات المدونة المنشورة
-        const blogPosts = await prisma.blogPost.findMany({
+        const blogPosts = await prisma.article.findMany({
             where: { status: 'PUBLISHED' },
             select: { slug: true, updatedAt: true },
         });
