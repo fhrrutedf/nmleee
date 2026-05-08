@@ -15,7 +15,7 @@ export default function NewArticle() {
     const [slug, setSlug] = useState("");
     const [content, setContent] = useState("");
     const [excerpt, setExcerpt] = useState("");
-    const [status, setStatus] = useState<"DRAFT" | "PUBLISHED" | "SCHEDULED">("DRAFT");
+    const [status, setStatus] = useState<"DRAFT" | "PUBLISHED" | "SCHEDULED" | "ARCHIVED">("DRAFT");
     const [publishedAt, setPublishedAt] = useState("");
     const [coverImage, setCoverImage] = useState<string>("");
     const [seoTitle, setSeoTitle] = useState("");

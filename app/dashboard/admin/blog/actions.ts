@@ -63,7 +63,7 @@ export async function createArticle(data: {
     slug?: string;
     content: string;
     excerpt: string;
-    status: "DRAFT" | "PUBLISHED" | "SCHEDULED";
+    status: "DRAFT" | "PUBLISHED" | "SCHEDULED" | "ARCHIVED";
     coverImage?: string;
     publishedAt?: Date | null;
     seoTitle?: string;
@@ -103,7 +103,7 @@ export async function updateArticle(articleId: string, data: {
     slug?: string;
     content: string;
     excerpt: string;
-    status: "DRAFT" | "PUBLISHED" | "SCHEDULED";
+    status: "DRAFT" | "PUBLISHED" | "SCHEDULED" | "ARCHIVED";
     coverImage?: string;
     publishedAt?: Date | null;
     seoTitle?: string;

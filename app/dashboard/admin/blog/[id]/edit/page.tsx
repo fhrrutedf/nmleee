@@ -22,7 +22,7 @@ export default function EditArticle() {
     const [content, setContent] = useState("");
     const [editorMode, setEditorMode] = useState<"VISUAL" | "HTML">("VISUAL");
     const [excerpt, setExcerpt] = useState("");
-    const [status, setStatus] = useState<"DRAFT" | "PUBLISHED" | "SCHEDULED">("DRAFT");
+    const [status, setStatus] = useState<"DRAFT" | "PUBLISHED" | "SCHEDULED" | "ARCHIVED">("DRAFT");
     const [publishedAt, setPublishedAt] = useState("");
     const [coverImage, setCoverImage] = useState<string>("");
     const [categoryId, setCategoryId] = useState("");
