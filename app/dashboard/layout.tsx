@@ -62,16 +62,16 @@ export default function DashboardLayout({
         // 🏠 Overview
         { href: '/dashboard', icon: FiHome, label: 'الرئيسية', exact: true, section: 'main' },
         
-        // 📦 Content Section (Products + Courses + Bundles)
+        // 📦 Content Section (Products + Bundles)
         { href: '/dashboard/products', icon: FiShoppingBag, label: 'المنتجات الرقمية', section: 'content' },
-        { href: '/dashboard/courses', icon: FiVideo, label: 'الدورات التدريبية', section: 'content' },
+        { href: '#', icon: FiVideo, label: 'الدورات التدريبية (قريباً)', section: 'content' },
         { href: '/dashboard/bundles', icon: FiPackage, label: 'الباقات والحزم', section: 'content' },
         
-        // 💰 Sales & Customers (Orders + Appointments + Earnings + Students + QA)
+        // 💰 Sales & Customers (Orders + Appointments + Earnings + CRM)
         { href: '/dashboard/orders', icon: FiTrendingUp, label: 'الطلبات والمبيعات', section: 'sales' },
         { href: '/dashboard/appointments', icon: FiCalendar, label: 'المواعيد والحجز', section: 'sales' },
         { href: '/dashboard/earnings', icon: FiDollarSign, label: 'السحب والتحصيل', section: 'sales' },
-        { href: '/dashboard/students', icon: FiUsers, label: 'الطلاب والمتعلمين', section: 'sales' },
+        { href: '#', icon: FiUsers, label: 'الطلاب والمتعلمين (قريباً)', section: 'sales' },
         { href: '/dashboard/seller/customers', icon: FiActivity, label: 'نظام إدارة العملاء (CRM)', section: 'sales' },
         
         // 🚀 Marketing (Coupons + Affiliates + Automation)

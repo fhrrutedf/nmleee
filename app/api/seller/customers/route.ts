@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
 
         const where: any = {
             sellerId,
-            status: 'PAID',
+            status: { in: ['PAID', 'COMPLETED'] },
         };
 
         if (productId) {

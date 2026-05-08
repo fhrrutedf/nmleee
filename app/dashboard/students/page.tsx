@@ -1,64 +1,6 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
-import prisma from "@/lib/prisma";
-import { redirect } from "next/navigation";
-import StudentsClient from "./StudentsClient";
-import { FiUsers } from "react-icons/fi";
+import { redirect } from 'next/navigation';
 
-export const dynamic = "force-dynamic";
-
-export default async function StudentsPage() {
-    const session = await getServerSession(authOptions);
-
-    if (!session?.user?.id) {
-        redirect("/login");
-    }
-
-    // Fetch students enrolled in courses owned by the user
-    const enrollments = await prisma.courseEnrollment.findMany({
-        where: {
-            course: {
-                userId: session.user.id,
-            },
-        },
-        include: {
-            course: {
-                select: {
-                    title: true,
-                },
-            },
-        },
-        orderBy: {
-            createdAt: "desc",
-        },
-    });
-
-    const students = enrollments.map((en) => ({
-        id: en.id,
-        name: en.studentName,
-        email: en.studentEmail,
-        courseTitle: en.course.title,
-        progress: en.progress,
-        isCompleted: en.isCompleted,
-        completedAt: en.completedAt?.toISOString() || null,
-        joinedAt: en.createdAt.toISOString(),
-    }));
-
-    return (
-        <div className="space-y-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-emerald-700 text-white/10 flex items-center justify-center">
-                        <FiUsers className="text-xl text-[#10B981]" />
-                    </div>
-                    <div>
-                        <h1 className="text-2xl font-bold text-[#10B981] dark:text-white">إدارة الطلاب والشهادات</h1>
-                        <p className="text-text-muted mt-1 text-sm">عرض وتحليل بيانات طلابك وإصدار الشهادات والتواصل معهم</p>
-                    </div>
-                </div>
-            </div>
-
-            <StudentsClient initialStudents={students} />
-        </div>
-    );
+// 🔒 قسم الطلاب مغلق مؤقتاً
+export default function StudentsPage() {
+    redirect('/dashboard');
 }

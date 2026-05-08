@@ -174,6 +174,8 @@ export default function AdminCustomersPage() {
                             <tbody className="divide-y divide-white/5">
                                 {loading ? (
                                     <tr><td colSpan={5} className="py-24 text-center text-emerald-500 font-black animate-pulse">جاري جلب البيانات الضخمة...</td></tr>
+                                ) : filteredCustomers.length === 0 ? (
+                                    <tr><td colSpan={5} className="py-24 text-center text-gray-500 font-bold">لا يوجد عملاء مسجلون حالياً</td></tr>
                                 ) : filteredCustomers.map((cust, i) => (
                                     <motion.tr 
                                         key={cust.email}

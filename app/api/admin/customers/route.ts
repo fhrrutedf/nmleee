@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
         const endDate = searchParams.get('endDate');
 
         const where: any = {
-            status: 'PAID',
+            status: { in: ['PAID', 'COMPLETED'] },
         };
 
         if (sellerId) {
