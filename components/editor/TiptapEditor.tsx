@@ -183,7 +183,7 @@ export default function TiptapEditor({ value, onChange, placeholder }: TiptapEdi
 
     useEffect(() => {
         if (editor && value !== editor.getHTML()) {
-            editor.commands.setContent(value, false);
+            editor.commands.setContent(value, { emitUpdate: false });
         }
     }, [value, editor]);
 
