@@ -4,13 +4,13 @@ import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import TextAlign from '@tiptap/extension-text-align';
 import Underline from '@tiptap/extension-underline';
-import Color from '@tiptap/extension-color';
-import TextStyle from '@tiptap/extension-text-style';
+import { Color } from '@tiptap/extension-color';
+import { TextStyle } from '@tiptap/extension-text-style';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 import Highlight from '@tiptap/extension-highlight';
 import Youtube from '@tiptap/extension-youtube';
-import Table from '@tiptap/extension-table';
+import { Table } from '@tiptap/extension-table';
 import TableRow from '@tiptap/extension-table-row';
 import TableCell from '@tiptap/extension-table-cell';
 import TableHeader from '@tiptap/extension-table-header';
@@ -19,7 +19,7 @@ import { useCallback, useEffect } from 'react';
 import { 
     FiBold, FiItalic, FiUnderline, FiAlignRight, FiAlignCenter, 
     FiAlignLeft, FiAlignJustify, FiList, FiImage, FiLink, 
-    FiYoutube, FiType, FiDroplet, FiGrid, FiUndo, FiRedo 
+    FiYoutube, FiType, FiDroplet, FiGrid, FiRotateCcw, FiRotateCw 
 } from 'react-icons/fi';
 
 interface TiptapEditorProps {
@@ -62,8 +62,8 @@ const MenuBar = ({ editor }: { editor: any }) => {
         <div className="sticky top-0 z-50 bg-[#0A0A0A] border-b border-emerald-500/20 p-2 flex flex-wrap gap-2 items-center rounded-t-xl">
             {/* History */}
             <div className="flex gap-1 bg-[#111111] p-1 rounded-lg">
-                <button onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()} className="p-2 rounded hover:bg-emerald-800 disabled:opacity-50 text-slate-300"><FiUndo /></button>
-                <button onClick={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()} className="p-2 rounded hover:bg-emerald-800 disabled:opacity-50 text-slate-300"><FiRedo /></button>
+                <button onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()} className="p-2 rounded hover:bg-emerald-800 disabled:opacity-50 text-slate-300"><FiRotateCcw /></button>
+                <button onClick={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()} className="p-2 rounded hover:bg-emerald-800 disabled:opacity-50 text-slate-300"><FiRotateCw /></button>
             </div>
 
             <div className="w-px h-6 bg-slate-700 mx-1"></div>
