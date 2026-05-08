@@ -7,7 +7,7 @@ import FileUploader from "@/components/ui/FileUploader";
 import TiptapEditor from "@/components/editor/TiptapEditor";
 import { FiSave, FiChevronRight, FiSettings, FiImage, FiActivity } from "react-icons/fi";
 import Link from "next/link";
-import { createArticle } from "../actions";
+import { createArticle, getCategories } from "../actions";
 
 export default function NewArticle() {
     const router = useRouter();

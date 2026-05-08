@@ -1,17 +1,14 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import dynamic from "next/dynamic";
 import { useRouter, useParams } from "next/navigation";
 import toast from "react-hot-toast";
 import FileUploader from "@/components/ui/FileUploader";
-import "react-quill-new/dist/quill.snow.css";
-import { FiSave, FiCheckCircle, FiChevronRight, FiSettings, FiImage, FiCode } from "react-icons/fi";
+import TiptapEditor from "@/components/editor/TiptapEditor";
+import { FiSave, FiChevronRight, FiSettings, FiImage, FiActivity, FiEye } from "react-icons/fi";
 import Link from "next/link";
-import { updateArticle, autoSaveArticle } from "../../actions";
+import { updateArticle, autoSaveArticle, getCategories } from "../../actions";
 import { apiGet, handleApiError } from "@/lib/safe-fetch";
-
-const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 export default function EditArticle() {
     const router = useRouter();
@@ -19,35 +16,35 @@ export default function EditArticle() {
     const articleId = typeof params?.id === "string" ? params.id : "";
 
     const [title, setTitle] = useState("");
+    const [slug, setSlug] = useState("");
     const [content, setContent] = useState("");
-    const [editorMode, setEditorMode] = useState<"VISUAL" | "HTML">("VISUAL");
     const [excerpt, setExcerpt] = useState("");
     const [status, setStatus] = useState<"DRAFT" | "PUBLISHED" | "SCHEDULED" | "ARCHIVED">("DRAFT");
     const [publishedAt, setPublishedAt] = useState("");
     const [coverImage, setCoverImage] = useState<string>("");
-    const [categoryId, setCategoryId] = useState("");
     const [seoTitle, setSeoTitle] = useState("");
     const [seoDesc, setSeoDesc] = useState("");
+    const [categoryId, setCategoryId] = useState("");
     
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     const [categories, setCategories] = useState<any[]>([]);
     
     const [activeTab, setActiveTab] = useState<"content" | "seo">("content");
-    
+
     const contentRef = useRef(content);
     const initialContentLoaded = useRef(false);
 
     useEffect(() => {
         if (!articleId) return;
-        const fetchArticle = async () => {
+        const fetchData = async () => {
             try {
                 const [articleData, catsData] = await Promise.all([
                     apiGet(`/api/blog/${articleId}`),
                     getCategories()
                 ]);
-                
-                setCategories(catsData);
+
+                setCategories(catsData || []);
                 
                 setTitle(articleData.title);
                 setSlug(articleData.slug);
@@ -73,24 +70,24 @@ export default function EditArticle() {
                 setIsLoading(false);
             }
         };
-        fetchArticle();
+        fetchData();
     }, [articleId, router]);
 
     // Auto-save logic
     useEffect(() => {
-        if (!initialContentLoaded.current || !articleId) return;
+        if (!initialContentLoaded.current || !articleId || !content) return;
         
         const saveTimeout = setTimeout(async () => {
             if (content !== contentRef.current) {
                 try {
                     await autoSaveArticle(articleId, content);
-                    contentRef.current = content; // Update baseline
+                    contentRef.current = content; 
                     toast.success("تم الحفظ التلقائي", { id: 'autosave', icon: '💾' });
                 } catch(e) {
-                    // Ignore errors silently for autosave
+                    // Ignore
                 }
             }
-        }, 3000); // 3 seconds after stop typing
+        }, 5000); 
 
         return () => clearTimeout(saveTimeout);
     }, [content, articleId]);
@@ -100,6 +97,7 @@ export default function EditArticle() {
             toast.error("يرجى تعبئة العنوان والمحتوى");
             return;
         }
+
         if (status === "SCHEDULED" && !publishedAt) {
             toast.error("يرجى اختيار تاريخ ووقت النشر");
             return;
@@ -108,15 +106,19 @@ export default function EditArticle() {
         setIsSaving(true);
         const res = await updateArticle(articleId, {
             title,
+            slug,
             content,
             excerpt,
             status,
             coverImage,
+            seoTitle,
+            seoDesc,
+            categoryId,
             publishedAt: status === "SCHEDULED" ? new Date(publishedAt) : null
         });
 
         if (res.success) {
-            toast.success("تم تشييك وحفظ التعديلات!");
+            toast.success("تم تحديث المقالة بنجاح!");
             contentRef.current = content;
             router.push("/dashboard/admin/blog");
         } else {
@@ -126,7 +128,11 @@ export default function EditArticle() {
     };
 
     if (isLoading) {
-        return <div className="text-center text-gray-500 py-10">جاري التحميل...</div>;
+        return (
+            <div className="flex items-center justify-center min-h-[400px]">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
+            </div>
+        );
     }
 
     return (
@@ -138,99 +144,127 @@ export default function EditArticle() {
                         <FiChevronRight size={12} />
                         <span className="text-emerald-500 font-bold">تعديل المقال</span>
                     </div>
-                    <h1 className="text-2xl font-bold text-white">تعديل المقال</h1>
+                    <h1 className="text-2xl font-bold text-white">تعديل: {title}</h1>
                 </div>
                 <div className="flex items-center gap-3">
-                    <button onClick={() => router.back()} className="px-4 py-2 text-sm font-bold text-gray-400 hover:text-white transition">
-                        إلغاء
-                    </button>
+                    <Link
+                        href={`/blog/${slug}`}
+                        target="_blank"
+                        className="px-4 py-2 text-sm font-bold text-gray-400 hover:text-white transition flex items-center gap-2"
+                    >
+                        <FiEye /> معاينة
+                    </Link>
                     <button
                         onClick={handleSave}
                         disabled={isSaving}
                         className="flex items-center gap-2 px-6 py-2.5 bg-emerald-700 text-white rounded-xl font-bold text-sm shadow-lg hover:bg-emerald-600 transition disabled:opacity-50"
                     >
-                        {isSaving ? "جاري الحفظ..." : <><FiSave /> حفظ الكل</>}
+                        {isSaving ? "جاري الحفظ..." : <><FiSave /> حفظ التعديلات</>}
                     </button>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <div className="lg:col-span-3 space-y-6">
-                    <div className="bg-[#0A0A0A] p-6 rounded-2xl shadow-xl border border-white/5 space-y-6">
-                        <div>
-                            <input
-                                type="text"
-                                className="w-full bg-transparent border-none text-3xl font-bold text-white placeholder-gray-700 focus:ring-0 p-0"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                placeholder="عنوان المقال هنا..."
-                            />
-                        </div>
-
-                        <div className="space-y-2">
-                             <div className="flex items-center justify-between mb-2">
-                                 <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-2 border-l-2 border-emerald-500">المحتوى <span className="text-gray-600 pr-2">({content !== contentRef.current ? "جاري الحفظ..." : "محفوظ"})</span></label>
-                                 <div className="flex bg-[#111111] border border-white/10 rounded-lg p-1">
-                                     <button
-                                         onClick={() => setEditorMode("VISUAL")}
-                                         className={`px-3 py-1.5 text-xs font-bold rounded-md transition ${editorMode === "VISUAL" ? "bg-emerald-600 text-white" : "text-gray-400 hover:text-white"}`}
-                                     >
-                                         محرر مرئي
-                                     </button>
-                                     <button
-                                         onClick={() => setEditorMode("HTML")}
-                                         className={`px-3 py-1.5 text-xs font-bold rounded-md transition flex items-center gap-2 ${editorMode === "HTML" ? "bg-emerald-600 text-white" : "text-gray-400 hover:text-white"}`}
-                                     >
-                                         <FiCode size={12} /> محرر HTML
-                                     </button>
-                                 </div>
-                             </div>
-                             <div className="min-h-[500px] border border-white/10 rounded-xl overflow-hidden bg-[#111111]">
-                                {editorMode === "VISUAL" ? (
-                                    <>
-                                        <style>{`
-                                            .ql-toolbar { background: #1a1a1a !important; border: none !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; padding: 12px !important; }
-                                            .ql-container { border: none !important; font-size: 16px !important; color: #e5e7eb !important; font-family: inherit !important; }
-                                            .ql-editor { min-height: 500px; padding: 24px !important; line-height: 1.8 !important; }
-                                            .ql-editor h1, .ql-editor h2, .ql-editor h3 { font-weight: bold !important; color: #10B981 !important; margin-bottom: 0.5em !important; }
-                                            .ql-editor p { margin-bottom: 1em !important; color: #d1d5db !important; }
-                                            .ql-editor a { color: #10B981 !important; text-decoration: underline !important; }
-                                            .ql-editor ul { padding-right: 1.5rem !important; margin-bottom: 1em !important; }
-                                            .ql-editor ol { padding-right: 1.5rem !important; margin-bottom: 1em !important; }
-                                            .ql-editor li { margin-bottom: 0.25em !important; color: #d1d5db !important; }
-                                            .ql-editor li::before { content: none !important; }
-                                            .ql-editor strong { color: #34D399 !important; font-weight: bold !important; }
-                                            .ql-editor img { border-radius: 0.75rem !important; margin: 1rem 0 !important; max-width: 100% !important; height: auto !important; }
-                                        `}</style>
-                                        <ReactQuill theme="snow" value={content} onChange={setContent} placeholder="ابدأ بكتابة قصتك..." />
-                                    </>
-                                ) : (
-                                    <textarea
-                                        className="w-full min-h-[500px] bg-[#111111] text-[#e5e7eb] border-none p-6 font-mono text-left focus:outline-none resize-y"
-                                        dir="ltr"
-                                        value={content}
-                                        onChange={(e) => setContent(e.target.value)}
-                                    />
-                                )}
-                             </div>
-                        </div>
-
-                        <div className="space-y-2">
-                            <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-2 border-l-2 border-emerald-500">مقتطف القصة (Excerpt)</label>
-                            <textarea
-                                className="w-full px-4 py-3 bg-[#111111] border border-white/10 rounded-xl text-gray-300 focus:border-emerald-500/50 transition h-24 resize-none outline-none"
-                                value={excerpt}
-                                onChange={(e) => setExcerpt(e.target.value)}
-                                placeholder="اكتب ملخصاً للمقال..."
-                            />
-                        </div>
+                    {/* Tabs */}
+                    <div className="flex border-b border-white/10 gap-8 px-4">
+                        <button 
+                            className={`pb-4 font-bold transition-colors ${activeTab === 'content' ? 'text-emerald-500 border-b-2 border-emerald-500' : 'text-slate-400 hover:text-slate-300'}`}
+                            onClick={() => setActiveTab('content')}
+                        >
+                            المحتوى الأساسي
+                        </button>
+                        <button 
+                            className={`pb-4 font-bold transition-colors ${activeTab === 'seo' ? 'text-emerald-500 border-b-2 border-emerald-500' : 'text-slate-400 hover:text-slate-300'}`}
+                            onClick={() => setActiveTab('seo')}
+                        >
+                            السيو (SEO)
+                        </button>
                     </div>
+
+                    {activeTab === 'content' && (
+                        <div className="bg-[#0A0A0A] p-6 rounded-2xl shadow-xl border border-white/5 space-y-6">
+                            <div>
+                                <input
+                                    type="text"
+                                    className="w-full bg-transparent border-none text-3xl font-bold text-white placeholder-gray-700 focus:ring-0 p-0"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    placeholder="عنوان المقال هنا..."
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                 <div className="flex items-center justify-between mb-2">
+                                     <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-2 border-l-2 border-emerald-500">
+                                         المحتوى 
+                                         <span className="text-gray-600 pr-2">({content !== contentRef.current ? "جاري الحفظ..." : "محفوظ"})</span>
+                                     </label>
+                                 </div>
+                                 <TiptapEditor 
+                                     value={content}
+                                     onChange={setContent}
+                                     placeholder="ابدأ بكتابة قصتك الرائعة هنا..."
+                                 />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-2 border-l-2 border-emerald-500">مقتطف القصة (Excerpt)</label>
+                                <textarea
+                                    className="w-full px-4 py-3 bg-[#111111] border border-white/10 rounded-xl text-gray-300 focus:border-emerald-500/50 transition h-24 resize-none outline-none"
+                                    value={excerpt}
+                                    onChange={(e) => setExcerpt(e.target.value)}
+                                    placeholder="اكتب ملخصاً للمقال..."
+                                />
+                            </div>
+                        </div>
+                    )}
+
+                    {activeTab === 'seo' && (
+                        <div className="bg-[#0A0A0A] p-6 rounded-2xl shadow-xl border border-white/5 space-y-6">
+                            <div className="flex items-center gap-2 text-emerald-500 font-bold text-sm border-b border-white/5 pb-3 mb-4">
+                                <FiActivity /> تحسين محركات البحث
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 pl-2 border-l-2 border-emerald-500">العنوان في محركات البحث (SEO Title)</label>
+                                <input 
+                                    type="text" 
+                                    className="w-full bg-[#111111] border border-white/10 rounded-lg p-3 text-white focus:border-emerald-500 outline-none"
+                                    placeholder="إذا ترك فارغاً سيتم استخدام العنوان الأساسي"
+                                    value={seoTitle}
+                                    onChange={e => setSeoTitle(e.target.value)}
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 pl-2 border-l-2 border-emerald-500">الوصف (Meta Description)</label>
+                                <textarea 
+                                    className="w-full bg-[#111111] border border-white/10 rounded-lg p-3 text-white focus:border-emerald-500 outline-none h-32 resize-none"
+                                    placeholder="وصف المقالة لمحركات البحث..."
+                                    value={seoDesc}
+                                    onChange={e => setSeoDesc(e.target.value)}
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 pl-2 border-l-2 border-emerald-500">الرابط المخصص (Slug)</label>
+                                <input 
+                                    type="text" 
+                                    className="w-full bg-[#111111] border border-white/10 rounded-lg p-3 text-white text-left focus:border-emerald-500 outline-none"
+                                    placeholder="my-awesome-article"
+                                    dir="ltr"
+                                    value={slug}
+                                    onChange={e => setSlug(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 <div className="lg:col-span-1 space-y-6">
                     <div className="bg-[#0A0A0A] p-5 rounded-2xl shadow-xl border border-white/5 space-y-5">
                         <div className="flex items-center gap-2 text-emerald-500 font-bold text-sm border-b border-white/5 pb-3">
-                            <FiSettings /> إعدادات הנشر
+                            <FiSettings /> إعدادات النشر
                         </div>
                         <div className="space-y-4">
                             <div>
@@ -241,8 +275,8 @@ export default function EditArticle() {
                                     onChange={(e) => setCategoryId(e.target.value)}
                                 >
                                     <option value="">بدون تصنيف</option>
-                                    {categories.map(cat => (
-                                        <option key={cat.id} value={cat.id}>{cat.nameAr}</option>
+                                    {categories.map((cat: any) => (
+                                        <option key={cat.id} value={cat.id}>{cat.nameAr || cat.name}</option>
                                     ))}
                                 </select>
                             </div>
@@ -254,8 +288,9 @@ export default function EditArticle() {
                                     onChange={(e) => setStatus(e.target.value as any)}
                                 >
                                     <option value="DRAFT">مسودة</option>
-                                    <option value="PUBLISHED">منشور فوري</option>
+                                    <option value="PUBLISHED">منشور</option>
                                     <option value="SCHEDULED">جدولة النشر</option>
+                                    <option value="ARCHIVED">أرشيف</option>
                                 </select>
                             </div>
                             {status === "SCHEDULED" && (
@@ -278,7 +313,7 @@ export default function EditArticle() {
                         </div>
                         {coverImage ? (
                             <div className="space-y-3">
-                                <img src={coverImage} alt="Cover" className="w-full rounded-xl" />
+                                <img src={coverImage} alt="Cover" className="w-full h-40 object-cover rounded-xl" />
                                 <button
                                     onClick={() => setCoverImage("")}
                                     className="w-full py-2 bg-red-500/10 text-red-500 text-xs font-bold rounded-lg"
