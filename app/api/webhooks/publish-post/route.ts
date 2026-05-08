@@ -6,7 +6,7 @@ export async function GET() {
         const admin = await prisma.user.findUnique({ where: { email: 'ahmad@test.com' } });
         if (!admin) return NextResponse.json({ error: 'Admin not found' }, { status: 404 });
 
-        const post = await prisma.blogPost.upsert({
+        const post = await prisma.article.upsert({
             where: { slug: 'choosing-winning-digital-product-idea-2026' },
             update: { status: 'PUBLISHED' },
             create: {
@@ -37,8 +37,6 @@ export async function GET() {
                 `,
                 excerpt: "الفكرة ليست هي الكنز.. الاحتياج هو الكنز الحقيقي. تعلم كيف تكتشف ما يحتاجه جمهورك فعلياً وتحوله إلى أرباح مستدامة.",
                 coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200",
-                category: "تحليلات",
-                authorName: "ماهر",
                 status: "PUBLISHED",
                 userId: admin.id
             }
