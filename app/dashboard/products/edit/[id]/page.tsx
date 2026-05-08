@@ -34,6 +34,7 @@ export default function EditProductPage() {
         price: '',
         category: '',
         tags: '',
+        prerequisites: '',
         image: '',
         images: [] as string[],
         fileUrl: '',
@@ -43,6 +44,13 @@ export default function EditProductPage() {
         pricingType: 'fixed' as PricingType,
         minPrice: '',
         suggestedPrice: '',
+        originalPrice: '',
+        enablePPP: false,
+        features: [] as string[],
+        offerExpiresAt: '',
+        stockLimit: '',
+        seoTitle: '',
+        seoDesc: '',
         isActive: true,
         displayOrder: 0,
         faqs: [] as { question: string; answer: string }[],
@@ -66,6 +74,7 @@ export default function EditProductPage() {
                 price: data.price ? data.price.toString() : '',
                 category: data.category || '',
                 tags: data.tags ? data.tags.join(', ') : '',
+                prerequisites: data.prerequisites ? data.prerequisites.join(', ') : '',
                 image: data.image || '',
                 images: data.images || [],
                 fileUrl: data.fileUrl || '',
@@ -75,6 +84,13 @@ export default function EditProductPage() {
                 pricingType: pType,
                 minPrice: data.minPrice ? data.minPrice.toString() : '',
                 suggestedPrice: data.suggestedPrice ? data.suggestedPrice.toString() : '',
+                originalPrice: data.originalPrice ? data.originalPrice.toString() : '',
+                enablePPP: data.enablePPP || false,
+                features: data.features || [],
+                offerExpiresAt: data.offerExpiresAt ? new Date(data.offerExpiresAt).toISOString().slice(0, 16) : '',
+                stockLimit: data.stockLimit ? data.stockLimit.toString() : '',
+                seoTitle: data.seoTitle || '',
+                seoDesc: data.seoDesc || '',
                 isActive: data.isActive ?? true,
                 displayOrder: data.displayOrder || 0,
                 faqs: Array.isArray(data.faqs) ? data.faqs : [],
@@ -103,7 +119,11 @@ export default function EditProductPage() {
                 isFree: pricingType === 'free',
                 minPrice: pricingType === 'pwyw' ? parseFloat(formData.minPrice || '0') : null,
                 suggestedPrice: pricingType === 'pwyw' && formData.suggestedPrice ? parseFloat(formData.suggestedPrice) : null,
+                originalPrice: formData.originalPrice ? parseFloat(formData.originalPrice) : null,
+                stockLimit: formData.stockLimit ? parseInt(formData.stockLimit) : null,
                 tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
+                prerequisites: formData.prerequisites.split(',').map(t => t.trim()).filter(Boolean),
+                features: formData.features.filter(f => f.trim() !== ''),
                 faqs: formData.faqs.filter(f => f.question.trim() !== '' && f.answer.trim() !== ''),
             });
             showToast.dismiss(toastId);
@@ -156,12 +176,85 @@ export default function EditProductPage() {
                                     />
                                 </div>
                                 <div>
+                                    <label className="label-modern">التصنيف الرئيسي <span className="text-red-500">*</span></label>
+                                    <select className="input-modern bg-[#0A0A0A] font-bold" value={formData.category} onChange={e => update('category', e.target.value)}>
+                                        <option value="">اختر التصنيف العام لمنتجك</option>
+                                        <option value="ebooks">📚 كتب وملخصات إلكترونية</option>
+                                        <option value="courses">🎓 دورات ومحاضرات مغلقة</option>
+                                        <option value="templates">🎨 قوالب، تصاميم وحقائب</option>
+                                        <option value="software">💻 برمجيات، سكريبتات وأدوات</option>
+                                        <option value="services">🛠️ خدمات استشارية / جلسات</option>
+                                        <option value="audio">🎙️ بودكاست وملفات صوتية</option>
+                                        <option value="spreadsheets">📊 جداول بيانات وتقارير</option>
+                                        <option value="code">👨‍💻 ملفات برمجية وسكريبتات</option>
+                                        <option value="compressed">📦 ملفات مضغوطة وحزم</option>
+                                        <option value="data">🗄️ قواعد بيانات وبيانات JSON</option>
+                                        <option value="other">🔗 منتج رقمي متنوع آخر</option>
+                                    </select>
+                                </div>
+                                <div>
                                     <label className="label-modern">وصف المنتج الكامل <span className="text-red-500">*</span></label>
                                     <div className="mt-2 min-h-[300px]">
                                         <RichTextEditor
                                             value={formData.description}
                                             onChange={val => update('description', val)}
                                         />
+                                    </div>
+                                </div>
+                                <div className="mt-8 grid md:grid-cols-2 gap-8">
+                                    <div>
+                                        <label className="label-modern mb-2 block">الوسوم التسويقية (SEO Tags)</label>
+                                        <input type="text" className="input-modern" placeholder="مثال: تصميم, تكنولوجيا, ملفات_جاهزة" value={formData.tags} onChange={e => update('tags', e.target.value)} />
+                                    </div>
+                                    <div>
+                                        <label className="label-modern mb-2 block">متطلبات المشتري المسبقة (Prerequisites)</label>
+                                        <input type="text" className="input-modern" placeholder="مثال: لاب توب, اشتراك فوتوشوب" value={formData.prerequisites} onChange={e => update('prerequisites', e.target.value)} />
+                                        <p className="text-[10px] text-slate-400 mt-2 font-bold">افصل بفاصلة لعرضها كنقاط منظمة</p>
+                                    </div>
+                                </div>
+
+                                {/* Product Features Section */}
+                                <div className="mt-8 p-6 bg-[#111111] border border-slate-200 rounded-xl">
+                                    <label className="label-modern mb-4 flex items-center gap-2">
+                                        المميزات الرئيسية
+                                    </label>
+                                    <div className="space-y-3">
+                                        {formData.features.map((feature, index) => (
+                                            <div key={index} className="flex items-center gap-2">
+                                                <span className="w-6 h-6 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center text-xs font-bold">{index + 1}</span>
+                                                <input
+                                                    type="text"
+                                                    className="flex-1 input-modern py-2"
+                                                    placeholder={`الميزة ${index + 1}`}
+                                                    value={feature}
+                                                    onChange={e => {
+                                                        const newFeatures = [...formData.features];
+                                                        newFeatures[index] = e.target.value;
+                                                        update('features', newFeatures);
+                                                    }}
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        const newFeatures = formData.features.filter((_, i) => i !== index);
+                                                        update('features', newFeatures);
+                                                    }}
+                                                    className="p-2 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                                                >
+                                                    <FiX size={16} />
+                                                </button>
+                                            </div>
+                                        ))}
+                                        {formData.features.length < 8 && (
+                                            <button
+                                                type="button"
+                                                onClick={() => update('features', [...formData.features, ''])}
+                                                className="w-full py-3 border-2 border-dashed border-slate-700 rounded-xl text-slate-400 hover:text-emerald-500 hover:border-emerald-500/30 transition-all flex items-center justify-center gap-2"
+                                            >
+                                                <FiPlus size={16} />
+                                                إضافة ميزة جديدة ({formData.features.length}/8)
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="mt-8 p-6 bg-[#111111] border border-slate-200 rounded-xl relative overflow-hidden">
@@ -222,6 +315,34 @@ export default function EditProductPage() {
                                          )}
                                      </div>
                                  </div>
+
+                                 {/* SEO Optimization Section */}
+                                 <div className="mt-12 pt-10 border-t border-emerald-500/20">
+                                     <h4 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
+                                         <FiEye className="text-[#10B981]-500" /> تحسين محركات البحث والظهور (SEO) 🔍
+                                     </h4>
+                                     <div className="grid grid-cols-1 gap-8">
+                                         <div className="group">
+                                             <label className="text-sm font-bold text-gray-300 mb-3 block">عنوان البحث المخصص (SEO Title)</label>
+                                             <input 
+                                                 type="text" 
+                                                 className="input-modern h-14 hover:border-blue-400 focus:border-emerald-600-500 transition-colors" 
+                                                 placeholder="اتركه فارغاً ليقوم النظام بإنشائه تلقائياً" 
+                                                 value={formData.seoTitle} 
+                                                 onChange={e => update('seoTitle', e.target.value)} 
+                                             />
+                                         </div>
+                                         <div className="group">
+                                             <label className="text-sm font-bold text-gray-300 mb-3 block">وصف البحث المخصص (SEO Description)</label>
+                                             <textarea 
+                                                 className="input-modern h-32 resize-none py-5 hover:border-indigo-400 focus:border-ink transition-colors" 
+                                                 placeholder="اكتب وصفاً مختصراً يظهر تحت اسم منتجك في نتائج البحث." 
+                                                 value={formData.seoDesc} 
+                                                 onChange={e => update('seoDesc', e.target.value)} 
+                                             />
+                                         </div>
+                                     </div>
+                                 </div>
                             </div>
                         </Section>
 
@@ -267,6 +388,24 @@ export default function EditProductPage() {
                                     )}
                                     {showTrailerUploader && (
                                          <div className="mt-4 bg-[#0A0A0A] p-4 rounded-xl"><FileUploader onUploadSuccess={urls => { update('trailerUrl', urls[0]); setShowTrailerUploader(false); }} /></div>
+                                    )}
+                                </div>
+
+                                {/* Free Preview */}
+                                <div className="p-6 bg-[#111111] rounded-xl border border-emerald-500/20">
+                                    <label className="label-modern mb-3 block">عينة أو معاينة مجانية (Freebie)</label>
+                                    {formData.previewFileUrl ? (
+                                        <div className="flex items-center justify-between bg-[#0A0A0A] p-4 rounded-xl border border-slate-200">
+                                            <div className="flex items-center gap-3 text-gray-400 font-bold text-xs"><FiCheck className="text-emerald-500" /> تم إرفاق العينة</div>
+                                            <button type="button" onClick={() => update('previewFileUrl', '')} className="text-red-400"><FiX /></button>
+                                        </div>
+                                    ) : (
+                                        <button type="button" onClick={() => setShowPreviewUploader(true)} className="w-full py-6 text-slate-400 font-bold hover:text-white hover:bg-[#0A0A0A] transition-all rounded-xl flex items-center justify-center gap-2 border border-slate-200 border-dashed">
+                                            <FiUpload /> إضافة عينة مجانية
+                                        </button>
+                                    )}
+                                    {showPreviewUploader && (
+                                         <div className="mt-4 bg-[#0A0A0A] p-4 rounded-xl"><FileUploader onUploadSuccess={urls => { update('previewFileUrl', urls[0]); setShowPreviewUploader(false); }} /></div>
                                     )}
                                 </div>
                             </div>
@@ -333,18 +472,69 @@ export default function EditProductPage() {
                                 </div>
 
                                 {formData.pricingType !== 'free' && (
-                                    <div>
-                                        <label className="label-modern">السعر الأساسي ($)</label>
-                                        <input
-                                            type="number" step="0.01" className="input-modern text-center font-bold"
-                                            value={formData.price}
-                                            onChange={e => update('price', e.target.value)}
-                                        />
+                                    <div className="space-y-4">
+                                        <div className="grid md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="label-modern">السعر النهائي ($) <span className="text-red-500">*</span></label>
+                                                <input
+                                                    type="number" step="0.01" className="input-modern text-center font-bold"
+                                                    value={formData.price}
+                                                    onChange={e => update('price', e.target.value)}
+                                                />
+                                            </div>
+                                            {formData.pricingType === 'pwyw' ? (
+                                                <div>
+                                                    <label className="label-modern">أقل مبلغ لقبوله ($)</label>
+                                                    <input
+                                                        type="number" step="0.01" className="input-modern text-center font-bold text-slate-400"
+                                                        value={formData.minPrice}
+                                                        onChange={e => update('minPrice', e.target.value)}
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    <label className="label-modern text-red-500">السعر الأصلي للخصم الوهمي ($)</label>
+                                                    <input
+                                                        type="number" step="0.01" className="input-modern text-center font-bold text-slate-400 line-through"
+                                                        value={formData.originalPrice}
+                                                        onChange={e => update('originalPrice', e.target.value)}
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div>
+                                            <label className="label-modern">تاريخ الانتهاء للعرض (اختياري)</label>
+                                            <input type="datetime-local" className="input-modern text-center bg-[#111111] text-xs font-bold" value={formData.offerExpiresAt} onChange={e => update('offerExpiresAt', e.target.value)} />
+                                        </div>
                                     </div>
                                 )}
 
                                 <div className="pt-6 border-t border-white/10 space-y-4">
-                                    <div className="flex items-center justify-between p-4 bg-[#111111] rounded-xl hover:bg-emerald-800 transition-colors cursor-pointer" onClick={() => update('isActive', !formData.isActive)}>
+                                    <div className={`flex items-center justify-between p-4 rounded-xl transition-all cursor-pointer border ${formData.enablePPP ? 'bg-blue-900/40 border-blue-500/30' : 'bg-[#111111] border-transparent hover:bg-emerald-800'}`} onClick={() => update('enablePPP', !formData.enablePPP)}>
+                                        <div className="text-right">
+                                            <p className={`text-sm font-bold ${formData.enablePPP ? 'text-white' : 'text-gray-300'}`}>تفعيل التسعير العادل (PPP Pricing) 🌍</p>
+                                            <p className="text-[10px] text-slate-400 font-medium">تخفيض السعر للدول النامية تلقائياً</p>
+                                        </div>
+                                        <div className={`w-12 h-6 rounded-xl transition-all flex items-center px-1 ${formData.enablePPP ? 'bg-blue-500' : 'bg-slate-300'}`}>
+                                            <div className={`w-4 h-4 bg-[#0A0A0A] rounded-xl transition-all ${formData.enablePPP ? 'translate-x-6' : 'translate-x-0'}`} />
+                                        </div>
+                                    </div>
+
+                                    <div className="p-4 bg-[#111111] border border-slate-200 rounded-xl flex items-center justify-between gap-4">
+                                        <div className="text-right">
+                                            <p className="text-sm font-bold text-gray-300">الحد الأقصى للمبيعات</p>
+                                            <p className="text-[10px] text-slate-400 font-medium">اتركه فارغاً للبيع اللامحدود</p>
+                                        </div>
+                                        <input 
+                                            type="number" 
+                                            placeholder="∞" 
+                                            className="input-modern text-center font-bold text-lg w-20 h-10" 
+                                            value={formData.stockLimit} 
+                                            onChange={e => update('stockLimit', e.target.value)} 
+                                        />
+                                    </div>
+
+                                    <div className="flex items-center justify-between p-4 bg-[#111111] rounded-xl hover:bg-emerald-800 transition-colors cursor-pointer border border-transparent" onClick={() => update('isActive', !formData.isActive)}>
                                         <div className="text-right">
                                             <p className="text-sm font-bold text-gray-300">تفعيل المنتج</p>
                                             <p className="text-[10px] text-slate-400 font-medium">اجعله مرئياً في صفحة المتجر</p>
