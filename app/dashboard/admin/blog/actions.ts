@@ -60,15 +60,19 @@ const generateSlug = (title: string) => {
 
 export async function createArticle(data: {
     title: string;
+    slug?: string;
     content: string;
     excerpt: string;
     status: "DRAFT" | "PUBLISHED" | "SCHEDULED";
     coverImage?: string;
     publishedAt?: Date | null;
+    seoTitle?: string;
+    seoDesc?: string;
+    categoryId?: string;
 }) {
     try {
         const user = await checkAdminAccess();
-        const slug = generateSlug(data.title);
+        const slug = data.slug || generateSlug(data.title);
         const cleanContent = sanitize(data.content);
 
         const article = await prisma.article.create({
@@ -80,6 +84,9 @@ export async function createArticle(data: {
                 status: data.status,
                 coverImage: data.coverImage,
                 publishedAt: data.status === "SCHEDULED" ? data.publishedAt : (data.status === "PUBLISHED" ? new Date() : null),
+                seoTitle: data.seoTitle,
+                seoDesc: data.seoDesc,
+                categoryId: data.categoryId,
                 authorId: user.id,
             }
         });
@@ -93,11 +100,15 @@ export async function createArticle(data: {
 
 export async function updateArticle(articleId: string, data: {
     title: string;
+    slug?: string;
     content: string;
     excerpt: string;
     status: "DRAFT" | "PUBLISHED" | "SCHEDULED";
     coverImage?: string;
     publishedAt?: Date | null;
+    seoTitle?: string;
+    seoDesc?: string;
+    categoryId?: string;
 }) {
     try {
         await checkAdminAccess();
@@ -107,11 +118,15 @@ export async function updateArticle(articleId: string, data: {
             where: { id: articleId },
             data: {
                 title: data.title,
+                ...(data.slug && { slug: data.slug }),
                 content: cleanContent,
                 excerpt: data.excerpt || "",
                 status: data.status,
                 coverImage: data.coverImage,
                 publishedAt: data.status === "SCHEDULED" ? data.publishedAt : (data.status === "PUBLISHED" ? new Date() : null),
+                seoTitle: data.seoTitle,
+                seoDesc: data.seoDesc,
+                categoryId: data.categoryId,
             }
         });
 
@@ -144,6 +159,52 @@ export async function autoSaveArticle(articleId: string, content: string) {
             where: { id: articleId },
             data: { content: cleanContent }
         });
+        return { success: true };
+    } catch (error: any) {
+        return { success: false, error: error.message };
+    }
+}
+
+// CATEGORIES ACTIONS
+export async function getCategories() {
+    try {
+        await checkAdminAccess();
+        return await prisma.blogCategory.findMany({
+            include: { _count: { select: { articles: true } } },
+            orderBy: { nameAr: 'asc' }
+        });
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
+}
+
+export async function createCategory(data: { nameAr: string; nameEn?: string; slug: string; description?: string }) {
+    try {
+        await checkAdminAccess();
+        const category = await prisma.blogCategory.create({ data });
+        revalidatePath("/dashboard/admin/blog/categories");
+        return { success: true, category };
+    } catch (error: any) {
+        return { success: false, error: error.message };
+    }
+}
+
+export async function updateCategory(id: string, data: { nameAr: string; nameEn?: string; slug: string; description?: string }) {
+    try {
+        await checkAdminAccess();
+        await prisma.blogCategory.update({ where: { id }, data });
+        revalidatePath("/dashboard/admin/blog/categories");
+        return { success: true };
+    } catch (error: any) {
+        return { success: false, error: error.message };
+    }
+}
+
+export async function deleteCategory(id: string) {
+    try {
+        await checkAdminAccess();
+        await prisma.blogCategory.delete({ where: { id } });
+        revalidatePath("/dashboard/admin/blog/categories");
         return { success: true };
     } catch (error: any) {
         return { success: false, error: error.message };

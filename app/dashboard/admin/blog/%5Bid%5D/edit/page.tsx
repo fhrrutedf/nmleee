@@ -1,40 +1,89 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect, useRef } from "react";
+import { useRouter, useParams } from "next/navigation";
 import toast from "react-hot-toast";
 import FileUploader from "@/components/ui/FileUploader";
 import TiptapEditor from "@/components/editor/TiptapEditor";
-import { FiSave, FiChevronRight, FiSettings, FiImage, FiActivity } from "react-icons/fi";
+import { FiSave, FiChevronRight, FiSettings, FiImage, FiActivity, FiEye } from "react-icons/fi";
 import Link from "next/link";
-import { createArticle } from "../actions";
+import { updateArticle, autoSaveArticle } from "../../actions";
+import { apiGet, handleApiError } from "@/lib/safe-fetch";
 
-export default function NewArticle() {
+export default function EditArticle() {
     const router = useRouter();
+    const params = useParams();
+    const articleId = typeof params?.id === "string" ? params.id : "";
+
     const [title, setTitle] = useState("");
     const [slug, setSlug] = useState("");
     const [content, setContent] = useState("");
     const [excerpt, setExcerpt] = useState("");
-    const [status, setStatus] = useState<"DRAFT" | "PUBLISHED" | "SCHEDULED">("DRAFT");
+    const [status, setStatus] = useState<"DRAFT" | "PUBLISHED" | "SCHEDULED" | "ARCHIVED">("DRAFT");
     const [publishedAt, setPublishedAt] = useState("");
     const [coverImage, setCoverImage] = useState<string>("");
     const [seoTitle, setSeoTitle] = useState("");
     const [seoDesc, setSeoDesc] = useState("");
     const [categoryId, setCategoryId] = useState("");
+    
+    const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
-    const [categories, setCategories] = useState<any[]>([]);
-
+    
     const [activeTab, setActiveTab] = useState<"content" | "seo">("content");
 
-    React.useEffect(() => {
-        const loadCats = async () => {
+    const contentRef = useRef(content);
+    const initialContentLoaded = useRef(false);
+
+    useEffect(() => {
+        if (!articleId) return;
+        const fetchArticle = async () => {
             try {
-                const data = await getCategories();
-                setCategories(data);
-            } catch (e) {}
+                const data = await apiGet(`/api/blog/${articleId}`);
+                setTitle(data.title);
+                setSlug(data.slug);
+                setContent(data.content);
+                contentRef.current = data.content; 
+                setExcerpt(data.excerpt || "");
+                setStatus(data.status);
+                setCoverImage(data.coverImage || "");
+                setSeoTitle(data.seoTitle || "");
+                setSeoDesc(data.seoDesc || "");
+                setCategoryId(data.categoryId || "");
+                
+                if (data.publishedAt) {
+                    setPublishedAt(new Date(data.publishedAt).toISOString().slice(0, 16));
+                }
+                initialContentLoaded.current = true;
+            } catch (error) {
+                toast.error(handleApiError(error) || "لم يتم العثور على المقال أو خطأ في التحميل");
+                if (!initialContentLoaded.current) {
+                    router.push("/dashboard/admin/blog");
+                }
+            } finally {
+                setIsLoading(false);
+            }
         };
-        loadCats();
-    }, []);
+        fetchArticle();
+    }, [articleId, router]);
+
+    // Auto-save logic
+    useEffect(() => {
+        if (!initialContentLoaded.current || !articleId || !content) return;
+        
+        const saveTimeout = setTimeout(async () => {
+            if (content !== contentRef.current) {
+                try {
+                    await autoSaveArticle(articleId, content);
+                    contentRef.current = content; 
+                    toast.success("تم الحفظ التلقائي", { id: 'autosave', icon: '💾' });
+                } catch(e) {
+                    // Ignore
+                }
+            }
+        }, 5000); 
+
+        return () => clearTimeout(saveTimeout);
+    }, [content, articleId]);
 
     const handleSave = async () => {
         if (!title || !content) {
@@ -48,7 +97,7 @@ export default function NewArticle() {
         }
 
         setIsSaving(true);
-        const res = await createArticle({
+        const res = await updateArticle(articleId, {
             title,
             slug,
             content,
@@ -62,13 +111,22 @@ export default function NewArticle() {
         });
 
         if (res.success) {
-            toast.success("تم حفظ المقالة بنجاح!");
-            router.push(`/dashboard/admin/blog/${res.articleId}/edit`);
+            toast.success("تم تحديث المقالة بنجاح!");
+            contentRef.current = content;
+            router.push("/dashboard/admin/blog");
         } else {
-            toast.error(res.error || "فشل الحفظ");
+            toast.error(res.error || "فشل التحديث");
         }
         setIsSaving(false);
     };
+
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center min-h-[400px]">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="p-4 sm:p-6 max-w-7xl mx-auto w-full" dir="rtl">
@@ -77,23 +135,24 @@ export default function NewArticle() {
                     <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
                         <Link href="/dashboard/admin/blog" className="hover:text-emerald-500 transition">إدارة المقالات</Link>
                         <FiChevronRight size={12} />
-                        <span className="text-emerald-500 font-bold">إضافة مقال جديد</span>
+                        <span className="text-emerald-500 font-bold">تعديل المقال</span>
                     </div>
-                    <h1 className="text-2xl font-bold text-white">كتابة مقال جديد</h1>
+                    <h1 className="text-2xl font-bold text-white">تعديل: {title}</h1>
                 </div>
                 <div className="flex items-center gap-3">
-                    <button
-                        onClick={() => router.back()}
-                        className="px-4 py-2 text-sm font-bold text-gray-400 hover:text-white transition"
+                    <Link
+                        href={`/blog/${slug}`}
+                        target="_blank"
+                        className="px-4 py-2 text-sm font-bold text-gray-400 hover:text-white transition flex items-center gap-2"
                     >
-                        إلغاء
-                    </button>
+                        <FiEye /> معاينة
+                    </Link>
                     <button
                         onClick={handleSave}
                         disabled={isSaving}
                         className="flex items-center gap-2 px-6 py-2.5 bg-emerald-700 text-white rounded-xl font-bold text-sm shadow-lg hover:bg-emerald-600 transition disabled:opacity-50"
                     >
-                        {isSaving ? "جاري الحفظ..." : <><FiSave /> حفظ المقال</>}
+                        {isSaving ? "جاري الحفظ..." : <><FiSave /> حفظ التعديلات</>}
                     </button>
                 </div>
             </div>
@@ -130,7 +189,10 @@ export default function NewArticle() {
 
                             <div className="space-y-2">
                                  <div className="flex items-center justify-between mb-2">
-                                     <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-2 border-l-2 border-emerald-500">المحتوى</label>
+                                     <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-2 border-l-2 border-emerald-500">
+                                         المحتوى 
+                                         <span className="text-gray-600 pr-2">({content !== contentRef.current ? "جاري الحفظ..." : "محفوظ"})</span>
+                                     </label>
                                  </div>
                                  <TiptapEditor 
                                      value={content}
@@ -165,7 +227,6 @@ export default function NewArticle() {
                                     value={seoTitle}
                                     onChange={e => setSeoTitle(e.target.value)}
                                 />
-                                <p className="text-xs text-slate-500 mt-2">يفضل ألا يتجاوز 60 حرفاً.</p>
                             </div>
 
                             <div>
@@ -176,7 +237,6 @@ export default function NewArticle() {
                                     value={seoDesc}
                                     onChange={e => setSeoDesc(e.target.value)}
                                 />
-                                <p className="text-xs text-slate-500 mt-2">يفضل ألا يتجاوز 160 حرفاً.</p>
                             </div>
 
                             <div>
@@ -189,7 +249,6 @@ export default function NewArticle() {
                                     value={slug}
                                     onChange={e => setSlug(e.target.value)}
                                 />
-                                <p className="text-xs text-slate-500 mt-2 text-right">سيتم توليده تلقائياً من العنوان إذا ترك فارغاً.</p>
                             </div>
                         </div>
                     )}
@@ -202,19 +261,6 @@ export default function NewArticle() {
                         </div>
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-[10px] font-bold text-gray-500 uppercase mb-2">التصنيف</label>
-                                <select
-                                    className="w-full bg-[#111111] border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 outline-none transition"
-                                    value={categoryId}
-                                    onChange={(e) => setCategoryId(e.target.value)}
-                                >
-                                    <option value="">بدون تصنيف</option>
-                                    {categories.map(cat => (
-                                        <option key={cat.id} value={cat.id}>{cat.nameAr}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div>
                                 <label className="block text-[10px] font-bold text-gray-500 uppercase mb-2">حالة النشر</label>
                                 <select
                                     className="w-full bg-[#111111] border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 outline-none transition"
@@ -222,7 +268,7 @@ export default function NewArticle() {
                                     onChange={(e) => setStatus(e.target.value as any)}
                                 >
                                     <option value="DRAFT">مسودة</option>
-                                    <option value="PUBLISHED">نشر فوري</option>
+                                    <option value="PUBLISHED">منشور</option>
                                     <option value="SCHEDULED">جدولة النشر</option>
                                     <option value="ARCHIVED">أرشيف</option>
                                 </select>

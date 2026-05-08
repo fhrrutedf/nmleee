@@ -134,7 +134,6 @@ model User {
   landingPages  LandingPage[]
   supportTickets SupportTicket[] @relation("UserTickets")
   ticketMessages SupportTicketMessage[] @relation("TicketMessages")
-  blogPosts     BlogPost[]
   articles      Article[] @relation("UserArticles")
 
   // Seller Followers
@@ -1486,37 +1485,82 @@ enum TicketCategory {
   ACCOUNT
 }
 
-// ─── Blog Posts ───────────────────────────────────────────
-model BlogPost {
+// ─── Blog System ───────────────────────────────────────────
+
+model Article {
   id          String   @id @default(uuid())
   title       String
   slug        String   @unique
-  content     String   // Since it's Postgres, String is TEXT unlimited by default, or we can use db.Text, Prisma handles it as text.
-  excerpt     String?
-  metaDescription String? // SEO Meta description
+  excerpt     String?  @db.Text
+  content     String   @db.Text
   coverImage  String?
-  category    String?
-  categoryId  String?   // Relation or categorical id
-  authorName  String?
-  tags        String[] @default([])
-  status      PostStatus @default(DRAFT)
-  publishedAt DateTime? // Schedule publication
-  viewsCount  Int      @default(0) // Track views
-
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  status      ArticleStatus @default(DRAFT)
+  featured    Boolean  @default(false)
+  readTime    Int?
+  views       Int      @default(0)
+  likes       Int      @default(0)
+  seoTitle    String?
+  seoDesc     String?
+  publishedAt DateTime?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  @@index([userId])
+  categoryId  String?
+  category    BlogCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  
+  authorId    String?
+  author      BlogAuthor?  @relation(fields: [authorId], references: [id])
+  
+  userId      String?
+  user        User?    @relation("UserArticles", fields: [userId], references: [id], onDelete: Cascade)
+
+  tags        BlogTag[]
+
   @@index([slug])
+  @@index([status])
+  @@index([categoryId])
+  @@index([authorId])
+  @@map("BlogPost") // Prevent data loss of existing table
 }
 
-enum PostStatus {
+model BlogCategory {
+  id          String   @id @default(uuid())
+  name        String
+  nameAr      String
+  slug        String   @unique
+  description String?
+  color       String?
+  icon        String?
+  order       Int      @default(0)
+
+  articles    Article[]
+}
+
+model BlogTag {
+  id          String   @id @default(uuid())
+  name        String
+  nameAr      String
+  slug        String   @unique
+  color       String?
+
+  articles    Article[]
+}
+
+model BlogAuthor {
+  id          String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  avatar      String?
+  bio         String?  @db.Text
+  role        String   @default("writer") // admin, editor, writer
+
+  articles    Article[]
+}
+
+enum ArticleStatus {
   DRAFT
   PUBLISHED
-  SCHEDULED
+  ARCHIVED
 }
 
 enum CourseStatus {
@@ -1799,39 +1843,6 @@ model ProductAnswer {
   @@index([answererId])
 }
 
-// ============================================
-// NEW BLOG SYSTEM -> ARTICLE MODEL
-// ============================================
-enum ArticleStatus {
-  DRAFT
-  PUBLISHED
-  SCHEDULED
-}
-
-model Article {
-  id              String   @id @default(cuid())
-  title           String
-  slug            String   @unique
-  excerpt         String   @db.Text
-  content         String   @db.Text
-  coverImage      String?
-  status          ArticleStatus @default(DRAFT)
-  publishedAt     DateTime?
-  seoTitle        String?
-  seoDescription  String?
-  tags            String[]
-  
-  authorId        String
-  author          User     @relation("UserArticles", fields: [authorId], references: [id])
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@index([slug])
-  @@index([status])
-  @@index([authorId])
-  @@index([createdAt])
-}
 
 model NewsletterSubscriber {
   id        String   @id @default(uuid())

@@ -1,44 +1,26 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { FiCalendar, FiClock, FiShare2, FiArrowRight, FiFacebook, FiTwitter, FiLinkedin } from 'react-icons/fi';
+import { FiCalendar, FiClock, FiShare2, FiArrowRight, FiUser, FiChevronLeft } from 'react-icons/fi';
 import NewsletterWidget from '@/components/blog/NewsletterWidget';
 import { prisma } from '@/lib/db';
 import { Metadata } from 'next';
+import { getOptimizedImageUrl } from '@/lib/imagekit';
 
-// 1. Generate Metadata dynamically
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const decodedSlug = decodeURIComponent(slug);
 
-    let post = await prisma.article.findUnique({
+    const post = await prisma.article.findUnique({
         where: { slug: decodedSlug },
     });
 
-    if (!post && decodedSlug === 'choosing-winning-digital-product-idea-2026') {
-        post = {
-            id: 'maher-post-1',
-            title: "فن اختيار المنتج الرقمي: كيف تلاقي فكرة يدفع الناس لأجلها؟",
-            slug: "choosing-winning-digital-product-idea-2026",
-            content: `أسمع الكثير من المدربين يقولون: "عندي فكرة كورس خرافية، لكن لا أحد يشتري". الحقيقة المرة التي لا يحب أحد سماعها هي أن جمهورك لا يهتم بـ "فكرتك"، بل يهتم بـ "مشكلته"...`,
-            excerpt: "الفكرة ليست هي الكنز.. الاحتياج هو الكنز الحقيقي. تعلم كيف تكتشف ما يحتاجه جمهورك فعلياً وتحوله إلى أرباح مستدامة.",
-            coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800",
-            status: 'PUBLISHED',
-            tags: ["تحليلات"],
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            authorId: 'maher-id',
-        } as any;
-    }
-
     if (!post) {
-        return {
-            title: 'مقال غير موجود | منصتك الرقمية',
-        };
+        return { title: 'مقال غير موجود | منصتك الرقمية' };
     }
 
     return {
-        title: `${post.title} | منصتك الرقمية`,
-        description: post.excerpt || 'قم بقراءة هذا المقال المميز على منصتك الرقمية',
+        title: `${post.seoTitle || post.title} | منصتك الرقمية`,
+        description: post.seoDesc || post.excerpt || 'قم بقراءة هذا المقال المميز على منصتك الرقمية',
         openGraph: {
             title: post.title,
             description: post.excerpt || '',
@@ -47,143 +29,161 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
 }
 
-export const revalidate = 60; // SSR with ISR
+export const dynamic = 'force-dynamic';
 
-// 2. Server Component setup
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const decodedSlug = decodeURIComponent(slug);
 
-    let post = await prisma.article.findUnique({
+    const post = await prisma.article.findUnique({
         where: { slug: decodedSlug },
         include: {
-            author: {
-                select: { name: true, avatar: true }
-            }
+            author: { select: { name: true, avatar: true } },
+            category: { select: { nameAr: true, slug: true } }
         }
     });
-
-    if (!post && decodedSlug === 'choosing-winning-digital-product-idea-2026') {
-        post = {
-            id: 'maher-post-1',
-            title: "فن اختيار المنتج الرقمي: كيف تلاقي فكرة يدفع الناس لأجلها؟",
-            slug: "choosing-winning-digital-product-idea-2026",
-            content: `أسمع الكثير من المدربين يقولون: "عندي فكرة كورس خرافية، لكن لا أحد يشتري". الحقيقة المرة التي لا يحب أحد سماعها هي أن جمهورك لا يهتم بـ "فكرتك"، بل يهتم بـ "مشكلته"...`,
-            excerpt: "الفكرة ليست هي الكنز.. الاحتياج هو الكنز الحقيقي. تعلم كيف تكتشف ما يحتاجه جمهورك فعلياً وتحوله إلى أرباح مستدامة.",
-            coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800",
-            status: 'PUBLISHED',
-            tags: ["تحليلات"],
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            authorId: 'maher-id',
-            author: { name: "ماهر", avatar: null }
-        } as any;
-    }
 
     if (!post || post.status !== 'PUBLISHED') {
         notFound();
     }
 
-    // Function to calculate read time naively (200 words per minute)
-    const calculateReadTime = (text: string) => {
-        const words = text.replace(/<[^>]*>/g, '').split(/\s+/).length;
-        const minutes = Math.ceil(words / 200);
-        return `${minutes} دقائق`;
-    };
-
-    const readTime = calculateReadTime(post.content);
-    const authorName = post.author?.name || 'الكاتب';
-    const postDate = new Date(post.createdAt).toLocaleDateString("ar");
+    // Naive read time
+    const words = post.content.replace(/<[^>]*>/g, '').split(/\s+/).length;
+    const readTime = Math.ceil(words / 200);
 
     return (
-        <div className="min-h-screen bg-[#0A0A0A] flex flex-col w-full max-w-[100vw] overflow-x-hidden" dir="rtl">
-            {/* Header / Breadcrumb */}
-            <div className="bg-[#111111] py-8 border-b border-white/10 w-full">
-                <div className="w-full px-4 md:px-10 mx-auto max-w-7xl">
-                    <div className="flex items-center gap-2 text-sm text-gray-500 overflow-x-auto whitespace-nowrap hide-scrollbar">
-                        <Link href="/" className="hover:text-[#10B981]">الرئيسية</Link>
-                        <span>/</span>
-                        <Link href="/blog" className="hover:text-[#10B981]">المدونة</Link>
-                        <span>/</span>
-                        <span className="text-gray-800 font-medium truncate max-w-[150px]">{post.title}</span>
-                    </div>
-                </div>
+        <div className="min-h-screen bg-[#060606] text-white selection:bg-emerald-500/30 font-sans" dir="rtl">
+            {/* Background Effects */}
+            <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
+                <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-600/5 rounded-full blur-[120px]"></div>
+                <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-blue-600/5 rounded-full blur-[120px]"></div>
             </div>
 
-            {/* Main Content */}
-            <main className="w-full px-4 md:px-10 mx-auto max-w-7xl py-12 flex-1">
-                <div className="flex flex-col lg:flex-row gap-8 md:gap-12">
-                    {/* Article Column */}
-                    <div className="flex-1 min-w-0 w-full max-w-full">
-                        {/* Article Header */}
-                        <div className="mb-8">
-                            {post.tags && post.tags.length > 0 && (
-                                <span className="inline-block py-1 px-3 rounded-xl bg-emerald-700 text-white-50 text-[#10B981] text-sm font-bold mb-4">
-                                    {post.tags[0]}
-                                </span>
-                            )}
-                            <h1 className="text-3xl md:text-5xl font-bold text-[#10B981] mb-6 leading-tight">
-                                {post.title}
-                            </h1>
-
-                            <div className="flex items-center gap-6 text-gray-500 text-sm border-b border-white/10 pb-8 mt-6">
-                                <span className="flex items-center gap-2"><FiCalendar /> {postDate}</span>
-                                <span className="h-4 w-px bg-gray-300"></span>
-                                <span className="flex items-center gap-2"><FiClock /> {readTime}</span>
-                            </div>
-                        </div>
-
-                        {/* Featured Image */}
-                        {post.coverImage && (
-                            <div className="rounded-xl overflow-hidden mb-10 shadow-lg shadow-[#10B981]/20 border border-white/10">
-                                <img src={post.coverImage} alt={post.title} className="w-full h-auto object-cover max-h-[500px]" />
-                            </div>
-                        )}
-
-                        {/* Content */}
-                        <div className="w-full mb-20 pb-4 rounded-xl">
-                            <article
-                                className="prose prose-safe prose-lg prose-invert max-w-none prose-headings:font-bold prose-headings:text-[#10B981] prose-p:text-gray-300 prose-a:text-[#10B981] prose-img:rounded-xl prose-li:text-gray-300 prose-ul:list-disc prose-ol:list-decimal prose-ul:mr-6 prose-ol:mr-6 prose-strong:text-emerald-400 prose-p:leading-relaxed px-1 sm:px-0"
-                                dangerouslySetInnerHTML={{ __html: post.content }}
-                            />
-                        </div>
-
-                        {/* Conversion CTA Block */}
-                        <div className="bg-emerald-700 text-white rounded-xl p-8 md:p-12 text-white shadow-lg shadow-[#10B981]/20 shadow-accent/20 relative overflow-hidden group">
-                           {/* Decorative background elements */}
-                           <div className="absolute top-0 right-0 w-64 h-64 bg-[#0A0A0A]/10 rounded-xl -translate-y-1/2 translate-x-1/2 blur-3xl group-hover:bg-white/20 transition-all duration-700"></div>
-                           <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/20 rounded-xl translate-y-1/2 -translate-x-1/2 blur-2xl"></div>
-                           
-                           <div className="relative z-10 flex flex-col md:flex-row items-center gap-10">
-                               <div className="flex-1 text-center md:text-right">
-                                   <h3 className="text-2xl md:text-4xl font-bold mb-4 leading-tight">جاهز لتحويل خبرتك إلى أرباح؟ 🚀</h3>
-                                   <p className="text-white/80 text-lg font-medium max-w-lg mb-8">انضم لآلاف المبدعين العرب الذين يبيعون منتجاتهم الرقمية ودوراتهم التدريبية عبر منصتك الرقمية بكل سهولة.</p>
-                                   <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                                       <Link href="/register" className="px-8 py-4 bg-[#0A0A0A] text-[#10B981] rounded-xl font-bold text-xl shadow-lg shadow-[#10B981]/20 hover:scale-105 transition-transform text-center">
-                                           أنشئ متجرك مجاناً
-                                       </Link>
-                                       <Link href="/explore" className="px-8 py-4 bg-[#0A0A0A]/10 text-white border border-white/20 rounded-xl font-bold text-lg hover:bg-white/20 transition-all text-center">
-                                           استكشف المنتجات
-                                       </Link>
-                                   </div>
-                               </div>
-                               <div className="hidden lg:block shrink-0">
-                                    <div className="w-48 h-48 bg-white/20 rounded-xl flex items-center justify-center p-4  border border-white/30 rotate-12">
-                                        <div className="w-full h-full bg-[#0A0A0A] rounded-xl flex items-center justify-center text-[#10B981] text-6xl shadow-inner">💰</div>
-                                    </div>
-                               </div>
-                           </div>
-                        </div>
-
-                        {/* Share Section Removed to comply with constraints */}
+            <header className="relative z-10 border-b border-white/5 bg-[#060606]/80 backdrop-blur-md sticky top-0">
+                <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-xs text-slate-500">
+                        <Link href="/blog" className="hover:text-emerald-500 transition">المدونة</Link>
+                        <FiChevronLeft />
+                        <span className="text-slate-300 truncate max-w-[200px]">{post.title}</span>
                     </div>
+                    <div className="flex items-center gap-4">
+                        <button className="text-slate-400 hover:text-white transition">
+                            <FiShare2 />
+                        </button>
+                    </div>
+                </div>
+            </header>
 
-                    {/* Sidebar */}
-                    <aside className="lg:w-[350px] shrink-0 space-y-8 min-w-0 w-full">
-                        <NewsletterWidget />
-                    </aside>
+            <main className="relative z-10 max-w-4xl mx-auto px-6 py-12 md:py-20">
+                {/* Meta Info */}
+                <div className="text-center mb-12">
+                    {post.category && (
+                        <Link 
+                            href={`/blog?category=${post.category.slug}`}
+                            className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-xs font-bold mb-6 hover:bg-emerald-500/20 transition"
+                        >
+                            {post.category.nameAr}
+                        </Link>
+                    )}
+                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-8 leading-[1.1] tracking-tight">
+                        {post.title}
+                    </h1>
+                    
+                    <div className="flex items-center justify-center gap-6 text-slate-500 text-sm">
+                        <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                                <FiUser size={14} />
+                            </div>
+                            <span className="text-slate-300 font-bold">{post.author?.name || 'الكاتب'}</span>
+                        </div>
+                        <span className="w-1 h-1 bg-slate-800 rounded-full"></span>
+                        <div className="flex items-center gap-2">
+                            <FiCalendar /> {new Date(post.createdAt).toLocaleDateString("ar-SA")}
+                        </div>
+                        <span className="w-1 h-1 bg-slate-800 rounded-full"></span>
+                        <div className="flex items-center gap-2">
+                            <FiClock /> {readTime} دقائق قراءة
+                        </div>
+                    </div>
+                </div>
+
+                {/* Featured Image */}
+                {post.coverImage && (
+                    <div className="mb-16 rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl shadow-emerald-500/5">
+                        <img 
+                            src={getOptimizedImageUrl(post.coverImage, 1200)} 
+                            alt={post.title} 
+                            className="w-full h-auto object-cover max-h-[600px]" 
+                        />
+                    </div>
+                )}
+
+                {/* Article Content */}
+                <article className="max-w-3xl mx-auto">
+                    <div 
+                        className="prose prose-invert prose-emerald prose-lg max-w-none 
+                            prose-headings:font-black prose-headings:tracking-tight
+                            prose-p:text-slate-300 prose-p:leading-[1.8] prose-p:mb-8
+                            prose-img:rounded-3xl prose-img:border prose-img:border-white/5
+                            prose-blockquote:border-r-4 prose-blockquote:border-emerald-500 prose-blockquote:bg-emerald-500/5 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-xl
+                            prose-li:text-slate-300 prose-strong:text-white
+                            tiptap-content"
+                        dangerouslySetInnerHTML={{ __html: post.content }}
+                    />
+                    
+                    <style>{`
+                        .tiptap-content iframe {
+                            width: 100%;
+                            aspect-ratio: 16/9;
+                            border-radius: 1.5rem;
+                            margin: 2rem 0;
+                            border: 1px solid rgba(255,255,255,0.05);
+                        }
+                        .tiptap-content table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin: 2rem 0;
+                            background: rgba(255,255,255,0.02);
+                            border-radius: 1rem;
+                            overflow: hidden;
+                        }
+                        .tiptap-content th, .tiptap-content td {
+                            border: 1px solid rgba(255,255,255,0.05);
+                            padding: 1rem;
+                            text-align: right;
+                        }
+                        .tiptap-content th {
+                            background: rgba(255,255,255,0.05);
+                            color: #10b981;
+                        }
+                    `}</style>
+                </article>
+
+                {/* Footer Section */}
+                <div className="mt-20 pt-12 border-t border-white/5">
+                    <div className="bg-gradient-to-br from-emerald-600 to-emerald-800 rounded-[2rem] p-8 md:p-12 relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl group-hover:scale-125 transition-transform duration-700"></div>
+                        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-right">
+                            <div className="flex-1">
+                                <h3 className="text-2xl md:text-4xl font-black mb-4 leading-tight text-white">هل أعجبك المقال؟ 🚀</h3>
+                                <p className="text-emerald-50/80 text-lg mb-0">انضم إلينا الآن وابدأ رحلتك في بناء منتجاتك الرقمية الخاصة.</p>
+                            </div>
+                            <Link 
+                                href="/register" 
+                                className="px-10 py-4 bg-white text-emerald-700 rounded-2xl font-black text-lg hover:scale-105 transition-all shadow-xl shadow-black/20"
+                            >
+                                اشترك مجاناً
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </main>
+
+            <footer className="bg-[#0A0A0A] border-t border-white/5 py-12">
+                <div className="max-w-4xl mx-auto px-6">
+                    <NewsletterWidget />
+                </div>
+            </footer>
         </div>
     );
 }

@@ -25,9 +25,15 @@ export default function EditArticle() {
     const [status, setStatus] = useState<"DRAFT" | "PUBLISHED" | "SCHEDULED">("DRAFT");
     const [publishedAt, setPublishedAt] = useState("");
     const [coverImage, setCoverImage] = useState<string>("");
+    const [categoryId, setCategoryId] = useState("");
+    const [seoTitle, setSeoTitle] = useState("");
+    const [seoDesc, setSeoDesc] = useState("");
     
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
+    const [categories, setCategories] = useState<any[]>([]);
+    
+    const [activeTab, setActiveTab] = useState<"content" | "seo">("content");
     
     const contentRef = useRef(content);
     const initialContentLoaded = useRef(false);
@@ -36,15 +42,26 @@ export default function EditArticle() {
         if (!articleId) return;
         const fetchArticle = async () => {
             try {
-                const data = await apiGet(`/api/blog/${articleId}`);
-                setTitle(data.title);
-                setContent(data.content);
-                contentRef.current = data.content; // Track base content
-                setExcerpt(data.excerpt || "");
-                setStatus(data.status);
-                setCoverImage(data.coverImage || "");
-                if (data.publishedAt) {
-                    setPublishedAt(new Date(data.publishedAt).toISOString().slice(0, 16));
+                const [articleData, catsData] = await Promise.all([
+                    apiGet(`/api/blog/${articleId}`),
+                    getCategories()
+                ]);
+                
+                setCategories(catsData);
+                
+                setTitle(articleData.title);
+                setSlug(articleData.slug);
+                setContent(articleData.content);
+                contentRef.current = articleData.content; 
+                setExcerpt(articleData.excerpt || "");
+                setStatus(articleData.status);
+                setCoverImage(articleData.coverImage || "");
+                setSeoTitle(articleData.seoTitle || "");
+                setSeoDesc(articleData.seoDesc || "");
+                setCategoryId(articleData.categoryId || "");
+                
+                if (articleData.publishedAt) {
+                    setPublishedAt(new Date(articleData.publishedAt).toISOString().slice(0, 16));
                 }
                 initialContentLoaded.current = true;
             } catch (error) {
@@ -216,6 +233,19 @@ export default function EditArticle() {
                             <FiSettings /> إعدادات הנشر
                         </div>
                         <div className="space-y-4">
+                            <div>
+                                <label className="block text-[10px] font-bold text-gray-500 uppercase mb-2">التصنيف</label>
+                                <select
+                                    className="w-full bg-[#111111] border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 outline-none transition"
+                                    value={categoryId}
+                                    onChange={(e) => setCategoryId(e.target.value)}
+                                >
+                                    <option value="">بدون تصنيف</option>
+                                    {categories.map(cat => (
+                                        <option key={cat.id} value={cat.id}>{cat.nameAr}</option>
+                                    ))}
+                                </select>
+                            </div>
                             <div>
                                 <label className="block text-[10px] font-bold text-gray-500 uppercase mb-2">حالة النشر</label>
                                 <select

@@ -143,7 +143,7 @@ export default function EditProductPage() {
         <div className="max-w-4xl mx-auto pb-24 px-4 overflow-hidden">
             
             {/* Elegant Header */}
-            <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 bg-[#0A0A0A] p-10 rounded-xl border border-white/10 shadow-lg shadow-[#10B981]/20">
+            <div className="mb-8 md:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 bg-[#0A0A0A] p-6 md:p-10 rounded-xl border border-white/10 shadow-lg shadow-[#10B981]/20">
                 <div className="space-y-2 max-w-xl">
                     <Link href="/dashboard/products" className="inline-flex items-center gap-2 text-slate-400 hover:text-white font-bold text-xs mb-2 transition-colors">
                         <FiArrowRight /> العودة للمنتجات
@@ -459,7 +459,7 @@ export default function EditProductPage() {
 
                         <Section title="التسعير والعرض" icon={<FiDollarSign />}>
                              <div className="space-y-6">
-                                <div className="grid grid-cols-2 gap-2 p-1 bg-emerald-800 rounded-xl">
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 p-1 bg-emerald-800 rounded-xl">
                                     {['fixed', 'pwyw', 'free'].map(type => (
                                         <button
                                             key={type} type="button"
@@ -550,18 +550,18 @@ export default function EditProductPage() {
                 </div>
 
                 {/* Sticky Action Footer */}
-                <div className="sticky bottom-8 z-30 p-4 bg-emerald-700 text-white/90  rounded-xl flex items-center justify-between shadow-lg shadow-[#10B981]/20 border border-white/10  mx-4">
-                    <div className="flex-1 text-white pr-4 hidden sm:block">
+                <div className="sticky bottom-0 md:bottom-8 z-30 p-4 bg-emerald-700 text-white/90 md:rounded-xl flex flex-col md:flex-row items-center justify-between shadow-lg shadow-[#10B981]/20 border-t md:border border-white/10 -mx-4 md:mx-0">
+                    <div className="flex-1 text-white pr-4 hidden sm:block mb-4 md:mb-0">
                         <p className="text-xs opacity-60 font-medium">تذكر مراجعة كافة التفاصيل قبل الحفظ</p>
                     </div>
-                    <div className="flex gap-4">
-                        <Link href="/dashboard/products" className="px-8 py-3.5 text-white/50 hover:text-white font-bold transition-all">إلغاء</Link>
+                    <div className="flex w-full md:w-auto gap-3 md:gap-4">
+                        <Link href="/dashboard/products" className="flex-1 md:flex-none text-center px-4 md:px-8 py-3.5 text-white/50 hover:text-white font-bold transition-all bg-black/20 rounded-xl md:bg-transparent">إلغاء</Link>
                         <button
                             type="submit"
                             disabled={saving}
-                            className="px-10 py-3.5 bg-emerald-700 text-white rounded-xl font-bold shadow-lg shadow-[#10B981]/20 shadow-ink/20 hover:scale-[1.02] transition-all disabled:opacity-50"
+                            className="flex-[2] md:flex-none px-6 md:px-10 py-3.5 bg-emerald-600 text-white rounded-xl font-bold shadow-lg shadow-black/20 hover:bg-emerald-500 hover:scale-[1.02] transition-all disabled:opacity-50 text-sm md:text-base whitespace-nowrap"
                         >
-                            {saving ? 'جاري الحفظ...' : 'حفظ كافة التعديلات'}
+                            {saving ? 'جاري الحفظ...' : 'حفظ التعديلات'}
                         </button>
                     </div>
                 </div>
@@ -572,7 +572,7 @@ export default function EditProductPage() {
 
 function Section({ title, icon, children }: any) {
     return (
-        <div className="bg-[#0A0A0A] rounded-xl p-8 lg:p-10 shadow-lg shadow-[#10B981]/20 border border-white/10 space-y-6">
+        <div className="bg-[#0A0A0A] rounded-xl p-5 md:p-8 lg:p-10 shadow-lg shadow-[#10B981]/20 border border-white/10 space-y-6">
             <div className="flex items-center gap-4 border-b border-white/10 pb-6 -mx-2">
                 <div className="w-12 h-12 bg-[#0A0A0A] text-primary-ink rounded-xl flex items-center justify-center shadow-lg shadow-[#10B981]/20">
                     {icon}

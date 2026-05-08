@@ -10,41 +10,51 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 export default async function BlogPage() {
-    // 1. Fetch real posts from DB
-    const dbPosts = await prisma.article.findMany({
+    // Fetch articles with categories and authors
+    const articles = await prisma.article.findMany({
         where: { status: 'PUBLISHED' },
         orderBy: { createdAt: 'desc' },
         include: {
-            author: { // New Article model uses 'author' relation
+            author: {
                 select: { name: true, avatar: true }
+            },
+            category: {
+                select: { nameAr: true, slug: true }
             }
         }
     });
 
-    // 2. Define the "Master Post" by Maher as a permanent fixture or fallback
-    const maherPost = {
-        id: 'maher-post-1',
-        title: "فن اختيار المنتج الرقمي: كيف تلاقي فكرة يدفع الناس لأجلها؟",
-        slug: "choosing-winning-digital-product-idea-2026",
-        content: `أسمع الكثير من المدربين يقولون: "عندي فكرة كورس خرافية، لكن لا أحد يشتري". الحقيقة المرة التي لا يحب أحد سماعها هي أن جمهورك لا يهتم بـ "فكرتك"، بل يهتم بـ "مشكلته"...`,
-        excerpt: "الفكرة ليست هي الكنز.. الاحتياج هو الكنز الحقيقي. تعلم كيف تكتشف ما يحتاجه جمهورك فعلياً وتحوله إلى أرباح مستدامة.",
-        coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800",
-        category: "تحليلات",
-        authorName: "ماهر",
-        createdAt: new Date().toISOString(),
-        author: { name: "ماهر", avatar: null }
-    };
+    // Fetch all categories that have at least one published article
+    const categories = await prisma.blogCategory.findMany({
+        where: {
+            articles: {
+                some: { status: 'PUBLISHED' }
+            }
+        },
+        select: {
+            nameAr: true,
+            slug: true
+        },
+        orderBy: { nameAr: 'asc' }
+    });
 
-    // Prepare articles for client component matching expected interface
-    const formattedDbPosts = dbPosts.map(post => ({
-        ...post,
-        authorName: post.author?.name || 'الكاتب',
-        category: post.tags && post.tags.length > 0 ? post.tags[0] : 'مقالات',
+    // Format for client component
+    const formattedArticles = articles.map(article => ({
+        ...article,
+        authorName: article.author?.name || 'الكاتب',
+        categoryName: article.category?.nameAr || 'عام',
+        categorySlug: article.category?.slug || 'general',
     }));
 
-    // 3. Combine them
-    const hasMaherPost = formattedDbPosts.some(p => p.slug === maherPost.slug);
-    const finalPosts = hasMaherPost ? formattedDbPosts : [maherPost, ...formattedDbPosts];
+    const formattedCategories = [
+        { nameAr: 'الكل', slug: 'all' },
+        ...categories
+    ];
 
-    return <BlogListClient initialPosts={finalPosts as any} />;
+    return (
+        <BlogListClient 
+            initialPosts={formattedArticles as any} 
+            categories={formattedCategories}
+        />
+    );
 }
