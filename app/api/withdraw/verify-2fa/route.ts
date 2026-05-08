@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
 
     // إرسال البريد الإلكتروني
     try {
-        const { sendEmail } = await import('@/lib/email');
+        const { sendEmail } = await import('@/lib/resend');
         await sendEmail({
             to: userEmail,
             subject: `رمز التحقق لطلب السحب — ${otp}`,
