@@ -69,20 +69,16 @@ export async function checkRateLimit(
     // ── تسجيل في DB (متوافق مع الهيكل الفعلي) ─────────────────────
     try {
         await prisma.rateLimit.upsert({
-            where: { key },
+            where: { ip_key: { ip, key } },
             create: {
                 ip,
                 key,
                 count: 1,
                 lastAttempt: new Date(),
-                points: 1,
-                expire: resetAt,
             },
             update: {
                 count: { increment: 1 },
                 lastAttempt: new Date(),
-                points: { increment: 1 },
-                expire: resetAt,
             },
         });
     } catch {
